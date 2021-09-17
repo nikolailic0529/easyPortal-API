@@ -2,11 +2,12 @@
 
 namespace App\Services\KeyCloak\Client;
 
-use App\Models\Role;
+use App\Models\Role as RoleModel;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
+use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -96,7 +97,7 @@ class ClientTest extends TestCase {
             });
         });
         $client   = $this->app->make(Client::class);
-        $role     = Role::factory()->create();
+        $role     = RoleModel::factory()->create();
         $response = $client->inviteUser($role, $email);
         if (is_bool($expected)) {
             $this->assertEquals($expected, $response);
@@ -284,6 +285,40 @@ class ClientTest extends TestCase {
             ->andReturn(true);
 
         $client->deleteRoleByName('name');
+    }
+
+    /**
+     * @covers ::setGroupRoles
+     */
+    public function testSetGroupRoles(): void {
+        $group = $this->faker->randomElement([
+            new Group(['id' => $this->faker->uuid]),
+            RoleModel::factory()->make(),
+        ]);
+        $a     = new Role(['id' => $this->faker->uuid]);
+        $b     = new Role(['id' => $this->faker->uuid]);
+        $c     = new Role(['id' => $this->faker->uuid]);
+
+        $client = Mockery::mock(Client::class);
+        $client->shouldAllowMockingProtectedMethods();
+        $client->makePartial();
+        $client
+            ->shouldReceive('getGroupRoles')
+            ->with($group)
+            ->once()
+            ->andReturn([$a, $b]);
+        $client
+            ->shouldReceive('removeRolesFromGroup')
+            ->with($group, [$a])
+            ->once()
+            ->andReturns();
+        $client
+            ->shouldReceive('addRolesToGroup')
+            ->with($group, [$c])
+            ->once()
+            ->andReturns();
+
+        $this->assertTrue($client->setGroupRoles($group, [$b, $c]));
     }
     //</editor-fold>
 

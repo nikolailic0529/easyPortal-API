@@ -69,8 +69,7 @@ class UsersImporterTest extends TestCase {
                 ],
             ],
         ]);
-        /** @var \Mockery\MockInterface $client */
-        $client = Mockery::mock(Client::class);
+        $client       = Mockery::mock(Client::class);
         $client->makePartial();
         $client
             ->shouldReceive('getUsers')

@@ -7,7 +7,10 @@ use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Role;
+use App\Services\KeyCloak\Exceptions\OrgAdminGroupNotFound;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 
 class SyncPermissions extends Command {
@@ -28,6 +31,8 @@ class SyncPermissions extends Command {
     public function __construct(
         protected Auth $auth,
         protected Client $client,
+        protected Repository $config,
+        protected ExceptionHandler $exceptionHandler,
     ) {
         parent::__construct();
     }
@@ -95,6 +100,26 @@ class SyncPermissions extends Command {
         // Remove unused Roles
         foreach ($actualRoles->diffKeys($usedRoles) as $role) {
             $this->client->deleteRoleByName($role->name);
+        }
+
+        // Update Org Admin group
+        if ($this->config->get('ep.keycloak.org_admin_group')) {
+            $group = $this->client->getGroup($this->config->get('ep.keycloak.org_admin_group'));
+
+            if ($group) {
+                $roles = $actualRoles
+                    ->filter(static function (Role $role) use ($permissions): bool {
+                        return $permissions->get($role->name)?->isOrgAdmin();
+                    })
+                    ->values()
+                    ->all();
+
+                $this->client->setGroupRoles($group, $roles);
+            } else {
+                $this->exceptionHandler->report(new OrgAdminGroupNotFound(
+                    $this->config->get('ep.keycloak.org_admin_group'),
+                ));
+            }
         }
     }
 }

@@ -400,6 +400,14 @@ interface Constants {
     #[Type(Email::class)]
     public const EP_KEYCLOAK_LOG_EMAILS = ['chief.wraith@gmail.com'];
 
+    /**
+     * OrgAdmin Role UUID.
+     */
+    #[Setting('ep.keycloak.org_admin_group')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_ORG_ADMIN_GROUP = null;
+
     // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------
     /**
