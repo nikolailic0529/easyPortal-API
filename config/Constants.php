@@ -401,7 +401,8 @@ interface Constants {
     public const EP_KEYCLOAK_LOG_EMAILS = ['chief.wraith@gmail.com'];
 
     /**
-     * OrgAdmin Role UUID.
+     * OrgAdmin Role UUID. You should sync KeyCloak permissions via command or
+     * job after the setting changed.
      */
     #[Setting('ep.keycloak.org_admin_group')]
     #[Group('keycloak')]
