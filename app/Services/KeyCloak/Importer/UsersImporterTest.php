@@ -16,8 +16,10 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\KeyCloak\Importer\UsersImporter
  */
 class UsersImporterTest extends TestCase {
-
-    public function testImportFull(): void {
+    /**
+     * @covers ::import
+     */
+    public function testImport(): void {
         // Prepare
         $organization = Organization::factory()->create([
             'keycloak_group_id' => 'c0200a6c-1b8a-4365-9f1b-32d753194336',

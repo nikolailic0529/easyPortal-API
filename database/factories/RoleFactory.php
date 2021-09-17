@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Organization;
 use App\Models\Role;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;

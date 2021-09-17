@@ -25,7 +25,6 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
-use function array_diff;
 use function array_map;
 use function http_build_query;
 use function is_string;
@@ -382,13 +381,13 @@ class Client {
         }
 
         // Prepare
-        $timeout = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
+        $timeout   = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
         $baseUrl ??= $this->getBaseUrl();
-        $headers = [
+        $headers   = [
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $request = $this->client
+        $request   = $this->client
             ->baseUrl($baseUrl)
             ->timeout($timeout)
             ->withHeaders($headers)

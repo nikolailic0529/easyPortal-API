@@ -6,7 +6,6 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
