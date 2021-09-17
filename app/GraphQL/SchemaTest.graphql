@@ -1014,6 +1014,7 @@ type Invitation {
 input InviteOrgUserInput {
   email: String!
   role_id: ID!
+  team_id: ID
 }
 
 type InviteOrgUserPayload {
@@ -2013,6 +2014,15 @@ type Query {
   quoteRequestDurations: [QuoteRequestDuration!]!
 
   """
+  List of all possible teams.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  teams: [Team!]!
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -2932,6 +2942,62 @@ See also:
 input SearchByComplexRelationTagsQuery {
   """Additional conditions."""
   where: SearchByConditionTagsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+  """
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input TeamsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationTeamsQuery {
+  """Additional conditions."""
+  where: SearchByConditionTeamsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+  """
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input TeamsSort.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationTeamsSort {
+  """Additional conditions."""
+  where: SearchByConditionTeamsSort
 
   """Count conditions."""
   count: SearchByScalarInt
@@ -4055,6 +4121,43 @@ input SearchByConditionTagsQuery {
 }
 
 """
+Available conditions for input TeamsQuery (only one property allowed at a time).
+"""
+input SearchByConditionTeamsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionTeamsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionTeamsQuery!]
+
+  """Not."""
+  not: SearchByConditionTeamsQuery
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
+Available conditions for input TeamsSort (only one property allowed at a time).
+"""
+input SearchByConditionTeamsSort {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionTeamsSort!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionTeamsSort!]
+
+  """Not."""
+  not: SearchByConditionTeamsSort
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
 Available conditions for input TypesQuery (only one property allowed at a time).
 """
 input SearchByConditionTypesQuery {
@@ -4095,6 +4198,12 @@ input SearchByConditionUsersQuery {
 
   """Property condition."""
   enabled: SearchByScalarBoolean
+
+  """Property condition."""
+  teams: SearchByComplexRelationTeamsQuery
+
+  """Property condition."""
+  team: SearchByComplexRelationTeamsQuery
 }
 
 """
@@ -4118,6 +4227,9 @@ input SearchByConditionUsersSort {
 
   """Property condition."""
   enabled: SearchByScalarBoolean
+
+  """Property condition."""
+  team: SearchByComplexRelationTeamsSort
 }
 
 """
@@ -5075,6 +5187,14 @@ input SortByClauseTagsSort {
 }
 
 """
+Sort clause for input TeamsSort (only one property allowed at a time).
+"""
+input SortByClauseTeamsSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
 Sort clause for input TypesSort (only one property allowed at a time).
 """
 input SortByClauseTypesSort {
@@ -5094,6 +5214,9 @@ input SortByClauseUsersSort {
 
   """Property clause."""
   enabled: SortByDirection
+
+  """Property clause."""
+  team: SortByClauseTeamsSort
 }
 
 """Sort direction."""
@@ -5137,6 +5260,21 @@ input TagsQuery {
 }
 
 input TagsSort {
+  name: String!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  key: String!
+}
+
+input TeamsQuery {
+  id: ID!
+  name: String!
+}
+
+input TeamsSort {
   name: String!
 }
 
@@ -5336,6 +5474,12 @@ type User {
   enabled: Boolean!
   roles: [Role!]!
   invitations: [Invitation!]!
+
+  """
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  teams: [Team!]!
+  team: Team
 }
 
 """A paginated list of User items."""
@@ -5352,12 +5496,15 @@ input UsersQuery {
   given_name: String!
   family_name: String!
   enabled: Boolean!
+  teams: TeamsQuery
+  team: TeamsQuery
 }
 
 input UsersSort {
   given_name: String!
   family_name: String!
   enabled: Boolean!
+  team: TeamsSort
 }
 
 type recoverApplicationSettingsPayload {
