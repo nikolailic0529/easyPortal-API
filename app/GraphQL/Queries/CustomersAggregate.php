@@ -12,7 +12,7 @@ class CustomersAggregate extends AggregateResolver {
         $model = new Customer();
         $query = $model->query()
             ->selectRaw("COUNT(DISTINCT {$model->qualifyColumn($model->getKeyName())}) as count")
-            ->selectRaw("SUM({$model->qualifyColumn('assets_count')}) as assets");
+            ->selectRaw("IFNULL(SUM({$model->qualifyColumn('assets_count')}), 0) as assets");
 
         return $query;
     }

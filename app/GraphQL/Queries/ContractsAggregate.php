@@ -20,7 +20,7 @@ class ContractsAggregate extends AggregateResolver {
             ->queryContracts()
             ->select("{$model->qualifyColumn('currency_id')} as currency_id")
             ->selectRaw("COUNT(DISTINCT {$model->qualifyColumn($model->getKeyName())}) as count")
-            ->selectRaw("SUM({$model->qualifyColumn('price')}) as amount")
+            ->selectRaw("IFNULL(SUM({$model->qualifyColumn('price')}), 0) as amount")
             ->groupBy($model->qualifyColumn('currency_id'))
             ->with('currency');
 
