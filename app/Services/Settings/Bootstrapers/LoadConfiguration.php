@@ -24,6 +24,7 @@ class LoadConfiguration extends IlluminateLoadConfiguration {
         parent::loadConfigurationFiles($app, $repository);
 
         $this->overwriteConfig($app, $repository, $configuration['config']);
+        $this->cleanupEnvVars($app, $repository, $configuration['envs']);
     }
 
     /**
@@ -50,6 +51,17 @@ class LoadConfiguration extends IlluminateLoadConfiguration {
             if (!$repository->has($name)) {
                 $repository->set($name, $value);
             }
+        }
+    }
+
+    /**
+     * @param array<string> $vars
+     */
+    protected function cleanupEnvVars(Application $app, Repository $repository, array $vars): void {
+        $repository = $this->getEnvRepository();
+
+        foreach ($vars as $name => $value) {
+            $repository->clear($name);
         }
     }
 

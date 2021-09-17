@@ -22,13 +22,12 @@ class Configuration extends Settings {
                 $config[$setting->getPath()] = $value;
             }
 
-            // Cache current ENV value
+            // Cache OR Save current ENV value
             if ($this->environment->has($name)) {
                 $config[Environment::SETTING][$name] = $this->environment->get($name);
+            } else {
+                $envs[$name] = $this->serializeValue($setting, $value);
             }
-
-            // Add ENV
-            $envs[$name] = $this->serializeValue($setting, $value);
         }
 
         // Return

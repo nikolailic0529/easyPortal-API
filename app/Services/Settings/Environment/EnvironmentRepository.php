@@ -38,7 +38,7 @@ class EnvironmentRepository implements RepositoryInterface {
     }
 
     public function clear(string $name): bool {
-        $this->vars = [];
+        unset($this->vars[$name]);
 
         return true;
     }

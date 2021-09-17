@@ -59,6 +59,10 @@ class LoadConfigurationTest extends TestCase {
             ->with($application, $repository, $configuration['envs'])
             ->once();
         $bootstrapper
+            ->shouldReceive('cleanupEnvVars')
+            ->with($application, $repository, $configuration['envs'])
+            ->once();
+        $bootstrapper
             ->shouldReceive('overwriteConfig')
             ->with($application, $repository, $configuration['config'])
             ->once();
@@ -111,6 +115,32 @@ class LoadConfigurationTest extends TestCase {
         $this->assertEquals([
             'FOO' => 'Foo',
             'BAZ' => 'Hello Baz',
+        ], $environment->getVars());
+    }
+
+    /**
+     * @covers ::cleanupEnvVars
+     */
+    public function testCleanupEnvVars(): void {
+        $app         = Mockery::mock(Application::class);
+        $repository  = Mockery::mock(Repository::class);
+        $environment = new EnvironmentRepository(['FOO' => 'Foo', 'BAZ' => 'Baz']);
+        $config      = [
+            'BAZ' => 'Hello Baz',
+        ];
+
+        $bootstrapper = Mockery::mock(LoadConfiguration::class);
+        $bootstrapper->shouldAllowMockingProtectedMethods();
+        $bootstrapper->makePartial();
+        $bootstrapper
+            ->shouldReceive('getEnvRepository')
+            ->once()
+            ->andReturn($environment);
+
+        $bootstrapper->cleanupEnvVars($app, $repository, $config);
+
+        $this->assertEquals([
+            'FOO' => 'Foo',
         ], $environment->getVars());
     }
 

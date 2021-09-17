@@ -68,7 +68,6 @@ class ConfigurationTest extends TestCase {
         $expected = [
             'envs'   => [
                 'A' => '321',
-                'B' => '123',
             ],
             'config' => [
                 'a.path'           => 321,
