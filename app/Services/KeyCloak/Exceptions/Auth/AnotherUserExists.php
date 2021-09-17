@@ -1,26 +1,26 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak\Exceptions;
+namespace App\Services\KeyCloak\Exceptions\Auth;
 
-use App\Models\Organization;
+use App\Models\User;
 use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
 use function __;
 use function sprintf;
 
-class UnknownScope extends AuthException {
+class AnotherUserExists extends AuthException {
     public function __construct(
-        protected Organization $organization,
+        protected User $user,
         Throwable $previous = null,
     ) {
         parent::__construct(sprintf(
-            'Organization `%s` does not has a scope.',
-            $this->organization->getKey(),
+            'Another user `%s` already exists.',
+            $this->user->getKey(),
         ), $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('auth.organization_disabled');
+        return __('auth.failed');
     }
 }

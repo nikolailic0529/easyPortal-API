@@ -138,7 +138,6 @@ interface Constants {
      * Maximum lifetime of collected metadata in minutes, older requests will automatically be deleted.
      */
     #[Setting]
-    #[Internal]
     #[Group('clockwork')]
     public const CLOCKWORK_STORAGE_EXPIRATION = 7 * 24 * 60;
     // </editor-fold>
@@ -400,6 +399,15 @@ interface Constants {
     #[Group('keycloak')]
     #[Type(Email::class)]
     public const EP_KEYCLOAK_LOG_EMAILS = ['chief.wraith@gmail.com'];
+
+    /**
+     * OrgAdmin Role UUID. You should sync KeyCloak permissions via command or
+     * job after the setting changed.
+     */
+    #[Setting('ep.keycloak.org_admin_group')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_ORG_ADMIN_GROUP = null;
 
     // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------

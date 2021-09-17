@@ -17,16 +17,17 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
-use App\Services\KeyCloak\Commands\UsersIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
 use function http_build_query;
+use function is_string;
 use function rtrim;
 
 class Client {
@@ -40,25 +41,7 @@ class Client {
 
     // <editor-fold desc="endpoints">
     // =========================================================================
-    /**
-     * @return array<\App\Services\KeyCloak\Client\Types\User>
-     */
-    public function users(Organization $organization): array {
-        // GET /{realm}/groups/{id}/members
-        if (!$organization->keycloak_group_id) {
-            throw new RealmGroupUnknown();
-        }
-
-        $endpoint = "groups/{$organization->keycloak_group_id}/members";
-        $result   = $this->call($endpoint);
-        $result   = array_map(static function ($item) {
-            return new User($item);
-        }, $result);
-
-        return $result;
-    }
-
-    public function getGroup(Organization|RoleModel $object): ?Group {
+    public function getGroup(Organization|RoleModel|string $object): ?Group {
         // GET /{realm}/groups/{id}
         $id = null;
 
@@ -66,6 +49,8 @@ class Client {
             $id = $object->keycloak_group_id;
         } elseif ($object instanceof RoleModel) {
             $id = $object->getKey();
+        } elseif (is_string($object)) {
+            $id = $object;
         } else {
             // empty
         }
@@ -119,6 +104,12 @@ class Client {
         ]);
     }
 
+    public function deleteRoleByName(string $name): void {
+        // PUT /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
+        $this->call($endpoint, 'DELETE');
+    }
+
     public function createSubGroup(Organization $organization, string $name): Group {
         // POST /{realm}/groups/{id}/children
         if (!$organization->keycloak_group_id) {
@@ -147,26 +138,49 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\KeyCloak\Client\Types\Role> $permissions
+     * @return array<\App\Services\KeyCloak\Client\Types\Role>
      */
-    public function addRolesToGroup(RoleModel $role, array $permissions): void {
+    public function getGroupRoles(Group|RoleModel $group): array {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
-        $endpoint = "groups/{$role->id}/role-mappings/{$this->getClientUrl()}";
-        $this->call($endpoint, 'POST', ['json' => $permissions]);
+        $id       = $group instanceof Group ? $group->id : $group->getKey();
+        $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
+        $roles    = Role::make($this->call($endpoint));
+
+        return $roles;
     }
 
     /**
-     * @return array<\App\Services\KeyCloak\Client\Types\Role>
+     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
      */
-    public function roles(): array {
-        // GET /{realm}/clients/{id}/roles
-        $endpoint = "{$this->getClientUrl()}/roles";
-        $result   = $this->call($endpoint);
-        $result   = array_map(static function ($item) {
-            return new Role($item);
-        }, $result);
+    public function addRolesToGroup(Group|RoleModel $group, array $roles): void {
+        // POST /{realm}/groups/{id}/role-mappings/clients/{client}
+        $id       = $group instanceof Group ? $group->id : $group->getKey();
+        $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
 
-        return $result;
+        $this->call($endpoint, 'POST', ['json' => $roles]);
+    }
+
+    /**
+     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
+     */
+    public function setGroupRoles(Group|RoleModel $group, array $roles): bool {
+        $keyBy    = static function (Role $role): string {
+            return $role->id;
+        };
+        $roles    = (new Collection($roles))->keyBy($keyBy);
+        $existing = (new Collection($this->getGroupRoles($group)))->keyBy($keyBy);
+        $remove   = $existing->diffKeys($roles)->values()->all();
+        $create   = $roles->diffKeys($existing)->values()->all();
+
+        if ($remove) {
+            $this->removeRolesFromGroup($group, $remove);
+        }
+
+        if ($create) {
+            $this->addRolesToGroup($group, $create);
+        }
+
+        return true;
     }
 
     public function inviteUser(RoleModel $role, string $email): bool {
@@ -230,9 +244,11 @@ class Client {
     /**
      * @param array<string> $permissions
      */
-    public function removeRolesFromGroup(RoleModel $role, array $permissions): void {
+    public function removeRolesFromGroup(Group|RoleModel $group, array $permissions): void {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
-        $endpoint = "groups/{$role->id}/role-mappings/{$this->getClientUrl()}";
+        $id       = $group instanceof Group ? $group->id : $group->getKey();
+        $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
+
         $this->call($endpoint, 'DELETE', ['json' => $permissions]);
     }
 

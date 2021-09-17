@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Auth;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\KeyCloak\Exceptions\InvalidCredentials;
+use App\Services\KeyCloak\Exceptions\Auth\InvalidCredentials;
 use Closure;
 use Illuminate\Contracts\Hashing\Hasher;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

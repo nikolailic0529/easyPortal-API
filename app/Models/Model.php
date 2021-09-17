@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
-use App\Models\Concerns\HideDeletedNot;
+use App\Models\Concerns\HideGeneratedAttributes;
 use App\Models\Concerns\MorphMapRequired;
 use App\Models\Concerns\SmartSave\SmartSave;
 use App\Models\Concerns\UuidAsPrimaryKey;
@@ -16,7 +16,7 @@ abstract class Model extends LaraASPModel {
     use CascadeDeletes;
     use UuidAsPrimaryKey;
     use MorphMapRequired;
-    use HideDeletedNot;
+    use HideGeneratedAttributes;
 
     protected const CASTS = [
         // empty

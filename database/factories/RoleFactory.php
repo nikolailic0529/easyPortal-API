@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Organization;
 use App\Models\Role;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -29,9 +28,7 @@ class RoleFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid,
-            'organization_id' => static function (): Organization {
-                return Organization::query()->first() ?? Organization::factory()->create();
-            },
+            'organization_id' => null,
             'name'            => $this->faker->name(),
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),

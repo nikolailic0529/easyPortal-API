@@ -7,17 +7,19 @@ use App\Models\Role;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User;
-use App\Services\KeyCloak\Commands\UsersIterator;
+use App\Services\KeyCloak\Client\UsersIterator;
 use Mockery;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\KeyCloak\Commands\UsersImporter
+ * @coversDefaultClass \App\Services\KeyCloak\Importer\UsersImporter
  */
 class UsersImporterTest extends TestCase {
-
-    public function testImportFull(): void {
+    /**
+     * @covers ::import
+     */
+    public function testImport(): void {
         // Prepare
         $organization = Organization::factory()->create([
             'keycloak_group_id' => 'c0200a6c-1b8a-4365-9f1b-32d753194336',
@@ -37,9 +39,6 @@ class UsersImporterTest extends TestCase {
                 'c0200a6c-1b8a-4365-9f1b-32d753194337',
             ],
             'attributes'    => [
-                'office_phone'   => [
-                    '01000000000',
-                ],
                 'contact_email'  => [
                     'test@gmail.com',
                 ],
@@ -72,8 +71,7 @@ class UsersImporterTest extends TestCase {
                 ],
             ],
         ]);
-        /** @var \Mockery\MockInterface $client */
-        $client = Mockery::mock(Client::class);
+        $client       = Mockery::mock(Client::class);
         $client->makePartial();
         $client
             ->shouldReceive('getUsers')
