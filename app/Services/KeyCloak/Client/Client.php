@@ -354,6 +354,12 @@ class Client {
     public function getUsersIterator(): QueryIterator {
         return new UsersIterator($this);
     }
+
+    public function removeUserToGroup(string $userId, string $groupId): void {
+        // DELETE /{realm}/users/{id}/groups/{groupId}
+        $endpoint = "users/{$userId}/groups/{$groupId}";
+        $this->call($endpoint, 'DELETE');
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">

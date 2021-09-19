@@ -1,0 +1,31 @@
+extend type Mutation {
+  updateOrgUser(
+    input: UpdateOrgUserInput!
+  ): UpdateOrgUserPayload
+  @organization
+  @me
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrgUser")
+}
+
+input UpdateOrgUserInput {
+  user_id: ID! @rules(apply: ["required","App\\Rules\\UserId","App\\Rules\\UserNotMe"])
+  first_name: String
+  last_name: String
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String @rules(apply: ["nullable","email"])
+  department: String
+  job_title: String
+  photo: Upload @rules(apply: ["nullable","App\\Rules\\Image"])
+  homepage: String
+  locale: String @rules(apply: ["nullable","App\\Rules\\Locale"])
+  timezone: String @rules(apply: ["nullable","timezone"])
+  role_id: ID @rules(apply: ["nullable","App\\Rules\\OrgRoleId"])
+#   team_id: ID @rules(apply: ["nullable","App\\Rules\\TeamId"])
+}
+
+type UpdateOrgUserPayload {
+  result: Boolean!
+}
