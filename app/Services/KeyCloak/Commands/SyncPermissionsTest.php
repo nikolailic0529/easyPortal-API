@@ -9,6 +9,7 @@ use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -78,7 +79,7 @@ class SyncPermissionsTest extends TestCase {
             'key' => 'permission-c',
         ]);
 
-        $this->app->make(SyncPermissions::class)->handle();
+        $this->artisan(SyncPermissions::class);
 
         $actual   = $this->getPermissions();
         $expected = [
@@ -88,7 +89,7 @@ class SyncPermissionsTest extends TestCase {
         ];
 
         $this->assertEquals($expected, $actual);
-        $this->assertEquals(0, RoleModel::query()->count());
+        $this->assertEquals(0, RoleModel::query()->withoutGlobalScope(OwnedByOrganizationScope::class)->count());
     }
 
     /**
@@ -130,7 +131,7 @@ class SyncPermissionsTest extends TestCase {
             'deleted_at' => Date::now(),
         ]);
 
-        $this->app->make(SyncPermissions::class)->handle();
+        $this->artisan(SyncPermissions::class);
 
         $actual   = $this->getPermissions();
         $expected = [
@@ -138,7 +139,12 @@ class SyncPermissionsTest extends TestCase {
         ];
 
         $this->assertEquals($expected, $actual);
-        $this->assertFalse(RoleModel::query()->whereKey($groupId)->exists());
+        $this->assertFalse(
+            RoleModel::query()
+                ->withoutGlobalScope(OwnedByOrganizationScope::class)
+                ->whereKey($groupId)
+                ->exists(),
+        );
     }
 
     /**
@@ -198,9 +204,12 @@ class SyncPermissionsTest extends TestCase {
             'key' => 'permission-b',
         ]);
 
-        $this->app->make(SyncPermissions::class)->handle();
+        $this->artisan(SyncPermissions::class);
 
-        $role     = RoleModel::query()->whereKey($groupId)->first();
+        $role     = RoleModel::query()
+            ->withoutGlobalScope(OwnedByOrganizationScope::class)
+            ->whereKey($groupId)
+            ->first();
         $actual   = $this->getPermissions();
         $expected = [
             'permission-a' => true,

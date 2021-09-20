@@ -21,9 +21,9 @@ class UsersImporterTest extends TestCase {
      */
     public function testImport(): void {
         // Prepare
-        $organization = Organization::factory()->create([
+        $organization = $this->setOrganization(Organization::factory()->create([
             'keycloak_group_id' => 'c0200a6c-1b8a-4365-9f1b-32d753194336',
-        ]);
+        ]));
         $role         = Role::factory()->create([
             'id' => 'c0200a6c-1b8a-4365-9f1b-32d753194337',
         ]);

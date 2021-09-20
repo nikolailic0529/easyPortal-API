@@ -35,7 +35,7 @@ class UserIdTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, Closure $userFactory): void {
-        $userId = $userFactory();
+        $userId = $userFactory($this);
         $this->assertEquals($expected, $this->app->make(UserId::class)->passes('test', $userId));
     }
     // </editor-fold>
@@ -53,6 +53,7 @@ class UserIdTest extends TestCase {
                     $user = User::factory()->create([
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
+
                     return $user->getKey();
                 },
             ],
@@ -69,6 +70,7 @@ class UserIdTest extends TestCase {
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
                     $user->delete();
+
                     return $user->getKey();
                 },
             ],
