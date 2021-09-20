@@ -46,6 +46,7 @@ use function sprintf;
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
+ * @property-read \App\Models\ChangeRequest|null                                      $changeRequest
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
