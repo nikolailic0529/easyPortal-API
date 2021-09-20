@@ -13,7 +13,7 @@ trait GlobalScopes {
      *
      * @return T
      */
-    protected static function callWithoutGlobalScope(string $scope, Closure $closure): mixed {
+    public static function callWithoutGlobalScope(string $scope, Closure $closure): mixed {
         return State::callWithout([$scope], $closure);
     }
 
@@ -25,7 +25,7 @@ trait GlobalScopes {
      *
      * @return T
      */
-    protected static function callWithoutGlobalScopes(array $scopes, Closure $closure): mixed {
+    public static function callWithoutGlobalScopes(array $scopes, Closure $closure): mixed {
         return State::callWithout($scopes, $closure);
     }
 
