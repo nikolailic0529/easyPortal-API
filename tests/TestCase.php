@@ -31,7 +31,6 @@ abstract class TestCase extends BaseTestCase {
     }
     use Override;
     use FakeDisks;
-    use GlobalScopes;
     use WithTempFile;
 
     /**
@@ -94,7 +93,7 @@ abstract class TestCase extends BaseTestCase {
         $actual = [];
 
         foreach ($expected as $model => $count) {
-            $actual[$model] = $this->callWithoutGlobalScope(
+            $actual[$model] = GlobalScopes::callWithoutGlobalScope(
                 OwnedByOrganizationScope::class,
                 static function () use ($model): int {
                     return $model::query()->count();

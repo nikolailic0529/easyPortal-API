@@ -22,8 +22,6 @@ use function is_string;
  * @internal
  */
 abstract class Loader implements Isolated {
-    use GlobalScopes;
-
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
         protected Client $client,
@@ -52,7 +50,7 @@ abstract class Loader implements Isolated {
     // <editor-fold desc="Load">
     // =========================================================================
     public function update(Type|string $object): ?Model {
-        return $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
+        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
             if (is_string($object)) {
                 if ($this->getObject([]) instanceof TypeWithId && !$this->isModelExists($object)) {
                     throw $this->getModelNotFoundException($object);
@@ -70,7 +68,7 @@ abstract class Loader implements Isolated {
     }
 
     public function create(Type|string $object): ?Model {
-        return $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
+        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
             $object = is_string($object) ? $this->getObjectById($object) : $object;
             $model  = $this->run($object);
 

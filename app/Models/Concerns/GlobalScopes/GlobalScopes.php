@@ -4,7 +4,7 @@ namespace App\Models\Concerns\GlobalScopes;
 
 use Closure;
 
-trait GlobalScopes {
+class GlobalScopes {
     /**
      * @template T
      *
@@ -32,7 +32,7 @@ trait GlobalScopes {
     /**
      * @param class-string<\App\Models\Concerns\GlobalScopes\DisableableScope> $scope
      */
-    protected static function setGlobalScopeDisabled(string $scope, bool $disabled): bool {
+    public static function setGlobalScopeDisabled(string $scope, bool $disabled): bool {
         return State::setDisabled($scope, $disabled);
     }
 }

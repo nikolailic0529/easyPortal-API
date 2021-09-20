@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
@@ -15,7 +14,6 @@ use function strtr;
 use const STR_PAD_LEFT;
 
 abstract class Import extends Command {
-    use GlobalScopes;
     use WithBooleanOptions;
 
     /**

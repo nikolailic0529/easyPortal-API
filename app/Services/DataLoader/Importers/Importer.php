@@ -22,8 +22,6 @@ use Throwable;
 use function min;
 
 abstract class Importer {
-    use GlobalScopes;
-
     protected Loader   $loader;
     protected Resolver $resolver;
     protected ?Closure $onInit   = null;
@@ -119,7 +117,7 @@ abstract class Importer {
     }
 
     private function call(Closure $closure): void {
-        $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
+        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
             // Indexing should be disabled to avoid a lot of queued jobs and
             // speed up the import.
 
