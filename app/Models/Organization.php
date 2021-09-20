@@ -48,6 +48,7 @@ use function app;
  * @property \App\Models\Currency|null                                               $currency
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>      $contacts
  * @property-read \App\Models\Location|null                                          $headquarter
+ * @property-read \App\Models\Kpi|null                                               $kpi
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location>     $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Status>       $statuses
  * @property-read \App\Models\Reseller                                               $reseller
@@ -146,6 +147,14 @@ class Organization extends Model implements
             ->whereHas('types', static function ($query) use ($type) {
                 return $query->whereKey($type);
             });
+    }
+
+    public function kpi(): HasOneThrough {
+        [$type, $id] = $this->getMorphs('object', null, null);
+
+        return $this
+            ->hasOneThrough(Kpi::class, Reseller::class, 'id', $id)
+            ->where($type, '=', (new Reseller())->getMorphClass());
     }
 
     public function reseller(): HasOne {

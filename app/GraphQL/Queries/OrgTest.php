@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
+use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization as ModelsOrganization;
 use App\Models\Reseller;
@@ -211,20 +212,25 @@ class OrgTest extends TestCase {
                                     'branding_welcome_underline'       => 'underline',
                                     'timezone'                         => 'Europe/London',
                                     'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
-                                    'kpi_assets_total'                 => 1,
-                                    'kpi_assets_active'                => 2,
-                                    'kpi_assets_covered'               => 3.0,
-                                    'kpi_customers_active'             => 4,
-                                    'kpi_customers_active_new'         => 5,
-                                    'kpi_contracts_active'             => 6,
-                                    'kpi_contracts_active_amount'      => 7.0,
-                                    'kpi_contracts_active_new'         => 8,
-                                    'kpi_contracts_expiring'           => 9,
-                                    'kpi_quotes_active'                => 10,
-                                    'kpi_quotes_active_amount'         => 11.0,
-                                    'kpi_quotes_active_new'            => 12,
-                                    'kpi_quotes_expiring'              => 13,
                                 ]);
+
+                            Kpi::factory()->create([
+                                'object_id'               => $organization->getKey(),
+                                'object_type'             => (new Reseller())->getMorphClass(),
+                                'assets_total'            => 1,
+                                'assets_active'           => 2,
+                                'assets_covered'          => 3.0,
+                                'customers_active'        => 4,
+                                'customers_active_new'    => 5,
+                                'contracts_active'        => 6,
+                                'contracts_active_amount' => 7.0,
+                                'contracts_active_new'    => 8,
+                                'contracts_expiring'      => 9,
+                                'quotes_active'           => 10,
+                                'quotes_active_amount'    => 11.0,
+                                'quotes_active_new'       => 12,
+                                'quotes_expiring'         => 13,
+                            ]);
 
                             return $organization;
                         },

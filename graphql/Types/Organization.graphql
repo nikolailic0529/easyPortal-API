@@ -15,8 +15,7 @@ type Organization {
   branding: OrganizationBranding!
   @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
-  kpi: Kpi!
-  @field(resolver: "App\\GraphQL\\Queries\\Organization@kpi")
+  kpi: Kpi @hasOne
 
   statuses: [Status!]! @belongsToMany
   locations: [Location!]!

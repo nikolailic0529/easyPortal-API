@@ -37,6 +37,7 @@ use function app;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
  * @property-read \App\Models\Location|null                                      $headquarter
+ * @property-read \App\Models\Kpi|null                                           $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
@@ -90,6 +91,10 @@ class Customer extends Model {
             ->whereHas('types', static function ($query) use ($type) {
                 return $query->whereKey($type);
             });
+    }
+
+    public function kpi(): MorphOne {
+        return $this->morphOne(Kpi::class, 'object');
     }
 
     public function resellers(): BelongsToMany {

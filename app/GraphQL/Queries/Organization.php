@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Customer as CustomerModel;
 use App\Models\Organization as OrganizationModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
@@ -41,27 +40,6 @@ class Organization {
             'welcome_image_url'       => $organization->branding_welcome_image_url,
             'welcome_heading'         => $organization->branding_welcome_heading,
             'welcome_underline'       => $organization->branding_welcome_underline,
-        ];
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    public function kpi(OrganizationModel|CustomerModel $model): array {
-        return [
-            'assets_total'            => $model->kpi_assets_total,
-            'assets_active'           => $model->kpi_assets_active,
-            'assets_covered'          => $model->kpi_assets_covered,
-            'customers_active'        => $model->kpi_customers_active,
-            'customers_active_new'    => $model->kpi_customers_active_new,
-            'contracts_active'        => $model->kpi_contracts_active,
-            'contracts_active_amount' => $model->kpi_contracts_active_amount,
-            'contracts_active_new'    => $model->kpi_contracts_active_new,
-            'contracts_expiring'      => $model->kpi_contracts_expiring,
-            'quotes_active'           => $model->kpi_quotes_active,
-            'quotes_active_amount'    => $model->kpi_quotes_active_amount,
-            'quotes_active_new'       => $model->kpi_quotes_active_new,
-            'quotes_expiring'         => $model->kpi_quotes_expiring,
         ];
     }
 
