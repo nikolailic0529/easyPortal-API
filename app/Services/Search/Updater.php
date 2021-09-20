@@ -22,8 +22,6 @@ use function array_keys;
 use function array_values;
 
 class Updater {
-    use GlobalScopes;
-
     protected ?Closure $onInit   = null;
     protected ?Closure $onChange = null;
     protected ?Closure $onFinish = null;
@@ -123,7 +121,7 @@ class Updater {
     }
 
     private function call(Closure $closure): void {
-        $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($closure): void {
+        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($closure): void {
             $this->callWithoutScoutQueue(static function () use ($closure): void {
                 // Telescope should be disabled because it stored all data in memory
                 // and will dump it only after the job/command/request is finished.

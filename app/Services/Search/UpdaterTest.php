@@ -36,7 +36,6 @@ use function count;
  */
 class UpdaterTest extends TestCase {
     use WithSearch;
-    use GlobalScopes;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -141,7 +140,7 @@ class UpdaterTest extends TestCase {
                 ->values();
         }
 
-        $this->assertEquals($expected, $this->callWithoutGlobalScope(
+        $this->assertEquals($expected, GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($model): Collection {
                 return $model::search()->withTrashed()->get()->toBase();
@@ -198,7 +197,7 @@ class UpdaterTest extends TestCase {
         // Prepare
         $expected = $expected($this);
         $from     = $from ? $from($this) : null;
-        $actual   = $this->callWithoutGlobalScope(
+        $actual   = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($updater, $model, $from, $continue, $ids): Collection {
                 return (new Collection($updater->getIterator($model, $from, null, $continue, $ids)))
@@ -287,7 +286,7 @@ class UpdaterTest extends TestCase {
         // Prepare
         $expected = $expected($this);
         $from     = $from ? $from($this) : null;
-        $actual   = $this->callWithoutGlobalScope(
+        $actual   = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($updater, $model, $from, $ids): Collection {
                 return $updater->getBuilder($model, $from, $ids)->get()->toBase();
@@ -327,7 +326,7 @@ class UpdaterTest extends TestCase {
         // Prepare
         $expected = count($expected($this));
         $from     = $from ? $from($this) : null;
-        $actual   = $this->callWithoutGlobalScope(
+        $actual   = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($updater, $model, $from, $ids): int {
                 return $updater->getTotal($model, $from, $ids);

@@ -22,8 +22,6 @@ use function array_map;
 use function min;
 
 class UsersImporter {
-    use GlobalScopes;
-
     protected ?Closure $onInit   = null;
     protected ?Closure $onChange = null;
     protected ?Closure $onFinish = null;
@@ -148,7 +146,7 @@ class UsersImporter {
     }
 
     private function call(Closure $closure): void {
-        $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
+        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
             Telescope::withoutRecording($closure);
         });
     }

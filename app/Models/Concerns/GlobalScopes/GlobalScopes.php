@@ -4,7 +4,7 @@ namespace App\Models\Concerns\GlobalScopes;
 
 use Closure;
 
-trait GlobalScopes {
+class GlobalScopes {
     /**
      * @template T
      *
@@ -13,7 +13,7 @@ trait GlobalScopes {
      *
      * @return T
      */
-    protected static function callWithoutGlobalScope(string $scope, Closure $closure): mixed {
+    public static function callWithoutGlobalScope(string $scope, Closure $closure): mixed {
         return State::callWithout([$scope], $closure);
     }
 
@@ -25,14 +25,14 @@ trait GlobalScopes {
      *
      * @return T
      */
-    protected static function callWithoutGlobalScopes(array $scopes, Closure $closure): mixed {
+    public static function callWithoutGlobalScopes(array $scopes, Closure $closure): mixed {
         return State::callWithout($scopes, $closure);
     }
 
     /**
      * @param class-string<\App\Models\Concerns\GlobalScopes\DisableableScope> $scope
      */
-    protected static function setGlobalScopeDisabled(string $scope, bool $disabled): bool {
+    public static function setGlobalScopeDisabled(string $scope, bool $disabled): bool {
         return State::setDisabled($scope, $disabled);
     }
 }

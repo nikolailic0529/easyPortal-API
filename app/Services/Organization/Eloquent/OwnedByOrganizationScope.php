@@ -43,7 +43,13 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
                 },
             );
         } else {
-            $builder->where($model->qualifyColumn($property->getName()), '=', $organization);
+            $builder->where(static function (EloquentBuilder $builder) use ($model, $property, $organization): void {
+                $builder->orWhere($model->qualifyColumn($property->getName()), '=', $organization);
+
+                if ($model instanceof OwnedByShared) {
+                    $builder->orWhereNull($model->qualifyColumn($property->getName()));
+                }
+            });
         }
     }
     // </editor-fold>
@@ -54,6 +60,8 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
      * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      */
     protected function handleForSearch(Builder $builder, Model $model): void {
+        /** TODO {@link \App\Services\Organization\Eloquent\OwnedByShared} support? */
+
         // Root organization can view all data
         if ($this->organization->isRoot()) {
             return;

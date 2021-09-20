@@ -32,8 +32,6 @@ use function str_pad;
 use const STR_PAD_LEFT;
 
 class AnalyzeAssets extends Command {
-    use GlobalScopes;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -85,7 +83,7 @@ class AnalyzeAssets extends Command {
         }
 
         // Process
-        $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use (
+        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use (
             $lastId,
             $chunk,
             $service,

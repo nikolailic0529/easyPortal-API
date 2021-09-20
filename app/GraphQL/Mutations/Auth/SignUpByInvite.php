@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Date;
 use function array_key_exists;
 
 class SignUpByInvite {
-    use GlobalScopes;
-
     public function __construct(
         protected Client $client,
         protected Encrypter $encrypter,
@@ -44,9 +42,12 @@ class SignUpByInvite {
             throw new SignUpByInviteInvalidToken($input['token']);
         }
 
-        $invitation = $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($data) {
-            return Invitation::whereKey($data['invitation'])->first();
-        });
+        $invitation = GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($data) {
+                return Invitation::whereKey($data['invitation'])->first();
+            },
+        );
 
         if (!$invitation) {
             throw new SignUpByInviteNotFound($data['invitation']);
@@ -91,6 +92,7 @@ class SignUpByInvite {
 
         $invitation->used_at = Date::now();
         $invitation->save();
+
         return $this->getSignInUri($invitation->organization_id);
     }
 
@@ -99,6 +101,7 @@ class SignUpByInvite {
      */
     protected function getSignInUri(string $organization): array {
         $signInOrganization = $this->signInOrganization;
+
         return $signInOrganization(null, [
             'input' => [
                 'organization_id' => $organization,

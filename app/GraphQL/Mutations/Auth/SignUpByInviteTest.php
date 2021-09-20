@@ -32,8 +32,6 @@ use function app;
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignUpByInvite
  */
 class SignUpByInviteTest extends TestCase {
-    use GlobalScopes;
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -83,7 +81,7 @@ class SignUpByInviteTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $invitation = $this->callWithoutGlobalScope(
+            $invitation = GlobalScopes::callWithoutGlobalScope(
                 OwnedByOrganizationScope::class,
                 static function () {
                     return Invitation::whereKey('f9834bc1-2f2f-4c57-bb8d-7a224ac24982')->first();

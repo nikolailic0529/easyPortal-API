@@ -2,13 +2,10 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Importers\OemsImporter;
 use Illuminate\Console\Command;
 
 class ImportOems extends Command {
-    use GlobalScopes;
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
