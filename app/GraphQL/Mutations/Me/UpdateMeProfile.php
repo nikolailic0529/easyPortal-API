@@ -29,8 +29,9 @@ class UpdateMeProfile {
     public function __invoke($_, array $args): array {
         $user         = $this->auth->user();
         $keycloakUser = $this->client->getUserById($user->getKey());
+        $result       = $this->updateUserProfile($user, $keycloakUser, $args['input']);
         return [
-            'result' => $this->updateUserProfile($user, $keycloakUser, $args['input']),
+            'result' => $result && $user->save(),
         ];
     }
 
@@ -67,7 +68,7 @@ class UpdateMeProfile {
         $userType->attributes = $attributes;
 
         // Update Keycloak
-        return $this->client->updateUser($user->getKey(), $userType) && $user->save();
+        return $this->client->updateUser($user->getKey(), $userType);
     }
 
     protected function store(User $user, ?UploadedFile $file): ?string {

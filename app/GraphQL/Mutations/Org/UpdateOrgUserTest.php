@@ -16,7 +16,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -165,7 +165,9 @@ class UpdateOrgUserTest extends TestCase {
         ];
         return (new CompositeDataProvider(
             new OrganizationDataProvider('updateOrgUser'),
-            new UserDataProvider('updateOrgUser'),
+            new OrganizationUserDataProvider('updateOrgUser', [
+                'org-administer',
+            ]),
             new ArrayDataProvider([
                 'ok'                                    => [
                     new GraphQLSuccess('updateOrgUser', UpdateOrgUser::class),
@@ -202,7 +204,7 @@ class UpdateOrgUserTest extends TestCase {
                             ->once()
                             ->andReturn(true);
                         $mock
-                            ->shouldReceive('removeUserToGroup')
+                            ->shouldReceive('removeUserFromGroup')
                             ->once()
                             ->andReturn(true);
                         $mock
@@ -230,7 +232,7 @@ class UpdateOrgUserTest extends TestCase {
                             ->shouldReceive('updateUser')
                             ->never();
                         $mock
-                            ->shouldReceive('removeUserToGroup')
+                            ->shouldReceive('removeUserFromGroup')
                             ->never();
                         $mock
                             ->shouldReceive('addUserToGroup')
@@ -275,7 +277,7 @@ class UpdateOrgUserTest extends TestCase {
                             ->shouldReceive('updateUser')
                             ->never();
                         $mock
-                            ->shouldReceive('removeUserToGroup')
+                            ->shouldReceive('removeUserFromGroup')
                             ->never();
                         $mock
                             ->shouldReceive('addUserToGroup')
