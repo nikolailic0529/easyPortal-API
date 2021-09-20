@@ -79,7 +79,8 @@ class ResellerFactoryTest extends TestCase {
         Event::fake();
 
         // Prepare
-        $factory = $this->app->make(ResellerFactory::class);
+        $factory    = $this->app->make(ResellerFactory::class);
+        $normalizer = $this->app->make(Normalizer::class);
 
         // Load
         $json    = $this->getTestData()->json('~reseller-full.json');
@@ -114,6 +115,59 @@ class ResellerFactoryTest extends TestCase {
             $this->getModelContacts($reseller),
         );
 
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->totalAssets),
+            $reseller->kpi->assets_total,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeAssets),
+            $reseller->kpi->assets_active,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->activeAssetsPercentage),
+            $reseller->kpi->assets_covered,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeCustomers),
+            $reseller->kpi->customers_active,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->newActiveCustomers),
+            $reseller->kpi->customers_active_new,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeContracts),
+            $reseller->kpi->contracts_active,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->activeContractTotalAmount),
+            $reseller->kpi->contracts_active_amount,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->newActiveContracts),
+            $reseller->kpi->contracts_active_new,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->expiringContracts),
+            $reseller->kpi->contracts_expiring,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeQuotes),
+            $reseller->kpi->quotes_active,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->activeQuotesTotalAmount),
+            $reseller->kpi->quotes_active_amount,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->newActiveQuotes),
+            $reseller->kpi->quotes_active_new,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->expiringQuotes),
+            $reseller->kpi->quotes_expiring,
+        );
+
         $this->flushQueryLog();
 
         // Reseller should be updated
@@ -142,6 +196,7 @@ class ResellerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($updated),
         );
+        $this->assertNull($updated->kpi);
 
         $this->flushQueryLog();
 

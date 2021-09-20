@@ -87,7 +87,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `contacts_count`, `locations_count`, `kpi_assets_total`, `kpi_assets_active`, `kpi_assets_covered`, `kpi_customers_active`, `kpi_customers_active_new`, `kpi_contracts_active`, `kpi_contracts_active_amount`, `kpi_contracts_active_new`, `kpi_contracts_expiring`, `kpi_quotes_active`, `kpi_quotes_active_amount`, `kpi_quotes_active_new`, `kpi_quotes_expiring`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a0df13a5-c42c-4269-ae57-71085acb5319",
             "Kilback, Fritsch and Gutmann",
@@ -96,19 +96,6 @@
             0,
             1,
             1,
-            1,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -151,6 +138,29 @@
             "62.097693",
             "31.901929",
             "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_covered`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Customer",
+            1,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]

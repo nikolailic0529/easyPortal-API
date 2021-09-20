@@ -111,55 +111,55 @@ class CustomerFactoryTest extends TestCase {
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->totalAssets),
-            $customer->kpi_assets_total,
+            $customer->kpi->assets_total,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->activeAssets),
-            $customer->kpi_assets_active,
+            $customer->kpi->assets_active,
         );
         $this->assertEquals(
             (float) $normalizer->number($company->companyKpis->activeAssetsPercentage),
-            $customer->kpi_assets_covered,
+            $customer->kpi->assets_covered,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->activeCustomers),
-            $customer->kpi_customers_active,
+            $customer->kpi->customers_active,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->newActiveCustomers),
-            $customer->kpi_customers_active_new,
+            $customer->kpi->customers_active_new,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->activeContracts),
-            $customer->kpi_contracts_active,
+            $customer->kpi->contracts_active,
         );
         $this->assertEquals(
             (float) $normalizer->number($company->companyKpis->activeContractTotalAmount),
-            $customer->kpi_contracts_active_amount,
+            $customer->kpi->contracts_active_amount,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->newActiveContracts),
-            $customer->kpi_contracts_active_new,
+            $customer->kpi->contracts_active_new,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->expiringContracts),
-            $customer->kpi_contracts_expiring,
+            $customer->kpi->contracts_expiring,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->activeQuotes),
-            $customer->kpi_quotes_active,
+            $customer->kpi->quotes_active,
         );
         $this->assertEquals(
             (float) $normalizer->number($company->companyKpis->activeQuotesTotalAmount),
-            $customer->kpi_quotes_active_amount,
+            $customer->kpi->quotes_active_amount,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->newActiveQuotes),
-            $customer->kpi_quotes_active_new,
+            $customer->kpi->quotes_active_new,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->expiringQuotes),
-            $customer->kpi_quotes_expiring,
+            $customer->kpi->quotes_expiring,
         );
 
         $this->flushQueryLog();
@@ -191,6 +191,7 @@ class CustomerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($updated),
         );
+        $this->assertNull($updated->kpi);
 
         $this->flushQueryLog();
 

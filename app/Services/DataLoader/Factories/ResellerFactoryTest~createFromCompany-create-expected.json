@@ -24,6 +24,7 @@
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+    "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
     "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `reseller_statuses` (`status_id`, `reseller_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `reseller_statuses` (`status_id`, `reseller_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
@@ -38,5 +39,6 @@
     "insert into `locations` (`object_type`, `object_id`, `country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `location_types` (`type_id`, `location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `locations` (`object_type`, `object_id`, `country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    "insert into `location_types` (`type_id`, `location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)"
+    "insert into `location_types` (`type_id`, `location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+    "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_covered`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 ]

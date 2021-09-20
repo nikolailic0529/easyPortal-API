@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
+use App\Services\DataLoader\Factories\Concerns\WithKpi;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -22,6 +23,8 @@ use function implode;
 use function sprintf;
 
 class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
+    use WithKpi;
+
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -41,8 +44,6 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
             $locationFactory,
         );
     }
-
-
 
     // <editor-fold desc="Prefetch">
     // =========================================================================
@@ -125,6 +126,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
             $reseller->statuses        = $this->companyStatuses($reseller, $company);
             $reseller->contacts        = $this->objectContacts($reseller, $company->companyContactPersons);
             $reseller->locations       = $this->objectLocations($reseller, $company->locations);
+            $reseller->kpi             = $this->kpi($reseller, $company->companyKpis);
 
             $reseller->save();
 

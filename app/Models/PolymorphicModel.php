@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+
 /**
- * @protected string $object_type
- * @protected string $object_id
+ * @property string            $object_type
+ * @property string            $object_id
+ * @property \App\Models\Model $object
  */
 abstract class PolymorphicModel extends Model {
-    // required for type-hints
+    public function object(): MorphTo {
+        return $this->morphTo('object');
+    }
+
+    public function setObjectAttribute(Model $object): void {
+        $this->object_id   = $object->getKey();
+        $this->object_type = $object->getMorphClass();
+    }
 }

@@ -99,23 +99,6 @@ class OrganizationUpdater implements Subscriber {
             $organization->branding_welcome_underline       = $normalizer->string($branding->underlineText);
         }
 
-        if (isset($company->companyKpis)) {
-            $kpi                                       = $company->companyKpis;
-            $organization->kpi_assets_total            = (int) $normalizer->number($kpi->totalAssets);
-            $organization->kpi_assets_active           = (int) $normalizer->number($kpi->activeAssets);
-            $organization->kpi_assets_covered          = (float) $normalizer->number($kpi->activeAssetsPercentage);
-            $organization->kpi_customers_active        = (int) $normalizer->number($kpi->activeCustomers);
-            $organization->kpi_customers_active_new    = (int) $normalizer->number($kpi->newActiveCustomers);
-            $organization->kpi_contracts_active        = (int) $normalizer->number($kpi->activeContracts);
-            $organization->kpi_contracts_active_amount = (float) $normalizer->number($kpi->activeContractTotalAmount);
-            $organization->kpi_contracts_active_new    = (int) $normalizer->number($kpi->newActiveContracts);
-            $organization->kpi_contracts_expiring      = (int) $normalizer->number($kpi->expiringContracts);
-            $organization->kpi_quotes_active           = (int) $normalizer->number($kpi->activeQuotes);
-            $organization->kpi_quotes_active_amount    = (float) $normalizer->number($kpi->activeQuotesTotalAmount);
-            $organization->kpi_quotes_active_new       = (int) $normalizer->number($kpi->newActiveQuotes);
-            $organization->kpi_quotes_expiring         = (int) $normalizer->number($kpi->expiringQuotes);
-        }
-
         // Save
         $organization->save();
     }

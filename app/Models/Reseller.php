@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasKpi;
 use App\Models\Concerns\Relations\HasLocations;
 use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
@@ -31,6 +32,7 @@ use function count;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>   $customers
+ * @property \App\Models\Kpi|null                                             $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>     $statuses
  * @property \App\Models\Type                                                 $type
@@ -47,6 +49,7 @@ class Reseller extends Model {
     use HasType;
     use HasStatuses;
     use HasContacts;
+    use HasKpi;
     use SyncBelongsToMany;
 
     protected const CASTS = [

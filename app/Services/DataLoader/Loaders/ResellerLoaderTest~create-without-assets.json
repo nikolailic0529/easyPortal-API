@@ -200,16 +200,10 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
-        ]
-    },
-    {
-        "query": "insert into `organizations` (`id`, `name`, `kpi_assets_total`, `kpi_assets_active`, `kpi_assets_covered`, `kpi_customers_active`, `kpi_customers_active_new`, `kpi_contracts_active`, `kpi_contracts_active_amount`, `kpi_contracts_active_new`, `kpi_contracts_expiring`, `kpi_quotes_active`, `kpi_quotes_active_amount`, `kpi_quotes_active_new`, `kpi_quotes_expiring`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_covered`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Pollich, Swift and Ratke",
+            "Reseller",
             6,
             0,
             0.0,
@@ -223,6 +217,22 @@
             0.0,
             1,
             0,
+            "93dff777-6006-5616-bdb5-a56ec97248bb",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
+        ]
+    },
+    {
+        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "bindings": [
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
+            "Pollich, Swift and Ratke",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]

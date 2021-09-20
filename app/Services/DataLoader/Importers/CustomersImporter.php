@@ -30,6 +30,7 @@ class CustomersImporter extends Importer {
             ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
                 $customers->loadMissing('locations');
                 $customers->loadMissing('contacts');
+                $customers->loadMissing('kpi');
 
                 $locations->add($customers->pluck('locations')->flatten());
                 $contacts->add($customers->pluck('contacts')->flatten());
