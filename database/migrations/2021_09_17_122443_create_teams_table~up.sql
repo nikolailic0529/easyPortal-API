@@ -4,14 +4,13 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 CREATE TABLE IF NOT EXISTS `teams` (
   `id`         CHAR(36)     NOT NULL,
-  `key`        VARCHAR(255) NOT NULL,
   `name`       VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` TIMESTAMP    NULL DEFAULT NULL,
   `deleted_not` TINYINT(1) GENERATED ALWAYS AS (if((`deleted_at` is null),1,NULL)) STORED,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `unique__key__deleted_not` (`key` ASC, `deleted_not` ASC) VISIBLE,
+  UNIQUE INDEX `unique__name__deleted_not` (`name` ASC, `deleted_not` ASC) VISIBLE,
   INDEX `idx__deleted_at` (`deleted_at` ASC) VISIBLE);
 
 ALTER TABLE `organization_users`

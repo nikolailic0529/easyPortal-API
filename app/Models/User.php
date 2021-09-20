@@ -244,16 +244,12 @@ class User extends Model implements
     }
 
     public function team(): HasOneThrough {
-        $team             = new Team();
-        $organizationUser = new OrganizationUser();
-        $org              = null;
-        $organization     = app()->make(CurrentOrganization::class);
+        $team         = new Team();
+        $pivot        = new OrganizationUser();
+        $organization = app()->make(CurrentOrganization::class);
 
-        if ($organization->defined()) {
-            $org = $organization->getKey();
-        }
         return $this->hasOneThrough(Team::class, OrganizationUser::class, 'user_id', 'id', 'id', 'team_id')
-            ->where($organizationUser->qualifyColumn('organization_id'), '=', $org)
+            ->where($pivot->qualifyColumn('organization_id'), '=', $organization->getKey())
             ->whereNull($team->qualifyColumn($team->getDeletedAtColumn()));
     }
     // </editor-fold>

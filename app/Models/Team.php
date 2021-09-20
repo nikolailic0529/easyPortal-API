@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Team.
  *
  * @property string                       $id
- * @property string                       $key
  * @property string                       $name
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
@@ -21,9 +18,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Team query()
  * @mixin \Eloquent
  */
-class Team extends Model implements Translatable {
+class Team extends Model {
     use HasFactory;
-    use TranslateProperties;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -31,11 +27,4 @@ class Team extends Model implements Translatable {
      * @var string
      */
     protected $table = 'teams';
-
-    /**
-     * @inheritdoc
-     */
-    protected function getTranslatableProperties(): array {
-        return ['name'];
-    }
 }

@@ -28,7 +28,6 @@ class TeamFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
-            'key'        => $this->faker->word,
             'name'       => $this->faker->word,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

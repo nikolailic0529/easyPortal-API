@@ -5266,7 +5266,6 @@ input TagsSort {
 type Team {
   id: ID!
   name: String!
-  key: String!
 }
 
 input TeamsQuery {
@@ -5489,6 +5488,11 @@ type UserPaginator {
 
   """A list of User items."""
   data: [User!]!
+}
+
+type UserTeam {
+  team: Team!
+  organization: Organization!
 }
 
 input UsersQuery {

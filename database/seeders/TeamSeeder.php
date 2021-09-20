@@ -10,7 +10,6 @@ class TeamSeeder extends SmartSeeder {
         $names = ['Marketing', 'Finance', 'Operations management', 'Human Resource', 'IT'];
         foreach ($names as $name) {
             $team       = new Team();
-            $team->key  = $name;
             $team->name = $name;
             $team->save();
         }

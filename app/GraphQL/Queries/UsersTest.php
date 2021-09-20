@@ -69,12 +69,10 @@ class UsersTest extends TestCase {
                       }
                       teams {
                           id
-                          key
                           name
                       }
                       team {
                         id
-                        key
                         name
                       }
                     }
@@ -139,18 +137,15 @@ class UsersTest extends TestCase {
                                 'teams'          => [
                                     [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'key'  => 'IT',
                                         'name' => 'IT',
                                     ],
                                     [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'key'  => 'Marketing',
                                         'name' => 'Marketing',
                                     ],
                                 ],
                                 'team'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                    'key'  => 'IT',
                                     'name' => 'IT',
                                 ],
                             ],
@@ -187,13 +182,11 @@ class UsersTest extends TestCase {
 
                             $team1 = Team::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                'key'  => 'IT',
                                 'name' => 'IT',
                             ]);
 
                             $team2 = Team::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'key'  => 'Marketing',
                                 'name' => 'Marketing',
                             ]);
 
@@ -264,13 +257,11 @@ class UsersTest extends TestCase {
                                 'teams'          => [
                                     [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'key'  => 'IT',
                                         'name' => 'IT',
                                     ],
                                 ],
                                 'team'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                    'key'  => 'IT',
                                     'name' => 'IT',
                                 ],
                             ],
@@ -304,13 +295,11 @@ class UsersTest extends TestCase {
                                 'teams'          => [
                                     [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'key'  => 'Marketing',
                                         'name' => 'Marketing',
                                     ],
                                 ],
                                 'team'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'key'  => 'Marketing',
                                     'name' => 'Marketing',
                                 ],
                             ],
@@ -348,7 +337,6 @@ class UsersTest extends TestCase {
 
                             $team1 = Team::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                'key'  => 'IT',
                                 'name' => 'IT',
                             ]);
                             // Relation
@@ -386,7 +374,6 @@ class UsersTest extends TestCase {
                                 ]);
                             $team2 = Team::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'key'  => 'Marketing',
                                 'name' => 'Marketing',
                             ]);
 

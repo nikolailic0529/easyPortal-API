@@ -26,11 +26,9 @@ class TeamsTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $teamsFactory = null,
-        Closure $translationsFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-        $this->setTranslations($translationsFactory);
 
         if ($teamsFactory) {
             $teamsFactory($this);
@@ -42,7 +40,6 @@ class TeamsTest extends TestCase {
                 teams {
                     id
                     name
-                    key
                 }
             }')
             ->assertThat($expected);
@@ -66,47 +63,30 @@ class TeamsTest extends TestCase {
                         new GraphQLSuccess('teams', self::class, [
                             [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Translated (locale)',
-                                'key'  => 'translated',
+                                'name' => 'Team1',
                             ],
                             [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'name' => 'Translated (fallback)',
-                                'key'  => 'translated-fallback',
+                                'name' => 'Team2',
                             ],
                             [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'No translation',
-                                'key'  => 'No translation',
+                                'name' => 'Team3',
                             ],
                         ]),
                         static function (): void {
                             Team::factory()->create([
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Should be translated',
-                                'key'  => 'translated',
+                                'name' => 'Team1',
                             ]);
                             Team::factory()->create([
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'key'  => 'translated-fallback',
-                                'name' => 'Should be translated via fallback',
+                                'name' => 'Team2',
                             ]);
                             Team::factory()->create([
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'No translation',
-                                'key'  => 'No translation',
+                                'name' => 'Team3',
                             ]);
-                        },
-                        static function (TestCase $test, string $locale): array {
-                            $model = (new Team())->getMorphClass();
-                            $key1  = "models.{$model}.439a0a06-d98a-41f0-b8e5-4e5722518e00.name";
-                            $key2  = "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name";
-                            return [
-                                $locale => [
-                                    $key1 => 'Translated (locale)',
-                                    $key2 => 'Translated (fallback)',
-                                ],
-                            ];
                         },
                     ],
                 ]),
@@ -121,47 +101,30 @@ class TeamsTest extends TestCase {
                         new GraphQLSuccess('teams', self::class, [
                             [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Translated (locale)',
-                                'key'  => 'translated',
+                                'name' => 'Team1',
                             ],
                             [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'name' => 'Translated (fallback)',
-                                'key'  => 'translated-fallback',
+                                'name' => 'Team2',
                             ],
                             [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'No translation',
-                                'key'  => 'No translation',
+                                'name' => 'Team3',
                             ],
                         ]),
                         static function (): void {
                             Team::factory()->create([
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Should be translated',
-                                'key'  => 'translated',
+                                'name' => 'Team1',
                             ]);
                             Team::factory()->create([
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'key'  => 'translated-fallback',
-                                'name' => 'Should be translated via fallback',
+                                'name' => 'Team2',
                             ]);
                             Team::factory()->create([
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'No translation',
-                                'key'  => 'No translation',
+                                'name' => 'Team3',
                             ]);
-                        },
-                        static function (TestCase $test, string $locale): array {
-                            $model = (new Team())->getMorphClass();
-                            $key1  = "models.{$model}.439a0a06-d98a-41f0-b8e5-4e5722518e00.name";
-                            $key2  = "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name";
-                            return [
-                                $locale => [
-                                    $key1 => 'Translated (locale)',
-                                    $key2 => 'Translated (fallback)',
-                                ],
-                            ];
                         },
                     ],
                 ]),

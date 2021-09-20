@@ -3,15 +3,15 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "name",
-        "id"
+        "team",
+        "organization"
     ],
     "properties": {
-        "id": {
-            "$ref": "../types.json#/definitions/ID"
+        "team": {
+            "$ref": "./Team.json"
         },
-        "name": {
-            "type": "string"
+        "organization": {
+            "$ref": "../types.json#/definitions/Organization"
         }
     }
 }

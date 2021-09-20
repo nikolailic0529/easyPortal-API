@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\Models\User;
 use Closure;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -66,9 +67,9 @@ class UniqueUserEmailTest extends TestCase {
                 true,
                 static function (): string {
                     $user = User::factory()->create([
-                        'email' => 'test@example.com',
+                        'email'      => 'test@example.com',
+                        'deleted_at' => Date::now(),
                     ]);
-                    $user->delete();
                     return $user->email;
                 },
             ],

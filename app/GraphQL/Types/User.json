@@ -46,7 +46,7 @@
         "teams": {
             "type": "array",
             "items": {
-                "$ref": "../Types/Team.json"
+                "$ref": "./Team.json"
             }
         },
         "team": {
