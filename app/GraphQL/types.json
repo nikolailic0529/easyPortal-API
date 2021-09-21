@@ -79,7 +79,14 @@
                     }
                 },
                 "kpi": {
-                    "$ref": "Types/Kpi.json"
+                    "oneOf": [
+                        {
+                            "$ref": "Types/Kpi.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },
@@ -1067,7 +1074,14 @@
                     }
                 },
                 "kpi": {
-                    "$ref": "Types/Kpi.json"
+                    "oneOf": [
+                        {
+                            "$ref": "Types/Kpi.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },

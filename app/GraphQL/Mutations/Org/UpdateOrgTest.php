@@ -146,17 +146,30 @@ class UpdateOrgTest extends TestCase {
                   kpi {
                     assets_total
                     assets_active
-                    assets_covered
+                    assets_active_percent
+                    assets_active_on_contract
+                    assets_active_on_warranty
+                    assets_active_exposed
                     customers_active
                     customers_active_new
                     contracts_active
                     contracts_active_amount
                     contracts_active_new
                     contracts_expiring
+                    contracts_expired
                     quotes_active
                     quotes_active_amount
                     quotes_active_new
                     quotes_expiring
+                    quotes_expired
+                    quotes_ordered
+                    quotes_accepted
+                    quotes_requested
+                    quotes_received
+                    quotes_rejected
+                    quotes_awaiting
+                    service_revenue_total_amount
+                    service_revenue_total_amount_change
                   }
               }
             }

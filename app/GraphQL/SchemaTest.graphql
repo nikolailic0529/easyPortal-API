@@ -611,7 +611,7 @@ type Customer {
   contacts_count: Int!
   contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
   headquarter: Location
-  kpi: Kpi!
+  kpi: Kpi
 
   """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -1022,17 +1022,30 @@ type InviteOrgUserPayload {
 type Kpi {
   assets_total: Int!
   assets_active: Int!
-  assets_covered: Float!
+  assets_active_percent: Float!
+  assets_active_on_contract: Int!
+  assets_active_on_warranty: Int!
+  assets_active_exposed: Int!
   customers_active: Int!
   customers_active_new: Int!
   contracts_active: Int!
   contracts_active_amount: Float!
   contracts_active_new: Int!
   contracts_expiring: Int!
+  contracts_expired: Int!
   quotes_active: Int!
   quotes_active_amount: Float!
   quotes_active_new: Int!
   quotes_expiring: Int!
+  quotes_expired: Int!
+  quotes_ordered: Int!
+  quotes_accepted: Int!
+  quotes_requested: Int!
+  quotes_received: Int!
+  quotes_rejected: Int!
+  quotes_awaiting: Int!
+  service_revenue_total_amount: Float!
+  service_revenue_total_amount_change: Float!
 }
 
 type Language {
@@ -1586,7 +1599,7 @@ type Organization {
   analytics_code: String
   timezone: String
   branding: OrganizationBranding!
-  kpi: Kpi!
+  kpi: Kpi
   statuses: [Status!]!
   locations: [Location!]!
   contacts: [Contact!]!

@@ -105,17 +105,30 @@ class CustomerTest extends TestCase {
                         kpi {
                             assets_total
                             assets_active
-                            assets_covered
+                            assets_active_percent
+                            assets_active_on_contract
+                            assets_active_on_warranty
+                            assets_active_exposed
                             customers_active
                             customers_active_new
                             contracts_active
                             contracts_active_amount
                             contracts_active_new
                             contracts_expiring
+                            contracts_expired
                             quotes_active
                             quotes_active_amount
                             quotes_active_new
                             quotes_expiring
+                            quotes_expired
+                            quotes_ordered
+                            quotes_accepted
+                            quotes_requested
+                            quotes_received
+                            quotes_rejected
+                            quotes_awaiting
+                            service_revenue_total_amount
+                            service_revenue_total_amount_change
                         }
                     }
                 }
@@ -1206,19 +1219,32 @@ class CustomerTest extends TestCase {
                                 ],
                             ],
                             'kpi'             => [
-                                'assets_total'            => 1,
-                                'assets_active'           => 2,
-                                'assets_covered'          => 3.0,
-                                'customers_active'        => 4,
-                                'customers_active_new'    => 5,
-                                'contracts_active'        => 6,
-                                'contracts_active_amount' => 7.0,
-                                'contracts_active_new'    => 8,
-                                'contracts_expiring'      => 9,
-                                'quotes_active'           => 10,
-                                'quotes_active_amount'    => 11.0,
-                                'quotes_active_new'       => 12,
-                                'quotes_expiring'         => 13,
+                                'assets_total'                        => 1,
+                                'assets_active'                       => 2,
+                                'assets_active_percent'               => 3.0,
+                                'assets_active_on_contract'           => 4,
+                                'assets_active_on_warranty'           => 5,
+                                'assets_active_exposed'               => 6,
+                                'customers_active'                    => 7,
+                                'customers_active_new'                => 8,
+                                'contracts_active'                    => 9,
+                                'contracts_active_amount'             => 10.0,
+                                'contracts_active_new'                => 11,
+                                'contracts_expiring'                  => 12,
+                                'contracts_expired'                   => 13,
+                                'quotes_active'                       => 14,
+                                'quotes_active_amount'                => 15.0,
+                                'quotes_active_new'                   => 16,
+                                'quotes_expiring'                     => 17,
+                                'quotes_expired'                      => 18,
+                                'quotes_ordered'                      => 19,
+                                'quotes_accepted'                     => 20,
+                                'quotes_requested'                    => 21,
+                                'quotes_received'                     => 22,
+                                'quotes_rejected'                     => 23,
+                                'quotes_awaiting'                     => 24,
+                                'service_revenue_total_amount'        => 25.0,
+                                'service_revenue_total_amount_change' => 26.0,
                             ],
                         ]),
                         [
@@ -1238,20 +1264,33 @@ class CustomerTest extends TestCase {
                                     'object_type' => (new Customer())->getMorphClass(),
                                 ])
                                 ->hasKpi(1, [
-                                    'object_type'             => (new Customer())->getMorphClass(),
-                                    'assets_total'            => 1,
-                                    'assets_active'           => 2,
-                                    'assets_covered'          => 3.0,
-                                    'customers_active'        => 4,
-                                    'customers_active_new'    => 5,
-                                    'contracts_active'        => 6,
-                                    'contracts_active_amount' => 7.0,
-                                    'contracts_active_new'    => 8,
-                                    'contracts_expiring'      => 9,
-                                    'quotes_active'           => 10,
-                                    'quotes_active_amount'    => 11.0,
-                                    'quotes_active_new'       => 12,
-                                    'quotes_expiring'         => 13,
+                                    'object_type'                         => (new Customer())->getMorphClass(),
+                                    'assets_total'                        => 1,
+                                    'assets_active'                       => 2,
+                                    'assets_active_percent'               => 3.0,
+                                    'assets_active_on_contract'           => 4,
+                                    'assets_active_on_warranty'           => 5,
+                                    'assets_active_exposed'               => 6,
+                                    'customers_active'                    => 7,
+                                    'customers_active_new'                => 8,
+                                    'contracts_active'                    => 9,
+                                    'contracts_active_amount'             => 10.0,
+                                    'contracts_active_new'                => 11,
+                                    'contracts_expiring'                  => 12,
+                                    'contracts_expired'                   => 13,
+                                    'quotes_active'                       => 14,
+                                    'quotes_active_amount'                => 15.0,
+                                    'quotes_active_new'                   => 16,
+                                    'quotes_expiring'                     => 17,
+                                    'quotes_expired'                      => 18,
+                                    'quotes_ordered'                      => 19,
+                                    'quotes_accepted'                     => 20,
+                                    'quotes_requested'                    => 21,
+                                    'quotes_received'                     => 22,
+                                    'quotes_rejected'                     => 23,
+                                    'quotes_awaiting'                     => 24,
+                                    'service_revenue_total_amount'        => 25.0,
+                                    'service_revenue_total_amount_change' => 26.0,
                                 ])
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
