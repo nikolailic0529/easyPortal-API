@@ -165,6 +165,12 @@ type Query {
   @me
   @all
 
+  "List of all possible teams."
+  teams: [Team!]!
+  @organization
+  @me(permissions: ["administer", "org-administer"])
+  @all
+
   # Search
   # ============================================================================
   search(

@@ -7,4 +7,7 @@ type User {
   enabled: Boolean!
   roles: [Role!]! @belongsToMany
   invitations: [Invitation!]! @hasMany
+
+  "Team in the current organization."
+  team: Team @hasOne
 }

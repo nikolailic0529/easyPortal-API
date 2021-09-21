@@ -42,6 +42,16 @@
             "items": {
                 "$ref": "../Types/Invitation.json"
             }
+        },
+        "team": {
+            "oneOf": [
+                {
+                    "$ref": "../Types/Team.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

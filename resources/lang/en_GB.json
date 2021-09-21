@@ -122,6 +122,7 @@
     "validation.org_role_id": "Invalid role",
     "validation.org_user_id": "Invalid user",
     "validation.user_id": "Invalid user",
+    "validation.team_id": "Invalid team",
     "validation.user_not_me": "Cannot change own content",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",

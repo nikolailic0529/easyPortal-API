@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\Mail\InviteOrganizationUser;
 use App\Models\Organization;
 use App\Models\Role;
+use App\Models\Team;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
@@ -102,6 +103,10 @@ class InviteOrgUserTest extends TestCase {
             $this->assertNotNull($user);
             $this->assertTrue($user->organizations->contains($organization->getKey()));
             $this->assertTrue($user->roles->contains('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
+            if (isset($data['team_id'])) {
+                $this->assertNotNull($user->team);
+                $this->assertEquals($user->team->getKey(), $data['team_id']);
+            }
         }
     }
     // </editor-fold>
@@ -133,6 +138,11 @@ class InviteOrgUserTest extends TestCase {
                 if ($user) {
                     $user->save();
                 }
+
+                // Team
+                Team::factory()->create([
+                    'id' => '745e3dd2-915e-31b2-b02b-cbab069c9d65',
+                ]);
             }
 
             return $organization;
@@ -145,6 +155,34 @@ class InviteOrgUserTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok'                                    => [
+                    new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
+                    $prepare,
+                    $roleFactory,
+                    [
+                        'email'   => 'test@gmail.com',
+                        'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'team_id' => '745e3dd2-915e-31b2-b02b-cbab069c9d65',
+                    ],
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('inviteUser')
+                            ->once()
+                            ->andReturns(true);
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->andReturns(new User([
+                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email'         => 'test@gmail.com',
+                                'emailVerified' => false,
+                            ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->never();
+                    },
+                    true,
+                ],
+                'ok/empty team'                         => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -178,6 +216,7 @@ class InviteOrgUserTest extends TestCase {
                     [
                         'email'   => 'test@gmail.com',
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'team_id' => '745e3dd2-915e-31b2-b02b-cbab069c9d65',
                     ],
                     static function (MockInterface $mock): void {
                         $mock
@@ -292,6 +331,18 @@ class InviteOrgUserTest extends TestCase {
                     [
                         'email'   => 'test@gmail.com',
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                    ],
+                ],
+                'Invalid team'                          => [
+                    new GraphQLError('inviteOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $prepare,
+                    $roleFactory,
+                    [
+                        'email'   => 'test@gmail.com',
+                        'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                        'team_id' => '745e3dd2-915e-31b2-b02b-cbab069c9d66',
                     ],
                 ],
             ]),

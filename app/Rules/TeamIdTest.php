@@ -2,16 +2,15 @@
 
 namespace App\Rules;
 
-use App\Models\User;
+use App\Models\Team;
 use Closure;
-use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\UniqueUserEmail
+ * @coversDefaultClass \App\Rules\TeamId
  */
-class UniqueUserEmailTest extends TestCase {
+class TeamIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -22,12 +21,12 @@ class UniqueUserEmailTest extends TestCase {
         $translationsFactory = static function (TestCase $test, string $locale): array {
             return [
                 $locale => [
-                    'validation.unique_user_email' => 'Translated',
+                    'validation.team_id' => 'Translated',
                 ],
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(UniqueUserEmail::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(TeamId::class)->message(), 'Translated');
     }
 
     /**
@@ -35,9 +34,9 @@ class UniqueUserEmailTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      */
-    public function testPasses(bool $expected, Closure $userFactory): void {
-        $email = $userFactory();
-        $this->assertEquals($expected, $this->app->make(UniqueUserEmail::class)->passes('test', $email));
+    public function testPasses(bool $expected, Closure $teamFactory): void {
+        $teamId = $teamFactory();
+        $this->assertEquals($expected, $this->app->make(TeamId::class)->passes('test', $teamId));
     }
     // </editor-fold>
 
@@ -49,28 +48,28 @@ class UniqueUserEmailTest extends TestCase {
     public function dataProviderPasses(): array {
         return [
             'exists'       => [
-                false,
+                true,
                 static function (): string {
-                    $user = User::factory()->create([
-                        'email' => 'test@example.com',
+                    $team = Team::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
-                    return $user->email;
+                    return $team->getKey();
                 },
             ],
             'not-exists'   => [
-                true,
+                false,
                 static function (): string {
-                    return 'test@example.com';
+                    return 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982';
                 },
             ],
             'soft-deleted' => [
-                true,
+                false,
                 static function (): string {
-                    $user = User::factory()->create([
-                        'email'      => 'test@example.com',
-                        'deleted_at' => Date::now(),
+                    $team = Team::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
-                    return $user->email;
+                    $team->delete();
+                    return $team->getKey();
                 },
             ],
         ];

@@ -7,6 +7,7 @@ use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
+use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -19,11 +20,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\RoutesNotifications;
 use Illuminate\Support\Collection;
 use LogicException;
 
+use function app;
 /**
  * User.
  *
@@ -59,6 +62,7 @@ use LogicException;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch>   $searches
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Organization> $organizations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Role>         $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Team>         $teams
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -220,6 +224,33 @@ class User extends Model implements
 
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
+    }
+
+    public function teams(): BelongsToMany {
+        $pivot = new OrganizationUser();
+
+        return $this
+            ->belongsToMany(Team::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Team>|array<\App\Models\Team> $teams
+     */
+    public function setTeamsAttribute(Collection|array $teams): void {
+        $this->syncBelongsToMany('teams', $teams);
+    }
+
+    public function team(): HasOneThrough {
+        $team         = new Team();
+        $pivot        = new OrganizationUser();
+        $organization = app()->make(CurrentOrganization::class);
+
+        return $this->hasOneThrough(Team::class, OrganizationUser::class, 'user_id', 'id', 'id', 'team_id')
+            ->where($pivot->qualifyColumn('organization_id'), '=', $organization->getKey())
+            ->whereNull($team->qualifyColumn($team->getDeletedAtColumn()));
     }
     // </editor-fold>
 

@@ -1,0 +1,4 @@
+type Team {
+  id: ID!
+  name: String!
+}

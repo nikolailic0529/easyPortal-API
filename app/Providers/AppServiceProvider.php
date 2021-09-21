@@ -47,6 +47,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Tag;
+use App\Models\Team;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\UserRole;
@@ -148,6 +149,7 @@ class AppServiceProvider extends ServiceProvider {
             'ServiceLevel'              => ServiceLevel::class,
             'Status'                    => Status::class,
             'Tag'                       => Tag::class,
+            'Team'                      => Team::class,
             'Type'                      => Type::class,
             'User'                      => User::class,
             'UserRole'                  => UserRole::class,
