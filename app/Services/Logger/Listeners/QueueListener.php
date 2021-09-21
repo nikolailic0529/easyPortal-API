@@ -109,6 +109,13 @@ class QueueListener extends Listener {
     }
 
     protected function started(JobProcessing $event): void {
+        // There is no special event for timeouted jobs - they are just killed
+        // and then will be restarted (if not failed).
+        //
+        // (Actual for Laravel v8.58.0)
+        $this->killZombies($event->job);
+
+        // Start
         $this->stack[] = [
             $event->job->uuid(),
             $this->logger->start(
