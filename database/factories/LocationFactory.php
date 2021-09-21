@@ -5,8 +5,11 @@ namespace Database\Factories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
+
+use function array_keys;
 
 /**
  * @method \App\Models\Location create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
@@ -31,7 +34,7 @@ class LocationFactory extends Factory {
         return [
             'id'          => $this->faker->uuid,
             'object_id'   => $this->faker->uuid,
-            'object_type' => $this->faker->word,
+            'object_type' => $this->faker->randomElement(array_keys(Relation::$morphMap)),
             'postcode'    => $this->faker->postcode,
             'state'       => $this->faker->state,
             'line_one'    => $this->faker->streetAddress,

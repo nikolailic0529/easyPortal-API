@@ -3,8 +3,11 @@
 namespace Database\Factories;
 
 use App\Models\Kpi;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
+
+use function array_keys;
 
 /**
  * @method \App\Models\Kpi create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
@@ -29,7 +32,7 @@ class KpiFactory extends Factory {
         return [
             'id'                                  => $this->faker->uuid,
             'object_id'                           => $this->faker->uuid,
-            'object_type'                         => $this->faker->word,
+            'object_type'                         => $this->faker->randomElement(array_keys(Relation::$morphMap)),
             'assets_total'                        => 0,
             'assets_active'                       => 0,
             'assets_active_percent'               => 0.0,
