@@ -238,7 +238,7 @@ interface Constants {
     #[Setting]
     #[Group('ep')]
     #[Type(Email::class)]
-    public const EP_LOG_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_LOG_EMAILS = ['chief.wraith+notice@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">
@@ -649,7 +649,7 @@ interface Constants {
     #[Service(ResellersImporterCronJob::class, 'settings.update')]
     #[Group('data_loader')]
     #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_RESELLERS_IMPORTER_UPDATE = false;
+    public const EP_DATA_LOADER_RESELLERS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_UPDATER">
@@ -682,7 +682,7 @@ interface Constants {
     #[Service(ResellersUpdaterCronJob::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_TIMEOUT = 1 * 60 * 60;
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
@@ -690,7 +690,7 @@ interface Constants {
     #[Service(ResellersUpdaterCronJob::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_TRIES = 1;
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_TRIES = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
@@ -739,7 +739,7 @@ interface Constants {
     #[Service(CustomersImporterCronJob::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT = 3 * 60 * 60;
+    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT = 6 * 60 * 60;
 
     /**
      * Number of times the job may be attempted.
@@ -763,7 +763,7 @@ interface Constants {
     #[Service(CustomersImporterCronJob::class, 'settings.update')]
     #[Group('data_loader')]
     #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_UPDATE = false;
+    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_UPDATER">
@@ -796,7 +796,7 @@ interface Constants {
     #[Service(CustomersUpdaterCronJob::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TIMEOUT = 1 * 60 * 60;
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
@@ -804,7 +804,7 @@ interface Constants {
     #[Service(CustomersUpdaterCronJob::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TRIES = 1;
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TRIES = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
@@ -852,14 +852,14 @@ interface Constants {
      */
     #[Service(AssetsImporterCronJob::class, 'timeout')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT = 6 * 60 * 60;
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT = 24 * 60 * 60;
 
     /**
      * Number of times the job may be attempted.
      */
     #[Service(AssetsImporterCronJob::class, 'tries')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_IMPORTER_TRIES = 8;
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_TRIES = 14;
 
     /**
      * Chunk size.
@@ -875,7 +875,7 @@ interface Constants {
     #[Service(AssetsImporterCronJob::class, 'settings.update')]
     #[Group('data_loader')]
     #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_ASSETS_IMPORTER_UPDATE = false;
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_ASSETS_UPDATER">
@@ -907,14 +907,14 @@ interface Constants {
      */
     #[Service(AssetsUpdaterCronJob::class, 'timeout')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_TIMEOUT = 6 * 60 * 60;
+    public const EP_DATA_LOADER_ASSETS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
     #[Service(AssetsUpdaterCronJob::class, 'tries')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_TRIES = 8;
+    public const EP_DATA_LOADER_ASSETS_UPDATER_TRIES = self::EP_DATA_LOADER_ASSETS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
@@ -987,7 +987,7 @@ interface Constants {
     #[Service(DistributorsImporterCronJob::class, 'settings.update')]
     #[Group('data_loader')]
     #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_UPDATE = false;
+    public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DISTRIBUTORS_UPDATER">
@@ -1020,7 +1020,7 @@ interface Constants {
     #[Service(DistributorsUpdaterCronJob::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TIMEOUT = 1 * 60 * 60;
+    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
@@ -1028,7 +1028,7 @@ interface Constants {
     #[Service(DistributorsUpdaterCronJob::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TRIES = 1;
+    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TRIES = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
@@ -1080,7 +1080,7 @@ interface Constants {
     #[Service(SearchCustomersUpdaterCronJob::class, 'timeout')]
     #[Group('search')]
     #[Type(IntType::class)]
-    public const EP_SEARCH_CUSTOMERS_UPDATER_TIMEOUT = 1 * 60 * 60;
+    public const EP_SEARCH_CUSTOMERS_UPDATER_TIMEOUT = 6 * 60 * 60;
     // </editor-fold>
 
     // <editor-fold desc="EP_SEARCH_DOCUMENTS_UPDATER">
@@ -1113,7 +1113,7 @@ interface Constants {
     #[Service(SearchDocumentsUpdaterCronJob::class, 'timeout')]
     #[Group('search')]
     #[Type(IntType::class)]
-    public const EP_SEARCH_DOCUMENTS_UPDATER_TIMEOUT = 3 * 60 * 60;
+    public const EP_SEARCH_DOCUMENTS_UPDATER_TIMEOUT = 24 * 60 * 60;
     // </editor-fold>
 
     // <editor-fold desc="EP_SEARCH_ASSETS_UPDATER">
@@ -1146,7 +1146,7 @@ interface Constants {
     #[Service(SearchAssetsUpdaterCronJob::class, 'timeout')]
     #[Group('search')]
     #[Type(IntType::class)]
-    public const EP_SEARCH_ASSETS_UPDATER_TIMEOUT = 6 * 60 * 60;
+    public const EP_SEARCH_ASSETS_UPDATER_TIMEOUT = 24 * 60 * 60;
     // </editor-fold>
     // </editor-fold>
 
