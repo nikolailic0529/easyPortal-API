@@ -22,6 +22,8 @@ use Tests\TestCase;
  * @internal
  */
 class UsersTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderQuery
      */
@@ -66,10 +68,6 @@ class UsersTest extends TestCase {
                           email
                           used_at
                           expired_at
-                      }
-                      teams {
-                          id
-                          name
                       }
                       team {
                         id
@@ -134,16 +132,6 @@ class UsersTest extends TestCase {
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
-                                'teams'          => [
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'name' => 'IT',
-                                    ],
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'name' => 'Marketing',
-                                    ],
-                                ],
                                 'team'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                     'name' => 'IT',
@@ -185,25 +173,10 @@ class UsersTest extends TestCase {
                                 'name' => 'IT',
                             ]);
 
-                            $team2 = Team::factory()->create([
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'name' => 'Marketing',
-                            ]);
-
-                            // Relation1
                             $pivot                  = new OrganizationUser();
                             $pivot->organization_id = $organization->getKey();
                             $pivot->user_id         = $user1->getKey();
                             $pivot->team_id         = $team1->getKey();
-                            $pivot->save();
-
-                            // Relation2
-                            $pivot                  = new OrganizationUser();
-                            $pivot->organization_id = $organization->factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2499',
-                            ])->getKey();
-                            $pivot->user_id         = $user1->getKey();
-                            $pivot->team_id         = $team2->getKey();
                             $pivot->save();
 
                             User::factory()->create([
@@ -254,12 +227,6 @@ class UsersTest extends TestCase {
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
-                                'teams'          => [
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'name' => 'IT',
-                                    ],
-                                ],
                                 'team'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                     'name' => 'IT',
@@ -290,12 +257,6 @@ class UsersTest extends TestCase {
                                         ],
                                         'used_at'         => null,
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
-                                    ],
-                                ],
-                                'teams'          => [
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'name' => 'Marketing',
                                     ],
                                 ],
                                 'team'           => [
@@ -339,6 +300,7 @@ class UsersTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                 'name' => 'IT',
                             ]);
+
                             // Relation
                             $pivot                  = new OrganizationUser();
                             $pivot->organization_id = $organization->getKey();

@@ -3,6 +3,5 @@ input UsersQuery {
   given_name: String!
   family_name: String!
   enabled: Boolean!
-  teams: TeamsQuery
-  team: TeamsQuery @me(permissions: ["administer"])
+  team: TeamsQuery
 }

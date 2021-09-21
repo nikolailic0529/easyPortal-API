@@ -4200,9 +4200,6 @@ input SearchByConditionUsersQuery {
   enabled: SearchByScalarBoolean
 
   """Property condition."""
-  teams: SearchByComplexRelationTeamsQuery
-
-  """Property condition."""
   team: SearchByComplexRelationTeamsQuery
 }
 
@@ -5474,10 +5471,7 @@ type User {
   roles: [Role!]!
   invitations: [Invitation!]!
 
-  """
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  teams: [Team!]!
+  """Team in the current organization."""
   team: Team
 }
 
@@ -5500,7 +5494,6 @@ input UsersQuery {
   given_name: String!
   family_name: String!
   enabled: Boolean!
-  teams: TeamsQuery
   team: TeamsQuery
 }
 
