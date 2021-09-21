@@ -1,0 +1,785 @@
+{
+    "selector": "data.getCustomers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getCustomers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": "00377726-408c-4090-b2b5-527650642d1f",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getCustomers": [
+                {
+                    "id": "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
+                    "name": "Spencer Group",
+                    "updatedAt": "1631093955470",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Uriel Durgan DDS",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12346124011",
+                            "name": "Madelyn Dicki",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Uriel Durgan DDS",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "26064-6919",
+                            "address": "42184 Jordy Fields",
+                            "city": "Lucyshire",
+                            "locationType": null,
+                            "country": "Grenada",
+                            "latitude": "18.37718",
+                            "longitude": "18.879803",
+                            "countryCode": "MW"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "003d5627-b1a7-4b59-b264-876022125810",
+                    "name": "Stoltenberg, Stark and Halvorson",
+                    "updatedAt": "1631093955705",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19892368460",
+                            "name": "Jeromy Luettgen Sr.",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19892368460",
+                            "name": "Jeromy Luettgen Sr.",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+19892368460",
+                            "name": "Michele Kertzmann",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "40960",
+                            "address": "80049 Christopher Forks",
+                            "city": "New Simeonside",
+                            "locationType": null,
+                            "country": "Brunei Darussalam",
+                            "latitude": "14.892533",
+                            "longitude": "-168.659956",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 37,
+                        "activeAssets": 37,
+                        "activeAssetsPercentage": 100,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 1,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "003df82c-b286-408e-a5e2-70d0341ff922",
+                    "name": "Zemlak-Strosin",
+                    "updatedAt": "1631093955894",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17190623146",
+                            "name": "Casimer Howe",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17190623146",
+                            "name": "Casimer Howe",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17190623146",
+                            "name": "Casimer Howe",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "27014-6368",
+                            "address": "24305 Kellen Mountain Apt. 717",
+                            "city": "Hardyside",
+                            "locationType": null,
+                            "country": "Brunei Darussalam",
+                            "latitude": "76.756778",
+                            "longitude": "-97.502812",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00416109-eeb9-4e45-9b1b-72a0086c7d12",
+                    "name": "Beahan Inc",
+                    "updatedAt": "1631093956860",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18708202038",
+                            "name": "Ada Friesen",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18178645595",
+                            "name": "Ms. Maryse Reichert",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18708202038",
+                            "name": "Ada Friesen",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "45601-9818",
+                            "address": "32588 London Fords",
+                            "city": "Wuckertton",
+                            "locationType": null,
+                            "country": "Djibouti",
+                            "latitude": "0.839395",
+                            "longitude": "-135.709496",
+                            "countryCode": "TL"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 123,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
+                    "name": "Morissette, Bahringer and McKenzie",
+                    "updatedAt": "1631093957045",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16310083559",
+                            "name": "Mervin Dickens",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16310083559",
+                            "name": "Mervin Dickens",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16310083559",
+                            "name": "Mervin Dickens",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "79231-6082",
+                            "address": "9061 Grady Fork",
+                            "city": "North Effieport",
+                            "locationType": null,
+                            "country": "Brunei Darussalam",
+                            "latitude": "-84.700144",
+                            "longitude": "57.975098",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 6,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 1,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00489f55-ca17-4136-8a1f-ab9472b8e138",
+                    "name": "Crist-Cartwright",
+                    "updatedAt": "1631093957237",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Rebecca Feeney",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "58430",
+                            "address": "4596 Jerrold Meadow",
+                            "city": "New Queenieside",
+                            "locationType": null,
+                            "country": "Djibouti",
+                            "latitude": "28.492715",
+                            "longitude": "-36.82393",
+                            "countryCode": "TL"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "004abfbe-9f96-4294-8de3-a05955920828",
+                    "name": "Mitchell-Glover",
+                    "updatedAt": "1631093958836",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15309176374",
+                            "name": "Kylie Douglas",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15309176374",
+                            "name": "Kylie Douglas",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+15309176374",
+                            "name": "Kylie Douglas",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "46779-0589",
+                            "address": "93865 Schinner Greens Suite 499",
+                            "city": "Charleneborough",
+                            "locationType": null,
+                            "country": "Djibouti",
+                            "latitude": "76.122635",
+                            "longitude": "5.269874",
+                            "countryCode": "TL"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 3007,
+                        "activeAssets": 201,
+                        "activeAssetsPercentage": 6.684403059527769,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 6,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 31,
+                        "activeQuotesTotalAmount": 8866.61,
+                        "newActiveQuotes": 31,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 54,
+                        "expiredContracts": 6,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
+                    "name": "Hettinger-Graham",
+                    "updatedAt": "1631093959024",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19595618795",
+                            "name": "Dr. Myron Labadie",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+19595618795",
+                            "name": "Dr. Myron Labadie",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "",
+                            "address": "422 Keara Streets Suite 971",
+                            "city": "South Marjorie",
+                            "locationType": null,
+                            "country": "Brunei Darussalam",
+                            "latitude": "-74.413629",
+                            "longitude": "42.299718",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
+                    "name": "Rowe Ltd",
+                    "updatedAt": "1631093959210",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17036541651",
+                            "name": "Muriel Schiller",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15416201999",
+                            "name": "Muriel Schiller",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17036541651",
+                            "name": "Muriel Schiller",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "35442",
+                            "address": "9897 Ella Vista Suite 336",
+                            "city": "South Marjorie",
+                            "locationType": null,
+                            "country": "Brunei Darussalam",
+                            "latitude": "-12.823741",
+                            "longitude": "55.491147",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 404,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 516.36,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
+                    "name": "Green, Barton and Daugherty",
+                    "updatedAt": "1631093959399",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14050575066",
+                            "name": "Mr. Markus Zemlak",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Rebecca Feeney",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14050575066",
+                            "name": "Mr. Markus Zemlak",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "26424-5318",
+                            "address": "13817 Corine Club Suite 345",
+                            "city": "South Albinport",
+                            "locationType": null,
+                            "country": "Djibouti",
+                            "latitude": "-55.881024",
+                            "longitude": "150.37395",
+                            "countryCode": "TL"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

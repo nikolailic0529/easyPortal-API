@@ -80,6 +80,19 @@
         "activeQuotes": 10,
         "activeQuotesTotalAmount": 11.00,
         "newActiveQuotes": 12,
-        "expiringQuotes": null
+        "expiringQuotes": null,
+        "expiredQuotes": 14,
+        "expiredContracts": 15,
+        "orderedQuotes": 16,
+        "acceptedQuotes": 17,
+        "requestedQuotes": 18,
+        "receivedQuotes": 19,
+        "rejectedQuotes": 20,
+        "awaitingQuotes": 21,
+        "activeAssetsOnContract": 22,
+        "activeAssetsOnWarranty": 23,
+        "activeExposedAssets": 24,
+        "serviceRevenueTotalAmount": 25,
+        "serviceRevenueTotalAmountChange": 26
     }
 }

@@ -11,7 +11,7 @@
                     "id": "dd3fd852-c29a-4f34-ac20-21b6f7079777",
                     "resellerId": null,
                     "customerId": "602673a2-b21d-44b7-8d8e-3423f0ee3795",
-                    "serialNumber": "3cbd7abf-af0f-350d-aa1f-de851d8868dd",
+                    "serialNumber": "e5980495-7eff-368e-b4b1-d3d39639276e",
                     "productDescription": "HP 32GB 2Rx4 PC4-2133P-R Kit",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -19,36 +19,36 @@
                     "sku": "728629-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "74273",
-                    "city": "Robertsmouth",
-                    "address": "99058 Carter Wall Apt. 572",
+                    "zip": "",
+                    "city": "West Sammybury",
+                    "address": "963 Princess Causeway",
                     "address2": "",
-                    "country": null,
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Burkina Faso",
+                    "latitude": "8.544206",
+                    "longitude": "122.291725",
+                    "countryCode": "LS",
                     "status": "ACTIVE",
-                    "updatedAt": "1628969911496",
+                    "updatedAt": "1630803395550",
                     "assetCoverage": [
                         "EXPOSED"
                     ],
                     "dataQualityScore": "130",
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+13476485480",
-                            "name": "Mr. Arlo Hagenes DVM",
+                            "phoneNumber": "+14432742942",
+                            "name": "Alene Hermiston",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Jamar Gulgowski II",
+                            "name": "Simeon Wintheiser",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13476485480",
-                            "name": "Mr. Arlo Hagenes DVM",
+                            "phoneNumber": "+14432742942",
+                            "name": "Alene Hermiston",
                             "mail": null,
                             "type": "Software Contact Person"
                         }

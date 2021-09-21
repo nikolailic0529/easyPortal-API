@@ -140,6 +140,19 @@ type CompanyKpis {
   newActiveQuotes: Int
   expiringQuotes: Int
   generatedAt: String
+  expiredQuotes: Int
+  expiredContracts: Int
+  orderedQuotes: Int
+  acceptedQuotes: Int
+  requestedQuotes: Int
+  receivedQuotes: Int
+  rejectedQuotes: Int
+  awaitingQuotes: Int
+  activeAssetsOnContract: Int
+  activeAssetsOnWarranty: Int
+  activeExposedAssets: Int
+  serviceRevenueTotalAmount: Float
+  serviceRevenueTotalAmountChange: Float
 }
 
 type CompanyType {

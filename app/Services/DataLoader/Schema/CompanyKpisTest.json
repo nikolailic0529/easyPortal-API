@@ -11,5 +11,18 @@
     "activeQuotes": 1,
     "activeQuotesTotalAmount": 0,
     "newActiveQuotes": 1,
-    "expiringQuotes": 0
+    "expiringQuotes": 0,
+    "expiredQuotes": 0,
+    "expiredContracts": 0,
+    "orderedQuotes": 0,
+    "acceptedQuotes": 0,
+    "requestedQuotes": 0,
+    "receivedQuotes": 0,
+    "rejectedQuotes": 0,
+    "awaitingQuotes": 0,
+    "activeAssetsOnContract": 0,
+    "activeAssetsOnWarranty": 0,
+    "activeExposedAssets": 0,
+    "serviceRevenueTotalAmount": 0,
+    "serviceRevenueTotalAmountChange": 0
 }

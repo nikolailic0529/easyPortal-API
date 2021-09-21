@@ -125,7 +125,7 @@ class ResellerFactoryTest extends TestCase {
         );
         $this->assertEquals(
             (float) $normalizer->number($company->companyKpis->activeAssetsPercentage),
-            $reseller->kpi->assets_covered,
+            $reseller->kpi->assets_active_percent,
         );
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->activeCustomers),
@@ -166,6 +166,58 @@ class ResellerFactoryTest extends TestCase {
         $this->assertEquals(
             (int) $normalizer->number($company->companyKpis->expiringQuotes),
             $reseller->kpi->quotes_expiring,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->expiredQuotes),
+            $reseller->kpi->quotes_expired,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->expiredContracts),
+            $reseller->kpi->contracts_expired,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->orderedQuotes),
+            $reseller->kpi->quotes_ordered,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->acceptedQuotes),
+            $reseller->kpi->quotes_accepted,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->requestedQuotes),
+            $reseller->kpi->quotes_requested,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->receivedQuotes),
+            $reseller->kpi->quotes_received,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->rejectedQuotes),
+            $reseller->kpi->quotes_rejected,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->awaitingQuotes),
+            $reseller->kpi->quotes_awaiting,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeAssetsOnContract),
+            $reseller->kpi->assets_active_on_contract,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeAssetsOnWarranty),
+            $reseller->kpi->assets_active_on_warranty,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeExposedAssets),
+            $reseller->kpi->assets_active_exposed,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->serviceRevenueTotalAmount),
+            $reseller->kpi->service_revenue_total_amount,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->serviceRevenueTotalAmountChange),
+            $reseller->kpi->service_revenue_total_amount_change,
         );
 
         $this->flushQueryLog();

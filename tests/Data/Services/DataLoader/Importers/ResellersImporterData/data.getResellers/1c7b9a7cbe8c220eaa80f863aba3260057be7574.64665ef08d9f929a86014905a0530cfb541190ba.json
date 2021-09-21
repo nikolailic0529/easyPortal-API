@@ -1,0 +1,585 @@
+{
+    "selector": "data.getResellers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
+                    "name": "Macejkovic-Murray",
+                    "updatedAt": "1631093963508",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "59035",
+                            "address": "26593 VonRueden Mission",
+                            "city": "Davisland",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-33.234158",
+                            "longitude": "89.617071",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00759fe9-9614-4147-a1f9-83d9fd5472e7",
+                    "name": "Kerluke, Runte and McClure",
+                    "updatedAt": "1631093965084",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "65445",
+                            "address": "94502 Dudley Cove",
+                            "city": "Robbfort",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-59.75223",
+                            "longitude": "-48.58241",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0075f877-bfaa-4014-a520-4f10331763bd",
+                    "name": "Kreiger-Howell",
+                    "updatedAt": "1631093965930",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "13452-4977",
+                            "address": "852 Ernser Inlet",
+                            "city": "New Tayaberg",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "6.871187",
+                            "longitude": "-33.540385",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 215,
+                        "activeAssets": 141,
+                        "activeAssetsPercentage": 65.58139534883722,
+                        "activeCustomers": 23,
+                        "newActiveCustomers": 23,
+                        "activeContracts": 5,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 5,
+                        "expiringContracts": 0,
+                        "activeQuotes": 2,
+                        "activeQuotesTotalAmount": 136.32,
+                        "newActiveQuotes": 2,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 4,
+                        "expiredContracts": 2,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "007646a5-c5b9-4929-9e94-9c09eaff90e5",
+                    "name": "Stokes-Windler",
+                    "updatedAt": "1631093966127",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "57817-8948",
+                            "address": "8846 Christiansen Inlet",
+                            "city": "Dibbertton",
+                            "locationType": "HEADQUARTER",
+                            "country": "Antarctica (the territory South of 60 deg S)",
+                            "latitude": "-49.178161",
+                            "longitude": "102.245541",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "007657c9-b620-445b-8676-01e491661b4a",
+                    "name": "Langworth-Nader",
+                    "updatedAt": "1631093966723",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "",
+                            "address": "655 Jamel Brooks Apt. 619",
+                            "city": "Murazikland",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "43.593837",
+                            "longitude": "-58.683929",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 4,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 4,
+                        "newActiveCustomers": 4,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 362,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
+                    "name": "Donnelly, Carter and Friesen",
+                    "updatedAt": "1631093967699",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "67449-7247",
+                            "address": "980 Morar Keys Suite 654",
+                            "city": "Port Vince",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "35.842936",
+                            "longitude": "121.82809",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 1,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 798.72,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0079e60d-1c53-4a85-9edd-31ec6324c96e",
+                    "name": "Block, Kautzer and Cronin",
+                    "updatedAt": "1631093968424",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "76366-8537",
+                            "address": "655 Jamel Brooks Apt. 619",
+                            "city": "West Darlene",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-59.930994",
+                            "longitude": "61.023988",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 515,
+                        "activeAssets": 182,
+                        "activeAssetsPercentage": 35.33980582524272,
+                        "activeCustomers": 4,
+                        "newActiveCustomers": 4,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
+                    "name": "Watsica, Ferry and Robel",
+                    "updatedAt": "1631093971928",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "03105-3457",
+                            "address": "5330 Jerald Curve",
+                            "city": "South Delphiastad",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "64.951153",
+                            "longitude": "-161.451169",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 1,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 107.16,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "009a0762-e369-4efb-a88a-1a8b49e1ab14",
+                    "name": "Waters, Hudson and Beahan",
+                    "updatedAt": "1631093972726",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "68632-3944",
+                            "address": "4689 Stamm Terrace Apt. 491",
+                            "city": "Colebury",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-62.094047",
+                            "longitude": "89.147033",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 498,
+                        "activeAssets": 223,
+                        "activeAssetsPercentage": 44.77911646586345,
+                        "activeCustomers": 32,
+                        "newActiveCustomers": 32,
+                        "activeContracts": 5,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 5,
+                        "expiringContracts": 0,
+                        "activeQuotes": 13,
+                        "activeQuotesTotalAmount": 4440.72,
+                        "newActiveQuotes": 13,
+                        "expiringQuotes": 3,
+                        "expiredQuotes": 5,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00a51569-935d-4155-971b-05713d3f860c",
+                    "name": "Stokes-Windler",
+                    "updatedAt": "1631093974352",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "82170-4571",
+                            "address": "795 Blick Court",
+                            "city": "Halvorsonbury",
+                            "locationType": "HEADQUARTER",
+                            "country": "Antarctica (the territory South of 60 deg S)",
+                            "latitude": "-84.743379",
+                            "longitude": "139.080545",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

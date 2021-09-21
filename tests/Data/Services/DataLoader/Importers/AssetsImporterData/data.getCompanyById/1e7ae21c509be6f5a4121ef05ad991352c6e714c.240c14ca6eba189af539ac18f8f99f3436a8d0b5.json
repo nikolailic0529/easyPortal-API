@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "6b5e8b29-008f-4c60-a1a3-8108157dfae4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
+                    "name": "Murray, Kihn and McKenzie",
+                    "updatedAt": "1631115020574",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "",
+                            "address": "15335 Walsh Mountain",
+                            "city": "Kihnberg",
+                            "locationType": "HEADQUARTER",
+                            "country": "Marshall Islands",
+                            "latitude": "85.263861",
+                            "longitude": "130.224215",
+                            "countryCode": "UG"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 6564,
+                        "activeAssets": 1529,
+                        "activeAssetsPercentage": 23.293723339427178,
+                        "activeCustomers": 164,
+                        "newActiveCustomers": 164,
+                        "activeContracts": 27,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 27,
+                        "expiringContracts": 3,
+                        "activeQuotes": 71,
+                        "activeQuotesTotalAmount": 5763.580000000001,
+                        "newActiveQuotes": 71,
+                        "expiringQuotes": 12,
+                        "expiredQuotes": 89,
+                        "expiredContracts": 41,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

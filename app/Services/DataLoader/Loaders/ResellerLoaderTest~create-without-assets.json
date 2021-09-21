@@ -88,14 +88,14 @@
     {
         "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
-            "ch"
+            "us"
         ]
     },
     {
         "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "CH",
-            "Tonga",
+            "US",
+            "Qatar",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -109,13 +109,13 @@
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "port devante"
+            "north lillianaview"
         ]
     },
     {
         "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Port Devante",
+            "North Lillianaview",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "2021-08-30 00:00:00",
@@ -126,9 +126,9 @@
         "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Pollich, Swift and Ratke",
+            "Torphy-Treutel",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-09-01 23:43:06",
+            "2021-09-08 15:30:35",
             0,
             0,
             1,
@@ -142,8 +142,8 @@
         "bindings": [
             "Reseller",
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Moises Legros I",
-            "+18474614769",
+            "Retha Crona",
+            "+15738720329",
             null,
             true,
             "0d8b1849-cb13-5658-b504-726208f6ccae",
@@ -188,19 +188,19 @@
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "46559",
+            "75570-2132",
             "",
-            "767 Chaim Forest",
+            "52960 Stiedemann Vista Suite 118",
             "",
-            "-73.85043",
-            "-11.793312",
+            "-66.473023",
+            "74.52014",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_covered`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
             "Reseller",
@@ -210,13 +210,26 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
             0.0,
+            0,
             0,
             0,
             1,
             0.0,
             1,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -232,7 +245,7 @@
         "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Pollich, Swift and Ratke",
+            "Torphy-Treutel",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]

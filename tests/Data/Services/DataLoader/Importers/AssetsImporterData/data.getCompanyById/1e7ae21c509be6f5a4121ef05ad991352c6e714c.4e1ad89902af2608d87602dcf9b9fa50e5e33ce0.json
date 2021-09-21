@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "98d5c771-5301-498a-9439-537ff6a9b405"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "98d5c771-5301-498a-9439-537ff6a9b405",
+                    "name": "Mraz, Keebler and Cartwright",
+                    "updatedAt": "1631135790465",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "96999",
+                            "address": "465 Rose Plain",
+                            "city": "Yostview",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mexico",
+                            "latitude": "-63.183675",
+                            "longitude": "-132.071051",
+                            "countryCode": "BF"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 9595,
+                        "activeAssets": 1006,
+                        "activeAssetsPercentage": 10.484627410109432,
+                        "activeCustomers": 155,
+                        "newActiveCustomers": 155,
+                        "activeContracts": 22,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 22,
+                        "expiringContracts": 1,
+                        "activeQuotes": 35,
+                        "activeQuotesTotalAmount": 9208.95,
+                        "newActiveQuotes": 35,
+                        "expiringQuotes": 6,
+                        "expiredQuotes": 66,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

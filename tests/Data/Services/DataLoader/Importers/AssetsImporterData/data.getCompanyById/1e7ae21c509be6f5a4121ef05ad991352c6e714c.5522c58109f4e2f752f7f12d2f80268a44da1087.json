@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "75026113-e205-40e8-831e-0a2f9dee75bf"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "75026113-e205-40e8-831e-0a2f9dee75bf",
+                    "name": "Olson PLC",
+                    "updatedAt": "1631115930036",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "57316-7418",
+                            "address": "2818 Cleo Club",
+                            "city": "Julianfurt",
+                            "locationType": "HEADQUARTER",
+                            "country": "Luxembourg",
+                            "latitude": "21.978817",
+                            "longitude": "145.780849",
+                            "countryCode": "SV"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3934,
+                        "activeAssets": 106,
+                        "activeAssetsPercentage": 2.6944585663446876,
+                        "activeCustomers": 974,
+                        "newActiveCustomers": 974,
+                        "activeContracts": 5,
+                        "activeContractTotalAmount": 1225.8600000000001,
+                        "newActiveContracts": 5,
+                        "expiringContracts": 1,
+                        "activeQuotes": 530,
+                        "activeQuotesTotalAmount": 91156.09000000001,
+                        "newActiveQuotes": 530,
+                        "expiringQuotes": 94,
+                        "expiredQuotes": 433,
+                        "expiredContracts": 6,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}
