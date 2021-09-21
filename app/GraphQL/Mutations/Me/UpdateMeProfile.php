@@ -9,8 +9,6 @@ use App\Services\KeyCloak\Client\Types\User as UserType;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
 
-use function in_array;
-
 class UpdateMeProfile {
     public function __construct(
         protected AuthManager $auth,
@@ -41,28 +39,25 @@ class UpdateMeProfile {
     public function updateUserProfile(User $user, UserType $keycloakUser, array $input): bool {
         $userType   = new UserType();
         $attributes = $keycloakUser->attributes;
-        $keys       = $this->getProfileAttributes();
         foreach ($input as $property => $value) {
-            if (in_array($property, $keys, true)) {
-                switch ($property) {
-                    case 'first_name':
-                        $userType->firstName = $value;
-                        $user->given_name    = $value;
-                        break;
-                    case 'last_name':
-                        $userType->lastName = $value;
-                        $user->family_name  = $value;
-                        break;
-                    case 'photo':
-                        $photo               = $this->store($user, $value);
-                        $user->photo         = $photo;
-                        $attributes['photo'] = [$photo];
-                        break;
-                    default:
-                        $user->{$property}     = $value;
-                        $attributes[$property] = [$value];
-                        break;
-                }
+            switch ($property) {
+                case 'first_name':
+                    $userType->firstName = $value;
+                    $user->given_name    = $value;
+                    break;
+                case 'last_name':
+                    $userType->lastName = $value;
+                    $user->family_name  = $value;
+                    break;
+                case 'photo':
+                    $photo               = $this->store($user, $value);
+                    $user->photo         = $photo;
+                    $attributes['photo'] = [$photo];
+                    break;
+                default:
+                    $user->{$property}     = $value;
+                    $attributes[$property] = [$value];
+                    break;
             }
         }
         $userType->attributes = $attributes;
@@ -80,25 +75,5 @@ class UpdateMeProfile {
         }
 
         return $url;
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getProfileAttributes(): array {
-        return [
-            'first_name',
-            'last_name',
-            'office_phone',
-            'contact_email',
-            'title',
-            'academic_title',
-            'mobile_phone',
-            'department',
-            'job_title',
-            'phone',
-            'company',
-            'photo',
-        ];
     }
 }

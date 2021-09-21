@@ -51,7 +51,7 @@ class UpdateOrgUser {
         $keycloakUser = $this->client->getUserById($user->getKey());
 
         // Update Profile
-        $this->updateMeProfile->updateUserProfile($user, $keycloakUser, $input);
+        $this->updateMeProfile->updateUserProfile($user, $keycloakUser, $this->getProfileValues($input));
 
         // Update Settings
         $this->settings($user, $input);
@@ -115,5 +115,35 @@ class UpdateOrgUser {
         // Add new role
         $this->client->addUserToGroup($keycloakUser->id, $role->getKey());
         $user->roles = [$role];
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     *
+     * @return array<string>
+     */
+    protected function getProfileValues(array $input): array {
+        $attributes = [
+            'first_name',
+            'last_name',
+            'office_phone',
+            'contact_email',
+            'title',
+            'academic_title',
+            'mobile_phone',
+            'department',
+            'job_title',
+            'phone',
+            'company',
+            'photo',
+        ];
+        $result     = [];
+        foreach ($attributes as $attribute) {
+            if (array_key_exists($attribute, $input)) {
+                $result[$attribute] = $input[$attribute];
+            }
+        }
+
+        return $result;
     }
 }
