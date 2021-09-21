@@ -50,7 +50,6 @@ use App\Models\Tag;
 use App\Models\Team;
 use App\Models\Type;
 use App\Models\User;
-use App\Models\UserRole;
 use App\Models\UserSearch;
 use App\Services\KeyCloak\KeyCloak;
 use App\Services\KeyCloak\UserProvider;
@@ -152,7 +151,6 @@ class AppServiceProvider extends ServiceProvider {
             'Team'                      => Team::class,
             'Type'                      => Type::class,
             'User'                      => User::class,
-            'UserRole'                  => UserRole::class,
             'UserSearch'                => UserSearch::class,
         ]);
     }

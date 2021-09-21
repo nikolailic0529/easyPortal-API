@@ -8,6 +8,7 @@ namespace App\Models;
  * @property string                       $id
  * @property string                       $organization_id
  * @property string                       $user_id
+ * @property string|null                  $role_id
  * @property string|null                  $team_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
