@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\GraphQL\Mutations\Me\UpdateMeProfile;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
@@ -62,7 +63,21 @@ class UpdateOrgUser {
         }
 
         // Update Team
+        if (isset($input['team_id'])) {
+            $pivot = OrganizationUser::query()
+                ->where('organization_id', '=', $organization->getKey())
+                ->where('user_id', '=', $user->getKey())
+                ->first();
 
+            if (!$pivot) {
+                $pivot                  = new OrganizationUser();
+                $pivot->organization_id = $organization->getKey();
+                $pivot->user_id         = $user->getKey();
+            }
+
+            $pivot->team_id = $input['team_id'];
+            $pivot->save();
+        }
         return ['result' => $user->save()];
     }
 

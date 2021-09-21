@@ -1487,6 +1487,13 @@ type Mutation {
   updateMeSettings(input: UpdateMeSettingsInput!): UpdateMeSettingsPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload
+
+  """
   Create Organization Role.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -5438,6 +5445,29 @@ input UpdateOrgRolesInput {
 
 type UpdateOrgRolesPayload {
   updated: [Role!]!
+}
+
+input UpdateOrgUserInput {
+  user_id: ID!
+  first_name: String
+  last_name: String
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  photo: Upload
+  homepage: String
+  locale: String
+  timezone: String
+  role_id: ID
+  team_id: ID
+}
+
+type UpdateOrgUserPayload {
+  result: Boolean!
 }
 
 input UpdateQuoteNoteFile {

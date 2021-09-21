@@ -23,7 +23,7 @@ input UpdateOrgUserInput {
   locale: String @rules(apply: ["nullable","App\\Rules\\Locale"])
   timezone: String @rules(apply: ["nullable","timezone"])
   role_id: ID @rules(apply: ["nullable","App\\Rules\\OrgRoleId"])
-#   team_id: ID @rules(apply: ["nullable","App\\Rules\\TeamId"])
+  team_id: ID @rules(apply: ["nullable","App\\Rules\\TeamId"])
 }
 
 type UpdateOrgUserPayload {

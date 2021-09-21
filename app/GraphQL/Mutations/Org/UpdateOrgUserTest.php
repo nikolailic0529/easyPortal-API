@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\Role;
+use App\Models\Team;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
@@ -129,6 +130,11 @@ class UpdateOrgUserTest extends TestCase {
                 $this->assertEquals($updatedUser->locale, $input['locale']);
                 $this->assertEquals($updatedUser->homepage, $input['homepage']);
             }
+
+            if (isset($input['team_id'])) {
+                $this->assertNotNull($updatedUser->team);
+                $this->assertEquals($updatedUser->team->getKey(), $input['team_id']);
+            }
         }
     }
     // </editor-fold>
@@ -157,6 +163,12 @@ class UpdateOrgUserTest extends TestCase {
             Role::factory()->create([
                 'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                 'organization_id' => $organization->getKey(),
+            ]);
+
+            // New Team
+            Team::factory()->create([
+                'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9ded',
+                'name' => 'team1',
             ]);
         };
         $settings = [
@@ -190,6 +202,8 @@ class UpdateOrgUserTest extends TestCase {
                             'timezone'       => 'Europe/London',
                             'locale'         => 'en_GB',
                             'role_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                            'role_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                            'team_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9ded',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -364,6 +378,60 @@ class UpdateOrgUserTest extends TestCase {
                             ->andReturn(true);
                     },
                     true,
+                ],
+                'Invalid Role'                          => [
+                    new GraphQLError('updateOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $settings,
+                    $prepare,
+                    static function (): array {
+                        return [
+                            'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                            'role_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
+                        ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->never();
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
+                        $mock
+                            ->shouldReceive('removeUserFromGroup')
+                            ->never();
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->never();
+                    },
+                ],
+                'Invalid Team'                          => [
+                    new GraphQLError('updateOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $settings,
+                    $prepare,
+                    static function (): array {
+                        return [
+                            'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                            'team_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
+                        ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->never();
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
+                        $mock
+                            ->shouldReceive('removeUserFromGroup')
+                            ->never();
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->never();
+                    },
                 ],
             ]),
         ))->getData();
