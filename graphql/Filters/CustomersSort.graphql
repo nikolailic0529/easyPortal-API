@@ -4,5 +4,6 @@ input CustomersSort {
   contacts_count: Int!
   assets_count: Int!
   type: TypesSort!
+  kpi: KpiSort!
   headquarter: LocationsSort!
 }

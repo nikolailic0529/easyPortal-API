@@ -720,6 +720,7 @@ input CustomersSort {
   contacts_count: Int!
   assets_count: Int!
   type: TypesSort!
+  kpi: KpiSort!
   headquarter: LocationsSort!
 }
 
@@ -1020,6 +1021,35 @@ type InviteOrgUserPayload {
 }
 
 type Kpi {
+  assets_total: Int!
+  assets_active: Int!
+  assets_active_percent: Float!
+  assets_active_on_contract: Int!
+  assets_active_on_warranty: Int!
+  assets_active_exposed: Int!
+  customers_active: Int!
+  customers_active_new: Int!
+  contracts_active: Int!
+  contracts_active_amount: Float!
+  contracts_active_new: Int!
+  contracts_expiring: Int!
+  contracts_expired: Int!
+  quotes_active: Int!
+  quotes_active_amount: Float!
+  quotes_active_new: Int!
+  quotes_expiring: Int!
+  quotes_expired: Int!
+  quotes_ordered: Int!
+  quotes_accepted: Int!
+  quotes_requested: Int!
+  quotes_received: Int!
+  quotes_rejected: Int!
+  quotes_awaiting: Int!
+  service_revenue_total_amount: Float!
+  service_revenue_total_amount_change: Float!
+}
+
+input KpiSort {
   assets_total: Int!
   assets_active: Int!
   assets_active_percent: Float!
@@ -1694,6 +1724,7 @@ input OrganizationsSort {
   name: String!
   website_url: String
   email: String
+  kpi: KpiSort!
 }
 
 """Information about pagination using a Relay style cursor connection."""
@@ -4809,6 +4840,9 @@ input SortByClauseCustomersSort {
   type: SortByClauseTypesSort
 
   """Property clause."""
+  kpi: SortByClauseKpiSort
+
+  """Property clause."""
   headquarter: SortByClauseLocationsSort
 }
 
@@ -4852,6 +4886,87 @@ input SortByClauseDocumentsSort {
 
   """Property clause."""
   price: SortByDirection
+}
+
+"""Sort clause for input KpiSort (only one property allowed at a time)."""
+input SortByClauseKpiSort {
+  """Property clause."""
+  assets_total: SortByDirection
+
+  """Property clause."""
+  assets_active: SortByDirection
+
+  """Property clause."""
+  assets_active_percent: SortByDirection
+
+  """Property clause."""
+  assets_active_on_contract: SortByDirection
+
+  """Property clause."""
+  assets_active_on_warranty: SortByDirection
+
+  """Property clause."""
+  assets_active_exposed: SortByDirection
+
+  """Property clause."""
+  customers_active: SortByDirection
+
+  """Property clause."""
+  customers_active_new: SortByDirection
+
+  """Property clause."""
+  contracts_active: SortByDirection
+
+  """Property clause."""
+  contracts_active_amount: SortByDirection
+
+  """Property clause."""
+  contracts_active_new: SortByDirection
+
+  """Property clause."""
+  contracts_expiring: SortByDirection
+
+  """Property clause."""
+  contracts_expired: SortByDirection
+
+  """Property clause."""
+  quotes_active: SortByDirection
+
+  """Property clause."""
+  quotes_active_amount: SortByDirection
+
+  """Property clause."""
+  quotes_active_new: SortByDirection
+
+  """Property clause."""
+  quotes_expiring: SortByDirection
+
+  """Property clause."""
+  quotes_expired: SortByDirection
+
+  """Property clause."""
+  quotes_ordered: SortByDirection
+
+  """Property clause."""
+  quotes_accepted: SortByDirection
+
+  """Property clause."""
+  quotes_requested: SortByDirection
+
+  """Property clause."""
+  quotes_received: SortByDirection
+
+  """Property clause."""
+  quotes_rejected: SortByDirection
+
+  """Property clause."""
+  quotes_awaiting: SortByDirection
+
+  """Property clause."""
+  service_revenue_total_amount: SortByDirection
+
+  """Property clause."""
+  service_revenue_total_amount_change: SortByDirection
 }
 
 """
@@ -4920,6 +5035,9 @@ input SortByClauseOrganizationsSort {
 
   """Property clause."""
   email: SortByDirection
+
+  """Property clause."""
+  kpi: SortByClauseKpiSort
 }
 
 """
