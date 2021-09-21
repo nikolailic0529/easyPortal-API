@@ -1,0 +1,585 @@
+{
+    "selector": "data.getResellers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": "00a51569-935d-4155-971b-05713d3f860c",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
+                    "name": "Orn-Osinski",
+                    "updatedAt": "1631093975177",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "29924-5029",
+                            "address": "606 Lebsack Skyway Suite 345",
+                            "city": "Rhodaside",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-48.060803",
+                            "longitude": "-110.640967",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 47,
+                        "activeAssets": 4,
+                        "activeAssetsPercentage": 8.51063829787234,
+                        "activeCustomers": 8,
+                        "newActiveCustomers": 8,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
+                    "name": "Lang LLC",
+                    "updatedAt": "1631093976481",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "51656",
+                            "address": "74447 Selena Mountains Suite 726",
+                            "city": "East Immanuelville",
+                            "locationType": "HEADQUARTER",
+                            "country": "Antarctica (the territory South of 60 deg S)",
+                            "latitude": "15.304375",
+                            "longitude": "-123.40624",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 278,
+                        "activeAssets": 82,
+                        "activeAssetsPercentage": 29.496402877697843,
+                        "activeCustomers": 8,
+                        "newActiveCustomers": 8,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 3,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00c02780-d026-4a8e-a402-f63aca4e65f4",
+                    "name": "Stanton LLC",
+                    "updatedAt": "1631093977269",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "01100-4251",
+                            "address": "5858 Peyton Ford Apt. 657",
+                            "city": "Oswaldostad",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "-17.315814",
+                            "longitude": "-15.076494",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 338,
+                        "activeAssets": 338,
+                        "activeAssetsPercentage": 100,
+                        "activeCustomers": 4,
+                        "newActiveCustomers": 4,
+                        "activeContracts": 2,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 2,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
+                    "name": "Stark Inc",
+                    "updatedAt": "1631093978089",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "72618-2118",
+                            "address": "52713 Jake Mountain Suite 903",
+                            "city": "East Jaclynfort",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "80.486416",
+                            "longitude": "161.078373",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 200,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 13,
+                        "newActiveCustomers": 13,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 7,
+                        "activeQuotesTotalAmount": 1844.68,
+                        "newActiveQuotes": 7,
+                        "expiringQuotes": 6,
+                        "expiredQuotes": 12,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00c871be-e0f6-4577-a4d9-a770878eea15",
+                    "name": "Bosco, Bergnaum and Heller",
+                    "updatedAt": "1631093980073",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "25660-3118",
+                            "address": "461 Laurel Circle",
+                            "city": "Jastville",
+                            "locationType": "HEADQUARTER",
+                            "country": "Antarctica (the territory South of 60 deg S)",
+                            "latitude": "-13.163883",
+                            "longitude": "-165.689087",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00e4a8ff-1d07-428b-acd0-e858973e5707",
+                    "name": "Cummings, Larkin and Simonis",
+                    "updatedAt": "1631093983299",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "63924",
+                            "address": "9139 Walsh Run Apt. 400",
+                            "city": "Watsicaside",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "48.440603",
+                            "longitude": "70.652732",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 3,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
+                    "name": "Dibbert and Sons",
+                    "updatedAt": "1631093987229",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "82842",
+                            "address": "32776 Schmeler Oval",
+                            "city": "Schambergermouth",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "60.644173",
+                            "longitude": "156.280179",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 1,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "01085380-44ac-4429-b128-28a70140fb67",
+                    "name": "O'Keefe, Armstrong and Beatty",
+                    "updatedAt": "1631093987494",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "03820-3461",
+                            "address": "3011 Jackson Square Apt. 548",
+                            "city": "Lake Thaddeuston",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "49.159569",
+                            "longitude": "-65.379566",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 1,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
+                    "name": "Jerde Inc",
+                    "updatedAt": "1631093989431",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "54236",
+                            "address": "2525 Arely Mission Apt. 032",
+                            "city": "West Lewis",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "3.810595",
+                            "longitude": "-49.970856",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 942,
+                        "activeAssets": 931,
+                        "activeAssetsPercentage": 98.83227176220807,
+                        "activeCustomers": 15,
+                        "newActiveCustomers": 15,
+                        "activeContracts": 9,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 9,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 4,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0119600e-c938-4472-95ba-7855c2b174cc",
+                    "name": "Wolf, Doyle and Daniel",
+                    "updatedAt": "1631093990024",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "91855",
+                            "address": "736 Joshuah Wells Suite 902",
+                            "city": "New Brant",
+                            "locationType": "HEADQUARTER",
+                            "country": "Antarctica (the territory South of 60 deg S)",
+                            "latitude": "-39.941949",
+                            "longitude": "173.638085",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 1,
+                        "activeAssetsPercentage": 50,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 1,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 1,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

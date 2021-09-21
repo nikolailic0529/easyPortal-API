@@ -27,19 +27,6 @@ use function app;
  * @property string|null                                                             $currency_id
  * @property string|null                                                             $website_url
  * @property string|null                                                             $email
- * @property int                                                                     $kpi_assets_total
- * @property int                                                                     $kpi_assets_active
- * @property float                                                                   $kpi_assets_covered
- * @property int                                                                     $kpi_customers_active
- * @property int                                                                     $kpi_customers_active_new
- * @property int                                                                     $kpi_contracts_active
- * @property float                                                                   $kpi_contracts_active_amount
- * @property int                                                                     $kpi_contracts_active_new
- * @property int                                                                     $kpi_contracts_expiring
- * @property int                                                                     $kpi_quotes_active
- * @property float                                                                   $kpi_quotes_active_amount
- * @property int                                                                     $kpi_quotes_active_new
- * @property int                                                                     $kpi_quotes_expiring
  * @property bool|null                                                               $branding_dark_theme
  * @property string|null                                                             $branding_main_color
  * @property string|null                                                             $branding_secondary_color
@@ -61,10 +48,12 @@ use function app;
  * @property \App\Models\Currency|null                                               $currency
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>      $contacts
  * @property-read \App\Models\Location|null                                          $headquarter
+ * @property-read \App\Models\Kpi|null                                               $kpi
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location>     $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Status>       $statuses
  * @property-read \App\Models\Reseller                                               $reseller
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Role>         $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\User>         $users
  * @method static \Database\Factories\OrganizationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
@@ -158,6 +147,14 @@ class Organization extends Model implements
             ->whereHas('types', static function ($query) use ($type) {
                 return $query->whereKey($type);
             });
+    }
+
+    public function kpi(): HasOneThrough {
+        [$type, $id] = $this->getMorphs('object', null, null);
+
+        return $this
+            ->hasOneThrough(Kpi::class, Reseller::class, 'id', $id)
+            ->where($type, '=', (new Reseller())->getMorphClass());
     }
 
     public function reseller(): HasOne {

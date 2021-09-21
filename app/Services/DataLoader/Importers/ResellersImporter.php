@@ -30,6 +30,7 @@ class ResellersImporter extends Importer {
             ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
                 $resellers->loadMissing('locations');
                 $resellers->loadMissing('contacts');
+                $resellers->loadMissing('kpi');
 
                 $locations->add($resellers->pluck('locations')->flatten());
                 $contacts->add($resellers->pluck('contacts')->flatten());

@@ -54,10 +54,11 @@ use LogicException;
  * @property \Carbon\CarbonImmutable                                                 $created_at
  * @property \Carbon\CarbonImmutable                                                 $updated_at
  * @property \Carbon\CarbonImmutable|null                                            $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Invitation>   $invitations
  * @property \App\Models\Organization|null                                           $organization
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch>   $searches
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Organization> $organizations
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Roles>        $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Role>         $roles
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()

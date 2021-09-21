@@ -13,8 +13,8 @@
         "query": "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
-            "Heaney Inc",
-            "2021-07-15 09:14:17",
+            "Mayer-Lockman",
+            "2021-09-08 10:51:24",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]

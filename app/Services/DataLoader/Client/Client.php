@@ -838,6 +838,19 @@ class Client {
                 activeQuotesTotalAmount
                 newActiveQuotes
                 expiringQuotes
+                expiredQuotes
+                expiredContracts
+                orderedQuotes
+                acceptedQuotes
+                requestedQuotes
+                receivedQuotes
+                rejectedQuotes
+                awaitingQuotes
+                activeAssetsOnContract
+                activeAssetsOnWarranty
+                activeExposedAssets
+                serviceRevenueTotalAmount
+                serviceRevenueTotalAmountChange
             }
             GRAPHQL;
     }

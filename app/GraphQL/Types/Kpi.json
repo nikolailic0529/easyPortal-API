@@ -5,17 +5,30 @@
     "required": [
         "assets_total",
         "assets_active",
-        "assets_covered",
+        "assets_active_percent",
+        "assets_active_on_contract",
+        "assets_active_on_warranty",
+        "assets_active_exposed",
         "customers_active",
         "customers_active_new",
         "contracts_active",
         "contracts_active_amount",
         "contracts_active_new",
         "contracts_expiring",
+        "contracts_expired",
         "quotes_active",
         "quotes_active_amount",
         "quotes_active_new",
-        "quotes_expiring"
+        "quotes_expiring",
+        "quotes_expired",
+        "quotes_ordered",
+        "quotes_accepted",
+        "quotes_requested",
+        "quotes_received",
+        "quotes_rejected",
+        "quotes_awaiting",
+        "service_revenue_total_amount",
+        "service_revenue_total_amount_change"
     ],
     "properties": {
         "assets_total": {
@@ -24,7 +37,7 @@
         "assets_active": {
             "type": "integer"
         },
-        "assets_covered": {
+        "assets_active_percent": {
             "type": "number"
         },
         "customers_active": {
@@ -56,6 +69,45 @@
         },
         "quotes_expiring": {
             "type": "integer"
+        },
+        "assets_active_on_contract": {
+            "type": "integer"
+        },
+        "assets_active_on_warranty": {
+            "type": "integer"
+        },
+        "assets_active_exposed": {
+            "type": "integer"
+        },
+        "contracts_expired": {
+            "type": "integer"
+        },
+        "quotes_expired": {
+            "type": "integer"
+        },
+        "quotes_ordered": {
+            "type": "integer"
+        },
+        "quotes_accepted": {
+            "type": "integer"
+        },
+        "quotes_requested": {
+            "type": "integer"
+        },
+        "quotes_received": {
+            "type": "integer"
+        },
+        "quotes_rejected": {
+            "type": "integer"
+        },
+        "quotes_awaiting": {
+            "type": "integer"
+        },
+        "service_revenue_total_amount": {
+            "type": "number"
+        },
+        "service_revenue_total_amount_change": {
+            "type": "number"
         }
     }
 }

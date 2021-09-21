@@ -35,10 +35,10 @@
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "3997 cole forks",
+            "9938 dillon freeway",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "reseller",
-            "77226"
+            "92068"
         ]
     },
     {
@@ -49,6 +49,13 @@
     },
     {
         "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "Reseller"
@@ -105,22 +112,22 @@
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "1189 adam mews suite 166",
+            "5379 natalie curve apt. 089",
             "asset",
-            "02636-5618"
+            "91385"
         ]
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "1189 adam mews suite 166",
+            "5379 natalie curve apt. 089",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "customer",
-            "02636-5618"
+            "91385"
         ]
     },
     {
@@ -144,7 +151,7 @@
             "Asset",
             "Hardware",
             "Hardware",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -166,7 +173,7 @@
             "Asset",
             "ACTIVE",
             "ACTIVE",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -190,7 +197,7 @@
             null,
             null,
             "BU IDS UMA i5-5200U 850 G2",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -209,7 +216,7 @@
         "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
             "Hardware",
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -229,7 +236,7 @@
         "bindings": [
             "EXPOSED",
             "EXPOSED",
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -239,14 +246,14 @@
         "bindings": [
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
-            "2021-08-21 13:40:34",
-            "5590d47a-794d-3317-ac52-f77ea5bf5bf9",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "2021-09-04 11:05:19",
+            "5b700871-4c20-3b13-8c05-6d8a75e89fad",
             "130",
             2,
             "2021-08-30 00:00:00",
@@ -258,45 +265,11 @@
         "bindings": [
             "Asset",
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
-            "Prof. Hector Wiza DDS",
+            "Henri Gusikowski",
             null,
             null,
             null,
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139",
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "66d17114-c49a-545f-9d9c-84c436abdbc6"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
-            "Eli Collier",
-            "+19013270711",
-            null,
-            true,
-            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -305,30 +278,64 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9"
         ]
     },
     {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "Kayla Goldner",
+            "+17033828050",
+            null,
+            true,
+            "5a86b4c6-2fe0-52e2-b925-97be85345f0d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "5a86b4c6-2fe0-52e2-b925-97be85345f0d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "f27913f0-d434-5842-8dd1-3338f4acc863"
+        ]
+    },
+    {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "5a86b4c6-2fe0-52e2-b925-97be85345f0d"
+            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "f27913f0-d434-5842-8dd1-3338f4acc863"
+            "bf325e65-38a6-574d-b6b2-ee166953588e"
         ]
     },
     {
@@ -359,7 +366,7 @@
             "Document",
             "Quote New Business",
             "Quote New Business",
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
+            "0a7548dd-c241-5418-99ca-296c1b5d9607",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -395,7 +402,7 @@
         "bindings": [
             "EUR",
             "EUR",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -415,7 +422,7 @@
         "bindings": [
             "EN",
             "EN",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "79b8eb7b-1822-558a-99f1-a75648af059c",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -434,18 +441,18 @@
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
-            "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
+            "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+            "0a7548dd-c241-5418-99ca-296c1b5d9607",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "79b8eb7b-1822-558a-99f1-a75648af059c",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2019-05-01 00:00:00",
             "2021-05-31 00:00:00",
             "856.00",
-            "50787ac7-962a-38c7-a679-a94f6e8c497a",
+            "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
             "2021-07-15 12:51:38",
             0,
             1,
@@ -458,16 +465,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "5590d47a-794d-3317-ac52-f77ea5bf5bf9",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "5b700871-4c20-3b13-8c05-6d8a75e89fad",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "162.00",
             "198.00",
             "-1.00",
             "198.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -486,7 +493,7 @@
             "Document",
             "Quote renewal",
             "Quote renewal",
-            "79b8eb7b-1822-558a-99f1-a75648af059c",
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -497,18 +504,18 @@
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
-            "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
-            "79b8eb7b-1822-558a-99f1-a75648af059c",
+            "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "79b8eb7b-1822-558a-99f1-a75648af059c",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2021-06-01 00:00:00",
             "2021-09-30 00:00:00",
             "130.00",
-            "05d4c2f9-6779-3c38-8941-e63f6169af11",
+            "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
             "2021-07-15 12:51:38",
             0,
             1,
@@ -521,16 +528,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "5590d47a-794d-3317-ac52-f77ea5bf5bf9",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "5b700871-4c20-3b13-8c05-6d8a75e89fad",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "26.00",
             "34.00",
             "-2.00",
             "34.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
+            "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -555,7 +562,7 @@
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             null,
             null,
-            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
+            "02fa1398-8d68-5cd1-b212-cbd485f67417",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -570,8 +577,8 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "50787ac7-962a-38c7-a679-a94f6e8c497a",
-            "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
+            "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+            "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -580,10 +587,10 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
+            "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "b996cf39-fa11-5951-b47d-fcd31cf500b4"
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b"
         ]
     },
     {
@@ -596,8 +603,8 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "05d4c2f9-6779-3c38-8941-e63f6169af11",
-            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -606,10 +613,10 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "1a053142-e655-59bb-a4b5-08df1c9318de"
+            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7"
         ]
     },
     {
@@ -617,14 +624,14 @@
         "bindings": [
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
-            "2021-08-24 21:17:06",
-            "57dddd37-44b3-30b3-8a15-b16d21e9c2f3",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "2021-09-04 17:02:25",
+            "a8c28a45-af15-37c7-9041-fb96de62d7f1",
             "130",
             2,
             "2021-08-30 00:00:00",
@@ -636,45 +643,11 @@
         "bindings": [
             "Asset",
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
-            "Prof. Hector Wiza DDS",
+            "Henri Gusikowski",
             null,
             null,
             null,
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139",
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "673f7541-1538-5839-93dc-cb386aa163cf"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
-            "Eli Collier",
-            "+19013270711",
-            null,
-            true,
-            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -683,30 +656,64 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "627f7de9-a951-517f-9fc9-ba71001eee39"
         ]
     },
     {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "Kayla Goldner",
+            "+17033828050",
+            null,
+            true,
+            "faa04214-add0-5aa9-8316-6ae79cf767cc",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "faa04214-add0-5aa9-8316-6ae79cf767cc",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09"
+        ]
+    },
+    {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "faa04214-add0-5aa9-8316-6ae79cf767cc"
+            "49030c74-0bdc-5c4c-a0c5-1c74c8806097"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09"
+            "cd40814f-847e-59a9-9f30-aa80acaa06f0"
         ]
     },
     {
@@ -744,16 +751,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "57dddd37-44b3-30b3-8a15-b16d21e9c2f3",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "a8c28a45-af15-37c7-9041-fb96de62d7f1",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "162.00",
             "198.00",
             "-1.00",
             "198.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
+            "445e2b40-4e67-516a-a190-cf516597223c",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -772,16 +779,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "57dddd37-44b3-30b3-8a15-b16d21e9c2f3",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "a8c28a45-af15-37c7-9041-fb96de62d7f1",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "26.00",
             "34.00",
             "-2.00",
             "34.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
+            "44347218-7205-5a06-91b5-610fad8e938c",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -798,7 +805,7 @@
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             null,
             null,
-            "445e2b40-4e67-516a-a190-cf516597223c",
+            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -813,8 +820,8 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "50787ac7-962a-38c7-a679-a94f6e8c497a",
-            "44347218-7205-5a06-91b5-610fad8e938c",
+            "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -823,10 +830,10 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "44347218-7205-5a06-91b5-610fad8e938c",
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
+            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0"
         ]
     },
     {
@@ -839,8 +846,8 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "05d4c2f9-6779-3c38-8941-e63f6169af11",
-            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
+            "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+            "17c73208-742c-50da-93c7-93a514201fee",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -849,10 +856,10 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
+            "17c73208-742c-50da-93c7-93a514201fee",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "17c73208-742c-50da-93c7-93a514201fee"
+            "4be53773-2fc4-524c-88ca-759c7e974759"
         ]
     },
     {
@@ -860,14 +867,14 @@
         "bindings": [
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
-            "2021-08-31 23:44:13",
-            "63de27c4-6a21-37ca-9483-5bc7db319110",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "2021-09-05 01:21:39",
+            "abe7b9a7-6ce2-30a1-b5b6-5f5894ec6378",
             "130",
             2,
             "2021-08-30 00:00:00",
@@ -879,45 +886,11 @@
         "bindings": [
             "Asset",
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
-            "Prof. Hector Wiza DDS",
+            "Henri Gusikowski",
             null,
             null,
             null,
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139",
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4be53773-2fc4-524c-88ca-759c7e974759"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
-            "Eli Collier",
-            "+19013270711",
-            null,
-            true,
-            "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d",
+            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -926,30 +899,64 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d",
+            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "52954228-f0ad-5e9f-a43d-a848768d65ec"
         ]
     },
     {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "Kayla Goldner",
+            "+17033828050",
+            null,
+            true,
+            "63472d7e-4cbf-51c2-9909-05e2cbca91be",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "63472d7e-4cbf-51c2-9909-05e2cbca91be",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "026d358d-b01e-5079-8fd9-9c955a9064ce"
+        ]
+    },
+    {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "63472d7e-4cbf-51c2-9909-05e2cbca91be"
+            "c8526c37-fec0-5a56-aead-fd820acdfb51"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "026d358d-b01e-5079-8fd9-9c955a9064ce"
+            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1"
         ]
     },
     {
@@ -987,16 +994,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "63de27c4-6a21-37ca-9483-5bc7db319110",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "abe7b9a7-6ce2-30a1-b5b6-5f5894ec6378",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "162.00",
             "198.00",
             "-1.00",
             "198.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "c8526c37-fec0-5a56-aead-fd820acdfb51",
+            "9166167a-70ae-5591-a284-bb6b14de83e8",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1015,16 +1022,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "63de27c4-6a21-37ca-9483-5bc7db319110",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "abe7b9a7-6ce2-30a1-b5b6-5f5894ec6378",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "26.00",
             "34.00",
             "-2.00",
             "34.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1",
+            "f14bc56f-717f-5132-94af-3eba66d9158e",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1041,7 +1048,7 @@
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             null,
             null,
-            "9166167a-70ae-5591-a284-bb6b14de83e8",
+            "36723ca7-ed0b-54aa-8e22-eec5fa45ae24",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1056,8 +1063,8 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "50787ac7-962a-38c7-a679-a94f6e8c497a",
-            "f14bc56f-717f-5132-94af-3eba66d9158e",
+            "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1066,10 +1073,10 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "f14bc56f-717f-5132-94af-3eba66d9158e",
+            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "ac9f658a-0a0d-5045-aff8-23c49f92ea61"
+            "d87e7785-b72f-5336-91ac-f424f47bede6"
         ]
     },
     {
@@ -1082,8 +1089,8 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "05d4c2f9-6779-3c38-8941-e63f6169af11",
-            "36723ca7-ed0b-54aa-8e22-eec5fa45ae24",
+            "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+            "e62950ed-417e-5384-9d3c-be30424ca8ec",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1092,71 +1099,10 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "36723ca7-ed0b-54aa-8e22-eec5fa45ae24",
+            "e62950ed-417e-5384-9d3c-be30424ca8ec",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
-            "e62950ed-417e-5384-9d3c-be30424ca8ec"
-        ]
-    },
-    {
-        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
-        "bindings": [
-            "??"
-        ]
-    },
-    {
-        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "??",
-            "Unknown Country",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "port sydneehaven"
-        ]
-    },
-    {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "Port Sydneehaven",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "1189 adam mews suite 166",
-            "asset",
-            "02636-5618"
-        ]
-    },
-    {
-        "query": "insert into `locations` (`object_type`, `object_id`, `country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            null,
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "02636-5618",
-            "",
-            "1189 Adam Mews Suite 166",
-            "",
-            null,
-            null,
-            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
+            "bf3e54d2-37a0-585e-835b-80ddee8de633"
         ]
     },
     {
@@ -1164,14 +1110,14 @@
         "bindings": [
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
-            "2021-08-14 04:12:57",
-            "220f2a9f-658e-3aba-82a7-243fc224fbe0",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "2021-09-05 06:00:12",
+            "8b3218e6-f8de-3286-ba37-0ee5fec75eaf",
             "130",
             2,
             "2021-08-30 00:00:00",
@@ -1183,45 +1129,11 @@
         "bindings": [
             "Asset",
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
-            "Prof. Hector Wiza DDS",
+            "Henri Gusikowski",
             null,
             null,
             null,
-            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139",
-            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1b99939b-c780-5e17-baf6-c040f864173f"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9c9d3f46-1ace-5418-99b1-99afcc35060d"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
-            "Eli Collier",
-            "+19013270711",
-            null,
-            true,
-            "b17c906a-d184-5c69-ba1b-330d29815dc6",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1230,30 +1142,64 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "b17c906a-d184-5c69-ba1b-330d29815dc6",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "1b99939b-c780-5e17-baf6-c040f864173f"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "Kayla Goldner",
+            "+17033828050",
+            null,
+            true,
+            "9c9d3f46-1ace-5418-99b1-99afcc35060d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "9c9d3f46-1ace-5418-99b1-99afcc35060d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "b17c906a-d184-5c69-ba1b-330d29815dc6"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca"
-        ]
-    },
-    {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
-            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "39e37129-6357-5640-b3c2-2c1201cbd594"
         ]
     },
     {
@@ -1291,16 +1237,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "220f2a9f-658e-3aba-82a7-243fc224fbe0",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "8b3218e6-f8de-3286-ba37-0ee5fec75eaf",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "162.00",
             "198.00",
             "-1.00",
             "198.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
+            "39e37129-6357-5640-b3c2-2c1201cbd594",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1319,16 +1265,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "220f2a9f-658e-3aba-82a7-243fc224fbe0",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "8b3218e6-f8de-3286-ba37-0ee5fec75eaf",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "26.00",
             "34.00",
             "-2.00",
             "34.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
+            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1345,7 +1291,7 @@
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             null,
             null,
-            "fff01968-e122-52ef-becb-2ffbfc259162",
+            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1360,7 +1306,33 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "50787ac7-962a-38c7-a679-a94f6e8c497a",
+            "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+            "fff01968-e122-52ef-becb-2ffbfc259162",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "fff01968-e122-52ef-becb-2ffbfc259162",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "311c4a8b-7d91-5fc2-870f-2c5a03681902"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-06-01 00:00:00",
+            "2021-09-30 00:00:00",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
             "3a4fb277-bbd2-5710-a542-5274e3b53cc2",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1377,61 +1349,35 @@
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "2021-06-01 00:00:00",
-            "2021-09-30 00:00:00",
-            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "05d4c2f9-6779-3c38-8941-e63f6169af11",
-            "311c4a8b-7d91-5fc2-870f-2c5a03681902",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "311c4a8b-7d91-5fc2-870f-2c5a03681902",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "76dc1bd8-f28b-5d78-a1fe-3950002e5872"
-        ]
-    },
-    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "48499 grant viaduct suite 276",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "57143 kertzmann stravenue suite 631",
             "asset",
-            "02636-5618"
+            "91385"
         ]
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "48499 grant viaduct suite 276",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "57143 kertzmann stravenue suite 631",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "customer",
-            "02636-5618"
+            "91385"
         ]
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "48499 grant viaduct suite 276",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "57143 kertzmann stravenue suite 631",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "reseller",
-            "02636-5618"
+            "91385"
         ]
     },
     {
@@ -1439,15 +1385,15 @@
         "bindings": [
             "Asset",
             null,
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "02636-5618",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "91385",
             "",
-            "48499 Grant Viaduct Suite 276",
+            "57143 Kertzmann Stravenue Suite 631",
             "",
-            null,
-            null,
-            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
+            "2.901033",
+            "139.600696",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1457,14 +1403,14 @@
         "bindings": [
             "d164e377-3780-4587-8f97-a77c7952e953",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
-            "2021-08-14 14:41:28",
-            "32933c14-2325-3637-ac5b-5e5517e07ffb",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
+            "2021-09-04 19:38:37",
+            "a775cda0-aac7-3024-a4ad-380c933ca452",
             "130",
             2,
             "2021-08-30 00:00:00",
@@ -1476,45 +1422,11 @@
         "bindings": [
             "Asset",
             "d164e377-3780-4587-8f97-a77c7952e953",
-            "Prof. Hector Wiza DDS",
+            "Henri Gusikowski",
             null,
             null,
             null,
-            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139",
-            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1ef32220-4547-5581-8b7b-986ee08fcbba"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "d164e377-3780-4587-8f97-a77c7952e953",
-            "Eli Collier",
-            "+19013270711",
-            null,
-            true,
-            "f50b4a9f-54fb-5888-92f9-2288108f925d",
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1523,30 +1435,64 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f50b4a9f-54fb-5888-92f9-2288108f925d",
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "1ef32220-4547-5581-8b7b-986ee08fcbba"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "d164e377-3780-4587-8f97-a77c7952e953",
+            "Kayla Goldner",
+            "+17033828050",
+            null,
+            true,
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "f50b4a9f-54fb-5888-92f9-2288108f925d"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
+            "d164e377-3780-4587-8f97-a77c7952e953",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "1cae5a31-5e1c-586b-b7e9-4b713284e3ed"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "d164e377-3780-4587-8f97-a77c7952e953",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "c6ff9936-ddae-51a3-aa1a-95f8d04f68ab"
-        ]
-    },
-    {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
-            "d164e377-3780-4587-8f97-a77c7952e953",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8217815e-c85f-5561-909d-53fd76c39857"
         ]
     },
     {
@@ -1584,16 +1530,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d164e377-3780-4587-8f97-a77c7952e953",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "32933c14-2325-3637-ac5b-5e5517e07ffb",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "a775cda0-aac7-3024-a4ad-380c933ca452",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "162.00",
             "198.00",
             "-1.00",
             "198.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
+            "8217815e-c85f-5561-909d-53fd76c39857",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1612,16 +1558,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d164e377-3780-4587-8f97-a77c7952e953",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
-            "32933c14-2325-3637-ac5b-5e5517e07ffb",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "a775cda0-aac7-3024-a4ad-380c933ca452",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "26.00",
             "34.00",
             "-2.00",
             "34.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "83681df0-8340-58b5-8dfa-3504701d4dd4",
+            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1638,7 +1584,7 @@
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             null,
             null,
-            "83a75595-9b20-5c94-af50-9999f1ddc25e",
+            "83681df0-8340-58b5-8dfa-3504701d4dd4",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -1653,7 +1599,33 @@
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "50787ac7-962a-38c7-a679-a94f6e8c497a",
+            "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+            "83a75595-9b20-5c94-af50-9999f1ddc25e",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "83a75595-9b20-5c94-af50-9999f1ddc25e",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "cfbeb513-7023-5ead-b818-b161b8634f99"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-06-01 00:00:00",
+            "2021-09-30 00:00:00",
+            "d164e377-3780-4587-8f97-a77c7952e953",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1667,32 +1639,6 @@
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00",
             "0e899424-2221-5f00-8319-63147db3b868"
-        ]
-    },
-    {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "2021-06-01 00:00:00",
-            "2021-09-30 00:00:00",
-            "d164e377-3780-4587-8f97-a77c7952e953",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "05d4c2f9-6779-3c38-8941-e63f6169af11",
-            "cfbeb513-7023-5ead-b818-b161b8634f99",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00"
-        ]
-    },
-    {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "cfbeb513-7023-5ead-b818-b161b8634f99",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "33a66e72-16af-5e17-8fe1-1bf6cb2dc5e2"
         ]
     },
     {

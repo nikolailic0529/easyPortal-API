@@ -14,8 +14,7 @@ type Customer {
   ): [Contact!]! @morphMany
   headquarter: Location @morphOne
 
-  kpi: Kpi!
-  @field(resolver: "App\\GraphQL\\Queries\\Organization@kpi")
+  kpi: Kpi @morphOne
 
   # Contracts
   contracts (

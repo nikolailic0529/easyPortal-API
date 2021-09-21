@@ -52,14 +52,14 @@
     {
         "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
-            "cx"
+            "sd"
         ]
     },
     {
         "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "CX",
-            "Panama",
+            "SD",
+            "Fiji",
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -73,13 +73,13 @@
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433",
-            "fadelmouth"
+            "north alifort"
         ]
     },
     {
         "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "Fadelmouth",
+            "North Alifort",
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "2021-08-30 00:00:00",
@@ -87,28 +87,15 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `contacts_count`, `locations_count`, `kpi_assets_total`, `kpi_assets_active`, `kpi_assets_covered`, `kpi_customers_active`, `kpi_customers_active_new`, `kpi_contracts_active`, `kpi_contracts_active_amount`, `kpi_contracts_active_new`, `kpi_contracts_expiring`, `kpi_quotes_active`, `kpi_quotes_active_amount`, `kpi_quotes_active_new`, `kpi_quotes_expiring`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "Kilback, Fritsch and Gutmann",
+            "White Group",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-09-02 03:26:41",
+            "2021-09-08 21:21:25",
             0,
             1,
             1,
-            1,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
@@ -118,7 +105,7 @@
         "bindings": [
             "Customer",
             "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "Jaydon Hoppe",
+            "Ms. Pinkie Fisher III",
             null,
             null,
             null,
@@ -144,13 +131,49 @@
             "a0df13a5-c42c-4269-ae57-71085acb5319",
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "33599",
+            "78435",
             "",
-            "973 Columbus Garden",
+            "578 Weissnat Land",
             "",
-            "62.097693",
-            "31.901929",
+            "79.806713",
+            "98.605141",
             "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Customer",
+            1,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]

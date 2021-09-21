@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\Relations\HasContacts;
 use App\Models\Concerns\Relations\HasContracts;
+use App\Models\Concerns\Relations\HasKpi;
 use App\Models\Concerns\Relations\HasLocations;
 use App\Models\Concerns\Relations\HasQuotes;
 use App\Models\Concerns\Relations\HasStatuses;
@@ -29,19 +30,6 @@ use function app;
  * @property int                                                                 $assets_count
  * @property int                                                                 $locations_count
  * @property int                                                                 $contacts_count
- * @property int                                                                 $kpi_assets_total
- * @property int                                                                 $kpi_assets_active
- * @property float                                                               $kpi_assets_covered
- * @property int                                                                 $kpi_customers_active
- * @property int                                                                 $kpi_customers_active_new
- * @property int                                                                 $kpi_contracts_active
- * @property float                                                               $kpi_contracts_active_amount
- * @property int                                                                 $kpi_contracts_active_new
- * @property int                                                                 $kpi_contracts_expiring
- * @property int                                                                 $kpi_quotes_active
- * @property float                                                               $kpi_quotes_active_amount
- * @property int                                                                 $kpi_quotes_active_new
- * @property int                                                                 $kpi_quotes_expiring
  * @property \Carbon\CarbonImmutable|null                                        $changed_at
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
@@ -50,6 +38,7 @@ use function app;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
  * @property-read \App\Models\Location|null                                      $headquarter
+ * @property \App\Models\Kpi|null                                                $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
@@ -72,6 +61,7 @@ class Customer extends Model {
     use HasContacts;
     use HasContracts;
     use HasQuotes;
+    use HasKpi;
 
     protected const CASTS = [
         'changed_at' => 'datetime',

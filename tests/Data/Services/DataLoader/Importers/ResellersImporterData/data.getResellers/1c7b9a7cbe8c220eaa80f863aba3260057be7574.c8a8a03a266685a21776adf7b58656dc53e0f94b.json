@@ -1,0 +1,585 @@
+{
+    "selector": "data.getResellers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": null,
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "000a227a-660d-477c-8fdf-ce9be4aa5818",
+                    "name": "Wilkinson PLC",
+                    "updatedAt": "1631093951556",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "70375-5450",
+                            "address": "86931 Dibbert Stream Suite 089",
+                            "city": "Waelchiview",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-39.017245",
+                            "longitude": "-19.334094",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 23,
+                        "activeAssets": 20,
+                        "activeAssetsPercentage": 86.95652173913044,
+                        "activeCustomers": 7,
+                        "newActiveCustomers": 7,
+                        "activeContracts": 1,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 1,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0013a4cf-8654-4a5b-b747-d29746704f09",
+                    "name": "Hackett LLC",
+                    "updatedAt": "1631093952327",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "37119-7426",
+                            "address": "5223 Kennedi Points",
+                            "city": "Hackettborough",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "37.046967",
+                            "longitude": "111.365307",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 1,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 675.66,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "002b83e1-6107-4098-89f1-fe5602bef8ce",
+                    "name": "Nikolaus Ltd",
+                    "updatedAt": "1631093954117",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "06178",
+                            "address": "13737 Amely Springs",
+                            "city": "Pedrobury",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "38.348309",
+                            "longitude": "140.786979",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 5572,
+                        "activeAssets": 291,
+                        "activeAssetsPercentage": 5.22254127781766,
+                        "activeCustomers": 163,
+                        "newActiveCustomers": 163,
+                        "activeContracts": 4,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 4,
+                        "expiringContracts": 0,
+                        "activeQuotes": 37,
+                        "activeQuotesTotalAmount": 2765.63,
+                        "newActiveQuotes": 37,
+                        "expiringQuotes": 16,
+                        "expiredQuotes": 65,
+                        "expiredContracts": 3,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0040fc99-9023-4847-aff0-317aff613050",
+                    "name": "Lueilwitz LLC",
+                    "updatedAt": "1631093956665",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "06133",
+                            "address": "231 Irma Burg",
+                            "city": "Walterton",
+                            "locationType": "HEADQUARTER",
+                            "country": "Antarctica (the territory South of 60 deg S)",
+                            "latitude": "46.952673",
+                            "longitude": "22.101414",
+                            "countryCode": "GA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0048be0f-a435-45cc-ac9d-2fe215991ebf",
+                    "name": "Romaguera-Bechtelar",
+                    "updatedAt": "1631093957951",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "67188",
+                            "address": "3983 Dannie Loop Suite 861",
+                            "city": "Gwendolynburgh",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "29.127996",
+                            "longitude": "177.464482",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 1,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 136.32,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0049fc18-6477-4b4f-a637-ef0f27e082d4",
+                    "name": "Schneider-Bogan",
+                    "updatedAt": "1631093958649",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "67857-0623",
+                            "address": "598 Cortez Bridge Apt. 290",
+                            "city": "Wittingchester",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "2.263559",
+                            "longitude": "-4.87444",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 4,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 3,
+                        "newActiveCustomers": 3,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
+                    "name": "Kiehn-Wiegand",
+                    "updatedAt": "1631093960553",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "41089",
+                            "address": "8209 Octavia Lodge Apt. 127",
+                            "city": "Friedrichville",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "63.073277",
+                            "longitude": "159.677275",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3492,
+                        "activeAssets": 123,
+                        "activeAssetsPercentage": 3.52233676975945,
+                        "activeCustomers": 38,
+                        "newActiveCustomers": 38,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 36,
+                        "activeQuotesTotalAmount": 4716.68,
+                        "newActiveQuotes": 36,
+                        "expiringQuotes": 14,
+                        "expiredQuotes": 11,
+                        "expiredContracts": 8,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "006218e4-47c0-4363-ab9f-91e91ff1baac",
+                    "name": "Weber Group",
+                    "updatedAt": "1631093961323",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "06178",
+                            "address": "29749 Zola Plains Apt. 045",
+                            "city": "Pedrobury",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "40.817027",
+                            "longitude": "104.140313",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2162,
+                        "activeAssets": 1930,
+                        "activeAssetsPercentage": 89.26919518963923,
+                        "activeCustomers": 50,
+                        "newActiveCustomers": 50,
+                        "activeContracts": 20,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 20,
+                        "expiringContracts": 0,
+                        "activeQuotes": 7,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 7,
+                        "expiringQuotes": 3,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 2,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0066dc39-3655-43bf-9cb8-3dcc006987ff",
+                    "name": "Boehm Ltd",
+                    "updatedAt": "1631093962347",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "98464-9920",
+                            "address": "267 Jerde Views Apt. 698",
+                            "city": "South Colemanville",
+                            "locationType": "HEADQUARTER",
+                            "country": "Singapore",
+                            "latitude": "-22.177164",
+                            "longitude": "136.390708",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 10,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 4,
+                        "newActiveCustomers": 4,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
+                    "name": "Glover, Heaney and Smith",
+                    "updatedAt": "1631093962545",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "15278",
+                            "address": "107 Wisozk Village",
+                            "city": "Millerville",
+                            "locationType": "HEADQUARTER",
+                            "country": "Mauritius",
+                            "latitude": "-35.018277",
+                            "longitude": "-122.467693",
+                            "countryCode": "CK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 48,
+                        "activeAssets": 2,
+                        "activeAssetsPercentage": 4.166666666666666,
+                        "activeCustomers": 31,
+                        "newActiveCustomers": 31,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 10,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 10,
+                        "expiringQuotes": 10,
+                        "expiredQuotes": 19,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

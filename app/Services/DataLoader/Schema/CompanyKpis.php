@@ -16,4 +16,17 @@ class CompanyKpis extends Type {
     public ?float $activeQuotesTotalAmount;
     public ?int   $newActiveQuotes;
     public ?int   $expiringQuotes;
+    public ?int   $expiredQuotes;
+    public ?int   $expiredContracts;
+    public ?int   $orderedQuotes;
+    public ?int   $acceptedQuotes;
+    public ?int   $requestedQuotes;
+    public ?int   $receivedQuotes;
+    public ?int   $rejectedQuotes;
+    public ?int   $awaitingQuotes;
+    public ?int   $activeAssetsOnContract;
+    public ?int   $activeAssetsOnWarranty;
+    public ?int   $activeExposedAssets;
+    public ?float $serviceRevenueTotalAmount;
+    public ?float $serviceRevenueTotalAmountChange;
 }

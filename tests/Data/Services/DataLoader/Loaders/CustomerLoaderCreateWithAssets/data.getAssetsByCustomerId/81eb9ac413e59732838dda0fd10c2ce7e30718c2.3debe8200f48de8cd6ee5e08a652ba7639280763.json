@@ -21,16 +21,16 @@
                     "sku": "F6M50AAE",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "73841",
-                    "city": "West Virgilfort",
-                    "address": "845 Oberbrunner Meadows",
+                    "zip": "90849-1923",
+                    "city": "North Lydia",
+                    "address": "89875 Mraz Crossing Suite 546",
                     "address2": "",
-                    "country": "Guyana",
-                    "latitude": "3.015974",
-                    "longitude": "84.278743",
-                    "countryCode": "DK",
+                    "country": "Spain",
+                    "latitude": "43.68466",
+                    "longitude": "94.907904",
+                    "countryCode": "BN",
                     "status": "ACTIVE",
-                    "updatedAt": "1629359294989",
+                    "updatedAt": "1630756826640",
                     "assetCoverage": [
                         "ARCHIVED"
                     ],
@@ -40,11 +40,11 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": null,
-                            "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                            "documentNumber": "98a978d0-9f20-3fd5-9c2f-a6113b922766",
                             "document": {
                                 "id": "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
                                 "type": "Quote renewal",
-                                "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                                "documentNumber": "98a978d0-9f20-3fd5-9c2f-a6113b922766",
                                 "startDate": "2020-11-01",
                                 "endDate": "2021-10-31",
                                 "currencyCode": "EUR",
@@ -53,7 +53,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "b9671111-6df1-3cf0-ac7f-573daa25854b",
+                                    "said": "afb06e33-329e-3b5e-9441-cf2b6ba75525",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -80,20 +80,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+16196118788",
-                            "name": "Prof. Kieran Jones",
+                            "phoneNumber": "+15865508324",
+                            "name": "Athena Fay",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Raymundo Feeney DVM",
+                            "name": "Kellie Denesik DVM",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16196118788",
-                            "name": "Prof. Kieran Jones",
+                            "phoneNumber": "+15865508324",
+                            "name": "Athena Fay",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -111,16 +111,16 @@
                     "sku": "F6M50AAE",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "73841",
-                    "city": "West Virgilfort",
-                    "address": "845 Oberbrunner Meadows",
+                    "zip": "90849-1923",
+                    "city": "North Lydia",
+                    "address": "89875 Mraz Crossing Suite 546",
                     "address2": "",
-                    "country": "Guyana",
-                    "latitude": "3.015974",
-                    "longitude": "84.278743",
-                    "countryCode": "DK",
+                    "country": "Spain",
+                    "latitude": "43.68466",
+                    "longitude": "94.907904",
+                    "countryCode": "BN",
                     "status": "ACTIVE",
-                    "updatedAt": "1629387100168",
+                    "updatedAt": "1630804742243",
                     "assetCoverage": [
                         "ARCHIVED"
                     ],
@@ -130,11 +130,11 @@
                             "skuNumber": "HA156AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": null,
-                            "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                            "documentNumber": "98a978d0-9f20-3fd5-9c2f-a6113b922766",
                             "document": {
                                 "id": "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
                                 "type": "Quote renewal",
-                                "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                                "documentNumber": "98a978d0-9f20-3fd5-9c2f-a6113b922766",
                                 "startDate": "2020-11-01",
                                 "endDate": "2021-10-31",
                                 "currencyCode": "EUR",
@@ -143,7 +143,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "b9671111-6df1-3cf0-ac7f-573daa25854b",
+                                    "said": "afb06e33-329e-3b5e-9441-cf2b6ba75525",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -170,20 +170,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+16196118788",
-                            "name": "Prof. Kieran Jones",
+                            "phoneNumber": "+15865508324",
+                            "name": "Athena Fay",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Raymundo Feeney DVM",
+                            "name": "Kellie Denesik DVM",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16196118788",
-                            "name": "Prof. Kieran Jones",
+                            "phoneNumber": "+15865508324",
+                            "name": "Athena Fay",
                             "mail": null,
                             "type": "Software Contact Person"
                         }

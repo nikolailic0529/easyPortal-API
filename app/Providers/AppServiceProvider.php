@@ -23,6 +23,7 @@ use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\File;
 use App\Models\Invitation;
+use App\Models\Kpi;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\LocationType;
@@ -123,6 +124,7 @@ class AppServiceProvider extends ServiceProvider {
             'DocumentEntry'             => DocumentEntry::class,
             'File'                      => File::class,
             'Invitation'                => Invitation::class,
+            'Kpi'                       => Kpi::class,
             'Language'                  => Language::class,
             'Location'                  => Location::class,
             'LocationType'              => LocationType::class,

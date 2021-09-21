@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 use function app;
 
@@ -40,10 +39,6 @@ class File extends PolymorphicModel {
      * @var string
      */
     protected $table = 'files';
-
-    public function object(): MorphTo {
-        return $this->morphTo(null, 'object_type', 'object_id');
-    }
 
     public function getUrlAttribute(): string {
         return app()->make(UrlGenerator::class)->route('files', ['id' => $this->getKey()]);

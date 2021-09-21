@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Customer;
+use App\Services\DataLoader\Factories\Concerns\WithKpi;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -23,6 +24,8 @@ use function sprintf;
 //      If this is not true we need to update this factory and its tests.
 
 class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
+    use WithKpi;
+
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -112,30 +115,17 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         // Get/Create customer
         $created  = false;
         $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
-            $kpi                                   = $company->companyKpis;
-            $created                               = !$customer->exists;
-            $normalizer                            = $this->getNormalizer();
-            $customer->id                          = $normalizer->uuid($company->id);
-            $customer->name                        = $normalizer->string($company->name);
-            $customer->type                        = $this->companyType($customer, $company->companyTypes);
-            $customer->changed_at                  = $normalizer->datetime($company->updatedAt);
-            $customer->assets_count                = 0;
-            $customer->statuses                    = $this->companyStatuses($customer, $company);
-            $customer->contacts                    = $this->objectContacts($customer, $company->companyContactPersons);
-            $customer->locations                   = $this->objectLocations($customer, $company->locations);
-            $customer->kpi_assets_total            = (int) $normalizer->number($kpi?->totalAssets);
-            $customer->kpi_assets_active           = (int) $normalizer->number($kpi?->activeAssets);
-            $customer->kpi_assets_covered          = (float) $normalizer->number($kpi?->activeAssetsPercentage);
-            $customer->kpi_customers_active        = (int) $normalizer->number($kpi?->activeCustomers);
-            $customer->kpi_customers_active_new    = (int) $normalizer->number($kpi?->newActiveCustomers);
-            $customer->kpi_contracts_active        = (int) $normalizer->number($kpi?->activeContracts);
-            $customer->kpi_contracts_active_amount = (float) $normalizer->number($kpi?->activeContractTotalAmount);
-            $customer->kpi_contracts_active_new    = (int) $normalizer->number($kpi?->newActiveContracts);
-            $customer->kpi_contracts_expiring      = (int) $normalizer->number($kpi?->expiringContracts);
-            $customer->kpi_quotes_active           = (int) $normalizer->number($kpi?->activeQuotes);
-            $customer->kpi_quotes_active_amount    = (float) $normalizer->number($kpi?->activeQuotesTotalAmount);
-            $customer->kpi_quotes_active_new       = (int) $normalizer->number($kpi?->newActiveQuotes);
-            $customer->kpi_quotes_expiring         = (int) $normalizer->number($kpi?->expiringQuotes);
+            $created                = !$customer->exists;
+            $normalizer             = $this->getNormalizer();
+            $customer->id           = $normalizer->uuid($company->id);
+            $customer->name         = $normalizer->string($company->name);
+            $customer->type         = $this->companyType($customer, $company->companyTypes);
+            $customer->changed_at   = $normalizer->datetime($company->updatedAt);
+            $customer->assets_count = 0;
+            $customer->statuses     = $this->companyStatuses($customer, $company);
+            $customer->contacts     = $this->objectContacts($customer, $company->companyContactPersons);
+            $customer->locations    = $this->objectLocations($customer, $company->locations);
+            $customer->kpi          = $this->kpi($customer, $company->companyKpis);
 
             $customer->save();
 

@@ -14,7 +14,7 @@
     "insert into `resellers` (`id`, `type_id`, `name`, `customers_count`, `locations_count`, `assets_count`, `changed_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
     "insert into `types` (`id`, `object_type`, `key`, `name`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?)",
-    "insert into `customers` (`id`, `name`, `type_id`, `assets_count`, `locations_count`, `contacts_count`, `kpi_quotes_expiring`, `kpi_quotes_active_new`, `kpi_quotes_active_amount`, `kpi_quotes_active`, `kpi_contracts_expiring`, `kpi_contracts_active_new`, `kpi_contracts_active_amount`, `kpi_contracts_active`, `kpi_customers_active_new`, `kpi_customers_active`, `kpi_assets_covered`, `kpi_assets_active`, `kpi_assets_total`, `changed_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into `customers` (`id`, `name`, `type_id`, `assets_count`, `locations_count`, `contacts_count`, `changed_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "select * from `currencies` where `currencies`.`deleted_at` is null",
     "select * from `currencies` where (`currencies`.`id` = ?) and `currencies`.`deleted_at` is null limit 1",
     "insert into `currencies` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",

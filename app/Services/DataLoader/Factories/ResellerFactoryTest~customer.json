@@ -27,5 +27,6 @@
             "city": "Port Adanville",
             "locationType": "HEADQUARTER"
         }
-    ]
+    ],
+    "companyKpis": null
 }
