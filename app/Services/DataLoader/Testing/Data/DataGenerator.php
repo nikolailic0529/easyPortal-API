@@ -15,7 +15,10 @@ use function is_array;
 use function json_encode;
 use function sprintf;
 
+use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
+use const JSON_UNESCAPED_LINE_TERMINATORS;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
@@ -69,7 +72,6 @@ class DataGenerator {
         }
 
         // Save context
-        $options     = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         $contextData = [
             'generated' => Date::now(),
         ];
@@ -78,7 +80,15 @@ class DataGenerator {
             $contextData += $contextDataData;
         }
 
-        $fs->dumpFile($contextFile->getPathname(), json_encode($contextData, $options));
+        $fs->dumpFile($contextFile->getPathname(), json_encode(
+            $contextData,
+            JSON_PRETTY_PRINT
+            | JSON_UNESCAPED_SLASHES
+            | JSON_UNESCAPED_UNICODE
+            | JSON_UNESCAPED_LINE_TERMINATORS
+            | JSON_PRESERVE_ZERO_FRACTION
+            | JSON_THROW_ON_ERROR,
+        ));
 
         // Return
         return true;

@@ -344,39 +344,21 @@ class Client {
         int $limit = null,
         string $offset = null,
     ): QueryIterator {
-        $params                   = [
-            'from' => $this->datetime($from),
-        ];
-        $retriever                = $this->getAssetRetriever();
-        $getAssets                = $this->getLastIdBasedIterator(
-            'getAssets',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$limit: Int, \$lastId: String, \$from: String) {
-                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
+        return $this
+            ->getLastIdBasedIterator(
+                'getAssets',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$lastId: String, \$from: String) {
+                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                        {$this->getAssetPropertiesGraphQL()}
+                    }
                 }
-            }
-            GRAPHQL,
-            $params,
-            $retriever,
-        );
-        $getAssetsWithoutReseller = $this->getLastIdBasedIterator(
-            'getAssetsWithoutReseller',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$limit: Int, \$lastId: String, \$from: String) {
-                getAssetsWithoutReseller(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
-                }
-            }
-            GRAPHQL,
-            $params,
-            $retriever,
-        );
-
-        return (new QueryIteratorIterator([
-            'getAssets'                => $getAssets,
-            'getAssetsWithoutReseller' => $getAssetsWithoutReseller,
-        ]))
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+                $this->getAssetRetriever(),
+            )
             ->setLimit($limit)
             ->setOffset($offset);
     }
@@ -389,41 +371,22 @@ class Client {
         int $limit = null,
         string $offset = null,
     ): QueryIterator {
-        $params                   = [
-            'from' => $this->datetime($from),
-        ];
-        $retriever                = $this->getAssetRetriever();
-        $getAssets                = $this->getLastIdBasedIterator(
-            'getAssets',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$limit: Int, \$lastId: String, \$from: String) {
-                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
-                    {$this->getAssetDocumentsPropertiesGraphQL()}
+        return $this
+            ->getLastIdBasedIterator(
+                'getAssets',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$lastId: String, \$from: String) {
+                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                        {$this->getAssetPropertiesGraphQL()}
+                        {$this->getAssetDocumentsPropertiesGraphQL()}
+                    }
                 }
-            }
-            GRAPHQL,
-            $params,
-            $retriever,
-        );
-        $getAssetsWithoutReseller = $this->getLastIdBasedIterator(
-            'getAssetsWithoutReseller',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$limit: Int, \$lastId: String, \$from: String) {
-                getAssetsWithoutReseller(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
-                    {$this->getAssetDocumentsPropertiesGraphQL()}
-                }
-            }
-            GRAPHQL,
-            $params,
-            $retriever,
-        );
-
-        return (new QueryIteratorIterator([
-            'getAssets'                => $getAssets,
-            'getAssetsWithoutReseller' => $getAssetsWithoutReseller,
-        ]))
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+                $this->getAssetRetriever(),
+            )
             ->setLimit($limit)
             ->setOffset($offset);
     }

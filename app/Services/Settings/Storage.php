@@ -14,6 +14,7 @@ use function is_file;
 use function json_decode;
 use function json_encode;
 
+use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_LINE_TERMINATORS;
@@ -70,9 +71,10 @@ class Storage {
             $success = file_put_contents($path, json_encode(
                 $data,
                 JSON_PRETTY_PRINT
-                | JSON_UNESCAPED_UNICODE
                 | JSON_UNESCAPED_SLASHES
+                | JSON_UNESCAPED_UNICODE
                 | JSON_UNESCAPED_LINE_TERMINATORS
+                | JSON_PRESERVE_ZERO_FRACTION
                 | JSON_THROW_ON_ERROR,
             ));
 
