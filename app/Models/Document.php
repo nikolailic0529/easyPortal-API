@@ -39,7 +39,7 @@ use function count;
  * @property string|null                                                         $oem_said
  * @property string|null                                                         $oem_group_id
  * @property string                                                              $type_id
- * @property string                                                              $customer_id
+ * @property string|null                                                         $customer_id
  * @property string|null                                                         $reseller_id
  * @property string|null                                                         $distributor_id
  * @property string                                                              $number
@@ -58,7 +58,7 @@ use function count;
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property \App\Models\Currency|null                                           $currency
- * @property \App\Models\Customer                                                $customer
+ * @property \App\Models\Customer|null                                           $customer
  * @property \App\Models\Distributor|null                                        $distributor
  * @property-read bool                                                           $is_contract
  * @property-read bool                                                           $is_quote
