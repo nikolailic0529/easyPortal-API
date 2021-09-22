@@ -35,9 +35,10 @@ class TranslationsTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '
             {
                 application {
-                    translations(locale: "de") {
+                    translations(locale: "de_DE") {
                         key
                         value
+                        default
                     }
                 }
             }

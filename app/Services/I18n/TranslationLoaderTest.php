@@ -152,4 +152,21 @@ class TranslationLoaderTest extends TestCase {
         $loader->load($locale, '*');
         $loader->load($locale, '*', 'namespace');
     }
+
+    /**
+     * @covers ::getTranslations
+     */
+    public function testGetTranslations(): void {
+        $locale = $this->faker->locale;
+        $loader = Mockery::mock(TranslationLoader::class);
+        $loader->makePartial();
+
+        $loader
+            ->shouldReceive('load')
+            ->with($locale, '*', '*')
+            ->once()
+            ->andReturn([]);
+
+        $loader->getTranslations($locale);
+    }
 }

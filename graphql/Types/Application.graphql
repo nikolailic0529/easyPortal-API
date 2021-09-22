@@ -27,7 +27,7 @@ type Application {
 
   translations (
     locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  ): [Translation!]!
+  ): [ApplicationTranslation!]!
   @organization(root: true)
   @root
   @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
