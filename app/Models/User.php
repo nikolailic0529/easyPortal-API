@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\RoutesNotifications;
@@ -189,35 +190,30 @@ class User extends Model implements
         return $this->organization;
     }
 
-    public function organizations(): BelongsToMany {
-        $pivot = new OrganizationUser();
-
-        return $this
-            ->belongsToMany(Organization::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\App\Models\Organization>|array<\App\Models\Organization> $organizations
-     */
-    public function setOrganizationsAttribute(Collection|array $organizations): void {
-        $this->syncBelongsToMany('organizations', $organizations);
+    public function organizations(): HasManyThrough {
+        return $this->hasManyThrough(
+            Organization::class,
+            OrganizationUser::class,
+            null,
+            (new Organization())->getKeyName(),
+            null,
+            'organization_id',
+        );
     }
 
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
     }
 
-    public function teams(): BelongsToMany {
-        $pivot = new OrganizationUser();
-
-        return $this
-            ->belongsToMany(Team::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
+    public function teams(): HasManyThrough {
+        return $this->hasManyThrough(
+            Team::class,
+            OrganizationUser::class,
+            null,
+            (new Team())->getKeyName(),
+            null,
+            'team_id',
+        );
     }
 
     /**
