@@ -31,11 +31,15 @@
         "enabled" : {
             "type": "boolean"
         },
-        "roles" : {
-            "type": "array",
-            "items": {
-                "$ref": "../Types/Role.json"
-            }
+        "role" : {
+            "oneOf": [
+                {
+                    "$ref": "../Types/Role.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "invitations": {
             "type": "array",

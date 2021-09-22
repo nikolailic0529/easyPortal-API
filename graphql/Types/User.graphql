@@ -5,9 +5,11 @@ type User {
   email: String!
   email_verified: Boolean!
   enabled: Boolean!
-  roles: [Role!]! @belongsToMany
   invitations: [Invitation!]! @hasMany
 
   "Team in the current organization."
   team: Team @hasOne
+
+  "Role in the current organization."
+  role: Role @hasOne
 }
