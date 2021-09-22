@@ -2,25 +2,25 @@
 
 namespace App\GraphQL\Mutations\Application;
 
+use App\GraphQL\Queries\Application\Translations;
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Storages\AppTranslations;
-
-use function array_values;
+use Illuminate\Support\Collection;
 
 class UpdateApplicationTranslations {
     public function __construct(
         protected AppDisk $disk,
+        protected Translations $query,
     ) {
         // empty
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $inputTranslations = $args['input']['translations'];
         $locale            = $args['input']['locale'];
         $storage           = $this->getStorage($locale);
@@ -36,9 +36,20 @@ class UpdateApplicationTranslations {
         // Save
         $storage->save($translations);
 
+        // Add default
+        $updated = (new Collection($this->query->getTranslations($locale)))
+            ->map(static function (array $translation) use ($updated): ?array {
+                return isset($updated[$translation['key']])
+                    ? $updated[$translation['key']] + $translation
+                    : null;
+            })
+            ->filter()
+            ->values()
+            ->all();
+
         // Return
         return [
-            'updated' => array_values($updated),
+            'updated' => $updated,
         ];
     }
 

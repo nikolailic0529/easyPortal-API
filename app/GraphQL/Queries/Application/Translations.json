@@ -9,7 +9,7 @@
         "translations": {
             "type": "array",
             "items": {
-                "$ref": "../../Types/Translation.json"
+                "$ref": "../../Types/ApplicationTranslation.json"
             }
         }
     }

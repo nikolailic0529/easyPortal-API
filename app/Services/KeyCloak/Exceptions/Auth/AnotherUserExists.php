@@ -21,6 +21,6 @@ class AnotherUserExists extends AuthException {
     }
 
     public function getErrorMessage(): string {
-        return __('auth.failed');
+        return __('keycloak.auth.another_user_exists');
     }
 }

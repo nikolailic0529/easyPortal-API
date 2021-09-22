@@ -13,5 +13,5 @@ input UpdateApplicationTranslationsInput {
 }
 
 type UpdateApplicationTranslationsPayload {
-  updated: [Translation!]!
+  updated: [ApplicationTranslation!]!
 }

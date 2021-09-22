@@ -1,4 +1,4 @@
-type Translation {
+type ClientTranslation {
   key: String!
   value: String!
 }

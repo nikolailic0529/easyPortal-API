@@ -31,6 +31,13 @@ class TranslationLoader extends FileLoader {
     }
 
     /**
+     * @return array<string,string>
+     */
+    public function getTranslations(string $locale): array {
+        return $this->load($locale, '*', '*');
+    }
+
+    /**
      * @inheritdoc
      */
     public function load($locale, $group, $namespace = null): array {
@@ -42,9 +49,7 @@ class TranslationLoader extends FileLoader {
 
             // Fallback translations
             if ($locale !== $this->app->getFallbackLocale()) {
-                $loaded += []
-                    + $this->loadStorage($this->app->getFallbackLocale())
-                    + $this->loadJsonPaths($this->app->getFallbackLocale());
+                $loaded += $this->loadFallback();
             }
         }
 
@@ -53,7 +58,15 @@ class TranslationLoader extends FileLoader {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, string>
+     */
+    protected function loadFallback(): array {
+        return $this->loadStorage($this->app->getFallbackLocale())
+            + $this->loadJsonPaths($this->app->getFallbackLocale());
+    }
+
+    /**
+     * @return array<string, string>
      */
     protected function loadStorage(string $locale): array {
         try {

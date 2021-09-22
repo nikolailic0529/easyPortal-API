@@ -1251,22 +1251,6 @@
                 }
             }
         },
-        "Translation": {
-            "additionProperties": false,
-            "type": "object",
-            "required": [
-                "key",
-                "value"
-            ],
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "version": {
-                    "type": "string"
-                }
-            }
-        },
         "ApplicationService": {
             "type": "object",
             "additionalProperties": false,

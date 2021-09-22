@@ -2,12 +2,14 @@
 
 namespace App\GraphQL\Mutations\Application;
 
+use App\GraphQL\Queries\Application\Translations;
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Storages\AppTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -25,29 +27,43 @@ class UpdateApplicationTranslationsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed> $input
-     * @param array<mixed>        $translations
+     * @param array<string,mixed>                                                   $input
+     * @param array<string,array{key: string, value: string, default: string|null}> $defaultTranslations
+     * @param array<string, string>                                                 $customTranslations
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $defaultTranslations = [],
+        array $customTranslations = [],
         array $input = [
             'locale'       => 'en',
             'translations' => [],
         ],
-        array $translations = [],
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        if ($translations) {
+        if ($defaultTranslations) {
+            $this->override(
+                Translations::class,
+                static function (MockInterface $mock) use ($defaultTranslations): void {
+                    $mock
+                        ->shouldReceive('getTranslations')
+                        ->once()
+                        ->andReturn($defaultTranslations);
+                },
+            );
+        }
+
+        if ($customTranslations) {
             $disk    = $this->app()->make(AppDisk::class);
             $storage = new AppTranslations($disk, 'en');
 
-            $storage->save($translations);
+            $storage->save($customTranslations);
 
-            $this->app->bind(AppDisk::class, static function () use ($disk): AppDisk {
+            $this->override(AppDisk::class, static function () use ($disk): AppDisk {
                 return $disk;
             });
         }
@@ -60,6 +76,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         updated {
                             key
                             value
+                            default
                         }
                     }
             }', ['input' => $input])
@@ -82,10 +99,23 @@ class UpdateApplicationTranslationsTest extends TestCase {
                 ],
             ],
         ];
-        $objects = [
+        $updated = [
             [
-                'key'   => 'key1',
-                'value' => 'value1',
+                'key'     => 'key1',
+                'value'   => 'value1',
+                'default' => 'default-value',
+            ],
+        ];
+        $default = [
+            [
+                'key'     => 'key1',
+                'value'   => 'value',
+                'default' => 'default-value',
+            ],
+            [
+                'key'     => 'key2',
+                'value'   => '123',
+                'default' => '12345',
             ],
         ];
 
@@ -98,35 +128,41 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         'updateApplicationTranslations',
                         UpdateApplicationTranslations::class,
                         [
-                            'updated' => $objects,
+                            'updated' => $updated,
                         ],
                     ),
-                    $input,
+                    $default,
                     [
                         'key1' => 'other key',
                     ],
+                    $input,
                 ],
                 'success - update current value'             => [
                     new GraphQLSuccess(
                         'updateApplicationTranslations',
                         UpdateApplicationTranslations::class,
                         [
-                            'updated' => $objects,
+                            'updated' => $updated,
                         ],
                     ),
-                    $input,
+                    $default,
                     [
                         'key1' => 'old',
                     ],
+                    $input,
                 ],
                 'success - retrieve updated duplicate input' => [
                     new GraphQLSuccess(
                         'updateApplicationTranslations',
                         UpdateApplicationTranslations::class,
                         [
-                            'updated' => $objects,
+                            'updated' => $updated,
                         ],
                     ),
+                    $default,
+                    [
+                        'key1' => 'old',
+                    ],
                     [
                         'locale'       => 'en',
                         'translations' => [
@@ -139,9 +175,6 @@ class UpdateApplicationTranslationsTest extends TestCase {
                                 'value' => 'value1',
                             ],
                         ],
-                    ],
-                    [
-                        'key1' => 'old',
                     ],
                 ],
             ]),
