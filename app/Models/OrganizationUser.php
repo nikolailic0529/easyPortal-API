@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\Organization\Eloquent\OwnedByOrganization;
+
 /**
  * Organization User (pivot)
  *
@@ -18,7 +20,9 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser query()
  * @mixin \Eloquent
  */
-class OrganizationUser extends Pivot {
+class OrganizationUser extends Model {
+    use OwnedByOrganization;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

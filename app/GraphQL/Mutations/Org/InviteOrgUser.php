@@ -115,10 +115,8 @@ class InviteOrgUser {
             $organizationUser->user_id         = $user->getKey();
         }
         $organizationUser->team_id = $team?->getKey();
+        $organizationUser->role_id = $role->getKey();
         $organizationUser->save();
-
-        // Add to Role
-        $user->roles = [$role];
 
         // Save
         $user->save();

@@ -547,16 +547,17 @@ class OrganizationTest extends TestCase {
                             ]);
                             $organization->save();
 
-                            $user = User::factory()->create([
-                                'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'email'          => 'example@test.com',
-                                'email_verified' => true,
-                                'given_name'     => 'first',
-                                'family_name'    => 'last',
-                            ]);
-
-                            $user->organizations = [$organization];
-                            $user->save();
+                            User::factory()
+                                ->hasOrganizationUser(1, [
+                                    'organization_id' => $organization->getKey(),
+                                ])
+                                ->create([
+                                    'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'email'          => 'example@test.com',
+                                    'email_verified' => true,
+                                    'given_name'     => 'first',
+                                    'family_name'    => 'last',
+                                ]);
                         },
                     ],
                 ]),
@@ -587,16 +588,17 @@ class OrganizationTest extends TestCase {
                             ]);
                             $organization->save();
 
-                            $user = User::factory()->create([
-                                'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'email'          => 'example@test.com',
-                                'email_verified' => true,
-                                'given_name'     => 'first',
-                                'family_name'    => 'last',
-                            ]);
-
-                            $user->organizations = [$organization];
-                            $user->save();
+                            User::factory()
+                                ->hasOrganizationUser(1, [
+                                    'organization_id' => $organization->getKey(),
+                                ])
+                                ->create([
+                                    'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'email'          => 'example@test.com',
+                                    'email_verified' => true,
+                                    'given_name'     => 'first',
+                                    'family_name'    => 'last',
+                                ]);
                         },
                     ],
                 ]),

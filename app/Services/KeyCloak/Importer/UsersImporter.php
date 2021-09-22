@@ -5,6 +5,7 @@ namespace App\Services\KeyCloak\Importer;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\DataLoader\Client\QueryIterator;
@@ -106,6 +107,7 @@ class UsersImporter {
                         $user->company        = $attributes['company'][0] ?? null;
                         $user->photo          = $attributes['photo'][0] ?? null;
                     }
+                    $user->save();
 
                     $organizations = [];
                     $roles         = [];
@@ -115,14 +117,38 @@ class UsersImporter {
                         if ($organization) {
                             $organizations[] = $organization;
                         }
-                        if ($role) {
-                            $roles[] = $role;
+                        if ($role && $role->organization_id) {
+                            $roles [] = $role;
                         }
                     }
-                    $user->organizations = $organizations;
-                    $user->roles         = $roles;
+                    foreach ($organizations as $organization) {
+                        $organizationUser = OrganizationUser::query()
+                            ->where('organization_id', '=', $organization->getKey())
+                            ->where('user_id', '=', $user->getKey())
+                            ->first();
+                        if (!$organizationUser) {
+                            $organizationUser                  = new OrganizationUser();
+                            $organizationUser->organization_id = $organization->getKey();
+                            $organizationUser->user_id         = $user->getKey();
+                            $organizationUser->save();
+                        }
+                    }
 
-                    $user->save();
+                    foreach ($roles as $role) {
+                        $organizationUser = OrganizationUser::query()
+                            ->where('organization_id', '=', $role->organization_id)
+                            ->where('user_id', '=', $user->getKey())
+                            ->first();
+
+                        if (!$organizationUser) {
+                            $organizationUser                  = new OrganizationUser();
+                            $organizationUser->organization_id = $role->organization_id;
+                            $organizationUser->user_id         = $user->getKey();
+                        }
+
+                        $organizationUser->role_id = $role->getKey();
+                        $organizationUser->save();
+                    }
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
                         new FailedToImportObject($this, $item, $exception),

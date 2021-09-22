@@ -97,12 +97,17 @@ class InviteOrgUserTest extends TestCase {
                 : Mail::assertNotSent(InviteOrganizationUser::class);
 
             $user = UserModel::query()
-                ->with(['organizations', 'roles'])
+                ->with(['organizationUser'])
                 ->whereKey('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
                 ->first();
             $this->assertNotNull($user);
-            $this->assertTrue($user->organizations->contains($organization->getKey()));
-            $this->assertTrue($user->roles->contains('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
+            $this->assertNotEmpty($user->organizationUser);
+            // Organization
+            $this->assertContains(
+                $organization->getKey(),
+                $user->organizationUser->pluck('organization_id'),
+            );
+            $this->assertEquals('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', $user->role->getKey());
             if (isset($data['team_id'])) {
                 $this->assertNotNull($user->team);
                 $this->assertEquals($user->team->getKey(), $data['team_id']);
@@ -252,12 +257,14 @@ class InviteOrgUserTest extends TestCase {
                         }
 
                         // User in organization
-                        $orgUser                = UserModel::factory()->make([
-                            'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'email' => 'test@gmail.com',
-                        ]);
-                        $orgUser->organizations = [$organization];
-                        $orgUser->save();
+                        UserModel::factory()
+                            ->hasOrganizationUser(1, [
+                                'organization_id' => $organization->getKey(),
+                            ])
+                            ->create([
+                                'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email' => 'test@gmail.com',
+                            ]);
 
                         return $organization;
                     },
