@@ -27,6 +27,6 @@ class UserInsufficientData extends AuthException {
     }
 
     public function getErrorMessage(): string {
-        return __('auth.failed');
+        return __('keycloak.auth.insufficient_data');
     }
 }
