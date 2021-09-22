@@ -274,6 +274,35 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObjectCustomerNull(): void {
+        // Mock
+        $this->overrideFinders();
+
+        // Factory
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
+
+        // Create
+        // ---------------------------------------------------------------------
+        $json    = $this->getTestData()->json('~asset-document-no-customer.json');
+        $asset   = new ViewAsset($json);
+        $model   = AssetModel::factory()->create([
+            'id' => $asset->id,
+        ]);
+        $object  = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+        $created = $factory->createFromAssetDocumentObject($object);
+
+        $this->assertNotNull($created);
+        $this->assertNull($created->reseller_id);
+        $this->assertNull($created->customer_id);
+    }
+
+    /**
      * @covers ::assetDocumentObjectServiceGroup
      */
     public function testAssetDocumentObjectServiceGroup(): void {

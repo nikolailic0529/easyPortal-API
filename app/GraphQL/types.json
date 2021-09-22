@@ -534,7 +534,14 @@
                     "$ref": "#/definitions/ID"
                 },
                 "customer_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "reseller_id": {
                     "oneOf": [
@@ -608,7 +615,14 @@
                     ]
                 },
                 "customer": {
-                    "$ref": "#/definitions/Customer"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Customer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "oem": {
                     "$ref": "#/definitions/Oem"

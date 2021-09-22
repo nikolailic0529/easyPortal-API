@@ -1,0 +1,57 @@
+{
+    "id": "c0200a6c-1b8a-4365-9f1b-32d753194335",
+    "serialNumber": "CK012345ARB",
+    "productDescription": "Aruba AP-215 Dual 3x3:3 802.11ac AP",
+    "assetType": "Software",
+    "vendor": "HPE",
+    "sku": "JW1123",
+    "eolDate": "1615161600000",
+    "eosDate": "",
+    "country": "Great Britain",
+    "latitude": "51.5",
+    "longitude": "-0.116667",
+    "countryCode": "GB",
+    "zip": "70618",
+    "city": "Port Adanville",
+    "address": "Maddison Path Suite 820 Apt. 898",
+    "address2": "",
+    "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
+    "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+    "assetDocument": [
+        {
+            "documentNumber": "688b9621-3244-464b-9468-3cd74f5eaacf",
+            "skuNumber": "HA151AC",
+            "supportPackage": "H7J34AC",
+            "startDate": "1583020800000",
+            "endDate": "1614470400000",
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "languageCode": "fr",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48",
+            "estimatedValueRenewal": "145",
+            "document": {
+                "id": "688b9621-3244-464b-9468-3cd74f5eaacf",
+                "type": "MultiNational Quote",
+                "startDate": null,
+                "endDate": "1614470400000",
+                "currencyCode": "CUR",
+                "languageCode": "fr",
+                "totalNetPrice": "1,292.16",
+                "updatedAt": null,
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "said": "1234 4678 9012",
+                    "groupId": "abc-de",
+                    "groupDescription": "description"
+                },
+                "documentNumber": "0056523287",
+                "contactPersons": null,
+                "resellerId": null,
+                "customerId": "",
+                "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
+            }
+        }
+    ]
+}

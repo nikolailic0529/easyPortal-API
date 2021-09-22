@@ -490,7 +490,7 @@ input ContactsQuery {
   phone_number: String
   phone_valid: Boolean
   types: TypesQuery
-  assets: CustomersQuery
+  assets: AssetsQuery
   customers: CustomersQuery
 }
 
@@ -843,14 +843,14 @@ type Document {
   id: ID!
   oem_id: ID!
   type_id: ID!
-  customer_id: ID!
+  customer_id: ID
   number: String!
   start: Date
   end: Date
   price: Float
   currency_id: ID
   currency: Currency
-  customer: Customer!
+  customer: Customer
   oem: Oem!
   oem_said: String
   oemGroup: OemGroup
@@ -951,7 +951,7 @@ input DocumentsQuery {
   serial_number: String
   service_group_id: ID
   service_level_id: ID
-  customer_id: ID!
+  customer_id: ID
   customer: CustomersQuery
   reseller_id: ID
   reseller: ResellersQuery
@@ -3416,7 +3416,7 @@ input SearchByConditionContactsQuery {
   types: SearchByComplexRelationTypesQuery
 
   """Property condition."""
-  assets: SearchByComplexRelationCustomersQuery
+  assets: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
   customers: SearchByComplexRelationCustomersQuery
@@ -3718,7 +3718,7 @@ input SearchByConditionDocumentsQuery {
   service_level_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  customer_id: SearchByScalarID
+  customer_id: SearchByScalarIDOrNull
 
   """Property condition."""
   customer: SearchByComplexRelationCustomersQuery
