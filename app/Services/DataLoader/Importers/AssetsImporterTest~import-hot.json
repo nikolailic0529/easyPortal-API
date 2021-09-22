@@ -443,15 +443,19 @@
         ]
     },
     {
-        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
-            "76cdc083-d760-4586-b668-753abd8acbab"
+            "76cdc083-d760-4586-b668-753abd8acbab",
+            "a94f1744-eaec-4be2-9002-4bd789c547d9",
+            "e4178e34-b91d-4b44-96e6-282d85713146"
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "76cdc083-d760-4586-b668-753abd8acbab",
+            "a94f1744-eaec-4be2-9002-4bd789c547d9",
+            "e4178e34-b91d-4b44-96e6-282d85713146",
             "Document"
         ]
     },
@@ -2817,6 +2821,19 @@
         "query": "select * from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
             "8181f2d5-71bf-4b74-96e6-87d32cfbb828"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "8181f2d5-71bf-4b74-96e6-87d32cfbb828"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "8181f2d5-71bf-4b74-96e6-87d32cfbb828",
+            "Document"
         ]
     },
     {
