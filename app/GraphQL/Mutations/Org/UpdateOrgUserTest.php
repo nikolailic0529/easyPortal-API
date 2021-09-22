@@ -146,18 +146,20 @@ class UpdateOrgUserTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
-            $updatedUser = User::factory()->create([
-                'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                'type' => UserType::keycloak(),
-            ]);
-
             // Old Role
-            $role               = Role::factory()->create([
+            $role = Role::factory()->create([
                 'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                 'organization_id' => $organization->getKey(),
             ]);
-            $updatedUser->roles = [$role];
-            $updatedUser->save();
+            User::factory()
+                ->hasOrganizationUser(1, [
+                    'organization_id' => $organization->getKey(),
+                    'role_id'         => $role->getKey(),
+                ])
+                ->create([
+                    'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                    'type' => UserType::keycloak(),
+                ]);
 
             // New Role
             Role::factory()->create([
@@ -416,6 +418,58 @@ class UpdateOrgUserTest extends TestCase {
                         return [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                             'team_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
+                        ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->never();
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
+                        $mock
+                            ->shouldReceive('removeUserFromGroup')
+                            ->never();
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->never();
+                    },
+                ],
+                'Root User'                             => [
+                    new GraphQLError('updateOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $settings,
+                    static function (TestCase $test, ?Organization $organization, ?User $user): void {
+                        // Old Role
+                        $role = Role::factory()->create([
+                            'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
+                            'organization_id' => $organization->getKey(),
+                        ]);
+                        User::factory()
+                            ->hasOrganizationUser(1, [
+                                'organization_id' => $organization->getKey(),
+                                'role_id'         => $role->getKey(),
+                            ])
+                            ->create([
+                                'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                'type' => UserType::local(),
+                            ]);
+
+                        // New Role
+                        Role::factory()->create([
+                            'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                            'organization_id' => $organization->getKey(),
+                        ]);
+                        // New Team
+                        Team::factory()->create([
+                            'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9ded',
+                            'name' => 'team1',
+                        ]);
+                    },
+                    static function (): array {
+                        return [
+                            'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
                         ];
                     },
                     static function (MockInterface $mock): void {
