@@ -50,7 +50,7 @@ class MapTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionMapQuery, $diff: Float!) {
                     map (where: $where, diff: $diff) {
@@ -133,33 +133,38 @@ class MapTest extends TestCase {
             ]);
             // Inside
             $locationA = Location::factory()->create([
-                'latitude'   => 1.00,
-                'longitude'  => 1.00,
-                'country_id' => Country::factory(),
-                'city_id'    => $city->getKey(),
+                'latitude'     => 1.00,
+                'longitude'    => 1.00,
+                'country_id'   => Country::factory(),
+                'city_id'      => $city->getKey(),
+                'assets_count' => 3,
             ]);
 
             $locationB = Location::factory()->create([
-                'latitude'   => 1.10,
-                'longitude'  => 1.10,
-                'object_id'  => $customerA,
-                'country_id' => $country->getKey(),
-                'city_id'    => City::factory(),
+                'latitude'     => 1.10,
+                'longitude'    => 1.10,
+                'object_id'    => $customerA,
+                'object_type'  => $customerA->getMorphClass(),
+                'country_id'   => $country->getKey(),
+                'city_id'      => City::factory(),
+                'assets_count' => 1,
             ]);
             $locationC = Location::factory()->create([
-                'latitude'    => 1.5,
-                'longitude'   => 1.5,
-                'object_type' => (new Asset())->getMorphClass(),
-                'object_id'   => null,
-                'country_id'  => Country::factory(),
-                'city_id'     => City::factory(),
+                'latitude'     => 1.5,
+                'longitude'    => 1.5,
+                'object_type'  => (new Asset())->getMorphClass(),
+                'object_id'    => null,
+                'country_id'   => Country::factory(),
+                'city_id'      => City::factory(),
+                'assets_count' => 1,
             ]);
             Location::factory()->create([
-                'latitude'   => 1.25,
-                'longitude'  => 1.25,
-                'object_id'  => $customerB,
-                'country_id' => Country::factory(),
-                'city_id'    => City::factory(),
+                'latitude'    => 1.25,
+                'longitude'   => 1.25,
+                'object_id'   => $customerB,
+                'object_type' => $customerB->getMorphClass(),
+                'country_id'  => Country::factory(),
+                'city_id'     => City::factory(),
             ]);
 
             Asset::factory()->create([
