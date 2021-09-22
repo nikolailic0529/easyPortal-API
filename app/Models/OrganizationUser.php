@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 
 /**
@@ -20,7 +21,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser query()
  * @mixin \Eloquent
  */
-class OrganizationUser extends Model {
+class OrganizationUser extends Model implements Auditable {
     use OwnedByOrganization;
 
     /**

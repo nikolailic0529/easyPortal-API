@@ -5504,11 +5504,13 @@ type User {
   email: String!
   email_verified: Boolean!
   enabled: Boolean!
-  roles: [Role!]!
   invitations: [Invitation!]!
 
   """Team in the current organization."""
   team: Team
+
+  """Role in the current organization."""
+  role: Role
 }
 
 """A paginated list of User items."""
