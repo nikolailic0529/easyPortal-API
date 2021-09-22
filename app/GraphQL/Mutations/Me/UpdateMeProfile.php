@@ -27,9 +27,19 @@ class UpdateMeProfile {
     public function __invoke($_, array $args): array {
         $user         = $this->auth->user();
         $keycloakUser = $this->client->getUserById($user->getKey());
-        $userType     = new UserType();
-        $attributes   = $keycloakUser->attributes;
-        foreach ($args['input'] as $property => $value) {
+        $result       = $this->updateUserProfile($user, $keycloakUser, $args['input']);
+        return [
+            'result' => $result && $user->save(),
+        ];
+    }
+
+    /**
+     * @param array<string, mixed> $input
+     */
+    public function updateUserProfile(User $user, UserType $keycloakUser, array $input): bool {
+        $userType   = new UserType();
+        $attributes = $keycloakUser->attributes;
+        foreach ($input as $property => $value) {
             switch ($property) {
                 case 'first_name':
                     $userType->firstName = $value;
@@ -53,10 +63,7 @@ class UpdateMeProfile {
         $userType->attributes = $attributes;
 
         // Update Keycloak
-        $result = $this->client->updateUser($user->getKey(), $userType) && $user->save();
-        return [
-            'result' => $result,
-        ];
+        return $this->client->updateUser($user->getKey(), $userType);
     }
 
     protected function store(User $user, ?UploadedFile $file): ?string {
