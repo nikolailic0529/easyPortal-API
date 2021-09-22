@@ -490,7 +490,7 @@ input ContactsQuery {
   phone_number: String
   phone_valid: Boolean
   types: TypesQuery
-  assets: CustomersQuery
+  assets: AssetsQuery
   customers: CustomersQuery
 }
 
@@ -3416,7 +3416,7 @@ input SearchByConditionContactsQuery {
   types: SearchByComplexRelationTypesQuery
 
   """Property condition."""
-  assets: SearchByComplexRelationCustomersQuery
+  assets: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
   customers: SearchByComplexRelationCustomersQuery
