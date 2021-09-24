@@ -3,21 +3,18 @@
 namespace App\Models\Concerns\Relations;
 
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Location;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
  * @mixin \App\Models\Model
  */
 trait HasCustomersThroughLocations {
-    public function customers(): HasManyThrough {
-        return $this->hasManyThrough(
-            Customer::class,
+    public function customers(): HasManyDeep {
+        return $this->hasManyDeep(Customer::class, [
             Location::class,
-            null,
-            (new Customer())->getKeyName(),
-            null,
-            'object_id',
-        );
+            CustomerLocation::class,
+        ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Concerns;
 use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
 use App\Models\Concerns\SmartSave\SmartSave;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * @mixin \App\Models\Model
@@ -16,5 +17,6 @@ trait ModelTraits {
     use SoftDeletes;
     use CascadeDeletes;
     use MorphMapRequired;
+    use HasRelationships;
     use HideGeneratedAttributes;
 }
