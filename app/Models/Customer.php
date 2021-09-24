@@ -11,38 +11,39 @@ use App\Models\Concerns\Relations\HasQuotes;
 use App\Models\Concerns\Relations\HasResellers;
 use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
+use App\Models\Concerns\SyncHasMany;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Integer;
 use App\Services\Search\Properties\Text;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use function app;
 
 /**
  * Customer.
  *
- * @property string                                                              $id
- * @property string                                                              $type_id
- * @property string                                                              $name
- * @property int                                                                 $assets_count
- * @property int                                                                 $locations_count
- * @property int                                                                 $contacts_count
- * @property \Carbon\CarbonImmutable|null                                        $changed_at
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
- * @property-read \App\Models\Location|null                                      $headquarter
- * @property \App\Models\Kpi|null                                                $kpi
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>        $statuses
- * @property \App\Models\Type                                                    $type
+ * @property string                                                                 $id
+ * @property string                                                                 $type_id
+ * @property string                                                                 $name
+ * @property int                                                                    $assets_count
+ * @property int                                                                    $locations_count
+ * @property int                                                                    $contacts_count
+ * @property \Carbon\CarbonImmutable|null                                           $changed_at
+ * @property \Carbon\CarbonImmutable                                                $created_at
+ * @property \Carbon\CarbonImmutable                                                $updated_at
+ * @property \Carbon\CarbonImmutable|null                                           $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $contracts
+ * @property-read \App\Models\CustomerLocation|null                                 $headquarter
+ * @property \App\Models\Kpi|null                                                   $kpi
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $quotes
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller>         $resellers
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
+ * @property \App\Models\Type                                                       $type
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
@@ -61,6 +62,7 @@ class Customer extends Model {
     use HasContracts;
     use HasQuotes;
     use HasKpi;
+    use SyncHasMany;
 
     protected const CASTS = [
         'changed_at' => 'datetime',
@@ -84,11 +86,11 @@ class Customer extends Model {
 
     // <editor-fold desc="Relations">
     // =========================================================================
-    public function headquarter(): MorphOne {
+    public function headquarter(): HasOne {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');
 
         return $this
-            ->morphOne(Location::class, 'object')
+            ->hasOne(CustomerLocation::class)
             ->whereHas('types', static function ($query) use ($type) {
                 return $query->whereKey($type);
             });
@@ -100,6 +102,10 @@ class Customer extends Model {
 
     protected function getResellersPivot(): Pivot {
         return new ResellerCustomer();
+    }
+
+    protected function getLocationsModel(): Model {
+        return new CustomerLocation();
     }
     // </editor-fold>
 
@@ -116,7 +122,7 @@ class Customer extends Model {
             'locations_count' => new Integer('locations_count'),
             'headquarter'     => [
                 'city' => [
-                    'name' => new Text('headquarter.city.name'),
+                    'name' => new Text('headquarter.location.city.name'),
                 ],
             ],
         ];

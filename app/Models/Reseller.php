@@ -15,24 +15,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Reseller.
  *
- * @property string                                                           $id
- * @property string                                                           $type_id
- * @property string                                                           $name
- * @property int                                                              $customers_count
- * @property int                                                              $locations_count
- * @property int                                                              $assets_count
- * @property int                                                              $contacts_count
- * @property \Carbon\CarbonImmutable|null                                     $changed_at
- * @property \Carbon\CarbonImmutable                                          $created_at
- * @property \Carbon\CarbonImmutable                                          $updated_at
- * @property \Carbon\CarbonImmutable|null                                     $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>   $customers
- * @property \App\Models\Kpi|null                                             $kpi
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>     $statuses
- * @property \App\Models\Type                                                 $type
+ * @property string                                                                 $id
+ * @property string                                                                 $type_id
+ * @property string                                                                 $name
+ * @property int                                                                    $customers_count
+ * @property int                                                                    $locations_count
+ * @property int                                                                    $assets_count
+ * @property int                                                                    $contacts_count
+ * @property \Carbon\CarbonImmutable|null                                           $changed_at
+ * @property \Carbon\CarbonImmutable                                                $created_at
+ * @property \Carbon\CarbonImmutable                                                $updated_at
+ * @property \Carbon\CarbonImmutable|null                                           $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>         $customers
+ * @property \App\Models\Kpi|null                                                   $kpi
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation> $locations
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
+ * @property \App\Models\Type                                                       $type
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
@@ -76,5 +76,9 @@ class Reseller extends Model {
 
     protected function getCustomersPivot(): Pivot {
         return new ResellerCustomer();
+    }
+
+    protected function getLocationsModel(): Model {
+        return new ResellerLocation();
     }
 }

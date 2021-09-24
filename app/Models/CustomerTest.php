@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasContactsTests;
-use App\Models\Concerns\Relations\HasLocationsTests;
 use Tests\TestCase;
 
 /**
@@ -11,7 +10,6 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Models\Customer
  */
 class CustomerTest extends TestCase {
-    use HasLocationsTests;
     use HasContactsTests;
 
     protected function getModel(): Model {
