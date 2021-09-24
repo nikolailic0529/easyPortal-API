@@ -86,16 +86,6 @@ class Customer extends Model {
 
     // <editor-fold desc="Relations">
     // =========================================================================
-    public function headquarter(): HasOne {
-        $type = app()->make(Repository::class)->get('ep.headquarter_type');
-
-        return $this
-            ->hasOne(CustomerLocation::class)
-            ->whereHas('types', static function ($query) use ($type) {
-                return $query->whereKey($type);
-            });
-    }
-
     protected function getStatusesPivot(): Pivot {
         return new CustomerStatus();
     }

@@ -4,9 +4,12 @@ namespace App\Models\Concerns\Relations;
 
 use App\Models\Concerns\SyncHasMany;
 use App\Models\Model;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
+use function app;
 use function count;
 
 /**
@@ -31,8 +34,22 @@ trait HasLocations {
         $this->locations_count = count($locations);
     }
 
+    public function headquarter(): HasOne {
+        $type = app()->make(Repository::class)->get('ep.headquarter_type');
+
+        return $this
+            ->hasOne($this->getLocationsModel()::class)
+            ->whereHas('types', static function ($query) use ($type) {
+                return $query->whereKey($type);
+            });
+    }
+
     /**
      * @return T
      */
     abstract protected function getLocationsModel(): Model;
+
+    protected function getLocationsForeignKey(): ?string {
+        return null;
+    }
 }
