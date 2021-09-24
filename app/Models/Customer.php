@@ -8,15 +8,14 @@ use App\Models\Concerns\Relations\HasContracts;
 use App\Models\Concerns\Relations\HasKpi;
 use App\Models\Concerns\Relations\HasLocations;
 use App\Models\Concerns\Relations\HasQuotes;
+use App\Models\Concerns\Relations\HasResellers;
 use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
-use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Integer;
 use App\Services\Search\Properties\Text;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use function app;
@@ -52,11 +51,11 @@ use function app;
  */
 class Customer extends Model {
     use Searchable;
-    use OwnedByReseller;
     use HasFactory;
     use HasType;
     use HasStatuses;
     use HasAssets;
+    use HasResellers;
     use HasLocations;
     use HasContacts;
     use HasContracts;
@@ -95,25 +94,12 @@ class Customer extends Model {
             });
     }
 
-    public function resellers(): BelongsToMany {
-        $pivot = new ResellerCustomer();
-
-        return $this
-            ->belongsToMany(Reseller::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
-    }
-
     protected function getStatusesPivot(): Pivot {
         return new CustomerStatus();
     }
-    // </editor-fold>
 
-    // <editor-fold desc="OwnedByOrganization">
-    // =========================================================================
-    public function getOrganizationColumn(): string {
-        return "resellers.{$this->resellers()->getModel()->getKeyName()}";
+    protected function getResellersPivot(): Pivot {
+        return new ResellerCustomer();
     }
     // </editor-fold>
 

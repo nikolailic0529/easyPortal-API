@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerLocation query()
  * @mixin \Eloquent
  */
-class ResellerLocation extends Model {
+class ResellerLocation extends Pivot {
     use HasFactory;
     use HasTypes;
     use HasLocation;

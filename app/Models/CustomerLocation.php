@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerLocation query()
  * @mixin \Eloquent
  */
-class CustomerLocation extends Model {
+class CustomerLocation extends Pivot {
     use HasFactory;
     use HasTypes;
     use HasLocation;

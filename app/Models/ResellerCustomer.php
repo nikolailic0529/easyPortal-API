@@ -8,6 +8,7 @@ namespace App\Models;
  * @property string                       $id
  * @property string                       $reseller_id
  * @property string                       $customer_id
+ * @property int                          $assets_count
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at

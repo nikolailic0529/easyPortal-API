@@ -4,16 +4,13 @@ namespace App\Models;
 
 use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasCustomers;
 use App\Models\Concerns\Relations\HasKpi;
 use App\Models\Concerns\Relations\HasLocations;
 use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
-
-use function count;
 
 /**
  * Reseller.
@@ -46,6 +43,7 @@ class Reseller extends Model {
     use HasFactory;
     use HasAssets;
     use HasLocations;
+    use HasCustomers;
     use HasType;
     use HasStatuses;
     use HasContacts;
@@ -72,25 +70,11 @@ class Reseller extends Model {
      */
     protected $casts = self::CASTS;
 
-    public function customers(): BelongsToMany {
-        $pivot = new ResellerCustomer();
-
-        return $this
-            ->belongsToMany(Customer::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\App\Models\Reseller>|array<\App\Models\Reseller> $customers
-     */
-    public function setCustomersAttribute(Collection|array $customers): void {
-        $this->syncBelongsToMany('customers', $customers);
-        $this->customers_count = count($customers);
-    }
-
     protected function getStatusesPivot(): Pivot {
         return new ResellerStatus();
+    }
+
+    protected function getCustomersPivot(): Pivot {
+        return new ResellerCustomer();
     }
 }
