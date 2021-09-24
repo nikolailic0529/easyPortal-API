@@ -4,16 +4,18 @@ type Customer {
   type: Type! @belongsTo
   type_id: ID!
   statuses: [Status]! @belongsToMany
-  assets_count: Int!
-  locations_count: Int!
-  locations: [Location!]! @morphMany
   contacts_count: Int!
   contacts (
     where: ContactsQuery @searchBy
     order: ContactsSort @sortBy
   ): [Contact!]! @morphMany
-  headquarter: Location @morphOne
 
+  locations: [CustomerLocation!]! @hasMany
+  headquarter: CustomerLocation @hasOne
+
+  # TODO [GraphQL] Should be available only for root organization
+  assets_count: Int!
+  locations_count: Int!
   kpi: Kpi @morphOne
 
   # Contracts

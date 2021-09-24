@@ -10,7 +10,6 @@ input LocationsQuery {
   city_id: ID!
   country: CountriesQuery
   country_id: ID!
-  types: TypesQuery
   assets: CustomersQuery
   customers: CustomersQuery
 }

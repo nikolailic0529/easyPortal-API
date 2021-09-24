@@ -1,0 +1,5 @@
+type ResellerLocation {
+  location_id: ID!
+  location: Location @hasOne
+  types: [Type!]! @belongsToMany
+}

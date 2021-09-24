@@ -4,5 +4,6 @@ type Reseller {
   assets_count: Int!
   customers_count: Int!
   locations_count: Int!
-  locations: [Location!]! @hasMany
+  locations: [ResellerLocation!]! @hasMany
+  headquarter: ResellerLocation @hasOne
 }
