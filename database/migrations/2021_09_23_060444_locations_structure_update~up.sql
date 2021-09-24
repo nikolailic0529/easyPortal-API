@@ -163,8 +163,7 @@ ALTER TABLE `assets`
     ADD INDEX `fk_assets_locations2_idx`(`location_id` ASC) VISIBLE;
 
 ALTER TABLE `reseller_customers`
-    ADD COLUMN `customers_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `customer_id`,
-    ADD COLUMN `assets_count`    INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `customers_count`;
+    ADD COLUMN `assets_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `customer_id`;
 
 ALTER TABLE `assets`
     ADD CONSTRAINT `fk_assets_locations2`
