@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasContacts;
-use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasCustomerNullable;
 use App\Models\Concerns\Relations\HasOem;
 use App\Models\Concerns\Relations\HasProduct;
-use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasResellerNullable;
 use App\Models\Concerns\Relations\HasStatus;
 use App\Models\Concerns\Relations\HasTags;
 use App\Models\Concerns\Relations\HasTypeNullable;
@@ -75,8 +75,8 @@ class Asset extends Model {
     use HasOem;
     use HasTypeNullable;
     use HasProduct;
-    use HasReseller;
-    use HasCustomer;
+    use HasResellerNullable;
+    use HasCustomerNullable;
     use HasStatus;
     use HasContacts;
     use HasTags;

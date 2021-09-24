@@ -3,17 +3,16 @@
 namespace App\Models\Concerns\Relations;
 
 use App\Models\Reseller;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Models\Model
  */
 trait HasReseller {
-    public function reseller(): BelongsTo {
-        return $this->belongsTo(Reseller::class);
+    use HasResellerNullable {
+        setResellerAttribute as private setResellerAttributeNullable;
     }
 
-    public function setResellerAttribute(?Reseller $reseller): void {
-        $this->reseller()->associate($reseller);
+    public function setResellerAttribute(Reseller $reseller): void {
+        $this->setResellerAttributeNullable($reseller);
     }
 }

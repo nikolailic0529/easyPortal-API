@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasAsset;
-use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasCustomerNullable;
 use App\Models\Concerns\Relations\HasDocument;
-use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasResellerNullable;
 use App\Models\Concerns\Relations\HasServiceGroup;
 use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
@@ -46,8 +46,8 @@ class AssetWarranty extends Model {
     use HasFactory;
     use HasAsset;
     use HasServiceGroup;
-    use HasReseller;
-    use HasCustomer;
+    use HasResellerNullable;
+    use HasCustomerNullable;
     use HasDocument;
     use SyncBelongsToMany;
 
