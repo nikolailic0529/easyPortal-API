@@ -2,21 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
-use App\Models\Concerns\HideGeneratedAttributes;
-use App\Models\Concerns\MorphMapRequired;
-use App\Models\Concerns\SmartSave\SmartSave;
-use App\Models\Concerns\UuidAsPrimaryKey;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Concerns\ModelTraits;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
-    use SmartSave;
-    use SoftDeletes;
-    use CascadeDeletes;
-    use UuidAsPrimaryKey;
-    use MorphMapRequired;
-    use HideGeneratedAttributes;
+    use ModelTraits;
 
     protected const CASTS = [
         // empty
