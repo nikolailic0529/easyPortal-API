@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -55,22 +56,36 @@ class CustomersTest extends TestCase {
                     contacts_count
                     locations_count
                     locations {
-                        id
-                        state
-                        postcode
-                        line_one
-                        line_two
-                        latitude
-                        longitude
+                        location_id
+                        location {
+                            id
+                            state
+                            postcode
+                            line_one
+                            line_two
+                            latitude
+                            longitude
+                        }
+                        types {
+                          id
+                          name
+                        }
                     }
                     headquarter {
-                        id
-                        state
-                        postcode
-                        line_one
-                        line_two
-                        latitude
-                        longitude
+                        location_id
+                        location {
+                            id
+                            state
+                            postcode
+                            line_one
+                            line_two
+                            latitude
+                            longitude
+                        }
+                        types {
+                            id
+                            name
+                        }
                     }
                     contacts {
                         name
@@ -163,14 +178,24 @@ class CustomersTest extends TestCase {
                                 'locations_count' => 1,
                                 'locations'       => [
                                     [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
+                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                        'location'    => [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => 47.91634204,
+                                            'longitude' => -2.26318359,
+                                        ],
+                                        'types'       => [
+                                            [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                                'name' => 'headquarter',
+                                            ],
+                                        ],
                                     ],
+
                                 ],
                                 'contacts_count'  => 1,
                                 'contacts'        => [
@@ -181,13 +206,22 @@ class CustomersTest extends TestCase {
                                     ],
                                 ],
                                 'headquarter'     => [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => 47.91634204,
-                                    'longitude' => -2.26318359,
+                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'location'    => [
+                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                        'state'     => 'state1',
+                                        'postcode'  => '19911',
+                                        'line_one'  => 'line_one_data',
+                                        'line_two'  => 'line_two_data',
+                                        'latitude'  => 47.91634204,
+                                        'longitude' => -2.26318359,
+                                    ],
+                                    'types'       => [
+                                        [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                            'name' => 'headquarter',
+                                        ],
+                                    ],
                                 ],
                                 'statuses'        => [
                                     [
@@ -230,7 +264,25 @@ class CustomersTest extends TestCase {
                             'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                         static function (TestCase $test, Organization $organization): void {
-                            // static function will throw error
+                            /** @var \App\Models\Reseller $reseller */
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+
+                            /** @var \App\Models\Location $location */
+                            $location = Location::factory()->create([
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => '47.91634204',
+                                'longitude' => '-2.26318359',
+                            ]);
+
+                            $location->resellers()->attach($reseller);
+
+                            /** @var \App\Models\Customer $customer */
                             $customer = Customer::factory()
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',
@@ -280,25 +332,16 @@ class CustomersTest extends TestCase {
                                     'locations_count' => 1,
                                 ]);
 
-                            $customer->resellers()->attach(Reseller::factory()->create([
-                                'id' => $organization,
-                            ]));
+                            $customer->resellers()->attach($reseller);
 
-                            Location::factory()
+                            CustomerLocation::factory()
                                 ->hasTypes(1, [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'name' => 'headquarter',
                                 ])
                                 ->create([
-                                    'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'       => 'state1',
-                                    'postcode'    => '19911',
-                                    'line_one'    => 'line_one_data',
-                                    'line_two'    => 'line_two_data',
-                                    'latitude'    => '47.91634204',
-                                    'longitude'   => '-2.26318359',
-                                    'object_type' => $customer->getMorphClass(),
-                                    'object_id'   => $customer->getKey(),
+                                    'customer_id' => $customer,
+                                    'location_id' => $location,
                                 ]);
                         },
                     ],

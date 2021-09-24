@@ -23,7 +23,10 @@ trait HasLocations {
     use SyncHasMany;
 
     public function locations(): HasMany {
-        return $this->hasMany($this->getLocationsModel()::class);
+        return $this->hasMany(
+            $this->getLocationsModel()::class,
+            $this->getLocationsForeignKey(),
+        );
     }
 
     /**
@@ -38,7 +41,10 @@ trait HasLocations {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');
 
         return $this
-            ->hasOne($this->getLocationsModel()::class)
+            ->hasOne(
+                $this->getLocationsModel()::class,
+                $this->getLocationsForeignKey(),
+            )
             ->whereHas('types', static function ($query) use ($type) {
                 return $query->whereKey($type);
             });

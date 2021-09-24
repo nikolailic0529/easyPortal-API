@@ -71,33 +71,40 @@ class OrganizationTest extends TestCase {
                         timezone
                         currency_id
                         currency {
-                          id
-                          name
-                          code
+                            id
+                            name
+                            code
                         }
                         locations {
-                          id
-                          state
-                          postcode
-                          line_one
-                          line_two
-                          latitude
-                          longitude
+                            location_id
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                latitude
+                                longitude
+                            }
+                            types {
+                                id
+                                name
+                            }
                         }
                         branding {
-                          dark_theme
-                          main_color
-                          secondary_color
-                          logo_url
-                          favicon_url
-                          default_main_color
-                          default_secondary_color
-                          default_logo_url
-                          default_favicon_url
-                          welcome_image_url
-                          welcome_heading
-                          welcome_underline
-                          dashboard_image_url
+                            dark_theme
+                            main_color
+                            secondary_color
+                            logo_url
+                            favicon_url
+                            default_main_color
+                            default_secondary_color
+                            default_logo_url
+                            default_favicon_url
+                            welcome_image_url
+                            welcome_heading
+                            welcome_underline
+                            dashboard_image_url
                         }
                         statuses {
                             id
@@ -105,18 +112,25 @@ class OrganizationTest extends TestCase {
                             name
                         }
                         contacts {
-                          name
-                          email
-                          phone_valid
+                            name
+                            email
+                            phone_valid
                         }
                         headquarter {
-                          id
-                          state
-                          postcode
-                          line_one
-                          line_two
-                          latitude
-                          longitude
+                            location_id
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                latitude
+                                longitude
+                            }
+                            types {
+                                id
+                                name
+                            }
                         }
                         kpi {
                             assets_total

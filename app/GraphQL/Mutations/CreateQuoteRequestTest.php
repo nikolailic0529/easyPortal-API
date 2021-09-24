@@ -130,13 +130,16 @@ class CreateQuoteRequestTest extends TestCase {
                             assets_count
                             locations_count
                             locations {
-                                id
-                                state
-                                postcode
-                                line_one
-                                line_two
-                                latitude
-                                longitude
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
                             }
                             contacts_count
                             contacts {

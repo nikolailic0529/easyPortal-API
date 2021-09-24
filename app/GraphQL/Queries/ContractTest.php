@@ -6,15 +6,18 @@ use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Language;
+use App\Models\Location;
 use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type;
@@ -110,13 +113,20 @@ class ContractTest extends TestCase {
                             contacts_count
                             locations_count
                             locations {
-                                id
-                                state
-                                postcode
-                                line_one
-                                line_two
-                                latitude
-                                longitude
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
                             }
                             contacts {
                                 name
@@ -131,13 +141,20 @@ class ContractTest extends TestCase {
                             locations_count
                             assets_count
                             locations {
-                                id
-                                state
-                                postcode
-                                line_one
-                                line_two
-                                latitude
-                                longitude
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
                             }
                         }
                         currency {
@@ -378,13 +395,17 @@ class ContractTest extends TestCase {
                                 'locations_count' => 1,
                                 'locations'       => [
                                     [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
+                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                        'location'    => [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => 47.91634204,
+                                            'longitude' => -2.26318359,
+                                        ],
+                                        'types'       => [],
                                     ],
                                 ],
                                 'contacts_count'  => 1,
@@ -404,13 +425,17 @@ class ContractTest extends TestCase {
                                 'assets_count'    => 0,
                                 'locations'       => [
                                     [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                        'state'     => 'state2',
-                                        'postcode'  => '19912',
-                                        'line_one'  => 'reseller_one_data',
-                                        'line_two'  => 'reseller_two_data',
-                                        'latitude'  => 49.91634204,
-                                        'longitude' => 90.26318359,
+                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                        'location'    => [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => 47.91634204,
+                                            'longitude' => -2.26318359,
+                                        ],
+                                        'types'       => [],
                                     ],
                                 ],
                             ],
@@ -501,16 +526,29 @@ class ContractTest extends TestCase {
                                 'name' => 'name aaa',
                             ]);
                             // Customer Creation creation belongs to
+                            $location = Location::factory()->create([
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => '47.91634204',
+                                'longitude' => '-2.26318359',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id'              => $organization,
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 1,
+                                'assets_count'    => 0,
+                            ]);
+
+                            ResellerLocation::factory()->create([
+                                'reseller_id' => $reseller,
+                                'location_id' => $location,
+                            ]);
+
                             $customer = Customer::factory()
-                                ->hasLocations(1, [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => '47.91634204',
-                                    'longitude' => '-2.26318359',
-                                ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',
                                     'email'       => 'contact1@test.com',
@@ -523,6 +561,14 @@ class ContractTest extends TestCase {
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
                                 ]);
+
+                            $customer->resellers()->attach($reseller);
+
+                            CustomerLocation::factory()->create([
+                                'customer_id' => $customer,
+                                'location_id' => $location,
+                            ]);
+
                             // Product creation belongs to
                             $product = Product::factory()->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -532,24 +578,7 @@ class ContractTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Reseller creation belongs to
-                            $reseller = Reseller::factory()
-                                ->hasLocations(1, [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                    'state'     => 'state2',
-                                    'postcode'  => '19912',
-                                    'line_one'  => 'reseller_one_data',
-                                    'line_two'  => 'reseller_two_data',
-                                    'latitude'  => '49.91634204',
-                                    'longitude' => '90.26318359',
-                                ])
-                                ->create([
-                                    'id'              => $organization,
-                                    'name'            => 'reseller1',
-                                    'customers_count' => 0,
-                                    'locations_count' => 1,
-                                    'assets_count'    => 0,
-                                ]);
+
                             // Currency creation belongs to
                             $currency = Currency::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -562,8 +591,6 @@ class ContractTest extends TestCase {
                                 'name' => 'Lang1',
                                 'code' => 'en',
                             ]);
-
-                            $customer->resellers()->attach($reseller);
                             // Distributor
                             $distributor  = Distributor::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
