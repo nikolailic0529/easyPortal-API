@@ -7,9 +7,9 @@ type User {
   enabled: Boolean!
   invitations: [Invitation!]! @hasMany
 
-  "Team in the current organization."
-  team: Team @hasOne
+  team: Team
+  @field(resolver: "App\\GraphQL\\Queries\\User@team")
 
-  "Role in the current organization."
-  role: Role @hasOne
+  role: Role
+  @field(resolver: "App\\GraphQL\\Queries\\User@role")
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Organization User (pivot)
@@ -16,6 +17,8 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property-read \App\Models\Role|null   $role
+ * @property-read \App\Models\Team|null   $team
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser query()
@@ -30,4 +33,12 @@ class OrganizationUser extends Model implements Auditable {
      * @var string
      */
     protected $table = 'organization_users';
+
+    public function role(): BelongsTo {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function team(): BelongsTo {
+        return $this->belongsTo(Team::class);
+    }
 }

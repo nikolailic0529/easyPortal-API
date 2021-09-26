@@ -183,6 +183,10 @@ class OrganizationTest extends TestCase {
                                 given_name
                                 family_name
                                 email_verified
+                                role {
+                                    id
+                                    name
+                                }
                             }
                             paginatorInfo {
                                 count

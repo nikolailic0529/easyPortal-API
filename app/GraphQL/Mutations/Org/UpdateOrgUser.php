@@ -47,29 +47,29 @@ class UpdateOrgUser {
         $this->settings($user, $input);
 
         // OrganizationUser
-        $organization_user = OrganizationUser::query()
+        $organizationUser = OrganizationUser::query()
             ->where('organization_id', '=', $organization->getKey())
             ->where('user_id', '=', $user->getKey())
             ->first();
 
-        if (!$organization_user) {
-            $organization_user                  = new OrganizationUser();
-            $organization_user->organization_id = $organization->getKey();
-            $organization_user->user_id         = $user->getKey();
+        if (!$organizationUser) {
+            $organizationUser                  = new OrganizationUser();
+            $organizationUser->organization_id = $organization->getKey();
+            $organizationUser->user_id         = $user->getKey();
         }
 
         // Update Role
         if (isset($input['role_id']) && !$user->isRoot()) {
             $role = Role::query()->whereKey($input['role_id'])->first();
-            $this->role($organization_user, $keycloakUser, $role);
+            $this->role($organizationUser, $keycloakUser, $role);
         }
 
         // Update Team
         if (isset($input['team_id'])) {
-            $organization_user->team_id = $input['team_id'];
+            $organizationUser->team_id = $input['team_id'];
         }
 
-        $organization_user->save();
+        $organizationUser->save();
 
         return ['result' => $user->save()];
     }

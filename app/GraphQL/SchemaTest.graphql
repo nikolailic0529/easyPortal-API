@@ -5505,11 +5505,7 @@ type User {
   email_verified: Boolean!
   enabled: Boolean!
   invitations: [Invitation!]!
-
-  """Team in the current organization."""
   team: Team
-
-  """Role in the current organization."""
   role: Role
 }
 

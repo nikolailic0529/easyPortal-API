@@ -102,15 +102,15 @@ class InviteOrgUserTest extends TestCase {
                 ->first();
             $this->assertNotNull($user);
             $this->assertNotEmpty($user->organizationUser);
+            $organizationUser = $user->organizationUser->first();
             // Organization
-            $this->assertContains(
+            $this->assertEquals(
                 $organization->getKey(),
-                $user->organizationUser->pluck('organization_id'),
+                $organizationUser->organization_id,
             );
-            $this->assertEquals('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', $user->role->getKey());
+            $this->assertEquals('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', $organizationUser->role_id);
             if (isset($data['team_id'])) {
-                $this->assertNotNull($user->team);
-                $this->assertEquals($user->team->getKey(), $data['team_id']);
+                $this->assertEquals($organizationUser->team_id, $data['team_id']);
             }
         }
     }

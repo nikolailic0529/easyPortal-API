@@ -7,7 +7,6 @@ use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
-use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -19,14 +18,11 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\RoutesNotifications;
 use Illuminate\Support\Collection;
 use LogicException;
 
-use function app;
 /**
  * User.
  *
@@ -189,30 +185,8 @@ class User extends Model implements
         return $this->organization;
     }
 
-    public function organizations(): HasManyThrough {
-        return $this->hasManyThrough(
-            Organization::class,
-            OrganizationUser::class,
-            null,
-            (new Organization())->getKeyName(),
-            null,
-            'organization_id',
-        );
-    }
-
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
-    }
-
-    public function teams(): HasManyThrough {
-        return $this->hasManyThrough(
-            Team::class,
-            OrganizationUser::class,
-            null,
-            (new Team())->getKeyName(),
-            null,
-            'team_id',
-        );
     }
 
     /**
@@ -220,26 +194,6 @@ class User extends Model implements
      */
     public function setTeamsAttribute(Collection|array $teams): void {
         $this->syncBelongsToMany('teams', $teams);
-    }
-
-    public function team(): HasOneThrough {
-        $team         = new Team();
-        $pivot        = new OrganizationUser();
-        $organization = app()->make(CurrentOrganization::class);
-
-        return $this->hasOneThrough(Team::class, OrganizationUser::class, 'user_id', 'id', 'id', 'team_id')
-            ->where($pivot->qualifyColumn('organization_id'), '=', $organization->getKey())
-            ->whereNull($team->qualifyColumn($team->getDeletedAtColumn()));
-    }
-
-    public function role(): HasOneThrough {
-        $role         = new Role();
-        $pivot        = new OrganizationUser();
-        $organization = app()->make(CurrentOrganization::class);
-
-        return $this->hasOneThrough(Role::class, OrganizationUser::class, 'user_id', 'id', 'id', 'role_id')
-            ->where($pivot->qualifyColumn('organization_id'), '=', $organization->getKey())
-            ->whereNull($role->qualifyColumn($role->getDeletedAtColumn()));
     }
 
     public function organizationUser(): HasMany {

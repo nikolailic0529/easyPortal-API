@@ -6,14 +6,20 @@ ALTER TABLE `organization_users`
     ADD COLUMN `role_id` CHAR(36) NULL DEFAULT NULL AFTER `user_id`,
     ADD INDEX `fk_organization_users_roles1_idx` (`role_id` ASC) VISIBLE;
 
-DROP TABLE IF EXISTS `user_roles`;
-
 ALTER TABLE `organization_users`
     ADD CONSTRAINT `fk_organization_users_roles1`
     FOREIGN KEY (`role_id`)
     REFERENCES `roles` (`id`)
     ON DELETE RESTRICT
     ON UPDATE RESTRICT;
+
+UPDATE `organization_users`
+    INNER JOIN `user_roles` ON `user_roles`.`user_id` = `organization_users`.`user_id`
+    INNER JOIN `roles` ON `roles`.`id` = `user_roles`.`role_id`
+    SET `organization_users`.`role_id` = `user_roles`.`role_id`
+    WHERE `roles`.`organization_id` = `organization_users`.`organization_id`;
+
+DROP TABLE IF EXISTS `user_roles`;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

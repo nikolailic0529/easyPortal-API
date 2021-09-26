@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\MangedByRoot
+ * @coversDefaultClass \App\Rules\ManagedByRoot
  */
-class MangedByRootTest extends TestCase {
+class ManagedByRootTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -27,7 +27,7 @@ class MangedByRootTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(MangedByRoot::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(ManagedByRoot::class)->message(), 'Translated');
     }
 
     /**
@@ -38,7 +38,7 @@ class MangedByRootTest extends TestCase {
     public function testPasses(bool $expected, Closure $userFactory, Closure $inputFactory): void {
         $this->setUser($userFactory);
         $value = $inputFactory();
-        $this->assertEquals($expected, $this->app->make(MangedByRoot::class)->passes('test', $value));
+        $this->assertEquals($expected, $this->app->make(ManagedByRoot::class)->passes('test', $value));
     }
     // </editor-fold>
 

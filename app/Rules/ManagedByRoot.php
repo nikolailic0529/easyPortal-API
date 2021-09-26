@@ -9,7 +9,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 use function __;
 
-class MangedByRoot implements Rule {
+class ManagedByRoot implements Rule {
     public function __construct(
         protected Auth $auth,
         protected AuthManager $authManager,
@@ -25,7 +25,7 @@ class MangedByRoot implements Rule {
             return false;
         }
 
-        return !($user->isRoot() && !$this->auth->isRoot($this->authManager->user()));
+        return !($this->auth->isRoot($user) && !$this->auth->isRoot($this->authManager->user()));
     }
 
     public function message(): string {

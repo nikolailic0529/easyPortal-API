@@ -2,11 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=1;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=1;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-ALTER TABLE `organization_users`
-    DROP INDEX `fk_organization_users_roles1_idx`,
-    DROP CONSTRAINT `fk_organization_users_roles1`,
-    DROP COLUMN `role_id`,
-
 CREATE TABLE IF NOT EXISTS `user_roles` (
   `id`          CHAR(36)   NOT NULL,
   `user_id`     CHAR(36)   NOT NULL,
@@ -32,6 +27,15 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
     ON UPDATE RESTRICT
 );
 
+INSERT INTO `user_roles`(`id`, `user_id`, `role_id`)
+    SELECT UUID(), `user_id`, `role_id`
+    FROM `organization_users`
+    WHERE `role_id` IS NOT NULL;
+
+ALTER TABLE `organization_users`
+    DROP INDEX `fk_organization_users_roles1_idx`,
+    DROP CONSTRAINT `fk_organization_users_roles1`,
+    DROP COLUMN `role_id`;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

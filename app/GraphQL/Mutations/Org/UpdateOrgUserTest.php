@@ -132,8 +132,9 @@ class UpdateOrgUserTest extends TestCase {
             }
 
             if (isset($input['team_id'])) {
-                $this->assertNotNull($updatedUser->team);
-                $this->assertEquals($updatedUser->team->getKey(), $input['team_id']);
+                $organizationUser = $updatedUser->organizationUser->first();
+                $this->assertNotNull($organizationUser);
+                $this->assertEquals($organizationUser->team_id, $input['team_id']);
             }
         }
     }
