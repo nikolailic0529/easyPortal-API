@@ -6,6 +6,7 @@ use App\GraphQL\Mutations\Me\UpdateMeProfile;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\CurrentOrganization;
@@ -14,6 +15,7 @@ use function array_key_exists;
 
 class UpdateOrgUser {
     public function __construct(
+        protected Auth $auth,
         protected Client $client,
         protected CurrentOrganization $organization,
         protected UpdateMeProfile $updateMeProfile,
@@ -59,7 +61,7 @@ class UpdateOrgUser {
         }
 
         // Update Role
-        if (isset($input['role_id']) && !$user->isRoot()) {
+        if (isset($input['role_id']) && !$this->auth->isRoot($user)) {
             $role = Role::query()->whereKey($input['role_id'])->first();
             $this->role($organizationUser, $keycloakUser, $role);
         }
