@@ -12,9 +12,22 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  */
 trait HasCustomersThroughLocations {
     public function customers(): HasManyDeep {
-        return $this->hasManyDeep(Customer::class, [
-            Location::class,
-            CustomerLocation::class,
-        ]);
+        return $this->hasManyDeep(
+            Customer::class,
+            [
+                Location::class,
+                CustomerLocation::class,
+            ],
+            [
+                null,
+                null,
+                'id',
+            ],
+            [
+                null,
+                null,
+                'location_id',
+            ],
+        );
     }
 }
