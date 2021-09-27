@@ -4,9 +4,7 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\City;
 use App\Models\Country;
-use App\Models\Customer;
 use App\Models\Location as LocationModel;
-use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolvers\CountryResolver;
@@ -15,17 +13,18 @@ use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
-use Closure;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
+use Tests\WithoutOrganizationScope;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\LocationFactory
  */
 class LocationFactoryTest extends TestCase {
+    use WithoutOrganizationScope;
     use WithQueryLog;
     use Helper;
 
@@ -36,7 +35,6 @@ class LocationFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $factory  = $this->app->make(LocationFactory::class);
-        $customer = Customer::factory()->make();
         $location = new Location([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
@@ -49,7 +47,7 @@ class LocationFactoryTest extends TestCase {
 
         $this->flushQueryLog();
 
-        $factory->find($customer, $location);
+        $factory->find($location);
 
         $this->assertCount(2, $this->getQueryLog());
     }
@@ -60,22 +58,21 @@ class LocationFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
-        $customer = new Customer();
-        $factory  = Mockery::mock(LocationFactory::class);
+        $factory = Mockery::mock(LocationFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
 
         if ($expected) {
             $factory->shouldReceive($expected)
                 ->once()
-                ->with($customer, $type)
+                ->with($type)
                 ->andReturns();
         } else {
             $this->expectException(InvalidArgumentException::class);
             $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
-        $factory->create($customer, $type);
+        $factory->create($type);
     }
 
     /**
@@ -84,7 +81,6 @@ class LocationFactoryTest extends TestCase {
     public function testCreateFromLocation(): void {
         $latitude  = (string) $this->faker->latitude;
         $longitude = (string) $this->faker->longitude;
-        $customer  = Customer::factory()->make();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
@@ -115,7 +111,6 @@ class LocationFactoryTest extends TestCase {
             ->shouldReceive('location')
             ->once()
             ->with(
-                $customer,
                 $country,
                 $city,
                 $location->zip,
@@ -127,7 +122,7 @@ class LocationFactoryTest extends TestCase {
             )
             ->andReturns();
 
-        $factory->create($customer, $location);
+        $factory->create($location);
     }
 
     /**
@@ -136,7 +131,6 @@ class LocationFactoryTest extends TestCase {
     public function testCreateFromLocationCityWithState(): void {
         $latitude  = (string) $this->faker->latitude;
         $longitude = (string) $this->faker->longitude;
-        $customer  = Customer::factory()->make();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
@@ -169,7 +163,6 @@ class LocationFactoryTest extends TestCase {
             ->shouldReceive('location')
             ->once()
             ->with(
-                $customer,
                 $country,
                 $city,
                 $location->zip,
@@ -181,14 +174,13 @@ class LocationFactoryTest extends TestCase {
             )
             ->andReturns();
 
-        $factory->create($customer, $location);
+        $factory->create($location);
     }
 
     /**
      * @covers ::createFromLocation
      */
     public function testCreateFromLocationWithoutZip(): void {
-        $customer = Customer::factory()->make();
         $state    = $this->faker->state;
         $cityName = $this->faker->city;
         $location = new Location([
@@ -199,7 +191,7 @@ class LocationFactoryTest extends TestCase {
 
         $factory = $this->app->make(LocationFactory::class);
 
-        $this->assertNull($factory->create($customer, $location));
+        $this->assertNull($factory->create($location));
     }
 
     /**
@@ -208,7 +200,6 @@ class LocationFactoryTest extends TestCase {
     public function testCreateFromAsset(): void {
         $latitude  = (string) $this->faker->latitude;
         $longitude = (string) $this->faker->longitude;
-        $customer  = Customer::factory()->make();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
@@ -239,7 +230,6 @@ class LocationFactoryTest extends TestCase {
             ->shouldReceive('location')
             ->once()
             ->with(
-                $customer,
                 $country,
                 $city,
                 $assert->zip,
@@ -251,7 +241,7 @@ class LocationFactoryTest extends TestCase {
             )
             ->andReturns();
 
-        $factory->create($customer, $assert);
+        $factory->create($assert);
     }
 
     /**
@@ -260,7 +250,6 @@ class LocationFactoryTest extends TestCase {
     public function testCreateFromAssetCityWithState(): void {
         $latitude  = (string) $this->faker->latitude;
         $longitude = (string) $this->faker->longitude;
-        $customer  = Customer::factory()->make();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
@@ -293,7 +282,6 @@ class LocationFactoryTest extends TestCase {
             ->shouldReceive('location')
             ->once()
             ->with(
-                $customer,
                 $country,
                 $city,
                 $assert->zip,
@@ -305,7 +293,7 @@ class LocationFactoryTest extends TestCase {
             )
             ->andReturns();
 
-        $factory->create($customer, $assert);
+        $factory->create($assert);
     }
 
     /**
@@ -395,21 +383,15 @@ class LocationFactoryTest extends TestCase {
 
     /**
      * @covers ::location
-     *
-     * @dataProvider dataProviderLocation
      */
-    public function testLocation(Closure $factory): void {
+    public function testLocation(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(LocationResolver::class);
-        $customer   = $factory($this);
         $location   = LocationModel::factory()
             ->hasCountry(Country::factory())
             ->hasCity(City::factory())
-            ->create([
-                'object_type' => $customer->getMorphClass(),
-                'object_id'   => $customer->getKey(),
-            ]);
+            ->create();
         $country    = $location->country;
         $city       = $location->city;
 
@@ -423,7 +405,6 @@ class LocationFactoryTest extends TestCase {
             }
 
             public function location(
-                Model $object,
                 Country $country,
                 City $city,
                 string $postcode,
@@ -434,7 +415,6 @@ class LocationFactoryTest extends TestCase {
                 ?string $longitude,
             ): LocationModel {
                 return parent::location(
-                    $object,
                     $country,
                     $city,
                     $postcode,
@@ -450,35 +430,18 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        if ($customer->exists) {
-            $this->assertEquals($location, $factory->location(
-                $customer,
-                $country,
-                $city,
-                $location->postcode,
-                $location->line_one,
-                $location->line_two,
-                $location->state,
-                $location->latitude,
-                $location->longitude,
-            ));
-            $this->assertNotEquals('', $location->state);
-            $this->assertCount(1, $this->getQueryLog());
-        } else {
-            $this->assertNotNull($factory->location(
-                $customer,
-                $country,
-                $city,
-                $location->postcode,
-                $location->line_one,
-                $location->line_two,
-                $location->state,
-                $location->latitude,
-                $location->longitude,
-            ));
-            $this->assertNotEquals('', $location->state);
-            $this->assertCount(0, $this->getQueryLog());
-        }
+        $this->assertEquals($location, $factory->location(
+            $country,
+            $city,
+            $location->postcode,
+            $location->line_one,
+            $location->line_two,
+            $location->state,
+            $location->latitude,
+            $location->longitude,
+        ));
+        $this->assertNotEquals('', $location->state);
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -490,7 +453,6 @@ class LocationFactoryTest extends TestCase {
         $latitude  = " {$this->faker->latitude} ";
         $longitude = " {$this->faker->longitude} ";
         $created   = $factory->location(
-            $customer,
             $country,
             $city,
             $postcode,
@@ -502,9 +464,6 @@ class LocationFactoryTest extends TestCase {
         );
 
         $this->assertNotNull($created);
-        $this->assertEquals($customer->exists, $created->exists);
-        $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals($customer->getKey(), $created->object_id);
         $this->assertEquals($country->getKey(), $created->country_id);
         $this->assertEquals($city->getKey(), $created->city_id);
         $this->assertEquals($normalizer->string($postcode), $created->postcode);
@@ -513,7 +472,7 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($lineTwo), $created->line_two);
         $this->assertEquals($this->latitude($normalizer->coordinate($latitude)), $created->latitude);
         $this->assertEquals($this->longitude($normalizer->coordinate($longitude)), $created->longitude);
-        $this->assertCount($customer->exists ? 2 : 0, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -521,7 +480,6 @@ class LocationFactoryTest extends TestCase {
         $state          = "{$state} 2";
         $created->state = '';
         $updated        = $factory->location(
-            $customer,
             $country,
             $city,
             $created->postcode,
@@ -534,7 +492,7 @@ class LocationFactoryTest extends TestCase {
 
         $this->assertSame($created, $updated);
         $this->assertEquals($normalizer->string($state), $updated->state);
-        $this->assertCount((int) $customer->exists, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
     }
     // </editor-fold>
 
@@ -551,24 +509,6 @@ class LocationFactoryTest extends TestCase {
                 null,
                 new class() extends Type {
                     // empty
-                },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderLocation(): array {
-        return [
-            'Exists'     => [
-                static function (): Customer {
-                    return Customer::factory()->create();
-                },
-            ],
-            'Not Exists' => [
-                static function (): Customer {
-                    return Customer::factory()->make();
                 },
             ],
         ];

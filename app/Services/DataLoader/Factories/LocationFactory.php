@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
-use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolvers\CountryResolver;
@@ -25,7 +24,7 @@ use function reset;
 use function sprintf;
 use function str_contains;
 
-class LocationFactory extends DependentModelFactory {
+class LocationFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -38,18 +37,18 @@ class LocationFactory extends DependentModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
-    public function find(Model $object, Type $type): ?LocationModel {
+    public function find(Type $type): ?LocationModel {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return parent::find($object, $type);
+        return parent::find($type);
     }
 
-    public function create(Model $object, Type $type): ?LocationModel {
+    public function create(Type $type): ?LocationModel {
         $model = null;
 
         if ($type instanceof Location) {
-            $model = $this->createFromLocation($object, $type);
+            $model = $this->createFromLocation($type);
         } elseif ($type instanceof ViewAsset) {
-            $model = $this->createFromAsset($object, $type);
+            $model = $this->createFromAsset($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -67,7 +66,7 @@ class LocationFactory extends DependentModelFactory {
         return !($location->zip ?? null) || !($location->city ?? null);
     }
 
-    protected function createFromLocation(Model $object, Location $location): ?LocationModel {
+    protected function createFromLocation(Location $location): ?LocationModel {
         // Is empty?
         if ($this->isEmpty($location)) {
             return null;
@@ -95,7 +94,6 @@ class LocationFactory extends DependentModelFactory {
 
         // Location
         $object = $this->location(
-            $object,
             $country,
             $city,
             $location->zip,
@@ -110,7 +108,7 @@ class LocationFactory extends DependentModelFactory {
         return $object;
     }
 
-    protected function createFromAsset(Model $object, ViewAsset $asset): ?LocationModel {
+    protected function createFromAsset(ViewAsset $asset): ?LocationModel {
         $location              = new Location();
         $location->zip         = $asset->zip ?? null;
         $location->city        = $asset->city ?? null;
@@ -120,7 +118,7 @@ class LocationFactory extends DependentModelFactory {
         $location->latitude    = $asset->latitude ?? null;
         $location->longitude   = $asset->longitude ?? null;
 
-        return $this->createFromLocation($object, $location);
+        return $this->createFromLocation($location);
     }
 
     protected function country(string $code, string $name): Country {
@@ -158,7 +156,6 @@ class LocationFactory extends DependentModelFactory {
     }
 
     protected function location(
-        Model $object,
         Country $country,
         City $city,
         string $postcode,
@@ -174,7 +171,6 @@ class LocationFactory extends DependentModelFactory {
                 LocationModel $location,
             ) use (
                 &$created,
-                $object,
                 $country,
                 $city,
                 $postcode,
@@ -184,28 +180,23 @@ class LocationFactory extends DependentModelFactory {
                 $latitude,
                 $longitude,
             ): LocationModel {
-                $created               = !$location->exists;
-                $normalizer            = $this->getNormalizer();
-                $location->object_type = $object->getMorphClass();
-                $location->object_id   = $object->getKey();
-                $location->country     = $country;
-                $location->city        = $city;
-                $location->postcode    = $normalizer->string($postcode);
-                $location->state       = $normalizer->string($state);
-                $location->line_one    = $normalizer->string($lineOne);
-                $location->line_two    = $normalizer->string($lineTwo);
-                $location->latitude    = $normalizer->coordinate($latitude);
-                $location->longitude   = $normalizer->coordinate($longitude);
+                $created             = !$location->exists;
+                $normalizer          = $this->getNormalizer();
+                $location->country   = $country;
+                $location->city      = $city;
+                $location->postcode  = $normalizer->string($postcode);
+                $location->state     = $normalizer->string($state);
+                $location->line_one  = $normalizer->string($lineOne);
+                $location->line_two  = $normalizer->string($lineTwo);
+                $location->latitude  = $normalizer->coordinate($latitude);
+                $location->longitude = $normalizer->coordinate($longitude);
 
-                if ($object->exists) {
-                    $location->save();
-                }
+                $location->save();
 
                 return $location;
             },
         );
         $location = $this->locationResolver->get(
-            $object,
             $country,
             $city,
             $postcode,
