@@ -15,11 +15,7 @@ use App\Models\Concerns\SyncHasMany;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Integer;
 use App\Services\Search\Properties\Text;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
-use function app;
 
 /**
  * Customer.

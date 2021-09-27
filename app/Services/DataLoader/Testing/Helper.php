@@ -283,17 +283,24 @@ trait Helper {
     }
     //</editor-fold>
 
-    // <editor-fold desc="Customer">
+    // <editor-fold desc="Customer / Reseller">
     // =========================================================================
     /**
      * @return array<mixed>
      */
-    protected function getCustomerLocations(Customer $customer): array {
+    protected function getCompanyModelLocations(Customer|Reseller $company): array {
         $locations = [];
 
-        foreach ($customer->locations as $location) {
-            /** @var \App\Models\Location $location */
-            $locations[] = $this->getLocation($location);
+        foreach ($company->locations as $companyLocation) {
+            /** @var \App\Models\ResellerLocation|\App\Models\CustomerLocation $companyLocation */
+            $location          = $this->getLocation($companyLocation->location);
+            $location['types'] = $companyLocation->types
+                ->map(static function (TypeModel $type): string {
+                    return $type->name;
+                })
+                ->all();
+
+            $locations[] = $location;
         }
 
         return $locations;
@@ -302,19 +309,9 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getLocation(?Location $location, bool $withTypes = true): ?array {
+    protected function getLocation(?Location $location): ?array {
         if (!$location) {
             return null;
-        }
-
-        $types = [];
-
-        if ($withTypes) {
-            $types = $location->types
-                ->map(static function (TypeModel $type): string {
-                    return $type->name;
-                })
-                ->all();
         }
 
         return [
@@ -325,7 +322,7 @@ trait Helper {
             'city'        => $location->city->name,
             'line_one'    => $location->line_one,
             'line_two'    => $location->line_two,
-            'types'       => $types,
+            'types'       => [],
             'latitude'    => $location->latitude,
             'longitude'   => $location->longitude,
         ];
@@ -383,23 +380,6 @@ trait Helper {
         }
 
         return $coverages;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Reseller">
-    // =========================================================================
-    /**
-     * @return array<mixed>
-     */
-    protected function getResellerLocations(Reseller $reseller): array {
-        $locations = [];
-
-        foreach ($reseller->locations as $location) {
-            /** @var \App\Models\Location $location */
-            $locations[] = $this->getLocation($location);
-        }
-
-        return $locations;
     }
     // </editor-fold>
 

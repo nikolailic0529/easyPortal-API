@@ -142,7 +142,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->customerId, $created->customer->getKey());
         $this->assertEquals(
             $this->getAssetLocation($asset),
-            $this->getLocation($created->location, false),
+            $this->getLocation($created->location),
         );
         $this->assertEquals(
             $this->getContacts($asset),
@@ -253,7 +253,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->customerId, $updated->customer->getKey());
         $this->assertEquals(
             $this->getAssetLocation($asset),
-            $this->getLocation($updated->location, false),
+            $this->getLocation($updated->location),
         );
         $this->assertEquals(
             $this->getContacts($asset),
@@ -342,6 +342,7 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetAssetNoCustomer(): void {
         // Mock
         $this->overrideResellerFinder();
+        $this->overrideOemFinder();
 
         // Prepare
         $factory = $this->app->make(AssetFactory::class);
@@ -352,28 +353,6 @@ class AssetFactoryTest extends TestCase {
         $this->expectException(CustomerNotFound::class);
 
         $factory->create($asset);
-    }
-
-    /**
-     * @covers ::createFromAsset
-     */
-    public function testCreateFromAssetAssetInvalidAddress(): void {
-        // Mock
-        $this->overrideOemFinder();
-        $this->overrideCustomerFinder();
-
-        // Prepare
-        $container = $this->app->make(Container::class);
-        $factory   = $container->make(AssetFactory::class);
-
-        // Test
-        $json    = $this->getTestData()->json('~asset-invalid-address.json');
-        $asset   = new ViewAsset($json);
-        $created = $factory->create($asset);
-
-        $this->assertNotNull($created->location);
-        $this->assertNull($created->location->object_id);
-        $this->assertEquals($created->getMorphClass(), $created->location->object_type);
     }
 
     /**
@@ -394,47 +373,6 @@ class AssetFactoryTest extends TestCase {
         $created = $factory->create($asset);
 
         $this->assertNull($created->location);
-    }
-
-    /**
-     * @covers ::createFromAsset
-     */
-    public function testCreateFromAssetOnResellerLocation(): void {
-        // Mock
-        $this->overrideOemFinder();
-        $this->overrideResellerFinder();
-        $this->overrideCustomerFinder();
-
-        // Load
-        $json  = $this->getTestData()->json('~asset-reseller-location.json');
-        $asset = new ViewAsset($json);
-
-        // Test
-        $factory = $this->app->make(AssetFactory::class);
-        $created = $factory->create($asset);
-
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($asset->id, $created->getKey());
-        $this->assertEquals($asset->resellerId, $created->reseller_id);
-        $this->assertEquals($asset->serialNumber, $created->serial_number);
-        $this->assertEquals($asset->dataQualityScore, $created->data_quality);
-        $this->assertEquals($asset->vendor, $created->oem->key);
-        $this->assertEquals($asset->productDescription, $created->product->name);
-        $this->assertEquals($asset->sku, $created->product->sku);
-        $this->assertNull($created->product->eos);
-        $this->assertEquals($asset->eosDate, (string) $created->product->eos);
-        $this->assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
-        $this->assertEquals($asset->assetType, $created->type->key);
-        $this->assertEquals($asset->customerId, $created->customer->getKey());
-        $this->assertEquals(
-            $this->getAssetLocation($asset),
-            $this->getLocation($created->location, false),
-        );
-        $this->assertEquals(
-            $this->getAssetCoverages($asset),
-            $this->getModelCoverages($created),
-        );
     }
 
     /**
@@ -1243,10 +1181,7 @@ class AssetFactoryTest extends TestCase {
             'id'         => $this->faker->uuid,
             'customerId' => $customer->getKey(),
         ]);
-        $location  = Location::factory()->create([
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer->getKey(),
-        ]);
+        $location  = Location::factory()->create();
         $locations = Mockery::mock(LocationFactory::class);
 
         $locations
@@ -1264,84 +1199,12 @@ class AssetFactoryTest extends TestCase {
                 $this->locationFactory = $locations;
             }
 
-            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-                return parent::assetLocation($asset, $customer, $reseller);
+            public function assetLocation(ViewAsset $asset): ?Location {
+                return parent::assetLocation($asset);
             }
         };
 
-        $this->assertEquals($location, $factory->assetLocation($asset, $customer, null));
-    }
-
-    /**
-     * @covers ::assetLocation
-     */
-    public function testAssetLocationNoCustomer(): void {
-        $reseller  = Reseller::factory()->make();
-        $asset     = new ViewAsset([
-            'id'         => $this->faker->uuid,
-            'resellerId' => $reseller->getKey(),
-        ]);
-        $location  = Location::factory()->create([
-            'object_type' => $reseller->getMorphClass(),
-            'object_id'   => $reseller->getKey(),
-        ]);
-        $locations = Mockery::mock(LocationFactory::class);
-
-        $locations
-            ->shouldReceive('isEmpty')
-            ->once()
-            ->andReturnFalse();
-        $locations
-            ->shouldReceive('find')
-            ->once()
-            ->andReturn($location);
-
-        $factory = new class($locations) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $locations) {
-                $this->locationFactory = $locations;
-            }
-
-            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-                return parent::assetLocation($asset, $customer, $reseller);
-            }
-        };
-
-        $this->assertEquals($location, $factory->assetLocation($asset, null, $reseller));
-    }
-
-    /**
-     * @covers ::assetLocation
-     */
-    public function testAssetLocationNoCustomerNoReseller(): void {
-        $asset     = new ViewAsset();
-        $location  = Location::factory()->make();
-        $locations = Mockery::mock(LocationFactory::class);
-        $locations->shouldAllowMockingProtectedMethods();
-        $locations
-            ->shouldReceive('isEmpty')
-            ->once()
-            ->andReturn(false);
-        $locations
-            ->shouldReceive('find')
-            ->withArgs(static function (Model $object, Type $type) use ($asset): bool {
-                return $object instanceof Asset && $type === $asset;
-            })
-            ->once()
-            ->andReturn($location);
-
-        $factory = new class($locations) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $factory) {
-                $this->locationFactory = $factory;
-            }
-
-            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-                return parent::assetLocation($asset, $customer, $reseller);
-            }
-        };
-
-        $this->assertSame($location, $factory->assetLocation($asset, null, null));
+        $this->assertEquals($location, $factory->assetLocation($asset));
     }
 
     /**
@@ -1365,12 +1228,12 @@ class AssetFactoryTest extends TestCase {
                 $this->locationFactory = $locations;
             }
 
-            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-                return parent::assetLocation($asset, $customer, $reseller);
+            public function assetLocation(ViewAsset $asset): ?Location {
+                return parent::assetLocation($asset);
             }
         };
 
-        $this->assertNull($factory->assetLocation($asset, null, null));
+        $this->assertNull($factory->assetLocation($asset));
     }
 
     /**

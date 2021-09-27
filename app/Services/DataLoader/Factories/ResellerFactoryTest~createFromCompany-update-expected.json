@@ -3,6 +3,6 @@
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
-    "update `locations` set `deleted_at` = ?, `locations`.`updated_at` = ? where `id` = ?",
+    "update `reseller_locations` set `deleted_at` = ?, `reseller_locations`.`updated_at` = ? where `id` = ?",
     "update `kpis` set `deleted_at` = ?, `kpis`.`updated_at` = ? where `id` = ?"
 ]

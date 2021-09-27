@@ -33,7 +33,7 @@ trait HasLocations {
      * @param \Illuminate\Support\Collection<T>|array<T> $locations
      */
     public function setLocationsAttribute(Collection|array $locations): void {
-        $this->syncMorphMany('locations', $locations);
+        $this->syncHasMany('locations', $locations);
         $this->locations_count = count($locations);
     }
 
