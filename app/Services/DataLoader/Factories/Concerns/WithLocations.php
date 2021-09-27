@@ -49,21 +49,25 @@ trait WithLocations {
                 $companyLocations,
             ): ResellerLocation|CustomerLocation|null {
                 try {
-                    $locationModel   = $this->location($location);
-                    $companyLocation = $companyLocations->get($locationModel->getKey());
+                    $locationModel = $this->location($location);
+                    $companyLocation = null;
 
-                    if (!$companyLocation) {
-                        if ($company instanceof Reseller) {
-                            $companyLocation           = new ResellerLocation();
-                            $companyLocation->reseller = $company;
-                        } else {
-                            $companyLocation           = new CustomerLocation();
-                            $companyLocation->customer = $company;
+                    if ($locationModel) {
+                        $companyLocation = $companyLocations->get($locationModel->getKey());
+
+                        if (!$companyLocation) {
+                            if ($company instanceof Reseller) {
+                                $companyLocation           = new ResellerLocation();
+                                $companyLocation->reseller = $company;
+                            } else {
+                                $companyLocation           = new CustomerLocation();
+                                $companyLocation->customer = $company;
+                            }
+
+                            $companyLocation->location = $locationModel;
+
+                            $companyLocations->put($locationModel->getKey(), $companyLocation);
                         }
-
-                        $companyLocation->location = $locationModel;
-
-                        $companyLocations->put($locationModel->getKey(), $companyLocation);
                     }
 
                     return $companyLocation;

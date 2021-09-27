@@ -6,12 +6,6 @@
         ]
     },
     {
-        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
-        ]
-    },
-    {
         "query": "select * from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -81,6 +75,12 @@
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
         ]
     },
     {
