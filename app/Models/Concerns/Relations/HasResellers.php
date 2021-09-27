@@ -22,7 +22,12 @@ trait HasResellers {
         $pivot = $this->getResellersPivot();
 
         return $this
-            ->belongsToMany(Reseller::class, $pivot->getTable())
+            ->belongsToMany(
+                Reseller::class,
+                $pivot->getTable(),
+                foreignPivotKey: $this->getResellersForeignPivotKey(),
+                parentKey: $this->getResellersParentKey(),
+            )
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
@@ -36,6 +41,14 @@ trait HasResellers {
     }
 
     abstract protected function getResellersPivot(): Pivot;
+
+    protected function getResellersParentKey(): ?string {
+        return null;
+    }
+
+    protected function getResellersForeignPivotKey(): ?string {
+        return null;
+    }
     // </editor-fold>
 
     // <editor-fold desc="OwnedByOrganization">
