@@ -18,7 +18,6 @@ use function is_array;
 
 class LocationResolver extends Resolver {
     public function get(
-        Model $model,
         Country $country,
         City $city,
         string $postcode,
@@ -28,9 +27,8 @@ class LocationResolver extends Resolver {
     ): ?Location {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
-            $this->getUniqueKey($model, $country, $city, $postcode, $lineOne, $lineTwo),
+            $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo),
             $factory,
-            $model->exists || $model->getKey() === null,
         );
     }
 
@@ -84,7 +82,6 @@ class LocationResolver extends Resolver {
         return [
             'unique' => new ClosureKey(function (Location $location): array {
                 return $this->getUniqueKey(
-                    $location,
                     $location->country_id,
                     $location->city_id,
                     $location->postcode,
@@ -100,21 +97,17 @@ class LocationResolver extends Resolver {
      */
     #[Pure]
     protected function getUniqueKey(
-        Model|Location $model,
         Country|string $country,
         City|string $city,
         string $postcode,
         string $lineOne,
         string $lineTwo,
     ): array {
-        return ($model instanceof Location
-                ? ['object_type' => $model->object_type, 'object_id' => $model->object_id]
-                : ['object_type' => $model->getMorphClass(), 'object_id' => $model->getKey()]
-            ) + [
-                'country_id' => $country instanceof Model ? $country->getKey() : $country,
-                'city_id'    => $city instanceof Model ? $city->getKey() : $city,
-                'postcode'   => $postcode,
-                'line'       => "{$lineOne} {$lineTwo}",
-            ];
+        return [
+            'country_id' => $country instanceof Model ? $country->getKey() : $country,
+            'city_id'    => $city instanceof Model ? $city->getKey() : $city,
+            'postcode'   => $postcode,
+            'line'       => "{$lineOne} {$lineTwo}",
+        ];
     }
 }
