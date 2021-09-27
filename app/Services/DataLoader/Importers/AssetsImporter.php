@@ -57,24 +57,25 @@ class AssetsImporter extends Importer {
         $this->container
             ->make(ResellerFactory::class)
             ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
-                $resellers->loadMissing('locations');
+                $resellers->loadMissing('locations.location');
+                $resellers->loadMissing('locations.types');
                 $resellers->loadMissing('contacts');
 
-                $locations->add($resellers->pluck('locations')->flatten());
+                $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
                 $contacts->add($resellers->pluck('contacts')->flatten());
             });
 
         $this->container
             ->make(CustomerFactory::class)
             ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
-                $customers->loadMissing('locations');
+                $customers->loadMissing('locations.location');
+                $customers->loadMissing('locations.types');
                 $customers->loadMissing('contacts');
 
-                $locations->add($customers->pluck('locations')->flatten());
+                $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
                 $contacts->add($customers->pluck('contacts')->flatten());
             });
 
-        (new Collection($locations->getResolved()))->loadMissing('types');
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 

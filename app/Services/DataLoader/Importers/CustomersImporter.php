@@ -28,15 +28,15 @@ class CustomersImporter extends Importer {
         $this->container
             ->make(CustomerFactory::class)
             ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
-                $customers->loadMissing('locations');
+                $customers->loadMissing('locations.location');
+                $customers->loadMissing('locations.types');
                 $customers->loadMissing('contacts');
                 $customers->loadMissing('kpi');
 
-                $locations->add($customers->pluck('locations')->flatten());
+                $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
                 $contacts->add($customers->pluck('contacts')->flatten());
             });
 
-        (new Collection($locations->getResolved()))->loadMissing('types');
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
