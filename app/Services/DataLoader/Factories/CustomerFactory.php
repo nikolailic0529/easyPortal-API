@@ -124,7 +124,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
             $customer->assets_count = 0;
             $customer->statuses     = $this->companyStatuses($customer, $company);
             $customer->contacts     = $this->objectContacts($customer, $company->companyContactPersons);
-            $customer->locations    = $this->objectLocations($customer, $company->locations);
+            $customer->locations    = $this->companyLocations($customer, $company->locations);
             $customer->kpi          = $this->kpi($customer, $company->companyKpis);
 
             $customer->save();

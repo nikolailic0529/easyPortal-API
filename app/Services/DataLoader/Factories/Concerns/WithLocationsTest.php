@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Exceptions\ErrorReport;
 use App\Models\Customer;
-use App\Models\Location as LocationModel;
 use App\Models\Model;
+use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -13,11 +13,13 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\TestCase;
+use Tests\WithoutOrganizationScope;
 
 use function reset;
 use function tap;
@@ -27,19 +29,20 @@ use function tap;
  * @coversDefaultClass \App\Services\DataLoader\Factories\Concerns\WithLocations
  */
 class WithLocationsTest extends TestCase {
+    use WithoutOrganizationScope;
+
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
-     * @covers ::objectLocations
+     * @covers ::companyLocations
+     *
+     * @dataProvider dataProviderCompanyLocations
+     *
+     * @param \Closure(static): \App\Models\Reseller|\App\Models\Customer
      */
-    public function testObjectLocations(): void {
+    public function testCompanyLocations(Closure $companyFactory): void {
         // Prepare
-        $owner    = Customer::factory()->make();
-        $existing = LocationModel::factory(2)->make([
-            'object_type' => $owner->getMorphClass(),
-            'object_id'   => $owner,
-        ]);
-
-        $owner->setRelation('locations', $existing);
-
+        $company = $companyFactory($this);
         $factory = new class(
             $this->app->make(ExceptionHandler::class),
             $this->app->make(Normalizer::class),
@@ -47,7 +50,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
             use WithLocations {
-                objectLocations as public;
+                companyLocations as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -74,7 +77,7 @@ class WithLocationsTest extends TestCase {
         };
 
         // Empty call should return empty array
-        $this->assertEquals([], $factory->objectLocations($owner, []));
+        $this->assertEquals([], $factory->companyLocations($company, []));
 
         // Repeated objects should be missed
         $ca = tap(new Location(), function (Location $location): void {
@@ -88,7 +91,7 @@ class WithLocationsTest extends TestCase {
             $location->locationType = (string) $this->faker->randomNumber();
         });
 
-        $this->assertCount(1, $factory->objectLocations($owner, [$ca, $ca]));
+        $this->assertCount(1, $factory->companyLocations($company, [$ca, $ca]));
 
         // Objects should be grouped by type
         $cb     = tap(new Location(), function (Location $location) use ($ca): void {
@@ -101,20 +104,20 @@ class WithLocationsTest extends TestCase {
             $location->address      = $ca->address;
             $location->locationType = $this->faker->word;
         });
-        $actual = $factory->objectLocations($owner, [$ca, $cb]);
+        $actual = $factory->companyLocations($company, [$ca, $cb]);
         $first  = reset($actual);
 
         $this->assertCount(1, $actual);
         $this->assertCount(2, $first->types);
-        $this->assertEquals($cb->zip, $first->postcode);
-        $this->assertEquals($cb->city, $first->city->name);
-        $this->assertEquals($cb->address, $first->line_one);
+        $this->assertEquals($cb->zip, $first->location->postcode);
+        $this->assertEquals($cb->city, $first->location->city->name);
+        $this->assertEquals($cb->address, $first->location->line_one);
 
         // locationType can be null
         $cc     = tap(clone $ca, static function (Location $location): void {
             $location->locationType = null;
         });
-        $actual = $factory->objectLocations($owner, [$cc]);
+        $actual = $factory->companyLocations($company, [$cc]);
         $first  = reset($actual);
 
         $this->assertCount(1, $actual);
@@ -125,13 +128,11 @@ class WithLocationsTest extends TestCase {
      * @covers ::location
      */
     public function testLocation(): void {
-        // Prepare
-        $owner    = new Customer();
         $location = new Location();
         $factory  = Mockery::mock(LocationFactory::class);
         $factory
             ->shouldReceive('create')
-            ->with($owner, $location)
+            ->with($location)
             ->once()
             ->andReturns();
 
@@ -160,13 +161,13 @@ class WithLocationsTest extends TestCase {
             }
         };
 
-        $factory->location($owner, $location);
+        $factory->location($location);
     }
 
     /**
-     * @covers ::objectLocations
+     * @covers ::companyLocations
      */
-    public function testObjectLocationsInvalidLocation(): void {
+    public function testCompanyLocationsInvalidLocation(): void {
         // Fake
         Event::fake(ErrorReport::class);
 
@@ -176,7 +177,7 @@ class WithLocationsTest extends TestCase {
         $factory  = Mockery::mock(LocationFactory::class);
         $factory
             ->shouldReceive('create')
-            ->with($owner, $location)
+            ->with($location)
             ->once()
             ->andThrow(new Exception(__METHOD__));
 
@@ -185,7 +186,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             use WithLocations {
-                objectLocations as public;
+                companyLocations as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -209,10 +210,32 @@ class WithLocationsTest extends TestCase {
             }
         };
 
-        $this->assertEmpty($factory->objectLocations($owner, [$location]));
+        $this->assertEmpty($factory->companyLocations($owner, [$location]));
 
         Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
             return $event->getError() instanceof FailedToProcessLocation;
         });
     }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<string, array<\Closure(): \App\Models\Reseller|\App\Models\Customer>>
+     */
+    public function dataProviderCompanyLocations(): array {
+        return [
+            Reseller::class => [
+                static function (): Reseller {
+                    return Reseller::factory()->create();
+                },
+            ],
+            Customer::class => [
+                static function (): Customer {
+                    return Customer::factory()->create();
+                },
+            ],
+        ];
+    }
+    // </editor-fold>
 }

@@ -16,9 +16,15 @@ trait Polymorphic {
     use WithType;
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\Type> $objects
+     * @template T of \App\Models\Model
+     * @template R of \App\Models\Contact|\App\Models\Location
      *
-     * @return array<mixed>
+     * @param T                                                     $owner
+     * @param array<\App\Services\DataLoader\Schema\Type>           $objects
+     * @param \Closure(): \App\Services\DataLoader\Schema\Type      $getType
+     * @param \Closure(T, \App\Services\DataLoader\Schema\Type): ?R $factory
+     *
+     * @return array<R>
      */
     private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): array {
         // First, we should convert type into the internal model and determine its types.
