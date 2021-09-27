@@ -169,13 +169,14 @@ class Organization extends Model implements
         return $this->hasMany(Audit::class);
     }
 
-    public function users(): BelongsToMany {
-        $pivot = new OrganizationUser();
-
-        return $this
-            ->belongsToMany(User::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
+    public function users(): HasManyThrough {
+        return $this->hasManyThrough(
+            User::class,
+            OrganizationUser::class,
+            null,
+            (new User())->getKeyName(),
+            null,
+            'user_id',
+        );
     }
 }

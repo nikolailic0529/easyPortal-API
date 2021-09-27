@@ -107,13 +107,14 @@ class EnableOrgUserTest extends TestCase {
                     ]),
                     $prepare,
                     static function (TestCase $test, Organization $organization): array {
-                        $user = User::factory()->create([
-                            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
-                            'type' => UserType::keycloak(),
-                        ]);
-
-                        $organization->users()->attach($user);
-
+                        $user = User::factory()
+                            ->hasOrganizationUser(1, [
+                                'organization_id' => $organization->getKey(),
+                            ])
+                            ->create([
+                                'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
+                                'type' => UserType::keycloak(),
+                            ]);
                         return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
@@ -133,12 +134,14 @@ class EnableOrgUserTest extends TestCase {
                     ]),
                     $prepare,
                     static function (TestCase $test, Organization $organization): array {
-                        $user = User::factory()->create([
-                            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
-                            'type' => UserType::local(),
-                        ]);
-
-                        $organization->users()->attach($user);
+                        $user = User::factory()
+                            ->hasOrganizationUser(1, [
+                                'organization_id' => $organization->getKey(),
+                            ])
+                            ->create([
+                                'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
+                                'type' => UserType::local(),
+                            ]);
 
                         return ['id' => $user->getKey()];
                     },

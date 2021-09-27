@@ -3,22 +3,19 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\GraphQL\Mutations\Me\UpdateMeProfile;
-use App\Models\Enums\UserType;
-use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\CurrentOrganization;
-use Illuminate\Auth\AuthManager;
-use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 use function array_key_exists;
 
 class UpdateOrgUser {
     public function __construct(
-        protected AuthManager $auth,
+        protected Auth $auth,
         protected Client $client,
         protected CurrentOrganization $organization,
         protected UpdateMeProfile $updateMeProfile,
@@ -36,16 +33,11 @@ class UpdateOrgUser {
         $organization = $this->organization->get();
         $input        = $args['input'];
         $user         = User::query()->whereKey($input['user_id'])->first();
-        $currentUser  = $this->auth->user();
 
         if (!($user instanceof User)) {
             return [
                 'result' => false,
             ];
-        }
-
-        if ($user->isRoot() && !$currentUser->isRoot()) {
-            throw new AuthorizationException();
         }
 
         $keycloakUser = $this->client->getUserById($user->getKey());
@@ -56,28 +48,31 @@ class UpdateOrgUser {
         // Update Settings
         $this->settings($user, $input);
 
+        // OrganizationUser
+        $organizationUser = OrganizationUser::query()
+            ->where('organization_id', '=', $organization->getKey())
+            ->where('user_id', '=', $user->getKey())
+            ->first();
+
+        if (!$organizationUser) {
+            $organizationUser                  = new OrganizationUser();
+            $organizationUser->organization_id = $organization->getKey();
+            $organizationUser->user_id         = $user->getKey();
+        }
+
         // Update Role
-        if (isset($input['role_id']) && $user->type === UserType::keycloak()) {
+        if (isset($input['role_id']) && !$this->auth->isRoot($user)) {
             $role = Role::query()->whereKey($input['role_id'])->first();
-            $this->role($organization, $user, $keycloakUser, $role);
+            $this->role($organizationUser, $keycloakUser, $role);
         }
 
         // Update Team
         if (isset($input['team_id'])) {
-            $pivot = OrganizationUser::query()
-                ->where('organization_id', '=', $organization->getKey())
-                ->where('user_id', '=', $user->getKey())
-                ->first();
-
-            if (!$pivot) {
-                $pivot                  = new OrganizationUser();
-                $pivot->organization_id = $organization->getKey();
-                $pivot->user_id         = $user->getKey();
-            }
-
-            $pivot->team_id = $input['team_id'];
-            $pivot->save();
+            $organizationUser->team_id = $input['team_id'];
         }
+
+        $organizationUser->save();
+
         return ['result' => $user->save()];
     }
 
@@ -99,22 +94,17 @@ class UpdateOrgUser {
     }
 
     protected function role(
-        Organization $organization,
-        User $user,
+        OrganizationUser $organizationUser,
         KeycloakUser $keycloakUser,
         Role $role,
     ): void {
-        $query       = $user->roles()
-            ->where((new Role())->qualifyColumn('organization_id'), '=', $organization->getKey());
-        $currentRole = $query->first();
-        if ($currentRole) {
+        if ($organizationUser->role_id) {
             // remove organization old role from keycloak
-            $this->client->removeUserFromGroup($keycloakUser->id, $currentRole->getKey());
-            $query->detach();
+            $this->client->removeUserFromGroup($keycloakUser->id, $organizationUser->role_id);
         }
         // Add new role
         $this->client->addUserToGroup($keycloakUser->id, $role->getKey());
-        $user->roles = [$role];
+        $organizationUser->role_id = $role->getKey();
     }
 
     /**

@@ -8,7 +8,7 @@ extend type Mutation {
 }
 
 input UpdateOrgUserInput {
-  user_id: ID! @rules(apply: ["required","App\\Rules\\UserId","App\\Rules\\UserNotMe"])
+  user_id: ID! @rules(apply: ["required","App\\Rules\\ManagedByRoot","App\\Rules\\UserNotMe"])
   first_name: String
   last_name: String
   title: String

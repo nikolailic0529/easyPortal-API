@@ -52,21 +52,29 @@ class OrgUserIdTest extends TestCase {
             'exists'        => [
                 true,
                 static function (TestCase $test, Organization $organization): string {
-                    $user = User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-
-                    $organization->users()->attach($user->getKey());
-
+                    $user = User::factory()
+                        ->hasOrganizationUser([
+                            'organization_id' => $organization->getKey(),
+                        ])
+                        ->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]);
                     return $user->getKey();
                 },
             ],
             'different org' => [
                 false,
                 static function (TestCase $test, Organization $organization): string {
-                    $user = User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                    $org  = Organization::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                     ]);
+                    $user = User::factory()
+                        ->hasOrganizationUser([
+                            'organization_id' => $org->getKey(),
+                        ])
+                        ->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]);
 
                     return $user->getKey();
                 },
@@ -80,11 +88,13 @@ class OrgUserIdTest extends TestCase {
             'soft-deleted'  => [
                 false,
                 static function (TestCase $test, Organization $organization): string {
-                    $user = User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-
-                    $organization->users()->attach($user->getKey());
+                    $user = User::factory()
+                        ->hasOrganizationUser([
+                            'organization_id' => $organization->getKey(),
+                        ])
+                        ->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]);
 
                     $user->delete();
 

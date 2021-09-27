@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Closure;
@@ -53,10 +54,6 @@ class UsersTest extends TestCase {
                       email
                       email_verified
                       enabled
-                      roles {
-                          id
-                          name
-                      }
                       invitations {
                           id
                           organization_id
@@ -72,6 +69,10 @@ class UsersTest extends TestCase {
                       team {
                         id
                         name
+                      }
+                      role {
+                          id
+                          name
                       }
                     }
                     paginatorInfo {
@@ -112,12 +113,6 @@ class UsersTest extends TestCase {
                                 'email'          => 'test1@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
-                                'roles'          => [
-                                    [
-                                        'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                                        'name' => 'role1',
-                                    ],
-                                ],
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -136,18 +131,22 @@ class UsersTest extends TestCase {
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                     'name' => 'IT',
                                 ],
+                                'role'           => [
+                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'name' => 'role1',
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
                             if ($user) {
                                 $user->type = UserType::keycloak();
                             }
-
+                            // user1
+                            $role1 = Role::factory()->create([
+                                'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                'name' => 'role1',
+                            ]);
                             $user1 = User::factory()
-                                ->hasRoles(1, [
-                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                                    'name' => 'role1',
-                                ])
                                 ->hasInvitations(1, [
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'email'           => 'test@gmail.com',
@@ -176,6 +175,7 @@ class UsersTest extends TestCase {
                             $pivot                  = new OrganizationUser();
                             $pivot->organization_id = $organization->getKey();
                             $pivot->user_id         = $user1->getKey();
+                            $pivot->role_id         = $role1->getKey();
                             $pivot->team_id         = $team1->getKey();
                             $pivot->save();
 
@@ -207,12 +207,6 @@ class UsersTest extends TestCase {
                                 'email'          => 'test1@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
-                                'roles'          => [
-                                    [
-                                        'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                                        'name' => 'role1',
-                                    ],
-                                ],
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -231,6 +225,10 @@ class UsersTest extends TestCase {
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                     'name' => 'IT',
                                 ],
+                                'role'           => [
+                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'name' => 'role1',
+                                ],
                             ],
                             [
                                 'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
@@ -239,12 +237,6 @@ class UsersTest extends TestCase {
                                 'email'          => 'test2@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
-                                'roles'          => [
-                                    [
-                                        'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
-                                        'name' => 'role2',
-                                    ],
-                                ],
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -263,6 +255,10 @@ class UsersTest extends TestCase {
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'name' => 'Marketing',
                                 ],
+                                'role'           => [
+                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                    'name' => 'role2',
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
@@ -270,11 +266,11 @@ class UsersTest extends TestCase {
                                 $user->type = UserType::local();
                             }
                             // User 1
+                            $role1 = Role::factory()->create([
+                                'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                'name' => 'role1',
+                            ]);
                             $user1 = User::factory()
-                                ->hasRoles(1, [
-                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                                    'name' => 'role1',
-                                ])
                                 ->hasInvitations(1, [
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'email'           => 'test@gmail.com',
@@ -302,18 +298,19 @@ class UsersTest extends TestCase {
                             ]);
 
                             // Relation
-                            $pivot                  = new OrganizationUser();
-                            $pivot->organization_id = $organization->getKey();
-                            $pivot->user_id         = $user1->getKey();
-                            $pivot->team_id         = $team1->getKey();
-                            $pivot->save();
+                            $organizationUser                  = new OrganizationUser();
+                            $organizationUser->organization_id = $organization->getKey();
+                            $organizationUser->user_id         = $user1->getKey();
+                            $organizationUser->team_id         = $team1->getKey();
+                            $organizationUser->role_id         = $role1->getKey();
+                            $organizationUser->save();
 
                             // User2
+                            $role2 = Role::factory()->create([
+                                'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                'name' => 'role2',
+                            ]);
                             $user2 = User::factory()
-                                ->hasRoles(1, [
-                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
-                                    'name' => 'role2',
-                                ])
                                 ->hasInvitations(1, [
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'email'           => 'test@gmail.com',
@@ -340,11 +337,12 @@ class UsersTest extends TestCase {
                             ]);
 
                             // Relation
-                            $pivot                  = new OrganizationUser();
-                            $pivot->organization_id = $organization->getKey();
-                            $pivot->user_id         = $user2->getKey();
-                            $pivot->team_id         = $team2->getKey();
-                            $pivot->save();
+                            $organizationUser                  = new OrganizationUser();
+                            $organizationUser->organization_id = $organization->getKey();
+                            $organizationUser->user_id         = $user2->getKey();
+                            $organizationUser->team_id         = $team2->getKey();
+                            $organizationUser->role_id         = $role2->getKey();
+                            $organizationUser->save();
                         },
                     ],
                 ]),
