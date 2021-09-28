@@ -58,7 +58,10 @@ class CustomersRecalculate extends Recalculate {
 
         foreach ($result as $row) {
             /** @var \stdClass $row */
-            $assets[$row->customer_id][(string) $row->location_id] = (int) $row->count;
+            $c = $row->customer_id;
+            $l = (string) $row->location_id;
+
+            $assets[$c][$l] = (int) $row->count + ($assets[$c][$l] ?? 0);
         }
 
         return $assets;

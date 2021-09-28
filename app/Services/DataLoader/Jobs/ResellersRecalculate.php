@@ -32,8 +32,8 @@ class ResellersRecalculate extends Recalculate {
 
             // Countable
             $reseller->locations_count = count($reseller->locations);
-            $reseller->customers_count = count($resellerAssets['customers']);
-            $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers']));
+            $reseller->customers_count = count($resellerAssets['customers'] ?? []);
+            $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers'] ?? []));
 
             $reseller->save();
 
@@ -79,8 +79,8 @@ class ResellersRecalculate extends Recalculate {
             $c = (string) $row->customer_id;
             $l = (string) $row->location_id;
 
-            $assets[$r]['locations'][$l][$c] = (int) $row->count;
-            $assets[$r]['customers'][$c][$l] = (int) $row->count;
+            $assets[$r]['locations'][$l][$c] = (int) $row->count + ($assets[$r]['locations'][$l][$c] ?? 0);
+            $assets[$r]['customers'][$c][$l] = (int) $row->count + ($assets[$r]['customers'][$c][$l] ?? 0);
         }
 
         return $assets;
