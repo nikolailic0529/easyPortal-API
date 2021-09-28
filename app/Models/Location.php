@@ -89,14 +89,6 @@ class Location extends Model {
     }
 
     protected function getCustomersPivot(): Pivot {
-        return new class() extends Pivot {
-            public function getTable(): string {
-                if (!isset($this->table)) {
-                    $this->setTable((new CustomerLocation())->getTable());
-                }
-
-                return $this->table;
-            }
-        };
+        return new LocationCustomer();
     }
 }
