@@ -162,9 +162,6 @@ ALTER TABLE `assets`
     ADD COLUMN `location_id` CHAR(36) NULL DEFAULT NULL COMMENT 'current' AFTER `customer_id`,
     ADD INDEX `fk_assets_locations2_idx`(`location_id` ASC) VISIBLE;
 
-ALTER TABLE `reseller_customers`
-    ADD COLUMN `assets_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `customer_id`;
-
 ALTER TABLE `assets`
     ADD CONSTRAINT `fk_assets_locations2`
         FOREIGN KEY (`location_id`)

@@ -42,9 +42,6 @@ ALTER TABLE `assets`
             ON DELETE RESTRICT
             ON UPDATE RESTRICT;
 
--- Columns
-ALTER TABLE `reseller_customers`
-    DROP COLUMN `assets_count`;
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
