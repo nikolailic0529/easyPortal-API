@@ -36,7 +36,7 @@ class LocationsRecalculate extends Recalculate {
             $location->save();
 
             // Resellers
-            $location->resellers()->syncWithoutDetaching(array_map(static function (array $resellers): array {
+            $location->resellers()->sync(array_map(static function (array $resellers): array {
                 return [
                     'customers_count' => count($resellers),
                     'assets_count'    => array_sum($resellers),
@@ -44,7 +44,7 @@ class LocationsRecalculate extends Recalculate {
             }, $locationAssets['resellers'] ?? []));
 
             // Customers
-            $location->customers()->syncWithoutDetaching(array_map(static function (array $customers): array {
+            $location->customers()->sync(array_map(static function (array $customers): array {
                 return [
                     'assets_count' => array_sum($customers),
                 ];

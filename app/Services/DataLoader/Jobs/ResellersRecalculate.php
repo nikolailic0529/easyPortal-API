@@ -46,7 +46,7 @@ class ResellersRecalculate extends Recalculate {
             }
 
             // Customers
-            $reseller->customers()->syncWithoutDetaching(array_map(static function (array $customers): array {
+            $reseller->customers()->sync(array_map(static function (array $customers): array {
                 return [
                     'locations_count' => count($customers),
                     'assets_count'    => array_sum($customers),
