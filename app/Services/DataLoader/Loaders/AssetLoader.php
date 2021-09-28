@@ -11,10 +11,12 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithCalculatedProperties;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class AssetLoader extends Loader implements LoaderRecalculable {
@@ -23,14 +25,16 @@ class AssetLoader extends Loader implements LoaderRecalculable {
     protected bool $withDocuments = false;
 
     public function __construct(
+        Container $container,
         ExceptionHandler $exceptionHandler,
         Client $client,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
-        protected ResellerResolver $resellers,
-        protected CustomerResolver $customers,
+        protected ResellerResolver $resellerResolver,
+        protected CustomerResolver $customerResolver,
+        protected LocationResolver $locationFactory,
     ) {
-        parent::__construct($exceptionHandler, $client);
+        parent::__construct($container, $exceptionHandler, $client);
     }
 
     public function isWithDocuments(): bool {
@@ -72,6 +76,10 @@ class AssetLoader extends Loader implements LoaderRecalculable {
      * @inheritDoc
      */
     protected function getResolversToRecalculate(): array {
-        return [$this->resellers, $this->customers];
+        return [
+            $this->resellerResolver,
+            $this->customerResolver,
+            $this->locationFactory,
+        ];
     }
 }

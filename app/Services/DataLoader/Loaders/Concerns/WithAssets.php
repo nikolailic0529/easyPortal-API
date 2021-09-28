@@ -14,7 +14,9 @@ use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -30,19 +32,21 @@ trait WithAssets {
     protected bool $withAssetsDocuments = false;
 
     public function __construct(
+        Container $container,
         ExceptionHandler $exceptionHandler,
         Client $client,
         protected ResellerFactory $resellerFactory,
         protected ResellerResolver $resellerResolver,
         protected CustomerFactory $customerFactory,
         protected CustomerResolver $customerResolver,
-        protected LocationFactory $locations,
-        protected ContactFactory $contacts,
+        protected LocationFactory $locationFactory,
+        protected LocationResolver $locationResolver,
+        protected ContactFactory $contactFactory,
         protected AssetFactory $assetFactory,
         protected AssetLoader $assetLoader,
-        protected DocumentFactory $documents,
+        protected DocumentFactory $documentFactory,
     ) {
-        parent::__construct($exceptionHandler, $client);
+        parent::__construct($container, $exceptionHandler, $client);
     }
 
     public function isWithAssets(): bool {
@@ -126,7 +130,7 @@ trait WithAssets {
 
     protected function getAssetsFactory(): AssetFactory {
         if ($this->isWithAssetsDocuments()) {
-            $this->assetFactory->setDocumentFactory($this->documents);
+            $this->assetFactory->setDocumentFactory($this->documentFactory);
         } else {
             $this->assetFactory->setDocumentFactory(null);
         }
@@ -152,7 +156,11 @@ trait WithAssets {
      * @inheritDoc
      */
     protected function getResolversToRecalculate(): array {
-        return [$this->resellerResolver, $this->customerResolver];
+        return [
+            $this->resellerResolver,
+            $this->customerResolver,
+            $this->locationResolver,
+        ];
     }
     // </editor-fold>
 }

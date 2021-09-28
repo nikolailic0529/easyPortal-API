@@ -11,6 +11,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Exception;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function is_string;
@@ -23,10 +24,15 @@ use function is_string;
  */
 abstract class Loader implements Isolated {
     public function __construct(
+        protected Container $container,
         protected ExceptionHandler $exceptionHandler,
         protected Client $client,
     ) {
         // empty
+    }
+
+    protected function getContainer(): Container {
+        return $this->container;
     }
 
     protected function getExceptionHandler(): ExceptionHandler {
