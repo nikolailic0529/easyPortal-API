@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Resolvers\LazyValue;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -15,15 +16,19 @@ class AssetsAggregate {
     }
 
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
-     * @return array<string,mixed>
+     * @param array<string, mixed> $args
      */
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): array {
-        return [
-            'count'     => ($this->assetsAggregateCount)($root, $args, $context, $resolveInfo),
-            'types'     => ($this->assetsAggregateType)($root, $args, $context, $resolveInfo),
-            'coverages' => ($this->assetsAggregateCoverages)($root, $args, $context, $resolveInfo),
-        ];
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): LazyValue {
+        return new LazyValue([
+            'count'     => function () use ($root, $args, $context, $resolveInfo): mixed {
+                return ($this->assetsAggregateCount)($root, $args, $context, $resolveInfo);
+            },
+            'types'     => function () use ($root, $args, $context, $resolveInfo): mixed {
+                return ($this->assetsAggregateType)($root, $args, $context, $resolveInfo);
+            },
+            'coverages' => function () use ($root, $args, $context, $resolveInfo): mixed {
+                return ($this->assetsAggregateCoverages)($root, $args, $context, $resolveInfo);
+            },
+        ]);
     }
 }

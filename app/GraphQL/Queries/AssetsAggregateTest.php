@@ -3,11 +3,14 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
+use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
@@ -22,6 +25,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\GraphQL\Queries\AssetsAggregate
  */
 class AssetsAggregateTest extends TestCase {
+    use WithQueryLog;
+
     /**
      * @covers ::__invoke
      * @covers \App\GraphQL\Queries\AssetsAggregateTypes::__invoke
@@ -81,6 +86,30 @@ class AssetsAggregateTest extends TestCase {
                 ],
             )
             ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::__invoke
+     *
+     * @dataProvider dataProviderQueryLazy
+     */
+    public function testQueryLazy(string $query): void {
+        $organization = $this->setOrganization(Organization::factory()->create());
+
+        $this->setUser(User::factory()->make([
+            'type'            => UserType::local(),
+            'organization_id' => $organization,
+        ]));
+
+        $queries = $this->getQueryLog();
+
+        $this
+            ->graphQL("query { assetsAggregate { {$query} }  }")
+            ->assertThat(
+                new GraphQLSuccess('assetsAggregate', null),
+            );
+
+        $this->assertCount(2, $queries->get());
     }
     // </editor-fold>
 
@@ -245,6 +274,17 @@ class AssetsAggregateTest extends TestCase {
                 ]),
             ),
         ]))->getData();
+    }
+
+    /**
+     * @return array<string, array<string>>
+     */
+    public function dataProviderQueryLazy(): array {
+        return [
+            'count'     => ['count'],
+            'types'     => ['types { count }'],
+            'coverages' => ['coverages { count }'],
+        ];
     }
     // </editor-fold>
 }
