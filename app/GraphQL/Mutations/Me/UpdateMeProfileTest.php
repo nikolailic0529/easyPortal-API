@@ -98,8 +98,8 @@ class UpdateMeProfileTest extends TestCase {
                 $this->assertNull($user->job_title);
                 $this->assertNull($user->photo);
             } else {
-                $this->assertEquals($user->given_name, $input['first_name']);
-                $this->assertEquals($user->family_name, $input['last_name']);
+                $this->assertEquals($user->given_name, $input['given_name']);
+                $this->assertEquals($user->family_name, $input['family_name']);
                 $this->assertEquals($user->title, $input['title']);
                 $this->assertEquals($user->academic_title, $input['academic_title']);
                 $this->assertEquals($user->office_phone, $input['office_phone']);
@@ -129,8 +129,8 @@ class UpdateMeProfileTest extends TestCase {
                         $user->save();
 
                         return [
-                            'first_name'     => 'first',
-                            'last_name'      => 'last',
+                            'given_name'     => 'first',
+                            'family_name'    => 'last',
                             'title'          => 'Mr',
                             'academic_title' => 'Professor',
                             'office_phone'   => '+1-202-555-0197',
@@ -157,8 +157,8 @@ class UpdateMeProfileTest extends TestCase {
                     [],
                     static function (): array {
                         return [
-                            'first_name' => 'first',
-                            'last_name'  => 'last',
+                            'given_name'  => 'first',
+                            'family_name' => 'last',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -215,8 +215,8 @@ class UpdateMeProfileTest extends TestCase {
                     [],
                     static function (): array {
                         return [
-                            'first_name'     => null,
-                            'last_name'      => null,
+                            'given_name'     => null,
+                            'family_name'    => null,
                             'title'          => null,
                             'academic_title' => null,
                             'office_phone'   => null,

@@ -59,10 +59,10 @@ class SignUpByInviteTest extends TestCase {
         $organization->save();
 
         $data = [
-            'token'      => $this->faker->sha256,
-            'first_name' => $this->faker->firstName,
-            'last_name'  => $this->faker->lastName,
-            'password'   => $this->faker->password,
+            'token'       => $this->faker->sha256,
+            'given_name'  => $this->faker->firstName,
+            'family_name' => $this->faker->lastName,
+            'password'    => $this->faker->password,
         ];
 
         if ($inputFactory) {
@@ -115,12 +115,12 @@ class SignUpByInviteTest extends TestCase {
                             'organization_id' => $organization->getKey(),
                         ]);
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -150,12 +150,12 @@ class SignUpByInviteTest extends TestCase {
                             'organization_id' => $organization->getKey(),
                         ]);
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -173,12 +173,12 @@ class SignUpByInviteTest extends TestCase {
                     ),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                 ],
@@ -186,10 +186,10 @@ class SignUpByInviteTest extends TestCase {
                     new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken('wrong_encryption')),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => 'wrong_encryption',
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'token'       => 'wrong_encryption',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                 ],
@@ -201,12 +201,12 @@ class SignUpByInviteTest extends TestCase {
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'key' => 'value',
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                 ],
@@ -228,12 +228,12 @@ class SignUpByInviteTest extends TestCase {
                             'used_at'         => Date::now(),
                         ]);
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -264,12 +264,12 @@ class SignUpByInviteTest extends TestCase {
                             'expired_at'      => Date::now(),
                         ]);
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -287,10 +287,10 @@ class SignUpByInviteTest extends TestCase {
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => '',
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'token'       => '',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                 ],
@@ -300,13 +300,13 @@ class SignUpByInviteTest extends TestCase {
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name' => '',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
+                            'given_name'  => '',
+                            'family_name' => 'Last',
+                            'password'    => '123456',
                         ];
                     },
                 ],
@@ -316,13 +316,13 @@ class SignUpByInviteTest extends TestCase {
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => '',
-                            'password'   => '123456',
+                            'given_name'  => 'First',
+                            'family_name' => '',
+                            'password'    => '123456',
                         ];
                     },
                 ],
@@ -332,13 +332,13 @@ class SignUpByInviteTest extends TestCase {
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                            'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '',
+                            'given_name'  => 'First',
+                            'family_name' => 'Last',
+                            'password'    => '',
                         ];
                     },
                 ],

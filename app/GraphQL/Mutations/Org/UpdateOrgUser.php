@@ -114,8 +114,8 @@ class UpdateOrgUser {
      */
     protected function getProfileValues(array $input): array {
         $attributes = [
-            'first_name',
-            'last_name',
+            'given_name',
+            'family_name',
             'office_phone',
             'contact_email',
             'title',

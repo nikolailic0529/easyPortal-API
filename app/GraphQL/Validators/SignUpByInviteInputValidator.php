@@ -10,10 +10,10 @@ class SignUpByInviteInputValidator extends Validator {
      */
     public function rules(): array {
         return [
-            'password'   => ['required', 'string'],
-            'token'      => ['required', 'string'],
-            'first_name' => ['required', 'string'],
-            'last_name'  => ['required', 'string'],
+            'password'    => ['required', 'string'],
+            'token'       => ['required', 'string'],
+            'given_name'  => ['required', 'string'],
+            'family_name' => ['required', 'string'],
         ];
     }
 }

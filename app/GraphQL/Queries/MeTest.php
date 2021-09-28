@@ -109,8 +109,8 @@ class MeTest extends TestCase {
             query profile {
                 me {
                     profile {
-                        first_name
-                        last_name
+                        given_name
+                        family_name
                         title
                         academic_title
                         office_phone
@@ -221,8 +221,8 @@ class MeTest extends TestCase {
                 ],
                 'user is allowed'  => [
                     new GraphQLSuccess('me', self::class, new JsonFragment('profile', [
-                        'first_name'     => 'first',
-                        'last_name'      => 'last',
+                        'given_name'     => 'first',
+                        'family_name'    => 'last',
                         'title'          => 'Mr',
                         'academic_title' => 'academic_title',
                         'office_phone'   => '01000230232',

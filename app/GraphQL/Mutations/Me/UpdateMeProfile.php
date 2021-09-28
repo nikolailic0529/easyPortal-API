@@ -41,11 +41,11 @@ class UpdateMeProfile {
         $attributes = $keycloakUser->attributes;
         foreach ($input as $property => $value) {
             switch ($property) {
-                case 'first_name':
+                case 'given_name':
                     $userType->firstName = $value;
                     $user->given_name    = $value;
                     break;
-                case 'last_name':
+                case 'family_name':
                     $userType->lastName = $value;
                     $user->family_name  = $value;
                     break;

@@ -1833,8 +1833,8 @@ input ProductsSort {
 }
 
 type Profile {
-  first_name: String
-  last_name: String
+  given_name: String
+  family_name: String
   title: String
   academic_title: String
   office_phone: String
@@ -4742,8 +4742,8 @@ type SignOutPayload {
 
 input SignUpByInviteInput {
   token: String!
-  first_name: String!
-  last_name: String!
+  given_name: String!
+  family_name: String!
   password: String!
 }
 
@@ -5381,8 +5381,8 @@ type UpdateMePasswordPayload {
 }
 
 input UpdateMeProfileInput {
-  first_name: String
-  last_name: String
+  given_name: String
+  family_name: String
   title: String
   academic_title: String
   office_phone: String
@@ -5455,8 +5455,8 @@ type UpdateOrgRolesPayload {
 
 input UpdateOrgUserInput {
   user_id: ID!
-  first_name: String
-  last_name: String
+  given_name: String
+  family_name: String
   title: String
   academic_title: String
   office_phone: String

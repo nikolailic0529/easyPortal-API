@@ -53,8 +53,8 @@ class Me {
             return null;
         }
         return [
-            'first_name'     => $user->given_name,
-            'last_name'      => $user->family_name,
+            'given_name'     => $user->given_name,
+            'family_name'    => $user->family_name,
             'office_phone'   => $user->office_phone,
             'contact_email'  => $user->contact_email,
             'title'          => $user->title,

@@ -17,8 +17,8 @@ class UpdateMeProfileInputValidator extends Validator {
      */
     public function rules(): array {
         return [
-            'first_name'     => ['nullable', 'string'],
-            'last_name'      => ['nullable', 'string'],
+            'given_name'     => ['nullable', 'string'],
+            'family_name'    => ['nullable', 'string'],
             'office_phone'   => ['nullable', 'string'],
             'contact_email'  => ['nullable', 'email'],
             'title'          => ['nullable', 'string'],

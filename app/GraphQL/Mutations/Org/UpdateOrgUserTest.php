@@ -117,8 +117,8 @@ class UpdateOrgUserTest extends TestCase {
                 $this->assertNull($updatedUser->locale);
                 $this->assertNull($updatedUser->homepage);
             } else {
-                $this->assertEquals($updatedUser->given_name, $input['first_name']);
-                $this->assertEquals($updatedUser->family_name, $input['last_name']);
+                $this->assertEquals($updatedUser->given_name, $input['given_name']);
+                $this->assertEquals($updatedUser->family_name, $input['family_name']);
                 $this->assertEquals($updatedUser->title, $input['title']);
                 $this->assertEquals($updatedUser->academic_title, $input['academic_title']);
                 $this->assertEquals($updatedUser->office_phone, $input['office_phone']);
@@ -191,8 +191,8 @@ class UpdateOrgUserTest extends TestCase {
                     static function (TestCase $test, Organization $organization, User $user): array {
                         return [
                             'user_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                            'first_name'     => 'first',
-                            'last_name'      => 'last',
+                            'given_name'     => 'first',
+                            'family_name'    => 'last',
                             'title'          => 'Mr',
                             'academic_title' => 'Professor',
                             'office_phone'   => '+1-202-555-0197',
@@ -353,8 +353,8 @@ class UpdateOrgUserTest extends TestCase {
                     static function (): array {
                         return [
                             'user_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                            'first_name'     => null,
-                            'last_name'      => null,
+                            'given_name'     => null,
+                            'family_name'    => null,
                             'title'          => null,
                             'academic_title' => null,
                             'office_phone'   => null,

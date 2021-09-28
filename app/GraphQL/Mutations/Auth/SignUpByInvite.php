@@ -73,16 +73,16 @@ class SignUpByInvite {
 
         // update local values
         $user                 = $invitation->user;
-        $user->given_name     = $input['first_name'];
-        $user->family_name    = $input['last_name'];
+        $user->given_name     = $input['given_name'];
+        $user->family_name    = $input['family_name'];
         $user->enabled        = true;
         $user->email_verified = true;
         $user->save();
 
         // update keycloak
         $this->client->updateUser($keycloakUser->id, new User([
-            'firstName'     => $input['first_name'],
-            'lastName'      => $input['last_name'],
+            'firstName'     => $input['given_name'],
+            'lastName'      => $input['family_name'],
             'enabled'       => true,
             'emailVerified' => true,
             'credentials'   => [
