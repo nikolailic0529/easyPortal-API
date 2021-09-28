@@ -92,6 +92,7 @@ class OrgTest extends TestCase {
                     welcome_image_url
                     welcome_heading
                     welcome_underline
+                    dashboard_image_url
                 }
                 statuses {
                     id
@@ -221,6 +222,7 @@ class OrgTest extends TestCase {
                                     'branding_default_logo_url'        => 'https://www.example.com/logo-default.png',
                                     'branding_default_favicon_url'     => 'https://www.example.com/favicon-default.png',
                                     'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
+                                    'branding_dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
                                     'branding_welcome_heading'         => 'heading',
                                     'branding_welcome_underline'       => 'underline',
                                     'timezone'                         => 'Europe/London',
@@ -318,6 +320,7 @@ class OrgTest extends TestCase {
                                 'default_logo_url'        => 'https://www.example.com/logo-default.png',
                                 'default_favicon_url'     => 'https://www.example.com/favicon-default.png',
                                 'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
+                                'dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
                                 'welcome_heading'         => 'heading',
                                 'welcome_underline'       => 'underline',
                             ],

@@ -40,6 +40,7 @@ class Organization {
             'welcome_image_url'       => $organization->branding_welcome_image_url,
             'welcome_heading'         => $organization->branding_welcome_heading,
             'welcome_underline'       => $organization->branding_welcome_underline,
+            'dashboard_image_url'     => $organization->branding_dashboard_image_url,
         ];
     }
 

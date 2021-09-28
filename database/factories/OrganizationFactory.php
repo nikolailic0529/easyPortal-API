@@ -52,6 +52,7 @@ class OrganizationFactory extends Factory {
             'created_at'                       => Date::now(),
             'updated_at'                       => Date::now(),
             'deleted_at'                       => null,
+            'branding_dashboard_image_url'     => null,
         ];
     }
 }

@@ -11,4 +11,5 @@ type OrganizationBranding {
   welcome_image_url: String
   welcome_heading: String
   welcome_underline: String
+  dashboard_image_url: String
 }

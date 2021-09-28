@@ -1114,7 +1114,8 @@
                 "default_favicon_url",
                 "welcome_image_url",
                 "welcome_heading",
-                "welcome_underline"
+                "welcome_underline",
+                "dashboard_image_url"
             ],
             "properties": {
                 "dark_theme": {
@@ -1223,6 +1224,16 @@
                     "type": [
                         "string",
                         "null"
+                    ]
+                },
+                "dashboard_image_url": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/url"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             }

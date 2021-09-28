@@ -26,6 +26,7 @@ input UpdateOrgBranding {
   welcome_image_url: Upload
   welcome_heading: String
   welcome_underline: String
+  dashboard_image_url: Upload
 }
 
 type UpdateOrgPayload {

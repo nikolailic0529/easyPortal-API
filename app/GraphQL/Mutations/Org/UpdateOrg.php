@@ -135,6 +135,9 @@ class UpdateOrg {
                         $organization->branding_welcome_image_url = $this->store($organization, $value);
                     }
                     break;
+                case 'dashboard_image_url':
+                    $organization->branding_dashboard_image_url = $this->store($organization, $value);
+                    break;
                 default:
                     $organization->{$property} = $value;
                     break;

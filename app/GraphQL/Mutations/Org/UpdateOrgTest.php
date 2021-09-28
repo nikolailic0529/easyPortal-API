@@ -50,9 +50,10 @@ class UpdateOrgTest extends TestCase {
         $map   = [];
         $file  = [];
 
-        $hasLogo    = false;
-        $hasFavicon = false;
-        $hasWelcome = false;
+        $hasLogo      = false;
+        $hasFavicon   = false;
+        $hasWelcome   = false;
+        $hasDashboard = false;
 
         if ($dataFactory) {
             $data  = $dataFactory($this);
@@ -78,6 +79,13 @@ class UpdateOrgTest extends TestCase {
                     $file['2']                              = $input['branding']['welcome_image_url'];
                     $input['branding']['welcome_image_url'] = null;
                     $hasWelcome                             = true;
+                }
+
+                if (isset($input['branding']['dashboard_image_url'])) {
+                    $map['2']                                 = ['variables.input.branding.dashboard_image_url'];
+                    $file['2']                                = $input['branding']['dashboard_image_url'];
+                    $input['branding']['dashboard_image_url'] = null;
+                    $hasDashboard                             = true;
                 }
             }
         }
@@ -123,6 +131,7 @@ class UpdateOrgTest extends TestCase {
                     welcome_image_url
                     welcome_heading
                     welcome_underline
+                    dashboard_image_url
                   }
                   statuses {
                       id
@@ -247,6 +256,7 @@ class UpdateOrgTest extends TestCase {
             !$hasLogo && $this->assertNull($organization->branding_logo_url);
             !$hasFavicon && $this->assertNull($organization->branding_favicon_url);
             !$hasWelcome && $this->assertNull($organization->branding_welcome_image_url);
+            !$hasDashboard && $this->assertNull($organization->branding_dashboard_image_url);
 
             if (array_key_exists('branding', $data)) {
                 $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
@@ -286,14 +296,15 @@ class UpdateOrgTest extends TestCase {
                             'analytics_code' => 'code',
                             'timezone'       => 'Europe/London',
                             'branding'       => [
-                                'dark_theme'        => false,
-                                'main_color'        => '#ffffff',
-                                'secondary_color'   => '#ffffff',
-                                'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 20),
-                                'favicon_url'       => UploadedFile::fake()->create('branding_favicon.jpg', 100),
-                                'welcome_image_url' => UploadedFile::fake()->create('branding_welcome.jpg', 100),
-                                'welcome_heading'   => 'heading',
-                                'welcome_underline' => 'underline',
+                                'dark_theme'          => false,
+                                'main_color'          => '#ffffff',
+                                'secondary_color'     => '#ffffff',
+                                'logo_url'            => UploadedFile::fake()->create('branding_logo.jpg', 20),
+                                'favicon_url'         => UploadedFile::fake()->create('branding_favicon.jpg', 100),
+                                'welcome_image_url'   => UploadedFile::fake()->create('branding_welcome.jpg', 100),
+                                'welcome_heading'     => 'heading',
+                                'welcome_underline'   => 'underline',
+                                'dashboard_image_url' => UploadedFile::fake()->create('branding_dashboard.jpg', 100),
                             ],
                         ];
                     },
@@ -434,14 +445,15 @@ class UpdateOrgTest extends TestCase {
                             'analytics_code' => 'analytics_code',
                             'timezone'       => 'Europe/London',
                             'branding'       => [
-                                'logo_url'          => null,
-                                'dark_theme'        => false,
-                                'main_color'        => null,
-                                'secondary_color'   => null,
-                                'favicon_url'       => null,
-                                'welcome_image_url' => null,
-                                'welcome_heading'   => null,
-                                'welcome_underline' => null,
+                                'logo_url'            => null,
+                                'dark_theme'          => false,
+                                'main_color'          => null,
+                                'secondary_color'     => null,
+                                'favicon_url'         => null,
+                                'welcome_image_url'   => null,
+                                'welcome_heading'     => null,
+                                'welcome_underline'   => null,
+                                'dashboard_image_url' => null,
                             ],
                         ];
                     },
