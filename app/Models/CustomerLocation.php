@@ -53,15 +53,7 @@ class CustomerLocation extends Model implements CascadeDeletable {
     }
 
     protected function getResellersPivot(): Pivot {
-        return new class() extends Pivot {
-            public function getTable(): string {
-                if (!isset($this->table)) {
-                    $this->setTable((new ResellerLocation())->getTable());
-                }
-
-                return $this->table;
-            }
-        };
+        return new LocationReseller();
     }
 
     protected function getResellersParentKey(): ?string {

@@ -39,8 +39,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Location extends Model {
     use HasFactory;
     use HasAssets;
-    use HasResellers;
-    use HasCustomers;
+    use HasResellers {
+        setResellersAttribute as private;
+    }
+    use HasCustomers {
+        setCustomersAttribute as private;
+    }
 
     /**
      * The attributes that should be cast to native types.
@@ -81,15 +85,7 @@ class Location extends Model {
     }
 
     protected function getResellersPivot(): Pivot {
-        return new class() extends Pivot {
-            public function getTable(): string {
-                if (!isset($this->table)) {
-                    $this->setTable((new ResellerLocation())->getTable());
-                }
-
-                return $this->table;
-            }
-        };
+        return new LocationReseller();
     }
 
     protected function getCustomersPivot(): Pivot {

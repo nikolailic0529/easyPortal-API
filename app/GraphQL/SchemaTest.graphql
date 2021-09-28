@@ -5151,7 +5151,7 @@ input SortByClauseContactsQuery {
   types: SortByClauseTypesQuery
 
   """Property clause."""
-  assets: SortByClauseCustomersQuery
+  assets: SortByClauseAssetsQuery
 
   """Property clause."""
   customers: SortByClauseCustomersQuery

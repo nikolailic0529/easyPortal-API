@@ -496,7 +496,7 @@ class ContractsTest extends TestCase {
                                 'name' => 'name',
                             ]);
                             // Type Creation belongs to
-                            $type = Type::factory()->create([
+                            $type     = Type::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ]);
@@ -521,6 +521,8 @@ class ContractsTest extends TestCase {
                                 'reseller_id' => $reseller,
                                 'location_id' => $location,
                             ]);
+
+                            $location->resellers()->attach($reseller);
 
                             $customer = Customer::factory()
                                 ->hasContacts(1, [

@@ -49,7 +49,7 @@ trait WithLocations {
                 $companyLocations,
             ): ResellerLocation|CustomerLocation|null {
                 try {
-                    $locationModel = $this->location($location);
+                    $locationModel   = $this->location($location);
                     $companyLocation = null;
 
                     if ($locationModel) {

@@ -420,19 +420,6 @@ class AssetsTest extends TestCase {
                                             'assets_count'    => 0,
                                             'locations'       => [
                                                 [
-                                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                    'location'    => [
-                                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                        'state'     => 'state1',
-                                                        'postcode'  => '19911',
-                                                        'line_one'  => 'line_one_data',
-                                                        'line_two'  => 'line_two_data',
-                                                        'latitude'  => 47.91634204,
-                                                        'longitude' => -2.26318359,
-                                                    ],
-                                                    'types'       => [],
-                                                ],
-                                                [
                                                     'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                                     'location'    => [
                                                         'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
@@ -519,10 +506,7 @@ class AssetsTest extends TestCase {
                                 'assets_count'    => 0,
                             ]);
 
-                            ResellerLocation::factory()->create([
-                                'reseller_id' => $reseller,
-                                'location_id' => $location,
-                            ]);
+                            $location->resellers()->attach($reseller);
 
                             $customer = Customer::factory()
                                 ->hasContacts(1, [
@@ -558,6 +542,8 @@ class AssetsTest extends TestCase {
                                 'reseller_id' => $reseller,
                                 'location_id' => $assetLocation,
                             ]);
+
+                            $assetLocation->resellers()->attach($reseller);
 
                             // Service Group/Level
                             $serviceGroup = ServiceGroup::factory()->create([

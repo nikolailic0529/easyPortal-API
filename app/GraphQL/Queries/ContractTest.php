@@ -548,6 +548,8 @@ class ContractTest extends TestCase {
                                 'location_id' => $location,
                             ]);
 
+                            $location->resellers()->attach($reseller);
+
                             $customer = Customer::factory()
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',

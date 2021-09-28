@@ -294,6 +294,8 @@ class QuotesTest extends TestCase {
                 'location_id' => $location,
             ]);
 
+            $location->resellers()->attach($reseller);
+
             // Customer Creation creation belongs to
             $customer = Customer::factory()
                 ->hasContacts(1, [

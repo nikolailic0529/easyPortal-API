@@ -7,7 +7,6 @@ use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\ResellerLocation;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -166,10 +165,7 @@ class CustomersSearchTest extends TestCase {
                                 'id' => $organization,
                             ]);
 
-                            ResellerLocation::factory()->create([
-                                'reseller_id' => $reseller,
-                                'location_id' => $location,
-                            ]);
+                            $location->resellers()->attach($reseller);
 
                             $customer = Customer::factory()
                                 ->hasContacts(1, [

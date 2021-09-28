@@ -374,6 +374,8 @@ class OrgTest extends TestCase {
                                     'location_id' => $location,
                                 ]);
 
+                            $location->resellers()->attach($reseller);
+
                             Kpi::factory()->create([
                                 'object_id'                           => $organization->getKey(),
                                 'object_type'                         => (new Reseller())->getMorphClass(),
