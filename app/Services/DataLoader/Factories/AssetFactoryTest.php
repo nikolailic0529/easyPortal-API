@@ -9,7 +9,6 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Location;
-use App\Models\Model;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
