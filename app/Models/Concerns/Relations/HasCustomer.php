@@ -3,20 +3,16 @@
 namespace App\Models\Concerns\Relations;
 
 use App\Models\Customer;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Models\Model
  */
 trait HasCustomer {
-    public function customer(): BelongsTo {
-        return $this
-            ->belongsTo(Customer::class)
-            ->withoutGlobalScope(OwnedByOrganizationScope::class);
+    use HasCustomerNullable {
+        setCustomerAttribute as private setCustomerAttributeNullable;
     }
 
-    public function setCustomerAttribute(?Customer $customer): void {
-        $this->customer()->associate($customer);
+    public function setCustomerAttribute(Customer $customer): void {
+        $this->setCustomerAttributeNullable($customer);
     }
 }

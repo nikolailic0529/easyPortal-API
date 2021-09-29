@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Location;
@@ -14,6 +15,7 @@ use App\Models\Organization;
 use App\Models\Product;
 use App\Models\QuoteRequest;
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
@@ -39,6 +41,8 @@ use Tests\TestCase;
 class AssetTest extends TestCase {
     use WithQueryLog;
 
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderQuery
      *
@@ -104,13 +108,20 @@ class AssetTest extends TestCase {
                             assets_count
                             locations_count
                             locations {
-                                id
-                                state
-                                postcode
-                                line_one
-                                line_two
-                                latitude
-                                longitude
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
                             }
                             contacts_count
                             contacts {
@@ -156,13 +167,20 @@ class AssetTest extends TestCase {
                                 assets_count
                                 locations_count
                                 locations {
-                                    id
-                                    state
-                                    postcode
-                                    line_one
-                                    line_two
-                                    latitude
-                                    longitude
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
                                 }
                                 contacts_count
                                 contacts {
@@ -178,13 +196,20 @@ class AssetTest extends TestCase {
                                 locations_count
                                 assets_count
                                 locations {
-                                    id
-                                    state
-                                    postcode
-                                    line_one
-                                    line_two
-                                    latitude
-                                    longitude
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
                                 }
                             }
                         }
@@ -223,13 +248,20 @@ class AssetTest extends TestCase {
                                 assets_count
                                 locations_count
                                 locations {
-                                    id
-                                    state
-                                    postcode
-                                    line_one
-                                    line_two
-                                    latitude
-                                    longitude
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
                                 }
                                 contacts_count
                                 contacts {
@@ -369,13 +401,17 @@ class AssetTest extends TestCase {
                                 'locations_count' => 1,
                                 'locations'       => [
                                     [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
+                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                        'location'    => [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => 47.91634204,
+                                            'longitude' => -2.26318359,
+                                        ],
+                                        'types'       => [],
                                     ],
                                 ],
                                 'contacts_count'  => 1,
@@ -409,13 +445,17 @@ class AssetTest extends TestCase {
                                         'assets_count'    => 0,
                                         'locations'       => [
                                             [
-                                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                                'state'     => 'state2',
-                                                'postcode'  => '19912',
-                                                'line_one'  => 'reseller_one_data',
-                                                'line_two'  => 'reseller_two_data',
-                                                'latitude'  => 49.91634204,
-                                                'longitude' => 90.26318359,
+                                                'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                'location'    => [
+                                                    'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                    'state'     => 'state1',
+                                                    'postcode'  => '19911',
+                                                    'line_one'  => 'line_one_data',
+                                                    'line_two'  => 'line_two_data',
+                                                    'latitude'  => 47.91634204,
+                                                    'longitude' => -2.26318359,
+                                                ],
+                                                'types'       => [],
                                             ],
                                         ],
                                     ],
@@ -451,13 +491,17 @@ class AssetTest extends TestCase {
                                         'locations_count' => 1,
                                         'locations'       => [
                                             [
-                                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                'state'     => 'state1',
-                                                'postcode'  => '19911',
-                                                'line_one'  => 'line_one_data',
-                                                'line_two'  => 'line_two_data',
-                                                'latitude'  => 47.91634204,
-                                                'longitude' => -2.26318359,
+                                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                'location'    => [
+                                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                    'state'     => 'state1',
+                                                    'postcode'  => '19911',
+                                                    'line_one'  => 'line_one_data',
+                                                    'line_two'  => 'line_two_data',
+                                                    'latitude'  => 47.91634204,
+                                                    'longitude' => -2.26318359,
+                                                ],
+                                                'types'       => [],
                                             ],
                                         ],
                                         'contacts_count'  => 1,
@@ -477,13 +521,17 @@ class AssetTest extends TestCase {
                                         'assets_count'    => 0,
                                         'locations'       => [
                                             [
-                                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                                'state'     => 'state2',
-                                                'postcode'  => '19912',
-                                                'line_one'  => 'reseller_one_data',
-                                                'line_two'  => 'reseller_two_data',
-                                                'latitude'  => 49.91634204,
-                                                'longitude' => 90.26318359,
+                                                'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                'location'    => [
+                                                    'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                    'state'     => 'state1',
+                                                    'postcode'  => '19911',
+                                                    'line_one'  => 'line_one_data',
+                                                    'line_two'  => 'line_two_data',
+                                                    'latitude'  => 47.91634204,
+                                                    'longitude' => -2.26318359,
+                                                ],
+                                                'types'       => [],
                                             ],
                                         ],
                                     ],
@@ -530,13 +578,17 @@ class AssetTest extends TestCase {
                                     'locations_count' => 1,
                                     'locations'       => [
                                         [
-                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                            'state'     => 'state1',
-                                            'postcode'  => '19911',
-                                            'line_one'  => 'line_one_data',
-                                            'line_two'  => 'line_two_data',
-                                            'latitude'  => 47.91634204,
-                                            'longitude' => -2.26318359,
+                                            'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'location'    => [
+                                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                'state'     => 'state1',
+                                                'postcode'  => '19911',
+                                                'line_one'  => 'line_one_data',
+                                                'line_two'  => 'line_two_data',
+                                                'latitude'  => 47.91634204,
+                                                'longitude' => -2.26318359,
+                                            ],
+                                            'types'       => [],
                                         ],
                                     ],
                                     'contacts_count'  => 1,
@@ -599,16 +651,6 @@ class AssetTest extends TestCase {
                                 'key'  => 'key',
                                 'name' => 'oem1',
                             ]);
-                            // Location belongs to
-                            $location = Location::factory()->create([
-                                'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => '47.91634204',
-                                'longitude' => '-2.26318359',
-                            ]);
                             // Product creation belongs to
                             $product = Product::factory()->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -618,17 +660,32 @@ class AssetTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Customer Creation creation belongs to
+
+                            // Type Creation belongs to
+                            $type     = Type::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'name' => 'name aaa',
+                            ]);
+                            $location = Location::factory()->create([
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => '47.91634204',
+                                'longitude' => '-2.26318359',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id'              => $organization,
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 1,
+                                'assets_count'    => 0,
+                            ]);
+
+                            $location->resellers()->attach($reseller);
+
                             $customer = Customer::factory()
-                                ->hasLocations(1, [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => '47.91634204',
-                                    'longitude' => '-2.26318359',
-                                ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',
                                     'email'       => 'contact1@test.com',
@@ -642,11 +699,31 @@ class AssetTest extends TestCase {
                                     'locations_count' => 1,
                                 ]);
 
-                            // Type Creation belongs to
-                            $type = Type::factory()->create([
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'name' => 'name aaa',
+                            $customer->resellers()->attach($reseller);
+
+                            CustomerLocation::factory()->create([
+                                'customer_id' => $customer,
+                                'location_id' => $location,
                             ]);
+
+                            // Location belongs to
+                            $assetLocation = Location::factory()->create([
+                                'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => '47.91634204',
+                                'longitude' => '-2.26318359',
+                            ]);
+
+                            ResellerLocation::factory()->create([
+                                'reseller_id' => $reseller,
+                                'location_id' => $assetLocation,
+                            ]);
+
+                            $assetLocation->resellers()->attach($reseller);
+
                             // Service
                             $serviceGroup = ServiceGroup::factory()->create([
                                 'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
@@ -662,27 +739,6 @@ class AssetTest extends TestCase {
                                 'name'             => 'Level',
                                 'description'      => 'description',
                             ]);
-
-                            // Reseller
-                            $reseller = Reseller::factory()
-                                ->hasLocations(1, [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                    'state'     => 'state2',
-                                    'postcode'  => '19912',
-                                    'line_one'  => 'reseller_one_data',
-                                    'line_two'  => 'reseller_two_data',
-                                    'latitude'  => '49.91634204',
-                                    'longitude' => '90.26318359',
-                                ])
-                                ->create([
-                                    'id'              => $organization,
-                                    'name'            => 'reseller1',
-                                    'customers_count' => 0,
-                                    'locations_count' => 1,
-                                    'assets_count'    => 0,
-                                ]);
-
-                            $customer->resellers()->attach($reseller);
 
                             // Document creation for support
                             $documentType = Type::factory()->create([
@@ -719,7 +775,7 @@ class AssetTest extends TestCase {
                                 ->for($reseller)
                                 ->for($customer)
                                 ->for($type)
-                                ->for($location)
+                                ->for($assetLocation)
                                 ->for($status)
                                 ->hasTags(1, [
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
@@ -839,6 +895,7 @@ class AssetTest extends TestCase {
                                     'bcc'             => ['bcc@example.com'],
                                     'created_at'      => Date::now(),
                                 ]);
+
                             return $asset;
                         },
                     ],

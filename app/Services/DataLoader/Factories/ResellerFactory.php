@@ -125,7 +125,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
             $reseller->customers_count = 0;
             $reseller->statuses        = $this->companyStatuses($reseller, $company);
             $reseller->contacts        = $this->objectContacts($reseller, $company->companyContactPersons);
-            $reseller->locations       = $this->objectLocations($reseller, $company->locations);
+            $reseller->locations       = $this->companyLocations($reseller, $company->locations);
             $reseller->kpi             = $this->kpi($reseller, $company->companyKpis);
 
             $reseller->save();

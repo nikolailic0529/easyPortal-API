@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Resolvers\LazyValue;
 use App\Models\Customer as CustomerModel;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -15,15 +16,13 @@ class Customer {
 
     /**
      * @param array<string, mixed> $args
-     *
-     * @return array<string,mixed>
      */
     public function assetsAggregate(
         CustomerModel $root,
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-    ): array {
+    ): LazyValue {
         return ($this->assetsAggregate)($root, $args, $context, $resolveInfo);
     }
 }

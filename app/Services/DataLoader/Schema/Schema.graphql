@@ -235,13 +235,22 @@ type Document {
 }
 
 type DocumentEntry {
-  serialNumber: String
   assetId: String
   asset: Asset
+  startDate: String
+  endDate: String
+  productLineDescription: String
+  supportPackage: String
+  supportPackageDescription: String
+  languageCode: String
   currencyCode: String
   netPrice: String
   discount: String
   listPrice: String
+  skuNumber: String
+  skuDescription: String
+  warrantyEndDate: String
+  estimatedValueRenewal: String
 }
 
 type DocumentVendorSpecificField {
@@ -307,6 +316,8 @@ type Query {
   getCustomers(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
   getDistributors(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
   getDocumentTypes: [String]!
+  getDocuments(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Document]!
+  getDocumentById(id: String!): Document!
   getCentralAssetDbStatistics: CentralAssetDbStatistics
 }
 

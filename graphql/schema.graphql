@@ -323,7 +323,7 @@ type Query {
   ): [Map!]!
   @organization
   @me(permissions: ["customers-view"])
-  @all(builder: "App\\GraphQL\\Queries\\Map")
+  @field(resolver: "App\\GraphQL\\Queries\\Map")
 
   # Organization
   # ============================================================================

@@ -8,6 +8,7 @@ use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Models\Role;
 use App\Models\User;
 use Closure;
@@ -71,33 +72,40 @@ class OrganizationTest extends TestCase {
                         timezone
                         currency_id
                         currency {
-                          id
-                          name
-                          code
+                            id
+                            name
+                            code
                         }
                         locations {
-                          id
-                          state
-                          postcode
-                          line_one
-                          line_two
-                          latitude
-                          longitude
+                            location_id
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                latitude
+                                longitude
+                            }
+                            types {
+                                id
+                                name
+                            }
                         }
                         branding {
-                          dark_theme
-                          main_color
-                          secondary_color
-                          logo_url
-                          favicon_url
-                          default_main_color
-                          default_secondary_color
-                          default_logo_url
-                          default_favicon_url
-                          welcome_image_url
-                          welcome_heading
-                          welcome_underline
-                          dashboard_image_url
+                            dark_theme
+                            main_color
+                            secondary_color
+                            logo_url
+                            favicon_url
+                            default_main_color
+                            default_secondary_color
+                            default_logo_url
+                            default_favicon_url
+                            welcome_image_url
+                            welcome_heading
+                            welcome_underline
+                            dashboard_image_url
                         }
                         statuses {
                             id
@@ -105,18 +113,25 @@ class OrganizationTest extends TestCase {
                             name
                         }
                         contacts {
-                          name
-                          email
-                          phone_valid
+                            name
+                            email
+                            phone_valid
                         }
                         headquarter {
-                          id
-                          state
-                          postcode
-                          line_one
-                          line_two
-                          latitude
-                          longitude
+                            location_id
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                latitude
+                                longitude
+                            }
+                            types {
+                                id
+                                name
+                            }
                         }
                         kpi {
                             assets_total
@@ -339,13 +354,22 @@ class OrganizationTest extends TestCase {
                         ],
                         'locations'      => [
                             [
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => 47.91634204,
-                                'longitude' => -2.26318359,
+                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'location'    => [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'     => 'state1',
+                                    'postcode'  => '19911',
+                                    'line_one'  => 'line_one_data',
+                                    'line_two'  => 'line_two_data',
+                                    'latitude'  => 47.91634204,
+                                    'longitude' => -2.26318359,
+                                ],
+                                'types'       => [
+                                    [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'name' => 'headquarter',
+                                    ],
+                                ],
                             ],
                         ],
                         'contacts'       => [
@@ -356,13 +380,22 @@ class OrganizationTest extends TestCase {
                             ],
                         ],
                         'headquarter'    => [
-                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'state'     => 'state1',
-                            'postcode'  => '19911',
-                            'line_one'  => 'line_one_data',
-                            'line_two'  => 'line_two_data',
-                            'latitude'  => 47.91634204,
-                            'longitude' => -2.26318359,
+                            'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                            'location'    => [
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => 47.91634204,
+                                'longitude' => -2.26318359,
+                            ],
+                            'types'       => [
+                                [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'name' => 'headquarter',
+                                ],
+                            ],
                         ],
                         'branding'       => [
                             'dark_theme'              => true,
@@ -424,6 +457,15 @@ class OrganizationTest extends TestCase {
                             'name' => 'currency1',
                             'code' => 'CUR',
                         ]);
+                        $location = Location::factory()->create([
+                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                            'state'     => 'state1',
+                            'postcode'  => '19911',
+                            'line_one'  => 'line_one_data',
+                            'line_two'  => 'line_two_data',
+                            'latitude'  => '47.91634204',
+                            'longitude' => '-2.26318359',
+                        ]);
                         $reseller = Reseller::factory()
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
@@ -439,22 +481,17 @@ class OrganizationTest extends TestCase {
                             ->create([
                                 'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             ]);
-                        Location::factory()
+
+                        ResellerLocation::factory()
                             ->hasTypes(1, [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'headquarter',
                             ])
                             ->create([
-                                'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'       => 'state1',
-                                'postcode'    => '19911',
-                                'line_one'    => 'line_one_data',
-                                'line_two'    => 'line_two_data',
-                                'latitude'    => '47.91634204',
-                                'longitude'   => '-2.26318359',
-                                'object_type' => $reseller->getMorphClass(),
-                                'object_id'   => $reseller->getKey(),
+                                'reseller_id' => $reseller,
+                                'location_id' => $location,
                             ]);
+
                         $organization = Organization::factory()
                             ->for($currency)
                             ->hasRoles(1, [

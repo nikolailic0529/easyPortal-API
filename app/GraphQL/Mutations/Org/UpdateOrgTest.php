@@ -110,13 +110,20 @@ class UpdateOrgTest extends TestCase {
                     code
                   }
                   locations {
-                    id
-                    state
-                    postcode
-                    line_one
-                    line_two
-                    latitude
-                    longitude
+                    location_id
+                    location {
+                      id
+                      state
+                      postcode
+                      line_one
+                      line_two
+                      latitude
+                      longitude
+                    }
+                    types {
+                      id
+                      name
+                    }
                   }
                   branding {
                     dark_theme
@@ -144,13 +151,20 @@ class UpdateOrgTest extends TestCase {
                     phone_valid
                   }
                   headquarter {
-                    id
-                    state
-                    postcode
-                    line_one
-                    line_two
-                    latitude
-                    longitude
+                    location_id
+                    location {
+                      id
+                      state
+                      postcode
+                      line_one
+                      line_two
+                      latitude
+                      longitude
+                    }
+                    types {
+                      id
+                      name
+                    }
                   }
                   kpi {
                     assets_total

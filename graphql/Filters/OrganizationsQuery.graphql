@@ -5,6 +5,6 @@ input OrganizationsQuery {
   email: String
   statuses: StatusesQuery
   contacts: ContactsQuery
-  locations: LocationsQuery
-  headquarter: LocationsQuery
+  locations: ResellerLocationsQuery
+  headquarter: ResellerLocationsQuery
 }

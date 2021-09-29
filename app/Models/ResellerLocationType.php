@@ -3,24 +3,24 @@
 namespace App\Models;
 
 /**
- * Location Type (pivot)
+ * ResellerLocationType.
  *
  * @property string                       $id
- * @property string                       $location_id
+ * @property string                       $reseller_location_id
  * @property string                       $type_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerLocationType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerLocationType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerLocationType query()
  * @mixin \Eloquent
  */
-class LocationType extends Pivot {
+class ResellerLocationType extends Pivot {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
-    protected $table = 'location_types';
+    protected $table = 'reseller_location_types';
 }

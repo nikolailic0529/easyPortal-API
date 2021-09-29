@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Asset;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Customer;
@@ -25,6 +24,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\GraphQL\Queries\Map
  */
 class MapTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      *
@@ -50,7 +51,7 @@ class MapTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionMapQuery, $diff: Float!) {
                     map (where: $where, diff: $diff) {
@@ -63,6 +64,7 @@ class MapTest extends TestCase {
                         customers_count
                         assets_count
                         customers_ids
+                        locations_ids
                     }
                 }
                 GRAPHQL,
@@ -110,7 +112,7 @@ class MapTest extends TestCase {
                 'id' => 'ad16444a-46a4-3036-b893-7636e2e6209b',
             ]);
             $customerB = Customer::factory()->create([
-                'id' => 'ad16444a-46a4-3036-b893-7636e2e6209c',
+                'id' => 'bb699764-e10b-4e09-9fea-dd7a62238dd5',
             ]);
 
             // Resellers
@@ -125,78 +127,103 @@ class MapTest extends TestCase {
             $resellerA->save();
             $resellerB->save();
 
+            $code    = 0;
             $city    = City::factory()->create([
                 'id' => 'c6c90bff-b032-361a-b455-a61e2f3ca288',
             ]);
             $country = Country::factory()->create([
-                'id' => 'c6c90bff-b032-361a-b455-a61e2f3ca289',
+                'id'   => 'c6c90bff-b032-361a-b455-a61e2f3ca289',
+                'code' => $code++,
             ]);
+
             // Inside
             $locationA = Location::factory()->create([
-                'latitude'   => 1.00,
-                'longitude'  => 1.00,
-                'country_id' => Country::factory(),
-                'city_id'    => $city->getKey(),
+                'id'              => '4d9133ff-482b-4605-870f-9ee88c2062ae',
+                'latitude'        => 1.00,
+                'longitude'       => 1.00,
+                'country_id'      => Country::factory()->create(['code' => $code++]),
+                'city_id'         => $city->getKey(),
+                'assets_count'    => 3,
+                'customers_count' => 1,
+            ]);
+
+            $locationA->resellers()->attach($resellerA, [
+                'customers_count' => 1,
+                'assets_count'    => 3,
+            ]);
+            $locationA->customers()->attach($customerA, [
+                'assets_count' => 3,
             ]);
 
             $locationB = Location::factory()->create([
-                'latitude'   => 1.10,
-                'longitude'  => 1.10,
-                'object_id'  => $customerA,
-                'country_id' => $country->getKey(),
-                'city_id'    => City::factory(),
-            ]);
-            $locationC = Location::factory()->create([
-                'latitude'    => 1.5,
-                'longitude'   => 1.5,
-                'object_type' => (new Asset())->getMorphClass(),
-                'object_id'   => null,
-                'country_id'  => Country::factory(),
-                'city_id'     => City::factory(),
-            ]);
-            Location::factory()->create([
-                'latitude'   => 1.25,
-                'longitude'  => 1.25,
-                'object_id'  => $customerB,
-                'country_id' => Country::factory(),
-                'city_id'    => City::factory(),
+                'id'              => '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
+                'latitude'        => 1.10,
+                'longitude'       => 1.10,
+                'country_id'      => $country->getKey(),
+                'city_id'         => City::factory(),
+                'assets_count'    => 1,
+                'customers_count' => 1,
             ]);
 
-            Asset::factory()->create([
-                'location_id' => $locationA,
-                'reseller_id' => $resellerA,
+            $locationB->customers()->attach($customerA, [
+                'assets_count' => 1,
             ]);
-            Asset::factory()->create([
-                'location_id' => $locationA,
-                'reseller_id' => $resellerA,
+
+            $locationC = Location::factory()->create([
+                'id'              => '8d8a056f-b224-4d4f-90af-7e0eced13217',
+                'latitude'        => 1.25,
+                'longitude'       => 1.25,
+                'country_id'      => Country::factory()->create(['code' => $code++]),
+                'city_id'         => City::factory(),
+                'assets_count'    => 0,
+                'customers_count' => 1,
             ]);
-            Asset::factory()->create([
-                'location_id' => $locationA,
-                'reseller_id' => $resellerB,
+
+            $locationC->customers()->attach($customerB, [
+                'assets_count' => 0,
             ]);
-            Asset::factory()->create([
-                'location_id' => $locationB,
-                'reseller_id' => $resellerA,
+
+            $locationD = Location::factory()->create([
+                'id'              => '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                'latitude'        => 1.5,
+                'longitude'       => 1.5,
+                'country_id'      => Country::factory()->create(['code' => $code++]),
+                'city_id'         => City::factory(),
+                'assets_count'    => 2,
+                'customers_count' => 2,
             ]);
-            Asset::factory()->create([
-                'location_id' => $locationC,
-                'reseller_id' => $resellerA,
+
+            $locationD->resellers()->attach($resellerA, [
+                'customers_count' => 1,
+                'assets_count'    => 1,
+            ]);
+            $locationD->customers()->attach($customerA, [
+                'assets_count' => 1,
+            ]);
+            $locationD->customers()->attach($customerB, [
+                'assets_count' => 1,
             ]);
 
             // Empty
             Location::factory()->create([
-                'latitude'  => 2,
-                'longitude' => 2,
+                'latitude'   => 2,
+                'longitude'  => 2,
+                'country_id' => Country::factory()->create(['code' => $code++]),
+                'city_id'    => City::factory(),
             ]);
 
             // Outside
             Location::factory()->create([
-                'latitude'  => -1.00,
-                'longitude' => 1.00,
+                'latitude'   => -1.00,
+                'longitude'  => 1.00,
+                'country_id' => Country::factory()->create(['code' => $code++]),
+                'city_id'    => City::factory(),
             ]);
             Location::factory()->create([
-                'latitude'  => 1.00,
-                'longitude' => -1.00,
+                'latitude'   => 1.00,
+                'longitude'  => -1.00,
+                'country_id' => Country::factory()->create(['code' => $code++]),
+                'city_id'    => City::factory(),
             ]);
         };
 
@@ -210,16 +237,20 @@ class MapTest extends TestCase {
                     'ok'             => [
                         new GraphQLSuccess('map', self::class, [
                             [
-                                'latitude_avg'    => 1.025,
+                                'latitude_avg'    => 1.05,
                                 'latitude_min'    => 1,
                                 'latitude_max'    => 1.1,
-                                'longitude_avg'   => 1.025,
+                                'longitude_avg'   => 1.05,
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1.1,
                                 'customers_count' => 1,
                                 'assets_count'    => 4,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '4d9133ff-482b-4605-870f-9ee88c2062ae',
+                                    '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
                                 ],
                             ],
                             [
@@ -232,7 +263,10 @@ class MapTest extends TestCase {
                                 'customers_count' => 1,
                                 'assets_count'    => 0,
                                 'customers_ids'   => [
-                                    'ad16444a-46a4-3036-b893-7636e2e6209c',
+                                    'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '8d8a056f-b224-4d4f-90af-7e0eced13217',
                                 ],
                             ],
                             [
@@ -242,9 +276,15 @@ class MapTest extends TestCase {
                                 'longitude_avg'   => 1.5,
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
-                                'customers_count' => 0,
-                                'assets_count'    => 1,
-                                'customers_ids'   => [],
+                                'customers_count' => 2,
+                                'assets_count'    => 2,
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                    'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
                             ],
                         ]),
                         $factory,
@@ -259,9 +299,14 @@ class MapTest extends TestCase {
                                 'longitude_avg'   => 1,
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1,
-                                'customers_count' => 0,
+                                'customers_count' => 1,
                                 'assets_count'    => 3,
-                                'customers_ids'   => [],
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '4d9133ff-482b-4605-870f-9ee88c2062ae',
+                                ],
                             ],
                         ]),
                         $factory,
@@ -291,6 +336,9 @@ class MapTest extends TestCase {
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
+                                'locations_ids'   => [
+                                    '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
+                                ],
                             ],
                         ]),
                         $factory,
@@ -317,16 +365,19 @@ class MapTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('map', self::class, [
                             [
-                                'latitude_avg'    => 1.033333333333,
+                                'latitude_avg'    => 1,
                                 'latitude_min'    => 1,
-                                'latitude_max'    => 1.1,
-                                'longitude_avg'   => 1.033333333333,
+                                'latitude_max'    => 1,
+                                'longitude_avg'   => 1,
                                 'longitude_min'   => 1,
-                                'longitude_max'   => 1.1,
+                                'longitude_max'   => 1,
                                 'customers_count' => 1,
                                 'assets_count'    => 3,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '4d9133ff-482b-4605-870f-9ee88c2062ae',
                                 ],
                             ],
                             [
@@ -336,9 +387,14 @@ class MapTest extends TestCase {
                                 'longitude_avg'   => 1.5,
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
-                                'customers_count' => 0,
+                                'customers_count' => 1,
                                 'assets_count'    => 1,
-                                'customers_ids'   => [],
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
                             ],
                         ]),
                         $factory,

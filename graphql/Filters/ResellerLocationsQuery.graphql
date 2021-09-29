@@ -1,0 +1,5 @@
+input ResellerLocationsQuery {
+  location_id: ID!
+  location: LocationsQuery!
+  types: TypesQuery
+}

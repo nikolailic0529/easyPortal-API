@@ -5,14 +5,12 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Coverage;
-use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
@@ -249,10 +247,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
             // Asset
-            $reseller = $this->reseller($asset);
-            $customer = $this->customer($asset);
-            $location = $this->assetLocation($asset, $customer, $reseller);
-
             $created              = !$model->exists;
             $normalizer           = $this->getNormalizer();
             $model->id            = $normalizer->uuid($asset->id);
@@ -260,9 +254,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->type          = $this->assetType($asset);
             $model->status        = $this->assetStatus($asset);
             $model->product       = $this->assetProduct($asset);
-            $model->reseller      = $reseller;
-            $model->customer      = $customer;
-            $model->location      = $location;
+            $model->reseller      = $this->reseller($asset);
+            $model->customer      = $this->customer($asset);
+            $model->location      = $this->assetLocation($asset);
             $model->changed_at    = $normalizer->datetime($asset->updatedAt);
             $model->serial_number = $normalizer->string($asset->serialNumber);
             $model->data_quality  = $normalizer->string($asset->dataQualityScore);
@@ -592,20 +586,12 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         return $product;
     }
 
-    protected function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-        $location = $this->locationFactory->find(new AssetModel(), $asset);
+    protected function assetLocation(ViewAsset $asset): ?Location {
+        $location = $this->locationFactory->find($asset);
         $required = !$this->locationFactory->isEmpty($asset);
 
-        if ($customer && !$location) {
-            $location = $this->locationFactory->find($customer, $asset);
-        }
-
-        if ($reseller && !$location) {
-            $location = $this->locationFactory->find($reseller, $asset);
-        }
-
         if ($required && !$location) {
-            $location = $this->locationFactory->create(new AssetModel(), $asset);
+            $location = $this->locationFactory->create($asset);
 
             if (!$location || !$location->save()) {
                 throw new AssetLocationNotFound($asset->id, $asset);

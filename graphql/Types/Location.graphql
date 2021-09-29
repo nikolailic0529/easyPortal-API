@@ -10,5 +10,4 @@ type Location {
   city_id: ID!
   country: Country! @belongsTo
   country_id: ID!
-  types: [Type]! @belongsToMany
 }

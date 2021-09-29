@@ -616,12 +616,12 @@ type Customer {
   type: Type!
   type_id: ID!
   statuses: [Status]!
-  assets_count: Int!
-  locations_count: Int!
-  locations: [Location!]!
   contacts_count: Int!
   contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
-  headquarter: Location
+  locations: [CustomerLocation!]!
+  headquarter: CustomerLocation
+  assets_count: Int!
+  locations_count: Int!
   kpi: Kpi
 
   """
@@ -672,6 +672,22 @@ type Customer {
   ): AssetPaginator
 }
 
+type CustomerLocation {
+  location_id: ID!
+  location: Location
+  types: [Type!]!
+}
+
+input CustomerLocationsQuery {
+  location_id: ID!
+  location: LocationsQuery!
+  types: TypesQuery
+}
+
+input CustomerLocationsSort {
+  location: LocationsQuery!
+}
+
 """A paginated list of Customer items."""
 type CustomerPaginator {
   """Pagination information about the list of items."""
@@ -701,8 +717,8 @@ input CustomersQuery {
   statuses: StatusesQuery!
   assets_count: Int!
   locations_count: Int!
-  locations: LocationsQuery
-  headquarter: LocationsQuery
+  locations: CustomerLocationsQuery
+  headquarter: CustomerLocationsQuery
   contacts_count: Int!
   contacts: ContactsQuery
   assets: AssetsQuery
@@ -732,7 +748,7 @@ input CustomersSort {
   assets_count: Int!
   type: TypesSort!
   kpi: KpiSort!
-  headquarter: LocationsSort!
+  headquarter: CustomerLocationsSort!
 }
 
 """ISO 8601 Date string with format Y-m-d (`2011-05-23`)."""
@@ -1112,7 +1128,6 @@ type Location {
   city_id: ID!
   country: Country!
   country_id: ID!
-  types: [Type]!
 }
 
 input LocationTypesQuery {
@@ -1131,7 +1146,6 @@ input LocationsQuery {
   city_id: ID!
   country: CountriesQuery
   country_id: ID!
-  types: TypesQuery
   assets: CustomersQuery
   customers: CustomersQuery
 }
@@ -1155,6 +1169,7 @@ type Map {
   customers_count: Int!
   assets_count: Int!
   customers_ids: [ID!]!
+  locations_ids: [ID!]!
 }
 
 input MapQuery {
@@ -1650,9 +1665,9 @@ type Organization {
   branding: OrganizationBranding!
   kpi: Kpi
   statuses: [Status!]!
-  locations: [Location!]!
+  locations: [ResellerLocation!]!
   contacts: [Contact!]!
-  headquarter: Location
+  headquarter: ResellerLocation
 
   """
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -1736,8 +1751,8 @@ input OrganizationsQuery {
   email: String
   statuses: StatusesQuery
   contacts: ContactsQuery
-  locations: LocationsQuery
-  headquarter: LocationsQuery
+  locations: ResellerLocationsQuery
+  headquarter: ResellerLocationsQuery
 }
 
 input OrganizationsSort {
@@ -2462,7 +2477,24 @@ type Reseller {
   assets_count: Int!
   customers_count: Int!
   locations_count: Int!
-  locations: [Location!]!
+  locations: [ResellerLocation!]!
+  headquarter: ResellerLocation
+}
+
+type ResellerLocation {
+  location_id: ID!
+  location: Location
+  types: [Type!]!
+}
+
+input ResellerLocationsQuery {
+  location_id: ID!
+  location: LocationsQuery!
+  types: TypesQuery
+}
+
+input ResellerLocationsSort {
+  location: LocationsQuery!
 }
 
 input ResellersQuery {
@@ -2672,6 +2704,34 @@ input SearchByComplexRelationCoveragesQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for input CustomerLocationsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCustomerLocationsQuery {
+  """Additional conditions."""
+  where: SearchByConditionCustomerLocationsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+  """
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input CustomersQuery.
 
 See also:
@@ -2849,6 +2909,34 @@ See also:
 input SearchByComplexRelationProductsQuery {
   """Additional conditions."""
   where: SearchByConditionProductsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+  """
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input ResellerLocationsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationResellerLocationsQuery {
+  """Additional conditions."""
+  where: SearchByConditionResellerLocationsQuery
 
   """Count conditions."""
   count: SearchByScalarInt
@@ -3507,6 +3595,29 @@ input SearchByConditionCurrenciesQuery {
 }
 
 """
+Available conditions for input CustomerLocationsQuery (only one property allowed at a time).
+"""
+input SearchByConditionCustomerLocationsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCustomerLocationsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCustomerLocationsQuery!]
+
+  """Not."""
+  not: SearchByConditionCustomerLocationsQuery
+
+  """Property condition."""
+  location_id: SearchByScalarID
+
+  """Property condition."""
+  location: SearchByComplexRelationLocationsQuery
+
+  """Property condition."""
+  types: SearchByComplexRelationTypesQuery
+}
+
+"""
 Available conditions for input CustomerStatusesQuery (only one property allowed at a time).
 """
 input SearchByConditionCustomerStatusesQuery {
@@ -3572,10 +3683,10 @@ input SearchByConditionCustomersQuery {
   locations_count: SearchByScalarInt
 
   """Property condition."""
-  locations: SearchByComplexRelationLocationsQuery
+  locations: SearchByComplexRelationCustomerLocationsQuery
 
   """Property condition."""
-  headquarter: SearchByComplexRelationLocationsQuery
+  headquarter: SearchByComplexRelationCustomerLocationsQuery
 
   """Property condition."""
   contacts_count: SearchByScalarInt
@@ -3830,9 +3941,6 @@ input SearchByConditionLocationsQuery {
   country_id: SearchByScalarID
 
   """Property condition."""
-  types: SearchByComplexRelationTypesQuery
-
-  """Property condition."""
   assets: SearchByComplexRelationCustomersQuery
 
   """Property condition."""
@@ -3975,10 +4083,10 @@ input SearchByConditionOrganizationsQuery {
   contacts: SearchByComplexRelationContactsQuery
 
   """Property condition."""
-  locations: SearchByComplexRelationLocationsQuery
+  locations: SearchByComplexRelationResellerLocationsQuery
 
   """Property condition."""
-  headquarter: SearchByComplexRelationLocationsQuery
+  headquarter: SearchByComplexRelationResellerLocationsQuery
 }
 
 """
@@ -4022,6 +4130,29 @@ input SearchByConditionQuoteTypesQuery {
 
   """Property condition."""
   quotes: SearchByComplexRelationDocumentsQuery
+}
+
+"""
+Available conditions for input ResellerLocationsQuery (only one property allowed at a time).
+"""
+input SearchByConditionResellerLocationsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionResellerLocationsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionResellerLocationsQuery!]
+
+  """Not."""
+  not: SearchByConditionResellerLocationsQuery
+
+  """Property condition."""
+  location_id: SearchByScalarID
+
+  """Property condition."""
+  location: SearchByComplexRelationLocationsQuery
+
+  """Property condition."""
+  types: SearchByComplexRelationTypesQuery
 }
 
 """
@@ -4786,6 +4917,100 @@ input SortByClauseApplicationLogsSort {
 }
 
 """
+Sort clause for input AssetWarrantiesQuery (only one property allowed at a time).
+"""
+input SortByClauseAssetWarrantiesQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  start: SortByDirection
+
+  """Property clause."""
+  end: SortByDirection
+
+  """Property clause."""
+  note: SortByDirection
+
+  """Property clause."""
+  asset: SortByClauseAssetsQuery
+
+  """Property clause."""
+  customer_id: SortByDirection
+
+  """Property clause."""
+  customer: SortByClauseCustomersQuery
+
+  """Property clause."""
+  document_id: SortByDirection
+
+  """Property clause."""
+  document: SortByClauseDocumentsQuery
+
+  """Property clause."""
+  reseller_id: SortByDirection
+
+  """Property clause."""
+  reseller: SortByClauseResellersQuery
+
+  """Property clause."""
+  service_group_id: SortByDirection
+
+  """Property clause."""
+  serviceLevels: SortByClauseServiceLevelsQuery
+}
+
+"""
+Sort clause for input AssetsQuery (only one property allowed at a time).
+"""
+input SortByClauseAssetsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  oem_id: SortByDirection
+
+  """Property clause."""
+  type_id: SortByDirection
+
+  """Property clause."""
+  product_id: SortByDirection
+
+  """Property clause."""
+  reseller_id: SortByDirection
+
+  """Property clause."""
+  customer_id: SortByDirection
+
+  """Property clause."""
+  location_id: SortByDirection
+
+  """Property clause."""
+  status_id: SortByDirection
+
+  """Property clause."""
+  serial_number: SortByDirection
+
+  """Property clause."""
+  location: SortByClauseLocationsQuery
+
+  """Property clause."""
+  customer: SortByClauseCustomersQuery
+
+  """Property clause."""
+  product: SortByClauseProductsQuery
+
+  """Property clause."""
+  warranties: SortByClauseAssetWarrantiesQuery
+
+  """Property clause."""
+  tags: SortByClauseTagsQuery
+
+  """Property clause."""
+  coverages: SortByClauseCoveragesQuery
+}
+
+"""
 Sort clause for input AssetsSearchCustomerSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSearchCustomerSort {
@@ -4871,6 +5096,26 @@ input SortByClauseAuditsSort {
 }
 
 """
+Sort clause for input CitiesQuery (only one property allowed at a time).
+"""
+input SortByClauseCitiesQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  country_id: SortByDirection
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
+
+  """Property clause."""
+  customers: SortByClauseCustomersQuery
+}
+
+"""
 Sort clause for input CitiesSort (only one property allowed at a time).
 """
 input SortByClauseCitiesSort {
@@ -4882,6 +5127,35 @@ input SortByClauseCitiesSort {
 
   """Property clause."""
   country: SortByClauseCountriesSort
+}
+
+"""
+Sort clause for input ContactsQuery (only one property allowed at a time).
+"""
+input SortByClauseContactsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  email: SortByDirection
+
+  """Property clause."""
+  phone_number: SortByDirection
+
+  """Property clause."""
+  phone_valid: SortByDirection
+
+  """Property clause."""
+  types: SortByClauseTypesQuery
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
+
+  """Property clause."""
+  customers: SortByClauseCustomersQuery
 }
 
 """
@@ -4902,6 +5176,29 @@ input SortByClauseContactsSort {
 }
 
 """
+Sort clause for input CountriesQuery (only one property allowed at a time).
+"""
+input SortByClauseCountriesQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  code: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  cities: SortByClauseCitiesQuery
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
+
+  """Property clause."""
+  customers: SortByClauseCustomersQuery
+}
+
+"""
 Sort clause for input CountriesSort (only one property allowed at a time).
 """
 input SortByClauseCountriesSort {
@@ -4913,6 +5210,80 @@ input SortByClauseCountriesSort {
 
   """Property clause."""
   name: SortByDirection
+}
+
+"""
+Sort clause for input CoveragesQuery (only one property allowed at a time).
+"""
+input SortByClauseCoveragesQuery {
+  """Property clause."""
+  id: SortByDirection
+}
+
+"""
+Sort clause for input CustomerLocationsQuery (only one property allowed at a time).
+"""
+input SortByClauseCustomerLocationsQuery {
+  """Property clause."""
+  location_id: SortByDirection
+
+  """Property clause."""
+  location: SortByClauseLocationsQuery
+
+  """Property clause."""
+  types: SortByClauseTypesQuery
+}
+
+"""
+Sort clause for input CustomerLocationsSort (only one property allowed at a time).
+"""
+input SortByClauseCustomerLocationsSort {
+  """Property clause."""
+  location: SortByClauseLocationsQuery
+}
+
+"""
+Sort clause for input CustomersQuery (only one property allowed at a time).
+"""
+input SortByClauseCustomersQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  type_id: SortByDirection
+
+  """Property clause."""
+  statuses: SortByClauseStatusesQuery
+
+  """Property clause."""
+  assets_count: SortByDirection
+
+  """Property clause."""
+  locations_count: SortByDirection
+
+  """Property clause."""
+  locations: SortByClauseCustomerLocationsQuery
+
+  """Property clause."""
+  headquarter: SortByClauseCustomerLocationsQuery
+
+  """Property clause."""
+  contacts_count: SortByDirection
+
+  """Property clause."""
+  contacts: SortByClauseContactsQuery
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
+
+  """Property clause."""
+  contracts: SortByClauseDocumentsQuery
+
+  """Property clause."""
+  quotes: SortByClauseDocumentsQuery
 }
 
 """
@@ -4971,7 +5342,136 @@ input SortByClauseCustomersSort {
   kpi: SortByClauseKpiSort
 
   """Property clause."""
-  headquarter: SortByClauseLocationsSort
+  headquarter: SortByClauseCustomerLocationsSort
+}
+
+"""
+Sort clause for input DistributorsQuery (only one property allowed at a time).
+"""
+input SortByClauseDistributorsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input DocumentEntriesQuery (only one property allowed at a time).
+"""
+input SortByClauseDocumentEntriesQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  document_id: SortByDirection
+
+  """Property clause."""
+  asset_id: SortByDirection
+
+  """Property clause."""
+  asset: SortByClauseAssetsQuery
+
+  """Property clause."""
+  net_price: SortByDirection
+
+  """Property clause."""
+  list_price: SortByDirection
+
+  """Property clause."""
+  discount: SortByDirection
+
+  """Property clause."""
+  renewal: SortByDirection
+
+  """Property clause."""
+  serial_number: SortByDirection
+
+  """Property clause."""
+  product_id: SortByDirection
+
+  """Property clause."""
+  product: SortByClauseProductsQuery
+
+  """Property clause."""
+  service_group_id: SortByDirection
+
+  """Property clause."""
+  service_level_id: SortByDirection
+
+  """Property clause."""
+  currency_id: SortByDirection
+}
+
+"""
+Sort clause for input DocumentsQuery (only one property allowed at a time).
+"""
+input SortByClauseDocumentsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  oem_id: SortByDirection
+
+  """Property clause."""
+  type_id: SortByDirection
+
+  """Property clause."""
+  number: SortByDirection
+
+  """Property clause."""
+  start: SortByDirection
+
+  """Property clause."""
+  end: SortByDirection
+
+  """Property clause."""
+  price: SortByDirection
+
+  """Property clause."""
+  currency_id: SortByDirection
+
+  """Property clause."""
+  language_id: SortByDirection
+
+  """Property clause."""
+  serial_number: SortByDirection
+
+  """Property clause."""
+  service_group_id: SortByDirection
+
+  """Property clause."""
+  service_level_id: SortByDirection
+
+  """Property clause."""
+  customer_id: SortByDirection
+
+  """Property clause."""
+  customer: SortByClauseCustomersQuery
+
+  """Property clause."""
+  reseller_id: SortByDirection
+
+  """Property clause."""
+  reseller: SortByClauseResellersQuery
+
+  """Property clause."""
+  distributor_id: SortByDirection
+
+  """Property clause."""
+  distributor: SortByClauseDistributorsQuery
+
+  """Property clause."""
+  entries: SortByClauseDocumentEntriesQuery
+
+  """Property clause."""
+  entries_count: SortByDirection
+
+  """Property clause."""
+  contacts: SortByClauseContactsQuery
+
+  """Property clause."""
+  contacts_count: SortByDirection
 }
 
 """
@@ -5098,6 +5598,50 @@ input SortByClauseKpiSort {
 }
 
 """
+Sort clause for input LocationsQuery (only one property allowed at a time).
+"""
+input SortByClauseLocationsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  postcode: SortByDirection
+
+  """Property clause."""
+  state: SortByDirection
+
+  """Property clause."""
+  line_one: SortByDirection
+
+  """Property clause."""
+  line_two: SortByDirection
+
+  """Property clause."""
+  latitude: SortByDirection
+
+  """Property clause."""
+  longitude: SortByDirection
+
+  """Property clause."""
+  city: SortByClauseCitiesQuery
+
+  """Property clause."""
+  city_id: SortByDirection
+
+  """Property clause."""
+  country: SortByClauseCountriesQuery
+
+  """Property clause."""
+  country_id: SortByDirection
+
+  """Property clause."""
+  assets: SortByClauseCustomersQuery
+
+  """Property clause."""
+  customers: SortByClauseCustomersQuery
+}
+
+"""
 Sort clause for input LocationsSort (only one property allowed at a time).
 """
 input SortByClauseLocationsSort {
@@ -5169,6 +5713,23 @@ input SortByClauseOrganizationsSort {
 }
 
 """
+Sort clause for input ProductsQuery (only one property allowed at a time).
+"""
+input SortByClauseProductsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  oem_id: SortByDirection
+
+  """Property clause."""
+  sku: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
 Sort clause for input ProductsSort (only one property allowed at a time).
 """
 input SortByClauseProductsSort {
@@ -5189,11 +5750,64 @@ input SortByClauseProductsSort {
 }
 
 """
+Sort clause for input ResellersQuery (only one property allowed at a time).
+"""
+input SortByClauseResellersQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input ServiceLevelsQuery (only one property allowed at a time).
+"""
+input SortByClauseServiceLevelsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  oem_id: SortByDirection
+
+  """Property clause."""
+  service_group_id: SortByDirection
+
+  """Property clause."""
+  sku: SortByDirection
+
+  """Property clause."""
+  documentEntries: SortByClauseDocumentEntriesQuery
+}
+
+"""
 Sort clause for input StatusSort (only one property allowed at a time).
 """
 input SortByClauseStatusSort {
   """Property clause."""
   name: SortByDirection
+}
+
+"""
+Sort clause for input StatusesQuery (only one property allowed at a time).
+"""
+input SortByClauseStatusesQuery {
+  """Property clause."""
+  id: SortByDirection
+}
+
+"""
+Sort clause for input TagsQuery (only one property allowed at a time).
+"""
+input SortByClauseTagsQuery {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
 }
 
 """Sort clause for input TagsSort (only one property allowed at a time)."""
@@ -5208,6 +5822,14 @@ Sort clause for input TeamsSort (only one property allowed at a time).
 input SortByClauseTeamsSort {
   """Property clause."""
   name: SortByDirection
+}
+
+"""
+Sort clause for input TypesQuery (only one property allowed at a time).
+"""
+input SortByClauseTypesQuery {
+  """Property clause."""
+  id: SortByDirection
 }
 
 """

@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasAssets;
-use App\Models\Concerns\Relations\HasCustomersOwners;
-use App\Models\Concerns\Relations\HasTypes;
+use App\Models\Concerns\Relations\HasCustomers;
+use App\Models\Concerns\Relations\HasResellers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -12,16 +12,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Location.
  *
  * @property string                                                              $id
- * @property string|null                                                         $object_id
- * @property string                                                              $object_type
  * @property string                                                              $country_id
  * @property string                                                              $city_id
  * @property string                                                              $postcode
  * @property string                                                              $state
  * @property string                                                              $line_one
  * @property string                                                              $line_two
- * @property string|null                                                         $latitude
- * @property string|null                                                         $longitude
+ * @property mixed|null                                                          $latitude
+ * @property mixed|null                                                          $longitude
+ * @property int                                                                 $customers_count
+ * @property int                                                                 $assets_count
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
@@ -29,18 +29,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \App\Models\City                                                    $city
  * @property \App\Models\Country                                                 $country
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Type>          $types
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location query()
  * @mixin \Eloquent
  */
-class Location extends PolymorphicModel {
+class Location extends Model {
     use HasFactory;
     use HasAssets;
-    use HasTypes;
-    use HasCustomersOwners;
+    use HasResellers {
+        setResellersAttribute as private;
+    }
+    use HasCustomers {
+        setCustomersAttribute as private;
+    }
 
     /**
      * The attributes that should be cast to native types.
@@ -80,7 +84,11 @@ class Location extends PolymorphicModel {
         $this->city()->associate($country);
     }
 
-    protected function getTypesPivot(): Pivot {
-        return new LocationType();
+    protected function getResellersPivot(): Pivot {
+        return new LocationReseller();
+    }
+
+    protected function getCustomersPivot(): Pivot {
+        return new LocationCustomer();
     }
 }

@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "location_id",
+        "location",
+        "types"
+    ],
+    "properties": {
+        "location_id": {
+            "$ref": "../types.json/#/definitions/ID"
+        },
+        "location": {
+            "$ref": "../types.json/#/definitions/Location"
+        },
+        "types": {
+            "type": "array",
+            "items": {
+                "$ref": "../types.json/#/definitions/Type"
+            }
+        }
+    }
+}

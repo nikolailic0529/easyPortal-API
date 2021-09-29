@@ -17,6 +17,8 @@ use App\Models\Country;
 use App\Models\Coverage;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\CustomerLocation;
+use App\Models\CustomerLocationType;
 use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
@@ -26,7 +28,8 @@ use App\Models\Invitation;
 use App\Models\Kpi;
 use App\Models\Language;
 use App\Models\Location;
-use App\Models\LocationType;
+use App\Models\LocationCustomer;
+use App\Models\LocationReseller;
 use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
@@ -40,6 +43,8 @@ use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDuration;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
+use App\Models\ResellerLocation;
+use App\Models\ResellerLocationType;
 use App\Models\ResellerStatus;
 use App\Models\Role;
 use App\Models\RolePermission;
@@ -118,6 +123,8 @@ class AppServiceProvider extends ServiceProvider {
             'Coverage'                  => Coverage::class,
             'Currency'                  => Currency::class,
             'Customer'                  => Customer::class,
+            'CustomerLocation'          => CustomerLocation::class,
+            'CustomerLocationType'      => CustomerLocationType::class,
             'CustomerStatus'            => CustomerStatus::class,
             'Distributor'               => Distributor::class,
             'Document'                  => Document::class,
@@ -127,7 +134,8 @@ class AppServiceProvider extends ServiceProvider {
             'Kpi'                       => Kpi::class,
             'Language'                  => Language::class,
             'Location'                  => Location::class,
-            'LocationType'              => LocationType::class,
+            'LocationCustomer'          => LocationCustomer::class,
+            'LocationReseller'          => LocationReseller::class,
             'Note'                      => Note::class,
             'Oem'                       => Oem::class,
             'OemGroup'                  => OemGroup::class,
@@ -141,6 +149,8 @@ class AppServiceProvider extends ServiceProvider {
             'QuoteRequestDuration'      => QuoteRequestDuration::class,
             'Reseller'                  => Reseller::class,
             'ResellerCustomer'          => ResellerCustomer::class,
+            'ResellerLocation'          => ResellerLocation::class,
+            'ResellerLocationType'      => ResellerLocationType::class,
             'ResellerStatus'            => ResellerStatus::class,
             'Role'                      => Role::class,
             'RolePermission'            => RolePermission::class,

@@ -9,7 +9,7 @@
         "updated": {
             "type": "array",
             "items": {
-                "$ref": "../types.json#/definitions/Translation"
+                "$ref": "../Types/ClientTranslation.json"
             }
         }
     }

@@ -18,9 +18,9 @@ type Organization {
   kpi: Kpi @hasOne
 
   statuses: [Status!]! @belongsToMany
-  locations: [Location!]!
+  locations: [ResellerLocation!]!
   contacts: [Contact!]!
-  headquarter: Location
+  headquarter: ResellerLocation
 
   users(
     where: UsersQuery @searchBy

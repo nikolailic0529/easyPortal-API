@@ -12,6 +12,7 @@ use App\Models\Scopes\QuoteTypeScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
  * Type.
@@ -60,14 +61,24 @@ class Type extends PolymorphicModel implements Translatable {
         return ['name'];
     }
 
-    public function locations(): BelongsToMany {
-        $pivot = new LocationType();
-
-        return $this
-            ->belongsToMany(Location::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
+    public function locations(): HasManyDeep {
+        return $this->hasManyDeep(
+            Location::class,
+            [
+                CustomerLocationType::class,
+                CustomerLocation::class,
+            ],
+            [
+                null,
+                null,
+                'id',
+            ],
+            [
+                null,
+                null,
+                'location_id',
+            ],
+        );
     }
 
     public function contacts(): BelongsToMany {

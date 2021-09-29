@@ -55,10 +55,7 @@ class AssetFactory extends Factory {
                 return Customer::factory()->create();
             },
             'location_id'    => static function (array $properties): Location {
-                return Location::factory()->create([
-                    'object_type' => (new Customer())->getMorphClass(),
-                    'object_id'   => $properties['customer_id'],
-                ]);
+                return Location::factory()->create();
             },
             'status_id'      => function (): Status {
                 return Status::factory()->create([

@@ -172,7 +172,7 @@ return [
     'environments'     => [
         // this allow use same configuration for all environments
         env('APP_ENV', 'production') => [
-            'Default'    => [
+            'Default'      => [
                 'connection'   => 'redis',
                 'queue'        => [Queues::DEFAULT],
                 'balance'      => 'auto',
@@ -182,7 +182,7 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
-            'DataLoader' => [
+            'DataLoader'   => [
                 'connection'   => 'redis',
                 'queue'        => [Queues::DATA_LOADER],
                 'balance'      => 'auto',
@@ -195,7 +195,7 @@ return [
                     60 * 15,
                 ],
             ],
-            'KeyCloak'   => [
+            'KeyCloak'     => [
                 'connection'   => 'redis',
                 'queue'        => [Queues::KEYCLOAK],
                 'balance'      => 'auto',
@@ -205,13 +205,23 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
-            'Search'     => [
+            'Search'       => [
                 'connection'   => 'redis',
                 'queue'        => [Queues::SEARCH],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'timeout'      => 60 * 60,
                 'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
+            'Recalculator' => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::DATA_LOADER_RECALCULATE],
+                'balance'      => 'auto',
+                'maxProcesses' => 2,
+                'timeout'      => 60 * 60,
+                'memory'       => 1024,
                 'tries'        => 1,
                 'nice'         => 0,
             ],

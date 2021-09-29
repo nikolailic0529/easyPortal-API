@@ -10,6 +10,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
+use Illuminate\Contracts\Container\Container as ContainerContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Tests\TestCase;
 
@@ -158,11 +159,12 @@ class ContainerTest_Factory extends Factory {
  */
 class ContainerTest_Loader extends Loader {
     public function __construct(
+        ContainerContract $container,
         ExceptionHandler $exceptionHandler,
         Client $client,
         public ContainerTest_Singleton $singleton,
     ) {
-        parent::__construct($exceptionHandler, $client);
+        parent::__construct($container, $exceptionHandler, $client);
     }
 
     /**

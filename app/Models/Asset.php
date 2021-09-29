@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasContacts;
-use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasCustomerNullable;
 use App\Models\Concerns\Relations\HasOem;
 use App\Models\Concerns\Relations\HasProduct;
-use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasResellerNullable;
 use App\Models\Concerns\Relations\HasStatus;
 use App\Models\Concerns\Relations\HasTags;
 use App\Models\Concerns\Relations\HasTypeNullable;
@@ -22,11 +22,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
-
-use function in_array;
-use function is_null;
-use function sprintf;
 
 /**
  * Asset.
@@ -75,8 +70,8 @@ class Asset extends Model {
     use HasOem;
     use HasTypeNullable;
     use HasProduct;
-    use HasReseller;
-    use HasCustomer;
+    use HasResellerNullable;
+    use HasCustomerNullable;
     use HasStatus;
     use HasContacts;
     use HasTags;
@@ -108,31 +103,6 @@ class Asset extends Model {
     }
 
     public function setLocationAttribute(?Location $location): void {
-        // Assert may be located on
-        // - customer location
-        // - reseller location
-        // - own location
-        if ($location) {
-            $asset       = (new Asset())->getMorphClass();
-            $customer    = (new Customer())->getMorphClass();
-            $reseller    = (new Reseller())->getMorphClass();
-            $isIdMatch   = is_null($location->object_id)
-                || in_array($location->object_id, [$this->customer_id, $this->reseller_id], true);
-            $isTypeMatch = in_array($location->object_type, [$asset, $customer, $reseller], true);
-
-            if (!$isIdMatch || !$isTypeMatch) {
-                throw new InvalidArgumentException(sprintf(
-                    'Location must be related to the `%s` or `%s` or `%s` but it related to `%s#%s`.',
-                    $customer.($this->customer_id ? "#{$this->customer_id}" : ''),
-                    $reseller.($this->reseller_id ? "#{$this->reseller_id}" : ''),
-                    $asset,
-                    $location->object_type,
-                    $location->object_id,
-                ));
-            }
-        }
-
-        // Set
         $this->location()->associate($location);
     }
 

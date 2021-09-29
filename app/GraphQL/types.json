@@ -54,7 +54,7 @@
                 "locations": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Location"
+                        "$ref": "./Types/CustomerLocation.json"
                     }
                 },
                 "locations_count": {
@@ -70,7 +70,14 @@
                     "type": "integer"
                 },
                 "headquarter": {
-                    "$ref": "#/definitions/Location"
+                    "oneOf": [
+                        {
+                            "$ref": "./Types/CustomerLocation.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "statuses": {
                     "type": "array",
@@ -117,12 +124,6 @@
                 },
                 "line_two": {
                     "type": "string"
-                },
-                "types": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Type"
-                    }
                 },
                 "latitude": {
                     "type": [
@@ -469,8 +470,18 @@
                 "locations": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Location"
+                        "$ref": "./Types/ResellerLocation.json"
                     }
+                },
+                "headquarter": {
+                    "oneOf": [
+                        {
+                            "$ref": "./Types/ResellerLocation.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },
@@ -1029,7 +1040,7 @@
                 "locations": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Location"
+                        "$ref": "./Types/ResellerLocation.json"
                     }
                 },
                 "analytics_code": {
@@ -1056,7 +1067,7 @@
                 "headquarter": {
                     "oneOf": [
                         {
-                            "$ref": "#/definitions/Location"
+                            "$ref": "./Types/ResellerLocation.json"
                         },
                         {
                             "type": "null"

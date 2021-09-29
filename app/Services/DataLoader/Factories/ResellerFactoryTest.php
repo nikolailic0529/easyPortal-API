@@ -16,6 +16,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
+use Tests\WithoutOrganizationScope;
 
 use function array_column;
 
@@ -24,6 +25,7 @@ use function array_column;
  * @coversDefaultClass \App\Services\DataLoader\Factories\ResellerFactory
  */
 class ResellerFactoryTest extends TestCase {
+    use WithoutOrganizationScope;
     use WithQueryLog;
     use Helper;
 
@@ -106,7 +108,7 @@ class ResellerFactoryTest extends TestCase {
         $this->assertEquals(2, $reseller->locations_count);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
-            $this->getResellerLocations($reseller),
+            $this->getCompanyModelLocations($reseller),
         );
         $this->assertCount(4, $reseller->contacts);
         $this->assertEquals(4, $reseller->contacts_count);
@@ -241,7 +243,7 @@ class ResellerFactoryTest extends TestCase {
         $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
-            $this->getResellerLocations($updated),
+            $this->getCompanyModelLocations($updated),
         );
         $this->assertCount(1, $updated->contacts);
         $this->assertEquals(
