@@ -8,5 +8,4 @@ type Map {
   customers_count: Int!
   assets_count: Int!
   customers_ids: [ID!]!
-  @field(resolver:"App\\GraphQL\\Queries\\Map@customersIds")
 }

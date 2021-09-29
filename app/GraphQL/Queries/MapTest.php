@@ -24,6 +24,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\GraphQL\Queries\Map
  */
 class MapTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      *
@@ -135,22 +137,29 @@ class MapTest extends TestCase {
 
             // Inside
             $locationA = Location::factory()->create([
-                'latitude'   => 1.00,
-                'longitude'  => 1.00,
-                'country_id' => Country::factory()->create(['code' => $code++]),
-                'city_id'    => $city->getKey(),
+                'latitude'        => 1.00,
+                'longitude'       => 1.00,
+                'country_id'      => Country::factory()->create(['code' => $code++]),
+                'city_id'         => $city->getKey(),
+                'assets_count'    => 3,
+                'customers_count' => 1,
             ]);
 
-            $locationA->resellers()->attach($resellerA);
+            $locationA->resellers()->attach($resellerA, [
+                'customers_count' => 1,
+                'assets_count'    => 3,
+            ]);
             $locationA->customers()->attach($customerA, [
                 'assets_count' => 3,
             ]);
 
             $locationB = Location::factory()->create([
-                'latitude'   => 1.10,
-                'longitude'  => 1.10,
-                'country_id' => $country->getKey(),
-                'city_id'    => City::factory(),
+                'latitude'        => 1.10,
+                'longitude'       => 1.10,
+                'country_id'      => $country->getKey(),
+                'city_id'         => City::factory(),
+                'assets_count'    => 1,
+                'customers_count' => 1,
             ]);
 
             $locationB->customers()->attach($customerA, [
@@ -158,10 +167,12 @@ class MapTest extends TestCase {
             ]);
 
             $locationC = Location::factory()->create([
-                'latitude'   => 1.25,
-                'longitude'  => 1.25,
-                'country_id' => Country::factory()->create(['code' => $code++]),
-                'city_id'    => City::factory(),
+                'latitude'        => 1.25,
+                'longitude'       => 1.25,
+                'country_id'      => Country::factory()->create(['code' => $code++]),
+                'city_id'         => City::factory(),
+                'assets_count'    => 0,
+                'customers_count' => 1,
             ]);
 
             $locationC->customers()->attach($customerB, [
@@ -169,13 +180,18 @@ class MapTest extends TestCase {
             ]);
 
             $locationD = Location::factory()->create([
-                'latitude'   => 1.5,
-                'longitude'  => 1.5,
-                'country_id' => Country::factory()->create(['code' => $code++]),
-                'city_id'    => City::factory(),
+                'latitude'        => 1.5,
+                'longitude'       => 1.5,
+                'country_id'      => Country::factory()->create(['code' => $code++]),
+                'city_id'         => City::factory(),
+                'assets_count'    => 2,
+                'customers_count' => 2,
             ]);
 
-            $locationD->resellers()->attach($resellerA);
+            $locationD->resellers()->attach($resellerA, [
+                'customers_count' => 1,
+                'assets_count'    => 1,
+            ]);
             $locationD->customers()->attach($customerA, [
                 'assets_count' => 1,
             ]);
