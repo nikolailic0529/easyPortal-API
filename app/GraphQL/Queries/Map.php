@@ -56,6 +56,7 @@ class Map {
             ->selectRaw("AVG({$model->qualifyColumn('longitude')}) as longitude_avg")
             ->selectRaw("MIN({$model->qualifyColumn('longitude')}) as longitude_min")
             ->selectRaw("MAX({$model->qualifyColumn('longitude')}) as longitude_max")
+            ->selectRaw("GROUP_CONCAT(DISTINCT {$model->getQualifiedKeyName()}, ',') as locations_ids")
             ->when($this->organization->isRoot(), static function (EloquentBuilder $builder) use ($model): void {
                 $builder->selectRaw("SUM({$model->qualifyColumn('assets_count')}) as assets_count");
             })
@@ -110,6 +111,7 @@ class Map {
 
         foreach ($locations as $location) {
             $location->customers_ids = $this->parseKeys($location->customers_ids ?? null);
+            $location->locations_ids = $this->parseKeys($location->locations_ids ?? null);
         }
 
         return $locations;

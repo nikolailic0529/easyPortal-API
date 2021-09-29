@@ -8,4 +8,5 @@ type Map {
   customers_count: Int!
   assets_count: Int!
   customers_ids: [ID!]!
+  locations_ids: [ID!]!
 }

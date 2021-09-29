@@ -11,7 +11,8 @@
         "longitude_max",
         "customers_count",
         "assets_count",
-        "customers_ids"
+        "customers_ids",
+        "locations_ids"
     ],
     "properties": {
         "latitude_avg": {
@@ -42,6 +43,12 @@
             "type": "integer"
         },
         "customers_ids": {
+            "type": "array",
+            "items": {
+                "$ref": "../types.json/#/definitions/ID"
+            }
+        },
+        "locations_ids": {
             "type": "array",
             "items": {
                 "$ref": "../types.json/#/definitions/ID"

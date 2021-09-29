@@ -64,6 +64,7 @@ class MapTest extends TestCase {
                         customers_count
                         assets_count
                         customers_ids
+                        locations_ids
                     }
                 }
                 GRAPHQL,
@@ -137,6 +138,7 @@ class MapTest extends TestCase {
 
             // Inside
             $locationA = Location::factory()->create([
+                'id'              => '4d9133ff-482b-4605-870f-9ee88c2062ae',
                 'latitude'        => 1.00,
                 'longitude'       => 1.00,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
@@ -154,6 +156,7 @@ class MapTest extends TestCase {
             ]);
 
             $locationB = Location::factory()->create([
+                'id'              => '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
                 'latitude'        => 1.10,
                 'longitude'       => 1.10,
                 'country_id'      => $country->getKey(),
@@ -167,6 +170,7 @@ class MapTest extends TestCase {
             ]);
 
             $locationC = Location::factory()->create([
+                'id'              => '8d8a056f-b224-4d4f-90af-7e0eced13217',
                 'latitude'        => 1.25,
                 'longitude'       => 1.25,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
@@ -180,6 +184,7 @@ class MapTest extends TestCase {
             ]);
 
             $locationD = Location::factory()->create([
+                'id'              => '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
                 'latitude'        => 1.5,
                 'longitude'       => 1.5,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
@@ -243,6 +248,10 @@ class MapTest extends TestCase {
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
+                                'locations_ids'   => [
+                                    '4d9133ff-482b-4605-870f-9ee88c2062ae',
+                                    '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
+                                ],
                             ],
                             [
                                 'latitude_avg'    => 1.25,
@@ -255,6 +264,9 @@ class MapTest extends TestCase {
                                 'assets_count'    => 0,
                                 'customers_ids'   => [
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '8d8a056f-b224-4d4f-90af-7e0eced13217',
                                 ],
                             ],
                             [
@@ -269,6 +281,9 @@ class MapTest extends TestCase {
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
                                 ],
                             ],
                         ]),
@@ -288,6 +303,9 @@ class MapTest extends TestCase {
                                 'assets_count'    => 3,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '4d9133ff-482b-4605-870f-9ee88c2062ae',
                                 ],
                             ],
                         ]),
@@ -317,6 +335,9 @@ class MapTest extends TestCase {
                                 'assets_count'    => 1,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
                                 ],
                             ],
                         ]),
@@ -355,6 +376,9 @@ class MapTest extends TestCase {
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
+                                'locations_ids'   => [
+                                    '4d9133ff-482b-4605-870f-9ee88c2062ae',
+                                ],
                             ],
                             [
                                 'latitude_avg'    => 1.5,
@@ -367,6 +391,9 @@ class MapTest extends TestCase {
                                 'assets_count'    => 1,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                                'locations_ids'   => [
+                                    '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
                                 ],
                             ],
                         ]),
