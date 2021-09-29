@@ -237,6 +237,20 @@ type Document {
 type DocumentEntry {
   assetId: String
   asset: Asset
+  startDate: String
+  endDate: String
+  productLineDescription: String
+  supportPackage: String
+  supportPackageDescription: String
+  languageCode: String
+  currencyCode: String
+  netPrice: String
+  discount: String
+  listPrice: String
+  skuNumber: String
+  skuDescription: String
+  warrantyEndDate: String
+  estimatedValueRenewal: String
 }
 
 type DocumentVendorSpecificField {
