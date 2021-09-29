@@ -28,6 +28,7 @@ use App\Models\Invitation;
 use App\Models\Kpi;
 use App\Models\Language;
 use App\Models\Location;
+use App\Models\LocationCustomer;
 use App\Models\LocationReseller;
 use App\Models\Note;
 use App\Models\Oem;
@@ -133,6 +134,7 @@ class AppServiceProvider extends ServiceProvider {
             'Kpi'                       => Kpi::class,
             'Language'                  => Language::class,
             'Location'                  => Location::class,
+            'LocationCustomer'          => LocationCustomer::class,
             'LocationReseller'          => LocationReseller::class,
             'Note'                      => Note::class,
             'Oem'                       => Oem::class,
