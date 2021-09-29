@@ -5509,6 +5509,16 @@ type User {
   invitations: [Invitation!]!
   team: Team
   role: Role
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  company: String
+  phone: String
+  photo: String
 }
 
 """A paginated list of User items."""

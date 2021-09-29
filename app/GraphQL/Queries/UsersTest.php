@@ -54,6 +54,18 @@ class UsersTest extends TestCase {
                       email
                       email_verified
                       enabled
+                      given_name
+                      family_name
+                      title
+                      academic_title
+                      office_phone
+                      mobile_phone
+                      contact_email
+                      department
+                      job_title
+                      photo
+                      company
+                      phone
                       invitations {
                           id
                           organization_id
@@ -113,6 +125,16 @@ class UsersTest extends TestCase {
                                 'email'          => 'test1@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
+                                'title'          => 'Mr',
+                                'academic_title' => 'Professor',
+                                'phone'          => '+1-202-555-0198',
+                                'office_phone'   => '+1-202-555-0197',
+                                'mobile_phone'   => '+1-202-555-0147',
+                                'contact_email'  => 'test@gmail.com',
+                                'department'     => 'HR',
+                                'job_title'      => 'Manger',
+                                'photo'          => 'https://example.com/photo.jpg',
+                                'company'        => 'company1',
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -165,6 +187,16 @@ class UsersTest extends TestCase {
                                     'email_verified' => true,
                                     'enabled'        => true,
                                     'type'           => UserType::keycloak(),
+                                    'title'          => 'Mr',
+                                    'academic_title' => 'Professor',
+                                    'phone'          => '+1-202-555-0198',
+                                    'office_phone'   => '+1-202-555-0197',
+                                    'mobile_phone'   => '+1-202-555-0147',
+                                    'contact_email'  => 'test@gmail.com',
+                                    'department'     => 'HR',
+                                    'job_title'      => 'Manger',
+                                    'photo'          => 'https://example.com/photo.jpg',
+                                    'company'        => 'company1',
                                 ]);
 
                             $team1 = Team::factory()->create([
@@ -207,6 +239,16 @@ class UsersTest extends TestCase {
                                 'email'          => 'test1@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
+                                'title'          => 'Mr',
+                                'academic_title' => 'Professor',
+                                'phone'          => '+1-202-555-0198',
+                                'office_phone'   => '+1-202-555-0197',
+                                'mobile_phone'   => '+1-202-555-0147',
+                                'contact_email'  => 'test@gmail.com',
+                                'department'     => 'HR',
+                                'job_title'      => 'Manger',
+                                'photo'          => 'https://example.com/photo.jpg',
+                                'company'        => 'company1',
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -237,6 +279,16 @@ class UsersTest extends TestCase {
                                 'email'          => 'test2@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
+                                'title'          => 'Mrs',
+                                'academic_title' => 'Associate',
+                                'phone'          => '+1-202-555-0199',
+                                'office_phone'   => '+1-202-555-0198',
+                                'mobile_phone'   => '+1-202-555-0148',
+                                'contact_email'  => 'test2@gmail.com',
+                                'department'     => 'IT',
+                                'job_title'      => 'Employee',
+                                'photo'          => 'https://example.com/photo1.jpg',
+                                'company'        => 'company2',
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -289,6 +341,16 @@ class UsersTest extends TestCase {
                                     'email_verified' => true,
                                     'enabled'        => true,
                                     'type'           => UserType::keycloak(),
+                                    'title'          => 'Mr',
+                                    'academic_title' => 'Professor',
+                                    'phone'          => '+1-202-555-0198',
+                                    'office_phone'   => '+1-202-555-0197',
+                                    'mobile_phone'   => '+1-202-555-0147',
+                                    'contact_email'  => 'test@gmail.com',
+                                    'department'     => 'HR',
+                                    'job_title'      => 'Manger',
+                                    'photo'          => 'https://example.com/photo.jpg',
+                                    'company'        => 'company1',
                                     'created_at'     => Date::now()->subMinutes(1),
                                 ]);
 
@@ -329,6 +391,16 @@ class UsersTest extends TestCase {
                                     'email_verified' => true,
                                     'enabled'        => true,
                                     'type'           => UserType::local(),
+                                    'title'          => 'Mrs',
+                                    'academic_title' => 'Associate',
+                                    'phone'          => '+1-202-555-0199',
+                                    'office_phone'   => '+1-202-555-0198',
+                                    'mobile_phone'   => '+1-202-555-0148',
+                                    'contact_email'  => 'test2@gmail.com',
+                                    'department'     => 'IT',
+                                    'job_title'      => 'Employee',
+                                    'photo'          => 'https://example.com/photo1.jpg',
+                                    'company'        => 'company2',
                                     'created_at'     => Date::now()->subMinutes(2),
                                 ]);
                             $team2 = Team::factory()->create([

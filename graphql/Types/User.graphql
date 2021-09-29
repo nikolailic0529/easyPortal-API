@@ -12,4 +12,15 @@ type User {
 
   role: Role
   @field(resolver: "App\\GraphQL\\Queries\\User@role")
+
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  company: String
+  phone: String
+  photo: String
 }
