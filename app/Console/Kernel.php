@@ -10,6 +10,9 @@ use App\Services\DataLoader\Commands\ImportCustomers;
 use App\Services\DataLoader\Commands\ImportDistributors;
 use App\Services\DataLoader\Commands\ImportOems;
 use App\Services\DataLoader\Commands\ImportResellers;
+use App\Services\DataLoader\Commands\RecalculateCustomers;
+use App\Services\DataLoader\Commands\RecalculateLocations;
+use App\Services\DataLoader\Commands\RecalculateResellers;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
@@ -58,6 +61,9 @@ class Kernel extends ConsoleKernel {
         AnalyzeAssets::class,
         SyncPermissions::class,
         SyncUsers::class,
+        RecalculateResellers::class,
+        RecalculateCustomers::class,
+        RecalculateLocations::class,
         // Dev
         ModelsCommand::class,
     ];
