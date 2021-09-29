@@ -23,4 +23,7 @@ type User {
   company: String
   phone: String
   photo: String
+
+  locale: String
+  timezone: String
 }

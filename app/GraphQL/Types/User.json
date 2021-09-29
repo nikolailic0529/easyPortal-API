@@ -28,10 +28,10 @@
         "email_verified": {
             "type": "boolean"
         },
-        "enabled" : {
+        "enabled": {
             "type": "boolean"
         },
-        "role" : {
+        "role": {
             "oneOf": [
                 {
                     "$ref": "../Types/Role.json"
@@ -112,6 +112,18 @@
             ]
         },
         "photo": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "locale": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "timezone": {
             "type": [
                 "string",
                 "null"
