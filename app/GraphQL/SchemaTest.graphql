@@ -1734,14 +1734,23 @@ type OrganizationPaginator {
 }
 
 type OrganizationUser {
-  id: ID!
-  username: String!
-  enabled: Boolean!
-  emailVerified: Boolean!
-  firstName: String
-  lastName: String
-  email: String
-  groups: [String!]!
+  organization_id: ID!
+  organization: Organization!
+
+  """
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  role: Role
+
+  """
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  team: Team
+
+  """
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  enabled: Boolean
 }
 
 input OrganizationsQuery {
@@ -6072,6 +6081,7 @@ type User {
   photo: String
   locale: String
   timezone: String
+  organizations: [OrganizationUser!]!
 }
 
 """A paginated list of User items."""

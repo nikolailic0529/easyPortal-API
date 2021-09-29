@@ -37,6 +37,8 @@ class OrganizationUserFactory extends Factory {
                 return User::query()->first() ?? User::factory()->create();
             },
             'role_id'         => null,
+            'team_id'         => null,
+            'enabled'         => true,
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),
             'deleted_at'      => null,

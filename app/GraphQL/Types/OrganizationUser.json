@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "organization_id",
+        "role",
+        "team",
+        "enabled"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "organization_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "organization": {
+            "$ref": "../types.json#/definitions/Organization"
+        },
+        "team": {
+            "$ref": "./Team.json"
+        },
+        "role": {
+            "$ref": "./Role.json"
+        },
+        "enabled": {
+            "type": "boolean"
+        }
+    }
+}

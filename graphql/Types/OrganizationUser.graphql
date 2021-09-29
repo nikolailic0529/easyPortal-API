@@ -1,10 +1,7 @@
 type OrganizationUser {
-    id: ID!
-    username: String!
-    enabled: Boolean!
-    emailVerified: Boolean!
-    firstName: String
-    lastName: String
-    email: String
-    groups: [String!]!
+  organization_id: ID!
+  organization: Organization!
+  role: Role @me(permissions: ["administer"])
+  team: Team @me(permissions: ["administer"])
+  enabled: Boolean @me(permissions: ["administer"])
 }

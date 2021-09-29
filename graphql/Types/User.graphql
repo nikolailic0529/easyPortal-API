@@ -26,4 +26,6 @@ type User {
 
   locale: String
   timezone: String
+
+  organizations: [OrganizationUser!]! @hasMany(relation: "organizationUser")
 }

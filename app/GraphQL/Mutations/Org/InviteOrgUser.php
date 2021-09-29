@@ -116,6 +116,7 @@ class InviteOrgUser {
         }
         $organizationUser->team_id = $team?->getKey();
         $organizationUser->role_id = $role->getKey();
+        $organizationUser->enabled = true;
         $organizationUser->save();
 
         // Save
