@@ -1513,13 +1513,6 @@ type Mutation {
   updateMeSettings(input: UpdateMeSettingsInput!): UpdateMeSettingsPayload
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload
-
-  """
   Create Organization Role.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1598,6 +1591,13 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload
 }
 
 type Note {
@@ -6141,6 +6141,8 @@ type User {
   company: String
   phone: String
   photo: String
+  locale: String
+  timezone: String
 }
 
 """A paginated list of User items."""

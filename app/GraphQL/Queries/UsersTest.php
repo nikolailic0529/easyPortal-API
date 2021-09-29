@@ -66,6 +66,8 @@ class UsersTest extends TestCase {
                       photo
                       company
                       phone
+                      locale
+                      timezone
                       invitations {
                           id
                           organization_id
@@ -135,6 +137,8 @@ class UsersTest extends TestCase {
                                 'job_title'      => 'Manger',
                                 'photo'          => 'https://example.com/photo.jpg',
                                 'company'        => 'company1',
+                                'locale'         => 'de_AT',
+                                'timezone'       => 'Europe/Guernsey',
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -197,6 +201,8 @@ class UsersTest extends TestCase {
                                     'job_title'      => 'Manger',
                                     'photo'          => 'https://example.com/photo.jpg',
                                     'company'        => 'company1',
+                                    'locale'         => 'de_AT',
+                                    'timezone'       => 'Europe/Guernsey',
                                 ]);
 
                             $team1 = Team::factory()->create([
@@ -249,6 +255,8 @@ class UsersTest extends TestCase {
                                 'job_title'      => 'Manger',
                                 'photo'          => 'https://example.com/photo.jpg',
                                 'company'        => 'company1',
+                                'locale'         => 'de_AT',
+                                'timezone'       => 'Europe/Guernsey',
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -289,6 +297,8 @@ class UsersTest extends TestCase {
                                 'job_title'      => 'Employee',
                                 'photo'          => 'https://example.com/photo1.jpg',
                                 'company'        => 'company2',
+                                'locale'         => 'de_DE',
+                                'timezone'       => 'Europe/Berlin',
                                 'invitations'    => [
                                     [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -351,6 +361,8 @@ class UsersTest extends TestCase {
                                     'job_title'      => 'Manger',
                                     'photo'          => 'https://example.com/photo.jpg',
                                     'company'        => 'company1',
+                                    'locale'         => 'de_AT',
+                                    'timezone'       => 'Europe/Guernsey',
                                     'created_at'     => Date::now()->subMinutes(1),
                                 ]);
 
@@ -401,6 +413,8 @@ class UsersTest extends TestCase {
                                     'job_title'      => 'Employee',
                                     'photo'          => 'https://example.com/photo1.jpg',
                                     'company'        => 'company2',
+                                    'locale'         => 'de_DE',
+                                    'timezone'       => 'Europe/Berlin',
                                     'created_at'     => Date::now()->subMinutes(2),
                                 ]);
                             $team2 = Team::factory()->create([
