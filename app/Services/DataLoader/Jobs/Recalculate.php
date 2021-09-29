@@ -3,10 +3,14 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Callbacks\GetKey;
+use App\Models\Model;
 use App\Services\Queue\Job;
 use App\Services\Queue\Queues;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
+
+use function sprintf;
 
 abstract class Recalculate extends Job implements Initializable {
     /**
@@ -31,13 +35,33 @@ abstract class Recalculate extends Job implements Initializable {
     }
 
     /**
-     * @param array<\App\Models\Model>|\Illuminate\Support\Collection<\App\Models\Model> $models
+     * @param \Illuminate\Support\Collection<\App\Models\Model> $models
      */
-    public function setModels(Collection|array $models): static {
-        $this->keys = (new Collection($models))->map(new GetKey())->values()->all();
+    public function setModels(Collection $models): static {
+        // Valid?
+        if ($models->isEmpty()) {
+            throw new InvalidArgumentException('The `$models` cannot be empty.');
+        }
+
+        $expected = $this->getModel();
+        $actual   = $models->first();
+
+        if (!($actual instanceof $expected)) {
+            throw new InvalidArgumentException(sprintf(
+                'The `$models` must contain `%s` models, but it is contain `%s`.',
+                $expected::class,
+                $actual::class,
+            ));
+        }
+
+        // Initialize
+        $this->keys = (new Collection($models))->map(new GetKey())->unique()->values()->all();
 
         $this->initialized();
 
+        // Return
         return $this;
     }
+
+    abstract public function getModel(): Model;
 }

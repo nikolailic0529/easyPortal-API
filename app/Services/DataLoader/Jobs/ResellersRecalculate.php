@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Customer;
+use App\Models\Model;
 use App\Models\Reseller;
 use App\Utils\ModelHelper;
 use Illuminate\Support\Arr;
@@ -17,10 +19,14 @@ class ResellersRecalculate extends Recalculate {
         return 'ep-data-loader-resellers-recalculate';
     }
 
+    public function getModel(): Model {
+        return new Reseller();
+    }
+
     public function __invoke(): void {
         $keys      = $this->getKeys();
-        $model     = new Reseller();
-        $resellers = Reseller::query()
+        $model     = $this->getModel();
+        $resellers = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->with('locations')
             ->get();
@@ -46,12 +52,16 @@ class ResellersRecalculate extends Recalculate {
             }
 
             // Customers
-            $reseller->customers()->sync(array_map(static function (array $customers): array {
+            $customers = array_map(static function (array $customers): array {
                 return [
                     'locations_count' => count($customers),
                     'assets_count'    => array_sum($customers),
                 ];
-            }, $resellerAssets['customers'] ?? []));
+            }, $resellerAssets['customers'] ?? []);
+
+            unset($customers['']);
+
+            $reseller->customers()->sync($customers);
         }
     }
 

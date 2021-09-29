@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Customer;
+use App\Models\Model;
 use App\Utils\ModelHelper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +16,14 @@ class CustomersRecalculate extends Recalculate {
         return 'ep-data-loader-customers-recalculate';
     }
 
+    public function getModel(): Model {
+        return new Customer();
+    }
+
     public function __invoke(): void {
         $keys      = $this->getKeys();
-        $model     = new Customer();
-        $customers = Customer::query()
+        $model     = $this->getModel();
+        $customers = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->with('locations')
             ->get();

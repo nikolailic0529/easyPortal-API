@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\CustomerLocation;
 use App\Models\Location;
+use App\Models\Model;
 use App\Models\ResellerLocation;
 use App\Utils\ModelHelper;
 use Illuminate\Support\Arr;
@@ -19,10 +20,14 @@ class LocationsRecalculate extends Recalculate {
         return 'ep-data-loader-locations-recalculate';
     }
 
+    public function getModel(): Model {
+        return new Location();
+    }
+
     public function __invoke(): void {
         $keys      = $this->getKeys();
-        $model     = new Location();
-        $locations = Location::query()
+        $model     = $this->getModel();
+        $locations = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->get();
         $assets    = $this->calculateAssets($keys, $locations);
@@ -38,19 +43,27 @@ class LocationsRecalculate extends Recalculate {
             $location->save();
 
             // Resellers
-            $location->resellers()->sync(array_map(static function (array $resellers): array {
+            $resellers = array_map(static function (array $resellers): array {
                 return [
                     'customers_count' => count($resellers),
                     'assets_count'    => array_sum($resellers),
                 ];
-            }, $locationAssets['resellers'] ?? []));
+            }, $locationAssets['resellers'] ?? []);
+
+            unset($resellers['']);
+
+            $location->resellers()->sync($resellers);
 
             // Customers
-            $location->customers()->sync(array_map(static function (array $customers): array {
+            $customers = array_map(static function (array $customers): array {
                 return [
                     'assets_count' => array_sum($customers),
                 ];
-            }, $locationAssets['customers'] ?? []));
+            }, $locationAssets['customers'] ?? []);
+
+            unset($customers['']);
+
+            $location->customers()->sync($customers);
         }
     }
 
