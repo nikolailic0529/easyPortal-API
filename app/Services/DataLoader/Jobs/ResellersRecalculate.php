@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Asset;
+use App\Models\Document;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Utils\ModelHelper;
@@ -9,7 +11,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
+use function array_fill_keys;
+use function array_keys;
 use function array_map;
+use function array_merge;
 use function array_sum;
 use function count;
 
@@ -30,6 +35,7 @@ class ResellersRecalculate extends Recalculate {
             ->with('locations')
             ->get();
         $assets    = $this->calculateAssets($keys, $resellers);
+        $documents = $this->calculateDocuments($keys, $resellers);
 
         foreach ($resellers as $reseller) {
             // Prepare
@@ -51,12 +57,18 @@ class ResellersRecalculate extends Recalculate {
             }
 
             // Customers
-            $customers = array_map(static function (array $customers): array {
-                return [
-                    'locations_count' => count($customers),
-                    'assets_count'    => array_sum($customers),
-                ];
-            }, $resellerAssets['customers'] ?? []);
+            $customers = array_merge(
+                array_fill_keys(array_keys($documents[$reseller->getKey()] ?? []), [
+                    'locations_count' => 0,
+                    'assets_count'    => 0,
+                ]),
+                array_map(static function (array $customers): array {
+                    return [
+                        'locations_count' => count($customers),
+                        'assets_count'    => array_sum($customers),
+                    ];
+                }, $resellerAssets['customers'] ?? []),
+            );
 
             unset($customers['']);
 
@@ -74,8 +86,7 @@ class ResellersRecalculate extends Recalculate {
      */
     protected function calculateAssets(array $keys, Collection $resellers): array {
         $assets = [];
-        $result = (new ModelHelper(Reseller::query()))
-            ->getRelation('assets')
+        $result = Asset::query()
             ->toBase()
             ->select('reseller_id', 'customer_id', 'location_id', DB::raw('count(*) as count'))
             ->whereIn('reseller_id', $keys)
@@ -90,6 +101,34 @@ class ResellersRecalculate extends Recalculate {
 
             $assets[$r]['locations'][$l][$c] = (int) $row->count + ($assets[$r]['locations'][$l][$c] ?? 0);
             $assets[$r]['customers'][$c][$l] = (int) $row->count + ($assets[$r]['customers'][$c][$l] ?? 0);
+        }
+
+        return $assets;
+    }
+
+    /**
+     * Returns the number of documents on each customer for each reseller.
+     *
+     * @param array<string>                                        $keys
+     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
+     *
+     * @return array<string,array<string, int>>
+     */
+    protected function calculateDocuments(array $keys, Collection $resellers): array {
+        $assets = [];
+        $result = Document::query()
+            ->toBase()
+            ->select('reseller_id', 'customer_id', DB::raw('count(*) as count'))
+            ->whereIn('reseller_id', $keys)
+            ->groupBy('reseller_id', 'customer_id')
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $r = $row->reseller_id;
+            $c = (string) $row->customer_id;
+
+            $assets[$r][$c] = (int) $row->count + ($assets[$r][$c] ?? 0);
         }
 
         return $assets;
