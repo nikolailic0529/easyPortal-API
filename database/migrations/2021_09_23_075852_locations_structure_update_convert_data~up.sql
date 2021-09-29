@@ -31,7 +31,8 @@ FROM `locations_outdated`
     LEFT JOIN `locations` ON `locations`.`hash` = `locations_outdated`.`hash`
 WHERE 1=1
     AND `locations_outdated`.`object_type` = 'Customer'
-    AND `locations_outdated`.`deleted_at` IS NULL;
+    AND `locations_outdated`.`deleted_at` IS NULL
+ON DUPLICATE KEY UPDATE `updated_at` = CURRENT_TIMESTAMP();
 
 INSERT INTO `customer_location_types` (`id`, `customer_location_id`, `type_id`)
 SELECT `location_types_outdated`.`id`, `location_types_outdated`.`location_id`, `location_types_outdated`.`type_id`
@@ -40,7 +41,8 @@ LEFT JOIN `locations_outdated` ON `locations_outdated`.`id` = `location_types_ou
 WHERE 1=1
     AND `locations_outdated`.`deleted_at` IS NULL
     AND `locations_outdated`.`object_type` = 'Customer'
-    AND `locations_outdated`.`deleted_at` IS NULL;
+    AND `locations_outdated`.`deleted_at` IS NULL
+ON DUPLICATE KEY UPDATE `updated_at` = CURRENT_TIMESTAMP();
 
 -- Resellers locations
 INSERT INTO `reseller_locations` (`id`, `reseller_id`, `location_id`)
@@ -49,7 +51,8 @@ FROM `locations_outdated`
 LEFT JOIN `locations` ON `locations`.`hash` = `locations_outdated`.`hash`
 WHERE 1=1
     AND `locations_outdated`.`object_type` = 'Reseller'
-    AND `locations_outdated`.`deleted_at` IS NULL;
+    AND `locations_outdated`.`deleted_at` IS NULL
+ON DUPLICATE KEY UPDATE `updated_at` = CURRENT_TIMESTAMP();
 
 INSERT INTO `reseller_location_types` (`id`, `reseller_location_id`, `type_id`)
 SELECT `location_types_outdated`.`id`, `location_types_outdated`.`location_id`, `location_types_outdated`.`type_id`
@@ -58,18 +61,25 @@ LEFT JOIN `locations_outdated` ON `locations_outdated`.`id` = `location_types_ou
 WHERE 1=1
     AND `locations_outdated`.`deleted_at` IS NULL
     AND `locations_outdated`.`object_type` = 'Reseller'
-    AND `locations_outdated`.`deleted_at` IS NULL;
+    AND `locations_outdated`.`deleted_at` IS NULL
+ON DUPLICATE KEY UPDATE `updated_at` = CURRENT_TIMESTAMP();
 
 -- Assets locations
--- (assets locations doesn't have `type`)
+INSERT INTO `tmp_locations_map` (`old_location_id`)
+SELECT `assets`.`location_id`
+FROM `assets`
+WHERE `assets`.`location_id` IS NOT NULL
+ON DUPLICATE KEY UPDATE `old_location_id` = `assets`.`location_id`;
+
+UPDATE `tmp_locations_map`
+LEFT JOIN `locations_outdated` ON `locations_outdated`.`id` = `tmp_locations_map`.`old_location_id`
+LEFT JOIN `locations` ON `locations`.`hash` = `locations_outdated`.`hash`
+SET `new_location_id` = `locations`.`id`;
+
 UPDATE `assets`
-SET `assets`.`location_id` = (
-    SELECT `locations`.`id`
-    FROM `locations`
-    LEFT JOIN `locations_outdated` ON `locations_outdated`.`hash` = `locations`.`hash`
-    WHERE `locations_outdated`.`id` = `assets`.`location_id_outdated`
-)
-WHERE `assets`.`location_id_outdated` IS NOT NULL;
+LEFT JOIN `tmp_locations_map` ON `tmp_locations_map`.`old_location_id` = `assets`.`location_id`
+SET `assets`.`location_id` = `tmp_locations_map`.`new_location_id`
+WHERE `assets`.`location_id` IS NOT NULL;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;

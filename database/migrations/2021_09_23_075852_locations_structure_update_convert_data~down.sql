@@ -132,37 +132,21 @@ WHERE 1=1
     AND `customer_locations`.`id` IS NULL
 ON DUPLICATE KEY UPDATE `updated_at` = CURRENT_TIMESTAMP();
 
-UPDATE `assets`
-SET `assets`.`location_id_outdated` = (
-    SELECT `locations_outdated`.`id`
-    FROM `locations_outdated`
-    WHERE `locations_outdated`.`id` = `assets`.`location_id`
-)
-WHERE 1=1
-    AND `assets`.`location_id` IS NOT NULL;
+INSERT INTO `tmp_locations_map` (`new_location_id`)
+SELECT `assets`.`location_id`
+FROM `assets`
+WHERE `assets`.`location_id` IS NOT NULL
+ON DUPLICATE KEY UPDATE `new_location_id` = `assets`.`location_id`;
+
+UPDATE `tmp_locations_map`
+LEFT JOIN `locations` ON `locations`.`id` = `tmp_locations_map`.`new_location_id`
+LEFT JOIN `locations_outdated` ON `locations_outdated`.`hash` = `locations`.`hash`
+SET `old_location_id` = `locations_outdated`.`id`;
 
 UPDATE `assets`
-LEFT JOIN `locations_outdated` ON `locations_outdated`.`id` = `assets`.`location_id`
-SET `assets`.`location_id_outdated` = COALESCE(
-    (
-        SELECT `customer_locations`.`id` FROM `customer_locations`
-        WHERE 1=1
-            AND `customer_locations`.`location_id` = `assets`.`location_id`
-            AND `customer_locations`.`customer_id` = `assets`.`customer_id`
-        LIMIT 1
-    ),
-    (
-        SELECT `reseller_locations`.`id` FROM `reseller_locations`
-        WHERE 1=1
-            AND `reseller_locations`.`location_id` = `assets`.`location_id`
-            AND `reseller_locations`.`reseller_id` = `assets`.`reseller_id`
-        LIMIT 1
-    )
-)
-WHERE 1=1
-    AND `assets`.`location_id` IS NOT NULL
-    AND (`assets`.`reseller_id` IS NOT NULL OR `assets`.`customer_id` IS NOT NULL)
-    AND (`locations_outdated`.`object_type` != 'Asset' OR `locations_outdated`.`object_type` IS NULL);
+LEFT JOIN `tmp_locations_map` ON `tmp_locations_map`.`new_location_id` = `assets`.`location_id`
+SET `assets`.`location_id` = `tmp_locations_map`.`old_location_id`
+WHERE `assets`.`location_id` IS NOT NULL;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;

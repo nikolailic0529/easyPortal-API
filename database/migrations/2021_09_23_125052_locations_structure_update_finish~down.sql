@@ -2,6 +2,10 @@ SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 1;
 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 1;
 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+-- Assets
+ALTER TABLE `assets`
+    DROP FOREIGN KEY `fk_assets_locations1`;
+
 -- Restore fields and tables
 CREATE TABLE IF NOT EXISTS `locations_outdated` (
     `id`          CHAR(36)       NOT NULL,
@@ -63,12 +67,6 @@ CREATE TABLE IF NOT EXISTS `location_types_outdated` (
             ON UPDATE RESTRICT
 );
 
-ALTER TABLE `assets`
-    ADD COLUMN `location_id_outdated` CHAR(36) NULL DEFAULT NULL COMMENT 'current' AFTER `location_id`;
-
-ALTER TABLE `assets`
-    DROP FOREIGN KEY `fk_assets_locations2`;
-
 -- Add helpers
 ALTER TABLE `locations_outdated`
     ADD COLUMN `hash` VARCHAR(632) GENERATED ALWAYS AS (CONCAT(country_id, '/', city_id, '/', postcode, '/', line_one, ' ', line_two)) STORED AFTER `deleted_not`,
@@ -77,6 +75,24 @@ ALTER TABLE `locations_outdated`
 ALTER TABLE `locations`
     ADD COLUMN `hash` VARCHAR(632) GENERATED ALWAYS AS (CONCAT(country_id, '/', city_id, '/', postcode, '/', line_one, ' ', line_two)) STORED AFTER `deleted_not`,
     ADD INDEX `idx__hash` (`hash` ASC) VISIBLE;
+
+-- Map
+CREATE TABLE IF NOT EXISTS `tmp_locations_map` (
+    `old_location_id` CHAR(36) NULL DEFAULT NULL,
+    `new_location_id` CHAR(36) NOT NULL,
+    UNIQUE INDEX `fk_tmp_locations_map_locations1_idx`(`new_location_id` ASC) VISIBLE,
+    CONSTRAINT `fk_tmp_locations_map_locations1`
+        FOREIGN KEY (`old_location_id`)
+            REFERENCES `locations_outdated`(`id`)
+            ON DELETE RESTRICT
+            ON UPDATE RESTRICT,
+    INDEX `fk_tmp_locations_map_locations2_idx`(`new_location_id` ASC) VISIBLE,
+    CONSTRAINT `fk_tmp_locations_map_locations2`
+        FOREIGN KEY (`new_location_id`)
+            REFERENCES `locations`(`id`)
+            ON DELETE RESTRICT
+            ON UPDATE RESTRICT
+);
 
 
 SET SQL_MODE = @OLD_SQL_MODE;

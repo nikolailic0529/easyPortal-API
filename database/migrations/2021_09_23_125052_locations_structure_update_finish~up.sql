@@ -3,16 +3,21 @@ SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 1;
 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 ALTER TABLE `assets`
-    DROP INDEX `fk_assets_locations1_idx`,
-    DROP COLUMN `location_id_outdated`;
+    ADD CONSTRAINT `fk_assets_locations1`
+        FOREIGN KEY (`location_id`)
+            REFERENCES `locations`(`id`)
+            ON DELETE RESTRICT
+            ON UPDATE RESTRICT;
 
 ALTER TABLE `locations`
     DROP INDEX `idx__hash`,
     DROP COLUMN `hash`;
 
-DROP TABLE IF EXISTS `locations_outdated`;
+DROP TABLE IF EXISTS `tmp_locations_map`;
 
 DROP TABLE IF EXISTS `location_types_outdated`;
+
+DROP TABLE IF EXISTS `locations_outdated`;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;

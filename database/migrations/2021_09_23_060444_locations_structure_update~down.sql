@@ -3,6 +3,7 @@ SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 1;
 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- DROP tables
+DROP TABLE IF EXISTS `tmp_locations_map`;
 DROP TABLE IF EXISTS `customer_location_types`;
 DROP TABLE IF EXISTS `customer_locations`;
 DROP TABLE IF EXISTS `reseller_location_types`;
@@ -32,9 +33,6 @@ ALTER TABLE `location_types`
             ON UPDATE RESTRICT;
 
 -- Assets
-ALTER TABLE `assets`
-    RENAME INDEX `fk_assets_locations2_idx` TO `fk_assets_locations1_idx`;
-
 ALTER TABLE `assets`
     ADD CONSTRAINT `fk_assets_locations1`
         FOREIGN KEY (`location_id`)
