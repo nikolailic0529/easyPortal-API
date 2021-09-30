@@ -619,7 +619,7 @@ type Customer {
   name: String!
   type: Type!
   type_id: ID!
-  statuses: [Status]!
+  statuses: [Status!]!
   contacts_count: Int!
   contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
   locations: [CustomerLocation!]!
