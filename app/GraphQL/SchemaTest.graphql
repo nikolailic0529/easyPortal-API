@@ -3057,34 +3057,6 @@ input SearchByComplexRelationTagsQuery {
 }
 
 """
-Conditions for the related objects (`has()`/`doesntHave()`) for input TeamsQuery.
-
-See also:
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationTeamsQuery {
-  """Additional conditions."""
-  where: SearchByConditionTeamsQuery
-
-  """Count conditions."""
-  count: SearchByScalarInt
-
-  """
-  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
-  """
-  exists: Boolean
-
-  """
-  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
-  """
-  notExists: Boolean! = false
-
-  """Complex operator marker."""
-  relation: SearchByTypeFlag! = yes
-}
-
-"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input TypesQuery.
 
 See also:
@@ -4232,26 +4204,6 @@ input SearchByConditionTagsQuery {
 }
 
 """
-Available conditions for input TeamsQuery (only one property allowed at a time).
-"""
-input SearchByConditionTeamsQuery {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionTeamsQuery!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionTeamsQuery!]
-
-  """Not."""
-  not: SearchByConditionTeamsQuery
-
-  """Property condition."""
-  id: SearchByScalarID
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
 Available conditions for input TypesQuery (only one property allowed at a time).
 """
 input SearchByConditionTypesQuery {
@@ -4285,6 +4237,9 @@ input SearchByConditionUsersQuery {
   id: SearchByScalarID
 
   """Property condition."""
+  email: SearchByScalarString
+
+  """Property condition."""
   given_name: SearchByScalarString
 
   """Property condition."""
@@ -4292,9 +4247,6 @@ input SearchByConditionUsersQuery {
 
   """Property condition."""
   enabled: SearchByScalarBoolean
-
-  """Property condition."""
-  team: SearchByComplexRelationTeamsQuery
 }
 
 """
@@ -5735,14 +5687,6 @@ input SortByClauseTagsSort {
 }
 
 """
-Sort clause for input TeamsSort (only one property allowed at a time).
-"""
-input SortByClauseTeamsSort {
-  """Property clause."""
-  name: SortByDirection
-}
-
-"""
 Sort clause for input TypesQuery (only one property allowed at a time).
 """
 input SortByClauseTypesQuery {
@@ -5763,6 +5707,9 @@ Sort clause for input UsersSort (only one property allowed at a time).
 """
 input SortByClauseUsersSort {
   """Property clause."""
+  email: SortByDirection
+
+  """Property clause."""
   given_name: SortByDirection
 
   """Property clause."""
@@ -5770,9 +5717,6 @@ input SortByClauseUsersSort {
 
   """Property clause."""
   enabled: SortByDirection
-
-  """Property clause."""
-  team: SortByClauseTeamsSort
 }
 
 """Sort direction."""
@@ -6094,17 +6038,17 @@ type UserTeam {
 
 input UsersQuery {
   id: ID!
+  email: String!
   given_name: String!
   family_name: String!
   enabled: Boolean!
-  team: TeamsQuery
 }
 
 input UsersSort {
+  email: String!
   given_name: String!
   family_name: String!
   enabled: Boolean!
-  team: TeamsSort
 }
 
 type recoverApplicationSettingsPayload {
