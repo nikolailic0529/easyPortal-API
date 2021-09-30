@@ -971,7 +971,6 @@ input DocumentsQuery {
   language_id: ID
   serial_number: String
   service_group_id: ID
-  service_level_id: ID
   customer_id: ID
   customer: CustomersQuery
   reseller_id: ID
@@ -3799,9 +3798,6 @@ input SearchByConditionDocumentsQuery {
   service_group_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  service_level_id: SearchByScalarIDOrNull
-
-  """Property condition."""
   customer_id: SearchByScalarIDOrNull
 
   """Property condition."""
@@ -5371,9 +5367,6 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   service_group_id: SortByDirection
-
-  """Property clause."""
-  service_level_id: SortByDirection
 
   """Property clause."""
   customer_id: SortByDirection
