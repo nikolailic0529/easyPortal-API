@@ -5,6 +5,7 @@ namespace App\Models;
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\TranslateProperties;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -19,7 +20,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @method static \Database\Factories\StatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status newQuery()
@@ -52,6 +55,34 @@ class Status extends Model implements Translatable {
             ->belongsToMany(Customer::class, $pivot->getTable())
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    public function contracts(): BelongsToMany {
+        $pivot = new DocumentStatus();
+
+        return $this
+            ->belongsToMany(Document::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->where(static function (Builder $builder) {
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryContracts();
+            })
+            ->withTimestamps();
+    }
+
+    public function quotes(): BelongsToMany {
+        $pivot = new DocumentStatus();
+
+        return $this
+            ->belongsToMany(Document::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->where(static function (Builder $builder) {
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryQuotes();
+            })
             ->withTimestamps();
     }
 }
