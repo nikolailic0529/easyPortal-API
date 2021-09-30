@@ -4,6 +4,7 @@ namespace App\Services\Settings\Bootstrapers;
 
 use App\Services\Settings\Environment\Configuration;
 use App\Services\Settings\Environment\EnvironmentRepository;
+use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
@@ -43,6 +44,12 @@ class LoadConfigurationTest extends TestCase {
             ->shouldReceive('configPath')
             ->once()
             ->andReturn($this->app->configPath());
+        $application
+            ->shouldReceive('booted')
+            ->once()
+            ->andReturnUsing(static function (Closure $closure): void {
+                $closure();
+            });
 
         $repository = Mockery::mock(Repository::class);
         $repository

@@ -24,7 +24,14 @@ class LoadConfiguration extends IlluminateLoadConfiguration {
         parent::loadConfigurationFiles($app, $repository);
 
         $this->overwriteConfig($app, $repository, $configuration['config']);
-        $this->cleanupEnvVars($app, $repository, $configuration['envs']);
+
+        // If ENV var exists the Setting will be marked as read-only and will
+        // be not possible to set its value. To avoid this we reset our ENVs
+        // after boot (after boot because app/packages may register additional
+        // configs and ENVs is required for them).
+        $app->booted(function () use ($app, $repository, $configuration): void {
+            $this->cleanupEnvVars($app, $repository, $configuration['envs']);
+        });
     }
 
     /**
