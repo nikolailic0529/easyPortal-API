@@ -31,18 +31,20 @@ class ResellersRecalculate extends Recalculate {
         $model     = $this->getModel();
         $resellers = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
-            ->with('locations')
+            ->with(['locations', 'contacts'])
             ->get();
         $assets    = $this->calculateAssets($keys, $resellers);
         $documents = $this->calculateDocuments($keys, $resellers);
 
         foreach ($resellers as $reseller) {
+            /** @var \App\Models\Reseller $reseller */
             // Prepare
             $resellerAssets = $assets[$reseller->getKey()] ?? [];
 
             // Countable
             $reseller->locations_count = count($reseller->locations);
             $reseller->customers_count = count($resellerAssets['customers'] ?? []);
+            $reseller->contacts_count  = count($reseller->contacts);
             $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers'] ?? []));
 
             $reseller->save();
