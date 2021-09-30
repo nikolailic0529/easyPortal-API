@@ -27,5 +27,8 @@ type User {
   locale: String
   timezone: String
 
-  organizations: [OrganizationUser!]! @hasMany(relation: "organizationUser")
+  organizations: [UserOrganization!]!
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @hasMany(relation: "organizationUser")
 }

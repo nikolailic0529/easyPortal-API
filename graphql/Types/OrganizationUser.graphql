@@ -1,7 +1,0 @@
-type OrganizationUser {
-  organization_id: ID!
-  organization: Organization!
-  role: Role @me(permissions: ["administer"])
-  team: Team @me(permissions: ["administer"])
-  enabled: Boolean @me(permissions: ["administer"])
-}
