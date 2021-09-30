@@ -24,7 +24,7 @@ type Organization {
 
   users(
     where: UsersQuery @searchBy
-    order: UsersSort @searchBy
+    order: UsersSort @sortBy
   ): [User!]!
   @hasMany(type: PAGINATOR)
   @me(permissions: ["administer", "org-administer"])
