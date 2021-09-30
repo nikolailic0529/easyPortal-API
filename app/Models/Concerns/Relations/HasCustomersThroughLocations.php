@@ -26,7 +26,7 @@ trait HasCustomersThroughLocations {
             [
                 null,
                 null,
-                'location_id',
+                'customer_id',
             ],
         );
     }
