@@ -508,6 +508,7 @@
                 "serviceGroup",
                 "reseller",
                 "type",
+                "statuses",
                 "is_contract",
                 "is_quote",
                 "entries",
@@ -660,6 +661,12 @@
                 },
                 "type": {
                     "$ref": "#/definitions/Type"
+                },
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Status"
+                    }
                 },
                 "entries": {
                     "type": "array",

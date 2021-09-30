@@ -21,4 +21,5 @@ input DocumentsQuery {
   entries_count: Int!
   contacts: ContactsQuery
   contacts_count: Int!
+  statuses: StatusesQuery
 }

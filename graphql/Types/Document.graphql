@@ -18,6 +18,7 @@ type Document {
   reseller_id: ID
   reseller: Reseller @belongsTo
   type: Type! @belongsTo
+  statuses: [Status!]! @belongsToMany
   is_contract: Boolean!
   is_quote: Boolean!
   entries(

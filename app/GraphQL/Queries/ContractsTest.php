@@ -112,6 +112,10 @@ class ContractsTest extends TestCase {
                                 id
                                 name
                             }
+                            statuses {
+                                id
+                                name
+                            }
                             customer {
                                 id
                                 name
@@ -357,6 +361,12 @@ class ContractsTest extends TestCase {
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'name' => 'name aaa',
                                 ],
+                                'statuses'         => [
+                                    [
+                                        'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
+                                        'name' => 'status a',
+                                    ],
+                                ],
                                 'customer'         => [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
@@ -595,6 +605,10 @@ class ContractsTest extends TestCase {
                                 ->for($currency)
                                 ->for($language)
                                 ->for($distributor)
+                                ->hasStatuses(1, [
+                                    'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
+                                    'name' => 'status a',
+                                ])
                                 ->hasEntries(1, [
                                     'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                     'asset_id'         => Asset::factory()->create([

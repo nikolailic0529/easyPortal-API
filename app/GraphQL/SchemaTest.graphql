@@ -879,6 +879,7 @@ type Document {
   reseller_id: ID
   reseller: Reseller
   type: Type!
+  statuses: [Status!]!
   is_contract: Boolean!
   is_quote: Boolean!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
@@ -981,6 +982,7 @@ input DocumentsQuery {
   entries_count: Int!
   contacts: ContactsQuery
   contacts_count: Int!
+  statuses: StatusesQuery
 }
 
 input DocumentsSearchCustomerSort {
@@ -3828,6 +3830,9 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   contacts_count: SearchByScalarInt
+
+  """Property condition."""
+  statuses: SearchByComplexRelationStatusesQuery
 }
 
 """
@@ -5399,6 +5404,9 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   contacts_count: SortByDirection
+
+  """Property clause."""
+  statuses: SortByClauseStatusesQuery
 }
 
 """
