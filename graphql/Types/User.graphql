@@ -5,7 +5,9 @@ type User {
   email: String!
   email_verified: Boolean!
   enabled: Boolean!
-  invitations: [Invitation!]! @hasMany
+
+  invitations: [Invitation!]!
+  @field(resolver: "App\\GraphQL\\Queries\\User@invitations")
 
   team: Team
   @field(resolver: "App\\GraphQL\\Queries\\User@team")

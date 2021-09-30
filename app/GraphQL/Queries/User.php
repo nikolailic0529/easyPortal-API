@@ -11,6 +11,7 @@ use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class User {
     public function __construct(
@@ -25,6 +26,7 @@ class User {
         if (!$this->auth->isRoot($this->authManager->user())) {
             $builder = $builder->where('type', '=', UserType::keycloak());
         }
+
         return $builder;
     }
 
@@ -34,7 +36,7 @@ class User {
             ->where('user_id', '=', $user->getKey())
             ->first();
 
-        return $organizationUser?->role ;
+        return $organizationUser?->role;
     }
 
     public function team(UserModel $user): ?Team {
@@ -43,6 +45,13 @@ class User {
             ->where('user_id', '=', $user->getKey())
             ->first();
 
-        return $organizationUser?->team ;
+        return $organizationUser?->team;
+    }
+
+    public function invitations(UserModel $user): Collection {
+        return $user->invitations()
+            ->where('organization_id', '=', $this->organization->getKey())
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 }
