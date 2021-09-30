@@ -2833,6 +2833,19 @@
         ]
     },
     {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0731be4c-624e-4802-a1d3-c672a9283562",
+            "1f5a306d-bca1-4b77-8131-0f1926a40d08",
+            "25f18688-39fc-4d4c-90bb-3593cac21052",
+            "3a312485-a6f0-4f4e-85ec-cd23156eb176",
+            "75026113-e205-40e8-831e-0a2f9dee75bf",
+            "f342f429-2016-4809-988b-022e1deb75f0",
+            "ff69738c-6dce-458e-bc6c-4b6eae3f6168",
+            "Reseller"
+        ]
+    },
+    {
         "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -3064,6 +3077,22 @@
             "96a956b3-f459-4ea2-a81c-7cdc01c24433",
             "9e83a7e5-445e-4da2-bd36-7fc2c4d7e948",
             "f921bd2a-3bb4-417a-8ae1-a7a78e51692d"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0cd3444e-8f5d-4e3c-a56d-e30517f583a9",
+            "18dcfcfa-6655-4932-8fec-46630639490a",
+            "1a21ac6a-c977-43fd-bd62-66cf6be37d92",
+            "20ebaca0-212f-4c79-862f-5ec271ab0d2a",
+            "3da41792-9c2c-4301-a61b-305b09938932",
+            "8230d8af-2ad5-4d26-909a-0d45959751f2",
+            "8aa5fbee-c299-47ab-a324-64c25166e223",
+            "96a956b3-f459-4ea2-a81c-7cdc01c24433",
+            "9e83a7e5-445e-4da2-bd36-7fc2c4d7e948",
+            "f921bd2a-3bb4-417a-8ae1-a7a78e51692d",
+            "Customer"
         ]
     },
     {
@@ -6481,6 +6510,21 @@
         ]
     },
     {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "03829705-5dd9-4f58-ab38-495a806d45cf",
+            "1d039886-4419-4bb1-bad9-9110293da053",
+            "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
+            "488810f6-fea6-4492-a00d-db8306076ecc",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "836f564c-dc3e-480f-9ebb-42a6900ce74f",
+            "98d5c771-5301-498a-9439-537ff6a9b405",
+            "ace3d380-031e-4c74-809d-179f13694650",
+            "d229c495-f960-4ea7-83fd-43b50c56f1c0",
+            "Reseller"
+        ]
+    },
+    {
         "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
@@ -6770,6 +6814,22 @@
             "afc0228d-1b20-4971-8635-6837387409a6",
             "d50e731a-c49c-4842-8e45-6beb565b82a8",
             "d8a49987-3e29-47d2-aa42-748fffb1a948"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "03ded2b7-ed78-4126-8ea5-ccefeb5a0b63",
+            "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d",
+            "3cebb5d3-21f6-410f-9ec8-196658487bd6",
+            "454e27b3-26c1-4f11-bfd6-9a55ab447a66",
+            "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b",
+            "811ce1d1-acdb-4ab0-8ec2-ade32225ee23",
+            "ab5b82fd-3849-4e1b-8bf0-85676dc341ec",
+            "afc0228d-1b20-4971-8635-6837387409a6",
+            "d50e731a-c49c-4842-8e45-6beb565b82a8",
+            "d8a49987-3e29-47d2-aa42-748fffb1a948",
+            "Customer"
         ]
     },
     {
@@ -9980,6 +10040,20 @@
         ]
     },
     {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
+            "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
+            "661cb23a-6328-4363-8a32-ecd1c96904f2",
+            "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "72d3b860-3667-408a-8ead-6056e10b2481",
+            "b0233a33-e6b2-488a-b5ff-22408194ba83",
+            "fcd8ee32-031a-4e61-b112-b4d07c92f6b3",
+            "Reseller"
+        ]
+    },
+    {
         "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
@@ -10238,6 +10312,22 @@
             "d42dbc87-4af5-44a7-ae16-ad33dceb288b",
             "ebe80af8-32fe-4b30-8846-f05fd9b178a5",
             "ff233b92-3872-4261-ab3a-a21776fdbe07"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0f0e65fb-711e-4d4b-8850-900171d5f2e3",
+            "2870d449-ec69-48a0-81ce-46aed24e5382",
+            "6be4e13d-2ea7-4314-bcd0-26a8848343f9",
+            "89dfecfc-4ed4-4a39-a746-0142773f5c40",
+            "9216a30a-9af2-426a-b219-85f9aaffb112",
+            "93666f95-3fd4-4b30-a9a1-694e0295788c",
+            "bf58b75a-1bb6-40aa-8453-fdf1d7482b08",
+            "d42dbc87-4af5-44a7-ae16-ad33dceb288b",
+            "ebe80af8-32fe-4b30-8846-f05fd9b178a5",
+            "ff233b92-3872-4261-ab3a-a21776fdbe07",
+            "Customer"
         ]
     },
     {
@@ -14522,6 +14612,22 @@
         ]
     },
     {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "202a694b-f8a6-4191-881b-e296663d5061",
+            "561b9925-3781-46d7-a734-78efad4f5ae6",
+            "57e6a2c1-b060-4448-b0bf-b3793da27dc1",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "8e0a6e65-837e-4f16-892c-3858dc965c45",
+            "96125ca9-a463-4e62-8526-9461f31b1819",
+            "9ae9b76a-eedb-47f4-b6bc-f7593e147621",
+            "e35134f8-02c7-4aaa-944c-e72f18be4b6b",
+            "f099856f-d50e-4440-b938-375cab3b8e1b",
+            "Reseller"
+        ]
+    },
+    {
         "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
@@ -14880,6 +14986,23 @@
             "7f397cdb-a1a2-4173-8c3f-f00926997491",
             "bd098e37-2fd5-4840-984d-bb39506d23ec",
             "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1856648d-d181-4f9c-9208-01e340bc3a2f",
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "27d4d93c-43bf-4514-8b56-3661523b15a4",
+            "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb",
+            "4d7b13f9-9bf5-499d-a4cb-c40bdcea9bf0",
+            "6c32cf27-fef0-487d-b95b-c1e1cd94282e",
+            "733a054f-6b00-49d7-8f49-8366b3a2a7b8",
+            "77180fce-f9cb-469f-9ace-4120226ff013",
+            "7f397cdb-a1a2-4173-8c3f-f00926997491",
+            "bd098e37-2fd5-4840-984d-bb39506d23ec",
+            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3",
+            "Customer"
         ]
     },
     {
@@ -17959,6 +18082,21 @@
         ]
     },
     {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
+            "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
+            "20268e5f-6d31-49da-a850-24a28446cdd4",
+            "5272f005-f7cc-441d-8fab-9d159f83277d",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
+            "abf17c4e-2672-4a05-8e0a-8f11c9732504",
+            "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
+            "c4008848-ced1-47e6-92ca-87a1774006cd",
+            "Reseller"
+        ]
+    },
+    {
         "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
@@ -18298,6 +18436,22 @@
             "cf85f11b-6681-4106-a129-cbdd463120e2",
             "e089508a-7642-4c79-9d9c-6bc3d82db206",
             "edb16d76-24b1-4aab-aac4-fce658e6c5e2"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "505ebd5c-1c80-49df-9263-ba8de21aadb3",
+            "819d9228-2cbc-4d1f-8e18-148745f7a922",
+            "91baefb3-0a41-4f66-bee2-1dd11d27fa15",
+            "9684d520-c291-4ec6-b914-f0323d6ef0ba",
+            "9a749c4e-a721-4762-9abc-395dcd2b33e5",
+            "a816e3b0-a3a2-490b-b762-24addfd836d6",
+            "a86dd99a-97fb-4fb8-8e09-1ae4a872f01a",
+            "cf85f11b-6681-4106-a129-cbdd463120e2",
+            "e089508a-7642-4c79-9d9c-6bc3d82db206",
+            "edb16d76-24b1-4aab-aac4-fce658e6c5e2",
+            "Customer"
         ]
     },
     {

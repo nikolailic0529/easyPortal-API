@@ -1684,7 +1684,7 @@ type Organization {
   """
   users(
     where: SearchByConditionUsersQuery
-    order: SearchByConditionUsersSort
+    order: [SortByClauseUsersSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -3096,34 +3096,6 @@ input SearchByComplexRelationTeamsQuery {
 }
 
 """
-Conditions for the related objects (`has()`/`doesntHave()`) for input TeamsSort.
-
-See also:
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationTeamsSort {
-  """Additional conditions."""
-  where: SearchByConditionTeamsSort
-
-  """Count conditions."""
-  count: SearchByScalarInt
-
-  """
-  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
-  """
-  exists: Boolean
-
-  """
-  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
-  """
-  notExists: Boolean! = false
-
-  """Complex operator marker."""
-  relation: SearchByTypeFlag! = yes
-}
-
-"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input TypesQuery.
 
 See also:
@@ -4291,23 +4263,6 @@ input SearchByConditionTeamsQuery {
 }
 
 """
-Available conditions for input TeamsSort (only one property allowed at a time).
-"""
-input SearchByConditionTeamsSort {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionTeamsSort!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionTeamsSort!]
-
-  """Not."""
-  not: SearchByConditionTeamsSort
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
 Available conditions for input TypesQuery (only one property allowed at a time).
 """
 input SearchByConditionTypesQuery {
@@ -4351,32 +4306,6 @@ input SearchByConditionUsersQuery {
 
   """Property condition."""
   team: SearchByComplexRelationTeamsQuery
-}
-
-"""
-Available conditions for input UsersSort (only one property allowed at a time).
-"""
-input SearchByConditionUsersSort {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionUsersSort!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionUsersSort!]
-
-  """Not."""
-  not: SearchByConditionUsersSort
-
-  """Property condition."""
-  given_name: SearchByScalarString
-
-  """Property condition."""
-  family_name: SearchByScalarString
-
-  """Property condition."""
-  enabled: SearchByScalarBoolean
-
-  """Property condition."""
-  team: SearchByComplexRelationTeamsSort
 }
 
 """

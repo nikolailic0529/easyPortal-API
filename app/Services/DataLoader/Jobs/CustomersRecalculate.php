@@ -25,12 +25,14 @@ class CustomersRecalculate extends Recalculate {
         $model     = $this->getModel();
         $customers = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
-            ->with('locations')
+            ->with(['locations', 'contacts'])
             ->get();
         $assets    = $this->calculateAssets($keys, $customers);
 
         foreach ($customers as $customer) {
+            /** @var \App\Models\Customer $customer */
             $customer->locations_count = count($customer->locations);
+            $customer->contacts_count  = count($customer->contacts);
             $customer->assets_count    = array_sum($assets[$customer->getKey()] ?? []);
 
             foreach ($customer->locations as $location) {
