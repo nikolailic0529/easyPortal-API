@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                       $user_id
  * @property string|null                  $role_id
  * @property string|null                  $team_id
+ * @property bool                         $enabled
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -33,6 +34,14 @@ class OrganizationUser extends Model implements Auditable {
      * @var string
      */
     protected $table = 'organization_users';
+
+    protected const CASTS = [
+        'enabled' => 'bool',
+    ] + parent::CASTS;
+
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class);
+    }
 
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);

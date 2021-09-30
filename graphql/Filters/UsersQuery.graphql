@@ -1,7 +1,7 @@
 input UsersQuery {
   id: ID!
+  email: String!
   given_name: String!
   family_name: String!
   enabled: Boolean!
-  team: TeamsQuery
 }

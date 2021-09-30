@@ -130,6 +130,7 @@ class UsersImporter {
                             $organizationUser                  = new OrganizationUser();
                             $organizationUser->organization_id = $organization->getKey();
                             $organizationUser->user_id         = $user->getKey();
+                            $organizationUser->enabled         = $item->enabled;
                             $organizationUser->save();
                         }
                     }
@@ -144,6 +145,7 @@ class UsersImporter {
                             $organizationUser                  = new OrganizationUser();
                             $organizationUser->organization_id = $role->organization_id;
                             $organizationUser->user_id         = $user->getKey();
+                            $organizationUser->enabled         = $item->enabled;
                         }
 
                         $organizationUser->role_id = $role->getKey();

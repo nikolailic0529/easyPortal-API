@@ -1,6 +1,6 @@
 input UsersSort {
+  email: String!
   given_name: String!
   family_name: String!
   enabled: Boolean!
-  team: TeamsSort
 }
