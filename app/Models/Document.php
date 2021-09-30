@@ -10,6 +10,7 @@ use App\Models\Concerns\Relations\HasLanguage;
 use App\Models\Concerns\Relations\HasOem;
 use App\Models\Concerns\Relations\HasResellerNullable;
 use App\Models\Concerns\Relations\HasServiceGroup;
+use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Models\Scopes\ContractType;
@@ -69,6 +70,7 @@ use function count;
  * @property \App\Models\OemGroup|null                                           $oemGroup
  * @property \App\Models\Reseller|null                                           $reseller
  * @property \App\Models\ServiceGroup|null                                       $serviceGroup
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>        $statuses
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
@@ -84,6 +86,7 @@ class Document extends Model implements CascadeDeletable {
     use OwnedByReseller;
     use HasOem;
     use HasType;
+    use HasStatuses;
     use HasServiceGroup;
     use HasResellerNullable;
     use HasCustomerNullable;
@@ -156,6 +159,10 @@ class Document extends Model implements CascadeDeletable {
 
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
+    }
+
+    protected function getStatusesPivot(): Pivot {
+        return new DocumentStatus();
     }
     // </editor-fold>
 
