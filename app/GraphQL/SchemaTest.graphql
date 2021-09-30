@@ -1179,6 +1179,7 @@ input MapQuery {
   city_id: ID!
   country: CountriesQuery
   city: CitiesQuery
+  customers: CustomersQuery
 }
 
 type Me {
@@ -3949,6 +3950,9 @@ input SearchByConditionMapQuery {
 
   """Property condition."""
   city: SearchByComplexRelationCitiesQuery
+
+  """Property condition."""
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
