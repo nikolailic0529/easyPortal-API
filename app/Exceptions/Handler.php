@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use GraphQL\Error\Error as GraphQLError;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -51,6 +52,19 @@ class Handler extends ExceptionHandler {
         $this->reportable(function (Throwable $exception): bool {
             return !$this->reportException($exception);
         });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function prepareResponse($request, Throwable $e) {
+        // Some errors may happen at a very early stage when we cannot render
+        // them yet, in this case, we will return JSON.
+        try {
+            return parent::prepareResponse($request, $e);
+        } catch (Exception) {
+            return $this->prepareJsonResponse($request, $e);
+        }
     }
 
     /**
@@ -163,7 +177,7 @@ class Handler extends ExceptionHandler {
 
     protected function getExceptionTranslatedMessage(Throwable $error): string {
         // Translated?
-        if ($error instanceof TranslatedException) {
+        if ($error instanceof TranslatedException && $this->getTranslator()) {
             return $error->getErrorMessage();
         }
 
@@ -226,7 +240,17 @@ class Handler extends ExceptionHandler {
         if (is_null($message)) {
             $message = $this->translate($default);
 
-            if (reset($keys)) {
+            if ($message === $default) {
+                $config = $this->container->make(Repository::class);
+
+                if ($config->get('app.debug')) {
+                    $message = $error->getMessage();
+                } else {
+                    $message = 'Internal Server Error.';
+                }
+            }
+
+            if (reset($keys) && $this->getTranslator()) {
                 $this->getLogger()?->notice('Missing translation.', [
                     'keys'  => $keys,
                     'error' => $error,
@@ -270,8 +294,8 @@ class Handler extends ExceptionHandler {
             $fullTrace = (new Collection($exception->getTrace()))->map($filter)->all();
             $trace     = $fullTrace;
 
-            if ($previous && $previous === array_slice($fullTrace, - count($previous))) {
-                $trace = array_slice($fullTrace, 0, - count($previous));
+            if ($previous && $previous === array_slice($fullTrace, -count($previous))) {
+                $trace = array_slice($fullTrace, 0, -count($previous));
             }
 
             if ($exception instanceof ApplicationMessage) {
