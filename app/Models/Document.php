@@ -44,7 +44,6 @@ use function count;
  * @property string|null                                                         $reseller_id
  * @property string|null                                                         $distributor_id
  * @property string                                                              $number
- * @property string|null                                                         $service_group_id
  * @property \Carbon\CarbonImmutable|null                                        $start
  * @property \Carbon\CarbonImmutable|null                                        $end
  * @property string|null                                                         $price
@@ -69,7 +68,6 @@ use function count;
  * @property \App\Models\Oem                                                     $oem
  * @property \App\Models\OemGroup|null                                           $oemGroup
  * @property \App\Models\Reseller|null                                           $reseller
- * @property \App\Models\ServiceGroup|null                                       $serviceGroup
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>        $statuses
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)

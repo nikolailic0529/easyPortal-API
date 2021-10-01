@@ -244,10 +244,6 @@
         ]
     },
     {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "75026113-e205-40e8-831e-0a2f9dee75bf"
@@ -304,18 +300,21 @@
         "bindings": []
     },
     {
+        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
         "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `service_group_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "6df415b3-899a-3121-b66f-0f8c2bcc797c",
             "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "16804b25-302b-4581-b267-64040e8e7dbb",
             "02fa1398-8d68-5cd1-b212-cbd485f67417",
@@ -486,14 +485,13 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `service_group_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d78edac9-1f57-4e6d-b804-dd30636b1c49",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "6df415b3-899a-3121-b66f-0f8c2bcc797c",
             "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "16804b25-302b-4581-b267-64040e8e7dbb",
             "02fa1398-8d68-5cd1-b212-cbd485f67417",
@@ -550,14 +548,13 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `service_group_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "6df415b3-899a-3121-b66f-0f8c2bcc797c",
             "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "16804b25-302b-4581-b267-64040e8e7dbb",
             "02fa1398-8d68-5cd1-b212-cbd485f67417",
@@ -652,14 +649,13 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `service_group_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "31c1944e-642e-4418-b97e-0a989de47cb9",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "6df415b3-899a-3121-b66f-0f8c2bcc797c",
             "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "16804b25-302b-4581-b267-64040e8e7dbb",
             "02fa1398-8d68-5cd1-b212-cbd485f67417",

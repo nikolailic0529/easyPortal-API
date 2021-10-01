@@ -82,7 +82,6 @@ class ContractsSearchTest extends TestCase {
                         data {
                             id
                             oem_id
-                            service_group_id
                             type_id
                             is_contract
                             is_quote
@@ -105,12 +104,6 @@ class ContractsSearchTest extends TestCase {
                                 id
                                 key
                                 name
-                            }
-                            serviceGroup {
-                                id
-                                name
-                                oem_id
-                                sku
                             }
                             type {
                                 id
@@ -325,49 +318,42 @@ class ContractsSearchTest extends TestCase {
                     'ok'             => [
                         new GraphQLPaginated('contractsSearch', self::class, [
                             [
-                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                'customer_id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'type_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                'currency_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'language_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                                'distributor_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                                'is_contract'      => true,
-                                'is_quote'         => false,
-                                'number'           => '1323',
-                                'price'            => 100,
-                                'start'            => '2021-01-01',
-                                'end'              => '2024-01-01',
-                                'oem'              => [
+                                'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                                'is_contract'    => true,
+                                'is_quote'       => false,
+                                'number'         => '1323',
+                                'price'          => 100,
+                                'start'          => '2021-01-01',
+                                'end'            => '2024-01-01',
+                                'oem'            => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'key'  => 'key',
                                     'name' => 'oem1',
                                 ],
-                                'oem_said'         => '1234-5678-9012',
-                                'oemGroup'         => [
+                                'oem_said'       => '1234-5678-9012',
+                                'oemGroup'       => [
                                     'id'   => '52f2faec-5a80-4cdb-8cee-669b942ae1ef',
                                     'key'  => 'key',
                                     'name' => 'name',
                                 ],
-                                'serviceGroup'     => [
-                                    'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                    'name'   => 'Group',
-                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'sku'    => 'SKU#123',
-                                ],
-                                'type'             => [
+                                'type'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'name' => 'name aaa',
                                 ],
-                                'statuses'         => [
+                                'statuses'       => [
                                     [
                                         'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
                                         'name' => 'status a',
                                     ],
                                 ],
-                                'customer'         => [
+                                'customer'       => [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 0,
@@ -396,7 +382,7 @@ class ContractsSearchTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'reseller'         => [
+                                'reseller'       => [
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'name'            => 'reseller1',
                                     'customers_count' => 0,
@@ -418,12 +404,12 @@ class ContractsSearchTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'currency'         => [
+                                'currency'       => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'name' => 'Currency1',
                                     'code' => 'CUR',
                                 ],
-                                'entries'          => [
+                                'entries'        => [
                                     [
                                         'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                         'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
@@ -464,23 +450,23 @@ class ContractsSearchTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'language'         => [
+                                'language'       => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                     'name' => 'Lang1',
                                     'code' => 'en',
                                 ],
-                                'contacts'         => [
+                                'contacts'       => [
                                     [
                                         'name'        => 'contact2',
                                         'email'       => 'contact2@test.com',
                                         'phone_valid' => false,
                                     ],
                                 ],
-                                'distributor'      => [
+                                'distributor'    => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                                     'name' => 'distributor1',
                                 ],
-                                'assets_count'     => 1,
+                                'assets_count'   => 1,
                             ],
                         ]),
                         [
@@ -596,7 +582,6 @@ class ContractsSearchTest extends TestCase {
                             $documentA = Document::factory()
                                 ->for($oem)
                                 ->for($oemGroup)
-                                ->for($serviceGroup)
                                 ->for($customer)
                                 ->for($type)
                                 ->for($reseller)

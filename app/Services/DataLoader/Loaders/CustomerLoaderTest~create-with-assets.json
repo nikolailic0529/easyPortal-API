@@ -376,10 +376,6 @@
         ]
     },
     {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
@@ -436,18 +432,21 @@
         "bindings": []
     },
     {
+        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
         "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `service_group_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "afb06e33-329e-3b5e-9441-cf2b6ba75525",
             "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
             "bbbe3c26-3774-480c-89f3-621ad2a687ec",
             "673f7541-1538-5839-93dc-cb386aa163cf",

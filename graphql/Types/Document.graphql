@@ -13,8 +13,6 @@ type Document {
   oem: Oem! @belongsTo
   oem_said: String
   oemGroup: OemGroup @belongsTo
-  service_group_id: ID
-  serviceGroup: ServiceGroup @belongsTo
   reseller_id: ID
   reseller: Reseller @belongsTo
   type: Type! @belongsTo

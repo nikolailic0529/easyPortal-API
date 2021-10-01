@@ -119,12 +119,11 @@ class DocumentFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Test
-        $created = $factory->createFromAssetDocumentObject($object);
+        $created  = $factory->createFromAssetDocumentObject($object);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($created);
         $this->assertEquals($asset->customerId, $created->customer_id);
         $this->assertEquals($asset->resellerId, $created->reseller_id);
@@ -138,8 +137,6 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('MultiNational Quote', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->serviceGroup->sku);
-        $this->assertEquals('HPE', $created->serviceGroup->oem->key);
         $this->assertEquals('HPE', $created->oem->key);
         $this->assertEquals('1234 4678 9012', $created->oem_said);
         $this->assertEquals('abc-de', $created->oemGroup->key);
@@ -169,19 +166,18 @@ class DocumentFactoryTest extends TestCase {
 
         // Changed
         // ---------------------------------------------------------------------
-        $json    = $this->getTestData()->json('~asset-document-changed.json');
-        $asset   = new ViewAsset($json);
-        $object  = new AssetDocumentObject([
+        $json     = $this->getTestData()->json('~asset-document-changed.json');
+        $asset    = new ViewAsset($json);
+        $object   = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
         ]);
-        $changed = $factory->createFromAssetDocumentObject($object);
+        $changed  = $factory->createFromAssetDocumentObject($object);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromAssetDocumentObject-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromAssetDocumentObject-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertEquals($model->getKey(), $asset->id);
         $this->assertNotNull($changed);
         $this->assertNull($created->distributor_id);
@@ -303,31 +299,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetDocumentObjectServiceGroup
-     */
-    public function testAssetDocumentObjectServiceGroup(): void {
-        $group    = ServiceGroup::factory()->make();
-        $asset    = AssetModel::factory()->make();
-        $document = new AssetDocumentObject([
-            'asset'    => $asset,
-            'document' => [
-                'documentNumber' => $this->faker->word,
-            ],
-        ]);
-        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-
-        $factory
-            ->shouldReceive('assetDocumentServiceGroup')
-            ->with($asset, $document->document)
-            ->once()
-            ->andReturn($group);
-
-        $this->assertSame($group, $factory->assetDocumentObjectServiceGroup($document));
-    }
-
-    /**
      * @covers ::assetDocumentObjectEntries
      */
     public function testAssetDocumentObjectEntries(): void {
@@ -336,40 +307,36 @@ class DocumentFactoryTest extends TestCase {
         $this->overrideServiceLevelFinder();
 
         // Prepare
-        $asset      = AssetModel::factory()->create();
-        $document   = DocumentModel::factory()->create([
-            'service_group_id' => static function (array $args): ServiceGroup {
-                return ServiceGroup::factory()->create([
-                    'oem_id' => $args['oem_id'],
-                ]);
-            },
+        $asset        = AssetModel::factory()->create();
+        $document     = DocumentModel::factory()->create();
+        $serviceGroup = ServiceGroup::factory()->create([
+            'oem_id' => $document->oem_id,
         ]);
-        $another    = DocumentEntryModel::factory(2)->create([
+        $serviceLevel = ServiceLevel::factory()->create([
+            'oem_id'           => $document->oem_id,
+            'service_group_id' => $serviceGroup,
+        ]);
+        $another      = DocumentEntryModel::factory(2)->create([
             'document_id' => $document,
             'product_id'  => $asset->product_id,
         ]);
-        $properties = [
+        $properties   = [
             'document_id'      => $document,
             'asset_id'         => $asset,
             'product_id'       => $asset->product_id,
-            'service_group_id' => $document->serviceGroup,
-            'service_level_id' => static function () use ($document): ServiceLevel {
-                return ServiceLevel::factory()->create([
-                    'oem_id'           => $document->oem_id,
-                    'service_group_id' => $document->serviceGroup,
-                ]);
-            },
+            'service_group_id' => $serviceGroup,
+            'service_level_id' => $serviceLevel,
         ];
-        $a          = DocumentEntryModel::factory()->create($properties);
-        $b          = DocumentEntryModel::factory()->create($properties);
-        $c          = DocumentEntryModel::factory()->create($properties);
-        $d          = DocumentEntryModel::factory()->create($properties);
-        $object     = new AssetDocumentObject([
+        $a            = DocumentEntryModel::factory()->create($properties);
+        $b            = DocumentEntryModel::factory()->create($properties);
+        $c            = DocumentEntryModel::factory()->create($properties);
+        $d            = DocumentEntryModel::factory()->create($properties);
+        $object       = new AssetDocumentObject([
             'asset'   => $asset,
             'entries' => [
                 [
                     'skuNumber'             => $a->serviceLevel->sku,
-                    'supportPackage'        => $document->serviceGroup->sku,
+                    'supportPackage'        => $a->serviceGroup->sku,
                     'currencyCode'          => $a->currency->code,
                     'netPrice'              => $a->net_price,
                     'discount'              => $a->discount,
@@ -383,7 +350,7 @@ class DocumentFactoryTest extends TestCase {
                 ],
                 [
                     'skuNumber'             => $b->serviceLevel->sku,
-                    'supportPackage'        => $document->serviceGroup->sku,
+                    'supportPackage'        => $b->serviceGroup->sku,
                     'currencyCode'          => $a->currency->code,
                     'netPrice'              => $b->net_price,
                     'discount'              => $b->discount,
@@ -397,7 +364,7 @@ class DocumentFactoryTest extends TestCase {
                 ],
                 [
                     'skuNumber'             => $b->serviceLevel->sku,
-                    'supportPackage'        => $document->serviceGroup->sku,
+                    'supportPackage'        => $b->serviceGroup->sku,
                     'currencyCode'          => null,
                     'netPrice'              => null,
                     'discount'              => null,
@@ -411,7 +378,7 @@ class DocumentFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $factory    = new class(
+        $factory      = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
@@ -837,10 +804,6 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
 
     public function documentType(ViewDocument $document): TypeModel {
         return parent::documentType($document);
-    }
-
-    public function assetDocumentObjectServiceGroup(AssetDocumentObject $document): ?ServiceGroup {
-        return parent::assetDocumentObjectServiceGroup($document);
     }
 
     public function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {

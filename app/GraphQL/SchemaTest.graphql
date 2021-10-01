@@ -874,8 +874,6 @@ type Document {
   oem: Oem!
   oem_said: String
   oemGroup: OemGroup
-  service_group_id: ID
-  serviceGroup: ServiceGroup
   reseller_id: ID
   reseller: Reseller
   type: Type!
@@ -970,7 +968,6 @@ input DocumentsQuery {
   currency_id: ID
   language_id: ID
   serial_number: String
-  service_group_id: ID
   customer_id: ID
   customer: CustomersQuery
   reseller_id: ID
@@ -3795,9 +3792,6 @@ input SearchByConditionDocumentsQuery {
   serial_number: SearchByScalarStringOrNull
 
   """Property condition."""
-  service_group_id: SearchByScalarIDOrNull
-
-  """Property condition."""
   customer_id: SearchByScalarIDOrNull
 
   """Property condition."""
@@ -5364,9 +5358,6 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   serial_number: SortByDirection
-
-  """Property clause."""
-  service_group_id: SortByDirection
 
   """Property clause."""
   customer_id: SortByDirection

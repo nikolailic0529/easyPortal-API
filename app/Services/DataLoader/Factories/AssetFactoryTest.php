@@ -116,13 +116,12 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
-        $created = $factory->create($asset);
+        $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $created  = $factory->create($asset);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromAsset-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromAsset-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
@@ -227,15 +226,14 @@ class AssetFactoryTest extends TestCase {
 
         // Asset should be updated
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
-        $json    = $this->getTestData()->json('~asset-changed.json');
-        $asset   = new ViewAsset($json);
-        $updated = $factory->create($asset);
+        $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $json     = $this->getTestData()->json('~asset-changed.json');
+        $asset    = new ViewAsset($json);
+        $updated  = $factory->create($asset);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromAsset-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromAsset-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());

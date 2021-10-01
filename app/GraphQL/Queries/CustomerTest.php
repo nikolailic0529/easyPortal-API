@@ -403,7 +403,6 @@ class CustomerTest extends TestCase {
                             data {
                                 id
                                 oem_id
-                                service_group_id
                                 type_id
                                 is_contract
                                 is_quote
@@ -425,12 +424,6 @@ class CustomerTest extends TestCase {
                                 oemGroup {
                                     id
                                     key
-                                    name
-                                }
-                                serviceGroup {
-                                    id
-                                    oem_id
-                                    sku
                                     name
                                 }
                                 type {
@@ -612,7 +605,6 @@ class CustomerTest extends TestCase {
                             data {
                                 id
                                 oem_id
-                                service_group_id
                                 type_id
                                 is_contract
                                 is_quote
@@ -634,12 +626,6 @@ class CustomerTest extends TestCase {
                                 oemGroup {
                                     id
                                     key
-                                    name
-                                }
-                                serviceGroup {
-                                    id
-                                    oem_id
-                                    sku
                                     name
                                 }
                                 type {
@@ -1172,9 +1158,8 @@ class CustomerTest extends TestCase {
                                 ->for($reseller)
                                 ->for($customer)
                                 ->create([
-                                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'type_id'          => $documentType,
-                                    'service_group_id' => $serviceGroup,
+                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'type_id' => $documentType,
                                 ]);
                             // Asset creation
                             $asset = Asset::factory()
@@ -1526,45 +1511,38 @@ class CustomerTest extends TestCase {
                                 'contracts' => [
                                     'data'          => [
                                         [
-                                            'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                            'customer_id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                            'type_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                            'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                            'currency_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                            'language_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
-                                            'distributor_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                                            'is_contract'      => true,
-                                            'is_quote'         => false,
-                                            'number'           => '1323',
-                                            'price'            => 100,
-                                            'start'            => '2021-01-01',
-                                            'end'              => '2024-01-01',
-                                            'oem'              => [
+                                            'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                            'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                            'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                            'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                            'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                            'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
+                                            'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                                            'is_contract'    => true,
+                                            'is_quote'       => false,
+                                            'number'         => '1323',
+                                            'price'          => 100,
+                                            'start'          => '2021-01-01',
+                                            'end'            => '2024-01-01',
+                                            'oem'            => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                                 'key'  => 'key',
                                                 'name' => 'oem1',
                                             ],
-                                            'oem_said'         => null,
-                                            'oemGroup'         => null,
-                                            'serviceGroup'     => [
-                                                'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                                'name'   => 'Group',
-                                                'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'sku'    => 'SKU#123',
-                                            ],
-                                            'type'             => [
+                                            'oem_said'       => null,
+                                            'oemGroup'       => null,
+                                            'type'           => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                                 'name' => 'name aaa',
                                             ],
-                                            'statuses'         => [
+                                            'statuses'       => [
                                                 [
                                                     'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
                                                     'name' => 'status a',
                                                 ],
                                             ],
-                                            'customer'         => [
+                                            'customer'       => [
                                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                                 'name'            => 'name aaa',
                                                 'assets_count'    => 0,
@@ -1593,7 +1571,7 @@ class CustomerTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
-                                            'reseller'         => [
+                                            'reseller'       => [
                                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                                 'name'            => 'reseller1',
                                                 'customers_count' => 0,
@@ -1615,12 +1593,12 @@ class CustomerTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
-                                            'currency'         => [
+                                            'currency'       => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                                 'name' => 'Currency1',
                                                 'code' => 'CUR',
                                             ],
-                                            'entries'          => [
+                                            'entries'        => [
                                                 [
                                                     'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                                     'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
@@ -1665,23 +1643,23 @@ class CustomerTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
-                                            'language'         => [
+                                            'language'       => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
                                                 'name' => 'Lang1',
                                                 'code' => 'en',
                                             ],
-                                            'contacts'         => [
+                                            'contacts'       => [
                                                 [
                                                     'name'        => 'contact3',
                                                     'email'       => 'contact3@test.com',
                                                     'phone_valid' => false,
                                                 ],
                                             ],
-                                            'distributor'      => [
+                                            'distributor'    => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                                                 'name' => 'distributor1',
                                             ],
-                                            'assets_count'     => 1,
+                                            'assets_count'   => 1,
                                         ],
                                     ],
                                     'paginatorInfo' => [
@@ -1805,7 +1783,6 @@ class CustomerTest extends TestCase {
 
                             Document::factory()
                                 ->for($oem)
-                                ->for($serviceGroup)
                                 ->for($customer)
                                 ->for($type)
                                 ->for($reseller)
@@ -2044,7 +2021,6 @@ class CustomerTest extends TestCase {
 
             Document::factory()
                 ->for($oem)
-                ->for($serviceGroup)
                 ->for($customer)
                 ->for($type)
                 ->for($reseller)
@@ -2091,45 +2067,38 @@ class CustomerTest extends TestCase {
             'quotes' => [
                 'data'          => [
                     [
-                        'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                        'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                        'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                        'customer_id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                        'type_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                        'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                        'currency_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                        'language_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
-                        'distributor_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                        'is_contract'      => false,
-                        'is_quote'         => true,
-                        'number'           => '1323',
-                        'price'            => 100,
-                        'start'            => '2021-01-01',
-                        'end'              => '2024-01-01',
-                        'oem'              => [
+                        'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                        'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                        'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
+                        'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                        'is_contract'    => false,
+                        'is_quote'       => true,
+                        'number'         => '1323',
+                        'price'          => 100,
+                        'start'          => '2021-01-01',
+                        'end'            => '2024-01-01',
+                        'oem'            => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'key'  => 'key',
                             'name' => 'oem1',
                         ],
-                        'oem_said'         => '225d982d-926d-3db4-ba0b-81ab17b790b0',
-                        'oemGroup'         => null,
-                        'serviceGroup'     => [
-                            'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                            'name'   => 'Group',
-                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'sku'    => 'SKU#123',
-                        ],
-                        'type'             => [
+                        'oem_said'       => '225d982d-926d-3db4-ba0b-81ab17b790b0',
+                        'oemGroup'       => null,
+                        'type'           => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             'name' => 'name aaa',
                         ],
-                        'statuses'         => [
+                        'statuses'       => [
                             [
                                 'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
                                 'name' => 'status a',
                             ],
                         ],
-                        'customer'         => [
+                        'customer'       => [
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'            => 'name aaa',
                             'assets_count'    => 0,
@@ -2158,7 +2127,7 @@ class CustomerTest extends TestCase {
                                 ],
                             ],
                         ],
-                        'reseller'         => [
+                        'reseller'       => [
                             'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                             'name'            => 'reseller1',
                             'customers_count' => 0,
@@ -2180,12 +2149,12 @@ class CustomerTest extends TestCase {
                                 ],
                             ],
                         ],
-                        'currency'         => [
+                        'currency'       => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                             'name' => 'Currency1',
                             'code' => 'CUR',
                         ],
-                        'entries'          => [
+                        'entries'        => [
                             [
                                 'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                 'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
@@ -2230,23 +2199,23 @@ class CustomerTest extends TestCase {
                                 ],
                             ],
                         ],
-                        'language'         => [
+                        'language'       => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
                             'name' => 'Lang1',
                             'code' => 'en',
                         ],
-                        'contacts'         => [
+                        'contacts'       => [
                             [
                                 'name'        => 'contact3',
                                 'email'       => 'contact3@test.com',
                                 'phone_valid' => false,
                             ],
                         ],
-                        'distributor'      => [
+                        'distributor'    => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                             'name' => 'distributor1',
                         ],
-                        'assets_count'     => 1,
+                        'assets_count'   => 1,
                     ],
                 ],
                 'paginatorInfo' => [

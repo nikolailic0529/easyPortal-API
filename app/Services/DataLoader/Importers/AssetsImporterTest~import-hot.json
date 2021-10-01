@@ -331,10 +331,6 @@
         ]
     },
     {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
         "bindings": []
     },
@@ -344,6 +340,10 @@
     },
     {
         "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
         "bindings": []
     },
     {

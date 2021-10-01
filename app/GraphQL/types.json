@@ -495,7 +495,6 @@
                 "customer_id",
                 "reseller_id",
                 "number",
-                "service_group_id",
                 "start",
                 "end",
                 "price",
@@ -505,7 +504,6 @@
                 "oem",
                 "oem_said",
                 "oemGroup",
-                "serviceGroup",
                 "reseller",
                 "type",
                 "statuses",
@@ -568,16 +566,6 @@
                 "number": {
                     "type": "string"
                 },
-                "service_group_id": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/ID"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
                 "start": {
                     "oneOf": [
                         {
@@ -638,16 +626,6 @@
                 },
                 "oem": {
                     "$ref": "#/definitions/Oem"
-                },
-                "serviceGroup": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/ServiceGroup"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
                 },
                 "reseller": {
                     "oneOf": [
