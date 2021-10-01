@@ -8,6 +8,7 @@ use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
@@ -138,6 +139,13 @@ class WithResellerTest extends TestCase {
             ViewAsset::class         => [
                 static function (TestCase $test, Reseller $reseller) {
                     return new ViewAsset([
+                        'resellerId' => $reseller->getKey(),
+                    ]);
+                },
+            ],
+            Document::class          => [
+                static function (TestCase $test, Reseller $reseller) {
+                    return new Document([
                         'resellerId' => $reseller->getKey(),
                     ]);
                 },

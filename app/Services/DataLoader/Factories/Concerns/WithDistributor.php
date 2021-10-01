@@ -7,6 +7,7 @@ use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewDocument;
 
 /**
@@ -19,7 +20,7 @@ trait WithDistributor {
 
     abstract protected function getDistributorResolver(): DistributorResolver;
 
-    protected function distributor(ViewDocument $object): ?Distributor {
+    protected function distributor(Document|ViewDocument $object): ?Distributor {
         // Id
         $id = $object->distributorId ?? null;
 

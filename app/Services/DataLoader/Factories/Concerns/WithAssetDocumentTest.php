@@ -15,6 +15,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
@@ -31,24 +32,27 @@ class WithAssetDocumentTest extends TestCase {
      * @covers ::documentOem
      */
     public function testDocumentOem(): void {
-        $document = new ViewDocument([
-            'vendorSpecificFields' => [
-                'vendor' => $this->faker->word,
-            ],
-        ]);
-        $factory  = Mockery::mock(WithAssetDocumentTest_Factory::class);
+        $oem     = $this->faker->word;
+        $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
         $factory
             ->shouldReceive('oem')
-            ->with(
-                $document->vendorSpecificFields->vendor,
-            )
-            ->once()
+            ->with($oem)
+            ->twice()
             ->andReturns();
 
-        $factory->documentOem($document);
+        $factory->documentOem(new Document([
+            'vendorSpecificFields' => [
+                'vendor' => $oem,
+            ],
+        ]));
+        $factory->documentOem(new ViewDocument([
+            'vendorSpecificFields' => [
+                'vendor' => $oem,
+            ],
+        ]));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\Asset as AssetModel;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 
@@ -45,7 +46,7 @@ trait WithAssetDocument {
         return $level;
     }
 
-    protected function documentOem(ViewDocument $document): Oem {
+    protected function documentOem(Document|ViewDocument $document): Oem {
         return $this->oem($document->vendorSpecificFields->vendor);
     }
 }
