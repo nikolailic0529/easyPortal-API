@@ -23,6 +23,7 @@ use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
+use App\Models\DocumentStatus;
 use App\Models\File;
 use App\Models\Invitation;
 use App\Models\Kpi;
@@ -129,6 +130,7 @@ class AppServiceProvider extends ServiceProvider {
             'Distributor'               => Distributor::class,
             'Document'                  => Document::class,
             'DocumentEntry'             => DocumentEntry::class,
+            'DocumentStatus'            => DocumentStatus::class,
             'File'                      => File::class,
             'Invitation'                => Invitation::class,
             'Kpi'                       => Kpi::class,
