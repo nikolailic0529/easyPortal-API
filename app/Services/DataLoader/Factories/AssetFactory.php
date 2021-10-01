@@ -220,14 +220,14 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
+     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $objects
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
+    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
         // Assets
         $keys = array_unique(array_map(static function (ViewAsset $asset): string {
             return $asset->id;
-        }, $assets));
+        }, $objects));
 
         $this->assetResolver->prefetch($keys, $reset, $callback);
 
