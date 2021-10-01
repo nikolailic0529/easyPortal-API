@@ -9,6 +9,7 @@ use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
 use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
 use App\Services\DataLoader\Finders\OemFinder as OemFinderContract;
@@ -20,6 +21,7 @@ use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Data\DataGenerator;
+use App\Services\DataLoader\Testing\Finders\AssetFinder;
 use App\Services\DataLoader\Testing\Finders\CustomerFinder;
 use App\Services\DataLoader\Testing\Finders\DistributorFinder;
 use App\Services\DataLoader\Testing\Finders\OemFinder;
@@ -391,6 +393,7 @@ trait Helper {
         $this->overrideDistributorFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
+        $this->overrideAssetFinder();
         $this->overrideOemFinder();
     }
 
@@ -427,6 +430,12 @@ trait Helper {
     protected function overrideCustomerFinder(): void {
         $this->override(CustomerFinderContract::class, static function (): CustomerFinderContract {
             return new CustomerFinder();
+        });
+    }
+
+    protected function overrideAssetFinder(): void {
+        $this->override(AssetFinderContract::class, static function (): AssetFinderContract {
+            return new AssetFinder();
         });
     }
     // </editor-fold>
