@@ -11,6 +11,7 @@ use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
@@ -392,6 +393,50 @@ class Client {
     }
 
     /**
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Document>
+     */
+    public function getDocuments(
+        DateTimeInterface $from = null,
+        int $limit = null,
+        string $offset = null,
+    ): QueryIterator {
+        return $this
+            ->getLastIdBasedIterator(
+                'getDocuments',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query getDocuments(\$limit: Int, \$lastId: String, \$from: String) {
+                    getDocuments(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                        {$this->getDocumentPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+                $this->getDocumentRetriever(),
+            )
+            ->setLimit($limit)
+            ->setOffset($offset);
+    }
+
+    public function getDocumentById(string $id): ?Document {
+        return $this->get(
+            'getDocumentById',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getDocumentById(\$id: String!) {
+                getDocumentById(id: \$id}]) {
+                    {$this->getDocumentPropertiesGraphQL()}
+                }
+            }
+            GRAPHQL,
+            [
+                'id' => $id,
+            ],
+            $this->getDocumentRetriever(),
+        );
+    }
+
+    /**
      * @return array<mixed>
      */
     public function getIntrospection(): array {
@@ -731,6 +776,15 @@ class Client {
             return new ViewAsset($data);
         };
     }
+
+    /**
+     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Document
+     */
+    protected function getDocumentRetriever(): Closure {
+        return static function (array $data): Document {
+            return new Document($data);
+        };
+    }
     // </editor-fold>
 
     // <editor-fold desc="GraphQL">
@@ -962,6 +1016,56 @@ class Client {
                 reseller {
                   id
                 }
+            }
+            GRAPHQL;
+    }
+
+    protected function getDocumentPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            id
+            type
+            status
+            documentNumber
+            startDate
+            endDate
+            currencyCode
+            totalNetPrice
+            languageCode
+            updatedAt
+            resellerId
+            customerId
+            distributorId
+
+            vendorSpecificFields {
+                vendor
+                groupId
+                groupDescription
+                said
+            }
+
+            contactPersons {
+                phoneNumber
+                name
+                type
+                mail
+            }
+
+            documentEntries {
+                assetId
+                skuNumber
+                skuDescription
+                startDate
+                endDate
+                warrantyEndDate
+                productLineDescription
+                supportPackage
+                supportPackageDescription
+                languageCode
+                currencyCode
+                netPrice
+                discount
+                listPrice
+                estimatedValueRenewal
             }
             GRAPHQL;
     }
