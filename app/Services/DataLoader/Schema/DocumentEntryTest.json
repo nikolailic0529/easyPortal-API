@@ -1,6 +1,17 @@
 {
+    "assetId": "d0751d0c-85d3-47a5-8fff-7423dd8c0d58",
+    "skuNumber": "HA151AC",
+    "skuDescription": "HPE Hardware Maintenance Onsite Support",
+    "supportPackage": "H7J32AC",
+    "supportPackageDescription": "HPE Foundation Care NBD SVC",
+    "warrantyEndDate": null,
+    "startDate": "2020-04-01",
+    "endDate": "2021-03-31",
     "currencyCode": "EUR",
-    "netPrice": "23.4",
-    "discount": "-2.05",
-    "listPrice": "48"
+    "languageCode": "EN",
+    "netPrice": "315",
+    "discount": "-45",
+    "listPrice": "864",
+    "estimatedValueRenewal": "864",
+    "productLineDescription": "H1 - SGI HPC Support"
 }
