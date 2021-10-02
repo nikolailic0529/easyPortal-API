@@ -1479,6 +1479,13 @@ type Mutation {
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
 
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  updateMe(input: UpdateMeInput!): UpdateMePayload
+
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
@@ -1498,20 +1505,6 @@ type Mutation {
   @require <me> User must be authenticated.
   """
   updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  updateMeSettings(input: UpdateMeSettingsInput!): UpdateMeSettingsPayload
 
   """
   Create Organization Role.
@@ -5860,16 +5853,7 @@ type UpdateMeEmailPayload {
   result: Boolean!
 }
 
-input UpdateMePasswordInput {
-  current_password: String
-  password: String!
-}
-
-type UpdateMePasswordPayload {
-  result: Boolean!
-}
-
-input UpdateMeProfileInput {
+input UpdateMeInput {
   given_name: String
   family_name: String
   title: String
@@ -5880,19 +5864,21 @@ input UpdateMeProfileInput {
   department: String
   job_title: String
   photo: Upload
-}
-
-type UpdateMeProfilePayload {
-  result: Boolean!
-}
-
-input UpdateMeSettingsInput {
   homepage: String
   locale: String
   timezone: String
 }
 
-type UpdateMeSettingsPayload {
+input UpdateMePasswordInput {
+  current_password: String
+  password: String!
+}
+
+type UpdateMePasswordPayload {
+  result: Boolean!
+}
+
+type UpdateMePayload {
   result: Boolean!
 }
 
