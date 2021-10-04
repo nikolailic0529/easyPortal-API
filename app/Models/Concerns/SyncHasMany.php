@@ -40,7 +40,6 @@ trait SyncHasMany {
             foreach ($children as $child) {
                 /** @var \Illuminate\Database\Eloquent\Model $child */
                 if ($existing->has($child->getKey())) {
-                    $children->forget($child->getKey());
                     $existing->forget($child->getKey());
                 }
             }
