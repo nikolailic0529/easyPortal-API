@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\Me\UpdateMeProfile;
+use App\GraphQL\Mutations\Me\UpdateMe;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
@@ -18,7 +18,7 @@ class UpdateOrgUser {
         protected Auth $auth,
         protected Client $client,
         protected CurrentOrganization $organization,
-        protected UpdateMeProfile $updateMeProfile,
+        protected UpdateMe $updateMe,
     ) {
         // empty
     }
@@ -43,10 +43,7 @@ class UpdateOrgUser {
         $keycloakUser = $this->client->getUserById($user->getKey());
 
         // Update Profile
-        $this->updateMeProfile->updateUserProfile($user, $keycloakUser, $this->getProfileValues($input));
-
-        // Update Settings
-        $this->settings($user, $input);
+        $this->updateMe->updateUser($user, $keycloakUser, $this->getMeValues($input));
 
         // OrganizationUser
         $organizationUser = OrganizationUser::query()
@@ -76,23 +73,6 @@ class UpdateOrgUser {
         return ['result' => $user->save()];
     }
 
-    /**
-     * @param array<string, mixed> $input
-     */
-    protected function settings(User $user, array $input): void {
-        if (array_key_exists('locale', $input)) {
-            $user->locale = $input['locale'];
-        }
-
-        if (array_key_exists('homepage', $input)) {
-            $user->homepage = $input['homepage'];
-        }
-
-        if (array_key_exists('timezone', $input)) {
-            $user->timezone = $input['timezone'];
-        }
-    }
-
     protected function role(
         OrganizationUser $organizationUser,
         KeycloakUser $keycloakUser,
@@ -112,7 +92,7 @@ class UpdateOrgUser {
      *
      * @return array<string>
      */
-    protected function getProfileValues(array $input): array {
+    protected function getMeValues(array $input): array {
         $attributes = [
             'given_name',
             'family_name',
@@ -126,6 +106,9 @@ class UpdateOrgUser {
             'phone',
             'company',
             'photo',
+            'homepage',
+            'locale',
+            'timezone',
         ];
         $result     = [];
         foreach ($attributes as $attribute) {

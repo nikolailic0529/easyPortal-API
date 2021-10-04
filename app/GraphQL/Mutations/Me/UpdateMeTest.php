@@ -24,9 +24,9 @@ use function array_key_exists;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMeProfile
+ * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMe
  */
-class UpdateMeProfileTest extends TestCase {
+class UpdateMeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -67,14 +67,14 @@ class UpdateMeProfileTest extends TestCase {
         }
 
         $query = /** @lang GraphQL */
-            'mutation updateMeProfile($input: UpdateMeProfileInput!){
-            updateMeProfile(input: $input){
+            'mutation updateMe($input: UpdateMeInput!){
+            updateMe(input: $input){
               result
             }
           }';
 
         $operations = [
-            'operationName' => 'updateMeProfile',
+            'operationName' => 'updateMe',
             'query'         => $query,
             'variables'     => ['input' => $input],
         ];
@@ -97,6 +97,9 @@ class UpdateMeProfileTest extends TestCase {
                 $this->assertNull($user->department);
                 $this->assertNull($user->job_title);
                 $this->assertNull($user->photo);
+                $this->assertNull($user->homepage);
+                $this->assertNull($user->locale);
+                $this->assertNull($user->timezone);
             } else {
                 $this->assertEquals($user->given_name, $input['given_name']);
                 $this->assertEquals($user->family_name, $input['family_name']);
@@ -107,6 +110,9 @@ class UpdateMeProfileTest extends TestCase {
                 $this->assertEquals($user->contact_email, $input['contact_email']);
                 $this->assertEquals($user->department, $input['department']);
                 $this->assertEquals($user->job_title, $input['job_title']);
+                $this->assertEquals($user->homepage, $input['homepage']);
+                $this->assertEquals($user->locale, $input['locale']);
+                $this->assertEquals($user->timezone, $input['timezone']);
             }
         }
     }
@@ -119,11 +125,11 @@ class UpdateMeProfileTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('updateMeProfile'),
-            new UserDataProvider('updateMeProfile'),
+            new OrganizationDataProvider('updateMe'),
+            new UserDataProvider('updateMe'),
             new ArrayDataProvider([
                 'ok'                                    => [
-                    new GraphQLSuccess('updateMeProfile', UpdateMeProfile::class),
+                    new GraphQLSuccess('updateMe', UpdateMe::class),
                     [],
                     static function (TestCase $test, Organization $organization, User $user): array {
                         $user->save();
@@ -139,6 +145,9 @@ class UpdateMeProfileTest extends TestCase {
                             'department'     => 'HR',
                             'job_title'      => 'Manger',
                             'photo'          => UploadedFile::fake()->create('photo.jpg', 200),
+                            'homepage'       => 'dashboard',
+                            'timezone'       => 'Europe/London',
+                            'locale'         => 'en_GB',
                         ];
                     },
                     static function (MockInterface $mock): void {
@@ -153,7 +162,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'user not exists'                       => [
-                    new GraphQLError('updateMeProfile', new RealmUserNotFound('id')),
+                    new GraphQLError('updateMe', new RealmUserNotFound('id')),
                     [],
                     static function (): array {
                         return [
@@ -172,7 +181,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid contact email' => [
-                    new GraphQLError('updateMeProfile', static function (): array {
+                    new GraphQLError('updateMe', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     [],
@@ -183,7 +192,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid photo size'    => [
-                    new GraphQLError('updateMeProfile', static function (): array {
+                    new GraphQLError('updateMe', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     [
@@ -197,7 +206,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid photo format'  => [
-                    new GraphQLError('updateMeProfile', static function (): array {
+                    new GraphQLError('updateMe', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     [
@@ -211,7 +220,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'nullable data'                         => [
-                    new GraphQLSuccess('updateMeProfile', updateMeProfile::class),
+                    new GraphQLSuccess('updateMe', updateMe::class),
                     [],
                     static function (): array {
                         return [
@@ -225,6 +234,9 @@ class UpdateMeProfileTest extends TestCase {
                             'department'     => null,
                             'job_title'      => null,
                             'photo'          => null,
+                            'homepage'       => null,
+                            'timezone'       => null,
+                            'locale'         => null,
                         ];
                     },
                     static function (MockInterface $mock): void {

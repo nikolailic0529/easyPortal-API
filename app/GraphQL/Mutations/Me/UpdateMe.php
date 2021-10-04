@@ -9,7 +9,7 @@ use App\Services\KeyCloak\Client\Types\User as UserType;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
 
-class UpdateMeProfile {
+class UpdateMe {
     public function __construct(
         protected AuthManager $auth,
         protected Client $client,
@@ -27,7 +27,7 @@ class UpdateMeProfile {
     public function __invoke($_, array $args): array {
         $user         = $this->auth->user();
         $keycloakUser = $this->client->getUserById($user->getKey());
-        $result       = $this->updateUserProfile($user, $keycloakUser, $args['input']);
+        $result       = $this->updateUser($user, $keycloakUser, $args['input']);
         return [
             'result' => $result && $user->save(),
         ];
@@ -36,7 +36,7 @@ class UpdateMeProfile {
     /**
      * @param array<string, mixed> $input
      */
-    public function updateUserProfile(User $user, UserType $keycloakUser, array $input): bool {
+    public function updateUser(User $user, UserType $keycloakUser, array $input): bool {
         $userType   = new UserType();
         $attributes = $keycloakUser->attributes;
         foreach ($input as $property => $value) {
@@ -48,6 +48,15 @@ class UpdateMeProfile {
                 case 'family_name':
                     $userType->lastName = $value;
                     $user->family_name  = $value;
+                    break;
+                case 'homepage':
+                    $user->homepage = $value;
+                    break;
+                case 'locale':
+                    $user->locale = $value;
+                    break;
+                case 'timezone':
+                    $user->timezone = $value;
                     break;
                 case 'photo':
                     $photo               = $this->store($user, $value);
