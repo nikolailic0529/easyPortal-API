@@ -2,13 +2,19 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Models\Asset;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
-use App\Models\DocumentEntry;
+use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
 use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
+use App\Models\Status;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
+use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Factories\Concerns\WithAsset;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCurrency;
@@ -21,8 +27,10 @@ use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithServiceGroup;
 use App\Services\DataLoader\Factories\Concerns\WithServiceLevel;
+use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
+use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\OemFinder;
@@ -30,6 +38,7 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
@@ -41,7 +50,10 @@ use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
+use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -50,6 +62,7 @@ use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Throwable;
 
 use function array_map;
 use function array_merge;
@@ -64,6 +77,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithServiceGroup;
     use WithServiceLevel;
     use WithType;
+    use WithStatus;
+    use WithAsset;
     use WithProduct;
     use WithCurrency;
     use WithLanguage;
@@ -78,6 +93,9 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
+        protected StatusResolver $statusResolver,
+        protected AssetResolver $assetResolver,
+        protected AssetFactory $assetFactory,
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
         protected ProductResolver $productResolver,
@@ -92,6 +110,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected ?DistributorFinder $distributorFinder = null,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
+        protected ?AssetFinder $assetFinder = null,
         protected ?ServiceGroupFinder $serviceGroupFinder = null,
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
         protected ?OemFinder $oemFinder = null,
@@ -150,6 +169,10 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         return $this->typeResolver;
     }
 
+    protected function getStatusResolver(): StatusResolver {
+        return $this->statusResolver;
+    }
+
     protected function getOemGroupResolver(): OemGroupResolver {
         return $this->oemGroupResolver;
     }
@@ -177,6 +200,18 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getLanguageResolver(): LanguageResolver {
         return $this->languageResolver;
     }
+
+    protected function getAssetFinder(): ?AssetFinder {
+        return $this->assetFinder;
+    }
+
+    protected function getAssetResolver(): AssetResolver {
+        return $this->assetResolver;
+    }
+
+    protected function getAssetFactory(): ?AssetFactory {
+        return $this->assetFactory;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">
@@ -184,12 +219,15 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     public function create(Type $type): ?DocumentModel {
         $model = null;
 
-        if ($type instanceof AssetDocumentObject) {
+        if ($type instanceof Document) {
+            $model = $this->createFromDocument($type);
+        } elseif ($type instanceof AssetDocumentObject) {
             $model = $this->createFromAssetDocumentObject($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
+                    Document::class,
                     AssetDocumentObject::class,
                 ]),
             ));
@@ -202,15 +240,23 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
+     * @param array<\App\Services\DataLoader\Schema\ViewAsset|\App\Services\DataLoader\Schema\Document> $objects
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = (new Collection($assets))
-            ->map(static function (ViewAsset $asset): array {
-                return array_map(static function (ViewAssetDocument $document): ?string {
-                    return $document->document->id ?? null;
-                }, $asset->assetDocument ?? []);
+    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
+        $keys = (new Collection($objects))
+            ->map(static function (Document|ViewAsset $object): array {
+                $keys = [];
+
+                if ($object instanceof Document) {
+                    $keys[] = $object->id;
+                } else {
+                    $keys = array_map(static function (ViewAssetDocument $document): ?string {
+                        return $document->document->id ?? null;
+                    }, $object->assetDocument ?? []);
+                }
+
+                return $keys;
             })
             ->flatten()
             ->filter()
@@ -317,7 +363,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         // Update entries:
-        $compare = function (DocumentEntry $a, DocumentEntry $b): int {
+        $compare = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
             return $this->compareDocumentEntries($a, $b);
         };
         $entries = array_map(function (ViewAssetDocument $entry) use ($model, $document) {
@@ -335,8 +381,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         AssetModel $asset,
         DocumentModel $document,
         ViewAssetDocument $assetDocument,
-    ): DocumentEntry {
-        $entry                = new DocumentEntry();
+    ): DocumentEntryModel {
+        $entry                = new DocumentEntryModel();
         $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
@@ -352,7 +398,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         return $entry;
     }
 
-    protected function compareDocumentEntries(DocumentEntry $a, DocumentEntry $b): int {
+    protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
         return $a->asset_id <=> $b->asset_id
             ?: $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
@@ -367,7 +413,83 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
 
     // <editor-fold desc="Document">
     // =========================================================================
-    protected function documentOemGroup(ViewDocument $document): ?OemGroup {
+    protected function createFromDocument(Document $document): ?DocumentModel {
+        // Get/Create/Update
+        $created = false;
+        $factory = $this->factory(function (DocumentModel $model) use (&$created, $document): DocumentModel {
+            // Update
+            $created    = !$model->exists;
+            $normalizer = $this->getNormalizer();
+
+            $model->id          = $normalizer->uuid($document->id);
+            $model->oem         = $this->documentOem($document);
+            $model->oemGroup    = $this->documentOemGroup($document);
+            $model->oem_said    = $normalizer->string($document->vendorSpecificFields->said ?? null);
+            $model->type        = $this->documentType($document);
+            $model->reseller    = $this->reseller($document);
+            $model->customer    = $this->customer($document);
+            $model->currency    = $this->currency($document->currencyCode);
+            $model->language    = $this->language($document->languageCode);
+            $model->distributor = $this->distributor($document);
+            $model->start       = $normalizer->datetime($document->startDate);
+            $model->end         = $normalizer->datetime($document->endDate);
+            $model->price       = $normalizer->number($document->totalNetPrice);
+            $model->number      = $normalizer->string($document->documentNumber);
+            $model->changed_at  = $normalizer->datetime($document->updatedAt);
+            $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
+            $model->statuses    = $this->documentStatuses($model, $document);
+
+            // Entries & Warranties
+            if (isset($document->documentEntries)) {
+                try {
+                    // Prefetch
+                    $this->getAssetFactory()->prefetch(
+                        $document->documentEntries,
+                        false,
+                        static function (Collection $assets): void {
+                            $assets->loadMissing('oem');
+                        },
+                    );
+
+                    // Entries
+                    try {
+                        $model->entries = $this->documentEntries($model, $document);
+
+                        $model->save();
+                    } finally {
+                        unset($model->entries);
+                    }
+
+                    // Warranties
+                    // TODO: Not implemented
+                } finally {
+                    $this->getAssetResolver()->reset();
+                }
+            }
+
+            // Save
+            $model->save();
+
+            // Return
+            return $model;
+        });
+        $model   = $this->documentResolver->get(
+            $document->id,
+            static function () use ($factory): DocumentModel {
+                return $factory(new DocumentModel());
+            },
+        );
+
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($model);
+        }
+
+        // Return
+        return $model;
+    }
+
+    protected function documentOemGroup(Document|ViewDocument $document): ?OemGroup {
         $key   = $document->vendorSpecificFields->groupId ?? null;
         $desc  = $document->vendorSpecificFields->groupDescription ?? null;
         $group = null;
@@ -380,8 +502,125 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         return $group;
     }
 
-    protected function documentType(ViewDocument $document): TypeModel {
+    protected function documentType(Document|ViewDocument $document): TypeModel {
         return $this->type(new DocumentModel(), $document->type);
+    }
+
+    /**
+     * @return array<\App\Models\Status>
+     */
+    protected function documentStatuses(DocumentModel $model, Document $document): array {
+        return (new Collection($document->status ?? []))
+            ->filter(function (?string $status): bool {
+                return (bool) $this->getNormalizer()->string($status);
+            })
+            ->map(function (string $status) use ($model): Status {
+                return $this->status($model, $status);
+            })
+            ->unique()
+            ->all();
+    }
+
+    /**
+     * @return array<\App\Models\DocumentEntry>
+     */
+    protected function documentEntries(DocumentModel $model, Document $document): array {
+        // Entries don't have ID for this reason we are trying to compare them
+        // by properties, but there are still a lot of create/soft-delete
+        // queries. So we are trying to re-use removed entries to reduce the
+        // number of queries.
+        $key      = (new DocumentEntryModel())->getKeyName();
+        $compare  = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+            return $this->compareDocumentEntries($a, $b);
+        };
+        $existing = $model->entries;
+        $created  = new Collection();
+        $entries  = [];
+
+        foreach ($document->documentEntries as $entry) {
+            try {
+                $entry       = $this->documentEntry($model, $entry);
+                $existingKey = $existing->search(static function (DocumentEntryModel $e) use ($compare, $entry): bool {
+                    return $compare($e, $entry) === 0;
+                });
+
+                if ($existingKey !== false) {
+                    $entry = $existing->pull($existingKey)->forceFill($entry->getAttributes());
+                } else {
+                    $created->push($entry);
+                }
+
+                $entries[] = $entry;
+            } catch (Throwable $exception) {
+                $this->getExceptionHandler()->report(
+                    new FailedToProcessDocumentEntry($model, $entry, $exception),
+                );
+            }
+        }
+
+        // Reuse
+        $created  = $created->sort($compare);
+        $existing = $existing->sort($compare);
+
+        while (!$created->isEmpty() && !$existing->isEmpty()) {
+            $entry         = $created->shift();
+            $entry->{$key} = $existing->shift()->getKey();
+            $entry->exists = true;
+        }
+
+        // Return
+        return $entries;
+    }
+
+    protected function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
+        $asset                = $this->documentEntryAsset($model, $documentEntry);
+        $entry                = new DocumentEntryModel();
+        $normalizer           = $this->getNormalizer();
+        $entry->asset         = $asset;
+        $entry->product       = $asset->product;
+        $entry->serial_number = $asset->serial_number;
+        $entry->currency      = $this->currency($documentEntry->currencyCode);
+        $entry->net_price     = $normalizer->number($documentEntry->netPrice);
+        $entry->list_price    = $normalizer->number($documentEntry->listPrice);
+        $entry->discount      = $normalizer->number($documentEntry->discount);
+        $entry->renewal       = $normalizer->number($documentEntry->estimatedValueRenewal);
+        $entry->serviceGroup  = $this->documentEntryServiceGroup($model, $documentEntry);
+        $entry->serviceLevel  = $this->documentEntryServiceLevel($model, $documentEntry);
+
+        return $entry;
+    }
+
+    protected function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): Asset {
+        $asset = $this->asset($documentEntry);
+
+        if (!$asset) {
+            throw new FailedToProcessDocumentEntryNoAsset($model, $documentEntry);
+        }
+
+        return $asset;
+    }
+
+    protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {
+        $sku   = $documentEntry->supportPackage ?? null;
+        $group = null;
+
+        if ($sku) {
+            $group = $this->serviceGroup($model->oem, $sku);
+        }
+
+        return $group;
+    }
+
+    protected function documentEntryServiceLevel(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceLevel {
+        $sku   = $documentEntry->skuNumber ?? null;
+        $group = $this->documentEntryServiceGroup($model, $documentEntry);
+        $level = null;
+
+        if ($group && $sku) {
+            $level = $this->serviceLevel($model->oem, $group, $sku);
+        }
+
+        return $level;
     }
     // </editor-fold>
 }
