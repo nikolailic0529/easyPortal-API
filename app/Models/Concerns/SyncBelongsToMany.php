@@ -4,10 +4,12 @@ namespace App\Models\Concerns;
 
 use App\Models\Callbacks\GetKey;
 use App\Models\Callbacks\SetKey;
+use App\Models\Model;
 use App\Utils\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function sprintf;
@@ -35,34 +37,51 @@ trait SyncBelongsToMany {
 
         // Prepare
         $existing = $this->syncManyGetExisting($this, $relation)->keyBy(new GetKey());
-        $children = (new EloquentCollection($objects))->map(new SetKey())->keyBy(new GetKey());
+        $children = (new EloquentCollection($objects))
+            ->map(static function (Model $model): Model {
+                return clone $model;
+            })
+            ->map(new SetKey())
+            ->keyBy(new GetKey());
+        $objects  = new EloquentCollection();
 
-        if (!$existing->isEmpty()) {
-            foreach ($children as $child) {
-                /** @var \Illuminate\Database\Eloquent\Model $child */
-                if ($existing->has($child->getKey())) {
-                    $children->forget($child->getKey());
-                    $existing->forget($child->getKey());
-                }
+        foreach ($children as $child) {
+            /** @var \Illuminate\Database\Eloquent\Model $child */
+            if ($existing->has($child->getKey())) {
+                $child = $existing->get($child->getKey());
+
+                $children->forget($child->getKey());
+                $existing->forget($child->getKey());
             }
+
+            $objects->push($child);
         }
 
         // Update relation
-        $this->setRelation($relation, new EloquentCollection($objects));
+        $this->setRelation($relation, $objects);
 
         // Update database
         if (!$children->isEmpty() || !$existing->isEmpty()) {
             $this->onSave(static function () use ($belongsToMany, $children, $existing): void {
                 // Sync
+                $model    = $belongsToMany->getPivotClass();
+                $parent   = $belongsToMany->getParent()->{$belongsToMany->getParentKeyName()};
+                $accessor = $belongsToMany->getPivotAccessor();
+
                 foreach ($children as $object) {
-                    /** @var \Illuminate\Database\Eloquent\Model $object */
-                    $belongsToMany->attach($object->getKey(), [], false);
+                    $pivot                                             = new $model();
+                    $pivot->{$belongsToMany->getRelatedPivotKeyName()} = $object->getKey();
+                    $pivot->{$belongsToMany->getForeignPivotKeyName()} = $parent;
+
+                    $pivot->save();
+
+                    $object->setRelation($accessor, $pivot);
                 }
 
                 // Delete unused
                 /** @var \Illuminate\Database\Eloquent\Model $object */
                 foreach ($existing as $object) {
-                    $object->pivot?->delete();
+                    $object->{$accessor}?->delete();
                 }
             });
         }

@@ -92,11 +92,10 @@ class ResellerFactoryTest extends TestCase {
 
         // Test
         $reseller = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($reseller);
         $this->assertTrue($reseller->wasRecentlyCreated);
         $this->assertEquals($company->id, $reseller->getKey());
@@ -225,14 +224,13 @@ class ResellerFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Reseller should be updated
-        $json    = $this->getTestData()->json('~reseller-changed.json');
-        $company = new Company($json);
-        $updated = $factory->create($company);
+        $json     = $this->getTestData()->json('~reseller-changed.json');
+        $company  = new Company($json);
+        $updated  = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($reseller, $updated);
         $this->assertEquals($company->id, $updated->getKey());

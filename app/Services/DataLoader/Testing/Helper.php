@@ -394,7 +394,6 @@ trait Helper {
         $this->overrideDistributorFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
-        $this->overrideAssetFinder();
         $this->overrideOemFinder();
     }
 

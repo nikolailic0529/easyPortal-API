@@ -341,23 +341,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00000231-21a1-4f41-a537-65029f694e78",
+            "e4ca85c0-ec39-5425-afb7-3b8cfdf14c6d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e4ca85c0-ec39-5425-afb7-3b8cfdf14c6d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00000231-21a1-4f41-a537-65029f694e78",
+            "0113b6ab-30f9-595a-a84d-94297c9e913d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0113b6ab-30f9-595a-a84d-94297c9e913d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -497,13 +497,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "eb0ee316-9f91-51a0-8c16-b3c8eee07bc5",
+            "bb461b85-3546-504a-8d96-ba293f321967",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bb461b85-3546-504a-8d96-ba293f321967"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -612,13 +612,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "000007c8-6423-407a-993d-671c6b9de2a5",
+            "2b1db5ea-9ff5-5ee9-8240-f42e2b158eab",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2b1db5ea-9ff5-5ee9-8240-f42e2b158eab"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -732,13 +732,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "797d2af9-f0a8-53f3-9d67-7ebf7bd18a3b",
+            "6da60ca4-cbac-502b-977c-63484c1728d4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6da60ca4-cbac-502b-977c-63484c1728d4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -840,33 +840,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "21d0312d-04f8-5456-9071-48e2f2c67347",
+            "58357c06-57c7-5fa2-81d8-6b144a1b9008",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "58357c06-57c7-5fa2-81d8-6b144a1b9008"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00000d58-472c-4892-a6a4-c7740d5d8541",
+            "decd0de3-f44d-5c58-a39f-f5db659ea55e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "decd0de3-f44d-5c58-a39f-f5db659ea55e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00000d58-472c-4892-a6a4-c7740d5d8541",
+            "1aab3569-afa7-5fbe-9f88-89393a0cbacd",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1aab3569-afa7-5fbe-9f88-89393a0cbacd"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -963,13 +963,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "32e4d87e-7972-5299-9f45-800188abe4f2",
+            "52a03db2-f5f6-5ca6-9c08-6c665eebb9e4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "52a03db2-f5f6-5ca6-9c08-6c665eebb9e4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1059,33 +1059,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "55af2ede-3214-5716-8624-427741590f79",
+            "814afcdd-adf0-5c7b-8b97-0665fe865220",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "814afcdd-adf0-5c7b-8b97-0665fe865220"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "4fbd0794-067a-5540-bc5b-0d6cb96abca6",
             "00001533-8290-48b7-bd68-703ca6dec0f5",
+            "21daca16-ec88-5275-ad6e-73c6b09dfa6d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "21daca16-ec88-5275-ad6e-73c6b09dfa6d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00001533-8290-48b7-bd68-703ca6dec0f5",
+            "f56ab072-170c-5adf-8157-ea5df11c1150",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f56ab072-170c-5adf-8157-ea5df11c1150"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1627,13 +1627,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000179c-dc64-4f0b-8aec-93e673f727fe",
+            "ce5ea8a3-3739-5642-b6ce-5123114ce746",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ce5ea8a3-3739-5642-b6ce-5123114ce746"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1729,13 +1729,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "9a0e5844-049c-5429-a8d7-d3c4935babfc",
+            "13374ab6-0a1d-5366-8c93-46c05bee83f6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "13374ab6-0a1d-5366-8c93-46c05bee83f6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1807,23 +1807,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00001a40-9d6a-4fc3-a87e-e5a5b38ed3ef",
+            "820f896f-e6b4-53b6-a6dc-48c490162824",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "820f896f-e6b4-53b6-a6dc-48c490162824"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00001a40-9d6a-4fc3-a87e-e5a5b38ed3ef",
+            "30685e1d-e67b-5808-b9cd-60765a193fb1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "30685e1d-e67b-5808-b9cd-60765a193fb1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1904,13 +1904,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "55cb2418-e69f-5300-a865-1c53238cff2a",
+            "7b59c583-c3af-5f5d-a620-f9b986c6d16a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "7b59c583-c3af-5f5d-a620-f9b986c6d16a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2054,33 +2054,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "be7dfcfc-0177-5e25-bda5-b00c2d5f97a1",
+            "b28887a7-1196-50b9-a4ac-18d345b649d4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b28887a7-1196-50b9-a4ac-18d345b649d4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "55c2684c-e525-5fc0-9ec3-6bd1c5287412",
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9",
+            "32f34509-5308-5b48-8f58-7cb2ebfc0b1f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "32f34509-5308-5b48-8f58-7cb2ebfc0b1f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9",
+            "2d0a6ec6-28db-553b-8bb5-1012c36a112c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2d0a6ec6-28db-553b-8bb5-1012c36a112c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2161,13 +2161,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "6e65bc96-82da-5284-8567-bbc317f1f868",
+            "362b2a7c-cf9f-586c-84d5-f9745ec0bb68",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "362b2a7c-cf9f-586c-84d5-f9745ec0bb68"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2286,33 +2286,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "e59a572d-0369-58b8-bb3a-88307d26f820",
+            "644926c6-3cc5-5142-93a7-770cbc439a5f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "644926c6-3cc5-5142-93a7-770cbc439a5f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "00001f64-016d-42b7-b508-7d455f348416",
+            "69089bb5-04a5-5c1e-9fd7-cd1dba8a3bf8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "69089bb5-04a5-5c1e-9fd7-cd1dba8a3bf8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00001f64-016d-42b7-b508-7d455f348416",
+            "211d801d-821b-5a2b-905b-0cd2727c2f30",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "211d801d-821b-5a2b-905b-0cd2727c2f30"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2382,13 +2382,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "a22a3dcf-89ee-5365-892e-cb40be83b48a",
+            "f177cfaf-5088-5f8e-89f6-51c89ee3c879",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f177cfaf-5088-5f8e-89f6-51c89ee3c879"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2465,23 +2465,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "000025ec-31a9-485d-96f0-c51a4bf299f3",
+            "59f69857-990f-56e6-aeea-9975d4dfb2c5",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "59f69857-990f-56e6-aeea-9975d4dfb2c5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "000025ec-31a9-485d-96f0-c51a4bf299f3",
+            "3cc3877c-49e7-5ef2-a6a2-aa50a365bbaa",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3cc3877c-49e7-5ef2-a6a2-aa50a365bbaa"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2592,13 +2592,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
             "ac9989e1-7ced-576f-8d9e-86bea5557f87",
+            "bc673004-80b6-55df-82b8-c14657121623",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bc673004-80b6-55df-82b8-c14657121623"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2618,13 +2618,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
             "299bbc3a-0419-5333-bcfe-eb5ec275dd08",
+            "c3bbec88-262e-54ad-aae6-db67cbfd43ef",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c3bbec88-262e-54ad-aae6-db67cbfd43ef"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2701,23 +2701,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "00002b22-d5e0-4d04-9c14-96fee4fb10f4",
+            "2dbaf176-3d82-52d7-834a-b9c861fa352e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2dbaf176-3d82-52d7-834a-b9c861fa352e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00002b22-d5e0-4d04-9c14-96fee4fb10f4",
+            "536d0d43-339e-5d87-acb5-46cb10b3a676",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "536d0d43-339e-5d87-acb5-46cb10b3a676"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2787,13 +2787,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "1676fbf8-7c00-5b54-bca9-7c440c483bba",
+            "bf848866-6110-5735-916d-8d5069226275",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bf848866-6110-5735-916d-8d5069226275"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4137,23 +4137,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "000031fb-00de-4a09-ad4a-83498858f8bb",
+            "749fbf60-3879-50e2-bac4-9ddb818b374c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "749fbf60-3879-50e2-bac4-9ddb818b374c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "000031fb-00de-4a09-ad4a-83498858f8bb",
+            "50951a2b-471e-570b-be09-44a4f81c7443",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "50951a2b-471e-570b-be09-44a4f81c7443"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4223,13 +4223,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "fc1db59a-fa19-5718-9fdd-d6aec1f6526a",
+            "3ee65977-0943-5a95-86ef-9457ac6d07a2",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3ee65977-0943-5a95-86ef-9457ac6d07a2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4306,23 +4306,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00003a03-18d7-4e64-ac42-9911a0c82c0b",
+            "0c395bee-5c30-50ea-a844-6adfd5a50a93",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0c395bee-5c30-50ea-a844-6adfd5a50a93"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00003a03-18d7-4e64-ac42-9911a0c82c0b",
+            "af5e846b-6a62-5b25-88fe-23f7769b62b1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "af5e846b-6a62-5b25-88fe-23f7769b62b1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4403,13 +4403,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "64497f97-9308-5e65-a271-eaf234925002",
+            "c6661a6b-b450-5cfb-a9e9-04a6d41b5c73",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c6661a6b-b450-5cfb-a9e9-04a6d41b5c73"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4486,23 +4486,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00003f29-b194-4247-aeb5-dfccd215cc34",
+            "6cb252e9-0404-5dce-a707-0ee5f716301b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6cb252e9-0404-5dce-a707-0ee5f716301b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00003f29-b194-4247-aeb5-dfccd215cc34",
+            "0d15067a-3616-5458-9f22-53a66f41d4b7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0d15067a-3616-5458-9f22-53a66f41d4b7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4583,13 +4583,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "3f9e37c2-464b-5282-8626-5a0098e092a9",
+            "b1ae2aec-1a72-5c6a-89b7-74ff45691986",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b1ae2aec-1a72-5c6a-89b7-74ff45691986"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4675,33 +4675,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "83f405d8-9fcc-5d68-a6bd-a9045a7ad6f3",
+            "79f9f80b-12f4-5f7d-ac55-f64d6e626d98",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "79f9f80b-12f4-5f7d-ac55-f64d6e626d98"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "00003f9e-28fd-48d9-8f2a-80777916c943",
+            "7e987844-cef8-5c8a-aa91-c71093c6097b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "7e987844-cef8-5c8a-aa91-c71093c6097b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00003f9e-28fd-48d9-8f2a-80777916c943",
+            "29febe00-4926-5bcc-b8da-00cf8ae793d7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "29febe00-4926-5bcc-b8da-00cf8ae793d7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4771,13 +4771,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
             "c51f34a4-5472-53b8-8a35-880a9c0195d8",
+            "e56f8d53-04a0-501c-868e-199c96a03c8c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e56f8d53-04a0-501c-868e-199c96a03c8c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4863,33 +4863,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "be216263-725e-5dc4-ac71-9da210a6b14c",
+            "76817e8f-c36b-5040-b1e8-0610f19c2e50",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "76817e8f-c36b-5040-b1e8-0610f19c2e50"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "000047af-be68-4bf7-ae01-40405fc75e21",
+            "60a8719b-8250-55f6-ae5b-98c3893e7016",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "60a8719b-8250-55f6-ae5b-98c3893e7016"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "000047af-be68-4bf7-ae01-40405fc75e21",
+            "279c1039-9155-5c95-b4ed-5da68d1f1dad",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "279c1039-9155-5c95-b4ed-5da68d1f1dad"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4959,13 +4959,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "6b80f2e3-df6f-5bf0-a403-659bbc71012b",
+            "b3cde0cf-5fde-505a-aa56-4fb0d1e44cbc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b3cde0cf-5fde-505a-aa56-4fb0d1e44cbc"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5058,13 +5058,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "000054ee-58ea-4ef3-b723-540fd4a411a3",
+            "cd2bce94-e694-5a6d-882a-ec3b58a8f2bc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cd2bce94-e694-5a6d-882a-ec3b58a8f2bc"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5165,13 +5165,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "d22df30d-78f1-597b-9be5-f57f47051889",
+            "cc553cac-eca4-58f5-b287-f72a5aa96100",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cc553cac-eca4-58f5-b287-f72a5aa96100"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5248,13 +5248,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "00005d41-b4ef-4612-a3a7-5b6fc4690c3c",
+            "d6363ce2-3022-5d1e-b253-08c774e679f2",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d6363ce2-3022-5d1e-b253-08c774e679f2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5339,13 +5339,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "3ac4fde4-74ba-51f8-b43c-5951f792cede",
+            "e1e1ac49-2013-5e1b-af77-6688451ff65a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e1e1ac49-2013-5e1b-af77-6688451ff65a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5447,23 +5447,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00005ec6-f2d2-4c8e-b53b-98cd81677ec9",
+            "8d2e52a7-5bc2-50cd-8934-1f3896149a13",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8d2e52a7-5bc2-50cd-8934-1f3896149a13"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00005ec6-f2d2-4c8e-b53b-98cd81677ec9",
+            "3b5119e4-0164-5b83-b117-944ebe8ecca7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3b5119e4-0164-5b83-b117-944ebe8ecca7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5617,13 +5617,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "fa08452f-d6a6-515f-88d3-d9282d0233d5",
+            "f9b23dc4-563a-5985-be9b-cfa58fee76c6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f9b23dc4-563a-5985-be9b-cfa58fee76c6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5643,13 +5643,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "49524d10-d5e6-5d6c-acdc-23e3ee5d5fa0",
+            "441fdb61-45c5-5eb3-bbd8-3a64e48b7be8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "441fdb61-45c5-5eb3-bbd8-3a64e48b7be8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5669,13 +5669,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "f78e7537-8e5a-59ee-bc15-56b9e930532f",
+            "e6d734ae-140f-5e86-a6a5-a8005e736845",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e6d734ae-140f-5e86-a6a5-a8005e736845"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5695,13 +5695,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "3ebf7b4b-d593-56ad-9d68-a9b870412dc1",
+            "0d247eb9-27ee-5d41-8741-27b0a26b91d5",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0d247eb9-27ee-5d41-8741-27b0a26b91d5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5787,33 +5787,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "0b46aa87-ef3a-526d-831c-9f05bde1bdc0",
+            "b95c70c9-a09a-5394-80e7-3b642a237f30",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b95c70c9-a09a-5394-80e7-3b642a237f30"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00005f20-eaff-4198-867c-3676c42be907",
+            "fe3353c3-8a0e-512d-978a-6ae62a929f8d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "fe3353c3-8a0e-512d-978a-6ae62a929f8d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00005f20-eaff-4198-867c-3676c42be907",
+            "a4045244-8c52-5e9d-8c86-d232bcd4e912",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a4045244-8c52-5e9d-8c86-d232bcd4e912"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6135,13 +6135,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "a763955f-02a5-50a1-9b0a-3542cc3843f5",
+            "ab0e145a-c658-5942-8631-4c863fb261d8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ab0e145a-c658-5942-8631-4c863fb261d8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6161,13 +6161,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "c09224c0-8557-5a01-a2f8-0f1fd34cd4d4",
+            "f28ef112-1761-504e-8921-7753d84dba3d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f28ef112-1761-504e-8921-7753d84dba3d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6187,13 +6187,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "6680213c-359c-51c1-8f94-41da30b88bd9",
+            "e2000863-0220-5707-82d3-a67444c28fea",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e2000863-0220-5707-82d3-a67444c28fea"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6213,13 +6213,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "07918e75-5afa-5fda-8c95-36d8e8d729b1",
+            "41806201-fe61-510e-ad46-582ca85930fd",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "41806201-fe61-510e-ad46-582ca85930fd"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6239,13 +6239,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "70d4da33-b5d9-5815-8c55-9629afeee83c",
+            "86180379-6757-5466-8b48-4d4c6d199408",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "86180379-6757-5466-8b48-4d4c6d199408"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6322,13 +6322,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00006383-67be-4c58-99a1-e187e4af1748",
+            "2dbdd540-6292-5a12-ab95-b7cf249b1009",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2dbdd540-6292-5a12-ab95-b7cf249b1009"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7893,33 +7893,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "ea1b7822-aa6b-5a2b-8edb-b338613f0c5e",
+            "78c58c8c-ffe3-54f1-9b70-26513e655e59",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "78c58c8c-ffe3-54f1-9b70-26513e655e59"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "00006504-041f-4303-8d06-93c06fe09f8d",
+            "c781a472-8b83-59a9-af89-c654e99d00bd",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c781a472-8b83-59a9-af89-c654e99d00bd"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "00006504-041f-4303-8d06-93c06fe09f8d",
+            "5f369bc6-1698-5ddf-a8d7-de46f1f9c211",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5f369bc6-1698-5ddf-a8d7-de46f1f9c211"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8000,13 +8000,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "67c78e00-746e-5875-a467-385289e61788",
             "fb37c09a-8ec3-590e-bb42-d39061dad1ba",
+            "37edbd2e-a8aa-54fe-b125-154745ea9fce",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "37edbd2e-a8aa-54fe-b125-154745ea9fce"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8083,23 +8083,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000662a-bd12-4a3b-85fe-20dcc6b97458",
+            "431a854b-4aac-58d1-a77e-0cdf3b5aee77",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "431a854b-4aac-58d1-a77e-0cdf3b5aee77"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000662a-bd12-4a3b-85fe-20dcc6b97458",
+            "4ae18619-ebbe-518c-afa0-8b04aa7d917a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4ae18619-ebbe-518c-afa0-8b04aa7d917a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8169,13 +8169,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "7d9698ec-a369-5e35-808a-5ead7957f327",
+            "4200bcf2-36aa-5312-8c8a-bc23d437a8d5",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4200bcf2-36aa-5312-8c8a-bc23d437a8d5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8261,33 +8261,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "7e667f2d-cac8-5f73-9f91-ce98c85e8f6f",
+            "90ead21a-3934-5db8-81a0-b559fe3e2de1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "90ead21a-3934-5db8-81a0-b559fe3e2de1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "00007224-4f1f-4991-87a0-81379bd4a662",
+            "5e3453f7-2b98-58c8-945e-691785778c32",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5e3453f7-2b98-58c8-945e-691785778c32"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00007224-4f1f-4991-87a0-81379bd4a662",
+            "ab273e7b-8ea5-57b3-b6b7-0c1f2c3c36db",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ab273e7b-8ea5-57b3-b6b7-0c1f2c3c36db"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8357,13 +8357,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "45f7e12f-51cb-5d74-b13f-0893a28f5c29",
+            "3e9b28b3-f89e-58c3-8fd6-db10f6aadd50",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3e9b28b3-f89e-58c3-8fd6-db10f6aadd50"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8449,33 +8449,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "6c993507-05df-5c35-b097-13dadef15942",
+            "d3b78177-ac7d-5389-ae2b-b8be0166f12d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d3b78177-ac7d-5389-ae2b-b8be0166f12d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000729a-09d3-4fee-b8ed-57d55576cdf4",
+            "df8b9e9c-27c1-58ce-9156-4c43d49c10da",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "df8b9e9c-27c1-58ce-9156-4c43d49c10da"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000729a-09d3-4fee-b8ed-57d55576cdf4",
+            "0107f458-f184-5950-9581-43f10c55d8c4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0107f458-f184-5950-9581-43f10c55d8c4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8545,13 +8545,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "67c78e00-746e-5875-a467-385289e61788",
             "237331d7-5052-5e74-9c66-74ba2cbfa13d",
+            "29801160-5e2c-563c-8abf-79c12681dc8a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "29801160-5e2c-563c-8abf-79c12681dc8a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8637,33 +8637,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "29e6a3f0-9a70-58d5-a60f-8a56cf20647a",
+            "af7309d0-bcde-54b4-a8f5-77cbd4938df4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "af7309d0-bcde-54b4-a8f5-77cbd4938df4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "000072e9-8b7b-4814-83a0-20ea60c94eea",
+            "e13585c6-6f95-5642-8e8e-539efa0dde5a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e13585c6-6f95-5642-8e8e-539efa0dde5a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "000072e9-8b7b-4814-83a0-20ea60c94eea",
+            "332b9a0c-6218-5219-9acb-ef41775fc524",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "332b9a0c-6218-5219-9acb-ef41775fc524"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8744,13 +8744,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "0be59608-0060-55a2-93b0-789a5fc290fe",
+            "ab7a96d4-2bac-5597-8971-4b9e3b0f1e74",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ab7a96d4-2bac-5597-8971-4b9e3b0f1e74"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8827,13 +8827,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000786c-fb58-4fef-b63a-79ee9c9ccd87",
+            "4368ac4f-56dd-5305-9a88-b72017e34a6b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4368ac4f-56dd-5305-9a88-b72017e34a6b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9232,33 +9232,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "5c35f79d-cd5b-5c89-9f3c-a76b2b3d61b9",
+            "7b845816-3e99-5319-807e-6e7b73a352e8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "7b845816-3e99-5319-807e-6e7b73a352e8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000794b-a9f8-49f4-8d1e-47a55f16e4ec",
+            "085c5b7c-1a3c-574c-8094-45c1099397a9",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "085c5b7c-1a3c-574c-8094-45c1099397a9"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000794b-a9f8-49f4-8d1e-47a55f16e4ec",
+            "af546616-5687-570b-8ee1-aec0ce0bd82f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "af546616-5687-570b-8ee1-aec0ce0bd82f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9339,13 +9339,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "b5b112e8-18a4-525d-b01f-9610bec79f9f",
+            "3ea8cc21-903c-5001-ad66-ed5817ce9626",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3ea8cc21-903c-5001-ad66-ed5817ce9626"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9422,23 +9422,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00007f5b-145b-4388-8720-b7cacbf9c328",
+            "c2c3acc7-4184-5fc7-add4-518ea684035a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c2c3acc7-4184-5fc7-add4-518ea684035a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "00007f5b-145b-4388-8720-b7cacbf9c328",
+            "99e9785d-dacc-5583-a63a-0c21a21cf6c1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "99e9785d-dacc-5583-a63a-0c21a21cf6c1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9519,13 +9519,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "f731a1c5-2935-5099-9417-94c8a48ac04b",
+            "feb55648-10ef-57e1-90d3-078f911543d6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "feb55648-10ef-57e1-90d3-078f911543d6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9602,13 +9602,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "00009056-8b03-468a-8fbd-031fb91b4bee",
+            "71d3662e-e1e4-5d06-b547-d24d379188f7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "71d3662e-e1e4-5d06-b547-d24d379188f7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9709,13 +9709,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "1b112e92-66b1-53b8-86e2-ac5e0885246c",
+            "1e1a837d-d856-5849-be02-155eabb188b0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1e1a837d-d856-5849-be02-155eabb188b0"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9801,23 +9801,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "6ce67b13-c3e3-5525-8a5d-4b87456d412a",
+            "f822f37c-8bb9-5eb3-bfd3-f29e66c33fb2",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f822f37c-8bb9-5eb3-bfd3-f29e66c33fb2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "55c2684c-e525-5fc0-9ec3-6bd1c5287412",
             "0000945a-ebbc-432b-a679-dba3c57eab67",
+            "b6a3476e-691b-558a-96f2-ee786dff42ed",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b6a3476e-691b-558a-96f2-ee786dff42ed"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9944,13 +9944,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "4a63f71d-3087-5bd7-a282-f470b324ecda",
+            "c5c0c174-2379-5690-a1a2-6b3be4488850",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c5c0c174-2379-5690-a1a2-6b3be4488850"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9970,13 +9970,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "b5876729-1480-5cdb-84c5-9bab684e23be",
+            "1bea2109-6fc8-59e5-8a87-4850c85d8047",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1bea2109-6fc8-59e5-8a87-4850c85d8047"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11354,33 +11354,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "a84866df-9fa2-5a91-93d7-8a6b2cbfe9f0",
+            "1fd52d62-2f32-5335-9d61-1c8551f2e9cb",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1fd52d62-2f32-5335-9d61-1c8551f2e9cb"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "000096fd-df38-483e-b441-846785c9a339",
+            "4f3a6d8e-6430-5ab0-be7e-791a09c8b6ed",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4f3a6d8e-6430-5ab0-be7e-791a09c8b6ed"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "000096fd-df38-483e-b441-846785c9a339",
+            "e61c547b-39e2-57f0-be0b-d45d7bb3ac02",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e61c547b-39e2-57f0-be0b-d45d7bb3ac02"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11615,13 +11615,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "344b7d48-2d66-51fc-b240-f6b5537c01cd",
+            "ab85e71d-3259-5dab-8099-3bde1034f5b6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ab85e71d-3259-5dab-8099-3bde1034f5b6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11641,13 +11641,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "93354c36-e372-5f1e-8e2f-98ae16d9b675",
+            "03c23702-bec5-5120-b735-c8e6b404e3e9",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "03c23702-bec5-5120-b735-c8e6b404e3e9"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11667,13 +11667,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "64a88cf7-49ed-59a8-8047-fa46b7be641d",
+            "c78b40bd-754c-5bd6-9c4d-3fc31af305de",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c78b40bd-754c-5bd6-9c4d-3fc31af305de"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11693,13 +11693,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "a60cc881-1234-5617-a57d-731aff956cf7",
+            "589fe1f6-e7c5-5e32-87ef-3688e4185f68",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "589fe1f6-e7c5-5e32-87ef-3688e4185f68"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11785,33 +11785,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "ac594f98-26ea-5369-8eed-728b241187b6",
+            "dd9ae407-5fbb-52e0-b713-03b4175f1d31",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "dd9ae407-5fbb-52e0-b713-03b4175f1d31"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "000097d6-928b-41dd-9938-8aada1ba2916",
+            "0528d19a-7080-51f8-8872-5244e853bd90",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0528d19a-7080-51f8-8872-5244e853bd90"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "000097d6-928b-41dd-9938-8aada1ba2916",
+            "a3d91da6-d534-5317-91ea-ef3932baa01d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a3d91da6-d534-5317-91ea-ef3932baa01d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11881,13 +11881,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "5f1e3819-2d79-5e64-894c-8f06bf3f8791",
+            "b152b4ac-4f33-57bd-b07d-12503b629f48",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b152b4ac-4f33-57bd-b07d-12503b629f48"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -11973,33 +11973,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "e509099a-31e1-5c91-ab29-ced5b94009c6",
+            "0f833332-3519-597f-89af-fb82fd6e8a20",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0f833332-3519-597f-89af-fb82fd6e8a20"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "55c2684c-e525-5fc0-9ec3-6bd1c5287412",
             "0000996c-a34d-4b91-a2f6-a29bc17bdbe2",
+            "4a3a6a54-458d-5f87-8e2f-0215dd26879d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4a3a6a54-458d-5f87-8e2f-0215dd26879d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000996c-a34d-4b91-a2f6-a29bc17bdbe2",
+            "81e0da4d-f36d-558f-b8ae-c92bd6cbd27a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "81e0da4d-f36d-558f-b8ae-c92bd6cbd27a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -12080,13 +12080,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "10b602de-2ee5-5bb0-a257-e5ff86854130",
+            "a0e4bef4-7865-5f7c-a893-d0bb993c5f7e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a0e4bef4-7865-5f7c-a893-d0bb993c5f7e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -12158,23 +12158,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000a701-d97c-4390-a0c9-80b54bc620df",
+            "61f85dfe-2cb8-53f1-becb-4128f0eb7ccd",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "61f85dfe-2cb8-53f1-becb-4128f0eb7ccd"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "0000a701-d97c-4390-a0c9-80b54bc620df",
+            "e301561b-800a-5b95-b31b-23a4e1dd641e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e301561b-800a-5b95-b31b-23a4e1dd641e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -12342,13 +12342,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "6d2bb054-43b4-5821-8ce9-edcadecf892a",
+            "5de5967a-13ec-5fd7-96a5-57d814acf1da",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5de5967a-13ec-5fd7-96a5-57d814acf1da"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -12368,13 +12368,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "37ed040d-3bdf-5982-b9b3-620a11f94626",
+            "0eb548c2-2a3e-55c6-8df6-e8b96aadf18b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0eb548c2-2a3e-55c6-8df6-e8b96aadf18b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -12460,33 +12460,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "d2a16b38-a0ad-518a-8a3d-bd7890fcbd97",
+            "2acce01f-16b1-5c07-a065-559d0bea6d6f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2acce01f-16b1-5c07-a065-559d0bea6d6f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000aab7-79d8-4fae-b86c-375b1ad4b3d0",
+            "2ef69eeb-c539-5aa2-9ee2-49d2d7e22c1c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2ef69eeb-c539-5aa2-9ee2-49d2d7e22c1c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000aab7-79d8-4fae-b86c-375b1ad4b3d0",
+            "8158c150-2133-5c88-94ad-7c5a76b132dc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8158c150-2133-5c88-94ad-7c5a76b132dc"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13002,13 +13002,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "1c2e2027-1359-5728-91fb-fda74fd8ba8b",
+            "cd5bdd50-087e-5eaf-8ca8-cb2808e2150d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cd5bdd50-087e-5eaf-8ca8-cb2808e2150d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13028,13 +13028,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "454005ef-d3f1-5303-ad23-d2bd418ce25a",
+            "50703b62-f741-541c-ac0e-445ed352a505",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "50703b62-f741-541c-ac0e-445ed352a505"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13054,13 +13054,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "f68126df-33e1-5128-b089-e871c669439a",
+            "302ea715-7231-5a7f-8a66-13f5851ff332",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "302ea715-7231-5a7f-8a66-13f5851ff332"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13080,13 +13080,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "d152517b-3bc1-5fa9-829a-f33276b29c89",
+            "8d4a9bb9-7f9a-5a87-84d2-03e30c5eda3f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8d4a9bb9-7f9a-5a87-84d2-03e30c5eda3f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13106,13 +13106,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "21b1f468-502e-543a-b8da-f7ea279fdbaf",
+            "0f9bce48-c585-510f-8b80-94455af73cc4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0f9bce48-c585-510f-8b80-94455af73cc4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13132,13 +13132,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "25d29f6d-1d4f-5135-81a8-97d01da673b6",
+            "46cc9917-adf0-5249-ad9e-f23fe64b9d0f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "46cc9917-adf0-5249-ad9e-f23fe64b9d0f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13158,13 +13158,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "2124566e-2a63-5b19-8b49-ad3e0334da1d",
+            "0812a5be-0758-5c05-a4aa-4c0507b009d4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0812a5be-0758-5c05-a4aa-4c0507b009d4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13184,13 +13184,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "2ac87cb7-089d-54e8-b347-b16babc1f576",
+            "59f13f59-6ded-5711-b68e-4b7095af22d4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "59f13f59-6ded-5711-b68e-4b7095af22d4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13210,13 +13210,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "605ca6ea-3638-5356-b016-d74f2687faf7",
+            "a6f7755e-a23f-587c-986d-aa741e56317a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a6f7755e-a23f-587c-986d-aa741e56317a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13236,13 +13236,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "cbc559a3-454d-5ab7-bbc4-cd68862ad0b6",
+            "069165a5-1d8c-574d-b938-576c7d4270f1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "069165a5-1d8c-574d-b938-576c7d4270f1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13328,33 +13328,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "5f6fb0e7-72a0-57cc-8bf6-2f211437ee6f",
+            "4f57c754-5e60-5b8d-ac6d-ea7135018903",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4f57c754-5e60-5b8d-ac6d-ea7135018903"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000aea4-cdd6-4e2f-a48f-e92286c72d64",
+            "e5d33e25-9121-51d6-b8fd-a049d44b7d0f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e5d33e25-9121-51d6-b8fd-a049d44b7d0f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "0000aea4-cdd6-4e2f-a48f-e92286c72d64",
+            "a535982b-4a51-5f88-9823-e4da8633f2d4",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a535982b-4a51-5f88-9823-e4da8633f2d4"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13435,13 +13435,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "5ce2ddb3-aab4-5f51-9aed-351fc61fffc4",
+            "5dc451bb-04be-57b9-91b5-72362040401b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5dc451bb-04be-57b9-91b5-72362040401b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13498,13 +13498,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000b6a3-260d-4fc3-8af8-5219719becc1",
+            "2b2eb5e1-a02d-58c2-9507-1cfbef06685e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2b2eb5e1-a02d-58c2-9507-1cfbef06685e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13824,13 +13824,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "29df22eb-ebe9-58d0-83fe-336f193adfbf",
+            "c1abfef4-a7cf-53da-a68f-942b0297160e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c1abfef4-a7cf-53da-a68f-942b0297160e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -13949,23 +13949,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000b9f9-ecb2-4347-9267-22a4714175ec",
+            "9ed75ca1-d657-54cc-b6e9-607049a34809",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9ed75ca1-d657-54cc-b6e9-607049a34809"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000b9f9-ecb2-4347-9267-22a4714175ec",
+            "9fce2497-e685-55d7-80d2-74dee70d4e2a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9fce2497-e685-55d7-80d2-74dee70d4e2a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14046,13 +14046,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
             "69e45d52-33cf-5e57-b198-0ebb6f095e2a",
+            "d399ee49-2382-5c01-b7d0-18ad7208fbf2",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d399ee49-2382-5c01-b7d0-18ad7208fbf2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14129,23 +14129,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000c240-3b07-4267-8208-85e29dba3b59",
+            "1111b9fd-b8b4-58eb-a65c-417b1a423800",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1111b9fd-b8b4-58eb-a65c-417b1a423800"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000c240-3b07-4267-8208-85e29dba3b59",
+            "5fa23bd0-948f-5d04-9aff-f0d7e0fba796",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5fa23bd0-948f-5d04-9aff-f0d7e0fba796"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14215,13 +14215,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "be06e1ca-374c-53d1-8c03-09cfcda099fb",
+            "e8974129-d0fe-5256-bf0b-7b7fac5f2694",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e8974129-d0fe-5256-bf0b-7b7fac5f2694"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14298,23 +14298,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000c764-15a8-4b84-8aac-172686829839",
+            "82630d11-3daa-5a61-8499-9d8f937fc7c7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "82630d11-3daa-5a61-8499-9d8f937fc7c7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000c764-15a8-4b84-8aac-172686829839",
+            "222e516a-4b84-5d7c-bf5e-5bd9f44d0779",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "222e516a-4b84-5d7c-bf5e-5bd9f44d0779"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14465,13 +14465,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "a29d31ca-5336-579a-94ac-3d98e54d611a",
+            "589d104d-50d2-5385-952e-62c6996c2adf",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "589d104d-50d2-5385-952e-62c6996c2adf"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14491,13 +14491,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "492a9813-d644-5a5e-b8f9-67f391acbdab",
+            "c289044c-23e3-5479-9549-a7f492b23a37",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c289044c-23e3-5479-9549-a7f492b23a37"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -14517,13 +14517,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "65124c71-eb44-58a8-97e7-7967dd2f7f18",
+            "0b0c88a4-c5ff-527b-8995-fadef4a1e41d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0b0c88a4-c5ff-527b-8995-fadef4a1e41d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16102,33 +16102,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "21b029f7-eae9-5443-a54c-e712e99192b6",
+            "cd3fec43-0f77-5502-8929-02dc046ff7f6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cd3fec43-0f77-5502-8929-02dc046ff7f6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000c86b-ba63-4386-811c-dc0f8e794d2c",
+            "db44e405-f19a-516c-b6e7-c0fcdc89174a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "db44e405-f19a-516c-b6e7-c0fcdc89174a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000c86b-ba63-4386-811c-dc0f8e794d2c",
+            "9e3c7411-d593-526f-a5df-a1447ec4a0db",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9e3c7411-d593-526f-a5df-a1447ec4a0db"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16226,13 +16226,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "ed4c527e-851e-541c-8230-859d459bed3e",
+            "4b47b04a-e2d8-535c-acbc-587bf847a97f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4b47b04a-e2d8-535c-acbc-587bf847a97f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16252,13 +16252,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "15817a83-3141-5ff5-be31-d5c78180e82e",
+            "2d1440b8-2a79-5619-a148-7bcdae5eb84b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2d1440b8-2a79-5619-a148-7bcdae5eb84b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16315,13 +16315,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2",
+            "e688d6c6-433c-5277-811f-bbcadb9e1a22",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e688d6c6-433c-5277-811f-bbcadb9e1a22"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16417,13 +16417,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "32c8df46-2152-540b-874b-4ca63444d359",
+            "1a346da4-3b81-5ac9-a524-8165e8152b08",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1a346da4-3b81-5ac9-a524-8165e8152b08"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16480,13 +16480,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000d9a5-0e02-4c93-b170-604002110fb3",
+            "e464dbf8-34be-5508-8775-4f18c18c163c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e464dbf8-34be-5508-8775-4f18c18c163c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16710,13 +16710,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "bac74af1-2387-5daf-8622-d3088cadafc3",
+            "a11c26b8-b8b6-5435-a250-8163ba01dd5e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a11c26b8-b8b6-5435-a250-8163ba01dd5e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16736,13 +16736,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "42c395a3-d4f6-5d04-9b1d-05fb75728536",
+            "deb08eda-52c5-5e41-87b5-2530e96261d2",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "deb08eda-52c5-5e41-87b5-2530e96261d2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16819,13 +16819,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000dbb1-a181-4563-945c-2f6dfb711c15",
+            "ddd0d78e-c05a-55d2-bd29-1ee712ed0639",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ddd0d78e-c05a-55d2-bd29-1ee712ed0639"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -16926,13 +16926,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "0c5d7094-2109-52d0-b6ff-746197459e19",
+            "ad472bd4-681b-5751-a78d-cdca80303a91",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ad472bd4-681b-5751-a78d-cdca80303a91"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17009,13 +17009,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000dbf4-e0b1-4394-9a8a-792542566bc9",
+            "e0600f87-8db3-5ee9-b1e1-4b9b8c4620da",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e0600f87-8db3-5ee9-b1e1-4b9b8c4620da"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17111,13 +17111,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "2f878bf1-465c-5c4c-8306-eeaf1f02a0b1",
+            "199f423d-5a7d-5326-9bd0-211bf5780b9e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "199f423d-5a7d-5326-9bd0-211bf5780b9e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17169,23 +17169,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000dc9e-6292-41d1-bdb1-9c0fafbb597d",
+            "1266febb-a3b2-5151-a532-f019cad12c5d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1266febb-a3b2-5151-a532-f019cad12c5d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000dc9e-6292-41d1-bdb1-9c0fafbb597d",
+            "74e412b0-ca39-5292-ae83-80e754e90ca1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "74e412b0-ca39-5292-ae83-80e754e90ca1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17266,13 +17266,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "a6e42ad4-9b4c-53ed-9b07-77f06f17171f",
+            "4887adbd-01a4-5f45-84dd-f2ed8aeb19b6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4887adbd-01a4-5f45-84dd-f2ed8aeb19b6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17329,23 +17329,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000dd75-826a-424b-b090-7d85ae4b2782",
+            "4c314dc5-a5e2-55bd-bb97-e88d529d5a68",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4c314dc5-a5e2-55bd-bb97-e88d529d5a68"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000dd75-826a-424b-b090-7d85ae4b2782",
+            "0fb53b77-7d6b-57cb-bef4-e38c6e1dd5a7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0fb53b77-7d6b-57cb-bef4-e38c6e1dd5a7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17426,13 +17426,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "67c78e00-746e-5875-a467-385289e61788",
             "ee215b32-310f-531c-98dc-20e92bab8af1",
+            "c09f346c-328a-5e9b-8c94-99ab00c5d587",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c09f346c-328a-5e9b-8c94-99ab00c5d587"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17509,13 +17509,13 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c02fc32f-73da-53a4-a099-7897438a405c",
             "0000f152-fdcc-4f15-a31b-daf2f311e187",
+            "91bd28dc-0ec9-5b54-966a-0880acb8de01",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "91bd28dc-0ec9-5b54-966a-0880acb8de01"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17611,13 +17611,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "5ce84092-2672-567d-9178-fa3fa96560e8",
             "f919de55-ffdb-5ea2-9070-75c84be795d5",
+            "c5561dea-c869-5621-837d-2978125787c6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c5561dea-c869-5621-837d-2978125787c6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17694,23 +17694,23 @@
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000f4c5-f6e9-4fd6-a913-24613652b4d9",
+            "3af0689b-4fa0-5628-8f37-56e2e8d393c7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3af0689b-4fa0-5628-8f37-56e2e8d393c7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0c2f1f3e-ab89-5d12-8c4a-7c6272b30b8b",
             "0000f4c5-f6e9-4fd6-a913-24613652b4d9",
+            "99fdc6d7-594e-552a-ae6d-07d6737a519f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "99fdc6d7-594e-552a-ae6d-07d6737a519f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17791,13 +17791,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "7c9a8e14-de0f-558f-8a85-8d8ca08c13eb",
+            "4a6a3777-f7aa-57ae-bef8-26f41c3edf17",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4a6a3777-f7aa-57ae-bef8-26f41c3edf17"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17854,33 +17854,33 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d87e7785-b72f-5336-91ac-f424f47bede6",
             "c6f94f31-4760-5af2-84e9-9c9775891bde",
+            "f9373ab6-a1d3-5af3-9323-f56580dcc13a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f9373ab6-a1d3-5af3-9323-f56580dcc13a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3cd560f2-900a-5f3c-90d9-ea658077153e",
             "0000f4f6-ff8f-468d-a71e-4cc80541ac99",
+            "7e55c709-b0d2-5467-a47e-d1074273dd73",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "7e55c709-b0d2-5467-a47e-d1074273dd73"
+            "2021-08-30 00:00:00"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "990addb1-5de5-522d-ba05-fac4ca9d36a0",
             "0000f4f6-ff8f-468d-a71e-4cc80541ac99",
+            "4d837ccf-7655-5170-b641-516a5d2f87b1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4d837ccf-7655-5170-b641-516a5d2f87b1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -17979,13 +17979,13 @@
         ]
     },
     {
-        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "9e5b6afa-31db-59ed-ab5d-37884aa27876",
+            "f5ee6f4e-4fd5-5061-bb65-aef9a657460c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f5ee6f4e-4fd5-5061-bb65-aef9a657460c"
+            "2021-08-30 00:00:00"
         ]
     },
     {

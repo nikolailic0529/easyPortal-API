@@ -84,11 +84,10 @@ class CustomerFactoryTest extends TestCase {
 
         // Test
         $customer = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($customer);
         $this->assertTrue($customer->wasRecentlyCreated);
         $this->assertEquals($company->id, $customer->getKey());
@@ -217,14 +216,13 @@ class CustomerFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Customer should be updated
-        $json    = $this->getTestData()->json('~customer-changed.json');
-        $company = new Company($json);
-        $updated = $factory->create($company);
+        $json     = $this->getTestData()->json('~customer-changed.json');
+        $company  = new Company($json);
+        $updated  = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($customer, $updated);
         $this->assertEquals($company->id, $updated->getKey());
