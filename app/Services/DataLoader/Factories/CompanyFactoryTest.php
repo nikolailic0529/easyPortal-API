@@ -84,7 +84,7 @@ class CompanyFactoryTest extends TestCase {
         ];
 
         $this->assertCount(2, $statuses);
-        $this->assertEquals($expected, $this->getStatuses($statuses));
+        $this->assertEquals($expected, $this->statuses($statuses));
     }
 
     /**

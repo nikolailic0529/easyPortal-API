@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Testing;
 
 use App\Models\Asset;
 use App\Models\Customer;
-use App\Models\Document;
+use App\Models\Document as DocumentModel;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
@@ -18,6 +18,7 @@ use App\Services\DataLoader\Finders\ServiceGroupFinder as ServiceGroupFinderCont
 use App\Services\DataLoader\Finders\ServiceLevelFinder as ServiceLevelFinderContract;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Data\DataGenerator;
@@ -71,7 +72,7 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getModelContacts(Reseller|Customer|Asset|Document $model): array {
+    protected function getModelContacts(Reseller|Customer|Asset|DocumentModel $model): array {
         $contacts = [];
 
         foreach ($model->contacts as $contact) {
@@ -147,8 +148,8 @@ trait Helper {
     /**
      * @return array{key: string, name: string}|null
      */
-    protected function getModelStatuses(Reseller|Customer $model): ?array {
-        return $this->getStatuses($model->statuses ?? []);
+    protected function getModelStatuses(DocumentModel|Reseller|Customer $model): ?array {
+        return $this->statuses($model->statuses ?? []);
     }
 
     /**
@@ -156,7 +157,7 @@ trait Helper {
      *
      * @return array{key: string, name: string}|null
      */
-    protected function getStatuses(Collection|array|null $statuses): ?array {
+    protected function statuses(Collection|array|null $statuses): ?array {
         $result = null;
 
         foreach ($statuses as $status) {
@@ -169,6 +170,22 @@ trait Helper {
         }
 
         return $result;
+    }
+
+    /**
+     * @return array{key: string, name: string}|null
+     */
+    protected function getStatuses(Company|Document $object): ?array {
+        $statuses = [];
+
+        foreach ((array) $object->status as $status) {
+            $statuses[$status] = [
+                'key'  => $status,
+                'name' => $status,
+            ];
+        }
+
+        return $statuses;
     }
 
     /**
@@ -230,22 +247,6 @@ trait Helper {
         }, $company->companyTypes));
 
         return reset($types);
-    }
-
-    /**
-     * @return array{key: string, name: string}
-     */
-    protected function getCompanyStatuses(Company $company): array {
-        $statuses = [];
-
-        foreach ((array) $company->status as $status) {
-            $statuses[$status] = [
-                'key'  => $status,
-                'name' => $status,
-            ];
-        }
-
-        return $statuses;
     }
 
     /**

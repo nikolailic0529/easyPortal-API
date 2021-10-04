@@ -96,7 +96,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->updatedAt, $this->getDatetime($customer->changed_at));
         $this->assertEquals($this->getCompanyType($company), $customer->type->key);
         $this->assertCount(2, $customer->statuses);
-        $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($customer));
+        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($customer));
         $this->assertCount(2, $customer->locations);
         $this->assertEquals(2, $customer->locations_count);
         $this->assertEquals(
@@ -232,7 +232,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
         $this->assertEquals($this->getCompanyType($company), $updated->type->key);
         $this->assertCount(1, $updated->statuses);
-        $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($updated));
+        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
         $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
