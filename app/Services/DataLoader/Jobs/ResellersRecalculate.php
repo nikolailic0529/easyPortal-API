@@ -17,6 +17,9 @@ use function array_merge;
 use function array_sum;
 use function count;
 
+/**
+ * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Reseller>
+ */
 class ResellersRecalculate extends Recalculate {
     public function displayName(): string {
         return 'ep-data-loader-resellers-recalculate';
@@ -26,7 +29,7 @@ class ResellersRecalculate extends Recalculate {
         return new Reseller();
     }
 
-    public function __invoke(): void {
+    protected function process(): void {
         $keys      = $this->getKeys();
         $model     = $this->getModel();
         $resellers = $model::query()

@@ -15,6 +15,9 @@ use function array_map;
 use function array_sum;
 use function count;
 
+/**
+ * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Location>
+ */
 class LocationsRecalculate extends Recalculate {
     public function displayName(): string {
         return 'ep-data-loader-locations-recalculate';
@@ -24,7 +27,7 @@ class LocationsRecalculate extends Recalculate {
         return new Location();
     }
 
-    public function __invoke(): void {
+    protected function process(): void {
         $keys      = $this->getKeys();
         $model     = $this->getModel();
         $locations = $model::query()
@@ -33,6 +36,7 @@ class LocationsRecalculate extends Recalculate {
         $assets    = $this->calculateAssets($keys, $locations);
 
         foreach ($locations as $location) {
+            /** @var \App\Models\Location $location */
             // Prepare
             $locationAssets = $assets[$location->getKey()] ?? [];
 

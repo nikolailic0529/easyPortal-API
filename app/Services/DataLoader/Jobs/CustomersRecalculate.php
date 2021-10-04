@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use function array_sum;
 use function count;
 
+/**
+ * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Customer>
+ */
 class CustomersRecalculate extends Recalculate {
     public function displayName(): string {
         return 'ep-data-loader-customers-recalculate';
@@ -20,7 +23,7 @@ class CustomersRecalculate extends Recalculate {
         return new Customer();
     }
 
-    public function __invoke(): void {
+    protected function process(): void {
         $keys      = $this->getKeys();
         $model     = $this->getModel();
         $customers = $model::query()

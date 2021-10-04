@@ -3,7 +3,9 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Callbacks\GetKey;
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Queue\Job;
 use App\Services\Queue\Queues;
 use Illuminate\Support\Collection;
@@ -12,6 +14,9 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
 use function sprintf;
 
+/**
+ * @template T of \App\Models\Model
+ */
 abstract class Recalculate extends Job implements Initializable {
     /**
      * @var array<string>
@@ -63,5 +68,16 @@ abstract class Recalculate extends Job implements Initializable {
         return $this;
     }
 
+    /**
+     * @return T
+     */
     abstract public function getModel(): Model;
+
+    abstract protected function process(): void;
+
+    public function __invoke(): void {
+        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): void {
+            $this->process();
+        });
+    }
 }
