@@ -12,6 +12,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Database\RecordsNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -30,6 +31,7 @@ use function count;
 use function is_null;
 use function reset;
 use function rtrim;
+use function str_starts_with;
 use function trim;
 
 class Handler extends ExceptionHandler {
@@ -89,6 +91,15 @@ class Handler extends ExceptionHandler {
 
         if ($e instanceof ApplicationException) {
             $context = array_merge($context, $e->getContext());
+        } elseif ($e instanceof RequestException) {
+            $expectedType = 'application/json';
+            $contentType  = $e->response->header('Content-Type');
+
+            if ($contentType === $expectedType || str_starts_with($contentType, "{$expectedType};")) {
+                $context = array_merge($context, [
+                    'json' => $e->response->json(),
+                ]);
+            }
         }
 
         return $context;
