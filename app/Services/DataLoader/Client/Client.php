@@ -30,8 +30,10 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
 use SplFileInfo;
 
+use function array_is_list;
 use function explode;
 use function implode;
+use function is_array;
 use function json_encode;
 use function reset;
 use function sha1;
@@ -392,6 +394,19 @@ class Client {
             ->setOffset($offset);
     }
 
+    public function getDocumentsCount(): int {
+        return (int) $this->call(
+            'data.getCentralAssetDbStatistics.documentsAmount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query {
+                getCentralAssetDbStatistics {
+                    documentsAmount
+                }
+            }
+            GRAPHQL,
+        );
+    }
+
     /**
      * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Document>
      */
@@ -424,7 +439,7 @@ class Client {
             'getDocumentById',
             /** @lang GraphQL */ <<<GRAPHQL
             query getDocumentById(\$id: String!) {
-                getDocumentById(id: \$id}]) {
+                getDocumentById(id: \$id) {
                     {$this->getDocumentPropertiesGraphQL()}
                 }
             }
@@ -567,7 +582,7 @@ class Client {
      */
     public function get(string $selector, string $graphql, array $params, Closure $retriever): ?object {
         $results = (array) $this->call("data.{$selector}", $graphql, $params);
-        $item    = reset($results) ?: null;
+        $item    = array_is_list($results) ? (reset($results) ?: null) : $results;
 
         if ($item) {
             $item = $retriever($item);
@@ -1048,24 +1063,6 @@ class Client {
                 name
                 type
                 mail
-            }
-
-            documentEntries {
-                assetId
-                skuNumber
-                skuDescription
-                startDate
-                endDate
-                warrantyEndDate
-                productLineDescription
-                supportPackage
-                supportPackageDescription
-                languageCode
-                currencyCode
-                netPrice
-                discount
-                listPrice
-                estimatedValueRenewal
             }
             GRAPHQL;
     }
