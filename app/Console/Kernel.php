@@ -25,6 +25,8 @@ use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
+use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
+use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Commands\SyncPermissions;
@@ -85,6 +87,8 @@ class Kernel extends ConsoleKernel {
         ResellersUpdaterCronJob::class,
         CustomersImporterCronJob::class,
         CustomersUpdaterCronJob::class,
+        DocumentsImporterCronJob::class,
+        DocumentsUpdaterCronJob::class,
         AssetsImporterCronJob::class,
         AssetsUpdaterCronJob::class,
         SyncPermissionsCronJob::class,

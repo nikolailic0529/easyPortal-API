@@ -9,6 +9,8 @@ use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
+use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
+use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
@@ -1045,6 +1047,116 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_EXPIRE = 'PT24H';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_IMPORTER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(DocumentsImporterCronJob::class, 'enabled')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(DocumentsImporterCronJob::class, 'cron')]
+    #[Group('data_loader')]
+    #[Type(CronExpression::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(DocumentsImporterCronJob::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_QUEUE = Queues::DATA_LOADER;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(DocumentsImporterCronJob::class, 'timeout')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_TIMEOUT = 24 * 60 * 60;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(DocumentsImporterCronJob::class, 'tries')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_TRIES = 7;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(DocumentsImporterCronJob::class, 'settings.chunk')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK = 500;
+
+    /**
+     * Update existing objects?
+     */
+    #[Service(DocumentsImporterCronJob::class, 'settings.update')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_UPDATE = true;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_UPDATER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'enabled')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'cron')]
+    #[Group('data_loader')]
+    #[Type(CronExpression::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_QUEUE = Queues::DATA_LOADER;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'timeout')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TIMEOUT;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'tries')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_TRIES = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TRIES;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'settings.chunk')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CHUNK = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK;
+
+    /**
+     * Expiration interval.
+     */
+    #[Service(DocumentsUpdaterCronJob::class, 'settings.expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_EXPIRE = 'PT24H';
     // </editor-fold>
     // </editor-fold>
 
