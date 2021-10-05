@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
@@ -296,6 +297,9 @@ class CustomerFactoryTest extends TestCase {
                 ],
             ],
         ]);
+        $document   = new Document([
+            'customerId' => $this->faker->uuid,
+        ]);
         $resolver   = $this->app->make(CustomerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -314,7 +318,7 @@ class CustomerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [$a, $asset, new ViewAsset(['customerId' => $b->id])],
+            [$a, $asset, new ViewAsset(['customerId' => $b->id]), $document],
             false,
             Closure::fromCallable($callback),
         );
@@ -327,6 +331,7 @@ class CustomerFactoryTest extends TestCase {
         $factory->find($b);
         $resolver->get($asset->assetDocument[0]->customer->id);
         $resolver->get($asset->assetDocument[0]->document->customerId);
+        $resolver->get($document->customerId);
 
         $this->assertCount(0, $this->getQueryLog());
     }
