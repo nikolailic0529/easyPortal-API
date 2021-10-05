@@ -219,7 +219,7 @@ return [
                 'connection'   => 'redis',
                 'queue'        => [Queues::DATA_LOADER_RECALCULATE],
                 'balance'      => 'auto',
-                'maxProcesses' => 2,
+                'maxProcesses' => 1,
                 'timeout'      => 60 * 60,
                 'memory'       => 1024,
                 'tries'        => 1,
