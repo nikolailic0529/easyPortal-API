@@ -2,10 +2,12 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Services\DataLoader\Schema\CentralAssetDbStatistics;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentVendorSpecificField;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -91,6 +93,8 @@ class ClientDataCleaner {
             $object->documentNumber = $this->map($object->documentNumber, $uuid);
         } elseif ($object instanceof ViewDocument) {
             $object->documentNumber = $this->map($object->documentNumber, $uuid);
+        } elseif ($object instanceof Document) {
+            $object->documentNumber = $this->map($object->documentNumber, $uuid);
         } elseif ($object instanceof DocumentVendorSpecificField) {
             $object->said             = $this->map($object->said, $uuid);
             $object->groupId          = $this->map($object->groupId, $uuid);
@@ -119,6 +123,8 @@ class ClientDataCleaner {
             $object->latitude    = $this->map($object->latitude, $latitude);
             $object->longitude   = $this->map($object->longitude, $longitude);
         } elseif ($object instanceof CompanyKpis) {
+            // empty
+        } elseif ($object instanceof CentralAssetDbStatistics) {
             // empty
         } else {
             throw new Exception(sprintf(

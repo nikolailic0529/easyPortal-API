@@ -1,8 +1,14 @@
 [
     "update `customers` set `name` = ?, `changed_at` = ?, `contacts_count` = ?, `locations_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+    "update `customer_statuses` set `deleted_at` = ?, `customer_statuses`.`updated_at` = ? where `id` = ?",
+    "update `contact_types` set `deleted_at` = ?, `contact_types`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `contact_types` set `deleted_at` = ?, `contact_types`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `contact_types` set `deleted_at` = ?, `contact_types`.`updated_at` = ? where `id` = ?",
     "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `customer_location_types` set `deleted_at` = ?, `customer_location_types`.`updated_at` = ? where `id` = ?",
+    "update `customer_location_types` set `deleted_at` = ?, `customer_location_types`.`updated_at` = ? where `id` = ?",
     "update `customer_locations` set `deleted_at` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
     "update `kpis` set `deleted_at` = ?, `kpis`.`updated_at` = ? where `id` = ?"
 ]

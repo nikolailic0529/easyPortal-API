@@ -11,6 +11,7 @@ use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
@@ -29,6 +30,7 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
 use SplFileInfo;
 
+use function array_is_list;
 use function explode;
 use function implode;
 use function json_encode;
@@ -391,6 +393,63 @@ class Client {
             ->setOffset($offset);
     }
 
+    public function getDocumentsCount(): int {
+        return (int) $this->call(
+            'data.getCentralAssetDbStatistics.documentsAmount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query {
+                getCentralAssetDbStatistics {
+                    documentsAmount
+                }
+            }
+            GRAPHQL,
+        );
+    }
+
+    /**
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Document>
+     */
+    public function getDocuments(
+        DateTimeInterface $from = null,
+        int $limit = null,
+        string $offset = null,
+    ): QueryIterator {
+        return $this
+            ->getLastIdBasedIterator(
+                'getDocuments',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query getDocuments(\$limit: Int, \$lastId: String, \$from: String) {
+                    getDocuments(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                        {$this->getDocumentPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+                $this->getDocumentRetriever(),
+            )
+            ->setLimit($limit)
+            ->setOffset($offset);
+    }
+
+    public function getDocumentById(string $id): ?Document {
+        return $this->get(
+            'getDocumentById',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getDocumentById(\$id: String!) {
+                getDocumentById(id: \$id) {
+                    {$this->getDocumentPropertiesGraphQL()}
+                }
+            }
+            GRAPHQL,
+            [
+                'id' => $id,
+            ],
+            $this->getDocumentRetriever(),
+        );
+    }
+
     /**
      * @return array<mixed>
      */
@@ -522,7 +581,7 @@ class Client {
      */
     public function get(string $selector, string $graphql, array $params, Closure $retriever): ?object {
         $results = (array) $this->call("data.{$selector}", $graphql, $params);
-        $item    = reset($results) ?: null;
+        $item    = array_is_list($results) ? (reset($results) ?: null) : $results;
 
         if ($item) {
             $item = $retriever($item);
@@ -729,6 +788,15 @@ class Client {
     protected function getAssetRetriever(): Closure {
         return static function (array $data): ViewAsset {
             return new ViewAsset($data);
+        };
+    }
+
+    /**
+     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Document
+     */
+    protected function getDocumentRetriever(): Closure {
+        return static function (array $data): Document {
+            return new Document($data);
         };
     }
     // </editor-fold>
@@ -962,6 +1030,38 @@ class Client {
                 reseller {
                   id
                 }
+            }
+            GRAPHQL;
+    }
+
+    protected function getDocumentPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            id
+            type
+            status
+            documentNumber
+            startDate
+            endDate
+            currencyCode
+            totalNetPrice
+            languageCode
+            updatedAt
+            resellerId
+            customerId
+            distributorId
+
+            vendorSpecificFields {
+                vendor
+                groupId
+                groupDescription
+                said
+            }
+
+            contactPersons {
+                phoneNumber
+                name
+                type
+                mail
             }
             GRAPHQL;
     }

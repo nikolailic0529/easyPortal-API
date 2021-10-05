@@ -6,6 +6,7 @@ use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
@@ -92,18 +93,17 @@ class ResellerFactoryTest extends TestCase {
 
         // Test
         $reseller = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($reseller);
         $this->assertTrue($reseller->wasRecentlyCreated);
         $this->assertEquals($company->id, $reseller->getKey());
         $this->assertEquals($company->name, $reseller->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($reseller->changed_at));
         $this->assertCount(2, $reseller->statuses);
-        $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($reseller));
+        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($reseller));
         $this->assertCount(2, $reseller->locations);
         $this->assertEquals(2, $reseller->locations_count);
         $this->assertEqualsCanonicalizing(
@@ -225,21 +225,20 @@ class ResellerFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Reseller should be updated
-        $json    = $this->getTestData()->json('~reseller-changed.json');
-        $company = new Company($json);
-        $updated = $factory->create($company);
+        $json     = $this->getTestData()->json('~reseller-changed.json');
+        $company  = new Company($json);
+        $updated  = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($reseller, $updated);
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
         $this->assertCount(1, $updated->statuses);
-        $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($updated));
+        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
         $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
@@ -334,6 +333,9 @@ class ResellerFactoryTest extends TestCase {
                 ],
             ],
         ]);
+        $document   = new Document([
+            'resellerId' => $this->faker->uuid,
+        ]);
         $resolver   = $this->app->make(ResellerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -352,7 +354,7 @@ class ResellerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [$a, $asset, new ViewAsset(['resellerId' => null])],
+            [$a, $asset, new ViewAsset(['resellerId' => null]), $document],
             false,
             Closure::fromCallable($callback),
         );
@@ -365,6 +367,7 @@ class ResellerFactoryTest extends TestCase {
         $factory->find($b);
         $resolver->get($asset->assetDocument[0]->reseller->id);
         $resolver->get($asset->assetDocument[0]->document->resellerId);
+        $resolver->get($document->resellerId);
 
         $this->assertCount(0, $this->getQueryLog());
     }

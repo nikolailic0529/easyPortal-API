@@ -745,10 +745,9 @@ class AssetTest extends TestCase {
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ]);
                             $document     = Document::factory()->create([
-                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'type_id'          => $documentType,
-                                'service_group_id' => $serviceGroup,
-                                'reseller_id'      => $reseller,
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'type_id'     => $documentType,
+                                'reseller_id' => $reseller,
                             ]);
                             // Document entry creation for services
                             DocumentEntry::factory()->create([

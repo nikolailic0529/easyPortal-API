@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
@@ -84,11 +85,10 @@ class CustomerFactoryTest extends TestCase {
 
         // Test
         $customer = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($customer);
         $this->assertTrue($customer->wasRecentlyCreated);
         $this->assertEquals($company->id, $customer->getKey());
@@ -96,7 +96,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->updatedAt, $this->getDatetime($customer->changed_at));
         $this->assertEquals($this->getCompanyType($company), $customer->type->key);
         $this->assertCount(2, $customer->statuses);
-        $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($customer));
+        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($customer));
         $this->assertCount(2, $customer->locations);
         $this->assertEquals(2, $customer->locations_count);
         $this->assertEquals(
@@ -217,14 +217,13 @@ class CustomerFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Customer should be updated
-        $json    = $this->getTestData()->json('~customer-changed.json');
-        $company = new Company($json);
-        $updated = $factory->create($company);
+        $json     = $this->getTestData()->json('~customer-changed.json');
+        $company  = new Company($json);
+        $updated  = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($customer, $updated);
         $this->assertEquals($company->id, $updated->getKey());
@@ -232,7 +231,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
         $this->assertEquals($this->getCompanyType($company), $updated->type->key);
         $this->assertCount(1, $updated->statuses);
-        $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($updated));
+        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
         $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
@@ -298,6 +297,9 @@ class CustomerFactoryTest extends TestCase {
                 ],
             ],
         ]);
+        $document   = new Document([
+            'customerId' => $this->faker->uuid,
+        ]);
         $resolver   = $this->app->make(CustomerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -316,7 +318,7 @@ class CustomerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [$a, $asset, new ViewAsset(['customerId' => $b->id])],
+            [$a, $asset, new ViewAsset(['customerId' => $b->id]), $document],
             false,
             Closure::fromCallable($callback),
         );
@@ -329,6 +331,7 @@ class CustomerFactoryTest extends TestCase {
         $factory->find($b);
         $resolver->get($asset->assetDocument[0]->customer->id);
         $resolver->get($asset->assetDocument[0]->document->customerId);
+        $resolver->get($document->customerId);
 
         $this->assertCount(0, $this->getQueryLog());
     }

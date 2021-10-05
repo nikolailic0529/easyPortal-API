@@ -501,6 +501,10 @@ input ContactsSort {
   phone_valid: Boolean
 }
 
+input ContractStatusesQuery {
+  contracts: DocumentsQuery
+}
+
 input ContractTypesQuery {
   contracts: DocumentsQuery
 }
@@ -615,7 +619,7 @@ type Customer {
   name: String!
   type: Type!
   type_id: ID!
-  statuses: [Status]!
+  statuses: [Status!]!
   contacts_count: Int!
   contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
   locations: [CustomerLocation!]!
@@ -870,11 +874,10 @@ type Document {
   oem: Oem!
   oem_said: String
   oemGroup: OemGroup
-  service_group_id: ID
-  serviceGroup: ServiceGroup
   reseller_id: ID
   reseller: Reseller
   type: Type!
+  statuses: [Status!]!
   is_contract: Boolean!
   is_quote: Boolean!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
@@ -965,8 +968,6 @@ input DocumentsQuery {
   currency_id: ID
   language_id: ID
   serial_number: String
-  service_group_id: ID
-  service_level_id: ID
   customer_id: ID
   customer: CustomersQuery
   reseller_id: ID
@@ -977,6 +978,7 @@ input DocumentsQuery {
   entries_count: Int!
   contacts: ContactsQuery
   contacts_count: Int!
+  statuses: StatusesQuery
 }
 
 input DocumentsSearchCustomerSort {
@@ -1959,6 +1961,15 @@ type Query {
   contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
 
   """
+  List of all possible contract statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contractStatuses(where: SearchByConditionContractStatusesQuery): [Status!]!
+
+  """
   List of all possible quote types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1966,6 +1977,15 @@ type Query {
   @require <me> User must be authenticated.
   """
   quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
+
+  """
+  List of all possible quote statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteStatuses(where: SearchByConditionQuoteStatusesQuery): [Status!]!
 
   """
   List of all possible asset statuses.
@@ -2359,6 +2379,10 @@ type QuoteRequestDuration {
   id: ID!
   name: String!
   key: String!
+}
+
+input QuoteStatusesQuery {
+  quotes: DocumentsQuery
 }
 
 input QuoteTypesQuery {
@@ -3439,6 +3463,23 @@ input SearchByConditionContactsQuery {
 }
 
 """
+Available conditions for input ContractStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionContractStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionContractStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionContractStatusesQuery!]
+
+  """Not."""
+  not: SearchByConditionContractStatusesQuery
+
+  """Property condition."""
+  contracts: SearchByComplexRelationDocumentsQuery
+}
+
+"""
 Available conditions for input ContractTypesQuery (only one property allowed at a time).
 """
 input SearchByConditionContractTypesQuery {
@@ -3751,12 +3792,6 @@ input SearchByConditionDocumentsQuery {
   serial_number: SearchByScalarStringOrNull
 
   """Property condition."""
-  service_group_id: SearchByScalarIDOrNull
-
-  """Property condition."""
-  service_level_id: SearchByScalarIDOrNull
-
-  """Property condition."""
   customer_id: SearchByScalarIDOrNull
 
   """Property condition."""
@@ -3785,6 +3820,9 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   contacts_count: SearchByScalarInt
+
+  """Property condition."""
+  statuses: SearchByComplexRelationStatusesQuery
 }
 
 """
@@ -4043,6 +4081,23 @@ input SearchByConditionProductsQuery {
 
   """Property condition."""
   name: SearchByScalarString
+}
+
+"""
+Available conditions for input QuoteStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionQuoteStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionQuoteStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionQuoteStatusesQuery!]
+
+  """Not."""
+  not: SearchByConditionQuoteStatusesQuery
+
+  """Property condition."""
+  quotes: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -5305,12 +5360,6 @@ input SortByClauseDocumentsQuery {
   serial_number: SortByDirection
 
   """Property clause."""
-  service_group_id: SortByDirection
-
-  """Property clause."""
-  service_level_id: SortByDirection
-
-  """Property clause."""
   customer_id: SortByDirection
 
   """Property clause."""
@@ -5339,6 +5388,9 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   contacts_count: SortByDirection
+
+  """Property clause."""
+  statuses: SortByClauseStatusesQuery
 }
 
 """

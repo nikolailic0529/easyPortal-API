@@ -105,12 +105,28 @@ type Query {
     builder: "App\\GraphQL\\Queries\\ContractTypes"
   )
 
+  "List of all possible contract statuses."
+  contractStatuses(where: ContractStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me
+  @all(
+    builder: "App\\GraphQL\\Queries\\ContractStatuses"
+  )
+
   "List of all possible quote types."
   quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
   @organization
   @me
   @all(
     builder: "App\\GraphQL\\Queries\\QuoteTypes"
+  )
+
+  "List of all possible quote statuses."
+  quoteStatuses(where: QuoteStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me
+  @all(
+    builder: "App\\GraphQL\\Queries\\QuoteStatuses"
   )
 
   "List of all possible asset statuses."

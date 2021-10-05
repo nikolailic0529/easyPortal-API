@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "3d1c5e51-86e7-4687-946f-6553b8e2f131"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "3d1c5e51-86e7-4687-946f-6553b8e2f131",
+                    "name": "Nikolaus-Nienow",
+                    "updatedAt": "1633404431611",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "59718",
+                            "address": "8670 Erica Summit Suite 175",
+                            "city": "Rosemaryville",
+                            "locationType": "HEADQUARTER",
+                            "country": "Taiwan",
+                            "latitude": "-65.45963",
+                            "longitude": "-86.193552",
+                            "countryCode": "MS"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 4287,
+                        "activeAssets": 2652,
+                        "activeAssetsPercentage": 61.86144156752974,
+                        "activeCustomers": 42,
+                        "newActiveCustomers": 42,
+                        "activeContracts": 31,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 31,
+                        "expiringContracts": 5,
+                        "activeQuotes": 24,
+                        "activeQuotesTotalAmount": 655.47,
+                        "newActiveQuotes": 24,
+                        "expiringQuotes": 4,
+                        "expiredQuotes": 42,
+                        "expiredContracts": 29,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

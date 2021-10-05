@@ -1,0 +1,18 @@
+[
+    "select * from `languages` where (`languages`.`id` = ?) and `languages`.`deleted_at` is null limit 1",
+    "insert into `languages` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+    "select * from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+    "select * from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
+    "select * from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1",
+    "select * from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
+    "update `documents` set `oem_group_id` = ?, `oem_said` = ?, `currency_id` = ?, `language_id` = ?, `distributor_id` = ?, `start` = ?, `price` = ?, `changed_at` = ?, `contacts_count` = ?, `entries_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
+    "update `contact_types` set `deleted_at` = ?, `contact_types`.`updated_at` = ? where `id` = ?",
+    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `document_statuses` set `deleted_at` = ?, `document_statuses`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `asset_id` = ?, `product_id` = ?, `serial_number` = ?, `currency_id` = ?, `net_price` = ?, `list_price` = ?, `discount` = ?, `renewal` = ?, `service_group_id` = ?, `service_level_id` = ?, `id` = ?, `document_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `asset_id` = ?, `product_id` = ?, `serial_number` = ?, `currency_id` = ?, `net_price` = ?, `list_price` = ?, `discount` = ?, `renewal` = ?, `service_group_id` = ?, `service_level_id` = ?, `id` = ?, `document_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?"
+]

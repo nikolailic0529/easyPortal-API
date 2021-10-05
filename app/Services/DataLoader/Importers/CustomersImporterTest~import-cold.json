@@ -199,13 +199,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "000514de-cbf8-4955-b027-fc94e44e24a7",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "863f844b-efde-5781-a57c-0d127a496cfe"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -351,13 +351,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00086c84-47ba-4796-a753-b6ab59580865",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -404,13 +404,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "305091d8-9610-5841-9743-85d05494e34c",
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -538,13 +538,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0008751b-2d84-4edf-9075-789a071a84d0",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -690,13 +690,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "000cbefe-925a-43e1-a67d-31fe0b73ab71",
+            "0a7548dd-c241-5418-99ca-296c1b5d9607",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -743,13 +743,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
+            "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a9752c6c-95ea-50c8-9919-6a0b887ecc91"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -877,13 +877,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "673f7541-1538-5839-93dc-cb386aa163cf"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -930,13 +930,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
+            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1048,13 +1048,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0012d3f3-144e-43db-b40e-66b4d8604d9e",
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1200,13 +1200,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00162413-6913-41cf-b328-f441d958ae75",
+            "c8526c37-fec0-5a56-aead-fd820acdfb51",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c8526c37-fec0-5a56-aead-fd820acdfb51"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1352,13 +1352,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00168fb1-b86c-42f0-abab-6582ea1a865e",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1504,13 +1504,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0016b65f-d08d-4a94-9050-58c1c9066fa5",
+            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4ad798c6-af75-5237-9d0b-f5e3323bb947"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1557,13 +1557,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "092a1c8c-bddd-5cf1-a921-4b41c8835536",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "76dc1bd8-f28b-5d78-a1fe-3950002e5872"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1675,13 +1675,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "001891b4-fe07-4d88-9a01-816a1c4709cc",
+            "f50b4a9f-54fb-5888-92f9-2288108f925d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f50b4a9f-54fb-5888-92f9-2288108f925d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2273,13 +2273,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "001e8e14-f724-4a25-85b4-df4ed547a822",
+            "acf54392-1f10-517b-bf7b-2a445e5e8826",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "acf54392-1f10-517b-bf7b-2a445e5e8826"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2425,13 +2425,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
+            "79aa20b0-3def-5ac1-99e0-e5791b5a8640",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "79aa20b0-3def-5ac1-99e0-e5791b5a8640"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2577,13 +2577,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00287225-33bf-471b-8642-c2daa9c413f8",
+            "5491a20b-c887-5c3c-958a-da9d3f53f886",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5491a20b-c887-5c3c-958a-da9d3f53f886"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2712,13 +2712,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "002a6618-f02a-49af-8f4f-8bce8876318f",
+            "d4c100d1-75af-5ea0-8c84-224150bd1843",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d4c100d1-75af-5ea0-8c84-224150bd1843"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2864,13 +2864,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
+            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bfd7ceae-b184-54ab-b660-5d06f9d4e964"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3016,13 +3016,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "002e1544-0996-4bd1-852b-43497fde643a",
+            "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3151,13 +3151,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "002f8f2e-1cd9-40b9-bc11-60769495f733",
+            "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3204,13 +3204,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "8cd09c24-e067-5cc9-8d9f-c9e04697415a",
+            "31cd877f-51fe-56f1-8a9d-293720ff8434",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "31cd877f-51fe-56f1-8a9d-293720ff8434"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3322,13 +3322,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00304660-44aa-446d-9b52-72ab9858fbe4",
+            "fb52d2dc-b5b1-57e4-80bf-bb16a019b019",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "fb52d2dc-b5b1-57e4-80bf-bb16a019b019"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3346,13 +3346,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
+            "48b55aa1-76c8-5829-9fec-4295445df191",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "48b55aa1-76c8-5829-9fec-4295445df191"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3480,13 +3480,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "003073af-d3a8-49b2-bed7-678ba80d1890",
+            "190acee6-c3b2-55ce-b1a9-abf9a4ea470f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "190acee6-c3b2-55ce-b1a9-abf9a4ea470f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3632,13 +3632,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00377726-408c-4090-b2b5-527650642d1f",
+            "2583289d-541c-5ab3-914b-353b5a3a3b4f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2583289d-541c-5ab3-914b-353b5a3a3b4f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3685,13 +3685,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "817732ad-454f-5aab-8bf0-fa41ab854a8c",
+            "7bc174a1-9e40-5793-83a1-8939be914c60",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "7bc174a1-9e40-5793-83a1-8939be914c60"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4249,13 +4249,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
+            "3d90701e-bad4-55d7-a231-7041e9a3edd7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3d90701e-bad4-55d7-a231-7041e9a3edd7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4302,13 +4302,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "b48c7c9d-5533-5a10-90f5-0263c1abf9b8",
+            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4420,13 +4420,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "003d5627-b1a7-4b59-b264-876022125810",
+            "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4473,13 +4473,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "84e911e7-05cc-5359-98b1-fe80230e4510",
+            "eb33d88c-28d0-5057-93d1-4668ef673b37",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "eb33d88c-28d0-5057-93d1-4668ef673b37"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4574,13 +4574,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "003df82c-b286-408e-a5e2-70d0341ff922",
+            "bc4b526a-beeb-5b7c-a139-c5f3b7d24f8a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bc4b526a-beeb-5b7c-a139-c5f3b7d24f8a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4726,13 +4726,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00416109-eeb9-4e45-9b1b-72a0086c7d12",
+            "b9c1728b-103f-5855-a750-591a28da63a1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b9c1728b-103f-5855-a750-591a28da63a1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4779,13 +4779,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e5214624-ce69-5263-a8d6-7178ef3cca95",
+            "a65b0772-2114-5c17-951d-38de5feda665",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a65b0772-2114-5c17-951d-38de5feda665"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4897,13 +4897,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
+            "00b241a4-f7d4-5170-b830-b33746b8aee7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "00b241a4-f7d4-5170-b830-b33746b8aee7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5049,13 +5049,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00489f55-ca17-4136-8a1f-ab9472b8e138",
+            "abd8b247-1a7f-5f55-bc1f-32aeefc3b4ea",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "abd8b247-1a7f-5f55-bc1f-32aeefc3b4ea"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5073,13 +5073,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "701cb66e-d09d-594c-b1e6-123db7b62492",
+            "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5191,13 +5191,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "004abfbe-9f96-4294-8de3-a05955920828",
+            "e9d888a5-e80f-5edd-af57-4e6cbb5337f8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e9d888a5-e80f-5edd-af57-4e6cbb5337f8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5301,13 +5301,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
+            "ee77a04d-6088-54b2-b132-ecf1227d730c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ee77a04d-6088-54b2-b132-ecf1227d730c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5421,13 +5421,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
+            "bbf09ba3-d59b-58e7-a0f6-245886eea6f5",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bbf09ba3-d59b-58e7-a0f6-245886eea6f5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5474,13 +5474,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
+            "eaaf3095-1d64-5f58-a010-35e858b7d3dd",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5575,13 +5575,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
+            "0d8ec5a3-1df6-527e-be5f-7f8f64f53e75",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0d8ec5a3-1df6-527e-be5f-7f8f64f53e75"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5628,13 +5628,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
+            "9ba2d71f-b1fb-50ac-9886-f0ee484524ce",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9ba2d71f-b1fb-50ac-9886-f0ee484524ce"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6157,13 +6157,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00561888-ff56-4b14-b6bd-03b2abe0ea79",
+            "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6309,13 +6309,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00562638-2237-4cdb-b580-2c82a65a94ff",
+            "95ce4b47-fc5b-5216-8046-8dcd80ff1953",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "95ce4b47-fc5b-5216-8046-8dcd80ff1953"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6362,13 +6362,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
+            "15ba77c5-b887-5c51-8b5b-961da34df9da",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "15ba77c5-b887-5c51-8b5b-961da34df9da"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6480,13 +6480,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
+            "31441e15-c634-5010-9c90-a9ca58f9d5c8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "31441e15-c634-5010-9c90-a9ca58f9d5c8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6627,13 +6627,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0059bbe6-5c23-4244-9174-58401ca51e1c",
+            "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6779,13 +6779,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "005bb000-a71b-406f-a48c-016176bd329a",
+            "49af19cb-036b-57f7-874c-ae48888adcbc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "49af19cb-036b-57f7-874c-ae48888adcbc"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6931,13 +6931,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
+            "784893f2-8072-53c2-9932-79e1ff1bc437",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "784893f2-8072-53c2-9932-79e1ff1bc437"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7083,13 +7083,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00605988-7243-4135-9da0-2cec80179f6d",
+            "6da0dd01-5e79-55d7-80d6-4a5d44b5ac7c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6da0dd01-5e79-55d7-80d6-4a5d44b5ac7c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7235,13 +7235,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00616f5f-afae-4b5d-b131-824034b6ec39",
+            "611899ec-856b-56d2-b2dd-2463454787ce",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "611899ec-856b-56d2-b2dd-2463454787ce"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7387,13 +7387,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0065cb2a-2556-449e-ad18-255f06049b22",
+            "ebc8a170-17d0-503d-bf79-e0b1de50731e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ebc8a170-17d0-503d-bf79-e0b1de50731e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7539,13 +7539,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0065fc39-38ba-4f55-9409-82727defe7f0",
+            "02a2e600-5d24-57aa-bd01-194a1446a7e3",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "02a2e600-5d24-57aa-bd01-194a1446a7e3"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8132,13 +8132,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "006a6e2d-dda0-43fa-93bd-655b67af7276",
+            "13f83f60-4e26-58b7-993b-e821aa9b4bdf",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "13f83f60-4e26-58b7-993b-e821aa9b4bdf"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8284,13 +8284,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
+            "ef9e946b-406a-5a93-b2fe-5339c7dee306",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ef9e946b-406a-5a93-b2fe-5339c7dee306"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8436,13 +8436,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "006d21ef-9344-414d-9c06-f87528c53d70",
+            "bb64f755-fb47-596c-8120-c52cef89abe5",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bb64f755-fb47-596c-8120-c52cef89abe5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8460,13 +8460,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "562b3484-8f01-5b0a-ae25-1d6d509632b2",
+            "12772d57-df6b-53ac-8707-ea4125b6ab0f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "12772d57-df6b-53ac-8707-ea4125b6ab0f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8484,13 +8484,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ffda69f7-0212-5d07-a538-164da105519a",
+            "c1e0b449-fb6f-59be-916e-29dd2fb6682a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c1e0b449-fb6f-59be-916e-29dd2fb6682a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8585,13 +8585,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "006e83c9-99cc-47df-9860-dcb108ba64ef",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8732,13 +8732,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "006ef41b-5ffa-450b-9203-d00e91dc5283",
+            "221eeb9d-2555-5807-ba51-c55e90790a9f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "221eeb9d-2555-5807-ba51-c55e90790a9f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8756,13 +8756,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "dae1a045-f97f-5827-bcfc-6b6d54ebec0f",
+            "152ae103-59f7-5be4-ad83-0bacf84c5dc8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "152ae103-59f7-5be4-ad83-0bacf84c5dc8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8890,13 +8890,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
+            "3f6343ea-713a-5ff9-b952-023edf50eac6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3f6343ea-713a-5ff9-b952-023edf50eac6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9042,13 +9042,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
+            "b9e1ff3c-5976-5ca9-9339-60d77ebcef17",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b9e1ff3c-5976-5ca9-9339-60d77ebcef17"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9194,13 +9194,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "00758ebb-6391-4b89-a184-ca1b9fa49616",
+            "b7c2011e-0c60-52ab-99c0-132cfe0f0062",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b7c2011e-0c60-52ab-99c0-132cfe0f0062"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9218,13 +9218,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "843f2dd1-d542-5e1b-b70e-fedc4304c9cc",
+            "26b117ee-2996-504b-85e3-eab6a8679549",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "26b117ee-2996-504b-85e3-eab6a8679549"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9336,13 +9336,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
+            "eb3db503-a4ae-5092-adf4-82674ce1e1ff",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "eb3db503-a4ae-5092-adf4-82674ce1e1ff"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9488,13 +9488,13 @@
         ]
     },
     {
-        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
+            "d010010a-29a6-5777-bed9-432f4a04fe00",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d010010a-29a6-5777-bed9-432f4a04fe00"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -9541,13 +9541,13 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "3d8a8bda-81e3-5a97-9f57-b3ff9fab2788",
+            "72a064c6-c5c9-5788-be41-03f83d730504",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "72a064c6-c5c9-5788-be41-03f83d730504"
+            "2021-08-30 00:00:00"
         ]
     },
     {

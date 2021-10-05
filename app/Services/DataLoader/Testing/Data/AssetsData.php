@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Testing\Data;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
+use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
@@ -115,7 +117,7 @@ abstract class AssetsData extends Data {
                 $customers[] = $object->customer->id ?? null;
                 $oem         = $object->vendor ?? null;
                 $oems[]      = [
-                    $object->vendor ?? null,
+                    $oem,
                     null,
                     null,
                 ];
@@ -131,6 +133,22 @@ abstract class AssetsData extends Data {
                 $resellers[]    = $object->resellerId ?? null;
                 $customers[]    = $object->customerId ?? null;
                 $distributors[] = $object->distributorId ?? null;
+            } elseif ($object instanceof Document) {
+                $resellers[]    = $object->resellerId ?? null;
+                $customers[]    = $object->customerId ?? null;
+                $distributors[] = $object->distributorId ?? null;
+                $oem            = $object->vendorSpecificFields->vendor ?? null;
+                $oems[]         = [
+                    $oem,
+                    null,
+                    null,
+                ];
+            } elseif ($object instanceof DocumentEntry) {
+                $oems[] = [
+                    $oem,
+                    $object->supportPackage ?? null,
+                    $object->skuNumber ?? null,
+                ];
             } else {
                 // empty
             }

@@ -152,13 +152,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -286,13 +286,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "93dff777-6006-5616-bdb5-a56ec97248bb",
+            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -436,13 +436,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "67c78e00-746e-5875-a467-385289e61788",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "67c78e00-746e-5875-a467-385289e61788"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -586,13 +586,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "a554fcad-a82c-5197-a02d-6132c71ea8e1",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -720,13 +720,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -854,13 +854,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "0a7548dd-c241-5418-99ca-296c1b5d9607",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -988,13 +988,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
+            "02fa1398-8d68-5cd1-b212-cbd485f67417",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "02fa1398-8d68-5cd1-b212-cbd485f67417"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1105,13 +1105,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "673f7541-1538-5839-93dc-cb386aa163cf"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1239,13 +1239,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
+            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cd40814f-847e-59a9-9f30-aa80acaa06f0"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1373,13 +1373,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "17c73208-742c-50da-93c7-93a514201fee",
+            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2038,13 +2038,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
+            "1b99939b-c780-5e17-baf6-c040f864173f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1b99939b-c780-5e17-baf6-c040f864173f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2172,13 +2172,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "39e37129-6357-5640-b3c2-2c1201cbd594",
+            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "367ce0b0-b70a-5fec-9429-8f4adc7ab201"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2306,13 +2306,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "092a1c8c-bddd-5cf1-a921-4b41c8835536",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "76dc1bd8-f28b-5d78-a1fe-3950002e5872"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2440,13 +2440,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "f50b4a9f-54fb-5888-92f9-2288108f925d",
+            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2646,13 +2646,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "cfbeb513-7023-5ead-b818-b161b8634f99",
+            "0e899424-2221-5f00-8319-63147db3b868",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0e899424-2221-5f00-8319-63147db3b868"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2780,13 +2780,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
+            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2914,13 +2914,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "4095e0b0-8302-5ec4-a31b-09b584ea92c4",
+            "acf54392-1f10-517b-bf7b-2a445e5e8826",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "acf54392-1f10-517b-bf7b-2a445e5e8826"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3048,13 +3048,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "e1662bb7-1086-5384-86eb-10816193115b",
+            "b6189514-3ea8-501b-860b-83ca0bcef411",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b6189514-3ea8-501b-860b-83ca0bcef411"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3182,13 +3182,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "44911220-2462-5ac6-810d-e17564293467",
+            "9ab7a8a9-6c70-5716-b817-786165f89b3b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9ab7a8a9-6c70-5716-b817-786165f89b3b"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3811,13 +3811,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b1136a17-b48c-5f54-921c-2f94e29176b5",
+            "b06ccf09-00ce-5551-a0a6-7a5689d9da04",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b06ccf09-00ce-5551-a0a6-7a5689d9da04"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3945,13 +3945,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "2d19935c-acb9-589a-9005-3e4da6e739ba",
+            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bfd7ceae-b184-54ab-b660-5d06f9d4e964"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4079,13 +4079,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4",
+            "5e7267ff-2f23-5177-a578-e84266744413",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5e7267ff-2f23-5177-a578-e84266744413"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4213,13 +4213,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "299965cb-6cef-5df3-9867-ca86744459ff",
+            "751329de-0889-525b-afb7-3d0abe197d0a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "751329de-0889-525b-afb7-3d0abe197d0a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4347,13 +4347,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7",
+            "3e840a18-2c82-5385-8767-730159b5fcc6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3e840a18-2c82-5385-8767-730159b5fcc6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4481,13 +4481,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "d503ee49-baa4-5a65-a16b-473ba57a27a5",
+            "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4615,13 +4615,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "48b55aa1-76c8-5829-9fec-4295445df191",
+            "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6d356520-24aa-503b-9c4b-4b7be56ee2c8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4749,13 +4749,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "190acee6-c3b2-55ce-b1a9-abf9a4ea470f",
+            "71eac4c9-9364-5714-9429-e67d9c785745",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "71eac4c9-9364-5714-9429-e67d9c785745"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4883,13 +4883,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "9a5a225f-e72e-5a25-925c-ea6b2de00d20",
+            "f5becad7-aebd-5a48-8b63-4dafd2119019",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f5becad7-aebd-5a48-8b63-4dafd2119019"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5017,13 +5017,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "3ffab4b1-0900-5a80-b3a3-31a129bef7c0",
+            "817732ad-454f-5aab-8bf0-fa41ab854a8c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "817732ad-454f-5aab-8bf0-fa41ab854a8c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5682,13 +5682,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "9fa060ce-86e0-5cf2-872f-a4ed92ae0e01",
+            "3d90701e-bad4-55d7-a231-7041e9a3edd7",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3d90701e-bad4-55d7-a231-7041e9a3edd7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5799,13 +5799,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b48c7c9d-5533-5a10-90f5-0263c1abf9b8",
+            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5933,13 +5933,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb",
+            "62b4a964-9ca8-5f45-9e19-8eb3adf194bf",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "62b4a964-9ca8-5f45-9e19-8eb3adf194bf"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6067,13 +6067,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "4d246d1a-81c8-5696-8245-b2da32e52246",
+            "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8d4dd2af-3fca-5d27-97c4-39b35018e19a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6201,13 +6201,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "6f70dbc8-3e60-57db-9ebf-cc3373fef945",
+            "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5ea586a9-f229-5cdf-9f6c-bc421af338e9"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6351,13 +6351,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "1ccea185-72a7-5621-b955-ea1783eaf20f",
+            "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9ba8016e-f41c-5e65-a738-1e8020cad5f8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6501,13 +6501,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b51b9750-4999-5823-b3e1-77bfc89a63d6",
+            "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1b6ba92f-f450-59f8-af7d-f378f4dcb314"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6635,13 +6635,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "051fbfc7-f380-5264-adf4-32dc821dfaf4",
+            "b2548638-1df1-55f2-b1aa-a677099ed381",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b2548638-1df1-55f2-b1aa-a677099ed381"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -6841,13 +6841,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "e747fca2-84d1-5ac5-a571-d61330103978",
+            "e1f5bc37-8270-5eab-8318-f559f949f52e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e1f5bc37-8270-5eab-8318-f559f949f52e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7470,13 +7470,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "bbf09ba3-d59b-58e7-a0f6-245886eea6f5",
+            "db81160e-cf2a-5a56-95eb-4d03a73e46ec",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "db81160e-cf2a-5a56-95eb-4d03a73e46ec"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7604,13 +7604,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "97b42c0c-e107-5b7e-935c-a62775508180",
+            "453d360c-06e9-56ab-b2d1-b80bc13e9488",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "453d360c-06e9-56ab-b2d1-b80bc13e9488"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7738,13 +7738,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ede6f9d4-0838-5e1c-bf48-f523a866f094",
+            "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "94b1e84f-e114-5479-b6ea-45ddc6a0078a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -7872,13 +7872,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "acbcce72-28c9-5317-8883-70f36b62020b",
+            "3c71e890-d619-55e9-8756-0e6a2f82a18f",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3c71e890-d619-55e9-8756-0e6a2f82a18f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8006,13 +8006,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
+            "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f3d81c2f-c4ca-5d36-9647-5f9770d13642"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8140,13 +8140,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594",
+            "b12dbd77-1918-5c15-a259-6e1b5c564f3e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b12dbd77-1918-5c15-a259-6e1b5c564f3e"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8274,13 +8274,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "fa63e851-a59a-530f-803c-30b6c453b197",
+            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8408,13 +8408,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d35b40fd-e2a0-558b-91e9-36dd9e8df253"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8542,13 +8542,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b6bd49fb-9a4a-5809-b304-8cec7c3962f7",
+            "31441e15-c634-5010-9c90-a9ca58f9d5c8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "31441e15-c634-5010-9c90-a9ca58f9d5c8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -8676,13 +8676,13 @@
         ]
     },
     {
-        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_location_types` (`type_id`, `reseller_location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ce487bb6-8e03-5a1b-ac9e-ecf42e001e8a",
+            "97af097b-d955-53ab-aa10-9dee7cf231bc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "97af097b-d955-53ab-aa10-9dee7cf231bc"
+            "2021-08-30 00:00:00"
         ]
     },
     {

@@ -1,0 +1,33 @@
+{
+    "id": "3528db4d-5238-42f6-8d59-35028db2ae2c",
+    "type": "Quote renewal",
+    "documentNumber": "0056279840",
+    "startDate": "2020-04-01",
+    "endDate": "2021-03-31",
+    "currencyCode": "EUR",
+    "totalNetPrice": "446.88",
+    "languageCode": "EN",
+    "updatedAt": "1626353498687",
+    "resellerId": "0571e93c-4038-4491-8ea5-6311970f2551",
+    "customerId": "578eaac5-6802-4373-af8c-d1aff5da1fcd",
+    "distributorId": "823d5aa2-9fa1-4f5e-a977-9bc0e30ec104",
+    "vendorSpecificFields": {
+        "vendor": "HPE"
+    },
+    "contactPersons": [
+        {
+            "phoneNumber": "+49 (591) 12345-67",
+            "vendor": "HPA",
+            "name": "Alice Mark",
+            "type": "SOFTWARE_CONTACT"
+        }
+    ],
+    "documentEntries": [
+        {
+            "assetId": "d0751d0c-85d3-47a5-8fff-7423dd8c0d58"
+        }
+    ],
+    "status": [
+        "EXPIRED"
+    ]
+}

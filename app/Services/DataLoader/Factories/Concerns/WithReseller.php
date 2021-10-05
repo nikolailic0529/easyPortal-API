@@ -7,6 +7,7 @@ use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
@@ -21,7 +22,7 @@ trait WithReseller {
 
     abstract protected function getResellerResolver(): ResellerResolver;
 
-    protected function reseller(ViewAsset|ViewDocument|ViewAssetDocument $object): ?Reseller {
+    protected function reseller(Document|ViewAsset|ViewDocument|ViewAssetDocument $object): ?Reseller {
         // Id
         $id = null;
 

@@ -8,6 +8,7 @@ use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Mockery;
@@ -104,6 +105,13 @@ class WithDistributorTest extends TestCase {
             ViewDocument::class => [
                 static function (TestCase $test, Distributor $distributor) {
                     return new ViewDocument([
+                        'distributorId' => $distributor->getKey(),
+                    ]);
+                },
+            ],
+            Document::class     => [
+                static function (TestCase $test, Distributor $distributor) {
+                    return new Document([
                         'distributorId' => $distributor->getKey(),
                     ]);
                 },

@@ -3,8 +3,19 @@
 namespace App\Services\DataLoader\Schema;
 
 class DocumentEntry extends Type {
-    public string|null $currencyCode;
-    public string|null $netPrice;
-    public string|null $discount;
-    public string|null $listPrice;
+    public string  $assetId;
+    public ?string $skuNumber;
+    public ?string $skuDescription;
+    public ?string $supportPackage;
+    public ?string $supportPackageDescription;
+    public ?string $warrantyEndDate;
+    public ?string $startDate;
+    public ?string $endDate;
+    public ?string $currencyCode;
+    public ?string $languageCode;
+    public ?string $netPrice;
+    public ?string $discount;
+    public ?string $listPrice;
+    public ?string $estimatedValueRenewal;
+    public ?string $productLineDescription;
 }

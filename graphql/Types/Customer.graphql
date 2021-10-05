@@ -3,7 +3,7 @@ type Customer {
   name: String!
   type: Type! @belongsTo
   type_id: ID!
-  statuses: [Status]! @belongsToMany
+  statuses: [Status!]! @belongsToMany
   contacts_count: Int!
   contacts (
     where: ContactsQuery @searchBy

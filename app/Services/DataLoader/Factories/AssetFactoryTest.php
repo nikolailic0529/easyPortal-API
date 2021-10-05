@@ -7,7 +7,7 @@ use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Models\DocumentEntry;
+use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -27,6 +27,7 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
+use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -116,13 +117,12 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
-        $created = $factory->create($asset);
+        $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $created  = $factory->create($asset);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromAsset-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromAsset-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
@@ -158,7 +158,7 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(2, DocumentEntry::query()->count());
+        $this->assertEquals(2, DocumentEntryModel::query()->count());
 
         // Warranties
         $this->assertEquals(
@@ -219,7 +219,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($extended->end);
 
         // Entries related to other assets should not be updated
-        DocumentEntry::factory()->create([
+        DocumentEntryModel::factory()->create([
             'document_id' => Document::query()->first(),
         ]);
 
@@ -227,15 +227,14 @@ class AssetFactoryTest extends TestCase {
 
         // Asset should be updated
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
-        $json    = $this->getTestData()->json('~asset-changed.json');
-        $asset   = new ViewAsset($json);
-        $updated = $factory->create($asset);
+        $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $json     = $this->getTestData()->json('~asset-changed.json');
+        $asset    = new ViewAsset($json);
+        $updated  = $factory->create($asset);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromAsset-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromAsset-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());
@@ -269,7 +268,7 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(2, DocumentEntry::query()->count());
+        $this->assertEquals(2, DocumentEntryModel::query()->count());
 
         $document = Document::query()->first();
 
@@ -1247,6 +1246,9 @@ class AssetFactoryTest extends TestCase {
             'id'           => $this->faker->uuid,
             'serialNumber' => $this->faker->uuid,
         ]);
+        $c          = new DocumentEntry([
+            'assetId' => $this->faker->uuid,
+        ]);
         $resolver   = $this->app->make(AssetResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
         $products   = Mockery::mock(ProductResolver::class);
@@ -1272,7 +1274,7 @@ class AssetFactoryTest extends TestCase {
             $this->assertCount(1, $collection);
         });
 
-        $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));
+        $factory->prefetch([$a, $b, $c], false, Closure::fromCallable($callback));
 
         $callback->shouldHaveBeenCalled()->once();
 
@@ -1280,6 +1282,9 @@ class AssetFactoryTest extends TestCase {
 
         $factory->find($a);
         $factory->find($b);
+        $factory->find(new ViewAsset([
+            'id' => $c->assetId,
+        ]));
 
         $this->assertCount(0, $this->getQueryLog());
     }
