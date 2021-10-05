@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Testing\Data;
 
 use App\Services\DataLoader\Schema\CentralAssetDbStatistics;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Utils\JsonObject;
 use CallbackFilterIterator;
@@ -45,6 +46,8 @@ class ClientDump extends JsonObject {
             'data.getCustomers'                => Company::class,
             'data.getAssetsByCustomerId'       => ViewAsset::class,
             'data.getAssetsByResellerId'       => ViewAsset::class,
+            'data.getDocumentById'             => Document::class,
+            'data.getDocuments'                => Document::class,
         ];
         $selector  = implode('.', array_slice(explode('.', $this->selector), 0, 2));
         $class     = $selectors[$selector] ?? null;
@@ -58,6 +61,10 @@ class ClientDump extends JsonObject {
 
         $data = Arr::get($this->response, $selector);
         $data = $class::make($data);
+
+        if (is_object($data)) {
+            $data = [$data];
+        }
 
         yield from new CallbackFilterIterator(
             new RecursiveIteratorIterator(
