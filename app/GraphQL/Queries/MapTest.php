@@ -62,7 +62,6 @@ class MapTest extends TestCase {
                         longitude_min
                         longitude_max
                         customers_count
-                        assets_count
                         customers_ids
                         locations_ids
                     }
@@ -269,17 +268,13 @@ class MapTest extends TestCase {
                 'longitude'       => 1.00,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
                 'city_id'         => $city->getKey(),
-                'assets_count'    => 3,
                 'customers_count' => 1,
             ]);
 
             $locationA->resellers()->attach($resellerA, [
                 'customers_count' => 1,
-                'assets_count'    => 3,
             ]);
-            $locationA->customers()->attach($customerA, [
-                'assets_count' => 3,
-            ]);
+            $locationA->customers()->attach($customerA);
 
             $locationB = Location::factory()->create([
                 'id'              => '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
@@ -287,13 +282,10 @@ class MapTest extends TestCase {
                 'longitude'       => 1.10,
                 'country_id'      => $country->getKey(),
                 'city_id'         => City::factory(),
-                'assets_count'    => 1,
                 'customers_count' => 1,
             ]);
 
-            $locationB->customers()->attach($customerA, [
-                'assets_count' => 1,
-            ]);
+            $locationB->customers()->attach($customerA);
 
             $locationC = Location::factory()->create([
                 'id'              => '8d8a056f-b224-4d4f-90af-7e0eced13217',
@@ -301,13 +293,10 @@ class MapTest extends TestCase {
                 'longitude'       => 1.25,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
                 'city_id'         => City::factory(),
-                'assets_count'    => 0,
                 'customers_count' => 1,
             ]);
 
-            $locationC->customers()->attach($customerB, [
-                'assets_count' => 0,
-            ]);
+            $locationC->customers()->attach($customerB);
 
             $locationD = Location::factory()->create([
                 'id'              => '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
@@ -315,20 +304,14 @@ class MapTest extends TestCase {
                 'longitude'       => 1.5,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
                 'city_id'         => City::factory(),
-                'assets_count'    => 2,
                 'customers_count' => 2,
             ]);
 
             $locationD->resellers()->attach($resellerA, [
                 'customers_count' => 1,
-                'assets_count'    => 1,
             ]);
-            $locationD->customers()->attach($customerA, [
-                'assets_count' => 1,
-            ]);
-            $locationD->customers()->attach($customerB, [
-                'assets_count' => 1,
-            ]);
+            $locationD->customers()->attach($customerA);
+            $locationD->customers()->attach($customerB);
 
             // Empty
             Location::factory()->create([
@@ -370,7 +353,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1.1,
                                 'customers_count' => 1,
-                                'assets_count'    => 4,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -387,7 +369,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.25,
                                 'longitude_max'   => 1.25,
                                 'customers_count' => 1,
-                                'assets_count'    => 0,
                                 'customers_ids'   => [
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                 ],
@@ -403,7 +384,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
                                 'customers_count' => 2,
-                                'assets_count'    => 2,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
@@ -426,7 +406,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1,
                                 'customers_count' => 1,
-                                'assets_count'    => 3,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -458,7 +437,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.1,
                                 'longitude_max'   => 1.1,
                                 'customers_count' => 1,
-                                'assets_count'    => 1,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -490,7 +468,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.25,
                                 'longitude_max'   => 1.25,
                                 'customers_count' => 1,
-                                'assets_count'    => 0,
                                 'customers_ids'   => [
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                 ],
@@ -506,7 +483,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
                                 'customers_count' => 1,
-                                'assets_count'    => 2,
                                 'customers_ids'   => [
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                 ],
@@ -547,7 +523,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1,
                                 'customers_count' => 1,
-                                'assets_count'    => 3,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -563,7 +538,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
                                 'customers_count' => 1,
-                                'assets_count'    => 1,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],

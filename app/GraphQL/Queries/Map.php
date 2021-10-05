@@ -4,7 +4,6 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Customer;
 use App\Models\Location;
-use App\Services\Organization\CurrentOrganization;
 use App\Utils\ModelHelper;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -35,7 +34,6 @@ use function strlen;
 class Map {
     public function __construct(
         protected Container $container,
-        protected CurrentOrganization $organization,
     ) {
         // empty
     }
@@ -54,37 +52,17 @@ class Map {
             ->whereNotNull($model->qualifyColumn('longitude'))
             ->where(static function (EloquentBuilder $builder) use ($model): void {
                 $builder->orWhere($model->qualifyColumn('customers_count'), '>', 0);
-                $builder->orWhere($model->qualifyColumn('assets_count'), '>', 0);
             })
             ->groupBy('latitude_group')
             ->groupBy('longitude_group');
-        $assetsQuery    = (clone $baseQuery)
+        $groupsQuery    = (clone $baseQuery)
             ->selectRaw("AVG({$model->qualifyColumn('latitude')}) as latitude_avg")
             ->selectRaw("MIN({$model->qualifyColumn('latitude')}) as latitude_min")
             ->selectRaw("MAX({$model->qualifyColumn('latitude')}) as latitude_max")
             ->selectRaw("AVG({$model->qualifyColumn('longitude')}) as longitude_avg")
             ->selectRaw("MIN({$model->qualifyColumn('longitude')}) as longitude_min")
             ->selectRaw("MAX({$model->qualifyColumn('longitude')}) as longitude_max")
-            ->selectRaw("GROUP_CONCAT(DISTINCT {$model->getQualifiedKeyName()}, ',') as locations_ids")
-            ->when($this->organization->isRoot(), static function (EloquentBuilder $builder) use ($model): void {
-                $builder->selectRaw("SUM({$model->qualifyColumn('assets_count')}) as assets_count");
-            })
-            ->when(!$this->organization->isRoot(), function (EloquentBuilder $builder): void {
-                $this->joinRelation(
-                    $builder,
-                    'resellers',
-                    'r',
-                    function (BelongsToMany $relation, EloquentBuilder $builder): EloquentBuilder {
-                        return $builder
-                            ->selectRaw($relation->getQualifiedRelatedKeyName())
-                            ->selectRaw($relation->getQualifiedForeignPivotKeyName())
-                            ->selectRaw($relation->qualifyPivotColumn('assets_count'))
-                            ->where('reseller_id', '=', $this->organization->getKey());
-                    },
-                );
-
-                $builder->selectRaw('IFNULL(SUM(r.assets_count), 0) as assets_count');
-            });
+            ->selectRaw("GROUP_CONCAT(DISTINCT {$model->getQualifiedKeyName()}, ',') as locations_ids");
         $customersQuery = (clone $baseQuery)
             ->selectRaw("COUNT(DISTINCT c.{$customer->getKeyName()}) as customers_count")
             ->selectRaw("GROUP_CONCAT(DISTINCT c.{$customer->getKeyName()}, ',') as customers_ids")
@@ -111,14 +89,13 @@ class Map {
             ->addSelect('assets.*')
             ->addSelect('customers.customers_count')
             ->addSelect('customers.customers_ids')
-            ->fromSub($assetsQuery, 'assets')
+            ->fromSub($groupsQuery, 'assets')
             ->leftJoinSub($customersQuery, 'customers', static function (JoinClause $join): void {
                 $join->on('assets.latitude_group', '=', 'customers.latitude_group');
                 $join->on('assets.longitude_group', '=', 'customers.longitude_group');
             })
             ->where(static function (QueryBuilder $builder): void {
                 $builder->orWhere('customers.customers_count', '>', 0);
-                $builder->orWhere('assets.assets_count', '>', 0);
             })
             ->orderBy('assets.latitude_group')
             ->orderBy('assets.longitude_group')
