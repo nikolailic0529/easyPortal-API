@@ -41,12 +41,8 @@ use Tests\WithoutOrganizationScope;
 
 use function array_column;
 use function is_null;
-use function json_encode;
 use function number_format;
 use function reset;
-
-use const JSON_PRESERVE_ZERO_FRACTION;
-use const JSON_PRETTY_PRINT;
 
 /**
  * @internal
@@ -1113,10 +1109,7 @@ class DocumentFactoryTest extends TestCase {
             'service_group_id' => $serviceGroup,
             'service_level_id' => $serviceLevel,
         ];
-        $a            = DocumentEntryModel::factory()->create($properties);
-        $b            = DocumentEntryModel::factory()->create($properties);
-        $c            = DocumentEntryModel::factory()->create($properties);
-        $d            = DocumentEntryModel::factory()->create($properties);
+        [$a, $b]      = DocumentEntryModel::factory()->count(4)->create($properties);
         $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [
