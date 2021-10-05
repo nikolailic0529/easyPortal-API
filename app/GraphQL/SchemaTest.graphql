@@ -1169,7 +1169,6 @@ type Map {
   longitude_min: Float!
   longitude_max: Float!
   customers_count: Int!
-  assets_count: Int!
   customers_ids: [ID!]!
   locations_ids: [ID!]!
 }

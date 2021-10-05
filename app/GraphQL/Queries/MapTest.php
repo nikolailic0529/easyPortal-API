@@ -62,7 +62,6 @@ class MapTest extends TestCase {
                         longitude_min
                         longitude_max
                         customers_count
-                        assets_count
                         customers_ids
                         locations_ids
                     }
@@ -74,6 +73,132 @@ class MapTest extends TestCase {
                 ],
             )
             ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::getSearchByWhere
+     */
+    public function testGetSearchByWhere(): void {
+        $field    = 'customers';
+        $fields   = ['allOf', 'anyOf', 'not'];
+        $where    = [
+            'allOf' => [
+                [
+                    'latitude' => [
+                        'between' => [
+                            'min' => 48.153653203996,
+                            'max' => 49.953365844075,
+                        ],
+                    ],
+                ],
+                [
+                    'customers' => [
+                        'where' => [
+                            'allOf' => [
+                                [
+                                    'name' => [
+                                        'in' => [
+                                            'abc',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'not' => [
+                        [
+                            'customers' => [
+                                'where' => [
+                                    'allOf' => [
+                                        [
+                                            'name' => [
+                                                'in' => [
+                                                    'abc',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'customers' => [
+                        'where' => [
+                            'allOf' => [
+                                [
+                                    'name' => [
+                                        'in' => [
+                                            'abc',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $resolver = new class() extends Map {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getSearchByWhere(string $field, array $fields, array $where): array {
+                return parent::getSearchByWhere($field, $fields, $where);
+            }
+        };
+        $actual   = $resolver->getSearchByWhere($field, $fields, $where);
+        $expected = [
+            'allOf' => [
+                [
+                    'allOf' => [
+                        [
+                            'name' => [
+                                'in' => [
+                                    'abc',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'not' => [
+                        [
+                            'allOf' => [
+                                [
+                                    'name' => [
+                                        'in' => [
+                                            'abc',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'allOf' => [
+                        [
+                            'name' => [
+                                'in' => [
+                                    'abc',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 
@@ -143,17 +268,13 @@ class MapTest extends TestCase {
                 'longitude'       => 1.00,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
                 'city_id'         => $city->getKey(),
-                'assets_count'    => 3,
                 'customers_count' => 1,
             ]);
 
             $locationA->resellers()->attach($resellerA, [
                 'customers_count' => 1,
-                'assets_count'    => 3,
             ]);
-            $locationA->customers()->attach($customerA, [
-                'assets_count' => 3,
-            ]);
+            $locationA->customers()->attach($customerA);
 
             $locationB = Location::factory()->create([
                 'id'              => '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
@@ -161,13 +282,10 @@ class MapTest extends TestCase {
                 'longitude'       => 1.10,
                 'country_id'      => $country->getKey(),
                 'city_id'         => City::factory(),
-                'assets_count'    => 1,
                 'customers_count' => 1,
             ]);
 
-            $locationB->customers()->attach($customerA, [
-                'assets_count' => 1,
-            ]);
+            $locationB->customers()->attach($customerA);
 
             $locationC = Location::factory()->create([
                 'id'              => '8d8a056f-b224-4d4f-90af-7e0eced13217',
@@ -175,13 +293,10 @@ class MapTest extends TestCase {
                 'longitude'       => 1.25,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
                 'city_id'         => City::factory(),
-                'assets_count'    => 0,
                 'customers_count' => 1,
             ]);
 
-            $locationC->customers()->attach($customerB, [
-                'assets_count' => 0,
-            ]);
+            $locationC->customers()->attach($customerB);
 
             $locationD = Location::factory()->create([
                 'id'              => '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
@@ -189,20 +304,14 @@ class MapTest extends TestCase {
                 'longitude'       => 1.5,
                 'country_id'      => Country::factory()->create(['code' => $code++]),
                 'city_id'         => City::factory(),
-                'assets_count'    => 2,
                 'customers_count' => 2,
             ]);
 
             $locationD->resellers()->attach($resellerA, [
                 'customers_count' => 1,
-                'assets_count'    => 1,
             ]);
-            $locationD->customers()->attach($customerA, [
-                'assets_count' => 1,
-            ]);
-            $locationD->customers()->attach($customerB, [
-                'assets_count' => 1,
-            ]);
+            $locationD->customers()->attach($customerA);
+            $locationD->customers()->attach($customerB);
 
             // Empty
             Location::factory()->create([
@@ -234,7 +343,7 @@ class MapTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'              => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1.05,
@@ -244,7 +353,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1.1,
                                 'customers_count' => 1,
-                                'assets_count'    => 4,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -261,7 +369,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.25,
                                 'longitude_max'   => 1.25,
                                 'customers_count' => 1,
-                                'assets_count'    => 0,
                                 'customers_ids'   => [
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                 ],
@@ -277,7 +384,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
                                 'customers_count' => 2,
-                                'assets_count'    => 2,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                     'bb699764-e10b-4e09-9fea-dd7a62238dd5',
@@ -290,7 +396,7 @@ class MapTest extends TestCase {
                         $factory,
                         $params,
                     ],
-                    'filter_city'    => [
+                    'filter_city'     => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1,
@@ -300,7 +406,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1,
                                 'customers_count' => 1,
-                                'assets_count'    => 3,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -322,7 +427,7 @@ class MapTest extends TestCase {
                             ],
                         ],
                     ],
-                    'filter_country' => [
+                    'filter_country'  => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1.1,
@@ -332,7 +437,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.1,
                                 'longitude_max'   => 1.1,
                                 'customers_count' => 1,
-                                'assets_count'    => 1,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -348,6 +452,53 @@ class MapTest extends TestCase {
                                     [
                                         'country_id' => [
                                             'equal' => 'c6c90bff-b032-361a-b455-a61e2f3ca289',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'filter_customer' => [
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude_avg'    => 1.25,
+                                'latitude_min'    => 1.25,
+                                'latitude_max'    => 1.25,
+                                'longitude_avg'   => 1.25,
+                                'longitude_min'   => 1.25,
+                                'longitude_max'   => 1.25,
+                                'customers_count' => 1,
+                                'customers_ids'   => [
+                                    'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '8d8a056f-b224-4d4f-90af-7e0eced13217',
+                                ],
+                            ],
+                            [
+                                'latitude_avg'    => 1.5,
+                                'latitude_min'    => 1.5,
+                                'latitude_max'    => 1.5,
+                                'longitude_avg'   => 1.5,
+                                'longitude_min'   => 1.5,
+                                'longitude_max'   => 1.5,
+                                'customers_count' => 1,
+                                'customers_ids'   => [
+                                    'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
+                            ],
+                        ]),
+                        $factory,
+                        [
+                            'diff'  => 0.25,
+                            'where' => [
+                                'customers' => [
+                                    'where' => [
+                                        'id' => [
+                                            'equal' => 'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                         ],
                                     ],
                                 ],
@@ -372,7 +523,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1,
                                 'longitude_max'   => 1,
                                 'customers_count' => 1,
-                                'assets_count'    => 3,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
@@ -388,7 +538,6 @@ class MapTest extends TestCase {
                                 'longitude_min'   => 1.5,
                                 'longitude_max'   => 1.5,
                                 'customers_count' => 1,
-                                'assets_count'    => 1,
                                 'customers_ids'   => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],

@@ -10,7 +10,6 @@
         "longitude_min",
         "longitude_max",
         "customers_count",
-        "assets_count",
         "customers_ids",
         "locations_ids"
     ],
@@ -37,9 +36,6 @@
             "type": "number"
         },
         "customers_count": {
-            "type": "integer"
-        },
-        "assets_count": {
             "type": "integer"
         },
         "customers_ids": {
