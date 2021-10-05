@@ -75,6 +75,132 @@ class MapTest extends TestCase {
             )
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::getSearchByWhere
+     */
+    public function testGetSearchByWhere(): void {
+        $field    = 'customers';
+        $fields   = ['allOf', 'anyOf', 'not'];
+        $where    = [
+            'allOf' => [
+                [
+                    'latitude' => [
+                        'between' => [
+                            'min' => 48.153653203996,
+                            'max' => 49.953365844075,
+                        ],
+                    ],
+                ],
+                [
+                    'customers' => [
+                        'where' => [
+                            'allOf' => [
+                                [
+                                    'name' => [
+                                        'in' => [
+                                            'abc',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'not' => [
+                        [
+                            'customers' => [
+                                'where' => [
+                                    'allOf' => [
+                                        [
+                                            'name' => [
+                                                'in' => [
+                                                    'abc',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'customers' => [
+                        'where' => [
+                            'allOf' => [
+                                [
+                                    'name' => [
+                                        'in' => [
+                                            'abc',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $resolver = new class() extends Map {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getSearchByWhere(string $field, array $fields, array $where): array {
+                return parent::getSearchByWhere($field, $fields, $where);
+            }
+        };
+        $actual   = $resolver->getSearchByWhere($field, $fields, $where);
+        $expected = [
+            'allOf' => [
+                [
+                    'allOf' => [
+                        [
+                            'name' => [
+                                'in' => [
+                                    'abc',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'not' => [
+                        [
+                            'allOf' => [
+                                [
+                                    'name' => [
+                                        'in' => [
+                                            'abc',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'allOf' => [
+                        [
+                            'name' => [
+                                'in' => [
+                                    'abc',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -234,7 +360,7 @@ class MapTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'              => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1.05,
@@ -290,7 +416,7 @@ class MapTest extends TestCase {
                         $factory,
                         $params,
                     ],
-                    'filter_city'    => [
+                    'filter_city'     => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1,
@@ -322,7 +448,7 @@ class MapTest extends TestCase {
                             ],
                         ],
                     ],
-                    'filter_country' => [
+                    'filter_country'  => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1.1,
@@ -348,6 +474,55 @@ class MapTest extends TestCase {
                                     [
                                         'country_id' => [
                                             'equal' => 'c6c90bff-b032-361a-b455-a61e2f3ca289',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'filter_customer' => [
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude_avg'    => 1.25,
+                                'latitude_min'    => 1.25,
+                                'latitude_max'    => 1.25,
+                                'longitude_avg'   => 1.25,
+                                'longitude_min'   => 1.25,
+                                'longitude_max'   => 1.25,
+                                'customers_count' => 1,
+                                'assets_count'    => 0,
+                                'customers_ids'   => [
+                                    'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '8d8a056f-b224-4d4f-90af-7e0eced13217',
+                                ],
+                            ],
+                            [
+                                'latitude_avg'    => 1.5,
+                                'latitude_min'    => 1.5,
+                                'latitude_max'    => 1.5,
+                                'longitude_avg'   => 1.5,
+                                'longitude_min'   => 1.5,
+                                'longitude_max'   => 1.5,
+                                'customers_count' => 1,
+                                'assets_count'    => 2,
+                                'customers_ids'   => [
+                                    'bb699764-e10b-4e09-9fea-dd7a62238dd5',
+                                ],
+                                'locations_ids'   => [
+                                    '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
+                            ],
+                        ]),
+                        $factory,
+                        [
+                            'diff'  => 0.25,
+                            'where' => [
+                                'customers' => [
+                                    'where' => [
+                                        'id' => [
+                                            'equal' => 'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                         ],
                                     ],
                                 ],
