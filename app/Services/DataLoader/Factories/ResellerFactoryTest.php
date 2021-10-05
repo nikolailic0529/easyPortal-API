@@ -6,6 +6,7 @@ use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
@@ -332,6 +333,9 @@ class ResellerFactoryTest extends TestCase {
                 ],
             ],
         ]);
+        $document   = new Document([
+            'resellerId' => $this->faker->uuid,
+        ]);
         $resolver   = $this->app->make(ResellerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -350,7 +354,7 @@ class ResellerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [$a, $asset, new ViewAsset(['resellerId' => null])],
+            [$a, $asset, new ViewAsset(['resellerId' => null]), $document],
             false,
             Closure::fromCallable($callback),
         );
@@ -363,6 +367,7 @@ class ResellerFactoryTest extends TestCase {
         $factory->find($b);
         $resolver->get($asset->assetDocument[0]->reseller->id);
         $resolver->get($asset->assetDocument[0]->document->resellerId);
+        $resolver->get($document->resellerId);
 
         $this->assertCount(0, $this->getQueryLog());
     }

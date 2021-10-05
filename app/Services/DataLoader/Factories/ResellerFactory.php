@@ -11,6 +11,7 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
@@ -48,16 +49,20 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\ViewAsset> $objects
+     * @param array<\App\Services\DataLoader\Schema\Company
+     *          |\App\Services\DataLoader\Schema\ViewAsset
+     *          |\App\Services\DataLoader\Schema\Document> $objects
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
         $keys = (new Collection($objects))
-            ->map(static function (Company|ViewAsset $model): array {
+            ->map(static function (Company|ViewAsset|Document $model): array {
                 $keys = [];
 
                 if ($model instanceof Company) {
                     $keys[] = $model->id;
+                } elseif ($model instanceof Document) {
+                    $keys[] = $model->resellerId;
                 } elseif ($model instanceof ViewAsset) {
                     $keys[] = $model->resellerId;
 
