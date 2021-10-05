@@ -1,0 +1,56 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n    }\n}",
+    "params": {
+        "id": "c63823c9-ccae-493b-92ca-5cb2a696da69"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "c63823c9-ccae-493b-92ca-5cb2a696da69",
+                    "type": "Quote New Business",
+                    "documentNumber": "cd32bfc2-5d7a-3057-9faa-2bc02a0612ce",
+                    "startDate": "2020-11-15",
+                    "endDate": "2023-11-24",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "d3762413-69b4-4993-9713-f823102b98cc",
+                    "customerId": "9964b0c8-8b88-4b48-9c13-cfcb5e33d0ab",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "7e55a8b2-bdc0-3132-b69e-6b414f0ea35f",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+15717217257",
+                            "name": "Dr. Arthur Huels",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Garry Beatty",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+15717217257",
+                            "name": "Dr. Arthur Huels",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

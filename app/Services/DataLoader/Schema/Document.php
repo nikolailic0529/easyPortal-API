@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-class Document extends Type {
+class Document extends Type implements TypeWithId {
     public string                      $id;
     public string                      $type;
     public string                      $documentNumber;

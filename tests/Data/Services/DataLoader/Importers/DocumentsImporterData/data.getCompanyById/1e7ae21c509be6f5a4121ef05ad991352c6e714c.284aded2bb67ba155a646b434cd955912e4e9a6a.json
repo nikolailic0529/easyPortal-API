@@ -1,0 +1,89 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "8f4f286a-59b6-464e-9634-63a25298db57"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "8f4f286a-59b6-464e-9634-63a25298db57",
+                    "name": "Okuneva Group",
+                    "updatedAt": "1633348120947",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14585489028",
+                            "name": "Darrion McLaughlin",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14585489028",
+                            "name": "Darrion McLaughlin",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14585489028",
+                            "name": "Darrion McLaughlin",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "77045-3977",
+                            "address": "2287 Weston Mall Apt. 816",
+                            "city": "North Gussie",
+                            "locationType": null,
+                            "country": "Indonesia",
+                            "latitude": "86.898971",
+                            "longitude": "46.5505",
+                            "countryCode": "GH"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2556,
+                        "activeAssets": 1577,
+                        "activeAssetsPercentage": 61.697965571205,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 58,
+                        "activeContractTotalAmount": 37544.31,
+                        "newActiveContracts": null,
+                        "expiringContracts": 52,
+                        "activeQuotes": 42,
+                        "activeQuotesTotalAmount": 11717.04,
+                        "newActiveQuotes": 42,
+                        "expiringQuotes": 39,
+                        "expiredQuotes": 202,
+                        "expiredContracts": 169,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

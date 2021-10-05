@@ -33,7 +33,6 @@ use SplFileInfo;
 use function array_is_list;
 use function explode;
 use function implode;
-use function is_array;
 use function json_encode;
 use function reset;
 use function sha1;

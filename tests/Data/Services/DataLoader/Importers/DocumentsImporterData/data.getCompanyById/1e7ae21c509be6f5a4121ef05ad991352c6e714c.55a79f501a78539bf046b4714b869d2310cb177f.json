@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n    expiredQuotes\n    expiredContracts\n    orderedQuotes\n    acceptedQuotes\n    requestedQuotes\n    receivedQuotes\n    rejectedQuotes\n    awaitingQuotes\n    activeAssetsOnContract\n    activeAssetsOnWarranty\n    activeExposedAssets\n    serviceRevenueTotalAmount\n    serviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "8c9be72c-8b1b-460e-87e5-68c81a92bfa4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
+                    "name": "Lemke, Kling and Bailey",
+                    "updatedAt": "1633417171566",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "62375-6301",
+                            "address": "7031 Brown Vista Suite 199",
+                            "city": "New Hayleemouth",
+                            "locationType": "HEADQUARTER",
+                            "country": "Indonesia",
+                            "latitude": "-78.590543",
+                            "longitude": "123.480846",
+                            "countryCode": "GH"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 18477,
+                        "activeAssets": 1882,
+                        "activeAssetsPercentage": 10.18563619635222,
+                        "activeCustomers": 78,
+                        "newActiveCustomers": 78,
+                        "activeContracts": 26,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 26,
+                        "expiringContracts": 0,
+                        "activeQuotes": 83,
+                        "activeQuotesTotalAmount": 7597.62,
+                        "newActiveQuotes": 83,
+                        "expiringQuotes": 23,
+                        "expiredQuotes": 149,
+                        "expiredContracts": 11,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

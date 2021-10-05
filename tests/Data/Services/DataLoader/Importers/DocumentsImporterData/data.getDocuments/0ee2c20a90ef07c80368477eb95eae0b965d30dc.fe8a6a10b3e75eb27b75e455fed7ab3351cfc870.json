@@ -1,0 +1,445 @@
+{
+    "selector": "data.getDocuments",
+    "graphql": "query getDocuments($limit: Int, $lastId: String, $from: String) {\n    getDocuments(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": "0006d945-d750-4aa0-b8b8-7cc82e63c7f2",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getDocuments": [
+                {
+                    "id": "0007aa3c-be1f-4d8a-ab92-85ca7ebe5618",
+                    "type": "Quote renewal",
+                    "documentNumber": "205f9338-1bc6-39a9-a684-c4a6e338d8e2",
+                    "startDate": "2020-05-01",
+                    "endDate": "2021-04-30",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": "185.16",
+                    "languageCode": "EN",
+                    "updatedAt": "1626346020118",
+                    "resellerId": "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
+                    "customerId": "54016e50-bfbb-4613-b91f-9abaf03b00ce",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "c6fa7aec-dcb8-3c0d-93de-b83b130f7541",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+15672399592",
+                            "name": "Mr. Haskell Lind II",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dexter Witting",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+15672399592",
+                            "name": "Mr. Haskell Lind II",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "00085a10-c87e-46cf-9db4-86f199e2d143",
+                    "type": "Quote renewal",
+                    "documentNumber": "d4753b4f-b821-3191-87a8-f9034561613e",
+                    "startDate": "2021-07-01",
+                    "endDate": "2022-06-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9",
+                    "customerId": "f67d17d3-3437-47c4-8069-5643b27eadad",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "403820f5-c7a9-3e54-9d1e-d183a673815a",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+17242132549",
+                            "name": "Wilson Kulas",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12395362989",
+                            "name": "Prof. Nicklaus Hauck",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17242132549",
+                            "name": "Wilson Kulas",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "0008bfae-f111-4673-b087-914c2aa33cc0",
+                    "type": "Quote New Business",
+                    "documentNumber": "4b448847-70cd-3842-8b96-5771a7c24186",
+                    "startDate": "2018-11-02",
+                    "endDate": "2020-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "0e29edd4-12f1-4787-8944-322a9b767cb2",
+                    "customerId": "4cbc4d85-f593-428c-bcf1-a91762e34447",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "638d3638-d6c1-3e28-9bdf-0c387a2e2b25",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Nicklaus Hauck",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "0008dec0-d3c2-48bc-8928-40e9deba478d",
+                    "type": "Quote New Business",
+                    "documentNumber": "09a4c42d-2c28-3b56-822c-370e9f1d1ea1",
+                    "startDate": "2019-06-01",
+                    "endDate": "2019-06-11",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "221.03",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f",
+                    "customerId": "580238f9-bdd2-46c0-a54f-bd2f6dfe15a8",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "9e6f717f-ca72-324e-ade7-eb31c9e04857",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+18083872212",
+                            "name": "Hosea Fadel",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18083872212",
+                            "name": "Hosea Fadel",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "0008e06a-bd56-4e99-b753-63f2dc41b71d",
+                    "type": "Quote New Business",
+                    "documentNumber": "dec15735-c8cc-38cc-81f3-3aede887a4fc",
+                    "startDate": "2020-07-01",
+                    "endDate": "2021-06-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626346020118",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "4f619843-9516-422b-99bd-97376b595369",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "874f82d0-2d9a-3ef1-97ad-7ad4739fb489",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+13512203108",
+                            "name": "Gerhard Wolff",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13512203108",
+                            "name": "Gerhard Wolff",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+13512203108",
+                            "name": "Gerhard Wolff",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "00090a06-657f-4893-a999-e742e55e7850",
+                    "type": "Quote renewal",
+                    "documentNumber": "aa699d99-847a-3c07-883d-0d797163d275",
+                    "startDate": "2020-01-01",
+                    "endDate": "2020-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
+                    "customerId": "2e942796-9bc7-49e7-b397-1e2757b63655",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "0101614a-4a85-31a4-a9b6-56ea8aa96dd7",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+15013746896",
+                            "name": "Rossie Nikolaus",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+15013746896",
+                            "name": "Rossie Nikolaus",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "00092485-221e-492f-8b20-700278384c1e",
+                    "type": "Delivery contract",
+                    "documentNumber": "dfd45e93-fa15-38fa-8e4c-7a331b156e8b",
+                    "startDate": "2017-11-03",
+                    "endDate": "2020-11-02",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": "0",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": null,
+                    "customerId": "3b22ef54-5e0b-4364-8b0f-0d2ed0135472",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "d8577b91-7824-3468-87bc-5e2379f9c70f",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+18579743949",
+                            "name": "Vince Ullrich III",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18579743949",
+                            "name": "Vince Ullrich III",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18579743949",
+                            "name": "Vince Ullrich III",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "000a6d45-df35-43d7-a2e7-26315f54531d",
+                    "type": "Quote New Business",
+                    "documentNumber": "52682e7d-b008-39df-aafe-8d765a17234a",
+                    "startDate": "2019-04-01",
+                    "endDate": "2020-03-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "a0db69e6-944a-4db7-8744-b8300f711cc9",
+                    "customerId": "24b528a6-c3a7-45d6-aab7-fb61d65a3d6f",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "adcfbc00-930a-3937-9f06-301fa1da737f",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Nicklaus Hauck",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "000b31c7-6e15-4b21-8127-ee5f10f21270",
+                    "type": "Quote renewal",
+                    "documentNumber": "5dd999f3-c514-3249-9707-b1c89c959cba",
+                    "startDate": "2020-01-01",
+                    "endDate": "2020-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "662.4",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "0dc5ead1-a082-4249-9918-117e67a34ab9",
+                    "customerId": "1e741743-b1f0-42dd-b5c1-95eb48bf4157",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "e1ad946e-3655-3bde-861c-282ce5965f24",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+14589342388",
+                            "name": "Frida Kiehn I",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14589342388",
+                            "name": "Frida Kiehn I",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14589342388",
+                            "name": "Frida Kiehn I",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "000b674f-1aa2-4eca-8d31-cb0b4c888bc9",
+                    "type": "Contract renewal",
+                    "documentNumber": "3a0c3f7c-d74b-3c94-95ee-21874effa6c7",
+                    "startDate": "2018-05-01",
+                    "endDate": "2019-04-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": null,
+                    "customerId": "b4f9a86f-5e86-46be-ba0e-c9e1bc959f3c",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "45ebb8a2-c6d2-3865-8edb-2b4abedee2c9",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+13017170285",
+                            "name": "Mr. Scotty Wiegand",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13317248202",
+                            "name": "Heath McKenzie",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+13017170285",
+                            "name": "Mr. Scotty Wiegand",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}

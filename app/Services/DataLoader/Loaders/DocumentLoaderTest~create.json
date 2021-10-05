@@ -1,0 +1,203 @@
+[
+    {
+        "query": "select * from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "c63823c9-ccae-493b-92ca-5cb2a696da69"
+        ]
+    },
+    {
+        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "quote new business",
+            "document"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Document",
+            "Quote New Business",
+            "Quote New Business",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "d3762413-69b4-4993-9713-f823102b98cc"
+        ]
+    },
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "9964b0c8-8b88-4b48-9c13-cfcb5e33d0ab"
+        ]
+    },
+    {
+        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `currencies` where (`currencies`.`id` = ?) and `currencies`.`deleted_at` is null limit 1",
+        "bindings": [
+            "eur"
+        ]
+    },
+    {
+        "query": "insert into `currencies` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "EUR",
+            "EUR",
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `languages` where `languages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `languages` where (`languages`.`id` = ?) and `languages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "en"
+        ]
+    },
+    {
+        "query": "insert into `languages` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "EN",
+            "EN",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "active",
+            "document"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Document",
+            "ACTIVE",
+            "ACTIVE",
+            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "c63823c9-ccae-493b-92ca-5cb2a696da69",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            null,
+            "7e55a8b2-bdc0-3132-b69e-6b414f0ea35f",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "d3762413-69b4-4993-9713-f823102b98cc",
+            "9964b0c8-8b88-4b48-9c13-cfcb5e33d0ab",
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "2020-11-15 00:00:00",
+            "2023-11-24 00:00:00",
+            null,
+            "cd32bfc2-5d7a-3057-9faa-2bc02a0612ce",
+            "2021-07-15 12:51:38",
+            2,
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Document",
+            "c63823c9-ccae-493b-92ca-5cb2a696da69",
+            "Dr. Arthur Huels",
+            "+15717217257",
+            null,
+            true,
+            "5a86b4c6-2fe0-52e2-b925-97be85345f0d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "5a86b4c6-2fe0-52e2-b925-97be85345f0d",
+            "f27913f0-d434-5842-8dd1-3338f4acc863",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "5a86b4c6-2fe0-52e2-b925-97be85345f0d",
+            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Document",
+            "c63823c9-ccae-493b-92ca-5cb2a696da69",
+            "Garry Beatty",
+            null,
+            null,
+            null,
+            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `document_statuses` (`status_id`, `document_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
+            "c63823c9-ccae-493b-92ca-5cb2a696da69",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    }
+]

@@ -8,6 +8,7 @@ use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
 use App\Services\DataLoader\Commands\ImportCustomers;
 use App\Services\DataLoader\Commands\ImportDistributors;
+use App\Services\DataLoader\Commands\ImportDocuments;
 use App\Services\DataLoader\Commands\ImportOems;
 use App\Services\DataLoader\Commands\ImportResellers;
 use App\Services\DataLoader\Commands\RecalculateCustomers;
@@ -16,6 +17,7 @@ use App\Services\DataLoader\Commands\RecalculateResellers;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
+use App\Services\DataLoader\Commands\UpdateDocument;
 use App\Services\DataLoader\Commands\UpdateReseller;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
@@ -52,11 +54,13 @@ class Kernel extends ConsoleKernel {
         ImportDistributors::class,
         ImportResellers::class,
         ImportCustomers::class,
+        ImportDocuments::class,
         ImportAssets::class,
         ImportOems::class,
         UpdateDistributor::class,
         UpdateReseller::class,
         UpdateCustomer::class,
+        UpdateDocument::class,
         UpdateAsset::class,
         AnalyzeAssets::class,
         SyncPermissions::class,

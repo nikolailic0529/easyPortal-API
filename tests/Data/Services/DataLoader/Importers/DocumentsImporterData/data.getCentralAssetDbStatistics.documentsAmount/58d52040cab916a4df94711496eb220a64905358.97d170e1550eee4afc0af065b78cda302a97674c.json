@@ -1,0 +1,14 @@
+{
+    "selector": "data.getCentralAssetDbStatistics.documentsAmount",
+    "graphql": "query {\n    getCentralAssetDbStatistics {\n        documentsAmount\n    }\n}",
+    "params": [],
+    "response": {
+        "data": {
+            "getCentralAssetDbStatistics": [
+                {
+                    "documentsAmount": 95719
+                }
+            ]
+        }
+    }
+}
