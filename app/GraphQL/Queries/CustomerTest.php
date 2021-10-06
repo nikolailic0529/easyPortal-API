@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries;
 
 use App\GraphQL\Queries\Assets\AssetsAggregate;
 use App\GraphQL\Queries\Assets\AssetTest;
+use App\GraphQL\Queries\Contracts\ContractsTest;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;

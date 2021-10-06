@@ -1942,24 +1942,6 @@ type Query {
   contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
 
   """
-  List of all possible contract types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
-
-  """
-  List of all possible contract statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  contractStatuses(where: SearchByConditionContractStatusesQuery): [Status!]!
-
-  """
   List of all possible quote types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2048,22 +2030,6 @@ type Query {
   customer(id: ID!): Customer
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
-
-  """
-  Contract.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contract(id: ID!): Document
-
-  """
   Quote.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2139,6 +2105,40 @@ type Query {
   assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
 
   """
+  List of all possible contract types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
+
+  """
+  List of all possible contract statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contractStatuses(where: SearchByConditionContractStatusesQuery): [Status!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
+
+  """
+  Contract.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contract(id: ID!): Document
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
@@ -2187,40 +2187,6 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): CustomerPaginator
-
-  """
-  List of all contracts.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contracts(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsSearch(
-    search: String!
-    order: [SortByClauseDocumentsSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator
 
   """
   List of all quotes.
@@ -2343,6 +2309,40 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): AssetPaginator
+
+  """
+  List of all contracts.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contracts(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsSearch(
+    search: String!
+    order: [SortByClauseDocumentsSearchSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
 }
 
 type QuoteRequest {

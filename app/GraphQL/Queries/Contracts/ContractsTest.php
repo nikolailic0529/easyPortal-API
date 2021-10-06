@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Contracts;
 
 use App\Models\Asset;
 use App\Models\Currency;
@@ -34,7 +34,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Contracts
+ * @coversDefaultClass \App\GraphQL\Queries\Contracts\Contracts
  */
 class ContractsTest extends TestCase {
     // <editor-fold desc="Tests">

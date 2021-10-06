@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Contracts;
 
 use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
