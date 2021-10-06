@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Coverage;
 use Closure;
@@ -16,6 +16,8 @@ use Tests\TestCase;
  * @internal
  */
 class AssetCoveragesTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing

@@ -1942,15 +1942,6 @@ type Query {
   contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
 
   """
-  List of all possible asset types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
-
-  """
   List of all possible contract types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1985,24 +1976,6 @@ type Query {
   @require <me> User must be authenticated.
   """
   quoteStatuses(where: SearchByConditionQuoteStatusesQuery): [Status!]!
-
-  """
-  List of all possible asset statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
-
-  """
-  List of all possible asset coverages.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
 
   """
   List of all possible tags.
@@ -2075,22 +2048,6 @@ type Query {
   customer(id: ID!): Customer
 
   """
-  Asset.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  asset(id: ID!): Asset
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
-
-  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -2137,6 +2094,49 @@ type Query {
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   organization(id: ID!): Organization
+
+  """
+  List of all possible asset types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
+
+  """
+  List of all possible asset statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
+
+  """
+  List of all possible asset coverages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
+
+  """
+  Asset.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  asset(id: ID!): Asset
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2187,40 +2187,6 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): CustomerPaginator
-
-  """
-  List of all assets
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  assets(
-    where: SearchByConditionAssetsQuery
-    order: [SortByClauseAssetsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): AssetPaginator
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  assetsSearch(
-    search: SearchString!
-    order: [SortByClauseAssetsSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): AssetPaginator
 
   """
   List of all contracts.
@@ -2343,6 +2309,40 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): UserPaginator
+
+  """
+  List of all assets
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assets(
+    where: SearchByConditionAssetsQuery
+    order: [SortByClauseAssetsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): AssetPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsSearch(
+    search: SearchString!
+    order: [SortByClauseAssetsSearchSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): AssetPaginator
 }
 
 type QuoteRequest {

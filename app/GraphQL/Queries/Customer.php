@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Queries\Assets\AssetsAggregate;
 use App\GraphQL\Resolvers\LazyValue;
 use App\Models\Customer as CustomerModel;
 use GraphQL\Type\Definition\ResolveInfo;

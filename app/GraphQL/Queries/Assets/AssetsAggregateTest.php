@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Asset;
 use App\Models\Enums\UserType;
@@ -22,16 +22,18 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\AssetsAggregate
+ * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetsAggregate
  */
 class AssetsAggregateTest extends TestCase {
     use WithQueryLog;
 
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
-     * @covers \App\GraphQL\Queries\AssetsAggregateTypes::__invoke
-     * @covers \App\GraphQL\Queries\AssetsAggregateCount::__invoke
-     * @covers \App\GraphQL\Queries\AssetsAggregateCoverages::__invoke
+     * @covers \App\GraphQL\Queries\Assets\AssetsAggregateTypes::__invoke
+     * @covers \App\GraphQL\Queries\Assets\AssetsAggregateCount::__invoke
+     * @covers \App\GraphQL\Queries\Assets\AssetsAggregateCoverages::__invoke
      *
      * @dataProvider dataProviderQuery
      *
