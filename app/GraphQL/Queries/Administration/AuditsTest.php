@@ -1,8 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Administration;
 
+use App\GraphQL\Types\Audit as TypesAudit;
+use App\Models\Audits\Audit;
 use App\Models\Organization;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,7 +18,9 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class OrganizationsTest extends TestCase {
+class AuditsTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderQuery
      */
@@ -36,12 +41,16 @@ class OrganizationsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
                 query {
-                  organizations {
+                  audits {
                     data {
-                      id
-                      name
-                      root
-                      keycloak_scope
+                        id
+                        organization_id
+                        user_id
+                        object_type
+                        object_id
+                        context
+                        action
+                        created_at
                     }
                     paginatorInfo {
                       count
@@ -66,16 +75,20 @@ class OrganizationsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('organizations'),
-            new OrganizationUserDataProvider('organizations', [
+            new RootOrganizationDataProvider('audits'),
+            new OrganizationUserDataProvider('audits', [
                 'administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLPaginated('organizations', self::class),
+                    new GraphQLPaginated('audits', TypesAudit::class),
                     static function (): void {
-                        Organization::factory()->create([
-                            'keycloak_scope' => 'test',
+                        $user         = User::factory()->create();
+                        $organization = Organization::factory()->create();
+                        Audit::factory()->create([
+                            'user_id'         => $user->getKey(),
+                            'organization_id' => $organization->getKey(),
+                            'context'         => ['key' => 'value'],
                         ]);
                     },
                 ],

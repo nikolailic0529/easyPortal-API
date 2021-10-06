@@ -111,12 +111,6 @@ type Query {
   @me
   @all
 
-  "List of all possible teams."
-  teams: [Team!]!
-  @organization
-  @me(permissions: ["administer", "org-administer"])
-  @all
-
   # Search
   # ============================================================================
   search(
@@ -147,41 +141,9 @@ type Query {
   @me(permissions: ["org-administer"])
   @all
 
-  # Administration
-  # ============================================================================
-  "List of all organizations."
-  organizations(
-    where: OrganizationsQuery @searchBy
-    order: OrganizationsSort @sortBy
-  ): [Organization!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @paginate
-
-  "Organization."
-  organization(id: ID! @eq): Organization
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @find
-
-  "List of all organizations audits."
-  audits(
-    where: AuditsQuery @searchBy
-    order: AuditsSort @sortBy
-  ): [Audit!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @paginate(
-    model: "App\\Models\\Audits\\Audit"
-  )
-
-  "List of all users."
-  users(
-    where: UsersQuery @searchBy
-    order: UsersSort @sortBy
-  ): [User!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @builder(method: "App\\GraphQL\\Queries\\User")
-  @paginate
+  "List of all possible teams."
+  teams: [Team!]!
+  @organization
+  @me(permissions: ["administer", "org-administer"])
+  @all
 }

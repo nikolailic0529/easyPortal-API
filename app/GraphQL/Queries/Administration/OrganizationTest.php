@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Administration;
 
+use App\GraphQL\Queries\Org;
 use App\GraphQL\Types\Audit;
 use App\Models\Currency;
 use App\Models\Kpi;
@@ -272,7 +273,7 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers       \App\GraphQL\Queries\AuditContext::__invoke
+     * @covers       \App\GraphQL\Queries\Administration\AuditContext::__invoke
      *
      * @dataProvider dataProviderAudits
      */

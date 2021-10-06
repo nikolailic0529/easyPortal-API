@@ -8,7 +8,7 @@ type Audit {
     created_at:  DateTime!
 
     context: String
-    @field(resolver: "App\\GraphQL\\Queries\\AuditContext")
+    @field(resolver: "App\\GraphQL\\Queries\\Administration\\AuditContext")
 
     user: User
     organization: Organization

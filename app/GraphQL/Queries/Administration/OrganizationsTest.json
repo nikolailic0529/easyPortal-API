@@ -10,7 +10,7 @@
     ],
     "properties": {
         "id": {
-            "$ref": "../types.json/#/definitions/ID"
+            "$ref": "../../types.json/#/definitions/ID"
         },
         "name": {
             "type": "string"
