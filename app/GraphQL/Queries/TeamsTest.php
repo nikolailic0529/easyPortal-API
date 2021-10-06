@@ -52,82 +52,53 @@ class TeamsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
+        $provider = new ArrayDataProvider([
+            'ok' => [
+                new GraphQLSuccess('teams', self::class, [
+                    [
+                        'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name' => 'Team1',
+                    ],
+                    [
+                        'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        'name' => 'Team2',
+                    ],
+                    [
+                        'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'name' => 'Team3',
+                    ],
+                ]),
+                static function (): void {
+                    Team::factory()->create([
+                        'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name' => 'Team1',
+                    ]);
+                    Team::factory()->create([
+                        'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        'name' => 'Team2',
+                    ]);
+                    Team::factory()->create([
+                        'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'name' => 'Team3',
+                    ]);
+                },
+            ],
+        ]);
+
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
                 new OrganizationDataProvider('teams'),
                 new OrganizationUserDataProvider('teams', [
                     'administer',
                 ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('teams', self::class, [
-                            [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Team1',
-                            ],
-                            [
-                                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'name' => 'Team2',
-                            ],
-                            [
-                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'Team3',
-                            ],
-                        ]),
-                        static function (): void {
-                            Team::factory()->create([
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Team1',
-                            ]);
-                            Team::factory()->create([
-                                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'name' => 'Team2',
-                            ]);
-                            Team::factory()->create([
-                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'Team3',
-                            ]);
-                        },
-                    ],
-                ]),
+                $provider,
             ),
             'org-administer' => new CompositeDataProvider(
                 new OrganizationDataProvider('teams'),
                 new OrganizationUserDataProvider('teams', [
                     'org-administer',
                 ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('teams', self::class, [
-                            [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Team1',
-                            ],
-                            [
-                                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'name' => 'Team2',
-                            ],
-                            [
-                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'Team3',
-                            ],
-                        ]),
-                        static function (): void {
-                            Team::factory()->create([
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'Team1',
-                            ]);
-                            Team::factory()->create([
-                                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'name' => 'Team2',
-                            ]);
-                            Team::factory()->create([
-                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name' => 'Team3',
-                            ]);
-                        },
-                    ],
-                ]),
+                $provider,
             ),
         ]))->getData();
     }
