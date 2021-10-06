@@ -50,7 +50,7 @@ type Query {
   # ============================================================================
   permissions: [Permission!]!
   @organization
-  @me(permissions: ["org-administer"])
+  @me(permissions: ["administer", "org-administer"])
   @all
 
   "List of all possible teams."
