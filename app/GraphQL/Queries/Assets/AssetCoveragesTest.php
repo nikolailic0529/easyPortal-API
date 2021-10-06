@@ -7,8 +7,10 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -53,26 +55,39 @@ class AssetCoveragesTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        return (new CompositeDataProvider(
-            new OrganizationDataProvider('assetCoverages'),
-            new UserDataProvider('assetCoverages'),
-            new ArrayDataProvider([
-                'ok' => [
-                    new GraphQLSuccess('assetCoverages', self::class, [
-                        [
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name' => 'coverage1',
-                        ],
-                    ]),
-                    static function (): void {
-                        Coverage::factory()->create([
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name' => 'coverage1',
-                        ]);
-                    },
-                ],
-            ]),
-        ))->getData();
+        $provider = new ArrayDataProvider([
+            'ok' => [
+                new GraphQLSuccess('assetCoverages', self::class, [
+                    [
+                        'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name' => 'coverage1',
+                    ],
+                ]),
+                static function (): void {
+                    Coverage::factory()->create([
+                        'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name' => 'coverage1',
+                    ]);
+                },
+            ],
+        ]);
+
+        return (new MergeDataProvider([
+            'customers-view' => new CompositeDataProvider(
+                new OrganizationDataProvider('assetCoverages'),
+                new OrganizationUserDataProvider('assetCoverages', [
+                    'customers-view',
+                ]),
+                $provider,
+            ),
+            'assets-view'    => new CompositeDataProvider(
+                new OrganizationDataProvider('assetCoverages'),
+                new OrganizationUserDataProvider('assetCoverages', [
+                    'assets-view',
+                ]),
+                $provider,
+            ),
+        ]))->getData();
     }
     // </editor-fold>
 }

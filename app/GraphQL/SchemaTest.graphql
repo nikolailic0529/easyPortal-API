@@ -1906,7 +1906,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
 
@@ -1915,7 +1915,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
 
@@ -1924,7 +1924,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
 
