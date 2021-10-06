@@ -17,6 +17,7 @@ type Query {
 
   "Application information."
   application: Application!
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Application")
 
   "Client data (settings, translations, etc)."
   client: Client

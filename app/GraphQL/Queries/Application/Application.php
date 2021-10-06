@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Application;
 
 use Composer\InstalledVersions;
 use Illuminate\Config\Repository;
