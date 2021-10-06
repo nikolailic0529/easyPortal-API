@@ -39,12 +39,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Location extends Model {
     use HasFactory;
     use HasAssets;
-    use HasResellers {
-        setResellersAttribute as private;
-    }
-    use HasCustomers {
-        setCustomersAttribute as private;
-    }
+    use HasResellers;
+    use HasCustomers;
 
     /**
      * The attributes that should be cast to native types.

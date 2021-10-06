@@ -7,7 +7,6 @@ use App\Models\Pivot;
 use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
 
 /**
  * @mixin \App\Models\Model
@@ -31,13 +30,6 @@ trait HasResellers {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\App\Models\Reseller>|array<\App\Models\Reseller> $resellers
-     */
-    public function setResellersAttribute(Collection|array $resellers): void {
-        $this->syncBelongsToMany('resellers', $resellers);
     }
 
     abstract protected function getResellersPivot(): Pivot;

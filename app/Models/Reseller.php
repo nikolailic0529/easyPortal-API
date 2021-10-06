@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable|null                                           $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>         $customers
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>    $customers
  * @property-read \App\Models\ResellerLocation|null                                 $headquarter
  * @property \App\Models\Kpi|null                                                   $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation> $locations

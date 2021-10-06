@@ -241,16 +241,13 @@ class MapTest extends TestCase {
             ]);
 
             // Resellers
-            $resellerA = Reseller::factory()->make([
+            $resellerA = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
-            $resellerB = Reseller::factory()->make();
+            $resellerB = Reseller::factory()->create();
 
-            $resellerA->customers = [$customerA];
-            $resellerB->customers = [$customerB];
-
-            $resellerA->save();
-            $resellerB->save();
+            $resellerA->customers()->attach($customerA);
+            $resellerB->customers()->attach($customerB);
 
             $code    = 0;
             $city    = City::factory()->create([

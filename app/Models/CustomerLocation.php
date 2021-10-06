@@ -37,9 +37,7 @@ class CustomerLocation extends Model implements CascadeDeletable {
     use HasTypes;
     use HasLocation;
     use HasCustomer;
-    use HasResellers {
-        setResellersAttribute as private;
-    }
+    use HasResellers;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
