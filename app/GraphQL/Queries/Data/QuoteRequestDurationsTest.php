@@ -1,10 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
-use App\Models\Currency;
+use App\Models\QuoteRequestDuration;
 use Closure;
-use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -16,7 +15,9 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class CurrenciesTest extends TestCase {
+class QuoteRequestDurationsTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
@@ -25,27 +26,24 @@ class CurrenciesTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $localeFactory = null,
-        Closure $currenciesFactory = null,
+        Closure $durationsFactory = null,
+        Closure $translationsFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setTranslations($translationsFactory);
 
-        if ($currenciesFactory) {
-            $currenciesFactory($this);
-        }
-
-        if ($localeFactory) {
-            $this->app->setLocale($localeFactory($this));
+        if ($durationsFactory) {
+            $durationsFactory($this);
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                currencies(where: {documents: { where: {}, count: {lessThan: 1} }}) {
+                quoteRequestDurations {
                     id
                     name
-                    code
+                    key
                 }
             }')
             ->assertThat($expected);
@@ -59,59 +57,54 @@ class CurrenciesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('currencies'),
-            new UserDataProvider('currencies'),
+            new OrganizationDataProvider('quoteRequestDurations'),
+            new UserDataProvider('quoteRequestDurations'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('currencies', self::class, [
+                    new GraphQLSuccess('quoteRequestDurations', self::class, [
                         [
-                            'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
+                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name' => 'Translated (locale)',
-                            'code' => 'c1',
+                            'key'  => 'translated',
                         ],
                         [
                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'name' => 'Translated (fallback)',
-                            'code' => 'c2',
+                            'key'  => 'translated-fallback',
                         ],
                         [
                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name' => 'No translation',
-                            'code' => 'c3',
+                            'key'  => 'No translation',
                         ],
                     ]),
-                    static function (TestCase $test): string {
-                        $translator = $test->app()->make(Translator::class);
-                        $fallback   = $translator->getFallback();
-                        $locale     = $test->app()->getLocale();
-                        $model      = (new Currency())->getMorphClass();
-
-                        $translator->addLines([
-                            "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
-                        ], $locale);
-
-                        $translator->addLines([
-                            "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
-                        ], $fallback);
-
-                        return $locale;
-                    },
                     static function (): void {
-                        Currency::factory()->create([
-                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'code' => 'c3',
-                            'name' => 'No translation',
-                        ]);
-                        Currency::factory()->create([
-                            'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
-                            'code' => 'c1',
+                        QuoteRequestDuration::factory()->create([
+                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name' => 'Should be translated',
+                            'key'  => 'translated',
                         ]);
-                        Currency::factory()->create([
+                        QuoteRequestDuration::factory()->create([
                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'code' => 'c2',
+                            'key'  => 'translated-fallback',
                             'name' => 'Should be translated via fallback',
                         ]);
+                        QuoteRequestDuration::factory()->create([
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name' => 'No translation',
+                            'key'  => 'No translation',
+                        ]);
+                    },
+                    static function (TestCase $test, string $locale): array {
+                        $model = (new QuoteRequestDuration())->getMorphClass();
+                        $key1  = "models.{$model}.439a0a06-d98a-41f0-b8e5-4e5722518e00.name";
+                        $key2  = "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name";
+                        return [
+                            $locale => [
+                                $key1 => 'Translated (locale)',
+                                $key2 => 'Translated (fallback)',
+                            ],
+                        ];
                     },
                 ],
             ]),

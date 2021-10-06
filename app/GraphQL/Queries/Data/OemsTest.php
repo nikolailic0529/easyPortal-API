@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
-use App\Models\Tag;
+use App\Models\Oem;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,7 +15,9 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class TagsTest extends TestCase {
+class OemsTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
@@ -24,20 +26,24 @@ class TagsTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $tagsFactory = null,
+        Closure $oemsFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        if ($tagsFactory) {
-            $tagsFactory($this);
+        if ($oemsFactory) {
+            $oemsFactory($this);
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                tags(where: {assets: { where: {}, count: {lessThan: 1} }}) {
+                oems(where: {anyOf: [
+                    { assets: { where: {}, count: {lessThan: 1} } }
+                    { documents: { where: {}, count: {lessThan: 1} } }
+                ]}) {
                     id
+                    key
                     name
                 }
             }')
@@ -52,20 +58,22 @@ class TagsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('tags'),
-            new UserDataProvider('tags'),
+            new OrganizationDataProvider('oems'),
+            new UserDataProvider('oems'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('tags', self::class, [
+                    new GraphQLSuccess('oems', self::class, [
                         [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name' => 'tag1',
+                            'key'  => 'abr',
+                            'name' => 'oem1',
                         ],
                     ]),
                     static function (): void {
-                        Tag::factory()->create([
+                        Oem::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name' => 'tag1',
+                            'key'  => 'abr',
+                            'name' => 'oem1',
                         ]);
                     },
                 ],

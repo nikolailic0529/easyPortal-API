@@ -1861,114 +1861,6 @@ type Query {
   client: Client
 
   """
-  List of all OEMs
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  oems(where: SearchByConditionOemsQuery): [Oem!]!
-
-  """
-  List of all currencies.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  currencies(where: SearchByConditionCurrenciesQuery): [Currency!]!
-
-  """
-  List of all languages.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  languages(where: SearchByConditionLanguagesQuery): [Language!]!
-
-  """
-  List of all countries.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  countries(where: SearchByConditionCountriesQuery): [Country!]!
-
-  """
-  List of all cities.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  cities(where: SearchByConditionCitiesQuery): [City!]!
-
-  """
-  List of all possible location types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  locationTypes(where: SearchByConditionLocationTypesQuery): [Type!]!
-
-  """
-  List of all possible contact types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
-
-  """
-  List of all possible tags.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
-
-  """
-  List of all Service Groups.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  serviceGroups(where: SearchByConditionServiceGroupsQuery): [ServiceGroup!]!
-
-  """
-  List of all Service Levels.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  serviceLevels(where: SearchByConditionServiceLevelsQuery): [ServiceLevel!]!
-
-  """
-  List of all Timezones
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  timezones: [String!]!
-
-  """
-  List of all possible quote request durations.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  quoteRequestDurations: [QuoteRequestDuration!]!
-
-  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -2110,6 +2002,114 @@ type Query {
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
   customer(id: ID!): Customer
+
+  """
+  List of all OEMs
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  oems(where: SearchByConditionOemsQuery): [Oem!]!
+
+  """
+  List of all currencies.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  currencies(where: SearchByConditionCurrenciesQuery): [Currency!]!
+
+  """
+  List of all languages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  languages(where: SearchByConditionLanguagesQuery): [Language!]!
+
+  """
+  List of all countries.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  countries(where: SearchByConditionCountriesQuery): [Country!]!
+
+  """
+  List of all cities.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  cities(where: SearchByConditionCitiesQuery): [City!]!
+
+  """
+  List of all possible location types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  locationTypes(where: SearchByConditionLocationTypesQuery): [Type!]!
+
+  """
+  List of all possible contact types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
+
+  """
+  List of all possible tags.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
+
+  """
+  List of all Service Groups.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  serviceGroups(where: SearchByConditionServiceGroupsQuery): [ServiceGroup!]!
+
+  """
+  List of all Service Levels.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  serviceLevels(where: SearchByConditionServiceLevelsQuery): [ServiceLevel!]!
+
+  """
+  List of all Timezones
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  timezones: [String!]!
+
+  """
+  List of all possible quote request durations.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteRequestDurations: [QuoteRequestDuration!]!
 
   """
   List of all possible quote types.

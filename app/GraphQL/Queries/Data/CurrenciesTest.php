@@ -1,9 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
-use App\Models\Language;
+use App\Models\Currency;
 use Closure;
+use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -15,7 +16,7 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class LanguagesTest extends TestCase {
+class CurrenciesTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
@@ -24,21 +25,24 @@ class LanguagesTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $translationsFactory = null,
-        Closure $languagesFactory = null,
+        Closure $localeFactory = null,
+        Closure $currenciesFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-        $this->setTranslations($translationsFactory);
 
-        if ($languagesFactory) {
-            $languagesFactory($this);
+        if ($currenciesFactory) {
+            $currenciesFactory($this);
+        }
+
+        if ($localeFactory) {
+            $this->app->setLocale($localeFactory($this));
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                languages(where: {documents: { where: {}, count: {lessThan: 1} }}) {
+                currencies(where: {documents: { where: {}, count: {lessThan: 1} }}) {
                     id
                     name
                     code
@@ -55,11 +59,11 @@ class LanguagesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('languages'),
-            new UserDataProvider('languages'),
+            new OrganizationDataProvider('currencies'),
+            new UserDataProvider('currencies'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('languages', self::class, [
+                    new GraphQLSuccess('currencies', self::class, [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',
@@ -76,28 +80,34 @@ class LanguagesTest extends TestCase {
                             'code' => 'c3',
                         ],
                     ]),
-                    static function (TestCase $test, string $locale): array {
-                        $model = (new Language())->getMorphClass();
+                    static function (TestCase $test): string {
+                        $translator = $test->app()->make(Translator::class);
+                        $fallback   = $translator->getFallback();
+                        $locale     = $test->app()->getLocale();
+                        $model      = (new Currency())->getMorphClass();
 
-                        return [
-                            $locale => [
-                                "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
-                                "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
-                            ],
-                        ];
+                        $translator->addLines([
+                            "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
+                        ], $locale);
+
+                        $translator->addLines([
+                            "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
+                        ], $fallback);
+
+                        return $locale;
                     },
                     static function (): void {
-                        Language::factory()->create([
+                        Currency::factory()->create([
                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'code' => 'c3',
                             'name' => 'No translation',
                         ]);
-                        Language::factory()->create([
+                        Currency::factory()->create([
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'code' => 'c1',
                             'name' => 'Should be translated',
                         ]);
-                        Language::factory()->create([
+                        Currency::factory()->create([
                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'code' => 'c2',
                             'name' => 'Should be translated via fallback',

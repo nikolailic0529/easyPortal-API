@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
-use App\Models\Location;
+use App\Models\Contact;
 use App\Models\Type;
 use Closure;
 use Illuminate\Translation\Translator;
@@ -16,9 +16,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\LocationTypes
+ * @coversDefaultClass \App\GraphQL\Queries\Data\ContactTypes
  */
-class LocationTypesTest extends TestCase {
+class ContactTypesTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
@@ -28,13 +28,13 @@ class LocationTypesTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $localeFactory = null,
-        Closure $typeFactory = null,
+        Closure $contactFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        if ($typeFactory) {
-            $typeFactory($this);
+        if ($contactFactory) {
+            $contactFactory($this);
         }
 
         if ($localeFactory) {
@@ -44,7 +44,7 @@ class LocationTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                locationTypes(where: {locations: { where: {}, count: {lessThan: 1} }}) {
+                contactTypes (where: {contacts: { where: {}, count: {lessThan: 1} }}) {
                     id
                     name
                 }
@@ -60,11 +60,11 @@ class LocationTypesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('locationTypes'),
-            new UserDataProvider('locationTypes'),
+            new OrganizationDataProvider('contactTypes'),
+            new UserDataProvider('contactTypes'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('locationTypes', LocationTypes::class, [
+                    new GraphQLSuccess('contactTypes', ContactTypes::class, [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',
@@ -98,19 +98,19 @@ class LocationTypesTest extends TestCase {
                         Type::factory()->create([
                             'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'        => 'No translation',
-                            'object_type' => (new Location())->getMorphClass(),
+                            'object_type' => (new Contact())->getMorphClass(),
                         ]);
                         Type::factory()->create([
                             'id'          => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'key'         => 'translated',
                             'name'        => 'Should be translated',
-                            'object_type' => (new Location())->getMorphClass(),
+                            'object_type' => (new Contact())->getMorphClass(),
                         ]);
                         Type::factory()->create([
                             'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'key'         => 'translated-fallback',
                             'name'        => 'Should be translated via fallback',
-                            'object_type' => (new Location())->getMorphClass(),
+                            'object_type' => (new Contact())->getMorphClass(),
                         ]);
                         Type::factory()->create([
                             'name' => 'Wrong object_type',

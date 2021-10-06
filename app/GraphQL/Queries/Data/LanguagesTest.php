@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
-use App\Models\QuoteRequestDuration;
+use App\Models\Language;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class QuoteRequestDurationsTest extends TestCase {
+class LanguagesTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
@@ -24,24 +24,24 @@ class QuoteRequestDurationsTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $durationsFactory = null,
         Closure $translationsFactory = null,
+        Closure $languagesFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
         $this->setTranslations($translationsFactory);
 
-        if ($durationsFactory) {
-            $durationsFactory($this);
+        if ($languagesFactory) {
+            $languagesFactory($this);
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                quoteRequestDurations {
+                languages(where: {documents: { where: {}, count: {lessThan: 1} }}) {
                     id
                     name
-                    key
+                    code
                 }
             }')
             ->assertThat($expected);
@@ -55,54 +55,53 @@ class QuoteRequestDurationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('quoteRequestDurations'),
-            new UserDataProvider('quoteRequestDurations'),
+            new OrganizationDataProvider('languages'),
+            new UserDataProvider('languages'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('quoteRequestDurations', self::class, [
+                    new GraphQLSuccess('languages', self::class, [
                         [
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',
-                            'key'  => 'translated',
+                            'code' => 'c1',
                         ],
                         [
                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'name' => 'Translated (fallback)',
-                            'key'  => 'translated-fallback',
+                            'code' => 'c2',
                         ],
                         [
                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name' => 'No translation',
-                            'key'  => 'No translation',
+                            'code' => 'c3',
                         ],
                     ]),
-                    static function (): void {
-                        QuoteRequestDuration::factory()->create([
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name' => 'Should be translated',
-                            'key'  => 'translated',
-                        ]);
-                        QuoteRequestDuration::factory()->create([
-                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'key'  => 'translated-fallback',
-                            'name' => 'Should be translated via fallback',
-                        ]);
-                        QuoteRequestDuration::factory()->create([
-                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'name' => 'No translation',
-                            'key'  => 'No translation',
-                        ]);
-                    },
                     static function (TestCase $test, string $locale): array {
-                        $model = (new QuoteRequestDuration())->getMorphClass();
-                        $key1  = "models.{$model}.439a0a06-d98a-41f0-b8e5-4e5722518e00.name";
-                        $key2  = "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name";
+                        $model = (new Language())->getMorphClass();
+
                         return [
                             $locale => [
-                                $key1 => 'Translated (locale)',
-                                $key2 => 'Translated (fallback)',
+                                "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
+                                "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
                             ],
                         ];
+                    },
+                    static function (): void {
+                        Language::factory()->create([
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'code' => 'c3',
+                            'name' => 'No translation',
+                        ]);
+                        Language::factory()->create([
+                            'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
+                            'code' => 'c1',
+                            'name' => 'Should be translated',
+                        ]);
+                        Language::factory()->create([
+                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'code' => 'c2',
+                            'name' => 'Should be translated via fallback',
+                        ]);
                     },
                 ],
             ]),

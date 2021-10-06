@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
-use App\Models\Oem;
+use App\Models\Tag;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class OemsTest extends TestCase {
+class TagsTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
@@ -24,24 +24,20 @@ class OemsTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $oemsFactory = null,
+        Closure $tagsFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        if ($oemsFactory) {
-            $oemsFactory($this);
+        if ($tagsFactory) {
+            $tagsFactory($this);
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                oems(where: {anyOf: [
-                    { assets: { where: {}, count: {lessThan: 1} } }
-                    { documents: { where: {}, count: {lessThan: 1} } }
-                ]}) {
+                tags(where: {assets: { where: {}, count: {lessThan: 1} }}) {
                     id
-                    key
                     name
                 }
             }')
@@ -56,22 +52,20 @@ class OemsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('oems'),
-            new UserDataProvider('oems'),
+            new OrganizationDataProvider('tags'),
+            new UserDataProvider('tags'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('oems', self::class, [
+                    new GraphQLSuccess('tags', self::class, [
                         [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'key'  => 'abr',
-                            'name' => 'oem1',
+                            'name' => 'tag1',
                         ],
                     ]),
                     static function (): void {
-                        Oem::factory()->create([
+                        Tag::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'key'  => 'abr',
-                            'name' => 'oem1',
+                            'name' => 'tag1',
                         ]);
                     },
                 ],

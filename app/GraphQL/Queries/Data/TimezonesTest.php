@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Data;
 
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Timezones
+ * @coversDefaultClass \App\GraphQL\Queries\Data\Timezones
  */
 class TimezonesTest extends TestCase {
     // <editor-fold desc="Tests">
