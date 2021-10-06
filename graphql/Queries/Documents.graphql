@@ -1,0 +1,27 @@
+extend type Query {
+  "List of all possible document types."
+  documentTypes(where: DocumentTypesQuery @searchBy): [Type!]!
+  @organization
+  @me(permissions: ["contracts-view", "quotes-view", "customers-view"])
+  @all(
+    builder: "App\\GraphQL\\Queries\\Documents\\DocumentTypes"
+  )
+
+  "List of all possible document statuses."
+  documentStatuses(where: DocumentStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me(permissions: ["contracts-view", "quotes-view", "customers-view"])
+  @all(
+    builder: "App\\GraphQL\\Queries\\Documents\\DocumentStatuses"
+  )
+
+  "List of all documents."
+  documents (
+    where: DocumentsQuery @searchBy
+    order: DocumentsSort @sortBy
+  ): [Document!]!
+  @organization
+  @me(permissions: ["contracts-view", "quotes-view", "customers-view"])
+  @builder(method: "App\\GraphQL\\Queries\\Documents\\Documents")
+  @paginate
+}

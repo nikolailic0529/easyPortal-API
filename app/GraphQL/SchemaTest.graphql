@@ -945,6 +945,14 @@ type DocumentPaginator {
   data: [Document!]!
 }
 
+input DocumentStatusesQuery {
+  documents: DocumentsQuery
+}
+
+input DocumentTypesQuery {
+  documents: DocumentsQuery
+}
+
 type DocumentsAggregate {
   count: Int!
   prices: [DocumentsAggregatePrice!]!
@@ -994,6 +1002,7 @@ input DocumentsSearchSort {
 }
 
 input DocumentsSort {
+  id: ID!
   start: Date!
   end: Date!
   price: Float
@@ -1870,7 +1879,7 @@ type Query {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   permissions: [Permission!]!
 
@@ -2112,6 +2121,26 @@ type Query {
   quoteRequestDurations: [QuoteRequestDuration!]!
 
   """
+  List of all possible document types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view","quotes-view"])> User must be
+  authenticated and have any of these permissions.
+  """
+  documentTypes(where: SearchByConditionDocumentTypesQuery): [Type!]!
+
+  """
+  List of all possible document statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view","quotes-view"])> User must be
+  authenticated and have any of these permissions.
+  """
+  documentStatuses(where: SearchByConditionDocumentStatusesQuery): [Status!]!
+
+  """
   List of all possible quote types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2309,6 +2338,25 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): CustomerPaginator
+
+  """
+  List of all documents.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view","quotes-view"])> User must be
+  authenticated and have any of these permissions.
+  """
+  documents(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
 
   """
   List of all quotes.
@@ -3745,6 +3793,40 @@ input SearchByConditionDocumentEntriesQuery {
 
   """Property condition."""
   currency_id: SearchByScalarIDOrNull
+}
+
+"""
+Available conditions for input DocumentStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionDocumentStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDocumentStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDocumentStatusesQuery!]
+
+  """Not."""
+  not: SearchByConditionDocumentStatusesQuery
+
+  """Property condition."""
+  documents: SearchByComplexRelationDocumentsQuery
+}
+
+"""
+Available conditions for input DocumentTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionDocumentTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDocumentTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDocumentTypesQuery!]
+
+  """Not."""
+  not: SearchByConditionDocumentTypesQuery
+
+  """Property condition."""
+  documents: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -5424,6 +5506,9 @@ input SortByClauseDocumentsSearchSort {
 Sort clause for input DocumentsSort (only one property allowed at a time).
 """
 input SortByClauseDocumentsSort {
+  """Property clause."""
+  id: SortByDirection
+
   """Property clause."""
   start: SortByDirection
 
