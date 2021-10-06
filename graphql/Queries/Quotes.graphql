@@ -2,7 +2,7 @@ extend type Query {
   "List of all possible quote types."
   quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
   @organization
-  @me
+  @me(permissions: ["quotes-view", "customers-view"])
   @all(
     builder: "App\\GraphQL\\Queries\\Quotes\\QuoteTypes"
   )
@@ -10,7 +10,7 @@ extend type Query {
   "List of all possible quote statuses."
   quoteStatuses(where: QuoteStatusesQuery @searchBy): [Status!]!
   @organization
-  @me
+  @me(permissions: ["quotes-view", "customers-view"])
   @all(
     builder: "App\\GraphQL\\Queries\\Quotes\\QuoteStatuses"
   )
