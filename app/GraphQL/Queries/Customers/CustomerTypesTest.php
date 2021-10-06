@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
-use App\Models\Status;
+use App\Models\Type;
 use Closure;
 use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -16,9 +16,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\CustomerStatuses
+ * @coversDefaultClass \App\GraphQL\Queries\Customers\CustomerTypes
  */
-class CustomerStatusesTest extends TestCase {
+class CustomerTypesTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
@@ -28,13 +30,13 @@ class CustomerStatusesTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $localeFactory = null,
-        Closure $statusesFactory = null,
+        Closure $typesFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        if ($statusesFactory) {
-            $statusesFactory($this);
+        if ($typesFactory) {
+            $typesFactory($this);
         }
 
         if ($localeFactory) {
@@ -44,7 +46,7 @@ class CustomerStatusesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                customerStatuses(where: {customers: { where: {}, count: {lessThan: 1} }}) {
+                customerTypes(where: {customers: { where: {}, count: {lessThan: 1} }}) {
                     id
                     name
                 }
@@ -60,11 +62,11 @@ class CustomerStatusesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('customerStatuses'),
-            new UserDataProvider('customerStatuses'),
+            new OrganizationDataProvider('customerTypes'),
+            new UserDataProvider('customerTypes'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('customerStatuses', CustomerStatuses::class, [
+                    new GraphQLSuccess('customerTypes', CustomerTypes::class, [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',
@@ -82,7 +84,7 @@ class CustomerStatusesTest extends TestCase {
                         $translator = $test->app()->make(Translator::class);
                         $fallback   = $translator->getFallback();
                         $locale     = $test->app()->getLocale();
-                        $model      = (new Status())->getMorphClass();
+                        $model      = (new Type())->getMorphClass();
 
                         $translator->addLines([
                             "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
@@ -95,22 +97,22 @@ class CustomerStatusesTest extends TestCase {
                         return $locale;
                     },
                     static function (TestCase $test): void {
-                        Status::factory()->create([
+                        Type::factory()->create([
                             'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'        => 'No translation',
                             'object_type' => (new Customer())->getMorphClass(),
                         ]);
-                        Status::factory()->create([
+                        Type::factory()->create([
                             'id'          => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name'        => 'Should be translated',
                             'object_type' => (new Customer())->getMorphClass(),
                         ]);
-                        Status::factory()->create([
+                        Type::factory()->create([
                             'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'name'        => 'Should be translated via fallback',
                             'object_type' => (new Customer())->getMorphClass(),
                         ]);
-                        Status::factory()->create([
+                        Type::factory()->create([
                             'name' => 'Wrong object_type',
                         ]);
                     },

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;

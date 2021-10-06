@@ -1906,24 +1906,6 @@ type Query {
   cities(where: SearchByConditionCitiesQuery): [City!]!
 
   """
-  List of all possible customer statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
-
-  """
-  List of all possible customer types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  customerTypes(where: SearchByConditionCustomerTypesQuery): [Type!]!
-
-  """
   List of all possible location types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2012,22 +1994,6 @@ type Query {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   teams: [Team!]!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
-
-  """
-  Customer.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  customer(id: ID!): Customer
 
   """
   Quote.
@@ -2139,6 +2105,40 @@ type Query {
   contract(id: ID!): Document
 
   """
+  List of all possible customer statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
+
+  """
+  List of all possible customer types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customerTypes(where: SearchByConditionCustomerTypesQuery): [Type!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
+
+  """
+  Customer.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customer(id: ID!): Customer
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
@@ -2153,40 +2153,6 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): SearchResultPaginator
-
-  """
-  List of Customers.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  customers(
-    where: SearchByConditionCustomersQuery
-    order: [SortByClauseCustomersSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): CustomerPaginator
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  customersSearch(
-    search: SearchString!
-    order: [SortByClauseCustomersSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): CustomerPaginator
 
   """
   List of all quotes.
@@ -2343,6 +2309,40 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): DocumentPaginator
+
+  """
+  List of Customers.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customers(
+    where: SearchByConditionCustomersQuery
+    order: [SortByClauseCustomersSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CustomerPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersSearch(
+    search: SearchString!
+    order: [SortByClauseCustomersSearchSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CustomerPaginator
 }
 
 type QuoteRequest {

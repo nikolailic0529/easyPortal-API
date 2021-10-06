@@ -1,10 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Customers;
 
 use App\GraphQL\Queries\Assets\AssetsAggregate;
 use App\GraphQL\Queries\Assets\AssetTest;
 use App\GraphQL\Queries\Contracts\ContractsTest;
+use App\GraphQL\Queries\QuotesTest;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -40,7 +41,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Customer
+ * @coversDefaultClass \App\GraphQL\Queries\Customers\Customer
  */
 class CustomerTest extends TestCase {
     // <editor-fold desc="Tests">

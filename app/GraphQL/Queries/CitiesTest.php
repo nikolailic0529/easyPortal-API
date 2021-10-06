@@ -17,14 +17,15 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\CustomerTypes
  */
 class CitiesTest extends TestCase {
     use WithQueryLog;
 
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     * @coversNothing
      */
     public function testInvoke(
         Response $expected,

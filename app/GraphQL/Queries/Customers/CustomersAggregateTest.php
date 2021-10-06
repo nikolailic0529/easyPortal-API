@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
 use App\Models\Organization;
@@ -18,9 +18,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\CustomersAggregate
+ * @coversDefaultClass \App\GraphQL\Queries\Customers\CustomersAggregate
  */
 class CustomersAggregateTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      *

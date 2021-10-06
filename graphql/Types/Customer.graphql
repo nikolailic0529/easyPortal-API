@@ -46,5 +46,5 @@ type Customer {
     where: AssetsQuery @searchBy
   ): AssetsAggregate!
   @me(permissions: ["assets-view", "customers-view"])
-  @field(resolver: "App\\GraphQL\\Queries\\Customer@assetsAggregate")
+  @field(resolver: "App\\GraphQL\\Queries\\Customers\\Customer@assetsAggregate")
 }

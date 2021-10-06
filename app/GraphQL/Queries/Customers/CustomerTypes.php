@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
-use App\Models\Status;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 
-class CustomerStatuses {
+class CustomerTypes {
     public function __invoke(): Builder {
-        return Status::query()
+        return Type::query()
             ->where('object_type', '=', (new Customer())->getMorphClass())
             ->orderByKey();
     }
