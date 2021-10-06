@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Document;
 use App\Models\Type;
@@ -16,9 +16,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\QuoteTypes
+ * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuoteTypes
  */
 class QuoteTypesTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      *

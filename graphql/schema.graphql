@@ -74,22 +74,6 @@ type Query {
     builder: "App\\GraphQL\\Queries\\ContactTypes"
   )
 
-  "List of all possible quote types."
-  quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
-  @organization
-  @me
-  @all(
-    builder: "App\\GraphQL\\Queries\\QuoteTypes"
-  )
-
-  "List of all possible quote statuses."
-  quoteStatuses(where: QuoteStatusesQuery @searchBy): [Status!]!
-  @organization
-  @me
-  @all(
-    builder: "App\\GraphQL\\Queries\\QuoteStatuses"
-  )
-
   "List of all possible tags."
   tags (
     where: TagsQuery @searchBy
@@ -144,36 +128,6 @@ type Query {
   @paginate(
     builder: "App\\GraphQL\\Queries\\Search@builder"
   )
-
-  # Quotes
-  # ============================================================================
-  "List of all quotes."
-  quotes (
-    where: DocumentsQuery @searchBy
-    order: DocumentsSort @sortBy
-  ): [Document!]!
-  @organization
-  @me(permissions: ["quotes-view", "customers-view"])
-  @builder(method: "App\\GraphQL\\Queries\\Quotes")
-  @paginate
-
-  "Quote."
-  quote(id: ID! @eq): Document
-  @organization
-  @me(permissions: ["quotes-view", "customers-view"])
-  @builder(method: "App\\GraphQL\\Queries\\Quotes")
-  @find
-
-  quotesSearch(
-    search: String!
-    @search
-    @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
-
-    order: DocumentsSearchSort @sortBy
-  ): [Document!]!
-  @organization
-  @me(permissions: ["quotes-view", "customers-view"])
-  @paginate
 
   # Map
   # ============================================================================

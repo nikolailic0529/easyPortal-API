@@ -1924,24 +1924,6 @@ type Query {
   contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
 
   """
-  List of all possible quote types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
-
-  """
-  List of all possible quote statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  quoteStatuses(where: SearchByConditionQuoteStatusesQuery): [Status!]!
-
-  """
   List of all possible tags.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1994,15 +1976,6 @@ type Query {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   teams: [Team!]!
-
-  """
-  Quote.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-  """
-  quote(id: ID!): Document
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2139,6 +2112,33 @@ type Query {
   customer(id: ID!): Customer
 
   """
+  List of all possible quote types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
+
+  """
+  List of all possible quote statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteStatuses(where: SearchByConditionQuoteStatusesQuery): [Status!]!
+
+  """
+  Quote.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quote(id: ID!): Document
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
@@ -2153,40 +2153,6 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): SearchResultPaginator
-
-  """
-  List of all quotes.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-  """
-  quotes(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-  """
-  quotesSearch(
-    search: String!
-    order: [SortByClauseDocumentsSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator
 
   """
   List of all organizations.
@@ -2343,6 +2309,40 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): CustomerPaginator
+
+  """
+  List of all quotes.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quotes(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quotesSearch(
+    search: String!
+    order: [SortByClauseDocumentsSearchSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
 }
 
 type QuoteRequest {

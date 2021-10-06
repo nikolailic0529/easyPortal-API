@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Document;
 use App\Models\Status;
@@ -15,9 +15,11 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\QuoteStatuses
+ * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuoteStatuses
  */
 class QuoteStatusesTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke

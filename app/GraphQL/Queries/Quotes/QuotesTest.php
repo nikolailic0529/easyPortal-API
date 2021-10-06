@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Asset;
 use App\Models\Currency;
@@ -35,7 +35,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Quotes
+ * @coversDefaultClass \App\GraphQL\Queries\Quotes\Quotes
  */
 class QuotesTest extends TestCase {
     // <editor-fold desc="Tests">

@@ -1,0 +1,45 @@
+extend type Query {
+  "List of all possible quote types."
+  quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all(
+    builder: "App\\GraphQL\\Queries\\Quotes\\QuoteTypes"
+  )
+
+  "List of all possible quote statuses."
+  quoteStatuses(where: QuoteStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me
+  @all(
+    builder: "App\\GraphQL\\Queries\\Quotes\\QuoteStatuses"
+  )
+
+  "List of all quotes."
+  quotes (
+    where: DocumentsQuery @searchBy
+    order: DocumentsSort @sortBy
+  ): [Document!]!
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+  @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
+  @paginate
+
+  "Quote."
+  quote(id: ID! @eq): Document
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+  @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
+  @find
+
+  quotesSearch(
+    search: String!
+    @search
+    @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
+
+    order: DocumentsSearchSort @sortBy
+  ): [Document!]!
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+  @paginate
+}
