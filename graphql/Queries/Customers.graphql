@@ -2,7 +2,7 @@ extend type Query {
   "List of all possible customer statuses."
   customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
   @organization
-  @me
+  @me(permissions: ["customers-view"])
   @all(
     builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
   )
@@ -10,7 +10,7 @@ extend type Query {
   "List of all possible customer types."
   customerTypes(where: CustomerTypesQuery @searchBy): [Type!]!
   @organization
-  @me
+  @me(permissions: ["customers-view"])
   @all(
     builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
   )
