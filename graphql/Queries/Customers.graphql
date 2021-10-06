@@ -1,0 +1,47 @@
+extend type Query {
+  "List of all possible customer statuses."
+  customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @all(
+    builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
+  )
+
+  "List of all possible customer types."
+  customerTypes(where: CustomerTypesQuery @searchBy): [Type!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @all(
+    builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
+  )
+
+  "List of Customers."
+  customers (
+    where: CustomersQuery @searchBy
+    order: CustomersSort @sortBy
+  ): [Customer!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @paginate
+
+  customersAggregate(
+    where: CustomersQuery @searchBy
+  ): CustomersAggregate!
+  @organization
+  @me(permissions: ["customers-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\Customers\\CustomersAggregate")
+
+  customersSearch(
+    search: SearchString! @search
+    order: CustomersSearchSort @sortBy
+  ): [Customer!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @paginate
+
+  "Customer."
+  customer(id: ID! @eq): Customer
+  @organization
+  @me(permissions: ["customers-view"])
+  @find
+}

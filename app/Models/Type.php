@@ -7,8 +7,8 @@ use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\Relations\HasContracts;
 use App\Models\Concerns\Relations\HasQuotes;
 use App\Models\Concerns\TranslateProperties;
-use App\Models\Scopes\ContractTypeScope;
-use App\Models\Scopes\QuoteTypeScope;
+use App\Models\Scopes\DocumentTypeQuery;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,6 +35,7 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryContracts()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryDocuments()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryQuotes()
  * @mixin \Eloquent
  */
@@ -44,8 +45,7 @@ class Type extends PolymorphicModel implements Translatable {
     use HasAssets;
     use HasContracts;
     use HasQuotes;
-    use ContractTypeScope;
-    use QuoteTypeScope;
+    use DocumentTypeQuery;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -93,5 +93,14 @@ class Type extends PolymorphicModel implements Translatable {
 
     public function customers(): HasMany {
         return $this->hasMany(Customer::class);
+    }
+
+    public function documents(): HasMany {
+        return $this
+            ->hasMany(Document::class)
+            ->where(static function (Builder $builder): Builder {
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryDocuments();
+            });
     }
 }

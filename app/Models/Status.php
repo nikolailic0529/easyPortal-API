@@ -85,4 +85,18 @@ class Status extends Model implements Translatable {
             })
             ->withTimestamps();
     }
+
+    public function documents(): BelongsToMany {
+        $pivot = new DocumentStatus();
+
+        return $this
+            ->belongsToMany(Document::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->where(static function (Builder $builder) {
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryDocuments();
+            })
+            ->withTimestamps();
+    }
 }

@@ -945,6 +945,14 @@ type DocumentPaginator {
   data: [Document!]!
 }
 
+input DocumentStatusesQuery {
+  documents: DocumentsQuery
+}
+
+input DocumentTypesQuery {
+  documents: DocumentsQuery
+}
+
 type DocumentsAggregate {
   count: Int!
   prices: [DocumentsAggregatePrice!]!
@@ -994,6 +1002,7 @@ input DocumentsSearchSort {
 }
 
 input DocumentsSort {
+  id: ID!
   start: Date!
   end: Date!
   price: Float
@@ -1861,6 +1870,149 @@ type Query {
   client: Client
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  map(where: SearchByConditionMapQuery, diff: Float!): [Map!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  permissions: [Permission!]!
+
+  """
+  List of all possible teams.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  teams: [Team!]!
+
+  """
+  Organization.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  organization(id: ID!): Organization
+
+  """
+  List of all possible asset types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
+
+  """
+  List of all possible asset statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
+
+  """
+  List of all possible asset coverages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
+
+  """
+  Asset.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  asset(id: ID!): Asset
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
+
+  """
+  List of all possible contract types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
+
+  """
+  List of all possible contract statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractStatuses(where: SearchByConditionContractStatusesQuery): [Status!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
+
+  """
+  Contract.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contract(id: ID!): Document
+
+  """
+  List of all possible customer statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
+
+  """
+  List of all possible customer types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customerTypes(where: SearchByConditionCustomerTypesQuery): [Type!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
+
+  """
+  Customer.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customer(id: ID!): Customer
+
+  """
   List of all OEMs
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1906,24 +2058,6 @@ type Query {
   cities(where: SearchByConditionCitiesQuery): [City!]!
 
   """
-  List of all possible customer statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
-
-  """
-  List of all possible customer types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  customerTypes(where: SearchByConditionCustomerTypesQuery): [Type!]!
-
-  """
   List of all possible location types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1940,69 +2074,6 @@ type Query {
   @require <me> User must be authenticated.
   """
   contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
-
-  """
-  List of all possible asset types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
-
-  """
-  List of all possible contract types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
-
-  """
-  List of all possible contract statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  contractStatuses(where: SearchByConditionContractStatusesQuery): [Status!]!
-
-  """
-  List of all possible quote types.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
-
-  """
-  List of all possible quote statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  quoteStatuses(where: SearchByConditionQuoteStatusesQuery): [Status!]!
-
-  """
-  List of all possible asset statuses.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
-
-  """
-  List of all possible asset coverages.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
 
   """
   List of all possible tags.
@@ -2050,61 +2121,42 @@ type Query {
   quoteRequestDurations: [QuoteRequestDuration!]!
 
   """
-  List of all possible teams.
+  List of all possible document types.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["contracts-view","customers-view","quotes-view"])> User must be
+  authenticated and have any of these permissions.
   """
-  teams: [Team!]!
+  documentTypes(where: SearchByConditionDocumentTypesQuery): [Type!]!
 
   """
+  List of all possible document statuses.
+  
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  @require <me(["contracts-view","customers-view","quotes-view"])> User must be
+  authenticated and have any of these permissions.
   """
-  customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
+  documentStatuses(where: SearchByConditionDocumentStatusesQuery): [Status!]!
 
   """
-  Customer.
+  List of all possible quote types.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  customer(id: ID!): Customer
+  quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
 
   """
-  Asset.
+  List of all possible quote statuses.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  asset(id: ID!): Asset
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
-
-  """
-  Contract.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contract(id: ID!): Document
+  quoteStatuses(where: SearchByConditionQuoteStatusesQuery): [Status!]!
 
   """
   Quote.
@@ -2114,29 +2166,6 @@ type Query {
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   quote(id: ID!): Document
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  map(where: SearchByConditionMapQuery, diff: Float!): [Map!]!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  permissions: [Permission!]!
-
-  """
-  Organization.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  organization(id: ID!): Organization
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2155,38 +2184,58 @@ type Query {
   ): SearchResultPaginator
 
   """
-  List of Customers.
+  List of all organizations.
   
-  @require <organization> Authenticated user must be a member of the current organization.
+  @require <organization(root)> Authenticated user must be a member of the root organization.
   
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  customers(
-    where: SearchByConditionCustomersQuery
-    order: [SortByClauseCustomersSort!]
+  organizations(
+    where: SearchByConditionOrganizationsQuery
+    order: [SortByClauseOrganizationsSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
     """The offset from which items are returned."""
     page: Int
-  ): CustomerPaginator
+  ): OrganizationPaginator
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
+  List of all organizations audits.
   
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  customersSearch(
-    search: SearchString!
-    order: [SortByClauseCustomersSearchSort!]
+  audits(
+    where: SearchByConditionAuditsQuery
+    order: [SortByClauseAuditsSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
     """The offset from which items are returned."""
     page: Int
-  ): CustomerPaginator
+  ): AuditPaginator
+
+  """
+  List of all users.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  users(
+    where: SearchByConditionUsersQuery
+    order: [SortByClauseUsersSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 
   """
   List of all assets
@@ -2257,6 +2306,59 @@ type Query {
   ): DocumentPaginator
 
   """
+  List of Customers.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customers(
+    where: SearchByConditionCustomersQuery
+    order: [SortByClauseCustomersSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CustomerPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersSearch(
+    search: SearchString!
+    order: [SortByClauseCustomersSearchSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CustomerPaginator
+
+  """
+  List of all documents.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view","quotes-view"])> User must be
+  authenticated and have any of these permissions.
+  """
+  documents(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
   List of all quotes.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2289,60 +2391,6 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): DocumentPaginator
-
-  """
-  List of all organizations.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  organizations(
-    where: SearchByConditionOrganizationsQuery
-    order: [SortByClauseOrganizationsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): OrganizationPaginator
-
-  """
-  List of all organizations audits.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  audits(
-    where: SearchByConditionAuditsQuery
-    order: [SortByClauseAuditsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): AuditPaginator
-
-  """
-  List of all users.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  users(
-    where: SearchByConditionUsersQuery
-    order: [SortByClauseUsersSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): UserPaginator
 }
 
 type QuoteRequest {
@@ -3745,6 +3793,40 @@ input SearchByConditionDocumentEntriesQuery {
 
   """Property condition."""
   currency_id: SearchByScalarIDOrNull
+}
+
+"""
+Available conditions for input DocumentStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionDocumentStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDocumentStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDocumentStatusesQuery!]
+
+  """Not."""
+  not: SearchByConditionDocumentStatusesQuery
+
+  """Property condition."""
+  documents: SearchByComplexRelationDocumentsQuery
+}
+
+"""
+Available conditions for input DocumentTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionDocumentTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDocumentTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDocumentTypesQuery!]
+
+  """Not."""
+  not: SearchByConditionDocumentTypesQuery
+
+  """Property condition."""
+  documents: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -5424,6 +5506,9 @@ input SortByClauseDocumentsSearchSort {
 Sort clause for input DocumentsSort (only one property allowed at a time).
 """
 input SortByClauseDocumentsSort {
+  """Property clause."""
+  id: SortByDirection
+
   """Property clause."""
   start: SortByDirection
 

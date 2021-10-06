@@ -7,6 +7,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -55,41 +56,52 @@ class PermissionsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        return (new CompositeDataProvider(
-            new OrganizationDataProvider('permissions'),
-            new OrganizationUserDataProvider('permissions', [
-                'org-administer',
-            ]),
-            new ArrayDataProvider([
-                'ok' => [
-                    new GraphQLSuccess('permissions', self::class, [
-                        [
-                            'id'          => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name'        => 'translated-name',
-                            'key'         => 'assets-view',
-                            'description' => 'translated-description',
-                        ],
-                    ]),
-                    static function (TestCase $test, string $locale): array {
-                        $id    = '439a0a06-d98a-41f0-b8e5-4e5722518e00';
-                        $model = (new Permission())->getMorphClass();
+        $provider = new ArrayDataProvider([
+            'ok' => [
+                new GraphQLSuccess('permissions', self::class, [
+                    [
+                        'id'          => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name'        => 'translated-name',
+                        'key'         => 'assets-view',
+                        'description' => 'translated-description',
+                    ],
+                ]),
+                static function (TestCase $test, string $locale): array {
+                    $id    = '439a0a06-d98a-41f0-b8e5-4e5722518e00';
+                    $model = (new Permission())->getMorphClass();
 
-                        return [
-                            $locale => [
-                                "models.{$model}.{$id}.name"        => 'translated-name',
-                                "models.{$model}.{$id}.description" => 'translated-description',
-                            ],
-                        ];
-                    },
-                    static function (): void {
-                        Permission::factory()->create([
-                            'id'  => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'key' => 'assets-view',
-                        ]);
-                    },
-                ],
-            ]),
-        ))->getData();
+                    return [
+                        $locale => [
+                            "models.{$model}.{$id}.name"        => 'translated-name',
+                            "models.{$model}.{$id}.description" => 'translated-description',
+                        ],
+                    ];
+                },
+                static function (): void {
+                    Permission::factory()->create([
+                        'id'  => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'key' => 'assets-view',
+                    ]);
+                },
+            ],
+        ]);
+
+        return (new MergeDataProvider([
+            'administer'     => new CompositeDataProvider(
+                new OrganizationDataProvider('permissions'),
+                new OrganizationUserDataProvider('permissions', [
+                    'administer',
+                ]),
+                $provider,
+            ),
+            'org-administer' => new CompositeDataProvider(
+                new OrganizationDataProvider('permissions'),
+                new OrganizationUserDataProvider('permissions', [
+                    'org-administer',
+                ]),
+                $provider,
+            ),
+        ]))->getData();
     }
     // </editor-fold>
 }

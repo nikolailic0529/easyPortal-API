@@ -1,4 +1,5 @@
 input DocumentsSort {
+  id: ID!
   start: Date!
   end: Date!
   price: Float

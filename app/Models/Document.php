@@ -14,10 +14,9 @@ use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Models\Scopes\ContractType;
-use App\Models\Scopes\ContractTypeScope;
+use App\Models\Scopes\DocumentTypeQuery;
 use App\Models\Scopes\DocumentTypeScope;
 use App\Models\Scopes\QuoteType;
-use App\Models\Scopes\QuoteTypeScope;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Date;
@@ -75,6 +74,7 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryContracts()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryDocuments()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryQuotes()
  * @mixin \Eloquent
  */
@@ -92,9 +92,8 @@ class Document extends Model implements CascadeDeletable {
     use HasLanguage;
     use HasContacts;
     use SyncHasMany;
-    use ContractTypeScope;
-    use QuoteTypeScope;
     use DocumentTypeScope;
+    use DocumentTypeQuery;
 
     protected const CASTS = [
         'changed_at' => 'datetime',

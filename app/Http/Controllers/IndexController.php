@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\GraphQL\Queries\Application as ApplicationQuery;
+use App\GraphQL\Queries\Application\Application as ApplicationQuery;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Exceptions\RegisterErrorViewPaths;
 use Illuminate\Http\Request;
