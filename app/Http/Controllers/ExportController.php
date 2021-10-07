@@ -25,6 +25,7 @@ use function array_key_first;
 use function array_keys;
 use function array_values;
 use function is_array;
+use function is_scalar;
 use function json_encode;
 use function str_replace;
 use function ucwords;
@@ -200,9 +201,7 @@ class ExportController extends Controller {
             if (is_array($item[$key])) {
                 // relation key with values
                 if (Arr::isAssoc($item[$key])) {
-                    foreach ($item[$key] as $subKey => $subValue) {
-                        $keys["{$key}.{$subKey}"] = $this->formatHeader($key).' '.$this->formatHeader($subKey);
-                    }
+                    $this->resolveObjectHeader($item, $keys, $key);
                 } else {
                     // Array of values
                     $keys[$key] = $this->formatHeader($key);
@@ -217,6 +216,7 @@ class ExportController extends Controller {
     }
 
     protected function formatHeader(string $text): string {
+        $text = str_replace('.', ' ', $text);
         $text = str_replace('_', ' ', $text);
         return ucwords($text);
     }
@@ -231,5 +231,24 @@ class ExportController extends Controller {
             $validated['operationName'],
             $collection->first(),
         ));
+    }
+
+    /**
+     * @param array<string, mixed> $array
+     *
+     * @param array<string, mixed> $keys
+     */
+    protected function resolveObjectHeader(array $array, array &$keys, string $key): void {
+        $currentValue = Arr::get($array, $key);
+        if (is_scalar($currentValue)) {
+            $keys[$key] = $this->formatHeader($key);
+        } elseif (Arr::isAssoc($currentValue)) {
+            foreach ($currentValue as $index => $value) {
+                $prefix = "{$key}.{$index}";
+                $this->resolveObjectHeader($array, $keys, $prefix);
+            }
+        } else {
+            // empty
+        }
     }
 }
