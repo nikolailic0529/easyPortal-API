@@ -228,6 +228,7 @@ type Asset {
   location_id: ID
   reseller_id: ID
   serial_number: String
+  warranty_end: Date
   customer: Customer
   location: Location
   oem: Oem!
@@ -324,7 +325,8 @@ input AssetsQuery {
   customer_id: ID!
   location_id: ID!
   status_id: ID
-  serial_number: String!
+  serial_number: String
+  warranty_end: Date
   location: LocationsQuery
   customer: CustomersQuery
   product: ProductsQuery
@@ -351,7 +353,8 @@ input AssetsSearchSort {
 input AssetsSort {
   id: ID!
   product: ProductsSort!
-  serial_number: String!
+  serial_number: String
+  warranty_end: Date
   location: LocationsSort!
   customer: CustomersSort!
   status: StatusSort!
@@ -3360,7 +3363,10 @@ input SearchByConditionAssetsQuery {
   status_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  serial_number: SearchByScalarString
+  serial_number: SearchByScalarStringOrNull
+
+  """Property condition."""
+  warranty_end: SearchByScalarDateOrNull
 
   """Property condition."""
   location: SearchByComplexRelationLocationsQuery
@@ -4995,6 +5001,9 @@ input SortByClauseAssetsQuery {
   serial_number: SortByDirection
 
   """Property clause."""
+  warranty_end: SortByDirection
+
+  """Property clause."""
   location: SortByClauseLocationsQuery
 
   """Property clause."""
@@ -5058,6 +5067,9 @@ input SortByClauseAssetsSort {
 
   """Property clause."""
   serial_number: SortByDirection
+
+  """Property clause."""
+  warranty_end: SortByDirection
 
   """Property clause."""
   location: SortByClauseLocationsSort
