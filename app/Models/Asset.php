@@ -35,6 +35,7 @@ use Illuminate\Support\Collection;
  * @property string|null                                                              $location_id current
  * @property string|null                                                              $status_id
  * @property string|null                                                              $serial_number
+ * @property \Carbon\CarbonImmutable|null                                             $warranty_end
  * @property string|null                                                              $data_quality
  * @property int                                                                      $contacts_count
  * @property \Carbon\CarbonImmutable|null                                             $changed_at
@@ -77,7 +78,8 @@ class Asset extends Model {
     use HasTags;
 
     protected const CASTS = [
-        'changed_at' => 'datetime',
+        'changed_at'   => 'datetime',
+        'warranty_end' => 'date',
     ] + parent::CASTS;
 
     /**
@@ -115,6 +117,9 @@ class Asset extends Model {
      */
     public function setWarrantiesAttribute(Collection|array $warranties): void {
         $this->syncHasMany('warranties', $warranties);
+        $this->warranty_end = (new Collection($warranties))
+            ->pluck('end')
+            ->max();
     }
 
     public function contractWarranties(): HasMany {

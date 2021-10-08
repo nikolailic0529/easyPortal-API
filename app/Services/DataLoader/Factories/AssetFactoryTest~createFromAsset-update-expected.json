@@ -26,6 +26,7 @@
     "update `documents` set `end` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
     "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+    "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
     "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "update `asset_warranty_service_levels` set `deleted_at` = ?, `asset_warranty_service_levels`.`updated_at` = ? where (`asset_warranty_id` = ? and `service_level_id` = ?) and `asset_warranty_service_levels`.`deleted_at` is null",

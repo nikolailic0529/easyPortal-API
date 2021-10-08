@@ -481,6 +481,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-05-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00000231-21a1-4f41-a537-65029f694e78"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-06-01 00:00:00",
@@ -702,6 +710,14 @@
             "b17630d2-22f7-4af3-8a83-aa33e8526bbc",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2023-06-25 00:00:00",
+            "2021-08-30 00:00:00",
+            "000007c8-6423-407a-993d-671c6b9de2a5"
         ]
     },
     {
@@ -933,6 +949,14 @@
             "3418e27b-abd1-4edc-8715-397465d68958",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-03-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00000d58-472c-4892-a6a4-c7740d5d8541"
         ]
     },
     {
@@ -1415,6 +1439,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00001533-8290-48b7-bd68-703ca6dec0f5"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2018-01-01 00:00:00",
@@ -1702,6 +1734,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-07-26 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000179c-dc64-4f0b-8aec-93e673f727fe"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000179c-dc64-4f0b-8aec-93e673f727fe",
@@ -1874,6 +1914,14 @@
             "ea3cb971-c901-4edb-91f1-07af317df8df",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00001a40-9d6a-4fc3-a87e-e5a5b38ed3ef"
         ]
     },
     {
@@ -2134,6 +2182,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-09-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "00001f4a-79e9-4a90-8ef7-0575ec58b1f9"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9",
@@ -2366,6 +2422,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00001f64-016d-42b7-b508-7d455f348416"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2019-01-01 00:00:00",
@@ -2562,6 +2626,14 @@
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-07-26 00:00:00",
+            "2021-08-30 00:00:00",
+            "000025ec-31a9-485d-96f0-c51a4bf299f3"
         ]
     },
     {
@@ -2768,6 +2840,14 @@
             "e3414b3a-9986-469b-a96a-5ef5db20cee9",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-11-01 00:00:00",
+            "2021-08-30 00:00:00",
+            "00002b22-d5e0-4d04-9c14-96fee4fb10f4"
         ]
     },
     {
@@ -4207,6 +4287,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-10-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "000031fb-00de-4a09-ad4a-83498858f8bb"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2019-10-16 00:00:00",
@@ -4373,6 +4461,14 @@
             "59083a07-2ea5-4fb4-b718-04ca3899264d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-10-23 00:00:00",
+            "2021-08-30 00:00:00",
+            "00003a03-18d7-4e64-ac42-9911a0c82c0b"
         ]
     },
     {
@@ -4553,6 +4649,14 @@
             "fb0bb235-f15e-433f-947f-c2d6359151c8",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-06-06 00:00:00",
+            "2021-08-30 00:00:00",
+            "00003f29-b194-4247-aeb5-dfccd215cc34"
         ]
     },
     {
@@ -4755,6 +4859,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00003f9e-28fd-48d9-8f2a-80777916c943"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2019-11-01 00:00:00",
@@ -4940,6 +5052,14 @@
             "14ace7c2-f7b7-4e76-835c-3cbf96d38523",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "000047af-be68-4bf7-ae01-40405fc75e21"
         ]
     },
     {
@@ -5138,6 +5258,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2025-07-06 00:00:00",
+            "2021-08-30 00:00:00",
+            "000054ee-58ea-4ef3-b723-540fd4a411a3"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000054ee-58ea-4ef3-b723-540fd4a411a3",
@@ -5320,6 +5448,14 @@
             "91c0141d-eb65-4acb-acdb-cfc4593b9cf5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2024-07-19 00:00:00",
+            "2021-08-30 00:00:00",
+            "00005d41-b4ef-4612-a3a7-5b6fc4690c3c"
         ]
     },
     {
@@ -5587,6 +5723,14 @@
             "70b4c09d-d4c8-44c4-a2e5-b0250887d9ca",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-03-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00005ec6-f2d2-4c8e-b53b-98cd81677ec9"
         ]
     },
     {
@@ -6108,6 +6252,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2024-01-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00005f20-eaff-4198-867c-3676c42be907"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00005f20-eaff-4198-867c-3676c42be907",
@@ -6413,6 +6565,14 @@
             "0d8b1849-cb13-5658-b504-726208f6ccae",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2025-07-07 00:00:00",
+            "2021-08-30 00:00:00",
+            "00006383-67be-4c58-99a1-e187e4af1748"
         ]
     },
     {
@@ -7973,6 +8133,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-01-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00006504-041f-4303-8d06-93c06fe09f8d"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00006504-041f-4303-8d06-93c06fe09f8d",
@@ -8150,6 +8318,14 @@
             "8505d734-7ddb-4365-a516-53aacbbc7db2",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000662a-bd12-4a3b-85fe-20dcc6b97458"
         ]
     },
     {
@@ -8341,6 +8517,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00007224-4f1f-4991-87a0-81379bd4a662"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2019-12-01 00:00:00",
@@ -8529,6 +8713,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-06-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000729a-09d3-4fee-b8ed-57d55576cdf4"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-07-01 00:00:00",
@@ -8714,6 +8906,14 @@
             "bbf8afca-cc01-44cc-99f9-636eeafe204c",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-09-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "000072e9-8b7b-4814-83a0-20ea60c94eea"
         ]
     },
     {
@@ -9103,6 +9303,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-11-14 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000786c-fb58-4fef-b63a-79ee9c9ccd87"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000786c-fb58-4fef-b63a-79ee9c9ccd87",
@@ -9312,6 +9520,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000794b-a9f8-49f4-8d1e-47a55f16e4ec"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000794b-a9f8-49f4-8d1e-47a55f16e4ec",
@@ -9489,6 +9705,14 @@
             "1b559b8f-3ce7-46bb-8771-35026d856db1",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00007f5b-145b-4388-8720-b7cacbf9c328"
         ]
     },
     {
@@ -9679,6 +9903,14 @@
             "d4f1ff1f-c474-4164-b5ec-110dc1b80834",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-03-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "00009056-8b03-468a-8fbd-031fb91b4bee"
         ]
     },
     {
@@ -9925,6 +10157,14 @@
             "567c81f4-bea4-55bd-8406-1c0d3d58da68",
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2025-07-18 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000945a-ebbc-432b-a679-dba3c57eab67"
         ]
     },
     {
@@ -11566,6 +11806,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "000096fd-df38-483e-b441-846785c9a339"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000096fd-df38-483e-b441-846785c9a339",
@@ -11865,6 +12113,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "000097d6-928b-41dd-9938-8aada1ba2916"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2021-01-01 00:00:00",
@@ -12050,6 +12306,14 @@
             "11db45a4-5e9a-4293-a619-fd2c6e7469f2",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000996c-a34d-4b91-a2f6-a29bc17bdbe2"
         ]
     },
     {
@@ -12312,6 +12576,14 @@
             "0d8b1849-cb13-5658-b504-726208f6ccae",
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-01-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000a701-d97c-4390-a0c9-80b54bc620df"
         ]
     },
     {
@@ -12953,6 +13225,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000aab7-79d8-4fae-b86c-375b1ad4b3d0"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000aab7-79d8-4fae-b86c-375b1ad4b3d0",
@@ -13408,6 +13688,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000aea4-cdd6-4e2f-a48f-e92286c72d64"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000aea4-cdd6-4e2f-a48f-e92286c72d64",
@@ -13797,6 +14085,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-11-23 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000b6a3-260d-4fc3-8af8-5219719becc1"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000b6a3-260d-4fc3-8af8-5219719becc1",
@@ -14019,6 +14315,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000b9f9-ecb2-4347-9267-22a4714175ec"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000b9f9-ecb2-4347-9267-22a4714175ec",
@@ -14196,6 +14500,14 @@
             "61948c6c-9b58-4522-94b7-0e3617008b1e",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000c240-3b07-4267-8208-85e29dba3b59"
         ]
     },
     {
@@ -14424,6 +14736,14 @@
             "230e97ea-ce8f-43f0-a839-65989704988d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-01-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000c764-15a8-4b84-8aac-172686829839"
         ]
     },
     {
@@ -16210,6 +16530,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2020-07-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000c86b-ba63-4386-811c-dc0f8e794d2c"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2019-08-01 00:00:00",
@@ -16387,6 +16715,14 @@
             "d4e7be5e-e377-43cc-a466-3e6b8bfedf9f",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2023-05-03 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2"
         ]
     },
     {
@@ -16672,6 +17008,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2023-12-03 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000d9a5-0e02-4c93-b170-604002110fb3"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000d9a5-0e02-4c93-b170-604002110fb3",
@@ -16899,6 +17243,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2024-02-05 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000dbb1-a181-4563-945c-2f6dfb711c15"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000dbb1-a181-4563-945c-2f6dfb711c15",
@@ -17084,6 +17436,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2024-08-17 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000dbf4-e0b1-4394-9a8a-792542566bc9"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000dbf4-e0b1-4394-9a8a-792542566bc9",
@@ -17236,6 +17596,14 @@
             "4007daa4-8b68-4767-9746-02054680d673",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-28 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000dc9e-6292-41d1-bdb1-9c0fafbb597d"
         ]
     },
     {
@@ -17396,6 +17764,14 @@
             "7fa1b376-4432-4c41-a00f-e366ba2a4549",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000dd75-826a-424b-b090-7d85ae4b2782"
         ]
     },
     {
@@ -17584,6 +17960,14 @@
         ]
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2024-03-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000f152-fdcc-4f15-a31b-daf2f311e187"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0000f152-fdcc-4f15-a31b-daf2f311e187",
@@ -17761,6 +18145,14 @@
             "0b03c7d5-f73c-493a-9ba9-a2402b15c3fa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2018-12-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000f4c5-f6e9-4fd6-a913-24613652b4d9"
         ]
     },
     {
@@ -17949,6 +18341,14 @@
             "59628e5b-e44a-46f9-a77b-f92fc03ebb00",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2019-05-31 00:00:00",
+            "2021-08-30 00:00:00",
+            "0000f4f6-ff8f-468d-a71e-4cc80541ac99"
         ]
     },
     {

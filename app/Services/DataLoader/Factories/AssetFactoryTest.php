@@ -139,6 +139,8 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->assetType, $created->type->key);
         $this->assertEquals($asset->status, $created->status->key);
         $this->assertEquals($asset->customerId, $created->customer->getKey());
+        $this->assertNotNull($created->warranty_end);
+        $this->assertEquals($created->warranties->pluck('end')->max(), $created->warranty_end);
         $this->assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($created->location),
@@ -249,6 +251,8 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol));
         $this->assertEquals($asset->assetType, $updated->type->key);
         $this->assertEquals($asset->customerId, $updated->customer->getKey());
+        $this->assertNotNull($updated->warranty_end);
+        $this->assertEquals($updated->warranties->pluck('end')->max(), $updated->warranty_end);
         $this->assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($updated->location),
