@@ -7,6 +7,7 @@ use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Settings\Storage;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,9 +19,13 @@ use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\GraphQL\ASTBuilderPersistent;
 
+use function array_shift;
+
 abstract class TestCase extends BaseTestCase {
     use CreatesApplication;
-    use RefreshDatabaseIfEmpty;
+    use RefreshDatabaseIfEmpty {
+        RefreshDatabaseIfEmpty::refreshTestDatabase as protected laraaspRefreshTestDatabase;
+    }
     use MakesGraphQLRequests;
     use WithTranslations;
     use WithSettings;
@@ -84,6 +89,32 @@ abstract class TestCase extends BaseTestCase {
                 };
             });
         });
+    }
+
+    protected function refreshTestDatabase(): void {
+        // All connections should use a test database (this is especially
+        // important for parallel testing), so we need to update them.
+        //
+        // PS: Probably it should not be here?
+        $connections = $this->connectionsToTransact();
+        $default     = array_shift($connections);
+
+        if ($default && $connections) {
+            $db       = $this->app->make('db');
+            $config   = $this->app->make(Repository::class);
+            $database = $config->get("database.connections.{$default}.database");
+
+            foreach ($connections as $connection) {
+                $setting = "database.connections.{$connection}.database";
+
+                if ($config->get($setting) !== $database) {
+                    $config->set($setting, $database);
+                    $db->purge($connection);
+                }
+            }
+        }
+
+        $this->laraaspRefreshTestDatabase();
     }
 
     /**

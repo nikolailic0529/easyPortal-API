@@ -3,8 +3,8 @@
 namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\UnionBuilder;
-use ElasticScoutDriverPlus\QueryMatch;
-use ElasticScoutDriverPlus\SearchResult;
+use ElasticScoutDriverPlus\Decorators\Hit;
+use ElasticScoutDriverPlus\Decorators\SearchResult;
 use Generator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
@@ -27,20 +27,20 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\SearchResult $results
+     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
      */
     public function mapIds($results): Collection {
         // TODO: Probably we need to add Model class?
         return (new Collection($results->matches()))
-            ->map(static function (QueryMatch $match): string {
-                return $match->document()->getId();
+            ->map(static function (Hit $match): string {
+                return $match->document()->id();
             });
     }
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\SearchResult $results
+     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
      * @param \Illuminate\Database\Eloquent\Model  $model
      */
     public function map(Builder $builder, $results, $model): Collection {
@@ -50,13 +50,13 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\SearchResult $results
+     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
      * @param \Illuminate\Database\Eloquent\Model  $model
      */
     public function lazyMap(Builder $builder, $results, $model): LazyCollection {
         return new LazyCollection(static function () use ($results): Generator {
             foreach ($results as $query) {
-                /** @var \ElasticScoutDriverPlus\QueryMatch $query */
+                /** @var \ElasticScoutDriverPlus\Decorators\Hit $query */
                 yield $query->model();
             }
         });
@@ -65,7 +65,7 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\SearchResult $results
+     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
      */
     public function getTotalCount($results): ?int {
         return $results->total();

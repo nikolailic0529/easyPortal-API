@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Kpi|null                                                   $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $quotes
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller>         $resellers
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller>    $resellers
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
  * @property \App\Models\Type                                                       $type
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)

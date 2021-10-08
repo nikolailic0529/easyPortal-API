@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'route'                   => [
+    'route'                       => [
         /*
          * The URI the endpoint responds to, e.g. mydomain.com/graphql.
          */
@@ -65,12 +65,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | The guard to use for authenticating GraphQL requests, if needed.
-    | This setting is used whenever Lighthouse looks for an authenticated user, for example in directives
-    | such as `@guard` and when applying the `AttemptAuthentication` middleware.
+    | Used in directives such as `@guard` or the `AttemptAuthentication` middleware.
+    | Falls back to the Laravel default if the defined guard is either `null` or not found.
     |
     */
 
-    'guard'                   => 'web',
+    'guard'                       => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'schema'                  => [
+    'schema'                      => [
         'register' => base_path('graphql/schema.graphql'),
     ],
 
@@ -97,26 +97,42 @@ return [
     |
     */
 
-    'cache'                   => [
+    'cache'                       => [
         /*
          * Setting to true enables schema caching.
          */
-        'enable' => env('LIGHTHOUSE_CACHE_ENABLE', env('APP_ENV') !== 'local'),
+        'enable'  => env('LIGHTHOUSE_CACHE_ENABLE', env('APP_ENV') !== 'local'),
+
+        /*
+         * Allowed values:
+         * - 1: uses the store, key and ttl config values to store the schema as a string in the given cache store.
+         * - 2: uses the path config value to store the schema in a PHP file allowing OPcache to pick it up.
+         */
+        'version' => env('LIGHTHOUSE_CACHE_VERSION', 2),
 
         /*
          * The name of the cache item for the schema cache.
+         * Only relevant if version is set to 1.
          */
-        'key'    => env('LIGHTHOUSE_CACHE_KEY', 'lighthouse-schema'),
+        'key'     => env('LIGHTHOUSE_CACHE_KEY', 'lighthouse-schema'),
 
         /*
          * Allows using a specific cache store, uses the app's default if set to null.
+         * Only relevant if version is set to 1.
          */
-        'store'  => env('LIGHTHOUSE_CACHE_STORE', null),
+        'store'   => env('LIGHTHOUSE_CACHE_STORE', null),
 
         /*
          * Duration in seconds the schema should remain cached, null means forever.
+         * Only relevant if version is set to 1.
          */
-        'ttl'    => env('LIGHTHOUSE_CACHE_TTL', null),
+        'ttl'     => env('LIGHTHOUSE_CACHE_TTL', null),
+
+        /*
+         * File path to store the lighthouse schema.
+         * Only relevant if version is set to 2.
+         */
+        'path'    => env('LIGHTHOUSE_CACHE_PATH', base_path('bootstrap/cache/lighthouse-schema.php')),
     ],
 
     /*
@@ -130,7 +146,7 @@ return [
     |
     */
 
-    'namespaces'              => [
+    'namespaces'                  => [
         'models'        => ['App\\Models'],
         'queries'       => 'App\\GraphQL\\Queries',
         'mutations'     => 'App\\GraphQL\\Mutations',
@@ -152,7 +168,7 @@ return [
     |
     */
 
-    'security'                => [
+    'security'                    => [
         'max_query_complexity'  => QueryComplexity::DISABLED,
         'max_query_depth'       => QueryDepth::DISABLED,
         'disable_introspection' => DisableIntrospection::DISABLED,
@@ -168,7 +184,7 @@ return [
     |
     */
 
-    'pagination'              => [
+    'pagination'                  => [
         /*
          * Allow clients to query paginated lists without specifying the amount of items.
          * Setting this to `null` means clients have to explicitly ask for the count.
@@ -210,7 +226,7 @@ return [
     |
     */
 
-    'debug'                   => env('LIGHTHOUSE_DEBUG', DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE),
+    'debug'                       => env('LIGHTHOUSE_DEBUG', DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE),
 
     /*
     |--------------------------------------------------------------------------
@@ -223,7 +239,7 @@ return [
     |
     */
 
-    'error_handlers'          => [
+    'error_handlers'              => [
         ExtensionErrorHandler::class,
         ReportingErrorHandler::class,
     ],
@@ -239,7 +255,7 @@ return [
     |
     */
 
-    'field_middleware'        => [
+    'field_middleware'            => [
         TrimDirective::class,
         ValidateDirective::class,
     ],
@@ -254,7 +270,7 @@ return [
     |
     */
 
-    'global_id_field'         => 'id',
+    'global_id_field'             => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -266,7 +282,7 @@ return [
     |
     */
 
-    'batched_queries'         => true,
+    'batched_queries'             => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -278,7 +294,7 @@ return [
     |
     */
 
-    'transactional_mutations' => true,
+    'transactional_mutations'     => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -291,7 +307,7 @@ return [
     |
     */
 
-    'force_fill'              => true,
+    'force_fill'                  => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -303,19 +319,34 @@ return [
     |
     */
 
-    'batchload_relations'     => true,
+    'batchload_relations'         => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Non-Null Pagination Results
+    |--------------------------------------------------------------------------
+    |
+    | If set to true, the generated result type of paginated lists will be marked
+    | as non-nullable. This is generally more convenient for clients, but will
+    | cause validation errors to bubble further up in the result.
+    |
+    | This setting will be removed and always true in v6.
+    |
+    */
+
+    'non_null_pagination_results' => false,
 
     /*
     |--------------------------------------------------------------------------
     | GraphQL Subscriptions
     |--------------------------------------------------------------------------
     |
-    | Here you can define GraphQL subscription "broadcasters" and "storage" drivers
+    | Here you can define GraphQL subscription broadcaster and storage drivers
     | as well their required configuration options.
     |
     */
 
-    'subscriptions'           => [
+    'subscriptions'               => [
         /*
          * Determines if broadcasts should be queued by default.
          */
@@ -365,6 +396,19 @@ return [
                 'routes'     => SubscriptionRouter::class.'@echoRoutes',
             ],
         ],
+
+        /*
+         * Controls the format of the extensions response.
+         * Allowed values: 1, 2
+         */
+        'version'               => env('LIGHTHOUSE_SUBSCRIPTION_VERSION', 1),
+
+        /*
+         * Should the subscriptions extension be excluded when the response has no subscription channel?
+         * This optimizes performance by sending less data, but clients must anticipate this appropriately.
+         * Will default to true in v6 and be removed in v7.
+         */
+        'exclude_empty'         => env('LIGHTHOUSE_SUBSCRIPTION_EXCLUDE_EMPTY', false),
     ],
 
     /*
@@ -376,7 +420,7 @@ return [
     |
     */
 
-    'defer'                   => [
+    'defer'                       => [
         /*
          * Maximum number of nested fields that can be deferred in one query.
          * Once reached, remaining fields will be resolved synchronously.
@@ -390,6 +434,22 @@ return [
          * 0 means unlimited.
          */
         'max_execution_ms'  => 0,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Apollo Federation
+    |--------------------------------------------------------------------------
+    |
+    | Lighthouse can act as a federated service: https://www.apollographql.com/docs/federation/federation-spec.
+    |
+    */
+
+    'federation'                  => [
+        /*
+         * Location of resolver classes when resolving the `_entities` field.
+         */
+        'entities_resolver_namespace' => 'App\\GraphQL\\Entities',
     ],
 
 ];

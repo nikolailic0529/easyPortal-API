@@ -6,6 +6,7 @@ use App\Models\Model;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\ParallelTesting;
 use Throwable;
 
 use function str_starts_with;
@@ -18,9 +19,12 @@ trait WithSearch {
     // =========================================================================
     protected function setUpWithSearch(): void {
         // Right now only ElasticSearch is supported.
+        $token  = ParallelTesting::token();
+        $prefix = $token ? "testing_{$token}_" : 'testing_';
+
         $this->setSettings([
             'scout.driver'                           => 'elastic',
-            'scout.prefix'                           => 'testing_',
+            'scout.prefix'                           => $prefix,
             'scout.queue'                            => false,
             'elastic.scout_driver.refresh_documents' => true,
         ]);

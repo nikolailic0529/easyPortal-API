@@ -12,7 +12,16 @@ class ASTBuilderPersistent extends ASTBuilder {
     public function documentAST(): DocumentAST {
         // Test?
         if ($this->schemaSourceProvider instanceof TestSchemaProvider) {
-            return parent::documentAST();
+            $setting = 'lighthouse.cache.enable';
+            $enabled = $this->configRepository->get($setting);
+
+            $this->configRepository->set($setting, false);
+
+            try {
+                return parent::documentAST();
+            } finally {
+                $this->configRepository->set($setting, $enabled);
+            }
         }
 
         // Cached?

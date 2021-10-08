@@ -13,8 +13,8 @@
     "ext-mbstring": "*",
     "ext-pdo_mysql": "*",
     "ext-redis": "*",
-    "babenkoivan/elastic-scout-driver": "^1.4",
-    "babenkoivan/elastic-scout-driver-plus": "^2.3",
+    "babenkoivan/elastic-scout-driver": "^2.0",
+    "babenkoivan/elastic-scout-driver-plus": "^3.0",
     "barryvdh/laravel-snappy": "^0.4.8",
     "dragonmantank/cron-expression": "^3.1",
     "fideloper/proxy": "^4.4",
@@ -45,13 +45,14 @@
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.9",
+    "brianium/paratest": "^6.3",
     "facade/ignition": "^2.5",
     "fakerphp/faker": "^1.9.1",
     "itsgoingd/clockwork": "^5.0",
     "lastdragon-ru/lara-asp-testing": "dev-master",
     "mll-lab/laravel-graphql-playground": "^2.5",
     "mockery/mockery": "^1.4.2",
-    "nunomaduro/collision": "^5.0",
+    "nunomaduro/collision": "^5.10",
     "phpunit/phpunit": "^9.3.3",
     "slevomat/coding-standard": "dev-master",
     "squizlabs/php_codesniffer": "dev-master",
@@ -84,14 +85,17 @@
       "Config\\": "config/",
       "Database\\Factories\\": "database/factories/",
       "Database\\Seeders\\": "database/seeders/"
-    }
+    },
+    "exclude-from-classmap": [
+      "app/**Test.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/"
     },
     "files": [
-      "app/mixins.php"
+      "tests/mixins.php"
     ]
   },
   "minimum-stability": "dev",
