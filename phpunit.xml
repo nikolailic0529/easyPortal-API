@@ -41,5 +41,6 @@
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="SCOUT_DRIVER" value="null"/>
         <server name="EP_LOGGER_ENABLED" value="false"/>
+        <server name="LIGHTHOUSE_CACHE_ENABLE" value="false"/>
     </php>
 </phpunit>
