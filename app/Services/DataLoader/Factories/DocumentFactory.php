@@ -464,6 +464,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
                     // TODO: Not implemented
                 } finally {
                     $this->getAssetResolver()->reset();
+                    $model->save();
                 }
             }
 
