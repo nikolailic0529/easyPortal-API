@@ -95,7 +95,7 @@
       "Tests\\": "tests/"
     },
     "files": [
-      "app/mixins.php"
+      "tests/mixins.php"
     ]
   },
   "minimum-stability": "dev",
