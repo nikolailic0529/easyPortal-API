@@ -720,6 +720,14 @@
         "bindings": []
     },
     {
+        "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-06-12 00:00:00",
+            "2021-08-30 00:00:00",
+            "03781b72-05b6-4722-879f-635b5fddde1d"
+        ]
+    },
+    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             null,

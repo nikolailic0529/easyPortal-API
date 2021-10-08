@@ -139,6 +139,7 @@ class AssetTest extends TestCase {
                             latitude
                             longitude
                         }
+                        warranty_end
                         warranties {
                             id
                             reseller_id
@@ -423,6 +424,7 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                             ],
+                            'warranty_end'   => '2021-01-01',
                             'warranties'     => [
                                 [
                                     'id'            => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
@@ -792,6 +794,7 @@ class AssetTest extends TestCase {
                                 ->create([
                                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'serial_number'  => '#PRODUCT_SERIAL_323',
+                                    'warranty_end'   => '2021-01-01',
                                     'contacts_count' => 1,
                                     'data_quality'   => '130',
                                 ]);

@@ -258,6 +258,7 @@ class CustomerTest extends TestCase {
                                     latitude
                                     longitude
                                 }
+                                warranty_end
                                 warranties {
                                     id
                                     reseller_id
@@ -930,6 +931,7 @@ class CustomerTest extends TestCase {
                                             'latitude'  => 47.91634204,
                                             'longitude' => -2.26318359,
                                         ],
+                                        'warranty_end'   => '2021-01-01',
                                         'warranties'     => [
                                             [
                                                 'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -1191,6 +1193,7 @@ class CustomerTest extends TestCase {
                                 ->create([
                                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'serial_number'  => '#PRODUCT_SERIAL_323',
+                                    'warranty_end'   => '2021-01-01',
                                     'contacts_count' => 1,
                                     'data_quality'   => '130',
                                 ]);

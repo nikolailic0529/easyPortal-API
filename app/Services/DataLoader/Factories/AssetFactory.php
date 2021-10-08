@@ -277,26 +277,29 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->tags          = $this->assetTags($asset);
             $model->coverages     = $this->assetCoverages($asset);
 
-            $model->save();
+            if ($created) {
+                $model->save();
+            }
 
             // Documents
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
-                // Prefetch documents
-                $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
-                    $documents->loadMissing('entries');
-                    $documents->loadMissing('contacts.types');
-
-                    $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
-                });
-
-                if ($created) {
-                    $model->setRelation('warranties', new EloquentCollection());
-                    $model->setRelation('documentEntries', new EloquentCollection());
-                } else {
-                    $model->loadMissing('warranties.serviceLevels');
-                }
-
                 try {
+                    // Prefetch documents
+                    $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
+                        $documents->loadMissing('entries');
+                        $documents->loadMissing('contacts.types');
+
+                        $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
+                    });
+
+                    if ($created) {
+                        $model->setRelation('warranties', new EloquentCollection());
+                        $model->setRelation('documentEntries', new EloquentCollection());
+                    } else {
+                        $model->loadMissing('warranties.serviceLevels');
+                    }
+
+                    // Update
                     $documents              = $this->assetDocuments($model, $asset);
                     $model->warranties      = $this->assetWarranties($model, $asset);
                     $model->documentEntries = $documents
@@ -308,15 +311,19 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                             return $model->getKey() === $entry->asset_id;
                         });
                 } finally {
+                    // Cleanup
                     $this->getDocumentResolver()->reset();
+
+                    unset($model->documentEntries);
+                    unset($model->warranties);
+
+                    // Save
+                    $model->save();
                 }
             }
 
+            // Save
             $model->save();
-
-            // Cleanup
-            unset($model->documentEntries);
-            unset($model->warranties);
 
             // Return
             return $model;
