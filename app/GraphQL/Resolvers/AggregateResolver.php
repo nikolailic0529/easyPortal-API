@@ -14,8 +14,7 @@ abstract class AggregateResolver {
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
         $query  = $this->getQuery();
-        $query  = $this->enhanceBuilder($query, $root);
-        $query  = $resolveInfo->argumentSet->enhanceBuilder($query, []);
+        $query  = $this->enhanceBuilder($query, $args, $root, $context, $resolveInfo);
         $result = $this->getResult($query);
 
         return $result;
@@ -29,17 +28,27 @@ abstract class AggregateResolver {
         return $builder->first();
     }
 
+    /**
+     * @param array<string,mixed>|null $args
+     */
     protected function enhanceBuilder(
         DatabaseBuilder|EloquentBuilder $builder,
         mixed $root,
+        ?array $args,
+        GraphQLContext $context,
+        ResolveInfo $resolveInfo,
     ): DatabaseBuilder|EloquentBuilder {
+        // Conditions
+        $builder = $resolveInfo->argumentSet->enhanceBuilder($builder, []);
+
         // Unfortunately is not possible to get `$root` inside `@builder` directive.
         //
         // https://github.com/nuwave/lighthouse/issues/1736
         if ($root instanceof Customer) {
-            $builder->where('customer_id', '=', $root->getKey());
+            $builder = $builder->where('customer_id', '=', $root->getKey());
         }
 
+        // Return
         return $builder;
     }
 
