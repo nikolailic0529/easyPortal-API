@@ -5,6 +5,9 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 ALTER TABLE `assets`
     ADD INDEX `idx__deleted_at`(`deleted_at` ASC) VISIBLE;
 
+ALTER TABLE `asset_coverages`
+    ADD INDEX `idx__coverage_id__deleted_at`(`coverage_id` ASC, `deleted_at` ASC) VISIBLE;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
