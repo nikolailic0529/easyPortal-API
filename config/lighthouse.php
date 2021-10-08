@@ -334,7 +334,7 @@ return [
     |
     */
 
-    'non_null_pagination_results' => false,
+    'non_null_pagination_results' => true,
 
     /*
     |--------------------------------------------------------------------------
