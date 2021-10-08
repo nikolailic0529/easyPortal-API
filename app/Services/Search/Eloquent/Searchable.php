@@ -10,12 +10,12 @@ use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
+use ElasticScoutDriverPlus\Searchable as ElasticSearchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\ModelObserver;
-use Laravel\Scout\Searchable as ScoutSearchable;
 use LogicException;
 
 use function app;
@@ -33,7 +33,7 @@ use function is_scalar;
  * @mixin \App\Models\Model
  */
 trait Searchable {
-    use ScoutSearchable {
+    use ElasticSearchable {
         search as protected scoutSearch;
         searchableAs as public scoutSearchableAs;
         queueMakeSearchable as protected scoutQueueMakeSearchable;

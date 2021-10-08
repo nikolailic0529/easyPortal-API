@@ -34,8 +34,8 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         SearchCombinedBuilder $builder,
         array $options = [],
     ): SearchRequestBuilder {
-        // Models
-        $search = null;
+        // Query
+        $query = new BoolQueryBuilder();
 
         foreach ($builder->getModels() as $model => $settings) {
             // Builder
@@ -46,25 +46,37 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
                 $modelBuilder->applyScope($scope);
             }
 
-            // Join
-            if (!$search) {
-                $search = new SearchRequestBuilder(new $model(), new BoolQueryBuilder());
-            } else {
-                $search->join($model);
-            }
-
             // Filters
-            /** @var array{must: array<mixed>, filter: array<mixed>}|null $query */
-            $query             = $this->makeQuery($modelBuilder)['bool'] ?? null;
-            $query['filter'][] = [
+            /** @var array{must: array<mixed>, filter: array<mixed>}|null $modelQuery */
+            $modelQuery             = $this->makeQuery($modelBuilder)['bool'] ?? null;
+            $modelQuery['filter'][] = [
                 'term' => [
                     '_index' => $modelBuilder->index ?: (new $model())->searchableAs(),
                 ],
             ];
 
-            $search->should([
-                'bool' => $query,
+            $query->should([
+                'bool' => $modelQuery,
             ]);
+        }
+
+        // Global Filter
+        $filter = $this->makeFilter($builder) ?? null;
+
+        if ($filter) {
+            $query->filter($filter);
+        }
+
+        // Join & Settings
+        $search = null;
+
+        foreach ($builder->getModels() as $model => $settings) {
+            // Join
+            if (!$search) {
+                $search = new SearchRequestBuilder($query, new $model());
+            } else {
+                $search->join($model);
+            }
 
             // Boost
             if (isset($settings['boost'])) {
@@ -72,18 +84,12 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             }
         }
 
+        // Empty?
         if (!$search) {
             throw new LogicException(sprintf(
                 'Failed to create `%s` instance. No models?',
                 SearchRequestBuilder::class,
             ));
-        }
-
-        // Global Filter
-        $filter = $this->makeFilter($builder) ?? null;
-
-        if ($filter) {
-            $search->filter($filter);
         }
 
         // Sort
