@@ -86,6 +86,9 @@
       "Database\\Factories\\": "database/factories/",
       "Database\\Seeders\\": "database/seeders/"
     },
+    "files": [
+      "app/mixins.php"
+    ],
     "exclude-from-classmap": [
       "app/**Test.php"
     ]
