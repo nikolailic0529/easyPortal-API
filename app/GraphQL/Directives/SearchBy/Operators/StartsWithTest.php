@@ -6,7 +6,6 @@ use App\GraphQL\Directives\SearchBy\Metadata;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
 use Mockery\MockInterface;
 use Tests\DataProviders\Builders\BuilderDataProvider;
 use Tests\TestCase;

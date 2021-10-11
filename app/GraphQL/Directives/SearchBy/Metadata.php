@@ -31,6 +31,7 @@ class Metadata {
      */
     protected function getMetadata(): array {
         // TODO: It should be generated automatically and cached somewhere.
+        // TODO: It is also required ngram parser
         if (!isset($this->metadata)) {
             $this->metadata = [
                 (new Asset())->getTable().'.serial_number' => true,
