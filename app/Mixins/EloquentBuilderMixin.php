@@ -6,6 +6,7 @@ use App\Utils\ModelHelper;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use InvalidArgumentException;
 
 use function sprintf;
@@ -28,6 +29,16 @@ class EloquentBuilderMixin {
                         : $relation->getQuery(),
                     $alias,
                     "{$alias}.{$relation->getForeignPivotKeyName()}",
+                    '=',
+                    $relation->getQualifiedParentKeyName(),
+                );
+            } elseif ($relation instanceof HasMany) {
+                $builder = $builder->leftJoinSub(
+                    $callback
+                        ? $callback($relation, $relation->getQuery())
+                        : $relation->getQuery(),
+                    $alias,
+                    "{$alias}.{$relation->getForeignKeyName()}",
                     '=',
                     $relation->getQualifiedParentKeyName(),
                 );
