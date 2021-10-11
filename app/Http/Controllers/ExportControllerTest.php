@@ -372,6 +372,37 @@ class ExportControllerTest extends TestCase {
                     ],
                     'asset.customer',
                 ],
+                'success-csv-array'   => [
+                    new Ok(),
+                    static function (TestCase $test, Organization $organization): int {
+                        $reseller = Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+                        Asset::factory()
+                            ->for($reseller)
+                            ->hasTags(2)
+                            ->create([ 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
+
+                        // Data + Header
+                        return 2;
+                    },
+                    'csv',
+                    'assets',
+                    /** @lang GraphQL */ <<<'GRAPHQL'
+                    query assets($page: Int){
+                        assets(page: $page) {
+                            data {
+                                tags {
+                                    name
+                                }
+                            }
+                        }
+                    }
+                    GRAPHQL,
+                    [
+                        'page'  => 1,
+                    ],
+                ],
             ]),
         ))->getData();
     }

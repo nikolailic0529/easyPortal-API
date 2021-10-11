@@ -20,10 +20,13 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 use function __;
+use function array_column;
 use function array_key_exists;
 use function array_key_first;
 use function array_keys;
 use function array_values;
+use function count;
+use function implode;
 use function is_array;
 use function is_scalar;
 use function json_encode;
@@ -131,7 +134,12 @@ class ExportController extends Controller {
             $current = Arr::get($item, $key);
             if (is_array($current)) {
                 // TODO Format array output
-                $current = json_encode($current);
+                // Check if object of array has only (1) key
+                if (Arr::isAssoc($current[0]) && count(array_keys($current[0])) === 1) {
+                    $current = implode(',', array_column($current, array_key_first($current[0])));
+                } else {
+                    $current = json_encode($current);
+                }
             }
             $value[] = $current;
         }
