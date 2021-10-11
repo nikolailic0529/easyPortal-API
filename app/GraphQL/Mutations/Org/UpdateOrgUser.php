@@ -2,23 +2,23 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\Me\UpdateMe;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Auth\Auth;
+use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\CurrentOrganization;
-
-use function array_key_exists;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 
 class UpdateOrgUser {
     public function __construct(
         protected Auth $auth,
         protected Client $client,
         protected CurrentOrganization $organization,
-        protected UpdateMe $updateMe,
+        protected ModelDiskFactory $disks,
     ) {
         // empty
     }
@@ -34,17 +34,6 @@ class UpdateOrgUser {
         $input        = $args['input'];
         $user         = User::query()->whereKey($input['user_id'])->first();
 
-        if (!($user instanceof User)) {
-            return [
-                'result' => false,
-            ];
-        }
-
-        $keycloakUser = $this->client->getUserById($user->getKey());
-
-        // Update Profile
-        $this->updateMe->updateUser($user, $keycloakUser, $this->getMeValues($input));
-
         // OrganizationUser
         $organizationUser = OrganizationUser::query()
             ->where('organization_id', '=', $organization->getKey())
@@ -57,20 +46,68 @@ class UpdateOrgUser {
             $organizationUser->user_id         = $user->getKey();
         }
 
-        // Update Role
-        if (isset($input['role_id']) && !$this->auth->isRoot($user)) {
-            $role = Role::query()->whereKey($input['role_id'])->first();
-            $this->role($organizationUser, $keycloakUser, $role);
+        return ['result' => $this->updateUser($user, Arr::except($input, ['user_id']), $organizationUser)];
+    }
+
+        /**
+     * @param array<string, mixed> $input
+     */
+    public function updateUser(
+        User $user,
+        array $input,
+        OrganizationUser $organizationUser = null,
+    ): bool {
+        $userType     = new KeycloakUser();
+        $keycloakUser = $this->client->getUserById($user->getKey());
+        $attributes   = $keycloakUser->attributes;
+        foreach ($input as $property => $value) {
+            switch ($property) {
+                case 'given_name':
+                    $userType->firstName = $value;
+                    $user->given_name    = $value;
+                    break;
+                case 'family_name':
+                    $userType->lastName = $value;
+                    $user->family_name  = $value;
+                    break;
+                case 'homepage':
+                    $user->homepage = $value;
+                    break;
+                case 'locale':
+                    $user->locale = $value;
+                    break;
+                case 'timezone':
+                    $user->timezone = $value;
+                    break;
+                case 'photo':
+                    $photo               = $this->store($user, $value);
+                    $user->photo         = $photo;
+                    $attributes['photo'] = [$photo];
+                    break;
+                case 'role_id':
+                    if ($organizationUser && !$this->auth->isRoot($user)) {
+                        $role = Role::query()->whereKey($input['role_id'])->first();
+                        $this->role($organizationUser, $keycloakUser, $role);
+                    }
+                    break;
+                case 'team_id':
+                    if ($organizationUser) {
+                        $organizationUser->team_id = $input['team_id'];
+                    }
+                    break;
+                default:
+                    $user->{$property}     = $value;
+                    $attributes[$property] = [$value];
+                    break;
+            }
         }
 
-        // Update Team
-        if (isset($input['team_id'])) {
-            $organizationUser->team_id = $input['team_id'];
+        if ($organizationUser) {
+            $organizationUser->save();
         }
+        $userType->attributes = $attributes;
 
-        $organizationUser->save();
-
-        return ['result' => $user->save()];
+        return $this->client->updateUser($user->getKey(), $userType) && $user->save();
     }
 
     protected function role(
@@ -87,36 +124,14 @@ class UpdateOrgUser {
         $organizationUser->role_id = $role->getKey();
     }
 
-    /**
-     * @param array<string, mixed> $input
-     *
-     * @return array<string>
-     */
-    protected function getMeValues(array $input): array {
-        $attributes = [
-            'given_name',
-            'family_name',
-            'office_phone',
-            'contact_email',
-            'title',
-            'academic_title',
-            'mobile_phone',
-            'department',
-            'job_title',
-            'phone',
-            'company',
-            'photo',
-            'homepage',
-            'locale',
-            'timezone',
-        ];
-        $result     = [];
-        foreach ($attributes as $attribute) {
-            if (array_key_exists($attribute, $input)) {
-                $result[$attribute] = $input[$attribute];
-            }
+    protected function store(User $user, ?UploadedFile $file): ?string {
+        $url = null;
+
+        if ($file) {
+            $disk = $this->disks->getDisk($user);
+            $url  = $disk->url($disk->store($file));
         }
 
-        return $result;
+        return $url;
     }
 }
