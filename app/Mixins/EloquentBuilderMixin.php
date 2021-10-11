@@ -12,6 +12,13 @@ use InvalidArgumentException;
 use function sprintf;
 
 class EloquentBuilderMixin {
+    public function whereMatchAgainst(): Closure {
+        return function (string $property, mixed $value): Builder {
+            /** @var \Illuminate\Database\Eloquent\Builder $this */
+            return $this->whereRaw("MATCH({$property}) AGAINST (?)", [$value]);
+        };
+    }
+
     public function joinRelation(): Closure {
         return function (string $relation, string $alias = null, Closure $callback = null): Builder {
             /** @var \Illuminate\Database\Eloquent\Builder $this */
