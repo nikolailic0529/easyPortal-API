@@ -3,31 +3,49 @@
 namespace App\GraphQL\Queries\Assets;
 
 use App\GraphQL\Resolvers\AggregateResolver;
-use App\Models\Asset;
-use App\Models\AssetCoverage;
 use App\Models\Coverage;
+use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder as DatabaseBuilder;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class AssetsAggregateCoverages extends AggregateResolver {
-
     protected function getQuery(): DatabaseBuilder|EloquentBuilder {
-        $model    = new Asset();
-        $coverage = new Coverage();
-        $pivot    = new AssetCoverage();
-        $query    = $model->query()
-            ->selectRaw("COUNT(DISTINCT {$model->qualifyColumn($model->getKeyName())}) as assets_count")
-            ->selectRaw("{$coverage->getTable()}.*")
-            ->join($pivot->getTable(), $model->getQualifiedKeyName(), '=', $pivot->qualifyColumn('asset_id'))
-            ->rightJoin(
-                $coverage->getTable(),
-                $pivot->qualifyColumn('coverage_id'),
-                '=',
-                $coverage->getQualifiedKeyName(),
-            )
-            ->groupBy($coverage->getQualifiedKeyName());
+        return Coverage::query();
+    }
 
-        return $query;
+    protected function enhanceBuilder(
+        EloquentBuilder|DatabaseBuilder $builder,
+        mixed $root,
+        ?array $args,
+        GraphQLContext $context,
+        ResolveInfo $resolveInfo,
+    ): DatabaseBuilder|EloquentBuilder {
+        $coverage = $builder->getModel();
+
+        return $builder
+            ->selectRaw($coverage->qualifyColumn('*'))
+            ->selectRaw('COUNT(a.`asset_id`) as count')
+            ->joinRelation(
+                'assets',
+                'a',
+                function (
+                    BelongsToMany $relation,
+                    EloquentBuilder $builder,
+                ) use (
+                    $root,
+                    $args,
+                    $context,
+                    $resolveInfo,
+                ): EloquentBuilder {
+                    return parent::enhanceBuilder($builder, $root, $args, $context, $resolveInfo)
+                        ->selectRaw("{$builder->getModel()->getQualifiedKeyName()} as `asset_id`")
+                        ->selectRaw($relation->getQualifiedForeignPivotKeyName());
+                },
+            )
+            ->groupBy($coverage->getQualifiedKeyName())
+            ->having('count', '>', 0);
     }
 
     protected function getResult(EloquentBuilder|DatabaseBuilder $builder): mixed {
@@ -36,7 +54,7 @@ class AssetsAggregateCoverages extends AggregateResolver {
 
         foreach ($results as $result) {
             $aggregate[] = [
-                'count'       => $result->assets_count,
+                'count'       => $result->count,
                 'coverage_id' => $result->getKey(),
                 'coverage'    => $result,
             ];

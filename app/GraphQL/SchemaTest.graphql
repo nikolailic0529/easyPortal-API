@@ -52,7 +52,7 @@ type Application {
 
     """The offset from which items are returned."""
     page: Int
-  ): ApplicationLogPaginator
+  ): ApplicationLogPaginator!
 }
 
 type ApplicationJob {
@@ -648,7 +648,7 @@ type Customer {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 
   """
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
@@ -662,7 +662,7 @@ type Customer {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 
   """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -676,7 +676,7 @@ type Customer {
 
     """The offset from which items are returned."""
     page: Int
-  ): AssetPaginator
+  ): AssetPaginator!
 }
 
 type CustomerLocation {
@@ -899,7 +899,7 @@ type Document {
 
     """The offset from which items are returned."""
     page: Int
-  ): NotePaginator
+  ): NotePaginator!
 }
 
 input DocumentEntriesQuery {
@@ -1698,7 +1698,7 @@ type Organization {
 
     """The offset from which items are returned."""
     page: Int
-  ): UserPaginator
+  ): UserPaginator!
 
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -1712,7 +1712,7 @@ type Organization {
 
     """The offset from which items are returned."""
     page: Int
-  ): AuditPaginator
+  ): AuditPaginator!
 }
 
 type OrganizationBranding {
@@ -2184,7 +2184,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): SearchResultPaginator
+  ): SearchResultPaginator!
 
   """
   List of all organizations.
@@ -2202,7 +2202,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): OrganizationPaginator
+  ): OrganizationPaginator!
 
   """
   List of all organizations audits.
@@ -2220,7 +2220,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): AuditPaginator
+  ): AuditPaginator!
 
   """
   List of all users.
@@ -2238,7 +2238,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): UserPaginator
+  ): UserPaginator!
 
   """
   List of all assets
@@ -2256,7 +2256,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): AssetPaginator
+  ): AssetPaginator!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2272,7 +2272,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): AssetPaginator
+  ): AssetPaginator!
 
   """
   List of all contracts.
@@ -2290,7 +2290,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2306,7 +2306,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 
   """
   List of Customers.
@@ -2324,7 +2324,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): CustomerPaginator
+  ): CustomerPaginator!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2340,7 +2340,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): CustomerPaginator
+  ): CustomerPaginator!
 
   """
   List of all documents.
@@ -2359,7 +2359,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 
   """
   List of all quotes.
@@ -2377,7 +2377,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2393,7 +2393,7 @@ type Query {
 
     """The offset from which items are returned."""
     page: Int
-  ): DocumentPaginator
+  ): DocumentPaginator!
 }
 
 type QuoteRequest {

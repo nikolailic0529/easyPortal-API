@@ -11,7 +11,7 @@ class AssetsAggregateCount extends AggregateResolver {
 
     protected function getQuery(): DatabaseBuilder|EloquentBuilder {
         $model = new Asset();
-        $query = $model->selectRaw("COUNT(DISTINCT {$model->qualifyColumn($model->getKeyName())}) as count");
+        $query = $model->selectRaw('COUNT(*) as count');
         return $query;
     }
 

@@ -4,8 +4,6 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Customer;
 use App\Models\Location;
-use App\Utils\ModelHelper;
-use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Contracts\LogicalOperator;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -28,7 +25,6 @@ use function array_values;
 use function explode;
 use function is_a;
 use function max;
-use function sprintf;
 use function strlen;
 
 class Map {
@@ -67,8 +63,7 @@ class Map {
             ->selectRaw("COUNT(DISTINCT c.{$customer->getKeyName()}) as customers_count")
             ->selectRaw("GROUP_CONCAT(DISTINCT c.{$customer->getKeyName()}, ',') as customers_ids")
             ->when(true, function (EloquentBuilder $builder) use ($args, $resolveInfo): void {
-                $this->joinRelation(
-                    $builder,
+                $builder->joinRelation(
                     'customers',
                     'c',
                     function (
@@ -108,32 +103,6 @@ class Map {
         }
 
         return $locations;
-    }
-
-    protected function joinRelation(
-        EloquentBuilder $builder,
-        string $relation,
-        string $alias,
-        Closure $callback,
-    ): EloquentBuilder {
-        $relation = (new ModelHelper($builder))->getRelation($relation);
-
-        if ($relation instanceof BelongsToMany) {
-            $builder = $builder->leftJoinSub(
-                $callback($relation, $relation->getQuery()),
-                $alias,
-                "{$alias}.{$relation->getForeignPivotKeyName()}",
-                '=',
-                $relation->getQualifiedParentKeyName(),
-            );
-        } else {
-            throw new InvalidArgumentException(sprintf(
-                'Relation `%s` not supported',
-                $relation::class,
-            ));
-        }
-
-        return $builder;
     }
 
     /**

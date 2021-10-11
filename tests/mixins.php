@@ -6,8 +6,8 @@
 
 namespace App;
 
-use App\Mixins\TranslatorMixin;
 use Illuminate\Translation\Translator;
+use Tests\Mixins\TranslatorMixin;
 
 use function class_exists;
 
