@@ -6,6 +6,17 @@
  * -----------------------------------------------------------------------------
  */
 
+use App\GraphQL\Directives\SearchBy\Operators\Contains;
+use App\GraphQL\Directives\SearchBy\Operators\EndsWith;
+use App\GraphQL\Directives\SearchBy\Operators\StartsWith;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\In;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Like;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotEqual;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotIn;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotLike;
+
 return [
     /**
      * Settings for @searchBy directive.
@@ -20,8 +31,19 @@ return [
          * @var array<string, array<string|\LastDragon_ru\LaraASP\GraphQL\SearchBy\Contracts\Operator>>
          */
         'scalars' => [
-            'Date'     => 'Int',
-            'DateTime' => 'Date',
+            'Date'                          => 'Int',
+            'DateTime'                      => 'Date',
+            SearchByDirective::ScalarString => [
+                Equal::class,
+                NotEqual::class,
+                Like::class,
+                NotLike::class,
+                In::class,
+                NotIn::class,
+                Contains::class,
+                StartsWith::class,
+                EndsWith::class,
+            ],
         ],
     ],
 ];

@@ -16,6 +16,7 @@
 | Collation                     | utf8mb4_0900_as_ci        |
 | `default_storage_engine`      | InnoDB                    |
 | `innodb_default_row_format`   | DYNAMIC/COMPRESSED ("Large Index Key Prefix Support" required) |
+| Fulltext `ngram` parser       | https://dev.mysql.com/doc/refman/8.0/en/fulltext-search-ngram.html |
 
 
 ## Documentation
