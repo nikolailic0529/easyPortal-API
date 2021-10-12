@@ -14,7 +14,7 @@ abstract class AggregateResolver {
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
         $query  = $this->getQuery();
-        $query  = $this->enhanceBuilder($query, $args, $root, $context, $resolveInfo);
+        $query  = $this->enhanceBuilder($query, $root, $args, $context, $resolveInfo);
         $result = $this->getResult($query);
 
         return $result;
