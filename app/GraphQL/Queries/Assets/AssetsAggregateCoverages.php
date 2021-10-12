@@ -26,7 +26,7 @@ class AssetsAggregateCoverages extends AggregateResolver {
 
         return $builder
             ->selectRaw($coverage->qualifyColumn('*'))
-            ->selectRaw('COUNT(a.`asset_id`) as count')
+            ->selectRaw('SUM(a.`count`) as count')
             ->joinRelation(
                 'assets',
                 'a',
@@ -40,8 +40,9 @@ class AssetsAggregateCoverages extends AggregateResolver {
                     $resolveInfo,
                 ): EloquentBuilder {
                     return parent::enhanceBuilder($builder, $root, $args, $context, $resolveInfo)
-                        ->selectRaw("{$builder->getModel()->getQualifiedKeyName()} as `asset_id`")
-                        ->selectRaw($relation->getQualifiedForeignPivotKeyName());
+                        ->selectRaw("COUNT({$builder->getModel()->getQualifiedKeyName()}) as `count`")
+                        ->selectRaw($relation->getQualifiedForeignPivotKeyName())
+                        ->groupBy($relation->getQualifiedForeignPivotKeyName());
                 },
             )
             ->groupBy($coverage->getQualifiedKeyName())
