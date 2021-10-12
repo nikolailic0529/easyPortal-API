@@ -3,7 +3,9 @@
 namespace App\GraphQL\Directives\SearchBy;
 
 use App\Models\Asset;
+use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
@@ -21,7 +23,9 @@ class Metadata {
         $table  = $builder instanceof EloquentBuilder
             ? $builder->getModel()->getTable()
             : $builder->from;
-        $exists = $this->getMetadata()["{$table}.{$property}"] ?? false;
+        $exists = $this->getMetadata()["{$table}.{$property}"]
+            ?? $this->getMetadata()[$property]
+            ?? false;
 
         return $exists;
     }
@@ -36,6 +40,8 @@ class Metadata {
             $this->metadata = [
                 (new Asset())->getTable().'.serial_number' => true,
                 (new Document())->getTable().'.number'     => true,
+                (new Customer())->getTable().'.name'       => true,
+                (new Product())->getTable().'.name'        => true,
             ];
         }
 
