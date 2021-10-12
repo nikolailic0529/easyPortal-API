@@ -12,10 +12,8 @@ use App\GraphQL\Directives\SearchBy\Operators\StartsWith;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\In;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Like;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotEqual;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotIn;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotLike;
 
 return [
     /**
@@ -36,8 +34,6 @@ return [
             SearchByDirective::ScalarString => [
                 Equal::class,
                 NotEqual::class,
-                Like::class,
-                NotLike::class,
                 In::class,
                 NotIn::class,
                 Contains::class,

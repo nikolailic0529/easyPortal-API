@@ -9,6 +9,8 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
+use function str_replace;
+
 class Metadata {
     /**
      * @var array<string,bool>
@@ -20,10 +22,11 @@ class Metadata {
     }
 
     public function isFulltextIndexExists(EloquentBuilder|QueryBuilder $builder, string $property): bool {
-        $table  = $builder instanceof EloquentBuilder
+        $property = str_replace('`', '', $property);
+        $table    = $builder instanceof EloquentBuilder
             ? $builder->getModel()->getTable()
             : $builder->from;
-        $exists = $this->getMetadata()["{$table}.{$property}"]
+        $exists   = $this->getMetadata()["{$table}.{$property}"]
             ?? $this->getMetadata()[$property]
             ?? false;
 
