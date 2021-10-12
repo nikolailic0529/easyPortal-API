@@ -6,7 +6,7 @@ ALTER TABLE `customers`
     ADD FULLTEXT INDEX `ftx__name`(`name`) WITH PARSER ngram VISIBLE;
 
 ALTER TABLE `products`
-    ADD FULLTEXT INDEX `ftx__name`(`name` ASC) WITH PARSER ngram VISIBLE;
+    ADD FULLTEXT INDEX `ftx__name`(`name`) WITH PARSER ngram VISIBLE;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;
