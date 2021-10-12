@@ -3,12 +3,11 @@
 namespace App\GraphQL\Directives\SearchBy;
 
 use App\Models\Asset;
+use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-
-use function str_contains;
-use function str_starts_with;
 
 class Metadata {
     /**
@@ -41,6 +40,8 @@ class Metadata {
             $this->metadata = [
                 (new Asset())->getTable().'.serial_number' => true,
                 (new Document())->getTable().'.number'     => true,
+                (new Customer())->getTable().'.name'       => true,
+                (new Product())->getTable().'.name'        => true,
             ];
         }
 
