@@ -4723,12 +4723,6 @@ input SearchByScalarString {
   """Not Equal (`!=`)."""
   notEqual: String
 
-  """Like."""
-  like: String
-
-  """Not like."""
-  notLike: String
-
   """Within a set of values."""
   in: [String!]
 
@@ -4754,12 +4748,6 @@ input SearchByScalarStringOrNull {
 
   """Not Equal (`!=`)."""
   notEqual: String
-
-  """Like."""
-  like: String
-
-  """Not like."""
-  notLike: String
 
   """Within a set of values."""
   in: [String!]
