@@ -18,6 +18,7 @@ class MetadataTest extends TestCase {
         $metadata = new Metadata();
 
         $this->assertTrue($metadata->isFulltextIndexExists(Asset::query(), 'serial_number'));
+        $this->assertTrue($metadata->isFulltextIndexExists(Asset::query(), (new Asset())->getTable().'.serial_number'));
         $this->assertFalse($metadata->isFulltextIndexExists(Asset::query(), 'id'));
         $this->assertTrue($metadata->isFulltextIndexExists(Document::query(), 'number'));
         $this->assertFalse($metadata->isFulltextIndexExists(Document::query(), 'id'));
