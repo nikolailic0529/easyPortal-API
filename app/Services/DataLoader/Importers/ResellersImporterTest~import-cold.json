@@ -93,7 +93,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "78282ba7-a73f-59f8-9871-ba703198d433",
@@ -103,6 +103,7 @@
             "",
             "-39.017245",
             "-19.334094",
+            "7946011k4fqe",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -245,7 +246,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "863f844b-efde-5781-a57c-0d127a496cfe",
@@ -255,6 +256,7 @@
             "",
             "37.046967",
             "111.365307",
+            "wqx4y0jwpxpw",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -395,7 +397,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
@@ -405,6 +407,7 @@
             "",
             "38.348309",
             "140.786979",
+            "xnu45tjgn6um",
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -545,7 +548,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "567c81f4-bea4-55bd-8406-1c0d3d58da68",
@@ -555,6 +558,7 @@
             "",
             "46.952673",
             "22.101414",
+            "u2rengmz0k8s",
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -679,7 +683,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "78609dcb-283b-510b-91c4-7466bd9a0b5a",
@@ -689,6 +693,7 @@
             "",
             "29.127996",
             "177.464482",
+            "xvnjwq9dyhh8",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -813,7 +818,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "f27913f0-d434-5842-8dd1-3338f4acc863",
@@ -823,6 +828,7 @@
             "",
             "2.263559",
             "-4.87444",
+            "ebksch4d1mfp",
             "dc107b85-353d-53ef-bfeb-46b656a50ebc",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -947,7 +953,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "aa00595d-60cb-53fa-bf65-dd002065f6d5",
@@ -957,6 +963,7 @@
             "",
             "63.073277",
             "159.677275",
+            "ze1wcd1kqpjb",
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1064,7 +1071,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
@@ -1074,6 +1081,7 @@
             "",
             "40.817027",
             "104.140313",
+            "wr601y88mjmd",
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1198,7 +1206,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "faa04214-add0-5aa9-8316-6ae79cf767cc",
@@ -1208,6 +1216,7 @@
             "",
             "-22.177164",
             "136.390708",
+            "rh0czdu8tugp",
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1332,7 +1341,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "5e30ce04-ad54-528a-8290-4e461cffe5e9",
@@ -1342,6 +1351,7 @@
             "",
             "-35.018277",
             "-122.467693",
+            "33bbv1jezbj3",
             "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -1997,7 +2007,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "bf3e54d2-37a0-585e-835b-80ddee8de633",
@@ -2007,6 +2017,7 @@
             "",
             "-33.234158",
             "89.617071",
+            "mfpdzmchvpgm",
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -2131,7 +2142,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791",
@@ -2141,6 +2152,7 @@
             "",
             "-59.75223",
             "-48.58241",
+            "4vmkn6rq5c12",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -2265,7 +2277,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "3a4fb277-bbd2-5710-a542-5274e3b53cc2",
@@ -2275,6 +2287,7 @@
             "",
             "6.871187",
             "-33.540385",
+            "e30phfbes6h7",
             "311c4a8b-7d91-5fc2-870f-2c5a03681902",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -2399,7 +2412,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "1ef32220-4547-5581-8b7b-986ee08fcbba",
@@ -2409,6 +2422,7 @@
             "",
             "-49.178161",
             "102.245541",
+            "nr28nxkumy34",
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -2605,7 +2619,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "83a75595-9b20-5c94-af50-9999f1ddc25e",
@@ -2615,6 +2629,7 @@
             "",
             "35.842936",
             "121.82809",
+            "wwqeum080r81",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -2739,7 +2754,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0920fd14-67d6-501c-a409-3f9ae82c6f81",
@@ -2749,6 +2764,7 @@
             "",
             "-59.930994",
             "61.023988",
+            "jm77h9uk9uzr",
             "de043353-98fa-5311-963f-a44c70e71e67",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -2873,7 +2889,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "3b8ff96c-d8fa-56ba-bc76-4dfb5c732583",
@@ -2883,6 +2899,7 @@
             "",
             "64.951153",
             "-161.451169",
+            "b7t1qpfzgh6z",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -3007,7 +3024,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "539d47df-edd1-5c3f-9752-2fed455c94b5",
@@ -3017,6 +3034,7 @@
             "",
             "-62.094047",
             "89.147033",
+            "juzqu84guqtt",
             "8805a24e-730d-5ca0-909a-a43a5d9821f9",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -3141,7 +3159,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "79aa20b0-3def-5ac1-99e0-e5791b5a8640",
@@ -3151,6 +3169,7 @@
             "",
             "-84.743379",
             "139.080545",
+            "p0fvuugq594v",
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -3770,7 +3789,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "d4c100d1-75af-5ea0-8c84-224150bd1843",
@@ -3780,6 +3799,7 @@
             "",
             "-48.060803",
             "-110.640967",
+            "1x3qd6c9w8gq",
             "d3462d54-53b1-5c47-967c-35b200db2725",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -3904,7 +3924,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "4c65a05e-a7d1-5bcc-8474-6feeecc4d49e",
@@ -3914,6 +3934,7 @@
             "",
             "15.304375",
             "-123.40624",
+            "968ppf466nq0",
             "334a7956-4330-5742-9d8b-64e189a0a142",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4038,7 +4059,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "9aa5871b-dd32-527f-a78a-bbec176e1672",
@@ -4048,6 +4069,7 @@
             "",
             "-17.315814",
             "-15.076494",
+            "7svm2zv8h4r6",
             "95cfb95c-a621-585a-94e2-413e15a9fd37",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4172,7 +4194,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a",
@@ -4182,6 +4204,7 @@
             "",
             "80.486416",
             "161.078373",
+            "zw69ckjeq5kk",
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4306,7 +4329,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "88a7396e-a946-59f1-9c89-86b53617d00d",
@@ -4316,6 +4339,7 @@
             "",
             "-13.163883",
             "-165.689087",
+            "2mdjjesfu6q5",
             "85c2d18e-c7a6-549f-a933-e7d10b285807",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4440,7 +4464,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "8cd09c24-e067-5cc9-8d9f-c9e04697415a",
@@ -4450,6 +4474,7 @@
             "",
             "48.440603",
             "70.652732",
+            "v8d5xdrdzyzk",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4574,7 +4599,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "fb52d2dc-b5b1-57e4-80bf-bb16a019b019",
@@ -4584,6 +4609,7 @@
             "",
             "60.644173",
             "156.280179",
+            "z6z0upzvbj5w",
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4708,7 +4734,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "19b7c700-0727-5683-98e3-18f421f2e275",
@@ -4718,6 +4744,7 @@
             "",
             "49.159569",
             "-65.379566",
+            "f89x8m0p1xy5",
             "89a334cc-2831-5b5d-89fd-06002b07bae8",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4842,7 +4869,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "1041d9c8-06d5-59f5-8ff2-6ee7a0d243c8",
@@ -4852,6 +4879,7 @@
             "",
             "3.810595",
             "-49.970856",
+            "dbsmwvsq6dmh",
             "964b027c-6543-5bfd-97b5-94a7504e7c42",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -4976,7 +5004,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "966f2f09-e7a4-58b3-be60-187bbb1825ab",
@@ -4986,6 +5014,7 @@
             "",
             "-39.941949",
             "173.638085",
+            "rbgkz0z3k9h3",
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -5641,7 +5670,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "6ec01053-58d4-550d-a993-b676c1f4733d",
@@ -5651,6 +5680,7 @@
             "",
             "74.921071",
             "23.870065",
+            "ut2fpnvwugfs",
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -5758,7 +5788,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "fb52d2dc-b5b1-57e4-80bf-bb16a019b019",
@@ -5768,6 +5798,7 @@
             "",
             "-5.818335",
             "144.183092",
+            "rnywbuyctx9x",
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -5892,7 +5923,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "79e1f2e5-708e-5db2-a15b-0d0ceaaf69cf",
@@ -5902,6 +5933,7 @@
             "",
             "57.938726",
             "-3.515677",
+            "gfm3xgrvwc34",
             "7fb2465b-3158-5c55-983f-ddee3597c1fd",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -6026,7 +6058,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "84e911e7-05cc-5359-98b1-fe80230e4510",
@@ -6036,6 +6068,7 @@
             "",
             "62.295099",
             "-56.683713",
+            "fepdqhkpmb0h",
             "eb33d88c-28d0-5057-93d1-4668ef673b37",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -6160,7 +6193,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "550a6830-a3f8-525f-8d2f-77e43b95c51c",
@@ -6170,6 +6203,7 @@
             "",
             "62.05949",
             "162.238518",
+            "ze535cd6xrrj",
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -6310,7 +6344,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "af99b187-7c9a-5080-b4c5-3d079054f326",
             "765c620b-e79b-5291-8290-43f4d17bcd1a",
@@ -6320,6 +6354,7 @@
             "",
             "55.765197",
             "32.368732",
+            "u9zj0xdpy45v",
             "b9c1728b-103f-5855-a750-591a28da63a1",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -6460,7 +6495,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a65b0772-2114-5c17-951d-38de5feda665",
             "18874622-2457-5aaa-ab76-fab5e1716258",
@@ -6470,6 +6505,7 @@
             "",
             "39.123381",
             "-127.377827",
+            "9nvqt6nq1wb4",
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -6594,7 +6630,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "b6d8d311-7241-5aec-9f9c-8fd76e70d893",
@@ -6604,6 +6640,7 @@
             "",
             "-22.666886",
             "136.304614",
+            "r5bzj9tgzdnw",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -6800,7 +6837,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "701cb66e-d09d-594c-b1e6-123db7b62492",
@@ -6810,6 +6847,7 @@
             "",
             "-19.827201",
             "100.043242",
+            "qhrphw960tb5",
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -7429,7 +7467,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "f89c9951-3e2e-5563-97f1-c64ace939a0c",
@@ -7439,6 +7477,7 @@
             "",
             "77.561455",
             "-125.058352",
+            "cjz14pxk1pnh",
             "e268b786-8d37-53de-a8a5-4c22d64dc60a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -7563,7 +7602,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
@@ -7573,6 +7612,7 @@
             "",
             "26.498552",
             "-148.652391",
+            "8swq9rftk0p7",
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -7697,7 +7737,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "5a82ae22-db37-5649-9862-3eda26aa6fd2",
@@ -7707,6 +7747,7 @@
             "",
             "82.291918",
             "-87.533577",
+            "fn9u0hgcpv67",
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -7831,7 +7872,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "a8339ce8-239e-51c9-aa44-d7e31ff412b6",
@@ -7841,6 +7882,7 @@
             "",
             "-22.220355",
             "52.259568",
+            "mhj1t4ym01w5",
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -7965,7 +8007,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
@@ -7975,6 +8017,7 @@
             "",
             "31.880374",
             "-123.593748",
+            "9m8j7e9u8umy",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -8099,7 +8142,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "f009e685-d0ca-5c48-bd42-e4dab3fc8dc5",
@@ -8109,6 +8152,7 @@
             "",
             "75.945484",
             "112.845455",
+            "yt80pc7w98mf",
             "b040f399-dbf2-5157-afca-02344dd90703",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -8233,7 +8277,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "845cad98-c769-5a3c-af3d-ce1e3d19ea07",
@@ -8243,6 +8287,7 @@
             "",
             "-45.137675",
             "-29.403263",
+            "5rgp4yvjyrd0",
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -8367,7 +8412,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "3a2648a5-4822-525d-8f45-9a29667bede6",
@@ -8377,6 +8422,7 @@
             "",
             "55.797678",
             "-168.82289",
+            "b1zvqmdvj916",
             "c22a0407-1b3b-5d02-b9e3-caba9493d845",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -8501,7 +8547,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
@@ -8511,6 +8557,7 @@
             "",
             "-55.408582",
             "-84.101481",
+            "4nhhy1pjt7wt",
             "1520a917-841d-5876-b183-a9142c11f486",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -8635,7 +8682,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "55c5d12a-02e7-5973-95c6-c2e5300ff7d2",
@@ -8645,6 +8692,7 @@
             "",
             "-58.200229",
             "-158.776442",
+            "0mxhfuyx0dzy",
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"

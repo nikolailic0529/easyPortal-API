@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                                                              $line_two
  * @property mixed|null                                                          $latitude
  * @property mixed|null                                                          $longitude
+ * @property string|null                                                         $geohash
  * @property int                                                                 $customers_count
  * @property int                                                                 $assets_count
  * @property \Carbon\CarbonImmutable                                             $created_at

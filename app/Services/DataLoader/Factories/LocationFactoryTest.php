@@ -472,6 +472,7 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($lineTwo), $created->line_two);
         $this->assertEquals($this->latitude($normalizer->coordinate($latitude)), $created->latitude);
         $this->assertEquals($this->longitude($normalizer->coordinate($longitude)), $created->longitude);
+        $this->assertNotNull($created->geohash);
         $this->assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
@@ -494,6 +495,26 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($state), $updated->state);
         $this->assertCount(1, $this->getQueryLog());
     }
+
+    /**
+     * @covers ::geohash
+     *
+     * @dataProvider dataProviderGeohash
+     */
+    public function testGeohash(?string $expected, ?string $latitude, ?string $longitude): void {
+        $factory = new class() extends LocationFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function geohash(?string $latitude, ?string $longitude): ?string {
+                return parent::geohash($latitude, $longitude);
+            }
+        };
+
+        $this->assertEquals($expected, $factory->geohash($latitude, $longitude));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -511,6 +532,19 @@ class LocationFactoryTest extends TestCase {
                     // empty
                 },
             ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGeohash(): array {
+        return [
+            'null'              => [null, null, null],
+            'latitude is null'  => [null, null, '43.296482'],
+            'longitude is null' => [null, '5.36978', null],
+            'valid'             => ['spey61yhkcnp', '43.296482', '5.36978'],
+            'invalid'           => [null, 'a', 'b'],
         ];
     }
     // </editor-fold>
