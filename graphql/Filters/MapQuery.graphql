@@ -1,9 +1,10 @@
 input MapQuery {
   latitude: Float!
   longitude: Float!
+  postcode: String!
+  state: String!
   country_id: ID!
-  city_id: ID!
   country: CountriesQuery
+  city_id: ID!
   city: CitiesQuery
-  customers: CustomersQuery
 }
