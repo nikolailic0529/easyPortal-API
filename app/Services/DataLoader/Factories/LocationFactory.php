@@ -228,7 +228,9 @@ class LocationFactory extends ModelFactory {
         $geohash = null;
 
         try {
-            $geohash = (new Geotools())->geohash()->encode(new Coordinate([$latitude, $longitude]), 12)->getGeohash();
+            $length     = LocationModel::GEOHASH_LENGTH;
+            $coordinate = new Coordinate([$latitude, $longitude]);
+            $geohash    = (new Geotools())->geohash()->encode($coordinate, $length)->getGeohash();
         } catch (Throwable) {
             // empty
         }

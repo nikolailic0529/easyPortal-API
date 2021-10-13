@@ -43,6 +43,8 @@ class Location extends Model {
     use HasResellers;
     use HasCustomers;
 
+    public const GEOHASH_LENGTH = 12;
+
     /**
      * The attributes that should be cast to native types.
      */
