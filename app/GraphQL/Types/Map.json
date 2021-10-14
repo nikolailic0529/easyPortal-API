@@ -3,33 +3,14 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "latitude_avg",
-        "latitude_min",
-        "latitude_max",
-        "longitude_avg",
-        "longitude_min",
-        "longitude_max",
+        "latitude",
+        "longitude",
         "customers_count",
         "customers_ids",
         "locations_ids"
     ],
     "properties": {
-        "latitude_avg": {
-            "type": "number"
-        },
-        "latitude_min": {
-            "type": "number"
-        },
-        "latitude_max": {
-            "type": "number"
-        },
-        "longitude_avg": {
-            "type": "number"
-        },
-        "longitude_min": {
-            "type": "number"
-        },
-        "longitude_max": {
+        "latitude": {
             "type": "number"
         },
         "longitude": {

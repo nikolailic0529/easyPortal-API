@@ -1174,15 +1174,11 @@ input LocationsSort {
 }
 
 type Map {
-  latitude_avg: Float!
-  latitude_min: Float!
-  latitude_max: Float!
-  longitude_avg: Float!
-  longitude_min: Float!
-  longitude_max: Float!
-  customers_count: Int!
-  customers_ids: [ID!]!
+  latitude: Float!
+  longitude: Float!
   locations_ids: [ID!]!
+  customers_ids: [ID!]!
+  customers_count: Int!
 }
 
 input MapQuery {
