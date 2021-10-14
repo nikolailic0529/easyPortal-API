@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators;
+namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
 
 use App\GraphQL\Directives\SearchBy\Metadata;
 use Closure;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Contains
+ * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Comparison\Contains
  */
 class ContainsTest extends TestCase {
     // <editor-fold desc="Tests">
