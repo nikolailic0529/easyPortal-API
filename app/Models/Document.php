@@ -25,6 +25,7 @@ use App\Services\Search\Properties\Text;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
@@ -61,6 +62,7 @@ use function count;
  * @property \App\Models\Distributor|null                                        $distributor
  * @property-read bool                                                           $is_contract
  * @property-read bool                                                           $is_quote
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property \App\Models\Language|null                                           $language
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Note>     $notes
@@ -156,6 +158,17 @@ class Document extends Model implements CascadeDeletable {
 
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
+    }
+
+    public function assets(): HasManyThrough {
+        return $this->hasManyThrough(
+            Asset::class,
+            DocumentEntry::class,
+            null,
+            (new Asset())->getKeyName(),
+            null,
+            'asset_id',
+        );
     }
 
     protected function getStatusesPivot(): Pivot {

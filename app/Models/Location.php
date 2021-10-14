@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                                                              $line_two
  * @property mixed|null                                                          $latitude
  * @property mixed|null                                                          $longitude
+ * @property string|null                                                         $geohash
  * @property int                                                                 $customers_count
  * @property int                                                                 $assets_count
  * @property \Carbon\CarbonImmutable                                             $created_at
@@ -41,6 +42,8 @@ class Location extends Model {
     use HasAssets;
     use HasResellers;
     use HasCustomers;
+
+    public const GEOHASH_LENGTH = 12;
 
     /**
      * The attributes that should be cast to native types.

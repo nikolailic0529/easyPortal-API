@@ -15,4 +15,6 @@ input AssetsQuery {
   warranties: AssetWarrantiesQuery
   tags: TagsQuery
   coverages: CoveragesQuery
+  contracts: DocumentsQuery
+  quotes: DocumentsQuery
 }

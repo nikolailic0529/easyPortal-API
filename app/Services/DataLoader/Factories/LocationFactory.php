@@ -14,6 +14,9 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
+use League\Geotools\Coordinate\Coordinate;
+use League\Geotools\Geotools;
+use Throwable;
 
 use function array_filter;
 use function end;
@@ -190,6 +193,7 @@ class LocationFactory extends ModelFactory {
                 $location->line_two  = $normalizer->string($lineTwo);
                 $location->latitude  = $normalizer->coordinate($latitude);
                 $location->longitude = $normalizer->coordinate($longitude);
+                $location->geohash   = $this->geohash($latitude, $longitude);
 
                 $location->save();
 
@@ -212,6 +216,26 @@ class LocationFactory extends ModelFactory {
         }
 
         return $location;
+    }
+
+    protected function geohash(?string $latitude, ?string $longitude): ?string {
+        // Possible?
+        if (!$latitude || !$longitude) {
+            return null;
+        }
+
+        // Encode
+        $geohash = null;
+
+        try {
+            $length     = LocationModel::GEOHASH_LENGTH;
+            $coordinate = new Coordinate([$latitude, $longitude]);
+            $geohash    = (new Geotools())->geohash()->encode($coordinate, $length)->getGeohash();
+        } catch (Throwable) {
+            // empty
+        }
+
+        return $geohash;
     }
     //</editor-fold>
 }

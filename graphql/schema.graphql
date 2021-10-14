@@ -39,8 +39,12 @@ type Query {
   # Map
   # ============================================================================
   map(
-    where: MapQuery @searchBy
-    diff: Float! @rules(apply: ["gt:0"])
+    "Zoom level (1-12)."
+    level: Int! @rules(apply: ["App\\Rules\\MapLevel"])
+
+    viewport: MapQuery @searchBy
+
+    where: AssetsQuery @searchBy
   ): [Map!]!
   @organization
   @me(permissions: ["customers-view"])

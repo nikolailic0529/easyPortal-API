@@ -2009,7 +2009,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6c52bdce-491f-5593-95ec-79461aa6b233",
             "eeaa3820-5082-5069-bda0-fd9a35e863a8",
@@ -2019,6 +2019,7 @@
             "",
             "82.570621",
             "-93.041492",
+            "cytvdz928p7h",
             "bf3f98c7-2599-531a-bb77-5b7a3f30f797",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -5514,7 +5515,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d",
             "8952013d-b167-51e9-805c-e0641085c854",
@@ -5524,6 +5525,7 @@
             "",
             "19.481742",
             "-166.899591",
+            "873qf4e3meuv",
             "12d92e92-d515-5871-95ca-cd49a445c086",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
@@ -14176,7 +14178,7 @@
         ]
     },
     {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6c52bdce-491f-5593-95ec-79461aa6b233",
             "a52b7539-e9c7-5759-bb4a-914a1fa0722a",
@@ -14186,6 +14188,7 @@
             "",
             "-84.221009",
             "147.166537",
+            "p308uu53hf58",
             "7bd31661-8828-5a6f-8314-b5c836fb7e7a",
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"

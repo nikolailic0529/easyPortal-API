@@ -42,6 +42,7 @@ class LocationFactory extends Factory {
             },
             'latitude'        => null,
             'longitude'       => null,
+            'geohash'         => null,
             'assets_count'    => 0,
             'customers_count' => 0,
             'created_at'      => Date::now(),

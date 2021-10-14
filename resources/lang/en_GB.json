@@ -125,6 +125,7 @@
     "validation.team_id": "Invalid team",
     "validation.user_not_me": "Cannot change own content",
     "validation.manged_by_root": "Cannot change root content",
+    "validation.map_level": "Value should be between :min and :max",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",

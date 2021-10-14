@@ -333,6 +333,8 @@ input AssetsQuery {
   warranties: AssetWarrantiesQuery
   tags: TagsQuery
   coverages: CoveragesQuery
+  contracts: DocumentsQuery
+  quotes: DocumentsQuery
 }
 
 input AssetsSearchCustomerSort {
@@ -990,6 +992,7 @@ input DocumentsQuery {
   contacts: ContactsQuery
   contacts_count: Int!
   statuses: StatusesQuery
+  assets: AssetsQuery
 }
 
 input DocumentsSearchCustomerSort {
@@ -1174,25 +1177,22 @@ input LocationsSort {
 }
 
 type Map {
-  latitude_avg: Float!
-  latitude_min: Float!
-  latitude_max: Float!
-  longitude_avg: Float!
-  longitude_min: Float!
-  longitude_max: Float!
-  customers_count: Int!
-  customers_ids: [ID!]!
+  latitude: Float!
+  longitude: Float!
   locations_ids: [ID!]!
+  customers_ids: [ID!]!
+  customers_count: Int!
 }
 
 input MapQuery {
   latitude: Float!
   longitude: Float!
+  postcode: String!
+  state: String!
   country_id: ID!
-  city_id: ID!
   country: CountriesQuery
+  city_id: ID!
   city: CitiesQuery
-  customers: CustomersQuery
 }
 
 type Me {
@@ -1877,7 +1877,12 @@ type Query {
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
-  map(where: SearchByConditionMapQuery, diff: Float!): [Map!]!
+  map(
+    """Zoom level (1-12)."""
+    level: Int!
+    viewport: SearchByConditionMapQuery
+    where: SearchByConditionAssetsQuery
+  ): [Map!]!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -3385,6 +3390,12 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   coverages: SearchByComplexRelationCoveragesQuery
+
+  """Property condition."""
+  contracts: SearchByComplexRelationDocumentsQuery
+
+  """Property condition."""
+  quotes: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -3910,6 +3921,9 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   statuses: SearchByComplexRelationStatusesQuery
+
+  """Property condition."""
+  assets: SearchByComplexRelationAssetsQuery
 }
 
 """
@@ -4019,19 +4033,22 @@ input SearchByConditionMapQuery {
   longitude: SearchByScalarFloat
 
   """Property condition."""
-  country_id: SearchByScalarID
+  postcode: SearchByScalarString
 
   """Property condition."""
-  city_id: SearchByScalarID
+  state: SearchByScalarString
+
+  """Property condition."""
+  country_id: SearchByScalarID
 
   """Property condition."""
   country: SearchByComplexRelationCountriesQuery
 
   """Property condition."""
-  city: SearchByComplexRelationCitiesQuery
+  city_id: SearchByScalarID
 
   """Property condition."""
-  customers: SearchByComplexRelationCustomersQuery
+  city: SearchByComplexRelationCitiesQuery
 }
 
 """
@@ -5026,6 +5043,12 @@ input SortByClauseAssetsQuery {
 
   """Property clause."""
   coverages: SortByClauseCoveragesQuery
+
+  """Property clause."""
+  contracts: SortByClauseDocumentsQuery
+
+  """Property clause."""
+  quotes: SortByClauseDocumentsQuery
 }
 
 """
@@ -5490,6 +5513,9 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   statuses: SortByClauseStatusesQuery
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
 }
 
 """
