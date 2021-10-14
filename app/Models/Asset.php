@@ -131,7 +131,7 @@ class Asset extends Model {
                 $builder->whereNull('document_id');
             });
             $builder->orWhere(static function (Builder $builder): void {
-                $builder->whereHas('document', static function (Builder $builder): void {
+                $builder->whereHasIn('document', static function (Builder $builder): void {
                     /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
                     $builder->queryContracts();
                 });

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators;
+namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Like
+ * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Comparison\Like
  */
 class LikeTest extends TestCase {
     /**

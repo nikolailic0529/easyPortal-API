@@ -1,20 +1,21 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators;
+namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
 
 use App\GraphQL\Directives\SearchBy\Metadata;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\DataProviders\Builders\BuilderDataProvider;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\StartsWith
+ * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Comparison\EndsWith
  */
-class StartsWithTest extends TestCase {
+class EndsWithTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -31,13 +32,15 @@ class StartsWithTest extends TestCase {
         bool $fulltext,
         mixed $value,
     ): void {
-        $this->override(Metadata::class, static function (MockInterface $mock): void {
+        $this->override(Metadata::class, static function (MockInterface $mock) use ($property, $fulltext): void {
             $mock
                 ->shouldReceive('isFulltextIndexExists')
-                ->never();
+                ->with(Mockery::any(), $property)
+                ->once()
+                ->andReturn($fulltext);
         });
 
-        $operator = $this->app->make(StartsWith::class);
+        $operator = $this->app->make(EndsWith::class);
         $builder  = $builder($this);
         $builder  = $operator->apply($builder, $property, $value);
         $actual   = [
@@ -60,9 +63,10 @@ class StartsWithTest extends TestCase {
             new ArrayDataProvider([
                 'with fulltext'    => [
                     [
-                        'sql'      => 'select * from `tmp` where (`property` like ?)',
+                        'sql'      => 'select * from `tmp` where (`property` like ? and MATCH(property) AGAINST (?))',
                         'bindings' => [
-                            'a\\\\%b%',
+                            '%a\\\\%b',
+                            'a%b',
                         ],
                     ],
                     'property',
@@ -73,7 +77,7 @@ class StartsWithTest extends TestCase {
                     [
                         'sql'      => 'select * from `tmp` where (`property` like ?)',
                         'bindings' => [
-                            'a\\\\%b%',
+                            '%a\\\\%b',
                         ],
                     ],
                     'property',

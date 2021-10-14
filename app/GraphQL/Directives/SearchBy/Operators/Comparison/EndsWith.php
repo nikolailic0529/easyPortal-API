@@ -1,17 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators;
+namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
 
-class Contains extends Like {
+class EndsWith extends Like {
     public function getName(): string {
-        return 'contains';
+        return 'endsWith';
     }
 
     protected function getDescription(): string {
-        return 'Contains a string.';
+        return 'Ends with a string.';
     }
 
     protected function value(string $string): string {
-        return "%{$string}%";
+        return "%{$string}";
     }
 }

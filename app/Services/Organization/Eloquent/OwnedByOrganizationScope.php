@@ -36,7 +36,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
         $organization = $this->organization->getKey();
 
         if ($property->isRelation()) {
-            $builder->whereHas(
+            $builder->whereHasIn(
                 $property->getRelationName(),
                 static function (EloquentBuilder $builder) use ($property, $organization): void {
                     $builder->where($builder->getModel()->qualifyColumn($property->getName()), '=', $organization);

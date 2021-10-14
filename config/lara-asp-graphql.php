@@ -6,9 +6,9 @@
  * -----------------------------------------------------------------------------
  */
 
-use App\GraphQL\Directives\SearchBy\Operators\Contains;
-use App\GraphQL\Directives\SearchBy\Operators\EndsWith;
-use App\GraphQL\Directives\SearchBy\Operators\StartsWith;
+use App\GraphQL\Directives\SearchBy\Operators\Comparison\Contains;
+use App\GraphQL\Directives\SearchBy\Operators\Comparison\EndsWith;
+use App\GraphQL\Directives\SearchBy\Operators\Comparison\StartsWith;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\In;
