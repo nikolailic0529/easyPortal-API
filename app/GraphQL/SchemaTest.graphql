@@ -333,6 +333,8 @@ input AssetsQuery {
   warranties: AssetWarrantiesQuery
   tags: TagsQuery
   coverages: CoveragesQuery
+  contracts: DocumentsQuery
+  quotes: DocumentsQuery
 }
 
 input AssetsSearchCustomerSort {
@@ -990,6 +992,7 @@ input DocumentsQuery {
   contacts: ContactsQuery
   contacts_count: Int!
   statuses: StatusesQuery
+  assets: AssetsQuery
 }
 
 input DocumentsSearchCustomerSort {
@@ -3387,6 +3390,12 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   coverages: SearchByComplexRelationCoveragesQuery
+
+  """Property condition."""
+  contracts: SearchByComplexRelationDocumentsQuery
+
+  """Property condition."""
+  quotes: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -3912,6 +3921,9 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   statuses: SearchByComplexRelationStatusesQuery
+
+  """Property condition."""
+  assets: SearchByComplexRelationAssetsQuery
 }
 
 """
@@ -5031,6 +5043,12 @@ input SortByClauseAssetsQuery {
 
   """Property clause."""
   coverages: SortByClauseCoveragesQuery
+
+  """Property clause."""
+  contracts: SortByClauseDocumentsQuery
+
+  """Property clause."""
+  quotes: SortByClauseDocumentsQuery
 }
 
 """
@@ -5495,6 +5513,9 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   statuses: SortByClauseStatusesQuery
+
+  """Property clause."""
+  assets: SortByClauseAssetsQuery
 }
 
 """

@@ -62,6 +62,7 @@ use function count;
  * @property \App\Models\Distributor|null                                        $distributor
  * @property-read bool                                                           $is_contract
  * @property-read bool                                                           $is_quote
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property \App\Models\Language|null                                           $language
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Note>     $notes

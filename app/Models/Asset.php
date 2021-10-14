@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
@@ -44,6 +45,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
  * @property-read \App\Models\ChangeRequest|null                                      $changeRequest
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
  * @property \App\Models\Customer|null                                                $customer
@@ -51,6 +53,7 @@ use Illuminate\Support\Collection;
  * @property \App\Models\Location|null                                                $location
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $quotes
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Status|null                                                  $status
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>                $tags
@@ -138,6 +141,35 @@ class Asset extends Model {
 
     public function documentEntries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
+    }
+
+    protected function documents(): HasManyThrough {
+        return $this->hasManyThrough(
+            Document::class,
+            DocumentEntry::class,
+            null,
+            (new Document())->getKeyName(),
+            null,
+            'document_id',
+        );
+    }
+
+    public function contracts(): HasManyThrough {
+        return $this
+            ->documents()
+            ->where(static function (Builder $builder) {
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryContracts();
+            });
+    }
+
+    public function quotes(): HasManyThrough {
+        return $this
+            ->documents()
+            ->where(static function (Builder $builder) {
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryQuotes();
+            });
     }
 
     /**
