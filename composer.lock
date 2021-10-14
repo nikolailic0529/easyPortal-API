@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52d1d8ff95f3b636089ab5d03aee2c91",
+    "content-hash": "9d46ac16dfd789edd4e3451b3d3856f7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -413,6 +413,60 @@
                 "source": "https://github.com/barryvdh/laravel-snappy/tree/master"
             },
             "time": "2020-09-07T12:33:10+00:00"
+        },
+        {
+            "name": "biiiiiigmonster/hasin",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/biiiiiigmonster/hasin.git",
+                "reference": "f59a5bc62c1ee9bc1ede87e69ce8409f25cee0a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/biiiiiigmonster/hasin/zipball/f59a5bc62c1ee9bc1ede87e69ce8409f25cee0a7",
+                "reference": "f59a5bc62c1ee9bc1ede87e69ce8409f25cee0a7",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.8",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BiiiiiigMonster\\Hasin\\HasinServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BiiiiiigMonster\\Hasin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "moyou",
+                    "email": "603707288@qq.com"
+                }
+            ],
+            "description": "Laravel framework relation has in implement",
+            "keywords": [
+                "laravel",
+                "orm",
+                "relation",
+                "whereHas"
+            ],
+            "support": {
+                "issues": "https://github.com/biiiiiigmonster/hasin/issues",
+                "source": "https://github.com/biiiiiigmonster/hasin/tree/v1.3.0"
+            },
+            "time": "2021-02-27T06:56:59+00:00"
         },
         {
             "name": "brick/math",
@@ -3750,12 +3804,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-eloquent.git",
-                "reference": "3f88e81cd7590acb50cb96b355e00cd996d315f9"
+                "reference": "71585be525706bc211ca126504b2edbbbb29dbb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/3f88e81cd7590acb50cb96b355e00cd996d315f9",
-                "reference": "3f88e81cd7590acb50cb96b355e00cd996d315f9",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/71585be525706bc211ca126504b2edbbbb29dbb7",
+                "reference": "71585be525706bc211ca126504b2edbbbb29dbb7",
                 "shasum": ""
             },
             "require": {
@@ -3802,7 +3856,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-09-11T06:32:43+00:00"
+            "time": "2021-09-19T09:13:03+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-formatter",
@@ -3876,18 +3930,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "a3c3b89b6acc8da1eacf648d091eff1a9107863f"
+                "reference": "aa1bef3fc2766429b8598c180be749e36945ccc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/a3c3b89b6acc8da1eacf648d091eff1a9107863f",
-                "reference": "a3c3b89b6acc8da1eacf648d091eff1a9107863f",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/aa1bef3fc2766429b8598c180be749e36945ccc2",
+                "reference": "aa1bef3fc2766429b8598c180be749e36945ccc2",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "laravel/framework": "^8.22.1",
                 "lastdragon-ru/lara-asp-core": "self.version",
+                "lastdragon-ru/lara-asp-eloquent": "self.version",
                 "nuwave/lighthouse": "^5.4",
                 "php": ">=8.0.0",
                 "phpdocumentor/reflection-docblock": "^5.2"
@@ -3939,7 +3994,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-09-11T06:32:43+00:00"
+            "time": "2021-10-14T11:10:15+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",

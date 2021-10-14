@@ -45,7 +45,7 @@ trait HasLocations {
                 $this->getLocationsModel()::class,
                 $this->getLocationsForeignKey(),
             )
-            ->whereHas('types', static function ($query) use ($type) {
+            ->whereHasIn('types', static function ($query) use ($type) {
                 return $query->whereKey($type);
             });
     }

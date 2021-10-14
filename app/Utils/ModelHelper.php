@@ -5,7 +5,7 @@ namespace App\Utils;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LastDragon_ru\LaraASP\GraphQL\Helpers\ModelHelper as LaraAspModelHelper;
+use LastDragon_ru\LaraASP\Eloquent\ModelHelper as LaraAspModelHelper;
 
 use function class_uses_recursive;
 use function in_array;

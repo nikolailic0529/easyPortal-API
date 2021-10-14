@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Exceptions\GraphQLHandler;
+use App\GraphQL\Directives\SearchBy\Operators\Complex\Relation as RelationOperator;
 use App\Models\Asset;
 use App\Models\AssetCoverage;
 use App\Models\AssetTag;
@@ -67,6 +68,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Complex\Relation as SearchByRelationOperator;
 use Nuwave\Lighthouse\Events\ManipulateResult;
 
 class AppServiceProvider extends ServiceProvider {
@@ -100,6 +102,7 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     protected function bootGraphQL(Dispatcher $dispatcher): void {
+        $this->app->bind(SearchByRelationOperator::class, RelationOperator::class);
         $dispatcher->listen(
             ManipulateResult::class,
             function (ManipulateResult $event): void {
