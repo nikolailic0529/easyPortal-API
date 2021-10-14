@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Str;
 
 use function count;
 
@@ -24,6 +25,7 @@ class Error extends Mailable {
         $subject = $count === 1
             ? "EAP {$channel}{$this->records[0]['level_name']}: {$this->records[0]['message']}"
             : "EAP {$channel}Error Report ({$count})";
+        $subject = Str::limit($subject, 256 - 3);
 
         return $this
             ->subject($subject)
