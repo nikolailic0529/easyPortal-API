@@ -715,6 +715,15 @@ input CustomerLocationsSort {
   location: LocationsQuery!
 }
 
+type CustomerMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  sync(input: [CustomerSyncInput!]!): CustomerSyncPayload
+}
+
 """A paginated list of Customer items."""
 type CustomerPaginator {
   """Pagination information about the list of items."""
@@ -726,6 +735,18 @@ type CustomerPaginator {
 
 input CustomerStatusesQuery {
   customers: CustomersQuery
+}
+
+input CustomerSyncInput {
+  id: ID!
+  assets: Boolean
+
+  """Has no effect without `assets = true`"""
+  documents: Boolean
+}
+
+type CustomerSyncPayload {
+  result: Boolean!
 }
 
 input CustomerTypesQuery {
@@ -1527,6 +1548,7 @@ type Mutation {
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+  customer: CustomerMutations
   document: DocumentMutations
 
   """

@@ -17,8 +17,20 @@ class CustomerUpdate extends Job implements ShouldBeUnique, Initializable {
     use CommandOptions;
 
     protected string $customerId;
-    protected ?bool  $withAssets;
-    protected ?bool  $withAssetsDocuments;
+    protected ?bool  $assets;
+    protected ?bool  $documents;
+
+    public function getCustomerId(): string {
+        return $this->customerId;
+    }
+
+    public function getAssets(): ?bool {
+        return $this->assets;
+    }
+
+    public function getDocuments(): ?bool {
+        return $this->documents;
+    }
 
     public function displayName(): string {
         return 'ep-data-loader-customer-update';
@@ -28,10 +40,10 @@ class CustomerUpdate extends Job implements ShouldBeUnique, Initializable {
         return $this->customerId;
     }
 
-    public function init(string $customerId, bool $withAssets = null, bool $withAssetsDocuments = null): static {
-        $this->customerId          = $customerId;
-        $this->withAssets          = $withAssets;
-        $this->withAssetsDocuments = $withAssetsDocuments;
+    public function init(string $customerId, bool $assets = null, bool $documents = null): static {
+        $this->customerId = $customerId;
+        $this->assets     = $assets;
+        $this->documents  = $documents;
 
         $this->initialized();
 
@@ -41,11 +53,11 @@ class CustomerUpdate extends Job implements ShouldBeUnique, Initializable {
     public function __invoke(Kernel $kernel): void {
         $kernel->call(UpdateCustomer::class, $this->setBooleanOptions(
             [
-                'id' => $this->customerId,
+                'id' => $this->getCustomerId(),
             ],
             [
-                'assets'           => $this->withAssets,
-                'assets-documents' => $this->withAssetsDocuments,
+                'assets'           => $this->getAssets(),
+                'assets-documents' => $this->getDocuments(),
             ],
         ));
     }
