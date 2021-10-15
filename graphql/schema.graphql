@@ -1,10 +1,6 @@
-#import Scalars/*.graphql
-#import Types/*.graphql
-#import Filters/*.graphql
-#import Inputs/*.graphql
-#import Queries/*.graphql
-#import Mutations/*.graphql
-#import Mutations/**/*.graphql
+#import */*.graphql
+#import */*/*.graphql
+#import */*/*/*.graphql
 
 type Query {
   # General
