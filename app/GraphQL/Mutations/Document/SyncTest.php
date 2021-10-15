@@ -15,6 +15,10 @@ use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
+use function array_filter;
+use function count;
+use function in_array;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Document\Sync
@@ -57,7 +61,16 @@ class SyncTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(DocumentUpdate::class);
+            Queue::assertPushed(DocumentUpdate::class, count($input));
+            Queue::assertPushed(DocumentUpdate::class, static function (DocumentUpdate $job) use ($input): bool {
+                $params = [
+                    'id' => $job->getDocumentId(),
+                ];
+                $params = array_filter($params, static fn(mixed $value): bool => $value !== null);
+                $pushed = in_array($params, $input, true);
+
+                return $pushed;
+            });
         } else {
             Queue::assertNothingPushed();
         }
@@ -85,6 +98,9 @@ class SyncTest extends TestCase {
                     [
                         [
                             'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
+                        ],
+                        [
+                            'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
                         ],
                     ],
                 ],

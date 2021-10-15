@@ -18,6 +18,10 @@ class DocumentUpdate extends Job implements ShouldBeUnique, Initializable {
 
     protected string $documentId;
 
+    public function getDocumentId(): string {
+        return $this->documentId;
+    }
+
     public function displayName(): string {
         return 'ep-data-loader-document-update';
     }
@@ -36,7 +40,7 @@ class DocumentUpdate extends Job implements ShouldBeUnique, Initializable {
 
     public function __invoke(Kernel $kernel): void {
         $kernel->call(UpdateDocument::class, [
-            'id' => $this->documentId,
+            'id' => $this->getDocumentId(),
         ]);
     }
 }
