@@ -941,6 +941,15 @@ type DocumentEntry {
   asset: Asset!
 }
 
+type DocumentMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  sync(input: [DocumentSyncInput!]!): DocumentSyncPayload
+}
+
 """A paginated list of Document items."""
 type DocumentPaginator {
   """Pagination information about the list of items."""
@@ -952,6 +961,14 @@ type DocumentPaginator {
 
 input DocumentStatusesQuery {
   documents: DocumentsQuery
+}
+
+input DocumentSyncInput {
+  id: ID!
+}
+
+type DocumentSyncPayload {
+  result: Boolean!
 }
 
 input DocumentTypesQuery {
@@ -1491,6 +1508,7 @@ type Mutation {
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+  document: DocumentMutations
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
