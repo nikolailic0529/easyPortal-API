@@ -53,6 +53,7 @@ use function count;
  * @property int                                                                 $entries_count
  * @property int                                                                 $contacts_count
  * @property \Carbon\CarbonImmutable|null                                        $changed_at
+ * @property \Carbon\CarbonImmutable                                             $synced_at
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
@@ -99,6 +100,7 @@ class Document extends Model implements CascadeDeletable {
 
     protected const CASTS = [
         'changed_at' => 'datetime',
+        'synced_at'  => 'datetime',
         'price'      => 'decimal:2',
         'start'      => 'date',
         'end'        => 'date',
