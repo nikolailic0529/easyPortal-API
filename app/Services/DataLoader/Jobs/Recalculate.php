@@ -6,7 +6,6 @@ use App\Models\Callbacks\GetKey;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Services\Queue\Job;
 use App\Services\Queue\Queues;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
