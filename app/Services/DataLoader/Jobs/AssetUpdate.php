@@ -19,12 +19,20 @@ class AssetUpdate extends Job implements ShouldBeUnique, Initializable {
     protected string $assetId;
     protected ?bool  $withDocuments;
 
+    public function getAssetId(): string {
+        return $this->assetId;
+    }
+
+    public function getWithDocuments(): ?bool {
+        return $this->withDocuments;
+    }
+
     public function displayName(): string {
         return 'ep-data-loader-asset-update';
     }
 
     public function uniqueId(): string {
-        return $this->assetId;
+        return $this->getAssetId();
     }
 
     public function init(string $assetId, bool $withDocuments = null): static {
@@ -39,10 +47,10 @@ class AssetUpdate extends Job implements ShouldBeUnique, Initializable {
     public function __invoke(Kernel $kernel): void {
         $kernel->call(UpdateAsset::class, $this->setBooleanOptions(
             [
-                'id' => $this->assetId,
+                'id' => $this->getAssetId(),
             ],
             [
-                'documents' => $this->withDocuments,
+                'documents' => $this->getWithDocuments(),
             ],
         ));
     }

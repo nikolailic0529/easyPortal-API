@@ -1,0 +1,17 @@
+extend type AssetMutations {
+  sync(
+    input: [AssetSyncInput!]!
+  ): AssetSyncPayload
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Asset\\Sync")
+}
+
+input AssetSyncInput {
+  id: ID!
+  documents: Boolean
+}
+
+type AssetSyncPayload {
+  result: Boolean!
+}

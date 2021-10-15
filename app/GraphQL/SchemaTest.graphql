@@ -250,6 +250,15 @@ input AssetCoveragesQuery {
   assets: AssetsQuery
 }
 
+type AssetMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  sync(input: [AssetSyncInput!]!): AssetSyncPayload
+}
+
 """A paginated list of Asset items."""
 type AssetPaginator {
   """Pagination information about the list of items."""
@@ -261,6 +270,15 @@ type AssetPaginator {
 
 input AssetStatusesQuery {
   assets: AssetsQuery
+}
+
+input AssetSyncInput {
+  id: ID!
+  documents: Boolean
+}
+
+type AssetSyncPayload {
+  result: Boolean!
 }
 
 input AssetTypesQuery {
@@ -1463,6 +1481,7 @@ type Mutation {
   @require <root> Authenticated user must be a root.
   """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
+  asset: AssetMutations
 
   """
   Finish the Sign In for Organization.
