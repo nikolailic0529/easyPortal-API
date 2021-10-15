@@ -17,7 +17,6 @@ use Tests\TestCase;
 
 use function array_filter;
 use function count;
-use function in_array;
 
 /**
  * @internal
@@ -62,15 +61,18 @@ class SyncTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             Queue::assertPushed(DocumentUpdate::class, count($input));
-            Queue::assertPushed(DocumentUpdate::class, static function (DocumentUpdate $job) use ($input): bool {
-                $params = [
-                    'id' => $job->getDocumentId(),
-                ];
-                $params = array_filter($params, static fn(mixed $value): bool => $value !== null);
-                $pushed = in_array($params, $input, true);
 
-                return $pushed;
-            });
+            foreach ($input as $call) {
+                Queue::assertPushed(DocumentUpdate::class, static function (DocumentUpdate $job) use ($call): bool {
+                    $params = [
+                        'id' => $job->getDocumentId(),
+                    ];
+                    $params = array_filter($params, static fn(mixed $value): bool => $value !== null);
+                    $pushed = $call === $params;
+
+                    return $pushed;
+                });
+            }
         } else {
             Queue::assertNothingPushed();
         }

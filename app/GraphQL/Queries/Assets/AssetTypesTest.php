@@ -113,7 +113,8 @@ class AssetTypesTest extends TestCase {
                         'object_type' => (new Asset())->getMorphClass(),
                     ]);
                     Type::factory()->create([
-                        'name' => 'Wrong object_type',
+                        'name'        => 'Wrong object_type',
+                        'object_type' => 'unknown',
                     ]);
                 },
             ],

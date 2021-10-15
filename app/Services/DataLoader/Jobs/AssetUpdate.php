@@ -17,14 +17,14 @@ class AssetUpdate extends Job implements ShouldBeUnique, Initializable {
     use CommandOptions;
 
     protected string $assetId;
-    protected ?bool  $withDocuments;
+    protected ?bool  $documents;
 
     public function getAssetId(): string {
         return $this->assetId;
     }
 
-    public function getWithDocuments(): ?bool {
-        return $this->withDocuments;
+    public function getDocuments(): ?bool {
+        return $this->documents;
     }
 
     public function displayName(): string {
@@ -35,9 +35,9 @@ class AssetUpdate extends Job implements ShouldBeUnique, Initializable {
         return $this->getAssetId();
     }
 
-    public function init(string $assetId, bool $withDocuments = null): static {
-        $this->assetId       = $assetId;
-        $this->withDocuments = $withDocuments;
+    public function init(string $assetId, bool $documents = null): static {
+        $this->assetId   = $assetId;
+        $this->documents = $documents;
 
         $this->initialized();
 
@@ -50,7 +50,7 @@ class AssetUpdate extends Job implements ShouldBeUnique, Initializable {
                 'id' => $this->getAssetId(),
             ],
             [
-                'documents' => $this->getWithDocuments(),
+                'documents' => $this->getDocuments(),
             ],
         ));
     }

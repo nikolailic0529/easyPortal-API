@@ -13,7 +13,7 @@ class Sync {
     }
 
     /**
-     * @param array{input: array<array{id: string,documents: bool}>} $args
+     * @param array{input: array<array{id: string, documents?: ?bool}>} $args
      *
      * @return array{result: bool}
      */
