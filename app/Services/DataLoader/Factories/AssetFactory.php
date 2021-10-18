@@ -276,6 +276,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
             $model->tags          = $this->assetTags($asset);
             $model->coverages     = $this->assetCoverages($asset);
+            $model->synced_at     = Date::now();
 
             if ($created) {
                 $model->save();

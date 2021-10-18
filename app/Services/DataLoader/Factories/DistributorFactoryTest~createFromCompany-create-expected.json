@@ -1,5 +1,5 @@
 [
     "select * from `distributors` where `distributors`.`deleted_at` is null",
     "select * from `distributors` where (`distributors`.`id` = ?) and `distributors`.`deleted_at` is null limit 1",
-    "insert into `distributors` (`id`, `name`, `changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)"
+    "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)"
 ]

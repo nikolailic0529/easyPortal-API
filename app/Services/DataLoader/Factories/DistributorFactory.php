@@ -11,6 +11,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function array_map;
@@ -78,6 +79,7 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
             $distributor->id         = $normalizer->uuid($company->id);
             $distributor->name       = $normalizer->string($company->name);
             $distributor->changed_at = $normalizer->datetime($company->updatedAt);
+            $distributor->synced_at  = Date::now();
 
             $distributor->save();
 

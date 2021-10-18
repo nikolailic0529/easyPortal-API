@@ -103,6 +103,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAsset(): void {
         // Mock
+        $this->overrideDateFactory();
         $this->overrideFinders();
 
         // Prepare
@@ -295,7 +296,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->create($asset);
 
-        $this->assertCount(6, $this->getQueryLog());
+        $this->assertCount(8, $this->getQueryLog());
     }
 
     /**
