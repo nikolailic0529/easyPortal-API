@@ -477,8 +477,8 @@ class QuotesSearchTest extends TestCase {
                             'phone_valid' => false,
                         ],
                     ],
-                    'changed_at'     => '2021-10-19T10:15:00+00:00',
-                    'synced_at'      => '2021-10-19T10:25:00+00:00',
+                    'changed_at'      => '2021-10-19T10:15:00+00:00',
+                    'synced_at'       => '2021-10-19T10:25:00+00:00',
                 ],
                 'reseller'       => [
                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',

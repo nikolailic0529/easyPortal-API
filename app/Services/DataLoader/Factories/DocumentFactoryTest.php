@@ -1110,8 +1110,8 @@ class DocumentFactoryTest extends TestCase {
             'service_group_id' => $serviceGroup,
             'service_level_id' => $serviceLevel,
         ];
-        [$a, $b] = DocumentEntryModel::factory()->count(4)->create($properties);
-        $object  = new Document([
+        [$a, $b]      = DocumentEntryModel::factory()->count(4)->create($properties);
+        $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [
                 'vendor' => $document->oem->key,
@@ -1149,7 +1149,7 @@ class DocumentFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $factory = new class(
+        $factory      = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(AssetResolver::class),
             $this->app->make(ProductResolver::class),
