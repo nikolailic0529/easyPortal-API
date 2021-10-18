@@ -39,7 +39,9 @@
                 "contacts_count",
                 "contacts",
                 "locations_count",
-                "locations"
+                "locations",
+                "changed_at",
+                "synced_at"
             ],
             "properties": {
                 "id": {
@@ -94,6 +96,21 @@
                             "type": "null"
                         }
                     ]
+                },
+                "changed_at": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "synced_at": {
+                    "type": "string",
+                    "format": "date-time"
                 }
             }
         },
@@ -252,7 +269,9 @@
                 "contacts",
                 "coverages",
                 "tags",
-                "data_quality"
+                "data_quality",
+                "changed_at",
+                "synced_at"
             ],
             "properties": {
                 "oem_id": {
@@ -348,6 +367,21 @@
                             "type": "null"
                         }
                     ]
+                },
+                "changed_at": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "synced_at": {
+                    "type": "string",
+                    "format": "date-time"
                 }
             }
         },
@@ -527,7 +561,9 @@
                 "contacts",
                 "distributor_id",
                 "distributor",
-                "assets_count"
+                "assets_count",
+                "changed_at",
+                "synced_at"
             ],
             "properties": {
                 "id": {
@@ -698,6 +734,21 @@
                 },
                 "is_quote": {
                     "type": "boolean"
+                },
+                "changed_at": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "synced_at": {
+                    "type": "string",
+                    "format": "date-time"
                 }
             }
         },

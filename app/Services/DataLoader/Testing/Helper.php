@@ -29,12 +29,14 @@ use App\Services\DataLoader\Testing\Finders\OemFinder;
 use App\Services\DataLoader\Testing\Finders\ResellerFinder;
 use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder;
+use Closure;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
+use Tests\Helpers\SequenceDateFactory;
 use Tests\Helpers\SequenceUuidFactory;
 
 use function array_map;
@@ -466,8 +468,8 @@ trait Helper {
         $this->assertTrue($this->app->make(DataGenerator::class)->generate($data));
 
         // Setup
-        Date::setTestNow('2021-08-30T00:00:00.000+00:00');
-        Str::createUuidsUsing(new SequenceUuidFactory());
+        $this->overrideDateFactory();
+        $this->overrideUuidFactory();
 
         $this->override(Client::class, function () use ($data): Client {
             return $this->app->make(FakeClient::class)->setData($data);
@@ -477,4 +479,15 @@ trait Helper {
         $this->assertTrue($this->app->make(DataGenerator::class)->restore($data));
     }
     //</editor-fold>
+
+    // <editor-fold desc="Others">
+    // =========================================================================
+    protected function overrideUuidFactory(): void {
+        Str::createUuidsUsing(new SequenceUuidFactory());
+    }
+
+    protected function overrideDateFactory(): void {
+        Date::setTestNow(Closure::fromCallable(new SequenceDateFactory()));
+    }
+    // </editor-fold>
 }

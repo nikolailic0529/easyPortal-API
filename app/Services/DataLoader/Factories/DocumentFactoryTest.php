@@ -105,6 +105,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocumentObject(): void {
         // Mock
+        $this->overrideDateFactory();
         $this->overrideFinders();
 
         // Factory
@@ -226,7 +227,7 @@ class DocumentFactoryTest extends TestCase {
 
         $factory->createFromAssetDocumentObject($object);
 
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -1220,6 +1221,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testCreateFromDocument(): void {
         // Mock
+        $this->overrideDateFactory();
         $this->overrideFinders();
         $this->overrideAssetFinder();
 
@@ -1328,6 +1330,7 @@ class DocumentFactoryTest extends TestCase {
             'select * from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null',
             'select * from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1',
             'select * from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1',
+            'update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?',
         ];
 
         $factory->createFromDocument($object);

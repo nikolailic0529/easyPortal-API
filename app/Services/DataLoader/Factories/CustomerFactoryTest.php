@@ -73,6 +73,9 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompany(): void {
+        // Mock
+        $this->overrideDateFactory();
+
         // Prepare
         $factory    = $this->app->make(CustomerFactory::class);
         $normalizer = $this->app->make(Normalizer::class);
@@ -252,7 +255,7 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
     }
 
     /**

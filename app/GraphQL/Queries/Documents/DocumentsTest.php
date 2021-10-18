@@ -136,6 +136,8 @@ class DocumentsTest extends TestCase {
                                     email
                                     phone_valid
                                 }
+                                changed_at
+                                synced_at
                             }
                             reseller {
                                 id
@@ -223,6 +225,8 @@ class DocumentsTest extends TestCase {
                                 name
                             }
                             assets_count
+                            changed_at
+                            synced_at
                         }
                         paginatorInfo {
                             count
@@ -309,6 +313,8 @@ class DocumentsTest extends TestCase {
                     'assets_count'    => 0,
                     'locations_count' => 1,
                     'contacts_count'  => 1,
+                    'changed_at'      => '2021-10-19 10:15:00',
+                    'synced_at'       => '2021-10-19 10:25:00',
                 ]);
 
             CustomerLocation::factory()->create([
@@ -394,6 +400,8 @@ class DocumentsTest extends TestCase {
                     'start'        => '2021-01-01',
                     'end'          => '2024-01-01',
                     'assets_count' => 1,
+                    'changed_at'   => '2021-10-19 10:15:00',
+                    'synced_at'    => '2021-10-19 10:25:00',
                 ]);
 
             Document::factory()
@@ -433,6 +441,8 @@ class DocumentsTest extends TestCase {
                     'start'        => '2021-01-01',
                     'end'          => '2024-01-01',
                     'assets_count' => 1,
+                    'changed_at'   => '2021-10-19 10:15:00',
+                    'synced_at'    => '2021-10-19 10:25:00',
                 ]);
 
             $customer->resellers()->attach($reseller);
@@ -496,6 +506,8 @@ class DocumentsTest extends TestCase {
                         'phone_valid' => false,
                     ],
                 ],
+                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                'synced_at'       => '2021-10-19T10:25:00+00:00',
             ],
             'reseller'       => [
                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -586,6 +598,8 @@ class DocumentsTest extends TestCase {
                 'name' => 'distributor1',
             ],
             'assets_count'   => 1,
+            'changed_at'     => '2021-10-19T10:15:00+00:00',
+            'synced_at'      => '2021-10-19T10:25:00+00:00',
         ];
         $contract = [
             'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -646,6 +660,8 @@ class DocumentsTest extends TestCase {
                         'phone_valid' => false,
                     ],
                 ],
+                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                'synced_at'       => '2021-10-19T10:25:00+00:00',
             ],
             'reseller'       => [
                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -736,6 +752,8 @@ class DocumentsTest extends TestCase {
                 'name' => 'distributor1',
             ],
             'assets_count'   => 1,
+            'changed_at'     => '2021-10-19T10:15:00+00:00',
+            'synced_at'      => '2021-10-19T10:25:00+00:00',
         ];
 
         return (new MergeDataProvider([

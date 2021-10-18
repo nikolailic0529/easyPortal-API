@@ -29,7 +29,7 @@
     "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-    "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `reseller_statuses` (`status_id`, `reseller_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "insert into `reseller_statuses` (`status_id`, `reseller_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",

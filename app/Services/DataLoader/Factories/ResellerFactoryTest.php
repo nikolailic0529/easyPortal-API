@@ -81,6 +81,9 @@ class ResellerFactoryTest extends TestCase {
         // Fake
         Event::fake();
 
+        // Mock
+        $this->overrideDateFactory();
+
         // Prepare
         $factory    = $this->app->make(ResellerFactory::class);
         $normalizer = $this->app->make(Normalizer::class);
@@ -262,7 +265,7 @@ class ResellerFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
     }
 
     /**

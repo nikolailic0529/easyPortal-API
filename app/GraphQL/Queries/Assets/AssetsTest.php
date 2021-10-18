@@ -124,6 +124,8 @@ class AssetsTest extends TestCase {
                                     email
                                     phone_valid
                                 }
+                                changed_at
+                                synced_at
                             }
                             location {
                                 id
@@ -184,6 +186,8 @@ class AssetsTest extends TestCase {
                                         email
                                         phone_valid
                                     }
+                                    changed_at
+                                    synced_at
                                 }
                                 reseller {
                                     id
@@ -226,6 +230,8 @@ class AssetsTest extends TestCase {
                                 id
                                 name
                             }
+                            changed_at
+                            synced_at
                         },
                         paginatorInfo {
                             count
@@ -358,6 +364,8 @@ class AssetsTest extends TestCase {
                                             'phone_valid' => false,
                                         ],
                                     ],
+                                    'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                    'synced_at'       => '2021-10-19T10:25:00+00:00',
                                 ],
                                 'warranty_end'   => '2022-01-01',
                                 'warranties'     => [
@@ -413,6 +421,8 @@ class AssetsTest extends TestCase {
                                                     'phone_valid' => false,
                                                 ],
                                             ],
+                                            'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                                         ],
                                         'reseller'      => [
                                             'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -461,6 +471,8 @@ class AssetsTest extends TestCase {
                                         'name' => 'Software',
                                     ],
                                 ],
+                                'changed_at'     => '2021-10-19T10:15:00+00:00',
+                                'synced_at'      => '2021-10-19T10:25:00+00:00',
                             ],
                         ]),
                         [
@@ -522,6 +534,8 @@ class AssetsTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             CustomerLocation::factory()->create([
@@ -617,6 +631,8 @@ class AssetsTest extends TestCase {
                                     'warranty_end'   => '2022-01-01',
                                     'contacts_count' => 1,
                                     'data_quality'   => '130',
+                                    'changed_at'     => '2021-10-19 10:15:00',
+                                    'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
 
                             AssetWarranty::factory()

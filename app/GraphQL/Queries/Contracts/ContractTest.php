@@ -130,6 +130,8 @@ class ContractTest extends TestCase {
                                 email
                                 phone_valid
                             }
+                            changed_at
+                            synced_at
                         }
                         reseller {
                             id
@@ -217,6 +219,8 @@ class ContractTest extends TestCase {
                             name
                         }
                         assets_count
+                        changed_at
+                        synced_at
                     }
                 }
             ', ['id' => $contractId])
@@ -412,6 +416,8 @@ class ContractTest extends TestCase {
                                         'phone_valid' => false,
                                     ],
                                 ],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
                             'reseller'       => [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -502,6 +508,8 @@ class ContractTest extends TestCase {
                                 'name' => 'distributor1',
                             ],
                             'assets_count'   => 1,
+                            'changed_at'     => '2021-10-19T10:15:00+00:00',
+                            'synced_at'      => '2021-10-19T10:25:00+00:00',
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): Document {
                             $user->save();
@@ -558,6 +566,8 @@ class ContractTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             $customer->resellers()->attach($reseller);
@@ -650,6 +660,8 @@ class ContractTest extends TestCase {
                                     'start'        => '2021-01-01',
                                     'end'          => '2024-01-01',
                                     'assets_count' => 1,
+                                    'changed_at'   => '2021-10-19 10:15:00',
+                                    'synced_at'    => '2021-10-19 10:25:00',
                                 ]);
                         },
                     ],

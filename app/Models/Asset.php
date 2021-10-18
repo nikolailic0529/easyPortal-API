@@ -40,6 +40,7 @@ use Illuminate\Support\Collection;
  * @property string|null                                                              $data_quality
  * @property int                                                                      $contacts_count
  * @property \Carbon\CarbonImmutable|null                                             $changed_at
+ * @property \Carbon\CarbonImmutable                                                  $synced_at
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
@@ -82,6 +83,7 @@ class Asset extends Model {
 
     protected const CASTS = [
         'changed_at'   => 'datetime',
+        'synced_at'    => 'datetime',
         'warranty_end' => 'date',
     ] + parent::CASTS;
 

@@ -149,6 +149,8 @@ class CreateQuoteRequestTest extends TestCase {
                                 phone_number
                                 phone_valid
                             }
+                            changed_at
+                            synced_at
                         }
                         contact {
                             name
@@ -239,6 +241,8 @@ class CreateQuoteRequestTest extends TestCase {
                 'assets_count'    => 0,
                 'contacts_count'  => 0,
                 'locations_count' => 0,
+                'changed_at'      => '2021-10-19 10:15:00',
+                'synced_at'       => '2021-10-19 10:25:00',
             ]);
             $customer->resellers()->attach($reseller);
             Type::factory()->create([
@@ -316,6 +320,8 @@ class CreateQuoteRequestTest extends TestCase {
                                 'locations_count' => 0,
                                 'contacts'        => [],
                                 'locations'       => [],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
                             'contact'       => [
                                 'email'        => 'contact1@test.com',
@@ -379,6 +385,8 @@ class CreateQuoteRequestTest extends TestCase {
                                 'locations_count' => 0,
                                 'contacts'        => [],
                                 'locations'       => [],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
                             'contact'       => [
                                 'email'        => 'contact1@test.com',

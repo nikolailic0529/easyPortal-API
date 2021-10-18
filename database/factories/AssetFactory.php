@@ -67,6 +67,7 @@ class AssetFactory extends Factory {
             'contacts_count' => 0,
             'data_quality'   => null,
             'changed_at'     => null,
+            'synced_at'      => Date::now(),
             'created_at'     => Date::now(),
             'updated_at'     => Date::now(),
             'deleted_at'     => null,

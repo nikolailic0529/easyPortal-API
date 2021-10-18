@@ -23,4 +23,6 @@ type Asset {
   data_quality: String
   quoteRequest: QuoteRequest @hasOne
   changeRequest: ChangeRequest @hasOne
+  changed_at: DateTime
+  synced_at: DateTime!
 }

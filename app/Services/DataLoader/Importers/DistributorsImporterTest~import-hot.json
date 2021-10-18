@@ -8,5 +8,13 @@
     {
         "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
         "bindings": []
+    },
+    {
+        "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:00:05",
+            "2021-08-30 00:00:08",
+            "143c456a-e894-4710-a1c2-745b9582ca47"
+        ]
     }
 ]

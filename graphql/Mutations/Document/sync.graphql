@@ -1,0 +1,17 @@
+extend type DocumentMutations {
+  sync(
+    input: [DocumentSyncInput!]!
+  ): DocumentSyncPayload
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Document\\Sync")
+}
+
+input DocumentSyncInput {
+  id: ID!
+  assets: Boolean
+}
+
+type DocumentSyncPayload {
+  result: Boolean!
+}

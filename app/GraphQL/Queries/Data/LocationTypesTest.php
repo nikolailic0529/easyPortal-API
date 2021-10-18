@@ -113,7 +113,8 @@ class LocationTypesTest extends TestCase {
                             'object_type' => (new Location())->getMorphClass(),
                         ]);
                         Type::factory()->create([
-                            'name' => 'Wrong object_type',
+                            'name'        => 'Wrong object_type',
+                            'object_type' => 'unknown',
                         ]);
                     },
                 ],

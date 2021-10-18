@@ -61,6 +61,7 @@ use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
@@ -310,12 +311,13 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
                 $model->number      = $normalizer->string($document->documentNumber);
                 $model->changed_at  = $changedAt;
                 $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
+                $model->synced_at   = Date::now();
             }
 
             // Entries should be updated always because they related to the Asset
             $model->entries = $this->assetDocumentObjectEntries($model, $object);
 
-            // We cannot save entries if assets doesn't exist
+            // We cannot save document if assets doesn't exist
             if ($object->asset->exists) {
                 $model->save();
             }
@@ -401,13 +403,13 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
         return $a->asset_id <=> $b->asset_id
             ?: $a->currency_id <=> $b->currency_id
-            ?: $a->net_price <=> $b->net_price
-            ?: $a->list_price <=> $b->list_price
-            ?: $a->discount <=> $b->discount
-            ?: $a->renewal <=> $b->renewal
-            ?: $a->service_group_id <=> $b->service_group_id
-            ?: $a->service_level_id <=> $b->service_level_id
-            ?: 0;
+                ?: $a->net_price <=> $b->net_price
+                    ?: $a->list_price <=> $b->list_price
+                        ?: $a->discount <=> $b->discount
+                            ?: $a->renewal <=> $b->renewal
+                                ?: $a->service_group_id <=> $b->service_group_id
+                                    ?: $a->service_level_id <=> $b->service_level_id
+                                        ?: 0;
     }
     // </editor-fold>
 
@@ -438,6 +440,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->changed_at  = $normalizer->datetime($document->updatedAt);
             $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
             $model->statuses    = $this->documentStatuses($model, $document);
+            $model->synced_at   = Date::now();
 
             // Entries & Warranties
             if (isset($document->documentEntries)) {

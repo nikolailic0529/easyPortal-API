@@ -131,7 +131,8 @@ class ContractTypesTest extends TestCase {
                         'object_type' => (new Document())->getMorphClass(),
                     ]);
                     Type::factory()->create([
-                        'name' => 'Wrong object_type',
+                        'name'        => 'Wrong object_type',
+                        'object_type' => 'unknown',
                     ]);
                 },
             ],

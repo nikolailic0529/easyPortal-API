@@ -16,6 +16,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function implode;
@@ -131,6 +132,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
             $customer->contacts     = $this->objectContacts($customer, $company->companyContactPersons);
             $customer->locations    = $this->companyLocations($customer, $company->locations);
             $customer->kpi          = $this->kpi($customer, $company->companyKpis);
+            $customer->synced_at    = Date::now();
 
             $customer->save();
 

@@ -1,0 +1,19 @@
+extend type CustomerMutations {
+  sync(
+    input: [CustomerSyncInput!]!
+  ): CustomerSyncPayload
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Customer\\Sync")
+}
+
+input CustomerSyncInput {
+  id: ID!
+  assets: Boolean
+  "Has no effect without `assets = true`"
+  documents: Boolean
+}
+
+type CustomerSyncPayload {
+  result: Boolean!
+}

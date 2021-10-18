@@ -69,6 +69,9 @@ class DistributorFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompany(): void {
+        // Mock
+        $this->overrideDateFactory();
+
         // Prepare
         $factory = $this->app->make(DistributorFactory::class);
 
@@ -80,11 +83,10 @@ class DistributorFactoryTest extends TestCase {
 
         // Test
         $distributor = $factory->create($company);
+        $actual      = array_column($this->getQueryLog(), 'query');
+        $expected    = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-create-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($distributor);
         $this->assertTrue($distributor->wasRecentlyCreated);
         $this->assertEquals($company->id, $distributor->getKey());
@@ -94,14 +96,13 @@ class DistributorFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Distributor should be updated
-        $json    = $this->getTestData()->json('~distributor-changed.json');
-        $company = new Company($json);
-        $updated = $factory->create($company);
+        $json     = $this->getTestData()->json('~distributor-changed.json');
+        $company  = new Company($json);
+        $updated  = $factory->create($company);
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals(
-            $this->getTestData()->json('~createFromCompany-update-expected.json'),
-            array_column($this->getQueryLog(), 'query'),
-        );
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($updated);
         $this->assertSame($distributor, $updated);
         $this->assertEquals($company->id, $updated->getKey());
@@ -116,7 +117,7 @@ class DistributorFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
     }
 
     /**

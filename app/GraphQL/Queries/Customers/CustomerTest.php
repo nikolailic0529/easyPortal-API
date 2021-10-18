@@ -150,6 +150,8 @@ class CustomerTest extends TestCase {
                             service_revenue_total_amount
                             service_revenue_total_amount_change
                         }
+                        changed_at
+                        synced_at
                     }
                 }
             ', ['id' => $customerId])
@@ -222,6 +224,8 @@ class CustomerTest extends TestCase {
                                         email
                                         phone_valid
                                     }
+                                    changed_at
+                                    synced_at
                                 }
                                 oem {
                                     id
@@ -308,6 +312,8 @@ class CustomerTest extends TestCase {
                                             email
                                             phone_valid
                                         }
+                                        changed_at
+                                        synced_at
                                     }
                                     reseller {
                                         id
@@ -351,6 +357,8 @@ class CustomerTest extends TestCase {
                                     id
                                     name
                                 }
+                                changed_at
+                                synced_at
                             }
                             paginatorInfo {
                                 count
@@ -466,6 +474,8 @@ class CustomerTest extends TestCase {
                                         email
                                         phone_valid
                                     }
+                                    changed_at
+                                    synced_at
                                 }
                                 reseller {
                                     id
@@ -553,6 +563,8 @@ class CustomerTest extends TestCase {
                                     name
                                 }
                                 assets_count
+                                changed_at
+                                synced_at
                             }
                             paginatorInfo {
                                 count
@@ -668,6 +680,8 @@ class CustomerTest extends TestCase {
                                         email
                                         phone_valid
                                     }
+                                    changed_at
+                                    synced_at
                                 }
                                 reseller {
                                     id
@@ -755,6 +769,8 @@ class CustomerTest extends TestCase {
                                     name
                                 }
                                 assets_count
+                                changed_at
+                                synced_at
                             }
                             paginatorInfo {
                                 count
@@ -899,6 +915,8 @@ class CustomerTest extends TestCase {
                                                     'phone_valid' => false,
                                                 ],
                                             ],
+                                            'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                                         ],
                                         'oem'            => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -969,6 +987,8 @@ class CustomerTest extends TestCase {
                                                             'phone_valid' => false,
                                                         ],
                                                     ],
+                                                    'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                                    'synced_at'       => '2021-10-19T10:25:00+00:00',
                                                 ],
                                                 'serviceLevels' => [
                                                     [
@@ -1033,6 +1053,8 @@ class CustomerTest extends TestCase {
                                                 'name' => 'Software',
                                             ],
                                         ],
+                                        'changed_at'     => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'      => '2021-10-19T10:25:00+00:00',
                                     ],
                                 ],
                                 'paginatorInfo' => [
@@ -1085,6 +1107,8 @@ class CustomerTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             $customer->resellers()->attach($reseller);
@@ -1196,6 +1220,8 @@ class CustomerTest extends TestCase {
                                     'warranty_end'   => '2021-01-01',
                                     'contacts_count' => 1,
                                     'data_quality'   => '130',
+                                    'changed_at'     => '2021-10-19 10:15:00',
+                                    'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
                             // Document entry creation for services
                             DocumentEntry::factory()->create([
@@ -1350,6 +1376,8 @@ class CustomerTest extends TestCase {
                                 'service_revenue_total_amount'        => 25.0,
                                 'service_revenue_total_amount_change' => 26.0,
                             ],
+                            'changed_at'      => '2021-10-19T10:15:00+00:00',
+                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                         ]),
                         [
                             'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -1421,6 +1449,8 @@ class CustomerTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
                             $customer->resellers()->attach($reseller);
 
@@ -1577,6 +1607,8 @@ class CustomerTest extends TestCase {
                                                         'phone_valid' => false,
                                                     ],
                                                 ],
+                                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                                             ],
                                             'reseller'       => [
                                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -1667,6 +1699,8 @@ class CustomerTest extends TestCase {
                                                 'name' => 'distributor1',
                                             ],
                                             'assets_count'   => 1,
+                                            'changed_at'     => '2021-10-19T10:15:00+00:00',
+                                            'synced_at'      => '2021-10-19T10:25:00+00:00',
                                         ],
                                     ],
                                     'paginatorInfo' => [
@@ -1728,6 +1762,8 @@ class CustomerTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
                             $customer->resellers()->attach($reseller);
 
@@ -1828,6 +1864,8 @@ class CustomerTest extends TestCase {
                                     'start'        => '2021-01-01',
                                     'end'          => '2024-01-01',
                                     'assets_count' => 1,
+                                    'changed_at'   => '2021-10-19 10:15:00',
+                                    'synced_at'    => '2021-10-19 10:25:00',
                                 ]);
 
                             return $customer;
@@ -1919,6 +1957,8 @@ class CustomerTest extends TestCase {
                     'assets_count'    => 0,
                     'contacts_count'  => 0,
                     'locations_count' => 0,
+                    'changed_at'      => '2021-10-19 10:15:00',
+                    'synced_at'       => '2021-10-19 10:25:00',
                 ]);
             $customer->resellers()->attach($reseller);
 
@@ -1966,6 +2006,8 @@ class CustomerTest extends TestCase {
                     'assets_count'    => 0,
                     'contacts_count'  => 1,
                     'locations_count' => 1,
+                    'changed_at'      => '2021-10-19 10:15:00',
+                    'synced_at'       => '2021-10-19 10:25:00',
                 ]);
             $customer->resellers()->attach($reseller);
 
@@ -2066,6 +2108,8 @@ class CustomerTest extends TestCase {
                     'start'        => '2021-01-01',
                     'end'          => '2024-01-01',
                     'assets_count' => 1,
+                    'changed_at'   => '2021-10-19 10:15:00',
+                    'synced_at'    => '2021-10-19 10:25:00',
                 ]);
 
             return $customer;
@@ -2133,6 +2177,8 @@ class CustomerTest extends TestCase {
                                     'phone_valid' => false,
                                 ],
                             ],
+                            'changed_at'      => '2021-10-19T10:15:00+00:00',
+                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                         ],
                         'reseller'       => [
                             'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -2223,6 +2269,8 @@ class CustomerTest extends TestCase {
                             'name' => 'distributor1',
                         ],
                         'assets_count'   => 1,
+                        'changed_at'     => '2021-10-19T10:15:00+00:00',
+                        'synced_at'      => '2021-10-19T10:25:00+00:00',
                     ],
                 ],
                 'paginatorInfo' => [
