@@ -403,13 +403,13 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
         return $a->asset_id <=> $b->asset_id
             ?: $a->currency_id <=> $b->currency_id
-                ?: $a->net_price <=> $b->net_price
-                    ?: $a->list_price <=> $b->list_price
-                        ?: $a->discount <=> $b->discount
-                            ?: $a->renewal <=> $b->renewal
-                                ?: $a->service_group_id <=> $b->service_group_id
-                                    ?: $a->service_level_id <=> $b->service_level_id
-                                        ?: 0;
+            ?: $a->net_price <=> $b->net_price
+            ?: $a->list_price <=> $b->list_price
+            ?: $a->discount <=> $b->discount
+            ?: $a->renewal <=> $b->renewal
+            ?: $a->service_group_id <=> $b->service_group_id
+            ?: $a->service_level_id <=> $b->service_level_id
+            ?: 0;
     }
     // </editor-fold>
 
@@ -533,7 +533,6 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         // by properties, but there are still a lot of create/soft-delete
         // queries. So we are trying to re-use removed entries to reduce the
         // number of queries.
-        $key      = (new DocumentEntryModel())->getKeyName();
         $compare  = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
             return $this->compareDocumentEntries($a, $b);
         };
@@ -563,6 +562,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         // Reuse
+        $key      = (new DocumentEntryModel())->getKeyName();
         $created  = $created->sort($compare);
         $existing = $existing->sort($compare);
 
