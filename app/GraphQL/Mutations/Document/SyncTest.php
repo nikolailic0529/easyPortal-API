@@ -2,6 +2,9 @@
 
 namespace App\GraphQL\Mutations\Document;
 
+use App\Models\Asset;
+use App\Models\Document;
+use App\Services\DataLoader\Jobs\AssetUpdate;
 use App\Services\DataLoader\Jobs\DocumentUpdate;
 use Closure;
 use Illuminate\Support\Facades\Queue;
@@ -42,6 +45,16 @@ class SyncTest extends TestCase {
 
         Queue::fake();
 
+        foreach ($input as $document) {
+            Document::factory()
+                ->hasEntries(1, [
+                    'asset_id' => Asset::factory()->create(),
+                ])
+                ->create([
+                    'id' => $document['id'],
+                ]);
+        }
+
         $this
             ->graphQL(
             /** @lang GraphQL */
@@ -61,8 +74,13 @@ class SyncTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             Queue::assertPushed(DocumentUpdate::class, count($input));
+            Queue::assertPushed(AssetUpdate::class, count(array_filter($input, static function (array $call): bool {
+                return ($call['assets'] ?? false) === true;
+            })));
 
             foreach ($input as $call) {
+                unset($call['assets']);
+
                 Queue::assertPushed(DocumentUpdate::class, static function (DocumentUpdate $job) use ($call): bool {
                     $params = [
                         'id' => $job->getDocumentId(),
@@ -89,7 +107,7 @@ class SyncTest extends TestCase {
             new RootOrganizationDataProvider('document'),
             new RootUserDataProvider('document'),
             new ArrayDataProvider([
-                'ok' => [
+                'ok'             => [
                     new GraphQLSuccess(
                         'document',
                         new JsonFragmentSchema('sync', self::class),
@@ -103,6 +121,21 @@ class SyncTest extends TestCase {
                         ],
                         [
                             'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
+                        ],
+                    ],
+                ],
+                'ok with assets' => [
+                    new GraphQLSuccess(
+                        'document',
+                        new JsonFragmentSchema('sync', self::class),
+                        new JsonFragment('sync', [
+                            'result' => true,
+                        ]),
+                    ),
+                    [
+                        [
+                            'id'     => '4f820bae-79a5-4558-b90c-d8d7060688b8',
+                            'assets' => true,
                         ],
                     ],
                 ],

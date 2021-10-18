@@ -9,6 +9,7 @@ extend type DocumentMutations {
 
 input DocumentSyncInput {
   id: ID!
+  assets: Boolean
 }
 
 type DocumentSyncPayload {
