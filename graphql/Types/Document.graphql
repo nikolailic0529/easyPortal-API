@@ -36,4 +36,7 @@ type Document {
     order: NotesSort @sortBy
   ): [Note!]!
   @hasMany(type: PAGINATOR)
+
+  changed_at: DateTime
+  synced_at: DateTime!
 }

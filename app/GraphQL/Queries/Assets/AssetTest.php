@@ -129,6 +129,8 @@ class AssetTest extends TestCase {
                                 email
                                 phone_valid
                             }
+                            changed_at
+                            synced_at
                         }
                         location {
                             id
@@ -189,6 +191,8 @@ class AssetTest extends TestCase {
                                     email
                                     phone_valid
                                 }
+                                changed_at
+                                synced_at
                             }
                             reseller {
                                 id
@@ -270,6 +274,8 @@ class AssetTest extends TestCase {
                                     email
                                     phone_valid
                                 }
+                                changed_at
+                                synced_at
                             }
                             contact {
                                 name
@@ -303,6 +309,8 @@ class AssetTest extends TestCase {
                                 name
                             }
                         }
+                        changed_at
+                        synced_at
                     }
                 }
             ', ['id' => $assetId])
@@ -423,6 +431,8 @@ class AssetTest extends TestCase {
                                         'phone_valid' => false,
                                     ],
                                 ],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
                             'warranty_end'   => '2021-01-01',
                             'warranties'     => [
@@ -514,6 +524,8 @@ class AssetTest extends TestCase {
                                                 'phone_valid' => false,
                                             ],
                                         ],
+                                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
                                     'reseller'      => [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -601,6 +613,8 @@ class AssetTest extends TestCase {
                                             'phone_valid' => false,
                                         ],
                                     ],
+                                    'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                    'synced_at'       => '2021-10-19T10:25:00+00:00',
                                 ],
                                 'contact'       => [
                                     'name'        => 'contact3',
@@ -634,6 +648,8 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                             ],
+                            'changed_at'     => '2021-10-19T10:15:00+00:00',
+                            'synced_at'      => '2021-10-19T10:25:00+00:00',
                         ]),
                         [
                             'ep.contract_types' => [
@@ -699,6 +715,8 @@ class AssetTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             $customer->resellers()->attach($reseller);
@@ -797,6 +815,8 @@ class AssetTest extends TestCase {
                                     'warranty_end'   => '2021-01-01',
                                     'contacts_count' => 1,
                                     'data_quality'   => '130',
+                                    'changed_at'     => '2021-10-19 10:15:00',
+                                    'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
 
                             // Should be returned - document has valid type

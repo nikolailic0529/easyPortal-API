@@ -76,6 +76,8 @@ class CustomersSearchTest extends TestCase {
                         email
                         phone_valid
                     }
+                    changed_at
+                    synced_at
                 },
                 paginatorInfo {
                     count
@@ -149,6 +151,8 @@ class CustomersSearchTest extends TestCase {
                                         'phone_valid' => false,
                                     ],
                                 ],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Customer {
@@ -185,6 +189,8 @@ class CustomersSearchTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             $customer->resellers()->attach($reseller);

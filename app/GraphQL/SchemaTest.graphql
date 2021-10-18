@@ -244,6 +244,8 @@ type Asset {
   data_quality: String
   quoteRequest: QuoteRequest
   changeRequest: ChangeRequest
+  changed_at: DateTime
+  synced_at: DateTime!
 }
 
 input AssetCoveragesQuery {
@@ -647,6 +649,8 @@ type Customer {
   contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
   locations: [CustomerLocation!]!
   headquarter: CustomerLocation
+  changed_at: DateTime
+  synced_at: DateTime!
   assets_count: Int!
   locations_count: Int!
   kpi: Kpi
@@ -931,6 +935,8 @@ type Document {
   distributor_id: ID
   distributor: Distributor
   assets_count: Int
+  changed_at: DateTime
+  synced_at: DateTime!
   notes(
     where: SearchByConditionNotesQuery
     order: [SortByClauseNotesSort!]

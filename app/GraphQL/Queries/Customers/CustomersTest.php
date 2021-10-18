@@ -125,6 +125,8 @@ class CustomersTest extends TestCase {
                         service_revenue_total_amount
                         service_revenue_total_amount_change
                     }
+                    changed_at
+                    synced_at
                 },
                 paginatorInfo {
                     count
@@ -258,6 +260,8 @@ class CustomersTest extends TestCase {
                                     'service_revenue_total_amount'        => 25.0,
                                     'service_revenue_total_amount_change' => 26.0,
                                 ],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
                         ]),
                         [
@@ -330,6 +334,8 @@ class CustomersTest extends TestCase {
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             $customer->resellers()->attach($reseller);
