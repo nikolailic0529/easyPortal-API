@@ -7,7 +7,7 @@ type DocumentEntry {
   renewal: Float
   serial_number: String
   product_id: ID!
-  product: Product!
+  product: Product! @belongsTo
   service_group_id: ID
   serviceGroup: ServiceGroup @belongsTo
   service_level_id: ID
