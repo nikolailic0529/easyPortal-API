@@ -1242,9 +1242,17 @@ input LocationsSort {
 type Map {
   latitude: Float!
   longitude: Float!
+  boundingBox: MapBoundingBox!
   locations_ids: [ID!]!
   customers_ids: [ID!]!
   customers_count: Int!
+}
+
+type MapBoundingBox {
+  southLatitude: Float!
+  northLatitude: Float!
+  westLongitude: Float!
+  eastLongitude: Float!
 }
 
 input MapQuery {

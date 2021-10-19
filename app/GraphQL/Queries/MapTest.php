@@ -66,6 +66,12 @@ class MapTest extends TestCase {
                         customers_count
                         customers_ids
                         locations_ids
+                        boundingBox {
+                          southLatitude
+                          northLatitude
+                          westLongitude
+                          eastLongitude
+                        }
                     }
                 }
                 GRAPHQL,
@@ -136,7 +142,7 @@ class MapTest extends TestCase {
             // Inside
             $locationA = Location::factory()->create([
                 'id'         => '4d9133ff-482b-4605-870f-9ee88c2062ae',
-                'geohash'    => 'aaa',
+                'geohash'    => 'u72',
                 'latitude'   => 1.00,
                 'longitude'  => 1.00,
                 'country_id' => Country::factory()->create(['code' => $code++]),
@@ -154,7 +160,7 @@ class MapTest extends TestCase {
 
             $locationB = Location::factory()->create([
                 'id'         => '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
-                'geohash'    => 'aab',
+                'geohash'    => 'u73',
                 'latitude'   => 1.10,
                 'longitude'  => 1.10,
                 'country_id' => $country->getKey(),
@@ -170,7 +176,7 @@ class MapTest extends TestCase {
 
             $locationC = Location::factory()->create([
                 'id'         => '8d8a056f-b224-4d4f-90af-7e0eced13217',
-                'geohash'    => 'aba',
+                'geohash'    => 'ue2',
                 'latitude'   => 1.25,
                 'longitude'  => 1.25,
                 'country_id' => Country::factory()->create(['code' => $code++]),
@@ -186,7 +192,7 @@ class MapTest extends TestCase {
 
             $locationD = Location::factory()->create([
                 'id'         => '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
-                'geohash'    => 'aca',
+                'geohash'    => 'ug2',
                 'latitude'   => 1.5,
                 'longitude'  => 1.5,
                 'country_id' => Country::factory()->create(['code' => $code++]),
@@ -219,7 +225,7 @@ class MapTest extends TestCase {
             $locationF = Location::factory()->create([
                 'latitude'   => -1.00,
                 'longitude'  => 1.00,
-                'geohash'    => 'aaa',
+                'geohash'    => 'u72',
                 'country_id' => Country::factory()->create(['code' => $code++]),
                 'city_id'    => City::factory(),
             ]);
@@ -231,7 +237,7 @@ class MapTest extends TestCase {
             Location::factory()->create([
                 'latitude'   => 2,
                 'longitude'  => 2,
-                'geohash'    => 'aaa',
+                'geohash'    => 'u72',
                 'country_id' => Country::factory()->create(['code' => $code++]),
                 'city_id'    => City::factory(),
             ]);
@@ -257,6 +263,12 @@ class MapTest extends TestCase {
                                     '4d9133ff-482b-4605-870f-9ee88c2062ae',
                                     '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
                                 ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 11.25,
+                                    'eastLongitude' => 22.5,
+                                ],
                             ],
                             [
                                 'latitude'        => 1.25,
@@ -267,6 +279,12 @@ class MapTest extends TestCase {
                                 ],
                                 'locations_ids'   => [
                                     '8d8a056f-b224-4d4f-90af-7e0eced13217',
+                                ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 22.5,
+                                    'eastLongitude' => 33.75,
                                 ],
                             ],
                             [
@@ -279,6 +297,12 @@ class MapTest extends TestCase {
                                 ],
                                 'locations_ids'   => [
                                     '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 33.75,
+                                    'eastLongitude' => 45,
                                 ],
                             ],
                         ]),
@@ -297,10 +321,17 @@ class MapTest extends TestCase {
                                 'locations_ids'   => [
                                     '4d9133ff-482b-4605-870f-9ee88c2062ae',
                                 ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 11.25,
+                                    'eastLongitude' => 22.5,
+                                ],
                             ],
                         ]),
                         $factory,
                         [
+                            'level'    => 2,
                             'viewport' => [
                                 'allOf' => [
                                     [
@@ -324,10 +355,17 @@ class MapTest extends TestCase {
                                 'locations_ids'   => [
                                     '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
                                 ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 11.25,
+                                    'eastLongitude' => 22.5,
+                                ],
                             ],
                         ]),
                         $factory,
                         [
+                            'level'    => 2,
                             'viewport' => [
                                 'allOf' => [
                                     [
@@ -351,6 +389,12 @@ class MapTest extends TestCase {
                                 'locations_ids'   => [
                                     '8d8a056f-b224-4d4f-90af-7e0eced13217',
                                 ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 22.5,
+                                    'eastLongitude' => 33.75,
+                                ],
                             ],
                             [
                                 'latitude'        => 1.5,
@@ -361,6 +405,12 @@ class MapTest extends TestCase {
                                 ],
                                 'locations_ids'   => [
                                     '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 33.75,
+                                    'eastLongitude' => 45,
                                 ],
                             ],
                         ]),
@@ -393,6 +443,12 @@ class MapTest extends TestCase {
                                 'locations_ids'   => [
                                     '4d9133ff-482b-4605-870f-9ee88c2062ae',
                                 ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 11.25,
+                                    'eastLongitude' => 22.5,
+                                ],
                             ],
                             [
                                 'latitude'        => 1.5,
@@ -403,6 +459,12 @@ class MapTest extends TestCase {
                                 ],
                                 'locations_ids'   => [
                                     '6162c51f-1c24-4e03-a3e7-b26975c7bac7',
+                                ],
+                                'boundingBox'     => [
+                                    'southLatitude' => 61.875,
+                                    'northLatitude' => 67.5,
+                                    'westLongitude' => 33.75,
+                                    'eastLongitude' => 45,
                                 ],
                             ],
                         ]),

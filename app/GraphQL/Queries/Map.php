@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use League\Geotools\Geotools;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -103,10 +104,18 @@ class Map {
 
         // Process
         $locations = $query->get();
+        $geotools  = new Geotools();
 
         foreach ($locations as $location) {
+            $boundingBox             = $geotools->geohash()->decode($location->hash)->getBoundingBox();
             $location->customers_ids = $this->parseKeys($location->customers_ids ?? null);
             $location->locations_ids = $this->parseKeys($location->locations_ids ?? null);
+            $location->boundingBox   = [
+                'southLatitude' => $boundingBox[0]->getLatitude(),
+                'northLatitude' => $boundingBox[1]->getLatitude(),
+                'westLongitude' => $boundingBox[0]->getLongitude(),
+                'eastLongitude' => $boundingBox[1]->getLongitude(),
+            ];
         }
 
         // Return
