@@ -13,6 +13,7 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAsset;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
@@ -67,8 +68,6 @@ use Throwable;
 
 use function array_map;
 use function array_merge;
-use function array_udiff;
-use function array_uintersect;
 use function implode;
 use function sprintf;
 
@@ -365,15 +364,22 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         // Update entries:
-        $compare = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-            return $this->compareDocumentEntries($a, $b);
-        };
-        $entries = array_map(function (ViewAssetDocument $entry) use ($model, $document) {
-            return $this->assetDocumentEntry($document->asset, $model, $entry);
-        }, $document->entries);
-        $keep    = array_uintersect($existing, $entries, $compare);
-        $add     = array_udiff($entries, $existing, $compare);
-        $all     = array_merge($all, $keep, $add);
+        $entries = $this->entries(
+            new Collection($existing),
+            $document->entries,
+            function (ViewAssetDocument $entry) use ($model, $document): ?DocumentEntryModel {
+                try {
+                    return $this->assetDocumentEntry($document->asset, $model, $entry);
+                } catch (Throwable $exception) {
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessViewAssetDocument($document->asset, $entry, $exception),
+                    );
+                }
+
+                return null;
+            },
+        );
+        $all     = array_merge($all, $entries);
 
         // Return
         return $all;
@@ -403,13 +409,13 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
         return $a->asset_id <=> $b->asset_id
             ?: $a->currency_id <=> $b->currency_id
-                ?: $a->net_price <=> $b->net_price
-                    ?: $a->list_price <=> $b->list_price
-                        ?: $a->discount <=> $b->discount
-                            ?: $a->renewal <=> $b->renewal
-                                ?: $a->service_group_id <=> $b->service_group_id
-                                    ?: $a->service_level_id <=> $b->service_level_id
-                                        ?: 0;
+            ?: $a->net_price <=> $b->net_price
+            ?: $a->list_price <=> $b->list_price
+            ?: $a->discount <=> $b->discount
+            ?: $a->renewal <=> $b->renewal
+            ?: $a->service_group_id <=> $b->service_group_id
+            ?: $a->service_level_id <=> $b->service_level_id
+            ?: 0;
     }
     // </editor-fold>
 
@@ -529,51 +535,21 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
      * @return array<\App\Models\DocumentEntry>
      */
     protected function documentEntries(DocumentModel $model, Document $document): array {
-        // Entries don't have ID for this reason we are trying to compare them
-        // by properties, but there are still a lot of create/soft-delete
-        // queries. So we are trying to re-use removed entries to reduce the
-        // number of queries.
-        $key      = (new DocumentEntryModel())->getKeyName();
-        $compare  = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-            return $this->compareDocumentEntries($a, $b);
-        };
-        $existing = $model->entries;
-        $created  = new Collection();
-        $entries  = [];
-
-        foreach ($document->documentEntries as $entry) {
-            try {
-                $entry       = $this->documentEntry($model, $entry);
-                $existingKey = $existing->search(static function (DocumentEntryModel $e) use ($compare, $entry): bool {
-                    return $compare($e, $entry) === 0;
-                });
-
-                if ($existingKey !== false) {
-                    $entry = $existing->pull($existingKey)->forceFill($entry->getAttributes());
-                } else {
-                    $created->push($entry);
+        return $this->entries(
+            $model->entries,
+            $document->documentEntries,
+            function (DocumentEntry $entry) use ($model): ?DocumentEntryModel {
+                try {
+                    return $this->documentEntry($model, $entry);
+                } catch (Throwable $exception) {
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessDocumentEntry($model, $entry, $exception),
+                    );
                 }
 
-                $entries[] = $entry;
-            } catch (Throwable $exception) {
-                $this->getExceptionHandler()->report(
-                    new FailedToProcessDocumentEntry($model, $entry, $exception),
-                );
-            }
-        }
-
-        // Reuse
-        $created  = $created->sort($compare);
-        $existing = $existing->sort($compare);
-
-        while (!$created->isEmpty() && !$existing->isEmpty()) {
-            $entry         = $created->shift();
-            $entry->{$key} = $existing->shift()->getKey();
-            $entry->exists = true;
-        }
-
-        // Return
-        return $entries;
+                return null;
+            },
+        );
     }
 
     protected function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
@@ -625,6 +601,72 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         return $level;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Entries">
+    // =========================================================================
+    /**
+     * @template T of \App\Services\DataLoader\Schema\Type
+     *
+     * @param \Illuminate\Support\Collection<\App\Models\DocumentEntry> $existing
+     * @param array<T>                                                  $entries
+     * @param \Closure(T): ?\App\Models\DocumentEntry                   $factory
+     *
+     * @return array<\App\Models\DocumentEntry>
+     */
+    protected function entries(Collection $existing, array $entries, Closure $factory): array {
+        // Entries don't have ID for this reason we are trying to compare them
+        // by properties, but there are still a lot of create/soft-delete
+        // queries. So we are trying to re-use removed entries to reduce the
+        // number of queries.
+        $sort     = static function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+            return $a->getKey() <=> $b->getKey();
+        };
+        $compare  = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+            return $this->compareDocumentEntries($a, $b);
+        };
+        $existing = $existing->sort($sort);
+        $created  = new Collection();
+        $actual   = [];
+
+        foreach ($entries as $entry) {
+            $entry = $factory($entry);
+
+            if (!$entry) {
+                continue;
+            }
+
+            $existingKey = $existing->search(static function (DocumentEntryModel $e) use ($compare, $entry): bool {
+                return $compare($e, $entry) === 0;
+            });
+
+            if ($existingKey !== false) {
+                // `forceFill` is used for relations because we need to call
+                // mutators to update value property.
+                $entry = $existing
+                    ->pull($existingKey)
+                    ->forceFill($entry->getAttributes())
+                    ->forceFill($entry->getRelations());
+            } else {
+                $created->push($entry);
+            }
+
+            $actual[] = $entry;
+        }
+
+        // Reuse
+        $key     = (new DocumentEntryModel())->getKeyName();
+        $created = $created->sort($sort);
+
+        while (!$created->isEmpty() && !$existing->isEmpty()) {
+            $entry         = $created->shift();
+            $entry->{$key} = $existing->shift()->getKey();
+            $entry->exists = true;
+        }
+
+        // Return
+        return $actual;
     }
     // </editor-fold>
 }
