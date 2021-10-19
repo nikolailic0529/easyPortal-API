@@ -2,13 +2,13 @@ extend type AssetMutations {
   sync(
     input: [AssetSyncInput!]!
   ): AssetSyncPayload
-  @organization(root: true)
-  @me(permissions: ["administer"])
+  @organization
+  @me(permissions: ["assets-sync"])
   @field(resolver: "App\\GraphQL\\Mutations\\Asset\\Sync")
 }
 
 input AssetSyncInput {
-  id: ID!
+  id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
   documents: Boolean
 }
 

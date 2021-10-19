@@ -2,14 +2,18 @@
 
 namespace App\GraphQL\Mutations\Asset;
 
+use App\Models\Asset;
+use App\Models\Organization;
+use App\Models\Reseller;
+use App\Models\User;
 use App\Services\DataLoader\Jobs\AssetSync;
 use Closure;
 use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -37,8 +41,33 @@ class SyncTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         array $input = [],
+        Closure $prepare = null,
     ): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+        $id           = $this->faker->uuid;
+
+        if ($prepare) {
+            $prepare($this, $organization, $user, $input);
+        } else {
+            // Lighthouse performs validation BEFORE permission check :(
+            //
+            // https://github.com/nuwave/lighthouse/issues/1780
+            //
+            // Following code required to "fix" it
+            if (!$organization) {
+                $organization = $this->setOrganization(Organization::factory()->create());
+            }
+
+            $reseller = Reseller::factory()->create([
+                'id' => $organization ? $organization->getKey() : $this->faker->uuid,
+            ]);
+
+            Asset::factory()->create([
+                'id'          => $id,
+                'reseller_id' => $reseller,
+            ]);
+        }
 
         Queue::fake();
 
@@ -54,7 +83,7 @@ class SyncTest extends TestCase {
                     }
                 }',
                 [
-                    'input' => $input ?: [['id' => '79b91f78-c244-4e95-a99d-bf8b15255591']],
+                    'input' => $input ?: [['id' => $id]],
                 ],
             )
             ->assertThat($expected);
@@ -86,9 +115,24 @@ class SyncTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
+        $factory = static function (TestCase $test, Organization $organization, User $user, array $input): void {
+            $reseller = Reseller::factory()->create([
+                'id' => $organization->getKey(),
+            ]);
+
+            foreach ($input as $asset) {
+                Asset::factory()->create([
+                    'id'          => $asset['id'],
+                    'reseller_id' => $reseller,
+                ]);
+            }
+        };
+
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('asset'),
-            new RootUserDataProvider('asset'),
+            new OrganizationDataProvider('asset'),
+            new OrganizationUserDataProvider('asset', [
+                'assets-sync',
+            ]),
             new ArrayDataProvider([
                 'ok'                  => [
                     new GraphQLSuccess(
@@ -106,6 +150,7 @@ class SyncTest extends TestCase {
                             'id' => '2181735f-42b6-41bf-a069-47a88883b239',
                         ],
                     ],
+                    $factory,
                 ],
                 'ok (with documents)' => [
                     new GraphQLSuccess(
@@ -125,6 +170,7 @@ class SyncTest extends TestCase {
                             'documents' => false,
                         ],
                     ],
+                    $factory,
                 ],
             ]),
         ))->getData();
