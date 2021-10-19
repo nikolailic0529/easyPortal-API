@@ -5,15 +5,13 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
 /**
  * Updates Asset.
  *
  * @see \App\Services\DataLoader\Commands\UpdateAsset
  */
-class AssetUpdate extends Job implements ShouldBeUnique, Initializable {
+class AssetUpdate extends Sync {
     use CommandOptions;
 
     protected string $assetId;

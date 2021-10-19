@@ -5,15 +5,13 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Commands\UpdateDocument;
 use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
 /**
  * Updates Document.
  *
  * @see \App\Services\DataLoader\Commands\UpdateDocument
  */
-class DocumentUpdate extends Job implements ShouldBeUnique, Initializable {
+class DocumentUpdate extends Sync {
     use CommandOptions;
 
     protected string $documentId;

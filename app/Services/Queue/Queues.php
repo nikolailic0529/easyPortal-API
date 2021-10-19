@@ -7,6 +7,11 @@ namespace App\Services\Queue;
  */
 interface Queues {
     /**
+     * Sync queue.
+     */
+    public const SYNC = 'sync';
+
+    /**
      * Default queue.
      */
     public const DEFAULT = 'default';
