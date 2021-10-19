@@ -14,11 +14,13 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
+use function __;
 use function array_filter;
 use function count;
 
@@ -171,6 +173,19 @@ class SyncTest extends TestCase {
                         ],
                     ],
                     $factory,
+                ],
+                'invalid asset'       => [
+                    new GraphQLError('asset', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    [
+                        [
+                            'id' => '05bb78da-8a67-4ed4-a1a5-db80a75d66e9',
+                        ],
+                    ],
+                    static function (): void {
+                        // empty
+                    },
                 ],
             ]),
         ))->getData();
