@@ -1,17 +1,17 @@
-extend type DocumentMutations {
+extend type QuoteMutations {
   sync(
-    input: [DocumentSyncInput!]!
-  ): DocumentSyncPayload
+    input: [QuoteSyncInput!]!
+  ): QuoteSyncPayload
   @organization(root: true)
   @me(permissions: ["administer"])
   @field(resolver: "App\\GraphQL\\Mutations\\Document\\Sync")
 }
 
-input DocumentSyncInput {
+input QuoteSyncInput {
   id: ID!
   assets: Boolean
 }
 
-type DocumentSyncPayload {
+type QuoteSyncPayload {
   result: Boolean!
 }

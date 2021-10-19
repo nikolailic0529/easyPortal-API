@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -37,6 +39,8 @@ class SyncTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
+        string $query,
+        string $type,
         Closure $organizationFactory,
         Closure $userFactory = null,
         array $input = [],
@@ -58,14 +62,15 @@ class SyncTest extends TestCase {
         $this
             ->graphQL(
             /** @lang GraphQL */
-                '
-                mutation sync($input: [DocumentSyncInput!]!) {
-                    document {
-                        sync(input: $input) {
+                <<<GRAPHQL
+                mutation sync(\$input: [{$type}!]!) {
+                    {$query} {
+                        sync(input: \$input) {
                             result
                         }
                     }
-                }',
+                }
+                GRAPHQL,
                 [
                     'input' => $input ?: [['id' => '79b91f78-c244-4e95-a99d-bf8b15255591']],
                 ],
@@ -103,44 +108,98 @@ class SyncTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('document'),
-            new RootUserDataProvider('document'),
-            new ArrayDataProvider([
-                'ok'             => [
-                    new GraphQLSuccess(
-                        'document',
-                        new JsonFragmentSchema('sync', self::class),
-                        new JsonFragment('sync', [
-                            'result' => true,
-                        ]),
-                    ),
+        return (new MergeDataProvider([
+            'contract' => new CompositeDataProvider(
+                new ArrayDataProvider([
                     [
+                        new UnknownValue(),
+                        'contract',
+                        'ContractSyncInput',
+                    ],
+                ]),
+                new RootOrganizationDataProvider('contract'),
+                new RootUserDataProvider('contract'),
+                new ArrayDataProvider([
+                    'ok'             => [
+                        new GraphQLSuccess(
+                            'contract',
+                            new JsonFragmentSchema('sync', self::class),
+                            new JsonFragment('sync', [
+                                'result' => true,
+                            ]),
+                        ),
                         [
-                            'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
-                        ],
-                        [
-                            'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
+                            [
+                                'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
+                            ],
+                            [
+                                'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
+                            ],
                         ],
                     ],
-                ],
-                'ok with assets' => [
-                    new GraphQLSuccess(
-                        'document',
-                        new JsonFragmentSchema('sync', self::class),
-                        new JsonFragment('sync', [
-                            'result' => true,
-                        ]),
-                    ),
-                    [
+                    'ok with assets' => [
+                        new GraphQLSuccess(
+                            'contract',
+                            new JsonFragmentSchema('sync', self::class),
+                            new JsonFragment('sync', [
+                                'result' => true,
+                            ]),
+                        ),
                         [
-                            'id'     => '4f820bae-79a5-4558-b90c-d8d7060688b8',
-                            'assets' => true,
+                            [
+                                'id'     => '4f820bae-79a5-4558-b90c-d8d7060688b8',
+                                'assets' => true,
+                            ],
                         ],
                     ],
-                ],
-            ]),
-        ))->getData();
+                ]),
+            ),
+            'quote'    => new CompositeDataProvider(
+                new ArrayDataProvider([
+                    [
+                        new UnknownValue(),
+                        'quote',
+                        'QuoteSyncInput',
+                    ],
+                ]),
+                new RootOrganizationDataProvider('quote'),
+                new RootUserDataProvider('quote'),
+                new ArrayDataProvider([
+                    'ok'             => [
+                        new GraphQLSuccess(
+                            'quote',
+                            new JsonFragmentSchema('sync', self::class),
+                            new JsonFragment('sync', [
+                                'result' => true,
+                            ]),
+                        ),
+                        [
+                            [
+                                'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
+                            ],
+                            [
+                                'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
+                            ],
+                        ],
+                    ],
+                    'ok with assets' => [
+                        new GraphQLSuccess(
+                            'quote',
+                            new JsonFragmentSchema('sync', self::class),
+                            new JsonFragment('sync', [
+                                'result' => true,
+                            ]),
+                        ),
+                        [
+                            [
+                                'id'     => '4f820bae-79a5-4558-b90c-d8d7060688b8',
+                                'assets' => true,
+                            ],
+                        ],
+                    ],
+                ]),
+            ),
+        ]))->getData();
     }
     // </editor-fold>
 }

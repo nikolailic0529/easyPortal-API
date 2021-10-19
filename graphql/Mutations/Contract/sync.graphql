@@ -1,0 +1,17 @@
+extend type ContractMutations {
+  sync(
+    input: [ContractSyncInput!]!
+  ): ContractSyncPayload
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Document\\Sync")
+}
+
+input ContractSyncInput {
+  id: ID!
+  assets: Boolean
+}
+
+type ContractSyncPayload {
+  result: Boolean!
+}
