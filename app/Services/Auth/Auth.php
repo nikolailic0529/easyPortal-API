@@ -25,18 +25,22 @@ class Auth {
             new Permission('assets-view', orgAdmin: true),
             new Permission('assets-support', orgAdmin: true),
             new Permission('assets-download', orgAdmin: true),
+            new Permission('assets-sync', orgAdmin: true),
             // Contracts
             new Permission('contracts-view', orgAdmin: true),
             new Permission('contracts-support', orgAdmin: true),
             new Permission('contracts-download', orgAdmin: true),
+            new Permission('contracts-sync', orgAdmin: true),
             // Customers
             new Permission('customers-view', orgAdmin: true),
             new Permission('customers-support', orgAdmin: true),
             new Permission('customers-download', orgAdmin: true),
+            new Permission('customers-sync', orgAdmin: true),
             // Quotes
             new Permission('quotes-view', orgAdmin: true),
             new Permission('quotes-support', orgAdmin: true),
             new Permission('quotes-download', orgAdmin: true),
+            new Permission('quotes-sync', orgAdmin: true),
             // "+ Request" buttons
             new Permission('requests-asset-add', orgAdmin: true),
             new Permission('requests-asset-change', orgAdmin: true),
