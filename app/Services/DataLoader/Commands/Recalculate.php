@@ -46,7 +46,7 @@ abstract class Recalculate extends Command {
 
     protected function process(Repository $config, RecalculateJob $job): int {
         // Prepare
-        $keys  = array_unique($this->argument('id'));
+        $keys  = array_unique((array) $this->argument('id'));
         $chunk = ((int) $this->option('chunk')) ?: $config->get('ep.data_loader.chunk');
         $model = $job->getModel();
         $query = $model::query();

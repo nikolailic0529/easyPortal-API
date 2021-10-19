@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Asset;
 
-use App\Services\DataLoader\Jobs\AssetUpdate;
+use App\Services\DataLoader\Jobs\AssetSync;
 use Illuminate\Contracts\Container\Container;
 
 class Sync {
@@ -20,7 +20,7 @@ class Sync {
     public function __invoke(mixed $root, array $args): array {
         foreach ($args['input'] as $input) {
             $this->container
-                ->make(AssetUpdate::class)
+                ->make(AssetSync::class)
                 ->init($input['id'], $input['documents'] ?? null)
                 ->dispatch();
         }

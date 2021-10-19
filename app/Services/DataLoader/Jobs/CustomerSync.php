@@ -5,15 +5,13 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
 /**
- * Updates Customer.
+ * Syncs Customer.
  *
  * @see \App\Services\DataLoader\Commands\UpdateCustomer
  */
-class CustomerUpdate extends Job implements ShouldBeUnique, Initializable {
+class CustomerSync extends Sync {
     use CommandOptions;
 
     protected string $customerId;
@@ -33,7 +31,7 @@ class CustomerUpdate extends Job implements ShouldBeUnique, Initializable {
     }
 
     public function displayName(): string {
-        return 'ep-data-loader-customer-update';
+        return 'ep-data-loader-customer-sync';
     }
 
     public function uniqueId(): string {

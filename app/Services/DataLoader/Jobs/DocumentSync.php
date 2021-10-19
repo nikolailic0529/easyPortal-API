@@ -5,15 +5,13 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Commands\UpdateDocument;
 use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
 /**
- * Updates Document.
+ * Syncs Document.
  *
  * @see \App\Services\DataLoader\Commands\UpdateDocument
  */
-class DocumentUpdate extends Job implements ShouldBeUnique, Initializable {
+class DocumentSync extends Sync {
     use CommandOptions;
 
     protected string $documentId;
@@ -23,7 +21,7 @@ class DocumentUpdate extends Job implements ShouldBeUnique, Initializable {
     }
 
     public function displayName(): string {
-        return 'ep-data-loader-document-update';
+        return 'ep-data-loader-document-sync';
     }
 
     public function uniqueId(): string {

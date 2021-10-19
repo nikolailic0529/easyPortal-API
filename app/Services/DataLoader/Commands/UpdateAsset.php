@@ -35,7 +35,7 @@ class UpdateAsset extends Update {
 
     public function handle(ExceptionHandler $handler, Container $container): int {
         $create = $this->getBooleanOption('create', false);
-        $ids    = array_unique($this->argument('id'));
+        $ids    = array_unique((array) $this->argument('id'));
 
         return $this->process($handler, $container, $ids, $create);
     }

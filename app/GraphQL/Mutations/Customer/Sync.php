@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Customer;
 
-use App\Services\DataLoader\Jobs\CustomerUpdate;
+use App\Services\DataLoader\Jobs\CustomerSync;
 use Illuminate\Contracts\Container\Container;
 
 class Sync {
@@ -20,7 +20,7 @@ class Sync {
     public function __invoke(mixed $root, array $args): array {
         foreach ($args['input'] as $input) {
             $this->container
-                ->make(CustomerUpdate::class)
+                ->make(CustomerSync::class)
                 ->init($input['id'], $input['assets'] ?? null, $input['documents'] ?? null)
                 ->dispatch();
         }

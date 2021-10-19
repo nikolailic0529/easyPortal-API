@@ -254,9 +254,9 @@ input AssetCoveragesQuery {
 
 type AssetMutations {
   """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["assets-sync"])> User must be authenticated and have any of these permissions.
   """
   sync(input: [AssetSyncInput!]!): AssetSyncPayload
 }
@@ -526,8 +526,26 @@ input ContactsSort {
   phone_valid: Boolean
 }
 
+type ContractMutations {
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-sync"])> User must be authenticated and have any of these permissions.
+  """
+  sync(input: [ContractSyncInput!]!): ContractSyncPayload
+}
+
 input ContractStatusesQuery {
   contracts: DocumentsQuery
+}
+
+input ContractSyncInput {
+  id: ID!
+  assets: Boolean
+}
+
+type ContractSyncPayload {
+  result: Boolean!
 }
 
 input ContractTypesQuery {
@@ -721,9 +739,9 @@ input CustomerLocationsSort {
 
 type CustomerMutations {
   """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["customers-sync"])> User must be authenticated and have any of these permissions.
   """
   sync(input: [CustomerSyncInput!]!): CustomerSyncPayload
 }
@@ -986,15 +1004,6 @@ type DocumentEntry {
   asset: Asset!
 }
 
-type DocumentMutations {
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  sync(input: [DocumentSyncInput!]!): DocumentSyncPayload
-}
-
 """A paginated list of Document items."""
 type DocumentPaginator {
   """Pagination information about the list of items."""
@@ -1006,14 +1015,6 @@ type DocumentPaginator {
 
 input DocumentStatusesQuery {
   documents: DocumentsQuery
-}
-
-input DocumentSyncInput {
-  id: ID!
-}
-
-type DocumentSyncPayload {
-  result: Boolean!
 }
 
 input DocumentTypesQuery {
@@ -1554,8 +1555,8 @@ type Mutation {
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+  contract: ContractMutations
   customer: CustomerMutations
-  document: DocumentMutations
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1670,6 +1671,7 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload
+  quote: QuoteMutations
 }
 
 type Note {
@@ -2466,6 +2468,15 @@ type Query {
   ): DocumentPaginator!
 }
 
+type QuoteMutations {
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["quotes-sync"])> User must be authenticated and have any of these permissions.
+  """
+  sync(input: [QuoteSyncInput!]!): QuoteSyncPayload
+}
+
 type QuoteRequest {
   id: ID!
   oem_id: ID!
@@ -2503,6 +2514,15 @@ type QuoteRequestDuration {
 
 input QuoteStatusesQuery {
   quotes: DocumentsQuery
+}
+
+input QuoteSyncInput {
+  id: ID!
+  assets: Boolean
+}
+
+type QuoteSyncPayload {
+  result: Boolean!
 }
 
 input QuoteTypesQuery {

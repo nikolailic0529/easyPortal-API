@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\DocumentUpdate
+ * @coversDefaultClass \App\Services\DataLoader\Jobs\DocumentSync
  */
-class DocumentUpdateTest extends TestCase {
+class DocumentSyncsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -19,7 +19,7 @@ class DocumentUpdateTest extends TestCase {
      */
     public function testUniqueId(): void {
         $expected = $this->faker->uuid;
-        $actual   = $this->app->make(DocumentUpdate::class)->init($expected)->uniqueId();
+        $actual   = $this->app->make(DocumentSync::class)->init($expected)->uniqueId();
 
         $this->assertEquals($expected, $actual);
     }
@@ -39,7 +39,7 @@ class DocumentUpdateTest extends TestCase {
                 ->once();
         });
 
-        $this->app->make(DocumentUpdate::class)
+        $this->app->make(DocumentSync::class)
             ->init($documentId)
             ->run();
     }
