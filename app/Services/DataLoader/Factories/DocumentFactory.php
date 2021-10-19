@@ -13,6 +13,7 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAsset;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
@@ -67,8 +68,6 @@ use Throwable;
 
 use function array_map;
 use function array_merge;
-use function array_udiff;
-use function array_uintersect;
 use function implode;
 use function sprintf;
 
@@ -365,15 +364,22 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         // Update entries:
-        $compare = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-            return $this->compareDocumentEntries($a, $b);
-        };
-        $entries = array_map(function (ViewAssetDocument $entry) use ($model, $document) {
-            return $this->assetDocumentEntry($document->asset, $model, $entry);
-        }, $document->entries);
-        $keep    = array_uintersect($existing, $entries, $compare);
-        $add     = array_udiff($entries, $existing, $compare);
-        $all     = array_merge($all, $keep, $add);
+        $entries = $this->entries(
+            new Collection($existing),
+            $document->entries,
+            function (ViewAssetDocument $entry) use ($model, $document): ?DocumentEntryModel {
+                try {
+                    return $this->assetDocumentEntry($document->asset, $model, $entry);
+                } catch (Throwable $exception) {
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessViewAssetDocument($document->asset, $entry, $exception),
+                    );
+                }
+
+                return null;
+            },
+        );
+        $all     = array_merge($all, $entries);
 
         // Return
         return $all;
@@ -614,11 +620,15 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         // by properties, but there are still a lot of create/soft-delete
         // queries. So we are trying to re-use removed entries to reduce the
         // number of queries.
-        $compare = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+        $sort     = static function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+            return $a->getKey() <=> $b->getKey();
+        };
+        $compare  = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
             return $this->compareDocumentEntries($a, $b);
         };
-        $created = new Collection();
-        $actual  = [];
+        $existing = $existing->sort($sort);
+        $created  = new Collection();
+        $actual   = [];
 
         foreach ($entries as $entry) {
             $entry = $factory($entry);
@@ -632,7 +642,12 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             });
 
             if ($existingKey !== false) {
-                $entry = $existing->pull($existingKey)->forceFill($entry->getAttributes());
+                // `forceFill` is used for relations because we need to call
+                // mutators to update value property.
+                $entry = $existing
+                    ->pull($existingKey)
+                    ->forceFill($entry->getAttributes())
+                    ->forceFill($entry->getRelations());
             } else {
                 $created->push($entry);
             }
@@ -641,9 +656,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         // Reuse
-        $key      = (new DocumentEntryModel())->getKeyName();
-        $created  = $created->sort($compare);
-        $existing = $existing->sort($compare);
+        $key     = (new DocumentEntryModel())->getKeyName();
+        $created = $created->sort($sort);
 
         while (!$created->isEmpty() && !$existing->isEmpty()) {
             $entry         = $created->shift();

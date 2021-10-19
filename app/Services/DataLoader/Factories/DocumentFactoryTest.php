@@ -359,7 +359,7 @@ class DocumentFactoryTest extends TestCase {
                 [
                     'skuNumber'             => $b->serviceLevel->sku,
                     'supportPackage'        => $b->serviceGroup->sku,
-                    'currencyCode'          => $a->currency->code,
+                    'currencyCode'          => null,
                     'netPrice'              => $b->net_price,
                     'discount'              => $b->discount,
                     'listPrice'             => $b->list_price,
@@ -419,34 +419,36 @@ class DocumentFactoryTest extends TestCase {
         };
 
         // Test
-        $actual   = new Collection($factory->assetDocumentObjectEntries($document, $object));
-        $created  = $actual
-            ->filter(static function (DocumentEntryModel $entry): bool {
-                return !$entry->exists;
+        $sort     = static function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+            return $a->getKey() <=> $b->getKey();
+        };
+        $entries  = (new Collection($factory->assetDocumentObjectEntries($document, $object)))->sort($sort);
+        $created  = $entries
+            ->filter(static function (DocumentEntryModel $entry) use ($asset): bool {
+                return $entry->asset_id === $asset->getKey()
+                    && $entry->currency_id === null;
             })
-            ->first();
-        $existing = $actual
-            ->filter(static function (DocumentEntryModel $entry): bool {
-                return $entry->exists;
-            })
+            ->sort($sort)
+            ->last();
+        $actual   = $entries
             ->map(static function (DocumentEntryModel $entry) {
                 return $entry->getKey();
             })
             ->sort()
             ->values();
         $expected = $another
-            ->push($a, $b)
+            ->push($a)
+            ->merge(
+                (new Collection([$b, $c, $d]))->sort($sort)->slice(0, 2),
+            )
             ->map(static function (DocumentEntryModel $entry) {
                 return $entry->getKey();
             })
             ->sort()
             ->values();
 
-        $this->assertCount(5, $actual);
-        $this->assertCount(4, $existing);
-        $this->assertEquals($expected, $existing);
-        $this->assertFalse($existing->contains($c->getKey()));
-        $this->assertFalse($existing->contains($d->getKey()));
+        $this->assertCount(5, $entries);
+        $this->assertEquals($expected, $actual);
         $this->assertNotNull($created);
         $this->assertNull($created->list_price);
         $this->assertNull($created->net_price);
