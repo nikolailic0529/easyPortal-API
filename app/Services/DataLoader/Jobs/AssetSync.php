@@ -7,11 +7,11 @@ use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 
 /**
- * Updates Asset.
+ * Syncs Asset.
  *
  * @see \App\Services\DataLoader\Commands\UpdateAsset
  */
-class AssetUpdate extends Sync {
+class AssetSync extends Sync {
     use CommandOptions;
 
     protected string $assetId;
@@ -26,7 +26,7 @@ class AssetUpdate extends Sync {
     }
 
     public function displayName(): string {
-        return 'ep-data-loader-asset-update';
+        return 'ep-data-loader-asset-sync';
     }
 
     public function uniqueId(): string {

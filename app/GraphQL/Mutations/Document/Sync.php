@@ -3,8 +3,8 @@
 namespace App\GraphQL\Mutations\Document;
 
 use App\Models\Document;
-use App\Services\DataLoader\Jobs\AssetUpdate;
-use App\Services\DataLoader\Jobs\DocumentUpdate;
+use App\Services\DataLoader\Jobs\AssetSync;
+use App\Services\DataLoader\Jobs\DocumentSync;
 use Illuminate\Contracts\Container\Container;
 
 class Sync {
@@ -22,7 +22,7 @@ class Sync {
     public function __invoke(mixed $root, array $args): array {
         foreach ($args['input'] as $input) {
             $this->container
-                ->make(DocumentUpdate::class)
+                ->make(DocumentSync::class)
                 ->init($input['id'])
                 ->dispatch();
 
@@ -32,7 +32,7 @@ class Sync {
 
                 foreach ($assets ?? [] as $asset) {
                     $this->container
-                        ->make(AssetUpdate::class)
+                        ->make(AssetSync::class)
                         ->init($asset->getKey(), false)
                         ->dispatch();
                 }

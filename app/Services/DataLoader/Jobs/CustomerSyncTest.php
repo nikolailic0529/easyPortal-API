@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomerUpdate
+ * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomerSync
  */
-class CustomerUpdateTest extends TestCase {
+class CustomerSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -19,7 +19,7 @@ class CustomerUpdateTest extends TestCase {
      */
     public function testUniqueId(): void {
         $expected = $this->faker->uuid;
-        $actual   = $this->app->make(CustomerUpdate::class)->init($expected)->uniqueId();
+        $actual   = $this->app->make(CustomerSync::class)->init($expected)->uniqueId();
 
         $this->assertEquals($expected, $actual);
     }
@@ -44,7 +44,7 @@ class CustomerUpdateTest extends TestCase {
                 ->once();
         });
 
-        $this->app->make(CustomerUpdate::class)
+        $this->app->make(CustomerSync::class)
             ->init($customerId, $withAssets, $withAssetsDocuments)
             ->run();
     }

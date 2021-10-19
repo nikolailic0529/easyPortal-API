@@ -7,11 +7,11 @@ use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 
 /**
- * Updates Customer.
+ * Syncs Customer.
  *
  * @see \App\Services\DataLoader\Commands\UpdateCustomer
  */
-class CustomerUpdate extends Sync {
+class CustomerSync extends Sync {
     use CommandOptions;
 
     protected string $customerId;
@@ -31,7 +31,7 @@ class CustomerUpdate extends Sync {
     }
 
     public function displayName(): string {
-        return 'ep-data-loader-customer-update';
+        return 'ep-data-loader-customer-sync';
     }
 
     public function uniqueId(): string {

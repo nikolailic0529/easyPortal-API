@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Customer;
 
-use App\Services\DataLoader\Jobs\CustomerUpdate;
+use App\Services\DataLoader\Jobs\CustomerSync;
 use Closure;
 use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -60,10 +60,10 @@ class SyncTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(CustomerUpdate::class, count($input));
+            Queue::assertPushed(CustomerSync::class, count($input));
 
             foreach ($input as $call) {
-                Queue::assertPushed(CustomerUpdate::class, static function (CustomerUpdate $job) use ($call): bool {
+                Queue::assertPushed(CustomerSync::class, static function (CustomerSync $job) use ($call): bool {
                     $params = [
                         'id'        => $job->getCustomerId(),
                         'assets'    => $job->getAssets(),

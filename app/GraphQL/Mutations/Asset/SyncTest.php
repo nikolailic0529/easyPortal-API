@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Asset;
 
-use App\Services\DataLoader\Jobs\AssetUpdate;
+use App\Services\DataLoader\Jobs\AssetSync;
 use Closure;
 use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -60,10 +60,10 @@ class SyncTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(AssetUpdate::class, count($input));
+            Queue::assertPushed(AssetSync::class, count($input));
 
             foreach ($input as $call) {
-                Queue::assertPushed(AssetUpdate::class, static function (AssetUpdate $job) use ($call): bool {
+                Queue::assertPushed(AssetSync::class, static function (AssetSync $job) use ($call): bool {
                     $params = [
                         'id'        => $job->getAssetId(),
                         'documents' => $job->getDocuments(),

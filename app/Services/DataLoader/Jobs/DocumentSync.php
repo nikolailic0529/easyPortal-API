@@ -7,11 +7,11 @@ use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 
 /**
- * Updates Document.
+ * Syncs Document.
  *
  * @see \App\Services\DataLoader\Commands\UpdateDocument
  */
-class DocumentUpdate extends Sync {
+class DocumentSync extends Sync {
     use CommandOptions;
 
     protected string $documentId;
@@ -21,7 +21,7 @@ class DocumentUpdate extends Sync {
     }
 
     public function displayName(): string {
-        return 'ep-data-loader-document-update';
+        return 'ep-data-loader-document-sync';
     }
 
     public function uniqueId(): string {
