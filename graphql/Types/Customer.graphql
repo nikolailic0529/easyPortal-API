@@ -29,6 +29,12 @@ type Customer {
   @me(permissions: ["contracts-view", "customers-view"])
   @hasMany(type: PAGINATOR)
 
+  contractsAggregate(
+    where: DocumentsQuery @searchBy
+  ): DocumentsAggregate!
+  @me(permissions: ["contracts-view", "customers-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\Customers\\Customer@contractsAggregate")
+
   # Quotes
   quotes (
     where: DocumentsQuery @searchBy

@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries\Customers;
 
 use App\GraphQL\Queries\Assets\AssetsAggregate;
 use App\GraphQL\Queries\Assets\AssetTest;
+use App\GraphQL\Queries\Contracts\ContractsAggregateTest;
 use App\GraphQL\Queries\Contracts\ContractsTest;
 use App\GraphQL\Queries\Quotes\QuotesTest;
 use App\Models\Asset;
@@ -835,6 +836,57 @@ class CustomerTest extends TestCase {
                                     id
                                     key
                                     name
+                                }
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $customerId] + $params)
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::contractsAggregate
+     *
+     * @dataProvider dataProviderQueryContractsAggregate
+     *
+     * @param array<string,mixed>  $settings
+     * @param array<string, mixed> $params
+     */
+    public function testQueryContractsAggregate(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+        array $settings = [],
+        Closure $customerFactory = null,
+        array $params = [],
+    ): void {
+        // Prepare
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
+        $this->setSettings($settings);
+
+        $customerId = 'wrong';
+        if ($customerFactory) {
+            $customerId = $customerFactory($this, $organization, $user)->getKey();
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query customer($id: ID!, $where: SearchByConditionDocumentsQuery) {
+                    customer(id: $id) {
+                        contractsAggregate(where: $where) {
+                            count
+                            prices {
+                                count
+                                amount
+                                currency_id
+                                currency {
+                                    id
+                                    name
+                                    code
                                 }
                             }
                         }
@@ -2574,6 +2626,128 @@ class CustomerTest extends TestCase {
                             ],
                         ],
                     ),
+                    $factory,
+                    $params,
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryContractsAggregate(): array {
+        $type    = '184a9fb0-ba79-47fa-8a19-9f712876f16b';
+        $factory = static function (TestCase $test, Organization $organization) use ($type): Customer {
+            $reseller = Reseller::factory()->create([
+                'id' => $organization->getKey(),
+            ]);
+            $customer = Customer::factory()->create();
+
+            $customer->resellers()->attach($reseller);
+
+            $currencyA = Currency::factory()->create([
+                'id'   => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                'code' => 'EUR',
+                'name' => 'EUR',
+            ]);
+            $currencyB = Currency::factory()->create([
+                'id'   => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                'code' => 'USD',
+                'name' => 'USD',
+            ]);
+            $type      = Type::factory()->create([
+                'id' => $type,
+            ]);
+
+            Document::factory()->create([
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+                'currency_id' => $currencyA,
+                'type_id'     => $type,
+                'price'       => '123.45',
+            ]);
+            Document::factory()->create([
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+                'currency_id' => $currencyA,
+                'type_id'     => $type,
+                'price'       => '123.45',
+            ]);
+            Document::factory()->create([
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+                'currency_id' => $currencyB,
+                'type_id'     => $type,
+                'price'       => '123.45',
+            ]);
+            Document::factory()->create([
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+                'currency_id' => $currencyA,
+                'type_id'     => $type,
+                'price'       => '10.00',
+            ]);
+
+            // Another customer
+            Document::factory()->create([
+                'reseller_id' => $reseller,
+                'currency_id' => $currencyA,
+                'type_id'     => $type,
+                'price'       => '543.21',
+            ]);
+
+            return $customer;
+        };
+        $params  = [
+            'where' => [
+                'price' => [
+                    'greaterThan' => 10,
+                ],
+            ],
+        ];
+
+        return (new CompositeDataProvider(
+            new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new OrganizationUserDataProvider('customer', [
+                'customers-view',
+            ]),
+            new ArrayDataProvider([
+                'ok' => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentSchema('contractsAggregate', ContractsAggregateTest::class),
+                        [
+                            'contractsAggregate' => [
+                                'count'  => 3,
+                                'prices' => [
+                                    [
+                                        'count'       => 2,
+                                        'amount'      => 246.9,
+                                        'currency_id' => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                                        'currency'    => [
+                                            'id'   => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                                            'name' => 'EUR',
+                                            'code' => 'EUR',
+                                        ],
+                                    ],
+                                    [
+                                        'count'       => 1,
+                                        'amount'      => 123.45,
+                                        'currency_id' => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                                        'currency'    => [
+                                            'id'   => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                                            'name' => 'USD',
+                                            'code' => 'USD',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ),
+                    [
+                        'ep.contract_types' => $type,
+                    ],
                     $factory,
                     $params,
                 ],

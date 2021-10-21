@@ -674,6 +674,11 @@ type Customer {
   kpi: Kpi
 
   """
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
+
+  """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
