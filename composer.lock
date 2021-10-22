@@ -3951,12 +3951,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "cc8e6d3638e31c5da44603840e280fbcdee6c507"
+                "reference": "5b53b4da9515fc668a4e79635ce98d882514715f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/cc8e6d3638e31c5da44603840e280fbcdee6c507",
-                "reference": "cc8e6d3638e31c5da44603840e280fbcdee6c507",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/5b53b4da9515fc668a4e79635ce98d882514715f",
+                "reference": "5b53b4da9515fc668a4e79635ce98d882514715f",
                 "shasum": ""
             },
             "require": {
@@ -4015,7 +4015,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-10-22T07:40:47+00:00"
+            "time": "2021-10-22T11:19:10+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
@@ -11541,12 +11541,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-testing.git",
-                "reference": "356640c30610630c32292abc8a4c2b004841c24b"
+                "reference": "0b1a32aff632a50906cd3b90071fbe1c054e5e2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/356640c30610630c32292abc8a4c2b004841c24b",
-                "reference": "356640c30610630c32292abc8a4c2b004841c24b",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/0b1a32aff632a50906cd3b90071fbe1c054e5e2d",
+                "reference": "0b1a32aff632a50906cd3b90071fbe1c054e5e2d",
                 "shasum": ""
             },
             "require": {
@@ -11613,7 +11613,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-10-22T07:43:01+00:00"
+            "time": "2021-10-22T07:53:52+00:00"
         },
         {
             "name": "mll-lab/laravel-graphql-playground",
