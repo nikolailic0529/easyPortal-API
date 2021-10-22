@@ -22,7 +22,7 @@ class Sync {
             $this->container
                 ->make(AssetSync::class)
                 ->init($input['id'], $input['documents'] ?? null)
-                ->dispatch();
+                ->run();
         }
 
         return [

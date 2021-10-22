@@ -24,7 +24,7 @@ class Sync {
             $this->container
                 ->make(DocumentSync::class)
                 ->init($input['id'])
-                ->dispatch();
+                ->run();
 
             if (isset($input['assets']) && $input['assets']) {
                 $document = Document::query()->whereKey($input['id'])->first();
@@ -34,7 +34,7 @@ class Sync {
                     $this->container
                         ->make(AssetSync::class)
                         ->init($asset->getKey(), false)
-                        ->dispatch();
+                        ->run();
                 }
             }
         }

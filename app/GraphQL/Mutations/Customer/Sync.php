@@ -22,7 +22,7 @@ class Sync {
             $this->container
                 ->make(CustomerSync::class)
                 ->init($input['id'], $input['assets'] ?? null, $input['documents'] ?? null)
-                ->dispatch();
+                ->run();
         }
 
         return [
