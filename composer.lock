@@ -2543,16 +2543,16 @@
         },
         {
             "name": "graham-campbell/result-type",
-            "version": "v1.0.3",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Result-Type.git",
-                "reference": "296c015dc30ec4322168c5ad3ee5cc11dae827ac"
+                "reference": "84afea85c6841deeea872f36249a206e878a5de0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/296c015dc30ec4322168c5ad3ee5cc11dae827ac",
-                "reference": "296c015dc30ec4322168c5ad3ee5cc11dae827ac",
+                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/84afea85c6841deeea872f36249a206e878a5de0",
+                "reference": "84afea85c6841deeea872f36249a206e878a5de0",
                 "shasum": ""
             },
             "require": {
@@ -2588,7 +2588,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Result-Type/issues",
-                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.0.3"
+                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.0.2"
             },
             "funding": [
                 {
@@ -2600,7 +2600,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-17T19:48:54+00:00"
+            "time": "2021-08-28T21:34:50+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3255,16 +3255,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.64.0",
+            "version": "v8.66.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "3337c029e1bb31d9712d27437cc27010ba302c9e"
+                "reference": "b757fe143a3ab802a08a191032fc7046b582f107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/3337c029e1bb31d9712d27437cc27010ba302c9e",
-                "reference": "3337c029e1bb31d9712d27437cc27010ba302c9e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b757fe143a3ab802a08a191032fc7046b582f107",
+                "reference": "b757fe143a3ab802a08a191032fc7046b582f107",
                 "shasum": ""
             },
             "require": {
@@ -3422,7 +3422,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-10-12T13:43:13+00:00"
+            "time": "2021-10-21T14:20:46+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -3885,12 +3885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-formatter.git",
-                "reference": "fae721be7a880213331304cf2f9affdc2236ec91"
+                "reference": "9c2ee805274033ac120d342d4d108d9116e6a7d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/fae721be7a880213331304cf2f9affdc2236ec91",
-                "reference": "fae721be7a880213331304cf2f9affdc2236ec91",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/9c2ee805274033ac120d342d4d108d9116e6a7d4",
+                "reference": "9c2ee805274033ac120d342d4d108d9116e6a7d4",
                 "shasum": ""
             },
             "require": {
@@ -3943,7 +3943,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-09-11T06:32:43+00:00"
+            "time": "2021-10-22T06:27:48+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-graphql",
@@ -3951,12 +3951,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "aa1bef3fc2766429b8598c180be749e36945ccc2"
+                "reference": "cc8e6d3638e31c5da44603840e280fbcdee6c507"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/aa1bef3fc2766429b8598c180be749e36945ccc2",
-                "reference": "aa1bef3fc2766429b8598c180be749e36945ccc2",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/cc8e6d3638e31c5da44603840e280fbcdee6c507",
+                "reference": "cc8e6d3638e31c5da44603840e280fbcdee6c507",
                 "shasum": ""
             },
             "require": {
@@ -4015,7 +4015,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-10-14T11:10:15+00:00"
+            "time": "2021-10-22T07:40:47+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
@@ -4023,12 +4023,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-migrator.git",
-                "reference": "fe8dc0b18a1e4a639d9956d1d1851ed9d9a64cbf"
+                "reference": "e02b14717dddb694efc7141143872b482fd262ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-migrator/zipball/fe8dc0b18a1e4a639d9956d1d1851ed9d9a64cbf",
-                "reference": "fe8dc0b18a1e4a639d9956d1d1851ed9d9a64cbf",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-migrator/zipball/e02b14717dddb694efc7141143872b482fd262ed",
+                "reference": "e02b14717dddb694efc7141143872b482fd262ed",
                 "shasum": ""
             },
             "require": {
@@ -4090,7 +4090,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-09-11T06:32:43+00:00"
+            "time": "2021-10-22T06:27:48+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-queue",
@@ -4098,12 +4098,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-queue.git",
-                "reference": "7f5fae6cb497ef906acb3fa7f12ecd71005f9439"
+                "reference": "068d44ac01da47477b344c20b5f77fdc15fadf7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-queue/zipball/7f5fae6cb497ef906acb3fa7f12ecd71005f9439",
-                "reference": "7f5fae6cb497ef906acb3fa7f12ecd71005f9439",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-queue/zipball/068d44ac01da47477b344c20b5f77fdc15fadf7b",
+                "reference": "068d44ac01da47477b344c20b5f77fdc15fadf7b",
                 "shasum": ""
             },
             "require": {
@@ -4154,7 +4154,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-10-19T12:46:34+00:00"
+            "time": "2021-10-22T06:27:48+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-spa",
@@ -4162,12 +4162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-spa.git",
-                "reference": "7c98ee1e7ec11ff33f99b2e5de978b0a215a5a3d"
+                "reference": "68675a64170f870ed02cda18ee58c727b3a11f69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-spa/zipball/7c98ee1e7ec11ff33f99b2e5de978b0a215a5a3d",
-                "reference": "7c98ee1e7ec11ff33f99b2e5de978b0a215a5a3d",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-spa/zipball/68675a64170f870ed02cda18ee58c727b3a11f69",
+                "reference": "68675a64170f870ed02cda18ee58c727b3a11f69",
                 "shasum": ""
             },
             "require": {
@@ -4222,7 +4222,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-09-11T06:32:43+00:00"
+            "time": "2021-10-22T06:27:48+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -6055,16 +6055,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "5.2.2",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556"
+                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/069a785b2141f5bcf49f3e353548dc1cce6df556",
-                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/622548b623e81ca6d78b721c5e029f4ce664f170",
+                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170",
                 "shasum": ""
             },
             "require": {
@@ -6075,7 +6075,8 @@
                 "webmozart/assert": "^1.9.1"
             },
             "require-dev": {
-                "mockery/mockery": "~1.3.2"
+                "mockery/mockery": "~1.3.2",
+                "psalm/phar": "^4.8"
             },
             "type": "library",
             "extra": {
@@ -6105,9 +6106,9 @@
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.3.0"
             },
-            "time": "2020-09-03T19:13:55+00:00"
+            "time": "2021-10-19T17:43:47+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -6809,16 +6810,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.9",
+            "version": "v0.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "01281336c4ae557fe4a994544f30d3a1bc204375"
+                "reference": "e4573f47750dd6c92dca5aee543fa77513cbd8d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/01281336c4ae557fe4a994544f30d3a1bc204375",
-                "reference": "01281336c4ae557fe4a994544f30d3a1bc204375",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/e4573f47750dd6c92dca5aee543fa77513cbd8d3",
+                "reference": "e4573f47750dd6c92dca5aee543fa77513cbd8d3",
                 "shasum": ""
             },
             "require": {
@@ -6878,9 +6879,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.10.9"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.10.8"
             },
-            "time": "2021-10-10T13:37:39+00:00"
+            "time": "2021-04-10T16:23:39+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -6928,16 +6929,16 @@
         },
         {
             "name": "ramsey/collection",
-            "version": "1.2.2",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/collection.git",
-                "reference": "cccc74ee5e328031b15640b51056ee8d3bb66c0a"
+                "reference": "eaca1dc1054ddd10cbd83c1461907bee6fb528fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/collection/zipball/cccc74ee5e328031b15640b51056ee8d3bb66c0a",
-                "reference": "cccc74ee5e328031b15640b51056ee8d3bb66c0a",
+                "url": "https://api.github.com/repos/ramsey/collection/zipball/eaca1dc1054ddd10cbd83c1461907bee6fb528fa",
+                "reference": "eaca1dc1054ddd10cbd83c1461907bee6fb528fa",
                 "shasum": ""
             },
             "require": {
@@ -6991,7 +6992,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/collection/issues",
-                "source": "https://github.com/ramsey/collection/tree/1.2.2"
+                "source": "https://github.com/ramsey/collection/tree/1.2.1"
             },
             "funding": [
                 {
@@ -7003,7 +7004,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-10T03:01:02+00:00"
+            "time": "2021-08-06T03:41:06+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -7398,16 +7399,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.3.0",
+            "version": "v6.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "8a5d5072dca8f48460fce2f4131fcc495eec654c"
+                "reference": "15f7faf8508e04471f666633addacf54c0ab5933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/8a5d5072dca8f48460fce2f4131fcc495eec654c",
-                "reference": "8a5d5072dca8f48460fce2f4131fcc495eec654c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/15f7faf8508e04471f666633addacf54c0ab5933",
+                "reference": "15f7faf8508e04471f666633addacf54c0ab5933",
                 "shasum": ""
             },
             "require": {
@@ -7419,7 +7420,7 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "symfony/phpunit-bridge": "^4.4|^5.4"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "suggest": {
                 "ext-intl": "Needed to support internationalized email addresses"
@@ -7457,7 +7458,7 @@
             ],
             "support": {
                 "issues": "https://github.com/swiftmailer/swiftmailer/issues",
-                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.3.0"
+                "source": "https://github.com/swiftmailer/swiftmailer/tree/v6.2.7"
             },
             "funding": [
                 {
@@ -7469,7 +7470,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-18T15:26:12+00:00"
+            "time": "2021-03-09T12:30:35+00:00"
         },
         {
             "name": "symfony/console",
@@ -10970,6 +10971,63 @@
             "time": "2020-11-10T18:47:58+00:00"
         },
         {
+            "name": "doctrine/sql-formatter",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/sql-formatter.git",
+                "reference": "56070bebac6e77230ed7d306ad13528e60732871"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/sql-formatter/zipball/56070bebac6e77230ed7d306ad13528e60732871",
+                "reference": "56070bebac6e77230ed7d306ad13528e60732871",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4"
+            },
+            "bin": [
+                "bin/sql-formatter"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\SqlFormatter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Dorn",
+                    "email": "jeremy@jeremydorn.com",
+                    "homepage": "http://jeremydorn.com/"
+                }
+            ],
+            "description": "a PHP SQL highlighting library",
+            "homepage": "https://github.com/doctrine/sql-formatter/",
+            "keywords": [
+                "highlight",
+                "sql"
+            ],
+            "support": {
+                "issues": "https://github.com/doctrine/sql-formatter/issues",
+                "source": "https://github.com/doctrine/sql-formatter/tree/1.1.x"
+            },
+            "time": "2020-07-30T16:57:33+00:00"
+        },
+        {
             "name": "facade/flare-client-php",
             "version": "1.9.1",
             "source": {
@@ -11036,20 +11094,19 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.15.0",
+            "version": "2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "3ee6e94815462bcf09bca0efc1c9069685df8da3"
+                "reference": "c6126e291bd44ad3fe482537a145fc70e3320598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/3ee6e94815462bcf09bca0efc1c9069685df8da3",
-                "reference": "3ee6e94815462bcf09bca0efc1c9069685df8da3",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/c6126e291bd44ad3fe482537a145fc70e3320598",
+                "reference": "c6126e291bd44ad3fe482537a145fc70e3320598",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "facade/flare-client-php": "^1.9.1",
@@ -11109,7 +11166,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-10-11T15:24:06+00:00"
+            "time": "2021-10-01T12:58:45+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -11484,17 +11541,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-testing.git",
-                "reference": "bbebb8b1f5d4ce75146dd4054c0c2620a7596fce"
+                "reference": "356640c30610630c32292abc8a4c2b004841c24b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/bbebb8b1f5d4ce75146dd4054c0c2620a7596fce",
-                "reference": "bbebb8b1f5d4ce75146dd4054c0c2620a7596fce",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/356640c30610630c32292abc8a4c2b004841c24b",
+                "reference": "356640c30610630c32292abc8a4c2b004841c24b",
                 "shasum": ""
             },
             "require": {
                 "composer/composer": "^2.0.0",
                 "doctrine/dbal": "^2.12.0|^3.0.0",
+                "doctrine/sql-formatter": "^1.1",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-libxml": "*",
@@ -11555,7 +11613,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-09-11T06:32:43+00:00"
+            "time": "2021-10-22T07:43:01+00:00"
         },
         {
             "name": "mll-lab/laravel-graphql-playground",
@@ -13524,7 +13582,6 @@
                     "type": "github"
                 }
             ],
-            "abandoned": true,
             "time": "2020-09-28T06:45:17+00:00"
         },
         {
@@ -13642,12 +13699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "c7d4801da5b439cec0d7cd6fa770164b07a4d92b"
+                "reference": "cbc4c8d7bd4e951c20602ab3cce7a854133586e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/c7d4801da5b439cec0d7cd6fa770164b07a4d92b",
-                "reference": "c7d4801da5b439cec0d7cd6fa770164b07a4d92b",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/cbc4c8d7bd4e951c20602ab3cce7a854133586e7",
+                "reference": "cbc4c8d7bd4e951c20602ab3cce7a854133586e7",
                 "shasum": ""
             },
             "require": {
@@ -13696,7 +13753,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-12T17:45:45+00:00"
+            "time": "2021-10-22T06:53:04+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

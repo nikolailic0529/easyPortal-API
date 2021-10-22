@@ -4,11 +4,11 @@ namespace App\Services\Search\GraphQL;
 
 use App\Services\Search\Configuration;
 use Illuminate\Database\Eloquent\Model;
-use LastDragon_ru\LaraASP\GraphQL\SortBy\Contracts\ScoutColumnResolver;
+use LastDragon_ru\LaraASP\GraphQL\SortBy\Builders\Scout\ColumnResolver;
 
 use function implode;
 
-class ScoutSortColumnResolver implements ScoutColumnResolver {
+class ScoutColumnResolver implements ColumnResolver {
     /**
      * @inheritDoc
      */
