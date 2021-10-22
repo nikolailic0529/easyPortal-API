@@ -18,6 +18,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Exceptions\DefinitionException as GraphQLDefinitionException;
 use Nuwave\Lighthouse\Exceptions\RateLimitException;
+use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -89,6 +90,10 @@ class Handler extends ExceptionHandler {
     protected function exceptionContext(Throwable $e): array {
         $context = parent::exceptionContext($e);
 
+        if ($e instanceof RendersErrorsExtensions) {
+            $context = array_merge($context, $e->extensionsContent());
+        }
+
         if ($e instanceof ApplicationException) {
             $context = array_merge($context, $e->getContext());
         } elseif ($e instanceof RequestException) {
@@ -100,6 +105,8 @@ class Handler extends ExceptionHandler {
                     'json' => $e->response->json(),
                 ]);
             }
+        } else {
+            // empty
         }
 
         return $context;
