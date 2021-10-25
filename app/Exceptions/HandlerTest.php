@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Mockery;
+use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Tests\TestCase;
@@ -25,7 +26,7 @@ class HandlerTest extends TestCase {
      * @covers ::exceptionContext
      */
     public function testExceptionContext(): void {
-        $exception = new class('test') extends ApplicationException {
+        $exception = new class('test') extends ApplicationException implements RendersErrorsExtensions {
             public function __construct(string $message) {
                 parent::__construct($message);
             }
@@ -43,6 +44,21 @@ class HandlerTest extends TestCase {
             public function getContext(): array {
                 return [4, 5, 6];
             }
+
+            public function isClientSafe(): mixed {
+                return false;
+            }
+
+            public function getCategory(): string {
+                return __FUNCTION__;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function extensionsContent(): array {
+                return ['a'];
+            }
         };
         $handler   = new class($this->app) extends Handler {
             /**
@@ -53,7 +69,7 @@ class HandlerTest extends TestCase {
             }
         };
 
-        $this->assertEquals([1, 2, 3, 4, 5, 6], $handler->exceptionContext($exception));
+        $this->assertEquals([1, 2, 3, 'a', 4, 5, 6], $handler->exceptionContext($exception));
     }
 
     /**
@@ -116,7 +132,9 @@ class HandlerTest extends TestCase {
      * @covers ::getExceptionTrace
      */
     public function testGetExceptionTrace(): void {
-        $a       = new Exception('a');
+        $a       = (static function (): Exception {
+            return new Exception('a');
+        })();
         $b       = new Exception('b', 0, $a);
         $handler = $this->app->make(Handler::class);
         $trace   = $handler->getExceptionTrace($b);
@@ -142,7 +160,12 @@ class HandlerTest extends TestCase {
                 'code'    => $a->getCode(),
                 'file'    => $a->getFile(),
                 'line'    => $a->getLine(),
-                'trace'   => [],
+                'trace'   => (new Collection($a->getTrace()))
+                    ->slice(0, 2)
+                    ->map(static function (array $trace): array {
+                        return Arr::except($trace, ['args']);
+                    })
+                    ->all(),
             ],
         ], $trace);
     }

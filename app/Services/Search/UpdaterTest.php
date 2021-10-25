@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -215,6 +216,7 @@ class UpdaterTest extends TestCase {
      */
     public function testGetIteratorEagerLoading(): void {
         // Mock
+        $query = Mockery::mock(QueryBuilder::class)->makePartial();
         $model = Mockery::mock(Model::class);
         $model->makePartial();
         $model
@@ -232,10 +234,9 @@ class UpdaterTest extends TestCase {
             ->shouldReceive('getModel')
             ->once()
             ->andReturns($model);
-        $builder
-            ->shouldReceive('toBase')
-            ->twice()
-            ->andReturn(Mockery::mock(QueryBuilder::class)->makePartial());
+
+        $builder->setQuery($query);
+        $builder->setModel($model);
 
         $updater = Mockery::mock(Updater::class);
         $updater->shouldAllowMockingProtectedMethods();

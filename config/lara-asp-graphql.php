@@ -8,12 +8,12 @@
 
 use App\GraphQL\Directives\SearchBy\Operators\Comparison\Contains;
 use App\GraphQL\Directives\SearchBy\Operators\Comparison\EndsWith;
-use App\GraphQL\Directives\SearchBy\Operators\Comparison\StartsWith;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\In;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotEqual;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\NotIn;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\StartsWith;
 
 return [
     /**
@@ -37,8 +37,8 @@ return [
                 In::class,
                 NotIn::class,
                 Contains::class,
-                StartsWith::class,
                 EndsWith::class,
+                StartsWith::class,
             ],
         ],
     ],

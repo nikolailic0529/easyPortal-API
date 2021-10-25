@@ -716,7 +716,7 @@
         ]
     },
     {
-        "query": "select * from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `id` not in (?, ?) and `assets`.`deleted_at` is null order by `id` asc limit 1000 offset 0",
+        "query": "select * from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `id` not in (?, ?) and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 1000 offset 0",
         "bindings": [
             "bbbe3c26-3774-480c-89f3-621ad2a687ec",
             "07208a1d-117e-4e8e-866f-4a47f7ad14e2",

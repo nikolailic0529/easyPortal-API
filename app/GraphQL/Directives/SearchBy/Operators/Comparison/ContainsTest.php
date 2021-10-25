@@ -23,7 +23,7 @@ class ContainsTest extends TestCase {
      *
      * @dataProvider dataProviderApply
      *
-     * @param array{sql: string, bindings: array<mixed>} $expected
+     * @param array{query: string, bindings: array<mixed>} $expected
      */
     public function testApply(
         array $expected,
@@ -43,12 +43,8 @@ class ContainsTest extends TestCase {
         $operator = $this->app->make(Contains::class);
         $builder  = $builder($this);
         $builder  = $operator->apply($builder, $property, $value);
-        $actual   = [
-            'sql'      => $builder->toSql(),
-            'bindings' => $builder->getBindings(),
-        ];
 
-        $this->assertEquals($expected, $actual);
+        $this->assertDatabaseQueryEquals($expected, $builder);
     }
     // </editor-fold>
 
@@ -63,9 +59,16 @@ class ContainsTest extends TestCase {
             new ArrayDataProvider([
                 'with fulltext'    => [
                     [
-                        'sql'      => 'select * from `tmp` where (`property` like ? and MATCH(property) AGAINST (?))',
+                        'query'    => <<<'SQL'
+                            select *
+                            from `tmp`
+                            where (
+                                `property` LIKE ? ESCAPE '!' and MATCH(property) AGAINST (?)
+                                )
+                            SQL
+                        ,
                         'bindings' => [
-                            '%a\\\\%b%',
+                            '%a!%b%',
                             'a%b',
                         ],
                     ],
@@ -75,9 +78,9 @@ class ContainsTest extends TestCase {
                 ],
                 'without fulltext' => [
                     [
-                        'sql'      => 'select * from `tmp` where (`property` like ?)',
+                        'query'    => 'select * from `tmp` where `property` LIKE ? ESCAPE \'!\'',
                         'bindings' => [
-                            '%a\\\\%b%',
+                            '%a!%b%',
                         ],
                     ],
                     'property',

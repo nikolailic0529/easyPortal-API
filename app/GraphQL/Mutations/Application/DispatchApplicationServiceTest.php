@@ -11,7 +11,6 @@ use App\Services\Settings\Storage;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -65,9 +64,6 @@ class DispatchApplicationServiceTest extends TestCase {
         $this->app->bind(Settings::class, static function () use ($service): Settings {
             return $service;
         });
-
-        // Fake
-        Queue::fake();
 
         // Test
         $this

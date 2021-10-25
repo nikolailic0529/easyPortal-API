@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Exceptions\GraphQLHandler;
+use App\Exceptions\GraphQLErrorFormatter;
 use App\GraphQL\Directives\SearchBy\Operators\Complex\Relation as RelationOperator;
 use App\Models\Asset;
 use App\Models\AssetCoverage;
@@ -106,7 +106,7 @@ class AppServiceProvider extends ServiceProvider {
         $dispatcher->listen(
             ManipulateResult::class,
             function (ManipulateResult $event): void {
-                $event->result->setErrorFormatter($this->app->make(GraphQLHandler::class));
+                $event->result->setErrorFormatter($this->app->make(GraphQLErrorFormatter::class));
             },
         );
     }

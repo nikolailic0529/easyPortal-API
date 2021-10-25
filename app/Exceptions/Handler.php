@@ -18,6 +18,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Exceptions\DefinitionException as GraphQLDefinitionException;
 use Nuwave\Lighthouse\Exceptions\RateLimitException;
+use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -89,6 +90,20 @@ class Handler extends ExceptionHandler {
     protected function exceptionContext(Throwable $e): array {
         $context = parent::exceptionContext($e);
 
+        if ($e instanceof GraphQLError) {
+            // Variables not available :(
+            // https://github.com/webonyx/graphql-php/issues/980
+            $context = array_merge($context, [
+                'graphql' => [
+                    'query' => $e->getSource()?->body,
+                ],
+            ]);
+        }
+
+        if ($e instanceof RendersErrorsExtensions) {
+            $context = array_merge($context, $e->extensionsContent());
+        }
+
         if ($e instanceof ApplicationException) {
             $context = array_merge($context, $e->getContext());
         } elseif ($e instanceof RequestException) {
@@ -100,6 +115,8 @@ class Handler extends ExceptionHandler {
                     'json' => $e->response->json(),
                 ]);
             }
+        } else {
+            // empty
         }
 
         return $context;
@@ -305,12 +322,22 @@ class Handler extends ExceptionHandler {
             $fullTrace = (new Collection($exception->getTrace()))->map($filter)->all();
             $trace     = $fullTrace;
 
-            if ($previous && $previous === array_slice($fullTrace, -count($previous))) {
-                $trace = array_slice($fullTrace, 0, -count($previous));
-            }
-
             if ($exception instanceof ApplicationMessage) {
                 $trace = [];
+            } elseif ($previous) {
+                $remove = null;
+
+                for ($i = count($fullTrace) - 1, $j = count($previous) - 1; $i >= 0 && $j >= 0; $i--, $j--) {
+                    if (isset($previous[$j]) && $fullTrace[$i] === $previous[$j]) {
+                        $remove = $i;
+                    } else {
+                        break;
+                    }
+                }
+
+                if ($remove !== null) {
+                    $trace = array_slice($fullTrace, 0, $remove + 1);
+                }
             }
 
             $stack[]   = [

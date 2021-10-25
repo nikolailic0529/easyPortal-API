@@ -7,7 +7,7 @@ use GraphQL\Error\FormattedError;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
-class GraphQLHandler {
+class GraphQLErrorFormatter {
     public function __construct(
         protected Repository $config,
         protected ExceptionHandler $handler,
