@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
+use App\Exceptions\GraphQLErrorReporter;
 use GraphQL\Error\DebugFlag;
 use GraphQL\Validator\Rules\DisableIntrospection;
 use GraphQL\Validator\Rules\QueryComplexity;
 use GraphQL\Validator\Rules\QueryDepth;
 use Nuwave\Lighthouse\Execution\ExtensionErrorHandler;
-use Nuwave\Lighthouse\Execution\ReportingErrorHandler;
 use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
 use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
 use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
@@ -244,7 +244,7 @@ return [
 
     'error_handlers'              => [
         ExtensionErrorHandler::class,
-        ReportingErrorHandler::class,
+        GraphQLErrorReporter::class,
     ],
 
     /*

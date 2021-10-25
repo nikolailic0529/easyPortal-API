@@ -90,6 +90,16 @@ class Handler extends ExceptionHandler {
     protected function exceptionContext(Throwable $e): array {
         $context = parent::exceptionContext($e);
 
+        if ($e instanceof GraphQLError) {
+            // Variables not available :(
+            // https://github.com/webonyx/graphql-php/issues/980
+            $context = array_merge($context, [
+                'graphql' => [
+                    'query' => $e->getSource()?->body,
+                ],
+            ]);
+        }
+
         if ($e instanceof RendersErrorsExtensions) {
             $context = array_merge($context, $e->extensionsContent());
         }
