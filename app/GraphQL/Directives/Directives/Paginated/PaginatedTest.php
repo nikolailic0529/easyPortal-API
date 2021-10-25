@@ -2,20 +2,28 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
-use App\Services\Search\Builders\Builder;
+use App\GraphQL\Queries\Customers\Customer;
+use App\Models\Asset;
+use App\Services\Search\Builders\Builder as SearchBuilder;
 use Closure;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\Builders\BuilderDataProvider;
+use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithoutOrganizationScope;
+
+use function json_encode;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\Paginated
  */
 class PaginatedTest extends TestCase {
+    use WithoutOrganizationScope;
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -69,7 +77,7 @@ class PaginatedTest extends TestCase {
      */
     public function testHandleScoutBuilder(array $expected, array $args): void {
         $directive = $this->app->make(Paginated::class);
-        $builder   = $this->app->make(Builder::class, [
+        $builder   = $this->app->make(SearchBuilder::class, [
             'query' => '123',
             'model' => new class() extends Model {
                 // empty
@@ -81,6 +89,134 @@ class PaginatedTest extends TestCase {
             'limit'  => $builder->limit,
             'offset' => $builder->offset ?? null,
         ]);
+    }
+
+    /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldNoArguments(): void {
+        $asset = Asset::factory()->create();
+
+        $this->setSettings([
+            'ep.pagination.limit.default' => 25,
+        ]);
+
+        $this
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                type Query {
+                    data: [Asset!]! @paginated
+                }
+
+                type Asset {
+                    id: ID!
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    data {
+                        id
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat(new GraphQLSuccess('data', null, [
+                [
+                    'id' => $asset->getKey(),
+                ],
+            ]));
+    }
+
+    /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldBuilder(): void {
+        $asset   = Asset::factory()->create();
+        $model   = json_encode(Customer::class);
+        $builder = json_encode(PaginatedTest_Resolver::class);
+
+        $this->setSettings([
+            'ep.pagination.limit.default' => 25,
+        ]);
+
+        $this
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    data: [Model!]! @paginated(
+                        model: {$model}
+                        builder: {$builder}
+                    )
+                }
+
+                type Model {
+                    id: ID!
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    data {
+                        id
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat(new GraphQLSuccess('data', null, [
+                [
+                    'id' => $asset->getKey(),
+                ],
+            ]));
+    }
+
+    /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldModel(): void {
+        $asset = Asset::factory()->create();
+        $model = json_encode($asset::class);
+
+        $this->setSettings([
+            'ep.pagination.limit.default' => 25,
+        ]);
+
+        $this
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    data: [Model!]! @paginated(
+                        model: {$model}
+                    )
+                }
+
+                type Model {
+                    id: ID!
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    data {
+                        id
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat(new GraphQLSuccess('data', null, [
+                [
+                    'id' => $asset->getKey(),
+                ],
+            ]));
     }
     // </editor-fold>
 
@@ -201,4 +337,17 @@ class PaginatedTest extends TestCase {
         ];
     }
     // </editor-fold>
+}
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class PaginatedTest_Resolver {
+    public function __invoke(): EloquentBuilder {
+        return Asset::query();
+    }
 }

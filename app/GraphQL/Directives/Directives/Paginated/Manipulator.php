@@ -48,7 +48,7 @@ class Manipulator extends AstManipulator {
         $value   = $default > 0 ? "= {$default}" : '';
         $rules   = json_encode([
             "min:{$min}",
-            "min:{$max}",
+            "max:{$max}",
         ]);
 
         return Parser::inputValueDefinition(
