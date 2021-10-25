@@ -59,8 +59,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadata('test', 'value');
-
+        $this->assertSame($builder, $builder->whereMetadata('test', 'value'));
         $this->assertEquals([
             Configuration::getMetadataName('test') => 'value',
         ], $builder->wheres);
@@ -77,8 +76,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadataIn('test', ['a', 'b', 'c']);
-
+        $this->assertSame($builder, $builder->whereMetadataIn('test', ['a', 'b', 'c']));
         $this->assertEquals([
             Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereIns);
@@ -95,8 +93,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadataNotIn('test', ['a', 'b', 'c']);
-
+        $this->assertSame($builder, $builder->whereMetadataNotIn('test', ['a', 'b', 'c']));
         $this->assertEquals([
             Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
@@ -113,8 +110,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereNotIn('test', ['a', 'b', 'c']);
-
+        $this->assertSame($builder, $builder->whereNotIn('test', ['a', 'b', 'c']));
         $this->assertEquals([
             'test' => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
@@ -131,11 +127,40 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereNot('test', 'value');
-
+        $this->assertSame($builder, $builder->whereNot('test', 'value'));
         $this->assertEquals([
             'test' => 'value',
         ], $builder->whereNots);
+    }
+
+    /**
+     * @covers ::limit
+     */
+    public function testLimit(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $this->assertSame($builder, $builder->limit(123));
+        $this->assertEquals(123, $builder->limit);
+    }
+
+    /**
+     * @covers ::offset
+     */
+    public function testOffset(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $this->assertSame($builder, $builder->offset(123));
+        $this->assertEquals(123, $builder->offset);
     }
 
     /**

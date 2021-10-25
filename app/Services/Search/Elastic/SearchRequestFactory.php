@@ -4,11 +4,11 @@ namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
+use ElasticAdapter\Search\SearchRequest;
 use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactory;
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
 use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
 use Illuminate\Support\Collection;
-use Laravel\Scout\Builder;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
 
@@ -27,6 +27,20 @@ use function str_starts_with;
 use const PREG_SPLIT_NO_EMPTY;
 
 class SearchRequestFactory extends BaseSearchRequestFactory {
+    /**
+     * @inheritDoc
+     */
+    public function makeFromBuilder(ScoutBuilder $builder, array $options = []): SearchRequest {
+        $request = parent::makeFromBuilder($builder, $options);
+        $from    = $this->makeOffset($builder, $options);
+
+        if ($from) {
+            $request->from($from);
+        }
+
+        return $request;
+    }
+
     /**
      * @param array<mixed> $options
      */
@@ -100,7 +114,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         }
 
         // From/Size
-        $from = $this->makeFrom($options);
+        $from = $this->makeOffset($builder, $options);
         $size = $this->makeSize($builder, $options);
 
         if ($from) {
@@ -118,7 +132,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
     /**
      * @inheritDoc
      */
-    protected function makeQuery(Builder $builder): array {
+    protected function makeQuery(ScoutBuilder $builder): array {
         $query = parent::makeQuery($builder);
 
         if (isset($query['bool']['must']['query_string'])) {
@@ -204,6 +218,19 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             ->all();
 
         return $sort ?: null;
+    }
+
+    /**
+     * @param array<mixed> $options
+     */
+    protected function makeOffset(ScoutBuilder $builder, array $options): ?int {
+        $offset = null;
+
+        if ($builder instanceof SearchBuilder) {
+            $offset = $builder->offset;
+        }
+
+        return $this->makeFrom($options) ?? $offset;
     }
 
     protected function prepareQueryString(string $string): string {
