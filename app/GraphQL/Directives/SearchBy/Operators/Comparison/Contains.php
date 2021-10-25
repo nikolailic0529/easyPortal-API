@@ -2,16 +2,8 @@
 
 namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
 
-class Contains extends Like {
-    public function getName(): string {
-        return 'contains';
-    }
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Contains as SearchByContains;
 
-    protected function getDescription(): string {
-        return 'Contains a string.';
-    }
-
-    protected function value(string $string): string {
-        return "%{$string}%";
-    }
+class Contains extends SearchByContains {
+    use Fulltext;
 }

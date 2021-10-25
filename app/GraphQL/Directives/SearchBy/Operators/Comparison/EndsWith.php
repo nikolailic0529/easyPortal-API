@@ -2,16 +2,8 @@
 
 namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
 
-class EndsWith extends Like {
-    public function getName(): string {
-        return 'endsWith';
-    }
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\EndsWith as SearchByEndsWith;
 
-    protected function getDescription(): string {
-        return 'Ends with a string.';
-    }
-
-    protected function value(string $string): string {
-        return "%{$string}";
-    }
+class EndsWith extends SearchByEndsWith {
+    use Fulltext;
 }

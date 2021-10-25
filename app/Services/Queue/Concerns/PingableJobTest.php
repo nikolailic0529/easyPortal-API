@@ -4,6 +4,7 @@ namespace App\Services\Queue\Concerns;
 
 use App\Services\Queue\Job;
 use App\Services\Queue\Queue;
+use Illuminate\Bus\Dispatcher;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -31,7 +32,7 @@ class PingableJobTest extends TestCase {
                 ->andReturn(false);
         });
 
-        $job->run();
+        $this->app->make(Dispatcher::class)->dispatchNow($job);
     }
 
     /**
@@ -51,7 +52,7 @@ class PingableJobTest extends TestCase {
                 ->andReturn(true);
         });
 
-        $job->run();
+        $this->app->make(Dispatcher::class)->dispatchNow($job);
     }
 }
 

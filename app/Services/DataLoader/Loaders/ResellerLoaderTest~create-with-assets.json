@@ -1664,7 +1664,7 @@
         ]
     },
     {
-        "query": "select * from `assets` where `assets`.`reseller_id` = ? and `assets`.`reseller_id` is not null and `id` not in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null order by `id` asc limit 1000 offset 0",
+        "query": "select * from `assets` where `assets`.`reseller_id` = ? and `assets`.`reseller_id` is not null and `id` not in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 1000 offset 0",
         "bindings": [
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "45bdde5d-238d-4a63-8726-17dc7e40dedc",
