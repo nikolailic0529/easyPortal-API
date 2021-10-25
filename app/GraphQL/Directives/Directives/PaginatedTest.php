@@ -2,7 +2,9 @@
 
 namespace App\GraphQL\Directives\Directives;
 
+use App\Services\Search\Builders\Builder;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\Builders\BuilderDataProvider;
@@ -54,6 +56,30 @@ class PaginatedTest extends TestCase {
         $builder   = $directive->handleBuilder($builder, $args);
 
         $this->assertDatabaseQueryEquals($expected, $builder);
+    }
+
+    /**
+     * @covers ::handleScoutBuilder
+     *
+     * @dataProvider dataProviderHandleScoutBuilder
+     *
+     * @param array{limit: ?int, offset: int} $expected
+     * @param array<mixed>                    $args
+     */
+    public function testHandleScoutBuilder(array $expected, array $args): void {
+        $directive = $this->app->make(Paginated::class);
+        $builder   = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+        $builder   = $directive->handleScoutBuilder($builder, $args);
+
+        $this->assertEquals($expected, [
+            'limit'  => $builder->limit,
+            'offset' => $builder->offset ?? null,
+        ]);
     }
     // </editor-fold>
 
@@ -107,6 +133,15 @@ class PaginatedTest extends TestCase {
                         'limit' => 123,
                     ],
                 ],
+                'offset'         => [
+                    [
+                        'query'    => 'select * from `tmp`',
+                        'bindings' => [],
+                    ],
+                    [
+                        'offset' => 123,
+                    ],
+                ],
                 'none'           => [
                     [
                         'query'    => 'select * from `tmp`',
@@ -118,6 +153,51 @@ class PaginatedTest extends TestCase {
                 ],
             ]),
         ))->getData();
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function dataProviderHandleScoutBuilder(): array {
+        return [
+            'limit + offset' => [
+                [
+                    'limit'  => 123,
+                    'offset' => 45,
+                ],
+                [
+                    'limit'  => 123,
+                    'offset' => 45,
+                ],
+            ],
+            'limit'          => [
+                [
+                    'limit'  => 123,
+                    'offset' => null,
+                ],
+                [
+                    'limit' => 123,
+                ],
+            ],
+            'offset'         => [
+                [
+                    'limit'  => null,
+                    'offset' => null,
+                ],
+                [
+                    'offset' => 123,
+                ],
+            ],
+            'none'           => [
+                [
+                    'limit'  => null,
+                    'offset' => null,
+                ],
+                [
+                    // empty
+                ],
+            ],
+        ];
     }
     // </editor-fold>
 }
