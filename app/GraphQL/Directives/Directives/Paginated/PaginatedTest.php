@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives;
+namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\Services\Search\Builders\Builder;
 use Closure;
@@ -13,7 +13,7 @@ use Tests\WithGraphQLSchema;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\Paginated
  */
 class PaginatedTest extends TestCase {
     use WithGraphQLSchema;

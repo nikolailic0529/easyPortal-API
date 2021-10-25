@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives;
+namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use GraphQL\Language\AST\FieldDefinitionNode;
@@ -22,6 +22,7 @@ use function json_encode;
 use function sprintf;
 
 class Paginated extends BaseDirective implements FieldManipulator, ArgBuilderDirective, ScoutBuilderDirective {
+
     public function __construct(
         protected Repository $config,
     ) {
