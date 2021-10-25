@@ -322,12 +322,22 @@ class Handler extends ExceptionHandler {
             $fullTrace = (new Collection($exception->getTrace()))->map($filter)->all();
             $trace     = $fullTrace;
 
-            if ($previous && $previous === array_slice($fullTrace, -count($previous))) {
-                $trace = array_slice($fullTrace, 0, -count($previous));
-            }
-
             if ($exception instanceof ApplicationMessage) {
                 $trace = [];
+            } elseif ($previous) {
+                $remove = null;
+
+                for ($i = count($fullTrace) - 1, $j = count($previous) - 1; $i >= 0 && $j >= 0; $i--, $j--) {
+                    if (isset($previous[$j]) && $fullTrace[$i] === $previous[$j]) {
+                        $remove = $i;
+                    } else {
+                        break;
+                    }
+                }
+
+                if ($remove !== null) {
+                    $trace = array_slice($fullTrace, 0, $remove + 1);
+                }
             }
 
             $stack[]   = [

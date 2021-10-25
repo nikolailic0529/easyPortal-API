@@ -132,7 +132,9 @@ class HandlerTest extends TestCase {
      * @covers ::getExceptionTrace
      */
     public function testGetExceptionTrace(): void {
-        $a       = new Exception('a');
+        $a       = (static function (): Exception {
+            return new Exception('a');
+        })();
         $b       = new Exception('b', 0, $a);
         $handler = $this->app->make(Handler::class);
         $trace   = $handler->getExceptionTrace($b);
@@ -158,7 +160,12 @@ class HandlerTest extends TestCase {
                 'code'    => $a->getCode(),
                 'file'    => $a->getFile(),
                 'line'    => $a->getLine(),
-                'trace'   => [],
+                'trace'   => (new Collection($a->getTrace()))
+                    ->slice(0, 2)
+                    ->map(static function (array $trace): array {
+                        return Arr::except($trace, ['args']);
+                    })
+                    ->all(),
             ],
         ], $trace);
     }
