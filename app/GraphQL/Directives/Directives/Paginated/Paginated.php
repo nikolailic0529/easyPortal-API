@@ -4,10 +4,8 @@ namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use GraphQL\Language\AST\FieldDefinitionNode;
-use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
-use GraphQL\Language\Parser;
-use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
@@ -18,13 +16,12 @@ use Nuwave\Lighthouse\Scout\ScoutBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
 
-use function json_encode;
 use function sprintf;
 
 class Paginated extends BaseDirective implements FieldManipulator, ArgBuilderDirective, ScoutBuilderDirective {
 
     public function __construct(
-        protected Repository $config,
+        protected Container $container,
     ) {
         // empty
     }
@@ -43,8 +40,9 @@ class Paginated extends BaseDirective implements FieldManipulator, ArgBuilderDir
         FieldDefinitionNode &$fieldDefinition,
         ObjectTypeDefinitionNode &$parentType,
     ): void {
-        $fieldDefinition->arguments[] = $this->getLimitField();
-        $fieldDefinition->arguments[] = $this->getOffsetField();
+        $this->container
+            ->make(Manipulator::class, ['document' => $documentAST])
+            ->update($fieldDefinition, $parentType);
     }
 
     /**
@@ -86,32 +84,5 @@ class Paginated extends BaseDirective implements FieldManipulator, ArgBuilderDir
         }
 
         return $builder;
-    }
-
-    protected function getOffsetField(): InputValueDefinitionNode {
-        return Parser::inputValueDefinition(
-            <<<'DEF'
-            offset: Int! = 0 @rules(apply: ["min:0"])
-            DEF,
-        );
-    }
-
-    protected function getLimitField(): InputValueDefinitionNode {
-        $min     = 1;
-        $max     = (int) $this->config->get('ep.pagination.limit.max');
-        $max     = $max > 0 ? $max : 1000;
-        $default = (int) $this->config->get('ep.pagination.limit.default');
-        $value   = $default > 0 ? "= {$default}" : '';
-        $rules   = json_encode([
-            "min:{$min}",
-            "min:{$max}",
-        ]);
-
-        return Parser::inputValueDefinition(
-            <<<DEF
-            "Maximum value is {$max}."
-            limit: Int! {$value} @rules(apply: {$rules})
-            DEF,
-        );
     }
 }
