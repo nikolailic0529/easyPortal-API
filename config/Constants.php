@@ -241,6 +241,24 @@ interface Constants {
     #[Group('ep')]
     #[Type(Email::class)]
     public const EP_LOG_EMAILS = ['chief.wraith+notice@gmail.com'];
+
+    /**
+     * Pagination: Default value for `limit`.
+     */
+    #[Setting('ep.pagination.limit.default')]
+    #[PublicName('epPaginationLimitDefault')]
+    #[Group('ep')]
+    #[Type(IntType::class)]
+    public const EP_PAGINATION_LIMIT_DEFAULT = 25;
+
+    /**
+     * Pagination: Max allowed value of `limit`.
+     */
+    #[Setting('ep.pagination.limit.map')]
+    #[PublicName('epPaginationLimitMax')]
+    #[Group('ep')]
+    #[Type(IntType::class)]
+    public const EP_PAGINATION_LIMIT_MAX = 100;
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">
