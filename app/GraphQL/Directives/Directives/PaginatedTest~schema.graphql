@@ -1,0 +1,5 @@
+type Query {
+  query: String!
+  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+  @paginated
+}
