@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Tests\DataProviders\Builders\BuilderDataProvider;
-use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 use Tests\WithoutOrganizationScope;
@@ -122,12 +123,22 @@ class PaginatedTest extends TestCase {
                     data {
                         id
                     }
+                    dataAggregated {
+                        count
+                    }
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLSuccess('data', null, [
-                [
-                    'id' => $asset->getKey(),
+            ->assertThat(new OkResponse(AnySchema::class, [
+                'data' => [
+                    'data'           => [
+                        [
+                            'id' => $asset->getKey(),
+                        ],
+                    ],
+                    'dataAggregated' => [
+                        'count' => 1,
+                    ],
                 ],
             ]));
     }
@@ -167,12 +178,22 @@ class PaginatedTest extends TestCase {
                     data {
                         id
                     }
+                    dataAggregated {
+                        count
+                    }
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLSuccess('data', null, [
-                [
-                    'id' => $asset->getKey(),
+            ->assertThat(new OkResponse(AnySchema::class, [
+                'data' => [
+                    'data'           => [
+                        [
+                            'id' => $asset->getKey(),
+                        ],
+                    ],
+                    'dataAggregated' => [
+                        'count' => 1,
+                    ],
                 ],
             ]));
     }
@@ -210,12 +231,22 @@ class PaginatedTest extends TestCase {
                     data {
                         id
                     }
+                    dataAggregated {
+                        count
+                    }
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLSuccess('data', null, [
-                [
-                    'id' => $asset->getKey(),
+            ->assertThat(new OkResponse(AnySchema::class, [
+                'data' => [
+                    'data'           => [
+                        [
+                            'id' => $asset->getKey(),
+                        ],
+                    ],
+                    'dataAggregated' => [
+                        'count' => 1,
+                    ],
                 ],
             ]));
     }

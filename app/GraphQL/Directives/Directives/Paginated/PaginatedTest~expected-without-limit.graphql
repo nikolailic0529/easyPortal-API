@@ -13,6 +13,19 @@ input AssetsSearchSort {
   customer: AssetsSearchCustomerSort
 }
 
+type Customer {
+  id: ID!
+}
+
+input CustomerSearch {
+  id: ID!
+}
+
+"""Aggregated query for type Customer."""
+type CustomersAggregated {
+  count: Int!
+}
+
 input CustomersSearchHeadquarterCitySort {
   name: String
 }
@@ -38,19 +51,6 @@ input DocumentsSearchSort {
   end: String
   price: String
   customer: DocumentsSearchCustomerSort
-}
-
-type Object {
-  id: ID!
-}
-
-"""Aggregated query for type Object."""
-type ObjectAggregated {
-  count: Int!
-}
-
-input ObjectSearch {
-  id: ID!
 }
 
 """Information about pagination using a Relay style cursor connection."""
@@ -110,31 +110,31 @@ type PaginatorInfo {
 type Query {
   """@require <me> User must be authenticated."""
   query(
-    where: SearchByConditionObjectSearch
-    order: [SortByClauseObject!]
+    where: SearchByConditionCustomerSearch
+    order: [SortByClauseCustomer!]
     test: ID
 
     """Maximum value is 321."""
     limit: Int!
     offset: Int! = 0
-  ): [Object!]!
+  ): [Customer!]!
 
   """@require <me> User must be authenticated."""
-  queryAggregated(where: SearchByConditionObjectSearch): ObjectAggregated
+  queryAggregated(where: SearchByConditionCustomerSearch): CustomersAggregated
 }
 
 """
-Available conditions for input ObjectSearch (only one property allowed at a time).
+Available conditions for input CustomerSearch (only one property allowed at a time).
 """
-input SearchByConditionObjectSearch {
+input SearchByConditionCustomerSearch {
   """All of the conditions must be true."""
-  allOf: [SearchByConditionObjectSearch!]
+  allOf: [SearchByConditionCustomerSearch!]
 
   """Any of the conditions must be true."""
-  anyOf: [SearchByConditionObjectSearch!]
+  anyOf: [SearchByConditionCustomerSearch!]
 
   """Not."""
-  not: SearchByConditionObjectSearch
+  not: SearchByConditionCustomerSearch
 
   """Property condition."""
   id: SearchByScalarID
@@ -175,8 +175,8 @@ type SimplePaginatorInfo {
   perPage: Int!
 }
 
-"""Sort clause for type Object (only one property allowed at a time)."""
-input SortByClauseObject {
+"""Sort clause for type Customer (only one property allowed at a time)."""
+input SortByClauseCustomer {
   """Property clause."""
   id: SortByDirection
 }

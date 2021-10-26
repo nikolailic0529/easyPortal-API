@@ -8,6 +8,8 @@ use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\AstManipulator;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LogicException;
@@ -71,6 +73,7 @@ class Manipulator extends AstManipulator {
         // Cleanup directives
         foreach ($aggregated->directives as $key => $directive) {
             // TODO Remove relations?
+            $directive = $this->directives->create($directive->name->value);
 
             if ($directive instanceof Paginated) {
                 unset($aggregated->directives[$key]);
@@ -84,6 +87,19 @@ class Manipulator extends AstManipulator {
         // Set name
         $fieldName               = "{$this->getNodeName($field)}Aggregated";
         $aggregated->name->value = $fieldName;
+
+        // Add @aggregated
+        $arguments = $this->getNodeDirective($field, Paginated::class)?->getBuilderArguments() ?: [];
+        $arguments = (new Collection($arguments))
+            ->map(static function (mixed $value, string $key): string {
+                return $key.': '.json_encode($value);
+            })
+            ->implode(',');
+        $directive = $arguments
+            ? Parser::directive("@aggregated({$arguments})")
+            : Parser::directive('@aggregated');
+
+        $aggregated->directives[] = $directive;
 
         // Field exists?
         $existing = Arr::first($parent->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
@@ -103,7 +119,7 @@ class Manipulator extends AstManipulator {
     }
 
     protected function getAggregatedFieldType(FieldDefinitionNode $node): string {
-        $typeName = "{$this->getNodeTypeName($node)}Aggregated";
+        $typeName = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
 
         if ($this->isTypeDefinitionExists($typeName)) {
             throw new LogicException(sprintf(
@@ -118,7 +134,7 @@ class Manipulator extends AstManipulator {
             Aggregated query for {$this->getNodeTypeFullName($node)}.
             """
             type {$typeName} {
-                count: Int!
+                count: Int! @aggregatedCount
             }
             DEF,
         ));

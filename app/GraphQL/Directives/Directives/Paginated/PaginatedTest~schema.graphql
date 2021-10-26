@@ -1,15 +1,15 @@
 type Query {
   query(
-    where: ObjectSearch @searchBy
+    where: CustomerSearch @searchBy
     order: _ @sortBy
     test: ID
-  ): [Object!]! @me @paginated
+  ): [Customer!]! @me @paginated
 }
 
-type Object {
+type Customer {
   id: ID!
 }
 
-input ObjectSearch {
+input CustomerSearch {
   id: ID!
 }

@@ -68,4 +68,19 @@ trait BuilderArguments {
     protected function allowGuessBuilder(): bool {
         return true;
     }
+
+    /**
+     * @return array<string>
+     */
+    public function getBuilderArguments(): array {
+        $arguments = [];
+
+        if ($this->directiveHasArgument('builder')) {
+            $arguments['builder'] = $this->directiveArgValue('builder');
+        } else {
+            $arguments['model'] = $this->getModelClass();
+        }
+
+        return $arguments;
+    }
 }
