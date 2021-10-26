@@ -23,7 +23,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function sprintf;
 
-class Paginated extends BaseDirective implements
+abstract class Paginated extends BaseDirective implements
     FieldResolver,
     FieldManipulator,
     ArgBuilderDirective,

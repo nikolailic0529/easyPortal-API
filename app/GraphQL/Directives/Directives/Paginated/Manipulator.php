@@ -54,7 +54,8 @@ class Manipulator extends AstManipulator {
         }
 
         // https://github.com/webonyx/graphql-php/issues/988
-        $aggregated->arguments = clone $aggregated->arguments;
+        $aggregated->arguments  = clone $aggregated->arguments;
+        $aggregated->directives = clone $aggregated->directives;
 
         // Cleanup arguments
         foreach ($aggregated->arguments as $key => $argument) {
@@ -69,6 +70,8 @@ class Manipulator extends AstManipulator {
 
         // Cleanup directives
         foreach ($aggregated->directives as $key => $directive) {
+            // TODO Remove relations?
+
             if ($directive instanceof Paginated) {
                 unset($aggregated->directives[$key]);
             }

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
+use App\GraphQL\Directives\Definitions\PaginatedDirective;
 use App\GraphQL\Queries\Customers\Customer;
 use App\Models\Asset;
 use App\Services\Search\Builders\Builder as SearchBuilder;
@@ -60,7 +61,7 @@ class PaginatedTest extends TestCase {
         Closure $builder,
         array $args,
     ): void {
-        $directive = $this->app->make(Paginated::class);
+        $directive = $this->app->make(PaginatedDirective::class);
         $builder   = $builder($this);
         $builder   = $directive->handleBuilder($builder, $args);
 
@@ -76,7 +77,7 @@ class PaginatedTest extends TestCase {
      * @param array<mixed>                    $args
      */
     public function testHandleScoutBuilder(array $expected, array $args): void {
-        $directive = $this->app->make(Paginated::class);
+        $directive = $this->app->make(PaginatedDirective::class);
         $builder   = $this->app->make(SearchBuilder::class, [
             'query' => '123',
             'model' => new class() extends Model {
