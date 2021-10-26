@@ -2,6 +2,7 @@
 
 namespace App\Services\Search\Builders;
 
+use App\Models\Customer;
 use App\Services\Search\Configuration;
 use App\Services\Search\Scope;
 use App\Services\Search\Scope as SearchScope;
@@ -12,7 +13,10 @@ use InvalidArgumentException;
 use Mockery;
 use stdClass;
 use Tests\TestCase;
+use Tests\WithoutOrganizationScope;
+use Tests\WithSearch;
 
+use function count;
 use function sprintf;
 
 /**
@@ -20,6 +24,9 @@ use function sprintf;
  * @coversDefaultClass \App\Services\Search\Builders\Builder
  */
 class BuilderTest extends TestCase {
+    use WithoutOrganizationScope;
+    use WithSearch;
+
     /**
      * @covers ::__construct
      */
@@ -202,5 +209,14 @@ class BuilderTest extends TestCase {
         )));
 
         $builder->applyScope(stdClass::class);
+    }
+
+    /**
+     * @covers ::count
+     */
+    public function testCount(): void {
+        $models = $this->makeSearchable(Customer::factory()->count(3)->make());
+
+        $this->assertEquals(count($models), Customer::search('*')->count());
     }
 }

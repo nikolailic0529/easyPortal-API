@@ -117,4 +117,8 @@ class Builder extends ScoutBuilder {
 
         return $this;
     }
+
+    public function count(): int {
+        return $this->getTotalCount((clone $this)->limit(1)->raw());
+    }
 }
