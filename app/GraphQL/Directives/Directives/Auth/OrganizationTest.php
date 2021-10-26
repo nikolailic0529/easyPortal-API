@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives;
+namespace App\GraphQL\Directives\Directives\Auth;
 
+use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\Organization;
 use App\Models\User;
 use Closure;
@@ -16,7 +17,7 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Organization
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Organization
  */
 class OrganizationTest extends TestCase {
     use WithGraphQLSchema;
@@ -44,7 +45,7 @@ class OrganizationTest extends TestCase {
     public function testResolveField(Response $expected, Closure $organizationFactory, Closure $userFactory): void {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        $resolver = addslashes(OrganizationDirectiveTest_Resolver::class);
+        $resolver = addslashes(EmptyResolver::class);
 
         $this
             ->useGraphQLSchema(
@@ -85,7 +86,7 @@ class OrganizationTest extends TestCase {
             $this->setRootOrganization($organization);
         }
 
-        $resolver = addslashes(OrganizationDirectiveTest_Resolver::class);
+        $resolver = addslashes(EmptyResolver::class);
 
         $this
             ->useGraphQLSchema(
@@ -238,17 +239,4 @@ class OrganizationTest extends TestCase {
         ];
     }
     // </editor-fold>
-}
-
-// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
-// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
-
-/**
- * @internal
- * @noinspection PhpMultipleClassesDeclarationsInOneFile
- */
-class OrganizationDirectiveTest_Resolver {
-    public function __invoke(): string {
-        return __FUNCTION__;
-    }
 }

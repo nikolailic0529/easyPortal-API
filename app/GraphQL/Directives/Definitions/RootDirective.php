@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Root;
+use App\GraphQL\Directives\Directives\Auth\Root;
 
 class RootDirective extends Root {
     // Lighthouse loads all files from the directives directory...

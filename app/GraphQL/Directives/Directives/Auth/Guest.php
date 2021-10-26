@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives;
+namespace App\GraphQL\Directives\Directives\Auth;
 
 use App\GraphQL\Directives\AuthDirective;
 use Illuminate\Contracts\Auth\Authenticatable;
