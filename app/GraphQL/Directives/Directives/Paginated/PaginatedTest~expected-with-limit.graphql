@@ -40,6 +40,19 @@ input DocumentsSearchSort {
   customer: DocumentsSearchCustomerSort
 }
 
+type Object {
+  id: ID!
+}
+
+"""Aggregated query for type Object."""
+type ObjectAggregated {
+  count: Int!
+}
+
+input ObjectSearch {
+  id: ID!
+}
+
 """Information about pagination using a Relay style cursor connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -95,11 +108,53 @@ type PaginatorInfo {
 }
 
 type Query {
+  """@require <me> User must be authenticated."""
   query(
+    where: SearchByConditionObjectSearch
+    order: [SortByClauseObject!]
+    test: ID
+
     """Maximum value is 123."""
     limit: Int! = 25
     offset: Int! = 0
-  ): String!
+  ): [Object!]!
+
+  """@require <me> User must be authenticated."""
+  queryAggregated(where: SearchByConditionObjectSearch): ObjectAggregated
+}
+
+"""
+Available conditions for input ObjectSearch (only one property allowed at a time).
+"""
+input SearchByConditionObjectSearch {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionObjectSearch!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionObjectSearch!]
+
+  """Not."""
+  not: SearchByConditionObjectSearch
+
+  """Property condition."""
+  id: SearchByScalarID
+}
+
+"""
+Available operators for scalar ID! (only one operator allowed at a time).
+"""
+input SearchByScalarID {
+  """Equal (`=`)."""
+  equal: ID
+
+  """Not Equal (`!=`)."""
+  notEqual: ID
+
+  """Within a set of values."""
+  in: [ID!]
+
+  """Outside a set of values."""
+  notIn: [ID!]
 }
 
 """Information about pagination using a simple paginator."""
@@ -118,4 +173,16 @@ type SimplePaginatorInfo {
 
   """Number of items per page."""
   perPage: Int!
+}
+
+"""Sort clause for type Object (only one property allowed at a time)."""
+input SortByClauseObject {
+  """Property clause."""
+  id: SortByDirection
+}
+
+"""Sort direction."""
+enum SortByDirection {
+  asc
+  desc
 }

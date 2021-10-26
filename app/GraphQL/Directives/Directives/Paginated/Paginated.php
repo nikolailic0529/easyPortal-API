@@ -54,7 +54,7 @@ class Paginated extends BaseDirective implements
     ): void {
         $this->container
             ->make(Manipulator::class, ['document' => $documentAST])
-            ->update($fieldDefinition, $parentType);
+            ->update($parentType, $fieldDefinition);
     }
 
     /**

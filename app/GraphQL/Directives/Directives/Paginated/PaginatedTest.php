@@ -227,14 +227,14 @@ class PaginatedTest extends TestCase {
      */
     public function dataProviderManipulateArgDefinition(): array {
         return [
-            'default limit is set'     => [
+            'with limit'    => [
                 '~expected-with-limit.graphql',
                 [
                     'ep.pagination.limit.default' => 25,
                     'ep.pagination.limit.max'     => 123,
                 ],
             ],
-            'default limit is not set' => [
+            'without limit' => [
                 '~expected-without-limit.graphql',
                 [
                     'ep.pagination.limit.default' => null,
