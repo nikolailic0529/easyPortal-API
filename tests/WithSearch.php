@@ -58,6 +58,13 @@ trait WithSearch {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    /**
+     * @template T of \Illuminate\Support\Collection|\App\Models\Model
+     *
+     * @param T $models
+     *
+     * @return T
+     */
     protected function makeSearchable(Collection|Model $models): Collection|Model {
         if ($models instanceof Model) {
             /** @var \App\Services\Search\Eloquent\Searchable $models */
