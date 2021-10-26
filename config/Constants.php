@@ -254,7 +254,7 @@ interface Constants {
     /**
      * Pagination: Max allowed value of `limit`.
      */
-    #[Setting('ep.pagination.limit.map')]
+    #[Setting('ep.pagination.limit.max')]
     #[PublicName('epPaginationLimitMax')]
     #[Group('ep')]
     #[Type(IntType::class)]
