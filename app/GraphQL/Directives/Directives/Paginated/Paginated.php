@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
+use App\GraphQL\Directives\BuilderArguments;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;

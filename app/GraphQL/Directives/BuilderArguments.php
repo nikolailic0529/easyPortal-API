@@ -1,11 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives\Paginated;
+namespace App\GraphQL\Directives;
 
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 

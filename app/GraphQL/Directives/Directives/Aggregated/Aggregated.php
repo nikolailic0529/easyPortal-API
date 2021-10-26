@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated;
 
-use App\GraphQL\Directives\Directives\Paginated\BuilderArguments;
+use App\GraphQL\Directives\BuilderArguments;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
