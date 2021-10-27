@@ -13,6 +13,8 @@ use Tests\WithGraphQLSchema;
 use Tests\WithoutOrganizationScope;
 use Tests\WithSearch;
 
+use function json_encode;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\AggregatedCount
@@ -59,6 +61,43 @@ class AggregatedCountTest extends TestCase {
             )
             ->assertThat(new GraphQLSuccess('data', null, [
                 'count' => $expected,
+            ]));
+    }
+
+    /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldScout(): void {
+        $model = Customer::factory()->create();
+        $class = json_encode($model::class);
+
+        $this->makeSearchable($model);
+
+        $this
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    data(search: String @search): Data! @aggregated(model: {$class})
+                }
+
+                type Data {
+                    value: Int! @aggregatedCount
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    data {
+                        value
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat(new GraphQLSuccess('data', null, [
+                'value' => 1,
             ]));
     }
     // </editor-fold>

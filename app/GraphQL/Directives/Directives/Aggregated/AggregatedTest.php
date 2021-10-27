@@ -102,6 +102,46 @@ class AggregatedTest extends TestCase {
             )
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldScout(): void {
+        $model = Customer::factory()->create();
+        $class = json_encode($model::class);
+
+        $this->makeSearchable($model);
+        $this->mockResolver(static function (BuilderValue $value): int {
+            return $value->getBuilder()->count();
+        });
+
+        $this
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    data(search: String @search): Data! @aggregated(model: {$class})
+                }
+
+                type Data {
+                    value: Int! @mock
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    data {
+                        value
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat(new GraphQLSuccess('data', null, [
+                'value' => 1,
+            ]));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
