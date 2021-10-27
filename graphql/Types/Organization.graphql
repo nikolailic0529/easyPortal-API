@@ -40,7 +40,7 @@ type Organization {
     order: AuditsSort @sortBy
   ): [Audit!]!
   @me(permissions: ["administer", "org-administer"])
-  @paginate(
+  @paginated(
     builder: "App\\GraphQL\\Queries\\Organization@audits"
   )
 }

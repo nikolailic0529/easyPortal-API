@@ -33,6 +33,8 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 
+use function count;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Quotes\Quotes
@@ -76,169 +78,160 @@ class QuotesTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '
                 {
                     quotes {
-                        data {
+                        id
+                        oem_id
+                        type_id
+                        is_contract
+                        is_quote
+                        customer_id
+                        reseller_id
+                        number
+                        price
+                        start
+                        end
+                        currency_id
+                        language_id
+                        distributor_id
+                        oem {
                             id
-                            oem_id
-                            type_id
-                            is_contract
-                            is_quote
-                            customer_id
-                            reseller_id
-                            number
-                            price
-                            start
-                            end
-                            currency_id
-                            language_id
-                            distributor_id
-                            oem {
-                                id
-                                key
-                                name
-                            }
-                            oem_said
-                            oemGroup {
-                                id
-                                key
-                                name
-                            }
-                            type {
-                                id
-                                name
-                            }
-                            statuses {
-                                id
-                                name
-                            }
-                            customer {
-                                id
-                                name
-                                assets_count
-                                contacts_count
-                                locations_count
-                                locations {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                    types {
-                                        id
-                                        name
-                                    }
+                            key
+                            name
+                        }
+                        oem_said
+                        oemGroup {
+                            id
+                            key
+                            name
+                        }
+                        type {
+                            id
+                            name
+                        }
+                        statuses {
+                            id
+                            name
+                        }
+                        customer {
+                            id
+                            name
+                            assets_count
+                            contacts_count
+                            locations_count
+                            locations {
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
                                 }
-                                contacts {
-                                    name
-                                    email
-                                    phone_valid
-                                }
-                                changed_at
-                                synced_at
-                            }
-                            reseller {
-                                id
-                                name
-                                customers_count
-                                locations_count
-                                assets_count
-                                locations {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                    types {
-                                        id
-                                        name
-                                    }
-                                }
-                            }
-                            currency {
-                                id
-                                name
-                                code
-                            }
-                            entries {
-                                id
-                                document_id
-                                service_level_id
-                                net_price
-                                list_price
-                                discount
-                                renewal
-                                serial_number
-                                product_id
-                                product {
+                                types {
                                     id
                                     name
-                                    oem_id
-                                    sku
-                                    eol
-                                    eos
-                                    oem {
-                                        id
-                                        key
-                                        name
-                                    }
                                 }
-                                service_group_id
-                                serviceGroup {
-                                    id
-                                    oem_id
-                                    sku
-                                    name
-                                }
-                                serviceLevel {
-                                    id
-                                    oem_id
-                                    service_group_id
-                                    sku
-                                    name
-                                    description
-                                }
-                                asset_id
-                                asset {
-                                    id
-                                }
-                            }
-                            language {
-                                id
-                                name
-                                code
                             }
                             contacts {
                                 name
                                 email
                                 phone_valid
                             }
-                            distributor {
-                                id
-                                name
-                            }
-                            assets_count
                             changed_at
                             synced_at
                         }
-                        paginatorInfo {
-                            count
-                            currentPage
-                            firstItem
-                            hasMorePages
-                            lastItem
-                            lastPage
-                            perPage
-                            total
+                        reseller {
+                            id
+                            name
+                            customers_count
+                            locations_count
+                            assets_count
+                            locations {
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
+                            }
                         }
+                        currency {
+                            id
+                            name
+                            code
+                        }
+                        entries {
+                            id
+                            document_id
+                            service_level_id
+                            net_price
+                            list_price
+                            discount
+                            renewal
+                            serial_number
+                            product_id
+                            product {
+                                id
+                                name
+                                oem_id
+                                sku
+                                eol
+                                eos
+                                oem {
+                                    id
+                                    key
+                                    name
+                                }
+                            }
+                            service_group_id
+                            serviceGroup {
+                                id
+                                oem_id
+                                sku
+                                name
+                            }
+                            serviceLevel {
+                                id
+                                oem_id
+                                service_group_id
+                                sku
+                                name
+                                description
+                            }
+                            asset_id
+                            asset {
+                                id
+                            }
+                        }
+                        language {
+                            id
+                            name
+                            code
+                        }
+                        contacts {
+                            name
+                            email
+                            phone_valid
+                        }
+                        distributor {
+                            id
+                            name
+                        }
+                        assets_count
+                        changed_at
+                        synced_at
+                    }
+                    quotesAggregated {
+                        count
                     }
                 }
             ')
@@ -644,7 +637,7 @@ class QuotesTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'quote_types match'                         => [
-                        new GraphQLPaginated('quotes', self::class, $objects),
+                        new GraphQLPaginated('quotes', self::class, $objects, ['count' => count($objects)]),
                         [
                             'ep.quote_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -653,7 +646,7 @@ class QuotesTest extends TestCase {
                         $factory,
                     ],
                     'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotes', self::class, $objects),
+                        new GraphQLPaginated('quotes', self::class, $objects, ['count' => count($objects)]),
                         [
                             'ep.contract_types' => [
                                 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
@@ -688,9 +681,7 @@ class QuotesTest extends TestCase {
                         },
                     ],
                     'quote_types not match'                     => [
-                        new GraphQLPaginated('quotes', self::class, [
-                            // empty
-                        ]),
+                        new GraphQLPaginated('quotes', self::class, [], ['count' => 0]),
                         [
                             'ep.quote_types' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -705,9 +696,7 @@ class QuotesTest extends TestCase {
                         },
                     ],
                     'no quote_types + no contract_types'        => [
-                        new GraphQLPaginated('quotes', self::class, [
-                            // empty
-                        ]),
+                        new GraphQLPaginated('quotes', self::class, [], ['count' => 0]),
                         [
                             'ep.quote_types' => [
                                 // empty

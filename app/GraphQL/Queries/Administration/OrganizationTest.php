@@ -298,26 +298,17 @@ class OrganizationTest extends TestCase {
                 query organization($id: ID!){
                     organization(id: $id) {
                         audits {
-                            data {
-                                id
-                                organization_id
-                                user_id
-                                object_type
-                                object_id
-                                context
-                                action
-                                created_at
-                            }
-                            paginatorInfo {
-                                count
-                                currentPage
-                                firstItem
-                                hasMorePages
-                                lastItem
-                                lastPage
-                                perPage
-                                total
-                            }
+                            id
+                            organization_id
+                            user_id
+                            object_type
+                            object_id
+                            context
+                            action
+                            created_at
+                        }
+                        auditsAggregated {
+                            count
                         }
                     }
                 }
@@ -753,40 +744,31 @@ class OrganizationTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
-                            'audits' => [
-                                'data'          => [
-                                    [
-                                        'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
-                                        'object_type'     => 'User',
-                                        'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                        'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                        'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                                        'context'         => json_encode([
-                                            'properties' => [
-                                                'email'    => [
-                                                    'value'    => 'test@gmail.com',
-                                                    'pervious' => null,
-                                                ],
-                                                'password' => [
-                                                    'value'    => 'pass',
-                                                    'pervious' => null,
-                                                ],
+                            'audits'           => [
+                                [
+                                    'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
+                                    'object_type'     => 'User',
+                                    'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                    'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                                    'context'         => json_encode([
+                                        'properties' => [
+                                            'email'    => [
+                                                'value'    => 'test@gmail.com',
+                                                'pervious' => null,
                                             ],
-                                        ]),
-                                        'action'          => 'action1',
-                                        'created_at'      => '2021-01-01T00:00:00+00:00',
-                                    ],
+                                            'password' => [
+                                                'value'    => 'pass',
+                                                'pervious' => null,
+                                            ],
+                                        ],
+                                    ]),
+                                    'action'          => 'action1',
+                                    'created_at'      => '2021-01-01T00:00:00+00:00',
                                 ],
-                                'paginatorInfo' => [
-                                    'count'        => 1,
-                                    'currentPage'  => 1,
-                                    'firstItem'    => 1,
-                                    'hasMorePages' => false,
-                                    'lastItem'     => 1,
-                                    'lastPage'     => 1,
-                                    'perPage'      => 25,
-                                    'total'        => 1,
-                                ],
+                            ],
+                            'auditsAggregated' => [
+                                'count' => 1,
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
@@ -832,36 +814,27 @@ class OrganizationTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
-                            'audits' => [
-                                'data'          => [
-                                    [
-                                        'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                        'object_type'     => 'User',
-                                        'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                        'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                        'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                        'context'         => json_encode([
-                                            'properties' => [
-                                                'email' => [
-                                                    'value'    => 'test@gmail.com',
-                                                    'pervious' => null,
-                                                ],
+                            'audits'           => [
+                                [
+                                    'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'object_type'     => 'User',
+                                    'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                    'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                    'context'         => json_encode([
+                                        'properties' => [
+                                            'email' => [
+                                                'value'    => 'test@gmail.com',
+                                                'pervious' => null,
                                             ],
-                                        ]),
-                                        'action'          => 'action1',
-                                        'created_at'      => '2021-01-01T00:00:00+00:00',
-                                    ],
+                                        ],
+                                    ]),
+                                    'action'          => 'action1',
+                                    'created_at'      => '2021-01-01T00:00:00+00:00',
                                 ],
-                                'paginatorInfo' => [
-                                    'count'        => 1,
-                                    'currentPage'  => 1,
-                                    'firstItem'    => 1,
-                                    'hasMorePages' => false,
-                                    'lastItem'     => 1,
-                                    'lastPage'     => 1,
-                                    'perPage'      => 25,
-                                    'total'        => 1,
-                                ],
+                            ],
+                            'auditsAggregated' => [
+                                'count' => 1,
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {

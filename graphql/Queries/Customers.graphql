@@ -22,7 +22,7 @@ extend type Query {
   ): [Customer!]!
   @organization
   @me(permissions: ["customers-view"])
-  @paginate
+  @paginated
 
   customersAggregate(
     where: CustomersQuery @searchBy
