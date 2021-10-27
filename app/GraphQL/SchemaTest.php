@@ -25,11 +25,16 @@ class SchemaTest extends TestCase {
     /**
      * @dataProvider dataProviderForbiddenDirectives
      */
-    public function testForbiddenDirectives(string $directive, ?string $replacement): void {
-        $path   = $this->app->make(Repository::class)->get('lighthouse.schema.register');
-        $path   = dirname($path);
-        $name   = preg_quote($directive, '/');
-        $finder = Finder::create()->in($path)->files()->contains("/(^|\s+){$name}(^|\s+)/ui")->sortByName();
+    public function testForbiddenDirectives(string $directive, ?string $replacement, ?string $regexp): void {
+        $path = $this->app->make(Repository::class)->get('lighthouse.schema.register');
+        $path = dirname($path);
+
+        if (!$regexp) {
+            $name   = preg_quote($directive, '/');
+            $regexp = "/(^|\s+){$name}(^|\s+)/ui";
+        }
+
+        $finder = Finder::create()->in($path)->files()->contains($regexp)->sortByName();
         $usages = [];
 
         foreach ($finder as $file) {
@@ -53,13 +58,21 @@ class SchemaTest extends TestCase {
      */
     public function dataProviderForbiddenDirectives(): array {
         return [
-            ['@guard', '@me'],
-            ['@orderBy', '@sortBy'],
-            ['@spread', null],
-            ['@hash', null],
-            ['@globalId', null],
-            ['@trim', null],
-            ['@rename', null],
+            ['@guard', '@me', null],
+            ['@orderBy', '@sortBy', null],
+            ['@whereConditions', '@searchBy', null],
+            ['@whereHasConditions', '@searchBy', null],
+            ['@spread', null, null],
+            ['@hash', null, null],
+            ['@globalId', null, null],
+            ['@trim', null, null],
+            ['@rename', null, null],
+            ['@paginate', '@paginated', null],
+            ['@hasMany(type: xxx)', '@hasMany @paginatedRelation', '/@hasMany\(.*?type:.*?\)/ui'],
+            ['@belongsToMany(type: xxx)', '@belongsToMany @paginatedRelation', '/@belongsToMany\(.*?type:.*?\)/ui'],
+            ['@morphMany(type: xxx)', '@morphMany @paginatedRelation', '/@morphMany\(.*?type:.*?\)/ui'],
+            ['@paginatedLimit', null, null],
+            ['@paginatedOffset', null, null],
         ];
     }
     //</editor-fold>

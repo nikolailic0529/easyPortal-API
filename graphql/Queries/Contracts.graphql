@@ -23,7 +23,7 @@ extend type Query {
   @organization
   @me(permissions: ["contracts-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
-  @paginate
+  @paginated
 
   contractsAggregate(
     where: DocumentsQuery @searchBy
@@ -41,7 +41,7 @@ extend type Query {
   ): [Document!]!
   @organization
   @me(permissions: ["contracts-view", "customers-view"])
-  @paginate
+  @paginated
 
   "Contract."
   contract(id: ID! @eq): Document

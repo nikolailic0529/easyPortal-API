@@ -27,7 +27,8 @@ type Customer {
     order: DocumentsSort @sortBy
   ): [Document!]!
   @me(permissions: ["contracts-view", "customers-view"])
-  @hasMany(type: PAGINATOR)
+  @hasMany
+  @paginatedRelation
 
   contractsAggregate(
     where: DocumentsQuery @searchBy
@@ -41,7 +42,8 @@ type Customer {
     order: DocumentsSort @sortBy
   ): [Document!]!
   @me(permissions: ["quotes-view", "customers-view"])
-  @hasMany(type: PAGINATOR)
+  @hasMany
+  @paginatedRelation
 
   # Assets
   assets(
@@ -49,7 +51,8 @@ type Customer {
     order: AssetsSort @sortBy
   ): [Asset!]!
   @me(permissions: ["assets-view", "customers-view"])
-  @hasMany(type: PAGINATOR)
+  @hasMany
+  @paginatedRelation
 
   assetsAggregate(
     where: AssetsQuery @searchBy

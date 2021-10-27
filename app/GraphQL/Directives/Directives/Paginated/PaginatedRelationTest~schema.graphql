@@ -1,0 +1,24 @@
+type Query {
+  query: [Customer!]! @all
+}
+
+type Customer {
+  id: ID!
+
+  "Description"
+  locations(
+    where: CustomerSearch @searchBy
+    order: _ @sortBy
+    test: ID
+  ): [CustomerLocation!]
+  @hasMany
+  @paginatedRelation
+}
+
+type CustomerLocation {
+  id: ID!
+}
+
+input CustomerSearch {
+  id: ID!
+}

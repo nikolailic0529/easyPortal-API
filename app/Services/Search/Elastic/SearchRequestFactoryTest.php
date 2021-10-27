@@ -191,6 +191,77 @@ class SearchRequestFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::makeFromUnionBuilder
+     */
+    public function testMakeFromUnionBuilderLimitOffset(): void {
+        // Prepare
+        $model   = new UnionModel();
+        $builder = $this->app->make(UnionBuilder::class, [
+            'query' => 'a[b]c',
+            'model' => $model,
+        ]);
+        $a       = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return ['a' => new Text('a', true)];
+            }
+
+            public function searchableAs(): string {
+                return 'a';
+            }
+        };
+
+        // Build
+        $builder->addModel($a::class, []);
+        $builder->take(123);
+        $builder->offset(45);
+
+        // Test
+        $actual   = $this->app->make(SearchRequestFactory::class)
+            ->makeFromUnionBuilder($builder)
+            ->buildSearchRequest()
+            ->toArray();
+        $expected = [
+            'query' => [
+                'bool' => [
+                    'should' => [
+                        [
+                            'bool' => [
+                                'must'   => [
+                                    'query_string' => [
+                                        'query'            => '*a\\[b\\]c*',
+                                        'fields'           => [
+                                            Configuration::getPropertyName('a'),
+                                            Configuration::getPropertyName('a.keyword'),
+                                        ],
+                                        'default_operator' => 'AND',
+                                        'analyze_wildcard' => true,
+                                    ],
+                                ],
+                                'filter' => [
+                                    [
+                                        'term' => [
+                                            '_index' => 'a',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'from'  => 45,
+            'size'  => 123,
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers ::prepareQueryString
      *
      * @dataProvider dataProviderEscapeQueryString
@@ -420,6 +491,21 @@ class SearchRequestFactoryTest extends TestCase {
                             'b' => new Text('b', false),
                         ],
                     ];
+                },
+            ],
+            'offset'                => [
+                [
+                    'query' => [
+                        'bool' => [
+                            'must' => $must,
+                        ],
+                    ],
+                    'from'  => 45,
+                    'size'  => 123,
+                ],
+                static function (Builder $builder): void {
+                    $builder->take(123);
+                    $builder->offset(45);
                 },
             ],
         ];

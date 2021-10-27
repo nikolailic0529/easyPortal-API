@@ -1,0 +1,15 @@
+type Query {
+  query(
+    where: CustomerSearch @searchBy
+    order: _ @sortBy
+    test: ID
+  ): [Customer!]! @me @paginated
+}
+
+type Customer {
+  id: ID!
+}
+
+input CustomerSearch {
+  id: ID!
+}

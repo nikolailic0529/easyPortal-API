@@ -23,5 +23,5 @@ extend type Query {
   @organization
   @me(permissions: ["contracts-view", "quotes-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Documents\\Documents")
-  @paginate
+  @paginated
 }

@@ -11,68 +11,25 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "${graphql.root}"
+                "${graphql.root}",
+                "${graphql.root}Aggregated"
             ],
             "properties": {
                 "${graphql.root}": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "${schema.path}"
+                    }
+                },
+                "${graphql.root}Aggregated": {
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
-                        "data",
-                        "paginatorInfo"
+                        "count"
                     ],
                     "properties": {
-                        "data": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "${schema.path}"
-                            }
-                        },
-                        "paginatorInfo": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                                "count",
-                                "currentPage",
-                                "firstItem",
-                                "hasMorePages",
-                                "lastItem",
-                                "lastPage",
-                                "perPage",
-                                "total"
-                            ],
-                            "properties": {
-                                "count": {
-                                    "type": "integer"
-                                },
-                                "currentPage": {
-                                    "type": "integer"
-                                },
-                                "firstItem": {
-                                    "type": [
-                                        "integer",
-                                        "null"
-                                    ]
-                                },
-                                "hasMorePages": {
-                                    "type": "boolean"
-                                },
-                                "lastItem": {
-                                    "type": [
-                                        "integer",
-                                        "null"
-                                    ]
-                                },
-                                "lastPage": {
-                                    "type": "integer"
-                                },
-                                "perPage": {
-                                    "type": "integer"
-                                },
-                                "total": {
-                                    "type": "integer"
-                                }
-                            }
+                        "count": {
+                            "type": "integer"
                         }
                     }
                 }

@@ -257,35 +257,26 @@ class QuoteTest extends TestCase {
                 query quote($id: ID!) {
                     quote(id: $id) {
                         notes {
-                            data{
+                            id
+                            note
+                            pinned
+                            created_at
+                            updated_at
+                            user_id
+                            user {
                                 id
-                                note
-                                pinned
-                                created_at
-                                updated_at
-                                user_id
-                                user {
-                                    id
-                                    family_name
-                                    given_name
-                                }
-                                files {
-                                    id
-                                    name
-                                    url
-                                    size
-                                }
+                                family_name
+                                given_name
                             }
-                            paginatorInfo {
-                                count
-                                currentPage
-                                firstItem
-                                hasMorePages
-                                lastItem
-                                lastPage
-                                perPage
-                                total
+                            files {
+                                id
+                                name
+                                url
+                                size
                             }
+                        }
+                        notesAggregated {
+                            count
                         }
                     }
                 }
@@ -728,40 +719,31 @@ class QuoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('quote', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
-                            'notes' => [
-                                'data'          => [
-                                    [
-                                        'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                        'note'       => 'Note',
-                                        'pinned'     => true,
-                                        'created_at' => '2021-07-11T23:27:47+00:00',
-                                        'updated_at' => '2021-07-11T23:27:47+00:00',
-                                        'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
-                                        'user'       => [
-                                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
-                                            'given_name'  => 'first',
-                                            'family_name' => 'last',
-                                        ],
-                                        'files'      => [
-                                            [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
-                                                'name' => 'document',
-                                                'size' => 100,
-                                                'url'  => $url,
-                                            ],
+                            'notes'           => [
+                                [
+                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'       => 'Note',
+                                    'pinned'     => true,
+                                    'created_at' => '2021-07-11T23:27:47+00:00',
+                                    'updated_at' => '2021-07-11T23:27:47+00:00',
+                                    'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                    'user'       => [
+                                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                        'given_name'  => 'first',
+                                        'family_name' => 'last',
+                                    ],
+                                    'files'      => [
+                                        [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
+                                            'name' => 'document',
+                                            'size' => 100,
+                                            'url'  => $url,
                                         ],
                                     ],
                                 ],
-                                'paginatorInfo' => [
-                                    'count'        => 1,
-                                    'currentPage'  => 1,
-                                    'firstItem'    => 1,
-                                    'hasMorePages' => false,
-                                    'lastItem'     => 1,
-                                    'lastPage'     => 1,
-                                    'perPage'      => 25,
-                                    'total'        => 1,
-                                ],
+                            ],
+                            'notesAggregated' => [
+                                'count' => 1,
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): Document {

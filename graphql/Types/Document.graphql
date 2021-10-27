@@ -35,7 +35,8 @@ type Document {
     where: NotesQuery @searchBy
     order: NotesSort @sortBy
   ): [Note!]!
-  @hasMany(type: PAGINATOR)
+  @hasMany
+  @paginatedRelation
 
   changed_at: DateTime
   synced_at: DateTime!

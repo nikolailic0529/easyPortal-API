@@ -1,0 +1,22 @@
+type Query {
+  value: String! @organization @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
+  root: String! @organization(root: true) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+}
+
+"""
+Description.
+"""
+type Test @organization {
+  one: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
+  two: String! @organization @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
+  root: String! @organization(root: true) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+}
+
+extend type Test @organization {
+  extension: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
+  extensionRoot: String! @organization(root: true) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+}

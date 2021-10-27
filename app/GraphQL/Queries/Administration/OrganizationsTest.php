@@ -38,24 +38,15 @@ class OrganizationsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
                 query {
-                  organizations {
-                    data {
-                      id
-                      name
-                      root
-                      keycloak_scope
+                    organizations {
+                        id
+                        name
+                        root
+                        keycloak_scope
                     }
-                    paginatorInfo {
-                      count
-                      currentPage
-                      firstItem
-                      hasMorePages
-                      lastItem
-                      lastPage
-                      perPage
-                      total
+                    organizationsAggregated {
+                        count
                     }
-                  }
                 }
             ')->assertThat($expected);
     }

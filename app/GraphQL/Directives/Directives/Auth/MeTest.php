@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives;
+namespace App\GraphQL\Directives\Directives\Auth;
 
+use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\Auth\Auth;
@@ -24,7 +25,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Me
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Me
  */
 class MeTest extends TestCase {
     use WithGraphQLSchema;
@@ -74,7 +75,7 @@ class MeTest extends TestCase {
     public function testResolveField(Response $expected, Closure $userFactory): void {
         $this->setUser($userFactory);
 
-        $resolver = addslashes(UserDirectiveTest_Resolver::class);
+        $resolver = addslashes(EmptyResolver::class);
 
         $this
             ->useGraphQLSchema(
@@ -110,7 +111,7 @@ class MeTest extends TestCase {
     ): void {
         $this->setUser($userFactory);
 
-        $resolver    = addslashes(UserDirectiveTest_Resolver::class);
+        $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode($permissions);
 
         $this
@@ -137,7 +138,7 @@ class MeTest extends TestCase {
      * @covers ::getRequirements
      */
     public function testGetRequirements(): void {
-        $resolver    = addslashes(UserDirectiveTest_Resolver::class);
+        $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode(['a', 'unknown']);
 
         $this->expectExceptionObject(new InvalidArgumentException(sprintf(
@@ -228,17 +229,4 @@ class MeTest extends TestCase {
         ];
     }
     // </editor-fold>
-}
-
-// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
-// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
-
-/**
- * @internal
- * @noinspection PhpMultipleClassesDeclarationsInOneFile
- */
-class UserDirectiveTest_Resolver {
-    public function __invoke(): string {
-        return __FUNCTION__;
-    }
 }

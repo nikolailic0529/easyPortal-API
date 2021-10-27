@@ -6,7 +6,7 @@ extend type Query {
   ): [Organization!]!
   @organization(root: true)
   @me(permissions: ["administer"])
-  @paginate
+  @paginated
 
   "Organization."
   organization(id: ID! @eq): Organization
@@ -21,7 +21,7 @@ extend type Query {
   ): [Audit!]!
   @organization(root: true)
   @me(permissions: ["administer"])
-  @paginate(
+  @paginated(
     model: "App\\Models\\Audits\\Audit"
   )
 
@@ -33,5 +33,5 @@ extend type Query {
   @organization(root: true)
   @me(permissions: ["administer"])
   @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
-  @paginate
+  @paginated
 }

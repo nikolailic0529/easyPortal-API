@@ -49,7 +49,7 @@ abstract class GraphQLResponse extends Response {
         JsonFragmentSchema|string|null $schema,
     ): JsonFragmentSchema|string|null {
         if ($schema instanceof JsonFragmentSchema) {
-            $schema = (clone $schema)->setPath("{$prefix}.{$schema->getPath()}");
+            $schema = (clone $schema)->setPath($schema->getPath() ? "{$prefix}.{$schema->getPath()}" : $prefix);
         }
 
         return $schema;

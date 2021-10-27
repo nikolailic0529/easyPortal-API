@@ -2,6 +2,7 @@
 
 namespace App\Services\Search\Builders;
 
+use App\Models\Customer;
 use App\Services\Search\Configuration;
 use App\Services\Search\Scope;
 use App\Services\Search\Scope as SearchScope;
@@ -12,7 +13,10 @@ use InvalidArgumentException;
 use Mockery;
 use stdClass;
 use Tests\TestCase;
+use Tests\WithoutOrganizationScope;
+use Tests\WithSearch;
 
+use function count;
 use function sprintf;
 
 /**
@@ -20,6 +24,9 @@ use function sprintf;
  * @coversDefaultClass \App\Services\Search\Builders\Builder
  */
 class BuilderTest extends TestCase {
+    use WithoutOrganizationScope;
+    use WithSearch;
+
     /**
      * @covers ::__construct
      */
@@ -59,8 +66,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadata('test', 'value');
-
+        $this->assertSame($builder, $builder->whereMetadata('test', 'value'));
         $this->assertEquals([
             Configuration::getMetadataName('test') => 'value',
         ], $builder->wheres);
@@ -77,8 +83,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadataIn('test', ['a', 'b', 'c']);
-
+        $this->assertSame($builder, $builder->whereMetadataIn('test', ['a', 'b', 'c']));
         $this->assertEquals([
             Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereIns);
@@ -95,8 +100,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadataNotIn('test', ['a', 'b', 'c']);
-
+        $this->assertSame($builder, $builder->whereMetadataNotIn('test', ['a', 'b', 'c']));
         $this->assertEquals([
             Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
@@ -113,8 +117,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereNotIn('test', ['a', 'b', 'c']);
-
+        $this->assertSame($builder, $builder->whereNotIn('test', ['a', 'b', 'c']));
         $this->assertEquals([
             'test' => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
@@ -131,11 +134,25 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereNot('test', 'value');
-
+        $this->assertSame($builder, $builder->whereNot('test', 'value'));
         $this->assertEquals([
             'test' => 'value',
         ], $builder->whereNots);
+    }
+
+    /**
+     * @covers ::offset
+     */
+    public function testOffset(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $this->assertSame($builder, $builder->offset(123));
+        $this->assertEquals(123, $builder->offset);
     }
 
     /**
@@ -177,5 +194,14 @@ class BuilderTest extends TestCase {
         )));
 
         $builder->applyScope(stdClass::class);
+    }
+
+    /**
+     * @covers ::count
+     */
+    public function testCount(): void {
+        $models = $this->makeSearchable(Customer::factory()->count(3)->make());
+
+        $this->assertEquals(count($models), Customer::search('*')->count());
     }
 }

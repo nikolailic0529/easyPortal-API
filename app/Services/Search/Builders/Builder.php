@@ -28,6 +28,11 @@ class Builder extends ScoutBuilder {
      */
     public array $whereNotIns = [];
 
+    /**
+     * The "offset" constraint added to the query.
+     */
+    public ?int $offset = null;
+
     public function __construct(
         protected Container $container,
         Model $model,
@@ -101,5 +106,15 @@ class Builder extends ScoutBuilder {
      */
     public function whereMetadataNotIn(string $field, array $values): static {
         return $this->whereNotIn(Configuration::getMetadataName($field), $values);
+    }
+
+    public function offset(?int $offset): static {
+        $this->offset = $offset;
+
+        return $this;
+    }
+
+    public function count(): int {
+        return $this->getTotalCount((clone $this)->take(1)->raw());
     }
 }

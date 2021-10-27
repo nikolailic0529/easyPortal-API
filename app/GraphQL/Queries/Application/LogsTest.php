@@ -13,7 +13,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 
@@ -44,29 +43,20 @@ class LogsTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '{
                 application {
                     logs(where: { category: { equal: "Queue" } }) {
-                        data {
-                            id
-                            category
-                            action
-                            status
-                            object_type
-                            object_id
-                            duration
-                            created_at
-                            finished_at
-                            statistics
-                            context
-                        }
-                        paginatorInfo {
-                            count
-                            currentPage
-                            firstItem
-                            hasMorePages
-                            lastItem
-                            lastPage
-                            perPage
-                            total
-                        }
+                        id
+                        category
+                        action
+                        status
+                        object_type
+                        object_id
+                        duration
+                        created_at
+                        finished_at
+                        statistics
+                        context
+                    }
+                    logsAggregated(where: { category: { equal: "Queue" } }) {
+                        count
                     }
                 }
             }')
@@ -88,8 +78,8 @@ class LogsTest extends TestCase {
                     new GraphQLSuccess(
                         'application',
                         new JsonFragmentPaginatedSchema('logs', self::class),
-                        new JsonFragment('logs', [
-                            'data'          => [
+                        [
+                            'logs'           => [
                                 [
                                     'id'          => '2cc07e2a-a482-4814-9697-314c0cec4e23',
                                     'category'    => 'Queue',
@@ -104,17 +94,10 @@ class LogsTest extends TestCase {
                                     'context'     => '{"Log":{"total":{"levels":1},"levels":{"notice":1}}}',
                                 ],
                             ],
-                            'paginatorInfo' => [
-                                'count'        => 1,
-                                'currentPage'  => 1,
-                                'firstItem'    => 1,
-                                'hasMorePages' => false,
-                                'lastItem'     => 1,
-                                'lastPage'     => 1,
-                                'perPage'      => 25,
-                                'total'        => 1,
+                            'logsAggregated' => [
+                                'count' => 1,
                             ],
-                        ]),
+                        ],
                     ),
                     static function (TestCase $test): void {
                         Log::factory()->create([

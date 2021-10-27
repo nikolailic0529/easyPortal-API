@@ -23,7 +23,7 @@ extend type Query {
   @organization
   @me(permissions: ["quotes-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
-  @paginate
+  @paginated
 
   "Quote."
   quote(id: ID! @eq): Document
@@ -41,5 +41,5 @@ extend type Query {
   ): [Document!]!
   @organization
   @me(permissions: ["quotes-view", "customers-view"])
-  @paginate
+  @paginated
 }
