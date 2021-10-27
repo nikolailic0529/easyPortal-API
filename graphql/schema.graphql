@@ -28,7 +28,7 @@ type Query {
   ): [SearchResult!]!
   @organization
   @me(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
-  @paginate(
+  @paginated(
     builder: "App\\GraphQL\\Queries\\Search@builder"
   )
 

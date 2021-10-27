@@ -262,15 +262,6 @@ type AssetMutations {
   sync(input: [AssetSyncInput!]!): AssetSyncPayload
 }
 
-"""A paginated list of Asset items."""
-type AssetPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Asset items."""
-  data: [Asset!]!
-}
-
 input AssetStatusesQuery {
   assets: AssetsQuery
 }
@@ -762,15 +753,6 @@ type CustomerMutations {
   sync(input: [CustomerSyncInput!]!): CustomerSyncPayload
 }
 
-"""A paginated list of Customer items."""
-type CustomerPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Customer items."""
-  data: [Customer!]!
-}
-
 input CustomerStatusesQuery {
   customers: CustomersQuery
 }
@@ -1022,15 +1004,6 @@ type DocumentEntry {
   currency: Currency
   asset_id: ID!
   asset: Asset!
-}
-
-"""A paginated list of Document items."""
-type DocumentPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Document items."""
-  data: [Document!]!
 }
 
 input DocumentStatusesQuery {
@@ -1973,6 +1946,20 @@ type Query {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
+  @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
+  User must be authenticated and have any of these permissions.
+  """
+  search(
+    search: SearchString!
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [SearchResult!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
   map(
@@ -2115,6 +2102,20 @@ type Query {
   assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsSearch(
+    search: SearchString!
+    order: [SortByClauseAssetsSearchSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Asset!]!
+
+  """
   List of all possible contract types.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2154,6 +2155,20 @@ type Query {
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsSearch(
+    search: String!
+    order: [SortByClauseDocumentsSearchSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Document!]!
 
   """
   Contract.
@@ -2204,6 +2219,20 @@ type Query {
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
   customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersSearch(
+    search: SearchString!
+    order: [SortByClauseCustomersSearchSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Customer!]!
 
   """
   Customer.
@@ -2405,18 +2434,24 @@ type Query {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quotesSearch(
+    search: String!
+    order: [SortByClauseDocumentsSearchSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Document!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
   User must be authenticated and have any of these permissions.
   """
-  search(
-    search: SearchString!
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): SearchResultPaginator!
+  searchAggregated(search: SearchString!): SearchResultsAggregated
 
   """
   List of all organizations.
@@ -2459,16 +2494,7 @@ type Query {
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assetsSearch(
-    search: SearchString!
-    order: [SortByClauseAssetsSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): AssetPaginator!
+  assetsSearchAggregated(search: SearchString!): AssetsAggregated
 
   """
   List of all contracts.
@@ -2484,16 +2510,7 @@ type Query {
   
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  contractsSearch(
-    search: String!
-    order: [SortByClauseDocumentsSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator!
+  contractsSearchAggregated(search: String!): DocumentsAggregated
 
   """
   List of Customers.
@@ -2509,16 +2526,7 @@ type Query {
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
-  customersSearch(
-    search: SearchString!
-    order: [SortByClauseCustomersSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): CustomerPaginator!
+  customersSearchAggregated(search: SearchString!): CustomersAggregated
 
   """
   List of all documents.
@@ -2544,16 +2552,7 @@ type Query {
   
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  quotesSearch(
-    search: String!
-    order: [SortByClauseDocumentsSearchSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator!
+  quotesSearchAggregated(search: String!): DocumentsAggregated
 }
 
 type QuoteMutations {
@@ -4987,13 +4986,9 @@ input SearchByTypeRangeInt {
 
 union SearchResult = Customer | Asset | Document
 
-"""A paginated list of SearchResult items."""
-type SearchResultPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of SearchResult items."""
-  data: [SearchResult!]!
+"""Aggregated data for union SearchResult."""
+type SearchResultsAggregated {
+  count: Int!
 }
 
 """

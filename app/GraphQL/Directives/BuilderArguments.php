@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
+use Laravel\Scout\Builder as ScoutBuilder;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_filter;
@@ -42,7 +43,7 @@ trait BuilderArguments {
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-    ): EloquentBuilder|QueryBuilder {
+    ): EloquentBuilder|QueryBuilder|ScoutBuilder {
         if (!$this->allowGuessBuilder()) {
             $required  = ['builder', 'model', 'relation'];
             $arguments = array_filter($required, function (string $argument): bool {

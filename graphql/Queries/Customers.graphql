@@ -37,7 +37,7 @@ extend type Query {
   ): [Customer!]!
   @organization
   @me(permissions: ["customers-view"])
-  @paginate
+  @paginated
 
   "Customer."
   customer(id: ID! @eq): Customer

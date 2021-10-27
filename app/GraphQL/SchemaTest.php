@@ -31,7 +31,7 @@ class SchemaTest extends TestCase {
 
         if (!$regexp) {
             $name   = preg_quote($directive, '/');
-            $regexp = "/(^|\s+|){$name}(^|\s+|)/ui";
+            $regexp = "/(^|\s+){$name}(^|\s+)/ui";
         }
 
         $finder = Finder::create()->in($path)->files()->contains($regexp)->sortByName();
@@ -67,6 +67,7 @@ class SchemaTest extends TestCase {
             ['@globalId', null, null],
             ['@trim', null, null],
             ['@rename', null, null],
+            ['@paginate', '@paginated', null],
             ['@hasMany(type: xxx)', '@hasMany @paginatedRelation', '/@hasMany\(.*?type:.*?\)/ui'],
             ['@belongsToMany(type: xxx)', '@belongsToMany @paginatedRelation', '/@belongsToMany\(.*?type:.*?\)/ui'],
             ['@morphMany(type: xxx)', '@morphMany @paginatedRelation', '/@morphMany\(.*?type:.*?\)/ui'],

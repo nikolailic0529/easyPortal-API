@@ -41,5 +41,5 @@ extend type Query {
   ): [Document!]!
   @organization
   @me(permissions: ["quotes-view", "customers-view"])
-  @paginate
+  @paginated
 }

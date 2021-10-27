@@ -22,6 +22,7 @@ use Tests\TestCase;
 use Tests\WithSearch;
 
 use function array_values;
+use function count;
 
 /**
  * @internal
@@ -66,28 +67,19 @@ class SearchTest extends TestCase {
                 <<<'GRAPHQL'
                 query search($search: SearchString!) {
                     search(search: $search) {
-                        data {
-                            __typename
-                            ... on Asset {
-                                id
-                            }
-                            ... on Customer {
-                                id
-                            }
-                            ... on Document {
-                                id
-                            }
+                        __typename
+                        ... on Asset {
+                            id
                         }
-                        paginatorInfo {
-                            count
-                            currentPage
-                            firstItem
-                            hasMorePages
-                            lastItem
-                            lastPage
-                            perPage
-                            total
+                        ... on Customer {
+                            id
                         }
+                        ... on Document {
+                            id
+                        }
+                    }
+                    searchAggregated(search: $search) {
+                        count
                     }
                 }
                 GRAPHQL,
@@ -237,31 +229,41 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLPaginated('search', self::class, array_values($objects)),
+                        new GraphQLPaginated('search', self::class, array_values($objects), [
+                            'count' => count($objects),
+                        ]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLPaginated('search', self::class, [$objects['Customer']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Customer']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Quote',
@@ -275,31 +277,41 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLPaginated('search', self::class, array_values($objects)),
+                        new GraphQLPaginated('search', self::class, array_values($objects), [
+                            'count' => count($objects),
+                        ]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLPaginated('search', self::class, [$objects['Customer']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Customer']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Quote',
@@ -313,31 +325,41 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Quote',
@@ -351,31 +373,41 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Quote',
@@ -389,31 +421,41 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']], [
+                            'count' => 1,
+                        ]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLPaginated('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, [], [
+                            'count' => 0,
+                        ]),
                         $settings,
                         $factory,
                         'Quote',
