@@ -189,15 +189,102 @@ class CustomerTest extends TestCase {
                 query customer($id: ID!) {
                     customer(id: $id) {
                         assets {
-                            data {
+                            id
+                            oem_id
+                            product_id
+                            type_id
+                            customer_id
+                            location_id
+                            serial_number
+                            data_quality
+                            customer {
                                 id
+                                name
+                                assets_count
+                                locations_count
+                                locations {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
+                                }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                                changed_at
+                                synced_at
+                            }
+                            oem {
+                                id
+                                key
+                                name
+                            }
+                            product {
+                                id
+                                name
                                 oem_id
-                                product_id
-                                type_id
+                                sku
+                                eol
+                                eos
+                                oem {
+                                    id
+                                    key
+                                    name
+                                }
+                            }
+                            type {
+                                id
+                                name
+                            }
+                            status {
+                              id
+                              name
+                            }
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                latitude
+                                longitude
+                            }
+                            warranty_end
+                            warranties {
+                                id
+                                reseller_id
                                 customer_id
-                                location_id
-                                serial_number
-                                data_quality
+                                document_id
+                                start
+                                end
+                                note
+                                serviceGroup {
+                                    id
+                                    oem_id
+                                    sku
+                                    name
+                                }
+                                serviceLevels {
+                                    id
+                                    oem_id
+                                    service_group_id
+                                    sku
+                                    name
+                                    description
+                                }
                                 customer {
                                     id
                                     name
@@ -228,149 +315,53 @@ class CustomerTest extends TestCase {
                                     changed_at
                                     synced_at
                                 }
-                                oem {
-                                    id
-                                    key
-                                    name
-                                }
-                                product {
+                                reseller {
                                     id
                                     name
-                                    oem_id
-                                    sku
-                                    eol
-                                    eos
-                                    oem {
-                                        id
-                                        key
-                                        name
-                                    }
-                                }
-                                type {
-                                    id
-                                    name
-                                }
-                                status {
-                                  id
-                                  name
-                                }
-                                location {
-                                    id
-                                    state
-                                    postcode
-                                    line_one
-                                    line_two
-                                    latitude
-                                    longitude
-                                }
-                                warranty_end
-                                warranties {
-                                    id
-                                    reseller_id
-                                    customer_id
-                                    document_id
-                                    start
-                                    end
-                                    note
-                                    serviceGroup {
-                                        id
-                                        oem_id
-                                        sku
-                                        name
-                                    }
-                                    serviceLevels {
-                                        id
-                                        oem_id
-                                        service_group_id
-                                        sku
-                                        name
-                                        description
-                                    }
-                                    customer {
-                                        id
-                                        name
-                                        assets_count
-                                        locations_count
-                                        locations {
-                                            location_id
-                                            location {
-                                                id
-                                                state
-                                                postcode
-                                                line_one
-                                                line_two
-                                                latitude
-                                                longitude
-                                            }
-                                            types {
-                                                id
-                                                name
-                                            }
+                                    customers_count
+                                    locations_count
+                                    assets_count
+                                    locations {
+                                        location_id
+                                        location {
+                                            id
+                                            state
+                                            postcode
+                                            line_one
+                                            line_two
+                                            latitude
+                                            longitude
                                         }
-                                        contacts_count
-                                        contacts {
+                                        types {
+                                            id
                                             name
-                                            email
-                                            phone_valid
-                                        }
-                                        changed_at
-                                        synced_at
-                                    }
-                                    reseller {
-                                        id
-                                        name
-                                        customers_count
-                                        locations_count
-                                        assets_count
-                                        locations {
-                                            location_id
-                                            location {
-                                                id
-                                                state
-                                                postcode
-                                                line_one
-                                                line_two
-                                                latitude
-                                                longitude
-                                            }
-                                            types {
-                                                id
-                                                name
-                                            }
                                         }
                                     }
                                 }
-                                contacts_count
-                                contacts {
-                                    name
-                                    email
-                                    phone_valid
-                                }
-                                status {
-                                    id
-                                    name
-                                }
-                                coverages {
-                                    id
-                                    name
-                                }
-                                tags {
-                                    id
-                                    name
-                                }
-                                changed_at
-                                synced_at
                             }
-                            paginatorInfo {
-                                count
-                                currentPage
-                                firstItem
-                                hasMorePages
-                                lastItem
-                                lastPage
-                                perPage
-                                total
+                            contacts_count
+                            contacts {
+                                name
+                                email
+                                phone_valid
                             }
+                            status {
+                                id
+                                name
+                            }
+                            coverages {
+                                id
+                                name
+                            }
+                            tags {
+                                id
+                                name
+                            }
+                            changed_at
+                            synced_at
+                        }
+                        assetsAggregated {
+                            count
                         }
                     }
                 }
@@ -414,169 +405,160 @@ class CustomerTest extends TestCase {
                 query customer($id: ID!) {
                     customer(id: $id) {
                         contracts {
-                            data {
+                            id
+                            oem_id
+                            type_id
+                            is_contract
+                            is_quote
+                            customer_id
+                            reseller_id
+                            number
+                            price
+                            start
+                            end
+                            currency_id
+                            language_id
+                            distributor_id
+                            oem {
                                 id
-                                oem_id
-                                type_id
-                                is_contract
-                                is_quote
-                                customer_id
-                                reseller_id
-                                number
-                                price
-                                start
-                                end
-                                currency_id
-                                language_id
-                                distributor_id
-                                oem {
-                                    id
-                                    key
-                                    name
-                                }
-                                oem_said
-                                oemGroup {
-                                    id
-                                    key
-                                    name
-                                }
-                                type {
-                                    id
-                                    name
-                                }
-                                statuses {
-                                    id
-                                    name
-                                }
-                                customer {
-                                    id
-                                    name
-                                    assets_count
-                                    contacts_count
-                                    locations_count
-                                    locations {
-                                        location_id
-                                        location {
-                                            id
-                                            state
-                                            postcode
-                                            line_one
-                                            line_two
-                                            latitude
-                                            longitude
-                                        }
-                                        types {
-                                            id
-                                            name
-                                        }
+                                key
+                                name
+                            }
+                            oem_said
+                            oemGroup {
+                                id
+                                key
+                                name
+                            }
+                            type {
+                                id
+                                name
+                            }
+                            statuses {
+                                id
+                                name
+                            }
+                            customer {
+                                id
+                                name
+                                assets_count
+                                contacts_count
+                                locations_count
+                                locations {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
                                     }
-                                    contacts {
-                                        name
-                                        email
-                                        phone_valid
-                                    }
-                                    changed_at
-                                    synced_at
-                                }
-                                reseller {
-                                    id
-                                    name
-                                    customers_count
-                                    locations_count
-                                    assets_count
-                                    locations {
-                                        location_id
-                                        location {
-                                            id
-                                            state
-                                            postcode
-                                            line_one
-                                            line_two
-                                            latitude
-                                            longitude
-                                        }
-                                        types {
-                                            id
-                                            name
-                                        }
-                                    }
-                                }
-                                currency {
-                                    id
-                                    name
-                                    code
-                                }
-                                entries {
-                                    id
-                                    document_id
-                                    service_level_id
-                                    net_price
-                                    list_price
-                                    discount
-                                    renewal
-                                    serial_number
-                                    product_id
-                                    product {
+                                    types {
                                         id
                                         name
-                                        oem_id
-                                        sku
-                                        eol
-                                        eos
-                                        oem {
-                                            id
-                                            key
-                                            name
-                                        }
                                     }
-                                    service_group_id
-                                    serviceGroup {
-                                        id
-                                        oem_id
-                                        sku
-                                        name
-                                    }
-                                    serviceLevel {
-                                        id
-                                        oem_id
-                                        service_group_id
-                                        sku
-                                        name
-                                        description
-                                    }
-                                    asset_id
-                                    asset {
-                                        id
-                                    }
-                                }
-                                language {
-                                    id
-                                    name
-                                    code
                                 }
                                 contacts {
                                     name
                                     email
                                     phone_valid
                                 }
-                                distributor {
-                                    id
-                                    name
-                                }
-                                assets_count
                                 changed_at
                                 synced_at
                             }
-                            paginatorInfo {
-                                count
-                                currentPage
-                                firstItem
-                                hasMorePages
-                                lastItem
-                                lastPage
-                                perPage
-                                total
+                            reseller {
+                                id
+                                name
+                                customers_count
+                                locations_count
+                                assets_count
+                                locations {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
+                                }
                             }
+                            currency {
+                                id
+                                name
+                                code
+                            }
+                            entries {
+                                id
+                                document_id
+                                service_level_id
+                                net_price
+                                list_price
+                                discount
+                                renewal
+                                serial_number
+                                product_id
+                                product {
+                                    id
+                                    name
+                                    oem_id
+                                    sku
+                                    eol
+                                    eos
+                                    oem {
+                                        id
+                                        key
+                                        name
+                                    }
+                                }
+                                service_group_id
+                                serviceGroup {
+                                    id
+                                    oem_id
+                                    sku
+                                    name
+                                }
+                                serviceLevel {
+                                    id
+                                    oem_id
+                                    service_group_id
+                                    sku
+                                    name
+                                    description
+                                }
+                                asset_id
+                                asset {
+                                    id
+                                }
+                            }
+                            language {
+                                id
+                                name
+                                code
+                            }
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
+                            distributor {
+                                id
+                                name
+                            }
+                            assets_count
+                            changed_at
+                            synced_at
+                        }
+                        contractsAggregated {
+                            count
                         }
                     }
                 }
@@ -620,169 +602,160 @@ class CustomerTest extends TestCase {
                 query customer($id: ID!) {
                     customer(id: $id) {
                         quotes {
-                            data {
+                            id
+                            oem_id
+                            type_id
+                            is_contract
+                            is_quote
+                            customer_id
+                            reseller_id
+                            number
+                            price
+                            start
+                            end
+                            currency_id
+                            language_id
+                            distributor_id
+                            oem {
                                 id
-                                oem_id
-                                type_id
-                                is_contract
-                                is_quote
-                                customer_id
-                                reseller_id
-                                number
-                                price
-                                start
-                                end
-                                currency_id
-                                language_id
-                                distributor_id
-                                oem {
-                                    id
-                                    key
-                                    name
-                                }
-                                oem_said
-                                oemGroup {
-                                    id
-                                    key
-                                    name
-                                }
-                                type {
-                                    id
-                                    name
-                                }
-                                statuses {
-                                    id
-                                    name
-                                }
-                                customer {
-                                    id
-                                    name
-                                    assets_count
-                                    contacts_count
-                                    locations_count
-                                    locations {
-                                        location_id
-                                        location {
-                                            id
-                                            state
-                                            postcode
-                                            line_one
-                                            line_two
-                                            latitude
-                                            longitude
-                                        }
-                                        types {
-                                            id
-                                            name
-                                        }
+                                key
+                                name
+                            }
+                            oem_said
+                            oemGroup {
+                                id
+                                key
+                                name
+                            }
+                            type {
+                                id
+                                name
+                            }
+                            statuses {
+                                id
+                                name
+                            }
+                            customer {
+                                id
+                                name
+                                assets_count
+                                contacts_count
+                                locations_count
+                                locations {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
                                     }
-                                    contacts {
-                                        name
-                                        email
-                                        phone_valid
-                                    }
-                                    changed_at
-                                    synced_at
-                                }
-                                reseller {
-                                    id
-                                    name
-                                    customers_count
-                                    locations_count
-                                    assets_count
-                                    locations {
-                                        location_id
-                                        location {
-                                            id
-                                            state
-                                            postcode
-                                            line_one
-                                            line_two
-                                            latitude
-                                            longitude
-                                        }
-                                        types {
-                                            id
-                                            name
-                                        }
-                                    }
-                                }
-                                currency {
-                                    id
-                                    name
-                                    code
-                                }
-                                entries {
-                                    id
-                                    document_id
-                                    service_level_id
-                                    net_price
-                                    list_price
-                                    discount
-                                    renewal
-                                    serial_number
-                                    product_id
-                                    product {
+                                    types {
                                         id
                                         name
-                                        oem_id
-                                        sku
-                                        eol
-                                        eos
-                                        oem {
-                                            id
-                                            key
-                                            name
-                                        }
                                     }
-                                    service_group_id
-                                    serviceGroup {
-                                        id
-                                        oem_id
-                                        sku
-                                        name
-                                    }
-                                    serviceLevel {
-                                        id
-                                        oem_id
-                                        service_group_id
-                                        sku
-                                        name
-                                        description
-                                    }
-                                    asset_id
-                                    asset {
-                                        id
-                                    }
-                                }
-                                language {
-                                    id
-                                    name
-                                    code
                                 }
                                 contacts {
                                     name
                                     email
                                     phone_valid
                                 }
-                                distributor {
-                                    id
-                                    name
-                                }
-                                assets_count
                                 changed_at
                                 synced_at
                             }
-                            paginatorInfo {
-                                count
-                                currentPage
-                                firstItem
-                                hasMorePages
-                                lastItem
-                                lastPage
-                                perPage
-                                total
+                            reseller {
+                                id
+                                name
+                                customers_count
+                                locations_count
+                                assets_count
+                                locations {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
+                                }
                             }
+                            currency {
+                                id
+                                name
+                                code
+                            }
+                            entries {
+                                id
+                                document_id
+                                service_level_id
+                                net_price
+                                list_price
+                                discount
+                                renewal
+                                serial_number
+                                product_id
+                                product {
+                                    id
+                                    name
+                                    oem_id
+                                    sku
+                                    eol
+                                    eos
+                                    oem {
+                                        id
+                                        key
+                                        name
+                                    }
+                                }
+                                service_group_id
+                                serviceGroup {
+                                    id
+                                    oem_id
+                                    sku
+                                    name
+                                }
+                                serviceLevel {
+                                    id
+                                    oem_id
+                                    service_group_id
+                                    sku
+                                    name
+                                    description
+                                }
+                                asset_id
+                                asset {
+                                    id
+                                }
+                            }
+                            language {
+                                id
+                                name
+                                code
+                            }
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
+                            distributor {
+                                id
+                                name
+                            }
+                            assets_count
+                            changed_at
+                            synced_at
+                        }
+                        quotesAggregated {
+                            count
                         }
                     }
                 }
@@ -927,198 +900,189 @@ class CustomerTest extends TestCase {
                 new ArrayDataProvider([
                     'ok'          => [
                         new GraphQLSuccess('customer', new JsonFragmentPaginatedSchema('assets', AssetTest::class), [
-                            'assets' => [
-                                'data'          => [
-                                    [
-                                        'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                        'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'product_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                        'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                                        'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                        'serial_number'  => '#PRODUCT_SERIAL_323',
-                                        'data_quality'   => '130',
-                                        'contacts_count' => 1,
-                                        'customer'       => [
-                                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                            'name'            => 'name aaa',
-                                            'assets_count'    => 0,
-                                            'locations_count' => 1,
-                                            'locations'       => [
-                                                [
-                                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                    'location'    => [
-                                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                        'state'     => 'state1',
-                                                        'postcode'  => '19911',
-                                                        'line_one'  => 'line_one_data',
-                                                        'line_two'  => 'line_two_data',
-                                                        'latitude'  => 47.91634204,
-                                                        'longitude' => -2.26318359,
-                                                    ],
-                                                    'types'       => [],
+                            'assets'           => [
+                                [
+                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'product_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                    'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                    'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'serial_number'  => '#PRODUCT_SERIAL_323',
+                                    'data_quality'   => '130',
+                                    'contacts_count' => 1,
+                                    'customer'       => [
+                                        'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'name'            => 'name aaa',
+                                        'assets_count'    => 0,
+                                        'locations_count' => 1,
+                                        'locations'       => [
+                                            [
+                                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                'location'    => [
+                                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                    'state'     => 'state1',
+                                                    'postcode'  => '19911',
+                                                    'line_one'  => 'line_one_data',
+                                                    'line_two'  => 'line_two_data',
+                                                    'latitude'  => 47.91634204,
+                                                    'longitude' => -2.26318359,
                                                 ],
+                                                'types'       => [],
                                             ],
-                                            'contacts_count'  => 1,
-                                            'contacts'        => [
-                                                [
-                                                    'name'        => 'contact1',
-                                                    'email'       => 'contact1@test.com',
-                                                    'phone_valid' => false,
-                                                ],
-                                            ],
-                                            'changed_at'      => '2021-10-19T10:15:00+00:00',
-                                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                                         ],
-                                        'oem'            => [
+                                        'contacts_count'  => 1,
+                                        'contacts'        => [
+                                            [
+                                                'name'        => 'contact1',
+                                                'email'       => 'contact1@test.com',
+                                                'phone_valid' => false,
+                                            ],
+                                        ],
+                                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'       => '2021-10-19T10:25:00+00:00',
+                                    ],
+                                    'oem'            => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'key'  => 'key',
+                                        'name' => 'oem1',
+                                    ],
+                                    'type'           => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                        'name' => 'name aaa',
+                                    ],
+                                    'product'        => [
+                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                        'name'   => 'Product1',
+                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'sku'    => 'SKU#123',
+                                        'eol'    => '2022-12-30',
+                                        'eos'    => '2022-01-01',
+                                        'oem'    => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                             'key'  => 'key',
                                             'name' => 'oem1',
                                         ],
-                                        'type'           => [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                                            'name' => 'name aaa',
-                                        ],
-                                        'product'        => [
-                                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                            'name'   => 'Product1',
-                                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'sku'    => 'SKU#123',
-                                            'eol'    => '2022-12-30',
-                                            'eos'    => '2022-01-01',
-                                            'oem'    => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'key'  => 'key',
-                                                'name' => 'oem1',
-                                            ],
-                                        ],
-                                        'location'       => [
-                                            'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                            'state'     => 'state1',
-                                            'postcode'  => '19911',
-                                            'line_one'  => 'line_one_data',
-                                            'line_two'  => 'line_two_data',
-                                            'latitude'  => 47.91634204,
-                                            'longitude' => -2.26318359,
-                                        ],
-                                        'warranty_end'   => '2021-01-01',
-                                        'warranties'     => [
-                                            [
-                                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                                'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                                'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                                'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                                'start'         => '2021-01-01',
-                                                'end'           => '2022-01-01',
-                                                'note'          => 'note',
-                                                'customer'      => [
-                                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                                    'name'            => 'name aaa',
-                                                    'assets_count'    => 0,
-                                                    'locations_count' => 1,
-                                                    'locations'       => [
-                                                        [
-                                                            'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                            'location'    => [
-                                                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                                'state'     => 'state1',
-                                                                'postcode'  => '19911',
-                                                                'line_one'  => 'line_one_data',
-                                                                'line_two'  => 'line_two_data',
-                                                                'latitude'  => 47.91634204,
-                                                                'longitude' => -2.26318359,
-                                                            ],
-                                                            'types'       => [],
-                                                        ],
-                                                    ],
-                                                    'contacts_count'  => 1,
-                                                    'contacts'        => [
-                                                        [
-                                                            'name'        => 'contact1',
-                                                            'email'       => 'contact1@test.com',
-                                                            'phone_valid' => false,
-                                                        ],
-                                                    ],
-                                                    'changed_at'      => '2021-10-19T10:15:00+00:00',
-                                                    'synced_at'       => '2021-10-19T10:25:00+00:00',
-                                                ],
-                                                'serviceLevels' => [
-                                                    [
-                                                        'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                                        'name'             => 'Level',
-                                                        'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                                        'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                        'sku'              => 'SKU#123',
-                                                        'description'      => 'description',
-                                                    ],
-                                                ],
-                                                'serviceGroup'  => [
-                                                    'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                                    'name'   => 'Group',
-                                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                    'sku'    => 'SKU#123',
-                                                ],
-                                                'reseller'      => [
-                                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                                    'name'            => 'reseller1',
-                                                    'customers_count' => 0,
-                                                    'locations_count' => 1,
-                                                    'assets_count'    => 0,
-                                                    'locations'       => [
-                                                        [
-                                                            'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                                            'location'    => [
-                                                                'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                                                'state'     => 'state1',
-                                                                'postcode'  => '19911',
-                                                                'line_one'  => 'line_one_data',
-                                                                'line_two'  => 'line_two_data',
-                                                                'latitude'  => 47.91634204,
-                                                                'longitude' => -2.26318359,
-                                                            ],
-                                                            'types'       => [],
-                                                        ],
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                        'contacts'       => [
-                                            [
-                                                'name'        => 'contact2',
-                                                'email'       => 'contact2@test.com',
-                                                'phone_valid' => false,
-                                            ],
-                                        ],
-                                        'status'         => [
-                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                            'name' => 'active',
-                                        ],
-                                        'coverages'      => [
-                                            [
-                                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
-                                                'name' => 'COVERED_ON_CONTRACT',
-                                            ],
-                                        ],
-                                        'tags'           => [
-                                            [
-                                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
-                                                'name' => 'Software',
-                                            ],
-                                        ],
-                                        'changed_at'     => '2021-10-19T10:15:00+00:00',
-                                        'synced_at'      => '2021-10-19T10:25:00+00:00',
                                     ],
+                                    'location'       => [
+                                        'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                        'state'     => 'state1',
+                                        'postcode'  => '19911',
+                                        'line_one'  => 'line_one_data',
+                                        'line_two'  => 'line_two_data',
+                                        'latitude'  => 47.91634204,
+                                        'longitude' => -2.26318359,
+                                    ],
+                                    'warranty_end'   => '2021-01-01',
+                                    'warranties'     => [
+                                        [
+                                            'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                            'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                            'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                            'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                            'start'         => '2021-01-01',
+                                            'end'           => '2022-01-01',
+                                            'note'          => 'note',
+                                            'customer'      => [
+                                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                                'name'            => 'name aaa',
+                                                'assets_count'    => 0,
+                                                'locations_count' => 1,
+                                                'locations'       => [
+                                                    [
+                                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                        'location'    => [
+                                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                            'state'     => 'state1',
+                                                            'postcode'  => '19911',
+                                                            'line_one'  => 'line_one_data',
+                                                            'line_two'  => 'line_two_data',
+                                                            'latitude'  => 47.91634204,
+                                                            'longitude' => -2.26318359,
+                                                        ],
+                                                        'types'       => [],
+                                                    ],
+                                                ],
+                                                'contacts_count'  => 1,
+                                                'contacts'        => [
+                                                    [
+                                                        'name'        => 'contact1',
+                                                        'email'       => 'contact1@test.com',
+                                                        'phone_valid' => false,
+                                                    ],
+                                                ],
+                                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                                'synced_at'       => '2021-10-19T10:25:00+00:00',
+                                            ],
+                                            'serviceLevels' => [
+                                                [
+                                                    'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                                    'name'             => 'Level',
+                                                    'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                                    'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                    'sku'              => 'SKU#123',
+                                                    'description'      => 'description',
+                                                ],
+                                            ],
+                                            'serviceGroup'  => [
+                                                'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                                'name'   => 'Group',
+                                                'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                'sku'    => 'SKU#123',
+                                            ],
+                                            'reseller'      => [
+                                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                                'name'            => 'reseller1',
+                                                'customers_count' => 0,
+                                                'locations_count' => 1,
+                                                'assets_count'    => 0,
+                                                'locations'       => [
+                                                    [
+                                                        'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                        'location'    => [
+                                                            'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                            'state'     => 'state1',
+                                                            'postcode'  => '19911',
+                                                            'line_one'  => 'line_one_data',
+                                                            'line_two'  => 'line_two_data',
+                                                            'latitude'  => 47.91634204,
+                                                            'longitude' => -2.26318359,
+                                                        ],
+                                                        'types'       => [],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    'contacts'       => [
+                                        [
+                                            'name'        => 'contact2',
+                                            'email'       => 'contact2@test.com',
+                                            'phone_valid' => false,
+                                        ],
+                                    ],
+                                    'status'         => [
+                                        'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                        'name' => 'active',
+                                    ],
+                                    'coverages'      => [
+                                        [
+                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                            'name' => 'COVERED_ON_CONTRACT',
+                                        ],
+                                    ],
+                                    'tags'           => [
+                                        [
+                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
+                                            'name' => 'Software',
+                                        ],
+                                    ],
+                                    'changed_at'     => '2021-10-19T10:15:00+00:00',
+                                    'synced_at'      => '2021-10-19T10:25:00+00:00',
                                 ],
-                                'paginatorInfo' => [
-                                    'count'        => 1,
-                                    'currentPage'  => 1,
-                                    'firstItem'    => 1,
-                                    'hasMorePages' => false,
-                                    'lastItem'     => 1,
-                                    'lastPage'     => 1,
-                                    'perPage'      => 25,
-                                    'total'        => 1,
-                                ],
+                            ],
+                            'assetsAggregated' => [
+                                'count' => 1,
                             ],
                         ]),
                         [
@@ -1551,20 +1515,11 @@ class CustomerTest extends TestCase {
         };
 
         $customerEmptyContract = [
-            'contracts' => [
-                'data'          => [
-                    // empty
-                ],
-                'paginatorInfo' => [
-                    'count'        => 0,
-                    'currentPage'  => 1,
-                    'firstItem'    => null,
-                    'hasMorePages' => false,
-                    'lastItem'     => null,
-                    'lastPage'     => 1,
-                    'perPage'      => 25,
-                    'total'        => 0,
-                ],
+            'contracts'           => [
+                // empty
+            ],
+            'contractsAggregated' => [
+                'count' => 0,
             ],
         ];
 
@@ -1597,174 +1552,165 @@ class CustomerTest extends TestCase {
                             'customer',
                             new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             [
-                                'contracts' => [
-                                    'data'          => [
-                                        [
-                                            'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                            'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                            'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                            'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                            'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
-                                            'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                                            'is_contract'    => true,
-                                            'is_quote'       => false,
-                                            'number'         => '1323',
-                                            'price'          => 100,
-                                            'start'          => '2021-01-01',
-                                            'end'            => '2024-01-01',
-                                            'oem'            => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'key'  => 'key',
-                                                'name' => 'oem1',
+                                'contracts'           => [
+                                    [
+                                        'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                        'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                        'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                        'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
+                                        'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                                        'is_contract'    => true,
+                                        'is_quote'       => false,
+                                        'number'         => '1323',
+                                        'price'          => 100,
+                                        'start'          => '2021-01-01',
+                                        'end'            => '2024-01-01',
+                                        'oem'            => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'key'  => 'key',
+                                            'name' => 'oem1',
+                                        ],
+                                        'oem_said'       => null,
+                                        'oemGroup'       => null,
+                                        'type'           => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                            'name' => 'name aaa',
+                                        ],
+                                        'statuses'       => [
+                                            [
+                                                'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
+                                                'name' => 'status a',
                                             ],
-                                            'oem_said'       => null,
-                                            'oemGroup'       => null,
-                                            'type'           => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                                'name' => 'name aaa',
-                                            ],
-                                            'statuses'       => [
+                                        ],
+                                        'customer'       => [
+                                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                            'name'            => 'name aaa',
+                                            'assets_count'    => 0,
+                                            'locations_count' => 1,
+                                            'locations'       => [
                                                 [
-                                                    'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
-                                                    'name' => 'status a',
-                                                ],
-                                            ],
-                                            'customer'       => [
-                                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                                'name'            => 'name aaa',
-                                                'assets_count'    => 0,
-                                                'locations_count' => 1,
-                                                'locations'       => [
-                                                    [
-                                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                        'location'    => [
-                                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                            'state'     => 'state1',
-                                                            'postcode'  => '19911',
-                                                            'line_one'  => 'line_one_data',
-                                                            'line_two'  => 'line_two_data',
-                                                            'latitude'  => 47.91634204,
-                                                            'longitude' => -2.26318359,
-                                                        ],
-                                                        'types'       => [],
+                                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                    'location'    => [
+                                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                        'state'     => 'state1',
+                                                        'postcode'  => '19911',
+                                                        'line_one'  => 'line_one_data',
+                                                        'line_two'  => 'line_two_data',
+                                                        'latitude'  => 47.91634204,
+                                                        'longitude' => -2.26318359,
                                                     ],
-                                                ],
-                                                'contacts_count'  => 1,
-                                                'contacts'        => [
-                                                    [
-                                                        'name'        => 'contact1',
-                                                        'email'       => 'contact1@test.com',
-                                                        'phone_valid' => false,
-                                                    ],
-                                                ],
-                                                'changed_at'      => '2021-10-19T10:15:00+00:00',
-                                                'synced_at'       => '2021-10-19T10:25:00+00:00',
-                                            ],
-                                            'reseller'       => [
-                                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                                'name'            => 'reseller1',
-                                                'customers_count' => 0,
-                                                'locations_count' => 1,
-                                                'assets_count'    => 0,
-                                                'locations'       => [
-                                                    [
-                                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                        'location'    => [
-                                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                            'state'     => 'state1',
-                                                            'postcode'  => '19911',
-                                                            'line_one'  => 'line_one_data',
-                                                            'line_two'  => 'line_two_data',
-                                                            'latitude'  => 47.91634204,
-                                                            'longitude' => -2.26318359,
-                                                        ],
-                                                        'types'       => [],
-                                                    ],
+                                                    'types'       => [],
                                                 ],
                                             ],
-                                            'currency'       => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                                'name' => 'Currency1',
-                                                'code' => 'CUR',
-                                            ],
-                                            'entries'        => [
+                                            'contacts_count'  => 1,
+                                            'contacts'        => [
                                                 [
-                                                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                                    'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                                    'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                                    'net_price'        => 123,
-                                                    'list_price'       => 67.12,
-                                                    'discount'         => null,
-                                                    'renewal'          => 24.20,
-                                                    'serial_number'    => null,
-                                                    'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                                    'product'          => [
-                                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                                        'name'   => 'Product1',
-                                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                        'sku'    => 'SKU#123',
-                                                        'eol'    => '2022-12-30',
-                                                        'eos'    => '2022-01-01',
-                                                        'oem'    => [
-                                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                            'key'  => 'key',
-                                                            'name' => 'oem1',
-                                                        ],
-                                                    ],
-                                                    'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                                    'serviceGroup'     => [
-                                                        'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                                        'name'   => 'Group',
-                                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                        'sku'    => 'SKU#123',
-                                                    ],
-                                                    'serviceLevel'     => [
-                                                        'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                                        'name'             => 'Level',
-                                                        'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                                        'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                        'sku'              => 'SKU#123',
-                                                        'description'      => 'description',
-                                                    ],
-                                                    'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                                    'asset'            => [
-                                                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                                    ],
-                                                ],
-                                            ],
-                                            'language'       => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
-                                                'name' => 'Lang1',
-                                                'code' => 'en',
-                                            ],
-                                            'contacts'       => [
-                                                [
-                                                    'name'        => 'contact3',
-                                                    'email'       => 'contact3@test.com',
+                                                    'name'        => 'contact1',
+                                                    'email'       => 'contact1@test.com',
                                                     'phone_valid' => false,
                                                 ],
                                             ],
-                                            'distributor'    => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                                                'name' => 'distributor1',
-                                            ],
-                                            'assets_count'   => 1,
-                                            'changed_at'     => '2021-10-19T10:15:00+00:00',
-                                            'synced_at'      => '2021-10-19T10:25:00+00:00',
+                                            'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                                         ],
+                                        'reseller'       => [
+                                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                            'name'            => 'reseller1',
+                                            'customers_count' => 0,
+                                            'locations_count' => 1,
+                                            'assets_count'    => 0,
+                                            'locations'       => [
+                                                [
+                                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                    'location'    => [
+                                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                        'state'     => 'state1',
+                                                        'postcode'  => '19911',
+                                                        'line_one'  => 'line_one_data',
+                                                        'line_two'  => 'line_two_data',
+                                                        'latitude'  => 47.91634204,
+                                                        'longitude' => -2.26318359,
+                                                    ],
+                                                    'types'       => [],
+                                                ],
+                                            ],
+                                        ],
+                                        'currency'       => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                            'name' => 'Currency1',
+                                            'code' => 'CUR',
+                                        ],
+                                        'entries'        => [
+                                            [
+                                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                                'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                                'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                                'net_price'        => 123,
+                                                'list_price'       => 67.12,
+                                                'discount'         => null,
+                                                'renewal'          => 24.20,
+                                                'serial_number'    => null,
+                                                'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                                'product'          => [
+                                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                                    'name'   => 'Product1',
+                                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                    'sku'    => 'SKU#123',
+                                                    'eol'    => '2022-12-30',
+                                                    'eos'    => '2022-01-01',
+                                                    'oem'    => [
+                                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                        'key'  => 'key',
+                                                        'name' => 'oem1',
+                                                    ],
+                                                ],
+                                                'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                                'serviceGroup'     => [
+                                                    'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                                    'name'   => 'Group',
+                                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                    'sku'    => 'SKU#123',
+                                                ],
+                                                'serviceLevel'     => [
+                                                    'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                                    'name'             => 'Level',
+                                                    'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                                    'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                    'sku'              => 'SKU#123',
+                                                    'description'      => 'description',
+                                                ],
+                                                'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                                'asset'            => [
+                                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                                ],
+                                            ],
+                                        ],
+                                        'language'       => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
+                                            'name' => 'Lang1',
+                                            'code' => 'en',
+                                        ],
+                                        'contacts'       => [
+                                            [
+                                                'name'        => 'contact3',
+                                                'email'       => 'contact3@test.com',
+                                                'phone_valid' => false,
+                                            ],
+                                        ],
+                                        'distributor'    => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                                            'name' => 'distributor1',
+                                        ],
+                                        'assets_count'   => 1,
+                                        'changed_at'     => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'      => '2021-10-19T10:25:00+00:00',
                                     ],
-                                    'paginatorInfo' => [
-                                        'count'        => 1,
-                                        'currentPage'  => 1,
-                                        'firstItem'    => 1,
-                                        'hasMorePages' => false,
-                                        'lastItem'     => 1,
-                                        'lastPage'     => 1,
-                                        'perPage'      => 25,
-                                        'total'        => 1,
-                                    ],
+                                ],
+                                'contractsAggregated' => [
+                                    'count' => 1,
                                 ],
                             ],
                         ),
@@ -2167,191 +2113,173 @@ class CustomerTest extends TestCase {
             return $customer;
         };
         $customerQuote        = [
-            'quotes' => [
-                'data'          => [
-                    [
-                        'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                        'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                        'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                        'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                        'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                        'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                        'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
-                        'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                        'is_contract'    => false,
-                        'is_quote'       => true,
-                        'number'         => '1323',
-                        'price'          => 100,
-                        'start'          => '2021-01-01',
-                        'end'            => '2024-01-01',
-                        'oem'            => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'key'  => 'key',
-                            'name' => 'oem1',
+            'quotes'           => [
+                [
+                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                    'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                    'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                    'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                    'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                    'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                    'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
+                    'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                    'is_contract'    => false,
+                    'is_quote'       => true,
+                    'number'         => '1323',
+                    'price'          => 100,
+                    'start'          => '2021-01-01',
+                    'end'            => '2024-01-01',
+                    'oem'            => [
+                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'key'  => 'key',
+                        'name' => 'oem1',
+                    ],
+                    'oem_said'       => '225d982d-926d-3db4-ba0b-81ab17b790b0',
+                    'oemGroup'       => null,
+                    'type'           => [
+                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        'name' => 'name aaa',
+                    ],
+                    'statuses'       => [
+                        [
+                            'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
+                            'name' => 'status a',
                         ],
-                        'oem_said'       => '225d982d-926d-3db4-ba0b-81ab17b790b0',
-                        'oemGroup'       => null,
-                        'type'           => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'name' => 'name aaa',
-                        ],
-                        'statuses'       => [
+                    ],
+                    'customer'       => [
+                        'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'name'            => 'name aaa',
+                        'assets_count'    => 0,
+                        'locations_count' => 1,
+                        'locations'       => [
                             [
-                                'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
-                                'name' => 'status a',
-                            ],
-                        ],
-                        'customer'       => [
-                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'name'            => 'name aaa',
-                            'assets_count'    => 0,
-                            'locations_count' => 1,
-                            'locations'       => [
-                                [
-                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'location'    => [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
-                                    ],
-                                    'types'       => [],
+                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'location'    => [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'     => 'state1',
+                                    'postcode'  => '19911',
+                                    'line_one'  => 'line_one_data',
+                                    'line_two'  => 'line_two_data',
+                                    'latitude'  => 47.91634204,
+                                    'longitude' => -2.26318359,
                                 ],
-                            ],
-                            'contacts_count'  => 1,
-                            'contacts'        => [
-                                [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ],
-                            ],
-                            'changed_at'      => '2021-10-19T10:15:00+00:00',
-                            'synced_at'       => '2021-10-19T10:25:00+00:00',
-                        ],
-                        'reseller'       => [
-                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                            'name'            => 'reseller1',
-                            'customers_count' => 0,
-                            'locations_count' => 1,
-                            'assets_count'    => 0,
-                            'locations'       => [
-                                [
-                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'location'    => [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
-                                    ],
-                                    'types'       => [],
-                                ],
+                                'types'       => [],
                             ],
                         ],
-                        'currency'       => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'name' => 'Currency1',
-                            'code' => 'CUR',
-                        ],
-                        'entries'        => [
+                        'contacts_count'  => 1,
+                        'contacts'        => [
                             [
-                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                'net_price'        => 123.00,
-                                'list_price'       => 67.12,
-                                'discount'         => null,
-                                'renewal'          => 24.20,
-                                'serial_number'    => null,
-                                'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                'product'          => [
-                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                    'name'   => 'Product1',
-                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'sku'    => 'SKU#123',
-                                    'eol'    => '2022-12-30',
-                                    'eos'    => '2022-01-01',
-                                    'oem'    => [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'key'  => 'key',
-                                        'name' => 'oem1',
-                                    ],
-                                ],
-                                'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                'serviceGroup'     => [
-                                    'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                    'name'   => 'Group',
-                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'sku'    => 'SKU#123',
-                                ],
-                                'serviceLevel'     => [
-                                    'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                    'name'             => 'Level',
-                                    'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                    'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'sku'              => 'SKU#123',
-                                    'description'      => 'description',
-                                ],
-                                'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'asset'            => [
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                ],
-                            ],
-                        ],
-                        'language'       => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
-                            'name' => 'Lang1',
-                            'code' => 'en',
-                        ],
-                        'contacts'       => [
-                            [
-                                'name'        => 'contact3',
-                                'email'       => 'contact3@test.com',
+                                'name'        => 'contact1',
+                                'email'       => 'contact1@test.com',
                                 'phone_valid' => false,
                             ],
                         ],
-                        'distributor'    => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                            'name' => 'distributor1',
-                        ],
-                        'assets_count'   => 1,
-                        'changed_at'     => '2021-10-19T10:15:00+00:00',
-                        'synced_at'      => '2021-10-19T10:25:00+00:00',
+                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                        'synced_at'       => '2021-10-19T10:25:00+00:00',
                     ],
+                    'reseller'       => [
+                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                        'name'            => 'reseller1',
+                        'customers_count' => 0,
+                        'locations_count' => 1,
+                        'assets_count'    => 0,
+                        'locations'       => [
+                            [
+                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'location'    => [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'     => 'state1',
+                                    'postcode'  => '19911',
+                                    'line_one'  => 'line_one_data',
+                                    'line_two'  => 'line_two_data',
+                                    'latitude'  => 47.91634204,
+                                    'longitude' => -2.26318359,
+                                ],
+                                'types'       => [],
+                            ],
+                        ],
+                    ],
+                    'currency'       => [
+                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        'name' => 'Currency1',
+                        'code' => 'CUR',
+                    ],
+                    'entries'        => [
+                        [
+                            'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                            'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                            'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                            'net_price'        => 123.00,
+                            'list_price'       => 67.12,
+                            'discount'         => null,
+                            'renewal'          => 24.20,
+                            'serial_number'    => null,
+                            'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'product'          => [
+                                'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'name'   => 'Product1',
+                                'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'sku'    => 'SKU#123',
+                                'eol'    => '2022-12-30',
+                                'eos'    => '2022-01-01',
+                                'oem'    => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'key'  => 'key',
+                                    'name' => 'oem1',
+                                ],
+                            ],
+                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'serviceGroup'     => [
+                                'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'name'   => 'Group',
+                                'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'sku'    => 'SKU#123',
+                            ],
+                            'serviceLevel'     => [
+                                'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                'name'             => 'Level',
+                                'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'sku'              => 'SKU#123',
+                                'description'      => 'description',
+                            ],
+                            'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                            'asset'            => [
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                            ],
+                        ],
+                    ],
+                    'language'       => [
+                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
+                        'name' => 'Lang1',
+                        'code' => 'en',
+                    ],
+                    'contacts'       => [
+                        [
+                            'name'        => 'contact3',
+                            'email'       => 'contact3@test.com',
+                            'phone_valid' => false,
+                        ],
+                    ],
+                    'distributor'    => [
+                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                        'name' => 'distributor1',
+                    ],
+                    'assets_count'   => 1,
+                    'changed_at'     => '2021-10-19T10:15:00+00:00',
+                    'synced_at'      => '2021-10-19T10:25:00+00:00',
                 ],
-                'paginatorInfo' => [
-                    'count'        => 1,
-                    'currentPage'  => 1,
-                    'firstItem'    => 1,
-                    'hasMorePages' => false,
-                    'lastItem'     => 1,
-                    'lastPage'     => 1,
-                    'perPage'      => 25,
-                    'total'        => 1,
-                ],
+            ],
+            'quotesAggregated' => [
+                'count' => 1,
             ],
         ];
         $customerEmptyQuote   = [
-            'quotes' => [
-                'data'          => [
-                    // empty
-                ],
-                'paginatorInfo' => [
-                    'count'        => 0,
-                    'currentPage'  => 1,
-                    'firstItem'    => null,
-                    'hasMorePages' => false,
-                    'lastItem'     => null,
-                    'lastPage'     => 1,
-                    'perPage'      => 25,
-                    'total'        => 0,
-                ],
+            'quotes'           => [
+                // empty
+            ],
+            'quotesAggregated' => [
+                'count' => 0,
             ],
         ];
 

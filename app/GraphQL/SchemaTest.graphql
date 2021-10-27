@@ -678,7 +678,43 @@ type Customer {
   """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
+  contracts(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Document!]!
+
+  """
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
   contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
+
+  """
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quotes(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Document!]!
+
+  """
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assets(
+    where: SearchByConditionAssetsQuery
+    order: [SortByClauseAssetsSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Asset!]!
 
   """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -688,44 +724,17 @@ type Customer {
   """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  contracts(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator!
+  contractsAggregated(where: SearchByConditionDocumentsQuery): DocumentsAggregated
 
   """
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  quotes(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): DocumentPaginator!
+  quotesAggregated(where: SearchByConditionDocumentsQuery): DocumentsAggregated
 
   """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assets(
-    where: SearchByConditionAssetsQuery
-    order: [SortByClauseAssetsSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): AssetPaginator!
+  assetsAggregated(where: SearchByConditionAssetsQuery): AssetsAggregated
 }
 
 type CustomerLocation {
@@ -965,18 +974,17 @@ type Document {
   distributor_id: ID
   distributor: Distributor
   assets_count: Int
-  changed_at: DateTime
-  synced_at: DateTime!
   notes(
     where: SearchByConditionNotesQuery
     order: [SortByClauseNotesSort!]
 
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): NotePaginator!
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [Note!]!
+  changed_at: DateTime
+  synced_at: DateTime!
+  notesAggregated(where: SearchByConditionNotesQuery): NotesAggregated
 }
 
 input DocumentEntriesQuery {
@@ -1710,13 +1718,9 @@ type Note {
   files: [File!]!
 }
 
-"""A paginated list of Note items."""
-type NotePaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Note items."""
-  data: [Note!]!
+"""Aggregated data for type Note."""
+type NotesAggregated {
+  count: Int!
 }
 
 input NotesQuery {
@@ -1769,6 +1773,18 @@ type Organization {
   headquarter: ResellerLocation
 
   """
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  users(
+    where: SearchByConditionUsersQuery
+    order: [SortByClauseUsersSort!]
+
+    """Maximum value is 100."""
+    limit: Int! = 25
+    offset: Int! = 0
+  ): [User!]!
+
+  """
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   keycloak_scope: String
@@ -1793,16 +1809,7 @@ type Organization {
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
-  users(
-    where: SearchByConditionUsersQuery
-    order: [SortByClauseUsersSort!]
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): UserPaginator!
+  usersAggregated(where: SearchByConditionUsersQuery): UsersAggregated
 
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -6356,15 +6363,6 @@ type UserOrganization {
   role: Role
   team: Team
   enabled: Boolean!
-}
-
-"""A paginated list of User items."""
-type UserPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of User items."""
-  data: [User!]!
 }
 
 type UserTeam {

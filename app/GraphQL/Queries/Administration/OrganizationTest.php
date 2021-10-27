@@ -194,27 +194,18 @@ class OrganizationTest extends TestCase {
                 query organization($id: ID!) {
                     organization(id: $id) {
                         users {
-                            data {
+                            id
+                            email
+                            given_name
+                            family_name
+                            email_verified
+                            role {
                                 id
-                                email
-                                given_name
-                                family_name
-                                email_verified
-                                role {
-                                    id
-                                    name
-                                }
+                                name
                             }
-                            paginatorInfo {
-                                count
-                                currentPage
-                                firstItem
-                                hasMorePages
-                                lastItem
-                                lastPage
-                                perPage
-                                total
-                            }
+                        }
+                        usersAggregated {
+                            count
                         }
                     }
                 }
@@ -564,18 +555,21 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess(
-                            'organization',
-                            new JsonFragmentPaginatedSchema('users', self::class, [
+                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('users', self::class), [
+                            'users'           => [
                                 [
                                     'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                     'email'          => 'example@test.com',
                                     'email_verified' => true,
                                     'given_name'     => 'first',
                                     'family_name'    => 'last',
+                                    'role'           => null,
                                 ],
-                            ]),
-                        ),
+                            ],
+                            'usersAggregated' => [
+                                'count' => 1,
+                            ],
+                        ]),
                         static function (TestCase $test, Organization $organization): void {
                             $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
                             Reseller::factory()->create([
@@ -605,18 +599,21 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess(
-                            'organization',
-                            new JsonFragmentPaginatedSchema('users', self::class, [
+                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('users', self::class), [
+                            'users'           => [
                                 [
                                     'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                     'email'          => 'example@test.com',
                                     'email_verified' => true,
                                     'given_name'     => 'first',
                                     'family_name'    => 'last',
+                                    'role'           => null,
                                 ],
-                            ]),
-                        ),
+                            ],
+                            'usersAggregated' => [
+                                'count' => 1,
+                            ],
+                        ]),
                         static function (TestCase $test, Organization $organization): void {
                             $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
                             Reseller::factory()->create([
