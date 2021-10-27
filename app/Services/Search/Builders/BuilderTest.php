@@ -141,21 +141,6 @@ class BuilderTest extends TestCase {
     }
 
     /**
-     * @covers ::limit
-     */
-    public function testLimit(): void {
-        $builder = $this->app->make(Builder::class, [
-            'query' => '123',
-            'model' => new class() extends Model {
-                // empty
-            },
-        ]);
-
-        $this->assertSame($builder, $builder->limit(123));
-        $this->assertEquals(123, $builder->limit);
-    }
-
-    /**
      * @covers ::offset
      */
     public function testOffset(): void {

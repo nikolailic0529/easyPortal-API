@@ -108,10 +108,6 @@ class Builder extends ScoutBuilder {
         return $this->whereNotIn(Configuration::getMetadataName($field), $values);
     }
 
-    public function limit(?int $limit): static {
-        return $this->take($limit);
-    }
-
     public function offset(?int $offset): static {
         $this->offset = $offset;
 
@@ -119,6 +115,6 @@ class Builder extends ScoutBuilder {
     }
 
     public function count(): int {
-        return $this->getTotalCount((clone $this)->limit(1)->raw());
+        return $this->getTotalCount((clone $this)->take(1)->raw());
     }
 }

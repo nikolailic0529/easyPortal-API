@@ -217,7 +217,7 @@ class SearchRequestFactoryTest extends TestCase {
 
         // Build
         $builder->addModel($a::class, []);
-        $builder->limit(123);
+        $builder->take(123);
         $builder->offset(45);
 
         // Test
@@ -504,7 +504,7 @@ class SearchRequestFactoryTest extends TestCase {
                     'size'  => 123,
                 ],
                 static function (Builder $builder): void {
-                    $builder->limit(123);
+                    $builder->take(123);
                     $builder->offset(45);
                 },
             ],
