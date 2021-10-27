@@ -4,7 +4,6 @@ namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;
-use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use LogicException;
 use Tests\GraphQL\Schemas\AnySchema;
@@ -68,16 +67,14 @@ class PaginatedRelationTest extends TestCase {
      * @coversNothing
      */
     public function testResolveFieldModel(): void {
-        $customer  = Customer::factory()->create();
-        $locationA = CustomerLocation::factory()->create([
+        $customer = Customer::factory()->create();
+
+        CustomerLocation::factory()->create([
             'customer_id' => $customer,
         ]);
-        $locationB = CustomerLocation::factory()->create([
+        CustomerLocation::factory()->create([
             'customer_id' => $customer,
         ]);
-        $location  = (new Collection([$locationA->getKey(), $locationB->getKey()]))
-            ->sort()
-            ->first();
 
         $this
             ->useGraphQLSchema(
@@ -116,13 +113,15 @@ class PaginatedRelationTest extends TestCase {
             ->assertThat(new OkResponse(AnySchema::class, [
                 'data' => [
                     'customers' => [
-                        'locations'           => [
-                            [
-                                'id' => $location,
+                        [
+                            'locations'           => [
+                                [
+                                    'id' => $customer->locations->first()?->getKey(),
+                                ],
                             ],
-                        ],
-                        'locationsAggregated' => [
-                            'count' => 2,
+                            'locationsAggregated' => [
+                                'count' => 2,
+                            ],
                         ],
                     ],
                 ],

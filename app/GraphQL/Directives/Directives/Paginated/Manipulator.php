@@ -169,7 +169,7 @@ class Manipulator extends AstManipulator {
     protected function getOffsetField(): InputValueDefinitionNode {
         return Parser::inputValueDefinition(
             <<<'DEF'
-            offset: Int! = 0 @rules(apply: ["min:0"])
+            offset: Int! = 0 @rules(apply: ["min:0"]) @paginatedOffset
             DEF,
         );
     }
@@ -188,7 +188,7 @@ class Manipulator extends AstManipulator {
         return Parser::inputValueDefinition(
             <<<DEF
             "Maximum value is {$max}."
-            limit: Int! {$value} @rules(apply: {$rules})
+            limit: Int! {$value} @rules(apply: {$rules}) @paginatedLimit
             DEF,
         );
     }

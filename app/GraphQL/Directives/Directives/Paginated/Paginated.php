@@ -17,7 +17,7 @@ abstract class Paginated extends Base implements FieldResolver {
             Adds offset-based pagination for the field.
             """
             directive @paginated({$arguments}) on FIELD_DEFINITION
-            GRAPHQL;
+        GRAPHQL;
     }
 
     public function resolveField(FieldValue $fieldValue): FieldValue {
