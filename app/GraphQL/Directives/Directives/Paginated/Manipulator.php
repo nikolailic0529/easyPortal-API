@@ -4,6 +4,8 @@ namespace App\GraphQL\Directives\Directives\Paginated;
 
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
+use GraphQL\Language\AST\Node;
+use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Contracts\Config\Repository;
@@ -19,6 +21,8 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 
+use function get_object_vars;
+use function is_array;
 use function json_encode;
 use function sprintf;
 
@@ -37,27 +41,33 @@ class Manipulator extends AstManipulator {
         FieldDefinitionNode $field,
     ): void {
         // Add *Aggregate field
-        $parent->fields[] = $this->getAggregateField($parent, $field);
+        $aggregated = $this->getAggregatedField($parent, $field);
+
+        if ($aggregated) {
+            $parent->fields[] = $aggregated;
+        }
 
         // Add limit/offset arguments
         $field->arguments[] = $this->getLimitField();
         $field->arguments[] = $this->getOffsetField();
     }
 
-    protected function getAggregateField(
+    protected function getAggregatedField(
         ObjectTypeDefinitionNode $parent,
         FieldDefinitionNode $field,
-    ): FieldDefinitionNode {
-        // Clone
-        $aggregated = $field->cloneDeep();
+    ): ?FieldDefinitionNode {
+        // Field exists?
+        $fieldName = "{$this->getNodeName($field)}Aggregated";
+        $existing  = Arr::first($parent->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
+            return $this->getNodeName($field) === $fieldName;
+        });
 
-        if (!($aggregated instanceof FieldDefinitionNode)) {
-            throw new LogicException('Failed to clone `$node`.');
+        if ($existing) {
+            return null;
         }
 
-        // https://github.com/webonyx/graphql-php/issues/988
-        $aggregated->arguments  = clone $aggregated->arguments;
-        $aggregated->directives = clone $aggregated->directives;
+        // Clone
+        $aggregated = $this->clone($field);
 
         // Cleanup arguments
         foreach ($aggregated->arguments as $key => $argument) {
@@ -88,6 +98,9 @@ class Manipulator extends AstManipulator {
         $fieldName               = "{$this->getNodeName($field)}Aggregated";
         $aggregated->name->value = $fieldName;
 
+        // Set description
+        // TODO $aggregated->description = null;
+
         // Add @aggregated
         $arguments = $this->getNodeDirective($field, Paginated::class)?->getBuilderArguments() ?: [];
         $arguments = (new Collection($arguments))
@@ -100,19 +113,6 @@ class Manipulator extends AstManipulator {
             : Parser::directive('@aggregated');
 
         $aggregated->directives[] = $directive;
-
-        // Field exists?
-        $existing = Arr::first($parent->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
-            return $this->getNodeName($field) === $fieldName;
-        });
-
-        if ($existing) {
-            throw new LogicException(sprintf(
-                'Field `%s` already defined in `%s`.',
-                $fieldName,
-                $this->getNodeTypeFullName($aggregated),
-            ));
-        }
 
         // Return
         return $aggregated;
@@ -131,7 +131,7 @@ class Manipulator extends AstManipulator {
         $this->addTypeDefinition(Parser::objectTypeDefinition(
             <<<DEF
             """
-            Aggregated query for {$this->getNodeTypeFullName($node)}.
+            Aggregated data for {$this->getNodeTypeFullName($node)}.
             """
             type {$typeName} {
                 count: Int! @aggregatedCount
@@ -167,5 +167,61 @@ class Manipulator extends AstManipulator {
             limit: Int! {$value} @rules(apply: {$rules})
             DEF,
         );
+    }
+
+    /**
+     * @template T of \GraphQL\Language\AST\Node
+     *
+     * @param T $field
+     *
+     * @return T
+     */
+    private function clone(Node $field): Node {
+        // https://github.com/webonyx/graphql-php/issues/988
+        return (new class([]) extends Node {
+            /**
+             * @template T of \GraphQL\Language\AST\Node
+             *
+             * @param T $node
+             *
+             * @return T
+             */
+            public function clone(Node $node): Node {
+                return $this->cloneValue($node);
+            }
+
+            /**
+             * @template T
+             *
+             * @param T $value
+             *
+             * @return T
+             */
+            private function cloneValue(mixed $value): mixed {
+                if (is_array($value)) {
+                    $cloned = [];
+
+                    foreach ($value as $key => $arrValue) {
+                        $cloned[$key] = $this->cloneValue($arrValue);
+                    }
+                } elseif ($value instanceof Node) {
+                    $cloned = clone $value;
+
+                    foreach (get_object_vars($cloned) as $prop => $propValue) {
+                        $cloned->{$prop} = $this->cloneValue($propValue);
+                    }
+                } elseif ($value instanceof NodeList) {
+                    $cloned = clone $value;
+
+                    foreach ($value as $key => $listValue) {
+                        $cloned[$key] = $this->cloneValue($listValue);
+                    }
+                } else {
+                    $cloned = $value;
+                }
+
+                return $cloned;
+            }
+        })->clone($field);
     }
 }
