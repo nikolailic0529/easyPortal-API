@@ -35,17 +35,6 @@ abstract class Base extends BaseDirective implements
         // empty
     }
 
-    public static function definition(): string {
-        $arguments = static::getArgumentsDefinition();
-
-        return /** @lang GraphQL */ <<<GRAPHQL
-            """
-            Adds offset-based pagination for the field.
-            """
-            directive @paginated({$arguments}) on FIELD_DEFINITION
-            GRAPHQL;
-    }
-
     public function manipulateFieldDefinition(
         DocumentAST &$documentAST,
         FieldDefinitionNode &$fieldDefinition,
