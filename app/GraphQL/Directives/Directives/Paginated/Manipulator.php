@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
+use App\GraphQL\Directives\Directives\Aggregated\AggregatedCount;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\Node;
@@ -119,25 +120,48 @@ class Manipulator extends AstManipulator {
     }
 
     protected function getAggregatedFieldType(FieldDefinitionNode $node): string {
-        $typeName = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
+        $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
+        $fieldName   = 'count';
+        $fieldSource = "{$fieldName}: Int! @aggregatedCount";
 
         if ($this->isTypeDefinitionExists($typeName)) {
-            throw new LogicException(sprintf(
-                'Type `%s` already defined.',
-                $typeName,
+            // type?
+            $definition = $this->getTypeDefinitionNode($typeName);
+
+            if (!($definition instanceof ObjectTypeDefinitionNode)) {
+                throw new LogicException(sprintf(
+                    'Type `%s` already defined.',
+                    $typeName,
+                ));
+            }
+
+            // count?
+            $existing = Arr::first($definition->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
+                return $this->getNodeName($field) === $fieldName;
+            });
+
+            if ($existing && !$this->getNodeDirective($existing, AggregatedCount::class)) {
+                throw new LogicException(sprintf(
+                    'Field `%s` in type `%s` already defined.',
+                    $fieldName,
+                    $typeName,
+                ));
+            }
+
+            // Add
+            $definition->fields[] = Parser::fieldDefinition($fieldSource);
+        } else {
+            $this->addTypeDefinition(Parser::objectTypeDefinition(
+                <<<DEF
+                """
+                Aggregated data for {$this->getNodeTypeFullName($node)}.
+                """
+                type {$typeName} {
+                    {$fieldSource}
+                }
+                DEF,
             ));
         }
-
-        $this->addTypeDefinition(Parser::objectTypeDefinition(
-            <<<DEF
-            """
-            Aggregated data for {$this->getNodeTypeFullName($node)}.
-            """
-            type {$typeName} {
-                count: Int! @aggregatedCount
-            }
-            DEF,
-        ));
 
         return $typeName;
     }
