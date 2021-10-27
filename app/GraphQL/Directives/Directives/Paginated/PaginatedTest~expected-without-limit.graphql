@@ -21,7 +21,7 @@ input CustomerSearch {
   id: ID!
 }
 
-"""Aggregated query for type Customer."""
+"""Aggregated data for type Customer."""
 type CustomersAggregated {
   count: Int!
 }
