@@ -21,8 +21,8 @@ class GraphQLPaginated extends GraphQLSuccess {
         JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null,
     ) {
         $schema          = $this->getJsonFragmentSchema('data', $schema);
-        $this->data      = $this->getJsonFragment("data.{$root}.data", $data);
-        $this->paginator = $this->getJsonFragment("data.{$root}.paginatorInfo", $paginator);
+        $this->data      = $this->getJsonFragment("data.{$root}", $data);
+        $this->paginator = $this->getJsonFragment("data.{$root}Aggregated", $paginator);
 
         parent::__construct($root, $schema, null);
     }

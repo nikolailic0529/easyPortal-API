@@ -7,7 +7,7 @@
     "properties": {
         "data": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "required": [
                 "${graphql.root}"
             ],

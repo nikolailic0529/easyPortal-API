@@ -4,58 +4,24 @@
     "type": "object",
     "additionalProperties": false,
     "required": [
-        "data",
-        "paginatorInfo"
+        "${graphql.root}",
+        "${graphql.root}Aggregated"
     ],
     "properties": {
-        "data": {
+        "${graphql.root}": {
             "type": "array",
             "items": {
                 "$ref": "${schema.path}"
             }
         },
-        "paginatorInfo": {
+        "${graphql.root}Aggregated": {
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "count",
-                "currentPage",
-                "firstItem",
-                "hasMorePages",
-                "lastItem",
-                "lastPage",
-                "perPage",
-                "total"
+                "count"
             ],
             "properties": {
                 "count": {
-                    "type": "integer"
-                },
-                "currentPage": {
-                    "type": "integer"
-                },
-                "firstItem": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ]
-                },
-                "hasMorePages": {
-                    "type": "boolean"
-                },
-                "lastItem": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ]
-                },
-                "lastPage": {
-                    "type": "integer"
-                },
-                "perPage": {
-                    "type": "integer"
-                },
-                "total": {
                     "type": "integer"
                 }
             }
