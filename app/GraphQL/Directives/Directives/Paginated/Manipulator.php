@@ -18,6 +18,7 @@ use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LogicException;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
+use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
@@ -83,10 +84,9 @@ class Manipulator extends AstManipulator {
 
         // Cleanup directives
         foreach ($aggregated->directives as $key => $directive) {
-            // TODO Remove relations?
             $directive = $this->directives->create($directive->name->value);
 
-            if ($directive instanceof Paginated) {
+            if ($directive instanceof Base || $directive instanceof RelationDirective) {
                 unset($aggregated->directives[$key]);
             }
         }
@@ -103,7 +103,7 @@ class Manipulator extends AstManipulator {
         // TODO $aggregated->description = null;
 
         // Add @aggregated
-        $arguments = $this->getNodeDirective($field, Paginated::class)?->getBuilderArguments() ?: [];
+        $arguments = $this->getNodeDirective($field, Base::class)?->getBuilderArguments() ?: [];
         $arguments = (new Collection($arguments))
             ->map(static function (mixed $value, string $key): string {
                 return $key.': '.json_encode($value);

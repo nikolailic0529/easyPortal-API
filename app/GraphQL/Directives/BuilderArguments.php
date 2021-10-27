@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Directives;
 
+use App\Utils\ModelHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -42,7 +44,7 @@ trait BuilderArguments {
         ResolveInfo $resolveInfo,
     ): EloquentBuilder|QueryBuilder {
         if (!$this->allowGuessBuilder()) {
-            $required  = ['builder', 'model'];
+            $required  = ['builder', 'model', 'relation'];
             $arguments = array_filter($required, function (string $argument): bool {
                 return $this->directiveHasArgument($argument);
             });
@@ -55,7 +57,19 @@ trait BuilderArguments {
             }
         }
 
-        if ($this->directiveHasArgument('builder')) {
+        $query = null;
+
+        if ($this->directiveHasArgument('relation')) {
+            if (!($root instanceof Model)) {
+                throw new InvalidArgumentException(
+                    'The `relation` can be used only when root is the model.',
+                );
+            }
+
+            $query = (new ModelHelper($root))
+                ->getRelation($this->directiveArgValue('relation'))
+                ->getQuery();
+        } elseif ($this->directiveHasArgument('builder')) {
             $resolver = $this->getResolverFromArgument('builder');
             $query    = $resolver($root, $args, $context, $resolveInfo);
         } else {

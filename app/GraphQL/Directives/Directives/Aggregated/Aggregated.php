@@ -22,7 +22,14 @@ abstract class Aggregated extends BaseDirective implements FieldResolver {
             """
             Gets the current builder and passed it to children. At least one argument required.
             """
-            directive @aggregated({$arguments}) on FIELD_DEFINITION
+            directive @aggregated(
+                {$arguments}
+
+                """
+                Specify the relation name to use.
+                """
+                relation: String
+            ) on FIELD_DEFINITION
             GRAPHQL;
     }
 
