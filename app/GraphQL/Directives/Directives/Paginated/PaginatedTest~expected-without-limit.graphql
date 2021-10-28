@@ -1,3 +1,13 @@
+type Asset {
+  id: ID!
+}
+
+"""Aggregated data for type Asset."""
+type AssetsAggregated {
+  types: [String!]!
+  count: Int!
+}
+
 type Customer {
   id: ID!
 }
@@ -22,9 +32,21 @@ type Query {
     limit: Int!
     offset: Int! = 0
   ): [Customer!]!
+  data(
+    """Maximum value is 321."""
+    limit: Int!
+    offset: Int! = 0
+  ): [Asset!]!
+  type(
+    """Maximum value is 321."""
+    limit: Int!
+    offset: Int! = 0
+  ): [Type!]!
 
   """@require <me> User must be authenticated."""
   queryAggregated(where: SearchByConditionCustomerSearch): CustomersAggregated
+  dataAggregated: AssetsAggregated
+  typeAggregated: TypesAggregated
 }
 
 """
@@ -71,4 +93,14 @@ input SortByClauseCustomer {
 enum SortByDirection {
   asc
   desc
+}
+
+type Type {
+  id: ID!
+}
+
+"""Description"""
+type TypesAggregated {
+  assets: [ID!]!
+  count: Int!
 }

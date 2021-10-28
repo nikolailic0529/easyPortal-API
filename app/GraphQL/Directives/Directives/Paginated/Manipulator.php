@@ -136,6 +136,7 @@ class Manipulator extends AstManipulator {
         $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
         $fieldName   = 'count';
         $fieldSource = "{$fieldName}: Int! @aggregatedCount";
+        $description = "Aggregated data for {$this->getNodeTypeFullName($node)}.";
 
         if ($this->isTypeDefinitionExists($typeName)) {
             // type?
@@ -146,6 +147,11 @@ class Manipulator extends AstManipulator {
                     'Type `%s` already defined.',
                     $typeName,
                 ));
+            }
+
+            // Description
+            if (!$definition->description) {
+                $definition->description = Parser::description("\"{$description}\"");
             }
 
             // count?
@@ -167,7 +173,7 @@ class Manipulator extends AstManipulator {
             $this->addTypeDefinition(Parser::objectTypeDefinition(
                 <<<DEF
                 """
-                Aggregated data for {$this->getNodeTypeFullName($node)}.
+                {$description}
                 """
                 type {$typeName} {
                     {$fieldSource}

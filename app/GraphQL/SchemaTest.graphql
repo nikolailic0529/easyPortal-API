@@ -310,6 +310,7 @@ type AssetWarranty {
   serviceLevels: [ServiceLevel!]!
 }
 
+"""Aggregated data for type Asset."""
 type AssetsAggregated {
   types: [AssetsAggregatedType!]!
   coverages: [AssetsAggregatedCoverage!]!
@@ -758,6 +759,7 @@ input CustomerTypesQuery {
   customers: CustomersQuery
 }
 
+"""Aggregated data for type Customer."""
 type CustomersAggregated {
   assets: Int!
   count: Int!
@@ -994,6 +996,7 @@ input DocumentTypesQuery {
   documents: DocumentsQuery
 }
 
+"""Aggregated data for type Document."""
 type DocumentsAggregated {
   prices: [DocumentsAggregatedPrice!]!
   count: Int!
