@@ -921,15 +921,22 @@
                     "$ref": "#/definitions/ID"
                 },
                 "asset": {
-                    "type": "object",
-                    "required": [
-                        "id"
-                    ],
-                    "properties": {
-                        "id": {
-                            "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "required": [
+                                "id"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "$ref": "#/definitions/ID"
+                                }
+                            }
+                        },
+                        {
+                            "type": "null"
                         }
-                    }
+                    ]
                 },
                 "service_group_id": {
                     "oneOf": [
