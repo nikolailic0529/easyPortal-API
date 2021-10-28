@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\Customers;
 
+use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -18,13 +19,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Customers\CustomersAggregate
+ * @coversDefaultClass \App\GraphQL\Queries\Customers\CustomersAggregated
  */
-class CustomersAggregateTest extends TestCase {
+class CustomersAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
+     * @covers ::assets
      *
      * @dataProvider dataProviderQuery
      *
@@ -51,7 +52,7 @@ class CustomersAggregateTest extends TestCase {
                 /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionCustomersQuery) {
-                    customersAggregate(where: $where) {
+                    customersAggregated(where: $where) {
                         count
                         assets
                     }
@@ -99,17 +100,22 @@ class CustomersAggregateTest extends TestCase {
 
             $resellerA->customers()->attach($customerA);
             $resellerB->customers()->attach($customerB);
+
+            Asset::factory()->create([
+                'reseller_id' => $resellerA,
+                'customer_id' => $customerA,
+            ]);
         };
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customersAggregate'),
-                new OrganizationUserDataProvider('customersAggregate', [
+                new RootOrganizationDataProvider('customersAggregated'),
+                new OrganizationUserDataProvider('customersAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customersAggregate', self::class, [
+                        new GraphQLSuccess('customersAggregated', self::class, [
                             'count'  => 2,
                             'assets' => 3,
                         ]),
@@ -119,13 +125,13 @@ class CustomersAggregateTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customersAggregate'),
-                new OrganizationUserDataProvider('customersAggregate', [
+                new OrganizationDataProvider('customersAggregated'),
+                new OrganizationUserDataProvider('customersAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customersAggregate', self::class, [
+                        new GraphQLSuccess('customersAggregated', self::class, [
                             'count'  => 1,
                             'assets' => 1,
                         ]),

@@ -1,4 +1,4 @@
-type AssetsAggregateType {
+type AssetsAggregatedType {
   count: Int!
   type_id: ID
   type: Type

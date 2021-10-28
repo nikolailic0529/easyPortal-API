@@ -310,27 +310,22 @@ type AssetWarranty {
   serviceLevels: [ServiceLevel!]!
 }
 
-type AssetsAggregate {
+type AssetsAggregated {
+  types: [AssetsAggregatedType!]!
+  coverages: [AssetsAggregatedCoverage!]!
   count: Int!
-  types: [AssetsAggregateType!]!
-  coverages: [AssetsAggregateCoverage!]!
 }
 
-type AssetsAggregateCoverage {
+type AssetsAggregatedCoverage {
   count: Int!
   coverage_id: ID
   coverage: Type
 }
 
-type AssetsAggregateType {
+type AssetsAggregatedType {
   count: Int!
   type_id: ID
   type: Type
-}
-
-"""Aggregated data for type Asset."""
-type AssetsAggregated {
-  count: Int!
 }
 
 input AssetsQuery {
@@ -679,11 +674,6 @@ type Customer {
   ): [Document!]!
 
   """
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
-
-  """
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   quotes(
@@ -706,11 +696,6 @@ type Customer {
     limit: Int! = 25
     offset: Int! = 0
   ): [Asset!]!
-
-  """
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
 
   """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -773,13 +758,8 @@ input CustomerTypesQuery {
   customers: CustomersQuery
 }
 
-type CustomersAggregate {
-  count: Int!
-  assets: Int!
-}
-
-"""Aggregated data for type Customer."""
 type CustomersAggregated {
+  assets: Int!
   count: Int!
 }
 
@@ -1014,21 +994,16 @@ input DocumentTypesQuery {
   documents: DocumentsQuery
 }
 
-type DocumentsAggregate {
+type DocumentsAggregated {
+  prices: [DocumentsAggregatedPrice!]!
   count: Int!
-  prices: [DocumentsAggregatePrice!]!
 }
 
-type DocumentsAggregatePrice {
+type DocumentsAggregatedPrice {
   count: Int!
   amount: Float!
   currency_id: ID
   currency: Currency
-}
-
-"""Aggregated data for type Document."""
-type DocumentsAggregated {
-  count: Int!
 }
 
 input DocumentsQuery {
@@ -2045,13 +2020,6 @@ type Query {
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
   assetsSearch(
     search: SearchString!
     order: [SortByClauseAssetsSearchSort!]
@@ -2094,13 +2062,6 @@ type Query {
     limit: Int! = 25
     offset: Int! = 0
   ): [Document!]!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2158,13 +2119,6 @@ type Query {
     limit: Int! = 25
     offset: Int! = 0
   ): [Customer!]!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.

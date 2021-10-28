@@ -3,11 +3,9 @@
 namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Asset;
-use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
-use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
@@ -22,18 +20,15 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetsAggregate
+ * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetsAggregated
  */
-class AssetsAggregateTest extends TestCase {
+class AssetsAggregatedTest extends TestCase {
     use WithQueryLog;
 
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @covers \App\GraphQL\Queries\Assets\AssetsAggregateTypes::__invoke
-     * @covers \App\GraphQL\Queries\Assets\AssetsAggregateCount::__invoke
-     * @covers \App\GraphQL\Queries\Assets\AssetsAggregateCoverages::__invoke
+     * @covers ::types
      *
      * @dataProvider dataProviderQuery
      *
@@ -60,7 +55,7 @@ class AssetsAggregateTest extends TestCase {
             /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionAssetsQuery) {
-                    assetsAggregate(where: $where) {
+                    assetsAggregated(where: $where) {
                         count
                         types {
                             count
@@ -88,30 +83,6 @@ class AssetsAggregateTest extends TestCase {
                 ],
             )
             ->assertThat($expected);
-    }
-
-    /**
-     * @covers ::__invoke
-     *
-     * @dataProvider dataProviderQueryLazy
-     */
-    public function testQueryLazy(string $query): void {
-        $organization = $this->setOrganization(Organization::factory()->create());
-
-        $this->setUser(User::factory()->make([
-            'type'            => UserType::local(),
-            'organization_id' => $organization,
-        ]));
-
-        $queries = $this->getQueryLog();
-
-        $this
-            ->graphQL("query { assetsAggregate { {$query} }  }")
-            ->assertThat(
-                new GraphQLSuccess('assetsAggregate', null),
-            );
-
-        $this->assertCount(2, $queries->get());
     }
     // </editor-fold>
 
@@ -165,13 +136,13 @@ class AssetsAggregateTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('assetsAggregate'),
-                new OrganizationUserDataProvider('assetsAggregate', [
+                new RootOrganizationDataProvider('assetsAggregated'),
+                new OrganizationUserDataProvider('assetsAggregated', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregate', AssetsAggregate::class, [
+                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
                             'count'     => 2,
                             'types'     => [
                                 [
@@ -202,13 +173,13 @@ class AssetsAggregateTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsAggregate'),
-                new OrganizationUserDataProvider('assetsAggregate', [
+                new OrganizationDataProvider('assetsAggregated'),
+                new OrganizationUserDataProvider('assetsAggregated', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregate', AssetsAggregate::class, [
+                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
                             'count'     => 2,
                             'types'     => [
                                 [
@@ -239,13 +210,13 @@ class AssetsAggregateTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsAggregate'),
-                new OrganizationUserDataProvider('assetsAggregate', [
+                new OrganizationDataProvider('assetsAggregated'),
+                new OrganizationUserDataProvider('assetsAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregate', AssetsAggregate::class, [
+                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
                             'count'     => 2,
                             'types'     => [
                                 [
@@ -276,17 +247,6 @@ class AssetsAggregateTest extends TestCase {
                 ]),
             ),
         ]))->getData();
-    }
-
-    /**
-     * @return array<string, array<string>>
-     */
-    public function dataProviderQueryLazy(): array {
-        return [
-            'count'     => ['count'],
-            'types'     => ['types { count }'],
-            'coverages' => ['coverages { count }'],
-        ];
     }
     // </editor-fold>
 }

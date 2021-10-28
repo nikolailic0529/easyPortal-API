@@ -38,13 +38,6 @@ extend type Query {
   @me(permissions: ["assets-view", "customers-view"])
   @find
 
-  assetsAggregate(
-    where: AssetsQuery @searchBy
-  ): AssetsAggregate!
-  @organization
-  @me(permissions: ["assets-view", "customers-view"])
-  @field(resolver: "App\\GraphQL\\Queries\\Assets\\AssetsAggregate")
-
   assetsSearch(
     search: SearchString! @search
     order: AssetsSearchSort @sortBy

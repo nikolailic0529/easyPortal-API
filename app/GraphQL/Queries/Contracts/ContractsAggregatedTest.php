@@ -20,13 +20,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractsAggregate
+ * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractsAggregated
  */
-class ContractsAggregateTest extends TestCase {
+class ContractsAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
+     * @covers ::prices
      *
      * @dataProvider dataProviderQuery
      *
@@ -59,7 +59,7 @@ class ContractsAggregateTest extends TestCase {
                 /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionDocumentsQuery) {
-                    contractsAggregate(where: $where) {
+                    contractsAggregated(where: $where) {
                         count
                         prices {
                             count
@@ -161,13 +161,13 @@ class ContractsAggregateTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contractsAggregate'),
-                new OrganizationUserDataProvider('contractsAggregate', [
+                new RootOrganizationDataProvider('contractsAggregated'),
+                new OrganizationUserDataProvider('contractsAggregated', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contractsAggregate', self::class, [
+                        new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 4,
                             'prices' => [
                                 [
@@ -209,13 +209,13 @@ class ContractsAggregateTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contractsAggregate'),
-                new OrganizationUserDataProvider('contractsAggregate', [
+                new OrganizationDataProvider('contractsAggregated'),
+                new OrganizationUserDataProvider('contractsAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contractsAggregate', self::class, [
+                        new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 1,
                             'prices' => [
                                 [
@@ -241,13 +241,13 @@ class ContractsAggregateTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contractsAggregate', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contractsAggregate', [
+                new OrganizationDataProvider('contractsAggregated', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrganizationUserDataProvider('contractsAggregated', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
-                        new GraphQLSuccess('contractsAggregate', self::class, [
+                        new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 1,
                             'prices' => [
                                 [
@@ -271,7 +271,7 @@ class ContractsAggregateTest extends TestCase {
                         $params,
                     ],
                     'no types'       => [
-                        new GraphQLSuccess('contractsAggregate', self::class, [
+                        new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 0,
                             'prices' => [],
                         ]),
@@ -284,7 +284,7 @@ class ContractsAggregateTest extends TestCase {
                         $params,
                     ],
                     'type not match' => [
-                        new GraphQLSuccess('contractsAggregate', self::class, [
+                        new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 0,
                             'prices' => [],
                         ]),

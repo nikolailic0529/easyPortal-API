@@ -14,13 +14,13 @@
         "types": {
             "type": "array",
             "items": {
-                "$ref": "../Types/AssetsAggregateType.json"
+                "$ref": "AssetsAggregatedType.json"
             }
         },
         "coverages": {
             "type": "array",
             "items": {
-                "$ref": "../Types/AssetsAggregateCoverage.json"
+                "$ref": "AssetsAggregatedCoverage.json"
             }
         }
     }
