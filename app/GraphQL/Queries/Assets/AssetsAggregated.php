@@ -82,7 +82,6 @@ class AssetsAggregated {
                     $relation->getQualifiedRelatedPivotKeyName(),
                 );
             })
-            ->whereNotNull("c.{$model->coverages()->getRelatedPivotKeyName()}")
             ->groupBy('coverage_id')
             ->having('count', '>', 0)
             ->toBase()
