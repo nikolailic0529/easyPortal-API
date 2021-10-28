@@ -45,8 +45,8 @@ class ExportControllerTest extends TestCase {
         string $operationName = 'assets',
         string $query = null,
         array $variables = [
-            'first' => 5,
-            'page'  => 1,
+            'limit'  => null,
+            'offset' => 0,
         ],
         string $root = null,
     ): void {
@@ -61,20 +61,17 @@ class ExportControllerTest extends TestCase {
 
         // Query
         if (!$query) {
-            $query = /** @lang GraphQL */
-                <<<'GRAPHQL'
-            query assets($first: Int, $page: Int){
-              assets(first:$first, page: $page){
-                data{
-                  id
-                  product{
-                    name
-                    sku
-                  }
+            $query = /** @lang GraphQL */<<<'GRAPHQL'
+                query assets($limit: Int, $offset: Int){
+                    assets(limit:$limit, offset: $offset){
+                        id
+                        product{
+                            name
+                            sku
+                        }
+                    }
                 }
-              }
-            }
-            GRAPHQL;
+                GRAPHQL;
         }
 
         $input = [
@@ -139,14 +136,12 @@ class ExportControllerTest extends TestCase {
     public function dataProviderExport(): array {
         $query = /** @lang GraphQL */
             <<<'GRAPHQL'
-            query assets($first: Int, $page: Int){
-                assets(first:$first, page: $page){
-                    data{
-                        id
-                        product{
-                            name
-                            sku
-                        }
+            query assets($limit: Int, $offset: Int){
+                assets(limit:$limit, offset: $offset){
+                    id
+                    product{
+                        name
+                        sku
                     }
                 }
             }
@@ -207,26 +202,24 @@ class ExportControllerTest extends TestCase {
                     'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
                     query assets(
-                        $first: Int,
-                        $page: Int,
+                        $limit: Int,
+                        $offset: Int,
                         $where:SearchByConditionAssetsQuery,
                         $order:[SortByClauseAssetsSort!]
                     ){
-                        assets(first:$first, page: $page, where:$where, order: $order){
-                            data{
-                                id
-                                product{
-                                    name
-                                    sku
-                                }
+                        assets(limit:$limit, offset: $offset, where:$where, order: $order){
+                            id
+                            product{
+                                name
+                                sku
                             }
                         }
                     }
                     GRAPHQL,
                     [
-                        'first' => 5,
-                        'page'  => 1,
-                        'where' => [
+                        'limit'  => 5,
+                        'offset' => 0,
+                        'where'  => [
                             'id' => [
                                 'in' => [
                                     'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
@@ -243,14 +236,12 @@ class ExportControllerTest extends TestCase {
                     'csv',
                     'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
-                        mutation assets($first: Int, $page: Int){
-                            assets(first:$first, page: $page){
-                                data{
-                                    id
-                                    product{
-                                        name
-                                        sku
-                                    }
+                        mutation assets($limit: Int, $offset: Int){
+                            assets(limit:$limit, offset: $offset){
+                                id
+                                product{
+                                    name
+                                    sku
                                 }
                             }
                         }
@@ -264,14 +255,12 @@ class ExportControllerTest extends TestCase {
                     'csv',
                     'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
-                        query assets($first: Int, $page: Int){
-                            assets(first:$first, page: $page){
-                                data{
-                                    idx
-                                    product{
-                                        name
-                                        sku
-                                    }
+                        query assets($limit: Int, $offset: Int){
+                            assets(limit:$limit, offset: $offset){
+                                idx
+                                product{
+                                    name
+                                    sku
                                 }
                             }
                         }
@@ -287,7 +276,7 @@ class ExportControllerTest extends TestCase {
                     $query,
                     [
                         // Missing page
-                        'first' => 5,
+                        'limit' => 5,
                     ],
                 ],
                 'different-reseller'  => [
@@ -301,8 +290,8 @@ class ExportControllerTest extends TestCase {
                     'assets',
                     $query,
                     [
-                        'first' => 5,
-                        'page'  => 1,
+                        'limit'  => 5,
+                        'offset' => 0,
                     ],
                 ],
                 'success-csv-sub'     => [
@@ -314,7 +303,7 @@ class ExportControllerTest extends TestCase {
                         Asset::factory()
                             ->for($reseller)
                             ->hasContacts(3)
-                            ->create([ 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
+                            ->create(['id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
 
                         // Data + Header
                         return 4;
@@ -332,9 +321,9 @@ class ExportControllerTest extends TestCase {
                     }
                     GRAPHQL,
                     [
-                        'first' => 5,
-                        'page'  => 1,
-                        'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                        'limit'  => 5,
+                        'offset' => 0,
+                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                     ],
                     'asset.contacts',
                 ],
@@ -348,7 +337,7 @@ class ExportControllerTest extends TestCase {
                         ]);
                         Asset::factory()
                             ->for($reseller)
-                            ->create([ 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
+                            ->create(['id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
 
                         // Data + Header
                         return 0;
@@ -366,9 +355,9 @@ class ExportControllerTest extends TestCase {
                     }
                     GRAPHQL,
                     [
-                        'first' => 5,
-                        'page'  => 1,
-                        'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                        'limit'  => 5,
+                        'offset' => 0,
+                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                     ],
                     'asset.customer',
                 ],
@@ -381,7 +370,7 @@ class ExportControllerTest extends TestCase {
                         Asset::factory()
                             ->for($reseller)
                             ->hasTags(2)
-                            ->create([ 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
+                            ->create(['id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
 
                         // Data + Header
                         return 2;
@@ -389,18 +378,16 @@ class ExportControllerTest extends TestCase {
                     'csv',
                     'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
-                    query assets($page: Int){
-                        assets(page: $page) {
-                            data {
-                                tags {
-                                    name
-                                }
+                    query assets($offset: Int){
+                        assets(offset: $offset) {
+                            tags {
+                                name
                             }
                         }
                     }
                     GRAPHQL,
                     [
-                        'page'  => 1,
+                        'offset' => 0,
                     ],
                 ],
             ]),

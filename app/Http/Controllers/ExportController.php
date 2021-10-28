@@ -24,6 +24,7 @@ use function array_column;
 use function array_key_exists;
 use function array_key_first;
 use function array_keys;
+use function array_merge;
 use function array_values;
 use function count;
 use function implode;
@@ -44,12 +45,14 @@ class ExportController extends Controller {
     public function csv(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
         $collection = $this->export($request, $createsContext->generate($request));
         $this->dispatchExported($collection, $request, 'csv');
+
         return (new QueryExport($collection))->download('export.csv', Excel::CSV);
     }
 
     public function excel(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
         $collection = $this->export($request, $createsContext->generate($request));
         $this->dispatchExported($collection, $request, 'xlsx');
+
         return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
     }
 
@@ -59,20 +62,21 @@ class ExportController extends Controller {
             'rows' => $collection,
         ]);
         $this->dispatchExported($collection, $request, 'pdf');
+
         return $pdf->download('export.pdf');
     }
 
     protected function export(ExportQuery $request, GraphQLContext $context): Collection {
-        $result = $this->getInitialResult($request, $context);
-
+        $result    = $this->getInitialResult($request, $context);
         $paginated = false;
         $data      = $result['data'];
         $validated = $request->validated();
         $root      = array_key_exists('root', $validated) && $validated['root'] ? $validated['root']
             : array_key_first($data);
         $items     = Arr::get($data, $root);
+        $count     = $validate['variables']['limit'] ?? null;
         if (!$items) {
-            throw new ExportGraphQLQueryEmpty();
+        // TODO Remove? throw new ExportGraphQLQueryEmpty();
         }
         $collection = new Collection();
         if (array_key_exists('data', $items)) {
@@ -80,9 +84,11 @@ class ExportController extends Controller {
             $items     = $items['data'];
             if (
                 !array_key_exists('variables', $validated) ||
-                !array_key_exists('page', $validated['variables'])
+                !array_key_exists('offset', $validated['variables'])
             ) {
-                throw ValidationException::withMessages(['page' => __('validation.required', ['attribute' => 'page'])]);
+                throw ValidationException::withMessages([
+                    'offset' => __('validation.required', ['attribute' => 'offset']),
+                ]);
             }
         }
 
@@ -98,23 +104,35 @@ class ExportController extends Controller {
         // First item which is fetched before to check for errors
         foreach ($items as $item) {
             $collection->push($this->getExportRow($keys, $item));
+
+            if ($count !== null && $count >= count($collection)) {
+                break;
+            }
         }
 
-        if ($paginated) {
+        if ($paginated && ($count === null || $count < count($collection))) {
             $variables = $validated['variables'];
-            $page      = $variables['page'] + 1;
+            $offset    = count($collection);
+            $limit     = 100;
+
             do {
-                $variables['page'] = $page;
-                $operationParam    = OperationParams::create([
+                $variables['offset'] = $offset;
+                $variables['limit']  = $limit;
+                $operationParam      = OperationParams::create([
                     'query'         => $validated['query'],
                     'operationName' => $validated['operationName'],
                     'variables'     => $variables,
                 ]);
-                $items             = $this->executeQuery($context, $paginated, $root, $operationParam);
+                $items               = $this->executeQuery($context, $paginated, $root, $operationParam);
+                $offset              = $offset + $limit;
+
                 foreach ($items as $item) {
                     $collection->push($this->getExportRow($keys, $item));
+
+                    if ($count !== null && $count >= count($collection)) {
+                        break;
+                    }
                 }
-                $page++;
             } while (!empty($items));
         }
 
@@ -175,7 +193,9 @@ class ExportController extends Controller {
         $operationParam = OperationParams::create([
             'query'         => $validated['query'],
             'operationName' => $validated['operationName'],
-            'variables'     => $validated['variables'],
+            'variables'     => array_merge($validated['variables'], [
+                'limit' => 100,
+            ]),
         ]);
         $result         = $this->graphQL->executeOperation($operationParam, $context);
         if (array_key_exists('errors', $result)) {
@@ -226,6 +246,7 @@ class ExportController extends Controller {
     protected function formatHeader(string $text): string {
         $text = str_replace('.', ' ', $text);
         $text = str_replace('_', ' ', $text);
+
         return ucwords($text);
     }
 
