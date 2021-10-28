@@ -11,8 +11,6 @@ type Customer {
     limit: Int! = 25
     offset: Int! = 0
   ): [CustomerLocation!]
-
-  """Description"""
   locationsAggregated(where: SearchByConditionCustomerSearch): CustomerLocationsAggregated
 }
 

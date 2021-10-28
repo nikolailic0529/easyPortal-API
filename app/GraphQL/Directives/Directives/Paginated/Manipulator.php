@@ -22,6 +22,7 @@ use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
+use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
 
 use function get_object_vars;
 use function is_array;
@@ -46,6 +47,18 @@ class Manipulator extends AstManipulator {
         $aggregated = $this->getAggregatedField($parent, $field);
 
         if ($aggregated) {
+            /**
+             * Apply manipulators (lighthouse doesn't process added types)
+             *
+             * @see \Nuwave\Lighthouse\Schema\AST\ASTBuilder::applyFieldManipulators()
+             */
+            $manipulators = $this->directives->associatedOfType($aggregated, FieldManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateFieldDefinition($this->document, $aggregated, $parent);
+            }
+
+            // Add
             $parent->fields[] = $aggregated;
         }
 
@@ -100,7 +113,7 @@ class Manipulator extends AstManipulator {
         $aggregated->name->value = $fieldName;
 
         // Set description
-        // TODO $aggregated->description = null;
+        $aggregated->description = null;
 
         // Add @aggregated
         $arguments = $this->getNodeDirective($field, Base::class)?->getBuilderArguments() ?: [];

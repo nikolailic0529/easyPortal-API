@@ -2400,8 +2400,6 @@ type Query {
   searchAggregated(search: SearchString!): SearchResultsAggregated
 
   """
-  List of all organizations.
-  
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -2409,8 +2407,6 @@ type Query {
   organizationsAggregated(where: SearchByConditionOrganizationsQuery): OrganizationsAggregated
 
   """
-  List of all organizations audits.
-  
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -2418,8 +2414,6 @@ type Query {
   auditsAggregated(where: SearchByConditionAuditsQuery): AuditsAggregated
 
   """
-  List of all users.
-  
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -2427,8 +2421,6 @@ type Query {
   usersAggregated(where: SearchByConditionUsersQuery): UsersAggregated
 
   """
-  List of all assets
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -2443,8 +2435,6 @@ type Query {
   assetsSearchAggregated(search: SearchString!): AssetsAggregated
 
   """
-  List of all contracts.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -2459,8 +2449,6 @@ type Query {
   contractsSearchAggregated(search: String!): DocumentsAggregated
 
   """
-  List of Customers.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -2475,8 +2463,6 @@ type Query {
   customersSearchAggregated(search: SearchString!): CustomersAggregated
 
   """
-  List of all documents.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["contracts-view","customers-view","quotes-view"])> User must be
@@ -2485,8 +2471,6 @@ type Query {
   documentsAggregated(where: SearchByConditionDocumentsQuery): DocumentsAggregated
 
   """
-  List of all quotes.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
