@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries\Customers;
 
-use App\GraphQL\Queries\Assets\AssetsAggregate;
+use App\GraphQL\Queries\Assets\AssetsAggregated;
 use App\GraphQL\Queries\Assets\AssetTest;
-use App\GraphQL\Queries\Contracts\ContractsAggregateTest;
+use App\GraphQL\Queries\Contracts\ContractsAggregatedTest;
 use App\GraphQL\Queries\Contracts\ContractsTest;
 use App\GraphQL\Queries\Quotes\QuotesTest;
 use App\Models\Asset;
@@ -42,7 +42,6 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Customers\Customer
  */
 class CustomerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -764,13 +763,14 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::assetsAggregate
+     * @covers \App\GraphQL\Queries\Assets\AssetsAggregated::types
+     * @covers \App\GraphQL\Queries\Assets\AssetsAggregated::coverages
      *
      * @dataProvider dataProviderQueryAssetAggregate
      *
      * @param array<string, mixed> $params
      */
-    public function testQueryAssetAggregate(
+    public function testQueryAssetAggregated(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
@@ -791,7 +791,7 @@ class CustomerTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '
                 query customer($id: ID!, $where: SearchByConditionAssetsQuery) {
                     customer(id: $id) {
-                        assetsAggregate(where: $where) {
+                        assetsAggregated(where: $where) {
                             count
                             types {
                                 count
@@ -819,14 +819,14 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::contractsAggregate
+     * @covers \App\GraphQL\Queries\Contracts\ContractsAggregated::prices
      *
      * @dataProvider dataProviderQueryContractsAggregate
      *
      * @param array<string,mixed>  $settings
      * @param array<string, mixed> $params
      */
-    public function testQueryContractsAggregate(
+    public function testQueryContractsAggregated(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
@@ -850,7 +850,7 @@ class CustomerTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '
                 query customer($id: ID!, $where: SearchByConditionDocumentsQuery) {
                     customer(id: $id) {
-                        contractsAggregate(where: $where) {
+                        contractsAggregated(where: $where) {
                             count
                             prices {
                                 count
@@ -2516,9 +2516,9 @@ class CustomerTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('assetsAggregate', AssetsAggregate::class),
+                        new JsonFragmentSchema('assetsAggregated', AssetsAggregated::class),
                         [
-                            'assetsAggregate' => [
+                            'assetsAggregated' => [
                                 'count'     => 3,
                                 'types'     => [
                                     [
@@ -2644,9 +2644,9 @@ class CustomerTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('contractsAggregate', ContractsAggregateTest::class),
+                        new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
                         [
-                            'contractsAggregate' => [
+                            'contractsAggregated' => [
                                 'count'  => 3,
                                 'prices' => [
                                     [

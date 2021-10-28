@@ -25,13 +25,6 @@ extend type Query {
   @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
   @paginated
 
-  contractsAggregate(
-    where: DocumentsQuery @searchBy
-  ): DocumentsAggregate!
-  @organization
-  @me(permissions: ["contracts-view", "customers-view"])
-  @field(resolver: "App\\GraphQL\\Queries\\Contracts\\ContractsAggregate")
-
   contractsSearch(
     search: String!
     @search

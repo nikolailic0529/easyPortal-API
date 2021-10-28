@@ -4,10 +4,31 @@ type Query {
     order: _ @sortBy
     test: ID
   ): [Customer!]! @me @paginated
+
+  data: [Asset!]! @paginated
+
+  type: [Type!]! @paginated
 }
 
 type Customer {
   id: ID!
+}
+
+type Asset {
+  id: ID!
+}
+
+type Type {
+  id: ID!
+}
+
+type AssetsAggregated {
+  types: [String!]!
+}
+
+"Description"
+type TypesAggregated {
+  assets: [ID!]!
 }
 
 input CustomerSearch {

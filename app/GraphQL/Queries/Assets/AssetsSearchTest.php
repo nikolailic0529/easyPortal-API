@@ -28,7 +28,6 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
-use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithSearch;
 

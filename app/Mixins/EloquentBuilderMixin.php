@@ -30,7 +30,7 @@ class EloquentBuilderMixin {
             }
 
             if ($relation instanceof BelongsToMany) {
-                $builder = $builder->leftJoinSub(
+                $builder = $builder->joinSub(
                     $callback
                         ? $callback($relation, $relation->getQuery())
                         : $relation->getQuery(),
@@ -40,7 +40,7 @@ class EloquentBuilderMixin {
                     $relation->getQualifiedParentKeyName(),
                 );
             } elseif ($relation instanceof HasMany) {
-                $builder = $builder->leftJoinSub(
+                $builder = $builder->joinSub(
                     $callback
                         ? $callback($relation, $relation->getQuery())
                         : $relation->getQuery(),

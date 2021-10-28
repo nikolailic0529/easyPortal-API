@@ -1,18 +1,3 @@
-input AssetsSearchCustomerSort {
-  name: String
-}
-
-input AssetsSearchProductSort {
-  sku: String
-  name: String
-}
-
-input AssetsSearchSort {
-  serial_number: String
-  product: AssetsSearchProductSort
-  customer: AssetsSearchCustomerSort
-}
-
 type Customer {
   id: ID!
 
@@ -26,8 +11,6 @@ type Customer {
     limit: Int!
     offset: Int! = 0
   ): [CustomerLocation!]
-
-  """Description"""
   locationsAggregated(where: SearchByConditionCustomerSearch): CustomerLocationsAggregated
 }
 
@@ -42,87 +25,6 @@ type CustomerLocationsAggregated {
 
 input CustomerSearch {
   id: ID!
-}
-
-input CustomersSearchHeadquarterCitySort {
-  name: String
-}
-
-input CustomersSearchHeadquarterSort {
-  city: CustomersSearchHeadquarterCitySort
-}
-
-input CustomersSearchSort {
-  name: String
-  assets_count: String
-  locations_count: String
-  headquarter: CustomersSearchHeadquarterSort
-}
-
-input DocumentsSearchCustomerSort {
-  name: String
-}
-
-input DocumentsSearchSort {
-  number: String
-  start: String
-  end: String
-  price: String
-  customer: DocumentsSearchCustomerSort
-}
-
-"""Information about pagination using a Relay style cursor connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """The cursor to continue paginating backwards."""
-  startCursor: String
-
-  """The cursor to continue paginating forwards."""
-  endCursor: String
-
-  """Total number of nodes in the paginated connection."""
-  total: Int!
-
-  """Number of nodes in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the last available page."""
-  lastPage: Int!
-}
-
-"""Information about pagination using a fully featured paginator."""
-type PaginatorInfo {
-  """Number of items in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the first item in the current page."""
-  firstItem: Int
-
-  """Are there more pages after this one?"""
-  hasMorePages: Boolean!
-
-  """Index of the last item in the current page."""
-  lastItem: Int
-
-  """Index of the last available page."""
-  lastPage: Int!
-
-  """Number of items per page."""
-  perPage: Int!
-
-  """Number of total available items."""
-  total: Int!
 }
 
 type Query {
@@ -161,24 +63,6 @@ input SearchByScalarID {
 
   """Outside a set of values."""
   notIn: [ID!]
-}
-
-"""Information about pagination using a simple paginator."""
-type SimplePaginatorInfo {
-  """Number of items in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the first item in the current page."""
-  firstItem: Int
-
-  """Index of the last item in the current page."""
-  lastItem: Int
-
-  """Number of items per page."""
-  perPage: Int!
 }
 
 """

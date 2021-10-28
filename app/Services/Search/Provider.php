@@ -13,7 +13,9 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Builders\Scout\ColumnResolver;
+use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
+use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
 class Provider extends ServiceProvider {
     public function register(): void {
@@ -39,6 +41,12 @@ class Provider extends ServiceProvider {
         $this->app->afterResolving(
             TypeRegistry::class,
             static function (TypeRegistry $types, Container $container): void {
+                // Test schema?
+                if ($container->make(SchemaSourceProvider::class) instanceof TestSchemaProvider) {
+                    return;
+                }
+
+                // Convert
                 $converter = $container->make(ModelConverter::class);
 
                 foreach (Service::getSearchableModels() as $model) {

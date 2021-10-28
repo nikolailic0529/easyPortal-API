@@ -12,7 +12,6 @@ use Nuwave\Lighthouse\Testing\MocksResolvers;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
 use function file_put_contents;
-use function is_file;
 use function is_null;
 
 /**
@@ -67,14 +66,13 @@ trait WithGraphQLSchema {
 
     protected function getGraphQLSchemaExpected(string $schema = '.graphql', string $source = null): string {
         $data = $this->getTestData();
-        $path = $data->path($schema);
 
-        if (!is_file($path) || $data->content($schema) === '') {
+        if ($data->content($schema) === '') {
             if ($source) {
                 $source = $data->content($source);
             }
 
-            $this->assertNotFalse(file_put_contents($path, $this->serializeGraphQLSchema($source)));
+            $this->assertNotFalse(file_put_contents($data->path($schema), $this->serializeGraphQLSchema($source)));
         }
 
         return $data->content($schema);

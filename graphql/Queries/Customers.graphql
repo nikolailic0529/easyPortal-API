@@ -24,13 +24,6 @@ extend type Query {
   @me(permissions: ["customers-view"])
   @paginated
 
-  customersAggregate(
-    where: CustomersQuery @searchBy
-  ): CustomersAggregate!
-  @organization
-  @me(permissions: ["customers-view"])
-  @field(resolver: "App\\GraphQL\\Queries\\Customers\\CustomersAggregate")
-
   customersSearch(
     search: SearchString! @search
     order: CustomersSearchSort @sortBy

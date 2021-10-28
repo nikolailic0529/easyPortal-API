@@ -310,27 +310,23 @@ type AssetWarranty {
   serviceLevels: [ServiceLevel!]!
 }
 
-type AssetsAggregate {
+"""Aggregated data for type Asset."""
+type AssetsAggregated {
+  types: [AssetsAggregatedType!]!
+  coverages: [AssetsAggregatedCoverage!]!
   count: Int!
-  types: [AssetsAggregateType!]!
-  coverages: [AssetsAggregateCoverage!]!
 }
 
-type AssetsAggregateCoverage {
+type AssetsAggregatedCoverage {
   count: Int!
   coverage_id: ID
   coverage: Type
 }
 
-type AssetsAggregateType {
+type AssetsAggregatedType {
   count: Int!
   type_id: ID
   type: Type
-}
-
-"""Aggregated data for type Asset."""
-type AssetsAggregated {
-  count: Int!
 }
 
 input AssetsQuery {
@@ -679,11 +675,6 @@ type Customer {
   ): [Document!]!
 
   """
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
-
-  """
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   quotes(
@@ -706,11 +697,6 @@ type Customer {
     limit: Int! = 25
     offset: Int! = 0
   ): [Asset!]!
-
-  """
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
 
   """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -773,13 +759,9 @@ input CustomerTypesQuery {
   customers: CustomersQuery
 }
 
-type CustomersAggregate {
-  count: Int!
-  assets: Int!
-}
-
 """Aggregated data for type Customer."""
 type CustomersAggregated {
+  assets: Int!
   count: Int!
 }
 
@@ -1014,21 +996,17 @@ input DocumentTypesQuery {
   documents: DocumentsQuery
 }
 
-type DocumentsAggregate {
+"""Aggregated data for type Document."""
+type DocumentsAggregated {
+  prices: [DocumentsAggregatedPrice!]!
   count: Int!
-  prices: [DocumentsAggregatePrice!]!
 }
 
-type DocumentsAggregatePrice {
+type DocumentsAggregatedPrice {
   count: Int!
   amount: Float!
   currency_id: ID
   currency: Currency
-}
-
-"""Aggregated data for type Document."""
-type DocumentsAggregated {
-  count: Int!
 }
 
 input DocumentsQuery {
@@ -1829,60 +1807,6 @@ input OrganizationsSort {
   kpi: KpiSort!
 }
 
-"""Information about pagination using a Relay style cursor connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """The cursor to continue paginating backwards."""
-  startCursor: String
-
-  """The cursor to continue paginating forwards."""
-  endCursor: String
-
-  """Total number of nodes in the paginated connection."""
-  total: Int!
-
-  """Number of nodes in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the last available page."""
-  lastPage: Int!
-}
-
-"""Information about pagination using a fully featured paginator."""
-type PaginatorInfo {
-  """Number of items in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the first item in the current page."""
-  firstItem: Int
-
-  """Are there more pages after this one?"""
-  hasMorePages: Boolean!
-
-  """Index of the last item in the current page."""
-  lastItem: Int
-
-  """Index of the last available page."""
-  lastPage: Int!
-
-  """Number of items per page."""
-  perPage: Int!
-
-  """Number of total available items."""
-  total: Int!
-}
-
 type Permission {
   id: ID!
   key: String!
@@ -2099,13 +2023,6 @@ type Query {
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
   assetsSearch(
     search: SearchString!
     order: [SortByClauseAssetsSearchSort!]
@@ -2148,13 +2065,6 @@ type Query {
     limit: Int! = 25
     offset: Int! = 0
   ): [Document!]!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2212,13 +2122,6 @@ type Query {
     limit: Int! = 25
     offset: Int! = 0
   ): [Customer!]!
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2454,8 +2357,6 @@ type Query {
   searchAggregated(search: SearchString!): SearchResultsAggregated
 
   """
-  List of all organizations.
-  
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -2463,8 +2364,6 @@ type Query {
   organizationsAggregated(where: SearchByConditionOrganizationsQuery): OrganizationsAggregated
 
   """
-  List of all organizations audits.
-  
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -2472,8 +2371,6 @@ type Query {
   auditsAggregated(where: SearchByConditionAuditsQuery): AuditsAggregated
 
   """
-  List of all users.
-  
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -2481,8 +2378,6 @@ type Query {
   usersAggregated(where: SearchByConditionUsersQuery): UsersAggregated
 
   """
-  List of all assets
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -2497,8 +2392,6 @@ type Query {
   assetsSearchAggregated(search: SearchString!): AssetsAggregated
 
   """
-  List of all contracts.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -2513,8 +2406,6 @@ type Query {
   contractsSearchAggregated(search: String!): DocumentsAggregated
 
   """
-  List of Customers.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -2529,8 +2420,6 @@ type Query {
   customersSearchAggregated(search: SearchString!): CustomersAggregated
 
   """
-  List of all documents.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["contracts-view","customers-view","quotes-view"])> User must be
@@ -2539,8 +2428,6 @@ type Query {
   documentsAggregated(where: SearchByConditionDocumentsQuery): DocumentsAggregated
 
   """
-  List of all quotes.
-  
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
@@ -5082,24 +4969,6 @@ input SignUpByInviteInput {
 type SignUpByInvitePayload {
   """The link where the User should be redirected to Sign In."""
   url: String!
-}
-
-"""Information about pagination using a simple paginator."""
-type SimplePaginatorInfo {
-  """Number of items in the current page."""
-  count: Int!
-
-  """Index of the current page."""
-  currentPage: Int!
-
-  """Index of the first item in the current page."""
-  firstItem: Int
-
-  """Index of the last item in the current page."""
-  lastItem: Int
-
-  """Number of items per page."""
-  perPage: Int!
 }
 
 """

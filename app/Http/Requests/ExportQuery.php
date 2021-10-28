@@ -16,14 +16,14 @@ class ExportQuery extends FormRequest {
      */
     public function rules(): array {
         return [
-            'query'           => 'required|string|regex:/^query/',
-            'operationName'   => 'string',
-            'root'            => 'nullable|string',
-            'variables'       => '',
-            'variables.page'  => 'integer',
-            'variables.first' => 'integer',
-            'variables.order' => '',
-            'variables.where' => '',
+            'query'            => 'required|string|regex:/^query/',
+            'operationName'    => 'string',
+            'root'             => 'nullable|string',
+            'variables'        => '',
+            'variables.limit'  => 'nullable|integer',
+            'variables.offset' => 'required|integer',
+            'variables.order'  => '',
+            'variables.where'  => '',
         ];
     }
 }

@@ -1,5 +1,0 @@
-type AssetsAggregate {
-  count: Int!
-  types: [AssetsAggregateType!]!
-  coverages: [AssetsAggregateCoverage!]!
-}

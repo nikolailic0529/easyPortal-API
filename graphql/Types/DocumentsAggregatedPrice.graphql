@@ -1,4 +1,4 @@
-type DocumentsAggregatePrice {
+type DocumentsAggregatedPrice {
   count: Int!
   amount: Float!
   currency_id: ID
