@@ -9,8 +9,8 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken as GraphQLSignUpByInvi
 use App\GraphQL\Mutations\Auth\SignUpByInviteNotFound as GraphQLSignUpByInviteNotFound;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
-use App\Http\Controllers\ExportGraphQLQueryEmpty as HttpExportGraphQLQueryEmpty;
-use App\Http\Controllers\ExportGraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
+use App\Http\Controllers\Export\ExportGraphQLQueryEmpty as HttpExportGraphQLQueryEmpty;
+use App\Http\Controllers\Export\ExportGraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable as DataLoaderDataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoaderGraphQLRequestFailed;

@@ -3,7 +3,7 @@
 namespace App\Services\Audit\Listeners;
 
 use App\Events\Subscriber;
-use App\Http\Controllers\QueryExported;
+use App\Http\Controllers\Export\QueryExported;
 use App\Models\Model;
 use App\Services\Audit\Auditor;
 use App\Services\Audit\Concerns\Auditable;

@@ -11,7 +11,7 @@
 |
 */
 
-use App\Http\Controllers\ExportController;
+use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Routing\Router;

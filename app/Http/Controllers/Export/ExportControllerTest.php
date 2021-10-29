@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Export;
 
 use App\Exports\QueryExport;
 use App\Models\Asset;
@@ -24,7 +24,7 @@ use function is_a;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Controllers\ExportController
+ * @coversDefaultClass \App\Http\Controllers\Export\ExportController
  */
 class ExportControllerTest extends TestCase {
     // <editor-fold desc="Tests">

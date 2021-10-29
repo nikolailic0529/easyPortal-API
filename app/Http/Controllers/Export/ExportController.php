@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Export;
 
 use App\Exports\QueryExport;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ExportQuery;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
