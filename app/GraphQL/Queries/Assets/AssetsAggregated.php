@@ -73,31 +73,31 @@ class AssetsAggregated {
         }
 
         $coverage   = new Coverage();
-        $results    = $builder
-            ->selectRaw("c.{$model->coverages()->getRelatedPivotKeyName()} as `coverage_id`")
-            ->selectRaw("COUNT({$model->getQualifiedKeyName()}) as `count`")
-            ->joinRelation('coverages', 'c', static function (BelongsToMany $relation, Builder $builder): Builder {
-                return $builder->select(
-                    $relation->getQualifiedForeignPivotKeyName(),
-                    $relation->getQualifiedRelatedPivotKeyName(),
-                );
-            })
-            ->groupBy('coverage_id')
-            ->having('count', '>', 0)
-            ->toBase()
+        $results    = $coverage::query()
+            ->selectRaw($coverage->qualifyColumn('*'))
+            ->selectRaw('SUM(a.`count`) as assets_count')
+            ->joinRelation(
+                'assets',
+                'a',
+                static function (BelongsToMany $relation, Builder $query) use ($builder): Builder {
+                    return $query
+                        ->selectRaw("COUNT({$query->getModel()->getQualifiedKeyName()}) as `count`")
+                        ->selectRaw($relation->getQualifiedForeignPivotKeyName())
+                        ->mergeConstraintsFrom($builder)
+                        ->groupBy($relation->getQualifiedForeignPivotKeyName());
+                },
+            )
+            ->groupBy($coverage->getQualifiedKeyName())
+            ->having('assets_count', '>', 0)
             ->get();
-        $coverages  = $coverage::query()
-            ->whereKey($results->pluck('coverage_id')->all())
-            ->get()
-            ->keyBy(new GetKey());
         $aggregated = [];
 
         foreach ($results as $result) {
-            /** @var \stdClass $result */
+            /** @var \App\Models\Coverage $result */
             $aggregated[] = [
-                'count'       => $result->count,
-                'coverage_id' => $result->coverage_id,
-                'coverage'    => $coverages->get($result->coverage_id),
+                'count'       => $result->assets_count,
+                'coverage_id' => $result->getKey(),
+                'coverage'    => $result,
             ];
         }
 
