@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Client;
+namespace App\GraphQL\Utils\Iterators;
 
 use Closure;
 use Generator;
@@ -21,7 +21,7 @@ class QueryIteratorIterator implements QueryIterator {
     protected int      $chunk       = 1000;
 
     /**
-     * @param array<string,\App\Services\DataLoader\Client\QueryIterator> $iterators
+     * @param array<string,\App\GraphQL\Utils\Iterators\QueryIterator> $iterators
      */
     public function __construct(
         protected array $iterators,

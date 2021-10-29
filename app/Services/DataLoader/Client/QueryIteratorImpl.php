@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Exceptions\FailedToProcessChunkItem;
 use Closure;

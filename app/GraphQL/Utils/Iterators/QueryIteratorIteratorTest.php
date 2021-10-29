@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Client;
+namespace App\GraphQL\Utils\Iterators;
 
 use Closure;
 use Generator;
@@ -14,7 +14,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client\QueryIteratorIterator
+ * @coversDefaultClass \App\GraphQL\Utils\Iterators\QueryIteratorIterator
  */
 class QueryIteratorIteratorTest extends TestCase {
     /**
