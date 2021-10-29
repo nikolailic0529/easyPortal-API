@@ -41,27 +41,57 @@ abstract class QueryIteratorImpl implements QueryIterator {
         }
 
         // Iterate
-        do {
-            $chunk = $limit ? min($chunk, $limit - $index) : $chunk;
-            $items = (array) ($this->executor)($this->getVariables($chunk));
-            $items = $this->chunkPrepare($items);
+        $this->init();
 
-            $this->chunkLoaded($items);
+        try {
+            do {
+                $chunk = $limit ? min($chunk, $limit - $index) : $chunk;
+                $items = $this->getChunk($chunk);
+                $items = $this->chunkPrepare($items);
 
-            foreach ($items as $item) {
-                yield $index++ => $item;
-            }
+                $this->chunkLoaded($items);
 
-            if (!$this->chunkProcessed($items) || ($limit && $index >= $limit)) {
-                break;
-            }
-        } while ($items);
+                foreach ($items as $item) {
+                    yield $index++ => $item;
+                }
+
+                if (!$this->chunkProcessed($items) || ($limit && $index >= $limit)) {
+                    break;
+                }
+            } while ($items);
+        } finally {
+            $this->finish();
+        }
+    }
+
+    protected function init(): void {
+        // empty
+    }
+
+    protected function finish(): void {
+        // empty
+    }
+
+    /**
+     * @param array<string,mixed> $variables
+     *
+     * @return array<mixed>
+     */
+    protected function execute(array $variables): array {
+        return (array) ($this->executor)($variables);
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getChunk(int $limit): array {
+        return $this->execute($this->getChunkVariables($limit));
     }
 
     /**
      * @return array<string,mixed>
      */
-    abstract protected function getVariables(int $limit): array;
+    abstract protected function getChunkVariables(int $limit): array;
 
     /**
      * @param array<mixed> $items

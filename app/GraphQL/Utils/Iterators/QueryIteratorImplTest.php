@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client\QueryIteratorImpl
+ * @coversDefaultClass \App\GraphQL\Utils\Iterators\QueryIteratorImpl
  */
 class QueryIteratorImplTest extends TestCase {
     /**
@@ -25,7 +25,7 @@ class QueryIteratorImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function getVariables(int $limit): array {
+            protected function getChunkVariables(int $limit): array {
                 return [];
             }
 
@@ -66,7 +66,7 @@ class QueryIteratorImplTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function getVariables(int $limit): array {
+            protected function getChunkVariables(int $limit): array {
                 return [];
             }
 

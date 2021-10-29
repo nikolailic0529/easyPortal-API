@@ -2,7 +2,10 @@
 
 namespace App\GraphQL\Utils\Iterators;
 
+use Closure;
 use InvalidArgumentException;
+
+use Iterator;
 
 use function count;
 use function filter_var;
@@ -14,6 +17,8 @@ use function sprintf;
 use const FILTER_VALIDATE_INT;
 
 class OffsetBasedIterator extends QueryIteratorImpl {
+    private ?int $initialOffset = null;
+
     public function getOffset(): int|null {
         return parent::getOffset();
     }
@@ -33,13 +38,21 @@ class OffsetBasedIterator extends QueryIteratorImpl {
         return parent::setOffset($offset);
     }
 
+    protected function init(): void {
+        $this->initialOffset = $this->getOffset();
+    }
+
+    protected function finish(): void {
+        $this->setOffset($this->initialOffset);
+    }
+
     /**
      * @inheritDoc
      */
-    protected function getVariables(int $limit): array {
+    protected function getChunkVariables(int $limit): array {
         return [
             'limit'  => $limit,
-            'offset' => $this->getOffset(),
+            'offset' => (int) $this->getOffset(),
         ];
     }
 
