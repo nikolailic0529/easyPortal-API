@@ -2,10 +2,7 @@
 
 namespace App\GraphQL\Utils\Iterators;
 
-use Closure;
 use InvalidArgumentException;
-
-use Iterator;
 
 use function count;
 use function filter_var;

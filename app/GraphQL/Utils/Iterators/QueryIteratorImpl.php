@@ -18,6 +18,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
 
     /**
      * @param \Closure(array $variables): array<mixed> $executor
+     * @param \Closure(mixed $retriever): T            $retriever
      */
     public function __construct(
         protected ?Closure $executor,
