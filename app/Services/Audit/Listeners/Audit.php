@@ -26,11 +26,11 @@ class Audit implements Subscriber {
     }
 
     public function signIn(Login $event): void {
-        $this->auditor->create(Action::authSignedIn(), ['guard' => $event->guard ]);
+        $this->auditor->create(Action::authSignedIn(), ['guard' => $event->guard]);
     }
 
     public function signOut(Logout $event): void {
-        $this->auditor->create(Action::authSignedOut(), ['guard' => $event->guard ]);
+        $this->auditor->create(Action::authSignedOut(), ['guard' => $event->guard]);
     }
 
     public function passwordReset(PasswordReset $event): void {
@@ -53,10 +53,9 @@ class Audit implements Subscriber {
 
     public function queryExported(QueryExported $event): void {
         $this->auditor->create(Action::exported(), [
-            'count'   => $event->getCount(),
             'type'    => $event->getType(),
-            'query'   => $event->getQuery(),
-            'columns' => $event->getColumns(),
+            'query'   => $event->getRoot(),
+            'headers' => $event->getHeaders(),
         ]);
     }
 
@@ -106,6 +105,7 @@ class Audit implements Subscriber {
                 // empty
                 break;
         }
+
         return $action;
     }
 
@@ -125,6 +125,7 @@ class Audit implements Subscriber {
                 'properties' => $object->getChanges(),
             ];
         }
+
         return $context;
     }
 }

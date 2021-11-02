@@ -7,7 +7,7 @@ use Throwable;
 
 use function __;
 
-class ExportGraphQLQueryInvalid extends HttpException {
+class GraphQLQueryInvalid extends HttpException {
     /**
      * @param array<mixed> $errors
      */

@@ -23,7 +23,7 @@ Route::get('/', [IndexController::class, 'index']);
 Route::group(['middleware' => ['auth', 'organization']], static function (Router $router): void {
     $router->post('/download/csv', [ExportController::class, 'csv']);
 
-    $router->post('/download/excel', [ExportController::class, 'excel']);
+    $router->post('/download/excel', [ExportController::class, 'xlsx']);
 
     $router->post('/download/pdf', [ExportController::class, 'pdf']);
 

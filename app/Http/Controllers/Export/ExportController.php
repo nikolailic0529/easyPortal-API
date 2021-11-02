@@ -2,204 +2,201 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\Exports\QueryExport;
+use App\GraphQL\Utils\Iterators\OffsetBasedIterator;
+use App\GraphQL\Utils\Iterators\QueryBasedIterator;
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ExportQuery;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
-use GraphQL\Server\OperationParams;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\WriterInterface;
+use Closure;
+use EmptyIterator;
+use GraphQL\Server\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Validation\ValidationException;
-use Maatwebsite\Excel\Excel;
+use Illuminate\Support\Str;
+use Iterator;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Mime\MimeTypes;
 
-use function __;
-use function array_column;
+use function array_is_list;
 use function array_key_exists;
-use function array_key_first;
-use function array_keys;
+use function array_map;
 use function array_merge;
 use function array_values;
 use function count;
 use function implode;
 use function is_array;
-use function is_scalar;
+use function iterator_to_array;
 use function json_encode;
+use function pathinfo;
+use function reset;
 use function str_replace;
-use function ucwords;
+use function trim;
+
+use const JSON_PRESERVE_ZERO_FRACTION;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const PATHINFO_EXTENSION;
 
 class ExportController extends Controller {
     public function __construct(
-        protected GraphQL $graphQL,
+        protected Repository $config,
         protected Dispatcher $dispatcher,
+        protected ResponseFactory $factory,
+        protected GraphQL $graphQL,
+        protected CreatesContext $context,
+        protected Helper $helper,
     ) {
         // empty
     }
 
-    public function csv(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
-        $collection = $this->export($request, $createsContext->generate($request));
-        $this->dispatchExported($collection, $request, 'csv');
-
-        return (new QueryExport($collection))->download('export.csv', Excel::CSV);
+    public function csv(ExportRequest $request): StreamedResponse {
+        return $this->excel(WriterEntityFactory::createCSVWriter(), $request, __FUNCTION__, 'export.csv');
     }
 
-    public function excel(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
-        $collection = $this->export($request, $createsContext->generate($request));
-        $this->dispatchExported($collection, $request, 'xlsx');
-
-        return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
+    public function xlsx(ExportRequest $request): StreamedResponse {
+        return $this->excel(WriterEntityFactory::createXLSXWriter(), $request, __FUNCTION__, 'export.xlsx');
     }
 
-    public function pdf(ExportQuery $request, CreatesContext $createsContext): Response {
-        $collection = $this->export($request, $createsContext->generate($request));
-        $pdf        = PDF::loadView('exports.pdf', [
-            'rows' => $collection,
+    public function pdf(ExportRequest $request): Response {
+        $rows     = [];
+        $format   = __FUNCTION__;
+        $headers  = static function (array $headers) use (&$rows): void {
+            $rows[] = $headers;
+        };
+        $iterator = $this->getRowsIterator($request, $format, $headers);
+        $items    = iterator_to_array($iterator);
+        $rows     = array_merge($rows, $items);
+        $pdf      = PDF::loadView('exports.pdf', [
+            'rows' => $rows,
         ]);
-        $this->dispatchExported($collection, $request, 'pdf');
 
         return $pdf->download('export.pdf');
     }
 
-    protected function export(ExportQuery $request, GraphQLContext $context): Collection {
-        $result    = $this->getInitialResult($request, $context);
-        $paginated = false;
-        $data      = $result['data'];
-        $validated = $request->validated();
-        $root      = array_key_exists('root', $validated) && $validated['root'] ? $validated['root']
-            : array_key_first($data);
-        $items     = Arr::get($data, $root);
-        $count     = $validate['variables']['limit'] ?? null;
-        if (!$items) {
-        // TODO Remove? throw new ExportGraphQLQueryEmpty();
-        }
-        $collection = new Collection();
-        if (array_key_exists('data', $items)) {
-            $paginated = true;
-            $items     = $items['data'];
-            if (
-                !array_key_exists('variables', $validated) ||
-                !array_key_exists('offset', $validated['variables'])
-            ) {
-                throw ValidationException::withMessages([
-                    'offset' => __('validation.required', ['attribute' => 'offset']),
-                ]);
+    protected function excel(
+        WriterInterface $writer,
+        ExportRequest $request,
+        string $format,
+        string $filename,
+    ): StreamedResponse {
+        $mimetypes = (new MimeTypes())->getMimeTypes(pathinfo($filename, PATHINFO_EXTENSION));
+        $mimetype  = reset($mimetypes);
+        $headers   = [
+            'Content-Type' => "{$mimetype}; charset=UTF-8",
+        ];
+
+        return $this->factory->streamDownload(function () use ($writer, $request, $format): void {
+            $writer   = $writer->openToFile('php://output');
+            $headers  = static function (array $headers) use ($writer): void {
+                $style = (new StyleBuilder())->setFontBold()->build();
+                $row   = WriterEntityFactory::createRowFromArray($headers, $style);
+
+                $writer->addRow($row);
+            };
+            $iterator = $this->getRowsIterator($request, $format, $headers);
+
+            foreach ($iterator as $row) {
+                $writer->addRow(WriterEntityFactory::createRowFromArray($row));
             }
-        }
 
-        if (empty($items)) {
-            return $collection;
-        }
+            $writer->close();
+        }, $filename, $headers);
+    }
 
-        $keys = $this->getKeys($items[0]);
+    /**
+     * @param \Closure(array<string>): void $headersCallback
+     *
+     * @return \Iterator<array<mixed>>
+     */
+    protected function getRowsIterator(ExportRequest $request, string $format, Closure $headersCallback): Iterator {
+        // Prepare request
+        $parameters = $request->validated();
+        $iterator   = $this->getIterator($request, $parameters);
+        $headers    = isset($parameters['headers']) && is_array($parameters['headers'])
+            ? $parameters['headers']
+            : null;
+        $empty      = true;
+        $root       = $parameters['root'] ?? 'data';
 
-        // Header
-        $collection->push(array_values($keys));
+        foreach ($iterator as $i => $item) {
+            // If no headers we need to calculate them. But this is deprecated
+            // behavior and probably we should remove it. The main problem is
+            // we are using only the first row and if some values are missed
+            // the headers will be invalid.
+            if (!$headers) {
+                $headers = $this->getHeaders($item);
+            }
 
-        // First item which is fetched before to check for errors
-        foreach ($items as $item) {
-            $collection->push($this->getExportRow($keys, $item));
-
-            if ($count !== null && $count >= count($collection)) {
+            // If no headers we cannot export because it will get empty row.
+            if (!$headers) {
                 break;
             }
-        }
 
-        if ($paginated && ($count === null || $count < count($collection))) {
-            $variables = $validated['variables'];
-            $offset    = count($collection);
-            $limit     = 100;
-
-            do {
-                $variables['offset'] = $offset;
-                $variables['limit']  = $limit;
-                $operationParam      = OperationParams::create([
-                    'query'         => $validated['query'],
-                    'operationName' => $validated['operationName'],
-                    'variables'     => $variables,
-                ]);
-                $items               = $this->executeQuery($context, $paginated, $root, $operationParam);
-                $offset              = $offset + $limit;
-
-                foreach ($items as $item) {
-                    $collection->push($this->getExportRow($keys, $item));
-
-                    if ($count !== null && $count >= count($collection)) {
-                        break;
-                    }
-                }
-            } while (!empty($items));
-        }
-
-        return $collection;
-    }
-
-    /**
-     * @param array<string,mixed> $keys
-     *
-     * @param array<string,mixed> $item
-     *
-     * @return array<string,mixed>
-     */
-    protected function getExportRow(array $keys, array $item): array {
-        $value = [];
-        foreach (array_keys($keys) as $key) {
-            $current = Arr::get($item, $key);
-            if (is_array($current)) {
-                // TODO Format array output
-                // Check if object of array has only (1) key
-                if (Arr::isAssoc($current[0]) && count(array_keys($current[0])) === 1) {
-                    $current = implode(',', array_column($current, array_key_first($current[0])));
-                } else {
-                    $current = json_encode($current);
-                }
+            // Add Headers
+            if ($i === 0) {
+                $headersCallback(array_values($headers));
+                $this->event($format, $root, $headers);
             }
-            $value[] = $current;
+
+            // Prepare row
+            $row = [];
+
+            foreach ($headers as $path => $header) {
+                $row[] = $this->getRowValue(Arr::get($item, $path));
+            }
+
+            // Iterate
+            yield $row;
+
+            // Mark
+            $empty = false;
         }
 
-        return $value;
+        // Empty
+        if ($empty) {
+            // Add headers
+            if ($headers) {
+                $headersCallback(array_values($headers));
+            }
+
+            // Event
+            $this->event($format, $root, $headers);
+
+            // Return
+            return new EmptyIterator();
+        }
     }
 
     /**
-     * @return array<string,mixed>
+     * @param array<string,mixed> $parameters
+     * @param array<string,mixed> $variables
+     *
+     * @return array<mixed>
      */
-    protected function executeQuery(
-        GraphQLContext $context,
-        bool $paginated,
-        string $root,
-        OperationParams $params,
-    ): array {
-        $result = $this->graphQL->executeOperation($params, $context);
-        $items  = $result['data'][$root];
-
-        if ($paginated) {
-            $items = $items['data'];
-        }
-
-        return $items;
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    protected function getInitialResult(ExportQuery $request, GraphQLContext $context): array {
-        // execute first to check for errors
-        $validated      = $request->validated();
-        $operationParam = OperationParams::create([
-            'query'         => $validated['query'],
-            'operationName' => $validated['operationName'],
-            'variables'     => array_merge($validated['variables'], [
-                'limit' => 100,
-            ]),
+    protected function execute(GraphQLContext $context, array $parameters, array $variables): array {
+        $parameters = array_merge($parameters, [
+            'variables' => array_merge($parameters['variables'] ?? [], $variables),
         ]);
-        $result         = $this->graphQL->executeOperation($operationParam, $context);
-        if (array_key_exists('errors', $result)) {
+        $operation  = $this->helper->parseRequestParams('GET', [], Arr::only($parameters, [
+            'query',
+            'variables',
+            'operationName',
+        ]));
+        $result     = $this->graphQL->executeOperation($operation, $context);
+        $root       = $parameters['root'] ?? 'data';
+
+        if (isset($result['errors'])) {
             switch ($result['errors'][0]['extensions']['category'] ?? null) {
                 case 'authorization':
                     throw new AuthorizationException($result['errors'][0]['message']);
@@ -208,77 +205,104 @@ class ExportController extends Controller {
                     throw new AuthenticationException($result['errors'][0]['message']);
                     break;
                 default:
-                    throw new ExportGraphQLQueryInvalid($result['errors']);
+                    throw new GraphQLQueryInvalid($result['errors']);
                     break;
             }
         }
 
-        return $result;
+        return Arr::get($result, $root) ?? [];
     }
 
     /**
-     *  Get an array of key, values of key => path to value and value is header
-     * ['products.name' => 'product]
+     * @param array<string,mixed> $parameters
      *
+     * @return \App\GraphQL\Utils\Iterators\QueryIterator<array<string,mixed>>
+     */
+    protected function getIterator(ExportRequest $request, array $parameters): QueryIterator {
+        $chunk     = $this->getChunkSize();
+        $context   = $this->context->generate($request);
+        $executor  = function (array $variables) use ($context, $parameters): array {
+            return $this->execute($context, $parameters, $variables);
+        };
+        $variables = $parameters['variables'] ?? [];
+        $iterator  = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
+            ? new OffsetBasedIterator($executor)
+            : new QueryBasedIterator($executor);
+
+        $iterator->setLimit($parameters['variables']['limit'] ?? null);
+        $iterator->setOffset($parameters['variables']['offset'] ?? null);
+        $iterator->setChunkSize($chunk);
+
+        if ($this->config->get('ep.pagination.limit.max') < $chunk) {
+            $this->config->set('ep.pagination.limit.max', $chunk);
+        }
+
+        return $iterator;
+    }
+
+    /**
      * @param array<string, mixed> $item
      *
-     * @return array<string,string>
+     * @return array<string, string>
      */
-    protected function getKeys(array $item): array {
-        $keys = [];
-        foreach (array_keys($item) as $key) {
-            if (is_array($item[$key])) {
-                // relation key with values
-                if (Arr::isAssoc($item[$key])) {
-                    $this->resolveObjectHeader($item, $keys, $key);
+    protected function getHeaders(array $item, string $prefix = null): array {
+        $headers = [];
+
+        if (!array_is_list($item)) {
+            foreach ($item as $name => $value) {
+                $key = (string) ($prefix ? "{$prefix}.{$name}" : $name);
+
+                if (is_array($value) && !array_is_list($value)) {
+                    $headers = array_merge($headers, $this->getHeaders($value, $key));
                 } else {
-                    // Array of values
-                    $keys[$key] = $this->formatHeader($key);
+                    $headers[$key] = $this->getHeader($key);
                 }
-            } else {
-                // Direct table column
-                $keys[$key] = $this->formatHeader($key);
             }
         }
 
-        return $keys;
+        return $headers;
     }
 
-    protected function formatHeader(string $text): string {
-        $text = str_replace('.', ' ', $text);
-        $text = str_replace('_', ' ', $text);
-
-        return ucwords($text);
-    }
-
-    protected function dispatchExported(Collection $collection, ExportQuery $request, string $type): void {
-        $count     = $collection->count();
-        $count     = $count > 1 ? $count - 1 : $count;
-        $validated = $request->validated();
-        $this->dispatcher->dispatch(new QueryExported(
-            $count,
-            $type,
-            $validated['operationName'],
-            $collection->first(),
+    protected function getHeader(string $path): string {
+        return Str::title(trim(
+            str_replace(['_', '.'], ' ', $path),
         ));
     }
 
-    /**
-     * @param array<string, mixed> $array
-     *
-     * @param array<string, mixed> $keys
-     */
-    protected function resolveObjectHeader(array $array, array &$keys, string $key): void {
-        $currentValue = Arr::get($array, $key);
-        if (is_scalar($currentValue)) {
-            $keys[$key] = $this->formatHeader($key);
-        } elseif (Arr::isAssoc($currentValue)) {
-            foreach ($currentValue as $index => $value) {
-                $prefix = "{$key}.{$index}";
-                $this->resolveObjectHeader($array, $keys, $prefix);
+    protected function getRowValue(mixed $value): mixed {
+        if (is_array($value)) {
+            $flags = JSON_PRESERVE_ZERO_FRACTION | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
+            $first = reset($value);
+
+            if (is_array($first)) {
+                if (array_is_list($value) && !Arr::first($value, static fn($v) => count($v) > 1)) {
+                    $value = implode(', ', array_map(static fn($v) => reset($v), $value));
+                } else {
+                    $value = json_encode($value, $flags);
+                }
+            } elseif (array_is_list($value)) {
+                $value = implode(', ', $value);
+            } else {
+                $value = json_encode($value, $flags);
             }
-        } else {
-            // empty
         }
+
+        return $value;
+    }
+
+    /**
+     * @param array<string,string> $headers
+     */
+    protected function event(string $format, string $root, ?array $headers): void {
+        $this->dispatcher->dispatch(new QueryExported(
+            $format,
+            $root,
+            $headers,
+        ));
+    }
+
+    protected function getChunkSize(): ?int {
+        // TODO: Set to 1000
+        return $this->config->get('ep.export.chunk') ?: 100;
     }
 }

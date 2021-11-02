@@ -2,36 +2,30 @@
 
 namespace App\Http\Controllers\Export;
 
-use Illuminate\Queue\SerializesModels;
-
 class QueryExported {
-    use SerializesModels;
-
+    /**
+     * @param array<string>|null $headers
+     */
     public function __construct(
-        protected int $count,
         protected string $type,
-        protected string $query,
-        protected ?array $columns,
+        protected string $root,
+        protected ?array $headers,
     ) {
         // empty
-    }
-
-    public function getCount(): int {
-        return $this->count;
     }
 
     public function getType(): string {
         return $this->type;
     }
 
-    public function getQuery(): string {
-        return $this->query;
+    public function getRoot(): string {
+        return $this->root;
     }
 
     /**
-     * @return array<string>
+     * @return array<string>|null
      */
-    public function getColumns(): ?array {
-        return $this->columns;
+    public function getHeaders(): ?array {
+        return $this->headers;
     }
 }

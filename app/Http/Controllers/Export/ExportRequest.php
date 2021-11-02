@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Requests;
+namespace App\Http\Controllers\Export;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ExportQuery extends FormRequest {
+class ExportRequest extends FormRequest {
     public function authorize(): bool {
         return true;
     }
@@ -16,14 +16,14 @@ class ExportQuery extends FormRequest {
      */
     public function rules(): array {
         return [
-            'query'            => 'required|string|regex:/^query/',
+            'root'             => 'required|string',
+            'query'            => 'required|string|regex:/^query /',
             'operationName'    => 'string',
-            'root'             => 'nullable|string',
-            'variables'        => '',
+            'variables'        => 'array',
             'variables.limit'  => 'nullable|integer',
-            'variables.offset' => 'required|integer',
-            'variables.order'  => '',
-            'variables.where'  => '',
+            'variables.offset' => 'nullable|integer',
+            'headers'          => 'array',
+            'headers.*'        => 'required|string|min:1',
         ];
     }
 }
