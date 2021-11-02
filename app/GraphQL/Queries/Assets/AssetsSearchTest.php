@@ -222,6 +222,7 @@ class AssetsSearchTest extends TestCase {
                     email
                     phone_valid
                 }
+                coverages_count
                 coverages {
                     id
                     name
@@ -289,25 +290,25 @@ class AssetsSearchTest extends TestCase {
                             self::class,
                             [
                                 [
-                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'product_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                    'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                    'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'serial_number'  => '#PRODUCT_SERIAL_323',
-                                    'contacts_count' => 1,
-                                    'data_quality'   => '130',
-                                    'oem'            => [
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'oem_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'product_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'location_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                    'type_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'customer_id'     => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'serial_number'   => '#PRODUCT_SERIAL_323',
+                                    'contacts_count'  => 1,
+                                    'data_quality'    => '130',
+                                    'oem'             => [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                         'key'  => 'key',
                                         'name' => 'oem1',
                                     ],
-                                    'type'           => [
+                                    'type'            => [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                         'name' => 'name aaa',
                                     ],
-                                    'product'        => [
+                                    'product'         => [
                                         'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                         'name'   => 'Product1',
                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -320,7 +321,7 @@ class AssetsSearchTest extends TestCase {
                                             'name' => 'oem1',
                                         ],
                                     ],
-                                    'location'       => [
+                                    'location'        => [
                                         'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                         'state'     => 'state1',
                                         'postcode'  => '19911',
@@ -329,7 +330,7 @@ class AssetsSearchTest extends TestCase {
                                         'latitude'  => 47.91634204,
                                         'longitude' => -2.26318359,
                                     ],
-                                    'customer'       => [
+                                    'customer'        => [
                                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
@@ -360,8 +361,8 @@ class AssetsSearchTest extends TestCase {
                                         'changed_at'      => '2021-10-19T10:15:00+00:00',
                                         'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
-                                    'warranty_end'   => '2021-01-01',
-                                    'warranties'     => [
+                                    'warranty_end'    => '2021-01-01',
+                                    'warranties'      => [
                                         [
                                             'id'            => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
                                             'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -477,31 +478,32 @@ class AssetsSearchTest extends TestCase {
                                             ],
                                         ],
                                     ],
-                                    'status'         => [
+                                    'status'          => [
                                         'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                         'name' => 'active',
                                     ],
-                                    'contacts'       => [
+                                    'contacts'        => [
                                         [
                                             'name'        => 'contact2',
                                             'email'       => 'contact2@test.com',
                                             'phone_valid' => false,
                                         ],
                                     ],
-                                    'coverages'      => [
+                                    'coverages_count' => 1,
+                                    'coverages'       => [
                                         [
                                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                             'name' => 'COVERED_ON_CONTRACT',
                                         ],
                                     ],
-                                    'tags'           => [
+                                    'tags'            => [
                                         [
                                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
                                             'name' => 'Software',
                                         ],
                                     ],
-                                    'changed_at'     => '2021-10-19T10:15:00+00:00',
-                                    'synced_at'      => '2021-10-19T10:25:00+00:00',
+                                    'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                    'synced_at'       => '2021-10-19T10:25:00+00:00',
                                 ],
                             ],
                             [
@@ -667,13 +669,14 @@ class AssetsSearchTest extends TestCase {
                                     'name' => 'COVERED_ON_CONTRACT',
                                 ])
                                 ->create([
-                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'serial_number'  => '#PRODUCT_SERIAL_323',
-                                    'warranty_end'   => '2021-01-01',
-                                    'contacts_count' => 1,
-                                    'data_quality'   => '130',
-                                    'changed_at'     => '2021-10-19 10:15:00',
-                                    'synced_at'      => '2021-10-19 10:25:00',
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'serial_number'   => '#PRODUCT_SERIAL_323',
+                                    'warranty_end'    => '2021-01-01',
+                                    'contacts_count'  => 1,
+                                    'coverages_count' => 1,
+                                    'data_quality'    => '130',
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
                             // Should be returned - document has valid type

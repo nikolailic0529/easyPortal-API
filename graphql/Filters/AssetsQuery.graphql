@@ -17,4 +17,5 @@ input AssetsQuery {
   coverages: CoveragesQuery
   contracts: DocumentsQuery
   quotes: DocumentsQuery
+  coverages_count: Int!
 }

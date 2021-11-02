@@ -266,6 +266,7 @@
                 "warranties",
                 "status",
                 "contacts_count",
+                "coverages_count",
                 "contacts",
                 "coverages",
                 "tags",
@@ -331,6 +332,9 @@
                     }
                 },
                 "contacts_count": {
+                    "type": "integer"
+                },
+                "coverages_count": {
                     "type": "integer"
                 },
                 "coverages": {
