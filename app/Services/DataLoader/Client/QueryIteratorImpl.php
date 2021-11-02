@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\GraphQL\Utils\Iterators\IteratorProperties;
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Exceptions\FailedToProcessChunkItem;
 use Closure;
@@ -16,11 +18,7 @@ use function array_merge;
 use function min;
 
 abstract class QueryIteratorImpl implements QueryIterator {
-    protected ?Closure        $beforeChunk = null;
-    protected ?Closure        $afterChunk  = null;
-    protected ?int            $limit       = null;
-    protected int             $chunk       = 1000;
-    protected string|int|null $offset      = null;
+    use IteratorProperties;
 
     /**
      * @param array<mixed> $params
@@ -34,54 +32,6 @@ abstract class QueryIteratorImpl implements QueryIterator {
         protected ?Closure $retriever = null,
     ) {
         // empty
-    }
-
-    public function getLimit(): ?int {
-        return $this->limit;
-    }
-
-    public function setLimit(?int $limit): static {
-        $this->limit = $limit;
-
-        return $this;
-    }
-
-    public function getChunkSize(): int {
-        return $this->chunk;
-    }
-
-    public function setChunkSize(int $chunk): static {
-        $this->chunk = $chunk;
-
-        return $this;
-    }
-
-    public function getOffset(): string|int|null {
-        return $this->offset;
-    }
-
-    public function setOffset(string|int|null $offset): static {
-        $this->offset = $offset;
-
-        return $this;
-    }
-
-    /**
-     * Sets the closure that will be called after received each chunk.
-     */
-    public function onBeforeChunk(?Closure $closure): static {
-        $this->beforeChunk = $closure;
-
-        return $this;
-    }
-
-    /**
-     * Sets the closure that will be called after chunk processed.
-     */
-    public function onAfterChunk(?Closure $closure): static {
-        $this->afterChunk = $closure;
-
-        return $this;
     }
 
     public function getIterator(): Iterator {
@@ -138,25 +88,5 @@ abstract class QueryIteratorImpl implements QueryIterator {
 
             return null;
         }, $items)) : $items;
-    }
-
-    /**
-     * @param array<mixed> $items
-     */
-    protected function chunkLoaded(array $items): void {
-        if ($this->beforeChunk) {
-            ($this->beforeChunk)($items);
-        }
-    }
-
-    /**
-     * @param array<mixed> $items
-     */
-    protected function chunkProcessed(array $items): bool {
-        if ($this->afterChunk) {
-            ($this->afterChunk)($items);
-        }
-
-        return true;
     }
 }

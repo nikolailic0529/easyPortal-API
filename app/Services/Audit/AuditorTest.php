@@ -2,7 +2,7 @@
 
 namespace App\Services\Audit;
 
-use App\Http\Controllers\QueryExported;
+use App\Http\Controllers\Export\QueryExported;
 use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
@@ -147,14 +147,13 @@ class AuditorTest extends TestCase {
                 ->shouldReceive('create')
                 ->once()
                 ->with(Action::exported(), [
-                    'count'   => 1,
                     'type'    => 'csv',
                     'query'   => 'assets',
-                    'columns' => ['id', 'name'],
+                    'headers' => ['id' => 'Id', 'name' => 'Name'],
                 ]);
         });
         $dispatcher = $this->app->make(Dispatcher::class);
-        $dispatcher->dispatch(new QueryExported(1, 'csv', 'assets', ['id', 'name']));
+        $dispatcher->dispatch(new QueryExported('csv', 'assets', ['id' => 'Id', 'name' => 'Name']));
     }
 
          /**

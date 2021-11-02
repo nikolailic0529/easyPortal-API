@@ -2,13 +2,13 @@
 
 namespace App\Services\KeyCloak\Importer;
 
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as TypesUser;
 use App\Services\KeyCloak\Exceptions\FailedToImportObject;

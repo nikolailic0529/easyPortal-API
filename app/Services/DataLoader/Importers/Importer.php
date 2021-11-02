@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Importers;
 
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Concerns\SmartSave\BatchInsert;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader;

@@ -1,8 +1,7 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Client;
+namespace App\GraphQL\Utils\Iterators;
 
-use Closure;
 use Generator;
 use InvalidArgumentException;
 
@@ -14,40 +13,21 @@ use function min;
 use function sprintf;
 
 class QueryIteratorIterator implements QueryIterator {
-    protected ?Closure $beforeChunk = null;
-    protected ?Closure $afterChunk  = null;
-    protected ?string  $current     = null;
-    protected ?int     $limit       = null;
-    protected int      $chunk       = 1000;
+    use IteratorProperties {
+        chunkLoaded as private;
+        chunkProcessed as private;
+    }
+
+    protected ?string $current = null;
 
     /**
-     * @param array<string,\App\Services\DataLoader\Client\QueryIterator> $iterators
+     * @param array<string,\App\GraphQL\Utils\Iterators\QueryIterator> $iterators
      */
     public function __construct(
         protected array $iterators,
     ) {
         $this->setChunkSize($this->chunk);
         $this->setOffset(null);
-    }
-
-    public function getLimit(): ?int {
-        return $this->limit;
-    }
-
-    public function setLimit(?int $limit): static {
-        $this->limit = $limit;
-
-        return $this;
-    }
-
-    public function getChunkSize(): int {
-        return $this->chunk;
-    }
-
-    public function setChunkSize(int $chunk): static {
-        $this->chunk = $chunk;
-
-        return $this;
     }
 
     public function getOffset(): string|null {
@@ -111,18 +91,6 @@ class QueryIteratorIterator implements QueryIterator {
         }
 
         // Return
-        return $this;
-    }
-
-    public function onBeforeChunk(?Closure $closure): static {
-        $this->beforeChunk = $closure;
-
-        return $this;
-    }
-
-    public function onAfterChunk(?Closure $closure): static {
-        $this->afterChunk = $closure;
-
         return $this;
     }
 

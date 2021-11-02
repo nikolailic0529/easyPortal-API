@@ -23,25 +23,9 @@ type CustomersAggregated {
 
 type Query {
   """@require <me> User must be authenticated."""
-  query(
-    where: SearchByConditionCustomerSearch
-    order: [SortByClauseCustomer!]
-    test: ID
-
-    """Maximum value is 321."""
-    limit: Int!
-    offset: Int! = 0
-  ): [Customer!]!
-  data(
-    """Maximum value is 321."""
-    limit: Int!
-    offset: Int! = 0
-  ): [Asset!]!
-  type(
-    """Maximum value is 321."""
-    limit: Int!
-    offset: Int! = 0
-  ): [Type!]!
+  query(where: SearchByConditionCustomerSearch, order: [SortByClauseCustomer!], test: ID, limit: Int!, offset: Int! = 0): [Customer!]!
+  data(limit: Int!, offset: Int! = 0): [Asset!]!
+  type(limit: Int!, offset: Int! = 0): [Type!]!
 
   """@require <me> User must be authenticated."""
   queryAggregated(where: SearchByConditionCustomerSearch): CustomersAggregated

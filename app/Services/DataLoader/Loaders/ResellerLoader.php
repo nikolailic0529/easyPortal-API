@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Loaders;
 
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Model;
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\LoaderRecalculable;

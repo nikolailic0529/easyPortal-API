@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Client\QueryIterator;
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\DistributorLoader;
