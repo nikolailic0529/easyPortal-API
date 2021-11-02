@@ -302,7 +302,6 @@ class ExportController extends Controller {
     }
 
     protected function getChunkSize(): ?int {
-        // TODO: Set to 1000
-        return $this->config->get('ep.export.chunk') ?: 100;
+        return $this->config->get('ep.export.chunk') ?: 1000;
     }
 }
