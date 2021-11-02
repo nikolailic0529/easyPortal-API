@@ -23,6 +23,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Psr\Http\Message\ResponseInterface;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
+use Tests\ResponseTypes\CsvContentType;
+use Tests\ResponseTypes\XlsxContentType;
 use Tests\TestCase;
 use Throwable;
 
@@ -103,7 +105,13 @@ class ExportControllerTest extends TestCase {
         array $settings = null,
     ): void {
         // Prepare
-        [$count, $data] = $this->prepare($organizationFactory, $userFactory, $factory, $data, $settings);
+        [$organization, $user, $data, $count] = $this->prepare(
+            $organizationFactory,
+            $userFactory,
+            $factory,
+            $data,
+            $settings,
+        );
 
         // Fake
         Event::fake(QueryExported::class);
@@ -113,7 +121,7 @@ class ExportControllerTest extends TestCase {
             $this->expectException(GraphQLQueryInvalid::class);
         }
 
-        if ($expected instanceof Forbidden) {
+        if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
             $this->expectException(AuthorizationException::class);
         }
 
@@ -130,7 +138,7 @@ class ExportControllerTest extends TestCase {
         }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new ContentType('text/csv'));
+            $response->assertThat(new CsvContentType());
             $response->assertThat(new Response(new ClosureConstraint(
                 function (ResponseInterface $response) use ($count): bool {
                     $content = trim((string) $response->getBody(), "\n");
@@ -165,25 +173,30 @@ class ExportControllerTest extends TestCase {
         array $settings = null,
     ): void {
         // Prepare
-        [$count, $data] = $this->prepare($organizationFactory, $userFactory, $factory, $data, $settings);
+        [$organization, $user, $data, $count] = $this->prepare(
+            $organizationFactory,
+            $userFactory,
+            $factory,
+            $data,
+            $settings,
+        );
 
         // Fake
         Event::fake(QueryExported::class);
 
-        // Execute
         // Errors
         if ($expected instanceof BadRequest) {
             $this->expectException(GraphQLQueryInvalid::class);
         }
 
-        if ($expected instanceof Forbidden) {
+        if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
             $this->expectException(AuthorizationException::class);
         }
 
         // Execute
         try {
             $level    = ob_get_level();
-            $response = $this->postJson('/download/excel', $data)->assertThat($expected);
+            $response = $this->postJson('/download/xlsx', $data)->assertThat($expected);
         } catch (Throwable $exception) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
@@ -193,7 +206,7 @@ class ExportControllerTest extends TestCase {
         }
 
         if ($response->isSuccessful()) {
-            $response->assertThat(new ContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'));
+            $response->assertThat(new XlsxContentType());
             $response->assertThat(new Response(new ClosureConstraint(
                 function (ResponseInterface $response) use ($count): bool {
                     $sheets = [];
@@ -238,7 +251,7 @@ class ExportControllerTest extends TestCase {
         array $settings = null,
     ): void {
         // Prepare
-        [, $data] = $this->prepare($organizationFactory, $userFactory, $factory, $data, $settings);
+        [, , $data] = $this->prepare($organizationFactory, $userFactory, $factory, $data, $settings);
 
         // Fake
         Event::fake(QueryExported::class);
@@ -266,7 +279,7 @@ class ExportControllerTest extends TestCase {
      * @param array<string, mixed> $data
      * @param array<string, mixed> $settings
      *
-     * @return array{int,array<string,mixed>}
+     * @return array{?\App\Models\Organization,?\App\Models\User,array<string,mixed>,?int}
      */
     protected function prepare(
         Closure $organizationFactory,
@@ -292,7 +305,7 @@ class ExportControllerTest extends TestCase {
             ];
         }
 
-        return [$count, $data];
+        return [$organization, $user, $data, $count];
     }
 
     //</editor-fold>

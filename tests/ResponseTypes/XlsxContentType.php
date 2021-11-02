@@ -4,8 +4,8 @@ namespace Tests\ResponseTypes;
 
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 
-class CsvContentType extends ContentType {
+class XlsxContentType extends ContentType {
     public function __construct() {
-        parent::__construct('text/csv');
+        parent::__construct('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     }
 }
