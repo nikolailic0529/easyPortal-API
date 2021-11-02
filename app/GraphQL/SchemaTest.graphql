@@ -2100,7 +2100,7 @@ type Query {
   
   @require <me> User must be authenticated.
   """
-  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
+  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTag!]): [Tag!]!
 
   """
   List of all Service Groups.
@@ -5749,6 +5749,15 @@ input SortByClauseStatusesQuery {
   id: SortByDirection
 }
 
+"""Sort clause for type Tag (only one property allowed at a time)."""
+input SortByClauseTag {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
 """
 Sort clause for input TagsQuery (only one property allowed at a time).
 """
@@ -5761,12 +5770,6 @@ input SortByClauseTagsQuery {
 
   """Property clause."""
   assets: SortByClauseAssetsQuery
-}
-
-"""Sort clause for input TagsSort (only one property allowed at a time)."""
-input SortByClauseTagsSort {
-  """Property clause."""
-  name: SortByDirection
 }
 
 """
@@ -5840,10 +5843,6 @@ input TagsQuery {
   id: ID!
   name: String!
   assets: AssetsQuery
-}
-
-input TagsSort {
-  name: String!
 }
 
 type Team {
