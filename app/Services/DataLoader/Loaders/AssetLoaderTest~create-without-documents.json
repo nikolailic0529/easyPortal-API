@@ -123,7 +123,7 @@
         ]
     },
     {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
@@ -137,6 +137,7 @@
             "e5980495-7eff-368e-b4b1-d3d39639276e",
             "130",
             2,
+            1,
             "2021-08-30 00:00:24",
             "2021-08-30 00:00:25",
             "2021-08-30 00:00:25"

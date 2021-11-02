@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 
+use function count;
+
 /**
  * Asset.
  *
@@ -39,6 +41,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable|null                                             $warranty_end
  * @property string|null                                                              $data_quality
  * @property int                                                                      $contacts_count
+ * @property int                                                                      $coverages_count
  * @property \Carbon\CarbonImmutable|null                                             $changed_at
  * @property \Carbon\CarbonImmutable                                                  $synced_at
  * @property \Carbon\CarbonImmutable                                                  $created_at
@@ -200,6 +203,7 @@ class Asset extends Model {
      */
     public function setCoveragesAttribute(Collection|array $coverages): void {
         $this->syncBelongsToMany('coverages', $coverages);
+        $this->coverages_count = count($this->coverages);
     }
 
     public function quoteRequest(): HasOneThrough {

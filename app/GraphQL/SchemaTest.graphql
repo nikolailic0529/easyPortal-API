@@ -233,6 +233,7 @@ type Asset {
   status: Status
   contacts: [Contact!]!
   contacts_count: Int!
+  coverages_count: Int!
   coverages: [Coverage!]
   tags: [Tag!]!
   data_quality: String
@@ -341,6 +342,7 @@ input AssetsQuery {
   coverages: CoveragesQuery
   contracts: DocumentsQuery
   quotes: DocumentsQuery
+  coverages_count: Int!
 }
 
 input AssetsSearchCustomerSort {
@@ -3316,6 +3318,9 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   quotes: SearchByComplexRelationDocumentsQuery
+
+  """Property condition."""
+  coverages_count: SearchByScalarInt
 }
 
 """
@@ -4947,6 +4952,9 @@ input SortByClauseAssetsQuery {
 
   """Property clause."""
   quotes: SortByClauseDocumentsQuery
+
+  """Property clause."""
+  coverages_count: SortByDirection
 }
 
 """
