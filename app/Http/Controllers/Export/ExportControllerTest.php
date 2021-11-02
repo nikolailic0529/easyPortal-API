@@ -8,11 +8,14 @@ use App\Models\Reseller;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Closure;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\PdfContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\BadRequest;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\UnprocessableEntity;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -21,10 +24,13 @@ use Psr\Http\Message\ResponseInterface;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
 use Tests\TestCase;
+use Throwable;
 
 use function count;
 use function explode;
 use function json_encode;
+use function ob_end_clean;
+use function ob_get_level;
 use function trim;
 
 /**
@@ -102,8 +108,26 @@ class ExportControllerTest extends TestCase {
         // Fake
         Event::fake(QueryExported::class);
 
+        // Errors
+        if ($expected instanceof BadRequest) {
+            $this->expectException(GraphQLQueryInvalid::class);
+        }
+
+        if ($expected instanceof Forbidden) {
+            $this->expectException(AuthorizationException::class);
+        }
+
         // Execute
-        $response = $this->postJson('/download/csv', $data)->assertThat($expected);
+        try {
+            $level    = ob_get_level();
+            $response = $this->postJson('/download/csv', $data)->assertThat($expected);
+        } catch (Throwable $exception) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+
+            throw $exception;
+        }
 
         if ($response->isSuccessful()) {
             $response->assertThat(new ContentType('text/csv'));
@@ -147,7 +171,26 @@ class ExportControllerTest extends TestCase {
         Event::fake(QueryExported::class);
 
         // Execute
-        $response = $this->postJson('/download/excel', $data)->assertThat($expected);
+        // Errors
+        if ($expected instanceof BadRequest) {
+            $this->expectException(GraphQLQueryInvalid::class);
+        }
+
+        if ($expected instanceof Forbidden) {
+            $this->expectException(AuthorizationException::class);
+        }
+
+        // Execute
+        try {
+            $level    = ob_get_level();
+            $response = $this->postJson('/download/excel', $data)->assertThat($expected);
+        } catch (Throwable $exception) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+
+            throw $exception;
+        }
 
         if ($response->isSuccessful()) {
             $response->assertThat(new ContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'));
@@ -382,6 +425,22 @@ class ExportControllerTest extends TestCase {
                     null,
                     [
                         'query' => 'query { customers { id } }',
+                    ],
+                ],
+                'mutation'                => [
+                    new UnprocessableEntity(),
+                    null,
+                    [
+                        'root'  => 'data.customers',
+                        'query' => 'mutation { assets { id } }',
+                    ],
+                ],
+                'invalid query'           => [
+                    new BadRequest(),
+                    null,
+                    [
+                        'root'  => 'data.customers',
+                        'query' => 'query { sfsdfsdsf }',
                     ],
                 ],
                 'without pagination'      => [
