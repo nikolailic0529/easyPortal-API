@@ -39,6 +39,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable|null                                             $warranty_end
  * @property string|null                                                              $data_quality
  * @property int                                                                      $contacts_count
+ * @property int                                                                      $coverages_count
  * @property \Carbon\CarbonImmutable|null                                             $changed_at
  * @property \Carbon\CarbonImmutable                                                  $synced_at
  * @property \Carbon\CarbonImmutable                                                  $created_at
