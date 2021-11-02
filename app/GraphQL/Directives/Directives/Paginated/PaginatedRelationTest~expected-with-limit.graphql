@@ -2,15 +2,7 @@ type Customer {
   id: ID!
 
   """Description"""
-  locations(
-    where: SearchByConditionCustomerSearch
-    order: [SortByClauseCustomerLocation!]
-    test: ID
-
-    """Maximum value is 123."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [CustomerLocation!]
+  locations(where: SearchByConditionCustomerSearch, order: [SortByClauseCustomerLocation!], test: ID, limit: Int! = 25, offset: Int! = 0): [CustomerLocation!]
   locationsAggregated(where: SearchByConditionCustomerSearch): CustomerLocationsAggregated
 }
 

@@ -194,19 +194,15 @@ class Manipulator extends AstManipulator {
     }
 
     protected function getLimitField(): InputValueDefinitionNode {
-        $min     = 1;
-        $max     = (int) $this->config->get('ep.pagination.limit.max');
-        $max     = $max > 0 ? $max : 1000;
         $default = (int) $this->config->get('ep.pagination.limit.default');
         $value   = $default > 0 ? "= {$default}" : '';
         $rules   = json_encode([
-            "min:{$min}",
-            "max:{$max}",
+            'min:1',
+            LimitRule::class,
         ]);
 
         return Parser::inputValueDefinition(
             <<<DEF
-            "Maximum value is {$max}."
             limit: Int! {$value} @rules(apply: {$rules}) @paginatedLimit
             DEF,
         );

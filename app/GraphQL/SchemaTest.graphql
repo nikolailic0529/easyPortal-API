@@ -43,14 +43,7 @@ type Application {
   
   @require <root> Authenticated user must be a root.
   """
-  logs(
-    where: SearchByConditionApplicationLogsQuery
-    order: [SortByClauseApplicationLogsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [ApplicationLog!]!
+  logs(where: SearchByConditionApplicationLogsQuery, order: [SortByClauseApplicationLogsSort!], limit: Int! = 25, offset: Int! = 0): [ApplicationLog!]!
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -665,38 +658,17 @@ type Customer {
   """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  contracts(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  contracts(where: SearchByConditionDocumentsQuery, order: [SortByClauseDocumentsSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  quotes(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  quotes(where: SearchByConditionDocumentsQuery, order: [SortByClauseDocumentsSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assets(
-    where: SearchByConditionAssetsQuery
-    order: [SortByClauseAssetsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Asset!]!
+  assets(where: SearchByConditionAssetsQuery, order: [SortByClauseAssetsSort!], limit: Int! = 25, offset: Int! = 0): [Asset!]!
 
   """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -938,14 +910,7 @@ type Document {
   distributor_id: ID
   distributor: Distributor
   assets_count: Int
-  notes(
-    where: SearchByConditionNotesQuery
-    order: [SortByClauseNotesSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Note!]!
+  notes(where: SearchByConditionNotesQuery, order: [SortByClauseNotesSort!], limit: Int! = 25, offset: Int! = 0): [Note!]!
   changed_at: DateTime
   synced_at: DateTime!
   notesAggregated(where: SearchByConditionNotesQuery): NotesAggregated
@@ -985,7 +950,7 @@ type DocumentEntry {
   currency_id: ID
   currency: Currency
   asset_id: ID!
-  asset: Asset!
+  asset: Asset
 }
 
 input DocumentStatusesQuery {
@@ -1726,14 +1691,7 @@ type Organization {
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
-  users(
-    where: SearchByConditionUsersQuery
-    order: [SortByClauseUsersSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [User!]!
+  users(where: SearchByConditionUsersQuery, order: [SortByClauseUsersSort!], limit: Int! = 25, offset: Int! = 0): [User!]!
 
   """
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
@@ -1748,14 +1706,7 @@ type Organization {
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
-  audits(
-    where: SearchByConditionAuditsQuery
-    order: [SortByClauseAuditsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Audit!]!
+  audits(where: SearchByConditionAuditsQuery, order: [SortByClauseAuditsSort!], limit: Int! = 25, offset: Int! = 0): [Audit!]!
 
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -1873,13 +1824,7 @@ type Query {
   @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
   User must be authenticated and have any of these permissions.
   """
-  search(
-    search: SearchString!
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [SearchResult!]!
+  search(search: SearchString!, limit: Int! = 25, offset: Int! = 0): [SearchResult!]!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1916,14 +1861,7 @@ type Query {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  organizations(
-    where: SearchByConditionOrganizationsQuery
-    order: [SortByClauseOrganizationsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Organization!]!
+  organizations(where: SearchByConditionOrganizationsQuery, order: [SortByClauseOrganizationsSort!], limit: Int! = 25, offset: Int! = 0): [Organization!]!
 
   """
   Organization.
@@ -1941,14 +1879,7 @@ type Query {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  audits(
-    where: SearchByConditionAuditsQuery
-    order: [SortByClauseAuditsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Audit!]!
+  audits(where: SearchByConditionAuditsQuery, order: [SortByClauseAuditsSort!], limit: Int! = 25, offset: Int! = 0): [Audit!]!
 
   """
   List of all users.
@@ -1957,14 +1888,7 @@ type Query {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  users(
-    where: SearchByConditionUsersQuery
-    order: [SortByClauseUsersSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [User!]!
+  users(where: SearchByConditionUsersQuery, order: [SortByClauseUsersSort!], limit: Int! = 25, offset: Int! = 0): [User!]!
 
   """
   List of all possible asset types.
@@ -2000,14 +1924,7 @@ type Query {
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assets(
-    where: SearchByConditionAssetsQuery
-    order: [SortByClauseAssetsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Asset!]!
+  assets(where: SearchByConditionAssetsQuery, order: [SortByClauseAssetsSort!], limit: Int! = 25, offset: Int! = 0): [Asset!]!
 
   """
   Asset.
@@ -2023,14 +1940,7 @@ type Query {
   
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  assetsSearch(
-    search: SearchString!
-    order: [SortByClauseAssetsSearchSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Asset!]!
+  assetsSearch(search: SearchString!, order: [SortByClauseAssetsSearchSort!], limit: Int! = 25, offset: Int! = 0): [Asset!]!
 
   """
   List of all possible contract types.
@@ -2057,28 +1967,14 @@ type Query {
   
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  contracts(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  contracts(where: SearchByConditionDocumentsQuery, order: [SortByClauseDocumentsSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
-  contractsSearch(
-    search: String!
-    order: [SortByClauseDocumentsSearchSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  contractsSearch(search: String!, order: [SortByClauseDocumentsSearchSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   Contract.
@@ -2114,28 +2010,14 @@ type Query {
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
-  customers(
-    where: SearchByConditionCustomersQuery
-    order: [SortByClauseCustomersSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Customer!]!
+  customers(where: SearchByConditionCustomersQuery, order: [SortByClauseCustomersSort!], limit: Int! = 25, offset: Int! = 0): [Customer!]!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
-  customersSearch(
-    search: SearchString!
-    order: [SortByClauseCustomersSearchSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Customer!]!
+  customersSearch(search: SearchString!, order: [SortByClauseCustomersSearchSort!], limit: Int! = 25, offset: Int! = 0): [Customer!]!
 
   """
   Customer.
@@ -2282,14 +2164,7 @@ type Query {
   @require <me(["contracts-view","customers-view","quotes-view"])> User must be
   authenticated and have any of these permissions.
   """
-  documents(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  documents(where: SearchByConditionDocumentsQuery, order: [SortByClauseDocumentsSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   List of all possible quote types.
@@ -2316,14 +2191,7 @@ type Query {
   
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  quotes(
-    where: SearchByConditionDocumentsQuery
-    order: [SortByClauseDocumentsSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  quotes(where: SearchByConditionDocumentsQuery, order: [SortByClauseDocumentsSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   Quote.
@@ -2339,14 +2207,7 @@ type Query {
   
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
-  quotesSearch(
-    search: String!
-    order: [SortByClauseDocumentsSearchSort!]
-
-    """Maximum value is 100."""
-    limit: Int! = 25
-    offset: Int! = 0
-  ): [Document!]!
+  quotesSearch(search: String!, order: [SortByClauseDocumentsSearchSort!], limit: Int! = 25, offset: Int! = 0): [Document!]!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
