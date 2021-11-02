@@ -42,7 +42,7 @@ class QueryIteratorImplTest extends TestCase {
         $iterator->onBeforeChunk(static function () use ($exception): void {
             throw $exception;
         });
-        $iterator->chunkLoaded([]);
+        $iterator->chunkLoaded([1]);
     }
 
     /**
@@ -77,6 +77,6 @@ class QueryIteratorImplTest extends TestCase {
         $iterator->onAfterChunk(static function () use ($exception): void {
             throw $exception;
         });
-        $iterator->chunkProcessed([]);
+        $iterator->chunkProcessed([1]);
     }
 }
