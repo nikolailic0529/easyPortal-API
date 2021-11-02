@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 
+use function count;
+
 /**
  * Asset.
  *
@@ -201,6 +203,7 @@ class Asset extends Model {
      */
     public function setCoveragesAttribute(Collection|array $coverages): void {
         $this->syncBelongsToMany('coverages', $coverages);
+        $this->coverages_count = count($this->coverages);
     }
 
     public function quoteRequest(): HasOneThrough {

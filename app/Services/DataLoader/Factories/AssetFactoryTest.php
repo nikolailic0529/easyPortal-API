@@ -146,6 +146,7 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetLocation($asset),
             $this->getLocation($created->location),
         );
+        $this->assertEquals(count($asset->assetCoverage), $created->coverages_count);
         $this->assertEquals(
             $this->getContacts($asset),
             $this->getModelContacts($created),
@@ -154,6 +155,7 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetTags($asset),
             $this->getModelTags($created),
         );
+        $this->assertEquals(count($asset->assetCoverage), $created->coverages_count);
         $this->assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($created),
@@ -266,6 +268,7 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetTags($asset),
             $this->getModelTags($updated),
         );
+        $this->assertEquals(count($asset->assetCoverage), $updated->coverages_count);
         $this->assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($updated),
@@ -333,6 +336,7 @@ class AssetFactoryTest extends TestCase {
             $this->getModelContacts($created),
             $this->getContacts($asset),
         );
+        $this->assertEquals(count($asset->assetCoverage), $created->coverages_count);
         $this->assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($created),
