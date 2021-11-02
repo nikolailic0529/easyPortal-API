@@ -2,6 +2,7 @@
 
 namespace App\Services\KeyCloak\Client;
 
+use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
 use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid;
@@ -350,7 +351,7 @@ class Client {
         return $result;
     }
 
-    public function getUsersIterator(): \App\GraphQL\Utils\Iterators\QueryIterator {
+    public function getUsersIterator(): QueryIterator {
         return new UsersIterator($this);
     }
 

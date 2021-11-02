@@ -11,7 +11,6 @@ use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\PdfContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\BadRequest;
