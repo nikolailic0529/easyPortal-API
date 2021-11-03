@@ -3,7 +3,9 @@
 namespace App\Utils;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use LogicException;
 
 use function array_slice;
@@ -61,6 +63,16 @@ class ModelProperty {
      */
     public function getRelationPath(): ?array {
         return $this->relationPath;
+    }
+
+    public function getRelation(Model $model): Relation {
+        $relation = $this->getRelationName();
+
+        if (!$relation) {
+            throw new PropertyIsNotRelation($model, $this->getName());
+        }
+
+        return (new ModelHelper($model))->getRelation($relation);
     }
 
     public function getValue(Model $model): mixed {

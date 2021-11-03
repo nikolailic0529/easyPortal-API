@@ -3,9 +3,13 @@
 namespace App\Utils;
 
 use App\Models\Asset;
+use App\Models\Customer;
 use App\Models\Oem;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
@@ -88,5 +92,27 @@ class ModelPropertyTest extends TestCase {
         $this->assertNull(
             (new ModelProperty('assets.unknown.id'))->getValue($oem),
         );
+    }
+
+    /**
+     * @covers ::getRelation
+     */
+    public function testGetRelation(): void {
+        $model    = new Customer();
+        $property = new ModelProperty('headquarter.id');
+
+        $this->assertInstanceOf(HasOne::class, $property->getRelation($model));
+    }
+
+    /**
+     * @covers ::getRelation
+     */
+    public function testGetRelationNotRelation(): void {
+        $model    = new Customer();
+        $property = new ModelProperty('id');
+
+        $this->expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
+
+        $property->getRelation($model);
     }
 }
