@@ -66,18 +66,9 @@ class Loader implements ModelsLoader {
     }
 
     public function extract(Model $model): mixed {
-        // Loaded?
-        if (isset($this->map[$model])) {
-            return $this->map[$model];
-        }
-
-        // Model has marker?
-        if (isset($model[$this->getMarker()])) {
-            return $model->getAttribute($this->getProperty());
-        }
-
-        // Null
-        return null;
+        return !isset($this->map[$model])
+            ? (int) $model->getAttribute($this->getProperty())
+            : (int) $this->map[$model];
     }
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {

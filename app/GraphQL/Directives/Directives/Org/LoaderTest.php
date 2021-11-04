@@ -59,7 +59,7 @@ class LoaderTest extends TestCase {
         $this->assertNotEquals($countA, $countB);
         $this->assertEquals($countA, $loader->extract($customerA));
         $this->assertEquals($countB, $loader->extract($customerB));
-        $this->assertNull($loader->extract($customerC));
+        $this->assertEquals(0, $loader->extract($customerC));
     }
 
     /**
@@ -81,7 +81,7 @@ class LoaderTest extends TestCase {
         $model[$loader->getProperty()] = 123;
 
         $this->assertEquals(123, $loader->extract($model));
-        $this->assertNull($loader->extract(new LoaderTest_ModelWithoutScope()));
+        $this->assertEquals(0, $loader->extract(new LoaderTest_ModelWithoutScope()));
     }
 
     /**
