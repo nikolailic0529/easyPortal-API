@@ -157,13 +157,15 @@ class PropertyTest extends TestCase {
                                 1 as `_org_property__property`,
                                 (
                                     select
-                                        `pivot`.`relatedPivotKey`
+                                        `pivot`.`property`
                                     from
                                         `model_without_scopes`
                                     inner join `pivot`
                                         on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
                                     where
-                                        `pivot`.`foreignPivotKey` is null
+                                        `model_without_scopes`.`id` = ?
+                                        and
+                                        foreignPivotKey = model_with_relation_supported.parentKey
                                     limit
                                         1
                                 ) as `property`
@@ -184,6 +186,7 @@ class PropertyTest extends TestCase {
                         ,
                         'bindings' => [
                             '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
+                            '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
                         ],
                     ],
                     static function (): EloquentBuilder {
@@ -203,13 +206,15 @@ class PropertyTest extends TestCase {
                                 1 as `_org_property__property`,
                                 (
                                     select
-                                        `pivot`.`relatedPivotKey`
+                                        `pivot`.`property`
                                     from
                                         `model_without_scopes`
                                     inner join `pivot`
                                         on `model_without_scopes`.`relatedKey` = `pivot`.`relatedPivotKey`
                                     where
-                                        `pivot`.`foreignPivotKey` is null
+                                        `model_without_scopes`.`id` = ?
+                                        and
+                                        foreignPivotKey = model_with_relation_supported.parentKey
                                     limit
                                         1
                                 ) as `property`
@@ -229,6 +234,7 @@ class PropertyTest extends TestCase {
                             SQL
                         ,
                         'bindings' => [
+                            '21a50911-912b-4543-b721-51c7398e8384',
                             '21a50911-912b-4543-b721-51c7398e8384',
                         ],
                     ],

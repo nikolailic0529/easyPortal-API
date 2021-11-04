@@ -67,7 +67,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective {
         // Relation?
         $column   = $model->getOrganizationColumn();
         $property = new ModelProperty($column);
-        $relation = $property->getRelation($model);
+        $relation = $property->getRelation($builder);
 
         if (!($relation instanceof BelongsToMany)) {
             throw new InvalidArgumentException(sprintf(
@@ -104,7 +104,9 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective {
 
         // Add property
         $query   = $relation->getQuery()
-            ->select($relation->getQualifiedRelatedPivotKeyName())
+            ->select($relation->qualifyPivotColumn($name))
+            ->where($relation->qualifyColumn($property->getName()), '=', $this->organization->getKey())
+            ->whereRaw("{$relation->getForeignPivotKeyName()} = {$relation->getQualifiedParentKeyName()}")
             ->limit(1);
         $builder = $builder
             ->selectRaw("1 as {$marker}")
