@@ -28,12 +28,14 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
+use function array_column;
 use function array_is_list;
 use function array_key_exists;
 use function array_map;
 use function array_merge;
 use function array_values;
 use function count;
+use function explode;
 use function implode;
 use function is_array;
 use function iterator_to_array;
@@ -153,7 +155,7 @@ class ExportController extends Controller {
             $row = [];
 
             foreach ($headers as $path => $header) {
-                $row[] = $this->getRowValue(Arr::get($item, $path));
+                $row[] = $this->getItemValue($path, $item);
             }
 
             // Iterate
@@ -269,7 +271,37 @@ class ExportController extends Controller {
         ));
     }
 
-    protected function getRowValue(mixed $value): mixed {
+    /**
+     * @param array<mixed> $item
+     */
+    protected function getItemValue(string $path, array $item): mixed {
+        // We don't use `data_get()` here to simplify headers: you can use the
+        // dot-separated string in all cases and you no need to worry about
+        // lists (which is not visible in GraphQL query).
+        $parts = explode('.', $path);
+        $value = $item;
+
+        foreach ($parts as $part) {
+            if (is_array($value)) {
+                if (array_is_list($value)) {
+                    $value = array_column($value, $part);
+                } else {
+                    $value = Arr::get($value, $part);
+                }
+            } else {
+                $value = $value[$part] ?? null;
+            }
+
+            if (!$value) {
+                break;
+            }
+        }
+
+        // Return
+        return $this->getValue($value);
+    }
+
+    protected function getValue(mixed $value): mixed {
         if (is_array($value)) {
             $flags = JSON_PRESERVE_ZERO_FRACTION | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
             $first = reset($value);

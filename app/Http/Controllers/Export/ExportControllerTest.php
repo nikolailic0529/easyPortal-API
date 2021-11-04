@@ -67,22 +67,48 @@ class ExportControllerTest extends TestCase {
     }
 
     /**
-     * @covers ::getRowValue
+     * @covers ::getValue
      *
-     * @dataProvider dataProviderGetRowValue
+     * @dataProvider dataProviderGetValue
      */
-    public function testGetRowValue(mixed $expected, mixed $value): void {
+    public function testGetValue(mixed $expected, mixed $value): void {
         $controller = new class() extends ExportController {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
             }
 
-            public function getRowValue(mixed $value): mixed {
-                return parent::getRowValue($value);
+            public function getValue(mixed $value): mixed {
+                return parent::getValue($value);
             }
         };
-        $actual     = $controller->getRowValue($value);
+        $actual     = $controller->getValue($value);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getItemValue
+     *
+     * @dataProvider dataProviderGetItemValue
+     *
+     * @param array<mixed> $value
+     */
+    public function testGetItemValue(mixed $expected, string $path, array $value): void {
+        $controller = new class() extends ExportController {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getItemValue(string $path, array $item): mixed {
+                return parent::getItemValue($path, $item);
+            }
+        };
+        $actual     = $controller->getItemValue($path, $value);
 
         $this->assertEquals($expected, $actual);
     }
@@ -368,7 +394,7 @@ class ExportControllerTest extends TestCase {
     /**
      * @return array<string, array{mixed,mixed}>
      */
-    public function dataProviderGetRowValue(): array {
+    public function dataProviderGetValue(): array {
         return [
             'int'                          => [123, 123],
             'bool'                         => [true, true],
@@ -410,6 +436,75 @@ class ExportControllerTest extends TestCase {
                 [
                     ['a' => 123],
                     ['b' => 'b', 'c' => 'c'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{string,array<mixed>}>
+     */
+    public function dataProviderGetItemValue(): array {
+        return [
+            'a'                => [
+                123,
+                'a',
+                [
+                    'a' => 123,
+                ],
+            ],
+            'a (not exists)'   => [
+                null,
+                'a',
+                [
+                    'b' => 123,
+                ],
+            ],
+            'a.b (not exists)' => [
+                null,
+                'a.b',
+                [
+                    'a' => 123,
+                ],
+            ],
+            'a.b'              => [
+                123,
+                'a.b',
+                [
+                    'a' => ['b' => 123],
+                ],
+            ],
+            'a.b (array)'      => [
+                '1, 2, 3',
+                'a.b',
+                [
+                    'a' => [
+                        ['b' => 1],
+                        ['b' => 2],
+                        ['b' => 3],
+                    ],
+                ],
+            ],
+            'a.b.c (array)'    => [
+                '1, 2, 3',
+                'a.b.c',
+                [
+                    'a' => [
+                        ['b' => ['c' => 1]],
+                        ['b' => ['c' => 2]],
+                        ['b' => ['c' => 3]],
+                    ],
+                ],
+            ],
+            'getValue called'  => [
+                '[{"c":1},{"c":2},{"c":3,"d":2}]',
+                'a.b',
+                [
+                    'a' => [
+                        ['b' => ['c' => 1]],
+                        ['b' => ['c' => 2]],
+                        ['b' => ['c' => 3, 'd' => 2]],
+                    ],
                 ],
             ],
         ];
