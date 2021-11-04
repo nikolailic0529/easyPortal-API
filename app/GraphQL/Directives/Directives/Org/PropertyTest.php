@@ -3,7 +3,9 @@
 namespace App\GraphQL\Directives\Directives\Org;
 
 use App\GraphQL\Directives\Definitions\OrgPropertyDirective;
+use App\Models\Customer;
 use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
@@ -22,8 +24,11 @@ use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use PHPUnit\Framework\Constraint\Constraint;
 use Tests\DataProviders\Builders\QueryBuilderDataProvider;
+use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithGraphQLSchema;
 
 use function is_string;
 use function sprintf;
@@ -33,6 +38,8 @@ use function sprintf;
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Property
  */
 class PropertyTest extends TestCase {
+    use WithGraphQLSchema;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -72,6 +79,48 @@ class PropertyTest extends TestCase {
         $builderFactory = $directive->handleBuilder($builderFactory, null);
 
         $this->assertDatabaseQueryEquals($expected, $builderFactory);
+    }
+
+    /**
+     * @covers ::resolveField
+     *
+     * @dataProvider dataProviderResolveField
+     */
+    public function testResolveField(
+        Constraint $expected,
+        Closure $organizationFactory,
+        Closure $factory,
+    ): void {
+        $organization = $this->setOrganization($organizationFactory);
+
+        $factory($this, $organization);
+
+        $this
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    customers: [Customer!]! @all
+                }
+
+                type Customer {
+                    id: ID!
+                    assets_count: Int! @orgProperty
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    customers {
+                        id
+                        assets_count
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -249,6 +298,60 @@ class PropertyTest extends TestCase {
                 ],
             ]),
         ]))->getData();
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function dataProviderResolveField(): array {
+        $customerId = '4e15b024-40f8-4340-a68b-c3ba8c993e66';
+        $rootValue  = 321;
+        $orgValue   = 123;
+        $factory    = static function (
+            self $test,
+            Organization $organization,
+        ) use (
+            $customerId,
+            $rootValue,
+            $orgValue,
+        ): void {
+            $reseller = Reseller::factory()->create(['id' => $organization]);
+            $customer = Customer::factory()->create([
+                'id'           => $customerId,
+                'assets_count' => $rootValue,
+            ]);
+
+            $customer->resellers()->attach($reseller, [
+                'assets_count' => $orgValue,
+            ]);
+        };
+
+        return [
+            'root organization' => [
+                new GraphQLSuccess('customers', null, [
+                    [
+                        'id'           => $customerId,
+                        'assets_count' => $rootValue,
+                    ],
+                ]),
+                static function (self $test): Organization {
+                    return $test->setRootOrganization(Organization::factory()->create());
+                },
+                $factory,
+            ],
+            'organization'      => [
+                new GraphQLSuccess('customers', null, [
+                    [
+                        'id'           => $customerId,
+                        'assets_count' => $orgValue,
+                    ],
+                ]),
+                static function (self $test): Organization {
+                    return Organization::factory()->create();
+                },
+                $factory,
+            ],
+        ];
     }
     // </editor-fold>
 }
