@@ -106,7 +106,13 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective {
         $query   = $relation->getQuery()
             ->select($relation->qualifyPivotColumn($name))
             ->where($relation->qualifyColumn($property->getName()), '=', $this->organization->getKey())
-            ->whereRaw("{$relation->getForeignPivotKeyName()} = {$relation->getQualifiedParentKeyName()}")
+            ->where(
+                $relation->getQualifiedForeignPivotKeyName(),
+                '=',
+                new Expression(
+                    $builder->getGrammar()->wrap($relation->getQualifiedParentKeyName()),
+                ),
+            )
             ->limit(1);
         $builder = $builder
             ->selectRaw("1 as {$marker}")

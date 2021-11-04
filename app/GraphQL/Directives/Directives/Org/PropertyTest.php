@@ -165,7 +165,7 @@ class PropertyTest extends TestCase {
                                     where
                                         `model_without_scopes`.`id` = ?
                                         and
-                                        foreignPivotKey = model_with_relation_supported.parentKey
+                                        `pivot`.`foreignPivotKey` = `model_with_relation_supported`.`parentKey`
                                     limit
                                         1
                                 ) as `property`
@@ -214,7 +214,7 @@ class PropertyTest extends TestCase {
                                     where
                                         `model_without_scopes`.`id` = ?
                                         and
-                                        foreignPivotKey = model_with_relation_supported.parentKey
+                                        `pivot`.`foreignPivotKey` = `model_with_relation_supported`.`parentKey`
                                     limit
                                         1
                                 ) as `property`
