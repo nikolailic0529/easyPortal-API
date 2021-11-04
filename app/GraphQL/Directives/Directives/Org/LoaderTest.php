@@ -97,7 +97,6 @@ class LoaderTest extends TestCase {
         array|null $expectedBuilder,
         Closure $builderFactory,
         Closure $organizationFactory = null,
-        bool $organizationIsRoot = false,
         array $parents = null,
     ): void {
         if ($expectedQuery instanceof Exception) {
@@ -108,12 +107,7 @@ class LoaderTest extends TestCase {
             $this->expectException($expectedQuery);
         }
 
-        if ($organizationIsRoot) {
-            $this->setOrganization($organizationFactory);
-            $this->setRootOrganization($organizationFactory);
-        } else {
-            $this->setOrganization($organizationFactory);
-        }
+        $this->setOrganization($organizationFactory);
 
         if ($parents) {
             $parents = (new Collection($parents))->map(static function (string $key): Model {
@@ -187,12 +181,11 @@ class LoaderTest extends TestCase {
                 static function (): EloquentBuilder {
                     return LoaderTest_ModelWithScopeRelationSupported::query();
                 },
-                static function (): Organization {
-                    return Organization::factory()->make([
+                static function (self $test): Organization {
+                    return $test->setRootOrganization(Organization::factory()->make([
                         'id' => '1cc137a2-61e5-4069-a407-f0e1f32dc634',
-                    ]);
+                    ]));
                 },
-                true,
             ],
             'without select without parents' => [
                 [
@@ -349,7 +342,6 @@ class LoaderTest extends TestCase {
                         'id' => '6aa25c7f-55f7-4ff5-acfe-783b2dd1da47',
                     ]);
                 },
-                false,
                 [
                     '5985f4ce-f4a2-4cf2-afb7-2959fc126785',
                     'd840dfdb-7c9a-4324-8470-12ec91199834',
@@ -408,7 +400,6 @@ class LoaderTest extends TestCase {
                         'id' => '21a50911-912b-4543-b721-51c7398e8384',
                     ]);
                 },
-                false,
                 [
                     '981edfa2-2139-42f6-bc7a-f7ff66df52ad',
                     '79b91f78-c244-4e95-a99d-bf8b15255591',
