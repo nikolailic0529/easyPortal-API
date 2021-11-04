@@ -14,16 +14,22 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Execution\ModelsLoader\ModelsLoader;
+use WeakMap;
 
 use function sprintf;
 use function str_ends_with;
 
 class Loader implements ModelsLoader {
+    /**
+     * @var \WeakMap<\Illuminate\Database\Eloquent\Model, mixed>
+     */
+    protected WeakMap $map;
+
     public function __construct(
         protected CurrentOrganization $organization,
         protected string $property,
     ) {
-        // empty
+        $this->map = new WeakMap();
     }
 
     protected function getProperty(): string {
@@ -55,12 +61,23 @@ class Loader implements ModelsLoader {
         $property = $this->getProperty();
 
         foreach ($parents as $parent) {
-            $parent[$marker] = $values->get($parent->getKey())[$property] ?? null;
+            $this->map[$parent] = $values->get($parent->getKey())->{$property} ?? null;
         }
     }
 
     public function extract(Model $model): mixed {
-        return $model->getAttribute($this->getProperty());
+        // Loaded?
+        if (isset($this->map[$model])) {
+            return $this->map[$model];
+        }
+
+        // Model has marker?
+        if (isset($model[$this->getMarker()])) {
+            return $model->getAttribute($this->getProperty());
+        }
+
+        // Null
+        return null;
     }
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {

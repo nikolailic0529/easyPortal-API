@@ -2,7 +2,9 @@
 
 namespace App\GraphQL\Directives\Directives\Org;
 
+use App\Models\Customer;
 use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
@@ -30,11 +32,65 @@ class LoaderTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
+     * @covers ::load
+     * @covers ::extract
+     */
+    public function testLoad(): void {
+        $organization = $this->setOrganization(Organization::factory()->create());
+        $reseller     = Reseller::factory()->create(['id' => $organization->getKey()]);
+        $current      = $this->app->make(CurrentOrganization::class);
+        $loader       = new Loader($current, 'assets_count');
+        $countA       = $this->faker->randomNumber();
+        $countB       = $this->faker->randomNumber();
+        $customerA    = Customer::factory()->create();
+        $customerB    = Customer::factory()->create();
+        $customerC    = Customer::factory()->create();
+        $parents      = new Collection([$customerB, $customerA, $customerC]);
+
+        $customerA->resellers()->attach($reseller, [
+            'assets_count' => $countA,
+        ]);
+        $customerB->resellers()->attach($reseller, [
+            'assets_count' => $countB,
+        ]);
+
+        $loader->load($parents);
+
+        $this->assertNotEquals($countA, $countB);
+        $this->assertEquals($countA, $loader->extract($customerA));
+        $this->assertEquals($countB, $loader->extract($customerB));
+        $this->assertNull($loader->extract($customerC));
+    }
+
+    /**
+     * @covers ::extract
+     */
+    public function testExtractFromModel(): void {
+        $current                       = $this->app->make(CurrentOrganization::class);
+        $loader                        = new class($current, 'property') extends Loader {
+            public function getMarker(): string {
+                return parent::getMarker();
+            }
+
+            public function getProperty(): string {
+                return parent::getProperty();
+            }
+        };
+        $model                         = new LoaderTest_ModelWithoutScope();
+        $model[$loader->getMarker()]   = '1';
+        $model[$loader->getProperty()] = 123;
+
+        $this->assertEquals(123, $loader->extract($model));
+        $this->assertNull($loader->extract(new LoaderTest_ModelWithoutScope()));
+    }
+
+    /**
      * @covers ::getQuery
      *
      * @dataProvider dataProviderHandleBuilder
      *
      * @param \Exception|class-string<\Exception>|array{query: string, bindings: array<mixed>}|null $expectedQuery
+     * @param array<string>|null                                                                    $parents
      */
     public function testGetQuery(
         Exception|string|array|null $expectedQuery,
@@ -66,12 +122,12 @@ class LoaderTest extends TestCase {
         }
 
         $organization    = $this->app->make(CurrentOrganization::class);
-        $directive       = new Loader($organization, 'property');
+        $loader          = new Loader($organization, 'property');
         $actualBuilder   = $builderFactory($this);
         $expectedBuilder = $expectedBuilder ?: clone $actualBuilder;
-        $actualQuery     = $directive->getQuery($actualBuilder, $parents);
+        $actualQuery     = $loader->getQuery($actualBuilder, $parents);
 
-        $directive->getQuery($actualBuilder, $parents);
+        $loader->getQuery($actualBuilder, $parents);
 
         if ($expectedQuery) {
             $this->assertDatabaseQueryEquals($expectedQuery, $actualQuery);
