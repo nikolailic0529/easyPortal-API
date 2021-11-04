@@ -8,11 +8,15 @@ use App\Utils\ModelProperty;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Query\Expression;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 
 use function sprintf;
+use function str_ends_with;
+
+// TODO Update property description?
 
 abstract class Property extends BaseDirective implements ArgBuilderDirective {
     public function __construct(
@@ -26,7 +30,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective {
             """
             Return property value for current organization.
             """
-            directive @orgProperty on FIELD_DEFINITION
+            directive @orgProperty on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
         GRAPHQL;
     }
 
@@ -82,12 +86,29 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective {
             $builder = $builder->addSelect($builder->qualifyColumn('*'));
         }
 
+        // Already added?
+        $name   = $this->definitionNode->name->value;
+        $added  = false;
+        $marker = $builder->getGrammar()->wrap("_org_property__{$name}");
+
+        foreach ($builder->getQuery()->columns as $column) {
+            if ($column instanceof Expression && str_ends_with($column->getValue(), $marker)) {
+                $added = true;
+                break;
+            }
+        }
+
+        if ($added) {
+            return $builder;
+        }
+
         // Add property
-        $name    = $this->definitionNode->name->value;
         $query   = $relation->getQuery()
             ->select($relation->getQualifiedRelatedPivotKeyName())
             ->limit(1);
-        $builder = $builder->selectSub($query, $name);
+        $builder = $builder
+            ->selectRaw("1 as {$marker}")
+            ->selectSub($query, $name);
 
         // Return
         return $builder;

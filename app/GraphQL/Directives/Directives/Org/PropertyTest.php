@@ -69,6 +69,7 @@ class PropertyTest extends TestCase {
             ]));
         $builderFactory = $builderFactory($this);
         $builderFactory = $directive->handleBuilder($builderFactory, null);
+        $builderFactory = $directive->handleBuilder($builderFactory, null);
 
         $this->assertDatabaseQueryEquals($expected, $builderFactory);
     }
@@ -153,6 +154,7 @@ class PropertyTest extends TestCase {
                         'query'    => <<<'SQL'
                             select
                                 `model_with_relation_supported`.*,
+                                1 as `_org_property__property`,
                                 (
                                     select
                                         `pivot`.`relatedPivotKey`
@@ -198,6 +200,7 @@ class PropertyTest extends TestCase {
                         'query'    => <<<'SQL'
                             select
                                 `id`,
+                                1 as `_org_property__property`,
                                 (
                                     select
                                         `pivot`.`relatedPivotKey`
