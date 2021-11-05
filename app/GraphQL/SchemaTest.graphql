@@ -313,14 +313,14 @@ type AssetsAggregated {
 
 type AssetsAggregatedCoverage {
   count: Int!
-  coverage_id: ID
-  coverage: Type
+  coverage_id: ID!
+  coverage: Type!
 }
 
 type AssetsAggregatedType {
   count: Int!
-  type_id: ID
-  type: Type
+  type_id: ID!
+  type: Type!
 }
 
 input AssetsQuery {
@@ -744,8 +744,6 @@ input CustomersQuery {
   name: String!
   type_id: ID!
   statuses: StatusesQuery!
-  assets_count: Int!
-  locations_count: Int!
   locations: CustomerLocationsQuery
   headquarter: CustomerLocationsQuery
   contacts_count: Int!
@@ -765,8 +763,6 @@ input CustomersSearchHeadquarterSort {
 
 input CustomersSearchSort {
   name: String
-  assets_count: String
-  locations_count: String
   headquarter: CustomersSearchHeadquarterSort
 }
 
@@ -2100,7 +2096,7 @@ type Query {
   
   @require <me> User must be authenticated.
   """
-  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
+  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTag!]): [Tag!]!
 
   """
   List of all Service Groups.
@@ -3632,12 +3628,6 @@ input SearchByConditionCustomersQuery {
 
   """Property condition."""
   statuses: SearchByComplexRelationStatusesQuery
-
-  """Property condition."""
-  assets_count: SearchByScalarInt
-
-  """Property condition."""
-  locations_count: SearchByScalarInt
 
   """Property condition."""
   locations: SearchByComplexRelationCustomerLocationsQuery
@@ -5209,12 +5199,6 @@ input SortByClauseCustomersQuery {
   statuses: SortByClauseStatusesQuery
 
   """Property clause."""
-  assets_count: SortByDirection
-
-  """Property clause."""
-  locations_count: SortByDirection
-
-  """Property clause."""
   locations: SortByClauseCustomerLocationsQuery
 
   """Property clause."""
@@ -5258,12 +5242,6 @@ Sort clause for input CustomersSearchSort (only one property allowed at a time).
 input SortByClauseCustomersSearchSort {
   """Property clause."""
   name: SortByDirection
-
-  """Property clause."""
-  assets_count: SortByDirection
-
-  """Property clause."""
-  locations_count: SortByDirection
 
   """Property clause."""
   headquarter: SortByClauseCustomersSearchHeadquarterSort
@@ -5749,6 +5727,15 @@ input SortByClauseStatusesQuery {
   id: SortByDirection
 }
 
+"""Sort clause for type Tag (only one property allowed at a time)."""
+input SortByClauseTag {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
 """
 Sort clause for input TagsQuery (only one property allowed at a time).
 """
@@ -5761,12 +5748,6 @@ input SortByClauseTagsQuery {
 
   """Property clause."""
   assets: SortByClauseAssetsQuery
-}
-
-"""Sort clause for input TagsSort (only one property allowed at a time)."""
-input SortByClauseTagsSort {
-  """Property clause."""
-  name: SortByDirection
 }
 
 """
@@ -5840,10 +5821,6 @@ input TagsQuery {
   id: ID!
   name: String!
   assets: AssetsQuery
-}
-
-input TagsSort {
-  name: String!
 }
 
 type Team {

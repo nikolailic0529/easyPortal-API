@@ -52,7 +52,7 @@ extend type Query {
   "List of all possible tags."
   tags (
     where: TagsQuery @searchBy
-    order: TagsSort @sortBy
+    order: _ @sortBy
   ): [Tag!]!
   @organization
   @me

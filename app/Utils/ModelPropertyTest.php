@@ -3,9 +3,12 @@
 namespace App\Utils;
 
 use App\Models\Asset;
+use App\Models\Customer;
 use App\Models\Oem;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
@@ -88,5 +91,50 @@ class ModelPropertyTest extends TestCase {
         $this->assertNull(
             (new ModelProperty('assets.unknown.id'))->getValue($oem),
         );
+    }
+
+    /**
+     * @covers ::getRelation
+     */
+    public function testGetRelationForModel(): void {
+        $model    = new Customer();
+        $property = new ModelProperty('headquarter.id');
+
+        $this->assertInstanceOf(HasOne::class, $property->getRelation($model));
+    }
+
+    /**
+     * @covers ::getRelation
+     */
+    public function testGetRelationForModelNotRelation(): void {
+        $model    = new Customer();
+        $property = new ModelProperty('id');
+
+        $this->expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
+
+        $property->getRelation($model);
+    }
+
+    /**
+     * @covers ::getRelation
+     */
+    public function testGetRelationForBuilder(): void {
+        $builder  = Customer::query();
+        $property = new ModelProperty('headquarter.id');
+
+        $this->assertInstanceOf(HasOne::class, $property->getRelation($builder));
+    }
+
+    /**
+     * @covers ::getRelation
+     */
+    public function testGetRelationForBuilderNotRelation(): void {
+        $model    = new Customer();
+        $builder  = $model::query();
+        $property = new ModelProperty('id');
+
+        $this->expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
+
+        $property->getRelation($builder);
     }
 }

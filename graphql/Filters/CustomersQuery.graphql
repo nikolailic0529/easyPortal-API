@@ -3,8 +3,6 @@ input CustomersQuery {
   name: String!
   type_id: ID!
   statuses: StatusesQuery!
-  assets_count: Int!
-  locations_count: Int!
   locations: CustomerLocationsQuery
   headquarter: CustomerLocationsQuery
   contacts_count: Int!

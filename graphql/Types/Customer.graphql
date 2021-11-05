@@ -16,9 +16,10 @@ type Customer {
   changed_at: DateTime
   synced_at: DateTime!
 
+  assets_count: Int! @orgProperty
+  locations_count: Int! @orgProperty
+
   # TODO [GraphQL] Should be available only for root organization
-  assets_count: Int!
-  locations_count: Int!
   kpi: Kpi @morphOne
 
   # Contracts
