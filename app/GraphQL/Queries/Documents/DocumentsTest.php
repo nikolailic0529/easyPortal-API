@@ -302,8 +302,8 @@ class DocumentsTest extends TestCase {
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 2,
-                    'locations_count' => 1,
-                    'contacts_count'  => 2,
+                    'locations_count' => 2,
+                    'contacts_count'  => 1,
                     'changed_at'      => '2021-10-19 10:15:00',
                     'synced_at'       => '2021-10-19 10:25:00',
                 ]);
