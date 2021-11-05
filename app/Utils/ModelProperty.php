@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
@@ -65,10 +66,14 @@ class ModelProperty {
         return $this->relationPath;
     }
 
-    public function getRelation(Model $model): Relation {
+    public function getRelation(Model|Builder $model): Relation {
         $relation = $this->getRelationName();
 
         if (!$relation) {
+            if ($model instanceof Builder) {
+                $model = $model->getModel();
+            }
+
             throw new PropertyIsNotRelation($model, $this->getName());
         }
 
