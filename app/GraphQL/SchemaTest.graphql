@@ -744,8 +744,6 @@ input CustomersQuery {
   name: String!
   type_id: ID!
   statuses: StatusesQuery!
-  assets_count: Int!
-  locations_count: Int!
   locations: CustomerLocationsQuery
   headquarter: CustomerLocationsQuery
   contacts_count: Int!
@@ -3634,12 +3632,6 @@ input SearchByConditionCustomersQuery {
   statuses: SearchByComplexRelationStatusesQuery
 
   """Property condition."""
-  assets_count: SearchByScalarInt
-
-  """Property condition."""
-  locations_count: SearchByScalarInt
-
-  """Property condition."""
   locations: SearchByComplexRelationCustomerLocationsQuery
 
   """Property condition."""
@@ -5207,12 +5199,6 @@ input SortByClauseCustomersQuery {
 
   """Property clause."""
   statuses: SortByClauseStatusesQuery
-
-  """Property clause."""
-  assets_count: SortByDirection
-
-  """Property clause."""
-  locations_count: SortByDirection
 
   """Property clause."""
   locations: SortByClauseCustomerLocationsQuery

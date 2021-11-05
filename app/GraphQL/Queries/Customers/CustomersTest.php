@@ -170,7 +170,7 @@ class CustomersTest extends TestCase {
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
-                                    'assets_count'    => 0,
+                                    'assets_count'    => 1,
                                     'locations_count' => 1,
                                     'locations'       => [
                                         [
@@ -336,7 +336,10 @@ class CustomersTest extends TestCase {
                                     'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
-                            $customer->resellers()->attach($reseller);
+                            $customer->resellers()->attach($reseller, [
+                                'locations_count' => 1,
+                                'assets_count'    => 1,
+                            ]);
 
                             CustomerLocation::factory()
                                 ->hasTypes(1, [

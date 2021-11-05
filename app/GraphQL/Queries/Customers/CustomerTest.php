@@ -1122,14 +1122,17 @@ class CustomerTest extends TestCase {
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
-                                    'assets_count'    => 0,
+                                    'assets_count'    => 2,
                                     'contacts_count'  => 1,
-                                    'locations_count' => 1,
+                                    'locations_count' => 2,
                                     'changed_at'      => '2021-10-19 10:15:00',
                                     'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
-                            $customer->resellers()->attach($reseller);
+                            $customer->resellers()->attach($reseller, [
+                                'assets_count'    => 0,
+                                'locations_count' => 1,
+                            ]);
 
                             CustomerLocation::factory()->create([
                                 'customer_id' => $customer,
@@ -1465,13 +1468,16 @@ class CustomerTest extends TestCase {
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
-                                    'assets_count'    => 0,
+                                    'assets_count'    => 2,
                                     'contacts_count'  => 1,
-                                    'locations_count' => 1,
+                                    'locations_count' => 2,
                                     'changed_at'      => '2021-10-19 10:15:00',
                                     'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
-                            $customer->resellers()->attach($reseller);
+                            $customer->resellers()->attach($reseller, [
+                                'assets_count'    => 0,
+                                'locations_count' => 1,
+                            ]);
 
                             CustomerLocation::factory()
                                 ->hasTypes(1, [
@@ -1760,13 +1766,16 @@ class CustomerTest extends TestCase {
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
-                                    'assets_count'    => 0,
+                                    'assets_count'    => 2,
                                     'contacts_count'  => 1,
-                                    'locations_count' => 1,
+                                    'locations_count' => 2,
                                     'changed_at'      => '2021-10-19 10:15:00',
                                     'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
-                            $customer->resellers()->attach($reseller);
+                            $customer->resellers()->attach($reseller, [
+                                'assets_count'    => 0,
+                                'locations_count' => 1,
+                            ]);
 
                             CustomerLocation::factory()->create([
                                 'customer_id' => $customer,
@@ -1955,13 +1964,16 @@ class CustomerTest extends TestCase {
                 ->create([
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
-                    'assets_count'    => 0,
+                    'assets_count'    => 2,
                     'contacts_count'  => 0,
-                    'locations_count' => 0,
+                    'locations_count' => 2,
                     'changed_at'      => '2021-10-19 10:15:00',
                     'synced_at'       => '2021-10-19 10:25:00',
                 ]);
-            $customer->resellers()->attach($reseller);
+            $customer->resellers()->attach($reseller, [
+                'assets_count'    => 0,
+                'locations_count' => 0,
+            ]);
 
             return $customer;
         };
@@ -2004,13 +2016,16 @@ class CustomerTest extends TestCase {
                 ->create([
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
-                    'assets_count'    => 0,
+                    'assets_count'    => 2,
                     'contacts_count'  => 1,
-                    'locations_count' => 1,
+                    'locations_count' => 2,
                     'changed_at'      => '2021-10-19 10:15:00',
                     'synced_at'       => '2021-10-19 10:25:00',
                 ]);
-            $customer->resellers()->attach($reseller);
+            $customer->resellers()->attach($reseller, [
+                'assets_count'    => 0,
+                'locations_count' => 1,
+            ]);
 
             CustomerLocation::factory()->create([
                 'customer_id' => $customer,

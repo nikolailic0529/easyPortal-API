@@ -74,7 +74,7 @@ class CustomersAggregatedTest extends TestCase {
     public function dataProviderQuery(): array {
         $params  = [
             'where' => [
-                'assets_count' => [
+                'contacts_count' => [
                     'lessThanOrEqual' => 2,
                 ],
             ],
@@ -82,14 +82,17 @@ class CustomersAggregatedTest extends TestCase {
         $factory = static function (TestCase $test, Organization $organization): void {
             // Customers
             $customerA = Customer::factory()->create([
-                'assets_count' => 1,
+                'assets_count'   => 1,
+                'contacts_count' => 1,
             ]);
             $customerB = Customer::factory()->create([
-                'assets_count' => 2,
+                'assets_count'   => 2,
+                'contacts_count' => 2,
             ]);
 
             Customer::factory()->create([
-                'assets_count' => 3,
+                'assets_count'   => 3,
+                'contacts_count' => 3,
             ]);
 
             // Resellers
