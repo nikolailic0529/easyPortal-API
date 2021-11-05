@@ -763,8 +763,6 @@ input CustomersSearchHeadquarterSort {
 
 input CustomersSearchSort {
   name: String
-  assets_count: String
-  locations_count: String
   headquarter: CustomersSearchHeadquarterSort
 }
 
@@ -5244,12 +5242,6 @@ Sort clause for input CustomersSearchSort (only one property allowed at a time).
 input SortByClauseCustomersSearchSort {
   """Property clause."""
   name: SortByDirection
-
-  """Property clause."""
-  assets_count: SortByDirection
-
-  """Property clause."""
-  locations_count: SortByDirection
 
   """Property clause."""
   headquarter: SortByClauseCustomersSearchHeadquarterSort

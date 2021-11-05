@@ -13,7 +13,6 @@ use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Search\Eloquent\Searchable;
-use App\Services\Search\Properties\Integer;
 use App\Services\Search\Properties\Text;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -105,10 +104,8 @@ class Customer extends Model {
     protected static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
-            'name'            => new Text('name', true),
-            'assets_count'    => new Integer('assets_count'),
-            'locations_count' => new Integer('locations_count'),
-            'headquarter'     => [
+            'name'        => new Text('name', true),
+            'headquarter' => [
                 'city' => [
                     'name' => new Text('headquarter.location.city.name'),
                 ],
