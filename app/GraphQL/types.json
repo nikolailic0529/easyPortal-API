@@ -557,6 +557,7 @@
                 "reseller",
                 "type",
                 "statuses",
+                "statuses_count",
                 "is_contract",
                 "is_quote",
                 "entries",
@@ -697,6 +698,9 @@
                     "items": {
                         "$ref": "#/definitions/Status"
                     }
+                },
+                "statuses_count": {
+                    "type": "integer"
                 },
                 "entries": {
                     "type": "array",

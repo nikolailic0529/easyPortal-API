@@ -8,7 +8,11 @@ use App\Models\Status;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
+use function count;
+
 /**
+ * @property int $statuses_count
+ *
  * @mixin \App\Models\Model
  */
 trait HasStatuses {
@@ -29,6 +33,7 @@ trait HasStatuses {
      */
     public function setStatusesAttribute(Collection|array $statuses): void {
         $this->syncBelongsToMany('statuses', $statuses);
+        $this->statuses_count = count($this->statuses);
     }
 
     abstract protected function getStatusesPivot(): Pivot;

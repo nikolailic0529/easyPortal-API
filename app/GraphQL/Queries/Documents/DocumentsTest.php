@@ -104,6 +104,7 @@ class DocumentsTest extends TestCase {
                             id
                             name
                         }
+                        statuses_count
                         statuses {
                             id
                             name
@@ -472,6 +473,7 @@ class DocumentsTest extends TestCase {
                 'name' => 'name aaa',
             ],
             'statuses'       => [],
+            'statuses_count' => 0,
             'customer'       => [
                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                 'name'            => 'name aaa',
@@ -626,6 +628,7 @@ class DocumentsTest extends TestCase {
                 'name' => 'name bbb',
             ],
             'statuses'       => [],
+            'statuses_count' => 0,
             'customer'       => [
                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                 'name'            => 'name aaa',

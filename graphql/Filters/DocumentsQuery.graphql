@@ -20,5 +20,6 @@ input DocumentsQuery {
   contacts: ContactsQuery
   contacts_count: Int!
   statuses: StatusesQuery
+  statuses_count: Int!
   assets: AssetsQuery
 }

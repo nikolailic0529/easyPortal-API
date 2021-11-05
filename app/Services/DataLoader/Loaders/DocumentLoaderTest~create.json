@@ -110,7 +110,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
@@ -128,6 +128,7 @@
             "cd32bfc2-5d7a-3057-9faa-2bc02a0612ce",
             "2021-07-15 12:51:38",
             2,
+            1,
             "2021-08-30 00:01:05",
             "2021-08-30 00:01:06",
             "2021-08-30 00:01:06"

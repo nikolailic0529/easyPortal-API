@@ -1264,8 +1264,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals(1, $created->assets_count);
         $this->assertEquals(6, $created->entries_count);
         $this->assertEquals(1, $created->contacts_count);
+        $this->assertEquals(1, $created->statuses_count);
         $this->assertCount($created->entries_count, $created->entries);
         $this->assertCount($created->contacts_count, $created->contacts);
+        $this->assertCount($created->statuses_count, $created->statuses);
 
         /** @var \App\Models\DocumentEntry $e */
         $e = $created->entries->first(static function (DocumentEntryModel $entry): bool {
@@ -1307,8 +1309,11 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals(0, $changed->contacts_count);
         $this->assertEquals(2, $changed->entries_count);
         $this->assertEquals(1, $changed->assets_count);
+        $this->assertEquals(0, $changed->statuses_count);
         $this->assertCount(2, $changed->entries);
         $this->assertCount(2, $changed->refresh()->entries);
+        $this->assertCount(0, $changed->statuses);
+        $this->assertCount(0, $changed->refresh()->statuses);
 
         /** @var \App\Models\DocumentEntry $e */
         $e = $changed->entries->first(static function (DocumentEntryModel $entry): bool {

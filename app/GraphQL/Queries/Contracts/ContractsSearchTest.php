@@ -112,6 +112,7 @@ class ContractsSearchTest extends TestCase {
                             id
                             name
                         }
+                        statuses_count
                         customer {
                             id
                             name
@@ -351,6 +352,7 @@ class ContractsSearchTest extends TestCase {
                                             'name' => 'status a',
                                         ],
                                     ],
+                                    'statuses_count' => 1,
                                     'customer'       => [
                                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'name'            => 'name aaa',
@@ -623,15 +625,16 @@ class ContractsSearchTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'oem_said'     => '1234-5678-9012',
-                                    'number'       => '1323',
-                                    'price'        => 100,
-                                    'start'        => '2021-01-01',
-                                    'end'          => '2024-01-01',
-                                    'assets_count' => 1,
-                                    'changed_at'   => '2021-10-19 10:15:00',
-                                    'synced_at'    => '2021-10-19 10:25:00',
+                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'oem_said'       => '1234-5678-9012',
+                                    'number'         => '1323',
+                                    'price'          => 100,
+                                    'start'          => '2021-01-01',
+                                    'end'            => '2024-01-01',
+                                    'assets_count'   => 1,
+                                    'statuses_count' => 1,
+                                    'changed_at'     => '2021-10-19 10:15:00',
+                                    'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
 
                             $documentB = Document::factory()->create([

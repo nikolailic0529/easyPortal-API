@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int                                                                    $assets_count
  * @property int                                                                    $locations_count
  * @property int                                                                    $contacts_count
+ * @property int                                                                    $statuses_count
  * @property \Carbon\CarbonImmutable|null                                           $changed_at
  * @property \Carbon\CarbonImmutable                                                $synced_at
  * @property \Carbon\CarbonImmutable                                                $created_at

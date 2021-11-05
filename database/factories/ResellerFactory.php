@@ -38,6 +38,7 @@ class ResellerFactory extends Factory {
             'customers_count' => 0,
             'locations_count' => 0,
             'assets_count'    => 0,
+            'statuses_count'  => 0,
             'changed_at'      => null,
             'synced_at'       => Date::now(),
             'created_at'      => Date::now(),
