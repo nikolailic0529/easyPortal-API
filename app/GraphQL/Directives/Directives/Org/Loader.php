@@ -37,11 +37,11 @@ class Loader implements ModelsLoader {
     }
 
     protected function getOwner(): string {
-        return '_org_property_owner';
+        return 'id';
     }
 
     protected function getMarker(): string {
-        return "_org_property__{$this->getProperty()}";
+        return "org_property__{$this->getProperty()}";
     }
 
     public function load(EloquentCollection $parents): void {
@@ -50,12 +50,18 @@ class Loader implements ModelsLoader {
             return;
         }
 
-        // Load
-        $marker   = $this->getMarker();
-        $builder  = $parents->first()::query();
-        $parents  = $parents->filter(static function (Model $model) use ($marker): bool {
-            return !isset($model[$marker]);
+        // Remove loaded
+        $marker  = $this->getMarker();
+        $parents = $parents->filter(static function (Model $parent) use ($marker): bool {
+            return !isset($parent[$marker]);
         });
+
+        if ($parents->isEmpty()) {
+            return;
+        }
+
+        // Load
+        $builder  = $parents->first()::query();
         $owner    = $this->getOwner();
         $values   = $this->getQuery($builder, $parents)->toBase()->get()->keyBy($owner);
         $property = $this->getProperty();

@@ -203,7 +203,7 @@ class PropertyTest extends TestCase {
                         'query'    => <<<'SQL'
                             select
                                 `model_with_relation_supported`.*,
-                                1 as `_org_property__property`,
+                                1 as `org_property__property`,
                                 (
                                     select
                                         `pivot`.`property`
@@ -252,7 +252,7 @@ class PropertyTest extends TestCase {
                         'query'    => <<<'SQL'
                             select
                                 `id`,
-                                1 as `_org_property__property`,
+                                1 as `org_property__property`,
                                 (
                                     select
                                         `pivot`.`property`

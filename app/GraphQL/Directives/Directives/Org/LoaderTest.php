@@ -210,7 +210,7 @@ class LoaderTest extends TestCase {
                     'query'    => <<<'SQL'
                         select
                             `model_with_relation_supported`.*,
-                            1 as `_org_property__property`
+                            1 as `org_property__property`
                         from
                             `model_with_relation_supported`
                         where
@@ -261,7 +261,7 @@ class LoaderTest extends TestCase {
                     'query'    => <<<'SQL'
                         select
                             `id`,
-                            1 as `_org_property__property`
+                            1 as `org_property__property`
                         from
                             `model_with_relation_supported`
                         where
@@ -294,7 +294,7 @@ class LoaderTest extends TestCase {
                     'query'    => <<<'SQL'
                         select
                             `pivot`.`property`,
-                            `pivot`.`foreignPivotKey` as `_org_property_owner`
+                            `pivot`.`foreignPivotKey` as `id`
                         from
                             `model_without_scopes`
                         inner join `pivot`
@@ -315,7 +315,7 @@ class LoaderTest extends TestCase {
                     'query'    => <<<'SQL'
                         select
                             `model_with_relation_supported`.*,
-                            1 as `_org_property__property`
+                            1 as `org_property__property`
                         from
                             `model_with_relation_supported`
                         where
@@ -352,7 +352,7 @@ class LoaderTest extends TestCase {
                     'query'    => <<<'SQL'
                         select
                             `pivot`.`property`,
-                            `pivot`.`foreignPivotKey` as `_org_property_owner`
+                            `pivot`.`foreignPivotKey` as `id`
                         from
                             `model_without_scopes`
                         inner join `pivot`
@@ -373,7 +373,7 @@ class LoaderTest extends TestCase {
                     'query'    => <<<'SQL'
                         select
                             `id`,
-                            1 as `_org_property__property`
+                            1 as `org_property__property`
                         from
                             `model_with_relation_supported`
                         where
