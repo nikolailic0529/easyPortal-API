@@ -99,6 +99,7 @@ class QuoteTest extends TestCase {
                             id
                             name
                         }
+                        statuses_count
                         statuses {
                             id
                             name
@@ -373,6 +374,7 @@ class QuoteTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ],
+                            'statuses_count' => 1,
                             'statuses'       => [
                                 [
                                     'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
@@ -646,15 +648,16 @@ class QuoteTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'oem_said'     => '1234-5678-9012',
-                                    'number'       => '1323',
-                                    'price'        => 100,
-                                    'start'        => '2021-01-01',
-                                    'end'          => '2024-01-01',
-                                    'assets_count' => 1,
-                                    'changed_at'   => '2021-10-19 10:15:00',
-                                    'synced_at'    => '2021-10-19 10:25:00',
+                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'oem_said'       => '1234-5678-9012',
+                                    'number'         => '1323',
+                                    'price'          => 100,
+                                    'start'          => '2021-01-01',
+                                    'end'            => '2024-01-01',
+                                    'assets_count'   => 1,
+                                    'statuses_count' => 1,
+                                    'changed_at'     => '2021-10-19 10:15:00',
+                                    'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
                         },
                     ],
