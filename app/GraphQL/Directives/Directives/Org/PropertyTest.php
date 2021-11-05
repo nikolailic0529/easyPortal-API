@@ -98,7 +98,7 @@ class PropertyTest extends TestCase {
         $this
             ->useGraphQLSchema(
                 /** @lang GraphQL */
-                <<<GRAPHQL
+                <<<'GRAPHQL'
                 type Query {
                     customers: [Customer!]! @all
                 }
