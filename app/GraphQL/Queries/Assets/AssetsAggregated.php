@@ -4,7 +4,6 @@ namespace App\GraphQL\Queries\Assets;
 
 use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
 use App\Models\Asset;
-use App\Models\Callbacks\GetKey;
 use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Type;
@@ -38,19 +37,21 @@ class AssetsAggregated {
             ->groupBy($key)
             ->having('count', '>', 0)
             ->toBase()
-            ->get();
-        $types      = Type::query()
-            ->whereKey($results->pluck($key)->all())
             ->get()
-            ->keyBy(new GetKey());
+            ->keyBy($key)
+            ->sortKeys();
+        $types      = Type::query()
+            ->whereKey($results->keys()->all())
+            ->get();
         $aggregated = [];
 
-        foreach ($results as $result) {
+        foreach ($types as $type) {
             /** @var \stdClass $result */
+            $result       = (int) $results->get($type->getKey());
             $aggregated[] = [
                 'count'   => $result->count,
-                'type_id' => $result->{$key},
-                'type'    => $types->get($result->{$key}),
+                'type_id' => $type->getKey(),
+                'type'    => $type,
             ];
         }
 
@@ -89,6 +90,7 @@ class AssetsAggregated {
             )
             ->groupBy($coverage->getQualifiedKeyName())
             ->having('assets_count', '>', 0)
+            ->orderBy($coverage->getQualifiedKeyName())
             ->get();
         $aggregated = [];
 

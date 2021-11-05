@@ -313,14 +313,14 @@ type AssetsAggregated {
 
 type AssetsAggregatedCoverage {
   count: Int!
-  coverage_id: ID
-  coverage: Type
+  coverage_id: ID!
+  coverage: Type!
 }
 
 type AssetsAggregatedType {
   count: Int!
-  type_id: ID
-  type: Type
+  type_id: ID!
+  type: Type!
 }
 
 input AssetsQuery {
