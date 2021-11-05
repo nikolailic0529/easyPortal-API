@@ -744,6 +744,7 @@ input CustomersQuery {
   name: String!
   type_id: ID!
   statuses: StatusesQuery!
+  statuses_count: Int!
   locations: CustomerLocationsQuery
   headquarter: CustomerLocationsQuery
   contacts_count: Int!
@@ -899,6 +900,7 @@ type Document {
   reseller: Reseller
   type: Type!
   statuses: [Status!]!
+  statuses_count: Int!
   is_contract: Boolean!
   is_quote: Boolean!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
@@ -994,6 +996,7 @@ input DocumentsQuery {
   contacts: ContactsQuery
   contacts_count: Int!
   statuses: StatusesQuery
+  statuses_count: Int!
   assets: AssetsQuery
 }
 
@@ -3630,6 +3633,9 @@ input SearchByConditionCustomersQuery {
   statuses: SearchByComplexRelationStatusesQuery
 
   """Property condition."""
+  statuses_count: SearchByScalarInt
+
+  """Property condition."""
   locations: SearchByComplexRelationCustomerLocationsQuery
 
   """Property condition."""
@@ -3836,6 +3842,9 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   statuses: SearchByComplexRelationStatusesQuery
+
+  """Property condition."""
+  statuses_count: SearchByScalarInt
 
   """Property condition."""
   assets: SearchByComplexRelationAssetsQuery
@@ -5199,6 +5208,9 @@ input SortByClauseCustomersQuery {
   statuses: SortByClauseStatusesQuery
 
   """Property clause."""
+  statuses_count: SortByDirection
+
+  """Property clause."""
   locations: SortByClauseCustomerLocationsQuery
 
   """Property clause."""
@@ -5397,6 +5409,9 @@ input SortByClauseDocumentsQuery {
 
   """Property clause."""
   statuses: SortByClauseStatusesQuery
+
+  """Property clause."""
+  statuses_count: SortByDirection
 
   """Property clause."""
   assets: SortByClauseAssetsQuery
