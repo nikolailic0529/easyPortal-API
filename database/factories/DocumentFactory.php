@@ -50,6 +50,7 @@ class DocumentFactory extends Factory {
             },
             'entries_count'  => 0,
             'contacts_count' => 0,
+            'statuses_count' => 0,
             'number'         => $this->faker->uuid,
             'start'          => $this->faker->dateTime,
             'end'            => $this->faker->dateTime,
