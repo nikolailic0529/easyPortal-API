@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\Http\HttpException;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 use function __;
 
-class GraphQLQueryInvalid extends HttpException implements HttpExceptionInterface {
+class GraphQLQueryInvalid extends ExportException {
     /**
      * @param array<mixed> $errors
      */
@@ -26,13 +23,5 @@ class GraphQLQueryInvalid extends HttpException implements HttpExceptionInterfac
 
     public function getErrorMessage(): string {
         return __('export.errors.graphql_query_invalid');
-    }
-
-    public function getStatusCode(): int {
-        return Response::HTTP_BAD_REQUEST;
-    }
-
-    public function getHeaders(): mixed {
-        return [];
     }
 }

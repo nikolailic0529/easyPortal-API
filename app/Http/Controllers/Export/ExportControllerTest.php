@@ -8,6 +8,7 @@ use App\Models\Reseller;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Closure;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
@@ -62,6 +63,34 @@ class ExportControllerTest extends TestCase {
             }
         };
         $actual     = $controller->getHeaders($value);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getHeaderValue
+     *
+     * @dataProvider dataProviderGetHeaderValue
+     */
+    public function testGetHeaderValue(mixed $expected, string $header, mixed $item): void {
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject($expected);
+        }
+
+        $controller = new class() extends ExportController {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getHeaderValue(string $header, array $item): mixed {
+                return parent::getHeaderValue($header, $item);
+            }
+        };
+        $actual     = $controller->getHeaderValue($header, $item);
 
         $this->assertEquals($expected, $actual);
     }
@@ -386,6 +415,36 @@ class ExportControllerTest extends TestCase {
                     [
                         'a' => 'Aaaa',
                     ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{mixed,string,mixed}>
+     */
+    public function dataProviderGetHeaderValue(): array {
+        return [
+            'simple header'     => [
+                123,
+                'a',
+                [
+                    'a' => 123,
+                ],
+            ],
+            'function: unknown' => [
+                new HeadersUnknownFunction('unknown'),
+                'unknown(a)',
+                [
+                    'b' => 123,
+                ],
+            ],
+            'function: concat'  => [
+                '123 ab',
+                'concat(a,c,b.a,d)',
+                [
+                    'a' => 123,
+                    'b' => ['a' => 'ab'],
                 ],
             ],
         ];

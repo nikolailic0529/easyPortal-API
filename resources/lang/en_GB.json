@@ -217,6 +217,7 @@
     "settings.errors.failed_to_load_settings": "Impossible to load custom settings.",
     "settings.errors.failed_to_save_settings": "Impossible to save custom settings.",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",
+    "export.errors.headers_unknown_function": "Header function :function is unknown.",
     "organization.errors.unknown_organization": "Organization is unknown.",
     "tokens.invalid_credentials": "Invalid client credentials (impossible to obtain access token)",
     "dataloader.client.disabled": "Data Loader Client disabled.",

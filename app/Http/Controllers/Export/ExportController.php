@@ -29,6 +29,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
 use function array_column;
+use function array_filter;
 use function array_is_list;
 use function array_key_exists;
 use function array_map;
@@ -41,6 +42,8 @@ use function is_array;
 use function iterator_to_array;
 use function json_encode;
 use function pathinfo;
+use function preg_match;
+use function preg_match_all;
 use function reset;
 use function str_replace;
 use function trim;
@@ -49,6 +52,7 @@ use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 use const PATHINFO_EXTENSION;
+use const PREG_SET_ORDER;
 
 class ExportController extends Controller {
     public function __construct(
@@ -154,8 +158,8 @@ class ExportController extends Controller {
             // Prepare row
             $row = [];
 
-            foreach ($headers as $path => $header) {
-                $row[] = $this->getItemValue($path, $item);
+            foreach ($headers as $header => $title) {
+                $row[] = $this->getHeaderValue($header, $item);
             }
 
             // Iterate
@@ -269,6 +273,34 @@ class ExportController extends Controller {
         return Str::title(trim(
             str_replace(['_', '.'], ' ', $path),
         ));
+    }
+
+    /**
+     * @param array<mixed> $item
+     */
+    protected function getHeaderValue(string $header, array $item): mixed {
+        $value = null;
+
+        if (preg_match('/^(?<function>[\w]+)\((?<arguments>[^)]+)\)$/', $header, $matches)) {
+            $function  = $matches['function'];
+            $arguments = array_map(
+                fn(string $arg): mixed => $this->getItemValue($arg, $item),
+                explode(',', $matches['arguments']),
+            );
+
+            switch ($function) {
+                case 'concat':
+                    $value = trim(implode(' ', array_filter($arguments)));
+                    break;
+                default:
+                    throw new HeadersUnknownFunction($function);
+                    break;
+            }
+        } else {
+            $value = $this->getItemValue($header, $item);
+        }
+
+        return $value;
     }
 
     /**
