@@ -7,7 +7,9 @@ namespace App\Services\DataLoader\Commands\Concerns;
  */
 trait WithBooleanOptions {
     protected function getBooleanOption(string $name, bool $default): bool {
-        if ($this->option("no-{$name}")) {
+        $noName = "no-{$name}";
+
+        if ($this->hasOption($noName) && $this->option($noName)) {
             return false;
         }
 
