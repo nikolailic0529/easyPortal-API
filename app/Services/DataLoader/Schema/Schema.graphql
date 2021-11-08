@@ -299,6 +299,7 @@ type Mutation {
   updateCompanyFavicon(input: UpdateCompanyFile): String
   updateCompanyMainImageOnTheRight(input: UpdateCompanyFile): String
   uploadInvoice(input: UploadInvoice): String
+  triggerCoverageStatusCheck(input: TriggerCoverageStatusCheck): String
 }
 
 type Query {
@@ -324,6 +325,12 @@ type Query {
 type SourceDocument {
   id: String
   timestamp: String
+}
+
+input TriggerCoverageStatusCheck {
+  assetId: String
+  customerId: String
+  type: String
 }
 
 input UpdateCompanyFile {

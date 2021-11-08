@@ -10,9 +10,11 @@ use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
@@ -47,6 +49,7 @@ class Client {
         protected Repository $config,
         protected Factory $client,
         protected Token $token,
+        protected Normalizer $normalizer,
     ) {
         // empty
     }
@@ -525,6 +528,20 @@ class Client {
                 'input.file',
             ],
         );
+    }
+
+    public function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
+        return (bool) $this->normalizer->boolean($this->call(
+            'data.triggerCoverageStatusCheck',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation triggerCoverageStatusCheck($input: TriggerCoverageStatusCheck!) {
+                triggerCoverageStatusCheck(input: $input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+        ));
     }
     // </editor-fold>
 
