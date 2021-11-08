@@ -10,6 +10,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteNotFound as GraphQLSignUpByInviteNo
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
 use App\Http\Controllers\Export\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
+use App\Http\Controllers\Export\HeadersUnknownFunction as HttpExportHeadersUnknownFunction;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable as DataLoaderDataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoaderGraphQLRequestFailed;
@@ -46,6 +47,7 @@ class ErrorCodes {
     protected static array $map = [
         // Http
         HttpExportGraphQLQueryInvalid::class                 => 'Http001',
+        HttpExportHeadersUnknownFunction::class              => 'Http002',
 
         // GraphQL
         GraphQLResetPasswordSamePasswordException::class     => 'GraphQL001',
