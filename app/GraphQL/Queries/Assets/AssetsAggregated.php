@@ -47,9 +47,9 @@ class AssetsAggregated {
 
         foreach ($types as $type) {
             /** @var \stdClass $result */
-            $result       = (int) $results->get($type->getKey());
+            $result       = $results->get($type->getKey());
             $aggregated[] = [
-                'count'   => $result->count,
+                'count'   => (int) $result->count,
                 'type_id' => $type->getKey(),
                 'type'    => $type,
             ];
