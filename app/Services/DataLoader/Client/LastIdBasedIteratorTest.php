@@ -25,43 +25,36 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $data    = $this->getData();
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $client  = Mockery::mock(Client::class);
-        $client->shouldAllowMockingProtectedMethods();
-
-        $client
-            ->shouldReceive('call')
-            ->times(3)
-            ->andReturnUsing($this->getRetriever($data));
+        $data     = $this->getData();
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $executor = Mockery::spy($this->getRetriever($data));
 
         $expected = $data;
-        $actual   = iterator_to_array((new LastIdBasedIterator($handler, $client, '', ''))->setChunkSize(5));
+        $actual   = iterator_to_array(
+            (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))->setChunkSize(5),
+        );
 
         $this->assertEquals($expected, $actual);
+
+        $executor
+            ->shouldHaveBeenCalled()
+            ->times(3);
     }
 
     /**
      * @covers ::iterator
      */
     public function testIteratorWithLimitLastId(): void {
-        $data    = $this->getData();
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $client  = Mockery::mock(Client::class);
-        $client->shouldAllowMockingProtectedMethods();
-
-        $client
-            ->shouldReceive('call')
-            ->times(1)
-            ->andReturnUsing($this->getRetriever($data));
-
+        $data          = $this->getData();
+        $handler       = Mockery::mock(ExceptionHandler::class);
+        $executor      = Mockery::spy($this->getRetriever($data));
         $onBeforeChunk = Mockery::spy(static function (): void {
             // empty
         });
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new LastIdBasedIterator($handler, $client, '', ''))
+        $iterator      = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset('5')
@@ -76,6 +69,9 @@ class LastIdBasedIteratorTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
 
+        $executor
+            ->shouldHaveBeenCalled()
+            ->times(1);
         $onBeforeChunk->shouldHaveBeenCalled();
         $onAfterChunk->shouldHaveBeenCalled();
     }
@@ -84,72 +80,71 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorChunkLessThanLimit(): void {
-        $data    = $this->getData();
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $client  = Mockery::mock(Client::class);
-        $client->shouldAllowMockingProtectedMethods();
+        $data     = $this->getData();
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $executor = Mockery::spy(function (array $params = []) use ($data) {
+            $this->assertEquals(2, $params['limit']);
 
-        $client
-            ->shouldReceive('call')
-            ->times(5)
-            ->andReturnUsing(function (string $selector, string $graphql, array $params = []) use ($data) {
-                $this->assertEquals(2, $params['limit']);
-
-                return $this->getRetriever($data)($selector, $graphql, $params);
-            });
+            return $this->getRetriever($data)($params);
+        });
 
         $expected = $data;
-        $iterator = (new LastIdBasedIterator($handler, $client, '', ''))->setLimit(10)->setChunkSize(2);
+        $iterator = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))
+            ->setLimit(10)
+            ->setChunkSize(2);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
+
+        $executor
+            ->shouldHaveBeenCalled()
+            ->times(5);
     }
 
     /**
      * @covers ::iterator
      */
     public function testIteratorChunkGreaterThanLimit(): void {
-        $data    = $this->getData();
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $client  = Mockery::mock(Client::class);
-        $client->shouldAllowMockingProtectedMethods();
+        $data     = $this->getData();
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $executor = Mockery::spy(function (array $params = []) use ($data) {
+            $this->assertEquals(2, $params['limit']);
 
-        $client
-            ->shouldReceive('call')
-            ->times(1)
-            ->andReturnUsing(function (string $selector, string $graphql, array $params = []) use ($data) {
-                $this->assertEquals(2, $params['limit']);
-
-                return $this->getRetriever($data)($selector, $graphql, $params);
-            });
+            return $this->getRetriever($data)($params);
+        });
 
         $expected = ['1', '2'];
-        $iterator = (new LastIdBasedIterator($handler, $client, '', ''))->setLimit(2)->setChunkSize(50);
+        $iterator = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))
+            ->setLimit(2)
+            ->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
             return $type->id ?? null;
         }, $actual);
 
         $this->assertEquals($expected, $actual);
+
+        $executor
+            ->shouldHaveBeenCalled()
+            ->times(1);
     }
 
     /**
      * @covers ::iterator
      */
     public function testIteratorLimitZero(): void {
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $client  = Mockery::mock(Client::class);
-        $client->shouldAllowMockingProtectedMethods();
-
-        $client
-            ->shouldReceive('call')
-            ->never();
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $executor = Mockery::spy(static function (array $params = []): mixed {
+            return null;
+        });
 
         $expected = [];
-        $iterator = (new LastIdBasedIterator($handler, $client, '', ''))->setLimit(0);
+        $iterator = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
+
+        $executor->shouldNotHaveBeenCalled();
     }
     // </editor-fold>
 
@@ -170,7 +165,7 @@ class LastIdBasedIteratorTest extends TestCase {
      * @param array<int,\App\Services\DataLoader\Schema\Type> $data
      */
     protected function getRetriever(array $data): Closure {
-        return static function (string $selector, string $graphql, array $params = []) use ($data) {
+        return static function (array $params = []) use ($data) {
             $index = 0;
 
             if ($params['lastId']) {

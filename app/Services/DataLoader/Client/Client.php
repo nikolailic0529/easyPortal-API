@@ -32,6 +32,7 @@ use Illuminate\Support\Arr;
 use SplFileInfo;
 
 use function array_is_list;
+use function array_merge;
 use function explode;
 use function implode;
 use function json_encode;
@@ -550,7 +551,13 @@ class Client {
         array $params,
         Closure $retriever,
     ): OffsetBasedIterator {
-        return (new OffsetBasedIterator($this->handler, $this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new OffsetBasedIterator(
+            $this->handler,
+            function (array $variables) use ($selector, $graphql, $params) {
+                return $this->call("data.{$selector}", $graphql, array_merge($params, $variables));
+            },
+            $retriever,
+        ))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
@@ -568,7 +575,13 @@ class Client {
         array $params,
         Closure $retriever,
     ): LastIdBasedIterator {
-        return (new LastIdBasedIterator($this->handler, $this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new LastIdBasedIterator(
+            $this->handler,
+            function (array $variables) use ($selector, $graphql, $params) {
+                return $this->call("data.{$selector}", $graphql, array_merge($params, $variables));
+            },
+            $retriever,
+        ))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 

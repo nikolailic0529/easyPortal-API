@@ -2,17 +2,21 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\GraphQL\Utils\Iterators\QueryIteratorImpl as GraphQLQueryIteratorImpl;
 use App\Services\DataLoader\Schema\TypeWithId;
 
 use function end;
 
-class LastIdBasedIterator extends QueryIteratorImpl {
+class LastIdBasedIterator extends GraphQLQueryIteratorImpl {
+    use IteratorErrorHandler;
+
     /**
      * @inheritDoc
      */
-    protected function getQueryParams(): array {
+    protected function getChunkVariables(int $limit): array {
         return [
             'lastId' => $this->getOffset(),
+            'limit'  => $limit,
         ];
     }
 
