@@ -15,6 +15,7 @@ use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Factories\Concerns\Children;
 use App\Services\DataLoader\Factories\Concerns\WithAsset;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
@@ -72,6 +73,7 @@ use function implode;
 use function sprintf;
 
 class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
+    use Children;
     use WithOem;
     use WithOemGroup;
     use WithServiceGroup;
@@ -608,65 +610,25 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     // =========================================================================
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
+     * @template M of \App\Models\DocumentEntry
      *
-     * @param \Illuminate\Support\Collection<\App\Models\DocumentEntry> $existing
-     * @param array<T>                                                  $entries
-     * @param \Closure(T): ?\App\Models\DocumentEntry                   $factory
+     * @param \Illuminate\Support\Collection<M> $existing
+     * @param array<T>                          $entries
+     * @param \Closure(T): ?M                   $factory
      *
-     * @return array<\App\Models\DocumentEntry>
+     * @return array<M>
      */
     protected function entries(Collection $existing, array $entries, Closure $factory): array {
-        // Entries don't have ID for this reason we are trying to compare them
-        // by properties, but there are still a lot of create/soft-delete
-        // queries. So we are trying to re-use removed entries to reduce the
-        // number of queries.
-        $sort     = static function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-            return $a->getKey() <=> $b->getKey();
-        };
-        $compare  = function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-            return $this->compareDocumentEntries($a, $b);
-        };
-        $existing = $existing->sort($sort);
-        $created  = new Collection();
-        $actual   = [];
-
-        foreach ($entries as $entry) {
-            $entry = $factory($entry);
-
-            if (!$entry) {
-                continue;
-            }
-
-            $existingKey = $existing->search(static function (DocumentEntryModel $e) use ($compare, $entry): bool {
-                return $compare($e, $entry) === 0;
-            });
-
-            if ($existingKey !== false) {
-                // `forceFill` is used for relations because we need to call
-                // mutators to update value property.
-                $entry = $existing
-                    ->pull($existingKey)
-                    ->forceFill($entry->getAttributes())
-                    ->forceFill($entry->getRelations());
-            } else {
-                $created->push($entry);
-            }
-
-            $actual[] = $entry;
-        }
-
-        // Reuse
-        $key     = (new DocumentEntryModel())->getKeyName();
-        $created = $created->sort($sort);
-
-        while (!$created->isEmpty() && !$existing->isEmpty()) {
-            $entry         = $created->shift();
-            $entry->{$key} = $existing->shift()->getKey();
-            $entry->exists = true;
-        }
-
-        // Return
-        return $actual;
+        return $this
+            ->children(
+                $existing,
+                $entries,
+                $factory,
+                function (DocumentEntryModel $a, DocumentEntryModel $b): int {
+                    return $this->compareDocumentEntries($a, $b);
+                },
+            )
+            ->all();
     }
     // </editor-fold>
 }
