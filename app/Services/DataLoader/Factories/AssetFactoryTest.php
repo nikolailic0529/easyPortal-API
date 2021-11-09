@@ -551,9 +551,9 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetWarranties
+     * @covers ::assetDocumentsWarranties
      */
-    public function testAssetWarranties(): void {
+    public function testAssetDocumentsWarranties(): void {
         $a       = AssetWarranty::factory()->make();
         $b       = AssetWarranty::factory()->make();
         $model   = Asset::factory()->make();
@@ -566,23 +566,23 @@ class AssetFactoryTest extends TestCase {
             ->with($model, $asset)
             ->never();
         $factory
-            ->shouldReceive('assetInitialWarranties')
+            ->shouldReceive('assetDocumentsWarrantiesInitial')
             ->with($model, $asset)
             ->once()
             ->andReturn([$a]);
         $factory
-            ->shouldReceive('assetExtendedWarranties')
+            ->shouldReceive('assetDocumentsWarrantiesExtended')
             ->with($model, $asset)
             ->once()
             ->andReturn([$b]);
 
-        $this->assertEquals([$a, $b], $factory->assetWarranties($model, $asset));
+        $this->assertEquals([$a, $b], $factory->assetDocumentsWarranties($model, $asset));
     }
 
     /**
-     * @covers ::assetInitialWarranties
+     * @covers ::assetDocumentsWarrantiesInitial
      */
-    public function testAssetInitialWarranties(): void {
+    public function testAssetDocumentsWarrantiesInitial(): void {
         $factory = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(ExceptionHandler::class),
@@ -603,8 +603,8 @@ class AssetFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function assetInitialWarranties(Asset $model, ViewAsset $asset): array {
-                return parent::assetInitialWarranties($model, $asset);
+            public function assetDocumentsWarrantiesInitial(Asset $model, ViewAsset $asset): array {
+                return parent::assetDocumentsWarrantiesInitial($model, $asset);
             }
         };
 
@@ -724,7 +724,7 @@ class AssetFactoryTest extends TestCase {
         ]);
 
         // Test
-        $warranties = $factory->assetInitialWarranties($model, $asset);
+        $warranties = $factory->assetDocumentsWarrantiesInitial($model, $asset);
         $warranties = new Collection($warranties);
 
         $this->assertCount(5, $warranties);
@@ -765,9 +765,9 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetExtendedWarranties
+     * @covers ::assetDocumentsWarrantiesExtended
      */
-    public function testAssetExtendedWarranties(): void {
+    public function testAssetDocumentsWarrantiesExtended(): void {
         // Mock
         $this->overrideServiceGroupFinder();
         $this->overrideServiceLevelFinder();
@@ -987,7 +987,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(1, $model->warranties()->count());
 
         // Test
-        $warranties = $factory->assetExtendedWarranties($model, $asset);
+        $warranties = $factory->assetDocumentsWarrantiesExtended($model, $asset);
         $warranties = new Collection($warranties);
 
         $this->assertCount(5, $warranties);
@@ -1462,7 +1462,7 @@ class AssetFactoryTest_Factory extends AssetFactory {
     /**
      * @inheritDoc
      */
-    public function assetExtendedWarranties(Asset $model, ViewAsset $asset): array {
-        return parent::assetExtendedWarranties($model, $asset);
+    public function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): array {
+        return parent::assetDocumentsWarrantiesExtended($model, $asset);
     }
 }

@@ -302,7 +302,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
                     // Update
                     $documents              = $this->assetDocuments($model, $asset);
-                    $model->warranties      = $this->assetWarranties($model, $asset);
+                    $model->warranties      = $this->assetDocumentsWarranties($model, $asset);
                     $model->documentEntries = $documents
                         ->map(static function (Document $document): Collection {
                             return $document->entries;
@@ -402,10 +402,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarranties(AssetModel $model, ViewAsset $asset): array {
         $warranties = array_merge(
-            $this->assetInitialWarranties($model, $asset),
-            $this->assetExtendedWarranties($model, $asset),
+            $this->assetDocumentsWarrantiesInitial($model, $asset),
+            $this->assetDocumentsWarrantiesExtended($model, $asset),
         );
 
         return $warranties;
@@ -414,7 +414,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetInitialWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarrantiesInitial(AssetModel $model, ViewAsset $asset): array {
         // @LastDragon: If I understand correctly, after purchasing the Asset
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
@@ -475,7 +475,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetExtendedWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarrantiesExtended(AssetModel $model, ViewAsset $asset): array {
         // Prepare
         $serviceLevels = [];
         $warranties    = [];
