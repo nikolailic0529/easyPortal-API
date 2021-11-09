@@ -128,6 +128,24 @@ class OffsetBasedIteratorTest extends TestCase {
     }
 
     /**
+     * @covers ::getIterator
+     */
+    public function testGetIteratorInfiniteLoop(): void {
+        $data     = range(1, 10);
+        $executor = Mockery::spy(static function () use ($data): array {
+            return $data;
+        });
+
+        $iterator = (new OffsetBasedIterator(Closure::fromCallable($executor)))->setChunkSize(5);
+        $expected = $data;
+        $actual   = iterator_to_array($iterator);
+
+        $this->assertEquals($expected, $actual);
+
+        $executor->shouldHaveBeenCalled()->times(2);
+    }
+
+    /**
      * @covers ::setOffset
      */
     public function testSetOffset(): void {

@@ -91,4 +91,35 @@ class QueryIteratorImplTest extends TestCase {
         });
         $iterator->chunkProcessed([new stdClass()]);
     }
+
+    /**
+     * @covers ::chunkPrepare
+     */
+    public function testChunkPrepareInfiniteLoopDetection(): void {
+        $iterator = new class() extends QueryIteratorImpl {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                $this->retriever = null;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected function getChunkVariables(int $limit): array {
+                return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function chunkPrepare(array $items): array {
+                return parent::chunkPrepare($items);
+            }
+        };
+
+        $chunk = [['a' => 'a'], ['b' => 'b'], ['c' => 'c']];
+
+        $this->assertEquals($chunk, $iterator->chunkPrepare($chunk));
+        $this->assertEquals([], $iterator->chunkPrepare($chunk));
+    }
 }

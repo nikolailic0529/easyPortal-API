@@ -8,13 +8,20 @@ use Iterator;
 
 use function array_filter;
 use function array_map;
+use function end;
 use function min;
+use function reset;
 
 /**
  * @template T
  */
 abstract class QueryIteratorImpl implements QueryIterator {
     use IteratorProperties;
+
+    /**
+     * @var array{array<mixed>,array<mixed>}
+     */
+    private array $previous = [];
 
     /**
      * @param \Closure(array $variables): array<mixed> $executor
@@ -100,6 +107,12 @@ abstract class QueryIteratorImpl implements QueryIterator {
      * @return array<T>
      */
     protected function chunkPrepare(array $items): array {
+        // Infinite loop?
+        $current        = [end($items), reset($items)];
+        $items          = $this->previous && $current === $this->previous ? [] : $items;
+        $this->previous = $current;
+
+        // Convert
         return $this->retriever ? array_filter(array_map(function (mixed $item): mixed {
             return ($this->retriever)($item);
         }, $items)) : $items;
