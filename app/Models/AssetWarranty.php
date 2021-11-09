@@ -8,7 +8,9 @@ use App\Models\Concerns\Relations\HasDocument;
 use App\Models\Concerns\Relations\HasResellerNullable;
 use App\Models\Concerns\Relations\HasServiceGroup;
 use App\Models\Concerns\Relations\HasStatus;
+use App\Models\Concerns\Relations\HasStatusNullable;
 use App\Models\Concerns\Relations\HasType;
+use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,8 +59,8 @@ class AssetWarranty extends Model {
     use HasCustomerNullable;
     use HasDocument;
     use SyncBelongsToMany;
-    use HasStatus;
-    use HasType;
+    use HasStatusNullable;
+    use HasTypeNullable;
 
     protected const CASTS = [
         'start' => 'date',
