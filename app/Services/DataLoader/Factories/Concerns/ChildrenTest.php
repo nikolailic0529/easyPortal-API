@@ -18,11 +18,11 @@ class ChildrenTest extends TestCase {
      * @covers ::children
      */
     public function testChildren(): void {
-        $type                 = new class() extends Type {
+        $type                 = (new class() extends Type {
             public string $id;
             public string $key;
             public string $property;
-        };
+        })::class;
         $model                = new class() extends Model {
             // empty
         };
@@ -35,16 +35,20 @@ class ChildrenTest extends TestCase {
             'id'       => 'edb4853a-796c-48af-a127-ac43492cc6b7',
             'property' => $this->faker->uuid,
         ]);
+        $modelShouldBeIgnored = (clone $model)->forceFill([
+            'id'       => '81ab5bcb-abb9-4b2b-ad6c-d92b4fd7b5e8',
+            'property' => $modelShouldBeReused->property,
+        ]);
         $modelShouldBeDeleted = (clone $model)->forceFill([
             'id'       => 'efa31a49-2bd0-4e22-a659-d63a9827d770',
             'property' => $this->faker->uuid,
         ]);
-        $typeShouldBeCreated  = new ($type::class)([
+        $typeShouldBeCreated  = new $type([
             'id'       => '561ecb81-db60-4fc5-b406-ab2f0d317bfa',
             'key'      => $this->faker->uuid,
             'property' => $this->faker->uuid,
         ]);
-        $typeShouldBeUpdated  = new ($type::class)([
+        $typeShouldBeUpdated  = new $type([
             'key'      => $modelShouldBeUpdated->key,
             'property' => $this->faker->uuid,
         ]);
@@ -58,6 +62,9 @@ class ChildrenTest extends TestCase {
         $compare              = static function (Model $a, Model $b): int {
             return $a->key <=> $b->key;
         };
+        $isReusable           = static function (Model $model) use ($modelShouldBeIgnored): bool {
+            return $model->getKey() !== $modelShouldBeIgnored->getKey();
+        };
         $children             = new class() {
             use Children {
                 children as public;
@@ -65,7 +72,8 @@ class ChildrenTest extends TestCase {
         };
 
         $existing = new Collection([$modelShouldBeUpdated, $modelShouldBeDeleted, $modelShouldBeReused]);
-        $actual   = $children->children($existing, [$typeShouldBeCreated, $typeShouldBeUpdated], $factory, $compare);
+        $entries  = [$typeShouldBeCreated, $typeShouldBeUpdated];
+        $actual   = $children->children($existing, $entries, $factory, $compare, $isReusable);
         $expected = new Collection([
             tap(clone $model, static function (Model $model) use ($modelShouldBeReused, $typeShouldBeCreated): void {
                 $model->id       = $modelShouldBeReused->getKey();
