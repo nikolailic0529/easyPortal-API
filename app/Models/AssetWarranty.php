@@ -7,6 +7,8 @@ use App\Models\Concerns\Relations\HasCustomerNullable;
 use App\Models\Concerns\Relations\HasDocument;
 use App\Models\Concerns\Relations\HasResellerNullable;
 use App\Models\Concerns\Relations\HasServiceGroup;
+use App\Models\Concerns\Relations\HasStatus;
+use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +20,8 @@ use Illuminate\Support\Collection;
  *
  * @property string                                                             $id
  * @property string                                                             $asset_id
+ * @property string|null                                                        $type_id
+ * @property string|null                                                        $status_id
  * @property string|null                                                        $reseller_id
  * @property string|null                                                        $customer_id
  * @property string|null                                                        $document_id
@@ -28,6 +32,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable                                            $created_at
  * @property \Carbon\CarbonImmutable                                            $updated_at
  * @property \Carbon\CarbonImmutable|null                                       $deleted_at
+ * @property string|null                                                        $description
  * @property string|null                                                        $note
  * @property \App\Models\Asset                                                  $asset
  * @property \App\Models\Customer|null                                          $customer
@@ -35,6 +40,8 @@ use Illuminate\Support\Collection;
  * @property \App\Models\Reseller|null                                          $reseller
  * @property \App\Models\ServiceGroup|null                                      $serviceGroup
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ServiceLevel> $serviceLevels
+ * @property \App\Models\Status|null                                            $status
+ * @property \App\Models\Type|null                                              $type
  * @method static \Database\Factories\AssetWarrantyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newQuery()
@@ -50,6 +57,8 @@ class AssetWarranty extends Model {
     use HasCustomerNullable;
     use HasDocument;
     use SyncBelongsToMany;
+    use HasStatus;
+    use HasType;
 
     protected const CASTS = [
         'start' => 'date',
