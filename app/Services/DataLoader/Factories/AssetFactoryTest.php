@@ -1408,6 +1408,46 @@ class AssetFactoryTest extends TestCase {
         $this->assertCount(2, $coverages);
         $this->assertEquals($expected, $this->getCoverages($coverages));
     }
+
+    /**
+     * @covers ::isWarranty
+     * @covers ::isWarrantyInitial
+     * @covers ::isWarrantyExtended
+     *
+     * @dataProvider dataProviderIsWarranty
+     *
+     * @param array<string,mixed> $properties
+     */
+    public function testIsWarranty(
+        bool $isWarranty,
+        bool $isInitialWarranty,
+        bool $isExtendedWarranty,
+        array $properties,
+    ): void {
+        $warranty = AssetWarranty::factory()->make($properties);
+        $factory  = new class() extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public static function isWarranty(AssetWarranty $warranty): bool {
+                return parent::isWarranty($warranty);
+            }
+
+            public static function isWarrantyInitial(AssetWarranty $warranty): bool {
+                return parent::isWarrantyInitial($warranty);
+            }
+
+            public static function isWarrantyExtended(AssetWarranty $warranty): bool {
+                return parent::isWarrantyExtended($warranty);
+            }
+        };
+
+        $this->assertEquals($isWarranty, $factory::isWarranty($warranty));
+        $this->assertEquals($isInitialWarranty, $factory::isWarrantyInitial($warranty));
+        $this->assertEquals($isExtendedWarranty, $factory::isWarrantyExtended($warranty));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -1424,6 +1464,29 @@ class AssetFactoryTest extends TestCase {
                     // empty
                 },
             ],
+        ];
+    }
+
+    /**
+     * @return array<string,array{bool,bool,bool,array<string,mixed>}>
+     */
+    public function dataProviderIsWarranty(): array {
+        return [
+            'warranty'                           => [true, false, false, [
+                'type_id' => '4f820bae-79a5-4558-b90c-d8d7060688b8',
+            ]],
+            'warranty (document number != null)' => [true, false, false, [
+                'type_id'         => 'ac1a2af5-2f07-47d4-a390-8d701ce50a13',
+                'document_number' => '123',
+            ]],
+            'initial warranty'                   => [false, true, false, [
+                'type_id'         => null,
+                'document_number' => null,
+            ]],
+            'extended warranty'                  => [false, false, true, [
+                'type_id'         => null,
+                'document_number' => 123,
+            ]],
         ];
     }
     // </editor-fold>

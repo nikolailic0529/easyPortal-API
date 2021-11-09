@@ -406,6 +406,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $warranties = array_merge(
             $this->assetDocumentsWarrantiesInitial($model, $asset),
             $this->assetDocumentsWarrantiesExtended($model, $asset),
+            $model->warranties->filter(static function (AssetWarranty $warranty): bool {
+                return static::isWarranty($warranty);
+            })->all(),
         );
 
         return $warranties;
@@ -423,7 +426,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $warranties = [];
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_number === null;
+                return static::isWarrantyInitial($warranty);
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
                 return implode('|', [$warranty->end?->getTimestamp(), $warranty->reseller_id, $warranty->customer_id]);
@@ -481,7 +484,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $warranties    = [];
         $existing      = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_number !== null;
+                return static::isWarrantyExtended($warranty);
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
                 return implode('|', [
@@ -653,6 +656,21 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             })
             ->unique()
             ->all();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    protected static function isWarranty(AssetWarranty $warranty): bool {
+        return $warranty->type_id !== null;
+    }
+
+    protected static function isWarrantyInitial(AssetWarranty $warranty): bool {
+        return $warranty->document_number === null && !static::isWarranty($warranty);
+    }
+
+    protected static function isWarrantyExtended(AssetWarranty $warranty): bool {
+        return $warranty->document_number !== null && !static::isWarranty($warranty);
     }
     // </editor-fold>
 }
