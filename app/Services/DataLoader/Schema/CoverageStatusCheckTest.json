@@ -1,0 +1,22 @@
+{
+    "coverageStatus": "COVERED",
+    "coverageStatusUpdatedAt": "1636370487876",
+    "coverageEntries": [
+        {
+            "coverageStartDate": "2019-12-10",
+            "coverageEndDate": "2024-12-09",
+            "type": "Contract",
+            "description": null,
+            "status": "Active",
+            "serviceSku": null
+        },
+        {
+            "coverageStartDate": "2019-11-07",
+            "coverageEndDate": "2022-12-06",
+            "type": "FactoryWarranty",
+            "description": null,
+            "status": "Active",
+            "serviceSku": null
+        }
+    ]
+}

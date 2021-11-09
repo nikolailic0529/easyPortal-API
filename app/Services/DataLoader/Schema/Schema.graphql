@@ -162,6 +162,21 @@ type CompanyType {
   status: String
 }
 
+type CoverageEntry {
+  coverageStartDate: String
+  coverageEndDate: String
+  type: String
+  description: String
+  status: String
+  serviceSku: String
+}
+
+type CoverageStatusCheck {
+  coverageStatus: String
+  coverageStatusUpdatedAt: String
+  coverageEntries: [CoverageEntry]
+}
+
 input DefaultImportSchema {
   vendor: String
   customerNumber: String
@@ -405,6 +420,7 @@ type ViewAsset {
   latestContactPersons: [CompanyContactPerson]
   status: String
   assetCoverage: [String]
+  coverageStatusCheck: CoverageStatusCheck
 }
 
 type ViewAssetDocument {

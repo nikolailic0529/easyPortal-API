@@ -55,5 +55,19 @@
         }
     ],
     "reseller": null,
-    "customer": null
+    "customer": null,
+    "coverageStatusCheck": {
+        "coverageStatus": "COVERED",
+        "coverageStatusUpdatedAt": "1636370487876",
+        "coverageEntries": [
+            {
+                "coverageStartDate": "2019-12-10",
+                "coverageEndDate": "2024-12-09",
+                "type": "Contract",
+                "description": null,
+                "status": "Active",
+                "serviceSku": null
+            }
+        ]
+    }
 }

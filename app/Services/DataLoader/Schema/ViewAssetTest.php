@@ -23,6 +23,8 @@ class ViewAssetTest extends TestCase {
         $this->assertEquals(array_keys($json), $properties);
         $this->assertInstanceOf(ViewAssetDocument::class, $actual->assetDocument[0]);
         $this->assertInstanceOf(ViewDocument::class, $actual->assetDocument[0]->document);
+        $this->assertInstanceOf(CoverageStatusCheck::class, $actual->coverageStatusCheck);
+        $this->assertInstanceOf(CoverageEntry::class, $actual->coverageStatusCheck->coverageEntries[0]);
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
