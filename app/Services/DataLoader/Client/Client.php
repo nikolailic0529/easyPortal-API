@@ -999,6 +999,19 @@ class Client {
             }
 
             assetCoverage
+            coverageStatusCheck {
+                coverageStatus
+                coverageStatusUpdatedAt
+                coverageEntries {
+                    coverageStartDate
+                    coverageEndDate
+                    type
+                    description
+                    status
+                    serviceSku
+                }
+            }
+
             dataQualityScore
             GRAPHQL;
     }
