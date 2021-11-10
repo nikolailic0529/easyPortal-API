@@ -21,7 +21,6 @@ use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 use function __;
-use function array_filter;
 use function count;
 
 /**
@@ -77,7 +76,7 @@ class SyncTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 '
-                mutation sync($input: [CustomerSyncInput!]!) {
+                mutation sync($input: CustomerSyncInput!) {
                     customer {
                         sync(input: $input) {
                             result
@@ -85,23 +84,22 @@ class SyncTest extends TestCase {
                     }
                 }',
                 [
-                    'input' => $input ?: [['id' => $id]],
+                    'input' => $input ?: ['id' => $id],
                 ],
             )
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(CustomerSync::class, count($input));
+            Queue::assertPushed(CustomerSync::class, count($input['id'] ?? []));
 
-            foreach ($input as $call) {
-                Queue::assertPushed(CustomerSync::class, static function (CustomerSync $job) use ($call): bool {
-                    $params = [
-                        'id'        => $job->getCustomerId(),
-                        'assets'    => $job->getAssets(),
-                        'documents' => $job->getDocuments(),
+            foreach ((array) ($input['id'] ?? []) as $customerId) {
+                Queue::assertPushed(CustomerSync::class, static function (CustomerSync $job) use ($customerId): bool {
+                    $arguments = [
+                        'assets'           => true,
+                        'assets-documents' => true,
+                        'warranty-check'   => true,
                     ];
-                    $params = array_filter($params, static fn(mixed $value): bool => $value !== null);
-                    $pushed = $call === $params;
+                    $pushed    = $job->getObjectId() === $customerId && $job->getArguments() === $arguments;
 
                     return $pushed;
                 });
@@ -123,9 +121,9 @@ class SyncTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
 
-            foreach ($input as $call) {
+            foreach ((array) $input['id'] as $id) {
                 $customer = Customer::factory()->create([
-                    'id' => $call['id'],
+                    'id' => $id,
                 ]);
 
                 $reseller->customers()->attach($customer);
@@ -138,7 +136,7 @@ class SyncTest extends TestCase {
                 'customers-sync',
             ]),
             new ArrayDataProvider([
-                'ok'                             => [
+                'ok'               => [
                     new GraphQLSuccess(
                         'customer',
                         new JsonFragmentSchema('sync', self::class),
@@ -147,56 +145,19 @@ class SyncTest extends TestCase {
                         ]),
                     ),
                     [
-                        [
-                            'id' => '981edfa2-2139-42f6-bc7a-f7ff66df52ad',
-                        ],
-                        [
-                            'id' => 'd840dfdb-7c9a-4324-8470-12ec91199834',
+                        'id' => [
+                            '981edfa2-2139-42f6-bc7a-f7ff66df52ad',
+                            'd840dfdb-7c9a-4324-8470-12ec91199834',
                         ],
                     ],
                     $factory,
                 ],
-                'ok (with assets)'               => [
-                    new GraphQLSuccess(
-                        'customer',
-                        new JsonFragmentSchema('sync', self::class),
-                        new JsonFragment('sync', [
-                            'result' => true,
-                        ]),
-                    ),
-                    [
-                        [
-                            'id'     => '5985f4ce-f4a2-4cf2-afb7-2959fc126785',
-                            'assets' => true,
-                        ],
-                    ],
-                    $factory,
-                ],
-                'ok (with assets and documents)' => [
-                    new GraphQLSuccess(
-                        'customer',
-                        new JsonFragmentSchema('sync', self::class),
-                        new JsonFragment('sync', [
-                            'result' => true,
-                        ]),
-                    ),
-                    [
-                        [
-                            'id'        => 'ac1a2af5-2f07-47d4-a390-8d701ce50a13',
-                            'assets'    => true,
-                            'documents' => true,
-                        ],
-                    ],
-                    $factory,
-                ],
-                'invalid customer'               => [
+                'invalid customer' => [
                     new GraphQLError('customer', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     [
-                        [
-                            'id' => 'd2ff874e-5c60-4016-a6d0-f0b970b38b17',
-                        ],
+                        'id' => 'd2ff874e-5c60-4016-a6d0-f0b970b38b17',
                     ],
                     static function (): void {
                         // empty

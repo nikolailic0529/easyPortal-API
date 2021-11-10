@@ -21,7 +21,6 @@ use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 use function __;
-use function array_filter;
 use function count;
 
 /**
@@ -77,7 +76,7 @@ class SyncTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 '
-                mutation sync($input: [AssetSyncInput!]!) {
+                mutation sync($input: AssetSyncInput!) {
                     asset {
                         sync(input: $input) {
                             result
@@ -85,22 +84,21 @@ class SyncTest extends TestCase {
                     }
                 }',
                 [
-                    'input' => $input ?: [['id' => $id]],
+                    'input' => $input ?: ['id' => $id],
                 ],
             )
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(AssetSync::class, count($input));
+            Queue::assertPushed(AssetSync::class, count($input['id'] ?? []));
 
-            foreach ($input as $call) {
-                Queue::assertPushed(AssetSync::class, static function (AssetSync $job) use ($call): bool {
-                    $params = [
-                        'id'        => $job->getAssetId(),
-                        'documents' => $job->getDocuments(),
+            foreach ((array) ($input['id'] ?? []) as $assetId) {
+                Queue::assertPushed(AssetSync::class, static function (AssetSync $job) use ($assetId): bool {
+                    $arguments = [
+                        'warranty-check' => true,
+                        'documents'      => true,
                     ];
-                    $params = array_filter($params, static fn(mixed $value): bool => $value !== null);
-                    $pushed = $call === $params;
+                    $pushed    = $job->getObjectId() === $assetId && $job->getArguments() === $arguments;
 
                     return $pushed;
                 });
@@ -122,9 +120,9 @@ class SyncTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
 
-            foreach ($input as $asset) {
+            foreach ((array) $input['id'] as $id) {
                 Asset::factory()->create([
-                    'id'          => $asset['id'],
+                    'id'          => $id,
                     'reseller_id' => $reseller,
                 ]);
             }
@@ -136,7 +134,7 @@ class SyncTest extends TestCase {
                 'assets-sync',
             ]),
             new ArrayDataProvider([
-                'ok'                  => [
+                'ok'            => [
                     new GraphQLSuccess(
                         'asset',
                         new JsonFragmentSchema('sync', self::class),
@@ -145,43 +143,19 @@ class SyncTest extends TestCase {
                         ]),
                     ),
                     [
-                        [
-                            'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
-                        ],
-                        [
-                            'id' => '2181735f-42b6-41bf-a069-47a88883b239',
+                        'id' => [
+                            '90398f16-036f-4e6b-af90-06e19614c57c',
+                            '2181735f-42b6-41bf-a069-47a88883b239',
                         ],
                     ],
                     $factory,
                 ],
-                'ok (with documents)' => [
-                    new GraphQLSuccess(
-                        'asset',
-                        new JsonFragmentSchema('sync', self::class),
-                        new JsonFragment('sync', [
-                            'result' => true,
-                        ]),
-                    ),
-                    [
-                        [
-                            'id'        => 'ef317ed7-fc3c-439d-9679-a6248bf6e69c',
-                            'documents' => true,
-                        ],
-                        [
-                            'id'        => '4e15b024-40f8-4340-a68b-c3ba8c993e66',
-                            'documents' => false,
-                        ],
-                    ],
-                    $factory,
-                ],
-                'invalid asset'       => [
+                'invalid asset' => [
                     new GraphQLError('asset', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     [
-                        [
-                            'id' => '05bb78da-8a67-4ed4-a1a5-db80a75d66e9',
-                        ],
+                        'id' => '05bb78da-8a67-4ed4-a1a5-db80a75d66e9',
                     ],
                     static function (): void {
                         // empty

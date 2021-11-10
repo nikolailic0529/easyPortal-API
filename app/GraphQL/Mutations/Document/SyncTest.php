@@ -26,7 +26,6 @@ use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 use function __;
-use function array_filter;
 use function count;
 
 /**
@@ -97,7 +96,7 @@ class SyncTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<GRAPHQL
-                mutation sync(\$input: [{$queryType}!]!) {
+                mutation sync(\$input: {$queryType}!) {
                     {$query} {
                         sync(input: \$input) {
                             result
@@ -106,26 +105,28 @@ class SyncTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'input' => $input ?: [['id' => $id]],
+                    'input' => $input ?: ['id' => $id],
                 ],
             )
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(DocumentSync::class, count($input));
-            Queue::assertPushed(AssetSync::class, count(array_filter($input, static function (array $call): bool {
-                return ($call['assets'] ?? false) === true;
-            })));
+            Queue::assertPushed(DocumentSync::class, count($input['id']));
+            Queue::assertPushed(AssetSync::class, count($input['id']));
 
-            foreach ($input as $call) {
-                unset($call['assets']);
+            foreach ((array) ($input['id'] ?? []) as $documentId) {
+                Queue::assertPushed(DocumentSync::class, static function (DocumentSync $job) use ($documentId): bool {
+                    $arguments = [];
+                    $pushed    = $job->getObjectId() === $documentId && $job->getArguments() === $arguments;
 
-                Queue::assertPushed(DocumentSync::class, static function (DocumentSync $job) use ($call): bool {
-                    $params = [
-                        'id' => $job->getDocumentId(),
+                    return $pushed;
+                });
+                Queue::assertPushed(AssetSync::class, static function (AssetSync $job): bool {
+                    $arguments = [
+                        'warranty-check' => true,
+                        'documents'      => false,
                     ];
-                    $params = array_filter($params, static fn(mixed $value): bool => $value !== null);
-                    $pushed = $call === $params;
+                    $pushed    = $job->getArguments() === $arguments;
 
                     return $pushed;
                 });
@@ -157,13 +158,13 @@ class SyncTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
 
-            foreach ($input as $call) {
+            foreach ((array) $input['id'] as $id) {
                 Document::factory()
                     ->hasEntries(1, [
                         'asset_id' => $asset,
                     ])
                     ->create([
-                        'id'          => $call['id'],
+                        'id'          => $id,
                         'type_id'     => $type,
                         'reseller_id' => $reseller,
                     ]);
@@ -182,7 +183,7 @@ class SyncTest extends TestCase {
                 new RootOrganizationDataProvider('contract'),
                 new RootUserDataProvider('contract'),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'           => [
                         new GraphQLSuccess(
                             'contract',
                             new JsonFragmentSchema('sync', self::class),
@@ -194,35 +195,14 @@ class SyncTest extends TestCase {
                             'ep.contract_types' => [$type],
                         ],
                         [
-                            [
-                                'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
-                            ],
-                            [
-                                'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
+                            'id' => [
+                                '90398f16-036f-4e6b-af90-06e19614c57c',
+                                '0a0354b5-16e8-4173-acb3-69ef10304681',
                             ],
                         ],
                         $factory,
                     ],
-                    'ok with assets' => [
-                        new GraphQLSuccess(
-                            'contract',
-                            new JsonFragmentSchema('sync', self::class),
-                            new JsonFragment('sync', [
-                                'result' => true,
-                            ]),
-                        ),
-                        [
-                            'ep.contract_types' => [$type],
-                        ],
-                        [
-                            [
-                                'id'     => '4f820bae-79a5-4558-b90c-d8d7060688b8',
-                                'assets' => true,
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'invalid type'   => [
+                    'invalid type' => [
                         new GraphQLError('contract', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -230,13 +210,11 @@ class SyncTest extends TestCase {
                             'ep.contract_types' => ['90398f16-036f-4e6b-af90-06e19614c57c'],
                         ],
                         [
-                            [
-                                'id' => '29c0298a-14c8-4ca4-b7da-ef7ff71d19ae',
-                            ],
+                            'id' => '29c0298a-14c8-4ca4-b7da-ef7ff71d19ae',
                         ],
                         $factory,
                     ],
-                    'not found'      => [
+                    'not found'    => [
                         new GraphQLError('contract', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -244,9 +222,7 @@ class SyncTest extends TestCase {
                             'ep.contract_types' => [$type],
                         ],
                         [
-                            [
-                                'id' => 'ef317ed7-fc3c-439d-9679-a6248bf6e69c',
-                            ],
+                            'id' => 'ef317ed7-fc3c-439d-9679-a6248bf6e69c',
                         ],
                         static function (): void {
                             // empty
@@ -265,7 +241,7 @@ class SyncTest extends TestCase {
                 new RootOrganizationDataProvider('quote'),
                 new RootUserDataProvider('quote'),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'           => [
                         new GraphQLSuccess(
                             'quote',
                             new JsonFragmentSchema('sync', self::class),
@@ -277,35 +253,14 @@ class SyncTest extends TestCase {
                             'ep.quote_types' => [$type],
                         ],
                         [
-                            [
-                                'id' => '90398f16-036f-4e6b-af90-06e19614c57c',
-                            ],
-                            [
-                                'id' => '0a0354b5-16e8-4173-acb3-69ef10304681',
+                            'id' => [
+                                '90398f16-036f-4e6b-af90-06e19614c57c',
+                                '0a0354b5-16e8-4173-acb3-69ef10304681',
                             ],
                         ],
                         $factory,
                     ],
-                    'ok with assets' => [
-                        new GraphQLSuccess(
-                            'quote',
-                            new JsonFragmentSchema('sync', self::class),
-                            new JsonFragment('sync', [
-                                'result' => true,
-                            ]),
-                        ),
-                        [
-                            'ep.quote_types' => [$type],
-                        ],
-                        [
-                            [
-                                'id'     => '4f820bae-79a5-4558-b90c-d8d7060688b8',
-                                'assets' => true,
-                            ],
-                        ],
-                        $factory,
-                    ],
-                    'invalid type'   => [
+                    'invalid type' => [
                         new GraphQLError('quote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -313,13 +268,11 @@ class SyncTest extends TestCase {
                             'ep.quote_types' => ['0a0354b5-16e8-4173-acb3-69ef10304681'],
                         ],
                         [
-                            [
-                                'id' => '2181735f-42b6-41bf-a069-47a88883b239',
-                            ],
+                            'id' => '2181735f-42b6-41bf-a069-47a88883b239',
                         ],
                         $factory,
                     ],
-                    'not found'      => [
+                    'not found'    => [
                         new GraphQLError('quote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -327,9 +280,7 @@ class SyncTest extends TestCase {
                             'ep.quote_types' => [$type],
                         ],
                         [
-                            [
-                                'id' => '8b79a366-f9c2-4eb1-b8e5-5423bc333f96',
-                            ],
+                            'id' => '8b79a366-f9c2-4eb1-b8e5-5423bc333f96',
                         ],
                         static function (): void {
                             // empty
