@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "bf58b75a-1bb6-40aa-8453-fdf1d7482b08",
-                    "name": "Rath-Davis",
-                    "updatedAt": "1631161634022",
+                    "name": "Runolfsson Group",
+                    "updatedAt": "1636029928278",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18546444532",
-                            "name": "Dr. Narciso Kunze Jr.",
+                            "phoneNumber": "+14230242098",
+                            "name": "Ms. Raquel Herman",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18546444532",
-                            "name": "Dr. Narciso Kunze Jr.",
+                            "phoneNumber": "+14230242098",
+                            "name": "Ms. Raquel Herman",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18546444532",
-                            "name": "Dr. Narciso Kunze Jr.",
+                            "phoneNumber": "+14230242098",
+                            "name": "Ms. Raquel Herman",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "57194",
-                            "address": "6843 Ariel Station",
-                            "city": "Feeneyhaven",
+                            "zip": "06630-1752",
+                            "address": "114 Corkery Meadows",
+                            "city": "Florencemouth",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-79.163862",
-                            "longitude": "-89.306179",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "80.394716",
+                            "longitude": "163.641195",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -60,11 +60,11 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 12,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 1,
                         "activeQuotes": 1,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 1,
                         "expiringQuotes": 0,
                         "expiredQuotes": 3,

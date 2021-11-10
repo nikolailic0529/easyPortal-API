@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2870d449-ec69-48a0-81ce-46aed24e5382",
-                    "name": "Mertz LLC",
-                    "updatedAt": "1631101941600",
+                    "name": "Howell Inc",
+                    "updatedAt": "1636455322179",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12560192586",
-                            "name": "Meghan Morar Sr.",
+                            "phoneNumber": "+16895929370",
+                            "name": "Prof. Reina Kunze",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12560192586",
-                            "name": "Meghan Morar Sr.",
+                            "phoneNumber": "+16895929370",
+                            "name": "Prof. Reina Kunze",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12560192586",
-                            "name": "Meghan Morar Sr.",
+                            "phoneNumber": "+16895929370",
+                            "name": "Prof. Reina Kunze",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89079",
-                            "address": "785 Kirlin Landing",
-                            "city": "East Garnettmouth",
+                            "zip": "89138",
+                            "address": "595 Lilla Centers",
+                            "city": "Maegantown",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "72.642912",
-                            "longitude": "-13.855676",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "62.026092",
+                            "longitude": "9.762411",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 1898,
-                        "activeAssets": 483,
-                        "activeAssetsPercentage": 25.447839831401474,
+                        "activeAssets": 397,
+                        "activeAssetsPercentage": 20.916754478398314,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 30,
+                        "activeQuotes": 29,
                         "activeQuotesTotalAmount": 939.82,
-                        "newActiveQuotes": 30,
-                        "expiringQuotes": 1,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "newActiveQuotes": 29,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 41,
+                        "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

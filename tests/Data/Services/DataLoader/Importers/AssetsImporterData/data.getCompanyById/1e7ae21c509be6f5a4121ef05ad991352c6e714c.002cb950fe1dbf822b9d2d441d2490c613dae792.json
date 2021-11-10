@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d8a49987-3e29-47d2-aa42-748fffb1a948",
-                    "name": "Leannon, Wintheiser and Cole",
-                    "updatedAt": "1631171306592",
+                    "name": "Stokes LLC",
+                    "updatedAt": "1636032486486",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17606476037",
-                            "name": "Alisa Heidenreich I",
+                            "phoneNumber": "+18579216663",
+                            "name": "Lacy O'Connell",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Krystal Upton",
+                            "name": "Dr. Annabel Schuster",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17606476037",
-                            "name": "Alisa Heidenreich I",
+                            "phoneNumber": "+18579216663",
+                            "name": "Lacy O'Connell",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "63032-9388",
-                            "address": "64840 Jorge Ford Suite 248",
-                            "city": "West Paulastad",
+                            "zip": "94615",
+                            "address": "724 Theodora Throughway",
+                            "city": "Ellenstad",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-43.441439",
-                            "longitude": "23.164789",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "64.178516",
+                            "longitude": "-1.928797",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -60,11 +60,11 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 20,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 8,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 8,
                         "expiringQuotes": 0,
                         "expiredQuotes": 4,

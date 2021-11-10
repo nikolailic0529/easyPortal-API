@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "77180fce-f9cb-469f-9ace-4120226ff013",
-                    "name": "Frami and Sons",
-                    "updatedAt": "1631123010043",
+                    "name": "McDermott-Hegmann",
+                    "updatedAt": "1636518457680",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16160775933",
-                            "name": "Winifred Kozey",
+                            "phoneNumber": "+16820002003",
+                            "name": "Gregg Dickens",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16160775933",
-                            "name": "Winifred Kozey",
+                            "phoneNumber": "+16820002003",
+                            "name": "Gregg Dickens",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16160775933",
-                            "name": "Winifred Kozey",
+                            "phoneNumber": "+16820002003",
+                            "name": "Gregg Dickens",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "98581",
-                            "address": "378 Effertz Oval Apt. 841",
-                            "city": "Constancemouth",
+                            "zip": "64368",
+                            "address": "353 Bernier Pine Apt. 104",
+                            "city": "Colestad",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-58.379925",
-                            "longitude": "-71.210425",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "-48.808547",
+                            "longitude": "-145.963384",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 6435,
-                        "activeAssets": 382,
-                        "activeAssetsPercentage": 5.936285936285937,
+                        "activeAssets": 287,
+                        "activeAssetsPercentage": 4.45998445998446,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 4,
-                        "activeContractTotalAmount": 0,
+                        "activeContracts": 2,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 2,
+                        "expiringContracts": 0,
                         "activeQuotes": 29,
                         "activeQuotesTotalAmount": 5793.59,
                         "newActiveQuotes": 29,
-                        "expiringQuotes": 0,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "expiringQuotes": 29,
+                        "expiredQuotes": 67,
+                        "expiredContracts": 68,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

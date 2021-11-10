@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "9a749c4e-a721-4762-9abc-395dcd2b33e5",
-                    "name": "Abernathy-Stanton",
-                    "updatedAt": "1631135849935",
+                    "name": "Berge LLC",
+                    "updatedAt": "1636025732165",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14344500990",
-                            "name": "Dr. Daija Hyatt",
+                            "phoneNumber": "+17855454645",
+                            "name": "Mrs. Ona Terry",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14344500990",
-                            "name": "Dr. Daija Hyatt",
+                            "phoneNumber": "+17855454645",
+                            "name": "Mrs. Ona Terry",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "57194",
-                            "address": "94381 Monahan Valleys Apt. 626",
-                            "city": "Feeneyhaven",
+                            "zip": "06630-1752",
+                            "address": "3139 Bianka Stravenue",
+                            "city": "Florencemouth",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "41.478332",
-                            "longitude": "-123.337983",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "-38.746526",
+                            "longitude": "-14.664707",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 3202,
-                        "activeAssets": 3134,
-                        "activeAssetsPercentage": 97.87632729544035,
+                        "activeAssets": 3009,
+                        "activeAssetsPercentage": 93.97251717676453,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 31,
-                        "activeContractTotalAmount": 815.56,
+                        "activeContracts": 29,
+                        "activeContractTotalAmount": 237.8,
                         "newActiveContracts": null,
-                        "expiringContracts": 2,
-                        "activeQuotes": 4,
-                        "activeQuotesTotalAmount": 2208.98,
-                        "newActiveQuotes": 4,
-                        "expiringQuotes": 1,
-                        "expiredQuotes": 2,
-                        "expiredContracts": 4,
+                        "expiringContracts": 0,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 1631.22,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 3,
+                        "expiredContracts": 6,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

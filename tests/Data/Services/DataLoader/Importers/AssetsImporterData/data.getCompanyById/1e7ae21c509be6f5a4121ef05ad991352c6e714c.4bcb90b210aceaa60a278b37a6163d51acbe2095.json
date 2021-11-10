@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "811ce1d1-acdb-4ab0-8ec2-ade32225ee23",
-                    "name": "Wehner Group",
-                    "updatedAt": "1631123598230",
+                    "name": "Abshire Inc",
+                    "updatedAt": "1636518714193",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17735968609",
-                            "name": "Melyssa Koss",
+                            "phoneNumber": "+17852968124",
+                            "name": "Prof. Payton Harris MD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17735968609",
-                            "name": "Melyssa Koss",
+                            "phoneNumber": "+17852968124",
+                            "name": "Prof. Payton Harris MD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17735968609",
-                            "name": "Melyssa Koss",
+                            "phoneNumber": "+17852968124",
+                            "name": "Prof. Payton Harris MD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "55598",
-                            "address": "56621 Magdalen Summit Suite 802",
-                            "city": "Steubershire",
+                            "zip": "56538",
+                            "address": "530 Weber Forge Apt. 698",
+                            "city": "Port Rafaelaton",
                             "locationType": null,
-                            "country": "Mexico",
-                            "latitude": "40.383086",
-                            "longitude": "174.095072",
-                            "countryCode": "BF"
+                            "country": "Macedonia",
+                            "latitude": "47.762726",
+                            "longitude": "-31.845306",
+                            "countryCode": "CU"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 31916,
-                        "activeAssets": 6861,
-                        "activeAssetsPercentage": 21.497054768768013,
+                        "activeAssets": 6360,
+                        "activeAssetsPercentage": 19.927309186614863,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 105,
+                        "activeContracts": 85,
                         "activeContractTotalAmount": 849.91,
                         "newActiveContracts": null,
-                        "expiringContracts": 25,
+                        "expiringContracts": 7,
                         "activeQuotes": 212,
                         "activeQuotesTotalAmount": 3235.86,
                         "newActiveQuotes": 212,
-                        "expiringQuotes": 3,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "expiringQuotes": 6,
+                        "expiredQuotes": 121,
+                        "expiredContracts": 89,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

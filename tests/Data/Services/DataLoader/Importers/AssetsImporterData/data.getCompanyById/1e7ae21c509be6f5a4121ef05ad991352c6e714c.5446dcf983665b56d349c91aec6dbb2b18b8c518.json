@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d50e731a-c49c-4842-8e45-6beb565b82a8",
-                    "name": "D'Amore-Hermiston",
-                    "updatedAt": "1631171121359",
+                    "name": "Brown Group",
+                    "updatedAt": "1636032384835",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Shanna Heller IV",
+                            "name": "Florida Schuster II",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18033182493",
-                            "name": "Eduardo Franecki",
+                            "phoneNumber": "+17570650586",
+                            "name": "Nadia Pacocha",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Shanna Heller IV",
+                            "name": "Florida Schuster II",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,25 +42,25 @@
                     ],
                     "locations": [
                         {
-                            "zip": "52682-3625",
-                            "address": "691 Bernhard Track Suite 767",
-                            "city": "New Alizatown",
+                            "zip": "27456-7272",
+                            "address": "545 Nelda Track",
+                            "city": "Hegmannview",
                             "locationType": null,
-                            "country": "Mexico",
-                            "latitude": "-41.997165",
-                            "longitude": "-141.815363",
-                            "countryCode": "BF"
+                            "country": "Macedonia",
+                            "latitude": "-35.525511",
+                            "longitude": "-0.031605",
+                            "countryCode": "CU"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 66,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 3,

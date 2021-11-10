@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1d039886-4419-4bb1-bad9-9110293da053",
-                    "name": "Daugherty, Walsh and O'Conner",
-                    "updatedAt": "1631098558591",
+                    "name": "Connelly, Schuster and Sanford",
+                    "updatedAt": "1636455021826",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12242980450",
-                            "name": "Susan Stark",
+                            "phoneNumber": "+16699188475",
+                            "name": "Hardy Torphy",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12242980450",
-                            "name": "Susan Stark",
+                            "phoneNumber": "+16699188475",
+                            "name": "Hardy Torphy",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12242980450",
-                            "name": "Susan Stark",
+                            "phoneNumber": "+16699188475",
+                            "name": "Hardy Torphy",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "29827-0335",
-                            "address": "7056 Oswaldo Flat Apt. 259",
-                            "city": "Silasmouth",
+                            "zip": "41035",
+                            "address": "36693 Hessel Stravenue Apt. 485",
+                            "city": "East Marilyne",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "83.732793",
-                            "longitude": "40.016585",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "25.419173",
+                            "longitude": "-176.411355",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -60,13 +60,13 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 3,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 8,
                         "activeQuotesTotalAmount": 1835.4,
                         "newActiveQuotes": 8,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 5,
                         "expiredQuotes": 13,
                         "expiredContracts": 18,
                         "orderedQuotes": null,

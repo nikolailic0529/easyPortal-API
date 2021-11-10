@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "cf85f11b-6681-4106-a129-cbdd463120e2",
-                    "name": "Yundt, Klocko and Glover",
-                    "updatedAt": "1631170822240",
+                    "name": "Kiehn LLC",
+                    "updatedAt": "1636031894927",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Celestine Schumm",
+                            "name": "Destany Kutch",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15618986960",
-                            "name": "Chyna Nader",
+                            "phoneNumber": "+16789477891",
+                            "name": "Amira Cartwright",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Celestine Schumm",
+                            "name": "Destany Kutch",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,31 +42,31 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31555-5173",
-                            "address": "63183 Santiago Pass",
-                            "city": "Feeneyhaven",
+                            "zip": "70051-2522",
+                            "address": "287 Molly Burg Suite 449",
+                            "city": "Florencemouth",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-44.738731",
-                            "longitude": "81.893585",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "65.450009",
+                            "longitude": "-17.117721",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 1312,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 2,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 2,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 2,
                         "expiredQuotes": 6,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

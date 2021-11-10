@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "ebe80af8-32fe-4b30-8846-f05fd9b178a5",
-                    "name": "Vandervort-Wolff",
-                    "updatedAt": "1631187541667",
+                    "name": "Cassin Ltd",
+                    "updatedAt": "1636033591857",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13253284878",
-                            "name": "Michaela Collier",
+                            "phoneNumber": "+17191418551",
+                            "name": "Laura Morissette",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18563266271",
-                            "name": "Ewald Connelly",
+                            "phoneNumber": "+17474017140",
+                            "name": "Sienna Mayer",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13253284878",
-                            "name": "Michaela Collier",
+                            "phoneNumber": "+17191418551",
+                            "name": "Laura Morissette",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "04394",
-                            "address": "4643 Arden Circle",
-                            "city": "Port Ebba",
+                            "zip": "51695",
+                            "address": "3946 Heaney Square Apt. 873",
+                            "city": "Farrellside",
                             "locationType": null,
-                            "country": "Luxembourg",
-                            "latitude": "71.405969",
-                            "longitude": "-156.857311",
-                            "countryCode": "SV"
+                            "country": "Timor-Leste",
+                            "latitude": "-6.243108",
+                            "longitude": "23.781922",
+                            "countryCode": "LK"
                         }
                     ],
                     "brandingData": null,
@@ -60,7 +60,7 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 3,

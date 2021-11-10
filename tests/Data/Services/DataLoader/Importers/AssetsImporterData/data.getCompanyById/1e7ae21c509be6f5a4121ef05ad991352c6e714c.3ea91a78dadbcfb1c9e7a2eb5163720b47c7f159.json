@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "27d4d93c-43bf-4514-8b56-3661523b15a4",
-                    "name": "Kuhic and Sons",
-                    "updatedAt": "1631101924216",
+                    "name": "Runolfsson-Balistreri",
+                    "updatedAt": "1636455310663",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14144354888",
-                            "name": "Dr. Lois Bechtelar MD",
+                            "phoneNumber": "+19151758580",
+                            "name": "Colby Eichmann",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18563266271",
-                            "name": "Ewald Connelly",
+                            "phoneNumber": "+17474017140",
+                            "name": "Sienna Mayer",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14144354888",
-                            "name": "Dr. Lois Bechtelar MD",
+                            "phoneNumber": "+19151758580",
+                            "name": "Colby Eichmann",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "58008-0170",
-                            "address": "3982 Ledner Ridges Apt. 884",
-                            "city": "Hicklehaven",
+                            "zip": "74788",
+                            "address": "317 Senger Ramp",
+                            "city": "Lake Gerardfurt",
                             "locationType": null,
-                            "country": "Luxembourg",
-                            "latitude": "-6.75556",
-                            "longitude": "40.410715",
-                            "countryCode": "SV"
+                            "country": "Timor-Leste",
+                            "latitude": "-76.286155",
+                            "longitude": "-102.908663",
+                            "countryCode": "LK"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 3785,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 8,
                         "activeQuotesTotalAmount": 2384.92,
                         "newActiveQuotes": 8,
-                        "expiringQuotes": 0,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "expiringQuotes": 8,
+                        "expiredQuotes": 24,
+                        "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

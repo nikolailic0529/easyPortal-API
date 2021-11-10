@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "72d3b860-3667-408a-8ead-6056e10b2481",
-                    "name": "Weimann Inc",
-                    "updatedAt": "1631115654459",
+                    "name": "Klocko, Daniel and Erdman",
+                    "updatedAt": "1636454228554",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "87343",
-                            "address": "15335 Walsh Mountain",
-                            "city": "Gutkowskishire",
+                            "zip": "30412-0457",
+                            "address": "2736 Edwardo Knolls",
+                            "city": "East Flossie",
                             "locationType": "HEADQUARTER",
-                            "country": "Marshall Islands",
-                            "latitude": "-2.347398",
-                            "longitude": "158.918897",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "50.023577",
+                            "longitude": "-47.903927",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -38,16 +38,16 @@
                         "totalAssets": 742,
                         "activeAssets": 2,
                         "activeAssetsPercentage": 0.2695417789757413,
-                        "activeCustomers": 42,
-                        "newActiveCustomers": 42,
+                        "activeCustomers": 17,
+                        "newActiveCustomers": 17,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,
                         "expiringContracts": 0,
                         "activeQuotes": 26,
                         "activeQuotesTotalAmount": 1972.56,
                         "newActiveQuotes": 26,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 24,
                         "expiredQuotes": 23,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
