@@ -11,7 +11,6 @@ use App\Models\DocumentEntry;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
-use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery\MockInterface;

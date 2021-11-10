@@ -1653,7 +1653,8 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $handler                 = $this->override(
+
+        $handler        = $this->override(
             ExceptionHandler::class,
             static function (MockInterface $mock): void {
                 $mock
@@ -1663,10 +1664,10 @@ class AssetFactoryTest extends TestCase {
                     ->andReturns();
             },
         );
-        $normalizer              = $this->app->make(Normalizer::class);
-        $typeResolver            = $this->app->make(TypeResolver::class);
-        $statusResolver          = $this->app->make(StatusResolver::class);
-        $factory                 = new class($handler, $normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+        $normalizer     = $this->app->make(Normalizer::class);
+        $typeResolver   = $this->app->make(TypeResolver::class);
+        $statusResolver = $this->app->make(StatusResolver::class);
+        $factory        = new class($handler, $normalizer, $typeResolver, $statusResolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
@@ -1682,7 +1683,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $map      = fn(AssetWarranty $warranty) => $warranty->getAttributes();
+        $map      = static fn(AssetWarranty $warranty) => $warranty->getAttributes();
         $actual   = $factory
             ->assetWarranties($asset, $viewAsset)
             ->sort(new KeysComparator())
@@ -1732,21 +1733,41 @@ class AssetFactoryTest extends TestCase {
      */
     public function dataProviderIsWarranty(): array {
         return [
-            'warranty'                           => [true, false, false, [
-                'type_id' => '4f820bae-79a5-4558-b90c-d8d7060688b8',
-            ]],
-            'warranty (document number != null)' => [true, false, false, [
-                'type_id'         => 'ac1a2af5-2f07-47d4-a390-8d701ce50a13',
-                'document_number' => '123',
-            ]],
-            'initial warranty'                   => [false, true, false, [
-                'type_id'         => null,
-                'document_number' => null,
-            ]],
-            'extended warranty'                  => [false, false, true, [
-                'type_id'         => null,
-                'document_number' => 123,
-            ]],
+            'warranty'                           => [
+                true,
+                false,
+                false,
+                [
+                    'type_id' => '4f820bae-79a5-4558-b90c-d8d7060688b8',
+                ],
+            ],
+            'warranty (document number != null)' => [
+                true,
+                false,
+                false,
+                [
+                    'type_id'         => 'ac1a2af5-2f07-47d4-a390-8d701ce50a13',
+                    'document_number' => '123',
+                ],
+            ],
+            'initial warranty'                   => [
+                false,
+                true,
+                false,
+                [
+                    'type_id'         => null,
+                    'document_number' => null,
+                ],
+            ],
+            'extended warranty'                  => [
+                false,
+                false,
+                true,
+                [
+                    'type_id'         => null,
+                    'document_number' => 123,
+                ],
+            ],
         ];
     }
     // </editor-fold>

@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $documents
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @method static \Database\Factories\StatusFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status newModelQuery()

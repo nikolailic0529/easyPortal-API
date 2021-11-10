@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
-use App\Models\Asset;
-use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;

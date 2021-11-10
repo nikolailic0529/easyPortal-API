@@ -9,17 +9,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Organization User (pivot)
  *
- * @property string                       $id
- * @property string                       $organization_id
- * @property string                       $user_id
- * @property string|null                  $role_id
- * @property string|null                  $team_id
- * @property bool                         $enabled
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read \App\Models\Role|null   $role
- * @property-read \App\Models\Team|null   $team
+ * @property string                        $id
+ * @property string                        $organization_id
+ * @property string                        $user_id
+ * @property string|null                   $role_id
+ * @property string|null                   $team_id
+ * @property bool                          $enabled
+ * @property \Carbon\CarbonImmutable       $created_at
+ * @property \Carbon\CarbonImmutable       $updated_at
+ * @property \Carbon\CarbonImmutable|null  $deleted_at
+ * @property-read \App\Models\Organization $organization
+ * @property-read \App\Models\Role|null    $role
+ * @property-read \App\Models\Team|null    $team
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser query()
