@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "602673a2-b21d-44b7-8d8e-3423f0ee3795",
-                    "name": "Christiansen LLC",
-                    "updatedAt": "1631114099804",
+                    "name": "Braun-Rogahn",
+                    "updatedAt": "1636517891436",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16780142627",
-                            "name": "Shania Turcotte DDS",
+                            "phoneNumber": "+17263887342",
+                            "name": "Macie Schuppe",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Simeon Wintheiser",
+                            "name": "Cordelia Toy",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16780142627",
-                            "name": "Shania Turcotte DDS",
+                            "phoneNumber": "+17263887342",
+                            "name": "Macie Schuppe",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -43,13 +43,13 @@
                     "locations": [
                         {
                             "zip": "",
-                            "address": "963 Princess Causeway",
-                            "city": "West Sammybury",
+                            "address": "9892 Feil Hollow Suite 224",
+                            "city": "New Ashleigh",
                             "locationType": null,
-                            "country": "Burkina Faso",
-                            "latitude": "8.544206",
-                            "longitude": "122.291725",
-                            "countryCode": "LS"
+                            "country": "Belize",
+                            "latitude": "33.037429",
+                            "longitude": "164.771742",
+                            "countryCode": "WF"
                         }
                     ],
                     "brandingData": null,
@@ -60,15 +60,15 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 3,
                         "activeQuotesTotalAmount": 34.56,
                         "newActiveQuotes": 3,
-                        "expiringQuotes": 0,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "expiringQuotes": 3,
+                        "expiredQuotes": 8,
+                        "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
