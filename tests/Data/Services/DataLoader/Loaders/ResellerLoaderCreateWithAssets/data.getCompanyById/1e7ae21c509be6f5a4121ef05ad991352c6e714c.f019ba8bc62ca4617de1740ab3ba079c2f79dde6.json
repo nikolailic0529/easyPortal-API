@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-                    "name": "Bauch Ltd",
-                    "updatedAt": "1631187575012",
+                    "name": "Dibbert-Lesch",
+                    "updatedAt": "1636536133917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17033828050",
-                            "name": "Kayla Goldner",
+                            "phoneNumber": "+12022395071",
+                            "name": "Jeff King",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,32 +42,32 @@
                     ],
                     "locations": [
                         {
-                            "zip": "91385",
-                            "address": "5379 Natalie Curve Apt. 089",
-                            "city": "Port Stanton",
+                            "zip": "56011",
+                            "address": "233 Blick Loaf Suite 057",
+                            "city": "New Quinten",
                             "locationType": null,
-                            "country": "Myanmar",
-                            "latitude": "73.256833",
-                            "longitude": "39.688391",
-                            "countryCode": "CH"
+                            "country": "Zimbabwe",
+                            "latitude": "20.100556",
+                            "longitude": "-128.859024",
+                            "countryCode": "KN"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 5,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 1,
-                        "activeQuotesTotalAmount": 130,
-                        "newActiveQuotes": 1,
-                        "expiringQuotes": 1,
-                        "expiredQuotes": 1,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

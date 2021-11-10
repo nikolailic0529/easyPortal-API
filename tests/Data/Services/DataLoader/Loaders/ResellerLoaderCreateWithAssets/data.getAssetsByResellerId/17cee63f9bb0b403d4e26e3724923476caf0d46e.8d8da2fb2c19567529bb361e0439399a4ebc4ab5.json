@@ -1,6 +1,6 @@
 {
     "selector": "data.getAssetsByResellerId",
-    "graphql": "query items($id: String!, $limit: Int, $lastId: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "graphql": "query items($id: String!, $limit: Int, $lastId: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
     "params": {
         "id": "6c7c9474-3b59-4601-af72-1cd0f441b515",
         "lastId": null,
@@ -13,7 +13,7 @@
                     "id": "45bdde5d-238d-4a63-8726-17dc7e40dedc",
                     "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
                     "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-                    "serialNumber": "5b700871-4c20-3b13-8c05-6d8a75e89fad",
+                    "serialNumber": "d3138db9-8219-3fc0-ab80-4c641bf8b571",
                     "productDescription": "BU IDS UMA i5-5200U 850 G2",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -21,18 +21,19 @@
                     "sku": "G8T23AV",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "91385",
-                    "city": "Port Stanton",
-                    "address": "5379 Natalie Curve Apt. 089",
+                    "zip": "56011",
+                    "city": "New Quinten",
+                    "address": "233 Blick Loaf Suite 057",
                     "address2": "",
-                    "country": "Myanmar",
-                    "latitude": "73.256833",
-                    "longitude": "39.688391",
-                    "countryCode": "CH",
+                    "country": "Zimbabwe",
+                    "latitude": "20.100556",
+                    "longitude": "-128.859024",
+                    "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630753519234",
+                    "updatedAt": "1633047393794",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "EXPOSED",
+                        "EOSL"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -40,11 +41,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-05-24",
-                            "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                            "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                             "document": {
                                 "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
                                 "type": "Quote New Business",
-                                "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                                "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                                 "startDate": "2019-05-01",
                                 "endDate": "2021-05-31",
                                 "currencyCode": "EUR",
@@ -53,7 +54,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -81,11 +82,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-05-24",
-                            "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                            "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                             "document": {
                                 "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
                                 "type": "Quote renewal",
-                                "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                                "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                                 "startDate": "2021-06-01",
                                 "endDate": "2021-09-30",
                                 "currencyCode": "EUR",
@@ -94,7 +95,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -122,29 +123,30 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17033828050",
-                            "name": "Kayla Goldner",
+                            "phoneNumber": "+12022395071",
+                            "name": "Jeff King",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
-                    ]
+                    ],
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
                     "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
                     "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-                    "serialNumber": "a8c28a45-af15-37c7-9041-fb96de62d7f1",
+                    "serialNumber": "9a210907-8bf1-3e9c-8e83-c3eda652060f",
                     "productDescription": "BU IDS UMA i5-5200U 850 G2",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -152,18 +154,19 @@
                     "sku": "G8T23AV",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "91385",
-                    "city": "Port Stanton",
-                    "address": "5379 Natalie Curve Apt. 089",
+                    "zip": "56011",
+                    "city": "New Quinten",
+                    "address": "233 Blick Loaf Suite 057",
                     "address2": "",
-                    "country": "Myanmar",
-                    "latitude": "73.256833",
-                    "longitude": "39.688391",
-                    "countryCode": "CH",
+                    "country": "Zimbabwe",
+                    "latitude": "20.100556",
+                    "longitude": "-128.859024",
+                    "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630774945398",
+                    "updatedAt": "1633047394638",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "EXPOSED",
+                        "EOSL"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -171,11 +174,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2018-12-08",
-                            "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                            "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                             "document": {
                                 "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
                                 "type": "Quote renewal",
-                                "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                                "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                                 "startDate": "2021-06-01",
                                 "endDate": "2021-09-30",
                                 "currencyCode": "EUR",
@@ -184,7 +187,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -212,11 +215,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2018-12-08",
-                            "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                            "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                             "document": {
                                 "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
                                 "type": "Quote New Business",
-                                "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                                "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                                 "startDate": "2019-05-01",
                                 "endDate": "2021-05-31",
                                 "currencyCode": "EUR",
@@ -225,7 +228,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -253,29 +256,30 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17033828050",
-                            "name": "Kayla Goldner",
+                            "phoneNumber": "+12022395071",
+                            "name": "Jeff King",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
-                    ]
+                    ],
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
                     "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
                     "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-                    "serialNumber": "abe7b9a7-6ce2-30a1-b5b6-5f5894ec6378",
+                    "serialNumber": "d23ba064-b451-35b2-91bd-1e64b70084c8",
                     "productDescription": "BU IDS UMA i5-5200U 850 G2",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -283,18 +287,19 @@
                     "sku": "G8T23AV",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "91385",
-                    "city": "Port Stanton",
-                    "address": "5379 Natalie Curve Apt. 089",
+                    "zip": "56011",
+                    "city": "New Quinten",
+                    "address": "233 Blick Loaf Suite 057",
                     "address2": "",
-                    "country": "Myanmar",
-                    "latitude": "73.256833",
-                    "longitude": "39.688391",
-                    "countryCode": "CH",
+                    "country": "Zimbabwe",
+                    "latitude": "20.100556",
+                    "longitude": "-128.859024",
+                    "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630804899030",
+                    "updatedAt": "1633047395545",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "EXPOSED",
+                        "EOSL"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -302,11 +307,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-05-24",
-                            "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                            "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                             "document": {
                                 "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
                                 "type": "Quote New Business",
-                                "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                                "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                                 "startDate": "2019-05-01",
                                 "endDate": "2021-05-31",
                                 "currencyCode": "EUR",
@@ -315,7 +320,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -343,11 +348,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-05-24",
-                            "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                            "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                             "document": {
                                 "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
                                 "type": "Quote renewal",
-                                "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                                "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                                 "startDate": "2021-06-01",
                                 "endDate": "2021-09-30",
                                 "currencyCode": "EUR",
@@ -356,7 +361,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -384,29 +389,30 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17033828050",
-                            "name": "Kayla Goldner",
+                            "phoneNumber": "+12022395071",
+                            "name": "Jeff King",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
-                    ]
+                    ],
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
                     "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
                     "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-                    "serialNumber": "8b3218e6-f8de-3286-ba37-0ee5fec75eaf",
+                    "serialNumber": "15289d99-6173-36f2-8541-3412124ace5f",
                     "productDescription": "BU IDS UMA i5-5200U 850 G2",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -414,18 +420,19 @@
                     "sku": "G8T23AV",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "91385",
-                    "city": "Port Stanton",
-                    "address": "5379 Natalie Curve Apt. 089",
+                    "zip": "56011",
+                    "city": "New Quinten",
+                    "address": "233 Blick Loaf Suite 057",
                     "address2": "",
-                    "country": "Myanmar",
-                    "latitude": "73.256833",
-                    "longitude": "39.688391",
-                    "countryCode": "CH",
+                    "country": "Zimbabwe",
+                    "latitude": "20.100556",
+                    "longitude": "-128.859024",
+                    "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630821612192",
+                    "updatedAt": "1633047396232",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "EXPOSED",
+                        "EOSL"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -433,11 +440,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-03-18",
-                            "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                            "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                             "document": {
                                 "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
                                 "type": "Quote renewal",
-                                "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                                "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                                 "startDate": "2021-06-01",
                                 "endDate": "2021-09-30",
                                 "currencyCode": "EUR",
@@ -446,7 +453,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -474,11 +481,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-03-18",
-                            "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                            "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                             "document": {
                                 "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
                                 "type": "Quote New Business",
-                                "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                                "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                                 "startDate": "2019-05-01",
                                 "endDate": "2021-05-31",
                                 "currencyCode": "EUR",
@@ -487,7 +494,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -515,29 +522,30 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17033828050",
-                            "name": "Kayla Goldner",
+                            "phoneNumber": "+12022395071",
+                            "name": "Jeff King",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
-                    ]
+                    ],
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "d164e377-3780-4587-8f97-a77c7952e953",
                     "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
                     "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-                    "serialNumber": "a775cda0-aac7-3024-a4ad-380c933ca452",
+                    "serialNumber": "b5cc57e9-8195-3176-a65a-0491d33695ad",
                     "productDescription": "BU IDS UMA i5-5200U 850 G2",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -545,18 +553,19 @@
                     "sku": "G8T23AV",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "91385",
-                    "city": "Port Stanton",
-                    "address": "57143 Kertzmann Stravenue Suite 631",
+                    "zip": "56011",
+                    "city": "New Quinten",
+                    "address": "211 Bechtelar Village",
                     "address2": "",
-                    "country": "Myanmar",
-                    "latitude": "2.901033",
-                    "longitude": "139.600696",
-                    "countryCode": "CH",
+                    "country": "Zimbabwe",
+                    "latitude": "-57.005227",
+                    "longitude": "140.182838",
+                    "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630784317504",
+                    "updatedAt": "1633047406079",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "EXPOSED",
+                        "EOSL"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -564,11 +573,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-03-18",
-                            "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                            "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                             "document": {
                                 "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
                                 "type": "Quote renewal",
-                                "documentNumber": "8a5ce2a1-d5db-3442-a161-47b87fe3e608",
+                                "documentNumber": "463a916b-9512-315b-9f0d-0db960d6b8f7",
                                 "startDate": "2021-06-01",
                                 "endDate": "2021-09-30",
                                 "currencyCode": "EUR",
@@ -577,7 +586,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -605,11 +614,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "HA101PC",
                             "warrantyEndDate": "2019-03-18",
-                            "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                            "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                             "document": {
                                 "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
                                 "type": "Quote New Business",
-                                "documentNumber": "bc2a255c-0910-3425-aa38-f2a3bc5c8710",
+                                "documentNumber": "39fefe08-fe26-389a-9efb-f523eb07bd7b",
                                 "startDate": "2019-05-01",
                                 "endDate": "2021-05-31",
                                 "currencyCode": "EUR",
@@ -618,7 +627,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "1628a2aa-1250-3c61-b44e-37baaaa000d5",
+                                    "said": "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -646,23 +655,24 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17033828050",
-                            "name": "Kayla Goldner",
+                            "phoneNumber": "+12022395071",
+                            "name": "Jeff King",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Henri Gusikowski",
+                            "name": "Lizeth Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
-                    ]
+                    ],
+                    "coverageStatusCheck": null
                 }
             ]
         }
