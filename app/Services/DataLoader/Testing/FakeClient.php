@@ -36,10 +36,7 @@ class FakeClient extends Client {
     protected function callExecute(string $selector, string $graphql, array $params, array $files): mixed {
         $path = $this->callDumpPath($selector, $graphql, $params);
         $data = $this->getTestData($this->getData());
-        $dump = $data->file($path);
-        $json = $dump->isFile() && $dump->isReadable()
-            ? $data->json($path)['response']
-            : [];
+        $json = $data->json($path)['response'];
 
         return $json;
     }
