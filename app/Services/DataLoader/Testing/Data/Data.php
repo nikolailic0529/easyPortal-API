@@ -8,8 +8,23 @@ use Faker\Generator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
+use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
+use Symfony\Component\Filesystem\Filesystem;
+
+use function json_encode;
+
+use const JSON_PRESERVE_ZERO_FRACTION;
+use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
+use const JSON_UNESCAPED_LINE_TERMINATORS;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 abstract class Data {
+    use WithTestData;
+
+    public const MAP = 'map.json';
+
     public function __construct(
         protected Kernel $kernel,
         protected Application $app,
@@ -44,12 +59,30 @@ abstract class Data {
         }
     }
 
+    /**
+     * @param array<string,mixed> $context
+     *
+     * @return array<string,mixed>
+     */
     protected function cleanClientDumps(string $path): bool {
-        $cleaner = $this->app->make(ClientDataCleaner::class);
+        $fs      = new Filesystem();
+        $map     = static::MAP;
+        $data    = $this->getTestData();
+        $cleaner = $this->app->make(ClientDataCleaner::class)->setDefaultMap($data->json($map));
 
         foreach ((new ClientDumpsIterator($path))->getResponseIterator(true) as $object) {
             $cleaner->clean($object);
         }
+
+        $fs->dumpFile($data->path($map), json_encode(
+            $cleaner->getMap(),
+            JSON_PRETTY_PRINT
+            | JSON_UNESCAPED_SLASHES
+            | JSON_UNESCAPED_UNICODE
+            | JSON_UNESCAPED_LINE_TERMINATORS
+            | JSON_PRESERVE_ZERO_FRACTION
+            | JSON_THROW_ON_ERROR,
+        ));
 
         return true;
     }

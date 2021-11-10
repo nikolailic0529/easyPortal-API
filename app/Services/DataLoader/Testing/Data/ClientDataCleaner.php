@@ -45,6 +45,10 @@ class ClientDataCleaner {
      * @var array<string,string>
      */
     protected array $map = [];
+    /**
+     * @var array<string,string>
+     */
+    protected array $default = [];
 
     public function __construct(
         protected UuidValue $uuid,
@@ -63,6 +67,22 @@ class ClientDataCleaner {
         protected NameValue $name,
     ) {
         // empty
+    }
+
+    /**
+     * @return array<string,string>
+     */
+    public function getMap(): array {
+        return $this->map;
+    }
+
+    /**
+     * @param array<string,string> $map
+     */
+    public function setDefaultMap(array $map): static {
+        $this->default = $map;
+
+        return $this;
     }
 
     public function clean(object $object): void {
@@ -137,10 +157,11 @@ class ClientDataCleaner {
             return $value;
         }
 
-        $key = sha1("{$mapper::class}@{$value}");
+        $class = $mapper::class;
+        $key   = sha1("{$class}@{$value}");
 
         if (!array_key_exists($key, $this->map)) {
-            $this->map[$key] = $mapper();
+            $this->map[$key] = $this->default[$key] ?? $mapper();
         }
 
         return $this->map[$key];
