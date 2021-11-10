@@ -30,7 +30,7 @@
                     "longitude": "160.303601",
                     "countryCode": "LY",
                     "status": "ACTIVE",
-                    "updatedAt": "1630786229013",
+                    "updatedAt": "1636540433283",
                     "assetCoverage": [
                         "EXPOSED"
                     ],
@@ -262,7 +262,11 @@
                             "type": "Software Contact Person"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "UNKNOWN",
+                        "coverageStatusUpdatedAt": "1636540433267",
+                        "coverageEntries": []
+                    }
                 },
                 {
                     "id": "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",

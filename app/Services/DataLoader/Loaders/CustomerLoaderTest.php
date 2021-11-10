@@ -82,7 +82,7 @@ class CustomerLoaderTest extends TestCase {
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -105,12 +105,12 @@ class CustomerLoaderTest extends TestCase {
         $this->assertEquals($expected, $actual);
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 2,
-            AssetWarranty::class => 2,
-            Document::class      => 1,
-            DocumentEntry::class => 2,
+            AssetWarranty::class => 14,
+            Document::class      => 3,
+            DocumentEntry::class => 10,
         ]);
 
         $queries->flush();
