@@ -15,16 +15,6 @@ class DocumentSyncsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::uniqueId
-     */
-    public function testUniqueId(): void {
-        $expected = $this->faker->uuid;
-        $actual   = $this->app->make(DocumentSync::class)->init($expected)->uniqueId();
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke

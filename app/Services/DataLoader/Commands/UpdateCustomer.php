@@ -21,6 +21,7 @@ class UpdateCustomer extends Update {
     protected $signature = 'ep:data-loader-update-customer
         {id* : The ID of the company}
         {--warranty-check : run warranty check before update}
+        {--no-warranty-check : do not run warranty check before update (default)}
         {--c|create : Create customer if not exists}
         {--C|no-create : Do not create customer if not exists (default)}
         {--a|assets : Load assets}

@@ -14,22 +14,14 @@ use Illuminate\Contracts\Console\Kernel;
 class DocumentSync extends Sync {
     use CommandOptions;
 
-    protected string $documentId;
-
-    public function getDocumentId(): string {
-        return $this->documentId;
-    }
-
     public function displayName(): string {
         return 'ep-data-loader-document-sync';
     }
 
-    public function uniqueId(): string {
-        return $this->documentId;
-    }
 
-    public function init(string $documentId): static {
-        $this->documentId = $documentId;
+    public function init(string $id): static {
+        $this->objectId  = $id;
+        $this->arguments = [];
 
         $this->initialized();
 
@@ -38,7 +30,7 @@ class DocumentSync extends Sync {
 
     public function __invoke(Kernel $kernel): void {
         $kernel->call(UpdateDocument::class, [
-            'id' => $this->getDocumentId(),
+            'id' => $this->objectId,
         ]);
     }
 }

@@ -21,6 +21,7 @@ class UpdateAsset extends Update {
     protected $signature = 'ep:data-loader-update-asset
         {id* : The ID of the asset}
         {--warranty-check : run warranty check before update}
+        {--no-warranty-check : do not run warranty check before update (default)}
         {--c|create : Create asset if not exists}
         {--C|no-create : Do not create asset if not exists (default)}
         {--d|documents : Load asset documents (and warranties) (default)}
