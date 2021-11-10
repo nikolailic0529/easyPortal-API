@@ -7,6 +7,8 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\CoverageEntry;
+use App\Services\DataLoader\Schema\CoverageStatusCheck;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentVendorSpecificField;
 use App\Services\DataLoader\Schema\Location;
@@ -125,6 +127,10 @@ class ClientDataCleaner {
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {
+            // empty
+        } elseif ($object instanceof CoverageStatusCheck) {
+            // empty
+        } elseif ($object instanceof CoverageEntry) {
             // empty
         } else {
             throw new Exception(sprintf(
