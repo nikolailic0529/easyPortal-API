@@ -1,13 +1,14 @@
 {
-    "generated": "2021-09-20T14:07:05+00:00",
+    "generated": "2021-11-10T10:33:15+00:00",
     "distributors": [
         "143c456a-e894-4710-a1c2-745b9582ca47"
     ],
     "resellers": [
-        "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
+        "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+        "f7b1ed88-0f57-4fd5-a368-9bb5ca337987"
     ],
     "customers": [
-        "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+        "15c8acb6-b191-46a2-8921-243282eeed54"
     ],
     "oems": "oem.csv"
 }
