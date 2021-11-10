@@ -12,6 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
 
 use function json_encode;
+use function ksort;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
@@ -59,13 +60,7 @@ abstract class Data {
         }
     }
 
-    /**
-     * @param array<string,mixed> $context
-     *
-     * @return array<string,mixed>
-     */
     protected function cleanClientDumps(string $path): bool {
-        $fs      = new Filesystem();
         $map     = static::MAP;
         $data    = $this->getTestData();
         $cleaner = $this->app->make(ClientDataCleaner::class)->setDefaultMap($data->json($map));
@@ -74,8 +69,17 @@ abstract class Data {
             $cleaner->clean($object);
         }
 
-        $fs->dumpFile($data->path($map), json_encode(
-            $cleaner->getMap(),
+        return $this->saveMap($data->path($map), $cleaner->getMap());
+    }
+
+    /**
+     * @param array<string, mixed> $map
+     */
+    private function saveMap(string $path, array $map): bool {
+        ksort($map);
+
+        (new Filesystem())->dumpFile($path, json_encode(
+            $map,
             JSON_PRETTY_PRINT
             | JSON_UNESCAPED_SLASHES
             | JSON_UNESCAPED_UNICODE
