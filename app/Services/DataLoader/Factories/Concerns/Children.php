@@ -62,7 +62,7 @@ trait Children {
         }
 
         // Reuse
-        if (!$created->isEmpty()) {
+        if (!$created->isEmpty() && !$existing->isEmpty()) {
             $reusable = $isReusable
                 ? $existing->filter($isReusable)
                 : $existing;

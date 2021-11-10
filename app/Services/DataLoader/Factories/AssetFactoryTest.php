@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Exceptions\ErrorReport;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
+use App\Models\Callbacks\KeysComparator;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry as DocumentEntryModel;
@@ -19,6 +20,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
@@ -26,7 +28,10 @@ use App\Services\DataLoader\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
+use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -41,6 +46,7 @@ use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
@@ -168,22 +174,61 @@ class AssetFactoryTest extends TestCase {
         // Warranties
         $this->assertEquals(
             [
+                // Initial
                 [
+                    'type'          => null,
+                    'status'        => null,
+                    'start'         => null,
+                    'end'           => '2021-02-28',
                     'serviceGroup'  => null,
                     'serviceLevels' => [],
+                    'document'      => null,
+                ],
+                // External
+                [
+                    'type'          => 'FactoryWarranty',
+                    'status'        => 'Active',
+                    'start'         => '2019-11-07',
+                    'end'           => '2022-12-06',
+                    'serviceGroup'  => null,
+                    'serviceLevels' => [],
+                    'document'      => null,
                 ],
                 [
+                    'type'          => 'Contract',
+                    'status'        => 'Active',
+                    'start'         => '2019-12-10',
+                    'end'           => '2024-12-09',
+                    'serviceGroup'  => null,
+                    'serviceLevels' => [],
+                    'document'      => null,
+                ],
+                // From document
+                [
+                    'type'          => null,
+                    'status'        => null,
+                    'start'         => '2020-03-01',
+                    'end'           => '2021-02-28',
                     'serviceGroup'  => 'H7J34AC',
                     'serviceLevels' => [
                         [
                             'sku' => 'HA151AC',
                         ],
                     ],
+                    'document'      => '0056523287',
                 ],
             ],
             $created->warranties
+                ->sort(static function (AssetWarranty $a, AssetWarranty $b): int {
+                    return $a->start <=> $b->start ?: $a->end <=> $b->end;
+                })
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
+                        'type'          => $warranty->type->key ?? null,
+                        'status'        => $warranty->status->key ?? null,
+                        'start'         => $warranty->start?->toDateString(),
+                        'end'           => $warranty->end?->toDateString(),
+                        'document'      => $warranty->document_number,
                         'serviceGroup'  => $warranty->serviceGroup?->sku,
                         'serviceLevels' => $warranty->serviceLevels
                             ->map(static function (ServiceLevel $level): array {
@@ -194,14 +239,13 @@ class AssetFactoryTest extends TestCase {
                             ->all(),
                     ];
                 })
-                ->sortBy('serviceGroup')
                 ->values()
                 ->all(),
         );
 
         /** @var \App\Models\AssetWarranty $initial */
         $initial = $created->warranties->first(static function (AssetWarranty $warranty): bool {
-            return $warranty->document_number === null;
+            return $warranty->document_number === null && $warranty->type_id === null;
         });
 
         $this->assertNotNull($initial);
@@ -214,7 +258,7 @@ class AssetFactoryTest extends TestCase {
 
         /** @var \App\Models\AssetWarranty $extended */
         $extended = $created->warranties->first(static function (AssetWarranty $warranty): bool {
-            return $warranty->document_number !== null;
+            return $warranty->document_number !== null && $warranty->type_id === null;
         });
 
         $this->assertEquals($extended->asset_id, $created->getKey());
@@ -1447,6 +1491,222 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($isWarranty, $factory::isWarranty($warranty));
         $this->assertEquals($isInitialWarranty, $factory::isWarrantyInitial($warranty));
         $this->assertEquals($isExtendedWarranty, $factory::isWarrantyExtended($warranty));
+    }
+
+    /**
+     * @covers ::compareAssetWarranties
+     */
+    public function testCompareAssetWarranties(): void {
+        // Prepare
+        $a       = AssetWarranty::factory()->make([
+            'type_id' => $this->faker->uuid,
+            'start'   => $this->faker->dateTime,
+            'end'     => $this->faker->dateTime,
+        ]);
+        $b       = AssetWarranty::factory()->make([
+            'type_id' => $this->faker->uuid,
+            'start'   => $this->faker->dateTime,
+            'end'     => $this->faker->dateTime,
+        ]);
+        $factory = new class() extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public static function compareAssetWarranties(AssetWarranty $a, AssetWarranty $b): int {
+                return parent::compareAssetWarranties($a, $b);
+            }
+        };
+
+        // Test
+        $this->assertNotEquals(0, $factory::compareAssetWarranties($a, $b));
+
+        // Make same
+        $a->type_id = $b->type_id;
+        $a->start   = $b->start->midDay();
+        $a->end     = $b->end;
+
+        $this->assertEquals(0, $factory::compareAssetWarranties($a, $b));
+    }
+
+    /**
+     * @covers ::assetWarranty
+     */
+    public function testAssetWarranty(): void {
+        $asset          = Asset::factory()->make();
+        $type           = TypeModel::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $status         = Status::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $entry          = new CoverageEntry([
+            'coverageStartDate' => '2019-12-10',
+            'coverageEndDate'   => '2024-12-09',
+            'type'              => $type->key,
+            'status'            => $status->key,
+            'description'       => $this->faker->text,
+        ]);
+        $normalizer     = $this->app->make(Normalizer::class);
+        $typeResolver   = $this->app->make(TypeResolver::class);
+        $statusResolver = $this->app->make(StatusResolver::class);
+        $factory        = new class($normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected TypeResolver $typeResolver,
+                protected StatusResolver $statusResolver,
+            ) {
+                // empty
+            }
+
+            public function assetWarranty(Asset $model, CoverageEntry $entry): AssetWarranty {
+                return parent::assetWarranty($model, $entry);
+            }
+        };
+
+        $actual   = $factory->assetWarranty($asset, $entry)->getAttributes();
+        $expected = [
+            'start'            => '2019-12-10 00:00:00',
+            'end'              => '2024-12-09 00:00:00',
+            'asset_id'         => $asset->getKey(),
+            'type_id'          => $type->getKey(),
+            'status_id'        => $status->getKey(),
+            'description'      => $entry->description,
+            'service_group_id' => null,
+            'customer_id'      => null,
+            'reseller_id'      => null,
+            'document_id'      => null,
+            'document_number'  => null,
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::assetWarranties
+     */
+    public function testAssetWarranties(): void {
+        $asset                   = Asset::factory()->create();
+        $type                    = TypeModel::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $status                  = Status::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $documentWarranty        = AssetWarranty::factory()->create([
+            'asset_id' => $asset,
+            'type_id'  => null,
+            'start'    => $this->faker->dateTime,
+            'end'      => $this->faker->dateTime,
+        ]);
+        $warrantyShouldBeUpdated = AssetWarranty::factory()->create([
+            'reseller_id' => null,
+            'customer_id' => null,
+            'asset_id'    => $asset,
+            'type_id'     => $type,
+            'start'       => Date::make($this->faker->dateTime)->startOfDay(),
+            'end'         => Date::make($this->faker->dateTime)->startOfDay(),
+        ]);
+        $warrantyShouldBeReused  = (new Collection([
+            AssetWarranty::factory()->create([
+                'reseller_id' => null,
+                'customer_id' => null,
+                'asset_id'    => $asset,
+                'type_id'     => $type,
+                'start'       => $this->faker->dateTime,
+                'end'         => $this->faker->dateTime,
+            ]),
+            AssetWarranty::factory()->create([
+                'reseller_id' => null,
+                'customer_id' => null,
+                'asset_id'    => $asset,
+                'type_id'     => $type,
+                'start'       => $this->faker->dateTime,
+                'end'         => $this->faker->dateTime,
+            ]),
+        ]))
+            ->sort(new KeysComparator())
+            ->first();
+        $entryShouldBeCreated    = new CoverageEntry([
+            'coverageStartDate' => $warrantyShouldBeReused->start->format('Y-m-d'),
+            'coverageEndDate'   => $warrantyShouldBeReused->end->format('Y-m-d'),
+            'type'              => $type->key,
+            'status'            => $status->key,
+            'description'       => "(created) {$this->faker->text}",
+        ]);
+        $entryShouldBeUpdated    = new CoverageEntry([
+            'coverageStartDate' => $warrantyShouldBeUpdated->start->format('Y-m-d'),
+            'coverageEndDate'   => $warrantyShouldBeUpdated->end->format('Y-m-d'),
+            'type'              => $warrantyShouldBeUpdated->type->key,
+            'status'            => $status->key,
+            'description'       => "(updated) {$this->faker->text}",
+        ]);
+        $entryShouldBeIgnored    = new CoverageEntry();
+        $viewAsset               = new ViewAsset([
+            'coverageStatusCheck' => [
+                'coverageEntries' => [
+                    $entryShouldBeCreated,
+                    $entryShouldBeUpdated,
+                    $entryShouldBeIgnored,
+                ],
+            ],
+        ]);
+        $handler                 = $this->override(
+            ExceptionHandler::class,
+            static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('report')
+                    ->with(Mockery::type(FailedToProcessViewAssetCoverageEntry::class))
+                    ->once()
+                    ->andReturns();
+            },
+        );
+        $normalizer              = $this->app->make(Normalizer::class);
+        $typeResolver            = $this->app->make(TypeResolver::class);
+        $statusResolver          = $this->app->make(StatusResolver::class);
+        $factory                 = new class($handler, $normalizer, $typeResolver, $statusResolver) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected ExceptionHandler $exceptionHandler,
+                protected Normalizer $normalizer,
+                protected TypeResolver $typeResolver,
+                protected StatusResolver $statusResolver,
+            ) {
+                // empty
+            }
+
+            public function assetWarranties(Asset $model, ViewAsset $asset): Collection {
+                return parent::assetWarranties($model, $asset);
+            }
+        };
+
+        $map      = fn(AssetWarranty $warranty) => $warranty->getAttributes();
+        $actual   = $factory
+            ->assetWarranties($asset, $viewAsset)
+            ->sort(new KeysComparator())
+            ->map($map)
+            ->values();
+        $expected = (new EloquentCollection([
+            $documentWarranty->fresh(),
+            (clone $warrantyShouldBeUpdated)->forceFill([
+                'status_id'   => $status->getKey(),
+                'description' => $entryShouldBeUpdated->description,
+            ]),
+            (clone $warrantyShouldBeReused)->forceFill([
+                'start'       => $normalizer->datetime($entryShouldBeCreated->coverageStartDate),
+                'end'         => $normalizer->datetime($entryShouldBeCreated->coverageEndDate),
+                'type_id'     => $type->getKey(),
+                'status_id'   => $status->getKey(),
+                'description' => $entryShouldBeCreated->description,
+            ]),
+        ]))
+            ->sort(new KeysComparator())
+            ->map($map)
+            ->values();
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 
