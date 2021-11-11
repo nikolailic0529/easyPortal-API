@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Models\Document as DocumentModel;
+use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
@@ -22,6 +24,7 @@ use function fclose;
 use function fopen;
 use function fputcsv;
 use function is_array;
+use function mb_stripos;
 
 use const SORT_REGULAR;
 
@@ -29,41 +32,72 @@ abstract class AssetsData extends Data {
     public const CONTEXT_DISTRIBUTORS = 'distributors';
     public const CONTEXT_RESELLERS    = 'resellers';
     public const CONTEXT_CUSTOMERS    = 'customers';
+    public const CONTEXT_TYPES        = 'types';
     public const CONTEXT_OEMS         = 'oems';
 
     /**
      * @inheritDoc
      */
     public function restore(string $path, array $context): bool {
-        $result = true;
+        $result   = true;
+        $settings = [];
 
-        if ($context[static::CONTEXT_OEMS]) {
+        if ($context[static::CONTEXT_OEMS] ?? null) {
             $result = $result && $this->kernel->call('ep:data-loader-import-oems', [
                     'file' => "{$path}/{$context[static::CONTEXT_OEMS]}",
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_DISTRIBUTORS]) {
+        if ($context[static::CONTEXT_DISTRIBUTORS] ?? null) {
             $result = $result && $this->kernel->call('ep:data-loader-update-distributor', [
                     'id'       => $context[static::CONTEXT_DISTRIBUTORS],
                     '--create' => true,
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_RESELLERS]) {
+        if ($context[static::CONTEXT_RESELLERS] ?? null) {
             $result = $result && $this->kernel->call('ep:data-loader-update-reseller', [
                     'id'       => $context[static::CONTEXT_RESELLERS],
                     '--create' => true,
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_CUSTOMERS]) {
+        if ($context[static::CONTEXT_CUSTOMERS] ?? null) {
             $result = $result && $this->kernel->call('ep:data-loader-update-customer', [
                     'id'       => $context[static::CONTEXT_CUSTOMERS],
                     '--create' => true,
                 ]) === Command::SUCCESS;
         }
 
+        if ($context[static::CONTEXT_TYPES] ?? null) {
+            $owner = (new DocumentModel())->getMorphClass();
+
+            foreach ($context[static::CONTEXT_TYPES] as $key) {
+                // Create
+                $type              = new TypeModel();
+                $type->object_type = $owner;
+                $type->key         = $this->normalizer->string($key);
+                $type->name        = $this->normalizer->string($key);
+
+                $type->save();
+
+                // Collect settings
+                if (mb_stripos($key, 'contract') !== false) {
+                    $settings['ep.contract_types'][] = $type->getKey();
+                } elseif (mb_stripos($key, 'quote') !== false) {
+                    $settings['ep.quote_types'][] = $type->getKey();
+                } else {
+                    // empty
+                }
+            }
+        }
+
+        // Update settings
+        foreach ($settings as $setting => $value) {
+            $this->config->set($setting, $value);
+        }
+
+        // Return
         return $result;
     }
 
@@ -106,6 +140,7 @@ abstract class AssetsData extends Data {
         $distributors = [];
         $resellers    = [];
         $customers    = [];
+        $types        = [];
         $oems         = [];
         $oem          = null;
 
@@ -124,19 +159,22 @@ abstract class AssetsData extends Data {
             } elseif ($object instanceof ViewAssetDocument) {
                 $resellers[] = $object->reseller->id ?? null;
                 $customers[] = $object->customer->id ?? null;
+                $types[]     = $object->document->type ?? null;
                 $oems[]      = [
                     $object->document->vendorSpecificFields->vendor ?? $oem ?? null,
                     $object->supportPackage ?? null,
                     $object->skuNumber ?? null,
                 ];
             } elseif ($object instanceof ViewDocument) {
+                $distributors[] = $object->distributorId ?? null;
                 $resellers[]    = $object->resellerId ?? null;
                 $customers[]    = $object->customerId ?? null;
-                $distributors[] = $object->distributorId ?? null;
+                $types[]        = $object->type ?? null;
             } elseif ($object instanceof Document) {
+                $distributors[] = $object->distributorId ?? null;
                 $resellers[]    = $object->resellerId ?? null;
                 $customers[]    = $object->customerId ?? null;
-                $distributors[] = $object->distributorId ?? null;
+                $types[]        = $object->type ?? null;
                 $oem            = $object->vendorSpecificFields->vendor ?? null;
                 $oems[]         = [
                     $oem,
@@ -201,6 +239,7 @@ abstract class AssetsData extends Data {
             static::CONTEXT_RESELLERS    => $resellers,
             static::CONTEXT_CUSTOMERS    => $customers,
             static::CONTEXT_OEMS         => $file,
+            static::CONTEXT_TYPES        => $types,
         ];
 
         foreach ($context as &$data) {
@@ -209,6 +248,7 @@ abstract class AssetsData extends Data {
             }
         }
 
+        // Return
         return $context;
     }
 
