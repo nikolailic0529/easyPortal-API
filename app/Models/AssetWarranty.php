@@ -11,6 +11,7 @@ use App\Models\Concerns\Relations\HasStatusNullable;
 use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByShared;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
@@ -47,7 +48,7 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty query()
  * @mixin \Eloquent
  */
-class AssetWarranty extends Model {
+class AssetWarranty extends Model implements OwnedByShared {
     use OwnedByReseller;
     use HasFactory;
     use HasAsset;
