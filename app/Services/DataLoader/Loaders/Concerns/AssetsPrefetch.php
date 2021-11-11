@@ -16,7 +16,7 @@ trait AssetsPrefetch {
     /**
      * @param array<mixed> $items
      */
-    protected function assetsPrefetch(array $items): void {
+    protected function prefetchAssets(array $items): void {
         $container = $this->getContainer();
         $locations = $container->make(LocationResolver::class);
         $contacts  = $container->make(ContactResolver::class);

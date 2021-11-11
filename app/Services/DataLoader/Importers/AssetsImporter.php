@@ -38,7 +38,7 @@ class AssetsImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
-        $this->assetsPrefetch($items);
+        $this->prefetchAssets($items);
     }
 
     protected function makeIterator(DateTimeInterface $from = null): QueryIterator {

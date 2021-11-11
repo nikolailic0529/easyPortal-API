@@ -71,7 +71,7 @@ trait WithAssets {
         $factory  = $this->getAssetsFactory();
         $updated  = [];
         $prefetch = function (array $assets): void {
-            $this->assetsPrefetch($assets);
+            $this->prefetchAssets($assets);
         };
 
         foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {
