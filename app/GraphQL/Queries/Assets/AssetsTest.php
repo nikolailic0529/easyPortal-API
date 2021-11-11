@@ -210,6 +210,19 @@ class AssetsTest extends TestCase {
                                     }
                                 }
                             }
+                            type_id
+                            type {
+                                id
+                                key
+                                name
+                            }
+                            status_id
+                            status {
+                                id
+                                key
+                                name
+                            }
+                            description
                         }
                         status {
                             id
@@ -439,6 +452,11 @@ class AssetsTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
+                                            'type_id'       => null,
+                                            'type'          => null,
+                                            'status_id'     => null,
+                                            'status'        => null,
+                                            'description'   => null,
                                         ],
                                     ],
                                     'status'          => [

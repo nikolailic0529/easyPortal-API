@@ -291,6 +291,11 @@ type AssetWarranty {
   id: ID!
   start: Date
   end: Date
+  type_id: String
+  type: Type
+  status_id: String
+  status: Status
+  description: String
   customer_id: ID
   customer: Customer
   document_id: ID

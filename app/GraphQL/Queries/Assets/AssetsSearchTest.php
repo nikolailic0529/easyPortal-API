@@ -210,6 +210,19 @@ class AssetsSearchTest extends TestCase {
                             }
                         }
                     }
+                    type_id
+                    type {
+                        id
+                        key
+                        name
+                    }
+                    status_id
+                    status {
+                        id
+                        key
+                        name
+                    }
+                    description
                 }
                 status {
                     id
@@ -396,6 +409,11 @@ class AssetsSearchTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
+                                            'type_id'       => null,
+                                            'type'          => null,
+                                            'status_id'     => null,
+                                            'status'        => null,
+                                            'description'   => null,
                                         ],
                                         [
                                             'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -473,6 +491,11 @@ class AssetsSearchTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
+                                            'type_id'       => null,
+                                            'type'          => null,
+                                            'status_id'     => null,
+                                            'status'        => null,
+                                            'description'   => null,
                                         ],
                                     ],
                                     'status'          => [

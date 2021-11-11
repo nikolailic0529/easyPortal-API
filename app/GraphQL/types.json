@@ -773,7 +773,12 @@
                 "serviceGroup",
                 "serviceLevels",
                 "customer",
-                "reseller"
+                "reseller",
+                "type_id",
+                "type",
+                "status_id",
+                "status",
+                "description"
             ],
             "properties": {
                 "id": {
@@ -888,6 +893,56 @@
                 },
                 "language": {
                     "$ref": "./Types/Language.json"
+                },
+                "type_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "type": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Type"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "status_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "status": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Status"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "description": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },

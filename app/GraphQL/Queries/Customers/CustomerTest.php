@@ -336,6 +336,19 @@ class CustomerTest extends TestCase {
                                         }
                                     }
                                 }
+                                type_id
+                                type {
+                                    id
+                                    key
+                                    name
+                                }
+                                status_id
+                                status {
+                                    id
+                                    key
+                                    name
+                                }
+                                description
                             }
                             contacts_count
                             contacts {
@@ -1053,6 +1066,11 @@ class CustomerTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
+                                            'type_id'       => null,
+                                            'type'          => null,
+                                            'status_id'     => null,
+                                            'status'        => null,
+                                            'description'   => null,
                                         ],
                                     ],
                                     'contacts'        => [
