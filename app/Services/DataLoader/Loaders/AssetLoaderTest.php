@@ -10,6 +10,7 @@ use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
@@ -48,7 +49,8 @@ class AssetLoaderTest extends TestCase {
 
         // Test (cold)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(AssetLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(AssetLoader::class)
             ->setWithDocuments(AssetLoaderCreateWithoutDocuments::DOCUMENTS);
 
         $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
@@ -72,7 +74,8 @@ class AssetLoaderTest extends TestCase {
 
         // Test (hot)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(AssetLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(AssetLoader::class)
             ->setWithDocuments(AssetLoaderCreateWithoutDocuments::DOCUMENTS);
 
         $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
@@ -106,7 +109,8 @@ class AssetLoaderTest extends TestCase {
 
         // Test (cold)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(AssetLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(AssetLoader::class)
             ->setWithDocuments(AssetLoaderCreateWithDocuments::DOCUMENTS);
 
         $importer->create(AssetLoaderCreateWithDocuments::ASSET);
@@ -130,7 +134,8 @@ class AssetLoaderTest extends TestCase {
 
         // Test (hot)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(AssetLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(AssetLoader::class)
             ->setWithDocuments(AssetLoaderCreateWithDocuments::DOCUMENTS);
 
         $importer->create(AssetLoaderCreateWithDocuments::ASSET);
@@ -156,7 +161,9 @@ class AssetLoaderTest extends TestCase {
         });
 
         $id     = $this->faker->uuid;
-        $loader = $this->app->make(AssetLoader::class)->setWithWarrantyCheck(true);
+        $loader = $this->app->make(Container::class)
+            ->make(AssetLoader::class)
+            ->setWithWarrantyCheck(true);
 
         $this->expectExceptionObject(new AssetWarrantyCheckFailed($id));
 

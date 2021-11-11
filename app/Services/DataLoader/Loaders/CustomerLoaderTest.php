@@ -10,6 +10,7 @@ use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
@@ -48,7 +49,8 @@ class CustomerLoaderTest extends TestCase {
 
         // Test (cold)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(CustomerLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
             ->setWithAssets(CustomerLoaderCreateWithoutAssets::ASSETS)
             ->setWithAssetsDocuments(CustomerLoaderCreateWithoutAssets::ASSETS);
 
@@ -73,7 +75,8 @@ class CustomerLoaderTest extends TestCase {
 
         // Test (hot)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(CustomerLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
             ->setWithAssets(CustomerLoaderCreateWithoutAssets::ASSETS)
             ->setWithAssetsDocuments(CustomerLoaderCreateWithoutAssets::ASSETS);
 
@@ -108,7 +111,8 @@ class CustomerLoaderTest extends TestCase {
 
         // Test (cold)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(CustomerLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
             ->setWithAssets(CustomerLoaderCreateWithAssets::ASSETS)
             ->setWithAssetsDocuments(CustomerLoaderCreateWithAssets::ASSETS);
 
@@ -134,7 +138,8 @@ class CustomerLoaderTest extends TestCase {
         // Test (hot)
 
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(CustomerLoader::class)
+        $importer = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
             ->setWithAssets(CustomerLoaderCreateWithAssets::ASSETS)
             ->setWithAssetsDocuments(CustomerLoaderCreateWithAssets::ASSETS);
 
@@ -161,7 +166,9 @@ class CustomerLoaderTest extends TestCase {
         });
 
         $id     = $this->faker->uuid;
-        $loader = $this->app->make(CustomerLoader::class)->setWithWarrantyCheck(true);
+        $loader = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
+            ->setWithWarrantyCheck(true);
 
         $this->expectExceptionObject(new CustomerWarrantyCheckFailed($id));
 

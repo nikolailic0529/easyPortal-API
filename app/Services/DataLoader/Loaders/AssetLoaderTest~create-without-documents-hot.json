@@ -92,9 +92,34 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:00:50",
-            "2021-08-30 00:01:12",
+            "2021-08-30 00:00:58",
+            "2021-08-30 00:01:20",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777"
+        ]
+    },
+    {
+        "query": "select * from `customers` where `id` in (?) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
+        ]
+    },
+    {
+        "query": "select * from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `customer_id` in (?) group by `customer_id`, `location_id`",
+        "bindings": [
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
         ]
     }
 ]

@@ -9,6 +9,7 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Loaders\DocumentLoaderCreate;
@@ -44,7 +45,8 @@ class DocumentLoaderTest extends TestCase {
 
         // Test (cold)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(DocumentLoader::class);
+        $importer = $this->app->make(Container::class)
+            ->make(DocumentLoader::class);
 
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 
@@ -67,7 +69,8 @@ class DocumentLoaderTest extends TestCase {
 
         // Test (hot)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(DocumentLoader::class);
+        $importer = $this->app->make(Container::class)
+            ->make(DocumentLoader::class);
 
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 

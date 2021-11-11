@@ -9,6 +9,7 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Loaders\DistributorLoaderCreate;
@@ -44,7 +45,8 @@ class DistributorLoaderTest extends TestCase {
 
         // Test (cold)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(DistributorLoader::class);
+        $importer = $this->app->make(Container::class)
+            ->make(DistributorLoader::class);
 
         $importer->create(DistributorLoaderCreate::DISTRIBUTOR);
 
@@ -67,7 +69,8 @@ class DistributorLoaderTest extends TestCase {
 
         // Test (hot)
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(DistributorLoader::class);
+        $importer = $this->app->make(Container::class)
+            ->make(DistributorLoader::class);
 
         $importer->create(DistributorLoaderCreate::DISTRIBUTOR);
 
