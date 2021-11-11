@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "16804b25-302b-4581-b267-64040e8e7dbb",
-                    "name": "Romaguera LLC",
-                    "updatedAt": "1636454859821",
+                    "name": "Herzog-Mills",
+                    "updatedAt": "1636543031301",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14174143330",
-                            "name": "Dr. Jacques Waelchi MD",
+                            "phoneNumber": "+15024979460",
+                            "name": "Kiarra Macejkovic",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "23190",
-                            "address": "16391 Joey Field",
-                            "city": "Mosciskiland",
+                            "zip": "91263",
+                            "address": "736 Stiedemann Freeway",
+                            "city": "Stehrfort",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": "-6.584361",
-                            "longitude": "-16.747353",
-                            "countryCode": "GB"
+                            "country": "Austria",
+                            "latitude": "-62.167045",
+                            "longitude": "-175.122992",
+                            "countryCode": "EG"
                         }
                     ],
                     "brandingData": null,

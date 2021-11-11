@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Bogan-Ortiz",
+                    "name": "Schroeder, Veum and Rippin",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "86363-8939",
-                            "address": "30975 Nikko Ford Suite 706",
-                            "city": "New Vallie",
+                            "zip": "24136-4819",
+                            "address": "17582 Logan Burgs Apt. 163",
+                            "city": "Isidrofurt",
                             "locationType": "HEADQUARTER",
-                            "country": "Cook Islands",
-                            "latitude": "-45.985135",
-                            "longitude": "11.450906",
-                            "countryCode": "SS"
+                            "country": "New Zealand",
+                            "latitude": "18.598181",
+                            "longitude": "171.91093",
+                            "countryCode": "TH"
                         }
                     ],
                     "brandingData": null,

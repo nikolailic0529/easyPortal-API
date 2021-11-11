@@ -1,5 +1,5 @@
 {
-    "generated": "2021-11-10T07:26:54+00:00",
+    "generated": "2021-11-11T09:53:14+00:00",
     "distributors": [
         "143c456a-e894-4710-a1c2-745b9582ca47"
     ],
@@ -9,5 +9,8 @@
     "customers": [
         "16804b25-302b-4581-b267-64040e8e7dbb"
     ],
-    "oems": "oem.csv"
+    "oems": "oem.csv",
+    "types": [
+        "Quote renewal"
+    ]
 }
