@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Collection;
 
 trait AssetsPrefetch {

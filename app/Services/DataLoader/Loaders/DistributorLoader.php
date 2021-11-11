@@ -3,11 +3,11 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use Exception;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class DistributorLoader extends CompanyLoader {

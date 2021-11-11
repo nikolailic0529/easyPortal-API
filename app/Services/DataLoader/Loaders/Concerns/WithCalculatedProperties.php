@@ -24,7 +24,7 @@ trait WithCalculatedProperties {
     }
 
     /**
-     * @return array<\App\Services\DataLoader\Resolver>
+     * @return array<class-string<\App\Services\DataLoader\Resolver>>
      */
     abstract protected function getResolversToRecalculate(): array;
 }
