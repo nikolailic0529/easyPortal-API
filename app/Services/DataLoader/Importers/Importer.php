@@ -40,6 +40,10 @@ abstract class Importer {
         return $this->exceptionHandler;
     }
 
+    protected function getContainer(): Container {
+        return $this->container;
+    }
+
     public function onInit(?Closure $closure): static {
         $this->onInit = $closure;
 
