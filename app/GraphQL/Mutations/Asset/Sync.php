@@ -13,15 +13,19 @@ class Sync {
     }
 
     /**
-     * @param array{input: array<array{id: string, documents?: ?bool}>} $args
+     * @param array{input: array{id: array<string>}} $args
      *
      * @return array{result: bool}
      */
     public function __invoke(mixed $root, array $args): array {
-        foreach ($args['input'] as $input) {
+        foreach ($args['input']['id'] as $id) {
             $this->container
                 ->make(AssetSync::class)
-                ->init($input['id'], $input['documents'] ?? null)
+                ->init(
+                    id           : $id,
+                    warrantyCheck: true,
+                    documents    : true,
+                )
                 ->run();
         }
 

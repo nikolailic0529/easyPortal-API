@@ -149,7 +149,6 @@ class AssetTest extends TestCase {
                             document_id
                             start
                             end
-                            note
                             serviceGroup {
                               id
                                 oem_id
@@ -217,6 +216,19 @@ class AssetTest extends TestCase {
                                     }
                                 }
                             }
+                            type_id
+                            type {
+                                id
+                                key
+                                name
+                            }
+                            status_id
+                            status {
+                                id
+                                key
+                                name
+                            }
+                            description
                         }
                         status {
                             id
@@ -444,7 +456,6 @@ class AssetTest extends TestCase {
                                     'document_id'   => null,
                                     'start'         => '2021-01-01',
                                     'end'           => '2022-01-01',
-                                    'note'          => 'note',
                                     'serviceLevels' => [
                                         // empty
                                     ],
@@ -472,6 +483,11 @@ class AssetTest extends TestCase {
                                             ],
                                         ],
                                     ],
+                                    'type_id'       => null,
+                                    'type'          => null,
+                                    'status_id'     => null,
+                                    'status'        => null,
+                                    'description'   => null,
                                 ],
                                 [
                                     'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -480,7 +496,6 @@ class AssetTest extends TestCase {
                                     'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'start'         => '2021-01-01',
                                     'end'           => '2022-01-01',
-                                    'note'          => 'note',
                                     'serviceLevels' => [
                                         [
                                             'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
@@ -550,6 +565,19 @@ class AssetTest extends TestCase {
                                             ],
                                         ],
                                     ],
+                                    'type_id'       => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                    'type'          => [
+                                        'id'   => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                        'key'  => 'type',
+                                        'name' => 'Type',
+                                    ],
+                                    'status_id'     => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                    'status'        => [
+                                        'id'   => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                        'key'  => 'status',
+                                        'name' => 'Type',
+                                    ],
+                                    'description'   => 'warranty description',
                                 ],
                             ],
                             'status'          => [
@@ -824,6 +852,17 @@ class AssetTest extends TestCase {
                                 ]);
 
                             // Should be returned - document has valid type
+                            $warrantyType   = Type::factory()->create([
+                                'id'   => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                'key'  => 'type',
+                                'name' => 'Type',
+                            ]);
+                            $warrantyStatus = Status::factory()->create([
+                                'id'   => '2511521b-8cd3-4bff-b27d-758627f796ef',
+                                'key'  => 'status',
+                                'name' => 'Type',
+                            ]);
+
                             AssetWarranty::factory()
                                 ->hasAttached($serviceLevel)
                                 ->for($serviceGroup)
@@ -835,7 +874,9 @@ class AssetTest extends TestCase {
                                     'document_id' => $document,
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
+                                    'type_id'     => $warrantyType,
+                                    'status_id'   => $warrantyStatus,
+                                    'description' => 'warranty description',
                                 ]);
 
                             // Should be returned - no document
@@ -848,7 +889,6 @@ class AssetTest extends TestCase {
                                     'document_id' => null,
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
                                 ]);
 
                             // Should not be returned - document not a contract
@@ -861,7 +901,6 @@ class AssetTest extends TestCase {
                                     'document_id' => Document::factory()->create(),
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
                                 ]);
                             // Quote Requests
                             QuoteRequest::factory()

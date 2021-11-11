@@ -2,7 +2,11 @@ type AssetWarranty {
   id: ID!
   start: Date
   end: Date
-  note: String
+  type_id: String
+  type: Type @belongsTo
+  status_id: String
+  status: Status @belongsTo
+  description: String
   customer_id: ID
   customer: Customer @belongsTo
   document_id: ID

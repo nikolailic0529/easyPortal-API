@@ -3,6 +3,6 @@
 namespace Tests\Data\Services\DataLoader\Loaders;
 
 class CustomerLoaderCreateWithAssets extends CustomerLoaderCreateWithoutAssets {
-    public const CUSTOMER = 'bbbe3c26-3774-480c-89f3-621ad2a687ec';
+    public const CUSTOMER = '15c8acb6-b191-46a2-8921-243282eeed54';
     public const ASSETS   = true;
 }

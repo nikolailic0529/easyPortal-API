@@ -25,7 +25,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
 
     /**
      * @param \Closure(array $variables): array<mixed> $executor
-     * @param \Closure(mixed $retriever): T            $retriever
+     * @param \Closure(mixed $item): T                 $retriever
      */
     public function __construct(
         protected ?Closure $executor,
@@ -114,7 +114,16 @@ abstract class QueryIteratorImpl implements QueryIterator {
 
         // Convert
         return $this->retriever ? array_filter(array_map(function (mixed $item): mixed {
-            return ($this->retriever)($item);
+            return $this->chunkPrepareItem($this->retriever, $item);
         }, $items)) : $items;
+    }
+
+    /**
+     * @param \Closure(mixed $item): T $retriever
+     *
+     * @return T
+     */
+    protected function chunkPrepareItem(Closure $retriever, mixed $item): mixed {
+        return $retriever($item);
     }
 }

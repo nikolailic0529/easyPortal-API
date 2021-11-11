@@ -15,16 +15,6 @@ class CustomerSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::uniqueId
-     */
-    public function testUniqueId(): void {
-        $expected = $this->faker->uuid;
-        $actual   = $this->app->make(CustomerSync::class)->init($expected)->uniqueId();
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
@@ -34,6 +24,7 @@ class CustomerSyncTest extends TestCase {
     public function testInvoke(
         array $expected,
         string $customerId,
+        ?bool $warrantyCheck,
         ?bool $withAssets,
         ?bool $withAssetsDocuments,
     ): void {
@@ -45,7 +36,12 @@ class CustomerSyncTest extends TestCase {
         });
 
         $this->app->make(CustomerSync::class)
-            ->init($customerId, $withAssets, $withAssetsDocuments)
+            ->init(
+                id             : $customerId,
+                warrantyCheck  : $warrantyCheck,
+                assets         : $withAssets,
+                assetsDocuments: $withAssetsDocuments,
+            )
             ->run();
     }
     // </editor-fold>
@@ -64,6 +60,7 @@ class CustomerSyncTest extends TestCase {
                 '48c485a3-f0ed-44e5-9bc4-7ea28fba98ae',
                 null,
                 null,
+                null,
             ],
             'customer with assets and documents'         => [
                 [
@@ -72,6 +69,7 @@ class CustomerSyncTest extends TestCase {
                     '--assets-documents' => true,
                 ],
                 'd43cb8ab-fae5-4d04-8407-15d979145deb',
+                null,
                 true,
                 true,
             ],
@@ -82,6 +80,7 @@ class CustomerSyncTest extends TestCase {
                     '--no-assets-documents' => true,
                 ],
                 'a2ff9b08-0404-4bde-a400-288d6ce4a1c8',
+                null,
                 false,
                 false,
             ],
@@ -92,8 +91,29 @@ class CustomerSyncTest extends TestCase {
                     '--no-assets-documents' => true,
                 ],
                 '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
+                null,
                 true,
                 false,
+            ],
+            'customer with warranty check'               => [
+                [
+                    'id'               => 'af894f73-a0c5-488c-9221-31b1705351bb',
+                    '--warranty-check' => true,
+                ],
+                'af894f73-a0c5-488c-9221-31b1705351bb',
+                true,
+                null,
+                null,
+            ],
+            'customer without warranty check'            => [
+                [
+                    'id'                  => 'af894f73-a0c5-488c-9221-31b1705351bb',
+                    '--no-warranty-check' => true,
+                ],
+                'af894f73-a0c5-488c-9221-31b1705351bb',
+                false,
+                null,
+                null,
             ],
         ];
     }

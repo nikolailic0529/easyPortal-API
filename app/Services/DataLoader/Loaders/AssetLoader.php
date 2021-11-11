@@ -10,6 +10,7 @@ use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithCalculatedProperties;
+use App\Services\DataLoader\Loaders\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -21,6 +22,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class AssetLoader extends Loader implements LoaderRecalculable {
     use WithCalculatedProperties;
+    use WithWarrantyCheck;
 
     protected bool $withDocuments = false;
 
@@ -55,6 +57,10 @@ class AssetLoader extends Loader implements LoaderRecalculable {
     }
 
     protected function getObjectById(string $id): ?Type {
+        if ($this->isWithWarrantyCheck()) {
+            $this->runAssetWarrantyCheck($id);
+        }
+
         return $this->isWithDocuments()
             ? $this->client->getAssetByIdWithDocuments($id)
             : $this->client->getAssetById($id);

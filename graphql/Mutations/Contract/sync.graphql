@@ -1,6 +1,6 @@
 extend type ContractMutations {
   sync(
-    input: [ContractSyncInput!]!
+    input: ContractSyncInput!
   ): ContractSyncPayload
   @organization
   @me(permissions: ["contracts-sync"])
@@ -8,8 +8,7 @@ extend type ContractMutations {
 }
 
 input ContractSyncInput {
-  id: ID! @rules(apply:["required","App\\Rules\\ContractId"])
-  assets: Boolean
+  id: [ID!]! @rules(apply:["required","App\\Rules\\ContractId"])
 }
 
 type ContractSyncPayload {

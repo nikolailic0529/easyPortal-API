@@ -78,5 +78,19 @@
                 "id": "97292d03-7919-406c-a15b-39bf029e6d5a"
             }
         }
-    ]
+    ],
+    "coverageStatusCheck": {
+        "coverageStatus": "COVERED",
+        "coverageStatusUpdatedAt": "1636370487877",
+        "coverageEntries": [
+            {
+                "coverageStartDate": "2019-11-07",
+                "coverageEndDate": "2022-12-06",
+                "type": "FactoryWarranty",
+                "description": null,
+                "status": "Expiring",
+                "serviceSku": null
+            }
+        ]
+    }
 }

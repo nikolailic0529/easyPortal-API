@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b",
-                    "name": "Harvey-Medhurst",
-                    "updatedAt": "1631104125779",
+                    "name": "Marks Ltd",
+                    "updatedAt": "1636517460840",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13528058014",
-                            "name": "Devon Collins Sr.",
+                            "phoneNumber": "+18289473765",
+                            "name": "Dr. Pattie Yundt IV",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13528058014",
-                            "name": "Devon Collins Sr.",
+                            "phoneNumber": "+18289473765",
+                            "name": "Dr. Pattie Yundt IV",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13528058014",
-                            "name": "Devon Collins Sr.",
+                            "phoneNumber": "+18289473765",
+                            "name": "Dr. Pattie Yundt IV",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "97359",
-                            "address": "4774 Paige Creek Suite 976",
-                            "city": "Darioshire",
+                            "zip": "71575-1943",
+                            "address": "9582 Agustina View Suite 738",
+                            "city": "Port Louveniaport",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-13.435388",
-                            "longitude": "139.969062",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "79.706752",
+                            "longitude": "-14.592579",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 30789,
-                        "activeAssets": 10392,
-                        "activeAssetsPercentage": 33.75231413816623,
+                        "activeAssets": 9572,
+                        "activeAssetsPercentage": 31.08902530124395,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 54,
+                        "activeContracts": 50,
                         "activeContractTotalAmount": 3069.2799999999997,
                         "newActiveContracts": null,
-                        "expiringContracts": 4,
-                        "activeQuotes": 60,
-                        "activeQuotesTotalAmount": 5305.92,
-                        "newActiveQuotes": 60,
-                        "expiringQuotes": 2,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "expiringContracts": 50,
+                        "activeQuotes": 58,
+                        "activeQuotesTotalAmount": 4889.960000000001,
+                        "newActiveQuotes": 58,
+                        "expiringQuotes": 58,
+                        "expiredQuotes": 5,
+                        "expiredContracts": 111,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

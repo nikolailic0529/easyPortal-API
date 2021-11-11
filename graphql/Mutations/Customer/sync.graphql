@@ -1,6 +1,6 @@
 extend type CustomerMutations {
   sync(
-    input: [CustomerSyncInput!]!
+    input: CustomerSyncInput!
   ): CustomerSyncPayload
   @organization
   @me(permissions: ["customers-sync"])
@@ -8,10 +8,7 @@ extend type CustomerMutations {
 }
 
 input CustomerSyncInput {
-  id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
-  assets: Boolean
-  "Has no effect without `assets = true`"
-  documents: Boolean
+  id: [ID!]! @rules(apply:["required","App\\Rules\\CustomerId"])
 }
 
 type CustomerSyncPayload {

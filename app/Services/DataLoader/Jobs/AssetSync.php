@@ -14,28 +14,16 @@ use Illuminate\Contracts\Console\Kernel;
 class AssetSync extends Sync {
     use CommandOptions;
 
-    protected string $assetId;
-    protected ?bool  $documents;
-
-    public function getAssetId(): string {
-        return $this->assetId;
-    }
-
-    public function getDocuments(): ?bool {
-        return $this->documents;
-    }
-
     public function displayName(): string {
         return 'ep-data-loader-asset-sync';
     }
 
-    public function uniqueId(): string {
-        return $this->getAssetId();
-    }
-
-    public function init(string $assetId, bool $documents = null): static {
-        $this->assetId   = $assetId;
-        $this->documents = $documents;
+    public function init(string $id, bool $warrantyCheck = null, bool $documents = null): static {
+        $this->objectId  = $id;
+        $this->arguments = [
+            'warranty-check' => $warrantyCheck,
+            'documents'      => $documents,
+        ];
 
         $this->initialized();
 
@@ -45,11 +33,9 @@ class AssetSync extends Sync {
     public function __invoke(Kernel $kernel): void {
         $kernel->call(UpdateAsset::class, $this->setBooleanOptions(
             [
-                'id' => $this->getAssetId(),
+                'id' => $this->getObjectId(),
             ],
-            [
-                'documents' => $this->getDocuments(),
-            ],
+            $this->getArguments(),
         ));
     }
 }

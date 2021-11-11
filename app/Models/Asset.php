@@ -39,6 +39,7 @@ use function count;
  * @property string|null                                                              $status_id
  * @property string|null                                                              $serial_number
  * @property \Carbon\CarbonImmutable|null                                             $warranty_end
+ * @property \Carbon\CarbonImmutable|null                                             $warranty_changed_at
  * @property string|null                                                              $data_quality
  * @property int                                                                      $contacts_count
  * @property int                                                                      $coverages_count
@@ -85,9 +86,10 @@ class Asset extends Model {
     use HasTags;
 
     protected const CASTS = [
-        'changed_at'   => 'datetime',
-        'synced_at'    => 'datetime',
-        'warranty_end' => 'date',
+        'changed_at'          => 'datetime',
+        'synced_at'           => 'datetime',
+        'warranty_end'        => 'date',
+        'warranty_changed_at' => 'datetime',
     ] + parent::CASTS;
 
     /**

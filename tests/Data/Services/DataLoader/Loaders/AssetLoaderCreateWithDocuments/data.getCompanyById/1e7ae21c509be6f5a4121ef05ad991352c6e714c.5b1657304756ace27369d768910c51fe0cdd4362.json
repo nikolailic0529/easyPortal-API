@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Upton Group",
+                    "name": "Bogan-Ortiz",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "25391-8238",
-                            "address": "895 Hoeger Rapid Suite 605",
-                            "city": "Lake Lexi",
+                            "zip": "86363-8939",
+                            "address": "30975 Nikko Ford Suite 706",
+                            "city": "New Vallie",
                             "locationType": "HEADQUARTER",
-                            "country": "Croatia",
-                            "latitude": "-68.509063",
-                            "longitude": "36.389362",
-                            "countryCode": "PE"
+                            "country": "Cook Islands",
+                            "latitude": "-45.985135",
+                            "longitude": "11.450906",
+                            "countryCode": "SS"
                         }
                     ],
                     "brandingData": null,

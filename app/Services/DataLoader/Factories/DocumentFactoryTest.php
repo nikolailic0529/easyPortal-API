@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
+use App\Models\Callbacks\KeysComparator;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Oem;
@@ -419,9 +420,7 @@ class DocumentFactoryTest extends TestCase {
         };
 
         // Test
-        $sort     = static function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-            return $a->getKey() <=> $b->getKey();
-        };
+        $sort     = new KeysComparator();
         $entries  = (new Collection($factory->assetDocumentObjectEntries($document, $object)))->sort($sort);
         $created  = $entries
             ->filter(static function (DocumentEntryModel $entry) use ($asset): bool {

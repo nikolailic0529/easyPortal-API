@@ -9,8 +9,11 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
+use Mockery\MockInterface;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithoutAssets;
 use Tests\TestCase;
@@ -79,7 +82,7 @@ class CustomerLoaderTest extends TestCase {
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -102,14 +105,33 @@ class CustomerLoaderTest extends TestCase {
         $this->assertEquals($expected, $actual);
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 2,
-            AssetWarranty::class => 2,
-            Document::class      => 1,
-            DocumentEntry::class => 2,
+            AssetWarranty::class => 14,
+            Document::class      => 3,
+            DocumentEntry::class => 10,
         ]);
 
         $queries->flush();
+    }
+
+    public function testCreateWithWarrantyCheck(): void {
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('triggerCoverageStatusCheck')
+                ->once()
+                ->andReturn(false);
+            $mock
+                ->shouldReceive('call')
+                ->never();
+        });
+
+        $id     = $this->faker->uuid;
+        $loader = $this->app->make(CustomerLoader::class)->setWithWarrantyCheck(true);
+
+        $this->expectExceptionObject(new CustomerWarrantyCheckFailed($id));
+
+        $loader->create($id);
     }
 }

@@ -9,11 +9,13 @@ use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
+use App\Services\DataLoader\Loaders\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
 class CustomerLoader extends CompanyLoader implements LoaderRecalculable {
+    use WithWarrantyCheck;
     use WithAssets;
 
     // <editor-fold desc="API">
@@ -28,6 +30,14 @@ class CustomerLoader extends CompanyLoader implements LoaderRecalculable {
 
         // Return
         return $company;
+    }
+
+    protected function getObjectById(string $id): ?Type {
+        if ($this->isWithWarrantyCheck()) {
+            $this->runCustomerWarrantyCheck($id);
+        }
+
+        return parent::getObjectById($id);
     }
 
     protected function getObjectFactory(): ModelFactory {

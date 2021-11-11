@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d42dbc87-4af5-44a7-ae16-ad33dceb288b",
-                    "name": "Schinner-Rau",
-                    "updatedAt": "1631171063294",
+                    "name": "Bayer PLC",
+                    "updatedAt": "1636032354982",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12513414456",
-                            "name": "Houston Jenkins",
+                            "phoneNumber": "+17865783214",
+                            "name": "Yasmine Brakus",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Krystal Upton",
+                            "name": "Dr. Annabel Schuster",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12513414456",
-                            "name": "Houston Jenkins",
+                            "phoneNumber": "+17865783214",
+                            "name": "Yasmine Brakus",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "06436",
-                            "address": "293 Gutmann Manors Apt. 700",
-                            "city": "East Veronamouth",
+                            "zip": "54113-9570",
+                            "address": "770 Thelma Prairie Apt. 182",
+                            "city": "Leannonfort",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-75.303194",
-                            "longitude": "97.525342",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "24.947101",
+                            "longitude": "46.147372",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -62,11 +62,11 @@
                         "activeContracts": 2,
                         "activeContractTotalAmount": 1393.92,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 2,
                         "activeQuotes": 103,
                         "activeQuotesTotalAmount": 13764.94,
                         "newActiveQuotes": 103,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 102,
                         "expiredQuotes": 219,
                         "expiredContracts": 193,
                         "orderedQuotes": null,

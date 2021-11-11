@@ -2,7 +2,7 @@
     {
         "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
@@ -10,51 +10,55 @@
         "bindings": []
     },
     {
+        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
         "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
         "bindings": [
-            "athena fay",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+            "abner ledner",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
             "customer",
-            "+15865508324"
+            "+13479324291"
         ]
     },
     {
         "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
         "bindings": [
-            "kellie denesik dvm",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+            "prof. maxwell eichmann dvm",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
             "customer"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1"
+            "f27913f0-d434-5842-8dd1-3338f4acc863"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
+            "0a7548dd-c241-5418-99ca-296c1b5d9607"
         ]
     },
     {
         "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
             "Customer"
         ]
     },
     {
         "query": "select * from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
@@ -68,50 +72,51 @@
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "89875 mraz crossing suite 546",
-            "90849-1923"
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "138 gianni ports suite 628",
+            "73779"
         ]
     },
     {
         "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`customer_location_id` = ? and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc"
+            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9"
         ]
     },
     {
         "query": "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
             "Customer"
         ]
     },
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:01:13",
-            "2021-08-30 00:01:16",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "2021-08-30 00:01:19",
+            "2021-08-30 00:01:22",
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
         "query": "select * from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
         "bindings": [
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "21981692-189d-43bb-b890-f7e35cb93454"
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10"
         ]
     },
     {
         "query": "select * from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987"
         ]
     },
     {
@@ -125,7 +130,7 @@
     {
         "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
-            "software",
+            "hardware",
             "asset"
         ]
     },
@@ -133,11 +138,11 @@
         "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "Software",
-            "Software",
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
-            "2021-08-30 00:01:32",
-            "2021-08-30 00:01:32"
+            "Hardware",
+            "Hardware",
+            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "2021-08-30 00:01:38",
+            "2021-08-30 00:01:38"
         ]
     },
     {
@@ -157,9 +162,9 @@
             "Asset",
             "ACTIVE",
             "ACTIVE",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "2021-08-30 00:01:33",
-            "2021-08-30 00:01:33"
+            "b996cf39-fa11-5951-b47d-fcd31cf500b4",
+            "2021-08-30 00:01:39",
+            "2021-08-30 00:01:39"
         ]
     },
     {
@@ -170,32 +175,32 @@
         "query": "select * from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "f6m50aae"
+            "q0p17a"
         ]
     },
     {
         "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "F6M50AAE",
+            "Q0P17A",
             null,
             null,
-            "VMw vSph EssPlus Kit 6P 5yr E-LTU",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
-            "2021-08-30 00:01:34",
-            "2021-08-30 00:01:34"
+            "HPE DL380 Gen9 HANA TDI Cmpt Blk",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "2021-08-30 00:01:40",
+            "2021-08-30 00:01:40"
         ]
     },
     {
         "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c"
         ]
     },
     {
         "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
@@ -209,10 +214,10 @@
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "89875 mraz crossing suite 546",
-            "90849-1923"
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "138 gianni ports suite 628",
+            "73779"
         ]
     },
     {
@@ -222,16 +227,16 @@
     {
         "query": "select * from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
         "bindings": [
-            "software"
+            "hardware"
         ]
     },
     {
         "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
-            "Software",
-            "bd0c34db-542e-55ff-84f1-309e785c25b3",
-            "2021-08-30 00:01:36",
-            "2021-08-30 00:01:36"
+            "Hardware",
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "2021-08-30 00:01:42",
+            "2021-08-30 00:01:42"
         ]
     },
     {
@@ -241,122 +246,126 @@
     {
         "query": "select * from `coverages` where (`coverages`.`id` = ?) and `coverages`.`deleted_at` is null limit 1",
         "bindings": [
-            "archived"
+            "exposed"
         ]
     },
     {
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "ARCHIVED",
-            "ARCHIVED",
-            "79b8eb7b-1822-558a-99f1-a75648af059c",
-            "2021-08-30 00:01:37",
-            "2021-08-30 00:01:37"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
-            "2021-09-04 12:00:26",
-            null,
-            "70",
-            2,
-            1,
-            "2021-08-30 00:01:38",
-            "2021-08-30 00:01:39",
-            "2021-08-30 00:01:39"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "Athena Fay",
-            "+15865508324",
-            null,
-            true,
-            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
-            "2021-08-30 00:01:40",
-            "2021-08-30 00:01:40"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
-            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
-            "2021-08-30 00:01:41",
-            "2021-08-30 00:01:41"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "863f844b-efde-5781-a57c-0d127a496cfe",
-            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
-            "a9752c6c-95ea-50c8-9919-6a0b887ecc91",
-            "2021-08-30 00:01:42",
-            "2021-08-30 00:01:42"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "Kellie Denesik DVM",
-            null,
-            null,
-            null,
-            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "EXPOSED",
+            "EXPOSED",
+            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
             "2021-08-30 00:01:43",
             "2021-08-30 00:01:43"
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "02fa1398-8d68-5cd1-b212-cbd485f67417",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 00:01:44",
-            "2021-08-30 00:01:44"
-        ]
-    },
-    {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "bd0c34db-542e-55ff-84f1-309e785c25b3",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
             "1a053142-e655-59bb-a4b5-08df1c9318de",
-            "2021-08-30 00:01:45",
-            "2021-08-30 00:01:45"
-        ]
-    },
-    {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "79b8eb7b-1822-558a-99f1-a75648af059c",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "2021-11-10 10:33:53",
+            "e493415c-6568-33aa-b25d-d0bab36e0d48",
+            "130",
+            2,
+            1,
+            "2021-08-30 00:01:44",
+            null,
+            "2021-11-10 10:33:53",
             "2021-08-30 00:01:46",
             "2021-08-30 00:01:46"
         ]
     },
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7"
+            "Asset",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "Abner Ledner",
+            "+13479324291",
+            null,
+            true,
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "2021-08-30 00:01:47",
+            "2021-08-30 00:01:47"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "2021-08-30 00:01:48",
+            "2021-08-30 00:01:48"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "627f7de9-a951-517f-9fc9-ba71001eee39",
+            "2021-08-30 00:01:49",
+            "2021-08-30 00:01:49"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "Prof. Maxwell Eichmann DVM",
+            null,
+            null,
+            null,
+            "faa04214-add0-5aa9-8316-6ae79cf767cc",
+            "2021-08-30 00:01:50",
+            "2021-08-30 00:01:50"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
+            "faa04214-add0-5aa9-8316-6ae79cf767cc",
+            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
+            "2021-08-30 00:01:51",
+            "2021-08-30 00:01:51"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
+            "2021-08-30 00:01:52",
+            "2021-08-30 00:01:52"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
+            "2021-08-30 00:01:53",
+            "2021-08-30 00:01:53"
+        ]
+    },
+    {
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
         ]
     },
     {
@@ -370,7 +379,7 @@
     {
         "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
-            "quote renewal",
+            "quote new business",
             "document"
         ]
     },
@@ -378,23 +387,23 @@
         "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Document",
-            "Quote renewal",
-            "Quote renewal",
-            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
-            "2021-08-30 00:01:48",
-            "2021-08-30 00:01:48"
+            "Quote New Business",
+            "Quote New Business",
+            "445e2b40-4e67-516a-a190-cf516597223c",
+            "2021-08-30 00:01:55",
+            "2021-08-30 00:01:55"
         ]
     },
     {
         "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c"
         ]
     },
     {
         "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+            "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },
     {
@@ -404,17 +413,17 @@
     {
         "query": "select * from `currencies` where (`currencies`.`id` = ?) and `currencies`.`deleted_at` is null limit 1",
         "bindings": [
-            "eur"
+            "chf"
         ]
     },
     {
         "query": "insert into `currencies` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "EUR",
-            "EUR",
-            "673f7541-1538-5839-93dc-cb386aa163cf",
-            "2021-08-30 00:01:49",
-            "2021-08-30 00:01:49"
+            "CHF",
+            "CHF",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            "2021-08-30 00:01:56",
+            "2021-08-30 00:01:56"
         ]
     },
     {
@@ -432,9 +441,9 @@
         "bindings": [
             "EN",
             "EN",
-            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
-            "2021-08-30 00:01:50",
-            "2021-08-30 00:01:50"
+            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
+            "2021-08-30 00:01:57",
+            "2021-08-30 00:01:57"
         ]
     },
     {
@@ -452,46 +461,186 @@
     {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
-            "afb06e33-329e-3b5e-9441-cf2b6ba75525",
-            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
-            "673f7541-1538-5839-93dc-cb386aa163cf",
-            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "09b93f7b-e4cb-343c-8031-ff2625d04f96",
+            "445e2b40-4e67-516a-a190-cf516597223c",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
             "143c456a-e894-4710-a1c2-745b9582ca47",
-            "2020-11-01 00:00:00",
-            "2021-10-31 00:00:00",
-            "857.00",
-            "98a978d0-9f20-3fd5-9c2f-a6113b922766",
-            "2021-07-15 10:47:00",
+            "2021-04-01 00:00:00",
+            "2022-03-31 00:00:00",
+            null,
+            "8b9fed91-c7be-38c5-ade7-5caeac892137",
+            "2021-07-15 12:51:38",
             0,
-            "2021-08-30 00:01:53",
+            "2021-08-30 00:02:00",
+            2,
             1,
-            1,
-            "2021-08-30 00:01:54",
-            "2021-08-30 00:01:54"
+            "2021-08-30 00:02:01",
+            "2021-08-30 00:02:01"
         ]
     },
     {
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "e493415c-6568-33aa-b25d-d0bab36e0d48",
+            "44347218-7205-5a06-91b5-610fad8e938c",
             null,
-            "673f7541-1538-5839-93dc-cb386aa163cf",
-            "428.00",
-            "528.00",
-            "-8.00",
-            "528.00",
+            null,
+            "-41.00",
+            null,
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "627f7de9-a951-517f-9fc9-ba71001eee39",
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
-            "2021-08-30 00:01:55",
-            "2021-08-30 00:01:55"
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "2021-08-30 00:02:02",
+            "2021-08-30 00:02:02"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "e493415c-6568-33aa-b25d-d0bab36e0d48",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-41.00",
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "2021-08-30 00:02:03",
+            "2021-08-30 00:02:03"
+        ]
+    },
+    {
+        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987"
+        ]
+    },
+    {
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            null,
+            "09b93f7b-e4cb-343c-8031-ff2625d04f96",
+            "445e2b40-4e67-516a-a190-cf516597223c",
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "2021-04-01 00:00:00",
+            "2022-03-31 00:00:00",
+            null,
+            "a6422fdc-a49a-36ca-9bfe-2c9f11e883ea",
+            "2021-07-15 12:51:38",
+            0,
+            "2021-08-30 00:02:07",
+            1,
+            1,
+            "2021-08-30 00:02:08",
+            "2021-08-30 00:02:08"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "e493415c-6568-33aa-b25d-d0bab36e0d48",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-21.00",
+            null,
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "2021-08-30 00:02:09",
+            "2021-08-30 00:02:09"
+        ]
+    },
+    {
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            null,
+            "09b93f7b-e4cb-343c-8031-ff2625d04f96",
+            "445e2b40-4e67-516a-a190-cf516597223c",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "2021-04-01 00:00:00",
+            "2023-03-31 00:00:00",
+            null,
+            "af3461fe-6611-307e-9a76-ce041023905c",
+            "2021-07-15 12:51:38",
+            0,
+            "2021-08-30 00:02:13",
+            2,
+            1,
+            "2021-08-30 00:02:14",
+            "2021-08-30 00:02:14"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "e493415c-6568-33aa-b25d-d0bab36e0d48",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-49.00",
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "4be53773-2fc4-524c-88ca-759c7e974759",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2021-08-30 00:02:15",
+            "2021-08-30 00:02:15"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "e493415c-6568-33aa-b25d-d0bab36e0d48",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-49.00",
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2021-08-30 00:02:16",
+            "2021-08-30 00:02:16"
+        ]
+    },
+    {
+        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987"
         ]
     },
     {
@@ -505,152 +654,315 @@
     {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-10-31 00:00:00",
-            "2021-08-30 00:02:00",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2"
+            "2023-03-31 00:00:00",
+            "2021-08-30 00:02:47",
+            "91aed8cc-43a7-435e-8e91-0994e828db59"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "2020-11-01 00:00:00",
-            "2021-10-31 00:00:00",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
+            null,
+            "2021-02-02 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
+            null,
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            null,
+            null,
+            "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d",
+            "2021-08-30 00:02:59",
+            "2021-08-30 00:02:59"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            null,
+            "2021-02-02 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
+            null,
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987",
+            null,
+            null,
+            "52954228-f0ad-5e9f-a43d-a848768d65ec",
+            "2021-08-30 00:03:00",
+            "2021-08-30 00:03:00"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2022-02-28 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
-            "98a978d0-9f20-3fd5-9c2f-a6113b922766",
-            "faa04214-add0-5aa9-8316-6ae79cf767cc",
-            "2021-08-30 00:02:08",
-            "2021-08-30 00:02:08"
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "8b9fed91-c7be-38c5-ade7-5caeac892137",
+            "63472d7e-4cbf-51c2-9909-05e2cbca91be",
+            "2021-08-30 00:03:01",
+            "2021-08-30 00:03:01"
         ]
     },
     {
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "faa04214-add0-5aa9-8316-6ae79cf767cc",
-            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
-            "2021-08-30 00:02:09",
-            "2021-08-30 00:02:09"
+            "63472d7e-4cbf-51c2-9909-05e2cbca91be",
+            "f14bc56f-717f-5132-94af-3eba66d9158e",
+            "2021-08-30 00:03:02",
+            "2021-08-30 00:03:02"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2022-03-31 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "8b9fed91-c7be-38c5-ade7-5caeac892137",
+            "026d358d-b01e-5079-8fd9-9c955a9064ce",
+            "2021-08-30 00:03:03",
+            "2021-08-30 00:03:03"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "026d358d-b01e-5079-8fd9-9c955a9064ce",
+            "36723ca7-ed0b-54aa-8e22-eec5fa45ae24",
+            "2021-08-30 00:03:04",
+            "2021-08-30 00:03:04"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2022-03-31 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "a6422fdc-a49a-36ca-9bfe-2c9f11e883ea",
+            "c8526c37-fec0-5a56-aead-fd820acdfb51",
+            "2021-08-30 00:03:05",
+            "2021-08-30 00:03:05"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "c8526c37-fec0-5a56-aead-fd820acdfb51",
+            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
+            "2021-08-30 00:03:06",
+            "2021-08-30 00:03:06"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2023-02-28 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "af3461fe-6611-307e-9a76-ce041023905c",
+            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1",
+            "2021-08-30 00:03:07",
+            "2021-08-30 00:03:07"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1",
+            "e62950ed-417e-5384-9d3c-be30424ca8ec",
+            "2021-08-30 00:03:08",
+            "2021-08-30 00:03:08"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2023-03-31 00:00:00",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            null,
+            null,
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "af3461fe-6611-307e-9a76-ce041023905c",
+            "9166167a-70ae-5591-a284-bb6b14de83e8",
+            "2021-08-30 00:03:09",
+            "2021-08-30 00:03:09"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "9166167a-70ae-5591-a284-bb6b14de83e8",
+            "d87e7785-b72f-5336-91ac-f424f47bede6",
+            "2021-08-30 00:03:10",
+            "2021-08-30 00:03:10"
         ]
     },
     {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "21981692-189d-43bb-b890-f7e35cb93454",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
-            "2021-09-05 01:19:02",
-            null,
-            "70",
+            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "b996cf39-fa11-5951-b47d-fcd31cf500b4",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "2021-09-04 22:45:52",
+            "b0932612-689e-3625-805d-9c27e84f4b95",
+            "130",
             2,
             1,
-            "2021-08-30 00:02:11",
-            "2021-08-30 00:02:12",
-            "2021-08-30 00:02:12"
+            "2021-08-30 00:03:12",
+            "2021-08-30 00:03:13",
+            "2021-08-30 00:03:13"
         ]
     },
     {
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "21981692-189d-43bb-b890-f7e35cb93454",
-            "Athena Fay",
-            "+15865508324",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "Abner Ledner",
+            "+13479324291",
             null,
             true,
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
-            "2021-08-30 00:02:13",
-            "2021-08-30 00:02:13"
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
+            "2021-08-30 00:03:14",
+            "2021-08-30 00:03:14"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
-            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
-            "2021-08-30 00:02:14",
-            "2021-08-30 00:02:14"
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "2021-08-30 00:03:15",
+            "2021-08-30 00:03:15"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "863f844b-efde-5781-a57c-0d127a496cfe",
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
-            "445e2b40-4e67-516a-a190-cf516597223c",
-            "2021-08-30 00:02:15",
-            "2021-08-30 00:02:15"
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
+            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
+            "2021-08-30 00:03:16",
+            "2021-08-30 00:03:16"
         ]
     },
     {
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "21981692-189d-43bb-b890-f7e35cb93454",
-            "Kellie Denesik DVM",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "Prof. Maxwell Eichmann DVM",
             null,
             null,
             null,
-            "44347218-7205-5a06-91b5-610fad8e938c",
-            "2021-08-30 00:02:16",
-            "2021-08-30 00:02:16"
+            "1b99939b-c780-5e17-baf6-c040f864173f",
+            "2021-08-30 00:03:17",
+            "2021-08-30 00:03:17"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
-            "44347218-7205-5a06-91b5-610fad8e938c",
-            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
-            "2021-08-30 00:02:17",
-            "2021-08-30 00:02:17"
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
+            "1b99939b-c780-5e17-baf6-c040f864173f",
+            "9c9d3f46-1ace-5418-99b1-99afcc35060d",
+            "2021-08-30 00:03:18",
+            "2021-08-30 00:03:18"
         ]
     },
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "bd0c34db-542e-55ff-84f1-309e785c25b3",
-            "21981692-189d-43bb-b890-f7e35cb93454",
-            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
-            "2021-08-30 00:02:18",
-            "2021-08-30 00:02:18"
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "b17c906a-d184-5c69-ba1b-330d29815dc6",
+            "2021-08-30 00:03:19",
+            "2021-08-30 00:03:19"
         ]
     },
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "79b8eb7b-1822-558a-99f1-a75648af059c",
-            "21981692-189d-43bb-b890-f7e35cb93454",
-            "17c73208-742c-50da-93c7-93a514201fee",
-            "2021-08-30 00:02:19",
-            "2021-08-30 00:02:19"
+            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791",
+            "2021-08-30 00:03:20",
+            "2021-08-30 00:03:20"
         ]
     },
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7"
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
         ]
     },
     {
-        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7"
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19"
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
             "Document"
         ]
     },
@@ -658,71 +970,324 @@
         "query": "update `documents` set `assets_count` = ?, `entries_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             2,
-            2,
-            "2021-08-30 00:02:24",
-            "2021-08-30 00:02:29",
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7"
+            4,
+            "2021-08-30 00:03:25",
+            "2021-08-30 00:03:30",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d"
         ]
     },
     {
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "21981692-189d-43bb-b890-f7e35cb93454",
-            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "b0932612-689e-3625-805d-9c27e84f4b95",
+            "44347218-7205-5a06-91b5-610fad8e938c",
             null,
-            "673f7541-1538-5839-93dc-cb386aa163cf",
-            "428.00",
-            "528.00",
-            "-8.00",
-            "528.00",
+            null,
+            "-41.00",
+            null,
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "2021-08-30 00:03:54",
+            "2021-08-30 00:03:54"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "b0932612-689e-3625-805d-9c27e84f4b95",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-41.00",
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "39e37129-6357-5640-b3c2-2c1201cbd594",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "2021-08-30 00:03:55",
+            "2021-08-30 00:03:55"
+        ]
+    },
+    {
+        "query": "update `documents` set `assets_count` = ?, `entries_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            2,
+            2,
+            "2021-08-30 00:04:00",
+            "2021-08-30 00:04:05",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "b0932612-689e-3625-805d-9c27e84f4b95",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-21.00",
+            null,
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
-            "2021-08-30 00:02:53",
-            "2021-08-30 00:02:53"
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "2021-08-30 00:04:29",
+            "2021-08-30 00:04:29"
+        ]
+    },
+    {
+        "query": "update `documents` set `assets_count` = ?, `entries_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            2,
+            4,
+            "2021-08-30 00:04:34",
+            "2021-08-30 00:04:39",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "b0932612-689e-3625-805d-9c27e84f4b95",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-49.00",
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2021-08-30 00:05:03",
+            "2021-08-30 00:05:03"
+        ]
+    },
+    {
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            "1a053142-e655-59bb-a4b5-08df1c9318de",
+            "b0932612-689e-3625-805d-9c27e84f4b95",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            null,
+            null,
+            "-49.00",
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "fff01968-e122-52ef-becb-2ffbfc259162",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2021-08-30 00:05:04",
+            "2021-08-30 00:05:04"
         ]
     },
     {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-10-31 00:00:00",
-            "2021-08-30 00:02:58",
-            "21981692-189d-43bb-b890-f7e35cb93454"
+            "2023-03-31 00:00:00",
+            "2021-08-30 00:05:34",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10"
         ]
     },
     {
-        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "2020-11-01 00:00:00",
-            "2021-10-31 00:00:00",
-            "21981692-189d-43bb-b890-f7e35cb93454",
+            null,
+            "2021-02-02 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
+            null,
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            null,
+            null,
+            "3a4fb277-bbd2-5710-a542-5274e3b53cc2",
+            "2021-08-30 00:05:42",
+            "2021-08-30 00:05:42"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            null,
+            "2021-02-02 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
+            null,
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987",
+            null,
+            null,
+            "311c4a8b-7d91-5fc2-870f-2c5a03681902",
+            "2021-08-30 00:05:43",
+            "2021-08-30 00:05:43"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2022-02-28 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
-            "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
-            "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
-            "98a978d0-9f20-3fd5-9c2f-a6113b922766",
-            "4be53773-2fc4-524c-88ca-759c7e974759",
-            "2021-08-30 00:03:06",
-            "2021-08-30 00:03:06"
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "8b9fed91-c7be-38c5-ade7-5caeac892137",
+            "092a1c8c-bddd-5cf1-a921-4b41c8835536",
+            "2021-08-30 00:05:44",
+            "2021-08-30 00:05:44"
         ]
     },
     {
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "092a1c8c-bddd-5cf1-a921-4b41c8835536",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "2021-08-30 00:05:45",
+            "2021-08-30 00:05:45"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2022-03-31 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "8b9fed91-c7be-38c5-ade7-5caeac892137",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
+            "2021-08-30 00:05:46",
+            "2021-08-30 00:05:46"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
+            "f50b4a9f-54fb-5888-92f9-2288108f925d",
+            "2021-08-30 00:05:47",
+            "2021-08-30 00:05:47"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2022-03-31 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "4be53773-2fc4-524c-88ca-759c7e974759",
-            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
-            "2021-08-30 00:03:07",
-            "2021-08-30 00:03:07"
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "f7b1ed88-0f57-4fd5-a368-9bb5ca337987",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "a6422fdc-a49a-36ca-9bfe-2c9f11e883ea",
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
+            "2021-08-30 00:05:48",
+            "2021-08-30 00:05:48"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
+            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
+            "2021-08-30 00:05:49",
+            "2021-08-30 00:05:49"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2023-02-28 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "af3461fe-6611-307e-9a76-ce041023905c",
+            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
+            "2021-08-30 00:05:50",
+            "2021-08-30 00:05:50"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
+            "c6ff9936-ddae-51a3-aa1a-95f8d04f68ab",
+            "2021-08-30 00:05:51",
+            "2021-08-30 00:05:51"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "2021-04-01 00:00:00",
+            "2023-03-31 00:00:00",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10",
+            null,
+            null,
+            null,
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "af3461fe-6611-307e-9a76-ce041023905c",
+            "1ef32220-4547-5581-8b7b-986ee08fcbba",
+            "2021-08-30 00:05:52",
+            "2021-08-30 00:05:52"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "1ef32220-4547-5581-8b7b-986ee08fcbba",
+            "8217815e-c85f-5561-909d-53fd76c39857",
+            "2021-08-30 00:05:53",
+            "2021-08-30 00:05:53"
         ]
     },
     {
         "query": "select * from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `id` not in (?, ?) and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 1000 offset 0",
         "bindings": [
-            "bbbe3c26-3774-480c-89f3-621ad2a687ec",
-            "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
-            "21981692-189d-43bb-b890-f7e35cb93454"
+            "15c8acb6-b191-46a2-8921-243282eeed54",
+            "91aed8cc-43a7-435e-8e91-0994e828db59",
+            "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10"
         ]
     }
 ]

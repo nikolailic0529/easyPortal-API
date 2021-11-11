@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0cd3444e-8f5d-4e3c-a56d-e30517f583a9",
-                    "name": "Berge-Zieme",
-                    "updatedAt": "1631094349514",
+                    "name": "Koepp Inc",
+                    "updatedAt": "1636454617066",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15858959828",
-                            "name": "Dr. Patricia Gleichner",
+                            "phoneNumber": "+12480210546",
+                            "name": "Dr. Shaun Goodwin Jr.",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12155208842",
-                            "name": "Mrs. Cleora Smitham MD",
+                            "phoneNumber": "+16512462247",
+                            "name": "Dr. Shannon Nader MD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15858959828",
-                            "name": "Dr. Patricia Gleichner",
+                            "phoneNumber": "+12480210546",
+                            "name": "Dr. Shaun Goodwin Jr.",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "09029-0018",
-                            "address": "41199 Moses Stravenue",
-                            "city": "Cristburgh",
+                            "zip": "39022",
+                            "address": "380 Anissa Forest Apt. 558",
+                            "city": "Grimeshaven",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-9.633903",
-                            "longitude": "-56.036403",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "-72.007387",
+                            "longitude": "20.787516",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -60,13 +60,13 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 18,
-                        "activeQuotesTotalAmount": 4352.950000000001,
+                        "activeQuotesTotalAmount": 4352.95,
                         "newActiveQuotes": 18,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 18,
                         "expiredQuotes": 53,
                         "expiredContracts": 52,
                         "orderedQuotes": null,

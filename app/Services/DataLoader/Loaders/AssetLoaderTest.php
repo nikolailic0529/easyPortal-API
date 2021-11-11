@@ -9,8 +9,11 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
+use Mockery\MockInterface;
 use Tests\Data\Services\DataLoader\Loaders\AssetLoaderCreateWithDocuments;
 use Tests\Data\Services\DataLoader\Loaders\AssetLoaderCreateWithoutDocuments;
 use Tests\TestCase;
@@ -60,7 +63,7 @@ class AssetLoaderTest extends TestCase {
             Reseller::class      => 0,
             Customer::class      => 1,
             Asset::class         => 1,
-            AssetWarranty::class => 0,
+            AssetWarranty::class => 2,
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
@@ -103,11 +106,30 @@ class AssetLoaderTest extends TestCase {
             Reseller::class      => 1,
             Customer::class      => 1,
             Asset::class         => 1,
-            AssetWarranty::class => 6,
+            AssetWarranty::class => 10,
             Document::class      => 4,
             DocumentEntry::class => 16,
         ]);
 
         $queries->flush();
+    }
+
+    public function testCreateWithWarrantyCheck(): void {
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('triggerCoverageStatusCheck')
+                ->once()
+                ->andReturn(false);
+            $mock
+                ->shouldReceive('call')
+                ->never();
+        });
+
+        $id     = $this->faker->uuid;
+        $loader = $this->app->make(AssetLoader::class)->setWithWarrantyCheck(true);
+
+        $this->expectExceptionObject(new AssetWarrantyCheckFailed($id));
+
+        $loader->create($id);
     }
 }

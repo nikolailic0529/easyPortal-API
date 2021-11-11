@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "93666f95-3fd4-4b30-a9a1-694e0295788c",
-                    "name": "Bauch-Ruecker",
-                    "updatedAt": "1631135607767",
+                    "name": "Dickens, Halvorson and Langworth",
+                    "updatedAt": "1636519203080",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12512314132",
-                            "name": "Mckenna O'Reilly",
+                            "phoneNumber": "+19342520671",
+                            "name": "Declan Will III",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12512314132",
-                            "name": "Mckenna O'Reilly",
+                            "phoneNumber": "+19342520671",
+                            "name": "Declan Will III",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12512314132",
-                            "name": "Mckenna O'Reilly",
+                            "phoneNumber": "+19342520671",
+                            "name": "Declan Will III",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,29 +42,29 @@
                     ],
                     "locations": [
                         {
-                            "zip": "59615-3647",
-                            "address": "2988 Rowe Bridge",
-                            "city": "West Toni",
+                            "zip": "96559-9265",
+                            "address": "84314 Charley Villages Apt. 939",
+                            "city": "New Talia",
                             "locationType": null,
-                            "country": "Mexico",
-                            "latitude": "18.634836",
-                            "longitude": "36.17491",
-                            "countryCode": "BF"
+                            "country": "Macedonia",
+                            "latitude": "85.548611",
+                            "longitude": "-164.607521",
+                            "countryCode": "CU"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 4917,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 1,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 1,
                         "expiringQuotes": 0,
                         "expiredQuotes": 6,

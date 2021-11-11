@@ -253,7 +253,7 @@ type AssetMutations {
   
   @require <me(["assets-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: [AssetSyncInput!]!): AssetSyncPayload
+  sync(input: AssetSyncInput!): AssetSyncPayload
 }
 
 input AssetStatusesQuery {
@@ -261,8 +261,7 @@ input AssetStatusesQuery {
 }
 
 input AssetSyncInput {
-  id: ID!
-  documents: Boolean
+  id: [ID!]!
 }
 
 type AssetSyncPayload {
@@ -277,7 +276,6 @@ input AssetWarrantiesQuery {
   id: ID!
   start: Date
   end: Date
-  note: String
   asset: AssetsQuery
   customer_id: ID
   customer: CustomersQuery
@@ -293,7 +291,11 @@ type AssetWarranty {
   id: ID!
   start: Date
   end: Date
-  note: String
+  type_id: String
+  type: Type
+  status_id: String
+  status: Status
+  description: String
   customer_id: ID
   customer: Customer
   document_id: ID
@@ -516,7 +518,7 @@ type ContractMutations {
   
   @require <me(["contracts-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: [ContractSyncInput!]!): ContractSyncPayload
+  sync(input: ContractSyncInput!): ContractSyncPayload
 }
 
 input ContractStatusesQuery {
@@ -524,8 +526,7 @@ input ContractStatusesQuery {
 }
 
 input ContractSyncInput {
-  id: ID!
-  assets: Boolean
+  id: [ID!]!
 }
 
 type ContractSyncPayload {
@@ -710,7 +711,7 @@ type CustomerMutations {
   
   @require <me(["customers-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: [CustomerSyncInput!]!): CustomerSyncPayload
+  sync(input: CustomerSyncInput!): CustomerSyncPayload
 }
 
 input CustomerStatusesQuery {
@@ -718,11 +719,7 @@ input CustomerStatusesQuery {
 }
 
 input CustomerSyncInput {
-  id: ID!
-  assets: Boolean
-
-  """Has no effect without `assets = true`"""
-  documents: Boolean
+  id: [ID!]!
 }
 
 type CustomerSyncPayload {
@@ -2310,7 +2307,7 @@ type QuoteMutations {
   
   @require <me(["quotes-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: [QuoteSyncInput!]!): QuoteSyncPayload
+  sync(input: QuoteSyncInput!): QuoteSyncPayload
 }
 
 type QuoteRequest {
@@ -2353,8 +2350,7 @@ input QuoteStatusesQuery {
 }
 
 input QuoteSyncInput {
-  id: ID!
-  assets: Boolean
+  id: [ID!]!
 }
 
 type QuoteSyncPayload {
@@ -3219,9 +3215,6 @@ input SearchByConditionAssetWarrantiesQuery {
 
   """Property condition."""
   end: SearchByScalarDateOrNull
-
-  """Property condition."""
-  note: SearchByScalarStringOrNull
 
   """Property condition."""
   asset: SearchByComplexRelationAssetsQuery
@@ -4862,9 +4855,6 @@ input SortByClauseAssetWarrantiesQuery {
 
   """Property clause."""
   end: SortByDirection
-
-  """Property clause."""
-  note: SortByDirection
 
   """Property clause."""
   asset: SortByClauseAssetsQuery

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "f921bd2a-3bb4-417a-8ae1-a7a78e51692d",
-                    "name": "Abshire Group",
-                    "updatedAt": "1631260943233",
+                    "name": "Braun, Purdy and Dietrich",
+                    "updatedAt": "1636034240344",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19192144320",
-                            "name": "Prof. Vance Lindgren II",
+                            "phoneNumber": "+16787775611",
+                            "name": "Saul Stanton",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19192144320",
-                            "name": "Prof. Vance Lindgren II",
+                            "phoneNumber": "+16787775611",
+                            "name": "Saul Stanton",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19192144320",
-                            "name": "Prof. Vance Lindgren II",
+                            "phoneNumber": "+16787775611",
+                            "name": "Saul Stanton",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,29 +42,29 @@
                     ],
                     "locations": [
                         {
-                            "zip": "66278-1384",
-                            "address": "963 Kreiger Forges Apt. 265",
-                            "city": "Russellchester",
+                            "zip": "53157-1797",
+                            "address": "782 Maybelle Locks Suite 601",
+                            "city": "East Marquise",
                             "locationType": null,
-                            "country": "Nepal",
-                            "latitude": "18.016375",
-                            "longitude": "-170.786168",
-                            "countryCode": "PE"
+                            "country": "Pitcairn Islands",
+                            "latitude": "9.975744",
+                            "longitude": "159.967342",
+                            "countryCode": "SI"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 516,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 2,

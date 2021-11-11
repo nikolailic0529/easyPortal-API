@@ -17,7 +17,9 @@ use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetInitialWarranty;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Factories\Concerns\Children;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCoverage;
@@ -50,6 +52,7 @@ use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -72,6 +75,7 @@ use function sprintf;
 use const SORT_REGULAR;
 
 class AssetFactory extends ModelFactory implements FactoryPrefetchable {
+    use Children;
     use WithReseller;
     use WithCustomer;
     use WithOem;
@@ -278,6 +282,22 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->coverages     = $this->assetCoverages($asset);
             $model->synced_at     = Date::now();
 
+            // Warranties
+            if ($created) {
+                $model->setRelation('warranties', new EloquentCollection());
+                $model->setRelation('documentEntries', new EloquentCollection());
+            }
+
+            if (isset($asset->coverageStatusCheck)) {
+                $warrantyChangedAt = $normalizer->datetime($asset->coverageStatusCheck->coverageStatusUpdatedAt);
+
+                if ($created || $model->warranty_changed_at < $warrantyChangedAt) {
+                    $model->warranties          = $this->assetWarranties($model, $asset);
+                    $model->warranty_changed_at = $warrantyChangedAt;
+                }
+            }
+
+            // Save
             if ($created) {
                 $model->save();
             }
@@ -293,16 +313,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                         $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
                     });
 
-                    if ($created) {
-                        $model->setRelation('warranties', new EloquentCollection());
-                        $model->setRelation('documentEntries', new EloquentCollection());
-                    } else {
+                    if (!$created) {
                         $model->loadMissing('warranties.serviceLevels');
                     }
 
                     // Update
                     $documents              = $this->assetDocuments($model, $asset);
-                    $model->warranties      = $this->assetWarranties($model, $asset);
+                    $model->warranties      = $this->assetDocumentsWarranties($model, $asset);
                     $model->documentEntries = $documents
                         ->map(static function (Document $document): Collection {
                             return $document->entries;
@@ -312,19 +329,22 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                             return $model->getKey() === $entry->asset_id;
                         });
                 } finally {
+                    // Save
+                    $model->save();
+
                     // Cleanup
                     $this->getDocumentResolver()->reset();
 
                     unset($model->documentEntries);
                     unset($model->warranties);
-
-                    // Save
-                    $model->save();
                 }
             }
 
             // Save
             $model->save();
+
+            // Cleanup
+            unset($model->warranties);
 
             // Return
             return $model;
@@ -343,6 +363,57 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
         // Return
         return $model;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
+     */
+    protected function assetWarranties(AssetModel $model, ViewAsset $asset): Collection {
+        // Some warranties generated from Documents, we must not touch them.
+        $documents = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
+            return !static::isWarranty($warranty);
+        });
+        $existing  = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
+            return static::isWarranty($warranty);
+        });
+        $updated   = $this->children(
+            $existing,
+            $asset->coverageStatusCheck->coverageEntries,
+            function (CoverageEntry $entry) use ($model): ?AssetWarranty {
+                try {
+                    return $this->assetWarranty($model, $entry);
+                } catch (Throwable $exception) {
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessViewAssetCoverageEntry($model, $entry, $exception),
+                    );
+                }
+
+                return null;
+            },
+            static function (AssetWarranty $a, AssetWarranty $b): int {
+                return static::compareAssetWarranties($a, $b);
+            },
+        );
+
+        return $documents->toBase()->merge($updated);
+    }
+
+    protected function assetWarranty(AssetModel $model, CoverageEntry $entry): AssetWarranty {
+        $normalizer                = $this->getNormalizer();
+        $warranty                  = new AssetWarranty();
+        $warranty->start           = $normalizer->datetime($entry->coverageStartDate);
+        $warranty->end             = $normalizer->datetime($entry->coverageEndDate);
+        $warranty->asset           = $model;
+        $warranty->type            = $this->type($warranty, $entry->type);
+        $warranty->status          = $this->status($warranty, $entry->status);
+        $warranty->description     = $normalizer->text($entry->description);
+        $warranty->serviceGroup    = null;
+        $warranty->customer        = null;
+        $warranty->reseller        = null;
+        $warranty->document        = null;
+        $warranty->document_number = null;
+
+        return $warranty;
     }
 
     /**
@@ -402,10 +473,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarranties(AssetModel $model, ViewAsset $asset): array {
         $warranties = array_merge(
-            $this->assetInitialWarranties($model, $asset),
-            $this->assetExtendedWarranties($model, $asset),
+            $this->assetDocumentsWarrantiesInitial($model, $asset),
+            $this->assetDocumentsWarrantiesExtended($model, $asset),
+            $model->warranties->filter(static function (AssetWarranty $warranty): bool {
+                return static::isWarranty($warranty);
+            })->all(),
         );
 
         return $warranties;
@@ -414,7 +488,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetInitialWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarrantiesInitial(AssetModel $model, ViewAsset $asset): array {
         // @LastDragon: If I understand correctly, after purchasing the Asset
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
@@ -423,7 +497,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $warranties = [];
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_number === null;
+                return static::isWarrantyInitial($warranty);
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
                 return implode('|', [$warranty->end?->getTimestamp(), $warranty->reseller_id, $warranty->customer_id]);
@@ -453,6 +527,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranty->start           = null;
                 $warranty->end             = $end;
                 $warranty->asset           = $model;
+                $warranty->type            = null;
+                $warranty->status          = null;
+                $warranty->description     = null;
                 $warranty->serviceGroup    = null;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
@@ -475,13 +552,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetExtendedWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarrantiesExtended(AssetModel $model, ViewAsset $asset): array {
         // Prepare
         $serviceLevels = [];
         $warranties    = [];
         $existing      = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_number !== null;
+                return static::isWarrantyExtended($warranty);
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
                 return implode('|', [
@@ -547,6 +624,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranty->start           = $start;
                 $warranty->end             = $end;
                 $warranty->asset           = $model;
+                $warranty->type            = null;
+                $warranty->status          = null;
+                $warranty->description     = null;
                 $warranty->serviceGroup    = $serviceGroup;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
@@ -653,6 +733,27 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             })
             ->unique()
             ->all();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    protected static function isWarranty(AssetWarranty $warranty): bool {
+        return $warranty->type_id !== null;
+    }
+
+    protected static function isWarrantyInitial(AssetWarranty $warranty): bool {
+        return $warranty->document_number === null && !static::isWarranty($warranty);
+    }
+
+    protected static function isWarrantyExtended(AssetWarranty $warranty): bool {
+        return $warranty->document_number !== null && !static::isWarranty($warranty);
+    }
+
+    protected static function compareAssetWarranties(AssetWarranty $a, AssetWarranty $b): int {
+        return $a->type_id <=> $b->type_id
+            ?: ($a->start->isSameDay($b->start) ? 0 : $a->start <=> $b->start)
+            ?: ($a->end->isSameDay($b->end) ? 0 : $a->end <=> $b->end);
     }
     // </editor-fold>
 }

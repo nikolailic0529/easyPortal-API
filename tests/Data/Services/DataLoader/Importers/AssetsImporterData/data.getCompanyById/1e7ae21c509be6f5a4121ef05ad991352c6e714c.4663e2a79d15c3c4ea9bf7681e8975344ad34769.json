@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "505ebd5c-1c80-49df-9263-ba8de21aadb3",
-                    "name": "Stanton, Beahan and Windler",
-                    "updatedAt": "1631104289482",
+                    "name": "Klein, Bailey and Thiel",
+                    "updatedAt": "1636517505377",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18148262879",
-                            "name": "Meggie Kozey PhD",
+                            "phoneNumber": "+18606497489",
+                            "name": "Hadley Sawayn",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18148262879",
-                            "name": "Meggie Kozey PhD",
+                            "phoneNumber": "+18606497489",
+                            "name": "Hadley Sawayn",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18148262879",
-                            "name": "Meggie Kozey PhD",
+                            "phoneNumber": "+18606497489",
+                            "name": "Hadley Sawayn",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "88214-4591",
-                            "address": "679 Antwon Vista",
-                            "city": "Lake Estelle",
+                            "zip": "40387",
+                            "address": "39550 Boehm Parks",
+                            "city": "Pricemouth",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "71.019459",
-                            "longitude": "112.995078",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "-42.041718",
+                            "longitude": "166.277568",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -60,15 +60,15 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 6,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 6,
                         "expiringQuotes": 0,
-                        "expiredQuotes": null,
-                        "expiredContracts": null,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,

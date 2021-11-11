@@ -10,9 +10,11 @@ use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
@@ -32,6 +34,7 @@ use Illuminate\Support\Arr;
 use SplFileInfo;
 
 use function array_is_list;
+use function array_merge;
 use function explode;
 use function implode;
 use function json_encode;
@@ -46,6 +49,7 @@ class Client {
         protected Repository $config,
         protected Factory $client,
         protected Token $token,
+        protected Normalizer $normalizer,
     ) {
         // empty
     }
@@ -525,6 +529,20 @@ class Client {
             ],
         );
     }
+
+    public function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
+        return (bool) $this->normalizer->boolean($this->call(
+            'data.triggerCoverageStatusCheck',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation triggerCoverageStatusCheck($input: TriggerCoverageStatusCheck!) {
+                triggerCoverageStatusCheck(input: $input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+        ));
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">
@@ -550,7 +568,13 @@ class Client {
         array $params,
         Closure $retriever,
     ): OffsetBasedIterator {
-        return (new OffsetBasedIterator($this->handler, $this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new OffsetBasedIterator(
+            $this->handler,
+            function (array $variables) use ($selector, $graphql, $params) {
+                return $this->call("data.{$selector}", $graphql, array_merge($params, $variables));
+            },
+            $retriever,
+        ))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
@@ -568,7 +592,13 @@ class Client {
         array $params,
         Closure $retriever,
     ): LastIdBasedIterator {
-        return (new LastIdBasedIterator($this->handler, $this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new LastIdBasedIterator(
+            $this->handler,
+            function (array $variables) use ($selector, $graphql, $params) {
+                return $this->call("data.{$selector}", $graphql, array_merge($params, $variables));
+            },
+            $retriever,
+        ))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
@@ -969,6 +999,19 @@ class Client {
             }
 
             assetCoverage
+            coverageStatusCheck {
+                coverageStatus
+                coverageStatusUpdatedAt
+                coverageEntries {
+                    coverageStartDate
+                    coverageEndDate
+                    type
+                    description
+                    status
+                    serviceSku
+                }
+            }
+
             dataQualityScore
             GRAPHQL;
     }

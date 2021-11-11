@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "bd098e37-2fd5-4840-984d-bb39506d23ec",
-                    "name": "Medhurst, McCullough and Effertz",
-                    "updatedAt": "1631161462950",
+                    "name": "Cruickshank, Smitham and Schmeler",
+                    "updatedAt": "1636029864953",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12792639595",
-                            "name": "Thad Trantow IV",
+                            "phoneNumber": "+17541441225",
+                            "name": "Alene Kautzer",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12792639595",
-                            "name": "Thad Trantow IV",
+                            "phoneNumber": "+17541441225",
+                            "name": "Alene Kautzer",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12792639595",
-                            "name": "Thad Trantow IV",
+                            "phoneNumber": "+17541441225",
+                            "name": "Alene Kautzer",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "94928-4531",
-                            "address": "617 Kiehn Valleys",
-                            "city": "East Easter",
+                            "zip": "69233",
+                            "address": "90965 Walker Villages Apt. 773",
+                            "city": "West Samson",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "43.13933",
-                            "longitude": "3.057696",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "89.318992",
+                            "longitude": "97.368794",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -62,11 +62,11 @@
                         "activeContracts": 5,
                         "activeContractTotalAmount": 712.68,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 5,
                         "activeQuotes": 10,
                         "activeQuotesTotalAmount": 1906.52,
                         "newActiveQuotes": 10,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 10,
                         "expiredQuotes": 74,
                         "expiredContracts": 57,
                         "orderedQuotes": null,

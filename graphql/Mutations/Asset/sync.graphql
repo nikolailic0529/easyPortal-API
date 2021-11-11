@@ -1,6 +1,6 @@
 extend type AssetMutations {
   sync(
-    input: [AssetSyncInput!]!
+    input: AssetSyncInput!
   ): AssetSyncPayload
   @organization
   @me(permissions: ["assets-sync"])
@@ -8,8 +8,7 @@ extend type AssetMutations {
 }
 
 input AssetSyncInput {
-  id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
-  documents: Boolean
+  id: [ID!]! @rules(apply:["required","App\\Rules\\AssetId"])
 }
 
 type AssetSyncPayload {

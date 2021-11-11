@@ -39,6 +39,10 @@ abstract class Loader implements Isolated {
         return $this->exceptionHandler;
     }
 
+    protected function getClient(): Client {
+        return $this->client;
+    }
+
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**

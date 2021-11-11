@@ -17,7 +17,7 @@ class ClientDumpsIterator implements IteratorAggregate {
      * @return \Generator<\App\Services\DataLoader\Testing\Data\ClientDumpFile>
      */
     public function getIterator(): Generator {
-        $files = (new Finder())->in($this->path)->notName(DataGenerator::CONTEXT)->name('*.json')->files();
+        $files = (new Finder())->in("{$this->path}/*")->name('*.json')->files();
 
         foreach ($files as $file) {
             yield new ClientDumpFile($file);

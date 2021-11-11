@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Gibson-Trantow",
+                    "name": "Medhurst, Altenwerth and Thompson",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "51024-7546",
-                            "address": "443 Maggio Villages",
-                            "city": "North Watson",
+                            "zip": "30899",
+                            "address": "92561 Alex Bridge",
+                            "city": "Generalbury",
                             "locationType": "HEADQUARTER",
-                            "country": "Mexico",
-                            "latitude": "-75.683785",
-                            "longitude": "-140.950011",
-                            "countryCode": "BF"
+                            "country": "Macedonia",
+                            "latitude": "0.798075",
+                            "longitude": "-174.551395",
+                            "countryCode": "CU"
                         }
                     ],
                     "brandingData": null,

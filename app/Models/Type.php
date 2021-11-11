@@ -28,6 +28,7 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $documents
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @method static \Database\Factories\TypeFactory factory(...$parameters)

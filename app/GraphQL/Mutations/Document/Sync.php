@@ -15,27 +15,29 @@ class Sync {
     }
 
     /**
-     * @param array{input: array<array{id: string, assets?: ?bool}>} $args
+     * @param array{input: array{id: array<string>}} $args
      *
      * @return array{result: bool}
      */
     public function __invoke(mixed $root, array $args): array {
-        foreach ($args['input'] as $input) {
+        foreach ($args['input']['id'] as $id) {
             $this->container
                 ->make(DocumentSync::class)
-                ->init($input['id'])
+                ->init($id)
                 ->run();
 
-            if (isset($input['assets']) && $input['assets']) {
-                $document = Document::query()->whereKey($input['id'])->first();
-                $assets   = $document?->assets()->getQuery()->getChunkedIterator();
+            $document = Document::query()->whereKey($id)->first();
+            $assets   = $document?->assets()->getQuery()->getChunkedIterator();
 
-                foreach ($assets ?? [] as $asset) {
-                    $this->container
-                        ->make(AssetSync::class)
-                        ->init($asset->getKey(), false)
-                        ->run();
-                }
+            foreach ($assets ?? [] as $asset) {
+                $this->container
+                    ->make(AssetSync::class)
+                    ->init(
+                        id           : $asset->getKey(),
+                        warrantyCheck: true,
+                        documents    : false,
+                    )
+                    ->run();
             }
         }
 

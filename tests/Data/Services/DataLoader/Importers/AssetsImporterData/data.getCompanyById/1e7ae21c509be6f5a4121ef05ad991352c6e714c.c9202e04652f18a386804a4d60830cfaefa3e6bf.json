@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "9684d520-c291-4ec6-b914-f0323d6ef0ba",
-                    "name": "Bayer, Purdy and Simonis",
-                    "updatedAt": "1631135715970",
+                    "name": "Grimes-Wiza",
+                    "updatedAt": "1636519296615",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15104845663",
-                            "name": "Albina Powlowski",
+                            "phoneNumber": "+16314536248",
+                            "name": "Miss Hope Ferry IV",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "05142-3646",
-                            "address": "92520 Halvorson Harbors Suite 132",
-                            "city": "Feeneyhaven",
+                            "zip": "50835-7002",
+                            "address": "8764 Crooks Manors Suite 051",
+                            "city": "Florencemouth",
                             "locationType": null,
-                            "country": "Marshall Islands",
-                            "latitude": "-6.163101",
-                            "longitude": "29.373305",
-                            "countryCode": "UG"
+                            "country": "Hong Kong",
+                            "latitude": "1.644604",
+                            "longitude": "155.339293",
+                            "countryCode": "AS"
                         }
                     ],
                     "brandingData": null,
@@ -60,13 +60,13 @@
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 6,
-                        "activeContractTotalAmount": 1609.12,
+                        "activeContractTotalAmount": 1609.1200000000001,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 4,
                         "activeQuotes": 13,
                         "activeQuotesTotalAmount": 828.5600000000001,
                         "newActiveQuotes": 13,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 12,
                         "expiredQuotes": 43,
                         "expiredContracts": 55,
                         "orderedQuotes": null,

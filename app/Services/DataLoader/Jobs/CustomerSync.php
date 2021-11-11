@@ -14,34 +14,22 @@ use Illuminate\Contracts\Console\Kernel;
 class CustomerSync extends Sync {
     use CommandOptions;
 
-    protected string $customerId;
-    protected ?bool  $assets;
-    protected ?bool  $documents;
-
-    public function getCustomerId(): string {
-        return $this->customerId;
-    }
-
-    public function getAssets(): ?bool {
-        return $this->assets;
-    }
-
-    public function getDocuments(): ?bool {
-        return $this->documents;
-    }
-
     public function displayName(): string {
         return 'ep-data-loader-customer-sync';
     }
 
-    public function uniqueId(): string {
-        return $this->customerId;
-    }
-
-    public function init(string $customerId, bool $assets = null, bool $documents = null): static {
-        $this->customerId = $customerId;
-        $this->assets     = $assets;
-        $this->documents  = $documents;
+    public function init(
+        string $id,
+        bool $warrantyCheck = null,
+        bool $assets = null,
+        bool $assetsDocuments = null,
+    ): static {
+        $this->objectId  = $id;
+        $this->arguments = [
+            'assets'           => $assets,
+            'assets-documents' => $assetsDocuments,
+            'warranty-check'   => $warrantyCheck,
+        ];
 
         $this->initialized();
 
@@ -51,12 +39,9 @@ class CustomerSync extends Sync {
     public function __invoke(Kernel $kernel): void {
         $kernel->call(UpdateCustomer::class, $this->setBooleanOptions(
             [
-                'id' => $this->getCustomerId(),
+                'id' => $this->objectId,
             ],
-            [
-                'assets'           => $this->getAssets(),
-                'assets-documents' => $this->getDocuments(),
-            ],
+            $this->getArguments(),
         ));
     }
 }

@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
-                    "name": "Schmidt PLC",
-                    "updatedAt": "1631161494116",
+                    "name": "Wilkinson Group",
+                    "updatedAt": "1636029875547",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18502698531",
-                            "name": "Prof. Alex Kessler Sr.",
+                            "phoneNumber": "+16577922888",
+                            "name": "Dr. Jimmy Schmitt DVM",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18502698531",
-                            "name": "Prof. Alex Kessler Sr.",
+                            "phoneNumber": "+16577922888",
+                            "name": "Dr. Jimmy Schmitt DVM",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,32 +42,32 @@
                     ],
                     "locations": [
                         {
-                            "zip": "97630-2132",
-                            "address": "51736 Mills Wells",
-                            "city": "Lake Wilmashire",
+                            "zip": "60759-9588",
+                            "address": "752 Efrain Square Suite 223",
+                            "city": "West Stacey",
                             "locationType": null,
-                            "country": "Mexico",
-                            "latitude": "30.045672",
-                            "longitude": "41.587062",
-                            "countryCode": "BF"
+                            "country": "Macedonia",
+                            "latitude": "81.389583",
+                            "longitude": "102.159084",
+                            "countryCode": "CU"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 2187,
-                        "activeAssets": 364,
-                        "activeAssetsPercentage": 16.643804298125286,
+                        "activeAssets": 334,
+                        "activeAssetsPercentage": 15.272062185642433,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 6,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 15,
+                        "activeQuotes": 10,
                         "activeQuotesTotalAmount": 364.28,
-                        "newActiveQuotes": 15,
-                        "expiringQuotes": 9,
-                        "expiredQuotes": 22,
+                        "newActiveQuotes": 10,
+                        "expiringQuotes": 4,
+                        "expiredQuotes": 27,
                         "expiredContracts": 3,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

@@ -55,7 +55,7 @@ class AssetsImporterTest extends TestCase {
         $this->assertEquals($expected, $actual);
         $this->assertModelsCount([
             Asset::class         => AssetsImporterData::LIMIT,
-            AssetWarranty::class => 120,
+            AssetWarranty::class => 157,
             Document::class      => 65,
             DocumentEntry::class => 152,
         ]);

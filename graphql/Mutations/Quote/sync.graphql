@@ -1,6 +1,6 @@
 extend type QuoteMutations {
   sync(
-    input: [QuoteSyncInput!]!
+    input: QuoteSyncInput!
   ): QuoteSyncPayload
   @organization
   @me(permissions: ["quotes-sync"])
@@ -8,8 +8,7 @@ extend type QuoteMutations {
 }
 
 input QuoteSyncInput {
-  id: ID! @rules(apply:["required","App\\Rules\\QuoteId"])
-  assets: Boolean
+  id: [ID!]! @rules(apply:["required","App\\Rules\\QuoteId"])
 }
 
 type QuoteSyncPayload {

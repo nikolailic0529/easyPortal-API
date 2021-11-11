@@ -2,7 +2,6 @@ input AssetWarrantiesQuery {
   id: ID!
   start: Date
   end: Date
-  note: String
   asset: AssetsQuery
   customer_id: ID
   customer: CustomersQuery

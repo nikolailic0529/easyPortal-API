@@ -13,6 +13,7 @@ use Symfony\Component\Finder\Finder;
 use function dirname;
 use function is_array;
 use function json_encode;
+use function preg_quote;
 use function sprintf;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
@@ -50,8 +51,17 @@ class DataGenerator {
         }
 
         // Cleanup
+        $finder  = (new Finder())->in($contextPath);
+        $exclude = [
+            Data::MAP,
+        ];
+
+        foreach ($exclude as $file) {
+            $finder = $finder->notPath('/^'.preg_quote($file).'/');
+        }
+
         $fs->mkdir($contextPath);
-        $fs->remove((new Finder())->in($contextPath));
+        $fs->remove($finder);
 
         // Generate
         $db = $this->app->make('db');

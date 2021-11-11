@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
-                    "name": "Ondricka, Quigley and Huels",
-                    "updatedAt": "1631094411751",
+                    "name": "Krajcik and Sons",
+                    "updatedAt": "1636454666381",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13804312451",
-                            "name": "Jude Dare PhD",
+                            "phoneNumber": "+18081758572",
+                            "name": "Austin Bartoletti III",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13804312451",
-                            "name": "Jude Dare PhD",
+                            "phoneNumber": "+18081758572",
+                            "name": "Austin Bartoletti III",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13804312451",
-                            "name": "Jude Dare PhD",
+                            "phoneNumber": "+18081758572",
+                            "name": "Austin Bartoletti III",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,29 +42,29 @@
                     ],
                     "locations": [
                         {
-                            "zip": "35366-8249",
-                            "address": "774 Leanna Mountains Apt. 466",
-                            "city": "Barrowsmouth",
+                            "zip": "89803-0171",
+                            "address": "13157 Haag Causeway",
+                            "city": "East Gregorio",
                             "locationType": null,
-                            "country": "Mexico",
-                            "latitude": "-41.636583",
-                            "longitude": "-17.039341",
-                            "countryCode": "BF"
+                            "country": "Macedonia",
+                            "latitude": "10.519373",
+                            "longitude": "179.836972",
+                            "countryCode": "CU"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 26,
                         "activeAssets": 26,
-                        "activeAssetsPercentage": 100,
+                        "activeAssetsPercentage": 100.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,

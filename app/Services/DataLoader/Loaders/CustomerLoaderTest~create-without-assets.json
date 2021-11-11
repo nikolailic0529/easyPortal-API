@@ -58,14 +58,14 @@
     {
         "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
-            "sd"
+            "gg"
         ]
     },
     {
         "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "SD",
-            "Fiji",
+            "GG",
+            "Malaysia",
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "2021-08-30 00:00:04",
             "2021-08-30 00:00:04"
@@ -79,13 +79,13 @@
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433",
-            "north alifort"
+            "lake walterland"
         ]
     },
     {
         "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "North Alifort",
+            "Lake Walterland",
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "2021-08-30 00:00:05",
@@ -97,8 +97,8 @@
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "78282ba7-a73f-59f8-9871-ba703198d433",
-            "578 weissnat land",
-            "78435"
+            "8615 berge drive",
+            "50226-9676"
         ]
     },
     {
@@ -106,13 +106,13 @@
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "78435",
+            "50226-9676",
             "",
-            "578 Weissnat Land",
+            "8615 Berge Drive",
             "",
-            "79.806713",
-            "98.605141",
-            "ynnn5b65f3d4",
+            "-86.208859",
+            "-34.629671",
+            "50xmefpkypvu",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "2021-08-30 00:00:06",
             "2021-08-30 00:00:06"
@@ -122,9 +122,9 @@
         "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `statuses_count`, `contacts_count`, `locations_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "White Group",
+            "Hermiston-O'Hara",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-09-08 21:21:25",
+            "2021-11-10 08:29:21",
             0,
             0,
             1,
@@ -139,7 +139,7 @@
         "bindings": [
             "Customer",
             "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "Ms. Pinkie Fisher III",
+            "Madisen Bogisich",
             null,
             null,
             null,

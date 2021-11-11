@@ -34,6 +34,8 @@ class AssetWarrantyFactory extends Factory {
             'asset_id'         => static function (): Asset {
                 return Asset::factory()->create();
             },
+            'type_id'          => null,
+            'status_id'        => null,
             'document_id'      => null,
             'service_group_id' => null,
             'reseller_id'      => static function (): Reseller {
@@ -44,7 +46,8 @@ class AssetWarrantyFactory extends Factory {
             },
             'start'            => $this->faker->randomElement([null, $this->faker->dateTime]),
             'end'              => $this->faker->randomElement([null, $this->faker->dateTime]),
-            'note'             => null,
+            'description'      => null,
+            'document_number'  => null,
             'created_at'       => Date::now(),
             'updated_at'       => Date::now(),
             'deleted_at'       => null,

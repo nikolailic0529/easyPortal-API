@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Pagac Group",
+                    "name": "Marvin-Monahan",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "79922",
-                            "address": "862 Rohan Parkways Suite 766",
-                            "city": "West Blaze",
+                            "zip": "64234-1343",
+                            "address": "6190 Lowe Green",
+                            "city": "Lake Nelle",
                             "locationType": "HEADQUARTER",
-                            "country": "Myanmar",
-                            "latitude": "40.201191",
-                            "longitude": "-70.215397",
-                            "countryCode": "CH"
+                            "country": "Zimbabwe",
+                            "latitude": "30.263463",
+                            "longitude": "49.453129",
+                            "countryCode": "KN"
                         }
                     ],
                     "brandingData": null,

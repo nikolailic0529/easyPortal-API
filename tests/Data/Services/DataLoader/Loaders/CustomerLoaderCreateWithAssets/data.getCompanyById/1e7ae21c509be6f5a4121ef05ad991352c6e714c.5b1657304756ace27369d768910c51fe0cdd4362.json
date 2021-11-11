@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Rath-O'Hara",
+                    "name": "Kuphal-Orn",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "56998",
-                            "address": "556 Roel Canyon Apt. 917",
-                            "city": "Quitzonfurt",
+                            "zip": "08042",
+                            "address": "38437 Dayne Causeway Apt. 197",
+                            "city": "Vestaview",
                             "locationType": "HEADQUARTER",
-                            "country": "Spain",
-                            "latitude": "37.723931",
-                            "longitude": "153.63995",
-                            "countryCode": "BN"
+                            "country": "Malaysia",
+                            "latitude": "53.728952",
+                            "longitude": "-150.276035",
+                            "countryCode": "GG"
                         }
                     ],
                     "brandingData": null,
