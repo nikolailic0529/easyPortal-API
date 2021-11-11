@@ -75,6 +75,8 @@ trait WithAssets {
         $updated  = [];
         $prefetch = function (array $assets) use ($factory): void {
             $factory->prefetch($assets, true, function (Collection $assets): void {
+                $assets->loadMissing('warranties.document');
+
                 if ($this->isWithAssetsDocuments()) {
                     $assets->loadMissing('warranties.serviceLevels');
                 }
