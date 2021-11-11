@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "8aa5fbee-c299-47ab-a324-64c25166e223",
-                    "name": "Dickinson Inc",
+                    "name": "Graham, Armstrong and Pouros",
                     "updatedAt": "1636518969992",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16082096666",
-                            "name": "Dexter Luettgen III",
+                            "phoneNumber": "+19401102514",
+                            "name": "Adriel Wilkinson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16082096666",
-                            "name": "Dexter Luettgen III",
+                            "phoneNumber": "+19401102514",
+                            "name": "Adriel Wilkinson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16082096666",
-                            "name": "Dexter Luettgen III",
+                            "phoneNumber": "+19401102514",
+                            "name": "Adriel Wilkinson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "47730-3086",
-                            "address": "612 Sawayn Mountains Suite 520",
-                            "city": "Lueilwitzhaven",
+                            "zip": "77069-3288",
+                            "address": "76742 Padberg Pass",
+                            "city": "Lake Timothyton",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-36.918695",
-                            "longitude": "163.729076",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-60.456907",
+                            "longitude": "61.137586",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

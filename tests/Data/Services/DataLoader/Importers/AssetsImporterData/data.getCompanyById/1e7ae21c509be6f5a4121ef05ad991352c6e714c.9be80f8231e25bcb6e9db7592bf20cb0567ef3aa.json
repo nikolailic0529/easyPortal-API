@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "abf17c4e-2672-4a05-8e0a-8f11c9732504",
-                    "name": "Baumbach, Kiehn and Jacobi",
-                    "updatedAt": "1636511744829",
+                    "name": "Hane, Reinger and Kilback",
+                    "updatedAt": "1636596855733",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,13 +24,13 @@
                     "locations": [
                         {
                             "zip": "",
-                            "address": "3692 Miller Manors Suite 276",
+                            "address": "807 Wilderman Lane Suite 981",
                             "city": "",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "66.014924",
-                            "longitude": "-141.171779",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "50.185256",
+                            "longitude": "37.23959",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

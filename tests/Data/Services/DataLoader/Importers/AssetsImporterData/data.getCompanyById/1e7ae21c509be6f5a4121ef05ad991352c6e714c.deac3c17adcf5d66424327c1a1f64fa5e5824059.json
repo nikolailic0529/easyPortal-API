@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "03829705-5dd9-4f58-ab38-495a806d45cf",
-                    "name": "Gusikowski-Heller",
+                    "name": "Kessler-Dibbert",
                     "updatedAt": "1636512362344",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12540862471",
-                            "name": "Dr. Tressa Blick II",
+                            "phoneNumber": "+17251297103",
+                            "name": "Lucius Schumm",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Mr. Orrin Lebsack",
+                            "name": "Joshuah Feeney",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12540862471",
-                            "name": "Dr. Tressa Blick II",
+                            "phoneNumber": "+17251297103",
+                            "name": "Lucius Schumm",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "41076",
-                            "address": "317 Mante Streets",
-                            "city": "Noemymouth",
+                            "zip": "19022",
+                            "address": "430 Mariana Course",
+                            "city": "Lake Maurineberg",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-52.836011",
-                            "longitude": "178.271823",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-59.067053",
+                            "longitude": "130.590566",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

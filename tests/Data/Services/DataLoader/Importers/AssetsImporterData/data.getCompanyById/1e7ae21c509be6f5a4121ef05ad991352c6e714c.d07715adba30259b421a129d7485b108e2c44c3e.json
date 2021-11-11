@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "f099856f-d50e-4440-b938-375cab3b8e1b",
-                    "name": "Stanton LLC",
-                    "updatedAt": "1636512146624",
+                    "name": "Schultz and Sons",
+                    "updatedAt": "1636597297637",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "09626",
-                            "address": "7990 Koelpin Heights",
-                            "city": "North Burleymouth",
+                            "zip": "29277",
+                            "address": "5739 Abigale Loop Suite 132",
+                            "city": "New Ardella",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "-89.337021",
-                            "longitude": "-166.294404",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-2.004569",
+                            "longitude": "-44.531096",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

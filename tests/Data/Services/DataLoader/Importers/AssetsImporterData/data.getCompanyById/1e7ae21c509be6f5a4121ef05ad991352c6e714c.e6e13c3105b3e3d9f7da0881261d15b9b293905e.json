@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
-                    "name": "Berge, Bednar and Heidenreich",
-                    "updatedAt": "1636511521236",
+                    "name": "Marks-Dicki",
+                    "updatedAt": "1636590198982",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "59926",
-                            "address": "74467 Quitzon Fields Apt. 335",
-                            "city": "Angelineland",
+                            "zip": "71864-0238",
+                            "address": "24104 Madie Ferry",
+                            "city": "Emmerichchester",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "17.429912",
-                            "longitude": "18.294392",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "-24.733923",
+                            "longitude": "-57.776129",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

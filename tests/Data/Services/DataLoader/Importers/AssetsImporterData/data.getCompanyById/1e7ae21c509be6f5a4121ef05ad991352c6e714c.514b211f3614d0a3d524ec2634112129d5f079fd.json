@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "454e27b3-26c1-4f11-bfd6-9a55ab447a66",
-                    "name": "Schoen-Kohler",
+                    "name": "Carter-Stehr",
                     "updatedAt": "1636512593319",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19206964756",
-                            "name": "Cleora Lakin",
+                            "phoneNumber": "+18320945896",
+                            "name": "Dr. Stacy Crist III",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19206964756",
-                            "name": "Cleora Lakin",
+                            "phoneNumber": "+18320945896",
+                            "name": "Dr. Stacy Crist III",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19206964756",
-                            "name": "Cleora Lakin",
+                            "phoneNumber": "+18320945896",
+                            "name": "Dr. Stacy Crist III",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "81970-7851",
-                            "address": "959 Cleo Points",
-                            "city": "McGlynnshire",
+                            "zip": "88094-7882",
+                            "address": "10634 Kunde Curve Apt. 372",
+                            "city": "East Antonio",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-55.694662",
-                            "longitude": "97.997729",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-45.878815",
+                            "longitude": "-59.63979",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

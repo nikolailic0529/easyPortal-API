@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "cf85f11b-6681-4106-a129-cbdd463120e2",
-                    "name": "Kiehn LLC",
-                    "updatedAt": "1636031894927",
+                    "name": "McDermott, Mann and Hane",
+                    "updatedAt": "1636535307329",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Destany Kutch",
+                            "name": "Buster McCullough",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16789477891",
-                            "name": "Amira Cartwright",
+                            "phoneNumber": "+15739310749",
+                            "name": "Matteo Reilly",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Destany Kutch",
+                            "name": "Buster McCullough",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "70051-2522",
-                            "address": "287 Molly Burg Suite 449",
-                            "city": "Florencemouth",
+                            "zip": "89588-1493",
+                            "address": "263 Cronin Keys Apt. 483",
+                            "city": "VonRuedenland",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "65.450009",
-                            "longitude": "-17.117721",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-20.117278",
+                            "longitude": "27.645884",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

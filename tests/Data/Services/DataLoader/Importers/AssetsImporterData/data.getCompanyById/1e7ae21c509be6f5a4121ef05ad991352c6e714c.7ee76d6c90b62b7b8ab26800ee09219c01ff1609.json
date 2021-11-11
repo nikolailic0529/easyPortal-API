@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "91baefb3-0a41-4f66-bee2-1dd11d27fa15",
-                    "name": "Grant Inc",
+                    "name": "Monahan Ltd",
                     "updatedAt": "1636519155761",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19340360612",
-                            "name": "Phyllis Swaniawski DVM",
+                            "phoneNumber": "+18505832456",
+                            "name": "Jasmin Runolfsson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19340360612",
-                            "name": "Phyllis Swaniawski DVM",
+                            "phoneNumber": "+18505832456",
+                            "name": "Jasmin Runolfsson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19340360612",
-                            "name": "Phyllis Swaniawski DVM",
+                            "phoneNumber": "+18505832456",
+                            "name": "Jasmin Runolfsson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "69889",
-                            "address": "55237 Gulgowski Dale Suite 504",
-                            "city": "Lake Tomasa",
+                            "zip": "52517-1509",
+                            "address": "80342 Schinner Flat",
+                            "city": "North Malcolm",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "20.078705",
-                            "longitude": "-3.332263",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "11.818648",
+                            "longitude": "179.552519",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

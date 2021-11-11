@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "9ae9b76a-eedb-47f4-b6bc-f7593e147621",
-                    "name": "Bernier-Hackett",
-                    "updatedAt": "1636511634514",
+                    "name": "Mohr-Muller",
+                    "updatedAt": "1636596751828",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "52581-5601",
-                            "address": "46088 Ana Springs",
-                            "city": "North Betty",
+                            "zip": "42339-2878",
+                            "address": "454 Beatty Turnpike",
+                            "city": "East Ariel",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "-20.70595",
-                            "longitude": "-129.665671",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "24.753886",
+                            "longitude": "-115.623634",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

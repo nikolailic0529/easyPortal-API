@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "ace3d380-031e-4c74-809d-179f13694650",
-                    "name": "Ebert-Stiedemann",
-                    "updatedAt": "1636511747563",
+                    "name": "Fahey-Kassulke",
+                    "updatedAt": "1636596858124",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82224-9252",
-                            "address": "805 Homenick Lake Suite 941",
-                            "city": "Lake Tomasa",
+                            "zip": "24419-1199",
+                            "address": "44437 Morissette Groves",
+                            "city": "North Malcolm",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "8.706896",
-                            "longitude": "-173.964196",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "81.604642",
+                            "longitude": "-176.373437",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

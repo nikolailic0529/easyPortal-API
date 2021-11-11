@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0cd3444e-8f5d-4e3c-a56d-e30517f583a9",
-                    "name": "Koepp Inc",
-                    "updatedAt": "1636454617066",
+                    "name": "Roob-Haag",
+                    "updatedAt": "1636542793675",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12480210546",
-                            "name": "Dr. Shaun Goodwin Jr.",
+                            "phoneNumber": "+14700784903",
+                            "name": "Jocelyn Quitzon",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16512462247",
-                            "name": "Dr. Shannon Nader MD",
+                            "phoneNumber": "+14428782622",
+                            "name": "Kianna Turcotte",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12480210546",
-                            "name": "Dr. Shaun Goodwin Jr.",
+                            "phoneNumber": "+14700784903",
+                            "name": "Jocelyn Quitzon",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "39022",
-                            "address": "380 Anissa Forest Apt. 558",
-                            "city": "Grimeshaven",
+                            "zip": "41251-7262",
+                            "address": "92628 Leuschke Ridges",
+                            "city": "Port Aleenstad",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-72.007387",
-                            "longitude": "20.787516",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "53.444707",
+                            "longitude": "-166.070107",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "a816e3b0-a3a2-490b-b762-24addfd836d6",
-                    "name": "Jacobs-Hand",
-                    "updatedAt": "1636027715185",
+                    "name": "Hamill-Becker",
+                    "updatedAt": "1636533138365",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13803013505",
-                            "name": "Dr. Barney Casper DDS",
+                            "phoneNumber": "+16890860538",
+                            "name": "Jannie Beer",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13803013505",
-                            "name": "Dr. Barney Casper DDS",
+                            "phoneNumber": "+16890860538",
+                            "name": "Jannie Beer",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13803013505",
-                            "name": "Dr. Barney Casper DDS",
+                            "phoneNumber": "+16890860538",
+                            "name": "Jannie Beer",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "11039",
-                            "address": "36165 Ryan Mills Suite 584",
-                            "city": "North Elzamouth",
+                            "zip": "52793-2916",
+                            "address": "67136 Kemmer Underpass",
+                            "city": "Predovicburgh",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "48.474561",
-                            "longitude": "-173.194492",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "81.843451",
+                            "longitude": "-13.035864",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

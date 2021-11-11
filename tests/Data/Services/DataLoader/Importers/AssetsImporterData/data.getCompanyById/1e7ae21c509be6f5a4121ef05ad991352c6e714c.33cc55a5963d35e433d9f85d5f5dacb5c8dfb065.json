@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "25f18688-39fc-4d4c-90bb-3593cac21052",
-                    "name": "Rutherford and Sons",
-                    "updatedAt": "1636453608905",
+                    "name": "Wiza, Feeney and Crona",
+                    "updatedAt": "1636590312654",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "37070-8746",
-                            "address": "46100 Doyle Ports Suite 136",
-                            "city": "Lakinborough",
+                            "zip": "47910-3106",
+                            "address": "392 Cyrus Court Suite 052",
+                            "city": "Braunshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "45.084313",
-                            "longitude": "17.608316",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "-61.629946",
+                            "longitude": "173.865151",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

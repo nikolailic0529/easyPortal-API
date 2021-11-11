@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "561b9925-3781-46d7-a734-78efad4f5ae6",
-                    "name": "Borer and Sons",
-                    "updatedAt": "1636453953028",
+                    "name": "Koss, Dicki and Stoltenberg",
+                    "updatedAt": "1636590685307",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "30899",
-                            "address": "64329 Bernie Overpass",
-                            "city": "Generalbury",
+                            "zip": "15504-9135",
+                            "address": "6402 Dickens Locks Apt. 060",
+                            "city": "Hintzfurt",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "43.487444",
-                            "longitude": "-167.834132",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-40.300678",
+                            "longitude": "28.466736",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,
@@ -43,11 +43,11 @@
                         "activeContracts": 289,
                         "activeContractTotalAmount": 120.25,
                         "newActiveContracts": 289,
-                        "expiringContracts": 20,
+                        "expiringContracts": 33,
                         "activeQuotes": 295,
-                        "activeQuotesTotalAmount": 30111.55,
+                        "activeQuotesTotalAmount": 30111.550000000003,
                         "newActiveQuotes": 295,
-                        "expiringQuotes": 102,
+                        "expiringQuotes": 116,
                         "expiredQuotes": 805,
                         "expiredContracts": 152,
                         "orderedQuotes": null,

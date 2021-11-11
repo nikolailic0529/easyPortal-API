@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
-                    "name": "Wilkinson Group",
-                    "updatedAt": "1636029875547",
+                    "name": "Ward, Hoppe and Huels",
+                    "updatedAt": "1636534856532",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16577922888",
-                            "name": "Dr. Jimmy Schmitt DVM",
+                            "phoneNumber": "+12727261422",
+                            "name": "Neil Johnson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16577922888",
-                            "name": "Dr. Jimmy Schmitt DVM",
+                            "phoneNumber": "+12727261422",
+                            "name": "Neil Johnson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "60759-9588",
-                            "address": "752 Efrain Square Suite 223",
-                            "city": "West Stacey",
+                            "zip": "13406",
+                            "address": "7844 Jocelyn Mission",
+                            "city": "South Hilmabury",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "81.389583",
-                            "longitude": "102.159084",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-19.050935",
+                            "longitude": "-57.85038",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

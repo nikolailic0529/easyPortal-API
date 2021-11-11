@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "1856648d-d181-4f9c-9208-01e340bc3a2f",
-                    "name": "Cronin, Waters and Bayer",
-                    "updatedAt": "1636454912572",
+                    "name": "Aufderhar, Greenholt and Bins",
+                    "updatedAt": "1636543075258",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14708318272",
-                            "name": "Eileen Farrell DDS",
+                            "phoneNumber": "+18174665747",
+                            "name": "Juwan McClure",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14708318272",
-                            "name": "Eileen Farrell DDS",
+                            "phoneNumber": "+18174665747",
+                            "name": "Juwan McClure",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "23373",
-                            "address": "387 Elian Forks Apt. 234",
-                            "city": "East Vidal",
+                            "zip": "40199",
+                            "address": "2321 Johnathan Ville Apt. 987",
+                            "city": "Wittingfort",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-7.566039",
-                            "longitude": "-154.753223",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-6.324485",
+                            "longitude": "143.209912",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

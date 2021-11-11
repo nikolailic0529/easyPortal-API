@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "8230d8af-2ad5-4d26-909a-0d45959751f2",
-                    "name": "Gleason, Hills and Von",
+                    "name": "Stehr-Nienow",
                     "updatedAt": "1636518741162",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17474017140",
-                            "name": "Sienna Mayer",
+                            "phoneNumber": "+14252739165",
+                            "name": "Dayne Moen",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "15813-2009",
-                            "address": "31523 Haley Forge Apt. 719",
-                            "city": "Rohanchester",
+                            "zip": "30296-6585",
+                            "address": "55494 Vella Groves Apt. 392",
+                            "city": "South Reta",
                             "locationType": null,
-                            "country": "Timor-Leste",
-                            "latitude": "-63.739499",
-                            "longitude": "105.833649",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "33.627599",
+                            "longitude": "-122.134353",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

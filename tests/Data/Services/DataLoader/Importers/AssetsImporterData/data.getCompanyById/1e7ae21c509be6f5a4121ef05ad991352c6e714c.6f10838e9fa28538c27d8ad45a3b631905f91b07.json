@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "72d3b860-3667-408a-8ead-6056e10b2481",
-                    "name": "Klocko, Daniel and Erdman",
-                    "updatedAt": "1636454228554",
+                    "name": "Berge, Collins and Lakin",
+                    "updatedAt": "1636590954763",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "30412-0457",
-                            "address": "2736 Edwardo Knolls",
-                            "city": "East Flossie",
+                            "zip": "66598",
+                            "address": "3239 Renner Walk Apt. 908",
+                            "city": "Cruickshankbury",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "50.023577",
-                            "longitude": "-47.903927",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "83.640301",
+                            "longitude": "-116.874563",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 26,
                         "activeQuotesTotalAmount": 1972.56,
                         "newActiveQuotes": 26,
-                        "expiringQuotes": 24,
+                        "expiringQuotes": 25,
                         "expiredQuotes": 23,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

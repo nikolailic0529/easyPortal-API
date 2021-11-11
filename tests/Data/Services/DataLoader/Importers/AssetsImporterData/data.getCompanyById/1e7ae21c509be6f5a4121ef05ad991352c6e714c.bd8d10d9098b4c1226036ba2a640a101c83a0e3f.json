@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
-                    "name": "Stroman, Armstrong and Mohr",
-                    "updatedAt": "1636453991954",
+                    "name": "Ebert, Reinger and Berge",
+                    "updatedAt": "1636590730497",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "63962",
-                            "address": "76483 Vincenza Ridges",
-                            "city": "Port Keaton",
+                            "zip": "43908",
+                            "address": "728 Kovacek Rest",
+                            "city": "New Elishaview",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "75.795775",
-                            "longitude": "48.21676",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-57.613614",
+                            "longitude": "133.624324",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 22,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 22,
-                        "expiringQuotes": 9,
+                        "expiringQuotes": 11,
                         "expiredQuotes": 20,
                         "expiredContracts": 8,
                         "orderedQuotes": null,

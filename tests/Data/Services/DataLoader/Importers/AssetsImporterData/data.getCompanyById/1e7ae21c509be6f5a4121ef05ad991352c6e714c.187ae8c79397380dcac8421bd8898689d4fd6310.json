@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "733a054f-6b00-49d7-8f49-8366b3a2a7b8",
-                    "name": "Hills-Muller",
+                    "name": "Bartoletti Ltd",
                     "updatedAt": "1636518358921",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12481065337",
-                            "name": "Mrs. Amber Hudson DDS",
+                            "phoneNumber": "+17172287435",
+                            "name": "Alaina Cormier V",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18289739946",
-                            "name": "Mr. Orrin Lebsack",
+                            "phoneNumber": "+19176206205",
+                            "name": "Joshuah Feeney",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12481065337",
-                            "name": "Mrs. Amber Hudson DDS",
+                            "phoneNumber": "+17172287435",
+                            "name": "Alaina Cormier V",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "10174-2273",
-                            "address": "268 Feeney Fork",
-                            "city": "Lake Bria",
+                            "zip": "59834-4210",
+                            "address": "34384 Friedrich Knoll Apt. 644",
+                            "city": "Desireeview",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "21.366689",
-                            "longitude": "-87.680269",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "19.986538",
+                            "longitude": "44.00451",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "1f5a306d-bca1-4b77-8131-0f1926a40d08",
-                    "name": "Streich, Renner and Murray",
-                    "updatedAt": "1636453568343",
+                    "name": "Orn-Farrell",
+                    "updatedAt": "1636590268970",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "73324-3854",
-                            "address": "827 Cullen Court Suite 073",
-                            "city": "Beattyport",
+                            "zip": "37761-6809",
+                            "address": "6346 Yost Road",
+                            "city": "Lake Zakary",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "-30.589578",
-                            "longitude": "179.761832",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "27.721267",
+                            "longitude": "-67.347843",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

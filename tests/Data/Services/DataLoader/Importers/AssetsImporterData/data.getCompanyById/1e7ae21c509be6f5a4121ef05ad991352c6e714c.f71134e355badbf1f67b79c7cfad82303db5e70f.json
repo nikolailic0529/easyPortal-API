@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "9a749c4e-a721-4762-9abc-395dcd2b33e5",
-                    "name": "Berge LLC",
-                    "updatedAt": "1636025732165",
+                    "name": "Lehner, Olson and Hettinger",
+                    "updatedAt": "1636532784893",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17855454645",
-                            "name": "Mrs. Ona Terry",
+                            "phoneNumber": "+13204783336",
+                            "name": "Rasheed Corkery",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17855454645",
-                            "name": "Mrs. Ona Terry",
+                            "phoneNumber": "+13204783336",
+                            "name": "Rasheed Corkery",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "06630-1752",
-                            "address": "3139 Bianka Stravenue",
-                            "city": "Florencemouth",
+                            "zip": "26289",
+                            "address": "84692 Barrows Heights Suite 612",
+                            "city": "VonRuedenland",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-38.746526",
-                            "longitude": "-14.664707",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "40.240061",
+                            "longitude": "134.978171",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -62,7 +62,7 @@
                         "activeContracts": 29,
                         "activeContractTotalAmount": 237.8,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 3,
                         "activeQuotesTotalAmount": 1631.22,
                         "newActiveQuotes": 3,

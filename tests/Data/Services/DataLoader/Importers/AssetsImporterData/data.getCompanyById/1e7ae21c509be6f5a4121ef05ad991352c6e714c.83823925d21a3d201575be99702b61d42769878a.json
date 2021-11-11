@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "7f397cdb-a1a2-4173-8c3f-f00926997491",
-                    "name": "Shields and Sons",
+                    "name": "Okuneva, Cormier and McGlynn",
                     "updatedAt": "1636518658697",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12193951733",
-                            "name": "Dr. Hardy Abbott",
+                            "phoneNumber": "+17018901437",
+                            "name": "America Quigley",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Mr. Orrin Lebsack",
+                            "name": "Joshuah Feeney",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12193951733",
-                            "name": "Dr. Hardy Abbott",
+                            "phoneNumber": "+17018901437",
+                            "name": "America Quigley",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31714-6738",
-                            "address": "47618 Pfannerstill Pike Apt. 165",
-                            "city": "Port Enochberg",
+                            "zip": "39718-2399",
+                            "address": "497 Gleichner Via Suite 775",
+                            "city": "South Vivianeton",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-15.018648",
-                            "longitude": "5.063864",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-31.744671",
+                            "longitude": "95.238389",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

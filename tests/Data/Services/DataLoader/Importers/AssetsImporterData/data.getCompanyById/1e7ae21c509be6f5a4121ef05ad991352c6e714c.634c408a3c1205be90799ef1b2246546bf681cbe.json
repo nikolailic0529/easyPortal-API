@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "819d9228-2cbc-4d1f-8e18-148745f7a922",
-                    "name": "Murazik Ltd",
+                    "name": "McClure, Waelchi and Zulauf",
                     "updatedAt": "1636518726350",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19032346588",
-                            "name": "Mrs. Viviane Ankunding DVM",
+                            "phoneNumber": "+17862313472",
+                            "name": "Darrin Prohaska",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19032346588",
-                            "name": "Mrs. Viviane Ankunding DVM",
+                            "phoneNumber": "+17862313472",
+                            "name": "Darrin Prohaska",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19032346588",
-                            "name": "Mrs. Viviane Ankunding DVM",
+                            "phoneNumber": "+17862313472",
+                            "name": "Darrin Prohaska",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "03999-0578",
-                            "address": "8181 Mayert Spur Apt. 745",
-                            "city": "Lake Loy",
+                            "zip": "56699",
+                            "address": "562 Wunsch Cliffs Apt. 845",
+                            "city": "Eloisashire",
                             "locationType": null,
-                            "country": "Syrian Arab Republic",
-                            "latitude": "30.4597",
-                            "longitude": "57.608719",
-                            "countryCode": "CU"
+                            "country": "Colombia",
+                            "latitude": "-43.118022",
+                            "longitude": "100.012839",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

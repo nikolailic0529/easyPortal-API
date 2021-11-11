@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "edb16d76-24b1-4aab-aac4-fce658e6c5e2",
-                    "name": "Gleichner and Sons",
-                    "updatedAt": "1636033654265",
+                    "name": "Rice, Hoppe and Christiansen",
+                    "updatedAt": "1636536174841",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16782351949",
-                            "name": "Stefan Bergstrom Sr.",
+                            "phoneNumber": "+13094356402",
+                            "name": "Dulce Graham",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15623090208",
-                            "name": "Clotilde Ritchie",
+                            "phoneNumber": "+16789216773",
+                            "name": "Mrs. Dahlia Champlin Sr.",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16782351949",
-                            "name": "Stefan Bergstrom Sr.",
+                            "phoneNumber": "+13094356402",
+                            "name": "Dulce Graham",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "25539",
-                            "address": "4665 Grayson Dam",
-                            "city": "Lake Bria",
+                            "zip": "59174-1573",
+                            "address": "1722 Marvin Valley Suite 666",
+                            "city": "Desireeview",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-33.423093",
-                            "longitude": "50.590668",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "71.358268",
+                            "longitude": "79.403694",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,
@@ -66,7 +66,7 @@
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 1,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 3,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

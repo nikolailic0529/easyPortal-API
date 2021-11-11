@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "0731be4c-624e-4802-a1d3-c672a9283562",
-                    "name": "Jones, Orn and Kozey",
-                    "updatedAt": "1636511462976",
+                    "name": "Langworth LLC",
+                    "updatedAt": "1636590134200",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "51057-0505",
-                            "address": "44399 Ramiro Alley",
-                            "city": "East Charliefort",
+                            "zip": "44054",
+                            "address": "668 Odie Knoll Suite 319",
+                            "city": "Khalilhaven",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "-10.832878",
-                            "longitude": "-7.482932",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-41.675343",
+                            "longitude": "-152.181021",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

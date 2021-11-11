@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "bf58b75a-1bb6-40aa-8453-fdf1d7482b08",
-                    "name": "Runolfsson Group",
-                    "updatedAt": "1636029928278",
+                    "name": "Bashirian, Gorczany and Becker",
+                    "updatedAt": "1636534897798",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14230242098",
-                            "name": "Ms. Raquel Herman",
+                            "phoneNumber": "+15714520834",
+                            "name": "Aiyana Goodwin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14230242098",
-                            "name": "Ms. Raquel Herman",
+                            "phoneNumber": "+15714520834",
+                            "name": "Aiyana Goodwin",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14230242098",
-                            "name": "Ms. Raquel Herman",
+                            "phoneNumber": "+15714520834",
+                            "name": "Aiyana Goodwin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "06630-1752",
-                            "address": "114 Corkery Meadows",
-                            "city": "Florencemouth",
+                            "zip": "26289",
+                            "address": "7346 Ora Vista Suite 215",
+                            "city": "VonRuedenland",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "80.394716",
-                            "longitude": "163.641195",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "77.421371",
+                            "longitude": "91.927598",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

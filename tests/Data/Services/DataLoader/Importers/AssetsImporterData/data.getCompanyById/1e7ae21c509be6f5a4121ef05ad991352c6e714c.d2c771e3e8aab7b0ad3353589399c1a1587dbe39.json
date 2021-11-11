@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3da41792-9c2c-4301-a61b-305b09938932",
-                    "name": "Ullrich PLC",
+                    "name": "Jakubowski-Abshire",
                     "updatedAt": "1636512384379",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13125235356",
-                            "name": "Hayden Turcotte",
+                            "phoneNumber": "+16819373537",
+                            "name": "Dr. Baron Klocko",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13125235356",
-                            "name": "Hayden Turcotte",
+                            "phoneNumber": "+16819373537",
+                            "name": "Dr. Baron Klocko",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13125235356",
-                            "name": "Hayden Turcotte",
+                            "phoneNumber": "+16819373537",
+                            "name": "Dr. Baron Klocko",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "85721",
-                            "address": "46726 Bosco Manors Apt. 789",
-                            "city": "Soniafort",
+                            "zip": "96020-7056",
+                            "address": "695 Olin Path",
+                            "city": "Lake Omerfort",
                             "locationType": null,
-                            "country": "Denmark",
-                            "latitude": "-34.477524",
-                            "longitude": "134.63356",
-                            "countryCode": "IO"
+                            "country": "Nicaragua",
+                            "latitude": "80.085765",
+                            "longitude": "-126.955059",
+                            "countryCode": "MG"
                         }
                     ],
                     "brandingData": null,

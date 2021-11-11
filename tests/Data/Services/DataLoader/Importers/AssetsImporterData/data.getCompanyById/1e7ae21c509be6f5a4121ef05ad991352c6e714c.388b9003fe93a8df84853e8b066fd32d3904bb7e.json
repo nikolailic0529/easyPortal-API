@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0f0e65fb-711e-4d4b-8850-900171d5f2e3",
-                    "name": "Pfeffer-Schaden",
-                    "updatedAt": "1636454673538",
+                    "name": "Pacocha Inc",
+                    "updatedAt": "1636542855867",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16410922666",
-                            "name": "Dortha Nader Jr.",
+                            "phoneNumber": "+13173634333",
+                            "name": "Heather Rau",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16410922666",
-                            "name": "Dortha Nader Jr.",
+                            "phoneNumber": "+13173634333",
+                            "name": "Heather Rau",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16410922666",
-                            "name": "Dortha Nader Jr.",
+                            "phoneNumber": "+13173634333",
+                            "name": "Heather Rau",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "94347-5456",
-                            "address": "964 Grady Mills Suite 786",
-                            "city": "East Reagan",
+                            "zip": "05730",
+                            "address": "334 Leuschke Tunnel",
+                            "city": "North Ola",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "18.223128",
-                            "longitude": "-67.546801",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-20.965261",
+                            "longitude": "-100.321855",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

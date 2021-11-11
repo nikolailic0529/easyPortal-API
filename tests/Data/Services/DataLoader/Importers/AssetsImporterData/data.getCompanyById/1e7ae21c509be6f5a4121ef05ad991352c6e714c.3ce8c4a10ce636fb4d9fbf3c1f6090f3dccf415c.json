@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "77180fce-f9cb-469f-9ace-4120226ff013",
-                    "name": "McDermott-Hegmann",
+                    "name": "Barrows Group",
                     "updatedAt": "1636518457680",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16820002003",
-                            "name": "Gregg Dickens",
+                            "phoneNumber": "+18729637172",
+                            "name": "Gisselle Huels",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16820002003",
-                            "name": "Gregg Dickens",
+                            "phoneNumber": "+18729637172",
+                            "name": "Gisselle Huels",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16820002003",
-                            "name": "Gregg Dickens",
+                            "phoneNumber": "+18729637172",
+                            "name": "Gisselle Huels",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "64368",
-                            "address": "353 Bernier Pine Apt. 104",
-                            "city": "Colestad",
+                            "zip": "94897",
+                            "address": "175 Griffin Lock",
+                            "city": "West Nova",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-48.808547",
-                            "longitude": "-145.963384",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "58.240433",
+                            "longitude": "-88.048476",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

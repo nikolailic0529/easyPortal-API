@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "9e83a7e5-445e-4da2-bd36-7fc2c4d7e948",
-                    "name": "Lebsack, Beahan and Fritsch",
-                    "updatedAt": "1636025843408",
+                    "name": "Ratke, Beatty and Labadie",
+                    "updatedAt": "1636532894426",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Vicenta Koelpin",
+                            "name": "Vance Block",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Vicenta Koelpin",
+                            "name": "Vance Block",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Vicenta Koelpin",
+                            "name": "Vance Block",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "72922",
-                            "address": "96883 Kristoffer Rapids Apt. 988",
-                            "city": "Effertzside",
+                            "zip": "74936",
+                            "address": "27898 Vella Fall",
+                            "city": "Gislasonport",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "54.894339",
-                            "longitude": "-87.463444",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "12.665859",
+                            "longitude": "168.636066",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

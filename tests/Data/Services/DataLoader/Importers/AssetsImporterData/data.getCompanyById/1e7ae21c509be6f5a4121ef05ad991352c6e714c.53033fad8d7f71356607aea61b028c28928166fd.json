@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "f921bd2a-3bb4-417a-8ae1-a7a78e51692d",
-                    "name": "Braun, Purdy and Dietrich",
-                    "updatedAt": "1636034240344",
+                    "name": "Bruen, McKenzie and Willms",
+                    "updatedAt": "1636539197691",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16787775611",
-                            "name": "Saul Stanton",
+                            "phoneNumber": "+13215010619",
+                            "name": "Antwon Weissnat",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16787775611",
-                            "name": "Saul Stanton",
+                            "phoneNumber": "+13215010619",
+                            "name": "Antwon Weissnat",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16787775611",
-                            "name": "Saul Stanton",
+                            "phoneNumber": "+13215010619",
+                            "name": "Antwon Weissnat",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "53157-1797",
-                            "address": "782 Maybelle Locks Suite 601",
-                            "city": "East Marquise",
+                            "zip": "85905",
+                            "address": "97877 Hailie Forge",
+                            "city": "South Lisetteborough",
                             "locationType": null,
-                            "country": "Pitcairn Islands",
-                            "latitude": "9.975744",
-                            "longitude": "159.967342",
-                            "countryCode": "SI"
+                            "country": "Macao",
+                            "latitude": "-9.624448",
+                            "longitude": "173.481252",
+                            "countryCode": "LB"
                         }
                     ],
                     "brandingData": null,

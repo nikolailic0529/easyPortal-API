@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "1a21ac6a-c977-43fd-bd62-66cf6be37d92",
-                    "name": "Upton, Turcotte and Klein",
-                    "updatedAt": "1636454958041",
+                    "name": "O'Connell, Davis and Barrows",
+                    "updatedAt": "1636543118494",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19722028030",
-                            "name": "Ryan Leffler",
+                            "phoneNumber": "+19343552346",
+                            "name": "Mrs. Lillian Schneider",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19722028030",
-                            "name": "Ryan Leffler",
+                            "phoneNumber": "+19343552346",
+                            "name": "Mrs. Lillian Schneider",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89850-8869",
-                            "address": "4069 Chauncey Circle",
-                            "city": "Schroederberg",
+                            "zip": "99889-7453",
+                            "address": "2644 Cummerata Views",
+                            "city": "Mayerville",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "66.256905",
-                            "longitude": "124.022746",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-2.509093",
+                            "longitude": "179.01916",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb",
-                    "name": "O'Conner and Sons",
-                    "updatedAt": "1636460092842",
+                    "name": "Hessel and Sons",
+                    "updatedAt": "1636560860128",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Miss Lavinia Crist",
+                            "name": "Ms. Kaylee Leuschke III",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Gennaro Predovic",
+                            "name": "Dr. Rosemarie Eichmann",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Miss Lavinia Crist",
+                            "name": "Ms. Kaylee Leuschke III",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "50835-7002",
-                            "address": "881 Felipa Glens Suite 088",
-                            "city": "Florencemouth",
+                            "zip": "98575-3895",
+                            "address": "688 Lucius Falls",
+                            "city": "VonRuedenland",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-85.907358",
-                            "longitude": "-1.83889",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "81.704817",
+                            "longitude": "-22.984257",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

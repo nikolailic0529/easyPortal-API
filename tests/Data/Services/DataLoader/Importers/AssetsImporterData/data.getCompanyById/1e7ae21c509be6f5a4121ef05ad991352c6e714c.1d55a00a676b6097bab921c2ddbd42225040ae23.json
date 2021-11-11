@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "6be4e13d-2ea7-4314-bcd0-26a8848343f9",
-                    "name": "Frami, Schinner and Jerde",
+                    "name": "Schmidt, Orn and Ruecker",
                     "updatedAt": "1636518192229",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13123816524",
-                            "name": "Prof. Granville Runolfsson",
+                            "phoneNumber": "+15206921970",
+                            "name": "Liza Stehr",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13123816524",
-                            "name": "Prof. Granville Runolfsson",
+                            "phoneNumber": "+15206921970",
+                            "name": "Liza Stehr",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13123816524",
-                            "name": "Prof. Granville Runolfsson",
+                            "phoneNumber": "+15206921970",
+                            "name": "Liza Stehr",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "76125",
-                            "address": "894 Bogan Dam",
-                            "city": "Nikolausfort",
+                            "zip": "90269-0313",
+                            "address": "728 Elissa Ports Suite 805",
+                            "city": "Jaquelinhaven",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-10.080943",
-                            "longitude": "160.771507",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "11.048628",
+                            "longitude": "129.014331",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "c4008848-ced1-47e6-92ca-87a1774006cd",
-                    "name": "Harvey Inc",
-                    "updatedAt": "1636511867197",
+                    "name": "White-Stroman",
+                    "updatedAt": "1636596978765",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "25539",
-                            "address": "285 Stanton Mill Suite 166",
-                            "city": "Lake Bria",
+                            "zip": "59174-1573",
+                            "address": "59026 Jordyn Run Apt. 478",
+                            "city": "Desireeview",
                             "locationType": "HEADQUARTER",
-                            "country": "Syrian Arab Republic",
-                            "latitude": "-52.027466",
-                            "longitude": "126.9696",
-                            "countryCode": "CU"
+                            "country": "Colombia",
+                            "latitude": "-30.157616",
+                            "longitude": "84.931451",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

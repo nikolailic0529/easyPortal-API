@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "bd098e37-2fd5-4840-984d-bb39506d23ec",
-                    "name": "Cruickshank, Smitham and Schmeler",
-                    "updatedAt": "1636029864953",
+                    "name": "Hackett-Stoltenberg",
+                    "updatedAt": "1636534845312",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17541441225",
-                            "name": "Alene Kautzer",
+                            "phoneNumber": "+14845434172",
+                            "name": "Elliott Sawayn",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17541441225",
-                            "name": "Alene Kautzer",
+                            "phoneNumber": "+14845434172",
+                            "name": "Elliott Sawayn",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17541441225",
-                            "name": "Alene Kautzer",
+                            "phoneNumber": "+14845434172",
+                            "name": "Elliott Sawayn",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "69233",
-                            "address": "90965 Walker Villages Apt. 773",
-                            "city": "West Samson",
+                            "zip": "18675",
+                            "address": "3259 Kristopher Springs Apt. 006",
+                            "city": "South Marcos",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "89.318992",
-                            "longitude": "97.368794",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "36.010262",
+                            "longitude": "-70.697916",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

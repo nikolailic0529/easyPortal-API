@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "a86dd99a-97fb-4fb8-8e09-1ae4a872f01a",
-                    "name": "Bogan-Morissette",
-                    "updatedAt": "1636027727235",
+                    "name": "Wilkinson PLC",
+                    "updatedAt": "1636533146428",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Mr. Chesley Mosciski",
+                            "name": "Edna Johnson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Mr. Chesley Mosciski",
+                            "name": "Edna Johnson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Mr. Chesley Mosciski",
+                            "name": "Edna Johnson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "34037",
-                            "address": "972 Rollin Plaza",
-                            "city": "Lueilwitzhaven",
+                            "zip": "50128-3155",
+                            "address": "95557 Monahan Mountain",
+                            "city": "Lake Timothyton",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-0.702208",
-                            "longitude": "-158.770052",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "23.344889",
+                            "longitude": "-132.530855",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

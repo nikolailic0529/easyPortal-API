@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
-                    "name": "Bernier, Boehm and Sawayn",
-                    "updatedAt": "1636511567979",
+                    "name": "Reichel and Sons",
+                    "updatedAt": "1636596686815",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "92356-9220",
-                            "address": "80503 Nicole Junctions",
-                            "city": "North Elzamouth",
+                            "zip": "20140-4986",
+                            "address": "9604 Duncan Trail Apt. 521",
+                            "city": "Predovicburgh",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "40.570282",
-                            "longitude": "48.026272",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-3.960918",
+                            "longitude": "-54.464207",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

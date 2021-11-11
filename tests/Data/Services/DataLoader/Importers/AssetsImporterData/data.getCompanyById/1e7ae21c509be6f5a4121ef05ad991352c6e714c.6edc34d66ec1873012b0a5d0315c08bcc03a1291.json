@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "96125ca9-a463-4e62-8526-9461f31b1819",
-                    "name": "Upton, Emmerich and McDermott",
-                    "updatedAt": "1636511607419",
+                    "name": "Aufderhar-Lindgren",
+                    "updatedAt": "1636596725256",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "65518-8551",
-                            "address": "64460 Cierra Centers Suite 777",
-                            "city": "West Layneland",
+                            "zip": "87304-4170",
+                            "address": "61071 Bergnaum Highway",
+                            "city": "Elsaside",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "-54.978175",
-                            "longitude": "58.784782",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "61.574957",
+                            "longitude": "-132.068073",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,
@@ -45,7 +45,7 @@
                         "newActiveContracts": 2,
                         "expiringContracts": 2,
                         "activeQuotes": 56,
-                        "activeQuotesTotalAmount": 13405.070000000002,
+                        "activeQuotesTotalAmount": 13405.07,
                         "newActiveQuotes": 56,
                         "expiringQuotes": 7,
                         "expiredQuotes": 50,

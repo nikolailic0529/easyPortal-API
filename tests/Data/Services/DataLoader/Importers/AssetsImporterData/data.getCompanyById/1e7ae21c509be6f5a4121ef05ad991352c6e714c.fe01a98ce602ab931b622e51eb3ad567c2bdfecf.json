@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d42dbc87-4af5-44a7-ae16-ad33dceb288b",
-                    "name": "Bayer PLC",
-                    "updatedAt": "1636032354982",
+                    "name": "Jenkins Ltd",
+                    "updatedAt": "1636535442791",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17865783214",
-                            "name": "Yasmine Brakus",
+                            "phoneNumber": "+17546210048",
+                            "name": "Jovan Gottlieb",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Annabel Schuster",
+                            "name": "Ms. Carlee Wisozk",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17865783214",
-                            "name": "Yasmine Brakus",
+                            "phoneNumber": "+17546210048",
+                            "name": "Jovan Gottlieb",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "54113-9570",
-                            "address": "770 Thelma Prairie Apt. 182",
-                            "city": "Leannonfort",
+                            "zip": "35376",
+                            "address": "4014 Lance Manors",
+                            "city": "North Jaylon",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "24.947101",
-                            "longitude": "46.147372",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "79.324404",
+                            "longitude": "95.423703",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

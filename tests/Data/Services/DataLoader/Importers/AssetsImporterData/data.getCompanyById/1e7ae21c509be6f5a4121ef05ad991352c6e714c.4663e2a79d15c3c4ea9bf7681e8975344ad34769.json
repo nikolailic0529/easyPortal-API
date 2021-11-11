@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "505ebd5c-1c80-49df-9263-ba8de21aadb3",
-                    "name": "Klein, Bailey and Thiel",
+                    "name": "Bruen-Legros",
                     "updatedAt": "1636517505377",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18606497489",
-                            "name": "Hadley Sawayn",
+                            "phoneNumber": "+19201448222",
+                            "name": "Prof. Enid Jacobi",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18606497489",
-                            "name": "Hadley Sawayn",
+                            "phoneNumber": "+19201448222",
+                            "name": "Prof. Enid Jacobi",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18606497489",
-                            "name": "Hadley Sawayn",
+                            "phoneNumber": "+19201448222",
+                            "name": "Prof. Enid Jacobi",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "40387",
-                            "address": "39550 Boehm Parks",
-                            "city": "Pricemouth",
+                            "zip": "60898-2698",
+                            "address": "8687 Schroeder Lodge Suite 759",
+                            "city": "Predovicside",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-42.041718",
-                            "longitude": "166.277568",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "65.857544",
+                            "longitude": "139.156299",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

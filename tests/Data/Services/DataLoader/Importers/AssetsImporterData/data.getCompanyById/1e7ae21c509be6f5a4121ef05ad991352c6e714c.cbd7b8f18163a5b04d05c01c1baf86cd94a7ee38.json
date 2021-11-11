@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d",
-                    "name": "Luettgen Inc",
-                    "updatedAt": "1636455324650",
+                    "name": "Durgan-Cummerata",
+                    "updatedAt": "1636543484442",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19784738629",
-                            "name": "Virgil Wehner",
+                            "phoneNumber": "+14128147277",
+                            "name": "Modesta Pollich V",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19784738629",
-                            "name": "Virgil Wehner",
+                            "phoneNumber": "+14128147277",
+                            "name": "Modesta Pollich V",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19784738629",
-                            "name": "Virgil Wehner",
+                            "phoneNumber": "+14128147277",
+                            "name": "Modesta Pollich V",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "90458",
-                            "address": "881 Amber Mills",
-                            "city": "New Osborne",
+                            "zip": "39248",
+                            "address": "338 Karlie Highway Apt. 376",
+                            "city": "Joefort",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-73.92439",
-                            "longitude": "-137.469547",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-10.26765",
+                            "longitude": "7.441941",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

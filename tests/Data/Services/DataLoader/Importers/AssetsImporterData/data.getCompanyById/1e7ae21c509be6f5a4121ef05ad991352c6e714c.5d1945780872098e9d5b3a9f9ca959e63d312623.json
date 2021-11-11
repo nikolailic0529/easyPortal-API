@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "20ebaca0-212f-4c79-862f-5ec271ab0d2a",
-                    "name": "Watsica, Roob and Kilback",
-                    "updatedAt": "1636455122390",
+                    "name": "Russel LLC",
+                    "updatedAt": "1636543280157",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12064328105",
-                            "name": "Ava Schuppe",
+                            "phoneNumber": "+17698857648",
+                            "name": "Mrs. Elza Harris DDS",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12064328105",
-                            "name": "Ava Schuppe",
+                            "phoneNumber": "+17698857648",
+                            "name": "Mrs. Elza Harris DDS",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14244507553",
-                            "name": "Ava Schuppe",
+                            "phoneNumber": "+17409113118",
+                            "name": "Mrs. Elza Harris DDS",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "10773",
-                            "address": "52706 Mossie Spring Apt. 925",
-                            "city": "Port Rafaelaton",
+                            "zip": "13029-7552",
+                            "address": "1710 Daugherty Grove Suite 849",
+                            "city": "Maximilliachester",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-72.269253",
-                            "longitude": "-153.289277",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "46.041691",
+                            "longitude": "90.420993",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

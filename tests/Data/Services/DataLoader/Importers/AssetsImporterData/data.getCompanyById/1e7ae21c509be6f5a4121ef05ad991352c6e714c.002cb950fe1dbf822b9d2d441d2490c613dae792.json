@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d8a49987-3e29-47d2-aa42-748fffb1a948",
-                    "name": "Stokes LLC",
-                    "updatedAt": "1636032486486",
+                    "name": "Quitzon-Kris",
+                    "updatedAt": "1636535578238",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18579216663",
-                            "name": "Lacy O'Connell",
+                            "phoneNumber": "+16800062566",
+                            "name": "Mr. Timothy Renner IV",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Annabel Schuster",
+                            "name": "Ms. Carlee Wisozk",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18579216663",
-                            "name": "Lacy O'Connell",
+                            "phoneNumber": "+16800062566",
+                            "name": "Mr. Timothy Renner IV",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "94615",
-                            "address": "724 Theodora Throughway",
-                            "city": "Ellenstad",
+                            "zip": "47108-7525",
+                            "address": "41155 Cassandre Pass",
+                            "city": "Funkville",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "64.178516",
-                            "longitude": "-1.928797",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "80.212178",
+                            "longitude": "158.207577",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -66,7 +66,7 @@
                         "activeQuotes": 8,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 8,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 4,
                         "expiredContracts": 2,
                         "orderedQuotes": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
-                    "name": "Daniel Inc",
-                    "updatedAt": "1636454080989",
+                    "name": "Wilderman-Bergstrom",
+                    "updatedAt": "1636590814184",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,13 +24,13 @@
                     "locations": [
                         {
                             "zip": "",
-                            "address": "2736 Edwardo Knolls",
-                            "city": "Ullrichfurt",
+                            "address": "3239 Renner Walk Apt. 908",
+                            "city": "Terryshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "-6.28775",
-                            "longitude": "5.238417",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "17.770867",
+                            "longitude": "161.1613",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -43,11 +43,11 @@
                         "activeContracts": 24,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 24,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 63,
                         "activeQuotesTotalAmount": 4781.06,
                         "newActiveQuotes": 63,
-                        "expiringQuotes": 14,
+                        "expiringQuotes": 16,
                         "expiredQuotes": 97,
                         "expiredContracts": 44,
                         "orderedQuotes": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "89dfecfc-4ed4-4a39-a746-0142773f5c40",
-                    "name": "Thiel-Bahringer",
+                    "name": "Abernathy-Skiles",
                     "updatedAt": "1636518946443",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13414937577",
-                            "name": "Gavin Roberts",
+                            "phoneNumber": "+15801363423",
+                            "name": "Mrs. Emmy Sawayn",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13414937577",
-                            "name": "Gavin Roberts",
+                            "phoneNumber": "+15801363423",
+                            "name": "Mrs. Emmy Sawayn",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13414937577",
-                            "name": "Gavin Roberts",
+                            "phoneNumber": "+15801363423",
+                            "name": "Mrs. Emmy Sawayn",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "79495",
-                            "address": "947 Alana Village",
-                            "city": "Sylviafort",
+                            "zip": "56204",
+                            "address": "53578 Eleonore Hollow Suite 776",
+                            "city": "East Carson",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "3.241594",
-                            "longitude": "41.896344",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "85.813396",
+                            "longitude": "-145.457266",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "fbdf9864-1ed9-4124-a248-c9c08a55b7c3",
-                    "name": "Marvin-Ullrich",
-                    "updatedAt": "1636034308586",
+                    "name": "Kirlin, Ernser and Kshlerin",
+                    "updatedAt": "1636539252806",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Crystel Lueilwitz",
+                            "name": "Mrs. Freida Mraz",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Annabel Schuster",
+                            "name": "Ms. Carlee Wisozk",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Crystel Lueilwitz",
+                            "name": "Mrs. Freida Mraz",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "90458",
-                            "address": "2736 Edwardo Knolls",
-                            "city": "New Osborne",
+                            "zip": "39248",
+                            "address": "3239 Renner Walk Apt. 908",
+                            "city": "Joefort",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "-85.10818",
-                            "longitude": "83.384839",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-53.053968",
+                            "longitude": "137.937776",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

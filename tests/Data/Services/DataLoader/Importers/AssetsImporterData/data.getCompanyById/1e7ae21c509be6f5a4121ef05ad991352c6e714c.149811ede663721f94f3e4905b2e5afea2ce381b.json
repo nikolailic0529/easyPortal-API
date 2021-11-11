@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1af616b9-337f-444c-8b55-b590520cc393",
-                    "name": "Abernathy Ltd",
-                    "updatedAt": "1636454977714",
+                    "name": "Sporer, Hahn and Kilback",
+                    "updatedAt": "1636543138214",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16293282349",
-                            "name": "Mrs. Victoria Lemke",
+                            "phoneNumber": "+16172111523",
+                            "name": "Leilani Kutch",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Mr. Orrin Lebsack",
+                            "name": "Joshuah Feeney",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16293282349",
-                            "name": "Mrs. Victoria Lemke",
+                            "phoneNumber": "+16172111523",
+                            "name": "Leilani Kutch",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "22681",
-                            "address": "7480 Gerhold Points Apt. 782",
-                            "city": "Port Garettland",
+                            "zip": "59885",
+                            "address": "6423 Edyth Lakes Suite 433",
+                            "city": "East Jan",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-82.32325",
-                            "longitude": "-145.704479",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "29.623453",
+                            "longitude": "-118.118988",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

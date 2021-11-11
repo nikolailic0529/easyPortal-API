@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "f342f429-2016-4809-988b-022e1deb75f0",
-                    "name": "Hudson-Kovacek",
-                    "updatedAt": "1636512163880",
+                    "name": "Rohan, Mueller and Mohr",
+                    "updatedAt": "1636597315294",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "47896-0600",
-                            "address": "386 Ledner Passage Suite 177",
-                            "city": "Lake Jayceview",
+                            "zip": "01929",
+                            "address": "85991 Stewart Bridge",
+                            "city": "Murrayborough",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "-22.74866",
-                            "longitude": "-151.560993",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "71.010702",
+                            "longitude": "-129.920878",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

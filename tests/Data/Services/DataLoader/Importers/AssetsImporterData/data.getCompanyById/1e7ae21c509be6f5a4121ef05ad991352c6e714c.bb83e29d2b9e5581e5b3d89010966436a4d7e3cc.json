@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "202a694b-f8a6-4191-881b-e296663d5061",
-                    "name": "Maggio LLC",
-                    "updatedAt": "1636453573421",
+                    "name": "Trantow and Sons",
+                    "updatedAt": "1636590273938",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "92644-2852",
-                            "address": "59933 Dare Crest Suite 913",
-                            "city": "Kovacekhaven",
+                            "zip": "47844",
+                            "address": "673 Hill Glens",
+                            "city": "Lake Bulahland",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "-42.532599",
-                            "longitude": "-15.9561",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "85.190267",
+                            "longitude": "125.039187",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
