@@ -165,6 +165,8 @@ interface Constants {
 
     /**
      * Type IDs related to contracts.
+     *
+     * If changed Assets must be recalculated.
      */
     #[Setting('ep.contract_types')]
     #[Group('ep')]
@@ -174,6 +176,8 @@ interface Constants {
     /**
      * Types IDs related to quotes. Optional, if empty will use IDs which are
      * not in {@link \Config\Constants::EP_CONTRACT_TYPES}.
+     *
+     * If changed Assets must be recalculated.
      */
     #[Setting('ep.quote_types')]
     #[Group('ep')]
