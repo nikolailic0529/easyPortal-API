@@ -19,13 +19,13 @@ use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
 /**
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
+    use AssetsPrefetch;
     use WithCalculatedProperties;
 
     protected bool $withAssets          = false;
@@ -70,16 +70,8 @@ trait WithAssets {
         // Update assets
         $factory  = $this->getAssetsFactory();
         $updated  = [];
-        $prefetch = function (array $assets) use ($factory): void {
-            $factory->prefetch($assets, true, function (Collection $assets): void {
-                $assets->loadMissing('warranties.document');
-
-                if ($this->isWithAssetsDocuments()) {
-                    $assets->loadMissing('warranties.serviceLevels');
-                }
-            });
-            $this->getCustomersFactory()?->prefetch($assets, false);
-            $this->getResellersFactory()?->prefetch($assets, false);
+        $prefetch = function (array $assets): void {
+            $this->assetsPrefetch($assets);
         };
 
         foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {
