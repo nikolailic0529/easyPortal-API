@@ -127,7 +127,10 @@ class Asset extends Model {
      */
     public function setWarrantiesAttribute(Collection|array $warranties): void {
         $this->syncHasMany('warranties', $warranties);
-        $this->warranty_end = (new Collection($warranties))
+        $this->warranty_end = $this->warranties
+            ->filter(static function (AssetWarranty $warranty): bool {
+                return $warranty->document_id === null || ($warranty->document && $warranty->document->is_contract);
+            })
             ->pluck('end')
             ->max();
     }
