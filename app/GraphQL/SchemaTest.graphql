@@ -276,7 +276,6 @@ input AssetWarrantiesQuery {
   id: ID!
   start: Date
   end: Date
-  note: String
   asset: AssetsQuery
   customer_id: ID
   customer: CustomersQuery
@@ -292,7 +291,6 @@ type AssetWarranty {
   id: ID!
   start: Date
   end: Date
-  note: String
   customer_id: ID
   customer: Customer
   document_id: ID
@@ -3214,9 +3212,6 @@ input SearchByConditionAssetWarrantiesQuery {
   end: SearchByScalarDateOrNull
 
   """Property condition."""
-  note: SearchByScalarStringOrNull
-
-  """Property condition."""
   asset: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
@@ -4855,9 +4850,6 @@ input SortByClauseAssetWarrantiesQuery {
 
   """Property clause."""
   end: SortByDirection
-
-  """Property clause."""
-  note: SortByDirection
 
   """Property clause."""
   asset: SortByClauseAssetsQuery

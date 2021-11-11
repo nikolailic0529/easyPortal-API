@@ -33,7 +33,6 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable                                            $updated_at
  * @property \Carbon\CarbonImmutable|null                                       $deleted_at
  * @property string|null                                                        $description
- * @property string|null                                                        $note
  * @property \App\Models\Asset                                                  $asset
  * @property \App\Models\Customer|null                                          $customer
  * @property \App\Models\Document|null                                          $document

@@ -10,7 +10,8 @@ ALTER TABLE `asset_warranties`
     ADD COLUMN `status_id`   CHAR(36) NULL DEFAULT NULL AFTER `type_id`,
     ADD COLUMN `description` TEXT     NULL DEFAULT NULL AFTER `deleted_at`,
     ADD INDEX `fk_asset_warranties_statuses1_idx`(`status_id` ASC) VISIBLE,
-    ADD INDEX `fk_asset_warranties_types1_idx`(`type_id` ASC) VISIBLE;
+    ADD INDEX `fk_asset_warranties_types1_idx`(`type_id` ASC) VISIBLE,
+    DROP COLUMN `note`;
 
 ALTER TABLE `asset_warranties`
     ADD CONSTRAINT `fk_asset_warranties_statuses1`

@@ -12,7 +12,8 @@ ALTER TABLE `asset_warranties`
     DROP INDEX `fk_asset_warranties_types1_idx`,
     DROP COLUMN `type_id`,
     DROP COLUMN `status_id`,
-    DROP COLUMN `description`;
+    DROP COLUMN `description`,
+    ADD COLUMN `note` TEXT NULL AFTER `deleted_at`;
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

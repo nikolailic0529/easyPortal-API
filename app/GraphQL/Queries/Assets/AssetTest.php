@@ -149,7 +149,6 @@ class AssetTest extends TestCase {
                             document_id
                             start
                             end
-                            note
                             serviceGroup {
                               id
                                 oem_id
@@ -444,7 +443,6 @@ class AssetTest extends TestCase {
                                     'document_id'   => null,
                                     'start'         => '2021-01-01',
                                     'end'           => '2022-01-01',
-                                    'note'          => 'note',
                                     'serviceLevels' => [
                                         // empty
                                     ],
@@ -480,7 +478,6 @@ class AssetTest extends TestCase {
                                     'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'start'         => '2021-01-01',
                                     'end'           => '2022-01-01',
-                                    'note'          => 'note',
                                     'serviceLevels' => [
                                         [
                                             'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
@@ -835,7 +832,6 @@ class AssetTest extends TestCase {
                                     'document_id' => $document,
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
                                 ]);
 
                             // Should be returned - no document
@@ -848,7 +844,6 @@ class AssetTest extends TestCase {
                                     'document_id' => null,
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
                                 ]);
 
                             // Should not be returned - document not a contract
@@ -861,7 +856,6 @@ class AssetTest extends TestCase {
                                     'document_id' => Document::factory()->create(),
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
                                 ]);
                             // Quote Requests
                             QuoteRequest::factory()

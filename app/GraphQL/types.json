@@ -834,12 +834,6 @@
                         }
                     ]
                 },
-                "note": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "asset": {
                     "$ref": "#/definitions/Asset"
                 },

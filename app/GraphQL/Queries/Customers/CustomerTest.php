@@ -269,7 +269,6 @@ class CustomerTest extends TestCase {
                                 document_id
                                 start
                                 end
-                                note
                                 serviceGroup {
                                     id
                                     oem_id
@@ -985,7 +984,6 @@ class CustomerTest extends TestCase {
                                             'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                             'start'         => '2021-01-01',
                                             'end'           => '2022-01-01',
-                                            'note'          => 'note',
                                             'customer'      => [
                                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                                 'name'            => 'name aaa',
@@ -1267,7 +1265,6 @@ class CustomerTest extends TestCase {
                                     'document_id' => $document,
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note',
                                 ]);
 
                             return $customer;
