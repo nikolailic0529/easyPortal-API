@@ -52,7 +52,7 @@ class ResellerLoaderTest extends TestCase {
         $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-assets.json');
+        $expected = $this->getTestData()->json('~create-without-assets-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -65,6 +65,22 @@ class ResellerLoaderTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(ResellerLoader::class)
+            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS);
+
+        $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-without-assets-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }
@@ -96,7 +112,7 @@ class ResellerLoaderTest extends TestCase {
         $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-assets.json');
+        $expected = $this->getTestData()->json('~create-with-assets-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -109,6 +125,22 @@ class ResellerLoaderTest extends TestCase {
             Document::class      => 2,
             DocumentEntry::class => 10,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(ResellerLoader::class)
+            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS);
+
+        $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-with-assets-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }

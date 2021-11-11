@@ -1,0 +1,755 @@
+[
+    {
+        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2815 selina rapids apt. 204",
+            "63877"
+        ]
+    },
+    {
+        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`reseller_location_id` = ? and `reseller_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    },
+    {
+        "query": "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:08:58",
+            "2021-08-30 00:09:01",
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    },
+    {
+        "query": "select * from `asset_warranties` where `asset_warranties`.`asset_id` in (?, ?, ?, ?, ?) and `asset_warranties`.`deleted_at` is null",
+        "bindings": [
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    },
+    {
+        "query": "select * from `documents` where `documents`.`id` in (?, ?) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
+        "bindings": [
+            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
+            "247f5a54-605d-580c-b91f-0a3daae1c462",
+            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
+            "39e37129-6357-5640-b3c2-2c1201cbd594",
+            "4095e0b0-8302-5ec4-a31b-09b584ea92c4",
+            "445e2b40-4e67-516a-a190-cf516597223c",
+            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
+            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
+            "8217815e-c85f-5561-909d-53fd76c39857",
+            "83681df0-8340-58b5-8dfa-3504701d4dd4",
+            "9166167a-70ae-5591-a284-bb6b14de83e8",
+            "acf54392-1f10-517b-bf7b-2a445e5e8826",
+            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
+            "f14bc56f-717f-5132-94af-3eba66d9158e",
+            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1"
+        ]
+    },
+    {
+        "query": "select * from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+        ]
+    },
+    {
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+        ]
+    },
+    {
+        "query": "select * from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "233 blick loaf suite 057",
+            "56011"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "lizeth marvin",
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "asset"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "jeff king",
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "asset",
+            "+12022395071"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "b996cf39-fa11-5951-b47d-fcd31cf500b4"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "Asset"
+        ]
+    },
+    {
+        "query": "select * from `tags` where `tags`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`asset_id` = ? and `asset_tags`.`deleted_at` is null and `tags`.`deleted_at` is null",
+        "bindings": [
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc"
+        ]
+    },
+    {
+        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc"
+        ]
+    },
+    {
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "Document"
+        ]
+    },
+    {
+        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        ]
+    },
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+        ]
+    },
+    {
+        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `languages` where `languages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:09:23",
+            "2021-08-30 00:09:28",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:09:56",
+            "2021-08-30 00:10:01",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:09:18",
+            "2021-08-30 00:10:36",
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "lizeth marvin",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "asset"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "jeff king",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "asset",
+            "+12022395071"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "4be53773-2fc4-524c-88ca-759c7e974759"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "Asset"
+        ]
+    },
+    {
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`asset_id` = ? and `asset_tags`.`deleted_at` is null and `tags`.`deleted_at` is null",
+        "bindings": [
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5"
+        ]
+    },
+    {
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "Document"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:11:12",
+            "2021-08-30 00:11:17",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:11:45",
+            "2021-08-30 00:11:50",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:11:07",
+            "2021-08-30 00:12:25",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "lizeth marvin",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "asset"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "jeff king",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "asset",
+            "+12022395071"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "e62950ed-417e-5384-9d3c-be30424ca8ec"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "Asset"
+        ]
+    },
+    {
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`asset_id` = ? and `asset_tags`.`deleted_at` is null and `tags`.`deleted_at` is null",
+        "bindings": [
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9"
+        ]
+    },
+    {
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "Document"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:13:01",
+            "2021-08-30 00:13:06",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:13:34",
+            "2021-08-30 00:13:39",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:12:56",
+            "2021-08-30 00:14:14",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "lizeth marvin",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "asset"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "jeff king",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "asset",
+            "+12022395071"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "311c4a8b-7d91-5fc2-870f-2c5a03681902"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "Asset"
+        ]
+    },
+    {
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`asset_id` = ? and `asset_tags`.`deleted_at` is null and `tags`.`deleted_at` is null",
+        "bindings": [
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4"
+        ]
+    },
+    {
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "Document"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:14:50",
+            "2021-08-30 00:14:55",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:15:23",
+            "2021-08-30 00:15:28",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:14:45",
+            "2021-08-30 00:16:03",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4"
+        ]
+    },
+    {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "211 bechtelar village",
+            "56011"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "lizeth marvin",
+            "d164e377-3780-4587-8f97-a77c7952e953",
+            "asset"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "jeff king",
+            "d164e377-3780-4587-8f97-a77c7952e953",
+            "asset",
+            "+12022395071"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "0e899424-2221-5f00-8319-63147db3b868"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "0920fd14-67d6-501c-a409-3f9ae82c6f81"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "d164e377-3780-4587-8f97-a77c7952e953",
+            "Asset"
+        ]
+    },
+    {
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`asset_id` = ? and `asset_tags`.`deleted_at` is null and `tags`.`deleted_at` is null",
+        "bindings": [
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    },
+    {
+        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "Document"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:16:39",
+            "2021-08-30 00:16:44",
+            "eafb9a14-491f-421a-a762-d4496ea47d4d"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:17:12",
+            "2021-08-30 00:17:17",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:16:34",
+            "2021-08-30 00:17:52",
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    },
+    {
+        "query": "select * from `assets` where `assets`.`reseller_id` = ? and `assets`.`reseller_id` is not null and `id` not in (?, ?, ?, ?, ?) and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 1000 offset 0",
+        "bindings": [
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+            "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+            "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+            "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+            "d164e377-3780-4587-8f97-a77c7952e953"
+        ]
+    }
+]

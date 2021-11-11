@@ -54,7 +54,7 @@ class AssetLoaderTest extends TestCase {
         $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-documents.json');
+        $expected = $this->getTestData()->json('~create-without-documents-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -67,6 +67,21 @@ class AssetLoaderTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(AssetLoader::class)
+            ->setWithDocuments(AssetLoaderCreateWithoutDocuments::DOCUMENTS);
+
+        $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-without-documents-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }
@@ -97,7 +112,7 @@ class AssetLoaderTest extends TestCase {
         $importer->create(AssetLoaderCreateWithDocuments::ASSET);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-documents.json');
+        $expected = $this->getTestData()->json('~create-with-documents-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -110,6 +125,21 @@ class AssetLoaderTest extends TestCase {
             Document::class      => 4,
             DocumentEntry::class => 16,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(AssetLoader::class)
+            ->setWithDocuments(AssetLoaderCreateWithDocuments::DOCUMENTS);
+
+        $importer->create(AssetLoaderCreateWithDocuments::ASSET);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-with-documents-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }

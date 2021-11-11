@@ -55,7 +55,7 @@ class CustomerLoaderTest extends TestCase {
         $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-assets.json');
+        $expected = $this->getTestData()->json('~create-without-assets-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -68,6 +68,22 @@ class CustomerLoaderTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(CustomerLoader::class)
+            ->setWithAssets(CustomerLoaderCreateWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderCreateWithoutAssets::ASSETS);
+
+        $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-without-assets-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }
@@ -99,7 +115,7 @@ class CustomerLoaderTest extends TestCase {
         $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-assets.json');
+        $expected = $this->getTestData()->json('~create-with-assets-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -112,6 +128,23 @@ class CustomerLoaderTest extends TestCase {
             Document::class      => 3,
             DocumentEntry::class => 10,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(CustomerLoader::class)
+            ->setWithAssets(CustomerLoaderCreateWithAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderCreateWithAssets::ASSETS);
+
+        $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-with-assets-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }

@@ -49,7 +49,7 @@ class DocumentLoaderTest extends TestCase {
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create.json');
+        $expected = $this->getTestData()->json('~create-cold.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -62,6 +62,20 @@ class DocumentLoaderTest extends TestCase {
             Document::class      => 1,
             DocumentEntry::class => 0,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(DocumentLoader::class);
+
+        $importer->create(DocumentLoaderCreate::DOCUMENT);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~create-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
 
         $queries->flush();
     }

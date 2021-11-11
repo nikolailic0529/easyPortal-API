@@ -1,0 +1,83 @@
+[
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319"
+        ]
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "bindings": [
+            "madisen bogisich",
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "customer"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "0d8b1849-cb13-5658-b504-726208f6ccae"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select * from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319"
+        ]
+    },
+    {
+        "query": "select * from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "8615 berge drive",
+            "50226-9676"
+        ]
+    },
+    {
+        "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`customer_location_id` = ? and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "bindings": [
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea"
+        ]
+    },
+    {
+        "query": "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Customer"
+        ]
+    },
+    {
+        "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:00:14",
+            "2021-08-30 00:00:17",
+            "a0df13a5-c42c-4269-ae57-71085acb5319"
+        ]
+    }
+]
