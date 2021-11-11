@@ -37,24 +37,20 @@ trait AssetsPrefetch {
 
         $container
             ->make(ResellerFactory::class)
-            ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
+            ->prefetch($items, false, static function (Collection $resellers) use ($locations): void {
                 $resellers->loadMissing('locations.location');
                 $resellers->loadMissing('locations.types');
-                $resellers->loadMissing('contacts');
 
                 $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-                $contacts->add($resellers->pluck('contacts')->flatten());
             });
 
         $container
             ->make(CustomerFactory::class)
-            ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
+            ->prefetch($items, false, static function (Collection $customers) use ($locations): void {
                 $customers->loadMissing('locations.location');
                 $customers->loadMissing('locations.types');
-                $customers->loadMissing('contacts');
 
                 $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-                $contacts->add($customers->pluck('contacts')->flatten());
             });
 
         (new Collection($contacts->getResolved()))->loadMissing('types');
