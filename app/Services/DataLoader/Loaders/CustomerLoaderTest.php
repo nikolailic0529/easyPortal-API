@@ -136,7 +136,6 @@ class CustomerLoaderTest extends TestCase {
         $queries->flush();
 
         // Test (hot)
-
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
             ->make(CustomerLoader::class)

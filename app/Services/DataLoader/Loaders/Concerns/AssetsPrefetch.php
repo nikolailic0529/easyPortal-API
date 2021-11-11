@@ -26,7 +26,7 @@ trait AssetsPrefetch {
             ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
                 $assets->loadMissing('warranties.serviceLevels');
                 $assets->loadMissing('warranties.document');
-                $assets->loadMissing('contacts');
+                $assets->loadMissing('contacts.types');
                 $assets->loadMissing('location');
                 $assets->loadMissing('tags');
                 $assets->loadMissing('oem');
@@ -39,7 +39,6 @@ trait AssetsPrefetch {
             ->make(ResellerFactory::class)
             ->prefetch($items, false, static function (Collection $resellers) use ($locations): void {
                 $resellers->loadMissing('locations.location');
-                $resellers->loadMissing('locations.types');
 
                 $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
@@ -48,11 +47,8 @@ trait AssetsPrefetch {
             ->make(CustomerFactory::class)
             ->prefetch($items, false, static function (Collection $customers) use ($locations): void {
                 $customers->loadMissing('locations.location');
-                $customers->loadMissing('locations.types');
 
                 $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
-
-        (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 }
