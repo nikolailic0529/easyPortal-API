@@ -6,8 +6,11 @@ use App\Services\Queue\NamedJob;
 use Closure;
 use DateInterval;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 use JsonSerializable;
 
+use function array_merge;
 use function array_slice;
 use function class_exists;
 use function count;
@@ -17,6 +20,7 @@ use function is_array;
 use function is_object;
 use function json_decode;
 use function json_encode;
+use function sprintf;
 use function str_starts_with;
 
 /**
@@ -94,16 +98,36 @@ abstract class Service {
         }
 
         foreach ($key as $value) {
-            if ($value instanceof NamedJob) {
-                $parts[] = $value->displayName();
-            } elseif (is_object($value)) {
-                $parts[] = $value::class;
-            } else {
-                $parts[] = $value;
-            }
+            $parts = array_merge($parts, (array) $this->getKeyPart($value));
         }
 
         return implode(':', $parts);
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getKeyPart(object|string $value): array {
+        $part = [];
+
+        if ($value instanceof NamedJob) {
+            $part = [$value->displayName()];
+        } elseif ($value instanceof Model) {
+            if (!$value->exists || !$value->getKey()) {
+                throw new InvalidArgumentException(sprintf(
+                    'The instance of `%s` should exist and have a non-empty key.',
+                    $value::class,
+                ));
+            }
+
+            $part = [$value->getMorphClass(), $value->getKey()];
+        } elseif (is_object($value)) {
+            $part = [$value::class];
+        } else {
+            $part = [$value];
+        }
+
+        return $part;
     }
 
     protected function getDefaultTtl(): DateInterval|int|null {
