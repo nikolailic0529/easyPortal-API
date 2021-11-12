@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "afc0228d-1b20-4971-8635-6837387409a6",
-                    "name": "Welch-Runolfsson",
-                    "updatedAt": "1636028229603",
+                    "name": "Mayer, Harvey and Bauch",
+                    "updatedAt": "1636534578665",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14407729542",
-                            "name": "Patience Greenfelder",
+                            "phoneNumber": "+15205847252",
+                            "name": "Miss Sabrina Schultz",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14407729542",
-                            "name": "Patience Greenfelder",
+                            "phoneNumber": "+15205847252",
+                            "name": "Miss Sabrina Schultz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14407729542",
-                            "name": "Patience Greenfelder",
+                            "phoneNumber": "+15205847252",
+                            "name": "Miss Sabrina Schultz",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "24904-1657",
-                            "address": "7948 Antonia Crossroad",
-                            "city": "Noemymouth",
+                            "zip": "11076",
+                            "address": "453 Ruecker Mountain Apt. 787",
+                            "city": "Lake Maurineberg",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-2.064008",
-                            "longitude": "-99.554312",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-29.042093",
+                            "longitude": "159.343271",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

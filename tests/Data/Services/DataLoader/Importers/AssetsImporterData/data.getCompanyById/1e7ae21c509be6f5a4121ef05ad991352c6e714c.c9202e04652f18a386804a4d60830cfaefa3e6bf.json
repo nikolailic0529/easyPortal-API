@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "9684d520-c291-4ec6-b914-f0323d6ef0ba",
-                    "name": "Grimes-Wiza",
+                    "name": "Effertz-Kuvalis",
                     "updatedAt": "1636519296615",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16314536248",
-                            "name": "Miss Hope Ferry IV",
+                            "phoneNumber": "+17047413532",
+                            "name": "Mr. Keshawn Ritchie",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "50835-7002",
-                            "address": "8764 Crooks Manors Suite 051",
-                            "city": "Florencemouth",
+                            "zip": "98575-3895",
+                            "address": "5143 Kimberly Cliff Apt. 012",
+                            "city": "VonRuedenland",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "1.644604",
-                            "longitude": "155.339293",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-11.396191",
+                            "longitude": "-56.998512",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

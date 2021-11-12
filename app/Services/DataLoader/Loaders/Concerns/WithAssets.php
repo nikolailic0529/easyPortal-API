@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAsset;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
@@ -16,16 +17,15 @@ use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
 /**
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
+    use AssetsPrefetch;
     use WithCalculatedProperties;
 
     protected bool $withAssets          = false;
@@ -36,11 +36,8 @@ trait WithAssets {
         ExceptionHandler $exceptionHandler,
         Client $client,
         protected ResellerFactory $resellerFactory,
-        protected ResellerResolver $resellerResolver,
         protected CustomerFactory $customerFactory,
-        protected CustomerResolver $customerResolver,
         protected LocationFactory $locationFactory,
-        protected LocationResolver $locationResolver,
         protected ContactFactory $contactFactory,
         protected AssetFactory $assetFactory,
         protected AssetLoader $assetLoader,
@@ -73,14 +70,8 @@ trait WithAssets {
         // Update assets
         $factory  = $this->getAssetsFactory();
         $updated  = [];
-        $prefetch = function (array $assets) use ($factory): void {
-            $factory->prefetch($assets, true, function (Collection $assets): void {
-                if ($this->isWithAssetsDocuments()) {
-                    $assets->loadMissing('warranties.serviceLevels');
-                }
-            });
-            $this->getCustomersFactory()?->prefetch($assets, false);
-            $this->getResellersFactory()?->prefetch($assets, false);
+        $prefetch = function (array $assets): void {
+            $this->prefetchAssets($assets);
         };
 
         foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {
@@ -157,9 +148,9 @@ trait WithAssets {
      */
     protected function getResolversToRecalculate(): array {
         return [
-            $this->resellerResolver,
-            $this->customerResolver,
-            $this->locationResolver,
+            ResellerResolver::class,
+            CustomerResolver::class,
+            LocationResolver::class,
         ];
     }
     // </editor-fold>

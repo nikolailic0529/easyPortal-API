@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "96a956b3-f459-4ea2-a81c-7cdc01c24433",
-                    "name": "Osinski PLC",
+                    "name": "Cruickshank, Champlin and McDermott",
                     "updatedAt": "1636519299756",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17474017140",
-                            "name": "Sienna Mayer",
+                            "phoneNumber": "+14252739165",
+                            "name": "Dayne Moen",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "61401-2210",
-                            "address": "19010 Carlotta Flats Suite 329",
-                            "city": "Wilbertborough",
+                            "zip": "33354-6644",
+                            "address": "139 Melany Squares",
+                            "city": "South Salvador",
                             "locationType": null,
-                            "country": "Timor-Leste",
-                            "latitude": "1.843276",
-                            "longitude": "-32.073213",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "-67.838585",
+                            "longitude": "-154.780365",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

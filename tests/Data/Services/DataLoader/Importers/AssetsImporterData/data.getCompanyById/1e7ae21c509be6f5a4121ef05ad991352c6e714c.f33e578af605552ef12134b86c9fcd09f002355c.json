@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "18dcfcfa-6655-4932-8fec-46630639490a",
-                    "name": "Kozey, Glover and Moen",
-                    "updatedAt": "1636454929556",
+                    "name": "Kub-Luettgen",
+                    "updatedAt": "1636543088585",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17207250013",
-                            "name": "Mrs. Eva Ward Sr.",
+                            "phoneNumber": "+19526546351",
+                            "name": "Dr. Ned Daniel",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17207250013",
-                            "name": "Mrs. Eva Ward Sr.",
+                            "phoneNumber": "+19526546351",
+                            "name": "Dr. Ned Daniel",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17207250013",
-                            "name": "Mrs. Eva Ward Sr.",
+                            "phoneNumber": "+19526546351",
+                            "name": "Dr. Ned Daniel",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "71829",
-                            "address": "306 Prince Lock Apt. 922",
-                            "city": "New Ashtonshire",
+                            "zip": "11449",
+                            "address": "20431 Brown Shores",
+                            "city": "Keonbury",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "53.682217",
-                            "longitude": "1.656107",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "10.84632",
+                            "longitude": "-144.329233",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

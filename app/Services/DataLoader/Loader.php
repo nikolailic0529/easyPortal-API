@@ -5,13 +5,13 @@ namespace App\Services\DataLoader;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Exception;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function is_string;

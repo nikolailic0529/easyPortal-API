@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "4d7b13f9-9bf5-499d-a4cb-c40bdcea9bf0",
-                    "name": "Kautzer and Sons",
+                    "name": "O'Connell-O'Hara",
                     "updatedAt": "1636517431844",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -17,19 +17,19 @@
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Ms. Velda Bahringer I",
+                            "name": "Kody Collier",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ms. Velda Bahringer I",
+                            "name": "Kody Collier",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ms. Velda Bahringer I",
+                            "name": "Kody Collier",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31953",
-                            "address": "2791 Aubree Run",
-                            "city": "East Madisen",
+                            "zip": "67070-0280",
+                            "address": "958 Colleen Junctions",
+                            "city": "Shieldsborough",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-39.989291",
-                            "longitude": "-88.760149",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-38.474296",
+                            "longitude": "149.173946",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "fcd8ee32-031a-4e61-b112-b4d07c92f6b3",
-                    "name": "Swaniawski, Lang and Ernser",
-                    "updatedAt": "1636512229393",
+                    "name": "Borer, Weber and Kutch",
+                    "updatedAt": "1636597378888",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "32317-8800",
-                            "address": "64981 Deborah Meadows Apt. 170",
-                            "city": "West Lurachester",
+                            "zip": "75432-8576",
+                            "address": "83487 Nienow Fords",
+                            "city": "South Lizzie",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "21.140618",
-                            "longitude": "-108.541843",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "43.537431",
+                            "longitude": "81.907938",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

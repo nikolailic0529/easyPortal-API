@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "75026113-e205-40e8-831e-0a2f9dee75bf",
-                    "name": "Brekke, Howe and Schulist",
-                    "updatedAt": "1636454245570",
+                    "name": "White-Leannon",
+                    "updatedAt": "1636590969514",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,21 +23,21 @@
                     ],
                     "locations": [
                         {
-                            "zip": "73483-2510",
-                            "address": "8997 Mosciski Shores",
-                            "city": "South Alyce",
+                            "zip": "91138",
+                            "address": "4121 Jillian Forge Apt. 100",
+                            "city": "New Arneville",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "9.905279",
-                            "longitude": "-56.103301",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "61.571866",
+                            "longitude": "-23.94885",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 3934,
-                        "activeAssets": 105,
-                        "activeAssetsPercentage": 2.6690391459074734,
+                        "activeAssets": 104,
+                        "activeAssetsPercentage": 2.6436197254702596,
                         "activeCustomers": 522,
                         "newActiveCustomers": 522,
                         "activeContracts": 4,
@@ -47,7 +47,7 @@
                         "activeQuotes": 452,
                         "activeQuotesTotalAmount": 74430.06,
                         "newActiveQuotes": 452,
-                        "expiringQuotes": 99,
+                        "expiringQuotes": 121,
                         "expiredQuotes": 511,
                         "expiredContracts": 7,
                         "orderedQuotes": null,

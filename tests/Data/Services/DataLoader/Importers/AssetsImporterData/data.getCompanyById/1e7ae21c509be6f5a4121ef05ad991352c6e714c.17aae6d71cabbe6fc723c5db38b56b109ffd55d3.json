@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b",
-                    "name": "Marks Ltd",
+                    "name": "Hessel-Reilly",
                     "updatedAt": "1636517460840",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18289473765",
-                            "name": "Dr. Pattie Yundt IV",
+                            "phoneNumber": "+19787285196",
+                            "name": "Maiya Schinner",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18289473765",
-                            "name": "Dr. Pattie Yundt IV",
+                            "phoneNumber": "+19787285196",
+                            "name": "Maiya Schinner",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18289473765",
-                            "name": "Dr. Pattie Yundt IV",
+                            "phoneNumber": "+19787285196",
+                            "name": "Maiya Schinner",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "71575-1943",
-                            "address": "9582 Agustina View Suite 738",
-                            "city": "Port Louveniaport",
+                            "zip": "42286",
+                            "address": "19320 White River",
+                            "city": "Gleasonbury",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "79.706752",
-                            "longitude": "-14.592579",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "53.576303",
+                            "longitude": "-115.318855",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2870d449-ec69-48a0-81ce-46aed24e5382",
-                    "name": "Howell Inc",
-                    "updatedAt": "1636455322179",
+                    "name": "Reichert Group",
+                    "updatedAt": "1636543481551",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16895929370",
-                            "name": "Prof. Reina Kunze",
+                            "phoneNumber": "+14237652766",
+                            "name": "Asa Predovic",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16895929370",
-                            "name": "Prof. Reina Kunze",
+                            "phoneNumber": "+14237652766",
+                            "name": "Asa Predovic",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16895929370",
-                            "name": "Prof. Reina Kunze",
+                            "phoneNumber": "+14237652766",
+                            "name": "Asa Predovic",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89138",
-                            "address": "595 Lilla Centers",
-                            "city": "Maegantown",
+                            "zip": "12033",
+                            "address": "2059 Orlo Mill",
+                            "city": "New Tyree",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "62.026092",
-                            "longitude": "9.762411",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "0.902344",
+                            "longitude": "-151.714417",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -66,7 +66,7 @@
                         "activeQuotes": 29,
                         "activeQuotesTotalAmount": 939.82,
                         "newActiveQuotes": 29,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 41,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "ff69738c-6dce-458e-bc6c-4b6eae3f6168",
-                    "name": "Heathcote-Leannon",
-                    "updatedAt": "1636512255477",
+                    "name": "Harris Ltd",
+                    "updatedAt": "1636597401206",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "61494",
-                            "address": "38938 Collin Estate Suite 002",
-                            "city": "Port Wilhelmside",
+                            "zip": "10594",
+                            "address": "6014 Sonya Garden",
+                            "city": "Bernardshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "-28.996599",
-                            "longitude": "-61.179251",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "80.234143",
+                            "longitude": "84.447359",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

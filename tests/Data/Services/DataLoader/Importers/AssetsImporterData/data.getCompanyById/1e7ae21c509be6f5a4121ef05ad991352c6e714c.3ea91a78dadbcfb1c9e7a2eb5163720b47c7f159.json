@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "27d4d93c-43bf-4514-8b56-3661523b15a4",
-                    "name": "Runolfsson-Balistreri",
-                    "updatedAt": "1636455310663",
+                    "name": "Robel, O'Keefe and Smith",
+                    "updatedAt": "1636543471051",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19151758580",
-                            "name": "Colby Eichmann",
+                            "phoneNumber": "+18106751212",
+                            "name": "Luella Armstrong",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17474017140",
-                            "name": "Sienna Mayer",
+                            "phoneNumber": "+14252739165",
+                            "name": "Dayne Moen",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19151758580",
-                            "name": "Colby Eichmann",
+                            "phoneNumber": "+18106751212",
+                            "name": "Luella Armstrong",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74788",
-                            "address": "317 Senger Ramp",
-                            "city": "Lake Gerardfurt",
+                            "zip": "91425",
+                            "address": "48719 Kip Harbor",
+                            "city": "Jenningsbury",
                             "locationType": null,
-                            "country": "Timor-Leste",
-                            "latitude": "-76.286155",
-                            "longitude": "-102.908663",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "-51.572518",
+                            "longitude": "171.315855",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

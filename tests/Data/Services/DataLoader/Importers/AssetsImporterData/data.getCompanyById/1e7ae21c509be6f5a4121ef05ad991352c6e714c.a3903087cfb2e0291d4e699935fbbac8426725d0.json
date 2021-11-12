@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "6c32cf27-fef0-487d-b95b-c1e1cd94282e",
-                    "name": "Schmitt, Nienow and Murazik",
-                    "updatedAt": "1636454088051",
+                    "name": "Reichel, Keebler and Dietrich",
+                    "updatedAt": "1636590822247",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "72823-7459",
-                            "address": "4231 Tate Streets Apt. 021",
-                            "city": "Kamilleshire",
+                            "zip": "55468",
+                            "address": "41072 Barney Meadows",
+                            "city": "Martinshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "-9.262465",
-                            "longitude": "127.499492",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "43.55566",
+                            "longitude": "-105.92232",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

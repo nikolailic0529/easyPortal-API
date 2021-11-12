@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "20268e5f-6d31-49da-a850-24a28446cdd4",
-                    "name": "Hauck, Murray and Gerhold",
-                    "updatedAt": "1636453573015",
+                    "name": "Doyle and Sons",
+                    "updatedAt": "1636590273595",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82579",
-                            "address": "588 Ferry Light Suite 393",
-                            "city": "South Krista",
+                            "zip": "82336-2022",
+                            "address": "6403 Oberbrunner Tunnel Apt. 448",
+                            "city": "West Alisachester",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "52.500322",
-                            "longitude": "38.63137",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-29.271249",
+                            "longitude": "-98.946116",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 15,
                         "activeQuotesTotalAmount": 4247.77,
                         "newActiveQuotes": 15,
-                        "expiringQuotes": 1,
+                        "expiringQuotes": 5,
                         "expiredQuotes": 5,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

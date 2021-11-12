@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "5272f005-f7cc-441d-8fab-9d159f83277d",
-                    "name": "Bayer-Rogahn",
-                    "updatedAt": "1636453920417",
+                    "name": "Ankunding-Russel",
+                    "updatedAt": "1636590649865",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,31 +23,31 @@
                     ],
                     "locations": [
                         {
-                            "zip": "54113-9570",
-                            "address": "815 Daisy Shores",
-                            "city": "Leannonfort",
+                            "zip": "35376",
+                            "address": "4029 Cormier Extensions",
+                            "city": "North Jaylon",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "-9.103377",
-                            "longitude": "144.355422",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "40.923775",
+                            "longitude": "91.46559",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 22297,
-                        "activeAssets": 2775,
-                        "activeAssetsPercentage": 12.445620487061039,
+                        "activeAssets": 2774,
+                        "activeAssetsPercentage": 12.441135578777414,
                         "activeCustomers": 54,
                         "newActiveCustomers": 54,
                         "activeContracts": 28,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 28,
-                        "expiringContracts": 5,
+                        "expiringContracts": 8,
                         "activeQuotes": 47,
                         "activeQuotesTotalAmount": 9514.09,
                         "newActiveQuotes": 47,
-                        "expiringQuotes": 12,
+                        "expiringQuotes": 15,
                         "expiredQuotes": 95,
                         "expiredContracts": 82,
                         "orderedQuotes": null,

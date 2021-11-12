@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "03ded2b7-ed78-4126-8ea5-ccefeb5a0b63",
-                    "name": "Towne Inc",
+                    "name": "Sipes Ltd",
                     "updatedAt": "1636512370550",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19140017875",
-                            "name": "Ayden Gottlieb",
+                            "phoneNumber": "+14359490987",
+                            "name": "Mrs. Helen Crona PhD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15031027544",
-                            "name": "Ayden Gottlieb",
+                            "phoneNumber": "+19063316078",
+                            "name": "Mrs. Helen Crona PhD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19140017875",
-                            "name": "Ayden Gottlieb",
+                            "phoneNumber": "+14359490987",
+                            "name": "Mrs. Helen Crona PhD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82224-9252",
-                            "address": "2501 Ardith Lane",
-                            "city": "Lake Tomasa",
+                            "zip": "24419-1199",
+                            "address": "231 Linnie Ways",
+                            "city": "North Malcolm",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "65.387282",
-                            "longitude": "-34.228773",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "17.380473",
+                            "longitude": "111.334185",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

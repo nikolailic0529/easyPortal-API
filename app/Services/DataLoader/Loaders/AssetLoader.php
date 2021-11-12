@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
@@ -17,7 +18,6 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class AssetLoader extends Loader implements LoaderRecalculable {
@@ -32,9 +32,6 @@ class AssetLoader extends Loader implements LoaderRecalculable {
         Client $client,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
-        protected ResellerResolver $resellerResolver,
-        protected CustomerResolver $customerResolver,
-        protected LocationResolver $locationFactory,
     ) {
         parent::__construct($container, $exceptionHandler, $client);
     }
@@ -83,9 +80,9 @@ class AssetLoader extends Loader implements LoaderRecalculable {
      */
     protected function getResolversToRecalculate(): array {
         return [
-            $this->resellerResolver,
-            $this->customerResolver,
-            $this->locationFactory,
+            ResellerResolver::class,
+            CustomerResolver::class,
+            LocationResolver::class,
         ];
     }
 }

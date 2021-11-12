@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
-                    "name": "Harber, Carroll and Reinger",
+                    "name": "Pollich, Balistreri and Krajcik",
                     "updatedAt": "1636512426178",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19845535929",
-                            "name": "Dr. Alvah Barrows Sr.",
+                            "phoneNumber": "+16014263251",
+                            "name": "Henderson McGlynn",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19845535929",
-                            "name": "Dr. Alvah Barrows Sr.",
+                            "phoneNumber": "+16014263251",
+                            "name": "Henderson McGlynn",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "10773",
-                            "address": "47913 Flatley Cove Apt. 302",
-                            "city": "Port Rafaelaton",
+                            "zip": "13029-7552",
+                            "address": "1663 Emmerich Flat Suite 186",
+                            "city": "Maximilliachester",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-77.539424",
-                            "longitude": "-163.764634",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "71.35061",
+                            "longitude": "-16.139164",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

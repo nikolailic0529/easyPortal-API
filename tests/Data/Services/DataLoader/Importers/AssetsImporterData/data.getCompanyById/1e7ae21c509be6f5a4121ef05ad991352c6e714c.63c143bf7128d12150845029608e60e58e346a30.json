@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
-                    "name": "Lindgren-Haley",
-                    "updatedAt": "1636453553077",
+                    "name": "Wyman, Marks and Hilpert",
+                    "updatedAt": "1636590253032",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,13 +24,13 @@
                     "locations": [
                         {
                             "zip": "",
-                            "address": "2736 Edwardo Knolls",
-                            "city": "West Kavon",
+                            "address": "3239 Renner Walk Apt. 908",
+                            "city": "East Alessia",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "47.929873",
-                            "longitude": "-45.743553",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "44.483272",
+                            "longitude": "-48.821297",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

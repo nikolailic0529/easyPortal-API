@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "8e0a6e65-837e-4f16-892c-3858dc965c45",
-                    "name": "Von, Welch and Harber",
-                    "updatedAt": "1636454401826",
+                    "name": "Heaney, Waelchi and Heidenreich",
+                    "updatedAt": "1636596683393",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82747",
-                            "address": "72557 Gusikowski Stream",
-                            "city": "Port Elda",
+                            "zip": "08315",
+                            "address": "865 Morar Divide Apt. 412",
+                            "city": "East Lloydmouth",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "44.4054",
-                            "longitude": "124.651275",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-49.315758",
+                            "longitude": "-138.611852",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

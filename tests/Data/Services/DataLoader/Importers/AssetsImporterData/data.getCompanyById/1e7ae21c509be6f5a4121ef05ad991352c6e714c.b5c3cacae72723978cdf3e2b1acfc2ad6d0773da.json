@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
-                    "name": "Krajcik and Sons",
-                    "updatedAt": "1636454666381",
+                    "name": "Leannon, Koepp and Dietrich",
+                    "updatedAt": "1636542848742",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18081758572",
-                            "name": "Austin Bartoletti III",
+                            "phoneNumber": "+14848039608",
+                            "name": "Hattie Mitchell",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18081758572",
-                            "name": "Austin Bartoletti III",
+                            "phoneNumber": "+14848039608",
+                            "name": "Hattie Mitchell",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18081758572",
-                            "name": "Austin Bartoletti III",
+                            "phoneNumber": "+14848039608",
+                            "name": "Hattie Mitchell",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89803-0171",
-                            "address": "13157 Haag Causeway",
-                            "city": "East Gregorio",
+                            "zip": "47576",
+                            "address": "668 Zieme Plaza",
+                            "city": "Lindfort",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "10.519373",
-                            "longitude": "179.836972",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-0.32283",
+                            "longitude": "98.88757",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

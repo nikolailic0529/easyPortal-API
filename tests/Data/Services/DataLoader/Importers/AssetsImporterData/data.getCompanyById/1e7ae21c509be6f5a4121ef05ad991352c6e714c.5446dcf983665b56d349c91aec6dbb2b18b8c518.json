@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d50e731a-c49c-4842-8e45-6beb565b82a8",
-                    "name": "Brown Group",
-                    "updatedAt": "1636032384835",
+                    "name": "McDermott Ltd",
+                    "updatedAt": "1636535473179",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Florida Schuster II",
+                            "name": "Demarco Mills",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17570650586",
-                            "name": "Nadia Pacocha",
+                            "phoneNumber": "+15187534184",
+                            "name": "Missouri Crist",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Florida Schuster II",
+                            "name": "Demarco Mills",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "27456-7272",
-                            "address": "545 Nelda Track",
-                            "city": "Hegmannview",
+                            "zip": "75297",
+                            "address": "38952 Alaina Land Apt. 659",
+                            "city": "Lake Elmoreview",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-35.525511",
-                            "longitude": "-0.031605",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-70.668823",
+                            "longitude": "135.975228",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,
@@ -66,7 +66,7 @@
                         "activeQuotes": 3,
                         "activeQuotesTotalAmount": 1431.96,
                         "newActiveQuotes": 3,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 2,
                         "expiredQuotes": 11,
                         "expiredContracts": 1,
                         "orderedQuotes": null,

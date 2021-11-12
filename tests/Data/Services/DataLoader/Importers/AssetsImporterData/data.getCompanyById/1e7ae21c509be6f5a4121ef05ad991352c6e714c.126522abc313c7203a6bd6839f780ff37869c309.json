@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "3a312485-a6f0-4f4e-85ec-cd23156eb176",
-                    "name": "Ledner, Hyatt and White",
-                    "updatedAt": "1636453716251",
+                    "name": "Roob-Lynch",
+                    "updatedAt": "1636590427340",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "87220",
-                            "address": "81985 Adah Prairie",
-                            "city": "Hegmannview",
+                            "zip": "57111",
+                            "address": "30080 Hartmann Village Apt. 214",
+                            "city": "Lake Elmoreview",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "87.501276",
-                            "longitude": "-110.904374",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "6.128503",
+                            "longitude": "129.492413",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

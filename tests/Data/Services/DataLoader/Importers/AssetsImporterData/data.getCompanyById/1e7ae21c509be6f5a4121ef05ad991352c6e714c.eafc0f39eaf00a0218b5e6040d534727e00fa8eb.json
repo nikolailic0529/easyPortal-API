@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "e089508a-7642-4c79-9d9c-6bc3d82db206",
-                    "name": "Larkin-Yundt",
-                    "updatedAt": "1636033016965",
+                    "name": "Hilpert, Frami and Eichmann",
+                    "updatedAt": "1636535801891",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17341598977",
-                            "name": "Stuart VonRueden",
+                            "phoneNumber": "+18153430427",
+                            "name": "Dejuan Schultz",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17341598977",
-                            "name": "Stuart VonRueden",
+                            "phoneNumber": "+18153430427",
+                            "name": "Dejuan Schultz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17341598977",
-                            "name": "Stuart VonRueden",
+                            "phoneNumber": "+18153430427",
+                            "name": "Dejuan Schultz",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "64264-2683",
-                            "address": "54609 Bria Expressway Suite 979",
-                            "city": "Lake Carolanne",
+                            "zip": "83777",
+                            "address": "916 Lynch Courts",
+                            "city": "Lucioberg",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "-6.151355",
-                            "longitude": "-170.069151",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-35.519663",
+                            "longitude": "-16.556356",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

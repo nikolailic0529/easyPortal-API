@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "811ce1d1-acdb-4ab0-8ec2-ade32225ee23",
-                    "name": "Abshire Inc",
+                    "name": "Walsh PLC",
                     "updatedAt": "1636518714193",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17852968124",
-                            "name": "Prof. Payton Harris MD",
+                            "phoneNumber": "+17866024525",
+                            "name": "Christelle Sporer",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17852968124",
-                            "name": "Prof. Payton Harris MD",
+                            "phoneNumber": "+17866024525",
+                            "name": "Christelle Sporer",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17852968124",
-                            "name": "Prof. Payton Harris MD",
+                            "phoneNumber": "+17866024525",
+                            "name": "Christelle Sporer",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "56538",
-                            "address": "530 Weber Forge Apt. 698",
-                            "city": "Port Rafaelaton",
+                            "zip": "77402-3046",
+                            "address": "54946 Hauck Roads Suite 386",
+                            "city": "Maximilliachester",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "47.762726",
-                            "longitude": "-31.845306",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-58.114023",
+                            "longitude": "-125.516118",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

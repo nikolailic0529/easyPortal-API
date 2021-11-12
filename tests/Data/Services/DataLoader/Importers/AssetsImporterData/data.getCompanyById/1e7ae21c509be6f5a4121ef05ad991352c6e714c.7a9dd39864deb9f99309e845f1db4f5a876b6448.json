@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "93666f95-3fd4-4b30-a9a1-694e0295788c",
-                    "name": "Dickens, Halvorson and Langworth",
+                    "name": "Blanda-Leffler",
                     "updatedAt": "1636519203080",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19342520671",
-                            "name": "Declan Will III",
+                            "phoneNumber": "+19569985274",
+                            "name": "Damion Zieme",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19342520671",
-                            "name": "Declan Will III",
+                            "phoneNumber": "+19569985274",
+                            "name": "Damion Zieme",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19342520671",
-                            "name": "Declan Will III",
+                            "phoneNumber": "+19569985274",
+                            "name": "Damion Zieme",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "96559-9265",
-                            "address": "84314 Charley Villages Apt. 939",
-                            "city": "New Talia",
+                            "zip": "32139",
+                            "address": "78643 Rohan Ports Suite 968",
+                            "city": "Jadashire",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "85.548611",
-                            "longitude": "-164.607521",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "84.163003",
+                            "longitude": "38.044506",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

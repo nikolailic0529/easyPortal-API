@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "488810f6-fea6-4492-a00d-db8306076ecc",
-                    "name": "Hansen-Oberbrunner",
-                    "updatedAt": "1636453800474",
+                    "name": "Hartmann, Block and Pfeffer",
+                    "updatedAt": "1636590521370",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "60905-5118",
-                            "address": "3704 Alicia Mountains",
-                            "city": "Mosciskishire",
+                            "zip": "93577-7870",
+                            "address": "165 Hessel Spring",
+                            "city": "Murraymouth",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "-31.068994",
-                            "longitude": "60.098605",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "51.386873",
+                            "longitude": "-142.189398",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 8,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 8,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 4,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

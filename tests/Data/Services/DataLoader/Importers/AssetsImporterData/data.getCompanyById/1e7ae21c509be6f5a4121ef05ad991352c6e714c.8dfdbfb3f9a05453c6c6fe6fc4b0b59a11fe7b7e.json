@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "836f564c-dc3e-480f-9ebb-42a6900ce74f",
-                    "name": "Corwin-Gottlieb",
-                    "updatedAt": "1636454330823",
+                    "name": "O'Conner-Sipes",
+                    "updatedAt": "1636596616611",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "52660-8796",
-                            "address": "17826 Aurore Neck Suite 983",
-                            "city": "Hegmannview",
+                            "zip": "86580-4328",
+                            "address": "8709 Aisha Extension Suite 117",
+                            "city": "Lake Elmoreview",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "72.01335",
-                            "longitude": "-56.453162",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-30.540544",
+                            "longitude": "-118.738031",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,
@@ -43,11 +43,11 @@
                         "activeContracts": 54,
                         "activeContractTotalAmount": 319.72,
                         "newActiveContracts": 54,
-                        "expiringContracts": 3,
+                        "expiringContracts": 4,
                         "activeQuotes": 27,
                         "activeQuotesTotalAmount": 1133.52,
                         "newActiveQuotes": 27,
-                        "expiringQuotes": 8,
+                        "expiringQuotes": 10,
                         "expiredQuotes": 96,
                         "expiredContracts": 26,
                         "orderedQuotes": null,

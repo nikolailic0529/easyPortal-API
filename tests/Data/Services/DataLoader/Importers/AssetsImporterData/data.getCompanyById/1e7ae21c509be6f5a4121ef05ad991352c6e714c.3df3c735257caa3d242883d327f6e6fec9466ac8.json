@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "e35134f8-02c7-4aaa-944c-e72f18be4b6b",
-                    "name": "Harber Group",
-                    "updatedAt": "1636512050307",
+                    "name": "Skiles-Brown",
+                    "updatedAt": "1636597202377",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31278",
-                            "address": "403 Langosh Dam Apt. 843",
-                            "city": "Torphyfurt",
+                            "zip": "75040-3725",
+                            "address": "2311 Parker Forks Suite 630",
+                            "city": "Port Watson",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "-33.01477",
-                            "longitude": "-143.282081",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "56.959937",
+                            "longitude": "70.972036",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

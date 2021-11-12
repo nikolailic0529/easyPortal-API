@@ -2,15 +2,14 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToUpdateCalculatedProperties;
 use App\Services\DataLoader\Jobs\CustomersRecalculate;
 use App\Services\DataLoader\Jobs\LocationsRecalculate;
 use App\Services\DataLoader\Jobs\ResellersRecalculate;
-use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use Throwable;
@@ -20,10 +19,14 @@ trait CalculatedProperties {
 
     abstract protected function getContainer(): Container;
 
-    protected function updateCalculatedProperties(Resolver ...$resolvers): void {
+    /**
+     * @param class-string<\App\Services\DataLoader\Resolver> ...$resolvers
+     */
+    protected function updateCalculatedProperties(string ...$resolvers): void {
         foreach ($resolvers as $resolver) {
             // Empty?
-            $objects = $resolver->getResolved();
+            $resolver = $this->getContainer()->make($resolver);
+            $objects  = $resolver->getResolved();
 
             if ($objects->isEmpty()) {
                 continue;

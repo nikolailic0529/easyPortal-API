@@ -14,14 +14,14 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
+use App\Services\DataLoader\Loaders\Concerns\AssetsPrefetch;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\ContactResolver;
-use App\Services\DataLoader\Resolvers\LocationResolver;
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Collection;
 
 class AssetsImporter extends Importer {
+    use AssetsPrefetch;
+
     protected function onRegister(): void {
         parent::onRegister();
 
@@ -38,45 +38,7 @@ class AssetsImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
-        $contacts  = $this->container->make(ContactResolver::class);
-        $locations = $this->container->make(LocationResolver::class);
-
-        $this->container
-            ->make(AssetFactory::class)
-            ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
-                $assets->loadMissing('warranties.serviceLevels');
-                $assets->loadMissing('contacts');
-                $assets->loadMissing('location');
-                $assets->loadMissing('tags');
-                $assets->loadMissing('oem');
-
-                $locations->add($assets->pluck('locations')->flatten());
-                $contacts->add($assets->pluck('contacts')->flatten());
-            });
-
-        $this->container
-            ->make(ResellerFactory::class)
-            ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
-                $resellers->loadMissing('locations.location');
-                $resellers->loadMissing('locations.types');
-                $resellers->loadMissing('contacts');
-
-                $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-                $contacts->add($resellers->pluck('contacts')->flatten());
-            });
-
-        $this->container
-            ->make(CustomerFactory::class)
-            ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
-                $customers->loadMissing('locations.location');
-                $customers->loadMissing('locations.types');
-                $customers->loadMissing('contacts');
-
-                $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-                $contacts->add($customers->pluck('contacts')->flatten());
-            });
-
-        (new Collection($contacts->getResolved()))->loadMissing('types');
+        $this->prefetchAssets($items);
     }
 
     protected function makeIterator(DateTimeInterface $from = null): QueryIterator {

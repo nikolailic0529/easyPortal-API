@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3cebb5d3-21f6-410f-9ec8-196658487bd6",
-                    "name": "Schneider-Hermiston",
-                    "updatedAt": "1636460176874",
+                    "name": "Legros and Sons",
+                    "updatedAt": "1636560914899",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15342681231",
-                            "name": "Sterling Doyle Jr.",
+                            "phoneNumber": "+16303777338",
+                            "name": "Arvid Schultz",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15342681231",
-                            "name": "Sterling Doyle Jr.",
+                            "phoneNumber": "+16303777338",
+                            "name": "Arvid Schultz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15342681231",
-                            "name": "Sterling Doyle Jr.",
+                            "phoneNumber": "+16303777338",
+                            "name": "Arvid Schultz",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "35802",
-                            "address": "9593 Gunnar Drive Apt. 308",
-                            "city": "Hertafurt",
+                            "zip": "72513-7522",
+                            "address": "9737 Steuber Junctions",
+                            "city": "Port Jarrellton",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "2.791845",
-                            "longitude": "14.930328",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "55.825633",
+                            "longitude": "130.689469",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "ff233b92-3872-4261-ab3a-a21776fdbe07",
-                    "name": "Anderson, Volkman and Marks",
-                    "updatedAt": "1636036727289",
+                    "name": "Spencer Group",
+                    "updatedAt": "1636539314278",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16235301989",
-                            "name": "Mrs. Kallie Beer",
+                            "phoneNumber": "+13613639852",
+                            "name": "Travis Ondricka",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16235301989",
-                            "name": "Mrs. Kallie Beer",
+                            "phoneNumber": "+13613639852",
+                            "name": "Travis Ondricka",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16235301989",
-                            "name": "Mrs. Kallie Beer",
+                            "phoneNumber": "+13613639852",
+                            "name": "Travis Ondricka",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "32317-8800",
-                            "address": "109 Marion Lakes",
-                            "city": "West Lurachester",
+                            "zip": "75432-8576",
+                            "address": "82055 Royal Summit Suite 658",
+                            "city": "South Lizzie",
                             "locationType": null,
-                            "country": "Macedonia",
-                            "latitude": "2.484058",
-                            "longitude": "-18.429907",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-51.674063",
+                            "longitude": "46.536363",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

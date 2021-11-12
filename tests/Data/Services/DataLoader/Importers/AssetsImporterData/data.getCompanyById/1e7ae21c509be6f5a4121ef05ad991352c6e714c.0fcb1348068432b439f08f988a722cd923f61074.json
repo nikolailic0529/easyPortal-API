@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1d039886-4419-4bb1-bad9-9110293da053",
-                    "name": "Connelly, Schuster and Sanford",
-                    "updatedAt": "1636455021826",
+                    "name": "Moore-Kub",
+                    "updatedAt": "1636543188652",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16699188475",
-                            "name": "Hardy Torphy",
+                            "phoneNumber": "+14251865313",
+                            "name": "Emanuel Anderson V",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16699188475",
-                            "name": "Hardy Torphy",
+                            "phoneNumber": "+14251865313",
+                            "name": "Emanuel Anderson V",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16699188475",
-                            "name": "Hardy Torphy",
+                            "phoneNumber": "+14251865313",
+                            "name": "Emanuel Anderson V",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "41035",
-                            "address": "36693 Hessel Stravenue Apt. 485",
-                            "city": "East Marilyne",
+                            "zip": "44632",
+                            "address": "928 Haag Lodge",
+                            "city": "Odieville",
                             "locationType": null,
-                            "country": "Hong Kong",
-                            "latitude": "25.419173",
-                            "longitude": "-176.411355",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-21.051351",
+                            "longitude": "-132.507091",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,

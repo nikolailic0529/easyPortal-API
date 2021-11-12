@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "b0233a33-e6b2-488a-b5ff-22408194ba83",
-                    "name": "Terry PLC",
-                    "updatedAt": "1636511769298",
+                    "name": "Flatley Ltd",
+                    "updatedAt": "1636596882394",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "00082",
-                            "address": "7857 Delta Cliffs Apt. 446",
-                            "city": "Kemmerchester",
+                            "zip": "04716-6459",
+                            "address": "61905 Zola Motorway",
+                            "city": "Princesshaven",
                             "locationType": "HEADQUARTER",
-                            "country": "Macedonia",
-                            "latitude": "-25.65784",
-                            "longitude": "-29.819525",
-                            "countryCode": "CU"
+                            "country": "Guinea-Bissau",
+                            "latitude": "-64.996453",
+                            "longitude": "-52.931692",
+                            "countryCode": "BA"
                         }
                     ],
                     "brandingData": null,

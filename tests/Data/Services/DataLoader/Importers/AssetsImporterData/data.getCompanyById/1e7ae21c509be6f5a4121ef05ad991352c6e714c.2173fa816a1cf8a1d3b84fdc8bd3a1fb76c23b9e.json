@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "661cb23a-6328-4363-8a32-ecd1c96904f2",
-                    "name": "Kozey, Marquardt and Pollich",
-                    "updatedAt": "1636454045362",
+                    "name": "Mayer PLC",
+                    "updatedAt": "1636590782083",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "61518-1708",
-                            "address": "7804 Howe Shoals Apt. 897",
-                            "city": "Mosciskichester",
+                            "zip": "22612",
+                            "address": "3922 Cole Extensions",
+                            "city": "East Kyleeport",
                             "locationType": "HEADQUARTER",
-                            "country": "Timor-Leste",
-                            "latitude": "20.081468",
-                            "longitude": "-84.340857",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "68.256223",
+                            "longitude": "-120.870688",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

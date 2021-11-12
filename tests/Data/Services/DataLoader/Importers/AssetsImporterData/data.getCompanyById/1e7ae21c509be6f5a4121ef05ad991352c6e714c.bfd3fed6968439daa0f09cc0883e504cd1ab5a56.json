@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "ebe80af8-32fe-4b30-8846-f05fd9b178a5",
-                    "name": "Cassin Ltd",
-                    "updatedAt": "1636033591857",
+                    "name": "Kertzmann, Zboncak and Kertzmann",
+                    "updatedAt": "1636536115979",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17191418551",
-                            "name": "Laura Morissette",
+                            "phoneNumber": "+12563591899",
+                            "name": "Valerie Lockman DVM",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17474017140",
-                            "name": "Sienna Mayer",
+                            "phoneNumber": "+14252739165",
+                            "name": "Dayne Moen",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17191418551",
-                            "name": "Laura Morissette",
+                            "phoneNumber": "+12563591899",
+                            "name": "Valerie Lockman DVM",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "51695",
-                            "address": "3946 Heaney Square Apt. 873",
-                            "city": "Farrellside",
+                            "zip": "43712",
+                            "address": "8189 Bergstrom Ways Suite 365",
+                            "city": "Ebertton",
                             "locationType": null,
-                            "country": "Timor-Leste",
-                            "latitude": "-6.243108",
-                            "longitude": "23.781922",
-                            "countryCode": "LK"
+                            "country": "Czech Republic",
+                            "latitude": "14.31141",
+                            "longitude": "-85.30747",
+                            "countryCode": "AU"
                         }
                     ],
                     "brandingData": null,

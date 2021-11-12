@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -13,7 +14,6 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class DocumentLoader extends Loader implements LoaderRecalculable {
@@ -24,7 +24,6 @@ class DocumentLoader extends Loader implements LoaderRecalculable {
         ExceptionHandler $exceptionHandler,
         Client $client,
         protected DocumentFactory $documentFactory,
-        protected ResellerResolver $resellerResolver,
     ) {
         parent::__construct($container, $exceptionHandler, $client);
     }
@@ -53,7 +52,7 @@ class DocumentLoader extends Loader implements LoaderRecalculable {
      */
     protected function getResolversToRecalculate(): array {
         return [
-            $this->resellerResolver,
+            ResellerResolver::class,
         ];
     }
 }

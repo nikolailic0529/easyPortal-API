@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "d229c495-f960-4ea7-83fd-43b50c56f1c0",
-                    "name": "Hardy Torphy",
-                    "updatedAt": "1636511943222",
+                    "name": "Schaden Ltd",
+                    "updatedAt": "1636597073419",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "41035",
-                            "address": "36693 Hessel Stravenue Apt. 485",
-                            "city": "East Marilyne",
+                            "zip": "44632",
+                            "address": "928 Haag Lodge",
+                            "city": "Odieville",
                             "locationType": "HEADQUARTER",
-                            "country": "Hong Kong",
-                            "latitude": "25.419173",
-                            "longitude": "-176.411355",
-                            "countryCode": "AS"
+                            "country": "Romania",
+                            "latitude": "-21.051351",
+                            "longitude": "-132.507091",
+                            "countryCode": "MN"
                         }
                     ],
                     "brandingData": null,
