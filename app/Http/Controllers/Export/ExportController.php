@@ -282,7 +282,7 @@ class ExportController extends Controller {
         if (preg_match('/^(?<function>[\w]+)\((?<arguments>[^)]+)\)$/', $header, $matches)) {
             $function  = $matches['function'];
             $arguments = array_map(
-                fn(string $arg): mixed => $this->getItemValue($arg, $item),
+                fn(string $arg): mixed => $this->getItemValue(trim($arg), $item),
                 explode(',', $matches['arguments']),
             );
 

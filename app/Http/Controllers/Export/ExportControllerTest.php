@@ -441,7 +441,7 @@ class ExportControllerTest extends TestCase {
             ],
             'function: concat'  => [
                 '123 ab',
-                'concat(a,c,b.a,d)',
+                'concat(a,c , b.a, d)',
                 [
                     'a' => 123,
                     'b' => ['a' => 'ab'],
