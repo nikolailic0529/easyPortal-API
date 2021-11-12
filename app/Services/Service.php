@@ -98,7 +98,7 @@ abstract class Service {
         }
 
         foreach ($key as $value) {
-            $parts = array_merge($parts, (array) $this->getKeyPart($value));
+            $parts[] = $this->getKeyPart($value);
         }
 
         return implode(':', $parts);
@@ -107,11 +107,11 @@ abstract class Service {
     /**
      * @return array<string>
      */
-    protected function getKeyPart(object|string $value): array {
-        $part = [];
+    protected function getKeyPart(object|string $value): string {
+        $part = '';
 
         if ($value instanceof NamedJob) {
-            $part = [$value->displayName()];
+            $part = $value->displayName();
         } elseif ($value instanceof Model) {
             if (!$value->exists || !$value->getKey()) {
                 throw new InvalidArgumentException(sprintf(
@@ -120,11 +120,11 @@ abstract class Service {
                 ));
             }
 
-            $part = [$value->getMorphClass(), $value->getKey()];
+            $part = "{$value->getMorphClass()}:{$value->getKey()}";
         } elseif (is_object($value)) {
-            $part = [$value::class];
+            $part = $value::class;
         } else {
-            $part = [$value];
+            $part = $value;
         }
 
         return $part;
