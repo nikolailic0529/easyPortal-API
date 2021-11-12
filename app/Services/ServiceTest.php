@@ -160,6 +160,36 @@ class ServiceTest extends TestCase {
     }
 
     /**
+     * @covers ::flush
+     */
+    public function testFlush(): void {
+        $tags    = ['a', 'b', 'c'];
+        $cache   = Mockery::mock(Repository::class);
+        $service = new class($cache) extends Service implements JsonSerializable {
+            /**
+             * @return array<mixed>
+             */
+            public function jsonSerialize(): array {
+                return [
+                    'json' => 'value',
+                ];
+            }
+        };
+
+        $cache
+            ->shouldReceive('tags')
+            ->with($tags)
+            ->once()
+            ->andReturnSelf();
+        $cache
+            ->shouldReceive('flush')
+            ->once()
+            ->andReturn(true);
+
+        $this->assertTrue($service->flush($tags));
+    }
+
+    /**
      * @covers ::getService
      */
     public function testGetService(): void {

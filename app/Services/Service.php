@@ -91,6 +91,13 @@ abstract class Service {
     }
 
     /**
+     * @param array<string> $tags
+     */
+    public function flush(array $tags): bool {
+        return $this->cache->tags($tags)->flush();
+    }
+
+    /**
      * @param array<object|string>|object|string $key
      */
     public function has(object|array|string $key): bool {
