@@ -76,6 +76,7 @@ class ServiceTest extends TestCase {
      * @covers ::set
      */
     public function testSet(): void {
+        $tags    = ['a', 'b', 'c'];
         $cache   = Mockery::mock(Repository::class);
         $service = new class($cache) extends Service implements JsonSerializable {
             /**
@@ -104,9 +105,20 @@ class ServiceTest extends TestCase {
             ->with("{$class}:b", json_encode($service), Mockery::andAnyOtherArgs())
             ->once()
             ->andReturn(true);
+        $cache
+            ->shouldReceive('tags')
+            ->with($tags)
+            ->once()
+            ->andReturnSelf();
+        $cache
+            ->shouldReceive('set')
+            ->with("{$class}:c", json_encode('tags'), Mockery::andAnyOtherArgs())
+            ->once()
+            ->andReturn(true);
 
         $this->assertEquals(123, $service->set('a', 123));
         $this->assertSame($service, $service->set('b', $service));
+        $this->assertEquals('tags', $service->set('c', 'tags', $tags));
     }
 
     /**

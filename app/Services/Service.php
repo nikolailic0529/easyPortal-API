@@ -29,6 +29,9 @@ use const JSON_THROW_ON_ERROR;
  * standardizes keys across all services.
  */
 abstract class Service {
+    /**
+     * @param \Illuminate\Contracts\Cache\Repository&\Illuminate\Cache\TaggableStore $cache
+     */
     public function __construct(
         protected Repository $cache,
     ) {
@@ -67,9 +70,15 @@ abstract class Service {
      *
      * @param array<object|string>|object|string                        $key
      * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
+     * @param array<string>                                             $tags
      */
-    public function set(object|array|string $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
-        $this->cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
+    public function set(
+        object|array|string $key,
+        JsonSerializable|array|string|float|int|bool|null $value,
+        array $tags = [],
+    ): mixed {
+        ($tags ? $this->cache->tags($tags) : $this->cache)
+            ->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
 
         return $value;
     }
