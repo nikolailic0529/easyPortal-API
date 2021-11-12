@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use JsonSerializable;
 
-use function array_merge;
 use function array_slice;
 use function class_exists;
 use function count;
@@ -22,6 +21,8 @@ use function json_decode;
 use function json_encode;
 use function sprintf;
 use function str_starts_with;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Wrapper around the {@see \Illuminate\Contracts\Cache\Repository} that
@@ -41,15 +42,15 @@ abstract class Service {
      * @template T
      *
      * @param array<object|string>|object|string $key
-     * @param    (\Closure():T)|null $factory
+     * @param    (\Closure(mixed):T)|null           $factory
      *
      * @return T
      */
     public function get(object|array|string $key, Closure $factory = null): mixed {
-        $value = null;
+        $value = $this->cache->get($this->getKey($key));
 
-        if ($this->has($key)) {
-            $value = json_decode($this->cache->get($this->getKey($key), $value), true);
+        if ($value !== null) {
+            $value = json_decode($value, true, flags: JSON_THROW_ON_ERROR);
             $value = $this->set($key, $value);
 
             if ($factory) {

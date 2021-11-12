@@ -39,15 +39,15 @@ class ServiceTest extends TestCase {
         $class   = $service::class;
 
         $cache
-            ->shouldReceive('has')
+            ->shouldReceive('get')
             ->with("{$class}:a")
             ->once()
-            ->andReturn(true);
+            ->andReturn('123');
         $cache
             ->shouldReceive('get')
-            ->with("{$class}:a", null)
+            ->with("{$class}:b")
             ->once()
-            ->andReturn('123');
+            ->andReturn(null);
         $cache
             ->shouldReceive('set')
             ->withArgs(static function (mixed $key, mixed $value, mixed $ttl) use ($class): bool {
@@ -58,11 +58,6 @@ class ServiceTest extends TestCase {
             })
             ->once()
             ->andReturn(true);
-        $cache
-            ->shouldReceive('has')
-            ->with("{$class}:b")
-            ->once()
-            ->andReturn(false);
 
         $spy     = Mockery::spy(static function (mixed $value): mixed {
             return $value;
