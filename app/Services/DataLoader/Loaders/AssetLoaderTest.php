@@ -125,7 +125,7 @@ class AssetLoaderTest extends TestCase {
             Reseller::class      => 1,
             Customer::class      => 1,
             Asset::class         => 1,
-            AssetWarranty::class => 10,
+            AssetWarranty::class => 9,
             Document::class      => 4,
             DocumentEntry::class => 16,
         ]);

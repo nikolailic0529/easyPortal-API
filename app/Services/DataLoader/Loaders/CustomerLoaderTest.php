@@ -128,7 +128,7 @@ class CustomerLoaderTest extends TestCase {
             Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 2,
-            AssetWarranty::class => 14,
+            AssetWarranty::class => 10,
             Document::class      => 3,
             DocumentEntry::class => 10,
         ]);

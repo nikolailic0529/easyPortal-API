@@ -101,31 +101,31 @@
     {
         "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
         "bindings": [
-            "31c1944e-642e-4418-b97e-0a989de47cb9"
-        ]
-    },
-    {
-        "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
-        "bindings": [
             "06d30f36-55a6-4a33-95f2-33637b4d0681"
         ]
     },
     {
         "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
         "bindings": [
-            "4a1c9f7c-4baa-4e95-b893-5023ef90c337"
-        ]
-    },
-    {
-        "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
-        "bindings": [
-            "4a1c9f7c-4baa-4e95-b893-5023ef90c337"
-        ]
-    },
-    {
-        "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
-        "bindings": [
             "d78edac9-1f57-4e6d-b804-dd30636b1c49"
+        ]
+    },
+    {
+        "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "31c1944e-642e-4418-b97e-0a989de47cb9"
+        ]
+    },
+    {
+        "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "4a1c9f7c-4baa-4e95-b893-5023ef90c337"
+        ]
+    },
+    {
+        "query": "select * from `documents` where `documents`.`id` = ? and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "4a1c9f7c-4baa-4e95-b893-5023ef90c337"
         ]
     },
     {
@@ -157,11 +157,10 @@
         ]
     },
     {
-        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
+        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
         "bindings": [
             "1a053142-e655-59bb-a4b5-08df1c9318de",
             "36723ca7-ed0b-54aa-8e22-eec5fa45ae24",
-            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
             "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
@@ -194,32 +193,32 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:05:07",
-            "2021-08-30 00:05:12",
+            "2021-08-30 00:04:48",
+            "2021-08-30 00:04:53",
             "06d30f36-55a6-4a33-95f2-33637b4d0681"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:05:40",
-            "2021-08-30 00:05:45",
+            "2021-08-30 00:05:21",
+            "2021-08-30 00:05:26",
             "d78edac9-1f57-4e6d-b804-dd30636b1c49"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:06:13",
-            "2021-08-30 00:06:18",
+            "2021-08-30 00:05:54",
+            "2021-08-30 00:05:59",
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:06:46",
-            "2021-08-30 00:06:51",
+            "2021-08-30 00:06:27",
+            "2021-08-30 00:06:32",
             "31c1944e-642e-4418-b97e-0a989de47cb9"
         ]
     },
@@ -232,8 +231,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:04:28",
-            "2021-08-30 00:08:16",
+            "2021-08-30 00:04:09",
+            "2021-08-30 00:07:39",
             "03781b72-05b6-4722-879f-635b5fddde1d"
         ]
     },
@@ -279,7 +278,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 00:09:14",
+            "2021-08-30 00:08:35",
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "16804b25-302b-4581-b267-64040e8e7dbb"
         ]
@@ -344,7 +343,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 00:09:15",
+            "2021-08-30 00:08:36",
             "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
@@ -359,7 +358,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 00:09:16",
+            "2021-08-30 00:08:37",
             "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "16804b25-302b-4581-b267-64040e8e7dbb"
         ]
