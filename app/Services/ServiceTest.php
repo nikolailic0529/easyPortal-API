@@ -201,6 +201,7 @@ class ServiceTest extends TestCase {
     /**
      * @covers ::getKey
      * @covers ::getKeyPart
+     * @covers ::mergeKeyParts
      *
      * @dataProvider dataProviderGetKey
      *

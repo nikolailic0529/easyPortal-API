@@ -108,7 +108,7 @@ abstract class Service {
      * @param array<object|string>|object|string $key
      */
     protected function getKey(object|array|string $key): string {
-        $parts = [$this::class];
+        $parts = $this->getDefaultKey();
 
         if (!is_array($key)) {
             $key = [$key];
@@ -118,7 +118,7 @@ abstract class Service {
             $parts[] = $this->getKeyPart($value);
         }
 
-        return implode(':', $parts);
+        return $this->mergeKeyParts(...$parts);
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class Service {
                 ));
             }
 
-            $part = "{$value->getMorphClass()}:{$value->getKey()}";
+            $part = $this->mergeKeyParts($value->getMorphClass(), (string) $value->getKey());
         } elseif (is_object($value)) {
             $part = $value::class;
         } else {
@@ -145,6 +145,17 @@ abstract class Service {
         }
 
         return $part;
+    }
+
+    protected function mergeKeyParts(string ...$parts): string {
+        return implode(':', $parts);
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getDefaultKey(): array {
+        return [$this::class];
     }
 
     protected function getDefaultTtl(): DateInterval|int|null {
