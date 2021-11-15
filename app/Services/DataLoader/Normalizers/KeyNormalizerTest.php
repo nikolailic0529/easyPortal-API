@@ -18,7 +18,7 @@ class KeyNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        $this->assertEquals($expected, (new KeyNormalizer())->normalize($value));
+        $this->assertEquals($expected, $this->app->make(KeyNormalizer::class)->normalize($value));
     }
     // </editor-fold>
 
