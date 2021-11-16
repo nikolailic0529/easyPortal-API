@@ -2,11 +2,13 @@
 
 namespace App\Services\Queue;
 
+use App\Utils\CacheKeyable;
+
 /**
  * Mark that Job can handle "stop" requests (realization must be provided by the job).
  *
  * @see \App\Services\Queue\Concerns\PingableJob
  */
-interface Stoppable {
+interface Stoppable extends CacheKeyable {
     // empty
 }

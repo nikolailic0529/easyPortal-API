@@ -3,11 +3,12 @@
 namespace App\Services\Queue\Tags;
 
 use App\Services\Queue\Service;
+use App\Utils\CacheKeyable;
 use DateTimeInterface;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 
-class Stop {
+class Stop implements CacheKeyable {
     public function __construct(
         protected Service $service,
     ) {

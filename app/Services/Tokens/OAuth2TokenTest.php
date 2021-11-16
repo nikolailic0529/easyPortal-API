@@ -36,9 +36,9 @@ class OAuth2TokenTest extends TestCase {
 
         $cache = Mockery::mock(Repository::class);
         $cache
-            ->shouldReceive('has')
+            ->shouldReceive('get')
             ->once()
-            ->andReturn(false);
+            ->andReturn(null);
         $cache
             ->shouldReceive('set')
             ->once()
@@ -84,9 +84,9 @@ class OAuth2TokenTest extends TestCase {
             ->once()
             ->andReturn(true);
         $cache
-            ->shouldReceive('has')
+            ->shouldReceive('get')
             ->once()
-            ->andReturn(false);
+            ->andReturn(null);
 
         $service = Mockery::mock(OAuth2Token::class);
         $service->shouldAllowMockingProtectedMethods();

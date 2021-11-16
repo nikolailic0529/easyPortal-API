@@ -8,17 +8,14 @@ use Closure;
 use DateInterval;
 use Exception;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use JsonSerializable;
 use Mockery;
-use ReflectionClass;
 use stdClass;
 use Tests\TestCase;
 
 use function is_string;
 use function json_encode;
-use function sprintf;
 use function str_replace;
 
 /**
@@ -200,21 +197,19 @@ class ServiceTest extends TestCase {
 
     /**
      * @covers ::getKey
-     * @covers ::getKeyPart
-     * @covers ::mergeKeyParts
      *
      * @dataProvider dataProviderGetKey
      *
      * @param array<object|string>|object|string $key
      */
-    public function testGetKey(Exception|string $expected, object|array|string $key): void {
+    public function testGetKey(Exception|string $expected, mixed $key): void {
         $service = new class() extends Service {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty;
             }
 
-            public function getKey(object|array|string $key): string {
+            public function getKey(mixed $key): string {
                 return parent::getKey($key);
             }
         };
@@ -234,58 +229,16 @@ class ServiceTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{\Exception|string,array<object|string>|object|string}>
+     * @return array<string,array{\Exception|string,array<mixed>}>
      */
     public function dataProviderGetKey(): array {
         return [
-            'string'             => ['${service}:abc', 'abc'],
-            'object'             => ['${service}:'.stdClass::class, new stdClass()],
-            'model'              => [
-                '${service}:ServiceTest_Model:123',
-                new ServiceTest_Model('123'),
-            ],
-            'model (not exists)' => [
-                new InvalidArgumentException(sprintf(
-                    'The instance of `%s` should exist and have a non-empty key.',
-                    ServiceTest_Model::class,
-                )),
-                new ServiceTest_Model('123', false),
-            ],
-            'model (no key)'     => [
-                new InvalidArgumentException(sprintf(
-                    'The instance of `%s` should exist and have a non-empty key.',
-                    ServiceTest_Model::class,
-                )),
-                new ServiceTest_Model(),
-            ],
-            'array'              => [
-                '${service}:abc:ServiceTest_Model:345',
-                [
-                    'abc',
-                    new ServiceTest_Model('345'),
-                ],
+            'string' => ['${service}:abc', 'abc'],
+            'object' => [
+                new InvalidArgumentException('The `$value` cannot be used as a key.'),
+                new stdClass(),
             ],
         ];
     }
     // </editor-fold>
-}
-
-// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
-// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
-
-/**
- * @internal
- * @noinspection PhpMultipleClassesDeclarationsInOneFile
- */
-class ServiceTest_Model extends Model {
-    public function __construct(string $key = null, bool $exists = true) {
-        parent::__construct([]);
-
-        $this->{$this->getKeyName()} = $key;
-        $this->exists                = $exists;
-    }
-
-    public function getMorphClass(): string {
-        return (new ReflectionClass($this))->getShortName();
-    }
 }

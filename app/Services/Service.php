@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Services\Queue\NamedJob;
+use App\Utils\CacheKey;
+use App\Utils\CacheKeyable;
 use Closure;
 use DateInterval;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Database\Eloquent\Model;
-use InvalidArgumentException;
 use JsonSerializable;
 
+use function array_merge;
 use function array_slice;
 use function class_exists;
 use function count;
@@ -19,7 +19,6 @@ use function is_array;
 use function is_object;
 use function json_decode;
 use function json_encode;
-use function sprintf;
 use function str_starts_with;
 
 use const JSON_THROW_ON_ERROR;
@@ -28,7 +27,7 @@ use const JSON_THROW_ON_ERROR;
  * Wrapper around the {@see \Illuminate\Contracts\Cache\Repository} that
  * standardizes keys across all services.
  */
-abstract class Service {
+abstract class Service implements CacheKeyable {
     /**
      * @param \Illuminate\Contracts\Cache\Repository&\Illuminate\Cache\TaggableStore $cache
      */
@@ -44,12 +43,11 @@ abstract class Service {
      *
      * @template T
      *
-     * @param array<object|string>|object|string $key
-     * @param    (\Closure(mixed):T)|null           $factory
+     * @param    (\Closure(mixed):T)|null $factory
      *
      * @return T
      */
-    public function get(object|array|string $key, Closure $factory = null): mixed {
+    public function get(mixed $key, Closure $factory = null): mixed {
         $value = $this->cache->get($this->getKey($key));
 
         if ($value !== null) {
@@ -68,12 +66,11 @@ abstract class Service {
      * Sets the value for the key. The method also sets the TTL to automatically
      * remove old unused keys from the cache.
      *
-     * @param array<object|string>|object|string                        $key
      * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
      * @param array<string>                                             $tags
      */
     public function set(
-        object|array|string $key,
+        mixed $key,
         JsonSerializable|array|string|float|int|bool|null $value,
         array $tags = [],
     ): mixed {
@@ -83,10 +80,7 @@ abstract class Service {
         return $value;
     }
 
-    /**
-     * @param array<object|string>|object|string $key
-     */
-    public function delete(object|array|string $key): bool {
+    public function delete(mixed $key): bool {
         return $this->cache->delete($this->getKey($key));
     }
 
@@ -97,65 +91,22 @@ abstract class Service {
         return $this->cache->tags($tags)->flush();
     }
 
-    /**
-     * @param array<object|string>|object|string $key
-     */
-    public function has(object|array|string $key): bool {
+    public function has(mixed $key): bool {
         return $this->cache->has($this->getKey($key));
     }
 
-    /**
-     * @param array<object|string>|object|string $key
-     */
-    protected function getKey(object|array|string $key): string {
-        $parts = $this->getDefaultKey();
+    protected function getKey(mixed $key): string {
+        $key = array_merge([$this], $this->getDefaultKey(), is_array($key) ? $key : [$key]);
+        $key = new CacheKey($key);
 
-        if (!is_array($key)) {
-            $key = [$key];
-        }
-
-        foreach ($key as $value) {
-            $parts[] = $this->getKeyPart($value);
-        }
-
-        return $this->mergeKeyParts(...$parts);
+        return (string) $key;
     }
 
     /**
-     * @return array<string>
-     */
-    protected function getKeyPart(object|string $value): string {
-        $part = '';
-
-        if ($value instanceof NamedJob) {
-            $part = $value->displayName();
-        } elseif ($value instanceof Model) {
-            if (!$value->exists || !$value->getKey()) {
-                throw new InvalidArgumentException(sprintf(
-                    'The instance of `%s` should exist and have a non-empty key.',
-                    $value::class,
-                ));
-            }
-
-            $part = $this->mergeKeyParts($value->getMorphClass(), (string) $value->getKey());
-        } elseif (is_object($value)) {
-            $part = $value::class;
-        } else {
-            $part = $value;
-        }
-
-        return $part;
-    }
-
-    protected function mergeKeyParts(string ...$parts): string {
-        return implode(':', $parts);
-    }
-
-    /**
-     * @return array<string>
+     * @return array<mixed>
      */
     protected function getDefaultKey(): array {
-        return [$this::class];
+        return [];
     }
 
     protected function getDefaultTtl(): DateInterval|int|null {

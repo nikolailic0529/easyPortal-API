@@ -3,6 +3,7 @@
 namespace App\Services\Tokens;
 
 use App\Services\Tokens\Exceptions\InvalidCredentials;
+use App\Utils\CacheKeyable;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GenericProvider;
@@ -15,7 +16,7 @@ use function rtrim;
  * Class encapsulates all logic related to obtaining OAuth 2.0 Access Token for
  * Client Credentials Grant.
  */
-abstract class OAuth2Token {
+abstract class OAuth2Token implements CacheKeyable {
     private ?AccessTokenInterface $token = null;
 
     protected function __construct(
