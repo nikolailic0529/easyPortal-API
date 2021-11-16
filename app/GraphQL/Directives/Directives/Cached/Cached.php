@@ -10,12 +10,15 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
+use Nuwave\Lighthouse\Schema\RootType;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_slice;
 use function count;
+use function implode;
+use function in_array;
 use function sprintf;
 
 class Cached extends BaseDirective implements FieldMiddleware {
@@ -86,12 +89,13 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
         if ($root instanceof Model) {
             $key[] = $root;
-        } elseif ($root instanceof Root) {
-            $key[]     = $root->getRoot();
+        } elseif ($root instanceof ParentValue) {
+            $parent    = $root->getRoot();
+            $key[]     = $parent instanceof Model ? $parent : '';
             $key[]     = $root->getResolveInfo()->fieldName;
             $key[]     = $root->getArgs() ?: '';
             $path      = array_slice($resolveInfo->path, count($root->getResolveInfo()->path));
-            $cacheable = ($root->getRoot() instanceof Model || $root->getRoot() === null) && count($path) === 1;
+            $cacheable = count($path) === 1;
         } elseif ($root === null) {
             $key[] = '';
         } else {
@@ -100,9 +104,10 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
         if (!$cacheable) {
             throw new InvalidArgumentException(sprintf(
-                'Property `%s.%s` cannot be cached.',
+                'Property `%s.%s` by the path `%s` cannot be cached.',
                 $resolveInfo->parentType->name,
                 $resolveInfo->fieldName,
+                implode('.', $resolveInfo->path),
             ));
         }
 
@@ -141,6 +146,16 @@ class Cached extends BaseDirective implements FieldMiddleware {
      */
     protected function setCachedValue(mixed $key, mixed $value): mixed {
         return $this->service->set($key, $value);
+    }
+
+    protected function isRoot(ResolveInfo $resolveInfo): bool {
+        $type  = $resolveInfo->parentType->name;
+        $roots = [
+            RootType::QUERY,
+            'Application',
+        ];
+
+        return in_array($type, $roots, true);
     }
 
     /**

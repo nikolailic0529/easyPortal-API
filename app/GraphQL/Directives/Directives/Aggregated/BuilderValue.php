@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated;
 
-use App\GraphQL\Directives\Directives\Cached\Root;
+use App\GraphQL\Directives\Directives\Cached\ParentValue;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -12,7 +12,7 @@ use RuntimeException;
 
 use function sprintf;
 
-class BuilderValue extends Root {
+class BuilderValue extends ParentValue {
     /**
      * @inheritDoc
      */
