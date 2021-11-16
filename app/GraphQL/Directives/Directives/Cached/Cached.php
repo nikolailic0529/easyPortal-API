@@ -19,7 +19,9 @@ use function array_slice;
 use function count;
 use function implode;
 use function in_array;
+use function serialize;
 use function sprintf;
+use function unserialize;
 
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
@@ -130,6 +132,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         $value  = $this->service->get($key, static function (mixed $value) use (&$cached): mixed {
             // Small trick to determine if the value exists in the cache or not.
             $cached = true;
+            $value  = unserialize($value);
 
             return $value;
         });
@@ -145,7 +148,9 @@ class Cached extends BaseDirective implements FieldMiddleware {
      * @return T
      */
     protected function setCachedValue(mixed $key, mixed $value): mixed {
-        return $this->service->set($key, $value);
+        $this->service->set($key, serialize($value));
+
+        return $value;
     }
 
     protected function isRoot(ResolveInfo $resolveInfo): bool {
