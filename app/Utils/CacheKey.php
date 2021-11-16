@@ -14,8 +14,8 @@ use Traversable;
 
 use function implode;
 use function is_array;
-use function is_int;
 use function is_null;
+use function is_scalar;
 use function is_string;
 use function json_encode;
 use function ksort;
@@ -53,8 +53,21 @@ class CacheKey implements Stringable {
         $normalized = [];
 
         foreach ($key as $k => $value) {
-            $value          = $this->value($value);
-            $normalized[$k] = is_string($value) ? $value : $this->hash($this->encode($value));
+            $value = $this->value($value);
+
+            if (is_array($value)) {
+                $value = $this->hash($this->encode($value));
+            } elseif (is_string($value)) {
+                // as is
+            } elseif (is_null($value)) {
+                $value = '';
+            } else {
+                throw new InvalidArgumentException(
+                    'The `$value` cannot be used as a root key.',
+                );
+            }
+
+            $normalized[$k] = $value;
         }
 
         return $normalized;
@@ -89,24 +102,24 @@ class CacheKey implements Stringable {
         } elseif ($value instanceof NamedJob) {
             $normalized = $value->displayName();
         } elseif ($value instanceof OrganizationProvider) {
-            $normalized = $this->join([
-                $value->get()->getMorphClass(),
-                $value->isRoot()
-                    ? '00000000-0000-0000-0000-000000000000'
-                    : $value->getKey(),
-            ]);
+            if ($value->defined()) {
+                $normalized = $this->join([
+                    $value->get()->getMorphClass(),
+                    $value->isRoot()
+                        ? '00000000-0000-0000-0000-000000000000'
+                        : $value->getKey(),
+                ]);
+            }
         } elseif ($value instanceof Locale) {
             $normalized = $value->get();
         } elseif ($value instanceof BaseDirective) {
             $normalized = "@{$value->name()}";
         } elseif ($value instanceof CacheKeyable) {
             $normalized = $value::class;
-        } elseif (is_string($value)) {
-            $normalized = $value;
-        } elseif (is_int($value)) {
+        } elseif (is_scalar($value)) {
             $normalized = $value;
         } elseif (is_null($value)) {
-            $normalized = '';
+            $normalized = $value;
         } else {
             throw new InvalidArgumentException(
                 'The `$value` cannot be used as a key.',

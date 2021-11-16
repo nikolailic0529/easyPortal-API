@@ -54,13 +54,13 @@ class CacheKeyTest extends TestCase {
     public function dataProviderToString(): array {
         return [
             'bool'                                        => [
-                new InvalidArgumentException('The `$value` cannot be used as a key.'),
+                new InvalidArgumentException('The `$value` cannot be used as a root key.'),
                 [
                     true,
                 ],
             ],
             'float'                                       => [
-                new InvalidArgumentException('The `$value` cannot be used as a key.'),
+                new InvalidArgumentException('The `$value` cannot be used as a root key.'),
                 [
                     1.23,
                 ],
@@ -169,6 +169,12 @@ class CacheKeyTest extends TestCase {
                     new CacheKeyTest_OrganizationProvider('204fb12f-3c13-4fab-9a31-895e0f1e2647', true),
                 ],
             ],
+            OrganizationProvider::class.' (undefined)'    => [
+                '',
+                [
+                    new CacheKeyTest_OrganizationProvider(null, false),
+                ],
+            ],
             BaseDirective::class                          => [
                 '@directive',
                 [
@@ -182,9 +188,9 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             'array'                                       => [
-                sha1(json_encode(['a' => 123, 'b' => 'value'])),
+                sha1(json_encode(['a' => 123, 'b' => 'value', 'c' => true])),
                 [
-                    ['b' => 'value', 'a' => 123],
+                    ['b' => 'value', 'a' => 123, 'c' => true],
                 ],
             ],
             'complex'                                     => [
@@ -318,14 +324,14 @@ class CacheKeyTest_Directive extends BaseDirective {
 class CacheKeyTest_OrganizationProvider extends OrganizationProvider {
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
-        protected string $key,
+        protected ?string $key,
         protected bool $root,
     ) {
         // empty
     }
 
     public function getKey(): string {
-        return $this->key;
+        return (string) $this->key;
     }
 
     public function isRoot(): bool {
@@ -333,7 +339,9 @@ class CacheKeyTest_OrganizationProvider extends OrganizationProvider {
     }
 
     protected function getCurrent(): ?Organization {
-        return Organization::factory()->make(['id' => $this->getKey()]);
+        return $this->getKey()
+            ? Organization::factory()->make(['id' => $this->getKey()])
+            : null;
     }
 }
 
