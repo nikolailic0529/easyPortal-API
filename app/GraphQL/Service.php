@@ -4,16 +4,19 @@ namespace App\GraphQL;
 
 use App\Services\I18n\Locale;
 use App\Services\Service as BaseService;
-use Illuminate\Contracts\Cache\Repository;
+use DateInterval;
+use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Contracts\Config\Repository as Config;
 
 use function array_merge;
 
 class Service extends BaseService {
     public function __construct(
-        Repository $cache,
+        Config $config,
+        Cache $cache,
         protected Locale $locale,
     ) {
-        parent::__construct($cache);
+        parent::__construct($config, $cache);
     }
 
     /**
@@ -24,5 +27,9 @@ class Service extends BaseService {
             // TODO [!] AppVersion,
             $this->locale,
         ]);
+    }
+
+    protected function getDefaultTtl(): DateInterval|int|null {
+        return new DateInterval($this->config->get('ep.cache.graphql.ttl') ?: 'P1W');
     }
 }

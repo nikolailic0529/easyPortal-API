@@ -265,6 +265,25 @@ interface Constants {
     public const EP_PAGINATION_LIMIT_MAX = 100;
     // </editor-fold>
 
+    // <editor-fold desc="EP_CACHE">
+    // =========================================================================
+    /**
+     * GraphQL TTL.
+     */
+    #[Setting('ep.cache.graphql.ttl')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_TTL = 'P2W';
+
+    /**
+     * Services data TTL.
+     */
+    #[Setting('ep.cache.service.ttl')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_SERVICE_TTL = 'P6M';
+    // </editor-fold>
+
     // <editor-fold desc="EP_AUTH">
     // =========================================================================
     /**

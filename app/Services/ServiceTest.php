@@ -7,7 +7,8 @@ use App\Services\DataLoader\Service as DataLoaderService;
 use Closure;
 use DateInterval;
 use Exception;
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Contracts\Config\Repository as Config;
 use InvalidArgumentException;
 use JsonSerializable;
 use Mockery;
@@ -29,9 +30,14 @@ class ServiceTest extends TestCase {
      * @covers ::get
      */
     public function testGet(): void {
-        $cache   = Mockery::mock(Repository::class);
+        $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service {
-            // empty
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Cache $cache,
+            ) {
+                // empty
+            }
         };
         $class   = $service::class;
 
@@ -64,8 +70,9 @@ class ServiceTest extends TestCase {
      */
     public function testSet(): void {
         $tags    = ['a', 'b', 'c'];
-        $cache   = Mockery::mock(Repository::class);
-        $service = new class($cache) extends Service implements JsonSerializable {
+        $config  = Mockery::mock(Config::class);
+        $cache   = Mockery::mock(Cache::class);
+        $service = new class($config, $cache) extends Service implements JsonSerializable {
             /**
              * @return array<mixed>
              */
@@ -76,6 +83,12 @@ class ServiceTest extends TestCase {
             }
         };
         $class   = $service::class;
+
+        $config
+            ->shouldReceive('get')
+            ->with('ep.cache.service.ttl')
+            ->times(3)
+            ->andReturn('P1M');
 
         $cache
             ->shouldReceive('set')
@@ -112,9 +125,14 @@ class ServiceTest extends TestCase {
      * @covers ::has
      */
     public function testHas(): void {
-        $cache   = Mockery::mock(Repository::class);
+        $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service {
-            // empty
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Cache $cache,
+            ) {
+                // empty
+            }
         };
         $class   = $service::class;
 
@@ -131,9 +149,14 @@ class ServiceTest extends TestCase {
      * @covers ::delete
      */
     public function testDelete(): void {
-        $cache   = Mockery::mock(Repository::class);
+        $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service {
-            // empty
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Cache $cache,
+            ) {
+                // empty
+            }
         };
         $class   = $service::class;
 
@@ -151,8 +174,15 @@ class ServiceTest extends TestCase {
      */
     public function testFlush(): void {
         $tags    = ['a', 'b', 'c'];
-        $cache   = Mockery::mock(Repository::class);
+        $cache   = Mockery::mock(Cache::class);
         $service = new class($cache) extends Service implements JsonSerializable {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Cache $cache,
+            ) {
+                // empty
+            }
+
             /**
              * @return array<mixed>
              */

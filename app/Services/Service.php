@@ -6,7 +6,8 @@ use App\Utils\CacheKey;
 use App\Utils\CacheKeyable;
 use Closure;
 use DateInterval;
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
 
 use function array_merge;
@@ -32,7 +33,8 @@ abstract class Service implements CacheKeyable {
      * @param \Illuminate\Contracts\Cache\Repository&\Illuminate\Cache\TaggableStore $cache
      */
     public function __construct(
-        protected Repository $cache,
+        protected Config $config,
+        protected Cache $cache,
     ) {
         // empty
     }
@@ -109,7 +111,7 @@ abstract class Service implements CacheKeyable {
     }
 
     protected function getDefaultTtl(): DateInterval|int|null {
-        return new DateInterval('P1M');
+        return new DateInterval($this->config->get('ep.cache.service.ttl') ?: 'P6M');
     }
 
     /**
