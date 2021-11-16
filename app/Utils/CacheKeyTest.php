@@ -79,6 +79,12 @@ class CacheKeyTest extends TestCase {
                     '456',
                 ],
             ],
+            'null'                                        => [
+                '',
+                [
+                    null,
+                ],
+            ],
             'object'                                      => [
                 new InvalidArgumentException('The `$value` cannot be used as a key.'),
                 [

@@ -54,7 +54,7 @@ class CacheKey implements Stringable {
 
         foreach ($key as $k => $value) {
             $value          = $this->value($value);
-            $normalized[$k] = is_string($value) ? $value : $this->hash($value);
+            $normalized[$k] = is_string($value) ? $value : $this->hash($this->encode($value));
         }
 
         return $normalized;
@@ -106,7 +106,7 @@ class CacheKey implements Stringable {
         } elseif (is_int($value)) {
             $normalized = $value;
         } elseif (is_null($value)) {
-            $normalized = $value;
+            $normalized = '';
         } else {
             throw new InvalidArgumentException(
                 'The `$value` cannot be used as a key.',
@@ -116,8 +116,8 @@ class CacheKey implements Stringable {
         return $normalized;
     }
 
-    protected function hash(mixed $value): string {
-        return sha1($this->encode($value));
+    protected function hash(string $value): string {
+        return sha1($value);
     }
 
     protected function encode(mixed $value): string {
