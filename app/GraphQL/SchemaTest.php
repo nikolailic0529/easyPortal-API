@@ -74,6 +74,7 @@ class SchemaTest extends TestCase {
             ['@paginatedLimit', null, null],
             ['@paginatedOffset', null, null],
             ['@cache', '@cached', null],
+            ['@cacheKey', '@cached', null],
         ];
     }
     //</editor-fold>
