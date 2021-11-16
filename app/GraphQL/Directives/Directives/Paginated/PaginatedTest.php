@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
-use App\GraphQL\Queries\Customers\Customer;
 use App\Models\Asset;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Tests\GraphQL\Schemas\AnySchema;

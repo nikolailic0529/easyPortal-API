@@ -135,7 +135,7 @@ class Manipulator extends AstManipulator {
     protected function getAggregatedFieldType(FieldDefinitionNode $node): string {
         $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
         $fieldName   = 'count';
-        $fieldSource = "{$fieldName}: Int! @aggregatedCount";
+        $fieldSource = "{$fieldName}: Int! @aggregatedCount @cached";
         $description = "Aggregated data for {$this->getNodeTypeFullName($node)}.";
 
         if ($this->isTypeDefinitionExists($typeName)) {
