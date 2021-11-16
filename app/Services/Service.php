@@ -39,7 +39,7 @@ abstract class Service implements CacheKeyable {
 
     /**
      * Returns the cached value for the key and passes it into `$factory` if key
-     * exists. The method also reset TTL.
+     * exists.
      *
      * @template T
      *
@@ -52,7 +52,6 @@ abstract class Service implements CacheKeyable {
 
         if ($value !== null) {
             $value = json_decode($value, true, flags: JSON_THROW_ON_ERROR);
-            $value = $this->set($key, $value);
 
             if ($factory) {
                 $value = $factory($value);
