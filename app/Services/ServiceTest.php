@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\GraphQL\Service as GraphQLService;
 use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
 use App\Services\DataLoader\Service as DataLoaderService;
 use Closure;
@@ -211,8 +212,25 @@ class ServiceTest extends TestCase {
      */
     public function testGetService(): void {
         $this->assertEquals(null, Service::getService(Service::class));
+        $this->assertEquals(GraphQLService::class, Service::getService(GraphQLService::class));
         $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderService::class));
         $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
+    }
+
+    /**
+     * @covers ::getServiceName
+     */
+    public function testGetServiceName(): void {
+        $this->assertEquals(null, Service::getServiceName(Service::class));
+        $this->assertEquals('GraphQL', Service::getServiceName(GraphQLService::class));
+        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderService::class));
+        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderImporter::class));
+        $this->assertEquals(null, Service::getServiceName(new class() extends Service {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+        }));
     }
 
     /**
