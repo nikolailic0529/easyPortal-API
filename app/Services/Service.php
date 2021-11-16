@@ -10,7 +10,6 @@ use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
 
-use function array_filter;
 use function array_merge;
 use function array_slice;
 use function class_exists;
@@ -69,37 +68,15 @@ abstract class Service implements CacheKeyable {
      * remove old unused keys from the cache.
      *
      * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
-     * @param array<string>                                             $tags
      */
-    public function set(
-        mixed $key,
-        JsonSerializable|array|string|float|int|bool|null $value,
-        array $tags = [],
-    ): mixed {
-        $tags  = array_filter(array_merge($this->getDefaultTags(), $tags));
-        $cache = $this->cache;
-
-        if ($tags) {
-            $cache = $this->cache->tags($tags);
-        }
-
-        $cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
+    public function set(mixed $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
+        $this->cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
 
         return $value;
     }
 
     public function delete(mixed $key): bool {
         return $this->cache->delete($this->getKey($key));
-    }
-
-    /**
-     * @param array<string>|null $tags
-     */
-    public function flush(array $tags = null): bool {
-        $tags ??= $this->getDefaultTags();
-        $result = $this->cache->tags($tags)->flush();
-
-        return $result;
     }
 
     public function has(mixed $key): bool {
@@ -125,16 +102,6 @@ abstract class Service implements CacheKeyable {
     }
 
     /**
-     * @return array<string>
-     */
-    protected function getDefaultTags(): array {
-        $name = static::getServiceName($this);
-        $tags = $name ? ["Service@{$name}"] : [];
-
-        return $tags;
-    }
-
-    /**
      * @param object|class-string $class
      *
      * @return class-string<\App\Services\Service>|null
@@ -153,17 +120,5 @@ abstract class Service implements CacheKeyable {
         }
 
         return $service;
-    }
-
-    /**
-     * @param object|class-string $class
-     */
-    public static function getServiceName(object|string $class): ?string {
-        $service = static::getService($class);
-        $name    = $service
-            ? array_slice(explode('\\', $service), -2, 1)[0]
-            : null;
-
-        return $name;
     }
 }

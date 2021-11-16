@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\GraphQL\Service as GraphQLService;
 use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
 use App\Services\DataLoader\Service as DataLoaderService;
 use Closure;
@@ -70,7 +69,6 @@ class ServiceTest extends TestCase {
      * @covers ::set
      */
     public function testSet(): void {
-        $tags    = ['a', 'b', 'c'];
         $config  = Mockery::mock(Config::class);
         $cache   = Mockery::mock(Cache::class);
         $service = new class($config, $cache) extends Service implements JsonSerializable {
@@ -88,7 +86,7 @@ class ServiceTest extends TestCase {
         $config
             ->shouldReceive('get')
             ->with('ep.cache.service.ttl')
-            ->times(3)
+            ->times(2)
             ->andReturn('P1M');
 
         $cache
@@ -106,20 +104,9 @@ class ServiceTest extends TestCase {
             ->with("{$class}:b", json_encode($service), Mockery::andAnyOtherArgs())
             ->once()
             ->andReturn(true);
-        $cache
-            ->shouldReceive('tags')
-            ->with($tags)
-            ->once()
-            ->andReturnSelf();
-        $cache
-            ->shouldReceive('set')
-            ->with("{$class}:c", json_encode('tags'), Mockery::andAnyOtherArgs())
-            ->once()
-            ->andReturn(true);
 
         $this->assertEquals(123, $service->set('a', 123));
         $this->assertSame($service, $service->set('b', $service));
-        $this->assertEquals('tags', $service->set('c', 'tags', $tags));
     }
 
     /**
@@ -171,66 +158,12 @@ class ServiceTest extends TestCase {
     }
 
     /**
-     * @covers ::flush
-     */
-    public function testFlush(): void {
-        $tags    = ['a', 'b', 'c'];
-        $cache   = Mockery::mock(Cache::class);
-        $service = new class($cache) extends Service implements JsonSerializable {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Cache $cache,
-            ) {
-                // empty
-            }
-
-            /**
-             * @return array<mixed>
-             */
-            public function jsonSerialize(): array {
-                return [
-                    'json' => 'value',
-                ];
-            }
-        };
-
-        $cache
-            ->shouldReceive('tags')
-            ->with($tags)
-            ->once()
-            ->andReturnSelf();
-        $cache
-            ->shouldReceive('flush')
-            ->once()
-            ->andReturn(true);
-
-        $this->assertTrue($service->flush($tags));
-    }
-
-    /**
      * @covers ::getService
      */
     public function testGetService(): void {
         $this->assertEquals(null, Service::getService(Service::class));
-        $this->assertEquals(GraphQLService::class, Service::getService(GraphQLService::class));
         $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderService::class));
         $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
-    }
-
-    /**
-     * @covers ::getServiceName
-     */
-    public function testGetServiceName(): void {
-        $this->assertEquals(null, Service::getServiceName(Service::class));
-        $this->assertEquals('GraphQL', Service::getServiceName(GraphQLService::class));
-        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderService::class));
-        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderImporter::class));
-        $this->assertEquals(null, Service::getServiceName(new class() extends Service {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-        }));
     }
 
     /**
