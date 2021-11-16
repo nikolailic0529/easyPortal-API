@@ -37,6 +37,10 @@ abstract class Aggregated extends BaseDirective implements FieldResolver {
         return $fieldValue->setResolver(
             function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): BuilderValue {
                 return new BuilderValue(
+                    $root,
+                    $args,
+                    $context,
+                    $resolveInfo,
                     $this->getBuilder($root, $args, $context, $resolveInfo),
                 );
             },

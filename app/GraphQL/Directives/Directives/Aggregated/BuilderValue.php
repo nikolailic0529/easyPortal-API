@@ -2,18 +2,28 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated;
 
+use App\GraphQL\Directives\Directives\Cached\Root;
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use RuntimeException;
 
 use function sprintf;
 
-class BuilderValue {
+class BuilderValue extends Root {
+    /**
+     * @inheritDoc
+     */
     public function __construct(
+        mixed $root,
+        array $args,
+        GraphQLContext $context,
+        ResolveInfo $resolveInfo,
         protected QueryBuilder|EloquentBuilder|SearchBuilder $builder,
     ) {
-        // empty
+        parent::__construct($root, $args, $context, $resolveInfo);
     }
 
     public function getBuilder(): EloquentBuilder|SearchBuilder|QueryBuilder {
