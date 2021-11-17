@@ -29,9 +29,6 @@ use const JSON_THROW_ON_ERROR;
  * standardizes keys across all services.
  */
 abstract class Service {
-    /**
-     * @param \Illuminate\Contracts\Cache\Repository&\Illuminate\Cache\TaggableStore $cache
-     */
     public function __construct(
         protected Config $config,
         protected Cache $cache,
