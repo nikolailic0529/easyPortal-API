@@ -207,9 +207,17 @@ class Cached extends BaseDirective implements FieldMiddleware {
     protected function getResolveMode(mixed $root): CachedMode {
         $arg  = $this->directiveArgValue('mode');
         $mode = !$arg
-            ? ($root === null ? CachedMode::lock() : CachedMode::threshold())
+            ? ($this->isRootQuery($root) ? CachedMode::lock() : CachedMode::threshold())
             : CachedMode::get(mb_strtolower($arg));
 
         return $mode;
+    }
+
+    protected function isRootQuery(mixed $root): bool {
+        if ($root instanceof ParentValue) {
+            $root = $root->getRoot();
+        }
+
+        return $root === null;
     }
 }
