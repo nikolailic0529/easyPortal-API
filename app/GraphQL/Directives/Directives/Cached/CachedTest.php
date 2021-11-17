@@ -42,6 +42,9 @@ class CachedTest extends TestCase {
         string $graphql,
     ): void {
         $this->setOrganization($organizationFactory);
+        $this->setSettings([
+            'ep.cache.graphql.threshold' => null,
+        ]);
 
         $resolver = Mockery::spy(static function (): string {
             return 'value';

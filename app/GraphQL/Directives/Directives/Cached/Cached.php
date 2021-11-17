@@ -6,11 +6,9 @@ use App\GraphQL\Service;
 use App\Services\Organization\CurrentOrganization;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
-use Nuwave\Lighthouse\Schema\RootType;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -18,14 +16,13 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use function array_slice;
 use function count;
 use function implode;
-use function in_array;
+use function microtime;
 use function serialize;
 use function sprintf;
 use function unserialize;
 
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
-        protected Repository $cache,
         protected Service $service,
         protected CurrentOrganization $organization,
     ) {
@@ -62,9 +59,12 @@ class Cached extends BaseDirective implements FieldMiddleware {
                     return $value;
                 }
 
-                // Resolve value and store it in the cache
-                $value = $this->resolve($key, $resolver, $root, $args, $context, $resolveInfo);
-                $value = $this->setCachedValue($key, $value);
+                // Resolve value
+                if ($root === null) {
+                    $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
+                } else {
+                    $value = $this->resolve($key, $resolver, $root, $args, $context, $resolveInfo);
+                }
 
                 // Return
                 return $value;
@@ -153,16 +153,6 @@ class Cached extends BaseDirective implements FieldMiddleware {
         return $value;
     }
 
-    protected function isRoot(ResolveInfo $resolveInfo): bool {
-        $type  = $resolveInfo->parentType->name;
-        $roots = [
-            RootType::QUERY,
-            'Application',
-        ];
-
-        return in_array($type, $roots, true);
-    }
-
     /**
      * @param array<mixed> $args
      */
@@ -174,7 +164,29 @@ class Cached extends BaseDirective implements FieldMiddleware {
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
     ): mixed {
-        return $this->service->lock(
+        $begin = microtime(true);
+        $value = $resolver($root, $args, $context, $resolveInfo);
+        $time  = microtime(true) - $begin;
+
+        if ($this->service->isSlowQuery($time)) {
+            $value = $this->setCachedValue($key, $value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param array<mixed> $args
+     */
+    protected function resolveWithLock(
+        mixed $key,
+        callable $resolver,
+        mixed $root,
+        array $args,
+        GraphQLContext $context,
+        ResolveInfo $resolveInfo,
+    ): mixed {
+        return $this->setCachedValue($key, $this->service->lock(
             $key,
             function () use ($key, $resolver, $root, $args, $context, $resolveInfo): mixed {
                 // Value can be already resolved in another process/request
@@ -186,6 +198,6 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
                 return $value;
             },
-        );
+        ));
     }
 }

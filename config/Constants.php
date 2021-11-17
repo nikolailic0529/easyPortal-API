@@ -284,10 +284,11 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_TTL = 'P2W';
 
     /**
-     * GraphQL lock timeout.
+     * GraphQL lock timeout (seconds).
      *
      * The `@cached` directive tries to reduce server load, so it executes the
-     * code only in one process/request, all other processes/requests just wait.
+     * root queries only in one process/request, all other processes/requests
+     * just wait.
      *
      * These settings determine lock timeout (how long the lock may exist) and a
      * wait timeout (how long another process/request will wait before starting
@@ -298,13 +299,23 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_LOCK = 30;
 
     /**
-     * GraphQL wait timeout.
+     * GraphQL wait timeout (seconds).
      *
      * Please see {@link \Config\Constants::EP_CACHE_GRAPHQL_LOCK}
      */
     #[Setting('ep.cache.graphql.wait')]
     #[Group('cache')]
     public const EP_CACHE_GRAPHQL_WAIT = 35;
+
+    /**
+     * GraphQL threshold (seconds with fraction part).
+     *
+     * Nested queries faster than this value will not be cached. The `null`
+     * disable threshold so all queries will be cached.
+     */
+    #[Setting('ep.cache.graphql.threshold')]
+    #[Group('cache')]
+    public const EP_CACHE_GRAPHQL_THRESHOLD = 2.0;
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">
