@@ -6,6 +6,7 @@
  * -----------------------------------------------------------------------------
  */
 
+use App\GraphQL\Directives\Directives\Cached\CachedMode;
 use App\GraphQL\Directives\SearchBy\Operators\Comparison\Contains;
 use App\GraphQL\Directives\SearchBy\Operators\Comparison\EndsWith;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
@@ -41,5 +42,16 @@ return [
                 StartsWith::class,
             ],
         ],
+    ],
+
+    /**
+     * These enums will be registered automatically. You can use key to specify
+     * enum name.
+     *
+     * @see \LastDragon_ru\LaraASP\Core\Enum
+     * @see \LastDragon_ru\LaraASP\Eloquent\Enum
+     */
+    'enums'     => [
+        CachedMode::class,
     ],
 ];
