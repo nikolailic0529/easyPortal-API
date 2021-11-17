@@ -411,6 +411,8 @@ class CachedTest extends TestCase {
      */
     public function dataProviderGetResolveMode(): array {
         $id           = 'b6369c49-6f20-4e05-8f5d-98d06bf871e6';
+        $model        = addslashes(Organization::class);
+        $cacheKey     = "Organization:{$id}";
         $organization = static function () use ($id): Organization {
             return Organization::factory()->create([
                 'id' => $id,
@@ -479,6 +481,66 @@ class CachedTest extends TestCase {
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
                     root
+                }
+                GRAPHQL,
+            ],
+            'aggregated (default) (without root)' => [
+                new GraphQLSuccess('aggregated', null, [
+                    'count' => CachedMode::lock(),
+                ]),
+                $organization,
+                /** @lang GraphQL */ <<<GRAPHQL
+                type Query {
+                    aggregated: Aggregated
+                    @aggregated(
+                        model: "{$model}"
+                    )
+                }
+
+                type Aggregated {
+                    count: String! @cached
+                }
+                GRAPHQL,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    aggregated {
+                        count
+                    }
+                }
+                GRAPHQL,
+            ],
+            'aggregated (default) (with root)'    => [
+                new GraphQLSuccess('models', null, [
+                    [
+                        'aggregated' => [
+                            'count' => CachedMode::threshold(),
+                        ],
+                    ],
+                ]),
+                $organization,
+                /** @lang GraphQL */ <<<GRAPHQL
+                type Query {
+                    models: [Organization!]! @all
+                }
+
+                type Organization {
+                    aggregated: Aggregated
+                    @aggregated(
+                        model: "{$model}"
+                    )
+                }
+
+                type Aggregated {
+                    count: String! @cached
+                }
+                GRAPHQL,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    models {
+                        aggregated {
+                            count
+                        }
+                    }
                 }
                 GRAPHQL,
             ],
