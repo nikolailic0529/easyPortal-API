@@ -55,7 +55,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
                 $resolver,
             ): mixed {
                 // Cached?
-                $key = $this->getCacheKey($root, $args, $context, $resolveInfo);
+                $key              = $this->getCacheKey($root, $args, $context, $resolveInfo);
                 [$cached, $value] = $this->getCachedValue($key);
 
                 if ($cached) {
