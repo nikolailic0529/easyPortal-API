@@ -5,9 +5,11 @@ namespace App\Utils;
 use App\Services\I18n\Locale;
 use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\NamedJob;
+use DateTimeInterface;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
+use JsonSerializable;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Stringable;
 use Traversable;
@@ -62,9 +64,7 @@ class CacheKey implements Stringable {
             } elseif (is_null($value)) {
                 $value = '';
             } else {
-                throw new InvalidArgumentException(
-                    'The `$value` cannot be used as a root key.',
-                );
+                throw new CacheKeyInvalidValue($value);
             }
 
             $normalized[$k] = $value;
@@ -86,10 +86,7 @@ class CacheKey implements Stringable {
             ksort($normalized);
         } elseif ($value instanceof Model) {
             if (!$value->exists || !$value->getKey()) {
-                throw new InvalidArgumentException(sprintf(
-                    'The instance of `%s` model should exist and have a non-empty key.',
-                    $value::class,
-                ));
+                throw new CacheKeyInvalidModel($value);
             }
 
             $normalized = $this->join([$value->getMorphClass(), (string) $value->getKey()]);
@@ -116,14 +113,14 @@ class CacheKey implements Stringable {
             $normalized = "@{$value->name()}";
         } elseif ($value instanceof CacheKeyable) {
             $normalized = $value::class;
+        } elseif ($value instanceof JsonSerializable) {
+            $normalized = $value;
         } elseif (is_scalar($value)) {
             $normalized = $value;
         } elseif (is_null($value)) {
             $normalized = $value;
         } else {
-            throw new InvalidArgumentException(
-                'The `$value` cannot be used as a key.',
-            );
+            throw new CacheKeyInvalidValue($value);
         }
 
         return $normalized;

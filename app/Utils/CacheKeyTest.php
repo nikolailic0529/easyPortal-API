@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
+use JsonSerializable;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use ReflectionClass;
 use stdClass;
@@ -54,13 +55,13 @@ class CacheKeyTest extends TestCase {
     public function dataProviderToString(): array {
         return [
             'bool'                                        => [
-                new InvalidArgumentException('The `$value` cannot be used as a root key.'),
+                new CacheKeyInvalidValue(true),
                 [
                     true,
                 ],
             ],
             'float'                                       => [
-                new InvalidArgumentException('The `$value` cannot be used as a root key.'),
+                new CacheKeyInvalidValue(1.23),
                 [
                     1.23,
                 ],
@@ -86,7 +87,7 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             'object'                                      => [
-                new InvalidArgumentException('The `$value` cannot be used as a key.'),
+                new CacheKeyInvalidValue(new stdClass()),
                 [
                     new stdClass(),
                 ],
@@ -104,19 +105,13 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             Model::class.' (not exists)'                  => [
-                new InvalidArgumentException(sprintf(
-                    'The instance of `%s` model should exist and have a non-empty key.',
-                    CacheKeyTest_Model::class,
-                )),
+                new CacheKeyInvalidModel(new CacheKeyTest_Model()),
                 [
                     new CacheKeyTest_Model('7e9604a8-ad67-4062-b3aa-3d347562a2ed', false),
                 ],
             ],
             Model::class.' (no key)'                      => [
-                new InvalidArgumentException(sprintf(
-                    'The instance of `%s` model should exist and have a non-empty key.',
-                    CacheKeyTest_Model::class,
-                )),
+                new CacheKeyInvalidModel(new CacheKeyTest_Model()),
                 [
                     new CacheKeyTest_Model(),
                 ],
@@ -185,6 +180,14 @@ class CacheKeyTest extends TestCase {
                 sha1(json_encode(['a' => 123, 'b' => 'value'])),
                 [
                     new ArrayIterator(['b' => 'value', 'a' => 123]),
+                ],
+            ],
+            JsonSerializable::class                       => [
+                sha1(json_encode(['json'])),
+                [
+                    [
+                        new CacheKeyTest_JsonSerializable('json'),
+                    ],
                 ],
             ],
             'array'                                       => [
@@ -359,5 +362,22 @@ class CacheKeyTest_Locale extends Locale {
 
     public function get(): string {
         return $this->locale;
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class CacheKeyTest_JsonSerializable implements JsonSerializable {
+    /** @noinspection PhpMissingParentConstructorInspection */
+    public function __construct(
+        protected mixed $data,
+    ) {
+        // empty
+    }
+
+    public function jsonSerialize(): mixed {
+        return $this->data;
     }
 }
