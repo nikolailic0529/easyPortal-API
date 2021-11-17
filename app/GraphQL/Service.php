@@ -33,8 +33,8 @@ class Service extends BaseService {
 
         // Lock
         $key  = $this->getKey($key);
-        $time = $this->config->get('ep.cache.graphql.lock') ?: 30;
-        $wait = $this->config->get('ep.cache.graphql.wait') ?: ($time + 5);
+        $time = ((int) $this->config->get('ep.cache.graphql.lock')) ?: 30;
+        $wait = ((int) $this->config->get('ep.cache.graphql.wait')) ?: ($time + 5);
         $lock = $store->lock($key, $time);
 
         try {
@@ -44,6 +44,13 @@ class Service extends BaseService {
         } finally {
             $lock->forceRelease();
         }
+    }
+
+    public function isSlowQuery(float $time): bool {
+        $threshold = $this->config->get('ep.cache.graphql.threshold');
+        $slow      = $threshold === null || $threshold <= 0 || $time >= $threshold;
+
+        return $slow;
     }
 
     /**
