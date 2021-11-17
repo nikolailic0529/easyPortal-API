@@ -5,8 +5,11 @@ namespace App\GraphQL\Directives\Directives\Aggregated;
 use App\Models\Customer;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use Closure;
+use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Mockery;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
@@ -32,8 +35,11 @@ class AggregatedCountTest extends TestCase {
      * @dataProvider dataProviderResolveField
      */
     public function testResolveField(int $expected, Closure $builder): void {
+        $context     = Mockery::mock(GraphQLContext::class);
+        $resolveInfo = Mockery::mock(ResolveInfo::class);
+
         $this->mockResolver('data')->willReturn(
-            new BuilderValue($builder($this)),
+            new BuilderValue(null, [], $context, $resolveInfo, $builder($this)),
         );
 
         $this

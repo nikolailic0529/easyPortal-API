@@ -21,7 +21,7 @@ class NormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(string $expected, mixed $value): void {
-        $this->assertEquals($expected, (new Normalizer())->normalize($value));
+        $this->assertEquals($expected, $this->app->make(Normalizer::class)->normalize($value));
     }
     // </editor-fold>
 

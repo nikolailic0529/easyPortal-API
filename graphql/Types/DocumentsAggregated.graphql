@@ -1,4 +1,5 @@
 type DocumentsAggregated {
   prices: [DocumentsAggregatedPrice!]!
   @field(resolver: "App\\GraphQL\\Queries\\Contracts\\ContractsAggregated@prices")
+  @cached
 }

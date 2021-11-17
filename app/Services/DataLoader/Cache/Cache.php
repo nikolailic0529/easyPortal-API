@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Cache;
 
+use App\Services\DataLoader\Normalizers\KeyNormalizer;
+use App\Services\DataLoader\Normalizers\StringNormalizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -23,7 +25,7 @@ class Cache {
      * @param array<\App\Services\DataLoader\Cache\KeyRetriever>                  $retrievers
      */
     public function __construct(Collection $models, array $retrievers) {
-        $this->normalizer = new Normalizer();
+        $this->normalizer = new Normalizer(new KeyNormalizer(new StringNormalizer()));
         $this->retrievers = $retrievers;
 
         $this->reset();

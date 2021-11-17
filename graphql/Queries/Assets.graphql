@@ -6,6 +6,7 @@ extend type Query {
   @all(
     builder: "App\\GraphQL\\Queries\\Assets\\AssetTypes"
   )
+  @cached
 
   "List of all possible asset statuses."
   assetStatuses(where: AssetStatusesQuery @searchBy): [Status!]!
@@ -14,6 +15,7 @@ extend type Query {
   @all(
     builder: "App\\GraphQL\\Queries\\Assets\\AssetStatuses"
   )
+  @cached
 
   "List of all possible asset coverages."
   assetCoverages(where: AssetCoveragesQuery @searchBy): [Coverage!]!
@@ -22,6 +24,7 @@ extend type Query {
   @all(
     model: "App\\Models\\Coverage"
   )
+  @cached
 
   "List of all assets"
   assets(

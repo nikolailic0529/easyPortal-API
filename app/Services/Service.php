@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
-use App\Services\Queue\NamedJob;
+use App\GraphQL\Service as GraphQLService;
+use App\Utils\CacheKey;
 use Closure;
 use DateInterval;
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
 
+use function array_merge;
 use function array_slice;
 use function class_exists;
 use function count;
@@ -19,34 +22,35 @@ use function json_decode;
 use function json_encode;
 use function str_starts_with;
 
+use const JSON_THROW_ON_ERROR;
+
 /**
  * Wrapper around the {@see \Illuminate\Contracts\Cache\Repository} that
  * standardizes keys across all services.
  */
 abstract class Service {
     public function __construct(
-        protected Repository $cache,
+        protected Config $config,
+        protected Cache $cache,
     ) {
         // empty
     }
 
     /**
      * Returns the cached value for the key and passes it into `$factory` if key
-     * exists. The method also reset TTL.
+     * exists.
      *
      * @template T
      *
-     * @param array<object|string>|object|string $key
-     * @param    (\Closure():T)|null $factory
+     * @param    (\Closure(mixed):T)|null $factory
      *
      * @return T
      */
-    public function get(object|array|string $key, Closure $factory = null): mixed {
-        $value = null;
+    public function get(mixed $key, Closure $factory = null): mixed {
+        $value = $this->cache->get($this->getKey($key));
 
-        if ($this->has($key)) {
-            $value = json_decode($this->cache->get($this->getKey($key), $value), true);
-            $value = $this->set($key, $value);
+        if ($value !== null) {
+            $value = json_decode($value, true, flags: JSON_THROW_ON_ERROR);
 
             if ($factory) {
                 $value = $factory($value);
@@ -60,54 +64,39 @@ abstract class Service {
      * Sets the value for the key. The method also sets the TTL to automatically
      * remove old unused keys from the cache.
      *
-     * @param array<object|string>|object|string                        $key
      * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
      */
-    public function set(object|array|string $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
+    public function set(mixed $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
         $this->cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
 
         return $value;
     }
 
-    /**
-     * @param array<object|string>|object|string $key
-     */
-    public function delete(object|array|string $key): bool {
+    public function delete(mixed $key): bool {
         return $this->cache->delete($this->getKey($key));
     }
 
-    /**
-     * @param array<object|string>|object|string $key
-     */
-    public function has(object|array|string $key): bool {
+    public function has(mixed $key): bool {
         return $this->cache->has($this->getKey($key));
     }
 
+    protected function getKey(mixed $key): string {
+        return (string) new CacheKey(array_merge(
+            ['app', static::getServiceName($this)],
+            $this->getDefaultKey(),
+            is_array($key) ? $key : [$key],
+        ));
+    }
+
     /**
-     * @param array<object|string>|object|string $key
+     * @return array<mixed>
      */
-    protected function getKey(object|array|string $key): string {
-        $parts = [$this::class];
-
-        if (!is_array($key)) {
-            $key = [$key];
-        }
-
-        foreach ($key as $value) {
-            if ($value instanceof NamedJob) {
-                $parts[] = $value->displayName();
-            } elseif (is_object($value)) {
-                $parts[] = $value::class;
-            } else {
-                $parts[] = $value;
-            }
-        }
-
-        return implode(':', $parts);
+    protected function getDefaultKey(): array {
+        return [];
     }
 
     protected function getDefaultTtl(): DateInterval|int|null {
-        return new DateInterval('P1M');
+        return new DateInterval($this->config->get('ep.cache.service.ttl') ?: 'P6M');
     }
 
     /**
@@ -126,8 +115,24 @@ abstract class Service {
             if (!class_exists($service)) {
                 $service = null;
             }
+        } elseif (str_starts_with($class, implode('\\', array_slice(explode('\\', GraphQLService::class), 0, -1)))) {
+            $service = GraphQLService::class;
+        } else {
+            // empty
         }
 
         return $service;
+    }
+
+    /**
+     * @param object|class-string $class
+     */
+    public static function getServiceName(object|string $class): ?string {
+        $service = static::getService($class);
+        $name    = $service
+            ? array_slice(explode('\\', $service), -2, 1)[0]
+            : null;
+
+        return $name;
     }
 }

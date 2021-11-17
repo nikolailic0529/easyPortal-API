@@ -3,9 +3,6 @@
 namespace App\Services\DataLoader\Importers;
 
 use App\GraphQL\Utils\Iterators\QueryIterator;
-use App\Services\DataLoader\Factories\AssetFactory;
-use App\Services\DataLoader\Factories\CustomerFactory;
-use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;

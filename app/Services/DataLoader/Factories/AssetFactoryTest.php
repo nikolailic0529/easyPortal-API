@@ -576,7 +576,6 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetDocumentsWarranties
      */
     public function testAssetDocumentsWarranties(): void {
-        $a       = AssetWarranty::factory()->make();
         $b       = AssetWarranty::factory()->make();
         $model   = Asset::factory()->make();
         $asset   = new ViewAsset();

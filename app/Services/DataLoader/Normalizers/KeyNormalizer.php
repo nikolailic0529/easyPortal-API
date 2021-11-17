@@ -12,10 +12,10 @@ use function ksort;
 use function mb_strtolower;
 
 class KeyNormalizer implements Normalizer {
-    protected StringNormalizer $normalizer;
-
-    public function __construct() {
-        $this->normalizer = new StringNormalizer();
+    public function __construct(
+        protected StringNormalizer $normalizer,
+    ) {
+        // empty
     }
 
     public function normalize(mixed $value): mixed {

@@ -73,6 +73,8 @@ class SchemaTest extends TestCase {
             ['@morphMany(type: xxx)', '@morphMany @paginatedRelation', '/@morphMany\(.*?type:.*?\)/ui'],
             ['@paginatedLimit', null, null],
             ['@paginatedOffset', null, null],
+            ['@cache', '@cached', null],
+            ['@cacheKey', '@cached', null],
         ];
     }
     //</editor-fold>
