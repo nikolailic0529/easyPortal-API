@@ -6,24 +6,28 @@ extend type Query {
   @organization
   @me
   @all
+  @cached
 
   "List of all currencies."
   currencies(where: CurrenciesQuery @searchBy): [Currency!]!
   @organization
   @me
   @all
+  @cached
 
   "List of all languages."
   languages(where: LanguagesQuery @searchBy): [Language!]!
   @organization
   @me
   @all
+  @cached
 
   "List of all countries."
   countries(where: CountriesQuery @searchBy): [Country!]!
   @organization
   @me
   @all
+  @cached
 
   "List of all cities."
   cities(
@@ -32,6 +36,7 @@ extend type Query {
   @organization
   @me
   @all
+  @cached
 
   "List of all possible location types."
   locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
@@ -40,6 +45,7 @@ extend type Query {
   @all(
     builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
   )
+  @cached
 
   "List of all possible contact types."
   contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
@@ -48,6 +54,7 @@ extend type Query {
   @all(
     builder: "App\\GraphQL\\Queries\\Data\\ContactTypes"
   )
+  @cached
 
   "List of all possible tags."
   tags (
@@ -57,6 +64,7 @@ extend type Query {
   @organization
   @me
   @all
+  @cached
 
   "List of all Service Groups."
   serviceGroups(
@@ -65,6 +73,7 @@ extend type Query {
   @organization
   @me
   @all
+  @cached
 
   "List of all Service Levels."
   serviceLevels(
@@ -73,6 +82,7 @@ extend type Query {
   @organization
   @me
   @all
+  @cached
 
   "List of all Timezones"
   timezones: [String!]!
@@ -81,10 +91,12 @@ extend type Query {
   @field(
     resolver: "App\\GraphQL\\Queries\\Data\\Timezones"
   )
+  @cached
 
   "List of all possible quote request durations."
   quoteRequestDurations: [QuoteRequestDuration!]!
   @organization
   @me
   @all
+  @cached
 }
