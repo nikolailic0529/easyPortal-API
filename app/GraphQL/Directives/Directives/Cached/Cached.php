@@ -174,6 +174,18 @@ class Cached extends BaseDirective implements FieldMiddleware {
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
     ): mixed {
-        return $resolver($root, $args, $context, $resolveInfo);
+        return $this->service->lock(
+            $key,
+            function () use ($key, $resolver, $root, $args, $context, $resolveInfo): mixed {
+                // Value can be already resolved in another process/request
+                [$cached, $value] = $this->getCachedValue($key);
+
+                if (!$cached) {
+                    $value = $resolver($root, $args, $context, $resolveInfo);
+                }
+
+                return $value;
+            },
+        );
     }
 }

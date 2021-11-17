@@ -268,6 +268,14 @@ interface Constants {
     // <editor-fold desc="EP_CACHE">
     // =========================================================================
     /**
+     * Services data TTL (jobs progress, etc).
+     */
+    #[Setting('ep.cache.service.ttl')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_SERVICE_TTL = 'P6M';
+
+    /**
      * GraphQL TTL.
      */
     #[Setting('ep.cache.graphql.ttl')]
@@ -276,12 +284,27 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_TTL = 'P2W';
 
     /**
-     * Services data TTL.
+     * GraphQL lock timeout.
+     *
+     * The `@cached` directive tries to reduce server load, so it executes the
+     * code only in one process/request, all other processes/requests just wait.
+     *
+     * These settings determine lock timeout (how long the lock may exist) and a
+     * wait timeout (how long another process/request will wait before starting
+     * to execute the code by self).
      */
-    #[Setting('ep.cache.service.ttl')]
+    #[Setting('ep.cache.graphql.lock')]
     #[Group('cache')]
-    #[Type(Duration::class)]
-    public const EP_CACHE_SERVICE_TTL = 'P6M';
+    public const EP_CACHE_GRAPHQL_LOCK = 30;
+
+    /**
+     * GraphQL wait timeout.
+     *
+     * Please see {@link \Config\Constants::EP_CACHE_GRAPHQL_LOCK}
+     */
+    #[Setting('ep.cache.graphql.wait')]
+    #[Group('cache')]
+    public const EP_CACHE_GRAPHQL_WAIT = 35;
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">
