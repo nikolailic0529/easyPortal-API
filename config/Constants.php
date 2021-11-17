@@ -310,7 +310,7 @@ interface Constants {
     /**
      * GraphQL threshold (seconds with fraction part).
      *
-     * Nested queries faster than this value will not be cached. The `null`
+     * Nested queries faster than this value will not be cached. The `0`
      * disable threshold so all queries will be cached.
      */
     #[Setting('ep.cache.graphql.threshold')]

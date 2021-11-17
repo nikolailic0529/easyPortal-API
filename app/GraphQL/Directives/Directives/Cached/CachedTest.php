@@ -118,6 +118,48 @@ class CachedTest extends TestCase {
             ->graphQL($graphql)
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::getResolveMode
+     *
+     * @dataProvider dataProviderGetResolveMode
+     */
+    public function testGetResolveMode(
+        Response $expected,
+        Closure $organizationFactory,
+        string $schema,
+        string $graphql,
+    ): void {
+        $this->setOrganization($organizationFactory);
+
+        $provider  = $this->app->make(CurrentOrganization::class);
+        $directive = new class($provider) extends Cached implements FieldResolver {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected CurrentOrganization $organization,
+            ) {
+                // empty;
+            }
+
+            public function handleField(FieldValue $fieldValue, Closure $next): FieldValue {
+                return $next($fieldValue);
+            }
+
+            public function resolveField(FieldValue $fieldValue): FieldValue {
+                return $fieldValue->setResolver(function (mixed $root): string {
+                    return (string) $this->getResolveMode($root);
+                });
+            }
+        };
+
+        $this->app->make(DirectiveLocator::class)
+            ->setResolved('cached', $directive::class);
+
+        $this
+            ->useGraphQLSchema($schema)
+            ->graphQL($graphql)
+            ->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -358,6 +400,85 @@ class CachedTest extends TestCase {
                             count
                         }
                     }
+                }
+                GRAPHQL,
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public function dataProviderGetResolveMode(): array {
+        $id           = 'b6369c49-6f20-4e05-8f5d-98d06bf871e6';
+        $organization = static function () use ($id): Organization {
+            return Organization::factory()->create([
+                'id' => $id,
+            ]);
+        };
+
+        return [
+            'default (root)'                 => [
+                new GraphQLSuccess('root', null, CachedMode::lock()),
+                $organization,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                type Query {
+                    root: String @cached
+                }
+                GRAPHQL,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    root
+                }
+                GRAPHQL,
+            ],
+            'default (nested)'               => [
+                new GraphQLSuccess('root', null, [
+                    'id' => CachedMode::threshold(),
+                ]),
+                $organization,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                type Query {
+                    root: Organization @all
+                }
+
+                type Organization {
+                    id: ID! @cached
+                }
+                GRAPHQL,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    root {
+                        id
+                    }
+                }
+                GRAPHQL,
+            ],
+            (string) CachedMode::lock()      => [
+                new GraphQLSuccess('root', null, CachedMode::lock()),
+                $organization,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                type Query {
+                    root: String @cached(mode: Lock)
+                }
+                GRAPHQL,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    root
+                }
+                GRAPHQL,
+            ],
+            (string) CachedMode::threshold() => [
+                new GraphQLSuccess('root', null, CachedMode::threshold()),
+                $organization,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                type Query {
+                    root: String @cached(mode: Threshold)
+                }
+                GRAPHQL,
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    root
                 }
                 GRAPHQL,
             ],

@@ -16,6 +16,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use function array_slice;
 use function count;
 use function implode;
+use function mb_strtolower;
 use function microtime;
 use function serialize;
 use function sprintf;
@@ -34,7 +35,9 @@ class Cached extends BaseDirective implements FieldMiddleware {
             """
             Cache the resolved value of a field.
             """
-            directive @cached on FIELD_DEFINITION
+            directive @cached(
+                mode: CachedMode
+            ) on FIELD_DEFINITION
             GRAPHQL;
     }
 
@@ -60,7 +63,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
                 }
 
                 // Resolve value
-                if ($root === null) {
+                if ($this->getResolveMode($root) === CachedMode::lock()) {
                     $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
                 } else {
                     $value = $this->resolve($key, $resolver, $root, $args, $context, $resolveInfo);
@@ -199,5 +202,14 @@ class Cached extends BaseDirective implements FieldMiddleware {
                 return $value;
             },
         ));
+    }
+
+    protected function getResolveMode(mixed $root): CachedMode {
+        $arg  = $this->directiveArgValue('mode');
+        $mode = !$arg
+            ? ($root === null ? CachedMode::lock() : CachedMode::threshold())
+            : CachedMode::get(mb_strtolower($arg));
+
+        return $mode;
     }
 }

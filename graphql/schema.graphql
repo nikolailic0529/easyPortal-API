@@ -45,6 +45,7 @@ type Query {
   @organization
   @me(permissions: ["customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\Map")
+  @cached(mode: Threshold)
 
   # Organization
   # ============================================================================

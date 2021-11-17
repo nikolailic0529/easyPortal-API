@@ -10,7 +10,6 @@ use ArrayIterator;
 use Exception;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
-use InvalidArgumentException;
 use JsonSerializable;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use ReflectionClass;
