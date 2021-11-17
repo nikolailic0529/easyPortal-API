@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\GraphQL\Directives\AuthDirective as GraphQLAuthDirective;
+use App\GraphQL\Service as GraphQLService;
 use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
 use App\Services\DataLoader\Service as DataLoaderService;
 use Closure;
@@ -39,16 +41,16 @@ class ServiceTest extends TestCase {
                 // empty
             }
         };
-        $class   = $service::class;
+        $name    = Service::getServiceName($service);
 
         $cache
             ->shouldReceive('get')
-            ->with("{$class}:a")
+            ->with("app:{$name}:a")
             ->once()
             ->andReturn('123');
         $cache
             ->shouldReceive('get')
-            ->with("{$class}:b")
+            ->with("app:{$name}:b")
             ->once()
             ->andReturn(null);
 
@@ -81,7 +83,7 @@ class ServiceTest extends TestCase {
                 ];
             }
         };
-        $class   = $service::class;
+        $name    = Service::getServiceName($service);
 
         $config
             ->shouldReceive('get')
@@ -91,8 +93,8 @@ class ServiceTest extends TestCase {
 
         $cache
             ->shouldReceive('set')
-            ->withArgs(static function (mixed $key, mixed $value, mixed $ttl) use ($class): bool {
-                return $key === "{$class}:a"
+            ->withArgs(static function (mixed $key, mixed $value, mixed $ttl) use ($name): bool {
+                return $key === "app:{$name}:a"
                     && $value === '123'
                     && $ttl instanceof DateInterval
                     && $ttl->format('P%yY%mM%dD%hH%iM%sS') === 'P0Y1M0D0H0M0S';
@@ -101,7 +103,7 @@ class ServiceTest extends TestCase {
             ->andReturn(true);
         $cache
             ->shouldReceive('set')
-            ->with("{$class}:b", json_encode($service), Mockery::andAnyOtherArgs())
+            ->with("app:{$name}:b", json_encode($service), Mockery::andAnyOtherArgs())
             ->once()
             ->andReturn(true);
 
@@ -122,11 +124,11 @@ class ServiceTest extends TestCase {
                 // empty
             }
         };
-        $class   = $service::class;
+        $name    = Service::getServiceName($service);
 
         $cache
             ->shouldReceive('has')
-            ->with("{$class}:a")
+            ->with("app:{$name}:a")
             ->once()
             ->andReturn(true);
 
@@ -146,11 +148,11 @@ class ServiceTest extends TestCase {
                 // empty
             }
         };
-        $class   = $service::class;
+        $name    = Service::getServiceName($service);
 
         $cache
             ->shouldReceive('delete')
-            ->with("{$class}:a:b")
+            ->with("app:{$name}:a:b")
             ->once()
             ->andReturn(true);
 
@@ -162,8 +164,27 @@ class ServiceTest extends TestCase {
      */
     public function testGetService(): void {
         $this->assertEquals(null, Service::getService(Service::class));
+        $this->assertEquals(GraphQLService::class, Service::getService(GraphQLService::class));
+        $this->assertEquals(GraphQLService::class, Service::getService(GraphQLAuthDirective::class));
         $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderService::class));
         $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
+    }
+
+    /**
+     * @covers ::getServiceName
+     */
+    public function testGetServiceName(): void {
+        $this->assertEquals(null, Service::getServiceName(Service::class));
+        $this->assertEquals('GraphQL', Service::getServiceName(GraphQLService::class));
+        $this->assertEquals('GraphQL', Service::getServiceName(GraphQLAuthDirective::class));
+        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderService::class));
+        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderImporter::class));
+        $this->assertEquals(null, Service::getServiceName(new class() extends Service {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+        }));
     }
 
     /**
@@ -190,7 +211,8 @@ class ServiceTest extends TestCase {
         }
 
         if (is_string($expected)) {
-            $expected = str_replace('${service}', $service::class, $expected);
+            $name     = (string) Service::getServiceName($service);
+            $expected = str_replace('${service}', $name, $expected);
         }
 
         $this->assertEquals($expected, $service->getKey($key));
@@ -204,7 +226,7 @@ class ServiceTest extends TestCase {
      */
     public function dataProviderGetKey(): array {
         return [
-            'string' => ['${service}:abc', 'abc'],
+            'string' => ['app:${service}:abc', 'abc'],
             'object' => [
                 new InvalidArgumentException('The `$value` cannot be used as a key.'),
                 new stdClass(),

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\GraphQL\Service as GraphQLService;
 use App\Utils\CacheKey;
-use App\Utils\CacheKeyable;
 use Closure;
 use DateInterval;
 use Illuminate\Contracts\Cache\Repository as Cache;
@@ -28,7 +28,7 @@ use const JSON_THROW_ON_ERROR;
  * Wrapper around the {@see \Illuminate\Contracts\Cache\Repository} that
  * standardizes keys across all services.
  */
-abstract class Service implements CacheKeyable {
+abstract class Service {
     /**
      * @param \Illuminate\Contracts\Cache\Repository&\Illuminate\Cache\TaggableStore $cache
      */
@@ -84,10 +84,11 @@ abstract class Service implements CacheKeyable {
     }
 
     protected function getKey(mixed $key): string {
-        $key = array_merge([$this], $this->getDefaultKey(), is_array($key) ? $key : [$key]);
-        $key = new CacheKey($key);
-
-        return (string) $key;
+        return (string) new CacheKey(array_merge(
+            ['app', static::getServiceName($this)],
+            $this->getDefaultKey(),
+            is_array($key) ? $key : [$key],
+        ));
     }
 
     /**
@@ -117,8 +118,24 @@ abstract class Service implements CacheKeyable {
             if (!class_exists($service)) {
                 $service = null;
             }
+        } elseif (str_starts_with($class, implode('\\', array_slice(explode('\\', GraphQLService::class), 0, -1)))) {
+            $service = GraphQLService::class;
+        } else {
+            // empty
         }
 
         return $service;
+    }
+
+    /**
+     * @param object|class-string $class
+     */
+    public static function getServiceName(object|string $class): ?string {
+        $service = static::getService($class);
+        $name    = $service
+            ? array_slice(explode('\\', $service), -2, 1)[0]
+            : null;
+
+        return $name;
     }
 }
