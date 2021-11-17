@@ -6,12 +6,12 @@ use App\GraphQL\Directives\AuthDirective as GraphQLAuthDirective;
 use App\GraphQL\Service as GraphQLService;
 use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
 use App\Services\DataLoader\Service as DataLoaderService;
+use App\Utils\CacheKeyInvalidValue;
 use Closure;
 use DateInterval;
 use Exception;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
-use InvalidArgumentException;
 use JsonSerializable;
 use Mockery;
 use stdClass;
@@ -228,7 +228,7 @@ class ServiceTest extends TestCase {
         return [
             'string' => ['app:${service}:abc', 'abc'],
             'object' => [
-                new InvalidArgumentException('The `$value` cannot be used as a key.'),
+                new CacheKeyInvalidValue(new stdClass()),
                 new stdClass(),
             ],
         ];
