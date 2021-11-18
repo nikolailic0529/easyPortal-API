@@ -8,6 +8,8 @@ use App\Services\Queue\NamedJob;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
+use League\Geotools\Geohash\Geohash;
+use League\Geotools\Geotools;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Stringable;
 use Traversable;
@@ -108,6 +110,9 @@ class CacheKey implements Stringable {
             $normalized = $value->get();
         } elseif ($value instanceof BaseDirective) {
             $normalized = "@{$value->name()}";
+        } elseif ($value instanceof Geohash) {
+            $normalized = $value->getGeohash()
+                ?: (new Geotools())->geohash()->encode($value->getCoordinate())->getGeohash();
         } elseif ($value instanceof CacheKeyable) {
             $normalized = $value::class;
         } elseif ($value instanceof JsonSerializable) {
