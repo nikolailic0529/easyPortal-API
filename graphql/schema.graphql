@@ -38,8 +38,19 @@ type Query {
     "Zoom level (1-12)."
     level: Int! @rules(apply: ["App\\Rules\\MapLevel"])
 
+    "Only points inside these boundaries will be returned."
+    boundaries: [Geohash!]
+
+    "Additional filters for the points."
+    locations: MapQuery @searchBy
+
+    "Assets filters."
+    assets:  AssetsQuery @searchBy
+
+    "Deprecated. Please use `locations` instead."
     viewport: MapQuery @searchBy
 
+    "Deprecated. Please use `assets` instead."
     where: AssetsQuery @searchBy
   ): [Map!]!
   @organization

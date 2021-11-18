@@ -412,7 +412,6 @@ class CachedTest extends TestCase {
     public function dataProviderGetResolveMode(): array {
         $id           = 'b6369c49-6f20-4e05-8f5d-98d06bf871e6';
         $model        = addslashes(Organization::class);
-        $cacheKey     = "Organization:{$id}";
         $organization = static function () use ($id): Organization {
             return Organization::factory()->create([
                 'id' => $id,
@@ -420,7 +419,7 @@ class CachedTest extends TestCase {
         };
 
         return [
-            'default (root)'                 => [
+            'default (root)'                      => [
                 new GraphQLSuccess('root', null, CachedMode::lock()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
@@ -434,7 +433,7 @@ class CachedTest extends TestCase {
                 }
                 GRAPHQL,
             ],
-            'default (nested)'               => [
+            'default (nested)'                    => [
                 new GraphQLSuccess('root', null, [
                     'id' => CachedMode::threshold(),
                 ]),
@@ -456,7 +455,7 @@ class CachedTest extends TestCase {
                 }
                 GRAPHQL,
             ],
-            (string) CachedMode::lock()      => [
+            (string) CachedMode::lock()           => [
                 new GraphQLSuccess('root', null, CachedMode::lock()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
@@ -470,7 +469,7 @@ class CachedTest extends TestCase {
                 }
                 GRAPHQL,
             ],
-            (string) CachedMode::threshold() => [
+            (string) CachedMode::threshold()      => [
                 new GraphQLSuccess('root', null, CachedMode::threshold()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'

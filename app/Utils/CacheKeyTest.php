@@ -11,6 +11,8 @@ use Exception;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
+use League\Geotools\Geohash\Geohash;
+use League\Geotools\Geotools;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use ReflectionClass;
 use stdClass;
@@ -52,6 +54,8 @@ class CacheKeyTest extends TestCase {
      * @return array<string,array{\Exception|string,array<object|string>|object|string}>
      */
     public function dataProviderToString(): array {
+        $tools = new Geotools();
+
         return [
             'bool'                                        => [
                 new CacheKeyInvalidValue(true),
@@ -189,10 +193,38 @@ class CacheKeyTest extends TestCase {
                     ],
                 ],
             ],
+            Geohash::class.' (encode)'                    => [
+                sha1(json_encode(['spey'])),
+                [
+                    [
+                        $tools->geohash()->encode($tools->geohash()->decode('spey61y')->getCoordinate(), 4),
+                    ],
+                ],
+            ],
+            Geohash::class.' (decode)'                    => [
+                sha1(json_encode(['spey61ys0000'])),
+                [
+                    [
+                        $tools->geohash()->decode('spey61y'),
+                    ],
+                ],
+            ],
             'array'                                       => [
                 sha1(json_encode(['a' => 123, 'b' => 'value', 'c' => true])),
                 [
                     ['b' => 'value', 'a' => 123, 'c' => true],
+                ],
+            ],
+            'list (unordered keys)'                       => [
+                sha1(json_encode([1, 1, 3])),
+                [
+                    [1, 3, 4 => 1],
+                ],
+            ],
+            'list'                                        => [
+                sha1(json_encode([1, 2, 4])),
+                [
+                    [4, 1, 2],
                 ],
             ],
             'complex'                                     => [

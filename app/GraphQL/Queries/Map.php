@@ -9,8 +9,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use League\Geotools\BoundingBox\BoundingBoxInterface;
+use League\Geotools\Geohash\Geohash;
 use League\Geotools\Geotools;
+use League\Geotools\Polygon\Polygon;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -29,15 +33,23 @@ class Map {
     }
 
     /**
-     * @param array{level:int,viewport:array<mixed>,where:array<mixed>} $args
+     * @param array{level:int,boundaries:array<\League\Geotools\Geohash\Geohash>,viewport:array<mixed>,where:array<mixed>,locations:array<mixed>,assets:array<mixed>} $args
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection {
         // Base query and Viewport
-        $viewport = $this->getArgumentSet($resolveInfo->argumentSet->arguments['viewport'] ?? null);
-        $level    = $args['level'];
-        $model    = new Location();
-        $keyname  = $model->getQualifiedKeyName();
-        $query    = Location::query()
+        $boundaries = $this->getBoundaries($args['boundaries'] ?? []);
+        $locations  = $this->getArgumentSet($resolveInfo->argumentSet->arguments['locations'] ?? null);
+        $viewport   = $this->getArgumentSet($resolveInfo->argumentSet->arguments['viewport'] ?? null);
+        $model      = new Location();
+        $base       = Location::query()
+            ->whereNotNull($model->qualifyColumn('geohash'))
+            ->whereNotNull($model->qualifyColumn('latitude'))
+            ->whereNotNull($model->qualifyColumn('longitude'));
+
+        // Apply where conditions
+        $keyname = $model->getQualifiedKeyName();
+        $level   = $args['level'];
+        $query   = (clone $base)
             ->selectRaw("AVG({$model->qualifyColumn('latitude')}) as latitude")
             ->selectRaw("AVG({$model->qualifyColumn('longitude')}) as longitude")
             ->selectRaw("GROUP_CONCAT({$keyname} ORDER BY {$keyname} SEPARATOR ',') as locations_ids")
@@ -50,18 +62,13 @@ class Map {
                     $builder->addSelect("{$model->qualifyColumn('geohash')} as hash");
                 },
             )
-            ->whereNotNull($model->qualifyColumn('geohash'))
-            ->whereNotNull($model->qualifyColumn('latitude'))
-            ->whereNotNull($model->qualifyColumn('longitude'))
             ->groupBy('hash')
             ->limit(1000);
 
-        if ($viewport instanceof ArgumentSet) {
-            $query = $viewport->enhanceBuilder($query, []);
-        }
-
         // Apply where conditions
-        $where = $this->getArgumentSet($resolveInfo->argumentSet->arguments['where'] ?? null);
+        $where = isset($resolveInfo->argumentSet->arguments['assets'])
+            ? $this->getArgumentSet($resolveInfo->argumentSet->arguments['assets'] ?? null)
+            : $this->getArgumentSet($resolveInfo->argumentSet->arguments['where'] ?? null);
         $query = $query
             ->selectRaw('COUNT(DISTINCT data.`customer_id`) as `customers_count`')
             ->selectRaw(
@@ -71,11 +78,15 @@ class Map {
             ->whereNotNull('data.location_id');
 
         if ($where instanceof ArgumentSet) {
-            // If conditions specified we need to join assets
+            // If conditions are specified we need to join assets. In this case,
+            // we can filter them by Location and do not add locations filters
+            // into the main query.
+            $base  = $this->applyBoundaries($base, $viewport, $locations, $boundaries);
             $query = $query->joinRelation(
                 'assets',
                 'data',
-                static function (HasMany $relation, EloquentBuilder $builder) use ($where): EloquentBuilder {
+                static function (HasMany $relation, EloquentBuilder $builder) use ($base, $where): EloquentBuilder {
+                    $query           = (clone $base)->select($base->getModel()->getKeyName());
                     $foreignKeyName  = $relation->getQualifiedForeignKeyName();
                     $customerKeyName = $relation->newModelInstance()->qualifyColumn('customer_id');
 
@@ -83,11 +94,14 @@ class Map {
                         ->enhanceBuilder($builder, [])
                         ->distinct()
                         ->selectRaw($foreignKeyName)
-                        ->selectRaw("{$customerKeyName} as customer_id");
+                        ->selectRaw("{$customerKeyName} as customer_id")
+                        ->whereIn('location_id', $query);
                 },
             );
         } else {
-            // If no conditions we can use `location_customers`
+            // If no conditions we can use `location_customers` but we should
+            // also add locations filters into the main query.
+            $query = $this->applyBoundaries($query, $viewport, $locations, $boundaries);
             $query = $query->joinRelation(
                 'customers',
                 'data',
@@ -143,5 +157,42 @@ class Map {
         }
 
         return $set;
+    }
+
+    /**
+     * @param array<\League\Geotools\Geohash\Geohash> $geohashes
+     */
+    protected function getBoundaries(array $geohashes): ?BoundingBoxInterface {
+        $boundaries = null;
+
+        if ($geohashes) {
+            $points     = (new Collection($geohashes))
+                ->map(static fn(Geohash $geohash): array => $geohash->getBoundingBox())
+                ->flatten(1)
+                ->all();
+            $polygon    = new Polygon($points);
+            $boundaries = $polygon->getBoundingBox();
+        }
+
+        return $boundaries;
+    }
+
+    protected function applyBoundaries(
+        EloquentBuilder $builder,
+        ArgumentSet|BoundingBoxInterface|null ...$boundaries,
+    ): EloquentBuilder {
+        foreach ($boundaries as $boundary) {
+            if ($boundary instanceof BoundingBoxInterface) {
+                $builder = $builder
+                    ->whereBetween('latitude', Arr::sort([$boundary->getNorth(), $boundary->getSouth()]))
+                    ->whereBetween('longitude', Arr::sort([$boundary->getEast(), $boundary->getWest()]));
+            } elseif ($boundary instanceof ArgumentSet) {
+                $builder = $boundary->enhanceBuilder($builder, []);
+            } else {
+                // empty
+            }
+        }
+
+        return $builder;
     }
 }

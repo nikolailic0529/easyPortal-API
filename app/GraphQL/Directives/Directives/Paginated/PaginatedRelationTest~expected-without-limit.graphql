@@ -1,3 +1,18 @@
+enum CachedMode {
+  """
+  In this mode all queries will be cached in addition the resolver will
+  use Atomic Locks to reduce server load. The mode is designed for
+  heavy/long queries.
+  """
+  Lock
+
+  """
+  In this mode, the query will be cached only if the execution time is
+  greater than the threshold.
+  """
+  Threshold
+}
+
 type Customer {
   id: ID!
 
