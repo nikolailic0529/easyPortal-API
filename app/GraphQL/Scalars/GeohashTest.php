@@ -82,7 +82,7 @@ class GeohashTest extends TestCase {
             ],
             'valid geohash (decoded)' => [
                 'spey61ys0000',
-                (new Geotools())->geohash()->decode('spey61y'),
+                $tools->geohash()->decode('spey61y'),
             ],
             'valid geohash (string)'  => [
                 'spey',
