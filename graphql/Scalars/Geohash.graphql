@@ -1,0 +1,4 @@
+"""
+Geohash (https://en.wikipedia.org/wiki/Geohash)
+"""
+scalar Geohash @scalar(class: "App\\GraphQL\\Scalars\\Geohash")
