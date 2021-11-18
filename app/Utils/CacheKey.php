@@ -16,17 +16,20 @@ use Traversable;
 
 use function implode;
 use function is_array;
+use function is_int;
 use function is_null;
 use function is_scalar;
 use function is_string;
 use function json_encode;
 use function ksort;
 use function sha1;
+use function sort;
 
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_LINE_TERMINATORS;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
+use const SORT_REGULAR;
 
 class CacheKey implements Stringable {
     /**
@@ -76,13 +79,19 @@ class CacheKey implements Stringable {
         $normalized = null;
 
         if (is_array($value) || $value instanceof Traversable) {
+            $isList     = true;
             $normalized = [];
 
             foreach ($value as $k => $v) {
+                $isList         = $isList && is_int($k);
                 $normalized[$k] = $this->value($v);
             }
 
-            ksort($normalized);
+            if ($isList) {
+                sort($normalized, SORT_REGULAR);
+            } else {
+                ksort($normalized);
+            }
         } elseif ($value instanceof Model) {
             if (!$value->exists || !$value->getKey()) {
                 throw new CacheKeyInvalidModel($value);

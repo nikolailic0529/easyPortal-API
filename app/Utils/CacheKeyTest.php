@@ -215,6 +215,18 @@ class CacheKeyTest extends TestCase {
                     ['b' => 'value', 'a' => 123, 'c' => true],
                 ],
             ],
+            'list (unordered keys)'                       => [
+                sha1(json_encode([1, 1, 3])),
+                [
+                    [1, 3, 4 => 1],
+                ],
+            ],
+            'list'                                        => [
+                sha1(json_encode([1, 2, 4])),
+                [
+                    [4, 1, 2],
+                ],
+            ],
             'complex'                                     => [
                 implode(':', [
                     CacheKeyTest_CacheKeyable::class,
