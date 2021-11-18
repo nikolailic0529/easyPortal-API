@@ -46,12 +46,6 @@ type Query {
 
     "Assets filters."
     assets:  AssetsQuery @searchBy
-
-    "Deprecated. Please use `locations` instead."
-    viewport: MapQuery @searchBy
-
-    "Deprecated. Please use `assets` instead."
-    where: AssetsQuery @searchBy
   ): [Map!]!
   @organization
   @me(permissions: ["customers-view"])

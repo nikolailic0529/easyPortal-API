@@ -36,7 +36,6 @@ class Map {
      * @param array{
      *     level:int,
      *     boundaries:array<\League\Geotools\Geohash\Geohash>,
-     *     viewport:array<mixed>,where:array<mixed>,
      *     locations:array<mixed>,
      *     assets:array<mixed>
      *     } $args
@@ -45,7 +44,6 @@ class Map {
         // Base query and Viewport
         $boundaries = $this->getBoundaries($args['boundaries'] ?? []);
         $locations  = $this->getArgumentSet($resolveInfo->argumentSet->arguments['locations'] ?? null);
-        $viewport   = $this->getArgumentSet($resolveInfo->argumentSet->arguments['viewport'] ?? null);
         $model      = new Location();
         $base       = Location::query()
             ->whereNotNull($model->qualifyColumn('geohash'))
@@ -72,9 +70,7 @@ class Map {
             ->limit(1000);
 
         // Apply where conditions
-        $where = isset($resolveInfo->argumentSet->arguments['assets'])
-            ? $this->getArgumentSet($resolveInfo->argumentSet->arguments['assets'] ?? null)
-            : $this->getArgumentSet($resolveInfo->argumentSet->arguments['where'] ?? null);
+        $where = $this->getArgumentSet($resolveInfo->argumentSet->arguments['assets'] ?? null);
         $query = $query
             ->selectRaw('COUNT(DISTINCT data.`customer_id`) as `customers_count`')
             ->selectRaw(
@@ -87,7 +83,7 @@ class Map {
             // If conditions are specified we need to join assets. In this case,
             // we can filter them by Location and do not add locations filters
             // into the main query.
-            $base  = $this->applyBoundaries($base, $viewport, $locations, $boundaries);
+            $base  = $this->applyBoundaries($base, $locations, $boundaries);
             $query = $query->joinRelation(
                 'assets',
                 'data',
@@ -107,7 +103,7 @@ class Map {
         } else {
             // If no conditions we can use `location_customers` but we should
             // also add locations filters into the main query.
-            $query = $this->applyBoundaries($query, $viewport, $locations, $boundaries);
+            $query = $this->applyBoundaries($query, $locations, $boundaries);
             $query = $query->joinRelation(
                 'customers',
                 'data',
