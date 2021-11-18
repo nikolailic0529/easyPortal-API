@@ -34,10 +34,16 @@ class Map {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection {
         // Base query and Viewport
         $viewport = $this->getArgumentSet($resolveInfo->argumentSet->arguments['viewport'] ?? null);
-        $level    = $args['level'];
         $model    = new Location();
-        $keyname  = $model->getQualifiedKeyName();
-        $query    = Location::query()
+        $base     = Location::query()
+            ->whereNotNull($model->qualifyColumn('geohash'))
+            ->whereNotNull($model->qualifyColumn('latitude'))
+            ->whereNotNull($model->qualifyColumn('longitude'));
+
+        // Apply where conditions
+        $keyname = $model->getQualifiedKeyName();
+        $level   = $args['level'];
+        $query   = (clone $base)
             ->selectRaw("AVG({$model->qualifyColumn('latitude')}) as latitude")
             ->selectRaw("AVG({$model->qualifyColumn('longitude')}) as longitude")
             ->selectRaw("GROUP_CONCAT({$keyname} ORDER BY {$keyname} SEPARATOR ',') as locations_ids")
@@ -50,15 +56,8 @@ class Map {
                     $builder->addSelect("{$model->qualifyColumn('geohash')} as hash");
                 },
             )
-            ->whereNotNull($model->qualifyColumn('geohash'))
-            ->whereNotNull($model->qualifyColumn('latitude'))
-            ->whereNotNull($model->qualifyColumn('longitude'))
             ->groupBy('hash')
             ->limit(1000);
-
-        if ($viewport instanceof ArgumentSet) {
-            $query = $viewport->enhanceBuilder($query, []);
-        }
 
         // Apply where conditions
         $where = $this->getArgumentSet($resolveInfo->argumentSet->arguments['where'] ?? null);
@@ -71,11 +70,18 @@ class Map {
             ->whereNotNull('data.location_id');
 
         if ($where instanceof ArgumentSet) {
-            // If conditions specified we need to join assets
+            // If conditions are specified we need to join assets. In this case,
+            // we can filter them by Location and do not add viewport filters
+            // into the main query.
+            if ($viewport instanceof ArgumentSet) {
+                $base = $viewport->enhanceBuilder($base, []);
+            }
+
             $query = $query->joinRelation(
                 'assets',
                 'data',
-                static function (HasMany $relation, EloquentBuilder $builder) use ($where): EloquentBuilder {
+                static function (HasMany $relation, EloquentBuilder $builder) use ($base, $where): EloquentBuilder {
+                    $query           = (clone $base)->select($base->getModel()->getKeyName());
                     $foreignKeyName  = $relation->getQualifiedForeignKeyName();
                     $customerKeyName = $relation->newModelInstance()->qualifyColumn('customer_id');
 
@@ -83,11 +89,17 @@ class Map {
                         ->enhanceBuilder($builder, [])
                         ->distinct()
                         ->selectRaw($foreignKeyName)
-                        ->selectRaw("{$customerKeyName} as customer_id");
+                        ->selectRaw("{$customerKeyName} as customer_id")
+                        ->whereIn('location_id', $query);
                 },
             );
         } else {
-            // If no conditions we can use `location_customers`
+            // If no conditions we can use `location_customers` but we should
+            // also add viewport filters into the main query.
+            if ($viewport instanceof ArgumentSet) {
+                $query = $viewport->enhanceBuilder($query, []);
+            }
+
             $query = $query->joinRelation(
                 'customers',
                 'data',
