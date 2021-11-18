@@ -15,6 +15,8 @@ use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use League\Geotools\Coordinate\Coordinate;
+use League\Geotools\Geotools;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
@@ -57,10 +59,15 @@ class MapTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
-                query ($level: Int!, $viewport: SearchByConditionMapQuery, $where: SearchByConditionAssetsQuery) {
-                    map (level: $level, viewport: $viewport, where: $where) {
+                query (
+                    $level: Int!,
+                    $boundaries: [Geohash!]
+                    $locations: SearchByConditionMapQuery
+                    $assets: SearchByConditionAssetsQuery
+                ) {
+                    map (level: $level, boundaries: $boundaries, locations: $locations, assets: $assets) {
                         latitude
                         longitude
                         customers_count
@@ -89,27 +96,12 @@ class MapTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
+        $tools   = new Geotools();
         $params  = [
-            'level'    => 2,
-            'viewport' => [
-                'allOf' => [
-                    [
-                        'latitude' => [
-                            'between' => [
-                                'min' => 0,
-                                'max' => 10,
-                            ],
-                        ],
-                    ],
-                    [
-                        'longitude' => [
-                            'between' => [
-                                'min' => 0,
-                                'max' => 10,
-                            ],
-                        ],
-                    ],
-                ],
+            'level'      => 2,
+            'boundaries' => [
+                $tools->geohash()->encode(new Coordinate([0, 0]))->getGeohash(),
+                $tools->geohash()->encode(new Coordinate([10, 10]))->getGeohash(),
             ],
         ];
         $factory = static function (TestCase $test, Organization $organization): void {
@@ -331,8 +323,8 @@ class MapTest extends TestCase {
                         ]),
                         $factory,
                         [
-                            'level'    => 2,
-                            'viewport' => [
+                            'level'     => 2,
+                            'locations' => [
                                 'allOf' => [
                                     [
                                         'city_id' => [
@@ -365,8 +357,8 @@ class MapTest extends TestCase {
                         ]),
                         $factory,
                         [
-                            'level'    => 2,
-                            'viewport' => [
+                            'level'     => 2,
+                            'locations' => [
                                 'allOf' => [
                                     [
                                         'country_id' => [
@@ -416,7 +408,7 @@ class MapTest extends TestCase {
                         ]),
                         $factory,
                         array_merge($params, [
-                            'where' => [
+                            'assets' => [
                                 'customer_id' => [
                                     'equal' => 'bb699764-e10b-4e09-9fea-dd7a62238dd5',
                                 ],
