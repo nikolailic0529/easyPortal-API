@@ -209,19 +209,34 @@ class CacheKeyTest extends TestCase {
                     ],
                 ],
             ],
-            'array'                                       => [
+            'array (nested)'                              => [
                 sha1(json_encode(['a' => 123, 'b' => 'value', 'c' => true])),
                 [
                     ['b' => 'value', 'a' => 123, 'c' => true],
                 ],
             ],
-            'list (unordered keys)'                       => [
+            'array (assoc)'                               => [
+                'value:test',
+                [
+                    'b' => 'value',
+                    'a' => 'test',
+                ],
+            ],
+            'list'                                        => [
+                '4:2:1',
+                [
+                    '4',
+                    '2',
+                    '1',
+                ],
+            ],
+            'list (nested, unordered keys)'               => [
                 sha1(json_encode([1, 1, 3])),
                 [
                     [1, 3, 4 => 1],
                 ],
             ],
-            'list'                                        => [
+            'list (nested)'                               => [
                 sha1(json_encode([1, 2, 4])),
                 [
                     [4, 1, 2],
