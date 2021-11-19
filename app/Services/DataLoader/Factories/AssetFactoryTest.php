@@ -1368,22 +1368,22 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarranty
      */
     public function testAssetWarrantyEmpty(): void {
-        $asset          = Asset::factory()->make();
-        $type           = TypeModel::factory()->create([
+        $asset      = Asset::factory()->make();
+        $type       = TypeModel::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
-        $status         = Status::factory()->create([
+        $status     = Status::factory()->create([
             'object_type' => (new AssetWarranty())->getMorphClass(),
         ]);
-        $entry          = new CoverageEntry([
+        $entry      = new CoverageEntry([
             'coverageStartDate' => null,
             'coverageEndDate'   => null,
             'type'              => $type->key,
             'status'            => $status->key,
             'description'       => null,
         ]);
-        $normalizer     = $this->app->make(Normalizer::class);
-        $factory        = new class($normalizer) extends AssetFactory {
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = new class($normalizer) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,

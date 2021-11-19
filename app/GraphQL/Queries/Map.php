@@ -33,7 +33,13 @@ class Map {
     }
 
     /**
-     * @param array{level:int,boundaries:array<\League\Geotools\Geohash\Geohash>,viewport:array<mixed>,where:array<mixed>,locations:array<mixed>,assets:array<mixed>} $args
+     * @param array{
+     *     level:int,
+     *     boundaries:array<\League\Geotools\Geohash\Geohash>,
+     *     viewport:array<mixed>,where:array<mixed>,
+     *     locations:array<mixed>,
+     *     assets:array<mixed>
+     *     } $args
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection {
         // Base query and Viewport
