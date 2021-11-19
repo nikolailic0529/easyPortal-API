@@ -16,7 +16,7 @@ $tap  = [Configurator::class];
 $days = 365;
 
 // Helpers
-$mailChannel    = static function (string $recipients, string $channel = null): array {
+$mailChannel    = static function (string $recipients, string $channel = null) use ($tap): array {
     return [
         'driver'    => 'monolog',
         'handler'   => MailableHandler::class,
@@ -26,6 +26,7 @@ $mailChannel    = static function (string $recipients, string $channel = null): 
             'channel'    => $channel,
             'recipients' => explode(Settings::DELIMITER, $recipients),
         ],
+        'tap'       => $tap,
     ];
 };
 
@@ -35,12 +36,11 @@ $serviceChannel = static function (string $service, string $recipients) use ($ta
 
     return [
         "{$service}"       => [
-            'driver'            => 'stack',
-            'channels'          => [
+            'driver'   => 'stack',
+            'channels' => [
                 "{$service}@daily",
                 "{$service}@mail",
             ],
-            'ignore_exceptions' => false,
         ],
         "{$service}@daily" => [
             'driver' => 'daily',
@@ -90,9 +90,9 @@ return [
         $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAILS')),
         [
             'stack'      => [
-                'driver'            => 'stack',
-                'channels'          => ['daily', 'mail'],
-                'ignore_exceptions' => false,
+                'driver'   => 'stack',
+                'channels' => ['daily', 'mail'],
+                'tap'      => $tap,
             ],
 
             'single'     => [
@@ -119,6 +119,7 @@ return [
                 'username' => 'Laravel Log',
                 'emoji'    => ':boom:',
                 'level'    => env('LOG_LEVEL', 'critical'),
+                'tap'      => $tap,
             ],
 
             'papertrail' => [
@@ -129,6 +130,7 @@ return [
                     'host' => env('PAPERTRAIL_URL'),
                     'port' => env('PAPERTRAIL_PORT'),
                 ],
+                'tap'          => $tap,
             ],
 
             'stderr'     => [
@@ -138,16 +140,19 @@ return [
                 'with'      => [
                     'stream' => 'php://stderr',
                 ],
+                'tap'       => $tap,
             ],
 
             'syslog'     => [
                 'driver' => 'syslog',
                 'level'  => env('LOG_LEVEL', 'debug'),
+                'tap'    => $tap,
             ],
 
             'errorlog'   => [
                 'driver' => 'errorlog',
                 'level'  => env('LOG_LEVEL', 'debug'),
+                'tap'    => $tap,
             ],
 
             'null'       => [
@@ -157,7 +162,8 @@ return [
 
             // Emergency
             'emergency'  => [
-                'path' => storage_path('logs/laravel.log'),
+                'driver' => 'single',
+                'path'   => storage_path('logs/laravel.log'),
             ],
         ],
     ),
