@@ -31,7 +31,7 @@ class TypeResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'key' => new ClosureKey(function (Type $type): array {
+            'key' => new ClosureKey($this->normalizer, function (Type $type): array {
                 return $this->getUniqueKey($type->object_type, $type->key);
             }),
         ];

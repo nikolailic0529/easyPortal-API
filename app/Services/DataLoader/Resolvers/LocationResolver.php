@@ -14,8 +14,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
 
-use function is_array;
-
 class LocationResolver extends Resolver {
     public function get(
         Country $country,
@@ -52,24 +50,18 @@ class LocationResolver extends Resolver {
         return Location::query();
     }
 
-    protected function getFindWhere(Builder $builder, mixed $key): Builder {
-        if (is_array($key)) {
-            foreach ($key as $property => $value) {
-                switch ($property) {
-                    case 'line':
-                        $builder->where(
-                            DB::raw("CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), ''))"),
-                            '=',
-                            $value,
-                        );
-                        break;
-                    default:
-                        $builder->where($property, '=', $value);
-                        break;
-                }
-            }
-        } else {
-            $builder = parent::getFindWhere($builder, $key);
+    protected function getFindWhereProperty(Builder $builder, string $property, ?string $value): Builder {
+        switch ($property) {
+            case 'line':
+                $builder = $builder->where(
+                    DB::raw("CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), ''))"),
+                    '=',
+                    $value,
+                );
+                break;
+            default:
+                $builder = parent::getFindWhereProperty($builder, $property, $value);
+                break;
         }
 
         return $builder;
@@ -80,7 +72,7 @@ class LocationResolver extends Resolver {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (Location $location): array {
+            'unique' => new ClosureKey($this->normalizer, function (Location $location): array {
                 return $this->getUniqueKey(
                     $location->country_id,
                     $location->city_id,

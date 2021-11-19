@@ -39,7 +39,7 @@ class ContactResolver extends Resolver {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (Contact $contact): array {
+            'unique' => new ClosureKey($this->normalizer, function (Contact $contact): array {
                 return $this->getUniqueKey($contact, $contact->name, $contact->phone_number, $contact->email);
             }),
         ];

@@ -29,8 +29,8 @@ class CountryResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'code' => new ClosureKey(static function (Country $country): string {
-                return $country->code;
+            'code' => new ClosureKey($this->normalizer, static function (Country $country): array {
+                return [$country->code];
             }),
         ];
     }

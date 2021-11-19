@@ -24,8 +24,8 @@ class OemResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'key' => new ClosureKey(static function (Oem $oem): string {
-                return $oem->key;
+            'key' => new ClosureKey($this->normalizer, static function (Oem $oem): array {
+                return [$oem->key];
             }),
         ];
     }

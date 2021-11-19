@@ -29,8 +29,8 @@ class LanguageResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'code' => new ClosureKey(static function (Language $language): string {
-                return $language->code;
+            'code' => new ClosureKey($this->normalizer, static function (Language $language): array {
+                return [$language->code];
             }),
         ];
     }

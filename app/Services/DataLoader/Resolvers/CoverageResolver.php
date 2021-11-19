@@ -29,8 +29,8 @@ class CoverageResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'key' => new ClosureKey(static function (Coverage $coverage): string {
-                return $coverage->key;
+            'key' => new ClosureKey($this->normalizer, static function (Coverage $coverage): array {
+                return [$coverage->key];
             }),
         ];
     }

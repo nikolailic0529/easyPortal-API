@@ -29,8 +29,8 @@ class CurrencyResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'code' => new ClosureKey(static function (Currency $currency): string {
-                return $currency->code;
+            'code' => new ClosureKey($this->normalizer, static function (Currency $currency): array {
+                return [$currency->code];
             }),
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Cache\Cache;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
@@ -13,7 +14,9 @@ use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 use LogicException;
 
+use function array_map;
 use function is_array;
+use function is_string;
 
 /**
  * The provider performs a search of the model with given properties in the
@@ -49,7 +52,7 @@ abstract class Resolver implements Singleton {
 
     protected function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
         // Model already in cache or can be found?
-        $key   = $this->normalizer->key($key);
+        $key   = $this->getCacheKey($key);
         $cache = $this->getCache();
         $model = null;
 
@@ -83,7 +86,7 @@ abstract class Resolver implements Singleton {
         return $model;
     }
 
-    protected function find(mixed $key): ?Model {
+    protected function find(Key $key): ?Model {
         return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
         })->first();
@@ -112,6 +115,7 @@ abstract class Resolver implements Singleton {
         }
 
         // Prefetch
+        $keys  = array_map(fn(mixed $key): Key => $this->getCacheKey($key), $keys);
         $items = $builder
             ->where(function (Builder $builder) use ($keys): Builder {
                 foreach ($keys as $key) {
@@ -163,13 +167,17 @@ abstract class Resolver implements Singleton {
         return $this->cache;
     }
 
+    protected function getCacheKey(mixed $key): Key {
+        return new Key($this->normalizer, is_array($key) ? $key : [$key]);
+    }
+
     /**
      * @return array<\App\Services\DataLoader\Cache\KeyRetriever>
      */
     #[Pure]
     protected function getKeyRetrievers(): array {
         return [
-            '_' => new ModelKey(),
+            '_' => new ModelKey($this->normalizer),
         ];
     }
 
@@ -179,16 +187,18 @@ abstract class Resolver implements Singleton {
     }
 
     #[Pure]
-    protected function getFindWhere(Builder $builder, mixed $key): Builder {
-        if (is_array($key)) {
-            foreach ($key as $property => $value) {
-                $builder->where($property, '=', $value);
-            }
-        } else {
-            $builder->whereKey($key);
+    protected function getFindWhere(Builder $builder, Key $key): Builder {
+        foreach ($key->get() as $property => $value) {
+            $builder = is_string($property)
+                ? $this->getFindWhereProperty($builder, $property, $value)
+                : $builder->whereKey($value);
         }
 
         return $builder;
+    }
+
+    protected function getFindWhereProperty(Builder $builder, string $property, ?string $value): Builder {
+        return $builder->where($property, '=', $value);
     }
 
     #[Pure]

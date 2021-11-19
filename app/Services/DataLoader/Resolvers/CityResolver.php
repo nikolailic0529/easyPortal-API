@@ -32,7 +32,7 @@ class CityResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (City $city): array {
+            'unique' => new ClosureKey($this->normalizer, function (City $city): array {
                 return $this->getUniqueKey($city->country_id, $city->name);
             }),
         ];

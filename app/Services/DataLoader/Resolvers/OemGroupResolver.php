@@ -25,7 +25,7 @@ class OemGroupResolver extends Resolver {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'key' => new ClosureKey(function (OemGroup $group): array {
+            'key' => new ClosureKey($this->normalizer, function (OemGroup $group): array {
                 return $this->getUniqueKey($group->oem_id, $group->key, $group->name);
             }),
         ];

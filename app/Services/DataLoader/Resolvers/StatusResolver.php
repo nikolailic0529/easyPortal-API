@@ -31,7 +31,7 @@ class StatusResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'key' => new ClosureKey(function (Status $type): array {
+            'key' => new ClosureKey($this->normalizer, function (Status $type): array {
                 return $this->getUniqueKey($type->object_type, $type->key);
             }),
         ];

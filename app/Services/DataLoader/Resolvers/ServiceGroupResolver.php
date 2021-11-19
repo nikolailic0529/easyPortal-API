@@ -27,7 +27,7 @@ class ServiceGroupResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (ServiceGroup $group): array {
+            'unique' => new ClosureKey($this->normalizer, function (ServiceGroup $group): array {
                 return $this->getUniqueKey($group->oem_id, $group->sku);
             }),
         ];

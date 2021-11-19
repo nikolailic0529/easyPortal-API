@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Cache\Cache;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Utils\Eloquent\Model;
@@ -14,6 +15,8 @@ use LogicException;
 use Mockery;
 use Tests\TestCase;
 
+use function is_array;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Resolver
@@ -24,6 +27,7 @@ class ResolverTest extends TestCase {
      */
     public function testResolve(): void {
         // Prepare
+        $key        = '123';
         $normalizer = $this->app->make(Normalizer::class);
         $provider   = new class($normalizer) extends Resolver {
             public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
@@ -32,21 +36,21 @@ class ResolverTest extends TestCase {
         };
 
         // Cache is empty, so resolve should return null and store it in cache
-        $this->assertNull($provider->resolve(123));
+        $this->assertNull($provider->resolve($key));
 
         // The second call with factory must call factory
         $this->assertNotNull($provider->resolve(
-            123,
-            static function (): ?Model {
-                return new class(123) extends Model {
+            $key,
+            static function () use ($key): ?Model {
+                return new class($key) extends Model {
                     /** @noinspection PhpMissingParentConstructorInspection */
-                    public function __construct(int $key) {
+                    public function __construct(string $key) {
                         $this->{$this->getKeyName()} = $key;
                     }
                 };
             },
         ));
-        $this->assertNotNull($provider->resolve(123));
+        $this->assertNotNull($provider->resolve($key));
 
         // If resolver(s) passed it will be used to create model
         $uuid  = $this->faker->uuid;
@@ -75,10 +79,14 @@ class ResolverTest extends TestCase {
      */
     public function testResolveWithoutFind(): void {
         // Prepare
-        $cache = Mockery::mock(Cache::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $comparator = static function (Key $key) use ($normalizer): bool {
+            return (string) $key === (string) (new Key($normalizer, ['abc']));
+        };
+        $cache      = Mockery::mock(Cache::class);
         $cache
             ->shouldReceive('has')
-            ->with('abc')
+            ->withArgs($comparator)
             ->twice()
             ->andReturn(false);
         $cache
@@ -86,8 +94,7 @@ class ResolverTest extends TestCase {
             ->twice()
             ->andReturnSelf();
 
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = Mockery::mock(Resolver::class, [$normalizer]);
+        $resolver = Mockery::mock(Resolver::class, [$normalizer]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -96,7 +103,7 @@ class ResolverTest extends TestCase {
             ->andReturn($cache);
         $resolver
             ->shouldReceive('find')
-            ->with('abc')
+            ->withArgs($comparator)
             ->once()
             ->andReturn(null);
 
@@ -108,6 +115,7 @@ class ResolverTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveFactoryObjectNotFoundException(): void {
+        $key        = '123';
         $exception  = null;
         $normalizer = $this->app->make(Normalizer::class);
         $provider   = new class($normalizer) extends Resolver {
@@ -121,7 +129,7 @@ class ResolverTest extends TestCase {
         };
 
         try {
-            $provider->resolve(123, static function (): void {
+            $provider->resolve($key, static function (): void {
                 throw new FactorySearchModeException();
             });
         } catch (FactorySearchModeException $exception) {
@@ -130,29 +138,31 @@ class ResolverTest extends TestCase {
 
         $this->assertNotNull($exception);
         $this->assertInstanceOf(FactorySearchModeException::class, $exception);
-        $this->assertTrue($provider->getCache()->has(123));
+        $this->assertTrue($provider->getCache()->has(
+            new Key($normalizer, [$key]),
+        ));
     }
 
     /**
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
-        $keys    = [
+        $keys       = [
             'a' => $this->faker->uuid,
             'b' => $this->faker->uuid,
             'c' => $this->faker->uuid,
         ];
-        $cache   = new Cache(new Collection(), [
-            'key' => new ModelKey(),
+        $cache      = new Cache(new Collection(), [
+            'key' => $this->app->make(ModelKey::class),
         ]);
-        $model   = new class($keys['a']) extends Model {
+        $model      = new class($keys['a']) extends Model {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(string $uuid = null) {
                 $this->{$this->getKeyName()} = $uuid;
             }
         };
-        $items   = new EloquentCollection([$model]);
-        $builder = Mockery::mock($model->query());
+        $items      = new EloquentCollection([$model]);
+        $builder    = Mockery::mock($model->query());
         $builder->makePartial();
         $builder
             ->shouldReceive('get')
@@ -163,6 +173,7 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturn($builder);
 
+        $normalizer = $this->app->make(Normalizer::class);
         $resolver = Mockery::mock(ResolverTest_Resolver::class);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
@@ -174,6 +185,12 @@ class ResolverTest extends TestCase {
             ->shouldReceive('getCache')
             ->twice()
             ->andReturn($cache);
+        $resolver
+            ->shouldReceive('getCacheKey')
+            ->times(3)
+            ->andReturnUsing(static function (mixed $key) use ($normalizer): Key {
+                return new Key($normalizer, is_array($key) ? $key : [$key]);
+            });
 
         $callback = Mockery::spy(function (EloquentCollection $collection) use ($items): void {
             $this->assertEquals($items, $collection);
@@ -183,12 +200,15 @@ class ResolverTest extends TestCase {
 
         $callback->shouldHaveBeenCalled()->once();
 
-        $this->assertTrue($cache->hasByRetriever('key', $keys['a']));
-        $this->assertFalse($cache->hasNull($keys['a']));
-        $this->assertFalse($cache->hasByRetriever('key', $keys['b']));
-        $this->assertTrue($cache->hasNull($keys['b']));
-        $this->assertFalse($cache->hasByRetriever('key', $keys['b']));
-        $this->assertTrue($cache->hasNull($keys['b']));
+        $keyA = new Key($normalizer, [$keys['a']]);
+        $keyB = new Key($normalizer, [$keys['b']]);
+
+        $this->assertTrue($cache->hasByRetriever('key', $keyA));
+        $this->assertFalse($cache->hasNull($keyA));
+        $this->assertFalse($cache->hasByRetriever('key', $keyB));
+        $this->assertTrue($cache->hasNull($keyB));
+        $this->assertFalse($cache->hasByRetriever('key', $keyB));
+        $this->assertTrue($cache->hasNull($keyB));
     }
 
     /**

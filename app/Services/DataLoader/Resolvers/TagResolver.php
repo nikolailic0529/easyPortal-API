@@ -30,7 +30,7 @@ class TagResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (Tag $tag): array {
+            'unique' => new ClosureKey($this->normalizer, function (Tag $tag): array {
                 return $this->getUniqueKey($tag->name);
             }),
         ];

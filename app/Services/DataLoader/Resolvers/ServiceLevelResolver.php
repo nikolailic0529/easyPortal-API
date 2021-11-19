@@ -28,7 +28,7 @@ class ServiceLevelResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (ServiceLevel $level): array {
+            'unique' => new ClosureKey($this->normalizer, function (ServiceLevel $level): array {
                 return $this->getUniqueKey($level->oem_id, $level->service_group_id, $level->sku);
             }),
         ];

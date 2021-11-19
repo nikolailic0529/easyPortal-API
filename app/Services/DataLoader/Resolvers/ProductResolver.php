@@ -39,7 +39,7 @@ class ProductResolver extends Resolver implements SingletonPersistent {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'unique' => new ClosureKey(function (Product $product): array {
+            'unique' => new ClosureKey($this->normalizer, function (Product $product): array {
                 return $this->getUniqueKey($product->oem_id, $product->sku);
             }),
         ];
