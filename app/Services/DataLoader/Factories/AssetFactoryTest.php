@@ -1341,12 +1341,12 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetWarranty(Asset $model, CoverageEntry $entry): AssetWarranty {
+            public function assetWarranty(Asset $model, CoverageEntry $entry): ?AssetWarranty {
                 return parent::assetWarranty($model, $entry);
             }
         };
 
-        $actual   = $factory->assetWarranty($asset, $entry)->getAttributes();
+        $actual   = $factory->assetWarranty($asset, $entry)?->getAttributes();
         $expected = [
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
@@ -1362,6 +1362,41 @@ class AssetFactoryTest extends TestCase {
         ];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::assetWarranty
+     */
+    public function testAssetWarrantyEmpty(): void {
+        $asset      = Asset::factory()->make();
+        $type       = TypeModel::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $status     = Status::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $entry      = new CoverageEntry([
+            'coverageStartDate' => null,
+            'coverageEndDate'   => null,
+            'type'              => $type->key,
+            'status'            => $status->key,
+            'description'       => null,
+        ]);
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = new class($normalizer) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+            ) {
+                // empty
+            }
+
+            public function assetWarranty(Asset $model, CoverageEntry $entry): ?AssetWarranty {
+                return parent::assetWarranty($model, $entry);
+            }
+        };
+
+        $this->assertNull($factory->assetWarranty($asset, $entry));
     }
 
     /**

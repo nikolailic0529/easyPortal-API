@@ -163,6 +163,14 @@
                 "description": null,
                 "status": "Active",
                 "serviceSku": null
+            },
+            {
+                "coverageStartDate": null,
+                "coverageEndDate": null,
+                "type": "FactoryWarranty",
+                "description": null,
+                "status": "Missing",
+                "serviceSku": null
             }
         ]
     }

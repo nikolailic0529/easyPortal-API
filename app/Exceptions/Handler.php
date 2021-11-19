@@ -124,13 +124,7 @@ class Handler extends ExceptionHandler {
 
     protected function reportException(Throwable $exception): bool {
         // Get logger (channel)
-        $logger = null;
-
-        try {
-            $logger = $this->getExceptionLogger($exception);
-        } catch (BindingResolutionException) {
-            // no action
-        }
+        $logger = $this->getLogger($exception);
 
         if (!$logger) {
             return false;
@@ -163,25 +157,6 @@ class Handler extends ExceptionHandler {
         }
 
         return $level;
-    }
-
-    protected function getExceptionLogger(Throwable $exception): ?LoggerInterface {
-        $logger = null;
-
-        if ($exception instanceof ApplicationException) {
-            $config  = $this->container->make(Repository::class);
-            $channel = $exception->getChannel();
-
-            if ($config->get("logging.channels.{$channel}")) {
-                $logger = $this->container->make('log')->channel($channel);
-            }
-        }
-
-        if (!$logger) {
-            $logger = $this->getLogger();
-        }
-
-        return $logger;
     }
 
     public function getExceptionMessage(Throwable $exception): string {
@@ -373,14 +348,27 @@ class Handler extends ExceptionHandler {
         return $this->getTranslator()?->get($string, $replace) ?? $string;
     }
 
-    protected function getLogger(): ?LoggerInterface {
+    protected function getLogger(Throwable $exception): ?LoggerInterface {
+        $logger = null;
+
         try {
-            return $this->container->make(LoggerInterface::class);
+            if ($exception instanceof ApplicationException) {
+                $config  = $this->container->make(Repository::class);
+                $channel = $exception->getChannel();
+
+                if ($config->get("logging.channels.{$channel}")) {
+                    $logger = $this->container->make('log')->channel($channel);
+                }
+            }
+
+            if (!$logger) {
+                $logger = $this->container->make(LoggerInterface::class);
+            }
         } catch (BindingResolutionException) {
-            // empty
+            $logger = null;
         }
 
-        return null;
+        return $logger;
     }
 
     protected function getTranslator(): ?Translator {
