@@ -397,21 +397,32 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         return $documents->toBase()->merge($updated);
     }
 
-    protected function assetWarranty(AssetModel $model, CoverageEntry $entry): AssetWarranty {
-        $normalizer                = $this->getNormalizer();
+    protected function assetWarranty(AssetModel $model, CoverageEntry $entry): ?AssetWarranty {
+        // Empty?
+        $normalizer  = $this->getNormalizer();
+        $description = $normalizer->text($entry->description);
+        $start       = $normalizer->datetime($entry->coverageStartDate);
+        $end         = $normalizer->datetime($entry->coverageEndDate);
+
+        if ($description === null && $start === null && $end === null) {
+            return null;
+        }
+
+        // Create
         $warranty                  = new AssetWarranty();
-        $warranty->start           = $normalizer->datetime($entry->coverageStartDate);
-        $warranty->end             = $normalizer->datetime($entry->coverageEndDate);
+        $warranty->start           = $start;
+        $warranty->end             = $end;
         $warranty->asset           = $model;
         $warranty->type            = $this->type($warranty, $entry->type);
         $warranty->status          = $this->status($warranty, $entry->status);
-        $warranty->description     = $normalizer->text($entry->description);
+        $warranty->description     = $description;
         $warranty->serviceGroup    = null;
         $warranty->customer        = null;
         $warranty->reseller        = null;
         $warranty->document        = null;
         $warranty->document_number = null;
 
+        // Return
         return $warranty;
     }
 
