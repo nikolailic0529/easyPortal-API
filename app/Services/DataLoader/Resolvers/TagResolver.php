@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Tag;
-use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;

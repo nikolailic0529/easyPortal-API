@@ -1,7 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Cache;
+namespace App\Services\DataLoader\Cache\Retrievers;
 
+use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Normalizer;
 use Illuminate\Database\Eloquent\Model;
 

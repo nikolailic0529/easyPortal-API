@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Resolvers;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
-use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use App\Utils\Eloquent\Model;

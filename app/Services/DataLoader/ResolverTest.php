@@ -4,7 +4,7 @@ namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\Key;
-use App\Services\DataLoader\Cache\ModelKey;
+use App\Services\DataLoader\Cache\Retrievers\ModelKey;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Utils\Eloquent\Model;
 use Closure;

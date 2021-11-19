@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Resolvers;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
-use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use App\Utils\Eloquent\Model;
 use Closure;
