@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Exceptions;
+namespace App\Exceptions\Handlers;
 
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Monolog\Handler\GroupHandler;

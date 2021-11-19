@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Exceptions;
+namespace App\Exceptions\Handlers;
 
+use App\Exceptions\ApplicationException;
 use Psr\Log\LogLevel;
 use Throwable;
 

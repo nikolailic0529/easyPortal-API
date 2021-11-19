@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Exceptions;
+namespace App\Exceptions\Handlers;
 
 use Monolog\Logger;
 use Tests\TestCase;
@@ -9,7 +9,7 @@ use function array_map;
 
 /**
  * @internal
- * @coversDefaultClass \App\Exceptions\MailableHandler
+ * @coversDefaultClass \App\Exceptions\Handlers\MailableHandler
  */
 class MailableHandlerTest extends TestCase {
     // <editor-fold desc="Tests">

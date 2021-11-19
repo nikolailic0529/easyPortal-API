@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
 use App\Exceptions\Configurator;
-use App\Exceptions\MailableHandler;
+use App\Exceptions\Handlers\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Services\KeyCloak\Service as KeyCloakService;

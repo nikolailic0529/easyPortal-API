@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Handlers\SafeHandler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Log\Logger;
 use Monolog\Formatter\LineFormatter;
