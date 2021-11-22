@@ -3,17 +3,16 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Tag;
-use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 class TagResolver extends Resolver implements SingletonPersistent {
     public function get(string $name, Closure $factory = null): ?Tag {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($name), $factory);
     }
 
@@ -25,22 +24,18 @@ class TagResolver extends Resolver implements SingletonPersistent {
         return Tag::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'unique' => new ClosureKey($this->normalizer, function (Tag $tag): array {
-                return $this->getUniqueKey($tag->name);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof Tag
+            ? $this->getCacheKey($this->getUniqueKey($model->name))
+            : parent::getKey($model);
     }
 
     /**
-     * @return array{object_type: string, object_id: string, name: string|null, phone: string|null}
+     * @return array{name: string}
      */
-    #[Pure]
     protected function getUniqueKey(string $name): array {
-        return ['name' => $name];
+        return [
+            'name' => $name,
+        ];
     }
 }

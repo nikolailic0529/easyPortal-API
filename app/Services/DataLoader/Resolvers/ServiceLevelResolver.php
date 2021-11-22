@@ -5,17 +5,17 @@ namespace App\Services\DataLoader\Resolvers;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
-use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use App\Utils\Eloquent\Model;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, ServiceGroup $group, string $sku, Closure $factory = null): ?ServiceLevel {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($oem, $group, $sku), $factory);
     }
 
@@ -23,15 +23,10 @@ class ServiceLevelResolver extends Resolver implements SingletonPersistent {
         return ServiceLevel::query()->get();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'unique' => new ClosureKey($this->normalizer, function (ServiceLevel $level): array {
-                return $this->getUniqueKey($level->oem_id, $level->service_group_id, $level->sku);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof ServiceLevel
+            ? $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->service_group_id, $model->sku))
+            : parent::getKey($model);
     }
 
     /**

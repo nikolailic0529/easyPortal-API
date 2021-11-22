@@ -48,7 +48,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `currencies` where (`currencies`.`id` = ?) and `currencies`.`deleted_at` is null limit 1",
+        "query": "select * from `currencies` where (`code` = ?) and `currencies`.`deleted_at` is null limit 1",
         "bindings": [
             "eur"
         ]
@@ -68,7 +68,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `languages` where (`languages`.`id` = ?) and `languages`.`deleted_at` is null limit 1",
+        "query": "select * from `languages` where (`code` = ?) and `languages`.`deleted_at` is null limit 1",
         "bindings": [
             "en"
         ]

@@ -60,7 +60,7 @@ class Cache {
 
     public function put(Model $model): Model {
         foreach ($this->retrievers as $name => $retriever) {
-            $key = (string) $retriever->get($model);
+            $key = (string) $retriever->getKey($model);
 
             $this->items[static::NULL_RETRIEVER]->forget([$key]);
             $this->items[$name]->put($key, $model);

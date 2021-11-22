@@ -4,18 +4,18 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Oem;
 use App\Models\Product;
-use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class ProductResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
     }
 
@@ -34,15 +34,10 @@ class ProductResolver extends Resolver implements SingletonPersistent {
         return Product::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'unique' => new ClosureKey($this->normalizer, function (Product $product): array {
-                return $this->getUniqueKey($product->oem_id, $product->sku);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof Product
+            ? $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->sku))
+            : parent::getKey($model);
     }
 
     /**

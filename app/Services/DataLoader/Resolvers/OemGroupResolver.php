@@ -4,15 +4,15 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Oem;
 use App\Models\OemGroup;
-use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use JetBrains\PhpStorm\Pure;
 
 class OemGroupResolver extends Resolver {
     public function get(Oem $model, string $key, string $name, Closure $factory = null): ?OemGroup {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $key, $name), $factory);
     }
 
@@ -20,19 +20,14 @@ class OemGroupResolver extends Resolver {
         return OemGroup::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'key' => new ClosureKey($this->normalizer, function (OemGroup $group): array {
-                return $this->getUniqueKey($group->oem_id, $group->key, $group->name);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof OemGroup
+            ? $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->key, $model->name))
+            : parent::getKey($model);
     }
 
     /**
-     * @return array{oem_id: string, key: string}
+     * @return array{oem_id: string, key: string, name: string}
      */
     #[Pure]
     protected function getUniqueKey(Oem|string $model, string $key, string $name): array {

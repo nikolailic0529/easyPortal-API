@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 interface KeyRetriever {
-    public function get(Model $model): Key;
+    public function getKey(Model $model): Key;
 }

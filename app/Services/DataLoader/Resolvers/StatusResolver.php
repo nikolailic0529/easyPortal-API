@@ -3,18 +3,18 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Status;
-use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class StatusResolver extends Resolver implements SingletonPersistent {
     public function get(Model $model, string $key, Closure $factory = null): ?Status {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }
 
@@ -26,15 +26,10 @@ class StatusResolver extends Resolver implements SingletonPersistent {
         return Status::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'key' => new ClosureKey($this->normalizer, function (Status $type): array {
-                return $this->getUniqueKey($type->object_type, $type->key);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof Status
+            ? $this->getCacheKey($this->getUniqueKey($model->object_type, $model->key))
+            : parent::getKey($model);
     }
 
     /**

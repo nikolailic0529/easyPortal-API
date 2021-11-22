@@ -9,7 +9,7 @@
     "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
     "select * from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
     "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
-    "select * from `coverages` where (`coverages`.`id` = ?) and `coverages`.`deleted_at` is null limit 1",
+    "select * from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
     "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
     "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",

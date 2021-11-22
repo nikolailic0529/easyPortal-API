@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Utils\Eloquent\Model;
 use App\Services\DataLoader\Normalizer;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
@@ -33,7 +33,7 @@ class CacheTest extends TestCase {
                     // empty
                 }
 
-                public function get(Model $model): Key {
+                public function getKey(Model $model): Key {
                     return new Key($this->normalizer, [$model->getKey()]);
                 }
             },
@@ -44,7 +44,7 @@ class CacheTest extends TestCase {
                     // empty
                 }
 
-                public function get(Model $model): Key {
+                public function getKey(Model $model): Key {
                     return new Key($this->normalizer, [$model->property]);
                 }
             },
@@ -260,7 +260,7 @@ class CacheTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     protected function item(): Model {
-        return new class($this->faker->uuid, $this->faker->word) extends Model {
+        return new class($this->faker->uuid, $this->faker->uuid) extends Model {
             public function __construct(string $key, string $property) {
                 parent::__construct();
 

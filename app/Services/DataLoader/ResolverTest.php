@@ -4,12 +4,13 @@ namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\Key;
-use App\Services\DataLoader\Cache\Retrievers\ModelKey;
+use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Collection;
 use LogicException;
 use Mockery;
@@ -147,13 +148,24 @@ class ResolverTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
+        $normalizer = $this->app->make(Normalizer::class);
         $keys       = [
             'a' => $this->faker->uuid,
             'b' => $this->faker->uuid,
             'c' => $this->faker->uuid,
         ];
         $cache      = new Cache(new Collection(), [
-            'key' => $this->app->make(ModelKey::class),
+            'key' => new class($normalizer) implements KeyRetriever {
+                public function __construct(
+                    protected Normalizer $normalizer,
+                ) {
+                    // empty
+                }
+
+                public function getKey(EloquentModel $model): Key {
+                    return new Key($this->normalizer, [$model->getKeyName() => $model->getKey()]);
+                }
+            },
         ]);
         $model      = new class($keys['a']) extends Model {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -173,7 +185,6 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturn($builder);
 
-        $normalizer = $this->app->make(Normalizer::class);
         $resolver = Mockery::mock(ResolverTest_Resolver::class);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();

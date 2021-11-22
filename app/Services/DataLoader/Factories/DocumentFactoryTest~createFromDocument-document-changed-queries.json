@@ -1,5 +1,5 @@
 [
-    "select * from `languages` where (`languages`.`id` = ?) and `languages`.`deleted_at` is null limit 1",
+    "select * from `languages` where (`code` = ?) and `languages`.`deleted_at` is null limit 1",
     "insert into `languages` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select * from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
     "select * from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",

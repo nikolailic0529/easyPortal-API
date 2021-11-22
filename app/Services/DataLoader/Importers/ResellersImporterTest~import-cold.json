@@ -47,7 +47,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "ck"
         ]
@@ -359,7 +359,7 @@
         ]
     },
     {
-        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "ye"
         ]
@@ -512,7 +512,7 @@
         ]
     },
     {
-        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "ga"
         ]
@@ -6391,7 +6391,7 @@
         ]
     },
     {
-        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "dm"
         ]
@@ -6544,7 +6544,7 @@
         ]
     },
     {
-        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "ly"
         ]

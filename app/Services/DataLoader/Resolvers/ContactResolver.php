@@ -3,17 +3,16 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Contact;
-use App\Services\DataLoader\Cache\Retrievers\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Resolver;
-use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
             $this->getUniqueKey($model, $name, $phone, $mail),
             $factory,
@@ -34,15 +33,10 @@ class ContactResolver extends Resolver {
         return Contact::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'unique' => new ClosureKey($this->normalizer, function (Contact $contact): array {
-                return $this->getUniqueKey($contact, $contact->name, $contact->phone_number, $contact->email);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof Contact
+            ? $this->getCacheKey($this->getUniqueKey($model, $model->name, $model->phone_number, $model->email))
+            : parent::getKey($model);
     }
 
     /**
