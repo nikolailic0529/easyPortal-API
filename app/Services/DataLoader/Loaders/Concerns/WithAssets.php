@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAsset;
@@ -17,6 +16,7 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Utils\Eloquent\Model;
+use App\Utils\Iterators\QueryIterator;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Throwable;
@@ -108,7 +108,7 @@ trait WithAssets {
     }
 
     /**
-     * @return \App\GraphQL\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     abstract protected function getCurrentAssets(Model $owner): QueryIterator;
 

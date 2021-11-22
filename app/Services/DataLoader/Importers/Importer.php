@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
@@ -13,6 +12,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
+use App\Utils\Iterators\QueryIterator;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;

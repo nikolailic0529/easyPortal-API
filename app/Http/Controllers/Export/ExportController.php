@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Export;
 
-use App\GraphQL\Utils\Iterators\OffsetBasedIterator;
-use App\GraphQL\Utils\Iterators\QueryBasedIterator;
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Http\Controllers\Controller;
+use App\Utils\Iterators\OffsetBasedIterator;
+use App\Utils\Iterators\QueryBasedIterator;
+use App\Utils\Iterators\QueryIterator;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
@@ -220,7 +220,7 @@ class ExportController extends Controller {
     /**
      * @param array<string,mixed> $parameters
      *
-     * @return \App\GraphQL\Utils\Iterators\QueryIterator<array<string,mixed>>
+     * @return \App\Utils\Iterators\QueryIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): QueryIterator {
         $chunk     = $this->getChunkSize();

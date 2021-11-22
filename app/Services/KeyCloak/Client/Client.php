@@ -2,7 +2,6 @@
 
 namespace App\Services\KeyCloak\Client;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
 use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid;
@@ -17,6 +16,7 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
+use App\Utils\Iterators\QueryIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\ConnectionException;

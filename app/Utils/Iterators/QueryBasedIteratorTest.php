@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Closure;
 use InvalidArgumentException;
@@ -12,7 +12,7 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Utils\Iterators\QueryBasedIterator
+ * @coversDefaultClass \App\Utils\Iterators\QueryBasedIterator
  */
 class QueryBasedIteratorTest extends TestCase {
     /**

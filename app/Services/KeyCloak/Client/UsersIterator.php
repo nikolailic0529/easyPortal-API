@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak\Client;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\QueryIterator;
 use Closure;
 use EmptyIterator;
 use Iterator;

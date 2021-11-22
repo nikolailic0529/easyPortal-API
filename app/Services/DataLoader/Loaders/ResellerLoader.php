@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loaders;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -10,6 +9,7 @@ use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
+use App\Utils\Iterators\QueryIterator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 

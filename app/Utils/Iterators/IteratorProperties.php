@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Closure;
 
 /**
- * @mixin \App\GraphQL\Utils\Iterators\QueryIterator
+ * @mixin \App\Utils\Iterators\QueryIterator
  */
 trait IteratorProperties {
     private ?Closure        $beforeChunk = null;

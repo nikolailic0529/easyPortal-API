@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\GraphQL\Utils\Iterators\QueryIteratorImpl as GraphQLQueryIteratorImpl;
 use App\Services\DataLoader\Schema\TypeWithId;
+use App\Utils\Iterators\QueryIteratorImpl as GraphQLQueryIteratorImpl;
 
 use function end;
 

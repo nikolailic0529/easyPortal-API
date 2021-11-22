@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\GraphQL\Utils\Iterators\OffsetBasedIterator as GraphQLOffsetBasedIterator;
+use App\Utils\Iterators\OffsetBasedIterator as GraphQLOffsetBasedIterator;
 
 class OffsetBasedIterator extends GraphQLOffsetBasedIterator {
     use IteratorErrorHandler;

@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loaders;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -11,6 +10,7 @@ use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
+use App\Utils\Iterators\QueryIterator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Exception;
 use stdClass;
@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Utils\Iterators\QueryIteratorImpl
+ * @coversDefaultClass \App\Utils\Iterators\QueryIteratorImpl
  */
 class QueryIteratorImplTest extends TestCase {
     /**

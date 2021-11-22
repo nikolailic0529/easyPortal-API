@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Generator;
 use InvalidArgumentException;
@@ -21,7 +21,7 @@ class QueryIteratorIterator implements QueryIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\GraphQL\Utils\Iterators\QueryIterator> $iterators
+     * @param array<string,\App\Utils\Iterators\QueryIterator> $iterators
      */
     public function __construct(
         protected array $iterators,

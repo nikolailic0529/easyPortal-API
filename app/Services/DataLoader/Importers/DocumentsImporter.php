@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
@@ -19,6 +18,7 @@ use App\Services\DataLoader\Loaders\DocumentLoader;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
+use App\Utils\Iterators\QueryIterator;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 

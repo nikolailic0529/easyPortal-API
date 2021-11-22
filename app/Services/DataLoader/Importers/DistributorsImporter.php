@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
+use App\Utils\Iterators\QueryIterator;
 use DateTimeInterface;
 
 class DistributorsImporter extends Importer {

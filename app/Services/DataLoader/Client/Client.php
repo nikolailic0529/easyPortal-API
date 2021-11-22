@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
@@ -19,6 +18,7 @@ use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
 use App\Services\DataLoader\Testing\Data\ClientDumpFile;
+use App\Utils\Iterators\QueryIterator;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -344,7 +344,7 @@ class Client {
     }
 
     /**
-     * @return \App\GraphQL\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssets(
         DateTimeInterface $from = null,
@@ -371,7 +371,7 @@ class Client {
     }
 
     /**
-     * @return \App\GraphQL\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
@@ -412,7 +412,7 @@ class Client {
     }
 
     /**
-     * @return \App\GraphQL\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\Document>
+     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\Document>
      */
     public function getDocuments(
         DateTimeInterface $from = null,
