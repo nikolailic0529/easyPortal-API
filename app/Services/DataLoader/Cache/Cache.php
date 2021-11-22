@@ -5,6 +5,9 @@ namespace App\Services\DataLoader\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+use function array_values;
+use function spl_object_hash;
+
 class Cache {
     protected const NULL_RETRIEVER = self::class;
 
@@ -125,12 +128,19 @@ class Cache {
     }
 
     public function getAll(): Collection {
-        $all = new Collection();
+        $all = [];
 
-        foreach ($this->items as $items) {
-            $all = $all->merge($items);
+        foreach ($this->items as $key => $items) {
+            if ($key === static::NULL_RETRIEVER) {
+                continue;
+            }
+
+            foreach ($items as $item) {
+                /** @var \Illuminate\Database\Eloquent\Model $item */
+                $all[$item->getKey() ?: spl_object_hash($item)] = $item;
+            }
         }
 
-        return $all->uniqueStrict()->filter()->values();
+        return new Collection(array_values($all));
     }
 }
