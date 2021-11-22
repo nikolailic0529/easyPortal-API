@@ -16,7 +16,6 @@ use function sprintf;
  * @template T
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorProperties<T>
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 class ObjectIteratorIterator implements ObjectIterator {

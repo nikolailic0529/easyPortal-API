@@ -2,41 +2,14 @@
 
 namespace App\Utils\Iterators;
 
-/**
- * @template T
- */
+use App\Utils\Iterators\Concerns\ChunkSize;
+use App\Utils\Iterators\Concerns\Index;
+use App\Utils\Iterators\Concerns\Limit;
+use App\Utils\Iterators\Concerns\Offset;
+
 trait ObjectIteratorProperties {
-    private ?int            $limit  = null;
-    private int             $chunk  = 1000;
-    private string|int|null $offset = null;
-
-    public function getLimit(): ?int {
-        return $this->limit;
-    }
-
-    public function setLimit(?int $limit): static {
-        $this->limit = $limit;
-
-        return $this;
-    }
-
-    public function getChunkSize(): int {
-        return $this->chunk;
-    }
-
-    public function setChunkSize(int $chunk): static {
-        $this->chunk = $chunk;
-
-        return $this;
-    }
-
-    public function getOffset(): string|int|null {
-        return $this->offset;
-    }
-
-    public function setOffset(string|int|null $offset): static {
-        $this->offset = $offset;
-
-        return $this;
-    }
+    use Index;
+    use Limit;
+    use Offset;
+    use ChunkSize;
 }

@@ -11,6 +11,10 @@ use IteratorAggregate;
  * @extends \IteratorAggregate<T>
  */
 interface ObjectIterator extends IteratorAggregate {
+    public function getIndex(): int;
+
+    public function setIndex(int $index): static;
+
     public function getLimit(): ?int;
 
     public function setLimit(?int $limit): static;

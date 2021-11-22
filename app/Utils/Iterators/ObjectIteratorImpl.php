@@ -17,7 +17,6 @@ use function reset;
  * @template V
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorProperties<T>
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
@@ -45,7 +44,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
      */
     public function getIterator(): Iterator {
         // Prepare
-        $index = 0;
+        $index = $this->getIndex();
         $limit = $this->getLimit();
         $chunk = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
 

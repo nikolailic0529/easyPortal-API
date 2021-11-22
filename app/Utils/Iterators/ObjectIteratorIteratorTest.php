@@ -2,7 +2,6 @@
 
 namespace App\Utils\Iterators;
 
-use Closure;
 use Generator;
 use InvalidArgumentException;
 use Mockery;
@@ -218,8 +217,8 @@ class ObjectIteratorIteratorTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ObjectIteratorIteratorTest__Iterator implements ObjectIterator {
-    protected string|int|null $offset = null;
-    protected ?int            $limit  = null;
+    use ObjectIteratorProperties;
+    use ObjectIteratorSubjects;
 
     /**
      * @param array<mixed> $data
@@ -228,48 +227,6 @@ class ObjectIteratorIteratorTest__Iterator implements ObjectIterator {
         protected array $data = [],
     ) {
         // empty
-    }
-
-    public function getLimit(): ?int {
-        return $this->limit;
-    }
-
-    public function setLimit(?int $limit): static {
-        $this->limit = $limit;
-
-        return $this;
-    }
-
-    public function getChunkSize(): int {
-        return 123;
-    }
-
-    public function setChunkSize(int $chunk): static {
-        // empty
-
-        return $this;
-    }
-
-    public function getOffset(): string|int|null {
-        return $this->offset;
-    }
-
-    public function setOffset(int|string|null $offset): static {
-        $this->offset = $offset;
-
-        return $this;
-    }
-
-    public function onBeforeChunk(?Closure $closure): static {
-        // empty
-
-        return $this;
-    }
-
-    public function onAfterChunk(?Closure $closure): static {
-        // empty
-
-        return $this;
     }
 
     public function getIterator(): Generator {
