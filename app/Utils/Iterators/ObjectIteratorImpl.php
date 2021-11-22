@@ -18,9 +18,11 @@ use function reset;
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
  * @uses \App\Utils\Iterators\ObjectIteratorProperties<T>
+ * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
     use ObjectIteratorProperties;
+    use ObjectIteratorSubjects;
 
     /**
      * @var array{array<V>,array<V>}

@@ -17,9 +17,11 @@ use function sprintf;
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
  * @uses \App\Utils\Iterators\ObjectIteratorProperties<T>
+ * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 class ObjectIteratorIterator implements ObjectIterator {
-    use ObjectIteratorProperties {
+    use ObjectIteratorProperties;
+    use ObjectIteratorSubjects {
         chunkLoaded as private;
         chunkProcessed as private;
     }
