@@ -5,7 +5,6 @@ namespace App\Services\DataLoader;
 use App\Services\DataLoader\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
-use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\TextNormalizer;
@@ -18,25 +17,6 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\DataLoader\Normalizer
  */
 class NormalizerTest extends TestCase {
-    /**
-     * @covers ::key
-     */
-    public function testKey(): void {
-        $key        = Mockery::mock(KeyNormalizer::class);
-        $normalizer = new class($key) extends Normalizer {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected KeyNormalizer $key,
-            ) {
-                // empty
-            }
-        };
-
-        $key->shouldReceive('normalize')->once()->andReturns();
-
-        $normalizer->key('value');
-    }
-
     /**
      * @covers ::uuid
      */
