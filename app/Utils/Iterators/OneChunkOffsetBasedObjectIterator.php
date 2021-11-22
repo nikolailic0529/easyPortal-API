@@ -4,6 +4,12 @@ namespace App\Utils\Iterators;
 
 use function array_slice;
 
+/**
+ * @template T
+ * @template V
+ *
+ * @implements \App\Utils\Iterators\OffsetBasedObjectIterator<T, V>
+ */
 class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
     /**
      * @var array<mixed>

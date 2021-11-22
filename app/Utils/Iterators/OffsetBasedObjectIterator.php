@@ -13,6 +13,12 @@ use function sprintf;
 
 use const FILTER_VALIDATE_INT;
 
+/**
+ * @template T
+ * @template V
+ *
+ * @implements \App\Utils\Iterators\ObjectIteratorImpl<T, V>
+ */
 class OffsetBasedObjectIterator extends ObjectIteratorImpl {
     private ?int $initialOffset = null;
 
@@ -54,7 +60,7 @@ class OffsetBasedObjectIterator extends ObjectIteratorImpl {
     }
 
     /**
-     * @param array<mixed> $items
+     * @param array<T> $items
      */
     protected function chunkProcessed(array $items): bool {
         $this->setOffset($this->getOffset() + count($items));

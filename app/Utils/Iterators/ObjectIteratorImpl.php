@@ -14,18 +14,22 @@ use function reset;
 
 /**
  * @template T
+ * @template V
+ *
+ * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @uses \App\Utils\Iterators\ObjectIteratorProperties<T>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
     use ObjectIteratorProperties;
 
     /**
-     * @var array{array<mixed>,array<mixed>}
+     * @var array{array<V>,array<V>}
      */
     private array $previous = [];
 
     /**
-     * @param \Closure(array $variables): array<mixed> $executor
-     * @param \Closure(mixed $item): T                 $retriever
+     * @param \Closure(array $variables): array<V> $executor
+     * @param \Closure(V $item): T                 $retriever
      */
     public function __construct(
         protected ?Closure $executor,
@@ -40,8 +44,8 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     public function getIterator(): Iterator {
         // Prepare
         $index = 0;
-        $chunk = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
-        $limit = $this->limit;
+        $limit = $this->getLimit();
+        $chunk = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
 
         // Limit?
         if ($limit === 0) {
@@ -90,7 +94,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<V>
      */
     protected function getChunk(int $limit): array {
         return $this->execute($this->getChunkVariables($limit));
@@ -102,7 +106,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     abstract protected function getChunkVariables(int $limit): array;
 
     /**
-     * @param array<mixed> $items
+     * @param array<V> $items
      *
      * @return array<T>
      */
@@ -119,7 +123,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     }
 
     /**
-     * @param \Closure(mixed $item): T $retriever
+     * @param \Closure(V $item): T $retriever
      *
      * @return T
      */

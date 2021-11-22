@@ -12,6 +12,12 @@ use function is_string;
 use function min;
 use function sprintf;
 
+/**
+ * @template T
+ *
+ * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @uses \App\Utils\Iterators\ObjectIteratorProperties<T>
+ */
 class ObjectIteratorIterator implements ObjectIterator {
     use ObjectIteratorProperties {
         chunkLoaded as private;
@@ -26,7 +32,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     public function __construct(
         protected array $iterators,
     ) {
-        $this->setChunkSize($this->chunk);
+        $this->setChunkSize($this->getChunkSize());
         $this->setOffset(null);
     }
 
@@ -46,9 +52,9 @@ class ObjectIteratorIterator implements ObjectIterator {
     }
 
     /**
-     * @param string|null $offset in the following format: `<name>[@<offset>]`,
-     *                            where `<offset>` the offset for the iterator
-     *                            with index `<name>`.
+     * @param string|int|null $offset in the following format: `<name>[@<offset>]`,
+     *                                where `<offset>` the offset for the iterator
+     *                                with index `<name>`.
      *
      * @return $this
      */
