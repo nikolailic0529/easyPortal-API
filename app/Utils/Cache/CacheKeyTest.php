@@ -79,8 +79,8 @@ class CacheKeyTest extends TestCase {
             'int'                                         => [
                 '123:456',
                 [
-                    '123',
-                    '456',
+                    123,
+                    456,
                 ],
             ],
             'null'                                        => [

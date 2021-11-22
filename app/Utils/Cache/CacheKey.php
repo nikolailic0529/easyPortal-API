@@ -68,7 +68,7 @@ class CacheKey implements Stringable {
 
             if (is_array($value)) {
                 $value = $this->hash($this->encode($value));
-            } elseif (is_string($value) || is_null($value)) {
+            } elseif (is_string($value) || is_int($value) || is_null($value)) {
                 // as is
             } else {
                 throw new CacheKeyInvalidValue($value);
