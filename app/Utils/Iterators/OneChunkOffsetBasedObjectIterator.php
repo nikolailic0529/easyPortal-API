@@ -4,7 +4,7 @@ namespace App\Utils\Iterators;
 
 use function array_slice;
 
-class QueryBasedIterator extends OffsetBasedIterator {
+class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
     /**
      * @var array<mixed>
      */

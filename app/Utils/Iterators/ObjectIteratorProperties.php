@@ -5,9 +5,9 @@ namespace App\Utils\Iterators;
 use Closure;
 
 /**
- * @mixin \App\Utils\Iterators\QueryIterator
+ * @mixin \App\Utils\Iterators\ObjectIterator
  */
-trait IteratorProperties {
+trait ObjectIteratorProperties {
     private ?Closure        $beforeChunk = null;
     private ?Closure        $afterChunk  = null;
     private ?int            $limit       = null;

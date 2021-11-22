@@ -5,7 +5,7 @@ namespace App\Utils\Iterators;
 use Closure;
 use IteratorAggregate;
 
-interface QueryIterator extends IteratorAggregate {
+interface ObjectIterator extends IteratorAggregate {
     public function getLimit(): ?int;
 
     public function setLimit(?int $limit): static;

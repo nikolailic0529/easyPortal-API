@@ -15,8 +15,8 @@ use function reset;
 /**
  * @template T
  */
-abstract class QueryIteratorImpl implements QueryIterator {
-    use IteratorProperties;
+abstract class ObjectIteratorImpl implements ObjectIterator {
+    use ObjectIteratorProperties;
 
     /**
      * @var array{array<mixed>,array<mixed>}

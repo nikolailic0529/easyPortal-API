@@ -7,34 +7,31 @@ use InvalidArgumentException;
 use Mockery;
 use Tests\TestCase;
 
+use function array_slice;
 use function iterator_to_array;
 use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\QueryBasedIterator
+ * @coversDefaultClass \App\Utils\Iterators\OffsetBasedObjectIterator
  */
-class QueryBasedIteratorTest extends TestCase {
+class OffsetBasedObjectIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEmpty($variables);
-
-            return $data;
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
+            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
 
-        $iterator = (new QueryBasedIterator(Closure::fromCallable($executor)))->setChunkSize(5);
+        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))->setChunkSize(5);
         $expected = $data;
         $actual   = iterator_to_array($iterator);
-        $second   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
-        $this->assertEquals($second, $actual);
 
-        $executor->shouldHaveBeenCalled()->times(1);
+        $executor->shouldHaveBeenCalled()->times(3);
     }
 
     /**
@@ -42,10 +39,8 @@ class QueryBasedIteratorTest extends TestCase {
      */
     public function testIteratorWithLimitOffset(): void {
         $data          = range(1, 10);
-        $executor      = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEmpty($variables);
-
-            return $data;
+        $executor      = Mockery::spy(static function (array $variables = []) use ($data): array {
+            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
 
         $onBeforeChunk = Mockery::spy(static function (): void {
@@ -54,7 +49,7 @@ class QueryBasedIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new QueryBasedIterator(Closure::fromCallable($executor)))
+        $iterator      = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset(5)
@@ -77,20 +72,20 @@ class QueryBasedIteratorTest extends TestCase {
     public function testIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEmpty($variables);
+            $this->assertEquals(2, $variables['limit']);
 
-            return $data;
+            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
 
         $expected = $data;
-        $iterator = (new QueryBasedIterator(Closure::fromCallable($executor)))
+        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))
             ->setChunkSize(2)
             ->setLimit(10);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
 
-        $executor->shouldHaveBeenCalled()->times(1);
+        $executor->shouldHaveBeenCalled()->times(5);
     }
 
     /**
@@ -99,13 +94,13 @@ class QueryBasedIteratorTest extends TestCase {
     public function testIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEmpty($variables);
+            $this->assertEquals(2, $variables['limit']);
 
-            return $data;
+            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
 
         $expected = [1, 2];
-        $iterator = (new QueryBasedIterator(Closure::fromCallable($executor)))
+        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))
             ->setChunkSize(50)
             ->setLimit(2);
         $actual   = iterator_to_array($iterator);
@@ -124,7 +119,7 @@ class QueryBasedIteratorTest extends TestCase {
         });
 
         $expected = [];
-        $iterator = (new QueryBasedIterator(Closure::fromCallable($executor)))->setLimit(0);
+        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -133,10 +128,28 @@ class QueryBasedIteratorTest extends TestCase {
     }
 
     /**
+     * @covers ::getIterator
+     */
+    public function testGetIteratorInfiniteLoop(): void {
+        $data     = range(1, 10);
+        $executor = Mockery::spy(static function () use ($data): array {
+            return $data;
+        });
+
+        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))->setChunkSize(5);
+        $expected = $data;
+        $actual   = iterator_to_array($iterator);
+
+        $this->assertEquals($expected, $actual);
+
+        $executor->shouldHaveBeenCalled()->times(2);
+    }
+
+    /**
      * @covers ::setOffset
      */
     public function testSetOffset(): void {
-        $iterator = new QueryBasedIterator(static function (): array {
+        $iterator = new OffsetBasedObjectIterator(static function (): array {
             return [];
         });
 
@@ -149,7 +162,7 @@ class QueryBasedIteratorTest extends TestCase {
     public function testSetOffsetInvalidType(): void {
         $this->expectException(InvalidArgumentException::class);
 
-        $iterator = new QueryBasedIterator(static function (): array {
+        $iterator = new OffsetBasedObjectIterator(static function (): array {
             return [];
         });
 

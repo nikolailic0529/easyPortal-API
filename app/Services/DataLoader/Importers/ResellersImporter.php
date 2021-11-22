@@ -9,7 +9,7 @@ use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -40,7 +40,7 @@ class ResellersImporter extends Importer {
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): QueryIterator {
+    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
         return $this->client->getResellers($from);
     }
 

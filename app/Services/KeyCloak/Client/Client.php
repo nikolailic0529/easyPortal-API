@@ -16,7 +16,7 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\ConnectionException;
@@ -351,7 +351,7 @@ class Client {
         return $result;
     }
 
-    public function getUsersIterator(): QueryIterator {
+    public function getUsersIterator(): ObjectIterator {
         return new UsersIterator($this);
     }
 

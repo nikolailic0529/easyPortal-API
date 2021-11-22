@@ -18,7 +18,7 @@ use App\Services\DataLoader\Loaders\DocumentLoader;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -69,7 +69,7 @@ class DocumentsImporter extends Importer {
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): QueryIterator {
+    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
         return $this->client->getDocuments($from);
     }
 

@@ -9,7 +9,7 @@ use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -41,7 +41,7 @@ class ResellerLoader extends CompanyLoader implements LoaderRecalculable {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): QueryIterator {
+    protected function getCurrentAssets(Model $owner): ObjectIterator {
         return $this->isWithAssetsDocuments()
             ? $this->client->getAssetsByResellerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByResellerId($owner->getKey());

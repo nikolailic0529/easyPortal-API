@@ -12,8 +12,8 @@ use function is_string;
 use function min;
 use function sprintf;
 
-class QueryIteratorIterator implements QueryIterator {
-    use IteratorProperties {
+class ObjectIteratorIterator implements ObjectIterator {
+    use ObjectIteratorProperties {
         chunkLoaded as private;
         chunkProcessed as private;
     }
@@ -21,7 +21,7 @@ class QueryIteratorIterator implements QueryIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\Utils\Iterators\QueryIterator> $iterators
+     * @param array<string,\App\Utils\Iterators\ObjectIterator> $iterators
      */
     public function __construct(
         protected array $iterators,

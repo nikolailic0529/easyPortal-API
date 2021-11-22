@@ -13,7 +13,7 @@ use function sprintf;
 
 use const FILTER_VALIDATE_INT;
 
-class OffsetBasedIterator extends QueryIteratorImpl {
+class OffsetBasedObjectIterator extends ObjectIteratorImpl {
     private ?int $initialOffset = null;
 
     public function getOffset(): int|null {

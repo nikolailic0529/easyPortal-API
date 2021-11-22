@@ -2,14 +2,14 @@
 
 namespace App\Services\KeyCloak\Client;
 
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use EmptyIterator;
 use Iterator;
 
 use function min;
 
-class UsersIterator implements QueryIterator {
+class UsersIterator implements ObjectIterator {
     protected ?Closure $beforeChunk = null;
     protected ?Closure $afterChunk  = null;
     protected ?string  $current     = null;

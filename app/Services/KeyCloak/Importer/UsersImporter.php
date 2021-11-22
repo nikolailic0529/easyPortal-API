@@ -14,7 +14,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -148,7 +148,7 @@ class UsersImporter {
         });
     }
 
-    protected function getIterator(int $chunk = null, int $limit = null): QueryIterator {
+    protected function getIterator(int $chunk = null, int $limit = null): ObjectIterator {
         $iterator = $this->getClient()->getUsersIterator();
 
         if ($chunk) {

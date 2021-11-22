@@ -18,7 +18,7 @@ use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
 use App\Services\DataLoader\Testing\Data\ClientDumpFile;
-use App\Utils\Iterators\QueryIterator;
+use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -344,13 +344,13 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssets(
         DateTimeInterface $from = null,
         int $limit = null,
         string $offset = null,
-    ): QueryIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssets',
@@ -371,13 +371,13 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
         int $limit = null,
         string $offset = null,
-    ): QueryIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssets',
@@ -412,13 +412,13 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\QueryIterator<\App\Services\DataLoader\Schema\Document>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Document>
      */
     public function getDocuments(
         DateTimeInterface $from = null,
         int $limit = null,
         string $offset = null,
-    ): QueryIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getDocuments',

@@ -11,7 +11,7 @@ use Throwable;
 /**
  * @template T
  *
- * @extends \App\Utils\Iterators\QueryIteratorImpl
+ * @extends \App\Utils\Iterators\ObjectIteratorImpl
  */
 trait IteratorErrorHandler {
     /**
