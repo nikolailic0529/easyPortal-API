@@ -4,8 +4,6 @@ namespace App\Utils\Iterators;
 
 /**
  * @template T
- *
- * @mixin \App\Utils\Iterators\ObjectIterator
  */
 trait ObjectIteratorProperties {
     private ?int            $limit  = null;
