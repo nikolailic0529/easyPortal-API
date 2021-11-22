@@ -348,7 +348,7 @@ class Handler extends ExceptionHandler {
         return $this->getTranslator()?->get($string, $replace) ?? $string;
     }
 
-    protected function getLogger(Throwable $exception): ?LoggerInterface {
+    protected function getLogger(Throwable $exception = null): ?LoggerInterface {
         $logger = null;
 
         try {
