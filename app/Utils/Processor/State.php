@@ -9,7 +9,6 @@ class State extends JsonObject {
     public int             $index     = 0;
     public ?int            $limit     = null;
     public ?int            $total     = null;
-    public int             $chunk     = 0;
     public int             $processed = 0;
     public int             $success   = 0;
     public int             $failed    = 0;

@@ -16,9 +16,9 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Telescope\Telescope;
 use LastDragon_ru\LaraASP\Core\Observer\Subject;
+use LogicException;
 use Throwable;
 
-use function count;
 use function min;
 
 /**
@@ -32,6 +32,7 @@ abstract class Processor {
 
     private ?Service $service = null;
     private bool     $stopped = false;
+    private bool     $running = false;
 
     /**
      * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
@@ -68,11 +69,20 @@ abstract class Processor {
 
         return $this;
     }
+
+    public function isStopped(): bool {
+        return $this->stopped;
+    }
+
+    public function isRunning(): bool {
+        return $this->running;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Process">
     // =========================================================================
     public function start(): void {
+        $this->running = true;
         $this->stopped = false;
         $state         = $this->getState() ?? $this->getDefaultState();
 
@@ -80,6 +90,8 @@ abstract class Processor {
             $this->prepare($state);
         } catch (Interrupt) {
             // ok
+        } finally {
+            $this->running = false;
         }
     }
 
@@ -88,6 +100,10 @@ abstract class Processor {
     }
 
     public function reset(): void {
+        if ($this->running) {
+            throw new LogicException('Reset is not possible while running.');
+        }
+
         $this->resetState();
     }
 
@@ -121,7 +137,7 @@ abstract class Processor {
     protected function run(State $state): void {
         $iterator = $this->getIterator()
             ->setIndex($state->index)
-            ->setLimit($this->limit)
+            ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
             ->onBeforeChunk(function (array $items) use ($state): void {
@@ -141,7 +157,7 @@ abstract class Processor {
             } catch (Throwable $exception) {
                 $state->failed++;
 
-                $this->report($item, $exception);
+                $this->report($exception, $item);
             } finally {
                 $state->index  = $iterator->getIndex();
                 $state->offset = $iterator->getOffset();
@@ -164,13 +180,18 @@ abstract class Processor {
     /**
      * @param TItem $item
      */
-    protected function report(mixed $item, Throwable $exception): void {
+    protected function report(Throwable $exception, mixed $item): void {
         throw $exception;
     }
     //</editor-fold>
 
     // <editor-fold desc="Events">
     // =========================================================================
+    /**
+     * @param \Closure(TState)|null $closure
+     *
+     * @return $this<TItem, TState>
+     */
     public function onInit(?Closure $closure): static {
         if ($closure) {
             $this->onInit->attach($closure);
@@ -181,6 +202,18 @@ abstract class Processor {
         return $this;
     }
 
+    /**
+     * @param TState $state
+     */
+    protected function notifyOnInit(State $state): void {
+        $this->onInit->notify(clone $state);
+    }
+
+    /**
+     * @param \Closure(TState, array<TItem>)|null $closure
+     *
+     * @return $this<TItem, TState>
+     */
     public function onChange(?Closure $closure): static {
         if ($closure) {
             $this->onChange->attach($closure);
@@ -191,6 +224,18 @@ abstract class Processor {
         return $this;
     }
 
+    /**
+     * @param TState $state
+     */
+    protected function notifyOnChange(State $state): void {
+        $this->onChange->notify(clone $state);
+    }
+
+    /**
+     * @param \Closure(TState)|null $closure
+     *
+     * @return $this<TItem, TState>
+     */
     public function onFinish(?Closure $closure): static {
         if ($closure) {
             $this->onFinish->attach($closure);
@@ -204,15 +249,22 @@ abstract class Processor {
     /**
      * @param TState $state
      */
+    protected function notifyOnFinish(State $state): void {
+        $this->onFinish->notify(clone $state);
+    }
+
+    /**
+     * @param TState $state
+     */
     protected function init(State $state): void {
-        $this->onInit->notify(clone $state);
+        $this->notifyOnInit($state);
     }
 
     /**
      * @param TState $state
      */
     protected function finish(State $state): void {
-        $this->onFinish->notify($state);
+        $this->notifyOnFinish($state);
     }
 
     /**
@@ -229,25 +281,27 @@ abstract class Processor {
      */
     protected function chunkProcessed(State $state, array $items): void {
         // Update state
-        $previous         = clone $state;
-        $state->chunk     = $state->chunk + 1;
-        $state->processed = $state->processed + count($items);
-
         $this->saveState($state);
 
         // Notify
-        $this->onChange->notify(clone $state);
-
-        // Event
-        $event = $this->getOnChangeEvent($previous, $items);
-
-        if ($event) {
-            $this->dispatcher->dispatch($event);
-        }
+        $this->notifyOnChange($state);
+        $this->dispatchOnChange($state, $items);
 
         // Stopped?
         if ($this->stopped) {
             throw new Interrupt();
+        }
+    }
+
+    /**
+     * @param TState       $state
+     * @param array<TItem> $items
+     */
+    protected function dispatchOnChange(State $state, array $items): void {
+        $event = $this->getOnChangeEvent($state, $items);
+
+        if ($event) {
+            $this->dispatcher->dispatch($event);
         }
     }
 
