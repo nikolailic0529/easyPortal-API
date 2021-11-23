@@ -7,8 +7,10 @@ use App\Models\Concerns\SmartSave\BatchInsert;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Services\Service;
+use App\Utils\Iterators\Concerns\ChunkSize;
+use App\Utils\Iterators\Concerns\Limit;
+use App\Utils\Iterators\Concerns\Offset;
 use App\Utils\Iterators\ObjectIterator;
-use App\Utils\Iterators\ObjectIteratorProperties;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -17,13 +19,16 @@ use LastDragon_ru\LaraASP\Core\Observer\Subject;
 use Throwable;
 
 use function count;
+use function min;
 
 /**
  * @template TItem
  * @template TState of \App\Utils\Processor\State
  */
 abstract class Processor {
-    use ObjectIteratorProperties;
+    use Limit;
+    use Offset;
+    use ChunkSize;
 
     private ?Service $service = null;
     private bool     $stopped = false;
@@ -52,6 +57,8 @@ abstract class Processor {
         $this->onFinish = new Subject();
     }
 
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
     public function getService(): ?Service {
         return $this->service;
     }
@@ -61,6 +68,7 @@ abstract class Processor {
 
         return $this;
     }
+    // </editor-fold>
 
     // <editor-fold desc="Process">
     // =========================================================================
@@ -112,14 +120,15 @@ abstract class Processor {
 
     protected function run(State $state): void {
         $iterator = $this->getIterator()
-            ->setLimit($this->getLimit())
+            ->setIndex($state->index)
+            ->setLimit($this->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
             ->onBeforeChunk(function (array $items) use ($state): void {
                 $this->chunkLoaded($state, $items);
             })
-            ->onAfterChunk(function (array $items) use ($state, &$iterator): void {
-                $this->chunkProcessed($state, $iterator->getOffset(), $items);
+            ->onAfterChunk(function (array $items) use ($state): void {
+                $this->chunkProcessed($state, $items);
             });
 
         $this->init($state);
@@ -134,6 +143,8 @@ abstract class Processor {
 
                 $this->report($item, $exception);
             } finally {
+                $state->index  = $iterator->getIndex();
+                $state->offset = $iterator->getOffset();
                 $state->processed++;
             }
         }
@@ -216,11 +227,10 @@ abstract class Processor {
      * @param TState       $state
      * @param array<TItem> $items
      */
-    protected function chunkProcessed(State $state, string|int|null $offset, array $items): void {
+    protected function chunkProcessed(State $state, array $items): void {
         // Update state
         $previous         = clone $state;
         $state->chunk     = $state->chunk + 1;
-        $state->offset    = $offset;
         $state->processed = $state->processed + count($items);
 
         $this->saveState($state);
@@ -261,9 +271,20 @@ abstract class Processor {
      * @return TState
      */
     protected function getDefaultState(): State {
+        $limit = $this->getLimit();
+        $total = $this->getTotal();
+
+        if ($limit !== null && $total !== null) {
+            $total = min($limit, $total);
+        } else {
+            $total ??= $limit;
+        }
+
         return new State([
+            'index'  => 0,
+            'limit'  => $limit,
+            'total'  => $total,
             'offset' => $this->getOffset(),
-            'total'  => $this->getTotal(),
         ]);
     }
 
