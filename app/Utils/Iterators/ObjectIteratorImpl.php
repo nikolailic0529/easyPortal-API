@@ -66,6 +66,8 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
 
                 foreach ($items as $item) {
                     yield $index++ => $item;
+
+                    $this->setIndex($index);
                 }
 
                 if (!$this->chunkProcessed($items) || ($limit && $index >= $limit)) {

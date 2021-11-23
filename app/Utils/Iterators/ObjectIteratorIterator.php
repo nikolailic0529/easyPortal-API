@@ -35,6 +35,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     ) {
         $this->setChunkSize($this->getChunkSize());
         $this->setOffset(null);
+        $this->setIndex(0);
     }
 
     public function getOffset(): string|null {
@@ -102,7 +103,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     }
 
     public function getIterator(): Generator {
-        $index     = 0;
+        $index     = $this->getIndex();
         $limit     = $this->getLimit();
         $chunk     = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
         $after     = $this->afterChunk;
@@ -133,6 +134,8 @@ class ObjectIteratorIterator implements ObjectIterator {
             // Iterate
             foreach ($iterator as $item) {
                 yield $index++ => $item;
+
+                $this->setIndex($index);
             }
         }
     }
