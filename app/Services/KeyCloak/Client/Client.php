@@ -17,6 +17,7 @@ use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\ConnectionException;
@@ -351,8 +352,13 @@ class Client {
         return $result;
     }
 
+    /**
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Client\Types\User>
+     */
     public function getUsersIterator(): ObjectIterator {
-        return new UsersIterator($this);
+        return new OffsetBasedObjectIterator(function (array $variables): array {
+            return $this->getUsers($variables['limit'], $variables['offset']);
+        });
     }
 
     public function removeUserFromGroup(string $userId, string $groupId): void {

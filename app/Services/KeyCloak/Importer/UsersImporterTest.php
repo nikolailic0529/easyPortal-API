@@ -7,10 +7,9 @@ use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
-use App\Services\KeyCloak\Client\UsersIterator;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 /**
@@ -74,24 +73,24 @@ class UsersImporterTest extends TestCase {
                 ],
             ],
         ]);
-        $client       = Mockery::mock(Client::class);
-        $client->makePartial();
-        $client
-            ->shouldReceive('getUsers')
-            ->once()
-            ->andReturns([
-                $keycloakUser,
-            ]);
-        $client
-            ->shouldReceive('usersCount')
-            ->once()
-            ->andReturns(1);
-        $iterator = new UsersIterator($client);
-        $client
-            ->shouldReceive('getUsersIterator')
-            ->once()
-            ->andReturns($iterator);
-        $this->app->instance(Client::class, $client);
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($keycloakUser): void {
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock->makePartial();
+            $mock
+                ->shouldReceive('call')
+                ->never();
+            $mock
+                ->shouldReceive('getUsers')
+                ->once()
+                ->andReturns([
+                    $keycloakUser,
+                ]);
+            $mock
+                ->shouldReceive('usersCount')
+                ->once()
+                ->andReturns(1);
+        });
 
         // call
         $importer = $this->app->make(UsersImporter::class);

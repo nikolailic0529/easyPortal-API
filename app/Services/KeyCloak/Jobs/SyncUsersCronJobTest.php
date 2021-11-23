@@ -3,12 +3,15 @@
 namespace App\Services\KeyCloak\Jobs;
 
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\UsersIterator;
 use App\Services\KeyCloak\Importer\Status;
 use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\Progress;
+use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Closure;
+use EmptyIterator;
 use Exception;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Iterator;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use Mockery;
 use Mockery\MockInterface;
@@ -34,10 +37,25 @@ class SyncUsersCronJobTest extends TestCase {
         $service      = $this->app->make(Service::class);
         $configurator = $this->app->make(QueueableConfigurator::class);
 
-        $this->override(Client::class, static function (MockInterface $mock): void {
+        $iterator = Mockery::mock(OffsetBasedObjectIterator::class);
+        $iterator->shouldAllowMockingProtectedMethods();
+        $iterator->makePartial();
+        $iterator
+            ->shouldReceive('getIterator')
+            ->twice()
+            ->andReturnUsing(static function (): Iterator {
+                return new EmptyIterator();
+            });
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($iterator): void {
+            $mock->shouldAllowMockingProtectedMethods();
             $mock
-                ->shouldReceive('getUsers')
-                ->once();
+                ->shouldReceive('call')
+                ->never();
+            $mock
+                ->shouldReceive('getUsersIterator')
+                ->once()
+                ->andReturn($iterator);
         });
 
         /** @var \Mockery\MockInterface $job */
@@ -48,13 +66,11 @@ class SyncUsersCronJobTest extends TestCase {
         $job
             ->shouldReceive('ping')
             ->once();
-
         $job
             ->shouldReceive('updateState')
             ->with($service, Mockery::type(SyncUserState::class), $status)
             ->twice()
             ->andReturns();
-
         $job
             ->shouldReceive('resetState')
             ->with($service)
@@ -62,7 +78,9 @@ class SyncUsersCronJobTest extends TestCase {
             ->andReturns();
 
         /** @var \Mockery\MockInterface $importer */
-        $importer = Mockery::mock(UsersImporter::class);
+        $client   = $this->app->make(Client::class);
+        $handler  = $this->app->make(ExceptionHandler::class);
+        $importer = Mockery::mock(UsersImporter::class, [$handler, $client]);
         $importer->shouldAllowMockingProtectedMethods();
         $importer->makePartial();
 
@@ -99,14 +117,6 @@ class SyncUsersCronJobTest extends TestCase {
             })
             ->once()
             ->andReturnSelf();
-
-        $iterator = $this->app->make(UsersIterator::class);
-
-        $importer
-            ->shouldReceive('getIterator')
-            ->once()
-            ->andReturn($iterator);
-
         $importer
             ->shouldReceive('getTotal')
             ->once()
@@ -141,7 +151,7 @@ class SyncUsersCronJobTest extends TestCase {
         $job->makePartial();
 
         // Ok
-        $service  = Mockery::mock(Service::class);
+        $service = Mockery::mock(Service::class);
         $service
             ->shouldReceive('get')
             ->with($job, Mockery::type(Closure::class))
