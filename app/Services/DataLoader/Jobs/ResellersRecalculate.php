@@ -34,7 +34,7 @@ class ResellersRecalculate extends Recalculate {
         $model     = $this->getModel();
         $resellers = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
-            ->with(['locations', 'contacts'])
+            ->with(['locations', 'contacts', 'statuses'])
             ->get();
         $assets    = $this->calculateAssets($keys, $resellers);
         $documents = $this->calculateDocuments($keys, $resellers);
@@ -48,6 +48,7 @@ class ResellersRecalculate extends Recalculate {
             $reseller->locations_count = count($reseller->locations);
             $reseller->customers_count = count($resellerAssets['customers'] ?? []);
             $reseller->contacts_count  = count($reseller->contacts);
+            $reseller->statuses_count  = count($reseller->statuses);
             $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers'] ?? []));
 
             $reseller->save();

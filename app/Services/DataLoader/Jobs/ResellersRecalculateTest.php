@@ -31,25 +31,26 @@ class ResellersRecalculateTest extends TestCase {
         $this->overrideDateFactory();
         $this->overrideUuidFactory();
 
-        // Data
+        // Prepare
+        $count     = $this->faker->randomNumber(3);
         $resellerA = Reseller::factory()
             ->hasCustomers(1)
             ->hasStatuses([
                 'object_type' => (new Reseller())->getMorphClass(),
             ])
             ->create([
-                'customers_count' => $this->faker->randomNumber(),
-                'locations_count' => $this->faker->randomNumber(),
-                'assets_count'    => $this->faker->randomNumber(),
-                'contacts_count'  => $this->faker->randomNumber(),
-                'statuses_count'  => $this->faker->randomNumber(),
+                'customers_count' => $count,
+                'locations_count' => $count,
+                'assets_count'    => $count,
+                'contacts_count'  => $count,
+                'statuses_count'  => $count,
             ]);
         $resellerB = Reseller::factory()->create([
-            'customers_count' => $this->faker->randomNumber(),
-            'locations_count' => $this->faker->randomNumber(),
-            'assets_count'    => $this->faker->randomNumber(),
-            'contacts_count'  => $this->faker->randomNumber(),
-            'statuses_count'  => $this->faker->randomNumber(),
+            'customers_count' => $count,
+            'locations_count' => $count,
+            'assets_count'    => $count,
+            'contacts_count'  => $count,
+            'statuses_count'  => $count,
         ]);
         $locationA = Location::factory()->create();
         $locationB = Location::factory()->create();
@@ -104,7 +105,7 @@ class ResellersRecalculateTest extends TestCase {
             'locations_count' => 0,
             'assets_count'    => 2,
             'contacts_count'  => 0,
-            'statuses_count'  => $resellerA->statuses_count,
+            'statuses_count'  => 1,
         ], $resellerA->only($attributes));
 
         $this->assertEquals([
@@ -112,7 +113,7 @@ class ResellersRecalculateTest extends TestCase {
             'locations_count' => 0,
             'assets_count'    => 0,
             'contacts_count'  => 0,
-            'statuses_count'  => $resellerB->statuses_count,
+            'statuses_count'  => 0,
         ], $resellerB->only($attributes));
     }
 }
