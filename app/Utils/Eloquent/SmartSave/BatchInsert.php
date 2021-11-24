@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\SmartSave;
+namespace App\Utils\Eloquent\SmartSave;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +14,7 @@ use function reset;
  * be dispatched the real save may happen a bit late. This is an experimental
  * feature and it should be enabled explicitly.
  *
- * @see \App\Models\Concerns\SmartSave\BatchInsert::enable()
+ * @see \App\Utils\Eloquent\SmartSave\BatchInsert::enable()
  */
 class BatchInsert {
     protected const LIMIT = 25;

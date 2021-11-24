@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\SmartSave;
+namespace App\Utils\Eloquent\SmartSave;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
