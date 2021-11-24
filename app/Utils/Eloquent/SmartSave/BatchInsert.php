@@ -3,9 +3,12 @@
 namespace App\Utils\Eloquent\SmartSave;
 
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Arr;
 
+use function array_keys;
 use function count;
 use function reset;
 
@@ -43,10 +46,6 @@ class BatchInsert {
         return static::$enabled;
     }
 
-    public function __destruct() {
-        $this->save();
-    }
-
     public static function enable(Closure $closure): mixed {
         $previous        = static::$enabled;
         static::$enabled = true;
@@ -61,7 +60,7 @@ class BatchInsert {
     /**
      * @param array<string,mixed> $attributes
      */
-    public function __invoke(Builder $builder, array $attributes): void {
+    public function __invoke(EloquentBuilder $builder, array $attributes): void {
         if (!$this->isSame($builder) || count($this->inserts) >= static::LIMIT) {
             $this->save();
         }
@@ -70,26 +69,61 @@ class BatchInsert {
         $this->inserts[] = $attributes;
     }
 
-    protected function isSame(Builder $builder): bool {
+    protected function isSame(EloquentBuilder $builder): bool {
         return $this->model
             && $this->model->getConnection() === $builder->getConnection()
             && $this->model->getTable() === $builder->getModel()->getTable();
     }
 
-    protected function save(): void {
+    public function save(): void {
         // Possible?
         if (!$this->model || !$this->inserts) {
+            $this->reset();
+
             return;
         }
 
         // Save (single query will be the same as without batch)
-        if (count($this->inserts) === 1) {
-            $this->model->query()->toBase()->insert(reset($this->inserts));
+        if ($this->model instanceof Upsertable) {
+            $this->upsert();
         } else {
-            $this->model->query()->toBase()->insert($this->inserts);
+            $this->insert();
         }
 
         // Reset
+        $this->reset();
+    }
+
+    protected function upsert(): void {
+        // Possible?
+        if (!($this->model instanceof Upsertable)) {
+            $this->insert();
+
+            return;
+        }
+
+        // Upsert
+        $primary = $this->model->getKeyName();
+        $unique  = $this->model::getUniqueKey();
+        $update  = Arr::except(reset($this->inserts), [$primary, ...$unique]);
+        $update  = array_keys($update);
+
+        $this->query()->upsert($this->inserts, $unique, $update);
+    }
+
+    protected function insert(): void {
+        if (count($this->inserts) === 1) {
+            $this->query()->insert(reset($this->inserts));
+        } else {
+            $this->query()->insert($this->inserts);
+        }
+    }
+
+    protected function query(): QueryBuilder {
+        return $this->model->query()->toBase();
+    }
+
+    protected function reset(): void {
         $this->model   = null;
         $this->inserts = [];
     }

@@ -38,6 +38,7 @@ trait SmartSave {
             $this->onSaveCallbacks = [];
         } finally {
             if ($root) {
+                BatchInsert::$instance?->save();
                 BatchInsert::$instance = null;
             }
         }
