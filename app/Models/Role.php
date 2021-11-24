@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasOrganization;
 use App\Models\Concerns\SyncBelongsToMany;
+use App\Models\Relations\HasOrganization;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByShared;

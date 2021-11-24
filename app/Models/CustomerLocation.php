@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasCustomer;
-use App\Models\Concerns\Relations\HasLocation;
-use App\Models\Concerns\Relations\HasResellers;
-use App\Models\Concerns\Relations\HasTypes;
+use App\Models\Relations\HasCustomer;
+use App\Models\Relations\HasLocation;
+use App\Models\Relations\HasResellers;
+use App\Models\Relations\HasTypes;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;

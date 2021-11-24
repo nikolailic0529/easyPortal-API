@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasContacts;
-use App\Models\Concerns\Relations\HasCurrency;
-use App\Models\Concerns\Relations\HasCustomerNullable;
-use App\Models\Concerns\Relations\HasLanguage;
-use App\Models\Concerns\Relations\HasOem;
-use App\Models\Concerns\Relations\HasResellerNullable;
-use App\Models\Concerns\Relations\HasServiceGroup;
-use App\Models\Concerns\Relations\HasStatuses;
-use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
+use App\Models\Relations\HasContacts;
+use App\Models\Relations\HasCurrency;
+use App\Models\Relations\HasCustomerNullable;
+use App\Models\Relations\HasLanguage;
+use App\Models\Relations\HasOem;
+use App\Models\Relations\HasResellerNullable;
+use App\Models\Relations\HasServiceGroup;
+use App\Models\Relations\HasStatuses;
+use App\Models\Relations\HasType;
 use App\Models\Scopes\ContractType;
 use App\Models\Scopes\DocumentTypeQuery;
 use App\Models\Scopes\DocumentTypeScope;

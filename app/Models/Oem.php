@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAssets;
-use App\Models\Concerns\Relations\HasDocuments;
+use App\Models\Relations\HasAssets;
+use App\Models\Relations\HasDocuments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

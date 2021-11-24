@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAsset;
-use App\Models\Concerns\Relations\HasCurrency;
-use App\Models\Concerns\Relations\HasDocument;
-use App\Models\Concerns\Relations\HasProduct;
-use App\Models\Concerns\Relations\HasServiceGroup;
-use App\Models\Concerns\Relations\HasServiceLevel;
+use App\Models\Relations\HasAsset;
+use App\Models\Relations\HasCurrency;
+use App\Models\Relations\HasDocument;
+use App\Models\Relations\HasProduct;
+use App\Models\Relations\HasServiceGroup;
+use App\Models\Relations\HasServiceLevel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

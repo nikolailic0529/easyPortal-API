@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAssets;
-use App\Models\Concerns\Relations\HasContacts;
-use App\Models\Concerns\Relations\HasContracts;
-use App\Models\Concerns\Relations\HasKpi;
-use App\Models\Concerns\Relations\HasLocations;
-use App\Models\Concerns\Relations\HasQuotes;
-use App\Models\Concerns\Relations\HasResellers;
-use App\Models\Concerns\Relations\HasStatuses;
-use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
+use App\Models\Relations\HasAssets;
+use App\Models\Relations\HasContacts;
+use App\Models\Relations\HasContracts;
+use App\Models\Relations\HasKpi;
+use App\Models\Relations\HasLocations;
+use App\Models\Relations\HasQuotes;
+use App\Models\Relations\HasResellers;
+use App\Models\Relations\HasStatuses;
+use App\Models\Relations\HasType;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

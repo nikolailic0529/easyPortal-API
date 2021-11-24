@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasContacts;
-use App\Models\Concerns\Relations\HasCustomerNullable;
-use App\Models\Concerns\Relations\HasOem;
-use App\Models\Concerns\Relations\HasProduct;
-use App\Models\Concerns\Relations\HasResellerNullable;
-use App\Models\Concerns\Relations\HasStatus;
-use App\Models\Concerns\Relations\HasTags;
-use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
+use App\Models\Relations\HasContacts;
+use App\Models\Relations\HasCustomerNullable;
+use App\Models\Relations\HasOem;
+use App\Models\Relations\HasProduct;
+use App\Models\Relations\HasResellerNullable;
+use App\Models\Relations\HasStatus;
+use App\Models\Relations\HasTags;
+use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;

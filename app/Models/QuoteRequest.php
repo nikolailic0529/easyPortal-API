@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasCustomerNullable;
-use App\Models\Concerns\Relations\HasFiles;
-use App\Models\Concerns\Relations\HasOem;
-use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
+use App\Models\Relations\HasCustomerNullable;
+use App\Models\Relations\HasFiles;
+use App\Models\Relations\HasOem;
+use App\Models\Relations\HasType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasLocation;
-use App\Models\Concerns\Relations\HasReseller;
-use App\Models\Concerns\Relations\HasTypes;
+use App\Models\Relations\HasLocation;
+use App\Models\Relations\HasReseller;
+use App\Models\Relations\HasTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

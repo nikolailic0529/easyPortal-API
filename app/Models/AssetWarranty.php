@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAsset;
-use App\Models\Concerns\Relations\HasCustomerNullable;
-use App\Models\Concerns\Relations\HasDocument;
-use App\Models\Concerns\Relations\HasResellerNullable;
-use App\Models\Concerns\Relations\HasServiceGroup;
-use App\Models\Concerns\Relations\HasStatusNullable;
-use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncBelongsToMany;
+use App\Models\Relations\HasAsset;
+use App\Models\Relations\HasCustomerNullable;
+use App\Models\Relations\HasDocument;
+use App\Models\Relations\HasResellerNullable;
+use App\Models\Relations\HasServiceGroup;
+use App\Models\Relations\HasStatusNullable;
+use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByShared;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

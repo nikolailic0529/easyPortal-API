@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasContactsTests;
+use App\Models\Relations\HasContactsTests;
 use Tests\TestCase;
 
 /**

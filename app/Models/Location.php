@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAssets;
-use App\Models\Concerns\Relations\HasCustomers;
-use App\Models\Concerns\Relations\HasResellers;
+use App\Models\Relations\HasAssets;
+use App\Models\Relations\HasCustomers;
+use App\Models\Relations\HasResellers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

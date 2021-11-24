@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAssets;
-use App\Models\Concerns\Relations\HasContacts;
-use App\Models\Concerns\Relations\HasCustomers;
-use App\Models\Concerns\Relations\HasKpi;
-use App\Models\Concerns\Relations\HasLocations;
-use App\Models\Concerns\Relations\HasStatuses;
-use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncBelongsToMany;
+use App\Models\Relations\HasAssets;
+use App\Models\Relations\HasContacts;
+use App\Models\Relations\HasCustomers;
+use App\Models\Relations\HasKpi;
+use App\Models\Relations\HasLocations;
+use App\Models\Relations\HasStatuses;
+use App\Models\Relations\HasType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
