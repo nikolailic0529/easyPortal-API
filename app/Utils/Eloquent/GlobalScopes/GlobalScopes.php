@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\GlobalScopes;
+namespace App\Utils\Eloquent\GlobalScopes;
 
 use Closure;
 
@@ -8,7 +8,7 @@ class GlobalScopes {
     /**
      * @template T
      *
-     * @param class-string<\App\Models\Concerns\GlobalScopes\DisableableScope> $scope
+     * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
      * @param \Closure():T $closure
      *
      * @return T
@@ -20,7 +20,7 @@ class GlobalScopes {
     /**
      * @template T
      *
-     * @param array<class-string<\App\Models\Concerns\GlobalScopes\DisableableScope>> $scopes
+     * @param array<class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope>> $scopes
      * @param \Closure():T $closure
      *
      * @return T
@@ -30,7 +30,7 @@ class GlobalScopes {
     }
 
     /**
-     * @param class-string<\App\Models\Concerns\GlobalScopes\DisableableScope> $scope
+     * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
      */
     public static function setGlobalScopeDisabled(string $scope, bool $disabled): bool {
         return State::setDisabled($scope, $disabled);

@@ -2,8 +2,8 @@
 
 namespace App\Utils\Eloquent\CascadeDeletes;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

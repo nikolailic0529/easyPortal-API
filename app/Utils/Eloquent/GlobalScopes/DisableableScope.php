@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\GlobalScopes;
+namespace App\Utils\Eloquent\GlobalScopes;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

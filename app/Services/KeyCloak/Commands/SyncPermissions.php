@@ -2,7 +2,6 @@
 
 namespace App\Services\KeyCloak\Commands;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Permission as PermissionModel;
 use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
@@ -11,6 +10,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Exceptions\OrgAdminGroupNotFound;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;

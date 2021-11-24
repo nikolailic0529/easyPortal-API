@@ -2,8 +2,8 @@
 
 namespace App\Dev\IdeHelper;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Barryvdh\LaravelIdeHelper\Console\ModelsCommand as LaravelIdeHelperModelsCommand;
 
 class ModelsCommand extends LaravelIdeHelperModelsCommand {

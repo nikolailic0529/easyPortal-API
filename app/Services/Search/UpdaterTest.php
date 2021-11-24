@@ -3,10 +3,10 @@
 namespace App\Services\Search;
 
 use App\Models\Asset;
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Database\Factories\AssetFactory;
 use DateTimeInterface;
