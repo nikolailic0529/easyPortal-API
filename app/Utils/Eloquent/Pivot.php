@@ -2,7 +2,6 @@
 
 namespace App\Utils\Eloquent;
 
-use App\Utils\Eloquent\Concerns\ModelTraits;
 use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
 
 abstract class Pivot extends LaraASPPivot {
