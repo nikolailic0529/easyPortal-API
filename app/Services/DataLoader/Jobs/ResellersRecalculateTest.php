@@ -39,8 +39,13 @@ class ResellersRecalculateTest extends TestCase {
 
         // Prepare
         $count     = $this->faker->randomNumber(3);
+        $locationA = Location::factory()->create();
+        $locationB = Location::factory()->create();
         $resellerA = Reseller::factory()
             ->hasCustomers(1)
+            ->hasLocations(1, [
+                'location_id' => $locationA,
+            ])
             ->hasStatuses([
                 'object_type' => (new Reseller())->getMorphClass(),
             ])
@@ -60,8 +65,6 @@ class ResellersRecalculateTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
-        $locationA = Location::factory()->create();
-        $locationB = Location::factory()->create();
         $customerA = Customer::factory()->create();
         $customerB = Customer::factory()->create();
         $customerC = Customer::factory()->create();
@@ -115,25 +118,31 @@ class ResellersRecalculateTest extends TestCase {
                 ->orderBy('id')
                 ->get();
         };
-        $resellerA  = $resellerA->refresh();
-        $customersA = $customers($resellerA);
-        $locationsA = $locations($resellerA);
-        $resellerB  = $resellerB->refresh();
-        $customersB = $customers($resellerB);
-        $locationsB = $locations($resellerB);
+        $aReseller  = $resellerA->refresh();
+        $aCustomers = $customers($aReseller);
+        $aLocations = $locations($aReseller);
+        $bReseller  = $resellerB->refresh();
+        $bCustomers = $customers($bReseller);
+        $bLocations = $locations($bReseller);
         $attributes = [
             'customer_id',
+            'location_id',
         ];
 
         $this->assertEquals([
             'customers_count' => 2,
-            'locations_count' => 0,
+            'locations_count' => 1,
             'assets_count'    => 2,
             'contacts_count'  => 0,
             'statuses_count'  => 1,
-        ], $this->getModelCountableProperties($resellerA, $attributes));
+        ], $this->getModelCountableProperties($aReseller, $attributes));
 
         $this->assertEquals([
+            [
+                'assets_count'    => 1,
+                'locations_count' => 1,
+                'customer_id'     => $customerB->getKey(),
+            ],
             [
                 'assets_count'    => 0,
                 'locations_count' => 0,
@@ -142,18 +151,17 @@ class ResellersRecalculateTest extends TestCase {
             [
                 'assets_count'    => 1,
                 'locations_count' => 1,
-                'customer_id'     => $customerB->getKey(),
-            ],
-            [
-                'assets_count'    => 1,
-                'locations_count' => 1,
                 'customer_id'     => $customerA->getKey(),
             ],
-        ], $this->getModelCountableProperties($customersA, $attributes));
+        ], $this->getModelCountableProperties($aCustomers, $attributes));
 
         $this->assertEquals([
-            // empty
-        ], $this->getModelCountableProperties($locationsA, $attributes));
+            [
+                'customers_count' => 2,
+                'assets_count'    => 2,
+                'location_id'     => $locationA->getKey(),
+            ],
+        ], $this->getModelCountableProperties($aLocations, $attributes));
 
         $this->assertEquals([
             'customers_count' => 0,
@@ -161,15 +169,15 @@ class ResellersRecalculateTest extends TestCase {
             'assets_count'    => 0,
             'contacts_count'  => 1,
             'statuses_count'  => 0,
-        ], $this->getModelCountableProperties($resellerB, $attributes));
+        ], $this->getModelCountableProperties($bReseller, $attributes));
 
         $this->assertEquals([
             // empty
-        ], $this->getModelCountableProperties($customersB, $attributes));
+        ], $this->getModelCountableProperties($bCustomers, $attributes));
 
         $this->assertEquals([
             // empty
-        ], $this->getModelCountableProperties($locationsB, $attributes));
+        ], $this->getModelCountableProperties($bLocations, $attributes));
     }
 
     /**
