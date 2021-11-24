@@ -6,7 +6,7 @@ use App\Models\Currency;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCurrency {
     public function currency(): BelongsTo {

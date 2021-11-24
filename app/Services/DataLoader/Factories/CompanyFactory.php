@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Model;
 use App\Models\Status;
 use App\Models\Type;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
@@ -16,6 +15,7 @@ use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 

@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Relations\HasAssetsOwners;
 use App\Models\Relations\HasCustomersOwners;
 use App\Models\Relations\HasTypes;
+use App\Utils\Eloquent\Pivot;
+use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

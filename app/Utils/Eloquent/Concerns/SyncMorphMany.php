@@ -2,10 +2,10 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
-use App\Models\PolymorphicModel;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
+use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
@@ -17,7 +17,7 @@ trait SyncMorphMany {
     use SyncMany;
 
     /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\PolymorphicModel> $objects
+     * @param \Illuminate\Support\Collection|array<\App\Utils\Eloquent\PolymorphicModel> $objects
      */
     protected function syncMorphMany(string $relation, Collection|array $objects): void {
         // TODO [refactor] Probably we need move it into MorphMany class

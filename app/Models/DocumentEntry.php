@@ -8,6 +8,7 @@ use App\Models\Relations\HasDocument;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

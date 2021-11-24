@@ -7,7 +7,7 @@ use function app;
 /**
  * @see \App\Models\Scopes\DocumentType
  *
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait DocumentTypeScope {
     public static function bootDocumentTypeScope(): void {

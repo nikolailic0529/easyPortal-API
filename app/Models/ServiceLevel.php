@@ -7,6 +7,7 @@ use App\Models\Relations\HasDocumentEntries;
 use App\Models\Relations\HasOem;
 use App\Models\Relations\HasServiceGroup;
 use App\Utils\Eloquent\Concerns\TranslateProperties;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

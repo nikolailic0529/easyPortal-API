@@ -30,7 +30,7 @@ use function is_null;
 use function is_scalar;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait Searchable {
     use ElasticSearchable {

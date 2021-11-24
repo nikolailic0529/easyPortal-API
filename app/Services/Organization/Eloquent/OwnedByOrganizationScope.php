@@ -23,7 +23,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     // <editor-fold desc="Eloquent">
     // =========================================================================
     /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     * @param \App\Utils\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      */
     protected function handle(EloquentBuilder $builder, Model $model): void {
         // Root organization can view all data
@@ -57,7 +57,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     // <editor-fold desc="Search">
     // =========================================================================
     /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     * @param \App\Utils\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      */
     protected function handleForSearch(Builder $builder, Model $model): void {
         /** TODO {@link \App\Services\Organization\Eloquent\OwnedByShared} support? */
@@ -72,7 +72,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     }
 
     /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     * @param \App\Utils\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      *
      * @return array<string,string>
      */

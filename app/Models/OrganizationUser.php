@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

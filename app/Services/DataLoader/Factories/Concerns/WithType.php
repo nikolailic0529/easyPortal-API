@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Model;
 use App\Models\Type;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Utils\Eloquent\Model;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

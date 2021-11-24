@@ -3,7 +3,7 @@
 namespace App\Services\Organization\Eloquent;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait OwnedByReseller {
     use OwnedByOrganization;

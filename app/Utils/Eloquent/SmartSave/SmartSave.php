@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait SmartSave {
     /**

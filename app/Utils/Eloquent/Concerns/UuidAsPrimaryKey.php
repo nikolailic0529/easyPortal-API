@@ -6,7 +6,7 @@ use App\Utils\Eloquent\Callbacks\SetKey;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait UuidAsPrimaryKey {
     /**

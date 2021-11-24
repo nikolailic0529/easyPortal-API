@@ -7,7 +7,7 @@ use LogicException;
 use function sprintf;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait MorphMapRequired {
     public function getMorphClass(): string {

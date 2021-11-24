@@ -6,7 +6,7 @@ use App\Models\Organization;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasOrganization {
     public function organization(): BelongsTo {

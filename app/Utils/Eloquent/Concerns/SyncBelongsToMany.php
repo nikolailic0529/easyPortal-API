@@ -2,9 +2,9 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
-use App\Models\Model;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,13 +14,13 @@ use InvalidArgumentException;
 use function sprintf;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait SyncBelongsToMany {
     use SyncMany;
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model>|array<\App\Models\Model> $objects
+     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model>|array<\App\Utils\Eloquent\Model> $objects
      */
     protected function syncBelongsToMany(string $relation, Collection|array $objects): void {
         // Prepare

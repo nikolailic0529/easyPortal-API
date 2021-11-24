@@ -10,6 +10,8 @@ use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

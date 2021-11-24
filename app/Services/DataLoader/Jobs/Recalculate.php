@@ -2,11 +2,11 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Model;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Queue\Queues;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\Model;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 use function sprintf;
 
 /**
- * @template T of \App\Models\Model
+ * @template T of \App\Utils\Eloquent\Model
  */
 abstract class Recalculate extends Job implements Initializable {
     /**
@@ -39,7 +39,7 @@ abstract class Recalculate extends Job implements Initializable {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model> $models
+     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model> $models
      */
     public function setModels(Collection $models): static {
         // Valid?

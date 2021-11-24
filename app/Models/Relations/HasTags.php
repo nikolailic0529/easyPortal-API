@@ -2,14 +2,14 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Pivot;
 use App\Models\Tag;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasTags {
     use SyncBelongsToMany;

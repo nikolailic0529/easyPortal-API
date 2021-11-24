@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Relations\HasContactsTests;
+use App\Utils\Eloquent\Model;
 use Tests\TestCase;
 
 /**

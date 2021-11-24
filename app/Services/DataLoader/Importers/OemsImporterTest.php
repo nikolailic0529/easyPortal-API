@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Models\Model;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Storages\AppTranslations;
+use App\Utils\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Tests\TestCase;

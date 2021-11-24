@@ -22,6 +22,8 @@ use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
+use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

@@ -2,14 +2,14 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Pivot;
 use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasResellers {
     use OwnedByReseller;

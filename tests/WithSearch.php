@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
@@ -59,7 +59,7 @@ trait WithSearch {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @template T of \Illuminate\Support\Collection|\App\Models\Model
+     * @template T of \Illuminate\Support\Collection|\App\Utils\Eloquent\Model
      *
      * @param T $models
      *

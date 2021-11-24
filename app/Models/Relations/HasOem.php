@@ -6,7 +6,7 @@ use App\Models\Oem;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasOem {
     public function oem(): BelongsTo {

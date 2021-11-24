@@ -6,7 +6,7 @@ use App\Models\City;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCities {
     public function cities(): HasMany {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasDocuments;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

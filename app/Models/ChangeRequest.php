@@ -7,6 +7,7 @@ use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

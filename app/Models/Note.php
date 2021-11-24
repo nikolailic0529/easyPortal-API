@@ -9,6 +9,7 @@ use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 trait Children {
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
-     * @template M of \App\Models\Model
+     * @template M of \App\Utils\Eloquent\Model
      * @template C of \Illuminate\Support\Collection<M>
      *
      * @param C                       $existing

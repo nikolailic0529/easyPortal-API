@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Administration;
 
 use App\Models\Audits\Audit;
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Relations\Relation;

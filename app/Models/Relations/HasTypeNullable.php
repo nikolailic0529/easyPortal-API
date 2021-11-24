@@ -9,7 +9,7 @@ use InvalidArgumentException;
 use function sprintf;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasTypeNullable {
     public function type(): BelongsTo {

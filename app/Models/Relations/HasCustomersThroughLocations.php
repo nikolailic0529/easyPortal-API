@@ -8,7 +8,7 @@ use App\Models\Location;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomersThroughLocations {
     public function customers(): HasManyDeep {

@@ -12,7 +12,7 @@ use function count;
 /**
  * @property int $contacts_count
  *
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasContacts {
     use SyncMorphMany;

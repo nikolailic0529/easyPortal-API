@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models;
+namespace App\Utils\Eloquent;
 
 use App\Utils\Eloquent\Concerns\ModelTraits;
-use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
+use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
-abstract class Pivot extends LaraASPPivot {
+abstract class Model extends LaraASPModel {
     use ModelTraits;
 
     protected const CASTS = [

@@ -2,8 +2,8 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Model;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -13,11 +13,11 @@ use function app;
 use function count;
 
 /**
- * @template T of \App\Models\Model
+ * @template T of \App\Utils\Eloquent\Model
  *
  * @property int $locations_count
  *
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasLocations {
     use SyncHasMany;

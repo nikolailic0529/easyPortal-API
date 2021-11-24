@@ -7,7 +7,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomerNullable {
     public function customer(): BelongsTo {

@@ -4,11 +4,11 @@ namespace App\Services\Audit\Listeners;
 
 use App\Events\Subscriber;
 use App\Http\Controllers\Export\QueryExported;
-use App\Models\Model;
 use App\Services\Audit\Auditor;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Audit\Enums\Action;
 use App\Services\Logger\Listeners\EloquentObject;
+use App\Utils\Eloquent\Model;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;

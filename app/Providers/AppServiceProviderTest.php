@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Relations\Relation;

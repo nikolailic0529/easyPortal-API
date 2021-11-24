@@ -6,7 +6,7 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasProduct {
     public function product(): BelongsTo {

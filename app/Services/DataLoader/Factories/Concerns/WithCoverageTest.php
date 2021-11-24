@@ -3,11 +3,11 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Coverage;
-use App\Models\Model;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Tests\TestCase;
 

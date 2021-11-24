@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 

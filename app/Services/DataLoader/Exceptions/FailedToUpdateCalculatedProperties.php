@@ -11,7 +11,7 @@ use function sprintf;
 
 class FailedToUpdateCalculatedProperties extends FailedToProcessObject {
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model> $objects
+     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model> $objects
      */
     public function __construct(
         protected Resolver $resolver,

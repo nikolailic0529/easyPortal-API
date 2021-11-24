@@ -5,7 +5,7 @@ namespace App\Models\Relations;
 use App\Models\Reseller;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasReseller {
     use HasResellerNullable {

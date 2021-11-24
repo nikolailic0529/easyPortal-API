@@ -5,7 +5,7 @@ namespace App\Utils\Eloquent\Concerns;
 use function str_starts_with;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HideGeneratedAttributes {
     /**

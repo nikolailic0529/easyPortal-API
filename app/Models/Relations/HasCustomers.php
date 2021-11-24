@@ -3,11 +3,11 @@
 namespace App\Models\Relations;
 
 use App\Models\Customer;
-use App\Models\Pivot;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomers {
     public function customers(): BelongsToMany {

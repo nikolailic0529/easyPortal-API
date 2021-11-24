@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
- * @mixin \App\Models\Model
- * @mixin \App\Models\Pivot
+ * @mixin \App\Utils\Eloquent\Model
+ * @mixin \App\Utils\Eloquent\Pivot
  */
 trait ModelTraits {
     use SmartSave;

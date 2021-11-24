@@ -12,13 +12,13 @@ use InvalidArgumentException;
 use function sprintf;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait SyncHasMany {
     use SyncMany;
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model>|array<\App\Models\Model> $objects
+     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model>|array<\App\Utils\Eloquent\Model> $objects
      */
     protected function syncHasMany(string $relation, Collection|array $objects): void {
         // Prepare
@@ -53,12 +53,12 @@ trait SyncHasMany {
             $this->onSave(static function () use ($hasMany, $children, $existing): void {
                 // Sync
                 foreach ($children as $object) {
-                    /** @var \App\Models\Model $object */
+                    /** @var \App\Utils\Eloquent\Model $object */
                     $hasMany->save($object);
                 }
 
                 // Delete unused
-                /** @var \App\Models\Model $object */
+                /** @var \App\Utils\Eloquent\Model $object */
                 foreach ($existing as $object) {
                     $object->delete();
                 }

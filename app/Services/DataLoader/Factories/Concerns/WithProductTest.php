@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Model;
 use App\Models\Product;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Tests\TestCase;

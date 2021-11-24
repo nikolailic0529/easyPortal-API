@@ -341,9 +341,9 @@ class UpdaterTest extends TestCase {
      *
      * @dataProvider dataProviderCreateIndex
      *
-     * @param array<mixed>                                                             $expected
-     * @param class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string, string|null>                                               $indexes
+     * @param array<mixed>                                                                     $expected
+     * @param class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param array<string, string|null>                                                       $indexes
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock
@@ -408,8 +408,8 @@ class UpdaterTest extends TestCase {
      *
      * @dataProvider dataProviderIsIndexActual
      *
-     * @param class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string, string|null>                                               $indexes
+     * @param class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param array<string, string|null>                                                       $indexes
      */
     public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
         // Mock

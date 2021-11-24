@@ -8,7 +8,7 @@ use Illuminate\Contracts\Container\Container;
 class UnionBuilder extends Builder {
     /**
      * @var array<
-     *      class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable>,
+     *      class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,
      *      array{scopes:array<\App\Services\Search\Scope>,boost:float|null}
      *      > $models
      */
@@ -40,7 +40,7 @@ class UnionBuilder extends Builder {
 
     /**
      * @return array<
-     *      class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable>,
+     *      class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,
      *      array{scopes:array<\App\Services\Search\Scope>,boost:float|null}
      *      > $models
      */

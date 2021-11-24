@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Relations\HasLocation;
 use App\Models\Relations\HasReseller;
 use App\Models\Relations\HasTypes;
+use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

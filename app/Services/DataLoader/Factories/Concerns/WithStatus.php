@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Model;
 use App\Models\Status;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\StatusResolver;
+use App\Utils\Eloquent\Model;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

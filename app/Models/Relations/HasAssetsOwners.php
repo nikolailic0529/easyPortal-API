@@ -6,7 +6,7 @@ use App\Models\Asset;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasAssetsOwners {
     public function assets(): HasMany {

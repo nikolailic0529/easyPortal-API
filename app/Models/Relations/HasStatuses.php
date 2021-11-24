@@ -2,9 +2,9 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Pivot;
 use App\Models\Status;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
@@ -13,7 +13,7 @@ use function count;
 /**
  * @property int $statuses_count
  *
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasStatuses {
     use SyncBelongsToMany;

@@ -6,7 +6,7 @@ use App\Models\ServiceLevel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasServiceLevel {
     public function serviceLevel(): BelongsTo {

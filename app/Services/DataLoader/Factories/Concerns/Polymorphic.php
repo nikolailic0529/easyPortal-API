@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use Closure;
 use SplObjectStorage;
 
@@ -16,7 +16,7 @@ trait Polymorphic {
     use WithType;
 
     /**
-     * @template T of \App\Models\Model
+     * @template T of \App\Utils\Eloquent\Model
      * @template R of \App\Models\Contact|\App\Models\Location
      *
      * @param T                                                     $owner

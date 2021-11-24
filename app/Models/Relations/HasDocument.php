@@ -6,7 +6,7 @@ use App\Models\Document;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasDocument {
     public function document(): BelongsTo {

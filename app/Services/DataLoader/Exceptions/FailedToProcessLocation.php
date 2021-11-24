@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Models\Model;
 use App\Services\DataLoader\Schema\Location;
+use App\Utils\Eloquent\Model;
 use Throwable;
 
 use function sprintf;

@@ -5,7 +5,7 @@ namespace App\Models\Relations;
 use App\Models\Customer;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomer {
     use HasCustomerNullable {

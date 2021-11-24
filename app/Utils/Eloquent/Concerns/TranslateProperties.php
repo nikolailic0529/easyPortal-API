@@ -9,7 +9,7 @@ use function in_array;
  * @see \App\GraphQL\Contracts\Translatable
  * @see \App\GraphQL\Directives\Directives\Translate
  *
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait TranslateProperties {
     public function getTranslatedProperty(string $property): string {

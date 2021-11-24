@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\CustomerLocation;
 use App\Models\Location;
-use App\Models\Model;
 use App\Models\ResellerLocation;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

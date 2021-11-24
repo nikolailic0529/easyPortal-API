@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Relations\HasDocumentEntries;
 use App\Models\Relations\HasOem;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

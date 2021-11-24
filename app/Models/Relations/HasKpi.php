@@ -6,7 +6,7 @@ use App\Models\Kpi;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasKpi {
     public function kpi(): MorphOne {

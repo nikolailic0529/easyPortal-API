@@ -8,6 +8,7 @@ use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;

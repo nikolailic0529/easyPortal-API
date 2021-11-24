@@ -4,13 +4,13 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\Model;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;

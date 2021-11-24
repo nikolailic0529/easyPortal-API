@@ -6,7 +6,7 @@ use App\Models\DocumentEntry;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasDocumentEntries {
     public function documentEntries(): HasMany {

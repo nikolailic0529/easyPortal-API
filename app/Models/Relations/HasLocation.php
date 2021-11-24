@@ -6,7 +6,7 @@ use App\Models\Location;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasLocation {
     public function location(): BelongsTo {

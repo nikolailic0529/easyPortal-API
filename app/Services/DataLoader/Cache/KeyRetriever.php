@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 
 interface KeyRetriever {
     public function get(Model $model): mixed;

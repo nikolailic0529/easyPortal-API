@@ -14,6 +14,8 @@ use App\Models\Relations\HasType;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
+use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Utils\Eloquent\CascadeDeletes;
 
-use App\Models\Pivot;
+use App\Utils\Eloquent\Pivot;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

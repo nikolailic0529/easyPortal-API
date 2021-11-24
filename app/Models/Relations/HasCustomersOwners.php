@@ -6,7 +6,7 @@ use App\Models\Customer;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomersOwners {
     public function customers(): HasMany {

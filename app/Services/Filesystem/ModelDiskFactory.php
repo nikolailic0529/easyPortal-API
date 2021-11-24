@@ -2,8 +2,8 @@
 
 namespace App\Services\Filesystem;
 
-use App\Models\Model;
 use App\Services\Filesystem\Disks\ModelDisk;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Container\Container;
 use LogicException;
 
