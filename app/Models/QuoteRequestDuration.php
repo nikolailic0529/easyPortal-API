@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\TranslateProperties;
+use App\Utils\Eloquent\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

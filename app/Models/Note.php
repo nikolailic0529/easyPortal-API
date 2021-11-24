@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\SyncHasMany;
 use App\Models\Relations\HasDocument;
 use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
+use App\Utils\Eloquent\Concerns\SyncHasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Relation;
 

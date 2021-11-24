@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\TranslateProperties;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContracts;
 use App\Models\Relations\HasQuotes;
 use App\Models\Scopes\DocumentTypeQuery;
+use App\Utils\Eloquent\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

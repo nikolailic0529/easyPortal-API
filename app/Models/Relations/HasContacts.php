@@ -2,8 +2,8 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Concerns\SyncMorphMany;
 use App\Models\Contact;
+use App\Utils\Eloquent\Concerns\SyncMorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 

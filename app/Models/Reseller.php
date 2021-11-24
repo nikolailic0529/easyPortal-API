@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\SyncBelongsToMany;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomers;
@@ -10,6 +9,7 @@ use App\Models\Relations\HasKpi;
 use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
+use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

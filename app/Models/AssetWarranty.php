@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\SyncBelongsToMany;
 use App\Models\Relations\HasAsset;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasDocument;
@@ -12,6 +11,7 @@ use App\Models\Relations\HasStatusNullable;
 use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByShared;
+use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;

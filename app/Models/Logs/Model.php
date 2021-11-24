@@ -2,7 +2,7 @@
 
 namespace App\Models\Logs;
 
-use App\Models\Concerns\UuidAsPrimaryKey;
+use App\Utils\Eloquent\Concerns\UuidAsPrimaryKey;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {

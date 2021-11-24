@@ -2,10 +2,10 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Concerns\SyncBelongsToMany;
 use App\Models\Pivot;
 use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**

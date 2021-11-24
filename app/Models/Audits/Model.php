@@ -2,8 +2,8 @@
 
 namespace App\Models\Audits;
 
-use App\Models\Concerns\UuidAsPrimaryKey;
 use App\Services\Audit\Auditor;
+use App\Utils\Eloquent\Concerns\UuidAsPrimaryKey;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {

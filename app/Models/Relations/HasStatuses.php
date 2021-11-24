@@ -2,9 +2,9 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Concerns\SyncBelongsToMany;
 use App\Models\Pivot;
 use App\Models\Status;
+use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 

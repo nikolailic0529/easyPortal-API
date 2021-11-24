@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\SyncHasMany;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasContracts;
@@ -14,6 +13,7 @@ use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\Concerns\SyncHasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

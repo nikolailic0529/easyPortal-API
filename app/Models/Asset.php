@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\SyncHasMany;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasOem;
@@ -14,6 +13,7 @@ use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\Concerns\SyncHasMany;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

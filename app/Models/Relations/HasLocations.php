@@ -2,8 +2,8 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Concerns\SyncHasMany;
 use App\Models\Model;
+use App\Utils\Eloquent\Concerns\SyncHasMany;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;

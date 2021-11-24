@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\ModelTraits;
+use App\Utils\Eloquent\Concerns\ModelTraits;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
