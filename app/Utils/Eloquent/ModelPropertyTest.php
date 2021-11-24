@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils;
+namespace App\Utils\Eloquent;
 
 use App\Models\Asset;
 use App\Models\Customer;
@@ -14,7 +14,7 @@ use Tests\WithoutOrganizationScope;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\ModelProperty
+ * @coversDefaultClass \App\Utils\Eloquent\ModelProperty
  */
 class ModelPropertyTest extends TestCase {
     use WithoutOrganizationScope;

@@ -7,7 +7,7 @@ use App\Services\Organization\CurrentOrganization;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
-use App\Utils\ModelProperty;
+use App\Utils\Eloquent\ModelProperty;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 

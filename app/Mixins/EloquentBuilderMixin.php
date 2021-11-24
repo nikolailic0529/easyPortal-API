@@ -2,7 +2,7 @@
 
 namespace App\Mixins;
 
-use App\Utils\ModelHelper;
+use App\Utils\Eloquent\ModelHelper;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

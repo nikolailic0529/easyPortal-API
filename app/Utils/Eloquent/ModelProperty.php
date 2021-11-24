@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils;
+namespace App\Utils\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

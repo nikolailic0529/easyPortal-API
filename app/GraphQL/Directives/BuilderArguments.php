@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives;
 
-use App\Utils\ModelHelper;
+use App\Utils\Eloquent\ModelHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;

@@ -3,7 +3,7 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Properties\Property;
-use App\Utils\ModelProperty;
+use App\Utils\Eloquent\ModelProperty;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

@@ -3,7 +3,7 @@
 namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\LoggerObject;
-use App\Utils\ModelHelper;
+use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class EloquentObject implements LoggerObject {

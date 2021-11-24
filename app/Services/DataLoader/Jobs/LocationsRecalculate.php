@@ -6,7 +6,7 @@ use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Models\Model;
 use App\Models\ResellerLocation;
-use App\Utils\ModelHelper;
+use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
