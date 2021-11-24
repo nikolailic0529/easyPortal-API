@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\CascadeDeletes;
+namespace App\Utils\Eloquent\CascadeDeletes;
 
 use App\Models\Pivot;
 use Closure;
@@ -20,7 +20,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Concerns\CascadeDeletes\CascadeProcessor
+ * @coversDefaultClass \App\Utils\Eloquent\CascadeDeletes\CascadeProcessor
  */
 class CascadeProcessorTest extends TestCase {
     // <editor-fold desc="Tests">

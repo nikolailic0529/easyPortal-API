@@ -2,8 +2,8 @@
 
 namespace App\Models\Concerns;
 
-use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
 use App\Models\Concerns\SmartSave\SmartSave;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 

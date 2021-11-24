@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
 use App\Models\Concerns\Relations\HasContacts;
 use App\Models\Concerns\Relations\HasCurrency;
 use App\Models\Concerns\Relations\HasCustomerNullable;
@@ -22,6 +21,7 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
