@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Callbacks;
+namespace App\Utils\Eloquent\Callbacks;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Pivot;

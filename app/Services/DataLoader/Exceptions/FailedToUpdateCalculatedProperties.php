@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Models\Callbacks\GetKey;
 use App\Services\DataLoader\Resolver;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Support\Collection;
 use Throwable;
 

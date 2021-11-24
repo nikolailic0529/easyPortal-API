@@ -2,9 +2,9 @@
 
 namespace App\Models\Concerns;
 
-use App\Models\Callbacks\GetKey;
-use App\Models\Callbacks\SetKey;
 use App\Models\Model;
+use App\Utils\Eloquent\Callbacks\GetKey;
+use App\Utils\Eloquent\Callbacks\SetKey;
 use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

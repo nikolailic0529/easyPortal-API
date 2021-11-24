@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
-use App\Models\Callbacks\KeysComparator;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Oem;
@@ -31,6 +30,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
+use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;

@@ -2,7 +2,7 @@
 
 namespace App\Models\Concerns;
 
-use App\Models\Callbacks\SetKey;
+use App\Utils\Eloquent\Callbacks\SetKey;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

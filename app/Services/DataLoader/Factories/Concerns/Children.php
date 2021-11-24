@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Callbacks\KeysComparator;
+use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
