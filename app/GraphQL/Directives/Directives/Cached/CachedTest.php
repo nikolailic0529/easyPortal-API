@@ -4,7 +4,7 @@ namespace App\GraphQL\Directives\Directives\Cached;
 
 use App\Models\Organization;
 use App\Services\Organization\CurrentOrganization;
-use App\Utils\CacheKey;
+use App\Utils\Cache\CacheKey;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

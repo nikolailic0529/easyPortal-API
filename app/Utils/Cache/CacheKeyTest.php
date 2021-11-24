@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils;
+namespace App\Utils\Cache;
 
 use App\Models\Organization;
 use App\Services\I18n\Locale;
@@ -27,7 +27,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\CacheKey
+ * @coversDefaultClass \App\Utils\Cache\CacheKey
  */
 class CacheKeyTest extends TestCase {
     // <editor-fold desc="Tests">

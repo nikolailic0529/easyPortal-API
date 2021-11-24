@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\GraphQL\Service as GraphQLService;
-use App\Utils\CacheKey;
+use App\Utils\Cache\CacheKey;
 use Closure;
 use DateInterval;
 use Illuminate\Contracts\Cache\Repository as Cache;
