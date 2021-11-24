@@ -1,0 +1,103 @@
+[
+    {
+        "query": "select * from `resellers` where `id` in (?, ?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    },
+    {
+        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?) group by `reseller_id`, `customer_id`, `location_id`",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?) group by `reseller_id`, `customer_id`",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `locations_count` = ?, `assets_count` = ?, `contacts_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            2,
+            0,
+            2,
+            0,
+            "2021-08-30 00:01:34",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4"
+        ]
+    },
+    {
+        "query": "delete from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `reseller_customers`.`customer_id` in (?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5"
+        ]
+    },
+    {
+        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "2021-08-30 00:01:42",
+            "2021-08-30 00:01:42",
+            1,
+            1,
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
+        ]
+    },
+    {
+        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "2021-08-30 00:01:44",
+            "2021-08-30 00:01:44",
+            1,
+            1,
+            "a9752c6c-95ea-50c8-9919-6a0b887ecc91"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `locations_count` = ?, `assets_count` = ?, `contacts_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            0,
+            0,
+            0,
+            0,
+            "2021-08-30 00:01:46",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "bindings": [
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+        ]
+    }
+]
