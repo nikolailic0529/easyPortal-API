@@ -130,7 +130,7 @@ class ResellersRecalculateTest extends TestCase {
         ];
 
         $this->assertEquals([
-            'customers_count' => 2,
+            'customers_count' => 3,
             'locations_count' => 1,
             'assets_count'    => 2,
             'contacts_count'  => 0,

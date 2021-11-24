@@ -63,7 +63,7 @@
     {
         "query": "update `resellers` set `customers_count` = ?, `locations_count` = ?, `assets_count` = ?, `contacts_count` = ?, `statuses_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            2,
+            3,
             1,
             2,
             0,

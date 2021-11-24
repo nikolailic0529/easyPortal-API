@@ -42,11 +42,12 @@ class ResellersRecalculate extends Recalculate {
         foreach ($resellers as $reseller) {
             /** @var \App\Models\Reseller $reseller */
             // Prepare
-            $resellerAssets = $assets[$reseller->getKey()] ?? [];
+            $resellerAssets    = $assets[$reseller->getKey()] ?? [];
+            $resellerDocuments = $documents[$reseller->getKey()] ?? [];
 
             // Countable
             $reseller->locations_count = count($reseller->locations);
-            $reseller->customers_count = count($resellerAssets['customers'] ?? []);
+            $reseller->customers_count = count($resellerAssets['customers'] ?? []) + count($resellerDocuments);
             $reseller->contacts_count  = count($reseller->contacts);
             $reseller->statuses_count  = count($reseller->statuses);
             $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers'] ?? []));
@@ -63,7 +64,7 @@ class ResellersRecalculate extends Recalculate {
 
             // Customers
             $customers = array_merge(
-                array_fill_keys(array_keys($documents[$reseller->getKey()] ?? []), [
+                array_fill_keys(array_keys($resellerDocuments), [
                     'locations_count' => 0,
                     'assets_count'    => 0,
                 ]),
@@ -120,8 +121,8 @@ class ResellersRecalculate extends Recalculate {
      * @return array<string,array<string, int>>
      */
     protected function calculateDocuments(array $keys, Collection $resellers): array {
-        $assets = [];
-        $result = Document::query()
+        $documents = [];
+        $result    = Document::query()
             ->toBase()
             ->select('reseller_id', 'customer_id', DB::raw('count(*) as count'))
             ->whereIn('reseller_id', $keys)
@@ -133,9 +134,9 @@ class ResellersRecalculate extends Recalculate {
             $r = $row->reseller_id;
             $c = (string) $row->customer_id;
 
-            $assets[$r][$c] = (int) $row->count + ($assets[$r][$c] ?? 0);
+            $documents[$r][$c] = (int) $row->count + ($documents[$r][$c] ?? 0);
         }
 
-        return $assets;
+        return $documents;
     }
 }
