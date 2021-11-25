@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
+use App\Utils\Console\CommandOptions;
 use App\Utils\Console\CommandResult;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
