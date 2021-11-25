@@ -13,4 +13,5 @@ input AssetSyncInput {
 
 type AssetSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }

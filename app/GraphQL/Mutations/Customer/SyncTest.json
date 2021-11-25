@@ -3,11 +3,18 @@
     "type": "object",
     "additionalProperties": false,
     "required": [
-        "result"
+        "result",
+        "failed"
     ],
     "properties": {
         "result": {
             "type": "boolean"
+        },
+        "failed": {
+            "type": "array",
+            "items": {
+                "$ref": "../../types.json#/definitions/ID"
+            }
         }
     }
 }

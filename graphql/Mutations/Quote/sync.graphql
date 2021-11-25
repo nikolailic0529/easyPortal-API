@@ -13,4 +13,5 @@ input QuoteSyncInput {
 
 type QuoteSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }
