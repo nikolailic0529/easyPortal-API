@@ -3,6 +3,8 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Commands\UpdateAsset;
+use App\Utils\Console\CommandFailed;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -26,7 +28,8 @@ class AssetSyncTest extends TestCase {
             $mock
                 ->shouldReceive('call')
                 ->with(UpdateAsset::class, $expected)
-                ->once();
+                ->once()
+                ->andReturn(Command::SUCCESS);
         });
 
         $this->app->make(AssetSync::class)
@@ -34,6 +37,26 @@ class AssetSyncTest extends TestCase {
                 id           : $assetId,
                 warrantyCheck: $warrantyCheck,
                 documents    : $withDocuments,
+            )
+            ->run();
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeFailed(): void {
+        $this->expectException(CommandFailed::class);
+
+        $this->override(Kernel::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('call')
+                ->once()
+                ->andReturn(Command::FAILURE);
+        });
+
+        $this->app->make(AssetSync::class)
+            ->init(
+                id: $this->faker->uuid,
             )
             ->run();
     }

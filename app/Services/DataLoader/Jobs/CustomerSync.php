@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Commands\UpdateCustomer;
-use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 
 /**
@@ -12,8 +11,6 @@ use Illuminate\Contracts\Console\Kernel;
  * @see \App\Services\DataLoader\Commands\UpdateCustomer
  */
 class CustomerSync extends Sync {
-    use CommandOptions;
-
     public function displayName(): string {
         return 'ep-data-loader-customer-sync';
     }
@@ -37,11 +34,13 @@ class CustomerSync extends Sync {
     }
 
     public function __invoke(Kernel $kernel): void {
-        $kernel->call(UpdateCustomer::class, $this->setBooleanOptions(
-            [
-                'id' => $this->objectId,
-            ],
-            $this->getArguments(),
-        ));
+        $this->checkCommandResult(
+            $kernel->call(UpdateCustomer::class, $this->setBooleanOptions(
+                [
+                    'id' => $this->objectId,
+                ],
+                $this->getArguments(),
+            )),
+        );
     }
 }

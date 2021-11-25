@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Commands\UpdateAsset;
-use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 
 /**
@@ -12,8 +11,6 @@ use Illuminate\Contracts\Console\Kernel;
  * @see \App\Services\DataLoader\Commands\UpdateAsset
  */
 class AssetSync extends Sync {
-    use CommandOptions;
-
     public function displayName(): string {
         return 'ep-data-loader-asset-sync';
     }
@@ -31,11 +28,13 @@ class AssetSync extends Sync {
     }
 
     public function __invoke(Kernel $kernel): void {
-        $kernel->call(UpdateAsset::class, $this->setBooleanOptions(
-            [
-                'id' => $this->getObjectId(),
-            ],
-            $this->getArguments(),
-        ));
+        $this->checkCommandResult(
+            $kernel->call(UpdateAsset::class, $this->setBooleanOptions(
+                [
+                    'id' => $this->objectId,
+                ],
+                $this->getArguments(),
+            )),
+        );
     }
 }

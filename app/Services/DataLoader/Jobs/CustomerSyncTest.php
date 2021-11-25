@@ -3,6 +3,8 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Commands\UpdateCustomer;
+use App\Utils\Console\CommandFailed;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -32,7 +34,8 @@ class CustomerSyncTest extends TestCase {
             $mock
                 ->shouldReceive('call')
                 ->with(UpdateCustomer::class, $expected)
-                ->once();
+                ->once()
+                ->andReturn(Command::SUCCESS);
         });
 
         $this->app->make(CustomerSync::class)
@@ -41,6 +44,26 @@ class CustomerSyncTest extends TestCase {
                 warrantyCheck  : $warrantyCheck,
                 assets         : $withAssets,
                 assetsDocuments: $withAssetsDocuments,
+            )
+            ->run();
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeFailed(): void {
+        $this->expectException(CommandFailed::class);
+
+        $this->override(Kernel::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('call')
+                ->once()
+                ->andReturn(Command::FAILURE);
+        });
+
+        $this->app->make(CustomerSync::class)
+            ->init(
+                id: $this->faker->uuid,
             )
             ->run();
     }

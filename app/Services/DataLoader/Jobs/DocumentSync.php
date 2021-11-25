@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Commands\UpdateDocument;
-use App\Services\DataLoader\Jobs\Concerns\CommandOptions;
 use Illuminate\Contracts\Console\Kernel;
 
 /**
@@ -12,8 +11,6 @@ use Illuminate\Contracts\Console\Kernel;
  * @see \App\Services\DataLoader\Commands\UpdateDocument
  */
 class DocumentSync extends Sync {
-    use CommandOptions;
-
     public function displayName(): string {
         return 'ep-data-loader-document-sync';
     }
@@ -29,8 +26,10 @@ class DocumentSync extends Sync {
     }
 
     public function __invoke(Kernel $kernel): void {
-        $kernel->call(UpdateDocument::class, [
-            'id' => $this->objectId,
-        ]);
+        $this->checkCommandResult(
+            $kernel->call(UpdateDocument::class, [
+                'id' => $this->objectId,
+            ]),
+        );
     }
 }
