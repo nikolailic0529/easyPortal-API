@@ -38,10 +38,9 @@ class ResellersRecalculate extends Recalculate {
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->with(['locations', 'contacts', 'statuses'])
             ->get();
+        $dataByLocation      = $this->calculateDataByLocation($keys, $resellers);
         $assetsByReseller    = $this->calculateAssetsByReseller($keys, $resellers);
         $assetsByCustomer    = $this->calculateAssetsByCustomer($keys, $resellers);
-        $assetsByLocation    = $this->calculateAssetsByLocation($keys, $resellers);
-        $customersByLocation = $this->calculateCustomersByLocation($keys, $resellers);
         $documentsByCustomer = $this->calculateDocumentsByCustomer($keys, $resellers);
         $customerLocations   = $this->calculateCustomerLocations(
             array_filter(array_keys(array_reduce(
@@ -58,8 +57,8 @@ class ResellersRecalculate extends Recalculate {
             // Prepare
             $resellerAssetsByReseller    = $assetsByReseller[$reseller->getKey()] ?? 0;
             $resellerAssetsByCustomer    = $assetsByCustomer[$reseller->getKey()] ?? [];
-            $resellerAssetsByLocation    = $assetsByLocation[$reseller->getKey()] ?? [];
-            $resellerCustomersByLocation = $customersByLocation[$reseller->getKey()] ?? [];
+            $resellerAssetsByLocation    = $dataByLocation['assets'][$reseller->getKey()] ?? [];
+            $resellerCustomersByLocation = $dataByLocation['customers'][$reseller->getKey()] ?? [];
             $resellerDocumentsByCustomer = $documentsByCustomer[$reseller->getKey()] ?? [];
             $resellerCustomers           = array_filter(array_unique(array_merge(
                 array_keys($resellerAssetsByCustomer),
@@ -159,13 +158,18 @@ class ResellersRecalculate extends Recalculate {
      * @param array<string>                                        $keys
      * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
      *
-     * @return array<string,array<string, int>>
+     * @return array{assets:array<string,array<string, int>>,customers:array<string,array<string, int>>}
      */
-    protected function calculateAssetsByLocation(array $keys, Collection $resellers): array {
+    protected function calculateDataByLocation(array $keys, Collection $resellers): array {
         $data   = [];
         $result = Asset::query()
             ->toBase()
-            ->select('reseller_id', 'location_id', DB::raw('count(*) as count'))
+            ->select(
+                'reseller_id',
+                'location_id',
+                DB::raw('count(*) as assets_count'),
+                DB::raw('count(DISTINCT `customer_id`) as customers_count'),
+            )
             ->whereIn('reseller_id', $keys)
             ->groupBy('reseller_id', 'location_id')
             ->get();
@@ -175,33 +179,8 @@ class ResellersRecalculate extends Recalculate {
             $r = $row->reseller_id;
             $l = (string) $row->location_id;
 
-            $data[$r][$l] = (int) $row->count + ($data[$r][$l] ?? 0);
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param array<string>                                        $keys
-     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
-     *
-     * @return array<string,array<string, int>>
-     */
-    protected function calculateCustomersByLocation(array $keys, Collection $resellers): array {
-        $data   = [];
-        $result = Asset::query()
-            ->toBase()
-            ->select('reseller_id', 'location_id', DB::raw('count(DISTINCT `customer_id`) as count'))
-            ->whereIn('reseller_id', $keys)
-            ->groupBy('reseller_id', 'location_id', 'customer_id')
-            ->get();
-
-        foreach ($result as $row) {
-            /** @var \stdClass $row */
-            $r = $row->reseller_id;
-            $l = (string) $row->location_id;
-
-            $data[$r][$l] = (int) $row->count + ($data[$r][$l] ?? 0);
+            $data['assets'][$r][$l]    = (int) $row->assets_count + ($data['assets'][$r][$l] ?? 0);
+            $data['customers'][$r][$l] = (int) $row->customers_count + ($data['customers'][$r][$l] ?? 0);
         }
 
         return $data;
