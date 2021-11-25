@@ -84,12 +84,21 @@ class ResellersRecalculateTest extends TestCase {
         ]);
         Asset::factory()->create([
             'reseller_id' => $resellerA,
+            'customer_id' => null,
+            'location_id' => null,
+        ]);
+        Asset::factory()->create([
+            'reseller_id' => $resellerA,
             'customer_id' => $customerB,
             'location_id' => $locationA,
         ]);
         Document::factory()->create([
             'reseller_id' => $resellerA,
             'customer_id' => $customerC,
+        ]);
+        Document::factory()->create([
+            'reseller_id' => $resellerA,
+            'customer_id' => null,
         ]);
 
         // Test
@@ -132,12 +141,17 @@ class ResellersRecalculateTest extends TestCase {
         $this->assertEquals([
             'customers_count' => 3,
             'locations_count' => 1,
-            'assets_count'    => 2,
+            'assets_count'    => 3,
             'contacts_count'  => 0,
             'statuses_count'  => 1,
         ], $this->getModelCountableProperties($aReseller, $attributes));
 
         $this->assertEquals([
+            [
+                'assets_count'    => 1,
+                'locations_count' => 1,
+                'customer_id'     => $customerA->getKey(),
+            ],
             [
                 'assets_count'    => 1,
                 'locations_count' => 1,
@@ -147,11 +161,6 @@ class ResellersRecalculateTest extends TestCase {
                 'assets_count'    => 0,
                 'locations_count' => 0,
                 'customer_id'     => $customerC->getKey(),
-            ],
-            [
-                'assets_count'    => 1,
-                'locations_count' => 1,
-                'customer_id'     => $customerA->getKey(),
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 

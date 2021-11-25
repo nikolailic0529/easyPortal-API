@@ -11,10 +11,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 use function array_fill_keys;
+use function array_filter;
 use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_sum;
+use function array_unique;
 use function count;
 
 /**
@@ -42,23 +44,27 @@ class ResellersRecalculate extends Recalculate {
         foreach ($resellers as $reseller) {
             /** @var \App\Models\Reseller $reseller */
             // Prepare
-            $resellerAssets    = $assets[$reseller->getKey()] ?? [];
+            $resellerCustomers = $assets[$reseller->getKey()]['customers'] ?? [];
+            $resellerLocations = $assets[$reseller->getKey()]['locations'] ?? [];
             $resellerDocuments = $documents[$reseller->getKey()] ?? [];
 
             // Countable
             $reseller->locations_count = count($reseller->locations);
-            $reseller->customers_count = count($resellerAssets['customers'] ?? []) + count($resellerDocuments);
+            $reseller->customers_count = count(array_filter(array_unique(array_merge(
+                array_keys($resellerCustomers),
+                array_keys($resellerDocuments),
+            ))));
             $reseller->contacts_count  = count($reseller->contacts);
             $reseller->statuses_count  = count($reseller->statuses);
-            $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers'] ?? []));
+            $reseller->assets_count    = array_sum(Arr::flatten($resellerCustomers));
 
             $reseller->save();
 
             // Locations
             foreach ($reseller->locations as $location) {
                 /** @var \App\Models\LocationReseller $location */
-                $location->customers_count = count($resellerAssets['locations'][$location->location_id] ?? []);
-                $location->assets_count    = array_sum($resellerAssets['locations'][$location->location_id] ?? []);
+                $location->customers_count = count($resellerLocations[$location->location_id] ?? []);
+                $location->assets_count    = array_sum($resellerLocations[$location->location_id] ?? []);
                 $location->save();
             }
 
@@ -73,7 +79,7 @@ class ResellersRecalculate extends Recalculate {
                         'locations_count' => count($customers),
                         'assets_count'    => array_sum($customers),
                     ];
-                }, $resellerAssets['customers'] ?? []),
+                }, $resellerCustomers),
             );
 
             unset($customers['']);
