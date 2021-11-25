@@ -12,7 +12,7 @@ use App\Services\DataLoader\Resolver;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Eloquent\SmartSave\BatchInsert;
+use App\Utils\Eloquent\SmartSave\BatchSave;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -134,7 +134,7 @@ abstract class Importer {
                     // Import creates a lot of objects, so would be good to
                     // group multiple inserts into one.
 
-                    BatchInsert::enable($closure);
+                    BatchSave::enable($closure);
                 });
             });
         });

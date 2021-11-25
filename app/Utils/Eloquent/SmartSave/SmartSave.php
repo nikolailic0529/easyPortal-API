@@ -22,10 +22,10 @@ trait SmartSave {
      * @inheritdoc
      */
     public function save(array $options = []): bool {
-        $root = BatchInsert::$instance === null && BatchInsert::isEnabled();
+        $root = BatchSave::$instance === null && BatchSave::isEnabled();
 
         if ($root) {
-            BatchInsert::$instance = new BatchInsert();
+            BatchSave::$instance = new BatchInsert();
         }
 
         $result = parent::save($options);
@@ -38,8 +38,8 @@ trait SmartSave {
             $this->onSaveCallbacks = [];
         } finally {
             if ($root) {
-                BatchInsert::$instance?->save();
-                BatchInsert::$instance = null;
+                BatchSave::$instance?->save();
+                BatchSave::$instance = null;
             }
         }
 
@@ -49,8 +49,8 @@ trait SmartSave {
     public function newModelQuery(): Builder {
         $query = parent::newModelQuery();
 
-        if (BatchInsert::$instance) {
-            $query->macro('insert', BatchInsert::$instance);
+        if (BatchSave::$instance) {
+            $query->macro('insert', BatchSave::$instance);
         }
 
         return $query;

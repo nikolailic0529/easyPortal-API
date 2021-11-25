@@ -2,7 +2,6 @@
 
 namespace App\Utils\Eloquent\SmartSave;
 
-use Closure;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -17,19 +16,10 @@ use function reset;
  * be dispatched the real save may happen a bit late. This is an experimental
  * feature and it should be enabled explicitly.
  *
- * @see \App\Utils\Eloquent\SmartSave\BatchInsert::enable()
+ * @see \App\Utils\Eloquent\SmartSave\BatchSave::enable()
  */
 class BatchInsert {
     protected const LIMIT = 25;
-
-    /**
-     * @internal
-     */
-    public static ?BatchInsert $instance = null;
-    /**
-     * @internal
-     */
-    protected static bool $enabled = false;
 
     protected ?Model $model = null;
 
@@ -40,21 +30,6 @@ class BatchInsert {
 
     public function __construct() {
         // empty
-    }
-
-    public static function isEnabled(): bool {
-        return static::$enabled;
-    }
-
-    public static function enable(Closure $closure): mixed {
-        $previous        = static::$enabled;
-        static::$enabled = true;
-
-        try {
-            return $closure();
-        } finally {
-            static::$enabled = $previous;
-        }
     }
 
     /**
