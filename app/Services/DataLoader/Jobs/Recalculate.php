@@ -59,7 +59,7 @@ abstract class Recalculate extends Job implements Initializable {
         }
 
         // Initialize
-        $this->keys = (new Collection($models))->map(new GetKey())->unique()->values()->all();
+        $this->keys = (new Collection($models))->map(new GetKey())->unique()->sort()->values()->all();
 
         $this->initialized();
 
