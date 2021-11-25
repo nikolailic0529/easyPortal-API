@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs\Concerns;
+namespace App\Utils\Console;
 
 /**
- * @see \App\Services\DataLoader\Commands\Concerns\WithBooleanOptions
+ * @see \App\Utils\Console\WithBooleanOptions
  */
 trait CommandOptions {
     /**

@@ -80,6 +80,7 @@ class SyncTest extends TestCase {
                     asset {
                         sync(input: $input) {
                             result
+                            failed
                         }
                     }
                 }',
@@ -140,6 +141,7 @@ class SyncTest extends TestCase {
                         new JsonFragmentSchema('sync', self::class),
                         new JsonFragment('sync', [
                             'result' => true,
+                            'failed' => [],
                         ]),
                     ),
                     [

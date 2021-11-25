@@ -13,4 +13,5 @@ input ContractSyncInput {
 
 type ContractSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }

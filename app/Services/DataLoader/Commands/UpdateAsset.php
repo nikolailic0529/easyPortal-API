@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
+use App\Utils\Console\WithBooleanOptions;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function array_unique;

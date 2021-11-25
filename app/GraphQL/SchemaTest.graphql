@@ -266,6 +266,7 @@ input AssetSyncInput {
 
 type AssetSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }
 
 input AssetTypesQuery {
@@ -546,6 +547,7 @@ input ContractSyncInput {
 
 type ContractSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }
 
 input ContractTypesQuery {
@@ -739,6 +741,7 @@ input CustomerSyncInput {
 
 type CustomerSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }
 
 input CustomerTypesQuery {
@@ -2389,6 +2392,7 @@ input QuoteSyncInput {
 
 type QuoteSyncPayload {
   result: Boolean!
+  failed: [ID!]!
 }
 
 input QuoteTypesQuery {

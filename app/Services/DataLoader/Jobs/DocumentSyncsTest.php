@@ -3,6 +3,8 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Commands\UpdateDocument;
+use App\Utils\Console\CommandFailed;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -26,11 +28,30 @@ class DocumentSyncsTest extends TestCase {
             $mock
                 ->shouldReceive('call')
                 ->with(UpdateDocument::class, $expected)
-                ->once();
+                ->once()
+                ->andReturn(Command::SUCCESS);
         });
 
         $this->app->make(DocumentSync::class)
             ->init($documentId)
+            ->run();
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeFailed(): void {
+        $this->expectException(CommandFailed::class);
+
+        $this->override(Kernel::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('call')
+                ->once()
+                ->andReturn(Command::FAILURE);
+        });
+
+        $this->app->make(DocumentSync::class)
+            ->init($this->faker->uuid)
             ->run();
     }
     // </editor-fold>
