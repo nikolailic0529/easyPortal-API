@@ -14,6 +14,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
@@ -39,18 +40,29 @@ class ResellersRecalculateTest extends TestCase {
 
         // Prepare
         $count     = $this->faker->randomNumber(3);
-        $locationA = Location::factory()->create();
-        $locationB = Location::factory()->create();
-        $locationC = Location::factory()->create();
+        $locationA = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationB = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationC = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
         $resellerA = Reseller::factory()
-            ->hasCustomers(1)
+            ->hasCustomers(1, [
+                'id' => Str::uuid()->toString(),
+            ])
             ->hasLocations(1, [
+                'id'          => Str::uuid()->toString(),
                 'location_id' => $locationA,
             ])
             ->hasStatuses([
+                'id'          => Str::uuid()->toString(),
                 'object_type' => (new Reseller())->getMorphClass(),
             ])
             ->create([
+                'id'              => Str::uuid()->toString(),
                 'customers_count' => $count,
                 'locations_count' => $count,
                 'assets_count'    => $count,
@@ -58,8 +70,11 @@ class ResellersRecalculateTest extends TestCase {
                 'statuses_count'  => $count,
             ]);
         $resellerB = Reseller::factory()
-            ->hasContacts(1)
+            ->hasContacts(1, [
+                'id' => Str::uuid()->toString(),
+            ])
             ->create([
+                'id'              => Str::uuid()->toString(),
                 'customers_count' => $count,
                 'locations_count' => $count,
                 'assets_count'    => $count,
@@ -68,15 +83,23 @@ class ResellersRecalculateTest extends TestCase {
             ]);
         $customerA = Customer::factory()
             ->hasLocations(1, [
+                'id'          => Str::uuid()->toString(),
                 'location_id' => $locationA,
             ])
-            ->create();
+            ->create([
+                'id' => Str::uuid()->toString(),
+            ]);
         $customerB = Customer::factory()
             ->hasLocations(1, [
+                'id'          => Str::uuid()->toString(),
                 'location_id' => $locationC,
             ])
-            ->create();
-        $customerC = Customer::factory()->create();
+            ->create([
+                'id' => Str::uuid()->toString(),
+            ]);
+        $customerC = Customer::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
 
         GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
@@ -87,25 +110,30 @@ class ResellersRecalculateTest extends TestCase {
         );
 
         Asset::factory()->create([
+            'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,
             'customer_id' => $customerA,
             'location_id' => $locationA,
         ]);
         Asset::factory()->create([
+            'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,
             'customer_id' => null,
             'location_id' => null,
         ]);
         Asset::factory()->create([
+            'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,
             'customer_id' => $customerB,
             'location_id' => $locationA,
         ]);
         Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,
             'customer_id' => $customerC,
         ]);
         Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,
             'customer_id' => null,
         ]);
@@ -158,8 +186,8 @@ class ResellersRecalculateTest extends TestCase {
         $this->assertEquals([
             [
                 'assets_count'    => 1,
-                'locations_count' => 1,
-                'customer_id'     => $customerA->getKey(),
+                'locations_count' => 0,
+                'customer_id'     => $customerB->getKey(),
             ],
             [
                 'assets_count'    => 0,
@@ -168,8 +196,8 @@ class ResellersRecalculateTest extends TestCase {
             ],
             [
                 'assets_count'    => 1,
-                'locations_count' => 0,
-                'customer_id'     => $customerB->getKey(),
+                'locations_count' => 1,
+                'customer_id'     => $customerA->getKey(),
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 

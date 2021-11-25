@@ -483,10 +483,7 @@ trait Helper {
     // <editor-fold desc="Others">
     // =========================================================================
     protected function overrideUuidFactory(): void {
-        $factory = new SequenceUuidFactory();
-
-        Str::createUuidsUsing($factory);
-        $this->faker->addProvider($factory);
+        Str::createUuidsUsing(new SequenceUuidFactory());
     }
 
     protected function overrideDateFactory(): void {
