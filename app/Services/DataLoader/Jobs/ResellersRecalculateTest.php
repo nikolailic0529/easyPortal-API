@@ -41,6 +41,7 @@ class ResellersRecalculateTest extends TestCase {
         $count     = $this->faker->randomNumber(3);
         $locationA = Location::factory()->create();
         $locationB = Location::factory()->create();
+        $locationC = Location::factory()->create();
         $resellerA = Reseller::factory()
             ->hasCustomers(1)
             ->hasLocations(1, [
@@ -65,8 +66,16 @@ class ResellersRecalculateTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
-        $customerA = Customer::factory()->create();
-        $customerB = Customer::factory()->create();
+        $customerA = Customer::factory()
+            ->hasLocations(1, [
+                'location_id' => $locationA,
+            ])
+            ->create();
+        $customerB = Customer::factory()
+            ->hasLocations(1, [
+                'location_id' => $locationC,
+            ])
+            ->create();
         $customerC = Customer::factory()->create();
 
         GlobalScopes::callWithoutGlobalScope(
@@ -153,14 +162,14 @@ class ResellersRecalculateTest extends TestCase {
                 'customer_id'     => $customerA->getKey(),
             ],
             [
-                'assets_count'    => 1,
-                'locations_count' => 1,
-                'customer_id'     => $customerB->getKey(),
-            ],
-            [
                 'assets_count'    => 0,
                 'locations_count' => 0,
                 'customer_id'     => $customerC->getKey(),
+            ],
+            [
+                'assets_count'    => 1,
+                'locations_count' => 0,
+                'customer_id'     => $customerB->getKey(),
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 
