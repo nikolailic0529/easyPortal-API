@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
+use App\Utils\Console\WithBooleanOptions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
 

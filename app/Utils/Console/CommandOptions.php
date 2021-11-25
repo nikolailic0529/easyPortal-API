@@ -3,7 +3,7 @@
 namespace App\Utils\Console;
 
 /**
- * @see \App\Services\DataLoader\Commands\Concerns\WithBooleanOptions
+ * @see \App\Utils\Console\WithBooleanOptions
  */
 trait CommandOptions {
     /**

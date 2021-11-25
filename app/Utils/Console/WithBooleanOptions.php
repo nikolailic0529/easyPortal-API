@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Commands\Concerns;
+namespace App\Utils\Console;
 
 /**
  * @mixin \Illuminate\Console\Command
