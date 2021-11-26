@@ -91,7 +91,7 @@ abstract class Recalculate extends Job implements Initializable {
      *
      * @return array<string,int>
      */
-    protected function calculateAssetsBy(string $property, array $keys): array {
+    protected function calculateAssetsFor(string $property, array $keys): array {
         $data   = [];
         $result = Asset::query()
             ->select([$property, DB::raw('count(*) as count')])
@@ -113,7 +113,7 @@ abstract class Recalculate extends Job implements Initializable {
      *
      * @return array<string,array<string, int>>
      */
-    protected function calculateAssetsByLocation(string $property, array $keys): array {
+    protected function calculateAssetsByLocationFor(string $property, array $keys): array {
         $data   = [];
         $result = Asset::query()
             ->select([$property, 'location_id', DB::raw('count(*) as count')])
@@ -129,10 +129,70 @@ abstract class Recalculate extends Job implements Initializable {
 
         foreach ($result as $row) {
             /** @var \stdClass $row */
-            $i = $row->{$property};
+            $i = (string) $row->{$property};
             $l = (string) $row->location_id;
 
             $data[$i][$l] = (int) $row->count + ($data[$i][$l] ?? 0);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string> $keys
+     *
+     * @return array<string,array<string, int>>
+     */
+    protected function calculateAssetsByCustomerFor(string $property, array $keys): array {
+        $data   = [];
+        $result = Asset::query()
+            ->select([$property, 'customer_id', DB::raw('count(*) as count')])
+            ->whereIn($property, $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('customer_id')
+                    ->orWhereHasIn('customer');
+            })
+            ->groupBy($property, 'customer_id')
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $i = (string) $row->{$property};
+            $c = (string) $row->customer_id;
+
+            $data[$i][$c] = (int) $row->count + ($data[$i][$c] ?? 0);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string> $keys
+     *
+     * @return array<string,array<string, int>>
+     */
+    protected function calculateAssetsByResellerFor(string $property, array $keys): array {
+        $data   = [];
+        $result = Asset::query()
+            ->select([$property, 'reseller_id', DB::raw('count(*) as count')])
+            ->whereIn($property, $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('reseller_id')
+                    ->orWhereHasIn('reseller');
+            })
+            ->groupBy($property, 'reseller_id')
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $i = (string) $row->{$property};
+            $r = (string) $row->reseller_id;
+
+            $data[$i][$r] = (int) $row->count + ($data[$i][$r] ?? 0);
         }
 
         return $data;

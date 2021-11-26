@@ -26,8 +26,8 @@ class CustomersRecalculate extends Recalculate {
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->with(['locations', 'contacts', 'statuses'])
             ->get();
-        $assetsByCustomer = $this->calculateAssetsBy('customer_id', $keys);
-        $assetsByLocation = $this->calculateAssetsByLocation('customer_id', $keys);
+        $assetsByCustomer = $this->calculateAssetsFor('customer_id', $keys);
+        $assetsByLocation = $this->calculateAssetsByLocationFor('customer_id', $keys);
 
         foreach ($customers as $customer) {
             /** @var \App\Models\Customer $customer */
