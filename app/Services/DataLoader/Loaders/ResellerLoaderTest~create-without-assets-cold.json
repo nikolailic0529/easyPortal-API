@@ -155,18 +155,18 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `statuses_count`, `contacts_count`, `locations_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
             "Torphy-Treutel",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-09-08 15:30:35",
             0,
-            0,
-            0,
             1,
             1,
             "2021-08-30 00:00:09",
+            0,
+            0,
             "2021-08-30 00:00:10",
             "2021-08-30 00:00:10"
         ]

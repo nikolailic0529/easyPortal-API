@@ -59,10 +59,8 @@
         ]
     },
     {
-        "query": "update `resellers` set `customers_count` = ?, `assets_count` = ?, `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            0,
-            0,
             "2021-08-30 00:09:29",
             "2021-08-30 00:09:32",
             "6c7c9474-3b59-4601-af72-1cd0f441b515"
@@ -610,15 +608,6 @@
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            5,
-            "2021-08-30 00:17:58",
-            "6c7c9474-3b59-4601-af72-1cd0f441b515"
         ]
     },
     {
