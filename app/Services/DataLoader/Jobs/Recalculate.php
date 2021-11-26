@@ -7,6 +7,7 @@ use App\Services\Queue\Queues;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\SmartSave\BatchSave;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
@@ -76,7 +77,9 @@ abstract class Recalculate extends Job implements Initializable {
 
     public function __invoke(): void {
         GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): void {
-            $this->process();
+            BatchSave::enable(function (): void {
+                $this->process();
+            });
         });
     }
 }

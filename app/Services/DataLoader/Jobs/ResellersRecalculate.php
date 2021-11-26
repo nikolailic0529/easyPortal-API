@@ -101,7 +101,8 @@ class ResellersRecalculate extends Recalculate {
                 }
             }
 
-            $reseller->customers()->sync($customers);
+            $reseller->customersPivots = $customers;
+            $reseller->save();
         }
     }
 

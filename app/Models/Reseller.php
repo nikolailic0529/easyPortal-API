@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>    $customers
+ * @property-write array<string,array<string,mixed>>                                $customersPivots
  * @property-read \App\Models\ResellerLocation|null                                 $headquarter
  * @property \App\Models\Kpi|null                                                   $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation> $locations

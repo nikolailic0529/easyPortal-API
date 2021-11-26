@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \App\Models\City                                                    $city
  * @property \App\Models\Country                                                 $country
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
+ * @property-write array<string,array<string,mixed>>                             $customersPivots
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()

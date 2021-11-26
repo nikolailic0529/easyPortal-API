@@ -143,46 +143,37 @@
         ]
     },
     {
-        "query": "delete from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `reseller_customers`.`customer_id` in (?)",
+        "query": "update `reseller_customers` set `deleted_at` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
+            "2021-08-30 00:04:23",
+            "2021-08-30 00:04:23",
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31"
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
+            1,
+            "2021-08-30 00:04:17",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
+            1,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:04:17",
-            "2021-08-30 00:04:17",
             1,
-            1,
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
+            "2021-08-30 00:04:18",
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "2021-08-30 00:04:19",
-            "2021-08-30 00:04:19",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             0,
-            1,
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
+            "2021-08-30 00:04:18",
+            0,
+            "2021-08-30 00:04:19",
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
+            0,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "2021-08-30 00:04:21",
-            "2021-08-30 00:04:21",
-            0,
-            0,
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a"
+            "2021-08-30 00:04:19"
         ]
     }
 ]
