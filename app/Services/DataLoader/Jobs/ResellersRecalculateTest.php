@@ -117,6 +117,14 @@ class ResellersRecalculateTest extends TestCase {
             'deleted_at' => Date::now(),
         ]);
 
+        ResellerCustomer::factory()->create([
+            'id'              => Str::uuid()->toString(),
+            'reseller_id'     => $resellerA,
+            'customer_id'     => $customerA,
+            'assets_count'    => $count,
+            'locations_count' => $count,
+        ]);
+
         Asset::factory()->create([
             'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,

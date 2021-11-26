@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * ResellerCustomer.
@@ -15,12 +16,15 @@ use App\Utils\Eloquent\Pivot;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @method static \Database\Factories\ResellerCustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer query()
  * @mixin \Eloquent
  */
 class ResellerCustomer extends Pivot {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

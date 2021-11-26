@@ -306,8 +306,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:11:13",
-            "2021-08-30 02:11:18",
+            "2021-08-30 02:11:05",
+            "2021-08-30 02:11:10",
             "eb8d3aff-25a4-42dd-9e41-b9070b8768ef"
         ]
     },
@@ -320,8 +320,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:10:50",
-            "2021-08-30 02:11:51",
+            "2021-08-30 02:10:42",
+            "2021-08-30 02:11:43",
             "00000231-21a1-4f41-a537-65029f694e78"
         ]
     },
@@ -353,8 +353,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:12:47",
-            "2021-08-30 02:12:52",
+            "2021-08-30 02:12:39",
+            "2021-08-30 02:12:44",
             "b17630d2-22f7-4af3-8a83-aa33e8526bbc"
         ]
     },
@@ -367,8 +367,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:12:24",
-            "2021-08-30 02:13:27",
+            "2021-08-30 02:12:16",
+            "2021-08-30 02:13:19",
             "000007c8-6423-407a-993d-671c6b9de2a5"
         ]
     },
@@ -400,8 +400,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:14:05",
-            "2021-08-30 02:14:10",
+            "2021-08-30 02:13:57",
+            "2021-08-30 02:14:02",
             "3418e27b-abd1-4edc-8715-397465d68958"
         ]
     },
@@ -414,8 +414,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:14:00",
-            "2021-08-30 02:14:41",
+            "2021-08-30 02:13:52",
+            "2021-08-30 02:14:33",
             "00000d58-472c-4892-a6a4-c7740d5d8541"
         ]
     },
@@ -453,24 +453,24 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:15:13",
-            "2021-08-30 02:15:18",
+            "2021-08-30 02:15:05",
+            "2021-08-30 02:15:10",
             "a94f1744-eaec-4be2-9002-4bd789c547d9"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:15:46",
-            "2021-08-30 02:15:51",
+            "2021-08-30 02:15:38",
+            "2021-08-30 02:15:43",
             "76cdc083-d760-4586-b668-753abd8acbab"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:16:19",
-            "2021-08-30 02:16:24",
+            "2021-08-30 02:16:11",
+            "2021-08-30 02:16:16",
             "e4178e34-b91d-4b44-96e6-282d85713146"
         ]
     },
@@ -483,8 +483,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:15:06",
-            "2021-08-30 02:17:20",
+            "2021-08-30 02:14:58",
+            "2021-08-30 02:17:12",
             "00001533-8290-48b7-bd68-703ca6dec0f5"
         ]
     },
@@ -516,8 +516,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:18:16",
-            "2021-08-30 02:18:21",
+            "2021-08-30 02:18:08",
+            "2021-08-30 02:18:13",
             "62257a05-d8fb-4122-8e0e-8ceab08e6d65"
         ]
     },
@@ -530,8 +530,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:17:53",
-            "2021-08-30 02:18:56",
+            "2021-08-30 02:17:45",
+            "2021-08-30 02:18:48",
             "0000179c-dc64-4f0b-8aec-93e673f727fe"
         ]
     },
@@ -563,8 +563,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:19:44",
-            "2021-08-30 02:19:49",
+            "2021-08-30 02:19:36",
+            "2021-08-30 02:19:41",
             "ea3cb971-c901-4edb-91f1-07af317df8df"
         ]
     },
@@ -577,8 +577,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:19:29",
-            "2021-08-30 02:20:20",
+            "2021-08-30 02:19:21",
+            "2021-08-30 02:20:12",
             "00001a40-9d6a-4fc3-a87e-e5a5b38ed3ef"
         ]
     },
@@ -619,8 +619,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:21:12",
-            "2021-08-30 02:21:17",
+            "2021-08-30 02:21:04",
+            "2021-08-30 02:21:09",
             "0173f4f7-c41e-4d67-89e0-28b492ace38c"
         ]
     },
@@ -633,8 +633,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:20:49",
-            "2021-08-30 02:21:50",
+            "2021-08-30 02:20:41",
+            "2021-08-30 02:21:42",
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9"
         ]
     },
@@ -666,8 +666,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:22:28",
-            "2021-08-30 02:22:33",
+            "2021-08-30 02:22:20",
+            "2021-08-30 02:22:25",
             "a6eee94c-5856-4f9e-a0e1-46be5de2882b"
         ]
     },
@@ -680,8 +680,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:22:23",
-            "2021-08-30 02:23:01",
+            "2021-08-30 02:22:15",
+            "2021-08-30 02:22:53",
             "00001f64-016d-42b7-b508-7d455f348416"
         ]
     },
@@ -713,8 +713,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:23:37",
-            "2021-08-30 02:23:42",
+            "2021-08-30 02:23:29",
+            "2021-08-30 02:23:34",
             "ed4f68d4-f037-41f7-8fd4-8b28d88168e8"
         ]
     },
@@ -727,8 +727,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:23:22",
-            "2021-08-30 02:24:15",
+            "2021-08-30 02:23:14",
+            "2021-08-30 02:24:07",
             "000025ec-31a9-485d-96f0-c51a4bf299f3"
         ]
     },
@@ -760,8 +760,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:24:53",
-            "2021-08-30 02:24:58",
+            "2021-08-30 02:24:45",
+            "2021-08-30 02:24:50",
             "e3414b3a-9986-469b-a96a-5ef5db20cee9"
         ]
     },
@@ -774,8 +774,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:24:48",
-            "2021-08-30 02:25:29",
+            "2021-08-30 02:24:40",
+            "2021-08-30 02:25:21",
             "00002b22-d5e0-4d04-9c14-96fee4fb10f4"
         ]
     },
@@ -829,7 +829,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as assets_count, count(DISTINCT `customer_id`) as customers_count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
@@ -841,7 +841,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?) group by `reseller_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
@@ -853,7 +853,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
@@ -865,7 +865,19 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "0731be4c-624e-4802-a1d3-c672a9283562",
+            "1f5a306d-bca1-4b77-8131-0f1926a40d08",
+            "25f18688-39fc-4d4c-90bb-3593cac21052",
+            "3a312485-a6f0-4f4e-85ec-cd23156eb176",
+            "75026113-e205-40e8-831e-0a2f9dee75bf",
+            "f342f429-2016-4809-988b-022e1deb75f0",
+            "ff69738c-6dce-458e-bc6c-4b6eae3f6168"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
@@ -894,29 +906,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:25:53",
-            "0731be4c-624e-4802-a1d3-c672a9283562",
-            "3da41792-9c2c-4301-a61b-305b09938932"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "1f5a306d-bca1-4b77-8131-0f1926a40d08"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:25:54",
-            "1f5a306d-bca1-4b77-8131-0f1926a40d08",
-            "0cd3444e-8f5d-4e3c-a56d-e30517f583a9"
         ]
     },
     {
@@ -926,29 +918,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:25:55",
-            "25f18688-39fc-4d4c-90bb-3593cac21052",
-            "8230d8af-2ad5-4d26-909a-0d45959751f2"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "3a312485-a6f0-4f4e-85ec-cd23156eb176"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:25:56",
-            "3a312485-a6f0-4f4e-85ec-cd23156eb176",
-            "18dcfcfa-6655-4932-8fec-46630639490a"
         ]
     },
     {
@@ -958,45 +930,15 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            1,
-            "2021-08-30 02:25:57",
-            "75026113-e205-40e8-831e-0a2f9dee75bf",
-            "96a956b3-f459-4ea2-a81c-7cdc01c24433"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "f342f429-2016-4809-988b-022e1deb75f0"
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 02:25:58",
-            "f342f429-2016-4809-988b-022e1deb75f0",
-            "8230d8af-2ad5-4d26-909a-0d45959751f2"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "ff69738c-6dce-458e-bc6c-4b6eae3f6168"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:25:59",
-            "ff69738c-6dce-458e-bc6c-4b6eae3f6168",
-            "8aa5fbee-c299-47ab-a324-64c25166e223"
         ]
     },
     {
@@ -1163,7 +1105,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:26:00",
+            "2021-08-30 02:25:45",
             "04fa855e-091e-55a8-99da-a1624fb8253a",
             "0731be4c-624e-4802-a1d3-c672a9283562"
         ]
@@ -1178,7 +1120,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:01",
+            "2021-08-30 02:25:46",
             "04fa855e-091e-55a8-99da-a1624fb8253a",
             "3da41792-9c2c-4301-a61b-305b09938932"
         ]
@@ -1194,7 +1136,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:02",
+            "2021-08-30 02:25:47",
             "0a775d76-3bb2-5cc6-98a2-7191afac6b91",
             "ff69738c-6dce-458e-bc6c-4b6eae3f6168"
         ]
@@ -1221,7 +1163,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:03",
+            "2021-08-30 02:25:48",
             "2b861375-ade1-54ec-be9c-176c411736b4",
             "1a21ac6a-c977-43fd-bd62-66cf6be37d92"
         ]
@@ -1237,7 +1179,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:26:04",
+            "2021-08-30 02:25:49",
             "362b2a7c-cf9f-586c-84d5-f9745ec0bb68",
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
@@ -1252,7 +1194,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:05",
+            "2021-08-30 02:25:50",
             "362b2a7c-cf9f-586c-84d5-f9745ec0bb68",
             "96a956b3-f459-4ea2-a81c-7cdc01c24433"
         ]
@@ -1268,7 +1210,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:06",
+            "2021-08-30 02:25:51",
             "49af19cb-036b-57f7-874c-ae48888adcbc",
             "25f18688-39fc-4d4c-90bb-3593cac21052"
         ]
@@ -1290,7 +1232,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:26:07",
+            "2021-08-30 02:25:52",
             "678054a9-3274-53af-b3c5-305d99c7cb4c",
             "25f18688-39fc-4d4c-90bb-3593cac21052"
         ]
@@ -1305,7 +1247,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:08",
+            "2021-08-30 02:25:53",
             "678054a9-3274-53af-b3c5-305d99c7cb4c",
             "8230d8af-2ad5-4d26-909a-0d45959751f2"
         ]
@@ -1321,7 +1263,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:09",
+            "2021-08-30 02:25:54",
             "6da0dd01-5e79-55d7-80d6-4a5d44b5ac7c",
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
@@ -1343,7 +1285,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:10",
+            "2021-08-30 02:25:55",
             "784893f2-8072-53c2-9932-79e1ff1bc437",
             "f342f429-2016-4809-988b-022e1deb75f0"
         ]
@@ -1365,7 +1307,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:11",
+            "2021-08-30 02:25:56",
             "99ca764f-3397-540d-ba39-2b81a15e0624",
             "3a312485-a6f0-4f4e-85ec-cd23156eb176"
         ]
@@ -1387,7 +1329,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:26:12",
+            "2021-08-30 02:25:57",
             "ac072e58-e6a8-5601-a191-d6d9bb75d541",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08"
         ]
@@ -1402,7 +1344,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:13",
+            "2021-08-30 02:25:58",
             "ac072e58-e6a8-5601-a191-d6d9bb75d541",
             "0cd3444e-8f5d-4e3c-a56d-e30517f583a9"
         ]
@@ -1418,7 +1360,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:14",
+            "2021-08-30 02:25:59",
             "b6bd49fb-9a4a-5809-b304-8cec7c3962f7",
             "0731be4c-624e-4802-a1d3-c672a9283562"
         ]
@@ -1440,7 +1382,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:26:15",
+            "2021-08-30 02:26:00",
             "c4be0086-b010-5f27-8f67-ffba693eb6d7",
             "ff69738c-6dce-458e-bc6c-4b6eae3f6168"
         ]
@@ -1455,7 +1397,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:16",
+            "2021-08-30 02:26:01",
             "c4be0086-b010-5f27-8f67-ffba693eb6d7",
             "8aa5fbee-c299-47ab-a324-64c25166e223"
         ]
@@ -1476,7 +1418,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:17",
+            "2021-08-30 02:26:02",
             "c56d2324-c7e8-5478-bea9-c97bc9573934",
             "f921bd2a-3bb4-417a-8ae1-a7a78e51692d"
         ]
@@ -1497,7 +1439,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:18",
+            "2021-08-30 02:26:03",
             "cbd7b704-3dcd-52c1-9fab-eae8732af763",
             "20ebaca0-212f-4c79-862f-5ec271ab0d2a"
         ]
@@ -1518,7 +1460,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:19",
+            "2021-08-30 02:26:04",
             "e66b6850-acc8-5182-a02d-6dcb56f37ad5",
             "9e83a7e5-445e-4da2-bd36-7fc2c4d7e948"
         ]
@@ -1534,7 +1476,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:26:20",
+            "2021-08-30 02:26:05",
             "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08"
         ]
@@ -1556,7 +1498,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:26:21",
+            "2021-08-30 02:26:06",
             "fbccd637-a1b5-5179-aaaa-c2928e04ad07",
             "3a312485-a6f0-4f4e-85ec-cd23156eb176"
         ]
@@ -1571,7 +1513,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:26:22",
+            "2021-08-30 02:26:07",
             "fbccd637-a1b5-5179-aaaa-c2928e04ad07",
             "18dcfcfa-6655-4932-8fec-46630639490a"
         ]
@@ -1592,7 +1534,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             0,
-            "2021-08-30 02:26:23",
+            "2021-08-30 02:26:08",
             "fdf45b90-43b7-5cfe-b207-1d6baabac8f0",
             "96a956b3-f459-4ea2-a81c-7cdc01c24433"
         ]
@@ -1858,8 +1800,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:26:30",
-            "2021-08-30 02:26:35",
+            "2021-08-30 02:26:15",
+            "2021-08-30 02:26:20",
             "5970a18e-473f-4b2e-a9f3-a58df1317b91"
         ]
     },
@@ -1872,8 +1814,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:26:25",
-            "2021-08-30 02:27:03",
+            "2021-08-30 02:26:10",
+            "2021-08-30 02:26:48",
             "000031fb-00de-4a09-ad4a-83498858f8bb"
         ]
     },
@@ -1905,8 +1847,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:27:39",
-            "2021-08-30 02:27:44",
+            "2021-08-30 02:27:24",
+            "2021-08-30 02:27:29",
             "59083a07-2ea5-4fb4-b718-04ca3899264d"
         ]
     },
@@ -1919,8 +1861,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:27:24",
-            "2021-08-30 02:28:17",
+            "2021-08-30 02:27:09",
+            "2021-08-30 02:28:02",
             "00003a03-18d7-4e64-ac42-9911a0c82c0b"
         ]
     },
@@ -1952,8 +1894,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:29:01",
-            "2021-08-30 02:29:06",
+            "2021-08-30 02:28:46",
+            "2021-08-30 02:28:51",
             "fb0bb235-f15e-433f-947f-c2d6359151c8"
         ]
     },
@@ -1966,8 +1908,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:28:46",
-            "2021-08-30 02:29:39",
+            "2021-08-30 02:28:31",
+            "2021-08-30 02:29:24",
             "00003f29-b194-4247-aeb5-dfccd215cc34"
         ]
     },
@@ -1999,8 +1941,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:30:13",
-            "2021-08-30 02:30:18",
+            "2021-08-30 02:29:58",
+            "2021-08-30 02:30:03",
             "59af38df-7007-47b0-ae18-deed991966a4"
         ]
     },
@@ -2013,8 +1955,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:30:08",
-            "2021-08-30 02:30:46",
+            "2021-08-30 02:29:53",
+            "2021-08-30 02:30:31",
             "00003f9e-28fd-48d9-8f2a-80777916c943"
         ]
     },
@@ -2046,8 +1988,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:31:12",
-            "2021-08-30 02:31:17",
+            "2021-08-30 02:30:57",
+            "2021-08-30 02:31:02",
             "14ace7c2-f7b7-4e76-835c-3cbf96d38523"
         ]
     },
@@ -2060,8 +2002,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:31:07",
-            "2021-08-30 02:31:45",
+            "2021-08-30 02:30:52",
+            "2021-08-30 02:31:30",
             "000047af-be68-4bf7-ae01-40405fc75e21"
         ]
     },
@@ -2093,8 +2035,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:32:29",
-            "2021-08-30 02:32:34",
+            "2021-08-30 02:32:14",
+            "2021-08-30 02:32:19",
             "32fbcfa0-5410-4811-96a6-9b9e9db22a14"
         ]
     },
@@ -2107,8 +2049,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:32:06",
-            "2021-08-30 02:33:09",
+            "2021-08-30 02:31:51",
+            "2021-08-30 02:32:54",
             "000054ee-58ea-4ef3-b723-540fd4a411a3"
         ]
     },
@@ -2140,8 +2082,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:33:47",
-            "2021-08-30 02:33:52",
+            "2021-08-30 02:33:32",
+            "2021-08-30 02:33:37",
             "91c0141d-eb65-4acb-acdb-cfc4593b9cf5"
         ]
     },
@@ -2154,8 +2096,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:33:42",
-            "2021-08-30 02:34:23",
+            "2021-08-30 02:33:27",
+            "2021-08-30 02:34:08",
             "00005d41-b4ef-4612-a3a7-5b6fc4690c3c"
         ]
     },
@@ -2199,16 +2141,16 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:35:11",
-            "2021-08-30 02:35:16",
+            "2021-08-30 02:34:56",
+            "2021-08-30 02:35:01",
             "b823e7e0-40ea-4a81-ae0d-b7795d0b0566"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:35:44",
-            "2021-08-30 02:35:49",
+            "2021-08-30 02:35:29",
+            "2021-08-30 02:35:34",
             "70b4c09d-d4c8-44c4-a2e5-b0250887d9ca"
         ]
     },
@@ -2221,8 +2163,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:34:48",
-            "2021-08-30 02:36:28",
+            "2021-08-30 02:34:33",
+            "2021-08-30 02:36:13",
             "00005ec6-f2d2-4c8e-b53b-98cd81677ec9"
         ]
     },
@@ -2257,16 +2199,16 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:37:28",
-            "2021-08-30 02:37:33",
+            "2021-08-30 02:37:13",
+            "2021-08-30 02:37:18",
             "e99fa381-94b6-4b62-9eaa-31a8a6c45378"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:38:01",
-            "2021-08-30 02:38:06",
+            "2021-08-30 02:37:46",
+            "2021-08-30 02:37:51",
             "76477430-58ba-44c1-a048-a296473761a8"
         ]
     },
@@ -2279,8 +2221,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:37:13",
-            "2021-08-30 02:39:07",
+            "2021-08-30 02:36:58",
+            "2021-08-30 02:38:52",
             "00005f20-eaff-4198-867c-3676c42be907"
         ]
     },
@@ -2312,8 +2254,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:40:15",
-            "2021-08-30 02:40:20",
+            "2021-08-30 02:40:00",
+            "2021-08-30 02:40:05",
             "c7dc2894-4e46-41cc-800e-14a9a70a58fc"
         ]
     },
@@ -2326,8 +2268,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:39:52",
-            "2021-08-30 02:40:57",
+            "2021-08-30 02:39:37",
+            "2021-08-30 02:40:42",
             "00006383-67be-4c58-99a1-e187e4af1748"
         ]
     },
@@ -2389,7 +2331,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as assets_count, count(DISTINCT `customer_id`) as customers_count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
@@ -2403,7 +2345,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
@@ -2417,7 +2359,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
@@ -2431,7 +2373,21 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "03829705-5dd9-4f58-ab38-495a806d45cf",
+            "1d039886-4419-4bb1-bad9-9110293da053",
+            "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
+            "488810f6-fea6-4492-a00d-db8306076ecc",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "836f564c-dc3e-480f-9ebb-42a6900ce74f",
+            "98d5c771-5301-498a-9439-537ff6a9b405",
+            "ace3d380-031e-4c74-809d-179f13694650",
+            "d229c495-f960-4ea7-83fd-43b50c56f1c0"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
@@ -2469,29 +2425,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:29",
-            "03829705-5dd9-4f58-ab38-495a806d45cf",
-            "afc0228d-1b20-4971-8635-6837387409a6"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "1d039886-4419-4bb1-bad9-9110293da053"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 02:41:30",
-            "1d039886-4419-4bb1-bad9-9110293da053",
-            "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d"
         ]
     },
     {
@@ -2501,29 +2437,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:31",
-            "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
-            "811ce1d1-acdb-4ab0-8ec2-ade32225ee23"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "488810f6-fea6-4492-a00d-db8306076ecc"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:32",
-            "488810f6-fea6-4492-a00d-db8306076ecc",
-            "d8a49987-3e29-47d2-aa42-748fffb1a948"
         ]
     },
     {
@@ -2533,89 +2449,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:33",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:34",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "d42dbc87-4af5-44a7-ae16-ad33dceb288b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:35",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:36",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "77180fce-f9cb-469f-9ace-4120226ff013"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:37",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "91baefb3-0a41-4f66-bee2-1dd11d27fa15"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:38",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "9684d520-c291-4ec6-b914-f0323d6ef0ba"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 02:41:39",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "836f564c-dc3e-480f-9ebb-42a6900ce74f"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:40",
-            "836f564c-dc3e-480f-9ebb-42a6900ce74f",
-            "ab5b82fd-3849-4e1b-8bf0-85676dc341ec"
         ]
     },
     {
@@ -2625,45 +2461,15 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:41",
-            "98d5c771-5301-498a-9439-537ff6a9b405",
-            "3cebb5d3-21f6-410f-9ec8-196658487bd6"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "ace3d380-031e-4c74-809d-179f13694650"
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:41:42",
-            "ace3d380-031e-4c74-809d-179f13694650",
-            "03ded2b7-ed78-4126-8ea5-ccefeb5a0b63"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "d229c495-f960-4ea7-83fd-43b50c56f1c0"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            1,
-            "2021-08-30 02:41:43",
-            "d229c495-f960-4ea7-83fd-43b50c56f1c0",
-            "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d"
         ]
     },
     {
@@ -2830,7 +2636,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:41:44",
+            "2021-08-30 02:41:14",
             "02a2e600-5d24-57aa-bd01-194a1446a7e3",
             "98d5c771-5301-498a-9439-537ff6a9b405"
         ]
@@ -2845,7 +2651,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:41:45",
+            "2021-08-30 02:41:15",
             "02a2e600-5d24-57aa-bd01-194a1446a7e3",
             "3cebb5d3-21f6-410f-9ec8-196658487bd6"
         ]
@@ -2866,7 +2672,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             0,
-            "2021-08-30 02:41:46",
+            "2021-08-30 02:41:16",
             "127a795c-0c96-5530-b4a4-f9e40cbf07ab",
             "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d"
         ]
@@ -2882,7 +2688,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:41:47",
+            "2021-08-30 02:41:17",
             "221eeb9d-2555-5807-ba51-c55e90790a9f",
             "ace3d380-031e-4c74-809d-179f13694650"
         ]
@@ -2897,7 +2703,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:41:48",
+            "2021-08-30 02:41:18",
             "221eeb9d-2555-5807-ba51-c55e90790a9f",
             "03ded2b7-ed78-4126-8ea5-ccefeb5a0b63"
         ]
@@ -2913,7 +2719,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:41:49",
+            "2021-08-30 02:41:19",
             "326f29ce-449c-5ec3-a939-4bafb38258ef",
             "836f564c-dc3e-480f-9ebb-42a6900ce74f"
         ]
@@ -2935,7 +2741,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:41:50",
+            "2021-08-30 02:41:20",
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "03829705-5dd9-4f58-ab38-495a806d45cf"
         ]
@@ -2957,7 +2763,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:41:51",
+            "2021-08-30 02:41:21",
             "3d8a8bda-81e3-5a97-9f57-b3ff9fab2788",
             "836f564c-dc3e-480f-9ebb-42a6900ce74f"
         ]
@@ -2972,7 +2778,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:41:52",
+            "2021-08-30 02:41:22",
             "3d8a8bda-81e3-5a97-9f57-b3ff9fab2788",
             "ab5b82fd-3849-4e1b-8bf0-85676dc341ec"
         ]
@@ -2988,7 +2794,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:41:53",
+            "2021-08-30 02:41:23",
             "435ba31b-3626-5814-a5f7-a46fbf6ac0bd",
             "03829705-5dd9-4f58-ab38-495a806d45cf"
         ]
@@ -3003,7 +2809,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:41:54",
+            "2021-08-30 02:41:24",
             "435ba31b-3626-5814-a5f7-a46fbf6ac0bd",
             "afc0228d-1b20-4971-8635-6837387409a6"
         ]
@@ -3024,7 +2830,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:41:55",
+            "2021-08-30 02:41:25",
             "60675dbf-80f8-526e-b911-70816f927008",
             "d50e731a-c49c-4842-8e45-6beb565b82a8"
         ]
@@ -3040,7 +2846,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:41:56",
+            "2021-08-30 02:41:26",
             "63472d7e-4cbf-51c2-9909-05e2cbca91be",
             "ace3d380-031e-4c74-809d-179f13694650"
         ]
@@ -3062,7 +2868,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:41:57",
+            "2021-08-30 02:41:27",
             "76143473-6842-58cd-a8df-6c9c818bdcdb",
             "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6"
         ]
@@ -3077,7 +2883,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:41:58",
+            "2021-08-30 02:41:28",
             "76143473-6842-58cd-a8df-6c9c818bdcdb",
             "811ce1d1-acdb-4ab0-8ec2-ade32225ee23"
         ]
@@ -3093,7 +2899,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:41:59",
+            "2021-08-30 02:41:29",
             "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "d229c495-f960-4ea7-83fd-43b50c56f1c0"
         ]
@@ -3103,7 +2909,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:42:00",
+            "2021-08-30 02:41:30",
             "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "1d039886-4419-4bb1-bad9-9110293da053"
         ]
@@ -3125,7 +2931,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:42:01",
+            "2021-08-30 02:41:31",
             "9669ea09-ea08-5423-8277-62e986197d0a",
             "488810f6-fea6-4492-a00d-db8306076ecc"
         ]
@@ -3140,7 +2946,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:42:02",
+            "2021-08-30 02:41:32",
             "9669ea09-ea08-5423-8277-62e986197d0a",
             "d8a49987-3e29-47d2-aa42-748fffb1a948"
         ]
@@ -3161,7 +2967,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:42:03",
+            "2021-08-30 02:41:33",
             "9f2d2ca7-559c-5cec-9d4a-ee836de62c7c",
             "454e27b3-26c1-4f11-bfd6-9a55ab447a66"
         ]
@@ -3177,7 +2983,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:42:04",
+            "2021-08-30 02:41:34",
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
             "488810f6-fea6-4492-a00d-db8306076ecc"
         ]
@@ -3199,7 +3005,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:42:05",
+            "2021-08-30 02:41:35",
             "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
             "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6"
         ]
@@ -3221,7 +3027,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:42:06",
+            "2021-08-30 02:41:36",
             "a5a644d7-ea1d-582b-91eb-786495362e46",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
@@ -3236,7 +3042,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:42:07",
+            "2021-08-30 02:41:37",
             "a5a644d7-ea1d-582b-91eb-786495362e46",
             "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
         ]
@@ -3252,7 +3058,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:42:08",
+            "2021-08-30 02:41:38",
             "bf325e65-38a6-574d-b6b2-ee166953588e",
             "98d5c771-5301-498a-9439-537ff6a9b405"
         ]
@@ -3274,7 +3080,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:42:09",
+            "2021-08-30 02:41:39",
             "e6d734ae-140f-5e86-a6a5-a8005e736845",
             "d229c495-f960-4ea7-83fd-43b50c56f1c0"
         ]
@@ -3289,7 +3095,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:42:10",
+            "2021-08-30 02:41:40",
             "e6d734ae-140f-5e86-a6a5-a8005e736845",
             "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d"
         ]
@@ -3540,8 +3346,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:42:17",
-            "2021-08-30 02:42:22",
+            "2021-08-30 02:41:47",
+            "2021-08-30 02:41:52",
             "b48636a5-ac82-4e1e-8fa9-6ca54a250459"
         ]
     },
@@ -3554,8 +3360,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:42:12",
-            "2021-08-30 02:42:53",
+            "2021-08-30 02:41:42",
+            "2021-08-30 02:42:23",
             "00006504-041f-4303-8d06-93c06fe09f8d"
         ]
     },
@@ -3587,8 +3393,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:43:23",
-            "2021-08-30 02:43:28",
+            "2021-08-30 02:42:53",
+            "2021-08-30 02:42:58",
             "8505d734-7ddb-4365-a516-53aacbbc7db2"
         ]
     },
@@ -3601,8 +3407,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:43:18",
-            "2021-08-30 02:43:56",
+            "2021-08-30 02:42:48",
+            "2021-08-30 02:43:26",
             "0000662a-bd12-4a3b-85fe-20dcc6b97458"
         ]
     },
@@ -3634,8 +3440,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:44:22",
-            "2021-08-30 02:44:27",
+            "2021-08-30 02:43:52",
+            "2021-08-30 02:43:57",
             "01e3089d-bf89-43e4-83ab-66eaea510374"
         ]
     },
@@ -3648,8 +3454,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:44:17",
-            "2021-08-30 02:44:55",
+            "2021-08-30 02:43:47",
+            "2021-08-30 02:44:25",
             "00007224-4f1f-4991-87a0-81379bd4a662"
         ]
     },
@@ -3681,8 +3487,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:45:21",
-            "2021-08-30 02:45:26",
+            "2021-08-30 02:44:51",
+            "2021-08-30 02:44:56",
             "a2dd6f36-f41b-4941-83ba-2bc34bc8c047"
         ]
     },
@@ -3695,8 +3501,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:45:16",
-            "2021-08-30 02:45:54",
+            "2021-08-30 02:44:46",
+            "2021-08-30 02:45:24",
             "0000729a-09d3-4fee-b8ed-57d55576cdf4"
         ]
     },
@@ -3728,8 +3534,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:46:20",
-            "2021-08-30 02:46:25",
+            "2021-08-30 02:45:50",
+            "2021-08-30 02:45:55",
             "bbf8afca-cc01-44cc-99f9-636eeafe204c"
         ]
     },
@@ -3742,8 +3548,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:46:15",
-            "2021-08-30 02:46:53",
+            "2021-08-30 02:45:45",
+            "2021-08-30 02:46:23",
             "000072e9-8b7b-4814-83a0-20ea60c94eea"
         ]
     },
@@ -3775,8 +3581,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:47:29",
-            "2021-08-30 02:47:34",
+            "2021-08-30 02:46:59",
+            "2021-08-30 02:47:04",
             "192bef4c-8e53-4dc7-b250-f3eee3b43d1e"
         ]
     },
@@ -3789,8 +3595,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:47:14",
-            "2021-08-30 02:48:35",
+            "2021-08-30 02:46:44",
+            "2021-08-30 02:48:05",
             "0000786c-fb58-4fef-b63a-79ee9c9ccd87"
         ]
     },
@@ -3822,8 +3628,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:49:09",
-            "2021-08-30 02:49:14",
+            "2021-08-30 02:48:39",
+            "2021-08-30 02:48:44",
             "4bd8c401-cb7c-42fb-8746-b31315fdb411"
         ]
     },
@@ -3836,8 +3642,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:49:04",
-            "2021-08-30 02:49:42",
+            "2021-08-30 02:48:34",
+            "2021-08-30 02:49:12",
             "0000794b-a9f8-49f4-8d1e-47a55f16e4ec"
         ]
     },
@@ -3869,8 +3675,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:50:08",
-            "2021-08-30 02:50:13",
+            "2021-08-30 02:49:38",
+            "2021-08-30 02:49:43",
             "1b559b8f-3ce7-46bb-8771-35026d856db1"
         ]
     },
@@ -3883,8 +3689,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:50:03",
-            "2021-08-30 02:50:41",
+            "2021-08-30 02:49:33",
+            "2021-08-30 02:50:11",
             "00007f5b-145b-4388-8720-b7cacbf9c328"
         ]
     },
@@ -3916,8 +3722,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:51:07",
-            "2021-08-30 02:51:12",
+            "2021-08-30 02:50:37",
+            "2021-08-30 02:50:42",
             "d4f1ff1f-c474-4164-b5ec-110dc1b80834"
         ]
     },
@@ -3930,8 +3736,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:51:02",
-            "2021-08-30 02:51:43",
+            "2021-08-30 02:50:32",
+            "2021-08-30 02:51:13",
             "00009056-8b03-468a-8fbd-031fb91b4bee"
         ]
     },
@@ -3963,8 +3769,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:52:23",
-            "2021-08-30 02:52:28",
+            "2021-08-30 02:51:53",
+            "2021-08-30 02:51:58",
             "3f99fd04-85b3-4580-a26a-2179600a833a"
         ]
     },
@@ -3977,8 +3783,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:52:08",
-            "2021-08-30 02:53:09",
+            "2021-08-30 02:51:38",
+            "2021-08-30 02:52:39",
             "0000945a-ebbc-432b-a679-dba3c57eab67"
         ]
     },
@@ -4036,7 +3842,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as assets_count, count(DISTINCT `customer_id`) as customers_count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
@@ -4049,7 +3855,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
@@ -4062,7 +3868,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
@@ -4075,7 +3881,20 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
+            "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
+            "661cb23a-6328-4363-8a32-ecd1c96904f2",
+            "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "72d3b860-3667-408a-8ead-6056e10b2481",
+            "b0233a33-e6b2-488a-b5ff-22408194ba83",
+            "fcd8ee32-031a-4e61-b112-b4d07c92f6b3"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
@@ -4117,29 +3936,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:41",
-            "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
-            "6be4e13d-2ea7-4314-bcd0-26a8848343f9"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "661cb23a-6328-4363-8a32-ecd1c96904f2"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:42",
-            "661cb23a-6328-4363-8a32-ecd1c96904f2",
-            "ebe80af8-32fe-4b30-8846-f05fd9b178a5"
         ]
     },
     {
@@ -4149,89 +3948,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:43",
-            "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
-            "2870d449-ec69-48a0-81ce-46aed24e5382"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "714aa057-1ea0-4666-b3be-4b69af99e997"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:44",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:45",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "d42dbc87-4af5-44a7-ae16-ad33dceb288b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:46",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:47",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "77180fce-f9cb-469f-9ace-4120226ff013"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:48",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "91baefb3-0a41-4f66-bee2-1dd11d27fa15"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:49",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "9684d520-c291-4ec6-b914-f0323d6ef0ba"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 02:53:50",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
         ]
     },
     {
@@ -4241,45 +3960,15 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:51",
-            "72d3b860-3667-408a-8ead-6056e10b2481",
-            "0f0e65fb-711e-4d4b-8850-900171d5f2e3"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "b0233a33-e6b2-488a-b5ff-22408194ba83"
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:52",
-            "b0233a33-e6b2-488a-b5ff-22408194ba83",
-            "93666f95-3fd4-4b30-a9a1-694e0295788c"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "fcd8ee32-031a-4e61-b112-b4d07c92f6b3"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 02:53:53",
-            "fcd8ee32-031a-4e61-b112-b4d07c92f6b3",
-            "ff233b92-3872-4261-ab3a-a21776fdbe07"
         ]
     },
     {
@@ -4438,7 +4127,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:53:54",
+            "2021-08-30 02:53:11",
             "42727e4a-76ba-5a70-8a4a-61643276099f",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84"
         ]
@@ -4453,7 +4142,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:53:55",
+            "2021-08-30 02:53:12",
             "42727e4a-76ba-5a70-8a4a-61643276099f",
             "6be4e13d-2ea7-4314-bcd0-26a8848343f9"
         ]
@@ -4474,7 +4163,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:53:56",
+            "2021-08-30 02:53:13",
             "5ea0a190-6335-59cd-8ec2-3ed19b3c286f",
             "bf58b75a-1bb6-40aa-8453-fdf1d7482b08"
         ]
@@ -4490,7 +4179,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:53:57",
+            "2021-08-30 02:53:14",
             "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594",
             "661cb23a-6328-4363-8a32-ecd1c96904f2"
         ]
@@ -4512,7 +4201,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:53:58",
+            "2021-08-30 02:53:15",
             "65604b70-edb8-537a-a3b5-65ef2d5f97d2",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84"
         ]
@@ -4534,7 +4223,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:53:59",
+            "2021-08-30 02:53:16",
             "751329de-0889-525b-afb7-3d0abe197d0a",
             "202a694b-f8a6-4191-881b-e296663d5061"
         ]
@@ -4544,7 +4233,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:54:00",
+            "2021-08-30 02:53:17",
             "751329de-0889-525b-afb7-3d0abe197d0a",
             "57e6a2c1-b060-4448-b0bf-b3793da27dc1"
         ]
@@ -4559,7 +4248,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:01",
+            "2021-08-30 02:53:18",
             "751329de-0889-525b-afb7-3d0abe197d0a",
             "9216a30a-9af2-426a-b219-85f9aaffb112"
         ]
@@ -4575,7 +4264,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:54:02",
+            "2021-08-30 02:53:19",
             "79456eac-351a-5993-85d5-552cf4346967",
             "72d3b860-3667-408a-8ead-6056e10b2481"
         ]
@@ -4597,7 +4286,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:54:03",
+            "2021-08-30 02:53:20",
             "886083e8-e006-5067-a35c-5b02e1e10e06",
             "b0233a33-e6b2-488a-b5ff-22408194ba83"
         ]
@@ -4612,7 +4301,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:04",
+            "2021-08-30 02:53:21",
             "886083e8-e006-5067-a35c-5b02e1e10e06",
             "93666f95-3fd4-4b30-a9a1-694e0295788c"
         ]
@@ -4628,7 +4317,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:54:05",
+            "2021-08-30 02:53:22",
             "8aa06fc2-3232-5ebc-a82e-b463aab72859",
             "72d3b860-3667-408a-8ead-6056e10b2481"
         ]
@@ -4643,7 +4332,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:06",
+            "2021-08-30 02:53:23",
             "8aa06fc2-3232-5ebc-a82e-b463aab72859",
             "0f0e65fb-711e-4d4b-8850-900171d5f2e3"
         ]
@@ -4659,7 +4348,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:54:07",
+            "2021-08-30 02:53:24",
             "8c3f697a-8de9-5c34-9219-21bcebcf88ed",
             "6b5e8b29-008f-4c60-a1a3-8108157dfae4"
         ]
@@ -4674,7 +4363,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:08",
+            "2021-08-30 02:53:25",
             "8c3f697a-8de9-5c34-9219-21bcebcf88ed",
             "2870d449-ec69-48a0-81ce-46aed24e5382"
         ]
@@ -4690,7 +4379,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:54:09",
+            "2021-08-30 02:53:26",
             "9127b71a-0660-569e-a298-77974be6fffd",
             "fcd8ee32-031a-4e61-b112-b4d07c92f6b3"
         ]
@@ -4705,7 +4394,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:10",
+            "2021-08-30 02:53:27",
             "9127b71a-0660-569e-a298-77974be6fffd",
             "ff233b92-3872-4261-ab3a-a21776fdbe07"
         ]
@@ -4721,7 +4410,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:54:11",
+            "2021-08-30 02:53:28",
             "95ce4b47-fc5b-5216-8046-8dcd80ff1953",
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b"
         ]
@@ -4743,7 +4432,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:54:12",
+            "2021-08-30 02:53:29",
             "a916f797-9a7d-544b-b1be-e28aa5a704de",
             "fcd8ee32-031a-4e61-b112-b4d07c92f6b3"
         ]
@@ -4770,7 +4459,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:13",
+            "2021-08-30 02:53:30",
             "af1bc00d-cf32-5f42-91cb-ddb21eea65b7",
             "89dfecfc-4ed4-4a39-a746-0142773f5c40"
         ]
@@ -4786,7 +4475,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:54:14",
+            "2021-08-30 02:53:31",
             "e1f914de-5d9b-59e1-a0c2-828a14c93b2b",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
@@ -4801,7 +4490,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:15",
+            "2021-08-30 02:53:32",
             "e1f914de-5d9b-59e1-a0c2-828a14c93b2b",
             "d42dbc87-4af5-44a7-ae16-ad33dceb288b"
         ]
@@ -4817,7 +4506,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 02:54:16",
+            "2021-08-30 02:53:33",
             "e268b786-8d37-53de-a8a5-4c22d64dc60a",
             "b0233a33-e6b2-488a-b5ff-22408194ba83"
         ]
@@ -4839,7 +4528,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 02:54:17",
+            "2021-08-30 02:53:34",
             "f410e45f-7cbd-568c-83a7-c59193e79cfe",
             "661cb23a-6328-4363-8a32-ecd1c96904f2"
         ]
@@ -4854,7 +4543,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 02:54:18",
+            "2021-08-30 02:53:35",
             "f410e45f-7cbd-568c-83a7-c59193e79cfe",
             "ebe80af8-32fe-4b30-8846-f05fd9b178a5"
         ]
@@ -5147,24 +4836,24 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:54:43",
-            "2021-08-30 02:54:48",
+            "2021-08-30 02:54:00",
+            "2021-08-30 02:54:05",
             "ceba03e9-cae5-425e-8472-149a735a7246"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:55:16",
-            "2021-08-30 02:55:21",
+            "2021-08-30 02:54:33",
+            "2021-08-30 02:54:38",
             "3813fc5d-3474-43e3-9c07-177657118b0c"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:55:49",
-            "2021-08-30 02:55:54",
+            "2021-08-30 02:55:06",
+            "2021-08-30 02:55:11",
             "ac051acf-12e5-48e3-be4b-6e0c97430108"
         ]
     },
@@ -5177,8 +4866,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:54:20",
-            "2021-08-30 02:56:37",
+            "2021-08-30 02:53:37",
+            "2021-08-30 02:55:54",
             "000096fd-df38-483e-b441-846785c9a339"
         ]
     },
@@ -5210,8 +4899,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:57:27",
-            "2021-08-30 02:57:32",
+            "2021-08-30 02:56:44",
+            "2021-08-30 02:56:49",
             "a820d097-f4ac-4d89-96ab-7d99047e3ddc"
         ]
     },
@@ -5224,8 +4913,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:57:22",
-            "2021-08-30 02:58:00",
+            "2021-08-30 02:56:39",
+            "2021-08-30 02:57:17",
             "000097d6-928b-41dd-9938-8aada1ba2916"
         ]
     },
@@ -5257,8 +4946,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:58:26",
-            "2021-08-30 02:58:31",
+            "2021-08-30 02:57:43",
+            "2021-08-30 02:57:48",
             "11db45a4-5e9a-4293-a619-fd2c6e7469f2"
         ]
     },
@@ -5271,8 +4960,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:58:21",
-            "2021-08-30 02:58:59",
+            "2021-08-30 02:57:38",
+            "2021-08-30 02:58:16",
             "0000996c-a34d-4b91-a2f6-a29bc17bdbe2"
         ]
     },
@@ -5307,16 +4996,16 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:59:35",
-            "2021-08-30 02:59:40",
+            "2021-08-30 02:58:52",
+            "2021-08-30 02:58:57",
             "65958069-3e5a-46e0-b013-fdff392c7213"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:00:08",
-            "2021-08-30 03:00:13",
+            "2021-08-30 02:59:25",
+            "2021-08-30 02:59:30",
             "b3522239-e513-44c2-9445-0b3518065e98"
         ]
     },
@@ -5329,8 +5018,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 02:59:20",
-            "2021-08-30 03:00:54",
+            "2021-08-30 02:58:37",
+            "2021-08-30 03:00:11",
             "0000a701-d97c-4390-a0c9-80b54bc620df"
         ]
     },
@@ -5383,64 +5072,64 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:01:42",
-            "2021-08-30 03:01:47",
+            "2021-08-30 03:00:59",
+            "2021-08-30 03:01:04",
             "9f50c3c1-5115-4054-8760-4c26f2a4adfe"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:02:15",
-            "2021-08-30 03:02:20",
+            "2021-08-30 03:01:32",
+            "2021-08-30 03:01:37",
             "193bd721-56a4-4d0d-aaec-e723979b9966"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:02:48",
-            "2021-08-30 03:02:53",
+            "2021-08-30 03:02:05",
+            "2021-08-30 03:02:10",
             "59b2e764-bdbe-4313-ae5d-e8cfe6b2bcfb"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:03:21",
-            "2021-08-30 03:03:26",
+            "2021-08-30 03:02:38",
+            "2021-08-30 03:02:43",
             "4db540d7-85f5-4d68-ab01-937ca9166e8e"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:03:54",
-            "2021-08-30 03:03:59",
+            "2021-08-30 03:03:11",
+            "2021-08-30 03:03:16",
             "d10d0212-ba77-49e6-b3f2-1cdcf4201b0a"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:04:27",
-            "2021-08-30 03:04:32",
+            "2021-08-30 03:03:44",
+            "2021-08-30 03:03:49",
             "079f2983-325b-4f29-b474-a218ae970f4e"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:05:00",
-            "2021-08-30 03:05:05",
+            "2021-08-30 03:04:17",
+            "2021-08-30 03:04:22",
             "87335878-7ba6-4588-887a-da9a638e8a6f"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:05:33",
-            "2021-08-30 03:05:38",
+            "2021-08-30 03:04:50",
+            "2021-08-30 03:04:55",
             "4bbe168e-24f5-4cb4-9357-763249ff9705"
         ]
     },
@@ -5453,8 +5142,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:01:27",
-            "2021-08-30 03:06:37",
+            "2021-08-30 03:00:44",
+            "2021-08-30 03:05:54",
             "0000aab7-79d8-4fae-b86c-375b1ad4b3d0"
         ]
     },
@@ -5486,8 +5175,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:07:47",
-            "2021-08-30 03:07:52",
+            "2021-08-30 03:07:04",
+            "2021-08-30 03:07:09",
             "8d109663-1da1-4d31-ba3c-9b782a6113da"
         ]
     },
@@ -5500,8 +5189,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:07:42",
-            "2021-08-30 03:08:20",
+            "2021-08-30 03:06:59",
+            "2021-08-30 03:07:37",
             "0000aea4-cdd6-4e2f-a48f-e92286c72d64"
         ]
     },
@@ -5533,8 +5222,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:08:56",
-            "2021-08-30 03:09:01",
+            "2021-08-30 03:08:13",
+            "2021-08-30 03:08:18",
             "8181f2d5-71bf-4b74-96e6-87d32cfbb828"
         ]
     },
@@ -5547,8 +5236,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:08:41",
-            "2021-08-30 03:10:06",
+            "2021-08-30 03:07:58",
+            "2021-08-30 03:09:23",
             "0000b6a3-260d-4fc3-8af8-5219719becc1"
         ]
     },
@@ -5589,8 +5278,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:10:40",
-            "2021-08-30 03:10:45",
+            "2021-08-30 03:09:57",
+            "2021-08-30 03:10:02",
             "70636542-4cd4-40d2-9d91-0bf6fc9d358e"
         ]
     },
@@ -5603,8 +5292,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:10:35",
-            "2021-08-30 03:11:13",
+            "2021-08-30 03:09:52",
+            "2021-08-30 03:10:30",
             "0000b9f9-ecb2-4347-9267-22a4714175ec"
         ]
     },
@@ -5636,8 +5325,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:11:39",
-            "2021-08-30 03:11:44",
+            "2021-08-30 03:10:56",
+            "2021-08-30 03:11:01",
             "61948c6c-9b58-4522-94b7-0e3617008b1e"
         ]
     },
@@ -5650,8 +5339,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:11:34",
-            "2021-08-30 03:12:12",
+            "2021-08-30 03:10:51",
+            "2021-08-30 03:11:29",
             "0000c240-3b07-4267-8208-85e29dba3b59"
         ]
     },
@@ -5686,16 +5375,16 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:12:40",
-            "2021-08-30 03:12:45",
+            "2021-08-30 03:11:57",
+            "2021-08-30 03:12:02",
             "a4263ac7-22c1-4bd7-82cf-87b67c855efd"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:13:13",
-            "2021-08-30 03:13:18",
+            "2021-08-30 03:12:30",
+            "2021-08-30 03:12:35",
             "230e97ea-ce8f-43f0-a839-65989704988d"
         ]
     },
@@ -5708,8 +5397,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:12:33",
-            "2021-08-30 03:13:50",
+            "2021-08-30 03:11:50",
+            "2021-08-30 03:13:07",
             "0000c764-15a8-4b84-8aac-172686829839"
         ]
     },
@@ -5775,7 +5464,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as assets_count, count(DISTINCT `customer_id`) as customers_count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
@@ -5790,7 +5479,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
@@ -5805,7 +5494,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
@@ -5820,7 +5509,22 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "202a694b-f8a6-4191-881b-e296663d5061",
+            "561b9925-3781-46d7-a734-78efad4f5ae6",
+            "57e6a2c1-b060-4448-b0bf-b3793da27dc1",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "8e0a6e65-837e-4f16-892c-3858dc965c45",
+            "96125ca9-a463-4e62-8526-9461f31b1819",
+            "9ae9b76a-eedb-47f4-b6bc-f7593e147621",
+            "e35134f8-02c7-4aaa-944c-e72f18be4b6b",
+            "f099856f-d50e-4440-b938-375cab3b8e1b"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
@@ -5858,39 +5562,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:18",
-            "143c456a-e894-4710-a1c2-745b9582ca47",
-            "733a054f-6b00-49d7-8f49-8366b3a2a7b8"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 03:14:19",
-            "143c456a-e894-4710-a1c2-745b9582ca47",
-            "4d7b13f9-9bf5-499d-a4cb-c40bdcea9bf0"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "202a694b-f8a6-4191-881b-e296663d5061"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 03:14:20",
-            "202a694b-f8a6-4191-881b-e296663d5061",
-            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
         ]
     },
     {
@@ -5900,29 +5574,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 03:14:21",
-            "561b9925-3781-46d7-a734-78efad4f5ae6",
-            "7f397cdb-a1a2-4173-8c3f-f00926997491"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "57e6a2c1-b060-4448-b0bf-b3793da27dc1"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:22",
-            "57e6a2c1-b060-4448-b0bf-b3793da27dc1",
-            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
         ]
     },
     {
@@ -5932,89 +5586,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:23",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:24",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "d42dbc87-4af5-44a7-ae16-ad33dceb288b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:25",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:26",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "77180fce-f9cb-469f-9ace-4120226ff013"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:27",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "91baefb3-0a41-4f66-bee2-1dd11d27fa15"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:28",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "9684d520-c291-4ec6-b914-f0323d6ef0ba"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 03:14:29",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "8e0a6e65-837e-4f16-892c-3858dc965c45"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            1,
-            "2021-08-30 03:14:30",
-            "8e0a6e65-837e-4f16-892c-3858dc965c45",
-            "bd098e37-2fd5-4840-984d-bb39506d23ec"
         ]
     },
     {
@@ -6024,29 +5598,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:31",
-            "96125ca9-a463-4e62-8526-9461f31b1819",
-            "1af616b9-337f-444c-8b55-b590520cc393"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "9ae9b76a-eedb-47f4-b6bc-f7593e147621"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:32",
-            "9ae9b76a-eedb-47f4-b6bc-f7593e147621",
-            "7f397cdb-a1a2-4173-8c3f-f00926997491"
         ]
     },
     {
@@ -6056,29 +5610,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:14:33",
-            "e35134f8-02c7-4aaa-944c-e72f18be4b6b",
-            "27d4d93c-43bf-4514-8b56-3661523b15a4"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "f099856f-d50e-4440-b938-375cab3b8e1b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 03:14:34",
-            "f099856f-d50e-4440-b938-375cab3b8e1b",
-            "1856648d-d181-4f9c-9208-01e340bc3a2f"
         ]
     },
     {
@@ -6257,7 +5791,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:14:35",
+            "2021-08-30 03:13:35",
             "0867a50d-9435-5053-8525-2e7fde523328",
             "143c456a-e894-4710-a1c2-745b9582ca47"
         ]
@@ -6272,7 +5806,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:36",
+            "2021-08-30 03:13:36",
             "0867a50d-9435-5053-8525-2e7fde523328",
             "733a054f-6b00-49d7-8f49-8366b3a2a7b8"
         ]
@@ -6288,7 +5822,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:37",
+            "2021-08-30 03:13:37",
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "f099856f-d50e-4440-b938-375cab3b8e1b"
         ]
@@ -6310,7 +5844,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:14:38",
+            "2021-08-30 03:13:38",
             "1111b9fd-b8b4-58eb-a65c-417b1a423800",
             "8e0a6e65-837e-4f16-892c-3858dc965c45"
         ]
@@ -6325,7 +5859,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:39",
+            "2021-08-30 03:13:39",
             "1111b9fd-b8b4-58eb-a65c-417b1a423800",
             "bd098e37-2fd5-4840-984d-bb39506d23ec"
         ]
@@ -6341,7 +5875,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:14:40",
+            "2021-08-30 03:13:40",
             "1546244d-ab5e-57b2-83aa-9616738f8b2e",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
@@ -6356,7 +5890,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:41",
+            "2021-08-30 03:13:41",
             "1546244d-ab5e-57b2-83aa-9616738f8b2e",
             "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb"
         ]
@@ -6377,7 +5911,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             0,
-            "2021-08-30 03:14:42",
+            "2021-08-30 03:13:42",
             "25020d14-20da-52e0-9a14-a68a8cc9d57f",
             "bd098e37-2fd5-4840-984d-bb39506d23ec"
         ]
@@ -6398,7 +5932,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             0,
-            "2021-08-30 03:14:43",
+            "2021-08-30 03:13:43",
             "284eb6c4-fd7d-5988-b02b-7c4fc53e6309",
             "4d7b13f9-9bf5-499d-a4cb-c40bdcea9bf0"
         ]
@@ -6414,7 +5948,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:44",
+            "2021-08-30 03:13:44",
             "377beb4c-2c47-5a14-b249-38dddb33c1e0",
             "8e0a6e65-837e-4f16-892c-3858dc965c45"
         ]
@@ -6436,7 +5970,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:45",
+            "2021-08-30 03:13:45",
             "4f594d06-6c38-5241-82b6-41b575c43987",
             "9ae9b76a-eedb-47f4-b6bc-f7593e147621"
         ]
@@ -6458,7 +5992,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:14:46",
+            "2021-08-30 03:13:46",
             "60180ac1-41ee-5bde-b27f-875d2bf737fc",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
@@ -6473,7 +6007,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:47",
+            "2021-08-30 03:13:47",
             "60180ac1-41ee-5bde-b27f-875d2bf737fc",
             "77180fce-f9cb-469f-9ace-4120226ff013"
         ]
@@ -6489,7 +6023,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:48",
+            "2021-08-30 03:13:48",
             "751329de-0889-525b-afb7-3d0abe197d0a",
             "202a694b-f8a6-4191-881b-e296663d5061"
         ]
@@ -6499,7 +6033,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:49",
+            "2021-08-30 03:13:49",
             "751329de-0889-525b-afb7-3d0abe197d0a",
             "57e6a2c1-b060-4448-b0bf-b3793da27dc1"
         ]
@@ -6514,7 +6048,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:50",
+            "2021-08-30 03:13:50",
             "751329de-0889-525b-afb7-3d0abe197d0a",
             "9216a30a-9af2-426a-b219-85f9aaffb112"
         ]
@@ -6530,7 +6064,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:14:51",
+            "2021-08-30 03:13:51",
             "7cecb585-147f-5e46-8b47-44f0cf9b7c22",
             "57e6a2c1-b060-4448-b0bf-b3793da27dc1"
         ]
@@ -6545,7 +6079,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:52",
+            "2021-08-30 03:13:52",
             "7cecb585-147f-5e46-8b47-44f0cf9b7c22",
             "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
         ]
@@ -6561,7 +6095,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:53",
+            "2021-08-30 03:13:53",
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
             "96125ca9-a463-4e62-8526-9461f31b1819"
         ]
@@ -6583,7 +6117,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:54",
+            "2021-08-30 03:13:54",
             "9aa5871b-dd32-527f-a78a-bbec176e1672",
             "e35134f8-02c7-4aaa-944c-e72f18be4b6b"
         ]
@@ -6605,7 +6139,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:55",
+            "2021-08-30 03:13:55",
             "9ab7a8a9-6c70-5716-b817-786165f89b3b",
             "143c456a-e894-4710-a1c2-745b9582ca47"
         ]
@@ -6627,7 +6161,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:14:56",
+            "2021-08-30 03:13:56",
             "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34",
             "e35134f8-02c7-4aaa-944c-e72f18be4b6b"
         ]
@@ -6642,7 +6176,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:57",
+            "2021-08-30 03:13:57",
             "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34",
             "27d4d93c-43bf-4514-8b56-3661523b15a4"
         ]
@@ -6658,7 +6192,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:14:58",
+            "2021-08-30 03:13:58",
             "b1136a17-b48c-5f54-921c-2f94e29176b5",
             "561b9925-3781-46d7-a734-78efad4f5ae6"
         ]
@@ -6685,7 +6219,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:14:59",
+            "2021-08-30 03:13:59",
             "b3f7f2fa-1082-5415-9461-ac5b355e7390",
             "1856648d-d181-4f9c-9208-01e340bc3a2f"
         ]
@@ -6706,7 +6240,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:15:00",
+            "2021-08-30 03:14:00",
             "c1b84c34-3e6c-5c8a-adcd-00c032e5497d",
             "6c32cf27-fef0-487d-b95b-c1e1cd94282e"
         ]
@@ -6722,7 +6256,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:15:01",
+            "2021-08-30 03:14:01",
             "d473e847-27b3-5a2f-b31d-d2b6ef6154a9",
             "96125ca9-a463-4e62-8526-9461f31b1819"
         ]
@@ -6737,7 +6271,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:15:02",
+            "2021-08-30 03:14:02",
             "d473e847-27b3-5a2f-b31d-d2b6ef6154a9",
             "1af616b9-337f-444c-8b55-b590520cc393"
         ]
@@ -6753,7 +6287,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:15:03",
+            "2021-08-30 03:14:03",
             "e7bb65ec-26fd-5d34-9d32-9c8004e17ae4",
             "9ae9b76a-eedb-47f4-b6bc-f7593e147621"
         ]
@@ -6768,7 +6302,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:15:04",
+            "2021-08-30 03:14:04",
             "e7bb65ec-26fd-5d34-9d32-9c8004e17ae4",
             "7f397cdb-a1a2-4173-8c3f-f00926997491"
         ]
@@ -7026,8 +6560,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:15:21",
-            "2021-08-30 03:15:26",
+            "2021-08-30 03:14:21",
+            "2021-08-30 03:14:26",
             "1faf66cd-13f9-4a4e-b043-213564a3efee"
         ]
     },
@@ -7040,8 +6574,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:15:06",
-            "2021-08-30 03:16:01",
+            "2021-08-30 03:14:06",
+            "2021-08-30 03:15:01",
             "0000c86b-ba63-4386-811c-dc0f8e794d2c"
         ]
     },
@@ -7073,8 +6607,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:16:57",
-            "2021-08-30 03:17:02",
+            "2021-08-30 03:15:57",
+            "2021-08-30 03:16:02",
             "d4e7be5e-e377-43cc-a466-3e6b8bfedf9f"
         ]
     },
@@ -7087,8 +6621,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:16:34",
-            "2021-08-30 03:17:37",
+            "2021-08-30 03:15:34",
+            "2021-08-30 03:16:37",
             "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2"
         ]
     },
@@ -7120,8 +6654,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:18:33",
-            "2021-08-30 03:18:38",
+            "2021-08-30 03:17:33",
+            "2021-08-30 03:17:38",
             "dcdd74ab-f177-4728-96e7-7cf6d6551685"
         ]
     },
@@ -7134,8 +6668,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:18:10",
-            "2021-08-30 03:19:31",
+            "2021-08-30 03:17:10",
+            "2021-08-30 03:18:31",
             "0000d9a5-0e02-4c93-b170-604002110fb3"
         ]
     },
@@ -7167,8 +6701,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:20:31",
-            "2021-08-30 03:20:36",
+            "2021-08-30 03:19:31",
+            "2021-08-30 03:19:36",
             "861258b2-6dab-47dc-856f-314719a3d635"
         ]
     },
@@ -7181,8 +6715,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:20:08",
-            "2021-08-30 03:21:11",
+            "2021-08-30 03:19:08",
+            "2021-08-30 03:20:11",
             "0000dbb1-a181-4563-945c-2f6dfb711c15"
         ]
     },
@@ -7214,8 +6748,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:22:07",
-            "2021-08-30 03:22:12",
+            "2021-08-30 03:21:07",
+            "2021-08-30 03:21:12",
             "2261796d-4a58-4e6d-87eb-54c01dc8e893"
         ]
     },
@@ -7228,8 +6762,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:21:44",
-            "2021-08-30 03:22:47",
+            "2021-08-30 03:20:44",
+            "2021-08-30 03:21:47",
             "0000dbf4-e0b1-4394-9a8a-792542566bc9"
         ]
     },
@@ -7261,8 +6795,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:23:43",
-            "2021-08-30 03:23:48",
+            "2021-08-30 03:22:43",
+            "2021-08-30 03:22:48",
             "4007daa4-8b68-4767-9746-02054680d673"
         ]
     },
@@ -7275,8 +6809,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:23:20",
-            "2021-08-30 03:24:21",
+            "2021-08-30 03:22:20",
+            "2021-08-30 03:23:21",
             "0000dc9e-6292-41d1-bdb1-9c0fafbb597d"
         ]
     },
@@ -7308,8 +6842,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:24:59",
-            "2021-08-30 03:25:04",
+            "2021-08-30 03:23:59",
+            "2021-08-30 03:24:04",
             "7fa1b376-4432-4c41-a00f-e366ba2a4549"
         ]
     },
@@ -7322,8 +6856,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:24:54",
-            "2021-08-30 03:25:32",
+            "2021-08-30 03:23:54",
+            "2021-08-30 03:24:32",
             "0000dd75-826a-424b-b090-7d85ae4b2782"
         ]
     },
@@ -7355,8 +6889,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:25:58",
-            "2021-08-30 03:26:03",
+            "2021-08-30 03:24:58",
+            "2021-08-30 03:25:03",
             "7fedec82-36d3-4fd9-ba19-85c4ed5cdfd7"
         ]
     },
@@ -7369,8 +6903,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:25:53",
-            "2021-08-30 03:26:31",
+            "2021-08-30 03:24:53",
+            "2021-08-30 03:25:31",
             "0000f152-fdcc-4f15-a31b-daf2f311e187"
         ]
     },
@@ -7402,8 +6936,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:26:57",
-            "2021-08-30 03:27:02",
+            "2021-08-30 03:25:57",
+            "2021-08-30 03:26:02",
             "0b03c7d5-f73c-493a-9ba9-a2402b15c3fa"
         ]
     },
@@ -7416,8 +6950,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:26:52",
-            "2021-08-30 03:27:30",
+            "2021-08-30 03:25:52",
+            "2021-08-30 03:26:30",
             "0000f4c5-f6e9-4fd6-a913-24613652b4d9"
         ]
     },
@@ -7449,8 +6983,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:27:56",
-            "2021-08-30 03:28:01",
+            "2021-08-30 03:26:56",
+            "2021-08-30 03:27:01",
             "59628e5b-e44a-46f9-a77b-f92fc03ebb00"
         ]
     },
@@ -7463,8 +6997,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 03:27:51",
-            "2021-08-30 03:28:32",
+            "2021-08-30 03:26:51",
+            "2021-08-30 03:27:32",
             "0000f4f6-ff8f-468d-a71e-4cc80541ac99"
         ]
     },
@@ -7526,7 +7060,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as assets_count, count(DISTINCT `customer_id`) as customers_count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
@@ -7540,7 +7074,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
@@ -7554,7 +7088,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
@@ -7568,7 +7102,21 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
+            "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
+            "20268e5f-6d31-49da-a850-24a28446cdd4",
+            "5272f005-f7cc-441d-8fab-9d159f83277d",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
+            "abf17c4e-2672-4a05-8e0a-8f11c9732504",
+            "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
+            "c4008848-ced1-47e6-92ca-87a1774006cd"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
@@ -7606,16 +7154,6 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:28:56",
-            "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
-            "e089508a-7642-4c79-9d9c-6bc3d82db206"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304"
@@ -7628,29 +7166,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:28:57",
-            "20268e5f-6d31-49da-a850-24a28446cdd4",
-            "505ebd5c-1c80-49df-9263-ba8de21aadb3"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "5272f005-f7cc-441d-8fab-9d159f83277d"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:28:58",
-            "5272f005-f7cc-441d-8fab-9d159f83277d",
-            "a86dd99a-97fb-4fb8-8e09-1ae4a872f01a"
         ]
     },
     {
@@ -7660,89 +7178,9 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:28:59",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:00",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "d42dbc87-4af5-44a7-ae16-ad33dceb288b"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:01",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:02",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "77180fce-f9cb-469f-9ace-4120226ff013"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:03",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "91baefb3-0a41-4f66-bee2-1dd11d27fa15"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:04",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "9684d520-c291-4ec6-b914-f0323d6ef0ba"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 03:29:05",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "fbdf9864-1ed9-4124-a248-c9c08a55b7c3"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:06",
-            "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
-            "a816e3b0-a3a2-490b-b762-24addfd836d6"
         ]
     },
     {
@@ -7752,45 +7190,15 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:07",
-            "abf17c4e-2672-4a05-8e0a-8f11c9732504",
-            "cf85f11b-6681-4106-a129-cbdd463120e2"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "bd6bee4b-1bd7-432d-b5c0-c039a48580c8"
         ]
     },
     {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:08",
-            "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
-            "819d9228-2cbc-4d1f-8e18-148745f7a922"
-        ]
-    },
-    {
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "c4008848-ced1-47e6-92ca-87a1774006cd"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 03:29:09",
-            "c4008848-ced1-47e6-92ca-87a1774006cd",
-            "edb16d76-24b1-4aab-aac4-fce658e6c5e2"
         ]
     },
     {
@@ -7949,7 +7357,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:10",
+            "2021-08-30 03:27:56",
             "06b2f264-8e2f-5fef-a019-ca0ab541192d",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
@@ -7964,7 +7372,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:11",
+            "2021-08-30 03:27:57",
             "06b2f264-8e2f-5fef-a019-ca0ab541192d",
             "9684d520-c291-4ec6-b914-f0323d6ef0ba"
         ]
@@ -7980,7 +7388,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:12",
+            "2021-08-30 03:27:58",
             "20ed1ab4-7b2a-5746-8ead-c8e7b0803ca5",
             "abf17c4e-2672-4a05-8e0a-8f11c9732504"
         ]
@@ -7995,7 +7403,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:13",
+            "2021-08-30 03:27:59",
             "20ed1ab4-7b2a-5746-8ead-c8e7b0803ca5",
             "cf85f11b-6681-4106-a129-cbdd463120e2"
         ]
@@ -8011,7 +7419,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:14",
+            "2021-08-30 03:28:00",
             "3c346ba5-fb54-5cfc-be58-f2f3135200df",
             "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5"
         ]
@@ -8026,7 +7434,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:15",
+            "2021-08-30 03:28:01",
             "3c346ba5-fb54-5cfc-be58-f2f3135200df",
             "a816e3b0-a3a2-490b-b762-24addfd836d6"
         ]
@@ -8042,7 +7450,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:29:16",
+            "2021-08-30 03:28:02",
             "550a6830-a3f8-525f-8d2f-77e43b95c51c",
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe"
         ]
@@ -8064,7 +7472,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:29:17",
+            "2021-08-30 03:28:03",
             "62b4a964-9ca8-5f45-9e19-8eb3adf194bf",
             "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5"
         ]
@@ -8086,7 +7494,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:29:18",
+            "2021-08-30 03:28:04",
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
             "5272f005-f7cc-441d-8fab-9d159f83277d"
         ]
@@ -8108,7 +7516,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:29:19",
+            "2021-08-30 03:28:05",
             "701cb66e-d09d-594c-b1e6-123db7b62492",
             "20268e5f-6d31-49da-a850-24a28446cdd4"
         ]
@@ -8130,7 +7538,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:20",
+            "2021-08-30 03:28:06",
             "8624bb37-c846-50b5-b14e-9eaf8f56c933",
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe"
         ]
@@ -8145,7 +7553,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:21",
+            "2021-08-30 03:28:07",
             "8624bb37-c846-50b5-b14e-9eaf8f56c933",
             "e089508a-7642-4c79-9d9c-6bc3d82db206"
         ]
@@ -8161,7 +7569,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:29:22",
+            "2021-08-30 03:28:08",
             "8801d050-7448-5710-a9e3-e6df85949679",
             "c4008848-ced1-47e6-92ca-87a1774006cd"
         ]
@@ -8183,7 +7591,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:23",
+            "2021-08-30 03:28:09",
             "9426ad29-9fa9-596a-904d-07f452ce7ffe",
             "20268e5f-6d31-49da-a850-24a28446cdd4"
         ]
@@ -8198,7 +7606,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:24",
+            "2021-08-30 03:28:10",
             "9426ad29-9fa9-596a-904d-07f452ce7ffe",
             "505ebd5c-1c80-49df-9263-ba8de21aadb3"
         ]
@@ -8214,7 +7622,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:25",
+            "2021-08-30 03:28:11",
             "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "5272f005-f7cc-441d-8fab-9d159f83277d"
         ]
@@ -8229,7 +7637,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:26",
+            "2021-08-30 03:28:12",
             "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "a86dd99a-97fb-4fb8-8e09-1ae4a872f01a"
         ]
@@ -8245,7 +7653,7 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 03:29:27",
+            "2021-08-30 03:28:13",
             "a65b0772-2114-5c17-951d-38de5feda665",
             "bd6bee4b-1bd7-432d-b5c0-c039a48580c8"
         ]
@@ -8272,7 +7680,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:28",
+            "2021-08-30 03:28:14",
             "b8ae2c4d-10af-5b92-818d-e7fa4e9a1e68",
             "9a749c4e-a721-4762-9abc-395dcd2b33e5"
         ]
@@ -8288,7 +7696,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:29",
+            "2021-08-30 03:28:15",
             "bf26cdb3-bfc8-5430-aba2-e4e5c9840ac1",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
@@ -8303,7 +7711,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:30",
+            "2021-08-30 03:28:16",
             "bf26cdb3-bfc8-5430-aba2-e4e5c9840ac1",
             "91baefb3-0a41-4f66-bee2-1dd11d27fa15"
         ]
@@ -8319,7 +7727,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:31",
+            "2021-08-30 03:28:17",
             "f1b1ecde-fb18-5f4d-95f8-e3bba069c9a2",
             "bd6bee4b-1bd7-432d-b5c0-c039a48580c8"
         ]
@@ -8334,7 +7742,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:32",
+            "2021-08-30 03:28:18",
             "f1b1ecde-fb18-5f4d-95f8-e3bba069c9a2",
             "819d9228-2cbc-4d1f-8e18-148745f7a922"
         ]
@@ -8350,7 +7758,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 03:29:33",
+            "2021-08-30 03:28:19",
             "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
             "c4008848-ced1-47e6-92ca-87a1774006cd"
         ]
@@ -8365,7 +7773,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 03:29:34",
+            "2021-08-30 03:28:20",
             "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
             "edb16d76-24b1-4aab-aac4-fce658e6c5e2"
         ]

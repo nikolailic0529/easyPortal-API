@@ -262,25 +262,31 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as assets_count, count(DISTINCT `customer_id`) as customers_count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?) group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?) group by `reseller_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?) group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "75026113-e205-40e8-831e-0a2f9dee75bf"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
@@ -295,16 +301,6 @@
         "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
         "bindings": [
             "75026113-e205-40e8-831e-0a2f9dee75bf"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `locations_count` = ?, `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `reseller_customers`.`reseller_id` = ? and `customer_id` in (?)",
-        "bindings": [
-            1,
-            1,
-            "2021-08-30 00:08:35",
-            "75026113-e205-40e8-831e-0a2f9dee75bf",
-            "16804b25-302b-4581-b267-64040e8e7dbb"
         ]
     },
     {
@@ -367,7 +363,7 @@
         "bindings": [
             1,
             1,
-            "2021-08-30 00:08:36",
+            "2021-08-30 00:08:35",
             "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
@@ -382,7 +378,7 @@
         "query": "update `location_customers` set `assets_count` = ?, `updated_at` = ? where `deleted_at` is null and `location_customers`.`location_id` = ? and `customer_id` in (?)",
         "bindings": [
             1,
-            "2021-08-30 00:08:37",
+            "2021-08-30 00:08:36",
             "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "16804b25-302b-4581-b267-64040e8e7dbb"
         ]
