@@ -148,9 +148,8 @@ class LocationsRecalculateTest extends TestCase {
 
         $this->assertEquals([
             [
-                'customers_count' => 0,
-                'assets_count'    => 2,
-                'reseller_id'     => $resellerA->getKey(),
+                'assets_count' => 2,
+                'reseller_id'  => $resellerA->getKey(),
             ],
         ], $this->getModelCountableProperties($aResellers, $attributes));
 
