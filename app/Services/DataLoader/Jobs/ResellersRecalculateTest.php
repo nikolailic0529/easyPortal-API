@@ -10,7 +10,6 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
 use App\Services\DataLoader\Testing\Helper;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
@@ -18,8 +17,6 @@ use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 use function count;
-use function in_array;
-use function str_ends_with;
 
 /**
  * @internal
@@ -279,32 +276,5 @@ class ResellersRecalculateTest extends TestCase {
         $this->assertEquals([
             // empty
         ], $this->getModelCountableProperties($cLocations, $attributes));
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>
-     *     |\Illuminate\Database\Eloquent\Model $model
-     * @param array<string> $attributes
-     *
-     * @return array<string, mixed>
-     */
-    protected function getModelCountableProperties(Collection|Model $model, array $attributes = []): array {
-        $properties = [];
-
-        if ($model instanceof Collection) {
-            $properties = $model
-                ->map(function (Model $model) use ($attributes): array {
-                    return $this->getModelCountableProperties($model, $attributes);
-                })
-                ->all();
-        } else {
-            foreach ($model->getAttributes() as $attribute => $value) {
-                if (str_ends_with($attribute, '_count') || in_array($attribute, $attributes, true)) {
-                    $properties[$attribute] = $value;
-                }
-            }
-        }
-
-        return $properties;
     }
 }

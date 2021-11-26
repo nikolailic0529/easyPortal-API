@@ -2,13 +2,16 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Queue\Queues;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\BatchSave;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
@@ -81,5 +84,57 @@ abstract class Recalculate extends Job implements Initializable {
                 $this->process();
             });
         });
+    }
+
+    /**
+     * @param array<string> $keys
+     *
+     * @return array<string,int>
+     */
+    protected function calculateAssetsBy(string $property, array $keys): array {
+        $data   = [];
+        $result = Asset::query()
+            ->select([$property, DB::raw('count(*) as count')])
+            ->whereIn($property, $keys)
+            ->groupBy($property)
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $data[$row->{$property}] = (int) $row->count;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string> $keys
+     *
+     * @return array<string,array<string, int>>
+     */
+    protected function calculateAssetsByLocation(string $property, array $keys): array {
+        $data   = [];
+        $result = Asset::query()
+            ->select([$property, 'location_id', DB::raw('count(*) as count')])
+            ->whereIn($property, $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('location_id')
+                    ->orWhereHasIn('location');
+            })
+            ->groupBy($property, 'location_id')
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $i = $row->{$property};
+            $l = (string) $row->location_id;
+
+            $data[$i][$l] = (int) $row->count + ($data[$i][$l] ?? 0);
+        }
+
+        return $data;
     }
 }
