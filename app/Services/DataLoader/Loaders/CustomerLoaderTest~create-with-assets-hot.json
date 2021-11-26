@@ -92,9 +92,8 @@
         ]
     },
     {
-        "query": "update `customers` set `assets_count` = ?, `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            0,
             "2021-08-30 00:05:45",
             "2021-08-30 00:05:48",
             "15c8acb6-b191-46a2-8921-243282eeed54"
@@ -509,14 +508,6 @@
     {
         "query": "select `customer_id`, `location_id`, count(*) as count from `assets` where `customer_id` in (?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `customer_id`, `location_id`",
         "bindings": [
-            "15c8acb6-b191-46a2-8921-243282eeed54"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            2,
-            "2021-08-30 00:11:04",
             "15c8acb6-b191-46a2-8921-243282eeed54"
         ]
     },

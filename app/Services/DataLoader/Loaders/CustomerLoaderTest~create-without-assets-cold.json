@@ -119,17 +119,17 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `statuses_count`, `contacts_count`, `locations_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a0df13a5-c42c-4269-ae57-71085acb5319",
             "Hermiston-O'Hara",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-11-10 08:29:21",
             0,
-            0,
             1,
             1,
             "2021-08-30 00:00:07",
+            0,
             "2021-08-30 00:00:08",
             "2021-08-30 00:00:08"
         ]
