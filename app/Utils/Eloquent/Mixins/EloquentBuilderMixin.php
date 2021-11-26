@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Mixins;
+namespace App\Utils\Eloquent\Mixins;
 
 use App\Utils\Eloquent\ModelHelper;
 use Closure;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Mixins;
+namespace App\Utils\Eloquent\Mixins;
 
 use Closure;
 use Illuminate\Database\Query\Builder;

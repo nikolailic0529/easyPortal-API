@@ -6,8 +6,8 @@
 
 namespace App;
 
-use App\Mixins\EloquentBuilderMixin;
-use App\Mixins\QueryBuilderMixin;
+use App\Utils\Eloquent\Mixins\EloquentBuilderMixin;
+use App\Utils\Eloquent\Mixins\QueryBuilderMixin;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
