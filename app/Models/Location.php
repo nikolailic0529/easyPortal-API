@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
  * @property-write array<string,array<string,mixed>>                             $customersPivots
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
+ * @property-write array<string,array<string,mixed>>                             $resellersPivots
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()

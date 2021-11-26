@@ -32,6 +32,13 @@ trait HasResellers {
             ->withTimestamps();
     }
 
+    /**
+     * @param array<string,array<string,mixed>> $resellers
+     */
+    public function setResellersPivotsAttribute(array $resellers): void {
+        $this->syncBelongsToManyPivots('resellers', $resellers);
+    }
+
     abstract protected function getResellersPivot(): Pivot;
 
     protected function getResellersParentKey(): ?string {

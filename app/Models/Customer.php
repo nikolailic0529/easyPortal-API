@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller>    $resellers
+ * @property-write array<string,array<string,mixed>>                                $resellersPivots
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
  * @property \App\Models\Type                                                       $type
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)
