@@ -10,10 +10,9 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
 use App\Services\DataLoader\Testing\Helper;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
@@ -49,6 +48,10 @@ class ResellersRecalculateTest extends TestCase {
         $locationC = Location::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
+        $locationD = Location::factory()->create([
+            'id'         => Str::uuid()->toString(),
+            'deleted_at' => Date::now(),
+        ]);
         $resellerA = Reseller::factory()
             ->hasCustomers(1, [
                 'id' => Str::uuid()->toString(),
@@ -81,6 +84,15 @@ class ResellersRecalculateTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
+        $resellerC = Reseller::factory()
+            ->create([
+                'id'              => Str::uuid()->toString(),
+                'customers_count' => $count,
+                'locations_count' => $count,
+                'assets_count'    => $count,
+                'contacts_count'  => $count,
+                'statuses_count'  => $count,
+            ]);
         $customerA = Customer::factory()
             ->hasLocations(1, [
                 'id'          => Str::uuid()->toString(),
@@ -100,14 +112,10 @@ class ResellersRecalculateTest extends TestCase {
         $customerC = Customer::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-
-        GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($customerA, $customerB, $locationA, $locationB): void {
-                $customerA->locations = [$locationA, $locationB];
-                $customerB->locations = [$locationA, $locationB];
-            },
-        );
+        $customerD = Customer::factory()->create([
+            'id'         => Str::uuid()->toString(),
+            'deleted_at' => Date::now(),
+        ]);
 
         Asset::factory()->create([
             'id'          => Str::uuid()->toString(),
@@ -127,6 +135,18 @@ class ResellersRecalculateTest extends TestCase {
             'customer_id' => $customerB,
             'location_id' => $locationA,
         ]);
+        Asset::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'reseller_id' => $resellerA,
+            'customer_id' => $customerD,
+            'location_id' => $locationB,
+        ]);
+        Asset::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'reseller_id' => $resellerA,
+            'customer_id' => $customerD,
+            'location_id' => $locationD,
+        ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
             'reseller_id' => $resellerA,
@@ -137,11 +157,16 @@ class ResellersRecalculateTest extends TestCase {
             'reseller_id' => $resellerA,
             'customer_id' => null,
         ]);
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'reseller_id' => $resellerB,
+            'customer_id' => $customerD,
+        ]);
 
         // Test
         $queries = $this->getQueryLog();
         $job     = $this->app->make(ResellersRecalculate::class)
-            ->setModels(new Collection([$resellerA, $resellerB]));
+            ->setModels(new Collection([$resellerA, $resellerB, $resellerC]));
 
         $job();
 
@@ -170,15 +195,19 @@ class ResellersRecalculateTest extends TestCase {
         $bReseller  = $resellerB->refresh();
         $bCustomers = $customers($bReseller);
         $bLocations = $locations($bReseller);
+        $cReseller  = $resellerC->refresh();
+        $cCustomers = $customers($bReseller);
+        $cLocations = $locations($bReseller);
         $attributes = [
             'customer_id',
             'location_id',
         ];
 
+        // A
         $this->assertEquals([
             'customers_count' => 3,
             'locations_count' => 1,
-            'assets_count'    => 3,
+            'assets_count'    => 5,
             'contacts_count'  => 0,
             'statuses_count'  => 1,
         ], $this->getModelCountableProperties($aReseller, $attributes));
@@ -190,14 +219,14 @@ class ResellersRecalculateTest extends TestCase {
                 'customer_id'     => $customerB->getKey(),
             ],
             [
-                'assets_count'    => 0,
-                'locations_count' => 0,
-                'customer_id'     => $customerC->getKey(),
-            ],
-            [
                 'assets_count'    => 1,
                 'locations_count' => 1,
                 'customer_id'     => $customerA->getKey(),
+            ],
+            [
+                'assets_count'    => 0,
+                'locations_count' => 0,
+                'customer_id'     => $customerC->getKey(),
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 
@@ -209,6 +238,7 @@ class ResellersRecalculateTest extends TestCase {
             ],
         ], $this->getModelCountableProperties($aLocations, $attributes));
 
+        // B
         $this->assertEquals([
             'customers_count' => 0,
             'locations_count' => 0,
@@ -224,6 +254,23 @@ class ResellersRecalculateTest extends TestCase {
         $this->assertEquals([
             // empty
         ], $this->getModelCountableProperties($bLocations, $attributes));
+
+        // C
+        $this->assertEquals([
+            'customers_count' => 0,
+            'locations_count' => 0,
+            'assets_count'    => 0,
+            'contacts_count'  => 0,
+            'statuses_count'  => 0,
+        ], $this->getModelCountableProperties($cReseller, $attributes));
+
+        $this->assertEquals([
+            // empty
+        ], $this->getModelCountableProperties($cCustomers, $attributes));
+
+        $this->assertEquals([
+            // empty
+        ], $this->getModelCountableProperties($cLocations, $attributes));
     }
 
     /**

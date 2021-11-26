@@ -7,6 +7,7 @@ use App\Models\CustomerLocation;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -38,9 +39,10 @@ class ResellersRecalculate extends Recalculate {
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->with(['locations', 'contacts', 'statuses'])
             ->get();
-        $dataByLocation      = $this->calculateDataByLocation($keys, $resellers);
         $assetsByReseller    = $this->calculateAssetsByReseller($keys, $resellers);
         $assetsByCustomer    = $this->calculateAssetsByCustomer($keys, $resellers);
+        $assetsByLocation    = $this->calculateAssetsByLocation($keys, $resellers);
+        $customersByLocation = $this->calculateCustomersByLocation($keys, $resellers);
         $documentsByCustomer = $this->calculateDocumentsByCustomer($keys, $resellers);
         $customerLocations   = $this->calculateCustomerLocations(
             array_filter(array_keys(array_reduce(
@@ -57,8 +59,8 @@ class ResellersRecalculate extends Recalculate {
             // Prepare
             $resellerAssetsByReseller    = $assetsByReseller[$reseller->getKey()] ?? 0;
             $resellerAssetsByCustomer    = $assetsByCustomer[$reseller->getKey()] ?? [];
-            $resellerAssetsByLocation    = $dataByLocation['assets'][$reseller->getKey()] ?? [];
-            $resellerCustomersByLocation = $dataByLocation['customers'][$reseller->getKey()] ?? [];
+            $resellerAssetsByLocation    = $assetsByLocation[$reseller->getKey()] ?? [];
+            $resellerCustomersByLocation = $customersByLocation[$reseller->getKey()] ?? [];
             $resellerDocumentsByCustomer = $documentsByCustomer[$reseller->getKey()] ?? [];
             $resellerCustomers           = array_filter(array_unique(array_merge(
                 array_keys($resellerAssetsByCustomer),
@@ -112,10 +114,10 @@ class ResellersRecalculate extends Recalculate {
     protected function calculateAssetsByReseller(array $keys, Collection $resellers): array {
         $data   = [];
         $result = Asset::query()
-            ->toBase()
-            ->select('reseller_id', DB::raw('count(*) as count'))
+            ->select(['reseller_id', DB::raw('count(*) as count')])
             ->whereIn('reseller_id', $keys)
             ->groupBy('reseller_id')
+            ->toBase()
             ->get();
 
         foreach ($result as $row) {
@@ -137,10 +139,15 @@ class ResellersRecalculate extends Recalculate {
     protected function calculateAssetsByCustomer(array $keys, Collection $resellers): array {
         $data   = [];
         $result = Asset::query()
-            ->toBase()
-            ->select('reseller_id', 'customer_id', DB::raw('count(*) as count'))
+            ->select(['reseller_id', 'customer_id', DB::raw('count(*) as count')])
             ->whereIn('reseller_id', $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('customer_id')
+                    ->orWhereHasIn('customer');
+            })
             ->groupBy('reseller_id', 'customer_id')
+            ->toBase()
             ->get();
 
         foreach ($result as $row) {
@@ -158,20 +165,20 @@ class ResellersRecalculate extends Recalculate {
      * @param array<string>                                        $keys
      * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
      *
-     * @return array{assets:array<string,array<string, int>>,customers:array<string,array<string, int>>}
+     * @return array<string,array<string, int>>
      */
-    protected function calculateDataByLocation(array $keys, Collection $resellers): array {
+    protected function calculateAssetsByLocation(array $keys, Collection $resellers): array {
         $data   = [];
         $result = Asset::query()
-            ->toBase()
-            ->select(
-                'reseller_id',
-                'location_id',
-                DB::raw('count(*) as assets_count'),
-                DB::raw('count(DISTINCT `customer_id`) as customers_count'),
-            )
+            ->select(['reseller_id', 'location_id', DB::raw('count(*) as count')])
             ->whereIn('reseller_id', $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('location_id')
+                    ->orWhereHasIn('location');
+            })
             ->groupBy('reseller_id', 'location_id')
+            ->toBase()
             ->get();
 
         foreach ($result as $row) {
@@ -179,8 +186,43 @@ class ResellersRecalculate extends Recalculate {
             $r = $row->reseller_id;
             $l = (string) $row->location_id;
 
-            $data['assets'][$r][$l]    = (int) $row->assets_count + ($data['assets'][$r][$l] ?? 0);
-            $data['customers'][$r][$l] = (int) $row->customers_count + ($data['customers'][$r][$l] ?? 0);
+            $data[$r][$l] = (int) $row->count + ($data[$r][$l] ?? 0);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string>                                        $keys
+     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
+     *
+     * @return array<string,array<string, int>>
+     */
+    protected function calculateCustomersByLocation(array $keys, Collection $resellers): array {
+        $data   = [];
+        $result = Asset::query()
+            ->select(['reseller_id', 'location_id', DB::raw('count(DISTINCT `customer_id`) as count')])
+            ->whereIn('reseller_id', $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('customer_id')
+                    ->orWhereHasIn('customer');
+            })
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('location_id')
+                    ->orWhereHasIn('location');
+            })
+            ->groupBy('reseller_id', 'location_id')
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $r = $row->reseller_id;
+            $l = (string) $row->location_id;
+
+            $data[$r][$l] = (int) $row->count + ($data[$r][$l] ?? 0);
         }
 
         return $data;
@@ -195,10 +237,15 @@ class ResellersRecalculate extends Recalculate {
     protected function calculateDocumentsByCustomer(array $keys, Collection $resellers): array {
         $documents = [];
         $result    = Document::query()
-            ->toBase()
-            ->select('reseller_id', 'customer_id', DB::raw('count(*) as count'))
+            ->select(['reseller_id', 'customer_id', DB::raw('count(*) as count')])
             ->whereIn('reseller_id', $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('customer_id')
+                    ->orWhereHasIn('customer');
+            })
             ->groupBy('reseller_id', 'customer_id')
+            ->toBase()
             ->get();
 
         foreach ($result as $row) {
