@@ -193,6 +193,7 @@ class BatchInsertTest extends TestCase {
             ->never();
 
         $insert->upsert();
+        $insert->reset();
     }
 
     /**

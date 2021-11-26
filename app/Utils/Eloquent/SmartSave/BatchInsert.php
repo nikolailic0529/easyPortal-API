@@ -32,22 +32,33 @@ class BatchInsert {
         // empty
     }
 
+    public function __destruct() {
+        $this->save();
+    }
+
     /**
      * @param array<string,mixed> $attributes
      */
     public function __invoke(EloquentBuilder $builder, array $attributes): void {
-        if (!$this->isSame($builder) || count($this->inserts) >= static::LIMIT) {
+        $this->add($builder->getModel(), $attributes);
+    }
+
+    /**
+     * @param array<string,mixed> $attributes
+     */
+    public function add(Model $model, array $attributes): void {
+        if (!$this->isSame($model) || count($this->inserts) >= static::LIMIT) {
             $this->save();
         }
 
-        $this->model     = $builder->getModel();
+        $this->model     = $model;
         $this->inserts[] = $attributes;
     }
 
-    protected function isSame(EloquentBuilder $builder): bool {
+    protected function isSame(Model $model): bool {
         return $this->model
-            && $this->model->getConnection() === $builder->getConnection()
-            && $this->model->getTable() === $builder->getModel()->getTable();
+            && $this->model->getConnection() === $model->getConnection()
+            && $this->model->getTable() === $model->getTable();
     }
 
     public function save(): void {
