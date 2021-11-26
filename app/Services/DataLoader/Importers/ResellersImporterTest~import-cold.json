@@ -1540,7 +1540,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -1555,7 +1555,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -1679,7 +1679,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
@@ -1694,7 +1694,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id` from `reseller_locations` where `reseller_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
@@ -1709,7 +1709,7 @@
         ]
     },
     {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
@@ -1724,11 +1724,33 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            1,
-            "2021-08-30 00:02:05",
-            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09"
+            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
         ]
     },
     {
@@ -1738,13 +1760,12 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0066dc39-3655-43bf-9cb8-3dcc006987ff",
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
-            "2021-08-30 00:02:13",
-            "2021-08-30 00:02:13",
-            1,
+            "2021-08-30 00:02:05",
+            "2021-08-30 00:02:05",
             0,
             "63472d7e-4cbf-51c2-9909-05e2cbca91be"
         ]
@@ -1756,27 +1777,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:02:15",
-            "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0048be0f-a435-45cc-ac9d-2fe215991ebf",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
-            "2021-08-30 00:02:23",
-            "2021-08-30 00:02:23",
-            1,
+            "2021-08-30 00:02:07",
+            "2021-08-30 00:02:07",
             0,
             "026d358d-b01e-5079-8fd9-9c955a9064ce"
         ]
@@ -1788,27 +1800,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:02:25",
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0013a4cf-8654-4a5b-b747-d29746704f09",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "2021-08-30 00:02:33",
-            "2021-08-30 00:02:33",
-            1,
+            "2021-08-30 00:02:09",
+            "2021-08-30 00:02:09",
             0,
             "c8526c37-fec0-5a56-aead-fd820acdfb51"
         ]
@@ -1820,27 +1823,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:02:35",
-            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
             "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
-            "2021-08-30 00:02:43",
-            "2021-08-30 00:02:43",
-            1,
+            "2021-08-30 00:02:11",
+            "2021-08-30 00:02:11",
             0,
             "f63fa7f7-24f2-5f5a-809e-224ab0783ed1"
         ]
@@ -1852,27 +1846,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:02:45",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0040fc99-9023-4847-aff0-317aff613050",
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "2021-08-30 00:02:53",
-            "2021-08-30 00:02:53",
-            1,
+            "2021-08-30 00:02:13",
+            "2021-08-30 00:02:13",
             0,
             "9166167a-70ae-5591-a284-bb6b14de83e8"
         ]
@@ -1884,27 +1869,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:02:55",
-            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
-            "2021-08-30 00:03:03",
-            "2021-08-30 00:03:03",
-            1,
+            "2021-08-30 00:02:15",
+            "2021-08-30 00:02:15",
             0,
             "f14bc56f-717f-5132-94af-3eba66d9158e"
         ]
@@ -1916,27 +1892,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:03:05",
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "006218e4-47c0-4363-ab9f-91e91ff1baac",
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
-            "2021-08-30 00:03:13",
-            "2021-08-30 00:03:13",
-            1,
+            "2021-08-30 00:02:17",
+            "2021-08-30 00:02:17",
             0,
             "36723ca7-ed0b-54aa-8e22-eec5fa45ae24"
         ]
@@ -1948,27 +1915,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:03:15",
-            "a80a615d-ce33-51be-9f3d-c38a6a1456c3"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002b83e1-6107-4098-89f1-fe5602bef8ce",
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "2021-08-30 00:03:23",
-            "2021-08-30 00:03:23",
-            1,
+            "2021-08-30 00:02:19",
+            "2021-08-30 00:02:19",
             0,
             "ac9f658a-0a0d-5045-aff8-23c49f92ea61"
         ]
@@ -1980,27 +1938,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:03:25",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "2021-08-30 00:03:33",
-            "2021-08-30 00:03:33",
-            1,
+            "2021-08-30 00:02:21",
+            "2021-08-30 00:02:21",
             0,
             "e62950ed-417e-5384-9d3c-be30424ca8ec"
         ]
@@ -2012,27 +1961,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:03:35",
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "dc107b85-353d-53ef-bfeb-46b656a50ebc"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0049fc18-6477-4b4f-a637-ef0f27e082d4",
             "dc107b85-353d-53ef-bfeb-46b656a50ebc",
-            "2021-08-30 00:03:43",
-            "2021-08-30 00:03:43",
-            1,
+            "2021-08-30 00:02:23",
+            "2021-08-30 00:02:23",
             0,
             "d87e7785-b72f-5336-91ac-f424f47bede6"
         ]
@@ -2077,8 +2017,8 @@
             "Davisland",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "2021-08-30 00:03:46",
-            "2021-08-30 00:03:46"
+            "2021-08-30 00:02:26",
+            "2021-08-30 00:02:26"
         ]
     },
     {
@@ -2103,8 +2043,8 @@
             "89.617071",
             "mfpdzmchvpgm",
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
-            "2021-08-30 00:03:47",
-            "2021-08-30 00:03:47"
+            "2021-08-30 00:02:27",
+            "2021-08-30 00:02:27"
         ]
     },
     {
@@ -2119,9 +2059,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:03:48",
-            "2021-08-30 00:03:49",
-            "2021-08-30 00:03:49"
+            "2021-08-30 00:02:28",
+            "2021-08-30 00:02:29",
+            "2021-08-30 00:02:29"
         ]
     },
     {
@@ -2130,8 +2070,8 @@
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
-            "2021-08-30 00:03:50",
-            "2021-08-30 00:03:50"
+            "2021-08-30 00:02:30",
+            "2021-08-30 00:02:30"
         ]
     },
     {
@@ -2140,8 +2080,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
             "1b99939b-c780-5e17-baf6-c040f864173f",
-            "2021-08-30 00:03:51",
-            "2021-08-30 00:03:51"
+            "2021-08-30 00:02:31",
+            "2021-08-30 00:02:31"
         ]
     },
     {
@@ -2176,8 +2116,8 @@
             0.0,
             0.0,
             "9c9d3f46-1ace-5418-99b1-99afcc35060d",
-            "2021-08-30 00:03:52",
-            "2021-08-30 00:03:52"
+            "2021-08-30 00:02:32",
+            "2021-08-30 00:02:32"
         ]
     },
     {
@@ -2191,8 +2131,8 @@
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "Macejkovic-Murray",
-            "2021-08-30 00:03:53",
-            "2021-08-30 00:03:53"
+            "2021-08-30 00:02:33",
+            "2021-08-30 00:02:33"
         ]
     },
     {
@@ -2214,8 +2154,8 @@
             "Robbfort",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791",
-            "2021-08-30 00:03:58",
-            "2021-08-30 00:03:58"
+            "2021-08-30 00:02:38",
+            "2021-08-30 00:02:38"
         ]
     },
     {
@@ -2240,8 +2180,8 @@
             "-48.58241",
             "4vmkn6rq5c12",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca",
-            "2021-08-30 00:03:59",
-            "2021-08-30 00:03:59"
+            "2021-08-30 00:02:39",
+            "2021-08-30 00:02:39"
         ]
     },
     {
@@ -2256,9 +2196,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:04:00",
-            "2021-08-30 00:04:01",
-            "2021-08-30 00:04:01"
+            "2021-08-30 00:02:40",
+            "2021-08-30 00:02:41",
+            "2021-08-30 00:02:41"
         ]
     },
     {
@@ -2267,8 +2207,8 @@
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca",
             "39e37129-6357-5640-b3c2-2c1201cbd594",
-            "2021-08-30 00:04:02",
-            "2021-08-30 00:04:02"
+            "2021-08-30 00:02:42",
+            "2021-08-30 00:02:42"
         ]
     },
     {
@@ -2277,8 +2217,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "39e37129-6357-5640-b3c2-2c1201cbd594",
             "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
-            "2021-08-30 00:04:03",
-            "2021-08-30 00:04:03"
+            "2021-08-30 00:02:43",
+            "2021-08-30 00:02:43"
         ]
     },
     {
@@ -2313,8 +2253,8 @@
             0.0,
             0.0,
             "4ad798c6-af75-5237-9d0b-f5e3323bb947",
-            "2021-08-30 00:04:04",
-            "2021-08-30 00:04:04"
+            "2021-08-30 00:02:44",
+            "2021-08-30 00:02:44"
         ]
     },
     {
@@ -2328,8 +2268,8 @@
         "bindings": [
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
             "Kerluke, Runte and McClure",
-            "2021-08-30 00:04:05",
-            "2021-08-30 00:04:05"
+            "2021-08-30 00:02:45",
+            "2021-08-30 00:02:45"
         ]
     },
     {
@@ -2351,8 +2291,8 @@
             "New Tayaberg",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "3a4fb277-bbd2-5710-a542-5274e3b53cc2",
-            "2021-08-30 00:04:10",
-            "2021-08-30 00:04:10"
+            "2021-08-30 00:02:50",
+            "2021-08-30 00:02:50"
         ]
     },
     {
@@ -2377,8 +2317,8 @@
             "-33.540385",
             "e30phfbes6h7",
             "311c4a8b-7d91-5fc2-870f-2c5a03681902",
-            "2021-08-30 00:04:11",
-            "2021-08-30 00:04:11"
+            "2021-08-30 00:02:51",
+            "2021-08-30 00:02:51"
         ]
     },
     {
@@ -2393,9 +2333,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:04:12",
-            "2021-08-30 00:04:13",
-            "2021-08-30 00:04:13"
+            "2021-08-30 00:02:52",
+            "2021-08-30 00:02:53",
+            "2021-08-30 00:02:53"
         ]
     },
     {
@@ -2404,8 +2344,8 @@
             "0075f877-bfaa-4014-a520-4f10331763bd",
             "311c4a8b-7d91-5fc2-870f-2c5a03681902",
             "092a1c8c-bddd-5cf1-a921-4b41c8835536",
-            "2021-08-30 00:04:14",
-            "2021-08-30 00:04:14"
+            "2021-08-30 00:02:54",
+            "2021-08-30 00:02:54"
         ]
     },
     {
@@ -2414,8 +2354,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "092a1c8c-bddd-5cf1-a921-4b41c8835536",
             "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
-            "2021-08-30 00:04:15",
-            "2021-08-30 00:04:15"
+            "2021-08-30 00:02:55",
+            "2021-08-30 00:02:55"
         ]
     },
     {
@@ -2450,8 +2390,8 @@
             0.0,
             0.0,
             "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
-            "2021-08-30 00:04:16",
-            "2021-08-30 00:04:16"
+            "2021-08-30 00:02:56",
+            "2021-08-30 00:02:56"
         ]
     },
     {
@@ -2465,8 +2405,8 @@
         "bindings": [
             "0075f877-bfaa-4014-a520-4f10331763bd",
             "Kreiger-Howell",
-            "2021-08-30 00:04:17",
-            "2021-08-30 00:04:17"
+            "2021-08-30 00:02:57",
+            "2021-08-30 00:02:57"
         ]
     },
     {
@@ -2488,8 +2428,8 @@
             "Dibbertton",
             "305091d8-9610-5841-9743-85d05494e34c",
             "1ef32220-4547-5581-8b7b-986ee08fcbba",
-            "2021-08-30 00:04:22",
-            "2021-08-30 00:04:22"
+            "2021-08-30 00:03:02",
+            "2021-08-30 00:03:02"
         ]
     },
     {
@@ -2514,8 +2454,8 @@
             "102.245541",
             "nr28nxkumy34",
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
-            "2021-08-30 00:04:23",
-            "2021-08-30 00:04:23"
+            "2021-08-30 00:03:03",
+            "2021-08-30 00:03:03"
         ]
     },
     {
@@ -2530,9 +2470,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:04:24",
-            "2021-08-30 00:04:25",
-            "2021-08-30 00:04:25"
+            "2021-08-30 00:03:04",
+            "2021-08-30 00:03:05",
+            "2021-08-30 00:03:05"
         ]
     },
     {
@@ -2541,8 +2481,8 @@
             "007646a5-c5b9-4929-9e94-9c09eaff90e5",
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
             "f50b4a9f-54fb-5888-92f9-2288108f925d",
-            "2021-08-30 00:04:26",
-            "2021-08-30 00:04:26"
+            "2021-08-30 00:03:06",
+            "2021-08-30 00:03:06"
         ]
     },
     {
@@ -2551,8 +2491,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "f50b4a9f-54fb-5888-92f9-2288108f925d",
             "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
-            "2021-08-30 00:04:27",
-            "2021-08-30 00:04:27"
+            "2021-08-30 00:03:07",
+            "2021-08-30 00:03:07"
         ]
     },
     {
@@ -2587,8 +2527,8 @@
             0.0,
             0.0,
             "c6ff9936-ddae-51a3-aa1a-95f8d04f68ab",
-            "2021-08-30 00:04:28",
-            "2021-08-30 00:04:28"
+            "2021-08-30 00:03:08",
+            "2021-08-30 00:03:08"
         ]
     },
     {
@@ -2602,8 +2542,8 @@
         "bindings": [
             "007646a5-c5b9-4929-9e94-9c09eaff90e5",
             "Stokes-Windler",
-            "2021-08-30 00:04:29",
-            "2021-08-30 00:04:29"
+            "2021-08-30 00:03:09",
+            "2021-08-30 00:03:09"
         ]
     },
     {
@@ -2624,9 +2564,9 @@
             0,
             0,
             0,
-            "2021-08-30 00:04:34",
-            "2021-08-30 00:04:35",
-            "2021-08-30 00:04:35"
+            "2021-08-30 00:03:14",
+            "2021-08-30 00:03:15",
+            "2021-08-30 00:03:15"
         ]
     },
     {
@@ -2661,8 +2601,8 @@
             0.0,
             0.0,
             "1648e5e6-66b2-5b9d-946a-dc81961bd523",
-            "2021-08-30 00:04:36",
-            "2021-08-30 00:04:36"
+            "2021-08-30 00:03:16",
+            "2021-08-30 00:03:16"
         ]
     },
     {
@@ -2676,8 +2616,8 @@
         "bindings": [
             "007657c9-b620-445b-8676-01e491661b4a",
             "Langworth-Nader",
-            "2021-08-30 00:04:37",
-            "2021-08-30 00:04:37"
+            "2021-08-30 00:03:17",
+            "2021-08-30 00:03:17"
         ]
     },
     {
@@ -2699,8 +2639,8 @@
             "Port Vince",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "83a75595-9b20-5c94-af50-9999f1ddc25e",
-            "2021-08-30 00:04:42",
-            "2021-08-30 00:04:42"
+            "2021-08-30 00:03:22",
+            "2021-08-30 00:03:22"
         ]
     },
     {
@@ -2725,8 +2665,8 @@
             "121.82809",
             "wwqeum080r81",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
-            "2021-08-30 00:04:43",
-            "2021-08-30 00:04:43"
+            "2021-08-30 00:03:23",
+            "2021-08-30 00:03:23"
         ]
     },
     {
@@ -2741,9 +2681,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:04:44",
-            "2021-08-30 00:04:45",
-            "2021-08-30 00:04:45"
+            "2021-08-30 00:03:24",
+            "2021-08-30 00:03:25",
+            "2021-08-30 00:03:25"
         ]
     },
     {
@@ -2752,8 +2692,8 @@
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "cfbeb513-7023-5ead-b818-b161b8634f99",
-            "2021-08-30 00:04:46",
-            "2021-08-30 00:04:46"
+            "2021-08-30 00:03:26",
+            "2021-08-30 00:03:26"
         ]
     },
     {
@@ -2762,8 +2702,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "cfbeb513-7023-5ead-b818-b161b8634f99",
             "0e899424-2221-5f00-8319-63147db3b868",
-            "2021-08-30 00:04:47",
-            "2021-08-30 00:04:47"
+            "2021-08-30 00:03:27",
+            "2021-08-30 00:03:27"
         ]
     },
     {
@@ -2798,8 +2738,8 @@
             0.0,
             0.0,
             "33a66e72-16af-5e17-8fe1-1bf6cb2dc5e2",
-            "2021-08-30 00:04:48",
-            "2021-08-30 00:04:48"
+            "2021-08-30 00:03:28",
+            "2021-08-30 00:03:28"
         ]
     },
     {
@@ -2813,8 +2753,8 @@
         "bindings": [
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
             "Donnelly, Carter and Friesen",
-            "2021-08-30 00:04:49",
-            "2021-08-30 00:04:49"
+            "2021-08-30 00:03:29",
+            "2021-08-30 00:03:29"
         ]
     },
     {
@@ -2836,8 +2776,8 @@
             "West Darlene",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "0920fd14-67d6-501c-a409-3f9ae82c6f81",
-            "2021-08-30 00:04:54",
-            "2021-08-30 00:04:54"
+            "2021-08-30 00:03:34",
+            "2021-08-30 00:03:34"
         ]
     },
     {
@@ -2862,8 +2802,8 @@
             "61.023988",
             "jm77h9uk9uzr",
             "de043353-98fa-5311-963f-a44c70e71e67",
-            "2021-08-30 00:04:55",
-            "2021-08-30 00:04:55"
+            "2021-08-30 00:03:35",
+            "2021-08-30 00:03:35"
         ]
     },
     {
@@ -2878,9 +2818,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:04:56",
-            "2021-08-30 00:04:57",
-            "2021-08-30 00:04:57"
+            "2021-08-30 00:03:36",
+            "2021-08-30 00:03:37",
+            "2021-08-30 00:03:37"
         ]
     },
     {
@@ -2889,8 +2829,8 @@
             "0079e60d-1c53-4a85-9edd-31ec6324c96e",
             "de043353-98fa-5311-963f-a44c70e71e67",
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
-            "2021-08-30 00:04:58",
-            "2021-08-30 00:04:58"
+            "2021-08-30 00:03:38",
+            "2021-08-30 00:03:38"
         ]
     },
     {
@@ -2899,8 +2839,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
             "b1f6041f-d9ba-56cd-8542-3e6f588a9d58",
-            "2021-08-30 00:04:59",
-            "2021-08-30 00:04:59"
+            "2021-08-30 00:03:39",
+            "2021-08-30 00:03:39"
         ]
     },
     {
@@ -2935,8 +2875,8 @@
             0.0,
             0.0,
             "24b056b5-37d2-5aa3-ba2f-9661f8748c97",
-            "2021-08-30 00:05:00",
-            "2021-08-30 00:05:00"
+            "2021-08-30 00:03:40",
+            "2021-08-30 00:03:40"
         ]
     },
     {
@@ -2950,8 +2890,8 @@
         "bindings": [
             "0079e60d-1c53-4a85-9edd-31ec6324c96e",
             "Block, Kautzer and Cronin",
-            "2021-08-30 00:05:01",
-            "2021-08-30 00:05:01"
+            "2021-08-30 00:03:41",
+            "2021-08-30 00:03:41"
         ]
     },
     {
@@ -2973,8 +2913,8 @@
             "South Delphiastad",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "3b8ff96c-d8fa-56ba-bc76-4dfb5c732583",
-            "2021-08-30 00:05:06",
-            "2021-08-30 00:05:06"
+            "2021-08-30 00:03:46",
+            "2021-08-30 00:03:46"
         ]
     },
     {
@@ -2999,8 +2939,8 @@
             "-161.451169",
             "b7t1qpfzgh6z",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
-            "2021-08-30 00:05:07",
-            "2021-08-30 00:05:07"
+            "2021-08-30 00:03:47",
+            "2021-08-30 00:03:47"
         ]
     },
     {
@@ -3015,9 +2955,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:05:08",
-            "2021-08-30 00:05:09",
-            "2021-08-30 00:05:09"
+            "2021-08-30 00:03:48",
+            "2021-08-30 00:03:49",
+            "2021-08-30 00:03:49"
         ]
     },
     {
@@ -3026,8 +2966,8 @@
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
             "4095e0b0-8302-5ec4-a31b-09b584ea92c4",
-            "2021-08-30 00:05:10",
-            "2021-08-30 00:05:10"
+            "2021-08-30 00:03:50",
+            "2021-08-30 00:03:50"
         ]
     },
     {
@@ -3036,8 +2976,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "4095e0b0-8302-5ec4-a31b-09b584ea92c4",
             "acf54392-1f10-517b-bf7b-2a445e5e8826",
-            "2021-08-30 00:05:11",
-            "2021-08-30 00:05:11"
+            "2021-08-30 00:03:51",
+            "2021-08-30 00:03:51"
         ]
     },
     {
@@ -3072,8 +3012,8 @@
             0.0,
             0.0,
             "f31ab8c4-78af-57cb-baac-af467afa0cad",
-            "2021-08-30 00:05:12",
-            "2021-08-30 00:05:12"
+            "2021-08-30 00:03:52",
+            "2021-08-30 00:03:52"
         ]
     },
     {
@@ -3087,8 +3027,8 @@
         "bindings": [
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
             "Watsica, Ferry and Robel",
-            "2021-08-30 00:05:13",
-            "2021-08-30 00:05:13"
+            "2021-08-30 00:03:53",
+            "2021-08-30 00:03:53"
         ]
     },
     {
@@ -3110,8 +3050,8 @@
             "Colebury",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "539d47df-edd1-5c3f-9752-2fed455c94b5",
-            "2021-08-30 00:05:18",
-            "2021-08-30 00:05:18"
+            "2021-08-30 00:03:58",
+            "2021-08-30 00:03:58"
         ]
     },
     {
@@ -3136,8 +3076,8 @@
             "89.147033",
             "juzqu84guqtt",
             "8805a24e-730d-5ca0-909a-a43a5d9821f9",
-            "2021-08-30 00:05:19",
-            "2021-08-30 00:05:19"
+            "2021-08-30 00:03:59",
+            "2021-08-30 00:03:59"
         ]
     },
     {
@@ -3152,9 +3092,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:05:20",
-            "2021-08-30 00:05:21",
-            "2021-08-30 00:05:21"
+            "2021-08-30 00:04:00",
+            "2021-08-30 00:04:01",
+            "2021-08-30 00:04:01"
         ]
     },
     {
@@ -3163,8 +3103,8 @@
             "009a0762-e369-4efb-a88a-1a8b49e1ab14",
             "8805a24e-730d-5ca0-909a-a43a5d9821f9",
             "e1662bb7-1086-5384-86eb-10816193115b",
-            "2021-08-30 00:05:22",
-            "2021-08-30 00:05:22"
+            "2021-08-30 00:04:02",
+            "2021-08-30 00:04:02"
         ]
     },
     {
@@ -3173,8 +3113,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "e1662bb7-1086-5384-86eb-10816193115b",
             "b6189514-3ea8-501b-860b-83ca0bcef411",
-            "2021-08-30 00:05:23",
-            "2021-08-30 00:05:23"
+            "2021-08-30 00:04:03",
+            "2021-08-30 00:04:03"
         ]
     },
     {
@@ -3209,8 +3149,8 @@
             0.0,
             0.0,
             "50d8dd52-0a35-5478-b6d5-a59d439ebf96",
-            "2021-08-30 00:05:24",
-            "2021-08-30 00:05:24"
+            "2021-08-30 00:04:04",
+            "2021-08-30 00:04:04"
         ]
     },
     {
@@ -3224,8 +3164,8 @@
         "bindings": [
             "009a0762-e369-4efb-a88a-1a8b49e1ab14",
             "Waters, Hudson and Beahan",
-            "2021-08-30 00:05:25",
-            "2021-08-30 00:05:25"
+            "2021-08-30 00:04:05",
+            "2021-08-30 00:04:05"
         ]
     },
     {
@@ -3247,8 +3187,8 @@
             "Halvorsonbury",
             "305091d8-9610-5841-9743-85d05494e34c",
             "79aa20b0-3def-5ac1-99e0-e5791b5a8640",
-            "2021-08-30 00:05:30",
-            "2021-08-30 00:05:30"
+            "2021-08-30 00:04:10",
+            "2021-08-30 00:04:10"
         ]
     },
     {
@@ -3273,8 +3213,8 @@
             "139.080545",
             "p0fvuugq594v",
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699",
-            "2021-08-30 00:05:31",
-            "2021-08-30 00:05:31"
+            "2021-08-30 00:04:11",
+            "2021-08-30 00:04:11"
         ]
     },
     {
@@ -3289,9 +3229,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:05:32",
-            "2021-08-30 00:05:33",
-            "2021-08-30 00:05:33"
+            "2021-08-30 00:04:12",
+            "2021-08-30 00:04:13",
+            "2021-08-30 00:04:13"
         ]
     },
     {
@@ -3300,8 +3240,8 @@
             "00a51569-935d-4155-971b-05713d3f860c",
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699",
             "44911220-2462-5ac6-810d-e17564293467",
-            "2021-08-30 00:05:34",
-            "2021-08-30 00:05:34"
+            "2021-08-30 00:04:14",
+            "2021-08-30 00:04:14"
         ]
     },
     {
@@ -3310,8 +3250,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "44911220-2462-5ac6-810d-e17564293467",
             "9ab7a8a9-6c70-5716-b817-786165f89b3b",
-            "2021-08-30 00:05:35",
-            "2021-08-30 00:05:35"
+            "2021-08-30 00:04:15",
+            "2021-08-30 00:04:15"
         ]
     },
     {
@@ -3346,8 +3286,8 @@
             0.0,
             0.0,
             "2676204d-fe44-53f8-b32f-307cd2dd5d27",
-            "2021-08-30 00:05:36",
-            "2021-08-30 00:05:36"
+            "2021-08-30 00:04:16",
+            "2021-08-30 00:04:16"
         ]
     },
     {
@@ -3361,8 +3301,8 @@
         "bindings": [
             "00a51569-935d-4155-971b-05713d3f860c",
             "Stokes-Windler",
-            "2021-08-30 00:05:37",
-            "2021-08-30 00:05:37"
+            "2021-08-30 00:04:17",
+            "2021-08-30 00:04:17"
         ]
     },
     {
@@ -3442,7 +3382,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -3457,7 +3397,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -3580,7 +3520,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
@@ -3594,7 +3534,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id` from `reseller_locations` where `reseller_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
@@ -3608,7 +3548,7 @@
         ]
     },
     {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
@@ -3622,11 +3562,31 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            1,
-            "2021-08-30 00:05:41",
-            "013c5ca2-56be-571e-9ba2-4fbed1a4623b"
+            "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
+            "247f5a54-605d-580c-b91f-0a3daae1c462",
+            "311c4a8b-7d91-5fc2-870f-2c5a03681902",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "8805a24e-730d-5ca0-909a-a43a5d9821f9",
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
+            "de043353-98fa-5311-963f-a44c70e71e67"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
+            "247f5a54-605d-580c-b91f-0a3daae1c462",
+            "311c4a8b-7d91-5fc2-870f-2c5a03681902",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "8805a24e-730d-5ca0-909a-a43a5d9821f9",
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
+            "de043353-98fa-5311-963f-a44c70e71e67"
         ]
     },
     {
@@ -3636,13 +3596,12 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
-            "2021-08-30 00:05:49",
-            "2021-08-30 00:05:49",
-            1,
+            "2021-08-30 00:04:21",
+            "2021-08-30 00:04:21",
             0,
             "75fb8baa-cc79-5c63-b040-fdd8d8afae44"
         ]
@@ -3654,27 +3613,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:05:51",
-            "247f5a54-605d-580c-b91f-0a3daae1c462"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "247f5a54-605d-580c-b91f-0a3daae1c462"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
-            "2021-08-30 00:05:59",
-            "2021-08-30 00:05:59",
-            1,
+            "2021-08-30 00:04:23",
+            "2021-08-30 00:04:23",
             0,
             "5491a20b-c887-5c3c-958a-da9d3f53f886"
         ]
@@ -3686,27 +3636,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:06:01",
-            "311c4a8b-7d91-5fc2-870f-2c5a03681902"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "311c4a8b-7d91-5fc2-870f-2c5a03681902"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0075f877-bfaa-4014-a520-4f10331763bd",
             "311c4a8b-7d91-5fc2-870f-2c5a03681902",
-            "2021-08-30 00:06:09",
-            "2021-08-30 00:06:09",
-            1,
+            "2021-08-30 00:04:25",
+            "2021-08-30 00:04:25",
             0,
             "0f3072a4-5fc5-55c0-a3c7-92e60373db8a"
         ]
@@ -3718,27 +3659,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:06:11",
-            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
-            "2021-08-30 00:06:19",
-            "2021-08-30 00:06:19",
-            1,
+            "2021-08-30 00:04:27",
+            "2021-08-30 00:04:27",
             0,
             "4f594d06-6c38-5241-82b6-41b575c43987"
         ]
@@ -3750,27 +3682,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:06:21",
-            "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00a51569-935d-4155-971b-05713d3f860c",
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699",
-            "2021-08-30 00:06:29",
-            "2021-08-30 00:06:29",
-            1,
+            "2021-08-30 00:04:29",
+            "2021-08-30 00:04:29",
             0,
             "e5be5e75-97d2-5cd6-9bc8-d077d2e83a0e"
         ]
@@ -3782,27 +3705,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:06:31",
-            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "007646a5-c5b9-4929-9e94-9c09eaff90e5",
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
-            "2021-08-30 00:06:39",
-            "2021-08-30 00:06:39",
-            1,
+            "2021-08-30 00:04:31",
+            "2021-08-30 00:04:31",
             0,
             "71502ff8-2f51-556b-a83c-6170dced49bb"
         ]
@@ -3814,27 +3728,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:06:41",
-            "8805a24e-730d-5ca0-909a-a43a5d9821f9"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "8805a24e-730d-5ca0-909a-a43a5d9821f9"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "009a0762-e369-4efb-a88a-1a8b49e1ab14",
             "8805a24e-730d-5ca0-909a-a43a5d9821f9",
-            "2021-08-30 00:06:49",
-            "2021-08-30 00:06:49",
-            1,
+            "2021-08-30 00:04:33",
+            "2021-08-30 00:04:33",
             0,
             "6000527f-c512-587f-8018-4ca442613bd7"
         ]
@@ -3846,27 +3751,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:06:51",
-            "ca350e8f-fc92-535d-ac8c-5371d439ccca"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "ca350e8f-fc92-535d-ac8c-5371d439ccca"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca",
-            "2021-08-30 00:06:59",
-            "2021-08-30 00:06:59",
-            1,
+            "2021-08-30 00:04:35",
+            "2021-08-30 00:04:35",
             0,
             "526bd90f-1216-5a9b-b252-1db43a59e718"
         ]
@@ -3878,27 +3774,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:07:01",
-            "de043353-98fa-5311-963f-a44c70e71e67"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "de043353-98fa-5311-963f-a44c70e71e67"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0079e60d-1c53-4a85-9edd-31ec6324c96e",
             "de043353-98fa-5311-963f-a44c70e71e67",
-            "2021-08-30 00:07:09",
-            "2021-08-30 00:07:09",
-            1,
+            "2021-08-30 00:04:37",
+            "2021-08-30 00:04:37",
             0,
             "1efcf0b7-e56e-5599-8c65-15f2acf3c698"
         ]
@@ -3943,8 +3830,8 @@
             "Rhodaside",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "d4c100d1-75af-5ea0-8c84-224150bd1843",
-            "2021-08-30 00:07:12",
-            "2021-08-30 00:07:12"
+            "2021-08-30 00:04:40",
+            "2021-08-30 00:04:40"
         ]
     },
     {
@@ -3969,8 +3856,8 @@
             "-110.640967",
             "1x3qd6c9w8gq",
             "d3462d54-53b1-5c47-967c-35b200db2725",
-            "2021-08-30 00:07:13",
-            "2021-08-30 00:07:13"
+            "2021-08-30 00:04:41",
+            "2021-08-30 00:04:41"
         ]
     },
     {
@@ -3985,9 +3872,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:07:14",
-            "2021-08-30 00:07:15",
-            "2021-08-30 00:07:15"
+            "2021-08-30 00:04:42",
+            "2021-08-30 00:04:43",
+            "2021-08-30 00:04:43"
         ]
     },
     {
@@ -3996,8 +3883,8 @@
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "d3462d54-53b1-5c47-967c-35b200db2725",
             "b1136a17-b48c-5f54-921c-2f94e29176b5",
-            "2021-08-30 00:07:16",
-            "2021-08-30 00:07:16"
+            "2021-08-30 00:04:44",
+            "2021-08-30 00:04:44"
         ]
     },
     {
@@ -4006,8 +3893,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b1136a17-b48c-5f54-921c-2f94e29176b5",
             "b06ccf09-00ce-5551-a0a6-7a5689d9da04",
-            "2021-08-30 00:07:17",
-            "2021-08-30 00:07:17"
+            "2021-08-30 00:04:45",
+            "2021-08-30 00:04:45"
         ]
     },
     {
@@ -4042,8 +3929,8 @@
             0.0,
             0.0,
             "41ab2a45-e8b5-5051-8c95-a136721b19f1",
-            "2021-08-30 00:07:18",
-            "2021-08-30 00:07:18"
+            "2021-08-30 00:04:46",
+            "2021-08-30 00:04:46"
         ]
     },
     {
@@ -4057,8 +3944,8 @@
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "Orn-Osinski",
-            "2021-08-30 00:07:19",
-            "2021-08-30 00:07:19"
+            "2021-08-30 00:04:47",
+            "2021-08-30 00:04:47"
         ]
     },
     {
@@ -4080,8 +3967,8 @@
             "East Immanuelville",
             "305091d8-9610-5841-9743-85d05494e34c",
             "4c65a05e-a7d1-5bcc-8474-6feeecc4d49e",
-            "2021-08-30 00:07:24",
-            "2021-08-30 00:07:24"
+            "2021-08-30 00:04:52",
+            "2021-08-30 00:04:52"
         ]
     },
     {
@@ -4106,8 +3993,8 @@
             "-123.40624",
             "968ppf466nq0",
             "334a7956-4330-5742-9d8b-64e189a0a142",
-            "2021-08-30 00:07:25",
-            "2021-08-30 00:07:25"
+            "2021-08-30 00:04:53",
+            "2021-08-30 00:04:53"
         ]
     },
     {
@@ -4122,9 +4009,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:07:26",
-            "2021-08-30 00:07:27",
-            "2021-08-30 00:07:27"
+            "2021-08-30 00:04:54",
+            "2021-08-30 00:04:55",
+            "2021-08-30 00:04:55"
         ]
     },
     {
@@ -4133,8 +4020,8 @@
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
             "334a7956-4330-5742-9d8b-64e189a0a142",
             "2d19935c-acb9-589a-9005-3e4da6e739ba",
-            "2021-08-30 00:07:28",
-            "2021-08-30 00:07:28"
+            "2021-08-30 00:04:56",
+            "2021-08-30 00:04:56"
         ]
     },
     {
@@ -4143,8 +4030,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "2d19935c-acb9-589a-9005-3e4da6e739ba",
             "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
-            "2021-08-30 00:07:29",
-            "2021-08-30 00:07:29"
+            "2021-08-30 00:04:57",
+            "2021-08-30 00:04:57"
         ]
     },
     {
@@ -4179,8 +4066,8 @@
             0.0,
             0.0,
             "6c52bdce-491f-5593-95ec-79461aa6b233",
-            "2021-08-30 00:07:30",
-            "2021-08-30 00:07:30"
+            "2021-08-30 00:04:58",
+            "2021-08-30 00:04:58"
         ]
     },
     {
@@ -4194,8 +4081,8 @@
         "bindings": [
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
             "Lang LLC",
-            "2021-08-30 00:07:31",
-            "2021-08-30 00:07:31"
+            "2021-08-30 00:04:59",
+            "2021-08-30 00:04:59"
         ]
     },
     {
@@ -4217,8 +4104,8 @@
             "Oswaldostad",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "9aa5871b-dd32-527f-a78a-bbec176e1672",
-            "2021-08-30 00:07:36",
-            "2021-08-30 00:07:36"
+            "2021-08-30 00:05:04",
+            "2021-08-30 00:05:04"
         ]
     },
     {
@@ -4243,8 +4130,8 @@
             "-15.076494",
             "7svm2zv8h4r6",
             "95cfb95c-a621-585a-94e2-413e15a9fd37",
-            "2021-08-30 00:07:37",
-            "2021-08-30 00:07:37"
+            "2021-08-30 00:05:05",
+            "2021-08-30 00:05:05"
         ]
     },
     {
@@ -4259,9 +4146,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:07:38",
-            "2021-08-30 00:07:39",
-            "2021-08-30 00:07:39"
+            "2021-08-30 00:05:06",
+            "2021-08-30 00:05:07",
+            "2021-08-30 00:05:07"
         ]
     },
     {
@@ -4270,8 +4157,8 @@
             "00c02780-d026-4a8e-a402-f63aca4e65f4",
             "95cfb95c-a621-585a-94e2-413e15a9fd37",
             "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4",
-            "2021-08-30 00:07:40",
-            "2021-08-30 00:07:40"
+            "2021-08-30 00:05:08",
+            "2021-08-30 00:05:08"
         ]
     },
     {
@@ -4280,8 +4167,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4",
             "5e7267ff-2f23-5177-a578-e84266744413",
-            "2021-08-30 00:07:41",
-            "2021-08-30 00:07:41"
+            "2021-08-30 00:05:09",
+            "2021-08-30 00:05:09"
         ]
     },
     {
@@ -4316,8 +4203,8 @@
             0.0,
             0.0,
             "8761695c-51cf-535d-a890-a22a2717defe",
-            "2021-08-30 00:07:42",
-            "2021-08-30 00:07:42"
+            "2021-08-30 00:05:10",
+            "2021-08-30 00:05:10"
         ]
     },
     {
@@ -4331,8 +4218,8 @@
         "bindings": [
             "00c02780-d026-4a8e-a402-f63aca4e65f4",
             "Stanton LLC",
-            "2021-08-30 00:07:43",
-            "2021-08-30 00:07:43"
+            "2021-08-30 00:05:11",
+            "2021-08-30 00:05:11"
         ]
     },
     {
@@ -4354,8 +4241,8 @@
             "East Jaclynfort",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a",
-            "2021-08-30 00:07:48",
-            "2021-08-30 00:07:48"
+            "2021-08-30 00:05:16",
+            "2021-08-30 00:05:16"
         ]
     },
     {
@@ -4380,8 +4267,8 @@
             "161.078373",
             "zw69ckjeq5kk",
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
-            "2021-08-30 00:07:49",
-            "2021-08-30 00:07:49"
+            "2021-08-30 00:05:17",
+            "2021-08-30 00:05:17"
         ]
     },
     {
@@ -4396,9 +4283,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:07:50",
-            "2021-08-30 00:07:51",
-            "2021-08-30 00:07:51"
+            "2021-08-30 00:05:18",
+            "2021-08-30 00:05:19",
+            "2021-08-30 00:05:19"
         ]
     },
     {
@@ -4407,8 +4294,8 @@
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
             "299965cb-6cef-5df3-9867-ca86744459ff",
-            "2021-08-30 00:07:52",
-            "2021-08-30 00:07:52"
+            "2021-08-30 00:05:20",
+            "2021-08-30 00:05:20"
         ]
     },
     {
@@ -4417,8 +4304,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "299965cb-6cef-5df3-9867-ca86744459ff",
             "751329de-0889-525b-afb7-3d0abe197d0a",
-            "2021-08-30 00:07:53",
-            "2021-08-30 00:07:53"
+            "2021-08-30 00:05:21",
+            "2021-08-30 00:05:21"
         ]
     },
     {
@@ -4453,8 +4340,8 @@
             0.0,
             0.0,
             "f987524a-f9ca-50b9-b891-798188b5d074",
-            "2021-08-30 00:07:54",
-            "2021-08-30 00:07:54"
+            "2021-08-30 00:05:22",
+            "2021-08-30 00:05:22"
         ]
     },
     {
@@ -4468,8 +4355,8 @@
         "bindings": [
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
             "Stark Inc",
-            "2021-08-30 00:07:55",
-            "2021-08-30 00:07:55"
+            "2021-08-30 00:05:23",
+            "2021-08-30 00:05:23"
         ]
     },
     {
@@ -4491,8 +4378,8 @@
             "Jastville",
             "305091d8-9610-5841-9743-85d05494e34c",
             "88a7396e-a946-59f1-9c89-86b53617d00d",
-            "2021-08-30 00:08:00",
-            "2021-08-30 00:08:00"
+            "2021-08-30 00:05:28",
+            "2021-08-30 00:05:28"
         ]
     },
     {
@@ -4517,8 +4404,8 @@
             "-165.689087",
             "2mdjjesfu6q5",
             "85c2d18e-c7a6-549f-a933-e7d10b285807",
-            "2021-08-30 00:08:01",
-            "2021-08-30 00:08:01"
+            "2021-08-30 00:05:29",
+            "2021-08-30 00:05:29"
         ]
     },
     {
@@ -4533,9 +4420,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:08:02",
-            "2021-08-30 00:08:03",
-            "2021-08-30 00:08:03"
+            "2021-08-30 00:05:30",
+            "2021-08-30 00:05:31",
+            "2021-08-30 00:05:31"
         ]
     },
     {
@@ -4544,8 +4431,8 @@
             "00c871be-e0f6-4577-a4d9-a770878eea15",
             "85c2d18e-c7a6-549f-a933-e7d10b285807",
             "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7",
-            "2021-08-30 00:08:04",
-            "2021-08-30 00:08:04"
+            "2021-08-30 00:05:32",
+            "2021-08-30 00:05:32"
         ]
     },
     {
@@ -4554,8 +4441,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7",
             "3e840a18-2c82-5385-8767-730159b5fcc6",
-            "2021-08-30 00:08:05",
-            "2021-08-30 00:08:05"
+            "2021-08-30 00:05:33",
+            "2021-08-30 00:05:33"
         ]
     },
     {
@@ -4590,8 +4477,8 @@
             0.0,
             0.0,
             "b4b34ab6-6220-5ba3-a8bb-cc7b291aacbc",
-            "2021-08-30 00:08:06",
-            "2021-08-30 00:08:06"
+            "2021-08-30 00:05:34",
+            "2021-08-30 00:05:34"
         ]
     },
     {
@@ -4605,8 +4492,8 @@
         "bindings": [
             "00c871be-e0f6-4577-a4d9-a770878eea15",
             "Bosco, Bergnaum and Heller",
-            "2021-08-30 00:08:07",
-            "2021-08-30 00:08:07"
+            "2021-08-30 00:05:35",
+            "2021-08-30 00:05:35"
         ]
     },
     {
@@ -4628,8 +4515,8 @@
             "Watsicaside",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "8cd09c24-e067-5cc9-8d9f-c9e04697415a",
-            "2021-08-30 00:08:12",
-            "2021-08-30 00:08:12"
+            "2021-08-30 00:05:40",
+            "2021-08-30 00:05:40"
         ]
     },
     {
@@ -4654,8 +4541,8 @@
             "70.652732",
             "v8d5xdrdzyzk",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
-            "2021-08-30 00:08:13",
-            "2021-08-30 00:08:13"
+            "2021-08-30 00:05:41",
+            "2021-08-30 00:05:41"
         ]
     },
     {
@@ -4670,9 +4557,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:08:14",
-            "2021-08-30 00:08:15",
-            "2021-08-30 00:08:15"
+            "2021-08-30 00:05:42",
+            "2021-08-30 00:05:43",
+            "2021-08-30 00:05:43"
         ]
     },
     {
@@ -4681,8 +4568,8 @@
             "00e4a8ff-1d07-428b-acd0-e858973e5707",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
             "d503ee49-baa4-5a65-a16b-473ba57a27a5",
-            "2021-08-30 00:08:16",
-            "2021-08-30 00:08:16"
+            "2021-08-30 00:05:44",
+            "2021-08-30 00:05:44"
         ]
     },
     {
@@ -4691,8 +4578,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "d503ee49-baa4-5a65-a16b-473ba57a27a5",
             "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306",
-            "2021-08-30 00:08:17",
-            "2021-08-30 00:08:17"
+            "2021-08-30 00:05:45",
+            "2021-08-30 00:05:45"
         ]
     },
     {
@@ -4727,8 +4614,8 @@
             0.0,
             0.0,
             "c29fe394-00c9-51e6-b7ff-9fd382a79e4d",
-            "2021-08-30 00:08:18",
-            "2021-08-30 00:08:18"
+            "2021-08-30 00:05:46",
+            "2021-08-30 00:05:46"
         ]
     },
     {
@@ -4742,8 +4629,8 @@
         "bindings": [
             "00e4a8ff-1d07-428b-acd0-e858973e5707",
             "Cummings, Larkin and Simonis",
-            "2021-08-30 00:08:19",
-            "2021-08-30 00:08:19"
+            "2021-08-30 00:05:47",
+            "2021-08-30 00:05:47"
         ]
     },
     {
@@ -4765,8 +4652,8 @@
             "Schambergermouth",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "fb52d2dc-b5b1-57e4-80bf-bb16a019b019",
-            "2021-08-30 00:08:24",
-            "2021-08-30 00:08:24"
+            "2021-08-30 00:05:52",
+            "2021-08-30 00:05:52"
         ]
     },
     {
@@ -4791,8 +4678,8 @@
             "156.280179",
             "z6z0upzvbj5w",
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
-            "2021-08-30 00:08:25",
-            "2021-08-30 00:08:25"
+            "2021-08-30 00:05:53",
+            "2021-08-30 00:05:53"
         ]
     },
     {
@@ -4807,9 +4694,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:08:26",
-            "2021-08-30 00:08:27",
-            "2021-08-30 00:08:27"
+            "2021-08-30 00:05:54",
+            "2021-08-30 00:05:55",
+            "2021-08-30 00:05:55"
         ]
     },
     {
@@ -4818,8 +4705,8 @@
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
             "48b55aa1-76c8-5829-9fec-4295445df191",
-            "2021-08-30 00:08:28",
-            "2021-08-30 00:08:28"
+            "2021-08-30 00:05:56",
+            "2021-08-30 00:05:56"
         ]
     },
     {
@@ -4828,8 +4715,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "48b55aa1-76c8-5829-9fec-4295445df191",
             "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
-            "2021-08-30 00:08:29",
-            "2021-08-30 00:08:29"
+            "2021-08-30 00:05:57",
+            "2021-08-30 00:05:57"
         ]
     },
     {
@@ -4864,8 +4751,8 @@
             0.0,
             0.0,
             "3e60aaee-5d06-57d9-8e8f-66c38e776a8a",
-            "2021-08-30 00:08:30",
-            "2021-08-30 00:08:30"
+            "2021-08-30 00:05:58",
+            "2021-08-30 00:05:58"
         ]
     },
     {
@@ -4879,8 +4766,8 @@
         "bindings": [
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
             "Dibbert and Sons",
-            "2021-08-30 00:08:31",
-            "2021-08-30 00:08:31"
+            "2021-08-30 00:05:59",
+            "2021-08-30 00:05:59"
         ]
     },
     {
@@ -4902,8 +4789,8 @@
             "Lake Thaddeuston",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "19b7c700-0727-5683-98e3-18f421f2e275",
-            "2021-08-30 00:08:36",
-            "2021-08-30 00:08:36"
+            "2021-08-30 00:06:04",
+            "2021-08-30 00:06:04"
         ]
     },
     {
@@ -4928,8 +4815,8 @@
             "-65.379566",
             "f89x8m0p1xy5",
             "89a334cc-2831-5b5d-89fd-06002b07bae8",
-            "2021-08-30 00:08:37",
-            "2021-08-30 00:08:37"
+            "2021-08-30 00:06:05",
+            "2021-08-30 00:06:05"
         ]
     },
     {
@@ -4944,9 +4831,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:08:38",
-            "2021-08-30 00:08:39",
-            "2021-08-30 00:08:39"
+            "2021-08-30 00:06:06",
+            "2021-08-30 00:06:07",
+            "2021-08-30 00:06:07"
         ]
     },
     {
@@ -4955,8 +4842,8 @@
             "01085380-44ac-4429-b128-28a70140fb67",
             "89a334cc-2831-5b5d-89fd-06002b07bae8",
             "190acee6-c3b2-55ce-b1a9-abf9a4ea470f",
-            "2021-08-30 00:08:40",
-            "2021-08-30 00:08:40"
+            "2021-08-30 00:06:08",
+            "2021-08-30 00:06:08"
         ]
     },
     {
@@ -4965,8 +4852,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "190acee6-c3b2-55ce-b1a9-abf9a4ea470f",
             "71eac4c9-9364-5714-9429-e67d9c785745",
-            "2021-08-30 00:08:41",
-            "2021-08-30 00:08:41"
+            "2021-08-30 00:06:09",
+            "2021-08-30 00:06:09"
         ]
     },
     {
@@ -5001,8 +4888,8 @@
             0.0,
             0.0,
             "377beb4c-2c47-5a14-b249-38dddb33c1e0",
-            "2021-08-30 00:08:42",
-            "2021-08-30 00:08:42"
+            "2021-08-30 00:06:10",
+            "2021-08-30 00:06:10"
         ]
     },
     {
@@ -5016,8 +4903,8 @@
         "bindings": [
             "01085380-44ac-4429-b128-28a70140fb67",
             "O'Keefe, Armstrong and Beatty",
-            "2021-08-30 00:08:43",
-            "2021-08-30 00:08:43"
+            "2021-08-30 00:06:11",
+            "2021-08-30 00:06:11"
         ]
     },
     {
@@ -5039,8 +4926,8 @@
             "West Lewis",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "1041d9c8-06d5-59f5-8ff2-6ee7a0d243c8",
-            "2021-08-30 00:08:48",
-            "2021-08-30 00:08:48"
+            "2021-08-30 00:06:16",
+            "2021-08-30 00:06:16"
         ]
     },
     {
@@ -5065,8 +4952,8 @@
             "-49.970856",
             "dbsmwvsq6dmh",
             "964b027c-6543-5bfd-97b5-94a7504e7c42",
-            "2021-08-30 00:08:49",
-            "2021-08-30 00:08:49"
+            "2021-08-30 00:06:17",
+            "2021-08-30 00:06:17"
         ]
     },
     {
@@ -5081,9 +4968,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:08:50",
-            "2021-08-30 00:08:51",
-            "2021-08-30 00:08:51"
+            "2021-08-30 00:06:18",
+            "2021-08-30 00:06:19",
+            "2021-08-30 00:06:19"
         ]
     },
     {
@@ -5092,8 +4979,8 @@
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
             "964b027c-6543-5bfd-97b5-94a7504e7c42",
             "9a5a225f-e72e-5a25-925c-ea6b2de00d20",
-            "2021-08-30 00:08:52",
-            "2021-08-30 00:08:52"
+            "2021-08-30 00:06:20",
+            "2021-08-30 00:06:20"
         ]
     },
     {
@@ -5102,8 +4989,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "9a5a225f-e72e-5a25-925c-ea6b2de00d20",
             "f5becad7-aebd-5a48-8b63-4dafd2119019",
-            "2021-08-30 00:08:53",
-            "2021-08-30 00:08:53"
+            "2021-08-30 00:06:21",
+            "2021-08-30 00:06:21"
         ]
     },
     {
@@ -5138,8 +5025,8 @@
             0.0,
             0.0,
             "1e6c2bd1-2bd7-5dc0-93af-b2b33b11a14b",
-            "2021-08-30 00:08:54",
-            "2021-08-30 00:08:54"
+            "2021-08-30 00:06:22",
+            "2021-08-30 00:06:22"
         ]
     },
     {
@@ -5153,8 +5040,8 @@
         "bindings": [
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
             "Jerde Inc",
-            "2021-08-30 00:08:55",
-            "2021-08-30 00:08:55"
+            "2021-08-30 00:06:23",
+            "2021-08-30 00:06:23"
         ]
     },
     {
@@ -5176,8 +5063,8 @@
             "New Brant",
             "305091d8-9610-5841-9743-85d05494e34c",
             "966f2f09-e7a4-58b3-be60-187bbb1825ab",
-            "2021-08-30 00:09:00",
-            "2021-08-30 00:09:00"
+            "2021-08-30 00:06:28",
+            "2021-08-30 00:06:28"
         ]
     },
     {
@@ -5202,8 +5089,8 @@
             "173.638085",
             "rbgkz0z3k9h3",
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
-            "2021-08-30 00:09:01",
-            "2021-08-30 00:09:01"
+            "2021-08-30 00:06:29",
+            "2021-08-30 00:06:29"
         ]
     },
     {
@@ -5218,9 +5105,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:09:02",
-            "2021-08-30 00:09:03",
-            "2021-08-30 00:09:03"
+            "2021-08-30 00:06:30",
+            "2021-08-30 00:06:31",
+            "2021-08-30 00:06:31"
         ]
     },
     {
@@ -5229,8 +5116,8 @@
             "0119600e-c938-4472-95ba-7855c2b174cc",
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "3ffab4b1-0900-5a80-b3a3-31a129bef7c0",
-            "2021-08-30 00:09:04",
-            "2021-08-30 00:09:04"
+            "2021-08-30 00:06:32",
+            "2021-08-30 00:06:32"
         ]
     },
     {
@@ -5239,8 +5126,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "3ffab4b1-0900-5a80-b3a3-31a129bef7c0",
             "817732ad-454f-5aab-8bf0-fa41ab854a8c",
-            "2021-08-30 00:09:05",
-            "2021-08-30 00:09:05"
+            "2021-08-30 00:06:33",
+            "2021-08-30 00:06:33"
         ]
     },
     {
@@ -5275,8 +5162,8 @@
             0.0,
             0.0,
             "7bc174a1-9e40-5793-83a1-8939be914c60",
-            "2021-08-30 00:09:06",
-            "2021-08-30 00:09:06"
+            "2021-08-30 00:06:34",
+            "2021-08-30 00:06:34"
         ]
     },
     {
@@ -5290,8 +5177,8 @@
         "bindings": [
             "0119600e-c938-4472-95ba-7855c2b174cc",
             "Wolf, Doyle and Daniel",
-            "2021-08-30 00:09:07",
-            "2021-08-30 00:09:07"
+            "2021-08-30 00:06:35",
+            "2021-08-30 00:06:35"
         ]
     },
     {
@@ -5371,7 +5258,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -5386,7 +5273,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -5510,7 +5397,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
@@ -5525,7 +5412,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id` from `reseller_locations` where `reseller_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
@@ -5540,7 +5427,7 @@
         ]
     },
     {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
@@ -5555,11 +5442,33 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            1,
-            "2021-08-30 00:09:11",
-            "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec"
+            "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
+            "31cd877f-51fe-56f1-8a9d-293720ff8434",
+            "334a7956-4330-5742-9d8b-64e189a0a142",
+            "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
+            "85c2d18e-c7a6-549f-a933-e7d10b285807",
+            "89a334cc-2831-5b5d-89fd-06002b07bae8",
+            "95cfb95c-a621-585a-94e2-413e15a9fd37",
+            "964b027c-6543-5bfd-97b5-94a7504e7c42",
+            "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
+            "d3462d54-53b1-5c47-967c-35b200db2725"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
+            "31cd877f-51fe-56f1-8a9d-293720ff8434",
+            "334a7956-4330-5742-9d8b-64e189a0a142",
+            "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
+            "85c2d18e-c7a6-549f-a933-e7d10b285807",
+            "89a334cc-2831-5b5d-89fd-06002b07bae8",
+            "95cfb95c-a621-585a-94e2-413e15a9fd37",
+            "964b027c-6543-5bfd-97b5-94a7504e7c42",
+            "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
+            "d3462d54-53b1-5c47-967c-35b200db2725"
         ]
     },
     {
@@ -5569,13 +5478,12 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0119600e-c938-4472-95ba-7855c2b174cc",
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
-            "2021-08-30 00:09:19",
-            "2021-08-30 00:09:19",
-            1,
+            "2021-08-30 00:06:39",
+            "2021-08-30 00:06:39",
             0,
             "2fe38673-7923-5548-b854-f6c1ce82bdfa"
         ]
@@ -5587,27 +5495,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:09:21",
-            "31cd877f-51fe-56f1-8a9d-293720ff8434"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "31cd877f-51fe-56f1-8a9d-293720ff8434"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00e4a8ff-1d07-428b-acd0-e858973e5707",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
-            "2021-08-30 00:09:29",
-            "2021-08-30 00:09:29",
-            1,
+            "2021-08-30 00:06:41",
+            "2021-08-30 00:06:41",
             0,
             "fb6332d4-044a-5a80-9ba6-9400344350b5"
         ]
@@ -5619,27 +5518,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:09:31",
-            "334a7956-4330-5742-9d8b-64e189a0a142"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "334a7956-4330-5742-9d8b-64e189a0a142"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
             "334a7956-4330-5742-9d8b-64e189a0a142",
-            "2021-08-30 00:09:39",
-            "2021-08-30 00:09:39",
-            1,
+            "2021-08-30 00:06:43",
+            "2021-08-30 00:06:43",
             0,
             "8801d050-7448-5710-a9e3-e6df85949679"
         ]
@@ -5651,27 +5541,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:09:41",
-            "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
-            "2021-08-30 00:09:49",
-            "2021-08-30 00:09:49",
-            1,
+            "2021-08-30 00:06:45",
+            "2021-08-30 00:06:45",
             0,
             "99a58d5a-0494-5deb-a05d-fd1382cd6ea4"
         ]
@@ -5683,27 +5564,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:09:51",
-            "85c2d18e-c7a6-549f-a933-e7d10b285807"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "85c2d18e-c7a6-549f-a933-e7d10b285807"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c871be-e0f6-4577-a4d9-a770878eea15",
             "85c2d18e-c7a6-549f-a933-e7d10b285807",
-            "2021-08-30 00:09:59",
-            "2021-08-30 00:09:59",
-            1,
+            "2021-08-30 00:06:47",
+            "2021-08-30 00:06:47",
             0,
             "2ee45d80-4fc9-52af-8e7f-f77f11ce1de8"
         ]
@@ -5715,27 +5587,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:10:01",
-            "89a334cc-2831-5b5d-89fd-06002b07bae8"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "89a334cc-2831-5b5d-89fd-06002b07bae8"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01085380-44ac-4429-b128-28a70140fb67",
             "89a334cc-2831-5b5d-89fd-06002b07bae8",
-            "2021-08-30 00:10:09",
-            "2021-08-30 00:10:09",
-            1,
+            "2021-08-30 00:06:49",
+            "2021-08-30 00:06:49",
             0,
             "2b5ae47b-3d41-5260-8abb-d3b6d575b089"
         ]
@@ -5747,27 +5610,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:10:11",
-            "95cfb95c-a621-585a-94e2-413e15a9fd37"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "95cfb95c-a621-585a-94e2-413e15a9fd37"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c02780-d026-4a8e-a402-f63aca4e65f4",
             "95cfb95c-a621-585a-94e2-413e15a9fd37",
-            "2021-08-30 00:10:19",
-            "2021-08-30 00:10:19",
-            1,
+            "2021-08-30 00:06:51",
+            "2021-08-30 00:06:51",
             0,
             "40a9817b-068c-5127-804d-9b6055ebf482"
         ]
@@ -5779,27 +5633,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:10:21",
-            "964b027c-6543-5bfd-97b5-94a7504e7c42"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "964b027c-6543-5bfd-97b5-94a7504e7c42"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
             "964b027c-6543-5bfd-97b5-94a7504e7c42",
-            "2021-08-30 00:10:29",
-            "2021-08-30 00:10:29",
-            1,
+            "2021-08-30 00:06:53",
+            "2021-08-30 00:06:53",
             0,
             "e830c384-ca20-560d-a06a-9887407bebb1"
         ]
@@ -5811,27 +5656,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:10:31",
-            "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
-            "2021-08-30 00:10:39",
-            "2021-08-30 00:10:39",
-            1,
+            "2021-08-30 00:06:55",
+            "2021-08-30 00:06:55",
             0,
             "9890f0c2-be6c-54dd-ae84-171524a83752"
         ]
@@ -5843,27 +5679,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:10:41",
-            "d3462d54-53b1-5c47-967c-35b200db2725"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "d3462d54-53b1-5c47-967c-35b200db2725"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "d3462d54-53b1-5c47-967c-35b200db2725",
-            "2021-08-30 00:10:49",
-            "2021-08-30 00:10:49",
-            1,
+            "2021-08-30 00:06:57",
+            "2021-08-30 00:06:57",
             0,
             "b3738ed9-00d4-58a8-953b-dee0bb7f2a74"
         ]
@@ -5908,8 +5735,8 @@
             "Aubreeborough",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "6ec01053-58d4-550d-a993-b676c1f4733d",
-            "2021-08-30 00:10:52",
-            "2021-08-30 00:10:52"
+            "2021-08-30 00:07:00",
+            "2021-08-30 00:07:00"
         ]
     },
     {
@@ -5934,8 +5761,8 @@
             "23.870065",
             "ut2fpnvwugfs",
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
-            "2021-08-30 00:10:53",
-            "2021-08-30 00:10:53"
+            "2021-08-30 00:07:01",
+            "2021-08-30 00:07:01"
         ]
     },
     {
@@ -5950,9 +5777,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:10:54",
-            "2021-08-30 00:10:55",
-            "2021-08-30 00:10:55"
+            "2021-08-30 00:07:02",
+            "2021-08-30 00:07:03",
+            "2021-08-30 00:07:03"
         ]
     },
     {
@@ -5961,8 +5788,8 @@
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
             "9fa060ce-86e0-5cf2-872f-a4ed92ae0e01",
-            "2021-08-30 00:10:56",
-            "2021-08-30 00:10:56"
+            "2021-08-30 00:07:04",
+            "2021-08-30 00:07:04"
         ]
     },
     {
@@ -5971,8 +5798,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "9fa060ce-86e0-5cf2-872f-a4ed92ae0e01",
             "3d90701e-bad4-55d7-a231-7041e9a3edd7",
-            "2021-08-30 00:10:57",
-            "2021-08-30 00:10:57"
+            "2021-08-30 00:07:05",
+            "2021-08-30 00:07:05"
         ]
     },
     {
@@ -6007,8 +5834,8 @@
             0.0,
             0.0,
             "8ce61d4b-5920-5574-bad7-8c16521fe3ec",
-            "2021-08-30 00:10:58",
-            "2021-08-30 00:10:58"
+            "2021-08-30 00:07:06",
+            "2021-08-30 00:07:06"
         ]
     },
     {
@@ -6022,8 +5849,8 @@
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "Welch-Murazik",
-            "2021-08-30 00:10:59",
-            "2021-08-30 00:10:59"
+            "2021-08-30 00:07:07",
+            "2021-08-30 00:07:07"
         ]
     },
     {
@@ -6054,8 +5881,8 @@
             "144.183092",
             "rnywbuyctx9x",
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
-            "2021-08-30 00:11:04",
-            "2021-08-30 00:11:04"
+            "2021-08-30 00:07:12",
+            "2021-08-30 00:07:12"
         ]
     },
     {
@@ -6070,9 +5897,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:11:05",
-            "2021-08-30 00:11:06",
-            "2021-08-30 00:11:06"
+            "2021-08-30 00:07:13",
+            "2021-08-30 00:07:14",
+            "2021-08-30 00:07:14"
         ]
     },
     {
@@ -6081,8 +5908,8 @@
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
             "b48c7c9d-5533-5a10-90f5-0263c1abf9b8",
-            "2021-08-30 00:11:07",
-            "2021-08-30 00:11:07"
+            "2021-08-30 00:07:15",
+            "2021-08-30 00:07:15"
         ]
     },
     {
@@ -6091,8 +5918,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b48c7c9d-5533-5a10-90f5-0263c1abf9b8",
             "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8",
-            "2021-08-30 00:11:08",
-            "2021-08-30 00:11:08"
+            "2021-08-30 00:07:16",
+            "2021-08-30 00:07:16"
         ]
     },
     {
@@ -6127,8 +5954,8 @@
             0.0,
             0.0,
             "f74d8b2f-f8df-5432-ad96-59f0422bf5fe",
-            "2021-08-30 00:11:09",
-            "2021-08-30 00:11:09"
+            "2021-08-30 00:07:17",
+            "2021-08-30 00:07:17"
         ]
     },
     {
@@ -6142,8 +5969,8 @@
         "bindings": [
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
             "Hintz-Larkin",
-            "2021-08-30 00:11:10",
-            "2021-08-30 00:11:10"
+            "2021-08-30 00:07:18",
+            "2021-08-30 00:07:18"
         ]
     },
     {
@@ -6165,8 +5992,8 @@
             "Thadchester",
             "305091d8-9610-5841-9743-85d05494e34c",
             "79e1f2e5-708e-5db2-a15b-0d0ceaaf69cf",
-            "2021-08-30 00:11:15",
-            "2021-08-30 00:11:15"
+            "2021-08-30 00:07:23",
+            "2021-08-30 00:07:23"
         ]
     },
     {
@@ -6191,8 +6018,8 @@
             "-3.515677",
             "gfm3xgrvwc34",
             "7fb2465b-3158-5c55-983f-ddee3597c1fd",
-            "2021-08-30 00:11:16",
-            "2021-08-30 00:11:16"
+            "2021-08-30 00:07:24",
+            "2021-08-30 00:07:24"
         ]
     },
     {
@@ -6207,9 +6034,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:11:17",
-            "2021-08-30 00:11:18",
-            "2021-08-30 00:11:18"
+            "2021-08-30 00:07:25",
+            "2021-08-30 00:07:26",
+            "2021-08-30 00:07:26"
         ]
     },
     {
@@ -6218,8 +6045,8 @@
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
             "7fb2465b-3158-5c55-983f-ddee3597c1fd",
             "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb",
-            "2021-08-30 00:11:19",
-            "2021-08-30 00:11:19"
+            "2021-08-30 00:07:27",
+            "2021-08-30 00:07:27"
         ]
     },
     {
@@ -6228,8 +6055,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb",
             "62b4a964-9ca8-5f45-9e19-8eb3adf194bf",
-            "2021-08-30 00:11:20",
-            "2021-08-30 00:11:20"
+            "2021-08-30 00:07:28",
+            "2021-08-30 00:07:28"
         ]
     },
     {
@@ -6264,8 +6091,8 @@
             0.0,
             0.0,
             "24e37b20-08e2-5507-ad80-9496e9ba8919",
-            "2021-08-30 00:11:21",
-            "2021-08-30 00:11:21"
+            "2021-08-30 00:07:29",
+            "2021-08-30 00:07:29"
         ]
     },
     {
@@ -6279,8 +6106,8 @@
         "bindings": [
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
             "Armstrong, Daniel and McCullough",
-            "2021-08-30 00:11:22",
-            "2021-08-30 00:11:22"
+            "2021-08-30 00:07:30",
+            "2021-08-30 00:07:30"
         ]
     },
     {
@@ -6302,8 +6129,8 @@
             "Mrazport",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "84e911e7-05cc-5359-98b1-fe80230e4510",
-            "2021-08-30 00:11:27",
-            "2021-08-30 00:11:27"
+            "2021-08-30 00:07:35",
+            "2021-08-30 00:07:35"
         ]
     },
     {
@@ -6328,8 +6155,8 @@
             "-56.683713",
             "fepdqhkpmb0h",
             "eb33d88c-28d0-5057-93d1-4668ef673b37",
-            "2021-08-30 00:11:28",
-            "2021-08-30 00:11:28"
+            "2021-08-30 00:07:36",
+            "2021-08-30 00:07:36"
         ]
     },
     {
@@ -6344,9 +6171,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:11:29",
-            "2021-08-30 00:11:30",
-            "2021-08-30 00:11:30"
+            "2021-08-30 00:07:37",
+            "2021-08-30 00:07:38",
+            "2021-08-30 00:07:38"
         ]
     },
     {
@@ -6355,8 +6182,8 @@
             "015516f4-9b7a-4419-82fd-72cd76be8771",
             "eb33d88c-28d0-5057-93d1-4668ef673b37",
             "4d246d1a-81c8-5696-8245-b2da32e52246",
-            "2021-08-30 00:11:31",
-            "2021-08-30 00:11:31"
+            "2021-08-30 00:07:39",
+            "2021-08-30 00:07:39"
         ]
     },
     {
@@ -6365,8 +6192,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "4d246d1a-81c8-5696-8245-b2da32e52246",
             "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
-            "2021-08-30 00:11:32",
-            "2021-08-30 00:11:32"
+            "2021-08-30 00:07:40",
+            "2021-08-30 00:07:40"
         ]
     },
     {
@@ -6401,8 +6228,8 @@
             0.0,
             0.0,
             "5a1ad195-57e7-5812-bbec-ec3fcb1f6b1c",
-            "2021-08-30 00:11:33",
-            "2021-08-30 00:11:33"
+            "2021-08-30 00:07:41",
+            "2021-08-30 00:07:41"
         ]
     },
     {
@@ -6416,8 +6243,8 @@
         "bindings": [
             "015516f4-9b7a-4419-82fd-72cd76be8771",
             "Hand-Goyette",
-            "2021-08-30 00:11:34",
-            "2021-08-30 00:11:34"
+            "2021-08-30 00:07:42",
+            "2021-08-30 00:07:42"
         ]
     },
     {
@@ -6439,8 +6266,8 @@
             "Macieville",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "550a6830-a3f8-525f-8d2f-77e43b95c51c",
-            "2021-08-30 00:11:39",
-            "2021-08-30 00:11:39"
+            "2021-08-30 00:07:47",
+            "2021-08-30 00:07:47"
         ]
     },
     {
@@ -6465,8 +6292,8 @@
             "162.238518",
             "ze535cd6xrrj",
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
-            "2021-08-30 00:11:40",
-            "2021-08-30 00:11:40"
+            "2021-08-30 00:07:48",
+            "2021-08-30 00:07:48"
         ]
     },
     {
@@ -6481,9 +6308,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:11:41",
-            "2021-08-30 00:11:42",
-            "2021-08-30 00:11:42"
+            "2021-08-30 00:07:49",
+            "2021-08-30 00:07:50",
+            "2021-08-30 00:07:50"
         ]
     },
     {
@@ -6492,8 +6319,8 @@
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
             "6f70dbc8-3e60-57db-9ebf-cc3373fef945",
-            "2021-08-30 00:11:43",
-            "2021-08-30 00:11:43"
+            "2021-08-30 00:07:51",
+            "2021-08-30 00:07:51"
         ]
     },
     {
@@ -6502,8 +6329,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "6f70dbc8-3e60-57db-9ebf-cc3373fef945",
             "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
-            "2021-08-30 00:11:44",
-            "2021-08-30 00:11:44"
+            "2021-08-30 00:07:52",
+            "2021-08-30 00:07:52"
         ]
     },
     {
@@ -6538,8 +6365,8 @@
             0.0,
             0.0,
             "8c7ffae7-3093-53db-825d-c2e66de3805b",
-            "2021-08-30 00:11:45",
-            "2021-08-30 00:11:45"
+            "2021-08-30 00:07:53",
+            "2021-08-30 00:07:53"
         ]
     },
     {
@@ -6553,8 +6380,8 @@
         "bindings": [
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
             "Glover, Grimes and Wilkinson",
-            "2021-08-30 00:11:46",
-            "2021-08-30 00:11:46"
+            "2021-08-30 00:07:54",
+            "2021-08-30 00:07:54"
         ]
     },
     {
@@ -6575,8 +6402,8 @@
             "DM",
             "Bulgaria",
             "af99b187-7c9a-5080-b4c5-3d079054f326",
-            "2021-08-30 00:11:51",
-            "2021-08-30 00:11:51"
+            "2021-08-30 00:07:59",
+            "2021-08-30 00:07:59"
         ]
     },
     {
@@ -6592,8 +6419,8 @@
             "Lake Candidaberg",
             "af99b187-7c9a-5080-b4c5-3d079054f326",
             "765c620b-e79b-5291-8290-43f4d17bcd1a",
-            "2021-08-30 00:11:52",
-            "2021-08-30 00:11:52"
+            "2021-08-30 00:08:00",
+            "2021-08-30 00:08:00"
         ]
     },
     {
@@ -6618,8 +6445,8 @@
             "32.368732",
             "u9zj0xdpy45v",
             "b9c1728b-103f-5855-a750-591a28da63a1",
-            "2021-08-30 00:11:53",
-            "2021-08-30 00:11:53"
+            "2021-08-30 00:08:01",
+            "2021-08-30 00:08:01"
         ]
     },
     {
@@ -6634,9 +6461,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:11:54",
-            "2021-08-30 00:11:55",
-            "2021-08-30 00:11:55"
+            "2021-08-30 00:08:02",
+            "2021-08-30 00:08:03",
+            "2021-08-30 00:08:03"
         ]
     },
     {
@@ -6645,8 +6472,8 @@
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
             "b9c1728b-103f-5855-a750-591a28da63a1",
             "1ccea185-72a7-5621-b955-ea1783eaf20f",
-            "2021-08-30 00:11:56",
-            "2021-08-30 00:11:56"
+            "2021-08-30 00:08:04",
+            "2021-08-30 00:08:04"
         ]
     },
     {
@@ -6655,8 +6482,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "1ccea185-72a7-5621-b955-ea1783eaf20f",
             "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
-            "2021-08-30 00:11:57",
-            "2021-08-30 00:11:57"
+            "2021-08-30 00:08:05",
+            "2021-08-30 00:08:05"
         ]
     },
     {
@@ -6691,8 +6518,8 @@
             0.0,
             0.0,
             "22cff4d1-003d-5d47-9396-be3ad716b37f",
-            "2021-08-30 00:11:58",
-            "2021-08-30 00:11:58"
+            "2021-08-30 00:08:06",
+            "2021-08-30 00:08:06"
         ]
     },
     {
@@ -6706,8 +6533,8 @@
         "bindings": [
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
             "Larson, Price and Champlin",
-            "2021-08-30 00:11:59",
-            "2021-08-30 00:11:59"
+            "2021-08-30 00:08:07",
+            "2021-08-30 00:08:07"
         ]
     },
     {
@@ -6728,8 +6555,8 @@
             "LY",
             "Holy See (Vatican City State)",
             "a65b0772-2114-5c17-951d-38de5feda665",
-            "2021-08-30 00:12:04",
-            "2021-08-30 00:12:04"
+            "2021-08-30 00:08:12",
+            "2021-08-30 00:08:12"
         ]
     },
     {
@@ -6745,8 +6572,8 @@
             "Fritschmouth",
             "a65b0772-2114-5c17-951d-38de5feda665",
             "18874622-2457-5aaa-ab76-fab5e1716258",
-            "2021-08-30 00:12:05",
-            "2021-08-30 00:12:05"
+            "2021-08-30 00:08:13",
+            "2021-08-30 00:08:13"
         ]
     },
     {
@@ -6771,8 +6598,8 @@
             "-127.377827",
             "9nvqt6nq1wb4",
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
-            "2021-08-30 00:12:06",
-            "2021-08-30 00:12:06"
+            "2021-08-30 00:08:14",
+            "2021-08-30 00:08:14"
         ]
     },
     {
@@ -6787,9 +6614,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:12:07",
-            "2021-08-30 00:12:08",
-            "2021-08-30 00:12:08"
+            "2021-08-30 00:08:15",
+            "2021-08-30 00:08:16",
+            "2021-08-30 00:08:16"
         ]
     },
     {
@@ -6798,8 +6625,8 @@
             "019d772d-6ce8-48dc-8585-22681d2eacac",
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
             "b51b9750-4999-5823-b3e1-77bfc89a63d6",
-            "2021-08-30 00:12:09",
-            "2021-08-30 00:12:09"
+            "2021-08-30 00:08:17",
+            "2021-08-30 00:08:17"
         ]
     },
     {
@@ -6808,8 +6635,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b51b9750-4999-5823-b3e1-77bfc89a63d6",
             "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
-            "2021-08-30 00:12:10",
-            "2021-08-30 00:12:10"
+            "2021-08-30 00:08:18",
+            "2021-08-30 00:08:18"
         ]
     },
     {
@@ -6844,8 +6671,8 @@
             0.0,
             0.0,
             "00b241a4-f7d4-5170-b830-b33746b8aee7",
-            "2021-08-30 00:12:11",
-            "2021-08-30 00:12:11"
+            "2021-08-30 00:08:19",
+            "2021-08-30 00:08:19"
         ]
     },
     {
@@ -6859,8 +6686,8 @@
         "bindings": [
             "019d772d-6ce8-48dc-8585-22681d2eacac",
             "Legros, Quitzon and Upton",
-            "2021-08-30 00:12:12",
-            "2021-08-30 00:12:12"
+            "2021-08-30 00:08:20",
+            "2021-08-30 00:08:20"
         ]
     },
     {
@@ -6882,8 +6709,8 @@
             "North Jettiemouth",
             "305091d8-9610-5841-9743-85d05494e34c",
             "b6d8d311-7241-5aec-9f9c-8fd76e70d893",
-            "2021-08-30 00:12:17",
-            "2021-08-30 00:12:17"
+            "2021-08-30 00:08:25",
+            "2021-08-30 00:08:25"
         ]
     },
     {
@@ -6908,8 +6735,8 @@
             "136.304614",
             "r5bzj9tgzdnw",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
-            "2021-08-30 00:12:18",
-            "2021-08-30 00:12:18"
+            "2021-08-30 00:08:26",
+            "2021-08-30 00:08:26"
         ]
     },
     {
@@ -6924,9 +6751,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:12:19",
-            "2021-08-30 00:12:20",
-            "2021-08-30 00:12:20"
+            "2021-08-30 00:08:27",
+            "2021-08-30 00:08:28",
+            "2021-08-30 00:08:28"
         ]
     },
     {
@@ -6935,8 +6762,8 @@
             "019eabdd-e58b-4eb1-905e-975fd7607332",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
             "051fbfc7-f380-5264-adf4-32dc821dfaf4",
-            "2021-08-30 00:12:21",
-            "2021-08-30 00:12:21"
+            "2021-08-30 00:08:29",
+            "2021-08-30 00:08:29"
         ]
     },
     {
@@ -6945,8 +6772,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "051fbfc7-f380-5264-adf4-32dc821dfaf4",
             "b2548638-1df1-55f2-b1aa-a677099ed381",
-            "2021-08-30 00:12:22",
-            "2021-08-30 00:12:22"
+            "2021-08-30 00:08:30",
+            "2021-08-30 00:08:30"
         ]
     },
     {
@@ -6981,8 +6808,8 @@
             0.0,
             0.0,
             "e2041eb0-1440-53aa-b308-6f8dc4932c29",
-            "2021-08-30 00:12:23",
-            "2021-08-30 00:12:23"
+            "2021-08-30 00:08:31",
+            "2021-08-30 00:08:31"
         ]
     },
     {
@@ -6996,8 +6823,8 @@
         "bindings": [
             "019eabdd-e58b-4eb1-905e-975fd7607332",
             "White and Sons",
-            "2021-08-30 00:12:24",
-            "2021-08-30 00:12:24"
+            "2021-08-30 00:08:32",
+            "2021-08-30 00:08:32"
         ]
     },
     {
@@ -7018,9 +6845,9 @@
             0,
             0,
             0,
-            "2021-08-30 00:12:29",
-            "2021-08-30 00:12:30",
-            "2021-08-30 00:12:30"
+            "2021-08-30 00:08:37",
+            "2021-08-30 00:08:38",
+            "2021-08-30 00:08:38"
         ]
     },
     {
@@ -7055,8 +6882,8 @@
             0.0,
             0.0,
             "bc6aa672-9400-5784-95b5-54e28dc633a5",
-            "2021-08-30 00:12:31",
-            "2021-08-30 00:12:31"
+            "2021-08-30 00:08:39",
+            "2021-08-30 00:08:39"
         ]
     },
     {
@@ -7070,8 +6897,8 @@
         "bindings": [
             "01a34dcd-4231-4df0-8005-0d3306cd218c",
             "Klocko-Kuvalis",
-            "2021-08-30 00:12:32",
-            "2021-08-30 00:12:32"
+            "2021-08-30 00:08:40",
+            "2021-08-30 00:08:40"
         ]
     },
     {
@@ -7093,8 +6920,8 @@
             "Molliebury",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "701cb66e-d09d-594c-b1e6-123db7b62492",
-            "2021-08-30 00:12:37",
-            "2021-08-30 00:12:37"
+            "2021-08-30 00:08:45",
+            "2021-08-30 00:08:45"
         ]
     },
     {
@@ -7119,8 +6946,8 @@
             "100.043242",
             "qhrphw960tb5",
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
-            "2021-08-30 00:12:38",
-            "2021-08-30 00:12:38"
+            "2021-08-30 00:08:46",
+            "2021-08-30 00:08:46"
         ]
     },
     {
@@ -7135,9 +6962,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:12:39",
-            "2021-08-30 00:12:40",
-            "2021-08-30 00:12:40"
+            "2021-08-30 00:08:47",
+            "2021-08-30 00:08:48",
+            "2021-08-30 00:08:48"
         ]
     },
     {
@@ -7146,8 +6973,8 @@
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
             "e747fca2-84d1-5ac5-a571-d61330103978",
-            "2021-08-30 00:12:41",
-            "2021-08-30 00:12:41"
+            "2021-08-30 00:08:49",
+            "2021-08-30 00:08:49"
         ]
     },
     {
@@ -7156,8 +6983,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "e747fca2-84d1-5ac5-a571-d61330103978",
             "e1f5bc37-8270-5eab-8318-f559f949f52e",
-            "2021-08-30 00:12:42",
-            "2021-08-30 00:12:42"
+            "2021-08-30 00:08:50",
+            "2021-08-30 00:08:50"
         ]
     },
     {
@@ -7192,8 +7019,8 @@
             0.0,
             0.0,
             "8e15a4f9-2755-5b4d-a00f-d2800a849c7f",
-            "2021-08-30 00:12:43",
-            "2021-08-30 00:12:43"
+            "2021-08-30 00:08:51",
+            "2021-08-30 00:08:51"
         ]
     },
     {
@@ -7207,8 +7034,8 @@
         "bindings": [
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
             "Weissnat-Harris",
-            "2021-08-30 00:12:44",
-            "2021-08-30 00:12:44"
+            "2021-08-30 00:08:52",
+            "2021-08-30 00:08:52"
         ]
     },
     {
@@ -7288,7 +7115,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -7303,7 +7130,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -7426,7 +7253,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
@@ -7440,7 +7267,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id` from `reseller_locations` where `reseller_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
@@ -7454,7 +7281,7 @@
         ]
     },
     {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
@@ -7468,11 +7295,31 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            1,
-            "2021-08-30 00:12:48",
-            "0816268d-ba49-50c9-b572-fa98c33c28d7"
+            "0816268d-ba49-50c9-b572-fa98c33c28d7",
+            "60536b95-cb1a-53d6-a151-49eda7d7fa24",
+            "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
+            "7fb2465b-3158-5c55-983f-ddee3597c1fd",
+            "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
+            "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
+            "b9c1728b-103f-5855-a750-591a28da63a1",
+            "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
+            "eb33d88c-28d0-5057-93d1-4668ef673b37"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "0816268d-ba49-50c9-b572-fa98c33c28d7",
+            "60536b95-cb1a-53d6-a151-49eda7d7fa24",
+            "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
+            "7fb2465b-3158-5c55-983f-ddee3597c1fd",
+            "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
+            "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
+            "b9c1728b-103f-5855-a750-591a28da63a1",
+            "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
+            "eb33d88c-28d0-5057-93d1-4668ef673b37"
         ]
     },
     {
@@ -7482,13 +7329,12 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "019d772d-6ce8-48dc-8585-22681d2eacac",
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
-            "2021-08-30 00:12:56",
-            "2021-08-30 00:12:56",
-            1,
+            "2021-08-30 00:08:56",
+            "2021-08-30 00:08:56",
             0,
             "89eed732-450b-529b-93f1-36db7a565e60"
         ]
@@ -7500,27 +7346,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:12:58",
-            "60536b95-cb1a-53d6-a151-49eda7d7fa24"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "60536b95-cb1a-53d6-a151-49eda7d7fa24"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "019eabdd-e58b-4eb1-905e-975fd7607332",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
-            "2021-08-30 00:13:06",
-            "2021-08-30 00:13:06",
-            1,
+            "2021-08-30 00:08:58",
+            "2021-08-30 00:08:58",
             0,
             "79456eac-351a-5993-85d5-552cf4346967"
         ]
@@ -7532,27 +7369,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:13:08",
-            "6bab8e13-1fa7-5656-90f1-a98aee27adf9"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9",
-            "2021-08-30 00:13:16",
-            "2021-08-30 00:13:16",
-            1,
+            "2021-08-30 00:09:00",
+            "2021-08-30 00:09:00",
             0,
             "3c712361-38e0-516e-99a7-f35077232843"
         ]
@@ -7564,27 +7392,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:13:18",
-            "7fb2465b-3158-5c55-983f-ddee3597c1fd"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "7fb2465b-3158-5c55-983f-ddee3597c1fd"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
             "7fb2465b-3158-5c55-983f-ddee3597c1fd",
-            "2021-08-30 00:13:26",
-            "2021-08-30 00:13:26",
-            1,
+            "2021-08-30 00:09:02",
+            "2021-08-30 00:09:02",
             0,
             "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
         ]
@@ -7596,27 +7415,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:13:28",
-            "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
-            "2021-08-30 00:13:36",
-            "2021-08-30 00:13:36",
-            1,
+            "2021-08-30 00:09:04",
+            "2021-08-30 00:09:04",
             0,
             "ee77a04d-6088-54b2-b132-ecf1227d730c"
         ]
@@ -7628,27 +7438,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:13:38",
-            "b01803f7-ed17-5eaf-a529-6a3f2b24b26a"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
-            "2021-08-30 00:13:46",
-            "2021-08-30 00:13:46",
-            1,
+            "2021-08-30 00:09:06",
+            "2021-08-30 00:09:06",
             0,
             "5bfcb9e7-eab2-5920-8a91-4c22fe5ff7a8"
         ]
@@ -7660,27 +7461,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:13:48",
-            "b9c1728b-103f-5855-a750-591a28da63a1"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "b9c1728b-103f-5855-a750-591a28da63a1"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
             "b9c1728b-103f-5855-a750-591a28da63a1",
-            "2021-08-30 00:13:56",
-            "2021-08-30 00:13:56",
-            1,
+            "2021-08-30 00:09:08",
+            "2021-08-30 00:09:08",
             0,
             "641788f5-c59b-509c-b4d6-e2f16252de7e"
         ]
@@ -7692,27 +7484,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:13:58",
-            "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
-            "2021-08-30 00:14:06",
-            "2021-08-30 00:14:06",
-            1,
+            "2021-08-30 00:09:10",
+            "2021-08-30 00:09:10",
             0,
             "70518f4e-ee85-5771-9880-c8167af09b1e"
         ]
@@ -7724,27 +7507,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:14:08",
-            "eb33d88c-28d0-5057-93d1-4668ef673b37"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "eb33d88c-28d0-5057-93d1-4668ef673b37"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "015516f4-9b7a-4419-82fd-72cd76be8771",
             "eb33d88c-28d0-5057-93d1-4668ef673b37",
-            "2021-08-30 00:14:16",
-            "2021-08-30 00:14:16",
-            1,
+            "2021-08-30 00:09:12",
+            "2021-08-30 00:09:12",
             0,
             "5745f08b-e9af-5fc8-b0fe-fc1153a3bafb"
         ]
@@ -7789,8 +7563,8 @@
             "Braunview",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "f89c9951-3e2e-5563-97f1-c64ace939a0c",
-            "2021-08-30 00:14:19",
-            "2021-08-30 00:14:19"
+            "2021-08-30 00:09:15",
+            "2021-08-30 00:09:15"
         ]
     },
     {
@@ -7815,8 +7589,8 @@
             "-125.058352",
             "cjz14pxk1pnh",
             "e268b786-8d37-53de-a8a5-4c22d64dc60a",
-            "2021-08-30 00:14:20",
-            "2021-08-30 00:14:20"
+            "2021-08-30 00:09:16",
+            "2021-08-30 00:09:16"
         ]
     },
     {
@@ -7831,9 +7605,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:14:21",
-            "2021-08-30 00:14:22",
-            "2021-08-30 00:14:22"
+            "2021-08-30 00:09:17",
+            "2021-08-30 00:09:18",
+            "2021-08-30 00:09:18"
         ]
     },
     {
@@ -7842,8 +7616,8 @@
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "e268b786-8d37-53de-a8a5-4c22d64dc60a",
             "bbf09ba3-d59b-58e7-a0f6-245886eea6f5",
-            "2021-08-30 00:14:23",
-            "2021-08-30 00:14:23"
+            "2021-08-30 00:09:19",
+            "2021-08-30 00:09:19"
         ]
     },
     {
@@ -7852,8 +7626,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "bbf09ba3-d59b-58e7-a0f6-245886eea6f5",
             "db81160e-cf2a-5a56-95eb-4d03a73e46ec",
-            "2021-08-30 00:14:24",
-            "2021-08-30 00:14:24"
+            "2021-08-30 00:09:20",
+            "2021-08-30 00:09:20"
         ]
     },
     {
@@ -7888,8 +7662,8 @@
             0.0,
             0.0,
             "22ffc3b0-41a4-559b-8269-aadd1baac9f2",
-            "2021-08-30 00:14:25",
-            "2021-08-30 00:14:25"
+            "2021-08-30 00:09:21",
+            "2021-08-30 00:09:21"
         ]
     },
     {
@@ -7903,8 +7677,8 @@
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "Schiller Group",
-            "2021-08-30 00:14:26",
-            "2021-08-30 00:14:26"
+            "2021-08-30 00:09:22",
+            "2021-08-30 00:09:22"
         ]
     },
     {
@@ -7926,8 +7700,8 @@
             "Isabellborough",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
-            "2021-08-30 00:14:31",
-            "2021-08-30 00:14:31"
+            "2021-08-30 00:09:27",
+            "2021-08-30 00:09:27"
         ]
     },
     {
@@ -7952,8 +7726,8 @@
             "-148.652391",
             "8swq9rftk0p7",
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd",
-            "2021-08-30 00:14:32",
-            "2021-08-30 00:14:32"
+            "2021-08-30 00:09:28",
+            "2021-08-30 00:09:28"
         ]
     },
     {
@@ -7968,9 +7742,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:14:33",
-            "2021-08-30 00:14:34",
-            "2021-08-30 00:14:34"
+            "2021-08-30 00:09:29",
+            "2021-08-30 00:09:30",
+            "2021-08-30 00:09:30"
         ]
     },
     {
@@ -7979,8 +7753,8 @@
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd",
             "97b42c0c-e107-5b7e-935c-a62775508180",
-            "2021-08-30 00:14:35",
-            "2021-08-30 00:14:35"
+            "2021-08-30 00:09:31",
+            "2021-08-30 00:09:31"
         ]
     },
     {
@@ -7989,8 +7763,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "97b42c0c-e107-5b7e-935c-a62775508180",
             "453d360c-06e9-56ab-b2d1-b80bc13e9488",
-            "2021-08-30 00:14:36",
-            "2021-08-30 00:14:36"
+            "2021-08-30 00:09:32",
+            "2021-08-30 00:09:32"
         ]
     },
     {
@@ -8025,8 +7799,8 @@
             0.0,
             0.0,
             "a916f797-9a7d-544b-b1be-e28aa5a704de",
-            "2021-08-30 00:14:37",
-            "2021-08-30 00:14:37"
+            "2021-08-30 00:09:33",
+            "2021-08-30 00:09:33"
         ]
     },
     {
@@ -8040,8 +7814,8 @@
         "bindings": [
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
             "Gleason-Jakubowski",
-            "2021-08-30 00:14:38",
-            "2021-08-30 00:14:38"
+            "2021-08-30 00:09:34",
+            "2021-08-30 00:09:34"
         ]
     },
     {
@@ -8063,8 +7837,8 @@
             "West Brigittetown",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "5a82ae22-db37-5649-9862-3eda26aa6fd2",
-            "2021-08-30 00:14:43",
-            "2021-08-30 00:14:43"
+            "2021-08-30 00:09:39",
+            "2021-08-30 00:09:39"
         ]
     },
     {
@@ -8089,8 +7863,8 @@
             "-87.533577",
             "fn9u0hgcpv67",
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
-            "2021-08-30 00:14:44",
-            "2021-08-30 00:14:44"
+            "2021-08-30 00:09:40",
+            "2021-08-30 00:09:40"
         ]
     },
     {
@@ -8105,9 +7879,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:14:45",
-            "2021-08-30 00:14:46",
-            "2021-08-30 00:14:46"
+            "2021-08-30 00:09:41",
+            "2021-08-30 00:09:42",
+            "2021-08-30 00:09:42"
         ]
     },
     {
@@ -8116,8 +7890,8 @@
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
             "ede6f9d4-0838-5e1c-bf48-f523a866f094",
-            "2021-08-30 00:14:47",
-            "2021-08-30 00:14:47"
+            "2021-08-30 00:09:43",
+            "2021-08-30 00:09:43"
         ]
     },
     {
@@ -8126,8 +7900,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ede6f9d4-0838-5e1c-bf48-f523a866f094",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
-            "2021-08-30 00:14:48",
-            "2021-08-30 00:14:48"
+            "2021-08-30 00:09:44",
+            "2021-08-30 00:09:44"
         ]
     },
     {
@@ -8162,8 +7936,8 @@
             0.0,
             0.0,
             "9ba2d71f-b1fb-50ac-9886-f0ee484524ce",
-            "2021-08-30 00:14:49",
-            "2021-08-30 00:14:49"
+            "2021-08-30 00:09:45",
+            "2021-08-30 00:09:45"
         ]
     },
     {
@@ -8177,8 +7951,8 @@
         "bindings": [
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
             "Schmitt, Morar and Walter",
-            "2021-08-30 00:14:50",
-            "2021-08-30 00:14:50"
+            "2021-08-30 00:09:46",
+            "2021-08-30 00:09:46"
         ]
     },
     {
@@ -8200,8 +7974,8 @@
             "Lake Winonahaven",
             "305091d8-9610-5841-9743-85d05494e34c",
             "a8339ce8-239e-51c9-aa44-d7e31ff412b6",
-            "2021-08-30 00:14:55",
-            "2021-08-30 00:14:55"
+            "2021-08-30 00:09:51",
+            "2021-08-30 00:09:51"
         ]
     },
     {
@@ -8226,8 +8000,8 @@
             "52.259568",
             "mhj1t4ym01w5",
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d",
-            "2021-08-30 00:14:56",
-            "2021-08-30 00:14:56"
+            "2021-08-30 00:09:52",
+            "2021-08-30 00:09:52"
         ]
     },
     {
@@ -8242,9 +8016,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:14:57",
-            "2021-08-30 00:14:58",
-            "2021-08-30 00:14:58"
+            "2021-08-30 00:09:53",
+            "2021-08-30 00:09:54",
+            "2021-08-30 00:09:54"
         ]
     },
     {
@@ -8253,8 +8027,8 @@
             "01c45daa-5b06-46ba-a3de-927ed79e6033",
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d",
             "acbcce72-28c9-5317-8883-70f36b62020b",
-            "2021-08-30 00:14:59",
-            "2021-08-30 00:14:59"
+            "2021-08-30 00:09:55",
+            "2021-08-30 00:09:55"
         ]
     },
     {
@@ -8263,8 +8037,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "acbcce72-28c9-5317-8883-70f36b62020b",
             "3c71e890-d619-55e9-8756-0e6a2f82a18f",
-            "2021-08-30 00:15:00",
-            "2021-08-30 00:15:00"
+            "2021-08-30 00:09:56",
+            "2021-08-30 00:09:56"
         ]
     },
     {
@@ -8299,8 +8073,8 @@
             0.0,
             0.0,
             "a5135b75-b2e0-5665-bed6-e539c35d4765",
-            "2021-08-30 00:15:01",
-            "2021-08-30 00:15:01"
+            "2021-08-30 00:09:57",
+            "2021-08-30 00:09:57"
         ]
     },
     {
@@ -8314,8 +8088,8 @@
         "bindings": [
             "01c45daa-5b06-46ba-a3de-927ed79e6033",
             "Auer-Marks",
-            "2021-08-30 00:15:02",
-            "2021-08-30 00:15:02"
+            "2021-08-30 00:09:58",
+            "2021-08-30 00:09:58"
         ]
     },
     {
@@ -8337,8 +8111,8 @@
             "Port Odellview",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
-            "2021-08-30 00:15:07",
-            "2021-08-30 00:15:07"
+            "2021-08-30 00:10:03",
+            "2021-08-30 00:10:03"
         ]
     },
     {
@@ -8363,8 +8137,8 @@
             "-123.593748",
             "9m8j7e9u8umy",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
-            "2021-08-30 00:15:08",
-            "2021-08-30 00:15:08"
+            "2021-08-30 00:10:04",
+            "2021-08-30 00:10:04"
         ]
     },
     {
@@ -8379,9 +8153,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:15:09",
-            "2021-08-30 00:15:10",
-            "2021-08-30 00:15:10"
+            "2021-08-30 00:10:05",
+            "2021-08-30 00:10:06",
+            "2021-08-30 00:10:06"
         ]
     },
     {
@@ -8390,8 +8164,8 @@
             "01d6fadd-1b36-4cf9-834e-3a46430cab78",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
-            "2021-08-30 00:15:11",
-            "2021-08-30 00:15:11"
+            "2021-08-30 00:10:07",
+            "2021-08-30 00:10:07"
         ]
     },
     {
@@ -8400,8 +8174,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
-            "2021-08-30 00:15:12",
-            "2021-08-30 00:15:12"
+            "2021-08-30 00:10:08",
+            "2021-08-30 00:10:08"
         ]
     },
     {
@@ -8436,8 +8210,8 @@
             0.0,
             0.0,
             "583c392a-8c3b-5327-8ab3-c50739f7b2ab",
-            "2021-08-30 00:15:13",
-            "2021-08-30 00:15:13"
+            "2021-08-30 00:10:09",
+            "2021-08-30 00:10:09"
         ]
     },
     {
@@ -8451,8 +8225,8 @@
         "bindings": [
             "01d6fadd-1b36-4cf9-834e-3a46430cab78",
             "Berge-Schultz",
-            "2021-08-30 00:15:14",
-            "2021-08-30 00:15:14"
+            "2021-08-30 00:10:10",
+            "2021-08-30 00:10:10"
         ]
     },
     {
@@ -8474,8 +8248,8 @@
             "New Gregoria",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "f009e685-d0ca-5c48-bd42-e4dab3fc8dc5",
-            "2021-08-30 00:15:19",
-            "2021-08-30 00:15:19"
+            "2021-08-30 00:10:15",
+            "2021-08-30 00:10:15"
         ]
     },
     {
@@ -8500,8 +8274,8 @@
             "112.845455",
             "yt80pc7w98mf",
             "b040f399-dbf2-5157-afca-02344dd90703",
-            "2021-08-30 00:15:20",
-            "2021-08-30 00:15:20"
+            "2021-08-30 00:10:16",
+            "2021-08-30 00:10:16"
         ]
     },
     {
@@ -8516,9 +8290,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:15:21",
-            "2021-08-30 00:15:22",
-            "2021-08-30 00:15:22"
+            "2021-08-30 00:10:17",
+            "2021-08-30 00:10:18",
+            "2021-08-30 00:10:18"
         ]
     },
     {
@@ -8527,8 +8301,8 @@
             "01d94fc2-0987-4c40-8c46-af29fbb924f8",
             "b040f399-dbf2-5157-afca-02344dd90703",
             "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594",
-            "2021-08-30 00:15:23",
-            "2021-08-30 00:15:23"
+            "2021-08-30 00:10:19",
+            "2021-08-30 00:10:19"
         ]
     },
     {
@@ -8537,8 +8311,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594",
             "b12dbd77-1918-5c15-a259-6e1b5c564f3e",
-            "2021-08-30 00:15:24",
-            "2021-08-30 00:15:24"
+            "2021-08-30 00:10:20",
+            "2021-08-30 00:10:20"
         ]
     },
     {
@@ -8573,8 +8347,8 @@
             0.0,
             0.0,
             "95ed7e29-b262-5fca-bdeb-493aea92fa5c",
-            "2021-08-30 00:15:25",
-            "2021-08-30 00:15:25"
+            "2021-08-30 00:10:21",
+            "2021-08-30 00:10:21"
         ]
     },
     {
@@ -8588,8 +8362,8 @@
         "bindings": [
             "01d94fc2-0987-4c40-8c46-af29fbb924f8",
             "Klocko Inc",
-            "2021-08-30 00:15:26",
-            "2021-08-30 00:15:26"
+            "2021-08-30 00:10:22",
+            "2021-08-30 00:10:22"
         ]
     },
     {
@@ -8611,8 +8385,8 @@
             "Waltonmouth",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "845cad98-c769-5a3c-af3d-ce1e3d19ea07",
-            "2021-08-30 00:15:31",
-            "2021-08-30 00:15:31"
+            "2021-08-30 00:10:27",
+            "2021-08-30 00:10:27"
         ]
     },
     {
@@ -8637,8 +8411,8 @@
             "-29.403263",
             "5rgp4yvjyrd0",
             "022c1865-3a20-5e95-960b-10a691a2376a",
-            "2021-08-30 00:15:32",
-            "2021-08-30 00:15:32"
+            "2021-08-30 00:10:28",
+            "2021-08-30 00:10:28"
         ]
     },
     {
@@ -8653,9 +8427,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:15:33",
-            "2021-08-30 00:15:34",
-            "2021-08-30 00:15:34"
+            "2021-08-30 00:10:29",
+            "2021-08-30 00:10:30",
+            "2021-08-30 00:10:30"
         ]
     },
     {
@@ -8664,8 +8438,8 @@
             "01e5d413-1a68-4f16-9e46-ad9fd781579b",
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "fa63e851-a59a-530f-803c-30b6c453b197",
-            "2021-08-30 00:15:35",
-            "2021-08-30 00:15:35"
+            "2021-08-30 00:10:31",
+            "2021-08-30 00:10:31"
         ]
     },
     {
@@ -8674,8 +8448,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "fa63e851-a59a-530f-803c-30b6c453b197",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "2021-08-30 00:15:36",
-            "2021-08-30 00:15:36"
+            "2021-08-30 00:10:32",
+            "2021-08-30 00:10:32"
         ]
     },
     {
@@ -8710,8 +8484,8 @@
             0.0,
             0.0,
             "a0affc62-374a-5eeb-8015-abee1aef34b4",
-            "2021-08-30 00:15:37",
-            "2021-08-30 00:15:37"
+            "2021-08-30 00:10:33",
+            "2021-08-30 00:10:33"
         ]
     },
     {
@@ -8725,8 +8499,8 @@
         "bindings": [
             "01e5d413-1a68-4f16-9e46-ad9fd781579b",
             "McKenzie, Wisozk and Roob",
-            "2021-08-30 00:15:38",
-            "2021-08-30 00:15:38"
+            "2021-08-30 00:10:34",
+            "2021-08-30 00:10:34"
         ]
     },
     {
@@ -8748,8 +8522,8 @@
             "Port Jazminport",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "3a2648a5-4822-525d-8f45-9a29667bede6",
-            "2021-08-30 00:15:43",
-            "2021-08-30 00:15:43"
+            "2021-08-30 00:10:39",
+            "2021-08-30 00:10:39"
         ]
     },
     {
@@ -8774,8 +8548,8 @@
             "-168.82289",
             "b1zvqmdvj916",
             "c22a0407-1b3b-5d02-b9e3-caba9493d845",
-            "2021-08-30 00:15:44",
-            "2021-08-30 00:15:44"
+            "2021-08-30 00:10:40",
+            "2021-08-30 00:10:40"
         ]
     },
     {
@@ -8790,9 +8564,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:15:45",
-            "2021-08-30 00:15:46",
-            "2021-08-30 00:15:46"
+            "2021-08-30 00:10:41",
+            "2021-08-30 00:10:42",
+            "2021-08-30 00:10:42"
         ]
     },
     {
@@ -8801,8 +8575,8 @@
             "01f149ea-eb28-4357-bbca-046198fe2abe",
             "c22a0407-1b3b-5d02-b9e3-caba9493d845",
             "a118a331-46c6-5587-8e4c-193fbb6a0f43",
-            "2021-08-30 00:15:47",
-            "2021-08-30 00:15:47"
+            "2021-08-30 00:10:43",
+            "2021-08-30 00:10:43"
         ]
     },
     {
@@ -8811,8 +8585,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "a118a331-46c6-5587-8e4c-193fbb6a0f43",
             "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
-            "2021-08-30 00:15:48",
-            "2021-08-30 00:15:48"
+            "2021-08-30 00:10:44",
+            "2021-08-30 00:10:44"
         ]
     },
     {
@@ -8847,8 +8621,8 @@
             0.0,
             0.0,
             "15ba77c5-b887-5c51-8b5b-961da34df9da",
-            "2021-08-30 00:15:49",
-            "2021-08-30 00:15:49"
+            "2021-08-30 00:10:45",
+            "2021-08-30 00:10:45"
         ]
     },
     {
@@ -8862,8 +8636,8 @@
         "bindings": [
             "01f149ea-eb28-4357-bbca-046198fe2abe",
             "Hackett PLC",
-            "2021-08-30 00:15:50",
-            "2021-08-30 00:15:50"
+            "2021-08-30 00:10:46",
+            "2021-08-30 00:10:46"
         ]
     },
     {
@@ -8885,8 +8659,8 @@
             "Runteburgh",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "2021-08-30 00:15:55",
-            "2021-08-30 00:15:55"
+            "2021-08-30 00:10:51",
+            "2021-08-30 00:10:51"
         ]
     },
     {
@@ -8911,8 +8685,8 @@
             "-84.101481",
             "4nhhy1pjt7wt",
             "1520a917-841d-5876-b183-a9142c11f486",
-            "2021-08-30 00:15:56",
-            "2021-08-30 00:15:56"
+            "2021-08-30 00:10:52",
+            "2021-08-30 00:10:52"
         ]
     },
     {
@@ -8927,9 +8701,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:15:57",
-            "2021-08-30 00:15:58",
-            "2021-08-30 00:15:58"
+            "2021-08-30 00:10:53",
+            "2021-08-30 00:10:54",
+            "2021-08-30 00:10:54"
         ]
     },
     {
@@ -8938,8 +8712,8 @@
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
             "1520a917-841d-5876-b183-a9142c11f486",
             "b6bd49fb-9a4a-5809-b304-8cec7c3962f7",
-            "2021-08-30 00:15:59",
-            "2021-08-30 00:15:59"
+            "2021-08-30 00:10:55",
+            "2021-08-30 00:10:55"
         ]
     },
     {
@@ -8948,8 +8722,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "b6bd49fb-9a4a-5809-b304-8cec7c3962f7",
             "31441e15-c634-5010-9c90-a9ca58f9d5c8",
-            "2021-08-30 00:16:00",
-            "2021-08-30 00:16:00"
+            "2021-08-30 00:10:56",
+            "2021-08-30 00:10:56"
         ]
     },
     {
@@ -8984,8 +8758,8 @@
             0.0,
             0.0,
             "a4ea3a37-1a96-5722-8568-6707a6508e9d",
-            "2021-08-30 00:16:01",
-            "2021-08-30 00:16:01"
+            "2021-08-30 00:10:57",
+            "2021-08-30 00:10:57"
         ]
     },
     {
@@ -8999,8 +8773,8 @@
         "bindings": [
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
             "Breitenberg-Klocko",
-            "2021-08-30 00:16:02",
-            "2021-08-30 00:16:02"
+            "2021-08-30 00:10:58",
+            "2021-08-30 00:10:58"
         ]
     },
     {
@@ -9022,8 +8796,8 @@
             "Princessside",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "55c5d12a-02e7-5973-95c6-c2e5300ff7d2",
-            "2021-08-30 00:16:07",
-            "2021-08-30 00:16:07"
+            "2021-08-30 00:11:03",
+            "2021-08-30 00:11:03"
         ]
     },
     {
@@ -9048,8 +8822,8 @@
             "-158.776442",
             "0mxhfuyx0dzy",
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
-            "2021-08-30 00:16:08",
-            "2021-08-30 00:16:08"
+            "2021-08-30 00:11:04",
+            "2021-08-30 00:11:04"
         ]
     },
     {
@@ -9064,9 +8838,9 @@
             0,
             0,
             1,
-            "2021-08-30 00:16:09",
-            "2021-08-30 00:16:10",
-            "2021-08-30 00:16:10"
+            "2021-08-30 00:11:05",
+            "2021-08-30 00:11:06",
+            "2021-08-30 00:11:06"
         ]
     },
     {
@@ -9075,8 +8849,8 @@
             "02015448-c2bb-4987-87e0-8b4e94a2ab15",
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
             "ce487bb6-8e03-5a1b-ac9e-ecf42e001e8a",
-            "2021-08-30 00:16:11",
-            "2021-08-30 00:16:11"
+            "2021-08-30 00:11:07",
+            "2021-08-30 00:11:07"
         ]
     },
     {
@@ -9085,8 +8859,8 @@
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "ce487bb6-8e03-5a1b-ac9e-ecf42e001e8a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "2021-08-30 00:16:12",
-            "2021-08-30 00:16:12"
+            "2021-08-30 00:11:08",
+            "2021-08-30 00:11:08"
         ]
     },
     {
@@ -9121,8 +8895,8 @@
             0.0,
             0.0,
             "b4e50900-e815-5d4c-a0a3-8b684b46f653",
-            "2021-08-30 00:16:13",
-            "2021-08-30 00:16:13"
+            "2021-08-30 00:11:09",
+            "2021-08-30 00:11:09"
         ]
     },
     {
@@ -9136,8 +8910,8 @@
         "bindings": [
             "02015448-c2bb-4987-87e0-8b4e94a2ab15",
             "Shields-Sporer",
-            "2021-08-30 00:16:14",
-            "2021-08-30 00:16:14"
+            "2021-08-30 00:11:10",
+            "2021-08-30 00:11:10"
         ]
     },
     {
@@ -9217,7 +8991,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -9232,7 +9006,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -9356,7 +9130,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, `location_id`, count(*) as count from `assets` where `assets`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `reseller_id`, `customer_id`, `location_id`",
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "1520a917-841d-5876-b183-a9142c11f486",
@@ -9371,7 +9145,7 @@
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id` from `reseller_locations` where `reseller_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "1520a917-841d-5876-b183-a9142c11f486",
@@ -9386,7 +9160,7 @@
         ]
     },
     {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_locations`.`deleted_at` is null and `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "1520a917-841d-5876-b183-a9142c11f486",
@@ -9401,11 +9175,33 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            1,
-            "2021-08-30 00:16:18",
-            "022c1865-3a20-5e95-960b-10a691a2376a"
+            "022c1865-3a20-5e95-960b-10a691a2376a",
+            "1520a917-841d-5876-b183-a9142c11f486",
+            "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d",
+            "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
+            "b040f399-dbf2-5157-afca-02344dd90703",
+            "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
+            "c22a0407-1b3b-5d02-b9e3-caba9493d845",
+            "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
+            "e268b786-8d37-53de-a8a5-4c22d64dc60a",
+            "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "022c1865-3a20-5e95-960b-10a691a2376a",
+            "1520a917-841d-5876-b183-a9142c11f486",
+            "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d",
+            "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
+            "b040f399-dbf2-5157-afca-02344dd90703",
+            "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
+            "c22a0407-1b3b-5d02-b9e3-caba9493d845",
+            "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
+            "e268b786-8d37-53de-a8a5-4c22d64dc60a",
+            "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
         ]
     },
     {
@@ -9415,13 +9211,12 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01e5d413-1a68-4f16-9e46-ad9fd781579b",
             "022c1865-3a20-5e95-960b-10a691a2376a",
-            "2021-08-30 00:16:26",
-            "2021-08-30 00:16:26",
-            1,
+            "2021-08-30 00:11:14",
+            "2021-08-30 00:11:14",
             0,
             "1508a7f0-6002-53f0-a566-3ddb0f048ab4"
         ]
@@ -9433,27 +9228,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:16:28",
-            "1520a917-841d-5876-b183-a9142c11f486"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "1520a917-841d-5876-b183-a9142c11f486"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
             "1520a917-841d-5876-b183-a9142c11f486",
-            "2021-08-30 00:16:36",
-            "2021-08-30 00:16:36",
-            1,
+            "2021-08-30 00:11:16",
+            "2021-08-30 00:11:16",
             0,
             "d5124e3a-4cd8-50d8-95b7-bfb3e347156e"
         ]
@@ -9465,27 +9251,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:16:38",
-            "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c45daa-5b06-46ba-a3de-927ed79e6033",
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d",
-            "2021-08-30 00:16:46",
-            "2021-08-30 00:16:46",
-            1,
+            "2021-08-30 00:11:18",
+            "2021-08-30 00:11:18",
             0,
             "ef0d8ead-05f6-5bd7-ae4b-96164635d6b1"
         ]
@@ -9497,27 +9274,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:16:48",
-            "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "02015448-c2bb-4987-87e0-8b4e94a2ab15",
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
-            "2021-08-30 00:16:56",
-            "2021-08-30 00:16:56",
-            1,
+            "2021-08-30 00:11:20",
+            "2021-08-30 00:11:20",
             0,
             "723131b7-3c7a-501e-b227-ce812c9226ba"
         ]
@@ -9529,27 +9297,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:16:58",
-            "b040f399-dbf2-5157-afca-02344dd90703"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "b040f399-dbf2-5157-afca-02344dd90703"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01d94fc2-0987-4c40-8c46-af29fbb924f8",
             "b040f399-dbf2-5157-afca-02344dd90703",
-            "2021-08-30 00:17:06",
-            "2021-08-30 00:17:06",
-            1,
+            "2021-08-30 00:11:22",
+            "2021-08-30 00:11:22",
             0,
             "94e9f028-7afd-5331-922e-b7d696d228f9"
         ]
@@ -9561,27 +9320,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:17:08",
-            "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01d6fadd-1b36-4cf9-834e-3a46430cab78",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
-            "2021-08-30 00:17:16",
-            "2021-08-30 00:17:16",
-            1,
+            "2021-08-30 00:11:24",
+            "2021-08-30 00:11:24",
             0,
             "268558e9-0e37-58c0-b6ac-3689555a4443"
         ]
@@ -9593,27 +9343,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:17:18",
-            "c22a0407-1b3b-5d02-b9e3-caba9493d845"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "c22a0407-1b3b-5d02-b9e3-caba9493d845"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01f149ea-eb28-4357-bbca-046198fe2abe",
             "c22a0407-1b3b-5d02-b9e3-caba9493d845",
-            "2021-08-30 00:17:26",
-            "2021-08-30 00:17:26",
-            1,
+            "2021-08-30 00:11:26",
+            "2021-08-30 00:11:26",
             0,
             "49af19cb-036b-57f7-874c-ae48888adcbc"
         ]
@@ -9625,27 +9366,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:17:28",
-            "e0f59ff6-f76d-5894-b8c9-073de9f1c317"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
-            "2021-08-30 00:17:36",
-            "2021-08-30 00:17:36",
-            1,
+            "2021-08-30 00:11:28",
+            "2021-08-30 00:11:28",
             0,
             "43f0df46-ca67-5d0b-a212-4c68d226b9df"
         ]
@@ -9657,27 +9389,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:17:38",
-            "e268b786-8d37-53de-a8a5-4c22d64dc60a"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "e268b786-8d37-53de-a8a5-4c22d64dc60a"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "e268b786-8d37-53de-a8a5-4c22d64dc60a",
-            "2021-08-30 00:17:46",
-            "2021-08-30 00:17:46",
-            1,
+            "2021-08-30 00:11:30",
+            "2021-08-30 00:11:30",
             0,
             "a0b85527-b658-5b00-a410-6daa0d2c4eba"
         ]
@@ -9689,27 +9412,18 @@
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:17:48",
-            "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
-        ]
-    },
-    {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `customers_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd",
-            "2021-08-30 00:17:56",
-            "2021-08-30 00:17:56",
-            1,
+            "2021-08-30 00:11:32",
+            "2021-08-30 00:11:32",
             0,
             "525bd2d2-bbcb-5abc-b086-feba9b35d581"
         ]
