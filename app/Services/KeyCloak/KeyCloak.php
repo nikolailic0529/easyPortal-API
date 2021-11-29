@@ -9,6 +9,7 @@ use App\Services\KeyCloak\Exceptions\Auth\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\Auth\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\Auth\StateMismatch;
 use App\Services\KeyCloak\Exceptions\Auth\UnknownScope;
+use App\Services\KeyCloak\OAuth2\Provider;
 use App\Services\Organization\CurrentOrganization;
 use Exception;
 use Illuminate\Auth\AuthManager;

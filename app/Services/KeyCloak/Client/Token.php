@@ -3,7 +3,7 @@
 namespace App\Services\KeyCloak\Client;
 
 use App\Services\KeyCloak\KeyCloak;
-use App\Services\KeyCloak\Provider;
+use App\Services\KeyCloak\OAuth2\Provider;
 use App\Services\Tokens\OAuth2Token;
 use App\Services\Tokens\Service;
 
