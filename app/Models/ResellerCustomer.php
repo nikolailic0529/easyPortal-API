@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use App\Utils\Eloquent\SmartSave\Upsertable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer query()
  * @mixin \Eloquent
  */
-class ResellerCustomer extends Pivot {
+class ResellerCustomer extends Pivot implements Upsertable {
     use HasFactory;
 
     /**
@@ -31,4 +32,11 @@ class ResellerCustomer extends Pivot {
      * @var string
      */
     protected $table = 'reseller_customers';
+
+    /**
+     * @inheritDoc
+     */
+    public static function getUniqueKey(): array {
+        return ['reseller_id', 'customer_id'];
+    }
 }

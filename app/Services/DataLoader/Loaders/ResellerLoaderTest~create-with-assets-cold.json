@@ -1699,15 +1699,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
-            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "2021-08-30 00:08:32",
-            "2021-08-30 00:08:32",
-            1,
             5,
-            "4095e0b0-8302-5ec4-a31b-09b584ea92c4"
+            "2021-08-30 00:08:32",
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+            "4095e0b0-8302-5ec4-a31b-09b584ea92c4",
+            1,
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "2021-08-30 00:08:32"
         ]
     },
     {
@@ -1818,14 +1818,14 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
-            "2021-08-30 00:08:50",
-            "2021-08-30 00:08:50",
             1,
-            "326f29ce-449c-5ec3-a939-4bafb38258ef"
+            "2021-08-30 00:08:50",
+            "326f29ce-449c-5ec3-a939-4bafb38258ef",
+            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "2021-08-30 00:08:50"
         ]
     },
     {
@@ -1843,14 +1843,14 @@
         ]
     },
     {
-        "query": "insert into `location_customers` (`customer_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `location_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
-            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
-            "2021-08-30 00:08:52",
-            "2021-08-30 00:08:52",
             1,
-            "539d47df-edd1-5c3f-9752-2fed455c94b5"
+            "2021-08-30 00:08:52",
+            "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
+            "2021-08-30 00:08:52"
         ]
     },
     {
@@ -1868,14 +1868,14 @@
         ]
     },
     {
-        "query": "insert into `location_resellers` (`reseller_id`, `location_id`, `created_at`, `updated_at`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
-            "2021-08-30 00:09:10",
-            "2021-08-30 00:09:10",
             4,
-            "8805a24e-730d-5ca0-909a-a43a5d9821f9"
+            "2021-08-30 00:09:10",
+            "8805a24e-730d-5ca0-909a-a43a5d9821f9",
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
+            "6c7c9474-3b59-4601-af72-1cd0f441b515",
+            "2021-08-30 00:09:10"
         ]
     },
     {

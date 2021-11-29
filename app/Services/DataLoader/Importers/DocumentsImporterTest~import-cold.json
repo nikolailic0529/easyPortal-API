@@ -1174,15 +1174,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:27:25",
             "6afaf60a-84c6-420d-826e-c83cb56f58da",
+            "cce6bd28-3715-55f4-a918-b9b787063b70",
+            0,
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
-            "2021-08-30 00:27:25",
-            "2021-08-30 00:27:25",
-            0,
-            0,
-            "cce6bd28-3715-55f4-a918-b9b787063b70"
+            "2021-08-30 00:27:25"
         ]
     },
     {
@@ -1200,15 +1200,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:27:35",
             "d1f6d61b-6197-4788-b4db-1a4acd420a2b",
+            "7f1506ea-e25d-5bf9-9fad-861f030fb158",
+            0,
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
-            "2021-08-30 00:27:35",
-            "2021-08-30 00:27:35",
-            0,
-            0,
-            "7f1506ea-e25d-5bf9-9fad-861f030fb158"
+            "2021-08-30 00:27:35"
         ]
     },
     {
@@ -1226,15 +1226,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:27:45",
             "acf4b516-e2d7-40b7-b8af-004f4d690415",
+            "a7f2dcb8-c1fa-5e8a-ab3b-4f96b619ca72",
+            0,
             "4cfceead-f53f-474d-9a38-14d7985ee644",
-            "2021-08-30 00:27:45",
-            "2021-08-30 00:27:45",
-            0,
-            0,
-            "a7f2dcb8-c1fa-5e8a-ab3b-4f96b619ca72"
+            "2021-08-30 00:27:45"
         ]
     },
     {
@@ -1252,15 +1252,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:27:55",
             "7d49688d-6842-4d20-bd68-3b8b114ab89d",
+            "99aa44aa-5d55-5ba7-b8d4-4092bba400eb",
+            0,
             "6b5ccf6c-e945-47ac-9024-7caa1f3c698c",
-            "2021-08-30 00:27:55",
-            "2021-08-30 00:27:55",
-            0,
-            0,
-            "99aa44aa-5d55-5ba7-b8d4-4092bba400eb"
+            "2021-08-30 00:27:55"
         ]
     },
     {
@@ -1278,7 +1278,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
             0,
             "2021-08-30 00:28:05",
@@ -1311,15 +1311,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:28:17",
             "573cf122-f679-48d1-8277-f783e4de1561",
+            "cef05165-1f37-56bb-875e-bf1ef513d307",
+            0,
             "7dcbb5c5-db08-4c80-964f-54602aad82ac",
-            "2021-08-30 00:28:17",
-            "2021-08-30 00:28:17",
-            0,
-            0,
-            "cef05165-1f37-56bb-875e-bf1ef513d307"
+            "2021-08-30 00:28:17"
         ]
     },
     {
@@ -1337,15 +1337,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:28:27",
             "c9719ee6-0604-43f3-9e34-6effb43dcb4b",
+            "59d58a12-efc6-55cf-9599-159ff766e07c",
+            0,
             "d579e027-5a28-4537-bd72-03c698e14660",
-            "2021-08-30 00:28:27",
-            "2021-08-30 00:28:27",
-            0,
-            0,
-            "59d58a12-efc6-55cf-9599-159ff766e07c"
+            "2021-08-30 00:28:27"
         ]
     },
     {
@@ -1363,15 +1363,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:28:37",
             "1869320d-1466-44c8-aff7-171700a9f1e3",
+            "a5f3b1e9-2c00-5de4-91ae-1da36d88fd90",
+            0,
             "ea6d0bee-5d1a-47ea-bc43-1af56cf78dec",
-            "2021-08-30 00:28:37",
-            "2021-08-30 00:28:37",
-            0,
-            0,
-            "a5f3b1e9-2c00-5de4-91ae-1da36d88fd90"
+            "2021-08-30 00:28:37"
         ]
     },
     {
@@ -1389,15 +1389,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:28:47",
             "e3f069e3-2bea-4d88-8610-234bfc11fcee",
+            "406d5a1d-8dc0-5617-b41f-03e2d158b7d0",
+            0,
             "eb7c13ee-fb10-45e0-87e8-8cc527fea1dd",
-            "2021-08-30 00:28:47",
-            "2021-08-30 00:28:47",
-            0,
-            0,
-            "406d5a1d-8dc0-5617-b41f-03e2d158b7d0"
+            "2021-08-30 00:28:47"
         ]
     },
     {
@@ -2366,15 +2366,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:30:35",
             "1e741743-b1f0-42dd-b5c1-95eb48bf4157",
+            "51d8654c-8351-5633-a3de-6b2980251b91",
+            0,
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
-            "2021-08-30 00:30:35",
-            "2021-08-30 00:30:35",
-            0,
-            0,
-            "51d8654c-8351-5633-a3de-6b2980251b91"
+            "2021-08-30 00:30:35"
         ]
     },
     {
@@ -2392,15 +2392,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:30:45",
             "4cbc4d85-f593-428c-bcf1-a91762e34447",
+            "83924579-44f9-5bea-b739-45c1f9f4e4a7",
+            0,
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
-            "2021-08-30 00:30:45",
-            "2021-08-30 00:30:45",
-            0,
-            0,
-            "83924579-44f9-5bea-b739-45c1f9f4e4a7"
+            "2021-08-30 00:30:45"
         ]
     },
     {
@@ -2418,15 +2418,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:30:55",
             "580238f9-bdd2-46c0-a54f-bd2f6dfe15a8",
+            "797d2af9-f0a8-53f3-9d67-7ebf7bd18a3b",
+            0,
             "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f",
-            "2021-08-30 00:30:55",
-            "2021-08-30 00:30:55",
-            0,
-            0,
-            "797d2af9-f0a8-53f3-9d67-7ebf7bd18a3b"
+            "2021-08-30 00:30:55"
         ]
     },
     {
@@ -2444,15 +2444,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:31:05",
             "4f619843-9516-422b-99bd-97376b595369",
+            "6da60ca4-cbac-502b-977c-63484c1728d4",
+            0,
             "561b9925-3781-46d7-a734-78efad4f5ae6",
-            "2021-08-30 00:31:05",
-            "2021-08-30 00:31:05",
-            0,
-            0,
-            "6da60ca4-cbac-502b-977c-63484c1728d4"
+            "2021-08-30 00:31:05"
         ]
     },
     {
@@ -2470,15 +2470,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:31:15",
             "54016e50-bfbb-4613-b91f-9abaf03b00ce",
+            "3e76914b-7719-54a8-a07a-611769e64029",
+            0,
             "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
-            "2021-08-30 00:31:15",
-            "2021-08-30 00:31:15",
-            0,
-            0,
-            "3e76914b-7719-54a8-a07a-611769e64029"
+            "2021-08-30 00:31:15"
         ]
     },
     {
@@ -2496,15 +2496,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:31:25",
             "f67d17d3-3437-47c4-8069-5643b27eadad",
+            "990addb1-5de5-522d-ba05-fac4ca9d36a0",
+            0,
             "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9",
-            "2021-08-30 00:31:25",
-            "2021-08-30 00:31:25",
-            0,
-            0,
-            "990addb1-5de5-522d-ba05-fac4ca9d36a0"
+            "2021-08-30 00:31:25"
         ]
     },
     {
@@ -2522,15 +2522,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:31:35",
             "2e942796-9bc7-49e7-b397-1e2757b63655",
+            "fb318622-ee2f-5f72-b912-6ebfc8ca95fc",
+            0,
             "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
-            "2021-08-30 00:31:35",
-            "2021-08-30 00:31:35",
-            0,
-            0,
-            "fb318622-ee2f-5f72-b912-6ebfc8ca95fc"
+            "2021-08-30 00:31:35"
         ]
     },
     {
@@ -2548,15 +2548,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:31:45",
             "24b528a6-c3a7-45d6-aab7-fb61d65a3d6f",
+            "93ce19eb-c120-5e08-a6a7-ccb445a0a4e0",
+            0,
             "a0db69e6-944a-4db7-8744-b8300f711cc9",
-            "2021-08-30 00:31:45",
-            "2021-08-30 00:31:45",
-            0,
-            0,
-            "93ce19eb-c120-5e08-a6a7-ccb445a0a4e0"
+            "2021-08-30 00:31:45"
         ]
     },
     {
@@ -3523,15 +3523,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:33:36",
             "e12324ee-3d3e-498b-a4e3-e1da51ff32c8",
+            "d2917695-5cd0-5e49-9eff-b95ff060a908",
+            0,
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
-            "2021-08-30 00:33:36",
-            "2021-08-30 00:33:36",
-            0,
-            0,
-            "d2917695-5cd0-5e49-9eff-b95ff060a908"
+            "2021-08-30 00:33:36"
         ]
     },
     {
@@ -3549,15 +3549,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:33:46",
             "2d68db4b-87e0-4933-aedf-4db281af2bb3",
+            "ce5ea8a3-3739-5642-b6ce-5123114ce746",
+            0,
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
-            "2021-08-30 00:33:46",
-            "2021-08-30 00:33:46",
-            0,
-            0,
-            "ce5ea8a3-3739-5642-b6ce-5123114ce746"
+            "2021-08-30 00:33:46"
         ]
     },
     {
@@ -3575,15 +3575,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:33:56",
             "a3297dd0-f63e-4838-b596-5a034b64079f",
+            "626ea2be-7d7f-59ab-8a91-53a29adc9346",
+            0,
             "4fa9312d-16e8-4c48-9810-1def4a53b0b1",
-            "2021-08-30 00:33:56",
-            "2021-08-30 00:33:56",
-            0,
-            0,
-            "626ea2be-7d7f-59ab-8a91-53a29adc9346"
+            "2021-08-30 00:33:56"
         ]
     },
     {
@@ -3601,7 +3601,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
             0,
             "2021-08-30 00:34:06",
@@ -3634,15 +3634,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:34:18",
             "22472b80-4601-4be2-8a6d-3b17f550fac0",
+            "89ece00d-2777-5468-b532-861aad90f51a",
+            0,
             "878a1eac-f90f-4eef-9732-fbeca5e67ff4",
-            "2021-08-30 00:34:18",
-            "2021-08-30 00:34:18",
-            0,
-            0,
-            "89ece00d-2777-5468-b532-861aad90f51a"
+            "2021-08-30 00:34:18"
         ]
     },
     {
@@ -3660,15 +3660,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:34:28",
             "2544e72d-27cf-4a7b-8291-c3fd6c65f3f9",
+            "9a0e5844-049c-5429-a8d7-d3c4935babfc",
+            0,
             "87d3547c-966f-4581-9b75-6794e5eec86d",
-            "2021-08-30 00:34:28",
-            "2021-08-30 00:34:28",
-            0,
-            0,
-            "9a0e5844-049c-5429-a8d7-d3c4935babfc"
+            "2021-08-30 00:34:28"
         ]
     },
     {
@@ -3686,15 +3686,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:34:38",
             "4ae28414-3992-4350-abca-f933625fc3db",
+            "13374ab6-0a1d-5366-8c93-46c05bee83f6",
+            0,
             "8ba0d575-29d6-442b-81fc-0d953e4201b5",
-            "2021-08-30 00:34:38",
-            "2021-08-30 00:34:38",
-            0,
-            0,
-            "13374ab6-0a1d-5366-8c93-46c05bee83f6"
+            "2021-08-30 00:34:38"
         ]
     },
     {
@@ -3712,15 +3712,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:34:48",
             "360983d1-a19d-44b0-9ad9-34293fb13e63",
+            "e7111a9c-8815-50db-a16c-8e84cab61f10",
+            0,
             "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28",
-            "2021-08-30 00:34:48",
-            "2021-08-30 00:34:48",
-            0,
-            0,
-            "e7111a9c-8815-50db-a16c-8e84cab61f10"
+            "2021-08-30 00:34:48"
         ]
     },
     {
@@ -4642,15 +4642,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:36:31",
             "e70e8372-5bc8-4719-8e32-d4eababf8cbd",
+            "e06780a7-ebcb-5184-81bb-900adf2da838",
+            0,
             "07224fc0-4363-411c-adbc-91ee977daa5f",
-            "2021-08-30 00:36:31",
-            "2021-08-30 00:36:31",
-            0,
-            0,
-            "e06780a7-ebcb-5184-81bb-900adf2da838"
+            "2021-08-30 00:36:31"
         ]
     },
     {
@@ -4668,15 +4668,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:36:41",
             "b3d3f3eb-4b1b-4cda-88ff-a1ce371c6552",
+            "21f150b2-f49f-5663-8482-0261127f6e6a",
+            0,
             "0731be4c-624e-4802-a1d3-c672a9283562",
-            "2021-08-30 00:36:41",
-            "2021-08-30 00:36:41",
-            0,
-            0,
-            "21f150b2-f49f-5663-8482-0261127f6e6a"
+            "2021-08-30 00:36:41"
         ]
     },
     {
@@ -4694,15 +4694,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:36:51",
             "daa843a3-203e-409c-b200-63a0bbee29aa",
+            "7edf46f9-02ca-586a-8039-e5bcd6404d68",
+            0,
             "0ada2df3-6fc0-4f16-8383-1fe11757f38d",
-            "2021-08-30 00:36:51",
-            "2021-08-30 00:36:51",
-            0,
-            0,
-            "7edf46f9-02ca-586a-8039-e5bcd6404d68"
+            "2021-08-30 00:36:51"
         ]
     },
     {
@@ -4720,15 +4720,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:37:01",
             "56b4a419-145c-4d4d-9d86-5959a240d1ae",
+            "ad400311-bc89-5777-b19f-cd4dae9fc6fa",
+            0,
             "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
-            "2021-08-30 00:37:01",
-            "2021-08-30 00:37:01",
-            0,
-            0,
-            "ad400311-bc89-5777-b19f-cd4dae9fc6fa"
+            "2021-08-30 00:37:01"
         ]
     },
     {
@@ -4746,15 +4746,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:37:11",
             "d8aa3a7e-ccca-434e-87ce-173dd54556d7",
+            "ac9989e1-7ced-576f-8d9e-86bea5557f87",
+            0,
             "8fcc485d-f48c-4b6a-a001-d3e98e20b39f",
-            "2021-08-30 00:37:11",
-            "2021-08-30 00:37:11",
-            0,
-            0,
-            "ac9989e1-7ced-576f-8d9e-86bea5557f87"
+            "2021-08-30 00:37:11"
         ]
     },
     {
@@ -4772,15 +4772,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:37:21",
             "0cf36158-bd01-4a59-b895-a00704462677",
+            "299bbc3a-0419-5333-bcfe-eb5ec275dd08",
+            0,
             "93161fb7-a3b7-4694-b267-0729b81d47e6",
-            "2021-08-30 00:37:21",
-            "2021-08-30 00:37:21",
-            0,
-            0,
-            "299bbc3a-0419-5333-bcfe-eb5ec275dd08"
+            "2021-08-30 00:37:21"
         ]
     },
     {
@@ -4798,15 +4798,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:37:31",
             "433e2336-b5bd-4dd4-a0ee-a925a0e7996b",
+            "bc673004-80b6-55df-82b8-c14657121623",
+            0,
             "e0669449-ba7c-4921-9b78-19bbd51e90db",
-            "2021-08-30 00:37:31",
-            "2021-08-30 00:37:31",
-            0,
-            0,
-            "bc673004-80b6-55df-82b8-c14657121623"
+            "2021-08-30 00:37:31"
         ]
     },
     {
@@ -4824,15 +4824,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:37:41",
             "05811c76-e27c-43eb-8e4c-8ae1967784bc",
+            "c3bbec88-262e-54ad-aae6-db67cbfd43ef",
+            0,
             "e21bb455-8dcf-4ae1-93c0-f3af9b99e177",
-            "2021-08-30 00:37:41",
-            "2021-08-30 00:37:41",
-            0,
-            0,
-            "c3bbec88-262e-54ad-aae6-db67cbfd43ef"
+            "2021-08-30 00:37:41"
         ]
     },
     {
@@ -4850,15 +4850,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:37:51",
             "f2a020bc-0b1f-4b6d-9f8b-f9a1ffa5fb91",
+            "81334b81-1505-517e-aa7f-80fc26da6793",
+            0,
             "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d",
-            "2021-08-30 00:37:51",
-            "2021-08-30 00:37:51",
-            0,
-            0,
-            "81334b81-1505-517e-aa7f-80fc26da6793"
+            "2021-08-30 00:37:51"
         ]
     },
     {
@@ -4876,15 +4876,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:38:01",
             "dcdcbfd1-962a-4fe2-90ae-c5906915a683",
+            "dd15e36d-15b5-5049-8027-fb5e25a5ae8f",
+            0,
             "fd2ae590-896c-4a02-bfde-da7ff445aab4",
-            "2021-08-30 00:38:01",
-            "2021-08-30 00:38:01",
-            0,
-            0,
-            "dd15e36d-15b5-5049-8027-fb5e25a5ae8f"
+            "2021-08-30 00:38:01"
         ]
     },
     {
@@ -5836,15 +5836,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:39:51",
             "8f4f286a-59b6-464e-9634-63a25298db57",
+            "6cb252e9-0404-5dce-a707-0ee5f716301b",
+            0,
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
-            "2021-08-30 00:39:51",
-            "2021-08-30 00:39:51",
-            0,
-            0,
-            "6cb252e9-0404-5dce-a707-0ee5f716301b"
+            "2021-08-30 00:39:51"
         ]
     },
     {
@@ -5862,15 +5862,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:40:01",
             "6030b200-8206-4f12-89bd-93768534486b",
+            "0d15067a-3616-5458-9f22-53a66f41d4b7",
+            0,
             "561b9925-3781-46d7-a734-78efad4f5ae6",
-            "2021-08-30 00:40:01",
-            "2021-08-30 00:40:01",
-            0,
-            0,
-            "0d15067a-3616-5458-9f22-53a66f41d4b7"
+            "2021-08-30 00:40:01"
         ]
     },
     {
@@ -5888,7 +5888,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
             0,
             "2021-08-30 00:40:11",
@@ -5921,15 +5921,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:40:23",
             "d674d244-8a3c-4357-8b62-3bc908495789",
+            "3f9e37c2-464b-5282-8626-5a0098e092a9",
+            0,
             "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
-            "2021-08-30 00:40:23",
-            "2021-08-30 00:40:23",
-            0,
-            0,
-            "3f9e37c2-464b-5282-8626-5a0098e092a9"
+            "2021-08-30 00:40:23"
         ]
     },
     {
@@ -5947,15 +5947,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:40:33",
             "a20076c1-802a-450f-8b0b-cd627fc0d2c4",
+            "b1ae2aec-1a72-5c6a-89b7-74ff45691986",
+            0,
             "936f8f18-b561-4d28-9f0c-b642b6fc9da9",
-            "2021-08-30 00:40:33",
-            "2021-08-30 00:40:33",
-            0,
-            0,
-            "b1ae2aec-1a72-5c6a-89b7-74ff45691986"
+            "2021-08-30 00:40:33"
         ]
     },
     {
@@ -5973,15 +5973,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:40:43",
             "57275aee-01e3-4490-b6ef-4cacfce38c44",
+            "bdbf59ec-6b7d-575b-a591-5db2bc363eb9",
+            0,
             "9d926695-6d2b-404e-9d6d-31bcaf44e7d2",
-            "2021-08-30 00:40:43",
-            "2021-08-30 00:40:43",
-            0,
-            0,
-            "bdbf59ec-6b7d-575b-a591-5db2bc363eb9"
+            "2021-08-30 00:40:43"
         ]
     },
     {
@@ -5999,15 +5999,15 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`customer_id`, `reseller_id`, `created_at`, `updated_at`, `locations_count`, `assets_count`, `id`) values (?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
         "bindings": [
+            0,
+            "2021-08-30 00:40:53",
             "c1c5a133-c373-4212-a836-adfb33fa314c",
+            "ffe06a36-a07a-5d69-adbb-e472a2dd4a1a",
+            0,
             "a36b83d1-a49b-45be-adb7-3c5defb55234",
-            "2021-08-30 00:40:53",
-            "2021-08-30 00:40:53",
-            0,
-            0,
-            "ffe06a36-a07a-5d69-adbb-e472a2dd4a1a"
+            "2021-08-30 00:40:53"
         ]
     }
 ]
