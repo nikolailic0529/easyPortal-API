@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Filesystem\Storages;
+namespace App\Services\I18n\Storages;
 
 use App\Services\Filesystem\Disks\ClientDisk;
 use App\Services\Filesystem\JsonStorage;

@@ -13,7 +13,7 @@ use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
 use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\Filesystem\Storages\AppTranslations;
+use App\Services\I18n\Storages\AppTranslations;
 use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Cell;
 use Maatwebsite\Excel\Concerns\Importable;

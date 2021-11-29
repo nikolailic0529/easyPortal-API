@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Client;
 
 use App\Services\Filesystem\Disks\ClientDisk;
-use App\Services\Filesystem\Storages\ClientTranslations;
+use App\Services\I18n\Storages\ClientTranslations;
 
 class Translations {
     public function __construct(

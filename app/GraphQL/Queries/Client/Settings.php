@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Client;
 
-use App\Services\Filesystem\Storages\ClientSettings;
 use App\Services\Settings\Settings as SettingsService;
+use App\Services\Settings\Storages\ClientSettings;
 use Illuminate\Support\Collection;
 
 class Settings {

@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Application;
 
 use App\GraphQL\Queries\Application\Translations;
 use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\Filesystem\Storages\AppTranslations;
+use App\Services\I18n\Storages\AppTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

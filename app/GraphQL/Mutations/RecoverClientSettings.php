@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Filesystem\Storages\ClientSettings;
+use App\Services\Settings\Storages\ClientSettings;
 
 class RecoverClientSettings {
     public function __construct(

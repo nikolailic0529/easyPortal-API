@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\Filesystem\Storages\AppTranslations;
+use App\Services\I18n\Storages\AppTranslations;
 
 use function array_unique;
 
