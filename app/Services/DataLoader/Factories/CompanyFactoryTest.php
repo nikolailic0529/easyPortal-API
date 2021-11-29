@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Model;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
@@ -12,6 +11,7 @@ use App\Services\DataLoader\Schema\Company as CompanyObject;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;
 use Tests\TestCase;

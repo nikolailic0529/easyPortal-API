@@ -3,12 +3,12 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Customer;
-use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Services\DataLoader\Factories\DependentModelFactory;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Tests\TestCase;
 

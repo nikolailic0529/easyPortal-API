@@ -2,7 +2,6 @@
 
 namespace App\Services\KeyCloak\Importer;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User as UserModel;
@@ -10,6 +9,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\KeyCloak\Client\UsersIterator;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Mockery;
 use Tests\TestCase;
 

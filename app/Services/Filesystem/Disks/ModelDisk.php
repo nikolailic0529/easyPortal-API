@@ -4,12 +4,12 @@ namespace App\Services\Filesystem\Disks;
 
 use App\Models\ChangeRequest;
 use App\Models\File;
-use App\Models\Model;
 use App\Models\Note;
 use App\Models\Organization;
 use App\Models\QuoteRequest;
 use App\Models\User;
 use App\Services\Filesystem\Disk;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Http\UploadedFile;
@@ -28,7 +28,7 @@ class ModelDisk extends Disk {
     public const QUOTE_REQUESTS  = 'Model/QuoteRequest';
 
     /**
-     * @var array<class-string<\App\Models\Model>,string>
+     * @var array<class-string<\App\Utils\Eloquent\Model>,string>
      */
     protected array $map = [
         Organization::class  => self::ORGANIZATIONS,

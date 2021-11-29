@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Model;
 use App\Models\Type;
+use App\Utils\Eloquent\Model;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;

@@ -6,7 +6,7 @@ use App\GraphQL\Directives\AuthDirective as GraphQLAuthDirective;
 use App\GraphQL\Service as GraphQLService;
 use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
 use App\Services\DataLoader\Service as DataLoaderService;
-use App\Utils\CacheKeyInvalidValue;
+use App\Utils\Cache\CacheKeyInvalidValue;
 use Closure;
 use DateInterval;
 use Exception;

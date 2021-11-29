@@ -3,7 +3,7 @@
 namespace App\Services\Filesystem\Disks;
 
 use App\Models\File;
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use LogicException;

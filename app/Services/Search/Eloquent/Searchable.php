@@ -6,7 +6,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Updater;
-use App\Utils\ModelProperty;
+use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
@@ -30,7 +30,7 @@ use function is_null;
 use function is_scalar;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait Searchable {
     use ElasticSearchable {

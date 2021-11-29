@@ -3,9 +3,9 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Contact;
-use App\Models\Model;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
+use App\Utils\Eloquent\Model;
 
 trait WithContacts {
     use Polymorphic;

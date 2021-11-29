@@ -2,12 +2,12 @@
 
 namespace App\Services\Organization\Eloquent;
 
-use App\Models\Concerns\GlobalScopes\DisableableScope;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
-use App\Utils\ModelProperty;
+use App\Utils\Eloquent\GlobalScopes\DisableableScope;
+use App\Utils\Eloquent\ModelProperty;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     // <editor-fold desc="Eloquent">
     // =========================================================================
     /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     * @param \App\Utils\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      */
     protected function handle(EloquentBuilder $builder, Model $model): void {
         // Root organization can view all data
@@ -57,7 +57,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     // <editor-fold desc="Search">
     // =========================================================================
     /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     * @param \App\Utils\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      */
     protected function handleForSearch(Builder $builder, Model $model): void {
         /** TODO {@link \App\Services\Organization\Eloquent\OwnedByShared} support? */
@@ -72,7 +72,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     }
 
     /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     * @param \App\Utils\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
      *
      * @return array<string,string>
      */

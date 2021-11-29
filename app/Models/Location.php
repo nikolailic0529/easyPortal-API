@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasAssets;
-use App\Models\Concerns\Relations\HasCustomers;
-use App\Models\Concerns\Relations\HasResellers;
+use App\Models\Relations\HasAssets;
+use App\Models\Relations\HasCustomers;
+use App\Models\Relations\HasResellers;
+use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -30,7 +32,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \App\Models\City                                                    $city
  * @property \App\Models\Country                                                 $country
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
+ * @property-write array<string,array<string,mixed>>                             $customersPivots
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
+ * @property-write array<string,array<string,mixed>>                             $resellersPivots
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()

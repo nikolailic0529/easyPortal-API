@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Asset as AssetModel;
-use App\Models\Model;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
@@ -19,6 +18,7 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Tests\TestCase;

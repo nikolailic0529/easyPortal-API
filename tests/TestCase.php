@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Settings\Storage;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;

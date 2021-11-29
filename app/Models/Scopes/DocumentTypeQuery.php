@@ -11,7 +11,7 @@ use function app;
 /**
  * @see \App\Models\Scopes\DocumentType
  *
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait DocumentTypeQuery {
     public function scopeQueryContracts(Builder $builder): Builder {

@@ -2,7 +2,7 @@
 
 namespace App\Services\Queue;
 
-use App\Utils\CacheKeyable;
+use App\Utils\Cache\CacheKeyable;
 
 /**
  * Mark that Job can handle "stop" requests (realization must be provided by the job).

@@ -5,7 +5,7 @@ namespace App\Services\Organization\Eloquent;
 use function app;
 
 /**
- * @mixin \App\Models\Model
+ * @mixin \App\Utils\Eloquent\Model
  */
 trait OwnedByOrganization {
     public static function bootOwnedByOrganization(): void {

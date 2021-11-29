@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Models\Model;
+use App\Utils\Eloquent\Model;
 use Closure;
 
 class ClosureKey implements KeyRetriever {

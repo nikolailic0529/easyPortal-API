@@ -3,18 +3,20 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Asset;
+use App\Models\CustomerLocation;
 use App\Models\Document;
-use App\Models\Model;
 use App\Models\Reseller;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
+use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 use function array_fill_keys;
+use function array_filter;
+use function array_intersect;
 use function array_keys;
-use function array_map;
 use function array_merge;
-use function array_sum;
+use function array_reduce;
+use function array_unique;
 use function count;
 
 /**
@@ -30,111 +32,165 @@ class ResellersRecalculate extends Recalculate {
     }
 
     protected function process(): void {
-        $keys      = $this->getKeys();
-        $model     = $this->getModel();
-        $resellers = $model::query()
+        $keys                = $this->getKeys();
+        $model               = $this->getModel();
+        $resellers           = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
-            ->with(['locations', 'contacts'])
+            ->with(['locations', 'contacts', 'statuses'])
             ->get();
-        $assets    = $this->calculateAssets($keys, $resellers);
-        $documents = $this->calculateDocuments($keys, $resellers);
+        $assetsByReseller    = $this->calculateAssetsFor('reseller_id', $keys);
+        $assetsByLocation    = $this->calculateAssetsByLocationFor('reseller_id', $keys);
+        $assetsByCustomer    = $this->calculateAssetsByCustomerFor('reseller_id', $keys);
+        $customersByLocation = $this->calculateCustomersByLocation($keys);
+        $documentsByCustomer = $this->calculateDocumentsByCustomer($keys);
+        $customerLocations   = $this->calculateCustomerLocations(
+            array_filter(array_keys(array_reduce(
+                $assetsByCustomer,
+                static function (array $customers, array $data): array {
+                    return array_merge($customers, $data);
+                },
+                [],
+            ))),
+        );
 
         foreach ($resellers as $reseller) {
             /** @var \App\Models\Reseller $reseller */
             // Prepare
-            $resellerAssets = $assets[$reseller->getKey()] ?? [];
+            $resellerAssetsByReseller    = $assetsByReseller[$reseller->getKey()] ?? 0;
+            $resellerAssetsByCustomer    = $assetsByCustomer[$reseller->getKey()] ?? [];
+            $resellerAssetsByLocation    = $assetsByLocation[$reseller->getKey()] ?? [];
+            $resellerCustomersByLocation = $customersByLocation[$reseller->getKey()] ?? [];
+            $resellerDocumentsByCustomer = $documentsByCustomer[$reseller->getKey()] ?? [];
+            $resellerCustomers           = array_filter(array_unique(array_merge(
+                array_keys($resellerAssetsByCustomer),
+                array_keys($resellerDocumentsByCustomer),
+            )));
 
             // Countable
             $reseller->locations_count = count($reseller->locations);
-            $reseller->customers_count = count($resellerAssets['customers'] ?? []);
+            $reseller->customers_count = count($resellerCustomers);
             $reseller->contacts_count  = count($reseller->contacts);
-            $reseller->assets_count    = array_sum(Arr::flatten($resellerAssets['customers'] ?? []));
+            $reseller->statuses_count  = count($reseller->statuses);
+            $reseller->assets_count    = $resellerAssetsByReseller;
 
             $reseller->save();
 
             // Locations
             foreach ($reseller->locations as $location) {
                 /** @var \App\Models\LocationReseller $location */
-                $location->customers_count = count($resellerAssets['locations'][$location->location_id] ?? []);
-                $location->assets_count    = array_sum($resellerAssets['locations'][$location->location_id] ?? []);
+                $location->customers_count = $resellerCustomersByLocation[$location->location_id] ?? 0;
+                $location->assets_count    = $resellerAssetsByLocation[$location->location_id] ?? 0;
                 $location->save();
             }
 
             // Customers
-            $customers = array_merge(
-                array_fill_keys(array_keys($documents[$reseller->getKey()] ?? []), [
-                    'locations_count' => 0,
-                    'assets_count'    => 0,
-                ]),
-                array_map(static function (array $customers): array {
-                    return [
-                        'locations_count' => count($customers),
-                        'assets_count'    => array_sum($customers),
-                    ];
-                }, $resellerAssets['customers'] ?? []),
-            );
+            $locations = array_filter(array_keys($resellerAssetsByLocation));
+            $customers = array_fill_keys($resellerCustomers, [
+                'locations_count' => 0,
+                'assets_count'    => 0,
+            ]);
 
-            unset($customers['']);
+            foreach ($resellerAssetsByCustomer as $customer => $assets) {
+                if ($customer) {
+                    $customers[$customer]['assets_count']    = $assets;
+                    $customers[$customer]['locations_count'] = count(array_intersect(
+                        $customerLocations[$customer] ?? [],
+                        $locations,
+                    ));
+                }
+            }
 
-            $reseller->customers()->sync($customers);
+            $reseller->customersPivots = $customers;
+            $reseller->save();
         }
     }
 
     /**
-     * Returns the number of assets on each customer on each location for each reseller.
-     *
-     * @param array<string>                                        $keys
-     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
+     * @param array<string> $keys
      *
      * @return array<string,array<string, int>>
      */
-    protected function calculateAssets(array $keys, Collection $resellers): array {
-        $assets = [];
+    protected function calculateCustomersByLocation(array $keys): array {
+        $data   = [];
         $result = Asset::query()
-            ->toBase()
-            ->select('reseller_id', 'customer_id', 'location_id', DB::raw('count(*) as count'))
+            ->select(['reseller_id', 'location_id', DB::raw('count(DISTINCT `customer_id`) as count')])
             ->whereIn('reseller_id', $keys)
-            ->groupBy('reseller_id', 'customer_id', 'location_id')
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('customer_id')
+                    ->orWhereHasIn('customer');
+            })
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('location_id')
+                    ->orWhereHasIn('location');
+            })
+            ->groupBy('reseller_id', 'location_id')
+            ->toBase()
             ->get();
 
         foreach ($result as $row) {
             /** @var \stdClass $row */
-            $r = $row->reseller_id;
+            $r = (string) $row->reseller_id;
+            $l = (string) $row->location_id;
+
+            $data[$r][$l] = (int) $row->count + ($data[$r][$l] ?? 0);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string> $keys
+     *
+     * @return array<string,array<string, int>>
+     */
+    protected function calculateDocumentsByCustomer(array $keys): array {
+        $documents = [];
+        $result    = Document::query()
+            ->select(['reseller_id', 'customer_id', DB::raw('count(*) as count')])
+            ->whereIn('reseller_id', $keys)
+            ->where(static function (Builder $builder): void {
+                $builder
+                    ->orWhereNull('customer_id')
+                    ->orWhereHasIn('customer');
+            })
+            ->groupBy('reseller_id', 'customer_id')
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $r = (string) $row->reseller_id;
+            $c = (string) $row->customer_id;
+
+            $documents[$r][$c] = (int) $row->count + ($documents[$r][$c] ?? 0);
+        }
+
+        return $documents;
+    }
+
+    /**
+     * @param array<string> $customers
+     *
+     * @return array<string,array<string>>
+     */
+    protected function calculateCustomerLocations(array $customers): array {
+        $data   = [];
+        $result = CustomerLocation::query()
+            ->select(['customer_id', 'location_id'])
+            ->whereIn('customer_id', $customers)
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
             $c = (string) $row->customer_id;
             $l = (string) $row->location_id;
 
-            $assets[$r]['locations'][$l][$c] = (int) $row->count + ($assets[$r]['locations'][$l][$c] ?? 0);
-            $assets[$r]['customers'][$c][$l] = (int) $row->count + ($assets[$r]['customers'][$c][$l] ?? 0);
+            $data[$c][] = $l;
         }
 
-        return $assets;
-    }
-
-    /**
-     * Returns the number of documents on each customer for each reseller.
-     *
-     * @param array<string>                                        $keys
-     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
-     *
-     * @return array<string,array<string, int>>
-     */
-    protected function calculateDocuments(array $keys, Collection $resellers): array {
-        $assets = [];
-        $result = Document::query()
-            ->toBase()
-            ->select('reseller_id', 'customer_id', DB::raw('count(*) as count'))
-            ->whereIn('reseller_id', $keys)
-            ->groupBy('reseller_id', 'customer_id')
-            ->get();
-
-        foreach ($result as $row) {
-            /** @var \stdClass $row */
-            $r = $row->reseller_id;
-            $c = (string) $row->customer_id;
-
-            $assets[$r][$c] = (int) $row->count + ($assets[$r][$c] ?? 0);
-        }
-
-        return $assets;
+        return $data;
     }
 }

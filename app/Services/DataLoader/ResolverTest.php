@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader;
 
-use App\Models\Model;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;

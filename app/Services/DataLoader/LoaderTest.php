@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader;
 
-use App\Models\Model;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
+use App\Utils\Eloquent\Model;
 use Exception;
 use Mockery;
 use Tests\TestCase;

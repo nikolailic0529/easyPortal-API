@@ -3,9 +3,9 @@
 namespace App\Services\Audit;
 
 use App\Models\Audits\Audit as AuditModel;
-use App\Models\Model;
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\CurrentOrganization;
+use App\Utils\Eloquent\Model;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 

@@ -4,11 +4,11 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use Closure;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;

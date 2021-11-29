@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\Audits\Audit;
-use App\Models\Concerns\Relations\HasCurrency;
-use App\Models\Concerns\Relations\HasLocations;
+use App\Models\Relations\HasCurrency;
+use App\Models\Relations\HasLocations;
 use App\Services\Audit\Concerns\Auditable;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

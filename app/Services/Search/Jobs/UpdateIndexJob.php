@@ -2,10 +2,10 @@
 
 namespace App\Services\Search\Jobs;
 
-use App\Models\Callbacks\GetKey;
 use App\Services\Queue\Job;
 use App\Services\Search\Service;
 use App\Services\Search\Updater;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
 

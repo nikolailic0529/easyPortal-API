@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Directives\Directives\Org;
 
-use App\Models\Callbacks\GetKey;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Utils\ModelProperty;
+use App\Utils\Eloquent\Callbacks\GetKey;
+use App\Utils\Eloquent\ModelProperty;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Callbacks\KeysComparator;
+use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 trait Children {
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
-     * @template M of \App\Models\Model
+     * @template M of \App\Utils\Eloquent\Model
      * @template C of \Illuminate\Support\Collection<M>
      *
      * @param C                       $existing

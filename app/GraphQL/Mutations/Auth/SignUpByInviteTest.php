@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\User as UserModel;
@@ -10,6 +9,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;

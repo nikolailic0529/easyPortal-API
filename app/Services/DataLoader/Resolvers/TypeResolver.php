@@ -2,11 +2,11 @@
 
 namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Model;
 use App\Models\Type;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;

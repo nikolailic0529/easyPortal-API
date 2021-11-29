@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\Relations\HasDocuments;
-use App\Models\Concerns\TranslateProperties;
+use App\Models\Relations\HasDocuments;
+use App\Utils\Eloquent\Concerns\TranslateProperties;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

@@ -121,18 +121,21 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         // Get/Create customer
         $created  = false;
         $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
-            $created                = !$customer->exists;
-            $normalizer             = $this->getNormalizer();
-            $customer->id           = $normalizer->uuid($company->id);
-            $customer->name         = $normalizer->string($company->name);
-            $customer->type         = $this->companyType($customer, $company->companyTypes);
-            $customer->changed_at   = $normalizer->datetime($company->updatedAt);
-            $customer->assets_count = 0;
-            $customer->statuses     = $this->companyStatuses($customer, $company);
-            $customer->contacts     = $this->objectContacts($customer, $company->companyContactPersons);
-            $customer->locations    = $this->companyLocations($customer, $company->locations);
-            $customer->kpi          = $this->kpi($customer, $company->companyKpis);
-            $customer->synced_at    = Date::now();
+            $created              = !$customer->exists;
+            $normalizer           = $this->getNormalizer();
+            $customer->id         = $normalizer->uuid($company->id);
+            $customer->name       = $normalizer->string($company->name);
+            $customer->type       = $this->companyType($customer, $company->companyTypes);
+            $customer->changed_at = $normalizer->datetime($company->updatedAt);
+            $customer->statuses   = $this->companyStatuses($customer, $company);
+            $customer->contacts   = $this->objectContacts($customer, $company->companyContactPersons);
+            $customer->locations  = $this->companyLocations($customer, $company->locations);
+            $customer->kpi        = $this->kpi($customer, $company->companyKpis);
+            $customer->synced_at  = Date::now();
+
+            if ($created) {
+                $customer->assets_count = 0;
+            }
 
             $customer->save();
 

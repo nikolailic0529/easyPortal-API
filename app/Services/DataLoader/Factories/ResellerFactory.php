@@ -121,19 +121,22 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
         // Get/Create
         $created  = false;
         $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
-            $created                   = !$reseller->exists;
-            $normalizer                = $this->getNormalizer();
-            $reseller->id              = $normalizer->uuid($company->id);
-            $reseller->name            = $normalizer->string($company->name);
-            $reseller->type            = $this->companyType($reseller, $company->companyTypes);
-            $reseller->changed_at      = $normalizer->datetime($company->updatedAt);
-            $reseller->assets_count    = 0;
-            $reseller->customers_count = 0;
-            $reseller->statuses        = $this->companyStatuses($reseller, $company);
-            $reseller->contacts        = $this->objectContacts($reseller, $company->companyContactPersons);
-            $reseller->locations       = $this->companyLocations($reseller, $company->locations);
-            $reseller->kpi             = $this->kpi($reseller, $company->companyKpis);
-            $reseller->synced_at       = Date::now();
+            $created              = !$reseller->exists;
+            $normalizer           = $this->getNormalizer();
+            $reseller->id         = $normalizer->uuid($company->id);
+            $reseller->name       = $normalizer->string($company->name);
+            $reseller->type       = $this->companyType($reseller, $company->companyTypes);
+            $reseller->changed_at = $normalizer->datetime($company->updatedAt);
+            $reseller->statuses   = $this->companyStatuses($reseller, $company);
+            $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
+            $reseller->locations  = $this->companyLocations($reseller, $company->locations);
+            $reseller->kpi        = $this->kpi($reseller, $company->companyKpis);
+            $reseller->synced_at  = Date::now();
+
+            if ($created) {
+                $reseller->assets_count    = 0;
+                $reseller->customers_count = 0;
+            }
 
             $reseller->save();
 

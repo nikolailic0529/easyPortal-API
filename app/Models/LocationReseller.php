@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Utils\Eloquent\Pivot;
+use App\Utils\Eloquent\SmartSave\Upsertable;
+
 /**
  * LocationReseller.
  *
  * @property string                       $id
  * @property string                       $location_id
  * @property string                       $reseller_id
- * @property int                          $customers_count
  * @property int                          $assets_count
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
@@ -18,11 +20,18 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationReseller query()
  * @mixin \Eloquent
  */
-class LocationReseller extends Pivot {
+class LocationReseller extends Pivot implements Upsertable {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'location_resellers';
+
+    /**
+     * @inheritDoc
+     */
+    public static function getUniqueKey(): array {
+        return ['location_id', 'reseller_id'];
+    }
 }

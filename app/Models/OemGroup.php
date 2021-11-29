@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasOem;
+use App\Models\Relations\HasOem;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

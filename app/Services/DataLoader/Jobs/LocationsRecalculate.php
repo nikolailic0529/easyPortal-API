@@ -4,15 +4,10 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\CustomerLocation;
 use App\Models\Location;
-use App\Models\Model;
 use App\Models\ResellerLocation;
-use App\Utils\ModelHelper;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use App\Utils\Eloquent\Model;
 
-use function array_map;
-use function array_sum;
+use function array_fill_keys;
 use function count;
 
 /**
@@ -28,106 +23,106 @@ class LocationsRecalculate extends Recalculate {
     }
 
     protected function process(): void {
-        $keys      = $this->getKeys();
-        $model     = $this->getModel();
-        $locations = $model::query()
+        $keys               = $this->getKeys();
+        $model              = $this->getModel();
+        $locations          = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
             ->get();
-        $assets    = $this->calculateAssets($keys, $locations);
+        $assetsByLocation   = $this->calculateAssetsFor('location_id', $keys);
+        $assetsByReseller   = $this->calculateAssetsByResellerFor('location_id', $keys);
+        $assetsByCustomer   = $this->calculateAssetsByCustomerFor('location_id', $keys);
+        $locationsResellers = $this->calculateLocationResellers($keys);
+        $locationsCustomers = $this->calculateLocationCustomers($keys);
 
         foreach ($locations as $location) {
             /** @var \App\Models\Location $location */
             // Prepare
-            $locationAssets = $assets[$location->getKey()] ?? [];
-
-            // Countable
-            $location->customers_count = count($locationAssets['customers'] ?? []);
-            $location->assets_count    = array_sum(Arr::flatten($locationAssets['customers'] ?? []));
-
-            $location->save();
+            $locationResellers        = $locationsResellers[$location->getKey()] ?? [];
+            $locationCustomers        = $locationsCustomers[$location->getKey()] ?? [];
+            $locationAssetsByReseller = $assetsByReseller[$location->getKey()] ?? [];
+            $locationAssetsByCustomer = $assetsByCustomer[$location->getKey()] ?? [];
+            $locationAssetsByLocation = $assetsByLocation[$location->getKey()] ?? 0;
 
             // Resellers
-            $resellers = array_map(static function (array $resellers): array {
-                return [
-                    'customers_count' => count($resellers),
-                    'assets_count'    => array_sum($resellers),
-                ];
-            }, $locationAssets['resellers'] ?? []);
+            $resellers = array_fill_keys($locationResellers, [
+                'assets_count' => 0,
+            ]);
 
-            unset($resellers['']);
+            foreach ($locationAssetsByReseller as $reseller => $assets) {
+                if ($reseller) {
+                    $resellers[$reseller]['assets_count'] = $assets;
+                }
+            }
 
-            $location->resellers()->sync($resellers);
+            $location->resellersPivots = $resellers;
+            $location->save();
 
             // Customers
-            $customers = array_map(static function (array $customers): array {
-                return [
-                    'assets_count' => array_sum($customers),
-                ];
-            }, $locationAssets['customers'] ?? []);
+            $customers = array_fill_keys($locationCustomers, [
+                'assets_count' => 0,
+            ]);
 
-            unset($customers['']);
+            foreach ($locationAssetsByCustomer as $customer => $assets) {
+                if ($customer) {
+                    $customers[$customer]['assets_count'] = $assets;
+                }
+            }
 
-            $location->customers()->sync($customers);
+            $location->customersPivots = $customers;
+            $location->save();
+
+            // Countable
+            $location->customers_count = count($customers);
+            $location->assets_count    = $locationAssetsByLocation;
+            $location->save();
         }
     }
 
     /**
-     * Returns the number of assets on each customer on each location for each reseller.
+     * @param array<string> $keys
      *
-     * @param array<string>                                        $keys
-     * @param \Illuminate\Support\Collection<\App\Models\Location> $locations
-     *
-     * @return array<string,array<string, int>>
+     * @return array<string,array<string>>
      */
-    protected function calculateAssets(array $keys, Collection $locations): array {
-        // From Assets
-        $assets = [];
-        $result = (new ModelHelper(Location::query()))
-            ->getRelation('assets')
-            ->toBase()
-            ->select('reseller_id', 'customer_id', 'location_id', DB::raw('count(*) as count'))
+    protected function calculateLocationResellers(array $keys): array {
+        $data   = [];
+        $result = ResellerLocation::query()
+            ->select(['location_id', 'reseller_id'])
             ->whereIn('location_id', $keys)
-            ->groupBy('reseller_id', 'customer_id', 'location_id')
+            ->toBase()
             ->get();
 
         foreach ($result as $row) {
             /** @var \stdClass $row */
-            $l = $row->location_id;
+            $l = (string) $row->location_id;
             $r = (string) $row->reseller_id;
+
+            $data[$l][] = $r;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array<string> $keys
+     *
+     * @return array<string,array<string>>
+     */
+    protected function calculateLocationCustomers(array $keys): array {
+        $data   = [];
+        $result = CustomerLocation::query()
+            ->select(['location_id', 'customer_id'])
+            ->whereIn('location_id', $keys)
+            ->toBase()
+            ->get();
+
+        foreach ($result as $row) {
+            /** @var \stdClass $row */
+            $l = (string) $row->location_id;
             $c = (string) $row->customer_id;
 
-            $assets[$l]['resellers'][$r][$c] = (int) $row->count + ($assets[$l]['resellers'][$r][$c] ?? 0);
-            $assets[$l]['customers'][$c][$r] = (int) $row->count + ($assets[$l]['customers'][$c][$r] ?? 0);
+            $data[$l][] = $c;
         }
 
-        // From Reseller's and Customer's Locations
-        $resellers = ResellerLocation::query()
-            ->toBase()
-            ->select('reseller_id', 'location_id')
-            ->whereIn('location_id', $keys)
-            ->get();
-        $customers = CustomerLocation::query()
-            ->toBase()
-            ->select('customer_id', 'location_id')
-            ->whereIn('location_id', $keys)
-            ->get();
-
-        foreach ($resellers->merge($customers) as $row) {
-            /** @var \stdClass $row */
-            $l = $row->location_id;
-            $r = (string) ($row->reseller_id ?? null);
-            $c = (string) ($row->customer_id ?? null);
-
-            if (!isset($assets[$l]['resellers'][$r][$c])) {
-                $assets[$l]['resellers'][$r][$c] = 0;
-            }
-
-            if (!isset($assets[$l]['customers'][$c][$r])) {
-                $assets[$l]['customers'][$c][$r] = 0;
-            }
-        }
-
-        // Return
-        return $assets;
+        return $data;
     }
 }

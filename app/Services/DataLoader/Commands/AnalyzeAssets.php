@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Logs\AnalyzeAsset;
 use App\Services\DataLoader\Client\LastIdBasedIterator;
 use App\Services\DataLoader\DataLoaderService;
@@ -16,6 +15,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewCompany;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;

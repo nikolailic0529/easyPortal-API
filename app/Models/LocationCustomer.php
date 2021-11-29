@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Utils\Eloquent\Pivot;
+use App\Utils\Eloquent\SmartSave\Upsertable;
+
 /**
  * LocationCustomer.
  *
@@ -17,11 +20,18 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationCustomer query()
  * @mixin \Eloquent
  */
-class LocationCustomer extends Pivot {
+class LocationCustomer extends Pivot implements Upsertable {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'location_customers';
+
+    /**
+     * @inheritDoc
+     */
+    public static function getUniqueKey(): array {
+        return ['location_id', 'customer_id'];
+    }
 }

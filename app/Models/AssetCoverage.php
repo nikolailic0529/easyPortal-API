@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Utils\Eloquent\Pivot;
+
 /**
  * Asset Coverage.
  *

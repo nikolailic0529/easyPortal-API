@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Exceptions\ErrorReport;
 use App\Models\Customer;
-use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factories\LocationFactory;
@@ -13,6 +12,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;

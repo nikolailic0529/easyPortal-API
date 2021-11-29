@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Models\Callbacks\GetKey;
 use App\Services\DataLoader\Resolver;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Support\Collection;
 use Throwable;
 
@@ -11,7 +11,7 @@ use function sprintf;
 
 class FailedToUpdateCalculatedProperties extends FailedToProcessObject {
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model> $objects
+     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model> $objects
      */
     public function __construct(
         protected Resolver $resolver,

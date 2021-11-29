@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\Relations\HasDocumentEntries;
-use App\Models\Concerns\Relations\HasOem;
-use App\Models\Concerns\Relations\HasServiceGroup;
-use App\Models\Concerns\TranslateProperties;
+use App\Models\Relations\HasDocumentEntries;
+use App\Models\Relations\HasOem;
+use App\Models\Relations\HasServiceGroup;
+use App\Utils\Eloquent\Concerns\TranslateProperties;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

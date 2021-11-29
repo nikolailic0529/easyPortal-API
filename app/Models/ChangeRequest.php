@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Relations\HasFiles;
-use App\Models\Concerns\Relations\HasOrganization;
-use App\Models\Concerns\Relations\HasUser;
+use App\Models\Relations\HasFiles;
+use App\Models\Relations\HasOrganization;
+use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

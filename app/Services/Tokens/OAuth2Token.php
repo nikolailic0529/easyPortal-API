@@ -3,7 +3,7 @@
 namespace App\Services\Tokens;
 
 use App\Services\Tokens\Exceptions\InvalidCredentials;
-use App\Utils\CacheKeyable;
+use App\Utils\Cache\CacheKeyable;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GenericProvider;

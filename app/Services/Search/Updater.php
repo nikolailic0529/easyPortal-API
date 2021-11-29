@@ -2,9 +2,9 @@
 
 namespace App\Services\Search;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Utils\ModelHelper;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\ModelHelper;
 use Closure;
 use DateTimeInterface;
 use Elasticsearch\Client;
