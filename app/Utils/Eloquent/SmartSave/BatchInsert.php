@@ -89,10 +89,11 @@ class BatchInsert {
         }
 
         // Upsert
-        $primary = $this->model->getKeyName();
-        $unique  = $this->model::getUniqueKey();
-        $update  = Arr::except(reset($this->inserts), [$primary, ...$unique]);
-        $update  = array_keys($update);
+        $createdAt = $this->model->getCreatedAtColumn();
+        $primary   = $this->model->getKeyName();
+        $unique    = $this->model::getUniqueKey();
+        $update    = Arr::except(reset($this->inserts), [$primary, $createdAt, ...$unique]);
+        $update    = array_keys($update);
 
         $this->query()->upsert($this->inserts, $unique, $update);
     }
