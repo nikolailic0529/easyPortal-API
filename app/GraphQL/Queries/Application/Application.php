@@ -16,12 +16,8 @@ class Application {
     ) {
         // empty
     }
-    /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
-     * @return array<string,mixed>
-     */
-    public function __invoke($_, array $args): array {
+
+    public function __invoke(): array {
         $name     = $this->config->get('app.name');
         $package  = json_decode(file_get_contents($this->app->basePath('composer.json')), true)['name'];
         $version  = InstalledVersions::getVersion($package);
@@ -29,6 +25,7 @@ class Application {
             'name'    => $name,
             'version' => $version,
         ];
+
         return $response;
     }
 }

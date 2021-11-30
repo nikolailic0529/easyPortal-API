@@ -3,7 +3,8 @@
     "type": "object",
     "required": [
         "name",
-        "version"
+        "version",
+        "maintenance"
     ],
     "additionalProperties": false,
     "properties": {
@@ -12,6 +13,16 @@
         },
         "version": {
             "type": "string"
+        },
+        "maintenance": {
+            "oneOf": [
+                {
+                    "$ref": "../../GraphQL/Types/ApplicationMaintenance.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

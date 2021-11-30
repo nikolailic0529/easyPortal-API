@@ -3,18 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\GraphQL\Queries\Application\Application as ApplicationQuery;
+use App\GraphQL\Queries\Application\Maintenance as MaintenanceQuery;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Exceptions\RegisterErrorViewPaths;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+use function array_merge;
 
 class IndexController extends Controller {
     /**
      * @return \View|array<string,string>
      */
-    public function index(ApplicationQuery $query, Request $request, Factory $view): View|array {
-        $response = $query(null, []);
+    public function index(
+        Request $request,
+        Factory $view,
+        ApplicationQuery $query,
+        MaintenanceQuery $maintenance,
+    ): View|array {
+        $response = array_merge($query(), [
+            'maintenance' => $maintenance(),
+        ]);
 
         if (!$request->expectsJson()) {
             (new RegisterErrorViewPaths())();
