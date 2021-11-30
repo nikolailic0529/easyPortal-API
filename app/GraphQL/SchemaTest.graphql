@@ -145,6 +145,13 @@ type ApplicationMaintenanceMutations {
   @require <root> Authenticated user must be a root.
   """
   schedule(input: ApplicationMaintenanceScheduleInput!): ApplicationMaintenanceSchedulePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  stop: ApplicationMaintenanceStopPayload
 }
 
 input ApplicationMaintenanceScheduleInput {
@@ -154,6 +161,10 @@ input ApplicationMaintenanceScheduleInput {
 }
 
 type ApplicationMaintenanceSchedulePayload {
+  result: Boolean!
+}
+
+type ApplicationMaintenanceStopPayload {
   result: Boolean!
 }
 

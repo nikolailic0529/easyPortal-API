@@ -2,13 +2,17 @@
 
 namespace App\Services\Maintenance;
 
+use App\Services\Maintenance\Jobs\EnableCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use DateTimeInterface;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Facades\Date;
 
 use function ltrim;
 
 class Maintenance {
     public function __construct(
+        protected Container $container,
         protected SettingsService $settings,
         protected Storage $storage,
     ) {
@@ -26,22 +30,17 @@ class Maintenance {
         return (bool) $this->getSettings()?->enabled;
     }
 
-    public function enable(): bool {
-        $settings          = $this->getSettings() ?? new Settings();
-        $settings->enabled = true;
+    public function start(DateTimeInterface $end, string $message = null): bool {
+        if ($this->isEnabled()) {
+            return true;
+        }
 
-        return $this->save($settings);
+        return $this->schedule(Date::now(), $end, $message)
+            && $this->container->make(EnableCronJob::class)->dispatch();
     }
 
-    public function disable(): bool {
-        // Disable jobs
-        $this->settings->setEditableSettings([
-            'EP_MAINTENANCE_ENABLE_ENABLED'  => false,
-            'EP_MAINTENANCE_DISABLE_ENABLED' => false,
-        ]);
-
-        // Save
-        return $this->reset();
+    public function stop(): bool {
+        return $this->disable();
     }
 
     public function schedule(DateTimeInterface $start, DateTimeInterface $end, string $message = null): bool {
@@ -60,6 +59,30 @@ class Maintenance {
         $settings->end     = $end;
 
         return $this->save($settings);
+    }
+
+    /**
+     * @internal
+     */
+    public function enable(): bool {
+        $settings          = $this->getSettings() ?? new Settings();
+        $settings->enabled = true;
+
+        return $this->save($settings);
+    }
+
+    /**
+     * @internal
+     */
+    public function disable(): bool {
+        // Disable jobs
+        $this->settings->setEditableSettings([
+            'EP_MAINTENANCE_ENABLE_ENABLED'  => false,
+            'EP_MAINTENANCE_DISABLE_ENABLED' => false,
+        ]);
+
+        // Save
+        return $this->reset();
     }
 
     protected function save(Settings $settings): bool {

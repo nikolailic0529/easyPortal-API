@@ -2,8 +2,11 @@
 
 namespace App\Services\Maintenance;
 
+use App\Services\Maintenance\Jobs\EnableCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Queue;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -108,5 +111,62 @@ class MaintenanceTest extends TestCase {
             'start'   => $start->toIso8601String(),
             'end'     => $end->toIso8601String(),
         ], $storage->load());
+    }
+
+    /**
+     * @covers ::stop
+     */
+    public function testStop(): void {
+        $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance->makePartial();
+        $maintenance
+            ->shouldReceive('disable')
+            ->once()
+            ->andReturn(true);
+
+        $this->assertTrue($maintenance->stop());
+    }
+
+    /**
+     * @covers ::stop
+     */
+    public function testStart(): void {
+        $maintenance = Mockery::mock(Maintenance::class, [
+            $this->app,
+            $this->app->make(SettingsService::class),
+            $this->app->make(Storage::class),
+        ]);
+        $maintenance->makePartial();
+        $maintenance
+            ->shouldReceive('isEnabled')
+            ->once()
+            ->andReturn(false);
+        $maintenance
+            ->shouldReceive('schedule')
+            ->once()
+            ->andReturn(true);
+
+        Queue::fake();
+
+        $this->assertTrue($maintenance->start(Date::now()));
+
+        Queue::assertPushed(EnableCronJob::class);
+    }
+
+    /**
+     * @covers ::stop
+     */
+    public function testStartIfEnabled(): void {
+        $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance->makePartial();
+        $maintenance
+            ->shouldReceive('isEnabled')
+            ->once()
+            ->andReturn(true);
+        $maintenance
+            ->shouldReceive('schedule')
+            ->never();
+
+        $this->assertTrue($maintenance->start(Date::now()));
     }
 }
