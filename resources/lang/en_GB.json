@@ -215,6 +215,7 @@
     "settings.groups.mail": "Mail",
     "settings.groups.cache": "Cache",
     "settings.groups.clockwork": "Clockwork",
+    "settings.groups.maintenance": "Maintenance",
     "settings.errors.failed_to_load_settings": "Impossible to load custom settings.",
     "settings.errors.failed_to_save_settings": "Impossible to save custom settings.",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",
