@@ -18,6 +18,7 @@ use function array_map;
 use function array_values;
 use function explode;
 use function is_null;
+use function is_string;
 use function trim;
 
 class Settings {
@@ -62,7 +63,7 @@ class Settings {
     }
 
     /**
-     * @param array{name: string, value: string} $settings
+     * @param array<string, string> $settings
      *
      * @return array<\App\Services\Settings\Setting> Updated settings
      */
@@ -71,16 +72,6 @@ class Settings {
         /** @var array<\App\Services\Settings\Value> $updated */
         $updated  = [];
         $editable = $this->getEditableSettings();
-        $settings = (new Collection($settings))
-            ->filter(static function (array $setting): bool {
-                return isset($setting['name']) && isset($setting['value']);
-            })
-            ->keyBy(static function (array $setting): string {
-                return $setting['name'];
-            })
-            ->map(static function (array $setting): string {
-                return $setting['value'];
-            });
 
         foreach ($editable as $setting) {
             // Readonly?
@@ -95,7 +86,9 @@ class Settings {
 
             // Changed?
             $name           = $setting->getName();
-            $value          = $this->parseValue($setting, $settings[$name]);
+            $value          = is_string($settings[$name])
+                ? $this->parseValue($setting, $settings[$name])
+                : $this->serializeValue($setting, $settings[$name]);
             $updated[$name] = new Value($setting, $value);
         }
 
