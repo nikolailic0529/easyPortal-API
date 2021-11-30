@@ -1,6 +1,7 @@
 type Application {
   name: String!
   version: String!
+  maintenance: ApplicationMaintenance
   locale: String!
 
   """
@@ -128,6 +129,13 @@ input ApplicationLogsSort {
   duration: Float
   created_at: DateTime!
   finished_at: DateTime
+}
+
+type ApplicationMaintenance {
+  enabled: Boolean!
+  message: String
+  start: DateTime
+  end: DateTime
 }
 
 type ApplicationService {

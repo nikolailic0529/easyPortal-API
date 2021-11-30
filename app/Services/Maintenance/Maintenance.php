@@ -15,16 +15,19 @@ class Maintenance {
         // empty
     }
 
-    public function getSettings(): Settings {
-        return Settings::make($this->storage->load()) ?: new Settings();
+    public function getSettings(): ?Settings {
+        $data     = $this->storage->load();
+        $settings = $data ? Settings::make($data) : null;
+
+        return $settings;
     }
 
     public function isEnabled(): bool {
-        return $this->getSettings()->enabled;
+        return (bool) $this->getSettings()?->enabled;
     }
 
     public function enable(): bool {
-        $settings          = $this->getSettings();
+        $settings          = $this->getSettings() ?? new Settings();
         $settings->enabled = true;
 
         return $this->save($settings);
@@ -51,7 +54,7 @@ class Maintenance {
         ]);
 
         // Save
-        $settings          = $this->getSettings();
+        $settings          = $this->getSettings() ?? new Settings();
         $settings->message = $message;
         $settings->start   = $start;
         $settings->end     = $end;
