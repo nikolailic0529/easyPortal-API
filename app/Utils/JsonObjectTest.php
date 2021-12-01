@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use DateTimeInterface;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Tests\TestCase;
 
@@ -23,6 +25,7 @@ class JsonObjectTest extends TestCase {
             $parent->b        = true;
             $parent->f        = 1.2;
             $parent->s        = '123';
+            $parent->d        = Date::make('2018-05-23T13:43:32+00:00');
             $parent->nullable = null;
             $parent->array    = [
                 'i' => 123,
@@ -36,12 +39,14 @@ class JsonObjectTest extends TestCase {
                     $child->b        = false;
                     $child->f        = 3.5;
                     $child->s        = '345';
+                    $child->d        = Date::make('2021-05-23T13:43:32+00:00');
                     $child->children = [
                         tap(new JsonObjectTest_Child(), static function (JsonObjectTest_Child $child): void {
                             $child->i = 345;
                             $child->b = false;
                             $child->f = 3.5;
                             $child->s = '345';
+                            $child->d = null;
                         }),
                     ];
                 }),
@@ -59,6 +64,7 @@ class JsonObjectTest extends TestCase {
             'b'        => true,
             'f'        => 1.2,
             's'        => '123',
+            'd'        => '2018-05-23T13:43:32+00:00',
             'nullable' => null,
             'array'    => [
                 'i' => 123,
@@ -72,12 +78,14 @@ class JsonObjectTest extends TestCase {
                     'b'        => false,
                     'f'        => 3.5,
                     's'        => '345',
+                    'd'        => '2021-05-23T13:43:32+00:00',
                     'children' => [
                         [
                             'i' => 345,
                             'b' => false,
                             'f' => 3.5,
                             's' => '345',
+                            'd' => null,
                         ],
                     ],
                 ],
@@ -275,10 +283,11 @@ class JsonObjectTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class JsonObjectTest_Parent extends JsonObject {
-    public int    $i;
-    public bool   $b;
-    public float  $f;
-    public string $s;
+    public int               $i;
+    public bool              $b;
+    public float             $f;
+    public string            $s;
+    public DateTimeInterface $d;
 
     /**
      * @var array<mixed>
@@ -301,10 +310,11 @@ class JsonObjectTest_Parent extends JsonObject {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class JsonObjectTest_Child extends JsonObject {
-    public int    $i;
-    public bool   $b;
-    public float  $f;
-    public string $s;
+    public int                $i;
+    public bool               $b;
+    public float              $f;
+    public string             $s;
+    public ?DateTimeInterface $d;
 
     /**
      * @var array<int, \App\Utils\JsonObjectTest_Child>

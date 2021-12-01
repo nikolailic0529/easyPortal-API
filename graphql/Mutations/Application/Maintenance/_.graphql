@@ -1,0 +1,6 @@
+extend type ApplicationMutations {
+  maintenance: ApplicationMaintenanceMutations
+  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+}
+
+type ApplicationMaintenanceMutations

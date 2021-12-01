@@ -1,6 +1,7 @@
 type Application {
   name: String!
   version: String!
+  maintenance: ApplicationMaintenance
   locale: String!
 
   """
@@ -128,6 +129,47 @@ input ApplicationLogsSort {
   duration: Float
   created_at: DateTime!
   finished_at: DateTime
+}
+
+type ApplicationMaintenance {
+  enabled: Boolean!
+  message: String
+  start: DateTime
+  end: DateTime
+}
+
+type ApplicationMaintenanceMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  schedule(input: ApplicationMaintenanceScheduleInput!): ApplicationMaintenanceSchedulePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  stop: ApplicationMaintenanceStopPayload
+}
+
+input ApplicationMaintenanceScheduleInput {
+  message: String
+  start: DateTime!
+  end: DateTime!
+}
+
+type ApplicationMaintenanceSchedulePayload {
+  result: Boolean!
+}
+
+type ApplicationMaintenanceStopPayload {
+  result: Boolean!
+}
+
+type ApplicationMutations {
+  maintenance: ApplicationMaintenanceMutations
 }
 
 type ApplicationService {
@@ -1412,6 +1454,7 @@ type Mutation {
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
+  application: ApplicationMutations
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.

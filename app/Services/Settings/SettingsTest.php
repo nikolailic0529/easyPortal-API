@@ -143,27 +143,9 @@ class SettingsTest extends TestCase {
         };
 
         $updated = $service->setEditableSettings([
-            [
-                // no key and value
-            ],
-            [
-                'name' => 'no value',
-            ],
-            [
-                'value' => 'no name',
-            ],
-            [
-                'name'  => 'UNKNOWN',
-                'value' => 'should be ignored',
-            ],
-            [
-                'name'  => 'READONLY',
-                'value' => 'should be ignored',
-            ],
-            [
-                'name'  => 'A',
-                'value' => 'updated',
-            ],
+            'A'        => 'updated',
+            'UNKNOWN'  => 'should be ignored',
+            'READONLY' => 'should be ignored',
         ]);
 
         $expected = ['A' => 'updated'];

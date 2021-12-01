@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak;
+namespace App\Services\KeyCloak\OAuth2;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 

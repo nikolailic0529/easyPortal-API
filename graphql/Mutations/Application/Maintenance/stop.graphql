@@ -1,0 +1,10 @@
+extend type ApplicationMaintenanceMutations {
+  stop: ApplicationMaintenanceStopPayload
+  @organization(root: true)
+  @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\Maintenance\\Stop")
+}
+
+type ApplicationMaintenanceStopPayload {
+  result: Boolean!
+}

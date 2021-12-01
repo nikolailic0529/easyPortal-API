@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Filesystem\Storages\ClientSettings;
 use App\Services\Settings\Settings;
+use App\Services\Settings\Storages\ClientSettings;
 use Illuminate\Support\Collection;
 
 use function array_values;

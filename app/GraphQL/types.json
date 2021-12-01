@@ -1380,6 +1380,16 @@
                     "items": {
                         "$ref": "#/definitions/ApplicationSetting"
                     }
+                },
+                "maintenance": {
+                    "oneOf": [
+                        {
+                            "$ref": "./Types/ApplicationMaintenance.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },

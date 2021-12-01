@@ -2,6 +2,9 @@ type Application {
   name: String!
   version: String!
 
+  maintenance: ApplicationMaintenance
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Maintenance")
+
   locale: String!
   @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
 

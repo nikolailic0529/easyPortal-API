@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Maintenance\Storage;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\HtmlContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -25,9 +26,19 @@ class IndexControllerTest extends TestCase {
      * @dataProvider dataProviderIndex
      *
      * @param array<mixed> $headers
+     * @param array<mixed> $data
      */
-    public function testIndex(Response $expected, Closure $organizationFactory, array $headers = []): void {
+    public function testIndex(
+        Response $expected,
+        Closure $organizationFactory,
+        array $headers = [],
+        array $data = null,
+    ): void {
         $this->setOrganization($organizationFactory);
+
+        if ($data) {
+            $this->app->make(Storage::class)->save($data);
+        }
 
         $this->get('/', $headers)->assertThat($expected);
     }
@@ -42,17 +53,27 @@ class IndexControllerTest extends TestCase {
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider('not-graphql'),
             new ArrayDataProvider([
-                'Accept text/html'        => [
+                'Accept text/html'                      => [
                     new Response(
                         new Ok(),
                         new HtmlContentType(),
                     ),
                     [],
                 ],
-                'Accept application/json' => [
+                'Accept application/json'               => [
                     new OkResponse(self::class),
                     [
                         'Accept' => 'application/json',
+                    ],
+                ],
+                'Accept application/json (maintenance)' => [
+                    new OkResponse(self::class),
+                    [
+                        'Accept' => 'application/json',
+                    ],
+                    [
+                        'enabled' => true,
+                        'message' => 'abc',
                     ],
                 ],
             ]),

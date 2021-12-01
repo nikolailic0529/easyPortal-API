@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Services\Filesystem\Disks\ClientDisk;
-use App\Services\Filesystem\Storages\ClientTranslations;
+use App\Services\I18n\Storages\ClientTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Queries\Client;
 
-use App\Services\Filesystem\Storages\ClientSettings;
 use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings as SettingsService;
 use App\Services\Settings\Storage;
+use App\Services\Settings\Storages\ClientSettings;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;

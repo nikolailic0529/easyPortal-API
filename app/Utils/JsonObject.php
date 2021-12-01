@@ -3,7 +3,9 @@
 namespace App\Utils;
 
 use Countable;
+use DateTimeInterface;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionClass;
@@ -12,7 +14,9 @@ use ReflectionObject;
 
 use function array_is_list;
 use function array_map;
+use function class_exists;
 use function count;
+use function is_a;
 use function is_array;
 use function is_object;
 use function preg_match;
@@ -206,17 +210,23 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                     }
                 }
 
-                if (str_contains($class, '\\')) {
+                if ($class === DateTimeInterface::class) {
+                    $factory = static function (DateTimeInterface|string|null $json): ?DateTimeInterface {
+                        return is_object($json) ? $json : ($json !== null ? Date::make($json) : null);
+                    };
+                } elseif (is_a($class, self::class, true)) {
                     $factory = static function (object|array|null $json) use ($class): ?object {
                         /** @var static $class */
                         return is_object($json) ? $json : ($json !== null ? new $class($json) : null);
                     };
+                } else {
+                    // error?
+                }
 
-                    if ($isArray) {
-                        $factory = static function (array|null $json) use ($factory): ?array {
-                            return $json !== null ? array_map($factory, $json) : null;
-                        };
-                    }
+                if ($factory && $isArray) {
+                    $factory = static function (array|null $json) use ($factory): ?array {
+                        return $json !== null ? array_map($factory, $json) : null;
+                    };
                 }
 
                 // Save

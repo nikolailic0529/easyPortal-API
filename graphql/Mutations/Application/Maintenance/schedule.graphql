@@ -1,0 +1,18 @@
+extend type ApplicationMaintenanceMutations {
+  schedule(
+    input: ApplicationMaintenanceScheduleInput!
+  ): ApplicationMaintenanceSchedulePayload
+  @organization(root: true)
+  @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\Maintenance\\Schedule")
+}
+
+input ApplicationMaintenanceScheduleInput {
+  message: String
+  start: DateTime!
+  end: DateTime!
+}
+
+type ApplicationMaintenanceSchedulePayload {
+  result: Boolean!
+}

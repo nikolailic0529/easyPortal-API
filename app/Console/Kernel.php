@@ -33,6 +33,10 @@ use App\Services\KeyCloak\Commands\SyncPermissions;
 use App\Services\KeyCloak\Commands\SyncUsers;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
+use App\Services\Maintenance\Commands\Start as MaintenanceStart;
+use App\Services\Maintenance\Commands\Stop as MaintenanceStop;
+use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
+use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -70,6 +74,9 @@ class Kernel extends ConsoleKernel {
         RecalculateResellers::class,
         RecalculateCustomers::class,
         RecalculateLocations::class,
+        MaintenanceStart::class,
+        MaintenanceStop::class,
+
         // Dev
         ModelsCommand::class,
     ];
@@ -96,6 +103,8 @@ class Kernel extends ConsoleKernel {
         SearchCustomersUpdaterCronJob::class,
         SearchDocumentsUpdaterCronJob::class,
         SyncUsersCronJob::class,
+        MaintenanceEnableCronJob::class,
+        MaintenanceDisableCronJob::class,
     ];
 
     /**

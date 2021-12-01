@@ -1,0 +1,6 @@
+extend type Mutation {
+  application: ApplicationMutations
+  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+}
+
+type ApplicationMutations
