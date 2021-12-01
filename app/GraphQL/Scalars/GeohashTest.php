@@ -18,7 +18,6 @@ use function sprintf;
  * @coversDefaultClass \App\GraphQL\Scalars\Geohash
  */
 class GeohashTest extends TestCase {
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**

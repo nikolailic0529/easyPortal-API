@@ -14,14 +14,12 @@ use ReflectionObject;
 
 use function array_is_list;
 use function array_map;
-use function class_exists;
 use function count;
 use function is_a;
 use function is_array;
 use function is_object;
 use function preg_match;
 use function sprintf;
-use function str_contains;
 
 /**
  * Convert JSON into an object, but be careful - this class doesn't worry about

@@ -5,7 +5,7 @@ type ApplicationService {
   """
   Cron expression that determines when service should run if enabled.
   """
-  cron: String!
+  cron: String
 
   """
   Queue name

@@ -212,31 +212,8 @@ class Queue {
         $key     = static function (Log $log): string {
             return "{$log->object_type}#{$log->object_id}";
         };
-        $expire  = $this->getStatesFromLogsExpire();
-        $logs    = Log::query()
-            ->where('category', '=', Category::queue())
-            ->where('action', '=', Action::queueJobRun())
-            ->where('status', '=', Status::active())
-            ->whereIn('object_type', $names)
-            ->when($expire, static function (Builder $builder) use ($expire): void {
-                $builder->where('updated_at', '>', Date::now()->sub($expire));
-            })
-            ->orderBy('created_at')
-            ->get();
-        $pending = Log::query()
-            ->where('category', '=', Category::queue())
-            ->where('action', '=', Action::queueJobDispatched())
-            ->where('status', '=', Status::success())
-            ->where(static function (Builder $builder) use ($logs): void {
-                foreach ($logs as $log) {
-                    $builder->orWhere(static function (Builder $builder) use ($log): void {
-                        $builder->where('object_type', '=', $log->object_type);
-                        $builder->where('object_id', '=', $log->object_id);
-                    });
-                }
-            })
-            ->get()
-            ->keyBy($key);
+        $logs    = $this->getStatesFromLogsActive($names);
+        $pending = $this->getStatesFromLogsDispatched($logs)->keyBy($key);
 
         foreach ($logs as $log) {
             // Exists?
@@ -265,5 +242,53 @@ class Queue {
         }
 
         return $interval;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<string> $names
+     *
+     * @return \Illuminate\Support\Collection<\App\Services\Logger\Models\Log>
+     */
+    private function getStatesFromLogsActive(Collection $names): Collection {
+        $expire = $this->getStatesFromLogsExpire();
+        $logs   = Log::query()
+            ->where('category', '=', Category::queue())
+            ->where('action', '=', Action::queueJobRun())
+            ->where('status', '=', Status::active())
+            ->whereIn('object_type', $names)
+            ->when($expire, static function (Builder $builder) use ($expire): void {
+                $builder->where('updated_at', '>', Date::now()->sub($expire));
+            })
+            ->orderBy('created_at')
+            ->get();
+
+        return $logs;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Services\Logger\Models\Log> $logs
+     *
+     * @return \Illuminate\Support\Collection<\App\Services\Logger\Models\Log>
+     */
+    private function getStatesFromLogsDispatched(Collection $logs): Collection {
+        $collection = new Collection();
+
+        if (!$logs->isEmpty()) {
+            $collection = Log::query()
+                ->where('category', '=', Category::queue())
+                ->where('action', '=', Action::queueJobDispatched())
+                ->where('status', '=', Status::success())
+                ->where(static function (Builder $builder) use ($logs): void {
+                    foreach ($logs as $log) {
+                        $builder->orWhere(static function (Builder $builder) use ($log): void {
+                            $builder->where('object_type', '=', $log->object_type);
+                            $builder->where('object_id', '=', $log->object_id);
+                        });
+                    }
+                })
+                ->get();
+        }
+
+        return $collection;
     }
 }

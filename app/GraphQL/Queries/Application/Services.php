@@ -46,7 +46,7 @@ class Services {
             $services[$name]   = [
                 'name'         => $name,
                 'description'  => $this->getDescription($service),
-                'enabled'      => $config->get('enabled'),
+                'enabled'      => (bool) $config->get('enabled'),
                 'cron'         => $config->get('cron'),
                 'queue'        => $config->get('queue'),
                 'settings'     => [],

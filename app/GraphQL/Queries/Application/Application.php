@@ -17,6 +17,9 @@ class Application {
         // empty
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function __invoke(): array {
         $name     = $this->config->get('app.name');
         $package  = json_decode(file_get_contents($this->app->basePath('composer.json')), true)['name'];

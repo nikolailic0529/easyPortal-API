@@ -170,6 +170,10 @@ class BatchInsertTest extends TestCase {
             ->once()
             ->andReturn('id');
         $model
+            ->shouldReceive('getCreatedAtColumn')
+            ->once()
+            ->andReturn('created_at');
+        $model
             ->shouldReceive('getUniqueKey')
             ->once()
             ->andReturn($unique);
