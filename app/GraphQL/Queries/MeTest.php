@@ -2,10 +2,13 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Audits\Audit;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Models\UserSearch;
+use App\Services\Audit\Enums\Action;
 use Closure;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -50,6 +53,7 @@ class MeTest extends TestCase {
                     locale
                     timezone
                     homepage
+                    previous_sign_in
                 }
             }')
             ->assertThat($expected);
@@ -105,7 +109,7 @@ class MeTest extends TestCase {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Test
-        $this->graphQL(/** @lang GraphQL */'
+        $this->graphQL(/** @lang GraphQL */ '
             query profile {
                 me {
                     profile {
@@ -154,6 +158,29 @@ class MeTest extends TestCase {
                         return User::factory()->make([
                             'type' => UserType::local(),
                         ]);
+                    },
+                ],
+                'previous_sign_in'           => [
+                    new GraphQLSuccess('me', Me::class, new JsonFragment(
+                        'previous_sign_in',
+                        '"2021-10-18T10:15:00+00:00"',
+                    )),
+                    static function (): ?User {
+                        $user = User::factory()->make();
+                        $date = Date::make('2021-10-19T10:15:00+00:00');
+
+                        Audit::factory()->create([
+                            'action'     => Action::authSignedIn(),
+                            'user_id'    => $user->getKey(),
+                            'created_at' => (clone $date)->subDay(),
+                        ]);
+                        Audit::factory()->create([
+                            'action'     => Action::authSignedIn(),
+                            'user_id'    => $user->getKey(),
+                            'created_at' => (clone $date),
+                        ]);
+
+                        return $user;
                     },
                 ],
             ]),
@@ -206,7 +233,7 @@ class MeTest extends TestCase {
         ))->getData();
     }
 
-        /**
+    /**
      * @return array<mixed>
      */
     public function dataProviderProfile(): array {
