@@ -33,6 +33,7 @@ use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
+use App\Services\Settings\Types\DateTime;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\Email;
@@ -1369,6 +1370,30 @@ interface Constants {
 
     // <editor-fold desc="EP_MAINTENANCE">
     // =========================================================================
+    /**
+     * Start time.
+     */
+    #[Setting('ep.maintenance.start')]
+    #[Group('maintenance')]
+    #[Type(DateTime::class)]
+    public const EP_MAINTENANCE_START = null;
+
+    /**
+     * Duration.
+     */
+    #[Setting('ep.maintenance.duration')]
+    #[Group('maintenance')]
+    #[Type(Duration::class)]
+    public const EP_MAINTENANCE_DURATION = null;
+
+    /**
+     * Message.
+     */
+    #[Setting('ep.maintenance.message')]
+    #[Group('maintenance')]
+    #[Type(StringType::class)]
+    public const EP_MAINTENANCE_MESSAGE = null;
+
     // <editor-fold desc="EP_MAINTENANCE_ENABLE">
     // -------------------------------------------------------------------------
     /**
