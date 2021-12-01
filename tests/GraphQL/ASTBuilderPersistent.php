@@ -2,25 +2,40 @@
 
 namespace Tests\GraphQL;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
+use Nuwave\Lighthouse\Schema\AST\ASTCache;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
+use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
 class ASTBuilderPersistent extends ASTBuilder {
     private static DocumentAST $ast;
 
+    public function __construct(
+        DirectiveLocator $directiveLocator,
+        SchemaSourceProvider $schemaSourceProvider,
+        EventsDispatcher $eventsDispatcher,
+        ASTCache $astCache,
+        protected Repository $config,
+    ) {
+        parent::__construct($directiveLocator, $schemaSourceProvider, $eventsDispatcher, $astCache);
+    }
+
     public function documentAST(): DocumentAST {
         // Test?
         if ($this->schemaSourceProvider instanceof TestSchemaProvider) {
             $setting = 'lighthouse.cache.enable';
-            $enabled = $this->configRepository->get($setting);
+            $enabled = $this->config->get($setting);
 
-            $this->configRepository->set($setting, false);
+            $this->config->set($setting, false);
 
             try {
                 return parent::documentAST();
             } finally {
-                $this->configRepository->set($setting, $enabled);
+                $this->config->set($setting, $enabled);
             }
         }
 
