@@ -1431,7 +1431,7 @@
                     "type": "boolean"
                 },
                 "cron": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "queue": {
                     "type": "string"

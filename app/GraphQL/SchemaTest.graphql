@@ -177,7 +177,7 @@ type ApplicationService {
   enabled: Boolean!
 
   """Cron expression that determines when service should run if enabled."""
-  cron: String!
+  cron: String
 
   """Queue name"""
   queue: String!
