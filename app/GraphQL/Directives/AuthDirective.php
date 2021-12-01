@@ -35,7 +35,6 @@ abstract class AuthDirective extends BaseDirective implements
     FieldManipulator,
     TypeManipulator,
     TypeExtensionManipulator {
-
     public function __construct() {
         // empty
     }

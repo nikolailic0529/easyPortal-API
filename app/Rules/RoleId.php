@@ -8,7 +8,6 @@ use Illuminate\Contracts\Validation\Rule;
 use function __;
 
 class RoleId implements Rule {
-
     /**
      * @inheritdoc
      */
