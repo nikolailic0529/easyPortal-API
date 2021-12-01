@@ -12,7 +12,8 @@
         "root",
         "permissions",
         "homepage",
-        "timezone"
+        "timezone",
+        "previous_sign_in"
     ],
     "properties": {
         "id": {
@@ -54,10 +55,21 @@
                 "null"
             ]
         },
-         "homepage": {
+        "homepage": {
             "type": [
                 "string",
                 "null"
+            ]
+        },
+        "previous_sign_in": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "type": "null"
+                }
             ]
         }
     }

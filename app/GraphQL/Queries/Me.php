@@ -2,8 +2,13 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Audits\Audit;
 use App\Models\User;
+use App\Services\Audit\Enums\Action;
 use App\Services\Auth\Auth;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use DateTimeInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -52,6 +57,7 @@ class Me {
         if (!$user) {
             return null;
         }
+
         return [
             'given_name'     => $user->given_name,
             'family_name'    => $user->family_name,
@@ -66,5 +72,27 @@ class Me {
             'company'        => $user->company,
             'photo'          => $user->photo,
         ];
+    }
+
+    public function previousSignIn(?User $user): ?DateTimeInterface {
+        $value = null;
+
+        if ($user) {
+            $value = GlobalScopes::callWithoutGlobalScope(
+                OwnedByOrganizationScope::class,
+                static function () use ($user): ?DateTimeInterface {
+                    return Audit::query()
+                        ->where('user_id', '=', $user->getKey())
+                        ->where('action', '=', Action::authSignedIn())
+                        ->orderByDesc('created_at')
+                        ->limit(1)
+                        ->offset(1)
+                        ->first()
+                        ?->created_at;
+                },
+            );
+        }
+
+        return $value;
     }
 }
