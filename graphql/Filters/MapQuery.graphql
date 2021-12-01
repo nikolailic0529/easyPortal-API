@@ -1,8 +1,4 @@
 input MapQuery {
-  "Deprecated. Please use `boundaries` instead."
-  latitude: Float!
-  "Deprecated. Please use `boundaries` instead."
-  longitude: Float!
   postcode: String!
   state: String!
   country_id: ID!

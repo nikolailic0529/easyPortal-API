@@ -1258,11 +1258,6 @@ type MapBoundingBox {
 }
 
 input MapQuery {
-  """Deprecated. Please use `boundaries` instead."""
-  latitude: Float!
-
-  """Deprecated. Please use `boundaries` instead."""
-  longitude: Float!
   postcode: String!
   state: String!
   country_id: ID!
@@ -1908,12 +1903,6 @@ type Query {
 
     """Assets filters."""
     assets: SearchByConditionAssetsQuery
-
-    """Deprecated. Please use `locations` instead."""
-    viewport: SearchByConditionMapQuery
-
-    """Deprecated. Please use `assets` instead."""
-    where: SearchByConditionAssetsQuery
   ): [Map!]!
 
   """
@@ -4025,12 +4014,6 @@ input SearchByConditionMapQuery {
   not: SearchByConditionMapQuery
 
   """Property condition."""
-  latitude: SearchByScalarFloat
-
-  """Property condition."""
-  longitude: SearchByScalarFloat
-
-  """Property condition."""
   postcode: SearchByScalarString
 
   """Property condition."""
@@ -4575,41 +4558,6 @@ input SearchByScalarDateTimeOrNull {
 
   """Is NOT NULL?"""
   isNotNull: SearchByTypeFlag
-}
-
-"""
-Available operators for scalar Float! (only one operator allowed at a time).
-"""
-input SearchByScalarFloat {
-  """Equal (`=`)."""
-  equal: Float
-
-  """Not Equal (`!=`)."""
-  notEqual: Float
-
-  """Less than (`<`)."""
-  lessThan: Float
-
-  """Less than or equal to (`<=`)."""
-  lessThanOrEqual: Float
-
-  """Greater than (`>`)."""
-  greaterThan: Float
-
-  """Greater than or equal to (`>=`)."""
-  greaterThanOrEqual: Float
-
-  """Within a set of values."""
-  in: [Float!]
-
-  """Outside a set of values."""
-  notIn: [Float!]
-
-  """Within a range."""
-  between: SearchByTypeRangeFloat
-
-  """Outside a range."""
-  notBetween: SearchByTypeRangeFloat
 }
 
 """
