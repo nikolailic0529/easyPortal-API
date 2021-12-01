@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\CronableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
-use function cache;
 use function ltrim;
 
 class Maintenance {
@@ -47,7 +46,18 @@ class Maintenance {
     }
 
     public function stop(bool $force = false): bool {
-        return ($force || !$this->isJobScheduled(DisableCronJob::class)) && $this->disable();
+        // Force?
+        if ($force) {
+            return $this->disable();
+        }
+
+        // Scheduled?
+        if (!$this->isJobScheduled(DisableCronJob::class)) {
+            return (bool) $this->container->make(DisableCronJob::class)->dispatch();
+        }
+
+        // Ok
+        return true;
     }
 
     public function schedule(DateTimeInterface $start, DateTimeInterface $end, string $message = null): bool {

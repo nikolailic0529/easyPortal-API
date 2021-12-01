@@ -1376,7 +1376,7 @@ interface Constants {
      */
     #[Service(MaintenanceEnableCronJob::class, 'enabled')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_ENABLE_ENABLED = false;
+    public const EP_MAINTENANCE_ENABLE_ENABLED = true;
 
     /**
      * Cron expression.
@@ -1401,7 +1401,7 @@ interface Constants {
      */
     #[Service(MaintenanceDisableCronJob::class, 'enabled')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_DISABLE_ENABLED = false;
+    public const EP_MAINTENANCE_DISABLE_ENABLED = true;
 
     /**
      * Cron expression.

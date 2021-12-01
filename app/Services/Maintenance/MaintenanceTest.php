@@ -132,14 +132,23 @@ class MaintenanceTest extends TestCase {
             ->shouldReceive('disable')
             ->never();
 
-        $this->assertFalse($maintenance->stop());
+        Queue::fake();
+
+        $this->assertTrue($maintenance->stop());
+
+        Queue::assertNothingPushed();
     }
 
     /**
      * @covers ::stop
      */
     public function testStopNotScheduled(): void {
-        $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance = Mockery::mock(Maintenance::class, [
+            $this->app,
+            $this->app->make(SettingsService::class),
+            $this->app->make(QueueableConfigurator::class),
+            $this->app->make(Storage::class),
+        ]);
         $maintenance->shouldAllowMockingProtectedMethods();
         $maintenance->makePartial();
         $maintenance
@@ -149,10 +158,13 @@ class MaintenanceTest extends TestCase {
             ->andReturn(false);
         $maintenance
             ->shouldReceive('disable')
-            ->once()
-            ->andReturn(true);
+            ->never();
+
+        Queue::fake();
 
         $this->assertTrue($maintenance->stop());
+
+        Queue::assertPushed(DisableCronJob::class);
     }
 
     /**
@@ -160,7 +172,11 @@ class MaintenanceTest extends TestCase {
      */
     public function testStopForce(): void {
         $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance->shouldAllowMockingProtectedMethods();
         $maintenance->makePartial();
+        $maintenance
+            ->shouldReceive('isJobScheduled')
+            ->never();
         $maintenance
             ->shouldReceive('disable')
             ->once()
