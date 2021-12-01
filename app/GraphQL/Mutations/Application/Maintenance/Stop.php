@@ -13,7 +13,7 @@ class Stop {
 
     public function __invoke(): mixed {
         return [
-            'result' => $this->maintenance->stop(),
+            'result' => $this->maintenance->stop(true),
         ];
     }
 }

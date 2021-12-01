@@ -6,7 +6,7 @@ use App\Services\Maintenance\Maintenance;
 use App\Services\Queue\CronJob;
 
 /**
- * Disable the maintenance mode (internal, please do not touch).
+ * Disable the maintenance mode (please do not run by hand).
  */
 class DisableCronJob extends CronJob {
     public function displayName(): string {
