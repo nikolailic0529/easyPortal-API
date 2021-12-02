@@ -8,7 +8,7 @@ use App\Services\Settings\Settings as SettingsService;
 use Cron\CronExpression;
 use DateTimeInterface;
 use Exception;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\CronableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -17,7 +17,7 @@ use function ltrim;
 
 class Maintenance {
     public function __construct(
-        protected Container $container,
+        protected Application $app,
         protected SettingsService $settings,
         protected QueueableConfigurator $configurator,
         protected Storage $storage,
@@ -28,6 +28,11 @@ class Maintenance {
     public function getSettings(): ?Settings {
         $data     = $this->storage->load();
         $settings = $data ? Settings::make($data) : null;
+
+        if ($this->app->isDownForMaintenance()) {
+            $settings        ??= new Settings();
+            $settings->enabled = true;
+        }
 
         return $settings;
     }
@@ -42,7 +47,7 @@ class Maintenance {
         }
 
         return $this->schedule(Date::now(), $end, $message)
-            && $this->container->make(EnableCronJob::class)->dispatch();
+            && $this->app->make(EnableCronJob::class)->dispatch();
     }
 
     public function stop(bool $force = false): bool {
@@ -53,7 +58,7 @@ class Maintenance {
 
         // Scheduled?
         if (!$this->isJobScheduled(DisableCronJob::class)) {
-            return (bool) $this->container->make(DisableCronJob::class)->dispatch();
+            return (bool) $this->app->make(DisableCronJob::class)->dispatch();
         }
 
         // Ok
@@ -110,7 +115,7 @@ class Maintenance {
      */
     protected function isJobScheduled(string $job): bool {
         // Enabled?
-        $job     = $this->container->make($job);
+        $job     = $this->app->make($job);
         $config  = $this->configurator->config($job);
         $enabled = $config->get(CronableConfig::Enabled);
 

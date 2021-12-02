@@ -8,6 +8,7 @@ use App\Services\Settings\Settings as SettingsService;
 use DateInterval;
 use DateTime;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Queue\Configs\CronableConfig;
@@ -42,6 +43,25 @@ class MaintenanceTest extends TestCase {
     }
 
     /**
+     * @covers ::getSettings
+     */
+    public function testGetSettingsDownForMaintenance(): void {
+        $this->override(Application::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('isDownForMaintenance')
+                ->once()
+                ->andReturn(true);
+        });
+
+        $maintenance = $this->app->make(Maintenance::class);
+        $expected    = Settings::make([
+            'enabled' => true,
+        ]);
+
+        $this->assertEquals($expected, $maintenance->getSettings());
+    }
+
+    /**
      * @covers ::isEnabled
      */
     public function testIsEnabled(): void {
@@ -53,6 +73,22 @@ class MaintenanceTest extends TestCase {
 
         $this->assertTrue($storage->save($settings->toArray()));
         $this->assertEquals($settings->enabled, $maintenance->isEnabled());
+    }
+
+    /**
+     * @covers ::isEnabled
+     */
+    public function testIsEnabledDownForMaintenance(): void {
+        $this->override(Application::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('isDownForMaintenance')
+                ->once()
+                ->andReturn(true);
+        });
+
+        $maintenance = $this->app->make(Maintenance::class);
+
+        $this->assertTrue($maintenance->isEnabled());
     }
 
     /**
@@ -247,7 +283,7 @@ class MaintenanceTest extends TestCase {
         $maintenance = new class($this->app, $this->app->make(QueueableConfigurator::class)) extends Maintenance {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected Container $container,
+                protected Application $app,
                 protected QueueableConfigurator $configurator,
             ) {
                 // empty
