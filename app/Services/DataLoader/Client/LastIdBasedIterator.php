@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\GraphQL\Utils\Iterators\QueryIteratorImpl as GraphQLQueryIteratorImpl;
 use App\Services\DataLoader\Schema\TypeWithId;
+use App\Utils\Iterators\ObjectIteratorImpl;
 
 use function end;
 
-class LastIdBasedIterator extends GraphQLQueryIteratorImpl {
+class LastIdBasedIterator extends ObjectIteratorImpl {
     use IteratorErrorHandler;
 
     /**

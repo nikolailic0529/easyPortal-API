@@ -4,18 +4,20 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\City;
 use App\Models\Country;
-use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
-use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * @extends \App\Services\DataLoader\Resolver<\App\Models\City>
+ */
 class CityResolver extends Resolver implements SingletonPersistent {
     public function get(Country $country, string $name, Closure $factory = null): ?City {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($country, $name), $factory);
     }
 
@@ -27,19 +29,14 @@ class CityResolver extends Resolver implements SingletonPersistent {
         return City::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'unique' => new ClosureKey(function (City $city): array {
-                return $this->getUniqueKey($city->country_id, $city->name);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof City
+            ? $this->getCacheKey($this->getUniqueKey($model->country_id, $model->name))
+            : parent::getKey($model);
     }
 
     /**
-     * @return array{country: string, name: string}
+     * @return array{country_id: string, name: string}
      */
     #[Pure]
     protected function getUniqueKey(Country|string $country, string $name): array {

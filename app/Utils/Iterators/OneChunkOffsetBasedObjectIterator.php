@@ -1,10 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use function array_slice;
 
-class QueryBasedIterator extends OffsetBasedIterator {
+/**
+ * @template T
+ * @template V
+ *
+ * @implements \App\Utils\Iterators\OffsetBasedObjectIterator<T, V>
+ */
+class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
     /**
      * @var array<mixed>
      */

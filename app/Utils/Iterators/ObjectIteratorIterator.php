@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Generator;
 use InvalidArgumentException;
@@ -12,8 +12,16 @@ use function is_string;
 use function min;
 use function sprintf;
 
-class QueryIteratorIterator implements QueryIterator {
-    use IteratorProperties {
+/**
+ * @template T
+ *
+ * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
+ */
+class ObjectIteratorIterator implements ObjectIterator {
+    use ObjectIteratorInitialState;
+    use ObjectIteratorProperties;
+    use ObjectIteratorSubjects {
         chunkLoaded as private;
         chunkProcessed as private;
     }
@@ -21,13 +29,14 @@ class QueryIteratorIterator implements QueryIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\GraphQL\Utils\Iterators\QueryIterator> $iterators
+     * @param array<string,\App\Utils\Iterators\ObjectIterator> $iterators
      */
     public function __construct(
         protected array $iterators,
     ) {
-        $this->setChunkSize($this->chunk);
+        $this->setChunkSize($this->getChunkSize());
         $this->setOffset(null);
+        $this->setIndex(0);
     }
 
     public function getOffset(): string|null {
@@ -46,9 +55,9 @@ class QueryIteratorIterator implements QueryIterator {
     }
 
     /**
-     * @param string|null $offset in the following format: `<name>[@<offset>]`,
-     *                            where `<offset>` the offset for the iterator
-     *                            with index `<name>`.
+     * @param string|int|null $offset in the following format: `<name>[@<offset>]`,
+     *                                where `<offset>` the offset for the iterator
+     *                                with index `<name>`.
      *
      * @return $this
      */
@@ -80,6 +89,7 @@ class QueryIteratorIterator implements QueryIterator {
 
         // Reset all
         foreach ($this->iterators as $iterator) {
+            $iterator->setIndex(0);
             $iterator->setOffset(null);
         }
 
@@ -95,38 +105,46 @@ class QueryIteratorIterator implements QueryIterator {
     }
 
     public function getIterator(): Generator {
-        $index     = 0;
+        $index     = $this->getIndex();
         $limit     = $this->getLimit();
         $chunk     = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
         $after     = $this->afterChunk;
         $before    = $this->beforeChunk;
         $iterating = false;
 
-        foreach ($this->iterators as $key => $iterator) {
-            // Iterating?
-            $iterating = $iterating || $this->current === null || $this->current === $key;
+        try {
+            $this->init();
 
-            if (!$iterating) {
-                continue;
+            foreach ($this->iterators as $key => $iterator) {
+                // Iterating?
+                $iterating = $iterating || $this->current === null || $this->current === $key;
+
+                if (!$iterating) {
+                    continue;
+                }
+
+                // Update state
+                $this->current = $key;
+
+                // Prepare
+                $iterator->setLimit(null);
+                $iterator->setChunkSize($chunk);
+                $iterator->onBeforeChunk($before);
+                $iterator->onAfterChunk($after);
+
+                if ($limit) {
+                    $iterator->setLimit($limit - $index);
+                }
+
+                // Iterate
+                foreach ($iterator as $item) {
+                    yield $index++ => $item;
+
+                    $this->setIndex($index);
+                }
             }
-
-            // Update state
-            $this->current = $key;
-
-            // Prepare
-            $iterator->setLimit(null);
-            $iterator->setChunkSize($chunk);
-            $iterator->onBeforeChunk($before);
-            $iterator->onAfterChunk($after);
-
-            if ($limit) {
-                $iterator->setLimit($limit - $index);
-            }
-
-            // Iterate
-            foreach ($iterator as $item) {
-                yield $index++ => $item;
-            }
+        } finally {
+            $this->finish();
         }
     }
 }

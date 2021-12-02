@@ -7,7 +7,6 @@ use App\Services\Maintenance\Jobs\EnableCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use DateInterval;
 use DateTime;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;

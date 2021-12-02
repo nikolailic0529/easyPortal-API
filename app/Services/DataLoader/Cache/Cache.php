@@ -2,15 +2,15 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Services\DataLoader\Normalizers\KeyNormalizer;
-use App\Services\DataLoader\Normalizers\StringNormalizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+
+use function array_values;
+use function spl_object_hash;
 
 class Cache {
     protected const NULL_RETRIEVER = self::class;
 
-    protected Normalizer $normalizer;
     /**
      * @var array<\Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>>
      */
@@ -25,14 +25,13 @@ class Cache {
      * @param array<\App\Services\DataLoader\Cache\KeyRetriever>                  $retrievers
      */
     public function __construct(Collection $models, array $retrievers) {
-        $this->normalizer = new Normalizer(new KeyNormalizer(new StringNormalizer()));
         $this->retrievers = $retrievers;
 
         $this->reset();
         $this->putAll($models);
     }
 
-    public function has(mixed $key): bool {
+    public function has(Key $key): bool {
         $value = $this->hasNull($key);
 
         if (!$value) {
@@ -47,7 +46,7 @@ class Cache {
         return $value;
     }
 
-    public function get(mixed $key): ?Model {
+    public function get(Key $key): ?Model {
         $value = null;
 
         if (!$this->hasNull($key)) {
@@ -64,7 +63,7 @@ class Cache {
 
     public function put(Model $model): Model {
         foreach ($this->retrievers as $name => $retriever) {
-            $key = $this->normalizer->normalize($retriever->get($model));
+            $key = (string) $retriever->getKey($model);
 
             $this->items[static::NULL_RETRIEVER]->forget([$key]);
             $this->items[$name]->put($key, $model);
@@ -84,17 +83,14 @@ class Cache {
         return $this;
     }
 
-    public function putNull(mixed $key): static {
-        $this->items[static::NULL_RETRIEVER]->put(
-            $this->normalizer->normalize($key),
-            null,
-        );
+    public function putNull(Key $key): static {
+        $this->items[static::NULL_RETRIEVER]->put((string) $key, null);
 
         return $this;
     }
 
     /**
-     * @param array<mixed> $keys
+     * @param array<\App\Services\DataLoader\Cache\Key> $keys
      */
     public function putNulls(array $keys): static {
         foreach ($keys as $key) {
@@ -104,24 +100,19 @@ class Cache {
         return $this;
     }
 
-    public function hasNull(mixed $key): bool {
+    public function hasNull(Key $key): bool {
         return $this->hasByRetriever(static::NULL_RETRIEVER, $key);
     }
 
-    public function hasByRetriever(string $retriever, mixed $key): bool {
-        $key = $this->normalizer->normalize($key);
-
+    public function hasByRetriever(string $retriever, Key $key): bool {
         return isset($this->items[$retriever])
-            && $this->items[$retriever]->has($key);
+            && $this->items[$retriever]->has((string) $key);
     }
 
-    public function getByRetriever(string $retriever, mixed $key): ?Model {
-        $key   = $this->normalizer->normalize($key);
-        $value = isset($this->items[$retriever])
-            ? $this->items[$retriever]->get($key)
+    public function getByRetriever(string $retriever, Key $key): ?Model {
+        return isset($this->items[$retriever])
+            ? $this->items[$retriever]->get((string) $key)
             : null;
-
-        return $value;
     }
 
     public function reset(): static {
@@ -137,12 +128,19 @@ class Cache {
     }
 
     public function getAll(): Collection {
-        $all = new Collection();
+        $all = [];
 
-        foreach ($this->items as $items) {
-            $all = $all->merge($items);
+        foreach ($this->items as $key => $items) {
+            if ($key === static::NULL_RETRIEVER) {
+                continue;
+            }
+
+            foreach ($items as $item) {
+                /** @var \Illuminate\Database\Eloquent\Model $item */
+                $all[$item->getKey() ?: spl_object_hash($item)] = $item;
+            }
         }
 
-        return $all->uniqueStrict()->filter()->values();
+        return new Collection(array_values($all));
     }
 }

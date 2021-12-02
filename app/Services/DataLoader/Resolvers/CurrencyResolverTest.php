@@ -77,7 +77,7 @@ class CurrencyResolverTest extends TestCase {
         $c = Currency::factory()->create();
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($c->getKey())?->getKey());
+        $this->assertEquals($c->getKey(), $provider->get($c->code)?->getKey());
         $this->assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
     }

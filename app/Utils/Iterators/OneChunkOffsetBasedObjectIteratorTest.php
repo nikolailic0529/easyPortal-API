@@ -1,37 +1,40 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Closure;
 use InvalidArgumentException;
 use Mockery;
 use Tests\TestCase;
 
-use function array_slice;
 use function iterator_to_array;
 use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Utils\Iterators\OffsetBasedIterator
+ * @coversDefaultClass \App\Utils\Iterators\OneChunkOffsetBasedObjectIterator
  */
-class OffsetBasedIteratorTest extends TestCase {
+class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
-            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
+        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+            $this->assertEmpty($variables);
+
+            return $data;
         });
 
-        $iterator = (new OffsetBasedIterator(Closure::fromCallable($executor)))->setChunkSize(5);
+        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))->setChunkSize(5);
         $expected = $data;
         $actual   = iterator_to_array($iterator);
+        $second   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
+        $this->assertEquals($second, $actual);
 
-        $executor->shouldHaveBeenCalled()->times(3);
+        $executor->shouldHaveBeenCalled()->times(1);
     }
 
     /**
@@ -39,8 +42,10 @@ class OffsetBasedIteratorTest extends TestCase {
      */
     public function testIteratorWithLimitOffset(): void {
         $data          = range(1, 10);
-        $executor      = Mockery::spy(static function (array $variables = []) use ($data): array {
-            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
+        $executor      = Mockery::spy(function (array $variables = []) use ($data): array {
+            $this->assertEmpty($variables);
+
+            return $data;
         });
 
         $onBeforeChunk = Mockery::spy(static function (): void {
@@ -49,7 +54,7 @@ class OffsetBasedIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new OffsetBasedIterator(Closure::fromCallable($executor)))
+        $iterator      = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset(5)
@@ -72,20 +77,20 @@ class OffsetBasedIteratorTest extends TestCase {
     public function testIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEquals(2, $variables['limit']);
+            $this->assertEmpty($variables);
 
-            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
+            return $data;
         });
 
         $expected = $data;
-        $iterator = (new OffsetBasedIterator(Closure::fromCallable($executor)))
+        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
             ->setChunkSize(2)
             ->setLimit(10);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
 
-        $executor->shouldHaveBeenCalled()->times(5);
+        $executor->shouldHaveBeenCalled()->times(1);
     }
 
     /**
@@ -94,13 +99,13 @@ class OffsetBasedIteratorTest extends TestCase {
     public function testIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEquals(2, $variables['limit']);
+            $this->assertEmpty($variables);
 
-            return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
+            return $data;
         });
 
         $expected = [1, 2];
-        $iterator = (new OffsetBasedIterator(Closure::fromCallable($executor)))
+        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
             ->setChunkSize(50)
             ->setLimit(2);
         $actual   = iterator_to_array($iterator);
@@ -119,7 +124,7 @@ class OffsetBasedIteratorTest extends TestCase {
         });
 
         $expected = [];
-        $iterator = (new OffsetBasedIterator(Closure::fromCallable($executor)))->setLimit(0);
+        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -128,28 +133,10 @@ class OffsetBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::getIterator
-     */
-    public function testGetIteratorInfiniteLoop(): void {
-        $data     = range(1, 10);
-        $executor = Mockery::spy(static function () use ($data): array {
-            return $data;
-        });
-
-        $iterator = (new OffsetBasedIterator(Closure::fromCallable($executor)))->setChunkSize(5);
-        $expected = $data;
-        $actual   = iterator_to_array($iterator);
-
-        $this->assertEquals($expected, $actual);
-
-        $executor->shouldHaveBeenCalled()->times(2);
-    }
-
-    /**
      * @covers ::setOffset
      */
     public function testSetOffset(): void {
-        $iterator = new OffsetBasedIterator(static function (): array {
+        $iterator = new OneChunkOffsetBasedObjectIterator(static function (): array {
             return [];
         });
 
@@ -162,7 +149,7 @@ class OffsetBasedIteratorTest extends TestCase {
     public function testSetOffsetInvalidType(): void {
         $this->expectException(InvalidArgumentException::class);
 
-        $iterator = new OffsetBasedIterator(static function (): array {
+        $iterator = new OneChunkOffsetBasedObjectIterator(static function (): array {
             return [];
         });
 

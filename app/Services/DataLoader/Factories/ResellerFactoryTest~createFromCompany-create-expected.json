@@ -16,7 +16,7 @@
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
     "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
     "select * from `countries` where `countries`.`deleted_at` is null",
-    "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+    "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
     "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select * from `cities` where `cities`.`deleted_at` is null",
     "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",

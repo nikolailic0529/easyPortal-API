@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Asset;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
@@ -54,7 +55,9 @@ class WithAssetTest extends TestCase {
         $resolver->makePartial();
         $resolver
             ->shouldReceive('find')
-            ->with($asset->getKey())
+            ->withArgs(static function (Key $key) use ($normalizer, $asset): bool {
+                return (string) $key === (string) (new Key($normalizer, [$asset->getKey()]));
+            })
             ->once()
             ->andReturn(null);
         $finder = Mockery::mock(AssetFinder::class);

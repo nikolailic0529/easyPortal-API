@@ -2,7 +2,9 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Utils\Eloquent\Model;
+use App\Services\DataLoader\Normalizer;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
@@ -13,104 +15,98 @@ use function mb_strtoupper;
  * @coversDefaultClass \App\Services\DataLoader\Cache\Cache
  */
 class CacheTest extends TestCase {
-    protected ?Cache      $cache;
-    protected ?Collection $items;
-
-    protected function setUp(): void {
-        parent::setUp();
-
-        $this->items = new Collection([
-            $this->item(),
-            $this->item(),
-        ]);
-        $this->cache = new Cache($this->items, [
-            'key'      => new class() implements KeyRetriever {
-                public function get(Model $model): mixed {
-                    return $model->getKey();
-                }
-            },
-            'property' => new class() implements KeyRetriever {
-                public function get(Model $model): mixed {
-                    return $model->property;
-                }
-            },
-        ]);
-    }
-
-    protected function tearDown(): void {
-        $this->items = null;
-        $this->cache = null;
-
-        parent::tearDown();
-    }
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::getByRetriever
      */
     public function testGetByRetriever(): void {
-        $item = $this->faker->randomElement($this->items->all());
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $item       = $this->faker->randomElement($items->all());
+        $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertNull($this->cache->getByRetriever('key', $this::class));
-        $this->assertSame($item, $this->cache->getByRetriever('key', $item->getKey()));
-        $this->assertSame($item, $this->cache->getByRetriever('property', $item->property));
-        $this->assertSame($item, $this->cache->getByRetriever('property', mb_strtoupper($item->property)));
+        $this->assertNull($cache->getByRetriever('key', new Key($normalizer, [$this::class])));
+        $this->assertSame($item, $cache->getByRetriever('key', new Key($normalizer, [$item->getKey()])));
+        $this->assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [$item->property])));
+        $this->assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [
+            mb_strtoupper($item->property),
+        ])));
     }
 
     /**
      * @covers ::hasByRetriever
      */
     public function testHasByRetriever(): void {
-        $item = $this->faker->randomElement($this->items->all());
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $item       = $this->faker->randomElement($items->all());
+        $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertFalse($this->cache->hasByRetriever('key', $this::class));
-        $this->assertTrue($this->cache->hasByRetriever('key', $item->getKey()));
-        $this->assertTrue($this->cache->hasByRetriever('property', $item->property));
-        $this->assertTrue($this->cache->hasByRetriever('property', mb_strtoupper($item->property)));
+        $this->assertFalse($cache->hasByRetriever('key', new Key($normalizer, [$this::class])));
+        $this->assertTrue($cache->hasByRetriever('key', new Key($normalizer, [$item->getKey()])));
+        $this->assertTrue($cache->hasByRetriever('property', new Key($normalizer, [$item->property])));
+        $this->assertTrue($cache->hasByRetriever('property', new Key($normalizer, [
+            mb_strtoupper($item->property),
+        ])));
     }
 
     /**
      * @covers ::has
      */
     public function testHas(): void {
-        $item = $this->faker->randomElement($this->items->all());
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $item       = $this->faker->randomElement($items->all());
+        $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertFalse($this->cache->has($this::class));
-        $this->assertTrue($this->cache->has($item->getKey()));
-        $this->assertTrue($this->cache->has($item->property));
-        $this->assertTrue($this->cache->has(mb_strtoupper($item->property)));
+        $this->assertFalse($cache->has(new Key($normalizer, [$this::class])));
+        $this->assertTrue($cache->has(new Key($normalizer, [$item->getKey()])));
+        $this->assertTrue($cache->has(new Key($normalizer, [$item->property])));
+        $this->assertTrue($cache->has(new Key($normalizer, [
+            mb_strtoupper($item->property),
+        ])));
     }
 
     /**
      * @covers ::get
      */
     public function testGet(): void {
-        $item = $this->faker->randomElement($this->items->all());
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $item       = $this->faker->randomElement($items->all());
+        $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertNull($this->cache->get($this::class));
-        $this->assertSame($item, $this->cache->get($item->getKey()));
-        $this->assertSame($item, $this->cache->get($item->property));
-        $this->assertSame($item, $this->cache->get(mb_strtoupper($item->property)));
+        $this->assertNull($cache->get(new Key($normalizer, [$this::class])));
+        $this->assertSame($item, $cache->get(new Key($normalizer, [$item->getKey()])));
+        $this->assertSame($item, $cache->get(new Key($normalizer, [$item->property])));
+        $this->assertSame($item, $cache->get(new Key($normalizer, [
+            mb_strtoupper($item->property),
+        ])));
     }
 
     /**
      * @covers ::putNull
      */
     public function testPutNull(): void {
-        $item = $this->faker->randomElement($this->items->all());
+        $items       = $this->items();
+        $cache       = $this->cache($items);
+        $normalizer  = $this->app->make(Normalizer::class);
+        $item        = $this->faker->randomElement($items->all());
+        $itemKey     = new Key($normalizer, [$item->getKey()]);
+        $propertyKey = new Key($normalizer, [$item->property]);
 
-        $this->assertSame($item, $this->cache->get($item->getKey()));
-        $this->assertTrue($this->cache->has($item->getKey()));
-        $this->assertSame($item, $this->cache->get($item->property));
-        $this->assertTrue($this->cache->has($item->property));
+        $this->assertSame($item, $cache->get($itemKey));
+        $this->assertTrue($cache->has($itemKey));
+        $this->assertSame($item, $cache->get($propertyKey));
+        $this->assertTrue($cache->has($propertyKey));
 
-        $this->cache->putNull($item->getKey());
+        $cache->putNull($itemKey);
 
-        $this->assertNull($this->cache->get($item->getKey()));
-        $this->assertTrue($this->cache->has($item->getKey()));
-        $this->assertSame($item, $this->cache->get($item->property));
-        $this->assertTrue($this->cache->has($item->property));
+        $this->assertNull($cache->get($itemKey));
+        $this->assertTrue($cache->has($itemKey));
+        $this->assertSame($item, $cache->get($propertyKey));
+        $this->assertTrue($cache->has($propertyKey));
     }
 
     /**
@@ -118,101 +114,132 @@ class CacheTest extends TestCase {
      * @covers ::hasNull
      */
     public function testPutNulls(): void {
-        $a = $this->items->first();
-        $b = $this->items->last();
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $normalizer = $this->app->make(Normalizer::class);
+        $itemA      = $items->first();
+        $keyA       = new Key($normalizer, [$itemA->getKey()]);
+        $itemB      = $items->last();
+        $keyB       = new Key($normalizer, [$itemB->getKey()]);
 
-        $this->assertFalse($this->cache->hasNull($a->getKey()));
-        $this->assertFalse($this->cache->hasNull($b->getKey()));
+        $this->assertFalse($cache->hasNull($keyA));
+        $this->assertFalse($cache->hasNull($keyB));
 
-        $this->cache->putNulls([$a->getKey(), $b->getKey()]);
+        $cache->putNulls([$keyA, $keyB]);
 
-        $this->assertTrue($this->cache->hasNull($a->getKey()));
-        $this->assertTrue($this->cache->hasNull($b->getKey()));
+        $this->assertTrue($cache->hasNull($keyA));
+        $this->assertTrue($cache->hasNull($keyB));
     }
 
     /**
      * @covers ::put
      */
     public function testPut(): void {
-        $item = $this->item();
+        $items       = $this->items();
+        $cache       = $this->cache($items);
+        $normalizer  = $this->app->make(Normalizer::class);
+        $item        = $this->item();
+        $itemKey     = new Key($normalizer, [$item->getKey()]);
+        $propertyKey = new Key($normalizer, [$item->property]);
 
-        $this->assertFalse($this->cache->has($item->getKey()));
-        $this->assertFalse($this->cache->has($item->property));
+        $this->assertFalse($cache->has($itemKey));
+        $this->assertFalse($cache->has($propertyKey));
 
-        $this->assertSame($item, $this->cache->put($item));
+        $this->assertSame($item, $cache->put($item));
 
-        $this->assertTrue($this->cache->has($item->getKey()));
-        $this->assertTrue($this->cache->has($item->property));
+        $this->assertTrue($cache->has($itemKey));
+        $this->assertTrue($cache->has($propertyKey));
     }
 
     /**
      * @covers ::put
      */
     public function testPutAfterNull(): void {
-        $item = $this->item();
+        $items       = $this->items();
+        $cache       = $this->cache($items);
+        $normalizer  = $this->app->make(Normalizer::class);
+        $item        = $this->item();
+        $itemKey     = new Key($normalizer, [$item->getKey()]);
+        $propertyKey = new Key($normalizer, [$item->property]);
 
-        $this->assertFalse($this->cache->has($item->getKey()));
-        $this->assertFalse($this->cache->has($item->property));
+        $this->assertFalse($cache->has($itemKey));
+        $this->assertFalse($cache->has($propertyKey));
 
-        $this->cache->putNull($item->getKey());
+        $cache->putNull($itemKey);
 
-        $this->assertNull($this->cache->get($item->getKey()));
-        $this->assertNull($this->cache->get($item->property));
+        $this->assertNull($cache->get($itemKey));
+        $this->assertNull($cache->get($propertyKey));
 
-        $this->cache->put($item);
+        $cache->put($item);
 
-        $this->assertSame($item, $this->cache->get($item->getKey()));
-        $this->assertSame($item, $this->cache->get($item->property));
+        $this->assertSame($item, $cache->get($itemKey));
+        $this->assertSame($item, $cache->get($propertyKey));
     }
 
     /**
      * @covers ::putAll
      */
     public function testPutAll(): void {
-        $a = $this->item();
-        $b = $this->item();
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $normalizer = $this->app->make(Normalizer::class);
+        $itemA      = $this->item();
+        $keyA       = new Key($normalizer, [$itemA->getKey()]);
+        $itemB      = $this->item();
+        $keyB       = new Key($normalizer, [$itemB->getKey()]);
 
-        $this->assertFalse($this->cache->has($a->getKey()));
-        $this->assertFalse($this->cache->has($b->getKey()));
+        $this->assertFalse($cache->has($keyA));
+        $this->assertFalse($cache->has($keyB));
 
-        $this->cache->putAll(new Collection([$a, $b]));
+        $cache->putAll(new Collection([$itemA, $itemB]));
 
-        $this->assertTrue($this->cache->has($a->getKey()));
-        $this->assertTrue($this->cache->has($b->getKey()));
+        $this->assertTrue($cache->has($keyA));
+        $this->assertTrue($cache->has($keyB));
     }
 
     /**
      * @covers ::reset
      */
     public function testReset(): void {
-        $a = $this->item();
-        $b = $this->item();
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $normalizer = $this->app->make(Normalizer::class);
+        $itemA      = $this->item();
+        $keyA       = new Key($normalizer, [$itemA->getKey()]);
+        $itemB      = $this->item();
+        $keyB       = new Key($normalizer, [$itemB->getKey()]);
 
-        $this->cache->putAll(new Collection([$a, $b]));
+        $cache->putAll(new Collection([$itemA, $itemB]));
 
-        $this->assertTrue($this->cache->has($a->getKey()));
-        $this->assertTrue($this->cache->has($b->getKey()));
+        $this->assertTrue($cache->has($keyA));
+        $this->assertTrue($cache->has($keyB));
 
-        $this->cache->reset();
+        $cache->reset();
 
-        $this->assertFalse($this->cache->has($a->getKey()));
-        $this->assertFalse($this->cache->has($b->getKey()));
+        $this->assertFalse($cache->has($keyA));
+        $this->assertFalse($cache->has($keyB));
     }
 
     /**
      * @covers ::getAll
      */
     public function testGetAll(): void {
-        $this->cache->putNull($this->item()->getKey());
+        $items      = $this->items();
+        $cache      = $this->cache($items);
+        $normalizer = $this->app->make(Normalizer::class);
+        $item       = $this->item();
+        $key        = new Key($normalizer, [$item->getKey()]);
 
-        $this->assertEquals($this->items, $this->cache->getAll());
+        $cache->putNull($key);
+
+        $this->assertEquals($items, $cache->getAll());
     }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
     // =========================================================================
     protected function item(): Model {
-        return new class($this->faker->uuid, $this->faker->word) extends Model {
+        return new class($this->faker->uuid, $this->faker->uuid) extends Model {
             public function __construct(string $key, string $property) {
                 parent::__construct();
 
@@ -220,6 +247,42 @@ class CacheTest extends TestCase {
                 $this->property              = $property;
             }
         };
+    }
+
+    protected function items(): Collection {
+        return new Collection([
+            $this->item(),
+            $this->item(),
+        ]);
+    }
+
+    protected function cache(Collection $items): Cache {
+        $normalizer = $this->app->make(Normalizer::class);
+
+        return new Cache($items, [
+            'key'      => new class($normalizer) implements KeyRetriever {
+                public function __construct(
+                    protected Normalizer $normalizer,
+                ) {
+                    // empty
+                }
+
+                public function getKey(EloquentModel $model): Key {
+                    return new Key($this->normalizer, [$model->getKeyName() => $model->getKey()]);
+                }
+            },
+            'property' => new class($normalizer) implements KeyRetriever {
+                public function __construct(
+                    protected Normalizer $normalizer,
+                ) {
+                    // empty
+                }
+
+                public function getKey(EloquentModel $model): Key {
+                    return new Key($this->normalizer, ['property' => $model->property]);
+                }
+            },
+        ]);
     }
     // </editor-fold>
 }

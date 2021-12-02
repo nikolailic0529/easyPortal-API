@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -55,7 +56,9 @@ class WithDistributorTest extends TestCase {
         $resolver->makePartial();
         $resolver
             ->shouldReceive('find')
-            ->with($distributor->getKey())
+            ->withArgs(static function (Key $key) use ($normalizer, $distributor): bool {
+                return (string) $key === (string) (new Key($normalizer, [$distributor->getKey()]));
+            })
             ->once()
             ->andReturn(null);
         $finder = Mockery::mock(DistributorFinder::class);

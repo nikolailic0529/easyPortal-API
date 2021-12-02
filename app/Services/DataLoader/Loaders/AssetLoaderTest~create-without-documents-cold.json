@@ -107,7 +107,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `coverages` where (`coverages`.`id` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "query": "select * from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
         "bindings": [
             "archived"
         ]
@@ -123,7 +123,7 @@
         ]
     },
     {
-        "query": "select * from `coverages` where (`coverages`.`id` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "query": "select * from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
         "bindings": [
             "conflict"
         ]

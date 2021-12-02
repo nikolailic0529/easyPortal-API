@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use InvalidArgumentException;
 
@@ -13,9 +13,13 @@ use function sprintf;
 
 use const FILTER_VALIDATE_INT;
 
-class OffsetBasedIterator extends QueryIteratorImpl {
-    private ?int $initialOffset = null;
-
+/**
+ * @template T
+ * @template V
+ *
+ * @implements \App\Utils\Iterators\ObjectIteratorImpl<T, V>
+ */
+class OffsetBasedObjectIterator extends ObjectIteratorImpl {
     public function getOffset(): int|null {
         return parent::getOffset();
     }
@@ -35,14 +39,6 @@ class OffsetBasedIterator extends QueryIteratorImpl {
         return parent::setOffset($offset);
     }
 
-    protected function init(): void {
-        $this->initialOffset = $this->getOffset();
-    }
-
-    protected function finish(): void {
-        $this->setOffset($this->initialOffset);
-    }
-
     /**
      * @inheritDoc
      */
@@ -54,7 +50,7 @@ class OffsetBasedIterator extends QueryIteratorImpl {
     }
 
     /**
-     * @param array<mixed> $items
+     * @param array<T> $items
      */
     protected function chunkProcessed(array $items): bool {
         $this->setOffset($this->getOffset() + count($items));

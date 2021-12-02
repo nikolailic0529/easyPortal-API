@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Closure;
 use EmptyIterator;
@@ -14,18 +14,24 @@ use function reset;
 
 /**
  * @template T
+ * @template V
+ *
+ * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
-abstract class QueryIteratorImpl implements QueryIterator {
-    use IteratorProperties;
+abstract class ObjectIteratorImpl implements ObjectIterator {
+    use ObjectIteratorSubjects;
+    use ObjectIteratorProperties;
+    use ObjectIteratorInitialState;
 
     /**
-     * @var array{array<mixed>,array<mixed>}
+     * @var array{array<V>,array<V>}
      */
     private array $previous = [];
 
     /**
-     * @param \Closure(array $variables): array<mixed> $executor
-     * @param \Closure(mixed $item): T                 $retriever
+     * @param \Closure(array $variables): array<V> $executor
+     * @param \Closure(V $item): T                 $retriever
      */
     public function __construct(
         protected ?Closure $executor,
@@ -39,9 +45,9 @@ abstract class QueryIteratorImpl implements QueryIterator {
      */
     public function getIterator(): Iterator {
         // Prepare
-        $index = 0;
-        $chunk = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
-        $limit = $this->limit;
+        $index = $this->getIndex();
+        $limit = $this->getLimit();
+        $chunk = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
 
         // Limit?
         if ($limit === 0) {
@@ -49,9 +55,9 @@ abstract class QueryIteratorImpl implements QueryIterator {
         }
 
         // Iterate
-        $this->init();
-
         try {
+            $this->init();
+
             do {
                 $chunk = $limit ? min($chunk, $limit - $index) : $chunk;
                 $items = $this->getChunk($chunk);
@@ -61,6 +67,8 @@ abstract class QueryIteratorImpl implements QueryIterator {
 
                 foreach ($items as $item) {
                     yield $index++ => $item;
+
+                    $this->setIndex($index);
                 }
 
                 if (!$this->chunkProcessed($items) || ($limit && $index >= $limit)) {
@@ -70,14 +78,6 @@ abstract class QueryIteratorImpl implements QueryIterator {
         } finally {
             $this->finish();
         }
-    }
-
-    protected function init(): void {
-        // empty
-    }
-
-    protected function finish(): void {
-        // empty
     }
 
     /**
@@ -90,7 +90,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<V>
      */
     protected function getChunk(int $limit): array {
         return $this->execute($this->getChunkVariables($limit));
@@ -102,7 +102,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
     abstract protected function getChunkVariables(int $limit): array;
 
     /**
-     * @param array<mixed> $items
+     * @param array<V> $items
      *
      * @return array<T>
      */
@@ -119,7 +119,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
     }
 
     /**
-     * @param \Closure(mixed $item): T $retriever
+     * @param \Closure(V $item): T $retriever
      *
      * @return T
      */

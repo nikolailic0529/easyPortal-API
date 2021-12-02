@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\CustomerLoader;
@@ -10,6 +9,7 @@ use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
+use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -40,7 +40,7 @@ class CustomersImporter extends Importer {
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): QueryIterator {
+    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
         return $this->client->getCustomers($from);
     }
 

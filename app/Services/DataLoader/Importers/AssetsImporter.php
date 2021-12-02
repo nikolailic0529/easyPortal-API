@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -14,6 +13,7 @@ use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Loaders\Concerns\AssetsPrefetch;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 
 class AssetsImporter extends Importer {
@@ -38,7 +38,7 @@ class AssetsImporter extends Importer {
         $this->prefetchAssets($items);
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): QueryIterator {
+    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
         return $this->client->getAssetsWithDocuments($from);
     }
 

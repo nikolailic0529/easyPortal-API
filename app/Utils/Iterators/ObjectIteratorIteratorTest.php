@@ -1,8 +1,7 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
-use Closure;
 use Generator;
 use InvalidArgumentException;
 use Mockery;
@@ -14,16 +13,16 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Utils\Iterators\QueryIteratorIterator
+ * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorIterator
  */
-class QueryIteratorIteratorTest extends TestCase {
+class ObjectIteratorIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $iterator = new QueryIteratorIterator([
-            'one' => new QueryIteratorIteratorTest__Iterator([1, 2, 3, 4, 5]),
-            'two' => new QueryIteratorIteratorTest__Iterator([6, 7, 8, 9, 0]),
+        $iterator = new ObjectIteratorIterator([
+            'one' => new ObjectIteratorIteratorTest__Iterator([1, 2, 3, 4, 5]),
+            'two' => new ObjectIteratorIteratorTest__Iterator([6, 7, 8, 9, 0]),
         ]);
 
         $this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], iterator_to_array($iterator));
@@ -51,7 +50,12 @@ class QueryIteratorIteratorTest extends TestCase {
         $after  = static function (): void {
             // empty
         };
-        $one    = Mockery::mock(QueryIterator::class);
+        $one    = Mockery::mock(ObjectIterator::class);
+        $one
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->twice()
+            ->andReturnSelf();
         $one
             ->shouldReceive('setLimit')
             ->with(null)
@@ -65,7 +69,7 @@ class QueryIteratorIteratorTest extends TestCase {
         $one
             ->shouldReceive('setOffset')
             ->with(null)
-            ->once()
+            ->twice()
             ->andReturnSelf();
         $one
             ->shouldReceive('setChunkSize')
@@ -89,7 +93,12 @@ class QueryIteratorIteratorTest extends TestCase {
                 yield from [1, 2, 3, 4, 5];
             });
 
-        $two = Mockery::mock(QueryIterator::class);
+        $two = Mockery::mock(ObjectIterator::class);
+        $two
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->twice()
+            ->andReturnSelf();
         $two
             ->shouldReceive('setLimit')
             ->with(null)
@@ -103,7 +112,7 @@ class QueryIteratorIteratorTest extends TestCase {
         $two
             ->shouldReceive('setOffset')
             ->with(null)
-            ->once()
+            ->twice()
             ->andReturnSelf();
         $two
             ->shouldReceive('setChunkSize')
@@ -127,7 +136,7 @@ class QueryIteratorIteratorTest extends TestCase {
                 yield from [6, 7];
             });
 
-        $iterator = (new QueryIteratorIterator([
+        $iterator = (new ObjectIteratorIterator([
             'one' => $one,
             'two' => $two,
         ]))
@@ -146,7 +155,12 @@ class QueryIteratorIteratorTest extends TestCase {
      */
     public function testOffset(): void {
         // Mocks
-        $one = Mockery::mock(QueryIterator::class);
+        $one = Mockery::mock(ObjectIterator::class);
+        $one
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->times(3)
+            ->andReturnSelf();
         $one
             ->shouldReceive('setOffset')
             ->with(null)
@@ -162,7 +176,12 @@ class QueryIteratorIteratorTest extends TestCase {
             ->twice()
             ->andReturn(123);
 
-        $two = Mockery::mock(QueryIterator::class);
+        $two = Mockery::mock(ObjectIterator::class);
+        $two
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->times(3)
+            ->andReturnSelf();
         $two
             ->shouldReceive('setOffset')
             ->with(null)
@@ -174,7 +193,7 @@ class QueryIteratorIteratorTest extends TestCase {
             ->andReturn(null);
 
         // Prepare
-        $iterator = new QueryIteratorIterator([
+        $iterator = new ObjectIteratorIterator([
             'one' => $one,
             'two' => $two,
         ]);
@@ -194,7 +213,7 @@ class QueryIteratorIteratorTest extends TestCase {
             'unknown',
         )));
 
-        (new QueryIteratorIterator([]))->setOffset('unknown');
+        (new ObjectIteratorIterator([]))->setOffset('unknown');
     }
 
     /**
@@ -206,7 +225,7 @@ class QueryIteratorIteratorTest extends TestCase {
             'integer',
         )));
 
-        (new QueryIteratorIterator([]))->setOffset(123);
+        (new ObjectIteratorIterator([]))->setOffset(123);
     }
 }
 
@@ -217,9 +236,9 @@ class QueryIteratorIteratorTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class QueryIteratorIteratorTest__Iterator implements QueryIterator {
-    protected string|int|null $offset = null;
-    protected ?int            $limit  = null;
+class ObjectIteratorIteratorTest__Iterator implements ObjectIterator {
+    use ObjectIteratorProperties;
+    use ObjectIteratorSubjects;
 
     /**
      * @param array<mixed> $data
@@ -228,48 +247,6 @@ class QueryIteratorIteratorTest__Iterator implements QueryIterator {
         protected array $data = [],
     ) {
         // empty
-    }
-
-    public function getLimit(): ?int {
-        return $this->limit;
-    }
-
-    public function setLimit(?int $limit): static {
-        $this->limit = $limit;
-
-        return $this;
-    }
-
-    public function getChunkSize(): int {
-        return 123;
-    }
-
-    public function setChunkSize(int $chunk): static {
-        // empty
-
-        return $this;
-    }
-
-    public function getOffset(): string|int|null {
-        return $this->offset;
-    }
-
-    public function setOffset(int|string|null $offset): static {
-        $this->offset = $offset;
-
-        return $this;
-    }
-
-    public function onBeforeChunk(?Closure $closure): static {
-        // empty
-
-        return $this;
-    }
-
-    public function onAfterChunk(?Closure $closure): static {
-        // empty
-
-        return $this;
     }
 
     public function getIterator(): Generator {

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Utils\Iterators;
+namespace App\Utils\Iterators;
 
 use Exception;
 use stdClass;
@@ -8,15 +8,15 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Utils\Iterators\QueryIteratorImpl
+ * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorImpl
  */
-class QueryIteratorImplTest extends TestCase {
+class ObjectIteratorImplTest extends TestCase {
     /**
      * @covers ::chunkLoaded
      * @covers ::onBeforeChunk
      */
     public function testChunkLoaded(): void {
-        $iterator = new class() extends QueryIteratorImpl {
+        $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
@@ -57,7 +57,7 @@ class QueryIteratorImplTest extends TestCase {
      * @covers ::onAfterChunk
      */
     public function testChunkProcessed(): void {
-        $iterator = new class() extends QueryIteratorImpl {
+        $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
@@ -96,7 +96,7 @@ class QueryIteratorImplTest extends TestCase {
      * @covers ::chunkPrepare
      */
     public function testChunkPrepareInfiniteLoopDetection(): void {
-        $iterator = new class() extends QueryIteratorImpl {
+        $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 $this->retriever = null;

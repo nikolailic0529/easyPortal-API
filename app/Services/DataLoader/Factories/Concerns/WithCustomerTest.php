@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Customer;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
@@ -57,7 +58,9 @@ class WithCustomerTest extends TestCase {
         $resolver->makePartial();
         $resolver
             ->shouldReceive('find')
-            ->with($customer->getKey())
+            ->withArgs(static function (Key $key) use ($normalizer, $customer): bool {
+                return (string) $key === (string) (new Key($normalizer, [$customer->getKey()]));
+            })
             ->once()
             ->andReturn(null);
         $finder = Mockery::mock(CustomerFinder::class);

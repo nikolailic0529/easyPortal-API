@@ -6,7 +6,6 @@ use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
-use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\TextNormalizer;
@@ -15,7 +14,6 @@ use DateTimeInterface;
 
 class Normalizer implements Singleton {
     public function __construct(
-        protected KeyNormalizer $key,
         protected UuidNormalizer $uuid,
         protected StringNormalizer $string,
         protected DateTimeNormalizer $datetime,
@@ -25,10 +23,6 @@ class Normalizer implements Singleton {
         protected TextNormalizer $text,
     ) {
         // empty
-    }
-
-    public function key(mixed $value): mixed {
-        return $this->key->normalize($value);
     }
 
     public function uuid(mixed $value): string {

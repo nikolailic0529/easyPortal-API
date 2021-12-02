@@ -3,30 +3,34 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Oem;
-use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class OemResolver extends Resolver implements SingletonPersistent {
     public function get(string $key, Closure $factory = null): ?Oem {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($key, $factory);
+        return $this->resolve($this->getUniqueKey($key), $factory);
     }
 
     protected function getPreloadedItems(): Collection {
         return Oem::query()->get();
     }
 
+    public function getKey(Model $model): Key {
+        return $model instanceof Oem
+            ? $this->getCacheKey($this->getUniqueKey($model->key))
+            : parent::getKey($model);
+    }
+
     /**
-     * @inheritdoc
+     * @return array{key: string}
      */
-    protected function getKeyRetrievers(): array {
+    protected function getUniqueKey(string $key): array {
         return [
-            'key' => new ClosureKey(static function (Oem $oem): string {
-                return $oem->key;
-            }),
+            'key' => $key,
         ];
     }
 }

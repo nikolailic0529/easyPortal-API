@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\GraphQL\Utils\Iterators\QueryIterator;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
@@ -13,6 +12,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
+use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -145,7 +145,7 @@ abstract class Importer {
         ?int $chunk,
         ?int $limit,
         int|string|null $continue,
-    ): QueryIterator {
+    ): ObjectIterator {
         $iterator = $this->makeIterator($from);
 
         if ($chunk) {
@@ -239,7 +239,7 @@ abstract class Importer {
         // empty
     }
 
-    abstract protected function makeIterator(DateTimeInterface $from = null): QueryIterator;
+    abstract protected function makeIterator(DateTimeInterface $from = null): ObjectIterator;
 
     abstract protected function makeLoader(): Loader;
 

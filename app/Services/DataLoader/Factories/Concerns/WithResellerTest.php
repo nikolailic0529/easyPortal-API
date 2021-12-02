@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Reseller;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
@@ -57,7 +58,9 @@ class WithResellerTest extends TestCase {
         $resolver->makePartial();
         $resolver
             ->shouldReceive('find')
-            ->with($reseller->getKey())
+            ->withArgs(static function (Key $key) use ($normalizer, $reseller): bool {
+                return (string) $key === (string) (new Key($normalizer, [$reseller->getKey()]));
+            })
             ->once()
             ->andReturn(null);
         $finder = Mockery::mock(ResellerFinder::class);

@@ -3,18 +3,17 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Type;
-use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
-use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class TypeResolver extends Resolver implements SingletonPersistent {
     public function get(Model $model, string $key, Closure $factory = null): ?Type {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }
 
@@ -26,19 +25,14 @@ class TypeResolver extends Resolver implements SingletonPersistent {
         return Type::query();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getKeyRetrievers(): array {
-        return [
-            'key' => new ClosureKey(function (Type $type): array {
-                return $this->getUniqueKey($type->object_type, $type->key);
-            }),
-        ];
+    public function getKey(Model $model): Key {
+        return $model instanceof Type
+            ? $this->getCacheKey($this->getUniqueKey($model->object_type, $model->key))
+            : parent::getKey($model);
     }
 
     /**
-     * @return array{model: string, type: string}
+     * @return array{object_type: string, key: string}
      */
     #[Pure]
     protected function getUniqueKey(Model|string $model, string $key): array {
