@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Jobs\HorizonSnapshotCronJob;
+use App\Queues;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
@@ -18,7 +19,6 @@ use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
 use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
-use App\Services\Queue\Queues;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;

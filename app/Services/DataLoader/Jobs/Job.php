@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Queues;
 use App\Services\Queue\Job as QueueJob;
-use App\Services\Queue\Queues;
 
 abstract class Job extends QueueJob {
     /**
