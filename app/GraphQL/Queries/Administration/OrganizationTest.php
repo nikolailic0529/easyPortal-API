@@ -578,7 +578,7 @@ class OrganizationTest extends TestCase {
                             $organization->save();
 
                             User::factory()
-                                ->hasOrganizationUser(1, [
+                                ->hasOrganizations(1, [
                                     'organization_id' => $organization->getKey(),
                                 ])
                                 ->create([
@@ -622,7 +622,7 @@ class OrganizationTest extends TestCase {
                             $organization->save();
 
                             User::factory()
-                                ->hasOrganizationUser(1, [
+                                ->hasOrganizations(1, [
                                     'organization_id' => $organization->getKey(),
                                 ])
                                 ->create([

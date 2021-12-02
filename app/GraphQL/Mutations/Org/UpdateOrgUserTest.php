@@ -132,7 +132,7 @@ class UpdateOrgUserTest extends TestCase {
             }
 
             if (isset($input['team_id'])) {
-                $organizationUser = $updatedUser->organizationUser->first();
+                $organizationUser = $updatedUser->organizations->first();
                 $this->assertNotNull($organizationUser);
                 $this->assertEquals($organizationUser->team_id, $input['team_id']);
             }
@@ -153,7 +153,7 @@ class UpdateOrgUserTest extends TestCase {
                 'organization_id' => $organization->getKey(),
             ]);
             User::factory()
-                ->hasOrganizationUser(1, [
+                ->hasOrganizations(1, [
                     'organization_id' => $organization->getKey(),
                     'role_id'         => $role->getKey(),
                 ])
@@ -448,7 +448,7 @@ class UpdateOrgUserTest extends TestCase {
                             'organization_id' => $organization->getKey(),
                         ]);
                         User::factory()
-                            ->hasOrganizationUser(1, [
+                            ->hasOrganizations(1, [
                                 'organization_id' => $organization->getKey(),
                                 'role_id'         => $role->getKey(),
                             ])

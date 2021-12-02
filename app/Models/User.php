@@ -57,6 +57,7 @@ use LogicException;
  * @property \Carbon\CarbonImmutable|null                                                $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Invitation>       $invitations
  * @property \App\Models\Organization|null                                               $organization
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Organization>          $organizations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch>       $searches
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Team>             $teams
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\OrganizationUser> $organizationUser
@@ -197,13 +198,6 @@ class User extends Model implements
      */
     public function setTeamsAttribute(Collection|array $teams): void {
         $this->syncBelongsToMany('teams', $teams);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function organizationUser(): HasMany {
-        return $this->hasMany(OrganizationUser::class);
     }
 
     public function organizations(): HasMany {
