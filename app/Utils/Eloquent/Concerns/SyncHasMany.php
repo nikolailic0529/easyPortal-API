@@ -2,9 +2,10 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
-use App\Utils\Eloquent\Callbacks\GetKey;
+use App\Utils\Eloquent\Callbacks\GetUniqueKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -33,20 +34,33 @@ trait SyncHasMany {
         }
 
         // Prepare
-        $existing = $this->syncManyGetExisting($this, $relation)->keyBy(new GetKey());
-        $children = (new EloquentCollection($objects))->map(new SetKey())->keyBy(new GetKey());
+        $keyer    = new GetUniqueKey([$hasMany->getForeignKeyName()]);
+        $existing = $this->syncManyGetExisting($this, $relation)->keyBy($keyer);
+        $children = (new EloquentCollection($objects))->map(new SetKey())->keyBy($keyer);
 
         if (!$existing->isEmpty()) {
-            foreach ($children as $child) {
+            foreach ($children as $key => $child) {
                 /** @var \Illuminate\Database\Eloquent\Model $child */
-                if ($existing->has($child->getKey())) {
-                    $existing->forget($child->getKey());
+                $object = $existing->get($key);
+
+                if ($object instanceof Model) {
+                    if ($child->getKey() !== $object->getKey()) {
+                        foreach ($child->getDirty() as $attr => $value) {
+                            if ($attr !== $child->getKeyName()) {
+                                $object->setAttribute($attr, $value);
+                            }
+                        }
+
+                        $children->put($key, $object);
+                    }
+
+                    $existing->forget($key);
                 }
             }
         }
 
         // Update relation
-        $this->setRelation($relation, new EloquentCollection($objects));
+        $this->setRelation($relation, new EloquentCollection($children->values()));
 
         // Update database
         if (!$children->isEmpty() || !$existing->isEmpty()) {
