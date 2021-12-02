@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Relations\HasFiles;
-use App\Models\Relations\HasOrganization;
+use App\Models\Relations\HasOrganizationNullable;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -40,7 +40,7 @@ class ChangeRequest extends PolymorphicModel implements Auditable {
     use HasFactory;
     use OwnedByOrganization;
     use HasFiles;
-    use HasOrganization;
+    use HasOrganizationNullable;
     use HasUser;
 
     protected const CASTS = [

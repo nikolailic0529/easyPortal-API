@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @mixin \App\Utils\Eloquent\Model
  */
-trait HasOrganization {
+trait HasOrganizationNullable {
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
     }
