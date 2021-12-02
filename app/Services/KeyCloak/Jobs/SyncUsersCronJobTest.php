@@ -10,6 +10,7 @@ use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Closure;
 use EmptyIterator;
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Iterator;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -77,10 +78,10 @@ class SyncUsersCronJobTest extends TestCase {
             ->once()
             ->andReturns();
 
-        /** @var \Mockery\MockInterface $importer */
         $client   = $this->app->make(Client::class);
+        $config   = $this->app->make(Repository::class);
         $handler  = $this->app->make(ExceptionHandler::class);
-        $importer = Mockery::mock(UsersImporter::class, [$handler, $client]);
+        $importer = Mockery::mock(UsersImporter::class, [$handler, $config, $client]);
         $importer->shouldAllowMockingProtectedMethods();
         $importer->makePartial();
 
@@ -151,7 +152,7 @@ class SyncUsersCronJobTest extends TestCase {
         $job->makePartial();
 
         // Ok
-        $service = Mockery::mock(Service::class);
+        $service  = Mockery::mock(Service::class);
         $service
             ->shouldReceive('get')
             ->with($job, Mockery::type(Closure::class))

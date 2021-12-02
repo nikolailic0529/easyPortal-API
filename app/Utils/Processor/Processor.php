@@ -2,11 +2,11 @@
 
 namespace App\Utils\Processor;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
-use App\Models\Concerns\SmartSave\BatchInsert;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Services\Service;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
@@ -126,7 +126,7 @@ abstract class Processor {
                     // Processor can create a lot of objects, so will be good to
                     // group multiple inserts into one.
 
-                    BatchInsert::enable(function () use ($state): void {
+                    BatchSave::enable(function () use ($state): void {
                         $this->run($state);
                     });
                 });

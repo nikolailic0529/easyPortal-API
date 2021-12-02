@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Collection;
 use Tests\TestCase;

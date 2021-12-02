@@ -210,13 +210,13 @@ class ProcessorTest extends TestCase {
             ->andReturnNull();
 
         $finish   = null;
-        $onInit   = Mockery::spy(function (): void {
+        $onInit   = Mockery::spy(static function (): void {
             // empty
         });
-        $onChange = Mockery::spy(function (): void {
+        $onChange = Mockery::spy(static function (): void {
             // empty
         });
-        $onFinish = Mockery::spy(function (State $state) use (&$finish): void {
+        $onFinish = Mockery::spy(static function (State $state) use (&$finish): void {
             $finish = $state;
         });
 
@@ -283,6 +283,9 @@ class ProcessorTest extends TestCase {
                 throw new Exception();
             }
 
+            /**
+             * @inheritDoc
+             */
             protected function getOnChangeEvent(State $state, array $items): ?object {
                 return null;
             }
@@ -421,6 +424,9 @@ abstract class ProcessorTest__Processor extends Processor {
         parent::run($state);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function chunkProcessed(State $state, array $items): void {
         parent::chunkProcessed($state, $items);
     }

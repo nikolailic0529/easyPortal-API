@@ -7,7 +7,6 @@ use App\Models\ServiceGroup;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
-use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
