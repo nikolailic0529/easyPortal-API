@@ -9,17 +9,22 @@ use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as TypesUser;
+use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use App\Services\KeyCloak\Exceptions\FailedToImportObject;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\SmartSave\BatchSave;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Laravel\Telescope\Telescope;
 use Throwable;
 
+use function array_diff;
 use function array_map;
+use function in_array;
 use function min;
 
 class UsersImporter {
@@ -29,6 +34,7 @@ class UsersImporter {
 
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
+        protected Repository $config,
         protected Client $client,
     ) {
         // empty
@@ -83,74 +89,35 @@ class UsersImporter {
             foreach ($iterator as $item) {
                 /** @var \App\Services\KeyCloak\Client\Types\User $item */
                 try {
-                    $user = $users->get($item->id);
+                    // Properties
+                    $user       = $users->get($item->id);
+                    $attributes = $item->attributes;
+
                     if (!$user) {
                         $user                        = new User();
                         $user->{$user->getKeyName()} = $item->id;
-                        $user->email                 = $item->email;
-                        $user->type                  = UserType::keycloak();
-                        $user->given_name            = $item->firstName ?? null;
-                        $user->family_name           = $item->lastName ?? null;
-                        $user->email_verified        = $item->emailVerified;
-                        $user->enabled               = $item->enabled;
-                        $user->permissions           = [];
-                        // profile
-                        $attributes           = $item->attributes;
-                        $user->office_phone   = $attributes['office_phone'][0] ?? null;
-                        $user->contact_email  = $attributes['contact_email'][0] ?? null;
-                        $user->title          = $attributes['title'][0] ?? null;
-                        $user->academic_title = $attributes['academic_title'][0] ?? null;
-                        $user->mobile_phone   = $attributes['mobile_phone'][0] ?? null;
-                        $user->department     = $attributes['department'][0] ?? null;
-                        $user->job_title      = $attributes['job_title'][0] ?? null;
-                        $user->phone          = $attributes['phone'][0] ?? null;
-                        $user->company        = $attributes['company'][0] ?? null;
-                        $user->photo          = $attributes['photo'][0] ?? null;
                     }
+
+                    $user->email          = $item->email;
+                    $user->type           = UserType::keycloak();
+                    $user->given_name     = $item->firstName ?? null;
+                    $user->family_name    = $item->lastName ?? null;
+                    $user->email_verified = $item->emailVerified;
+                    $user->enabled        = $item->enabled;
+                    $user->permissions    = [];
+                    $user->office_phone   = $attributes['office_phone'][0] ?? null;
+                    $user->contact_email  = $attributes['contact_email'][0] ?? null;
+                    $user->title          = $attributes['title'][0] ?? null;
+                    $user->academic_title = $attributes['academic_title'][0] ?? null;
+                    $user->mobile_phone   = $attributes['mobile_phone'][0] ?? null;
+                    $user->department     = $attributes['department'][0] ?? null;
+                    $user->job_title      = $attributes['job_title'][0] ?? null;
+                    $user->phone          = $attributes['phone'][0] ?? null;
+                    $user->company        = $attributes['company'][0] ?? null;
+                    $user->photo          = $attributes['photo'][0] ?? null;
+                    $user->organizations  = $this->getOrganizations($item);
+
                     $user->save();
-
-                    $organizations = [];
-                    $roles         = [];
-                    foreach ($item->groups as $group) {
-                        $organization = Organization::where('keycloak_group_id', '=', $group)->first();
-                        $role         = Role::whereKey($group)->first();
-                        if ($organization) {
-                            $organizations[] = $organization;
-                        }
-                        if ($role && $role->organization_id) {
-                            $roles [] = $role;
-                        }
-                    }
-                    foreach ($organizations as $organization) {
-                        $organizationUser = OrganizationUser::query()
-                            ->where('organization_id', '=', $organization->getKey())
-                            ->where('user_id', '=', $user->getKey())
-                            ->first();
-                        if (!$organizationUser) {
-                            $organizationUser                  = new OrganizationUser();
-                            $organizationUser->organization_id = $organization->getKey();
-                            $organizationUser->user_id         = $user->getKey();
-                            $organizationUser->enabled         = $item->enabled;
-                            $organizationUser->save();
-                        }
-                    }
-
-                    foreach ($roles as $role) {
-                        $organizationUser = OrganizationUser::query()
-                            ->where('organization_id', '=', $role->organization_id)
-                            ->where('user_id', '=', $user->getKey())
-                            ->first();
-
-                        if (!$organizationUser) {
-                            $organizationUser                  = new OrganizationUser();
-                            $organizationUser->organization_id = $role->organization_id;
-                            $organizationUser->user_id         = $user->getKey();
-                            $organizationUser->enabled         = $item->enabled;
-                        }
-
-                        $organizationUser->role_id = $role->getKey();
-                        $organizationUser->save();
-                    }
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
                         new FailedToImportObject($this, $item, $exception),
@@ -175,7 +142,9 @@ class UsersImporter {
 
     private function call(Closure $closure): void {
         GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
-            Telescope::withoutRecording($closure);
+            Telescope::withoutRecording(static function () use ($closure): void {
+                BatchSave::enable($closure);
+            });
         });
     }
 
@@ -197,11 +166,14 @@ class UsersImporter {
      * @param array<string, mixed> $items
      */
     protected function onBeforeChunk(array $items, Status $status): Collection {
-        $ids   = array_map(static function (TypesUser $item) {
+        $ids   = array_map(static function (KeyCloakUser $item) {
             return $item->id;
         }, $items);
         $key   = (new User())->getKeyName();
-        $users = User::whereIn($key, $ids)->get();
+        $users = User::query()
+            ->with('organizations')
+            ->whereIn($key, $ids)
+            ->get();
 
         return $users->keyBy($key);
     }
@@ -227,5 +199,56 @@ class UsersImporter {
         if ($this->onFinish) {
             ($this->onFinish)(clone $status);
         }
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection<\App\Models\OrganizationUser>
+     */
+    protected function getOrganizations(KeyCloakUser $item): Collection {
+        // Organizations & Roles
+        // (some groups refers to the organization some to roles)
+        $organizations = Organization::query()
+            ->whereIn('keycloak_group_id', $item->groups)
+            ->get()
+            ->keyBy(new GetKey());
+        $roles         = Role::query()
+            ->whereIn(
+                (new Role())->getKeyName(),
+                array_diff($item->groups, $organizations->keys()->all()),
+            )
+            ->whereIn('organization_id', $organizations->keys())
+            ->get();
+        $orgs          = new Collection();
+
+        foreach ($roles as $role) {
+            $key = $role->organization_id;
+            $org = new OrganizationUser();
+
+            $org->organization_id = $key;
+            $org->role            = $role;
+
+            $organizations->forget($key);
+            $orgs->put($key, $org);
+        }
+
+        // Org Admin is not related to organizations roles.
+        $orgAdminRole = Role::query()
+            ->whereKey($this->config->get('ep.keycloak.org_admin_group'))
+            ->first();
+
+        if ($orgAdminRole && in_array($orgAdminRole->getKey(), $item->groups, true)) {
+            foreach ($organizations as $organization) {
+                $key = $organization->getKey();
+                $org = $orgs->get($key) ?: new OrganizationUser();
+
+                $org->organization = $organization;
+                $org->role         = $orgAdminRole;
+
+                $orgs->put($key, $org);
+            }
+        }
+
+        // Return
+        return $orgs->values();
     }
 }

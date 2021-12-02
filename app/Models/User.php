@@ -8,6 +8,7 @@ use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -83,6 +84,7 @@ class User extends Model implements
     use CanResetPassword;
     use RoutesNotifications;
     use SyncBelongsToMany;
+    use SyncHasMany;
 
     protected const CASTS = [
         'type'           => UserType::class,
@@ -197,8 +199,23 @@ class User extends Model implements
         $this->syncBelongsToMany('teams', $teams);
     }
 
+    /**
+     * @deprecated
+     */
     public function organizationUser(): HasMany {
         return $this->hasMany(OrganizationUser::class);
+    }
+
+    public function organizations(): HasMany {
+        return $this->hasMany(OrganizationUser::class);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\OrganizationUser>
+     *     |array<\App\Models\OrganizationUser> $organizations
+     */
+    public function setOrganizationsAttribute(Collection|array $organizations): void {
+        $this->syncHasMany('organizations', $organizations);
     }
     // </editor-fold>
 
