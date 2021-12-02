@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Relations\HasDocument;
 use App\Models\Relations\HasFiles;
-use App\Models\Relations\HasOrganizationNullable;
+use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
@@ -40,7 +40,7 @@ class Note extends Model implements CascadeDeletable {
     use OwnedByOrganization;
     use SyncHasMany;
     use HasUser;
-    use HasOrganizationNullable;
+    use HasOrganization;
     use HasDocument;
     use HasFiles;
 
