@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Jobs\SyncUsersCronJob
+ * @coversDefaultClass \App\Services\KeyCloak\Jobs\SyncUsersCronJob
  */
 class SyncUsersCronJobTest extends TestCase {
     /**
@@ -67,16 +67,16 @@ class SyncUsersCronJobTest extends TestCase {
         $importer->makePartial();
 
         $importer
-        ->shouldReceive('onInit')
-        ->withArgs(function (?Closure $closure) use ($status): bool {
-            $this->assertNotNull($closure);
+            ->shouldReceive('onInit')
+            ->withArgs(function (?Closure $closure) use ($status): bool {
+                $this->assertNotNull($closure);
 
-            $closure($status);
+                $closure($status);
 
-            return true;
-        })
-        ->once()
-        ->andReturnSelf();
+                return true;
+            })
+            ->once()
+            ->andReturnSelf();
         $importer
             ->shouldReceive('onChange')
             ->withArgs(function (?Closure $closure) use ($status): bool {
@@ -112,9 +112,9 @@ class SyncUsersCronJobTest extends TestCase {
             ->once()
             ->andReturn(1);
 
-
         $job->process($configurator, $service, $importer, 1, 1);
     }
+
     /**
      * @covers ::getDefaultState
      */
