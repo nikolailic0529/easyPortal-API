@@ -20,8 +20,9 @@ use function reset;
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
-    use ObjectIteratorProperties;
     use ObjectIteratorSubjects;
+    use ObjectIteratorProperties;
+    use ObjectIteratorInitialState;
 
     /**
      * @var array{array<V>,array<V>}
@@ -54,9 +55,9 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
         }
 
         // Iterate
-        $this->init();
-
         try {
+            $this->init();
+
             do {
                 $chunk = $limit ? min($chunk, $limit - $index) : $chunk;
                 $items = $this->getChunk($chunk);
@@ -77,14 +78,6 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
         } finally {
             $this->finish();
         }
-    }
-
-    protected function init(): void {
-        // empty
-    }
-
-    protected function finish(): void {
-        // empty
     }
 
     /**

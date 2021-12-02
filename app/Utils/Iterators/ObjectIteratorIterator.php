@@ -19,6 +19,7 @@ use function sprintf;
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 class ObjectIteratorIterator implements ObjectIterator {
+    use ObjectIteratorInitialState;
     use ObjectIteratorProperties;
     use ObjectIteratorSubjects {
         chunkLoaded as private;
@@ -88,6 +89,7 @@ class ObjectIteratorIterator implements ObjectIterator {
 
         // Reset all
         foreach ($this->iterators as $iterator) {
+            $iterator->setIndex(0);
             $iterator->setOffset(null);
         }
 
@@ -110,33 +112,39 @@ class ObjectIteratorIterator implements ObjectIterator {
         $before    = $this->beforeChunk;
         $iterating = false;
 
-        foreach ($this->iterators as $key => $iterator) {
-            // Iterating?
-            $iterating = $iterating || $this->current === null || $this->current === $key;
+        try {
+            $this->init();
 
-            if (!$iterating) {
-                continue;
+            foreach ($this->iterators as $key => $iterator) {
+                // Iterating?
+                $iterating = $iterating || $this->current === null || $this->current === $key;
+
+                if (!$iterating) {
+                    continue;
+                }
+
+                // Update state
+                $this->current = $key;
+
+                // Prepare
+                $iterator->setLimit(null);
+                $iterator->setChunkSize($chunk);
+                $iterator->onBeforeChunk($before);
+                $iterator->onAfterChunk($after);
+
+                if ($limit) {
+                    $iterator->setLimit($limit - $index);
+                }
+
+                // Iterate
+                foreach ($iterator as $item) {
+                    yield $index++ => $item;
+
+                    $this->setIndex($index);
+                }
             }
-
-            // Update state
-            $this->current = $key;
-
-            // Prepare
-            $iterator->setLimit(null);
-            $iterator->setChunkSize($chunk);
-            $iterator->onBeforeChunk($before);
-            $iterator->onAfterChunk($after);
-
-            if ($limit) {
-                $iterator->setLimit($limit - $index);
-            }
-
-            // Iterate
-            foreach ($iterator as $item) {
-                yield $index++ => $item;
-
-                $this->setIndex($index);
-            }
+        } finally {
+            $this->finish();
         }
     }
 }

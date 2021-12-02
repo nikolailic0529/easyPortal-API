@@ -20,8 +20,6 @@ use const FILTER_VALIDATE_INT;
  * @implements \App\Utils\Iterators\ObjectIteratorImpl<T, V>
  */
 class OffsetBasedObjectIterator extends ObjectIteratorImpl {
-    private ?int $initialOffset = null;
-
     public function getOffset(): int|null {
         return parent::getOffset();
     }
@@ -39,14 +37,6 @@ class OffsetBasedObjectIterator extends ObjectIteratorImpl {
         }
 
         return parent::setOffset($offset);
-    }
-
-    protected function init(): void {
-        $this->initialOffset = $this->getOffset();
-    }
-
-    protected function finish(): void {
-        $this->setOffset($this->initialOffset);
     }
 
     /**

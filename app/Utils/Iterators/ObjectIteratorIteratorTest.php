@@ -52,6 +52,11 @@ class ObjectIteratorIteratorTest extends TestCase {
         };
         $one    = Mockery::mock(ObjectIterator::class);
         $one
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->twice()
+            ->andReturnSelf();
+        $one
             ->shouldReceive('setLimit')
             ->with(null)
             ->once()
@@ -64,7 +69,7 @@ class ObjectIteratorIteratorTest extends TestCase {
         $one
             ->shouldReceive('setOffset')
             ->with(null)
-            ->once()
+            ->twice()
             ->andReturnSelf();
         $one
             ->shouldReceive('setChunkSize')
@@ -90,6 +95,11 @@ class ObjectIteratorIteratorTest extends TestCase {
 
         $two = Mockery::mock(ObjectIterator::class);
         $two
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->twice()
+            ->andReturnSelf();
+        $two
             ->shouldReceive('setLimit')
             ->with(null)
             ->once()
@@ -102,7 +112,7 @@ class ObjectIteratorIteratorTest extends TestCase {
         $two
             ->shouldReceive('setOffset')
             ->with(null)
-            ->once()
+            ->twice()
             ->andReturnSelf();
         $two
             ->shouldReceive('setChunkSize')
@@ -147,6 +157,11 @@ class ObjectIteratorIteratorTest extends TestCase {
         // Mocks
         $one = Mockery::mock(ObjectIterator::class);
         $one
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->times(3)
+            ->andReturnSelf();
+        $one
             ->shouldReceive('setOffset')
             ->with(null)
             ->times(3)
@@ -162,6 +177,11 @@ class ObjectIteratorIteratorTest extends TestCase {
             ->andReturn(123);
 
         $two = Mockery::mock(ObjectIterator::class);
+        $two
+            ->shouldReceive('setIndex')
+            ->with(0)
+            ->times(3)
+            ->andReturnSelf();
         $two
             ->shouldReceive('setOffset')
             ->with(null)
