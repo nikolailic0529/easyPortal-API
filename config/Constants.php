@@ -2,7 +2,6 @@
 
 namespace Config;
 
-use App\Jobs\HorizonSnapshotCronJob;
 use App\Queues;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
@@ -19,6 +18,7 @@ use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
 use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
+use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -1347,14 +1347,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(HorizonSnapshotCronJob::class, 'enabled')]
+    #[Service(QueueSnapshotCronJob::class, 'enabled')]
     #[Group('jobs')]
     public const EP_JOBS_HORIZON_SNAPSHOT_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(HorizonSnapshotCronJob::class, 'cron')]
+    #[Service(QueueSnapshotCronJob::class, 'cron')]
     #[Group('jobs')]
     #[Type(CronExpression::class)]
     public const EP_JOBS_HORIZON_SNAPSHOT_CRON = '*/5 * * * *';
@@ -1362,7 +1362,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(HorizonSnapshotCronJob::class, 'queue')]
+    #[Service(QueueSnapshotCronJob::class, 'queue')]
     #[Group('jobs')]
     public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::DEFAULT;
     // </editor-fold>

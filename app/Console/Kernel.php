@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Dev\IdeHelper\ModelsCommand;
-use App\Jobs\HorizonSnapshotCronJob;
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
 use App\Services\DataLoader\Commands\ImportCustomers;
@@ -37,6 +36,7 @@ use App\Services\Maintenance\Commands\Start as MaintenanceStart;
 use App\Services\Maintenance\Commands\Stop as MaintenanceStop;
 use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
 use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
+use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -87,7 +87,7 @@ class Kernel extends ConsoleKernel {
      * @var array<class-string<\LastDragon_ru\LaraASP\Queue\Contracts\Cronable>>
      */
     protected array $schedule = [
-        HorizonSnapshotCronJob::class,
+        QueueSnapshotCronJob::class,
         DistributorsImporterCronJob::class,
         DistributorsUpdaterCronJob::class,
         ResellersImporterCronJob::class,
