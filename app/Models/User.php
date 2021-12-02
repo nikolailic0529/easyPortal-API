@@ -8,6 +8,7 @@ use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -56,6 +57,7 @@ use LogicException;
  * @property \Carbon\CarbonImmutable|null                                                $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Invitation>       $invitations
  * @property \App\Models\Organization|null                                               $organization
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Organization>          $organizations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch>       $searches
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Team>             $teams
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\OrganizationUser> $organizationUser
@@ -83,6 +85,7 @@ class User extends Model implements
     use CanResetPassword;
     use RoutesNotifications;
     use SyncBelongsToMany;
+    use SyncHasMany;
 
     protected const CASTS = [
         'type'           => UserType::class,
@@ -197,8 +200,16 @@ class User extends Model implements
         $this->syncBelongsToMany('teams', $teams);
     }
 
-    public function organizationUser(): HasMany {
+    public function organizations(): HasMany {
         return $this->hasMany(OrganizationUser::class);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\OrganizationUser>
+     *     |array<\App\Models\OrganizationUser> $organizations
+     */
+    public function setOrganizationsAttribute(Collection|array $organizations): void {
+        $this->syncHasMany('organizations', $organizations);
     }
     // </editor-fold>
 

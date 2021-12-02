@@ -4,9 +4,9 @@ namespace App\Services\KeyCloak\Importer;
 
 use App\Models\Organization;
 use App\Models\Role;
-use App\Models\User as UserModel;
+use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User;
+use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use App\Services\KeyCloak\Client\UsersIterator;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -30,7 +30,7 @@ class UsersImporterTest extends TestCase {
             'id'              => 'c0200a6c-1b8a-4365-9f1b-32d753194337',
             'organization_id' => $organization->getKey(),
         ]);
-        $keycloakUser = new User([
+        $keycloakUser = new KeyCloakUser([
             'id'            => 'c0200a6c-1b8a-4365-9f1b-32d753194335',
             'email'         => 'test@example.com',
             'firstName'     => 'first',
@@ -100,8 +100,8 @@ class UsersImporterTest extends TestCase {
         $user = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($keycloakUser) {
-                return UserModel::query()
-                    ->with(['organizationUser'])
+                return User::query()
+                    ->with(['organizations'])
                     ->whereKey($keycloakUser->id)
                     ->first();
             },
@@ -127,13 +127,13 @@ class UsersImporterTest extends TestCase {
         // Organization
         $this->assertContains(
             $organization->getKey(),
-            $user->organizationUser->pluck('organization_id'),
+            $user->organizations->pluck('organization_id'),
         );
 
         // Role
         $this->assertContains(
             $role->getKey(),
-            $user->organizationUser->pluck('role_id'),
+            $user->organizations->pluck('role_id'),
         );
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Relations\HasOrganization;
+use App\Models\Relations\HasOrganizationNullable;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByShared;
@@ -31,7 +31,7 @@ use Illuminate\Support\Collection;
  */
 class Role extends Model implements Auditable, OwnedByShared {
     use HasFactory;
-    use HasOrganization;
+    use HasOrganizationNullable;
     use SyncBelongsToMany;
     use OwnedByOrganization;
 

@@ -108,7 +108,7 @@ class DisableOrgUserTest extends TestCase {
                     $prepare,
                     static function (TestCase $test, Organization $organization): array {
                         $user = User::factory()
-                            ->hasOrganizationUser(1, [
+                            ->hasOrganizations(1, [
                                 'organization_id' => $organization->getKey(),
                             ])
                             ->create([
@@ -136,7 +136,7 @@ class DisableOrgUserTest extends TestCase {
                     $prepare,
                     static function (TestCase $test, Organization $organization): array {
                         $user = User::factory()
-                            ->hasOrganizationUser(1, [
+                            ->hasOrganizations(1, [
                                 'organization_id' => $organization->getKey(),
                             ])
                             ->create([

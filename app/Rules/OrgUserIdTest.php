@@ -53,7 +53,7 @@ class OrgUserIdTest extends TestCase {
                 true,
                 static function (TestCase $test, Organization $organization): string {
                     $user = User::factory()
-                        ->hasOrganizationUser([
+                        ->hasOrganizations([
                             'organization_id' => $organization->getKey(),
                         ])
                         ->create([
@@ -69,7 +69,7 @@ class OrgUserIdTest extends TestCase {
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                     ]);
                     $user = User::factory()
-                        ->hasOrganizationUser([
+                        ->hasOrganizations([
                             'organization_id' => $org->getKey(),
                         ])
                         ->create([
@@ -89,7 +89,7 @@ class OrgUserIdTest extends TestCase {
                 false,
                 static function (TestCase $test, Organization $organization): string {
                     $user = User::factory()
-                        ->hasOrganizationUser([
+                        ->hasOrganizations([
                             'organization_id' => $organization->getKey(),
                         ])
                         ->create([

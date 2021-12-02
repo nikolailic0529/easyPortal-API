@@ -97,12 +97,12 @@ class InviteOrgUserTest extends TestCase {
                 : Mail::assertNotSent(InviteOrganizationUser::class);
 
             $user = UserModel::query()
-                ->with(['organizationUser'])
+                ->with(['organizations'])
                 ->whereKey('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
                 ->first();
             $this->assertNotNull($user);
-            $this->assertNotEmpty($user->organizationUser);
-            $organizationUser = $user->organizationUser->first();
+            $this->assertNotEmpty($user->organizations);
+            $organizationUser = $user->organizations->first();
             // Organization
             $this->assertEquals(
                 $organization->getKey(),
@@ -258,7 +258,7 @@ class InviteOrgUserTest extends TestCase {
 
                         // User in organization
                         UserModel::factory()
-                            ->hasOrganizationUser(1, [
+                            ->hasOrganizations(1, [
                                 'organization_id' => $organization->getKey(),
                             ])
                             ->create([
