@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\I18n;
+namespace App\Services\I18n\Translation;
 
 class TranslationDefaults extends TranslationLoader {
     public function __construct(TranslationLoader $loader) {

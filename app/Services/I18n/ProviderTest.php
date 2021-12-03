@@ -2,6 +2,7 @@
 
 namespace App\Services\I18n;
 
+use App\Services\I18n\Translation\TranslationLoader;
 use Tests\TestCase;
 
 /**

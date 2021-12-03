@@ -3,6 +3,7 @@
 namespace App\Services\I18n;
 
 use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\I18n\Translation\TranslationLoader;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Translation\FileLoader;
