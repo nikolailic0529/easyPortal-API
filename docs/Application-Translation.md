@@ -38,3 +38,23 @@ Description for service.
 ## `settings.jobs.<service>`
 
 Description for jobs.
+
+
+## `notifications.<service>.<notification>.<string>`
+
+Default translations for Notification. 
+
+The `<string>` can be:
+
+- `level` (`success`, `error`, etc)
+- `subject`
+- `greeting`
+- `intro`
+- `outro`
+- `salutation`
+
+Available replacements:
+- `:appName`
+- `:userName`
+- `:userGivenName`
+- `:userFamilyName`

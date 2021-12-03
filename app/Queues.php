@@ -30,4 +30,9 @@ interface Queues {
      * Default queue for Search and Laravel Scout.
      */
     public const SEARCH = 'search';
+
+    /**
+     * Default queue for Notificator.
+     */
+    public const NOTIFICATOR = 'notificator';
 }

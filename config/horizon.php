@@ -225,6 +225,16 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
+            'Notificator'  => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::NOTIFICATOR],
+                'balance'      => 'auto',
+                'maxProcesses' => 4,
+                'timeout'      => 60,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
         ],
     ],
 ];
