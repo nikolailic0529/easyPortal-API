@@ -6,6 +6,7 @@ use App\Models\Audits\Audit;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasLocations;
 use App\Services\Audit\Concerns\Auditable;
+use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -64,6 +65,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  */
 class Organization extends Model implements
     HasLocalePreference,
+    HasTimezonePreference,
     Auditable {
     use HasFactory;
     use HasCurrency;
@@ -116,6 +118,10 @@ class Organization extends Model implements
 
     public function preferredLocale(): ?string {
         return $this->locale;
+    }
+
+    public function preferredTimezone(): ?string {
+        return $this->timezone;
     }
 
     public function statuses(): BelongsToMany {

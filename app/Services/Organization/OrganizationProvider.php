@@ -3,10 +3,11 @@
 namespace App\Services\Organization;
 
 use App\Models\Organization;
+use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
-abstract class OrganizationProvider implements HasLocalePreference {
+abstract class OrganizationProvider implements HasLocalePreference, HasTimezonePreference {
     public function __construct() {
         // empty
     }
@@ -35,6 +36,10 @@ abstract class OrganizationProvider implements HasLocalePreference {
 
     public function preferredLocale(): ?string {
         return $this->get()->preferredLocale();
+    }
+
+    public function preferredTimezone(): ?string {
+        return $this->get()->preferredTimezone();
     }
 
     public function is(Organization|null $organization): bool {
