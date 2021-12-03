@@ -234,5 +234,13 @@
     "keycloak.client.realm_user_not_found": "KeyCloak user doesn't exists.",
     "keycloak.auth.another_user_exists": "Another user already exists.",
     "keycloak.auth.insufficient_data": "Insufficient data to create/update User.",
-    "queue.errors.service_not_found": "Service :service not found."
+    "queue.errors.service_not_found": "Service :service not found.",
+    "notifications.default.greeting": "Hello!\n\nHi :userGivenName",
+    "notifications.default.salutation": "Thanks,\\\n:appName",
+    "notifications.Maintenance.Scheduled.subject": "Maintenance Started",
+    "notifications.Maintenance.Scheduled.intro": ":message",
+    "notifications.Maintenance.Scheduled.default.message": "We are running routine maintenance, the server will not be available during maintenance.",
+    "notifications.Maintenance.Completed.subject": "Maintenance Completed",
+    "notifications.Maintenance.Completed.level": "success",
+    "notifications.Maintenance.Completed.intro": "We have finished app maintenance. You can continue using :appName."
 }
