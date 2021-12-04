@@ -3,6 +3,7 @@
 namespace App\Services\Maintenance\Jobs;
 
 use App\Services\Maintenance\Maintenance;
+use App\Services\Maintenance\Settings;
 use Mockery;
 use Tests\TestCase;
 
@@ -25,9 +26,30 @@ class EnableCronJobTest extends TestCase {
         $maintenance = Mockery::mock(Maintenance::class);
 
         $maintenance
+            ->shouldReceive('getSettings')
+            ->once()
+            ->andReturn(new Settings());
+        $maintenance
             ->shouldReceive('enable')
             ->once()
             ->andReturn(true);
+
+        ($this->app->make(EnableCronJob::class))($maintenance);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeNoSettings(): void {
+        $maintenance = Mockery::mock(Maintenance::class);
+
+        $maintenance
+            ->shouldReceive('getSettings')
+            ->once()
+            ->andReturn(null);
+        $maintenance
+            ->shouldReceive('enable')
+            ->never();
 
         ($this->app->make(EnableCronJob::class))($maintenance);
     }

@@ -14,6 +14,8 @@ class EnableCronJob extends CronJob {
     }
 
     public function __invoke(Maintenance $maintenance): void {
-        $maintenance->enable();
+        if ($maintenance->getSettings()) {
+            $maintenance->enable();
+        }
     }
 }
