@@ -18,6 +18,7 @@ use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
 use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
+use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
@@ -1394,6 +1395,22 @@ interface Constants {
     #[Type(StringType::class)]
     public const EP_MAINTENANCE_MESSAGE = null;
 
+    /**
+     * Users who will receive the notifications about maintenance.
+     */
+    #[Setting('ep.maintenance.notify.users')]
+    #[Group('maintenance')]
+    #[Type(StringType::class)]
+    public const EP_MAINTENANCE_NOTIFY_USERS = [];
+
+    /**
+     * Time interval to notify users before maintenance.
+     */
+    #[Setting('ep.maintenance.notify.before')]
+    #[Group('maintenance')]
+    #[Type(Duration::class)]
+    public const EP_MAINTENANCE_NOTIFY_BEFORE = 'PT1H';
+
     // <editor-fold desc="EP_MAINTENANCE_ENABLE">
     // -------------------------------------------------------------------------
     /**
@@ -1442,6 +1459,31 @@ interface Constants {
     #[Service(MaintenanceDisableCronJob::class, 'queue')]
     #[Group('maintenance')]
     public const EP_MAINTENANCE_DISABLE_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_MAINTENANCE_NOTIFY">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(MaintenanceNotifyCronJob::class, 'enabled')]
+    #[Group('maintenance')]
+    public const EP_MAINTENANCE_NOTIFY_ENABLED = true;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(MaintenanceNotifyCronJob::class, 'cron')]
+    #[Group('maintenance')]
+    #[Type(CronExpression::class)]
+    public const EP_MAINTENANCE_NOTIFY_CRON = null;
+
+    /**
+     * Queue name.
+     */
+    #[Service(MaintenanceNotifyCronJob::class, 'queue')]
+    #[Group('maintenance')]
+    public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
     // </editor-fold>
     // </editor-fold>
 }

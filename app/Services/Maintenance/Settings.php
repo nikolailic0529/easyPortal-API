@@ -6,8 +6,9 @@ use App\Utils\JsonObject;
 use DateTimeInterface;
 
 class Settings extends JsonObject {
-    public bool               $enabled = false;
-    public ?string            $message = null;
-    public ?DateTimeInterface $start   = null;
-    public ?DateTimeInterface $end     = null;
+    public bool               $enabled  = false;
+    public ?string            $message  = null;
+    public ?DateTimeInterface $start    = null;
+    public ?DateTimeInterface $end      = null;
+    public bool               $notified = false;
 }

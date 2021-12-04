@@ -21,7 +21,7 @@ class Scheduled extends Notification {
     }
 
     public function shouldSend(User $notifiable, string $channel): bool {
-        return Date::now() < $this->settings->end;
+        return $this->settings->end && Date::now() < $this->settings->end;
     }
 
     protected function getMailAction(User $notifiable, Repository $config, Formatter $formatter): ?Action {

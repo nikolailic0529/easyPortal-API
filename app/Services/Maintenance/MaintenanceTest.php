@@ -7,6 +7,7 @@ use App\Services\Maintenance\Jobs\EnableCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use DateInterval;
 use DateTime;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;
@@ -128,11 +129,16 @@ class MaintenanceTest extends TestCase {
         $start   = Date::make('2021-11-30T10:15:00+00:00');
         $end     = Date::make('2022-01-14T11:15:22+00:00');
 
+        $this->setSettings([
+            'ep.maintenance.notify.before' => 'P2D',
+        ]);
+
         $this->override(SettingsService::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('setEditableSettings')
                 ->with([
                     'EP_MAINTENANCE_ENABLE_CRON'  => '15 10 30 11 2',
+                    'EP_MAINTENANCE_NOTIFY_CRON'  => '15 10 28 11 0',
                     'EP_MAINTENANCE_DISABLE_CRON' => '15 11 14 1 5',
                 ])
                 ->once()
@@ -144,10 +150,11 @@ class MaintenanceTest extends TestCase {
 
         $this->assertTrue($maintenance->schedule($start, $end, $message));
         $this->assertEquals([
-            'enabled' => false,
-            'message' => $message,
-            'start'   => $start->toIso8601String(),
-            'end'     => $end->toIso8601String(),
+            'notified' => false,
+            'enabled'  => false,
+            'message'  => $message,
+            'start'    => $start->toIso8601String(),
+            'end'      => $end->toIso8601String(),
         ], $storage->load());
     }
 
@@ -180,6 +187,7 @@ class MaintenanceTest extends TestCase {
     public function testStopNotScheduled(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
             $this->app,
+            $this->app->make(Repository::class),
             $this->app->make(SettingsService::class),
             $this->app->make(QueueableConfigurator::class),
             $this->app->make(Storage::class),
@@ -206,18 +214,24 @@ class MaintenanceTest extends TestCase {
      * @covers ::stop
      */
     public function testStopForce(): void {
-        $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance = Mockery::mock(Maintenance::class, [
+            $this->app,
+            $this->app->make(Repository::class),
+            $this->app->make(SettingsService::class),
+            $this->app->make(QueueableConfigurator::class),
+            $this->app->make(Storage::class),
+        ]);
         $maintenance->shouldAllowMockingProtectedMethods();
         $maintenance->makePartial();
         $maintenance
             ->shouldReceive('isJobScheduled')
             ->never();
-        $maintenance
-            ->shouldReceive('disable')
-            ->once()
-            ->andReturn(true);
+
+        Queue::fake();
 
         $this->assertTrue($maintenance->stop(true));
+
+        Queue::assertPushed(DisableCronJob::class);
     }
 
     /**
@@ -226,6 +240,7 @@ class MaintenanceTest extends TestCase {
     public function testStart(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
             $this->app,
+            $this->app->make(Repository::class),
             $this->app->make(SettingsService::class),
             $this->app->make(QueueableConfigurator::class),
             $this->app->make(Storage::class),
@@ -296,6 +311,29 @@ class MaintenanceTest extends TestCase {
         $this->setQueueableConfig($job, $settings);
 
         $this->assertEquals($expected, $maintenance->isJobScheduled($job::class));
+    }
+
+    /**
+     * @covers ::markAsNotified
+     */
+    public function testMarkAsNotified(): void {
+        $maintenance = $this->app->make(Maintenance::class);
+        $settings    = new Settings();
+        $storage     = $this->app->make(Storage::class);
+
+        $this->assertTrue($storage->save($settings->toArray()));
+        $this->assertTrue($maintenance->markAsNotified());
+        $this->assertTrue($maintenance->getSettings()->notified ?? null);
+    }
+
+    /**
+     * @covers ::markAsNotified
+     */
+    public function testMarkAsNotifiedNoSettings(): void {
+        $maintenance = $this->app->make(Maintenance::class);
+
+        $this->assertFalse($maintenance->markAsNotified());
+        $this->assertNull($maintenance->getSettings()->notified ?? null);
     }
     // </editor-fold>
 

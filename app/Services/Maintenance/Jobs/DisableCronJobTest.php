@@ -3,6 +3,8 @@
 namespace App\Services\Maintenance\Jobs;
 
 use App\Services\Maintenance\Maintenance;
+use App\Services\Maintenance\Settings;
+use Illuminate\Contracts\Config\Repository;
 use Mockery;
 use Tests\TestCase;
 
@@ -21,14 +23,79 @@ class DisableCronJobTest extends TestCase {
     /**
      * @covers ::__invoke
      */
-    public function testInvoke(): void {
-        $maintenance = Mockery::mock(Maintenance::class);
+    public function testInvokeNoSettings(): void {
+        $config = $this->app->make(Repository::class);
+        $job    = Mockery::mock(DisableCronJob::class);
+        $job->shouldAllowMockingProtectedMethods();
+        $job->makePartial();
+        $job
+            ->shouldReceive('notify')
+            ->never();
 
+        $maintenance = Mockery::mock(Maintenance::class);
         $maintenance
             ->shouldReceive('disable')
             ->once()
             ->andReturn(true);
+        $maintenance
+            ->shouldReceive('getSettings')
+            ->once()
+            ->andReturn(null);
 
-        ($this->app->make(DisableCronJob::class))($maintenance);
+        $job($config, $maintenance);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeSettingsNotifiedFalse(): void {
+        $config = $this->app->make(Repository::class);
+        $job    = Mockery::mock(DisableCronJob::class);
+        $job->shouldAllowMockingProtectedMethods();
+        $job->makePartial();
+        $job
+            ->shouldReceive('notify')
+            ->never();
+
+        $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance
+            ->shouldReceive('disable')
+            ->once()
+            ->andReturn(true);
+        $maintenance
+            ->shouldReceive('getSettings')
+            ->once()
+            ->andReturn(new Settings([
+                'notified' => false,
+            ]));
+
+        $job($config, $maintenance);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeSettingsNotifiedTrue(): void {
+        $config = $this->app->make(Repository::class);
+        $job    = Mockery::mock(DisableCronJob::class);
+        $job->shouldAllowMockingProtectedMethods();
+        $job->makePartial();
+        $job
+            ->shouldReceive('notify')
+            ->once();
+
+        $maintenance = Mockery::mock(Maintenance::class);
+        $maintenance
+            ->shouldReceive('disable')
+            ->once()
+            ->andReturn(true);
+        $maintenance
+            ->shouldReceive('getSettings')
+            ->once()
+            ->andReturn(new Settings([
+                'notified' => true,
+            ]));
+
+        $job($config, $maintenance);
     }
 }

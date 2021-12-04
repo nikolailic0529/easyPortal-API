@@ -3,27 +3,26 @@
 namespace App\Services\Maintenance\Jobs;
 
 use App\Services\Maintenance\Maintenance;
-use App\Services\Maintenance\Notifications\Completed;
+use App\Services\Maintenance\Notifications\Scheduled;
 use App\Services\Queue\CronJob;
 use Illuminate\Contracts\Config\Repository;
 
 /**
- * Disable the maintenance mode (please do not run by hand).
+ * Send notifications about scheduled maintenance (please do not run by hand).
  */
-class DisableCronJob extends CronJob {
+class NotifyCronJob extends CronJob {
     use NotifyUsers;
 
     public function displayName(): string {
-        return 'ep-maintenance-disable';
+        return 'ep-maintenance-notify';
     }
 
     public function __invoke(Repository $config, Maintenance $maintenance): void {
         $settings = $maintenance->getSettings();
 
-        $maintenance->disable();
-
-        if ($settings?->notified) {
-            $this->notify($config, new Completed());
+        if ($settings) {
+            $maintenance->markAsNotified();
+            $this->notify($config, new Scheduled($settings));
         }
     }
 }
