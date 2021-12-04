@@ -8,13 +8,13 @@ use App\Services\Queue\CronJob;
 use Illuminate\Contracts\Config\Repository;
 
 /**
- * Disable the maintenance mode (please do not run by hand).
+ * Complete the maintenance mode (please do not run by hand).
  */
-class DisableCronJob extends CronJob {
+class CompleteCronJob extends CronJob {
     use NotifyUsers;
 
     public function displayName(): string {
-        return 'ep-maintenance-disable';
+        return 'ep-maintenance-complete';
     }
 
     public function __invoke(Repository $config, Maintenance $maintenance): void {

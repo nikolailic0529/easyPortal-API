@@ -16,7 +16,7 @@ use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Logger\Logger;
-use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
+use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
@@ -1441,24 +1441,24 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(MaintenanceDisableCronJob::class, 'enabled')]
+    #[Service(MaintenanceCompleteCronJob::class, 'enabled')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_DISABLE_ENABLED = true;
+    public const EP_MAINTENANCE_COMPLETE_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(MaintenanceDisableCronJob::class, 'cron')]
+    #[Service(MaintenanceCompleteCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_DISABLE_CRON = null;
+    public const EP_MAINTENANCE_COMPLETE_CRON = null;
 
     /**
      * Queue name.
      */
-    #[Service(MaintenanceDisableCronJob::class, 'queue')]
+    #[Service(MaintenanceCompleteCronJob::class, 'queue')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_DISABLE_QUEUE = Queues::DEFAULT;
+    public const EP_MAINTENANCE_COMPLETE_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="EP_MAINTENANCE_NOTIFY">

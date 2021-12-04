@@ -2,7 +2,7 @@
 
 namespace App\Services\Maintenance;
 
-use App\Services\Maintenance\Jobs\DisableCronJob;
+use App\Services\Maintenance\Jobs\CompleteCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use Cron\CronExpression;
@@ -51,8 +51,8 @@ class Maintenance {
     }
 
     public function stop(bool $force = false): bool {
-        if ($force || !$this->isJobScheduled(DisableCronJob::class)) {
-            return (bool) $this->app->make(DisableCronJob::class)->dispatch();
+        if ($force || !$this->isJobScheduled(CompleteCronJob::class)) {
+            return (bool) $this->app->make(CompleteCronJob::class)->dispatch();
         }
 
         return true;
@@ -64,9 +64,9 @@ class Maintenance {
         $notify = $notify ? Date::make($start)->sub($notify) : $start;
 
         $this->settings->setEditableSettings([
-            'EP_MAINTENANCE_START_CRON'   => $this->cron($start),
-            'EP_MAINTENANCE_NOTIFY_CRON'  => $this->cron($notify),
-            'EP_MAINTENANCE_DISABLE_CRON' => $this->cron($end),
+            'EP_MAINTENANCE_START_CRON'    => $this->cron($start),
+            'EP_MAINTENANCE_NOTIFY_CRON'   => $this->cron($notify),
+            'EP_MAINTENANCE_COMPLETE_CRON' => $this->cron($end),
         ]);
 
         // Save

@@ -2,7 +2,7 @@
 
 namespace App\Services\Maintenance;
 
-use App\Services\Maintenance\Jobs\DisableCronJob;
+use App\Services\Maintenance\Jobs\CompleteCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use DateInterval;
@@ -137,9 +137,9 @@ class MaintenanceTest extends TestCase {
             $mock
                 ->shouldReceive('setEditableSettings')
                 ->with([
-                    'EP_MAINTENANCE_START_CRON'   => '15 10 30 11 2',
-                    'EP_MAINTENANCE_NOTIFY_CRON'  => '15 10 28 11 0',
-                    'EP_MAINTENANCE_DISABLE_CRON' => '15 11 14 1 5',
+                    'EP_MAINTENANCE_START_CRON'    => '15 10 30 11 2',
+                    'EP_MAINTENANCE_NOTIFY_CRON'   => '15 10 28 11 0',
+                    'EP_MAINTENANCE_COMPLETE_CRON' => '15 11 14 1 5',
                 ])
                 ->once()
                 ->andReturn([]);
@@ -167,7 +167,7 @@ class MaintenanceTest extends TestCase {
         $maintenance->makePartial();
         $maintenance
             ->shouldReceive('isJobScheduled')
-            ->with(DisableCronJob::class)
+            ->with(CompleteCronJob::class)
             ->once()
             ->andReturn(true);
         $maintenance
@@ -196,7 +196,7 @@ class MaintenanceTest extends TestCase {
         $maintenance->makePartial();
         $maintenance
             ->shouldReceive('isJobScheduled')
-            ->with(DisableCronJob::class)
+            ->with(CompleteCronJob::class)
             ->once()
             ->andReturn(false);
         $maintenance
@@ -207,7 +207,7 @@ class MaintenanceTest extends TestCase {
 
         $this->assertTrue($maintenance->stop());
 
-        Queue::assertPushed(DisableCronJob::class);
+        Queue::assertPushed(CompleteCronJob::class);
     }
 
     /**
@@ -231,7 +231,7 @@ class MaintenanceTest extends TestCase {
 
         $this->assertTrue($maintenance->stop(true));
 
-        Queue::assertPushed(DisableCronJob::class);
+        Queue::assertPushed(CompleteCronJob::class);
     }
 
     /**

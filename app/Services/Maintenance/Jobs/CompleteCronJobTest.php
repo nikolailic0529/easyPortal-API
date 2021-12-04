@@ -10,14 +10,14 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Jobs\DisableCronJob
+ * @coversDefaultClass \App\Services\Maintenance\Jobs\CompleteCronJob
  */
-class DisableCronJobTest extends TestCase {
+class CompleteCronJobTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(DisableCronJob::class);
+        $this->assertCronableRegistered(CompleteCronJob::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class DisableCronJobTest extends TestCase {
      */
     public function testInvokeNoSettings(): void {
         $config = $this->app->make(Repository::class);
-        $job    = Mockery::mock(DisableCronJob::class);
+        $job    = Mockery::mock(CompleteCronJob::class);
         $job->shouldAllowMockingProtectedMethods();
         $job->makePartial();
         $job
@@ -50,7 +50,7 @@ class DisableCronJobTest extends TestCase {
      */
     public function testInvokeSettingsNotifiedFalse(): void {
         $config = $this->app->make(Repository::class);
-        $job    = Mockery::mock(DisableCronJob::class);
+        $job    = Mockery::mock(CompleteCronJob::class);
         $job->shouldAllowMockingProtectedMethods();
         $job->makePartial();
         $job
@@ -77,7 +77,7 @@ class DisableCronJobTest extends TestCase {
      */
     public function testInvokeSettingsNotifiedTrue(): void {
         $config = $this->app->make(Repository::class);
-        $job    = Mockery::mock(DisableCronJob::class);
+        $job    = Mockery::mock(CompleteCronJob::class);
         $job->shouldAllowMockingProtectedMethods();
         $job->makePartial();
         $job
