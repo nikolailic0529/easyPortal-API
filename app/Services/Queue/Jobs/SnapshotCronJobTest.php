@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Jobs;
+namespace App\Services\Queue\Jobs;
 
 use Illuminate\Contracts\Console\Kernel;
 use Mockery;
@@ -8,14 +8,14 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Jobs\HorizonSnapshotCronJob
+ * @coversDefaultClass \App\Services\Queue\Jobs\SnapshotCronJob
  */
-class HorizonSnapshotCronJobTest extends TestCase {
+class SnapshotCronJobTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(HorizonSnapshotCronJob::class);
+        $this->assertCronableRegistered(SnapshotCronJob::class);
     }
 
     /**
@@ -29,6 +29,6 @@ class HorizonSnapshotCronJobTest extends TestCase {
             ->with('horizon:snapshot')
             ->once();
 
-        ($this->app->make(HorizonSnapshotCronJob::class))($kernel);
+        ($this->app->make(SnapshotCronJob::class))($kernel);
     }
 }

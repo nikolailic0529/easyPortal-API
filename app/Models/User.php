@@ -6,6 +6,7 @@ use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
+use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
@@ -74,6 +75,7 @@ class User extends Model implements
     AuthorizableContract,
     CanResetPasswordContract,
     HasLocalePreference,
+    HasTimezonePreference,
     HasOrganization,
     HasPermissions,
     Rootable,
@@ -168,6 +170,13 @@ class User extends Model implements
     // =========================================================================
     public function preferredLocale(): ?string {
         return $this->locale;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="HasTimezonePreference">
+    // =========================================================================
+    public function preferredTimezone(): ?string {
+        return $this->timezone;
     }
     // </editor-fold>
 

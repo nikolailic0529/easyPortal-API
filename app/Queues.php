@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Queue;
+namespace App;
 
 /**
  * Queues names.
@@ -30,4 +30,9 @@ interface Queues {
      * Default queue for Search and Laravel Scout.
      */
     public const SEARCH = 'search';
+
+    /**
+     * Default queue for Notificator.
+     */
+    public const NOTIFICATOR = 'notificator';
 }

@@ -13,6 +13,7 @@
     "ext-mbstring": "*",
     "ext-pdo_mysql": "*",
     "ext-redis": "*",
+    "ext-intl": "*",
     "babenkoivan/elastic-scout-driver": "^2.0",
     "babenkoivan/elastic-scout-driver-plus": "^3.0",
     "barryvdh/laravel-snappy": "^0.4.8",
@@ -65,7 +66,6 @@
   "suggest": {
     "ext-pdo": "Required for laravel/framework",
     "ext-fileinfo": "Required for league/flysystem",
-    "ext-intl": "Required for lastdragon-ru/lara-asp-formatter",
     "ext-xml": "Required for lastdragon-ru/lara-asp-testing",
     "ext-libxml": "Required for lastdragon-ru/lara-asp-testing",
     "ext-dom": "Required for lastdragon-ru/lara-asp-testing",

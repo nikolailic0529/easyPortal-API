@@ -49,12 +49,12 @@ class LocaleTest extends TestCase {
     public function testGet(
         string $expected,
         ?string $userLocale,
-        ?string $organizationFactory,
+        ?string $organizationTimezone,
         ?string $sessionLocale,
     ): void {
         // Organization
         $this->setOrganization(Organization::factory()->create([
-            'locale' => $organizationFactory ?: null,
+            'locale' => $organizationTimezone,
         ]));
 
         // User

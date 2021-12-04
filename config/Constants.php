@@ -2,7 +2,7 @@
 
 namespace Config;
 
-use App\Jobs\HorizonSnapshotCronJob;
+use App\Queues;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
@@ -16,9 +16,10 @@ use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Logger\Logger;
-use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
-use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
-use App\Services\Queue\Queues;
+use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
+use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
+use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
+use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -1347,14 +1348,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(HorizonSnapshotCronJob::class, 'enabled')]
+    #[Service(QueueSnapshotCronJob::class, 'enabled')]
     #[Group('jobs')]
     public const EP_JOBS_HORIZON_SNAPSHOT_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(HorizonSnapshotCronJob::class, 'cron')]
+    #[Service(QueueSnapshotCronJob::class, 'cron')]
     #[Group('jobs')]
     #[Type(CronExpression::class)]
     public const EP_JOBS_HORIZON_SNAPSHOT_CRON = '*/5 * * * *';
@@ -1362,7 +1363,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(HorizonSnapshotCronJob::class, 'queue')]
+    #[Service(QueueSnapshotCronJob::class, 'queue')]
     #[Group('jobs')]
     public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::DEFAULT;
     // </editor-fold>
@@ -1394,29 +1395,45 @@ interface Constants {
     #[Type(StringType::class)]
     public const EP_MAINTENANCE_MESSAGE = null;
 
+    /**
+     * Users who will receive the notifications about maintenance.
+     */
+    #[Setting('ep.maintenance.notify.users')]
+    #[Group('maintenance')]
+    #[Type(StringType::class)]
+    public const EP_MAINTENANCE_NOTIFY_USERS = [];
+
+    /**
+     * Time interval to notify users before maintenance.
+     */
+    #[Setting('ep.maintenance.notify.before')]
+    #[Group('maintenance')]
+    #[Type(Duration::class)]
+    public const EP_MAINTENANCE_NOTIFY_BEFORE = 'PT1H';
+
     // <editor-fold desc="EP_MAINTENANCE_ENABLE">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(MaintenanceEnableCronJob::class, 'enabled')]
+    #[Service(MaintenanceStartCronJob::class, 'enabled')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_ENABLE_ENABLED = true;
+    public const EP_MAINTENANCE_START_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(MaintenanceEnableCronJob::class, 'cron')]
+    #[Service(MaintenanceStartCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_ENABLE_CRON = null;
+    public const EP_MAINTENANCE_START_CRON = null;
 
     /**
      * Queue name.
      */
-    #[Service(MaintenanceEnableCronJob::class, 'queue')]
+    #[Service(MaintenanceStartCronJob::class, 'queue')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_ENABLE_QUEUE = Queues::DEFAULT;
+    public const EP_MAINTENANCE_START_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="EP_MAINTENANCE_DISABLE">
@@ -1424,24 +1441,49 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(MaintenanceDisableCronJob::class, 'enabled')]
+    #[Service(MaintenanceCompleteCronJob::class, 'enabled')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_DISABLE_ENABLED = true;
+    public const EP_MAINTENANCE_COMPLETE_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(MaintenanceDisableCronJob::class, 'cron')]
+    #[Service(MaintenanceCompleteCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_DISABLE_CRON = null;
+    public const EP_MAINTENANCE_COMPLETE_CRON = null;
 
     /**
      * Queue name.
      */
-    #[Service(MaintenanceDisableCronJob::class, 'queue')]
+    #[Service(MaintenanceCompleteCronJob::class, 'queue')]
     #[Group('maintenance')]
-    public const EP_MAINTENANCE_DISABLE_QUEUE = Queues::DEFAULT;
+    public const EP_MAINTENANCE_COMPLETE_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_MAINTENANCE_NOTIFY">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(MaintenanceNotifyCronJob::class, 'enabled')]
+    #[Group('maintenance')]
+    public const EP_MAINTENANCE_NOTIFY_ENABLED = true;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(MaintenanceNotifyCronJob::class, 'cron')]
+    #[Group('maintenance')]
+    #[Type(CronExpression::class)]
+    public const EP_MAINTENANCE_NOTIFY_CRON = null;
+
+    /**
+     * Queue name.
+     */
+    #[Service(MaintenanceNotifyCronJob::class, 'queue')]
+    #[Group('maintenance')]
+    public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
     // </editor-fold>
     // </editor-fold>
 }

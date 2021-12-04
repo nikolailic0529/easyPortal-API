@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Asset;
+use App\Queues;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Services\Queue\Queues;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;

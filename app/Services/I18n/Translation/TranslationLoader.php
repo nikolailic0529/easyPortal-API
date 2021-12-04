@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\I18n;
+namespace App\Services\I18n\Translation;
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\I18n\Exceptions\FailedToLoadTranslations;

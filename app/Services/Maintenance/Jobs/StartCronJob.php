@@ -8,12 +8,14 @@ use App\Services\Queue\CronJob;
 /**
  * Start the maintenance mode (please do not run by hand).
  */
-class EnableCronJob extends CronJob {
+class StartCronJob extends CronJob {
     public function displayName(): string {
-        return 'ep-maintenance-enable';
+        return 'ep-maintenance-start';
     }
 
     public function __invoke(Maintenance $maintenance): void {
-        $maintenance->enable();
+        if ($maintenance->getSettings()) {
+            $maintenance->enable();
+        }
     }
 }

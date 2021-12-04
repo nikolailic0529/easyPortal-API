@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-use App\Services\Queue\Queues;
+use App\Queues;
 use Illuminate\Support\Str;
 
 return [
@@ -222,6 +222,16 @@ return [
                 'maxProcesses' => 2,
                 'timeout'      => 60 * 60,
                 'memory'       => 1024,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
+            'Notificator'  => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::NOTIFICATOR],
+                'balance'      => 'auto',
+                'maxProcesses' => 4,
+                'timeout'      => 60,
+                'memory'       => 256,
                 'tries'        => 1,
                 'nice'         => 0,
             ],

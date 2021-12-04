@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\I18n;
+namespace App\Services\I18n\Translation;
 
 use App\Services\Filesystem\Disks\AppDisk;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\TranslationLoader
+ * @coversDefaultClass \App\Services\I18n\Translation\TranslationLoader
  */
 class TranslationLoaderTest extends TestCase {
     /**
