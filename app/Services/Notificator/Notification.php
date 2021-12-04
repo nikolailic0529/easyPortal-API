@@ -4,7 +4,7 @@ namespace App\Services\Notificator;
 
 use App\Models\User;
 use App\Queues;
-use App\Services\I18n\Locale;
+use App\Services\I18n\Formatter;
 use App\Services\Service;
 use Closure;
 use Illuminate\Bus\Queueable;
@@ -14,7 +14,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Action;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as IlluminateNotification;
-use LastDragon_ru\LaraASP\Formatter\Formatter;
 use ReflectionClass;
 
 use function __;
@@ -22,6 +21,8 @@ use function trim;
 
 abstract class Notification extends IlluminateNotification implements ShouldQueue {
     use Queueable;
+
+    public ?string $timezone = null;
 
     public function __construct() {
         // empty
@@ -33,6 +34,16 @@ abstract class Notification extends IlluminateNotification implements ShouldQueu
 
     public function setLocale(?string $locale): static {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getTimezone(): ?string {
+        return $this->timezone;
+    }
+
+    public function setTimezone(?string $timezone): static {
+        $this->timezone = $timezone;
 
         return $this;
     }
@@ -58,7 +69,8 @@ abstract class Notification extends IlluminateNotification implements ShouldQueu
         // FIXME Formatter should use Timezone ($formatter->forTimezone())
         $container = Container::getInstance();
         $formatter = $container->make(Formatter::class)
-            ->forLocale($this->getLocale() ?? $container->make(Locale::class)->get());
+            ->forLocale($this->getLocale())
+            ->forTimezone($this->getTimezone());
         $config    = $container->make(Repository::class);
         $service   = Service::getServiceName($this);
         $name      = (new ReflectionClass($this))->getShortName();

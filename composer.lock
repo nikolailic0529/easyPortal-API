@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b85bd9dc2a463040b91f13644807f26",
+    "content-hash": "f16b13950571b5c489fa648c1cccfe21",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3954,12 +3954,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-formatter.git",
-                "reference": "6c9b186f7cc941a53ea6419099a2b4e4d450f48c"
+                "reference": "aed1de0a17f1234e84a73882ff80bfc13315d504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/6c9b186f7cc941a53ea6419099a2b4e4d450f48c",
-                "reference": "6c9b186f7cc941a53ea6419099a2b4e4d450f48c",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/aed1de0a17f1234e84a73882ff80bfc13315d504",
+                "reference": "aed1de0a17f1234e84a73882ff80bfc13315d504",
                 "shasum": ""
             },
             "require": {
@@ -4012,7 +4012,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-11-06T10:48:28+00:00"
+            "time": "2021-12-04T07:46:20+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-graphql",
@@ -11463,12 +11463,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-testing.git",
-                "reference": "ac1ebce75852e0f999bb54dec7434d2cbe9a1e97"
+                "reference": "0d05f913f8ec0e089f4bcd87cd34fd12f76ab17c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/ac1ebce75852e0f999bb54dec7434d2cbe9a1e97",
-                "reference": "ac1ebce75852e0f999bb54dec7434d2cbe9a1e97",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/0d05f913f8ec0e089f4bcd87cd34fd12f76ab17c",
+                "reference": "0d05f913f8ec0e089f4bcd87cd34fd12f76ab17c",
                 "shasum": ""
             },
             "require": {
@@ -11536,7 +11536,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-11-20T11:53:12+00:00"
+            "time": "2021-12-04T06:57:33+00:00"
         },
         {
             "name": "mll-lab/laravel-graphql-playground",
@@ -13895,7 +13895,8 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo_mysql": "*",
-        "ext-redis": "*"
+        "ext-redis": "*",
+        "ext-intl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
