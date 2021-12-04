@@ -3,7 +3,7 @@
 namespace App\Services\Maintenance;
 
 use App\Services\Maintenance\Jobs\DisableCronJob;
-use App\Services\Maintenance\Jobs\EnableCronJob;
+use App\Services\Maintenance\Jobs\StartCronJob;
 use App\Services\Settings\Settings as SettingsService;
 use Cron\CronExpression;
 use DateTimeInterface;
@@ -47,7 +47,7 @@ class Maintenance {
         }
 
         return $this->schedule(Date::now(), $end, $message)
-            && $this->app->make(EnableCronJob::class)->dispatch();
+            && $this->app->make(StartCronJob::class)->dispatch();
     }
 
     public function stop(bool $force = false): bool {
@@ -64,7 +64,7 @@ class Maintenance {
         $notify = $notify ? Date::make($start)->sub($notify) : $start;
 
         $this->settings->setEditableSettings([
-            'EP_MAINTENANCE_ENABLE_CRON'  => $this->cron($start),
+            'EP_MAINTENANCE_START_CRON'   => $this->cron($start),
             'EP_MAINTENANCE_NOTIFY_CRON'  => $this->cron($notify),
             'EP_MAINTENANCE_DISABLE_CRON' => $this->cron($end),
         ]);

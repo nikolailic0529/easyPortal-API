@@ -9,14 +9,14 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Jobs\EnableCronJob
+ * @coversDefaultClass \App\Services\Maintenance\Jobs\StartCronJob
  */
-class EnableCronJobTest extends TestCase {
+class StartCronJobTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(EnableCronJob::class);
+        $this->assertCronableRegistered(StartCronJob::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class EnableCronJobTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        ($this->app->make(EnableCronJob::class))($maintenance);
+        ($this->app->make(StartCronJob::class))($maintenance);
     }
 
     /**
@@ -51,6 +51,6 @@ class EnableCronJobTest extends TestCase {
             ->shouldReceive('enable')
             ->never();
 
-        ($this->app->make(EnableCronJob::class))($maintenance);
+        ($this->app->make(StartCronJob::class))($maintenance);
     }
 }

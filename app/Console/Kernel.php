@@ -35,8 +35,8 @@ use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Maintenance\Commands\Start as MaintenanceStart;
 use App\Services\Maintenance\Commands\Stop as MaintenanceStop;
 use App\Services\Maintenance\Jobs\DisableCronJob as MaintenanceDisableCronJob;
-use App\Services\Maintenance\Jobs\EnableCronJob as MaintenanceEnableCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
+use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
@@ -104,7 +104,7 @@ class Kernel extends ConsoleKernel {
         SearchCustomersUpdaterCronJob::class,
         SearchDocumentsUpdaterCronJob::class,
         SyncUsersCronJob::class,
-        MaintenanceEnableCronJob::class,
+        MaintenanceStartCronJob::class,
         MaintenanceDisableCronJob::class,
         MaintenanceNotifyCronJob::class,
     ];
