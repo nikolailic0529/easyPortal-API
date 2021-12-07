@@ -831,7 +831,12 @@ class DocumentsTest extends TestCase {
                     'no quote_types + no contract_types'       => [
                         new GraphQLPaginated('documents', self::class, [], ['count' => 0]),
                         [
-                            // empty
+                            'ep.contract_types' => [
+                                // empty
+                            ],
+                            'ep.quote_types'    => [
+                                // empty
+                            ],
                         ],
                         $factory,
                     ],
@@ -888,7 +893,12 @@ class DocumentsTest extends TestCase {
                     'no quote_types + no contract_types'       => [
                         new GraphQLPaginated('documents', self::class, [], ['count' => 0]),
                         [
-                            // empty
+                            'ep.contract_types' => [
+                                // empty
+                            ],
+                            'ep.quote_types'    => [
+                                // empty
+                            ],
                         ],
                         $factory,
                     ],
@@ -945,7 +955,12 @@ class DocumentsTest extends TestCase {
                     'no quote_types + no contract_types'       => [
                         new GraphQLPaginated('documents', self::class, [], ['count' => 0]),
                         [
-                            // empty
+                            'ep.contract_types' => [
+                                // empty
+                            ],
+                            'ep.quote_types'    => [
+                                // empty
+                            ],
                         ],
                         $factory,
                     ],

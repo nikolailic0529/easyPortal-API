@@ -25,6 +25,10 @@ class SyncPermissionsTest extends TestCase {
      * @covers ::handle
      */
     public function testHandleOrgAdminGroupNotSet(): void {
+        $this->setSettings([
+            'ep.keycloak.org_admin_group' => null,
+        ]);
+
         $this->override(Auth::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('getPermissions')

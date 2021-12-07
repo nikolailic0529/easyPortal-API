@@ -704,7 +704,10 @@ class QuotesTest extends TestCase {
                     'no quote_types + no contract_types'        => [
                         new GraphQLPaginated('quotes', self::class, [], ['count' => 0]),
                         [
-                            'ep.quote_types' => [
+                            'ep.contract_types' => [
+                                // empty
+                            ],
+                            'ep.quote_types'    => [
                                 // empty
                             ],
                         ],
