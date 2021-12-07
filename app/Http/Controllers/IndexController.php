@@ -22,8 +22,12 @@ class IndexController extends Controller {
         MaintenanceQuery $maintenance,
     ): View|array {
         $response = array_merge($query(), [
-            'maintenance' => $maintenance(),
+            'maintenance' => $maintenance()?->toArray(),
         ]);
+
+        if (isset($response['maintenance'])) {
+            unset($response['maintenance']['notified']);
+        }
 
         if (!$request->expectsJson()) {
             (new RegisterErrorViewPaths())();
