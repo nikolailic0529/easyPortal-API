@@ -710,7 +710,10 @@ class QuotesSearchTest extends TestCase {
                             'count' => 0,
                         ]),
                         [
-                            'ep.quote_types' => [
+                            'ep.contract_types' => [
+                                // empty
+                            ],
+                            'ep.quote_types'    => [
                                 // empty
                             ],
                         ],

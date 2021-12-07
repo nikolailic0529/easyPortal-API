@@ -2433,7 +2433,10 @@ class CustomerTest extends TestCase {
                             $customerEmptyQuote,
                         ),
                         [
-                            'ep.quote_types' => [
+                            'ep.contract_types' => [
+                                // empty
+                            ],
+                            'ep.quote_types'    => [
                                 // empty
                             ],
                         ],
