@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Cache;
 
 use App\Services\DataLoader\Normalizer;
-use Illuminate\Database\Eloquent\Model;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
@@ -188,6 +188,7 @@ class CacheTest extends TestCase {
         $itemB      = $this->item();
         $keyB       = new Key($normalizer, [$itemB->getKey()]);
 
+        $this->assertNotEquals($keyA, $keyB);
         $this->assertFalse($cache->has($keyA));
         $this->assertFalse($cache->has($keyB));
 
