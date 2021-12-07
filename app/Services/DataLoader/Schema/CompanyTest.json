@@ -82,6 +82,7 @@
         "newActiveQuotes": 1,
         "expiringQuotes": 0
     },
+    "companyResellerKpis": null,
     "status": [
         "INACTIVE"
     ]

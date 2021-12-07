@@ -30,6 +30,11 @@ class Company extends Type implements TypeWithId {
     public ?CompanyKpis $companyKpis;
 
     /**
+     * @var array<CompanyKpis>|null
+     */
+    public ?array $companyResellerKpis;
+
+    /**
      * @var array<string>|null
      */
     public ?array $status;
