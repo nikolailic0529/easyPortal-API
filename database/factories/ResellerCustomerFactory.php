@@ -36,6 +36,7 @@ class ResellerCustomerFactory extends Factory {
             'customer_id'     => static function (): Customer {
                 return Customer::factory()->create();
             },
+            'kpi_id'          => null,
             'assets_count'    => 0,
             'locations_count' => 0,
             'created_at'      => Date::now(),

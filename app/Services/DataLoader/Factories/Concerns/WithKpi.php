@@ -50,6 +50,8 @@ trait WithKpi {
             $kpi->service_revenue_total_amount_change = (float) $normalizer->number(
                 $kpis->serviceRevenueTotalAmountChange,
             );
+
+            $kpi->save();
         }
 
         return $kpi;

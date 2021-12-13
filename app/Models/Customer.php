@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                                 $id
  * @property string                                                                 $type_id
  * @property string                                                                 $name
+ * @property string|null                                                            $kpi_id
  * @property int                                                                    $assets_count
  * @property int                                                                    $locations_count
  * @property int                                                                    $contacts_count

@@ -119,56 +119,6 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "Hermiston-O'Hara",
-            "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-11-10 08:29:21",
-            0,
-            1,
-            1,
-            "2021-08-30 00:00:07",
-            0,
-            "2021-08-30 00:00:08",
-            "2021-08-30 00:00:08"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Customer",
-            "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "Madisen Bogisich",
-            null,
-            null,
-            null,
-            "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "2021-08-30 00:00:09",
-            "2021-08-30 00:00:09"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "2021-08-30 00:00:10",
-            "2021-08-30 00:00:10"
-        ]
-    },
-    {
-        "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "a0df13a5-c42c-4269-ae57-71085acb5319",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "2021-08-30 00:00:11",
-            "2021-08-30 00:00:11"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`object_id`, `object_type`, `assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a0df13a5-c42c-4269-ae57-71085acb5319",
@@ -199,7 +149,58 @@
             0,
             0.0,
             0.0,
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:07",
+            "2021-08-30 00:00:07"
+        ]
+    },
+    {
+        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Hermiston-O'Hara",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "2021-11-10 08:29:21",
+            0,
+            1,
+            1,
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:08",
+            0,
+            "2021-08-30 00:00:09",
+            "2021-08-30 00:00:09"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Customer",
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Madisen Bogisich",
+            null,
+            null,
+            null,
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
+            "2021-08-30 00:00:10",
+            "2021-08-30 00:00:10"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "2021-08-30 00:00:11",
+            "2021-08-30 00:00:11"
+        ]
+    },
+    {
+        "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "2021-08-30 00:00:12",
             "2021-08-30 00:00:12"
         ]

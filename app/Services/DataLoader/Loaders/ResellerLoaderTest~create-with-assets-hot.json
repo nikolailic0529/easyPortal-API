@@ -52,10 +52,9 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
+        "query": "select * from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "Reseller"
+            "93dff777-6006-5616-bdb5-a56ec97248bb"
         ]
     },
     {

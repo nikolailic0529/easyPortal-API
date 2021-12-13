@@ -76,19 +76,18 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null",
+        "query": "select * from `kpis` where `kpis`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "000a227a-660d-477c-8fdf-ce9be4aa5818",
-            "0013a4cf-8654-4a5b-b747-d29746704f09",
-            "002b83e1-6107-4098-89f1-fe5602bef8ce",
-            "0040fc99-9023-4847-aff0-317aff613050",
-            "0048be0f-a435-45cc-ac9d-2fe215991ebf",
-            "0049fc18-6477-4b4f-a637-ef0f27e082d4",
-            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
-            "006218e4-47c0-4363-ab9f-91e91ff1baac",
-            "0066dc39-3655-43bf-9cb8-3dcc006987ff",
-            "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
-            "Reseller"
+            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "0a7548dd-c241-5418-99ca-296c1b5d9607",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
+            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "67c78e00-746e-5875-a467-385289e61788",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "cd40814f-847e-59a9-9f30-aa80acaa06f0"
         ]
     },
     {
@@ -788,19 +787,18 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null",
+        "query": "select * from `kpis` where `kpis`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
-            "00759fe9-9614-4147-a1f9-83d9fd5472e7",
-            "0075f877-bfaa-4014-a520-4f10331763bd",
-            "007646a5-c5b9-4929-9e94-9c09eaff90e5",
-            "007657c9-b620-445b-8676-01e491661b4a",
-            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
-            "0079e60d-1c53-4a85-9edd-31ec6324c96e",
-            "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
-            "009a0762-e369-4efb-a88a-1a8b49e1ab14",
-            "00a51569-935d-4155-971b-05713d3f860c",
-            "Reseller"
+            "0e899424-2221-5f00-8319-63147db3b868",
+            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
+            "1b99939b-c780-5e17-baf6-c040f864173f",
+            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
+            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
+            "9ab7a8a9-6c70-5716-b817-786165f89b3b",
+            "acf54392-1f10-517b-bf7b-2a445e5e8826",
+            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58",
+            "b6189514-3ea8-501b-860b-83ca0bcef411"
         ]
     },
     {
@@ -1472,19 +1470,18 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null",
+        "query": "select * from `kpis` where `kpis`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
-            "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
-            "00c02780-d026-4a8e-a402-f63aca4e65f4",
-            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
-            "00c871be-e0f6-4577-a4d9-a770878eea15",
-            "00e4a8ff-1d07-428b-acd0-e858973e5707",
-            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
-            "01085380-44ac-4429-b128-28a70140fb67",
-            "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
-            "0119600e-c938-4472-95ba-7855c2b174cc",
-            "Reseller"
+            "3e840a18-2c82-5385-8767-730159b5fcc6",
+            "5e7267ff-2f23-5177-a578-e84266744413",
+            "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
+            "71eac4c9-9364-5714-9429-e67d9c785745",
+            "751329de-0889-525b-afb7-3d0abe197d0a",
+            "817732ad-454f-5aab-8bf0-fa41ab854a8c",
+            "b06ccf09-00ce-5551-a0a6-7a5689d9da04",
+            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
+            "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306",
+            "f5becad7-aebd-5a48-8b63-4dafd2119019"
         ]
     },
     {
@@ -2172,19 +2169,18 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null",
+        "query": "select * from `kpis` where `kpis`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "01359101-5bfa-4dd7-a0cc-3cea193137d8",
-            "014c23fe-cf3a-4880-be62-5e148f551d9d",
-            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
-            "015516f4-9b7a-4419-82fd-72cd76be8771",
-            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
-            "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
-            "019d772d-6ce8-48dc-8585-22681d2eacac",
-            "019eabdd-e58b-4eb1-905e-975fd7607332",
-            "01a34dcd-4231-4df0-8005-0d3306cd218c",
-            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
-            "Reseller"
+            "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
+            "3d90701e-bad4-55d7-a231-7041e9a3edd7",
+            "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
+            "62b4a964-9ca8-5f45-9e19-8eb3adf194bf",
+            "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
+            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8",
+            "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
+            "b2548638-1df1-55f2-b1aa-a677099ed381",
+            "bc6aa672-9400-5784-95b5-54e28dc633a5",
+            "e1f5bc37-8270-5eab-8318-f559f949f52e"
         ]
     },
     {
@@ -2856,19 +2852,18 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null",
+        "query": "select * from `kpis` where `kpis`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
-            "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
-            "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
-            "01c45daa-5b06-46ba-a3de-927ed79e6033",
-            "01d6fadd-1b36-4cf9-834e-3a46430cab78",
-            "01d94fc2-0987-4c40-8c46-af29fbb924f8",
-            "01e5d413-1a68-4f16-9e46-ad9fd781579b",
-            "01f149ea-eb28-4357-bbca-046198fe2abe",
-            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
-            "02015448-c2bb-4987-87e0-8b4e94a2ab15",
-            "Reseller"
+            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
+            "31441e15-c634-5010-9c90-a9ca58f9d5c8",
+            "3c71e890-d619-55e9-8756-0e6a2f82a18f",
+            "453d360c-06e9-56ab-b2d1-b80bc13e9488",
+            "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
+            "97af097b-d955-53ab-aa10-9dee7cf231bc",
+            "b12dbd77-1918-5c15-a259-6e1b5c564f3e",
+            "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
+            "db81160e-cf2a-5a56-95eb-4d03a73e46ec",
+            "f3d81c2f-c4ca-5d36-9647-5f9770d13642"
         ]
     },
     {

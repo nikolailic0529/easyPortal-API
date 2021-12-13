@@ -27,7 +27,7 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31"
+            "863f844b-efde-5781-a57c-0d127a496cfe"
         ]
     },
     {
@@ -67,10 +67,9 @@
         ]
     },
     {
-        "query": "select * from `kpis` where `kpis`.`object_id` = ? and `kpis`.`object_id` is not null and `kpis`.`object_type` = ? and `kpis`.`deleted_at` is null limit 1",
+        "query": "select * from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Reseller"
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31"
         ]
     },
     {

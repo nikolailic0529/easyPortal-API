@@ -35,6 +35,7 @@ class CustomerFactory extends Factory {
             'type_id'         => static function () use ($object): Type {
                 return Type::factory()->create(['object_type' => $object]);
             },
+            'kpi_id'          => null,
             'assets_count'    => 0,
             'locations_count' => 0,
             'contacts_count'  => 0,

@@ -3,33 +3,29 @@
 namespace App\Models\Relations;
 
 use App\Models\Kpi;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasKpi {
-    public function kpi(): MorphOne {
-        return $this->morphOne(Kpi::class, 'object');
+    public function kpi(): BelongsTo {
+        return $this->belongsTo(Kpi::class);
     }
 
     public function setKpiAttribute(?Kpi $kpi): void {
-        if ($kpi === null && $this->kpi) {
-            $kpi = $this->kpi;
+        // If KPI exists we need to delete it
+        if ($kpi === null && $this->kpi_id) {
+            $current = $this->kpi;
 
-            $this->setRelation('kpi', null);
-            $this->onSave(static function () use ($kpi): void {
-                $kpi->delete();
-            });
-        } elseif ($kpi) {
-            $kpi->object = $this;
-
-            $this->setRelation('kpi', $kpi);
-            $this->onSave(static function () use ($kpi): void {
-                $kpi->save();
-            });
-        } else {
-            // no action
+            if ($current) {
+                $this->onSave(static function () use ($current): void {
+                    $current->delete();
+                });
+            }
         }
+
+        // Update
+        $this->kpi()->associate($kpi);
     }
 }
