@@ -1,5 +1,5 @@
 {
-    "generated": "2021-10-05T07:08:35+00:00",
+    "generated": "2021-12-14T06:57:24+00:00",
     "distributors": [
         "143c456a-e894-4710-a1c2-745b9582ca47"
     ],
@@ -9,5 +9,8 @@
     "customers": [
         "9964b0c8-8b88-4b48-9c13-cfcb5e33d0ab"
     ],
-    "oems": "oem.csv"
+    "oems": "oem.csv",
+    "types": [
+        "Quote New Business"
+    ]
 }

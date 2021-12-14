@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Boyle-Harvey",
+                    "name": "Wilderman-Fritsch",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "90626",
-                            "address": "573 Emard Forks",
-                            "city": "Barrowsbury",
+                            "zip": "79231",
+                            "address": "49165 Nitzsche Freeway Suite 223",
+                            "city": "Homenickmouth",
                             "locationType": "HEADQUARTER",
-                            "country": "Bosnia and Herzegovina",
-                            "latitude": "49.713734",
-                            "longitude": "-178.94382",
-                            "countryCode": "BA"
+                            "country": "San Marino",
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": null
                         }
                     ],
                     "brandingData": null,

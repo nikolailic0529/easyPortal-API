@@ -40,16 +40,16 @@
     {
         "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
         "bindings": [
-            "dr. arthur huels",
+            "laurine langosh",
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
             "document",
-            "+15717217257"
+            "+2197908909897"
         ]
     },
     {
         "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
         "bindings": [
-            "garry beatty",
+            "miss vicky kertzmann sr.",
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
             "document"
         ]
@@ -57,13 +57,13 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "5a86b4c6-2fe0-52e2-b925-97be85345f0d"
+            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "bf325e65-38a6-574d-b6b2-ee166953588e"
+            "bd0c34db-542e-55ff-84f1-309e785c25b3"
         ]
     },
     {
@@ -86,8 +86,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:01:18",
-            "2021-08-30 00:01:23",
+            "2021-08-30 00:01:20",
+            "2021-08-30 00:01:25",
             "c63823c9-ccae-493b-92ca-5cb2a696da69"
         ]
     },
