@@ -7,8 +7,12 @@ use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
+ * @template TPivot of \App\Utils\Eloquent\Pivot
+ *
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasResellers {
@@ -33,12 +37,15 @@ trait HasResellers {
     }
 
     /**
-     * @param array<string,array<string,mixed>> $resellers
+     * @param array<string,TPivot>|\Illuminate\Support\Collection<string,TPivot> $resellers
      */
-    public function setResellersPivotsAttribute(array $resellers): void {
+    public function setResellersPivotsAttribute(Collection|array $resellers): void {
         $this->syncBelongsToManyPivots('resellers', $resellers);
     }
 
+    /**
+     * @return TPivot
+     */
     abstract protected function getResellersPivot(): Pivot;
 
     protected function getResellersParentKey(): ?string {

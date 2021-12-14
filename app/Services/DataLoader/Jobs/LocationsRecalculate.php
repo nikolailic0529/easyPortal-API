@@ -4,11 +4,18 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\CustomerLocation;
 use App\Models\Location;
+use App\Models\LocationCustomer;
+use App\Models\LocationReseller;
 use App\Models\ResellerLocation;
 use App\Utils\Eloquent\Model;
 
-use function array_fill_keys;
+use function array_filter;
+use function array_keys;
+use function array_merge;
+use function array_unique;
 use function count;
+
+use const SORT_REGULAR;
 
 /**
  * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Location>
@@ -44,28 +51,30 @@ class LocationsRecalculate extends Recalculate {
             $locationAssetsByLocation = $assetsByLocation[$location->getKey()] ?? 0;
 
             // Resellers
-            $resellers = array_fill_keys($locationResellers, [
-                'assets_count' => 0,
-            ]);
+            $resellers = [];
+            $ids       = array_filter(array_unique(
+                array_merge($locationResellers, array_keys($locationAssetsByReseller)),
+                SORT_REGULAR,
+            ));
 
-            foreach ($locationAssetsByReseller as $reseller => $assets) {
-                if ($reseller) {
-                    $resellers[$reseller]['assets_count'] = $assets;
-                }
+            foreach ($ids as $id) {
+                $resellers[$id]               = new LocationReseller();
+                $resellers[$id]->assets_count = $locationAssetsByReseller[$id] ?? 0;
             }
 
             $location->resellersPivots = $resellers;
             $location->save();
 
             // Customers
-            $customers = array_fill_keys($locationCustomers, [
-                'assets_count' => 0,
-            ]);
+            $customers = [];
+            $ids       = array_filter(array_unique(
+                array_merge($locationCustomers, array_keys($locationAssetsByCustomer)),
+                SORT_REGULAR,
+            ));
 
-            foreach ($locationAssetsByCustomer as $customer => $assets) {
-                if ($customer) {
-                    $customers[$customer]['assets_count'] = $assets;
-                }
+            foreach ($ids as $id) {
+                $customers[$id]               = new LocationCustomer();
+                $customers[$id]->assets_count = $locationAssetsByCustomer[$id] ?? 0;
             }
 
             $location->customersPivots = $customers;

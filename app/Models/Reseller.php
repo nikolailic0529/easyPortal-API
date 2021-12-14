@@ -17,34 +17,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Reseller.
  *
- * @property string                                                                 $id
- * @property string                                                                 $type_id
- * @property string                                                                 $name
- * @property string|null                                                            $kpi_id
- * @property int                                                                    $customers_count
- * @property int                                                                    $locations_count
- * @property int                                                                    $assets_count
- * @property int                                                                    $contacts_count
- * @property int                                                                    $statuses_count
- * @property \Carbon\CarbonImmutable|null                                           $changed_at
- * @property \Carbon\CarbonImmutable                                                $synced_at
- * @property \Carbon\CarbonImmutable                                                $created_at
- * @property \Carbon\CarbonImmutable                                                $updated_at
- * @property \Carbon\CarbonImmutable|null                                           $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>    $customers
- * @property-write array<string,array<string,mixed>>                                $customersPivots
- * @property-read \App\Models\ResellerLocation|null                                 $headquarter
- * @property \App\Models\Kpi|null                                                   $kpi
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation> $locations
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
- * @property \App\Models\Type                                                       $type
+ * @property string                                                                                                               $id
+ * @property string                                                                                                               $type_id
+ * @property string                                                                                                               $name
+ * @property string|null                                                                                                          $kpi_id
+ * @property int                                                                                                                  $customers_count
+ * @property int                                                                                                                  $locations_count
+ * @property int                                                                                                                  $assets_count
+ * @property int                                                                                                                  $contacts_count
+ * @property int                                                                                                                  $statuses_count
+ * @property \Carbon\CarbonImmutable|null                                                                                         $changed_at
+ * @property \Carbon\CarbonImmutable                                                                                              $synced_at
+ * @property \Carbon\CarbonImmutable                                                                                              $created_at
+ * @property \Carbon\CarbonImmutable                                                                                              $updated_at
+ * @property \Carbon\CarbonImmutable|null                                                                                         $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>                                                     $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>                                                        $contacts
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>                                                  $customers
+ * @property-write array<string,\App\Models\ResellerCustomer>|\Illuminate\Support\Collection<string,\App\Models\ResellerCustomer> $customersPivots
+ * @property-read \App\Models\ResellerLocation|null                                                                               $headquarter
+ * @property \App\Models\Kpi|null                                                                                                 $kpi
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation>                                               $locations
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>                                                         $statuses
+ * @property \App\Models\Type                                                                                                     $type
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller query()
  * @mixin \Eloquent
+ *
+ * @uses \App\Models\Relations\HasCustomers<\App\Models\ResellerCustomer>
  */
 class Reseller extends Model {
     use HasFactory;
