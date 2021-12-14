@@ -63,7 +63,11 @@ abstract class Data {
     protected function cleanClientDumps(string $path): bool {
         $map     = static::MAP;
         $data    = $this->getTestData();
-        $cleaner = $this->app->make(ClientDataCleaner::class)->setDefaultMap($data->json($map));
+        $cleaner = $this->app->make(ClientDataCleaner::class);
+
+        if ($data->file($map)->isFile()) {
+            $cleaner = $cleaner->setDefaultMap($data->json($map));
+        }
 
         foreach ((new ClientDumpsIterator($path))->getResponseIterator(true) as $object) {
             $cleaner->clean($object);
