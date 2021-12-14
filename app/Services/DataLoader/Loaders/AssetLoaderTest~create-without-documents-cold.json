@@ -26,9 +26,9 @@
             "Asset",
             "Hardware",
             "Hardware",
-            "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "2021-08-30 00:00:18",
-            "2021-08-30 00:00:18"
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "2021-08-30 00:00:20",
+            "2021-08-30 00:00:20"
         ]
     },
     {
@@ -48,9 +48,9 @@
             "Asset",
             "ACTIVE",
             "ACTIVE",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "2021-08-30 00:00:19",
-            "2021-08-30 00:00:19"
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "2021-08-30 00:00:21",
+            "2021-08-30 00:00:21"
         ]
     },
     {
@@ -72,9 +72,9 @@
             null,
             null,
             "HP 32GB 2Rx4 PC4-2133P-R Kit",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "2021-08-30 00:00:20",
-            "2021-08-30 00:00:20"
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "2021-08-30 00:00:22",
+            "2021-08-30 00:00:22"
         ]
     },
     {
@@ -97,9 +97,9 @@
         "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
             "Hardware",
-            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "2021-08-30 00:00:22",
-            "2021-08-30 00:00:22"
+            "67c78e00-746e-5875-a467-385289e61788",
+            "2021-08-30 00:00:24",
+            "2021-08-30 00:00:24"
         ]
     },
     {
@@ -117,25 +117,9 @@
         "bindings": [
             "ARCHIVED",
             "ARCHIVED",
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
-            "2021-08-30 00:00:23",
-            "2021-08-30 00:00:23"
-        ]
-    },
-    {
-        "query": "select * from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
-        "bindings": [
-            "conflict"
-        ]
-    },
-    {
-        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "CONFLICT",
-            "CONFLICT",
-            "67c78e00-746e-5875-a467-385289e61788",
-            "2021-08-30 00:00:24",
-            "2021-08-30 00:00:24"
+            "5ce84092-2672-567d-9178-fa3fa96560e8",
+            "2021-08-30 00:00:25",
+            "2021-08-30 00:00:25"
         ]
     },
     {
@@ -151,9 +135,9 @@
             "AssetWarranty",
             "Contract",
             "Contract",
-            "5ce84092-2672-567d-9178-fa3fa96560e8",
-            "2021-08-30 00:00:29",
-            "2021-08-30 00:00:29"
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "2021-08-30 00:00:30",
+            "2021-08-30 00:00:30"
         ]
     },
     {
@@ -169,9 +153,9 @@
             "AssetWarranty",
             "Expired",
             "Expired",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "2021-08-30 00:00:30",
-            "2021-08-30 00:00:30"
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "2021-08-30 00:00:31",
+            "2021-08-30 00:00:31"
         ]
     },
     {
@@ -187,9 +171,9 @@
             "AssetWarranty",
             "FactoryWarranty",
             "FactoryWarranty",
-            "305091d8-9610-5841-9743-85d05494e34c",
-            "2021-08-30 00:00:33",
-            "2021-08-30 00:00:33"
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
+            "2021-08-30 00:00:34",
+            "2021-08-30 00:00:34"
         ]
     },
     {
@@ -197,22 +181,22 @@
         "bindings": [
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
             null,
             "602673a2-b21d-44b7-8d8e-3423f0ee3795",
             null,
-            "2021-11-10 07:25:32",
-            "c9b46a77-126c-393b-9213-7410127c87d9",
+            "2021-12-14 06:36:08",
+            "e565ad24-c7ec-33ce-b081-a7b6ac20d072",
             "130",
             2,
-            2,
-            "2021-08-30 00:00:25",
+            1,
+            "2021-08-30 00:00:26",
             "2021-03-28 00:00:00",
-            "2021-11-10 07:25:32",
-            "2021-08-30 00:00:38",
-            "2021-08-30 00:00:38"
+            "2021-12-14 06:36:08",
+            "2021-08-30 00:00:39",
+            "2021-08-30 00:00:39"
         ]
     },
     {
@@ -220,20 +204,10 @@
         "bindings": [
             "Asset",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "Yasmeen Bergstrom",
-            "+16690201838",
+            "Bo Johnson",
+            "+9147479678344",
             null,
             false,
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
-            "2021-08-30 00:00:39",
-            "2021-08-30 00:00:39"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "79ae5ab6-152f-5f9a-8672-ba31413706dc",
             "2021-08-30 00:00:40",
             "2021-08-30 00:00:40"
@@ -242,11 +216,21 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
             "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
             "2021-08-30 00:00:41",
             "2021-08-30 00:00:41"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "2021-08-30 00:00:42",
+            "2021-08-30 00:00:42"
         ]
     },
     {
@@ -254,39 +238,29 @@
         "bindings": [
             "Asset",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "Cordelia Toy",
+            "Bernadine Koepp V",
             null,
             null,
             null,
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
-            "2021-08-30 00:00:42",
-            "2021-08-30 00:00:42"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
             "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "2021-08-30 00:00:43",
             "2021-08-30 00:00:43"
         ]
     },
     {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
             "2021-08-30 00:00:44",
             "2021-08-30 00:00:44"
         ]
     },
     {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "67c78e00-746e-5875-a467-385289e61788",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
             "66d17114-c49a-545f-9d9c-84c436abdbc6",
             "2021-08-30 00:00:45",
@@ -296,7 +270,7 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "67c78e00-746e-5875-a467-385289e61788",
+            "5ce84092-2672-567d-9178-fa3fa96560e8",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
             "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
             "2021-08-30 00:00:46",
@@ -309,15 +283,15 @@
             "2020-01-01 00:00:00",
             "2020-12-31 00:00:00",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "5ce84092-2672-567d-9178-fa3fa96560e8",
             "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
             null,
             null,
             null,
             null,
-            null,
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "2021-08-30 00:00:47",
             "2021-08-30 00:00:47"
         ]
@@ -328,15 +302,15 @@
             "2021-03-28 00:00:00",
             "2021-03-28 00:00:00",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
             "305091d8-9610-5841-9743-85d05494e34c",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "",
             null,
             null,
             null,
             null,
             null,
-            null,
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "2021-08-30 00:00:48",
             "2021-08-30 00:00:48"
         ]
