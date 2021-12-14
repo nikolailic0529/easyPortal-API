@@ -11,27 +11,27 @@
             "getCustomers": [
                 {
                     "id": "00561888-ff56-4b14-b6bd-03b2abe0ea79",
-                    "name": "Schamberger, Wintheiser and Lemke",
-                    "updatedAt": "1631093959589",
+                    "name": "Cassin, Beatty and Durgan",
+                    "updatedAt": "1639133657544",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13479985456",
-                            "name": "Domingo Pfeffer",
+                            "phoneNumber": "+6181042185053",
+                            "name": "Jayce Hilpert",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13479985456",
-                            "name": "Domingo Pfeffer",
+                            "phoneNumber": "+6181042185053",
+                            "name": "Jayce Hilpert",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13479985456",
-                            "name": "Domingo Pfeffer",
+                            "phoneNumber": "+6181042185053",
+                            "name": "Jayce Hilpert",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -44,29 +44,29 @@
                     ],
                     "locations": [
                         {
-                            "zip": "88234",
-                            "address": "50196 Hermann Flats Suite 901",
-                            "city": "Lake Ellieburgh",
+                            "zip": "67210-4627",
+                            "address": "58144 Elmo Squares Apt. 002",
+                            "city": "Lake Bradley",
                             "locationType": null,
-                            "country": "Brunei Darussalam",
-                            "latitude": "84.45923",
-                            "longitude": "-93.113498",
-                            "countryCode": "GA"
+                            "country": "Cook Islands",
+                            "latitude": "50.808063",
+                            "longitude": "112.297249",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 7,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 1,
-                        "activeQuotesTotalAmount": 0,
-                        "newActiveQuotes": 1,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
                         "expiredContracts": 1,
@@ -88,27 +88,27 @@
                 },
                 {
                     "id": "00562638-2237-4cdb-b580-2c82a65a94ff",
-                    "name": "Hermann-Koelpin",
-                    "updatedAt": "1631093959779",
+                    "name": "Sipes PLC",
+                    "updatedAt": "1639133657966",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18178645595",
-                            "name": "Ms. Maryse Reichert",
+                            "phoneNumber": "+3934838557592",
+                            "name": "Liliana Luettgen",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Rebecca Feeney",
+                            "name": "Miss Breanna Zulauf PhD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18178645595",
-                            "name": "Ms. Maryse Reichert",
+                            "phoneNumber": "+3934838557592",
+                            "name": "Liliana Luettgen",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -121,28 +121,28 @@
                     ],
                     "locations": [
                         {
-                            "zip": "05857-1047",
-                            "address": "91397 Sid Harbor Apt. 830",
-                            "city": "Lincolnchester",
+                            "zip": "27885",
+                            "address": "466 Houston Flat",
+                            "city": "West Tedshire",
                             "locationType": null,
-                            "country": "Djibouti",
-                            "latitude": "58.641627",
-                            "longitude": "-170.805426",
-                            "countryCode": "TL"
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-63.838038",
+                            "longitude": "-52.448972",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 4,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 1,
@@ -165,15 +165,15 @@
                 },
                 {
                     "id": "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
-                    "name": "Gaylord and Sons",
-                    "updatedAt": "1631093959985",
+                    "name": "Volkman Inc",
+                    "updatedAt": "1639133658466",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12767932817",
-                            "name": "Dillan Oberbrunner",
+                            "phoneNumber": "+2844820039722",
+                            "name": "Prof. Mohamed Bednar III",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -184,8 +184,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12767932817",
-                            "name": "Dillan Oberbrunner",
+                            "phoneNumber": "+2844820039722",
+                            "name": "Prof. Mohamed Bednar III",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -198,28 +198,28 @@
                     ],
                     "locations": [
                         {
-                            "zip": "83067",
-                            "address": "24851 Janiya Loaf Apt. 985",
-                            "city": "Lake Lenorastad",
+                            "zip": "67990",
+                            "address": "6865 Nayeli Shoals Apt. 009",
+                            "city": "East Wilburn",
                             "locationType": null,
-                            "country": "Jordan",
-                            "latitude": "-27.28571",
-                            "longitude": "-47.24233",
-                            "countryCode": "LB"
+                            "country": "Guadeloupe",
+                            "latitude": "-74.078444",
+                            "longitude": "-129.993268",
+                            "countryCode": "SN"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 1,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 3,
@@ -242,27 +242,27 @@
                 },
                 {
                     "id": "0059bbe6-5c23-4244-9174-58401ca51e1c",
-                    "name": "Blick, Schmeler and Gerhold",
-                    "updatedAt": "1631093960174",
+                    "name": "Von, Olson and Prosacco",
+                    "updatedAt": "1639133658982",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19256489217",
-                            "name": "Afton Haag",
+                            "phoneNumber": "+8650910261287",
+                            "name": "Priscilla Murphy",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19256489217",
-                            "name": "Afton Haag",
+                            "phoneNumber": "+8650910261287",
+                            "name": "Priscilla Murphy",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19256489217",
-                            "name": "Afton Haag",
+                            "phoneNumber": "+8650910261287",
+                            "name": "Priscilla Murphy",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -275,31 +275,31 @@
                     ],
                     "locations": [
                         {
-                            "zip": "63474-2608",
-                            "address": "50609 Russel Bridge Apt. 451",
-                            "city": "West Earnestineport",
+                            "zip": "24502",
+                            "address": "8527 Jon Center Suite 752",
+                            "city": "New Ewellmouth",
                             "locationType": null,
-                            "country": "Djibouti",
-                            "latitude": "75.529451",
-                            "longitude": "152.005505",
-                            "countryCode": "TL"
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-85.297292",
+                            "longitude": "38.40971",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 29,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 1,
-                        "activeQuotesTotalAmount": 589.8,
-                        "newActiveQuotes": 1,
-                        "expiringQuotes": 1,
-                        "expiredQuotes": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
                         "expiredContracts": 1,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
@@ -319,27 +319,27 @@
                 },
                 {
                     "id": "005bb000-a71b-406f-a48c-016176bd329a",
-                    "name": "Parisian, Cassin and Brakus",
-                    "updatedAt": "1631093960363",
+                    "name": "Funk and Sons",
+                    "updatedAt": "1639133659435",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15706249003",
-                            "name": "Isadore Gleason",
+                            "phoneNumber": "+8428505431522",
+                            "name": "Earline Pacocha DVM",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15706249003",
-                            "name": "Isadore Gleason",
+                            "phoneNumber": "+8428505431522",
+                            "name": "Earline Pacocha DVM",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15706249003",
-                            "name": "Isadore Gleason",
+                            "phoneNumber": "+8428505431522",
+                            "name": "Earline Pacocha DVM",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -352,28 +352,28 @@
                     ],
                     "locations": [
                         {
-                            "zip": "43006",
-                            "address": "59441 Stanley Streets",
-                            "city": "Simonisville",
+                            "zip": "38347",
+                            "address": "3495 Joyce Stravenue",
+                            "city": "Alberthashire",
                             "locationType": null,
-                            "country": "Djibouti",
-                            "latitude": "-80.740822",
-                            "longitude": "87.966931",
-                            "countryCode": "TL"
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-62.019386",
+                            "longitude": "-130.555784",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 58,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 2,
@@ -396,27 +396,27 @@
                 },
                 {
                     "id": "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
-                    "name": "Lubowitz, Harris and Crona",
-                    "updatedAt": "1631093960743",
+                    "name": "Auer Inc",
+                    "updatedAt": "1639133660904",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16204910362",
-                            "name": "Jerry Gibson Sr.",
+                            "phoneNumber": "+4179178775352",
+                            "name": "Alexandre O'Connell III",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16204910362",
-                            "name": "Jerry Gibson Sr.",
+                            "phoneNumber": "+4179178775352",
+                            "name": "Alexandre O'Connell III",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16204910362",
-                            "name": "Jerry Gibson Sr.",
+                            "phoneNumber": "+4179178775352",
+                            "name": "Alexandre O'Connell III",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -429,28 +429,28 @@
                     ],
                     "locations": [
                         {
-                            "zip": "30381",
-                            "address": "705 Rau Islands Suite 751",
-                            "city": "East Sabrina",
+                            "zip": "20661",
+                            "address": "190 Reyes Cliff",
+                            "city": "Lilymouth",
                             "locationType": null,
-                            "country": "Brunei Darussalam",
-                            "latitude": "24.330904",
-                            "longitude": "2.961187",
-                            "countryCode": "GA"
+                            "country": "Cook Islands",
+                            "latitude": "-28.201149",
+                            "longitude": "-16.851107",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 1,
                         "activeAssets": 1,
-                        "activeAssetsPercentage": 100,
+                        "activeAssetsPercentage": 100.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
@@ -468,32 +468,32 @@
                         "serviceRevenueTotalAmountChange": null
                     },
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 },
                 {
                     "id": "00605988-7243-4135-9da0-2cec80179f6d",
-                    "name": "Robel PLC",
-                    "updatedAt": "1631093960935",
+                    "name": "Ortiz-Bahringer",
+                    "updatedAt": "1639133661373",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12186771133",
-                            "name": "Jayde Keebler",
+                            "phoneNumber": "+7512304393666",
+                            "name": "Amira Howell",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12186771133",
-                            "name": "Jayde Keebler",
+                            "phoneNumber": "+7512304393666",
+                            "name": "Amira Howell",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12186771133",
-                            "name": "Jayde Keebler",
+                            "phoneNumber": "+7512304393666",
+                            "name": "Amira Howell",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -506,29 +506,29 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82691",
-                            "address": "1065 Lawrence Mills",
-                            "city": "Hannahshire",
+                            "zip": "71331-7324",
+                            "address": "89734 Labadie Roads",
+                            "city": "South Abbie",
                             "locationType": null,
-                            "country": "Brunei Darussalam",
-                            "latitude": "9.592128",
-                            "longitude": "107.144441",
-                            "countryCode": "GA"
+                            "country": "Cook Islands",
+                            "latitude": "32.385562",
+                            "longitude": "95.933216",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 19,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 828.3,
-                        "newActiveQuotes": 1,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
                         "expiredContracts": 1,
@@ -550,27 +550,27 @@
                 },
                 {
                     "id": "00616f5f-afae-4b5d-b131-824034b6ec39",
-                    "name": "Tromp Ltd",
-                    "updatedAt": "1631093961127",
+                    "name": "Prohaska Group",
+                    "updatedAt": "1639133661873",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Miss Oma Spencer",
+                            "name": "Ms. Onie Kohler",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Miss Oma Spencer",
+                            "name": "Ms. Onie Kohler",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Miss Oma Spencer",
+                            "name": "Ms. Onie Kohler",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -583,30 +583,30 @@
                     ],
                     "locations": [
                         {
-                            "zip": "41414-4449",
-                            "address": "365 Bahringer Crescent",
-                            "city": "Toyside",
+                            "zip": "40018",
+                            "address": "936 Josianne Underpass Suite 188",
+                            "city": "Juanaport",
                             "locationType": null,
-                            "country": "Brunei Darussalam",
-                            "latitude": "59.551538",
-                            "longitude": "106.148454",
-                            "countryCode": "GA"
+                            "country": "Cook Islands",
+                            "latitude": "-51.382363",
+                            "longitude": "-28.974156",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 2,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 6,
-                        "activeQuotesTotalAmount": 0,
-                        "newActiveQuotes": 6,
-                        "expiringQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
                         "expiredQuotes": 0,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
@@ -627,27 +627,27 @@
                 },
                 {
                     "id": "0065cb2a-2556-449e-ad18-255f06049b22",
-                    "name": "Abshire, Kilback and Kautzer",
-                    "updatedAt": "1631093961517",
+                    "name": "Halvorson, Murazik and Nikolaus",
+                    "updatedAt": "1639133662357",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12603267734",
-                            "name": "Darrion Lakin V",
+                            "phoneNumber": "+5012908633842",
+                            "name": "Vincenzo Smith",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12603267734",
-                            "name": "Darrion Lakin V",
+                            "phoneNumber": "+5012908633842",
+                            "name": "Vincenzo Smith",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12603267734",
-                            "name": "Darrion Lakin V",
+                            "phoneNumber": "+5012908633842",
+                            "name": "Vincenzo Smith",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -660,28 +660,28 @@
                     ],
                     "locations": [
                         {
-                            "zip": "47414",
-                            "address": "10401 Kling Roads Suite 490",
-                            "city": "Port Misty",
+                            "zip": "36441-2000",
+                            "address": "5560 Lubowitz Rest Suite 234",
+                            "city": "Cartwrightland",
                             "locationType": null,
-                            "country": "Brunei Darussalam",
-                            "latitude": "74.514135",
-                            "longitude": "-26.515119",
-                            "countryCode": "GA"
+                            "country": "Cook Islands",
+                            "latitude": "65.235494",
+                            "longitude": "-159.634394",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 108,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 1,
@@ -704,15 +704,15 @@
                 },
                 {
                     "id": "0065fc39-38ba-4f55-9409-82727defe7f0",
-                    "name": "Cole-Zboncak",
-                    "updatedAt": "1631093961722",
+                    "name": "Eichmann-Abbott",
+                    "updatedAt": "1639133662841",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15701922085",
-                            "name": "Mrs. Magnolia Goldner",
+                            "phoneNumber": "+5156731992551",
+                            "name": "Yessenia Mosciski",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -723,8 +723,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15701922085",
-                            "name": "Mrs. Magnolia Goldner",
+                            "phoneNumber": "+5156731992551",
+                            "name": "Yessenia Mosciski",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -737,28 +737,28 @@
                     ],
                     "locations": [
                         {
-                            "zip": "15663",
-                            "address": "394 West Pike Apt. 554",
-                            "city": "North Narciso",
+                            "zip": "26749-5852",
+                            "address": "4878 Damion Street",
+                            "city": "Greentown",
                             "locationType": null,
-                            "country": "Djibouti",
-                            "latitude": "-87.933211",
-                            "longitude": "113.060865",
-                            "countryCode": "TL"
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "58.537789",
+                            "longitude": "148.149084",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": {
                         "totalAssets": 37,
                         "activeAssets": 0,
-                        "activeAssetsPercentage": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 0,
-                        "activeContractTotalAmount": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
-                        "activeQuotesTotalAmount": 0,
+                        "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 1,

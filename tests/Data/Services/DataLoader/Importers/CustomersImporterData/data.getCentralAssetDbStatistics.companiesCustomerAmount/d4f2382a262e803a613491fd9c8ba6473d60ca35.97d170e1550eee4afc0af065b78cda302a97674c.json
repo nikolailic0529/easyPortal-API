@@ -4,9 +4,11 @@
     "params": [],
     "response": {
         "data": {
-            "getCentralAssetDbStatistics": {
-                "companiesCustomerAmount": 24228
-            }
+            "getCentralAssetDbStatistics": [
+                {
+                    "companiesCustomerAmount": 24229
+                }
+            ]
         }
     }
 }
