@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "26e0cca3-2cb0-4d79-b01c-68fe09d7700e",
-                    "name": "Ebert LLC",
-                    "updatedAt": "1633391843490",
+                    "name": "Wyman-Bradtke",
+                    "updatedAt": "1639131326143",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "66463-3910",
-                            "address": "227 Frami Haven",
-                            "city": "Lebsackmouth",
+                            "zip": "63117",
+                            "address": "59696 Little Lights",
+                            "city": "Schoenborough",
                             "locationType": "HEADQUARTER",
-                            "country": "Indonesia",
-                            "latitude": "55.200446",
-                            "longitude": "102.516673",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-88.987812",
+                            "longitude": "-5.109215",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -39,7 +39,7 @@
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": 1,
-                        "newActiveCustomers": 1,
+                        "newActiveCustomers": 0,
                         "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,

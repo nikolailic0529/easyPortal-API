@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "573cf122-f679-48d1-8277-f783e4de1561",
-                    "name": "Robel-Beer",
-                    "updatedAt": "1633334805741",
+                    "name": "Robel, Casper and Heller",
+                    "updatedAt": "1639140529981",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12549818670",
-                            "name": "Earl Mayert",
+                            "phoneNumber": "+6551335370890",
+                            "name": "Karson Raynor",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19593313909",
-                            "name": "Mrs. Carlotta Reichel II",
+                            "phoneNumber": "+2994363437775",
+                            "name": "Ms. Adelia Mante",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12549818670",
-                            "name": "Earl Mayert",
+                            "phoneNumber": "+6551335370890",
+                            "name": "Karson Raynor",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "96415-9411",
-                            "address": "69081 Kunze Wall",
-                            "city": "Schillerstad",
+                            "zip": "12582",
+                            "address": "60272 Pacocha Crest",
+                            "city": "East Tanya",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-7.209018",
-                            "longitude": "25.171656",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "22.319623",
+                            "longitude": "51.65229",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

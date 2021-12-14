@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "6afaf60a-84c6-420d-826e-c83cb56f58da",
-                    "name": "Barton, Collins and Bailey",
-                    "updatedAt": "1633343868170",
+                    "name": "Kreiger, Hessel and Robel",
+                    "updatedAt": "1639141504852",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12394114477",
-                            "name": "Carmel Lang",
+                            "phoneNumber": "+7601022639887",
+                            "name": "Mrs. Delpha Witting",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12394114477",
-                            "name": "Carmel Lang",
+                            "phoneNumber": "+7601022639887",
+                            "name": "Mrs. Delpha Witting",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12394114477",
-                            "name": "Carmel Lang",
+                            "phoneNumber": "+7601022639887",
+                            "name": "Mrs. Delpha Witting",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "39845-3831",
-                            "address": "984 Pagac Radial",
-                            "city": "Patriciaberg",
+                            "zip": "27308",
+                            "address": "25167 Phyllis Squares",
+                            "city": "South Frederickside",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "17.552469",
-                            "longitude": "-64.15811",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "34.435899",
+                            "longitude": "26.541705",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -62,7 +62,7 @@
                         "activeContracts": 3,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

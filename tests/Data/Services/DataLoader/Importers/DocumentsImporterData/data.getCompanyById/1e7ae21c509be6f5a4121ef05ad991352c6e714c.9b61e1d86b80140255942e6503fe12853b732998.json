@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "4cfceead-f53f-474d-9a38-14d7985ee644",
-                    "name": "Huel, Kuhlman and Kunde",
-                    "updatedAt": "1633405596494",
+                    "name": "Balistreri Ltd",
+                    "updatedAt": "1639131642523",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "28247",
-                            "address": "15507 Jerrod Drive Suite 047",
-                            "city": "Lake Violetside",
+                            "zip": "97659",
+                            "address": "57447 Parker Run",
+                            "city": "South Aracely",
                             "locationType": "HEADQUARTER",
-                            "country": "Taiwan",
-                            "latitude": "0.438377",
-                            "longitude": "159.249432",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-58.216982",
+                            "longitude": "-109.65038",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -39,7 +39,7 @@
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": 5,
-                        "newActiveCustomers": 5,
+                        "newActiveCustomers": 0,
                         "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,

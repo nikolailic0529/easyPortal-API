@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2d68db4b-87e0-4933-aedf-4db281af2bb3",
-                    "name": "Labadie-Blanda",
-                    "updatedAt": "1633375149325",
+                    "name": "Conn-Bogan",
+                    "updatedAt": "1639137168941",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19529346736",
-                            "name": "Kody Rau",
+                            "phoneNumber": "+6507240116974",
+                            "name": "Prof. Johnathon Wuckert",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19529346736",
-                            "name": "Kody Rau",
+                            "phoneNumber": "+6507240116974",
+                            "name": "Prof. Johnathon Wuckert",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19529346736",
-                            "name": "Kody Rau",
+                            "phoneNumber": "+6507240116974",
+                            "name": "Prof. Johnathon Wuckert",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "28295-2692",
-                            "address": "27536 Windler Ridge Apt. 165",
-                            "city": "West Alfonzomouth",
+                            "zip": "14670",
+                            "address": "79594 Alyson Well",
+                            "city": "Schaeferside",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-30.554884",
-                            "longitude": "0.974911",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "88.775462",
+                            "longitude": "-110.751277",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -62,7 +62,7 @@
                         "activeContracts": 2,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

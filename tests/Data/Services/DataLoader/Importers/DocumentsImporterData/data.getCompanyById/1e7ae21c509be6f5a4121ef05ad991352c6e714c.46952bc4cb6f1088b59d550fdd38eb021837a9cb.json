@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "360983d1-a19d-44b0-9ad9-34293fb13e63",
-                    "name": "Schmitt, Goldner and Schaefer",
-                    "updatedAt": "1633383410753",
+                    "name": "Trantow-Zboncak",
+                    "updatedAt": "1639137587326",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16510855886",
-                            "name": "Wilhelmine Wisozk",
+                            "phoneNumber": "+6720940860327",
+                            "name": "Arch Beer Jr.",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16510855886",
-                            "name": "Wilhelmine Wisozk",
+                            "phoneNumber": "+6720940860327",
+                            "name": "Arch Beer Jr.",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82353",
-                            "address": "3055 Webster Rapid Suite 453",
-                            "city": "East Amaya",
+                            "zip": "53606-4749",
+                            "address": "456 Hipolito Parks",
+                            "city": "Kundeburgh",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "88.174114",
-                            "longitude": "-13.39147",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "25.014744",
+                            "longitude": "176.420535",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -63,11 +63,11 @@
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 9,
+                        "activeQuotes": 8,
                         "activeQuotesTotalAmount": 2207.54,
-                        "newActiveQuotes": 9,
-                        "expiringQuotes": 4,
-                        "expiredQuotes": 22,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 5,
+                        "expiredQuotes": 23,
                         "expiredContracts": 6,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

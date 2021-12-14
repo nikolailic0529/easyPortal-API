@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "22472b80-4601-4be2-8a6d-3b17f550fac0",
-                    "name": "West-Schuppe",
-                    "updatedAt": "1633342189739",
+                    "name": "Moen, Mohr and Hudson",
+                    "updatedAt": "1639135949621",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Cierra Homenick DVM",
+                            "name": "Prof. Sydney Nikolaus",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -29,7 +29,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Cierra Homenick DVM",
+                            "name": "Prof. Sydney Nikolaus",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "53183-5050",
-                            "address": "1158 Marianna Loop",
-                            "city": "Port Carmela",
+                            "zip": "18618",
+                            "address": "8662 Deanna Stravenue",
+                            "city": "New Jerroldstad",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-23.14025",
-                            "longitude": "75.297239",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-88.453887",
+                            "longitude": "70.64627",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 925,
-                        "activeAssets": 462,
-                        "activeAssetsPercentage": 49.945945945945944,
+                        "activeAssets": 250,
+                        "activeAssetsPercentage": 27.027027027027028,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 2,
-                        "activeContractTotalAmount": 779.52,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 2,
-                        "activeQuotes": 4,
+                        "expiringContracts": 0,
+                        "activeQuotes": 2,
                         "activeQuotesTotalAmount": 0.0,
-                        "newActiveQuotes": 4,
-                        "expiringQuotes": 2,
-                        "expiredQuotes": 23,
-                        "expiredContracts": 2,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 25,
+                        "expiredContracts": 4,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

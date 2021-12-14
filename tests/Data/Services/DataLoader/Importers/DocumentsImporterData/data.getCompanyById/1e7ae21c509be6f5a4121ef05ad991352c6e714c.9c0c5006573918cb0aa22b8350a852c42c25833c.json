@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "4f619843-9516-422b-99bd-97376b595369",
-                    "name": "Zulauf Inc",
-                    "updatedAt": "1633334210144",
+                    "name": "Feeney, Ward and Gusikowski",
+                    "updatedAt": "1639139457503",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13512203108",
-                            "name": "Gerhard Wolff",
+                            "phoneNumber": "+5078528752937",
+                            "name": "Lawrence Marquardt",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13512203108",
-                            "name": "Gerhard Wolff",
+                            "phoneNumber": "+5078528752937",
+                            "name": "Lawrence Marquardt",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13512203108",
-                            "name": "Gerhard Wolff",
+                            "phoneNumber": "+5078528752937",
+                            "name": "Lawrence Marquardt",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "45754-2379",
-                            "address": "63696 Abbott Stravenue Apt. 404",
-                            "city": "Johnsonton",
+                            "zip": "82824-5612",
+                            "address": "5195 Jonathon Prairie Suite 117",
+                            "city": "South Leopoldoberg",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "78.292067",
-                            "longitude": "169.189419",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-4.892322",
+                            "longitude": "53.393011",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 0,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0.0,
-                        "newActiveQuotes": 1,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 1,
                         "expiredContracts": 0,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "dcdcbfd1-962a-4fe2-90ae-c5906915a683",
-                    "name": "Torp, Mayert and Yundt",
-                    "updatedAt": "1633370863246",
+                    "name": "Ullrich-Witting",
+                    "updatedAt": "1638478288296",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14152972052",
-                            "name": "Daren Flatley",
+                            "phoneNumber": "+9554481353097",
+                            "name": "Brendon Shields",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14152972052",
-                            "name": "Daren Flatley",
+                            "phoneNumber": "+9554481353097",
+                            "name": "Brendon Shields",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "62641",
-                            "address": "7336 Newton Points",
-                            "city": "North Vada",
+                            "zip": "34401-3973",
+                            "address": "5218 Bednar Green",
+                            "city": "Gusikowskihaven",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-15.09124",
-                            "longitude": "66.159373",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "3.572286",
+                            "longitude": "25.723792",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

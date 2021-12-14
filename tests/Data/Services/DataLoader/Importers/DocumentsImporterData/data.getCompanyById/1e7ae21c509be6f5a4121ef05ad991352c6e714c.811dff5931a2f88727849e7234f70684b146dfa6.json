@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0dc5ead1-a082-4249-9918-117e67a34ab9",
-                    "name": "Dare PLC",
-                    "updatedAt": "1633338501856",
+                    "name": "Cole, Weber and Kunze",
+                    "updatedAt": "1639134929436",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Gerry Larkin",
+                            "name": "Rashawn Stamm Jr.",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Gerry Larkin",
+                            "name": "Rashawn Stamm Jr.",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82206-3663",
-                            "address": "7659 Hermiston Summit Suite 519",
-                            "city": "Schoenland",
+                            "zip": "72352",
+                            "address": "853 Theresia Loaf Apt. 023",
+                            "city": "West Kaseymouth",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "43.549666",
-                            "longitude": "18.652521",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-87.25636",
+                            "longitude": "-177.710824",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,

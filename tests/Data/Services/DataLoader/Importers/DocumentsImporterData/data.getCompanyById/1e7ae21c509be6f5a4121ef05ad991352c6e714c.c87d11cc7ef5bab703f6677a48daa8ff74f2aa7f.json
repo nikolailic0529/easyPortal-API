@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "4ae28414-3992-4350-abca-f933625fc3db",
-                    "name": "Kutch-Hegmann",
-                    "updatedAt": "1633333670183",
+                    "name": "Von Group",
+                    "updatedAt": "1639139234794",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12486640686",
-                            "name": "Reymundo Schaefer I",
+                            "phoneNumber": "+9691688534537",
+                            "name": "Mr. Tremayne Witting",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12486640686",
-                            "name": "Reymundo Schaefer I",
+                            "phoneNumber": "+9691688534537",
+                            "name": "Mr. Tremayne Witting",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12486640686",
-                            "name": "Reymundo Schaefer I",
+                            "phoneNumber": "+9691688534537",
+                            "name": "Mr. Tremayne Witting",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "65983",
-                            "address": "659 McGlynn Points Apt. 151",
-                            "city": "Smithmouth",
+                            "zip": "78065",
+                            "address": "304 Everett Mount Suite 491",
+                            "city": "Keeblerland",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-83.460001",
-                            "longitude": "-153.016055",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "33.199409",
+                            "longitude": "79.656652",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

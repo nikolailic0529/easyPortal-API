@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3b22ef54-5e0b-4364-8b0f-0d2ed0135472",
-                    "name": "Marvin, Graham and Carter",
-                    "updatedAt": "1633383575988",
+                    "name": "Torphy, Graham and Dach",
+                    "updatedAt": "1639137820830",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18579743949",
-                            "name": "Vince Ullrich III",
+                            "phoneNumber": "+6677308167564",
+                            "name": "Jesse Smith MD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18579743949",
-                            "name": "Vince Ullrich III",
+                            "phoneNumber": "+6677308167564",
+                            "name": "Jesse Smith MD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18579743949",
-                            "name": "Vince Ullrich III",
+                            "phoneNumber": "+6677308167564",
+                            "name": "Jesse Smith MD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "43159",
-                            "address": "5302 Dickinson Ridge Apt. 976",
-                            "city": "South Maytown",
+                            "zip": "78317",
+                            "address": "2893 Lucius Course Suite 383",
+                            "city": "North Felton",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-64.872943",
-                            "longitude": "125.812529",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "10.950584",
+                            "longitude": "113.387086",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

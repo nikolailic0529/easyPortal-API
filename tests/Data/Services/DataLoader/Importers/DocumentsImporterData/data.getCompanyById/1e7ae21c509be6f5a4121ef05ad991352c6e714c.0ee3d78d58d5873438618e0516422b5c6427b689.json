@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "8fcc485d-f48c-4b6a-a001-d3e98e20b39f",
-                    "name": "Sawayn, Rau and Okuneva",
-                    "updatedAt": "1633417188803",
+                    "name": "Kassulke-Sipes",
+                    "updatedAt": "1639132846482",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "70632",
-                            "address": "167 Doyle Plain Suite 800",
-                            "city": "New Felicia",
+                            "zip": "66945-1737",
+                            "address": "19417 Paris Wall Suite 725",
+                            "city": "East Marisolberg",
                             "locationType": "HEADQUARTER",
-                            "country": "Indonesia",
-                            "latitude": "56.589886",
-                            "longitude": "12.24323",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-20.371812",
+                            "longitude": "-128.318763",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -39,7 +39,7 @@
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": 1,
-                        "newActiveCustomers": 1,
+                        "newActiveCustomers": 0,
                         "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,

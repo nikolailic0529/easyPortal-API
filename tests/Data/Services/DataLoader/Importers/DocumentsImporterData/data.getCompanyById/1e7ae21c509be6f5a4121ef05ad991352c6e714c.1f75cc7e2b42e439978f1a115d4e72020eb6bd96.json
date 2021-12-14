@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "7d49688d-6842-4d20-bd68-3b8b114ab89d",
-                    "name": "Ritchie LLC",
-                    "updatedAt": "1633346401917",
+                    "name": "Lockman, Goodwin and Yundt",
+                    "updatedAt": "1639143050421",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "72106-3197",
-                            "address": "2340 Jayce Plaza",
-                            "city": "Larsonmouth",
+                            "zip": "23029",
+                            "address": "2822 Frami Spur Apt. 023",
+                            "city": "Lake Kenna",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "61.360336",
-                            "longitude": "-135.678932",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-19.446941",
+                            "longitude": "160.827651",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -63,11 +63,11 @@
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 3,
-                        "activeQuotesTotalAmount": 1212.72,
-                        "newActiveQuotes": 3,
-                        "expiringQuotes": 1,
-                        "expiredQuotes": 8,
+                        "activeQuotes": 2,
+                        "activeQuotesTotalAmount": 1001.16,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 9,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

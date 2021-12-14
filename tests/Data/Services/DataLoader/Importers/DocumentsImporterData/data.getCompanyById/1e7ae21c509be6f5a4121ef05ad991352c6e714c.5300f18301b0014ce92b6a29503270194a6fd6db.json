@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1e741743-b1f0-42dd-b5c1-95eb48bf4157",
-                    "name": "Feil, Kunze and Walter",
-                    "updatedAt": "1633342053345",
+                    "name": "Daugherty-Langosh",
+                    "updatedAt": "1639135750367",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14589342388",
-                            "name": "Frida Kiehn I",
+                            "phoneNumber": "+8789624357946",
+                            "name": "Sierra Carter",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14589342388",
-                            "name": "Frida Kiehn I",
+                            "phoneNumber": "+8789624357946",
+                            "name": "Sierra Carter",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14589342388",
-                            "name": "Frida Kiehn I",
+                            "phoneNumber": "+8789624357946",
+                            "name": "Sierra Carter",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "12938",
-                            "address": "1789 Abbigail Springs",
-                            "city": "Bernhardland",
+                            "zip": "31333",
+                            "address": "367 Wilderman Motorway",
+                            "city": "Ullrichport",
                             "locationType": null,
-                            "country": "Svalbard & Jan Mayen Islands",
-                            "latitude": "7.344941",
-                            "longitude": "-169.135517",
-                            "countryCode": "FO"
+                            "country": "Indonesia",
+                            "latitude": "-26.906479",
+                            "longitude": "-3.187546",
+                            "countryCode": "DM"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

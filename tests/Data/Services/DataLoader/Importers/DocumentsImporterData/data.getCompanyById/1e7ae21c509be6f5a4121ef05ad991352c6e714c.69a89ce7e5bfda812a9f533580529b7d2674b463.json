@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "e70e8372-5bc8-4719-8e32-d4eababf8cbd",
-                    "name": "Fisher Inc",
-                    "updatedAt": "1633335416196",
+                    "name": "McGlynn-Bradtke",
+                    "updatedAt": "1638478907939",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15178259069",
-                            "name": "Amira Macejkovic V",
+                            "phoneNumber": "+5830917777843",
+                            "name": "Lindsay Towne",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15178259069",
-                            "name": "Amira Macejkovic V",
+                            "phoneNumber": "+5830917777843",
+                            "name": "Lindsay Towne",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15178259069",
-                            "name": "Amira Macejkovic V",
+                            "phoneNumber": "+5830917777843",
+                            "name": "Lindsay Towne",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "52169",
-                            "address": "75208 Sophie Mount Suite 517",
-                            "city": "Torranceshire",
+                            "zip": "46911",
+                            "address": "1479 Tianna Mission Apt. 822",
+                            "city": "West Francesca",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-63.479703",
-                            "longitude": "-153.688819",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-80.655855",
+                            "longitude": "89.658169",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 0,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0.0,
-                        "newActiveQuotes": 1,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
                         "expiredContracts": 1,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

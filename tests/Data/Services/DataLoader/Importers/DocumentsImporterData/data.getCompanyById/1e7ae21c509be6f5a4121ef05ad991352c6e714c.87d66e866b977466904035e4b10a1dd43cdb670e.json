@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "ea6d0bee-5d1a-47ea-bc43-1af56cf78dec",
-                    "name": "O'Hara Group",
-                    "updatedAt": "1633337266659",
+                    "name": "Cummerata and Sons",
+                    "updatedAt": "1639133477819",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "99215-9060",
-                            "address": "347 Kuvalis Crossroad",
-                            "city": "Medhursthaven",
+                            "zip": "77057-8307",
+                            "address": "832 Weissnat Wall Apt. 414",
+                            "city": "Fridaport",
                             "locationType": "HEADQUARTER",
-                            "country": "Taiwan",
-                            "latitude": "-44.688199",
-                            "longitude": "-102.324325",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "17.298399",
+                            "longitude": "66.945106",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -39,7 +39,7 @@
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": 13,
-                        "newActiveCustomers": 13,
+                        "newActiveCustomers": 0,
                         "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,

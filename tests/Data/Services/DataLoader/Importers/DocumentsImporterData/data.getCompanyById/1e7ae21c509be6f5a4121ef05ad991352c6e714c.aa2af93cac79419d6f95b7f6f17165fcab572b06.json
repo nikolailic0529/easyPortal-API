@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
-                    "name": "Kertzmann-Bradtke",
-                    "updatedAt": "1633351086934",
+                    "name": "Zboncak, Rau and Klocko",
+                    "updatedAt": "1638470977132",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14780895402",
-                            "name": "Arvilla Hill",
+                            "phoneNumber": "+4057784568702",
+                            "name": "Billy Konopelski",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14780895402",
-                            "name": "Arvilla Hill",
+                            "phoneNumber": "+4057784568702",
+                            "name": "Billy Konopelski",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14780895402",
-                            "name": "Arvilla Hill",
+                            "phoneNumber": "+4057784568702",
+                            "name": "Billy Konopelski",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "07734",
-                            "address": "5204 Witting Summit Suite 525",
-                            "city": "Hartmannport",
+                            "zip": "48227-1192",
+                            "address": "9254 Maggio Rapids Suite 451",
+                            "city": "East Skye",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "35.899913",
-                            "longitude": "-97.141792",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-79.955395",
+                            "longitude": "119.406223",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -62,10 +62,10 @@
                         "activeContracts": 1,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0.0,
-                        "newActiveQuotes": 1,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 1,
                         "expiredQuotes": 1,
                         "expiredContracts": 0,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

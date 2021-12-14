@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "66065912-aff9-4323-9dde-bb4c54512db4",
-                    "name": "Schuster-Hansen",
-                    "updatedAt": "1633343350307",
+                    "name": "D'Amore LLC",
+                    "updatedAt": "1639141269484",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13071198108",
-                            "name": "Prof. Terry Moen",
+                            "phoneNumber": "+8169666317690",
+                            "name": "Miss Anissa DuBuque",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13071198108",
-                            "name": "Prof. Terry Moen",
+                            "phoneNumber": "+8169666317690",
+                            "name": "Miss Anissa DuBuque",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "13789",
-                            "address": "9626 Kira Centers Suite 852",
-                            "city": "Clarissaburgh",
+                            "zip": "78309-1606",
+                            "address": "162 Nader Landing",
+                            "city": "Huldaport",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "38.948053",
-                            "longitude": "-154.678882",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "42.883876",
+                            "longitude": "133.318208",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

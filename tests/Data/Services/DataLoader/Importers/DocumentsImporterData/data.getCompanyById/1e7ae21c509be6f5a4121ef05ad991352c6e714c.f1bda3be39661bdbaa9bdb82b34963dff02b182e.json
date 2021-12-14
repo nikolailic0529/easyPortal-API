@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "f2a020bc-0b1f-4b6d-9f8b-f9a1ffa5fb91",
-                    "name": "Mitchell Inc",
-                    "updatedAt": "1633360670399",
+                    "name": "Johns-Runte",
+                    "updatedAt": "1638480176399",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Lucile Simonis I",
+                            "name": "Everardo Russel",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dexter Witting",
+                            "name": "Jennifer Lehner",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Lucile Simonis I",
+                            "name": "Everardo Russel",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "71331-8991",
-                            "address": "56521 Aurelia Turnpike Apt. 931",
-                            "city": "West Travon",
+                            "zip": "08308-1579",
+                            "address": "36634 Devin Manor",
+                            "city": "Dachville",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-5.785486",
-                            "longitude": "109.576639",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-64.361064",
+                            "longitude": "-108.005026",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 0,
                         "activeQuotes": 5,
                         "activeQuotesTotalAmount": 0.0,
-                        "newActiveQuotes": 5,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 1,
                         "expiredQuotes": 3,
                         "expiredContracts": 14,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

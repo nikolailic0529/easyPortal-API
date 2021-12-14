@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Kuhn LLC",
+                    "name": "Ryan-Kautzer",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "49934",
-                            "address": "8659 Hyatt Forks Apt. 004",
-                            "city": "Leslieside",
+                            "zip": "92044",
+                            "address": "1315 Nyah Mountain Suite 910",
+                            "city": "Mossieshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Taiwan",
-                            "latitude": "-28.057194",
-                            "longitude": "-129.717",
-                            "countryCode": "MS"
+                            "country": "Martinique",
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": null
                         }
                     ],
                     "brandingData": null,

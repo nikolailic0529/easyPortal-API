@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "0ada2df3-6fc0-4f16-8383-1fe11757f38d",
-                    "name": "Crist, Prosacco and Vandervort",
-                    "updatedAt": "1633338435839",
+                    "name": "Williamson-Reichel",
+                    "updatedAt": "1639134795094",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,7 +23,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "84913",
-                            "address": "872 Moen Oval Apt. 076",
-                            "city": "North Gregg",
+                            "zip": "85134",
+                            "address": "1655 Hattie Parks",
+                            "city": "West Margueritemouth",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "89.372554",
-                            "longitude": "-70.481305",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "39.816242",
+                            "longitude": "-6.997183",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,

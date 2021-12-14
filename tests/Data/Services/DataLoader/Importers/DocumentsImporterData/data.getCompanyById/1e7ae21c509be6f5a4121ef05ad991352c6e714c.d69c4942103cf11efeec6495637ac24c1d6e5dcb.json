@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "599801e0-0acb-436b-b24b-522cfc1f1c2e",
-                    "name": "Padberg, Morar and Schuster",
-                    "updatedAt": "1633334866532",
+                    "name": "Rippin Inc",
+                    "updatedAt": "1639140642488",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13865637591",
-                            "name": "Nash Roob",
+                            "phoneNumber": "+5206336245660",
+                            "name": "Tara Carter",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dexter Witting",
+                            "name": "Jennifer Lehner",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13865637591",
-                            "name": "Nash Roob",
+                            "phoneNumber": "+5206336245660",
+                            "name": "Tara Carter",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "15049",
-                            "address": "1703 Casper Pines",
-                            "city": "West Travon",
+                            "zip": "29421",
+                            "address": "12355 Amalia Rest Suite 343",
+                            "city": "Dachville",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "14.409913",
-                            "longitude": "-79.670181",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-32.158804",
+                            "longitude": "162.326033",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 24,
                         "activeQuotes": 35,
                         "activeQuotesTotalAmount": 3823.89,
-                        "newActiveQuotes": 35,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 23,
                         "expiredQuotes": 5,
                         "expiredContracts": 16,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

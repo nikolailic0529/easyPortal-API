@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d1f6d61b-6197-4788-b4db-1a4acd420a2b",
-                    "name": "Murphy PLC",
-                    "updatedAt": "1633362426426",
+                    "name": "Schroeder, Kihn and Muller",
+                    "updatedAt": "1638477602473",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16618405890",
-                            "name": "Lorenzo Lubowitz",
+                            "phoneNumber": "+7927211669893",
+                            "name": "Ahmed Nitzsche",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16618405890",
-                            "name": "Lorenzo Lubowitz",
+                            "phoneNumber": "+7927211669893",
+                            "name": "Ahmed Nitzsche",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16618405890",
-                            "name": "Lorenzo Lubowitz",
+                            "phoneNumber": "+7927211669893",
+                            "name": "Ahmed Nitzsche",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "36000",
-                            "address": "2089 Cartwright Point Suite 074",
-                            "city": "Lake Violetside",
+                            "zip": "72270-1945",
+                            "address": "8285 Quigley Trace",
+                            "city": "South Aracely",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-39.122185",
-                            "longitude": "99.519713",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "62.38627",
+                            "longitude": "-147.228052",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 0,
                         "activeQuotes": 4,
                         "activeQuotesTotalAmount": 0.0,
-                        "newActiveQuotes": 4,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 6,
                         "expiredContracts": 0,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

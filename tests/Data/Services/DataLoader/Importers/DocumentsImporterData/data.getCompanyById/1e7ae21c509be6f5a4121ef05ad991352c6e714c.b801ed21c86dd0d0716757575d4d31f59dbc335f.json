@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "4cbc4d85-f593-428c-bcf1-a91762e34447",
-                    "name": "Hansen-Smith",
-                    "updatedAt": "1633333729876",
+                    "name": "Borer-Haley",
+                    "updatedAt": "1639139321907",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,7 +23,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "63719",
-                            "address": "895 Bashirian Streets Apt. 307",
-                            "city": "Lake Pedrofort",
+                            "zip": "12747-0774",
+                            "address": "40469 Kohler Avenue Apt. 061",
+                            "city": "Phyllishaven",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-1.885344",
-                            "longitude": "-151.365028",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-8.791158",
+                            "longitude": "-18.759751",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1869320d-1466-44c8-aff7-171700a9f1e3",
-                    "name": "Bradtke-West",
-                    "updatedAt": "1633341493806",
+                    "name": "Kuphal, Hilpert and Auer",
+                    "updatedAt": "1639135449829",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14156887685",
-                            "name": "Timmy Collins Sr.",
+                            "phoneNumber": "+6213768048295",
+                            "name": "Aaliyah Crona IV",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14156887685",
-                            "name": "Timmy Collins Sr.",
+                            "phoneNumber": "+6213768048295",
+                            "name": "Aaliyah Crona IV",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14156887685",
-                            "name": "Timmy Collins Sr.",
+                            "phoneNumber": "+6213768048295",
+                            "name": "Aaliyah Crona IV",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "56758",
-                            "address": "24560 Dominic Oval",
-                            "city": "West Javonteview",
+                            "zip": "76684",
+                            "address": "8631 Lucas Orchard",
+                            "city": "New Elinor",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-87.276948",
-                            "longitude": "-38.877676",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-8.686468",
+                            "longitude": "7.104096",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,

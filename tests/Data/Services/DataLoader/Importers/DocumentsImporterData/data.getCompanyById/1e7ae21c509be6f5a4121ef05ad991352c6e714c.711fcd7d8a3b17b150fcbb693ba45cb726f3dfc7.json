@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0cf36158-bd01-4a59-b895-a00704462677",
-                    "name": "Wiegand, Leffler and Rempel",
-                    "updatedAt": "1633338482110",
+                    "name": "O'Reilly LLC",
+                    "updatedAt": "1639134890436",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Lawson Zulauf DVM",
+                            "name": "Dejuan McDermott",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Lawson Zulauf DVM",
+                            "name": "Dejuan McDermott",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "39055-7865",
-                            "address": "281 Haley Parks",
-                            "city": "Beierview",
+                            "zip": "20973-0370",
+                            "address": "47179 Davis Village",
+                            "city": "South Lizeth",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "32.135143",
-                            "longitude": "165.548793",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-41.245602",
+                            "longitude": "142.851265",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "acf4b516-e2d7-40b7-b8af-004f4d690415",
-                    "name": "Moen Group",
-                    "updatedAt": "1633354128447",
+                    "name": "Zboncak, Gleason and Schuster",
+                    "updatedAt": "1638471753831",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,7 +23,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "98445-4720",
-                            "address": "468 Blanda Shores",
-                            "city": "Lake Violetside",
+                            "zip": "08752-2162",
+                            "address": "33489 Brandyn Summit",
+                            "city": "South Aracely",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-37.726005",
-                            "longitude": "53.311527",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-1.88116",
+                            "longitude": "67.855494",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

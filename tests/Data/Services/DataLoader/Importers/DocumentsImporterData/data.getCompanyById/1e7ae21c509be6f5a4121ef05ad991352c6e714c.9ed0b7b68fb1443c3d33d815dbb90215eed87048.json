@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "b4f9a86f-5e86-46be-ba0e-c9e1bc959f3c",
-                    "name": "Rosenbaum, Cassin and Nader",
-                    "updatedAt": "1633355393120",
+                    "name": "Ratke, Nikolaus and Huels",
+                    "updatedAt": "1638472231579",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15165629374",
-                            "name": "Bill Ferry",
+                            "phoneNumber": "+7709052685810",
+                            "name": "Mr. Anastacio Pfeffer PhD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15165629374",
-                            "name": "Bill Ferry",
+                            "phoneNumber": "+7709052685810",
+                            "name": "Mr. Anastacio Pfeffer PhD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15165629374",
-                            "name": "Bill Ferry",
+                            "phoneNumber": "+7709052685810",
+                            "name": "Mr. Anastacio Pfeffer PhD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "70420-9701",
-                            "address": "59601 Kareem Garden Suite 506",
-                            "city": "Johnsonton",
+                            "zip": "62804",
+                            "address": "157 Nikki Locks",
+                            "city": "South Leopoldoberg",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "86.610376",
-                            "longitude": "78.457716",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-59.6426",
+                            "longitude": "84.549438",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -62,10 +62,10 @@
                         "activeContracts": 1,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 554.3,
-                        "newActiveQuotes": 1,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 6,
                         "expiredContracts": 3,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

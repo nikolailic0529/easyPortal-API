@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "c2e2afee-820b-409e-a0a7-18084c520461",
-                    "name": "Stracke Ltd",
-                    "updatedAt": "1633358802122",
+                    "name": "Stokes-Bosco",
+                    "updatedAt": "1638473547652",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16825280204",
-                            "name": "Lew Conroy MD",
+                            "phoneNumber": "+3216072360738",
+                            "name": "Madisyn Hahn",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dexter Witting",
+                            "name": "Jennifer Lehner",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16825280204",
-                            "name": "Lew Conroy MD",
+                            "phoneNumber": "+3216072360738",
+                            "name": "Madisyn Hahn",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "77045-3977",
-                            "address": "2287 Weston Mall Apt. 816",
-                            "city": "North Gussie",
+                            "zip": "36635",
+                            "address": "21529 Mertz Spring Suite 556",
+                            "city": "North Bradmouth",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "86.898971",
-                            "longitude": "46.5505",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "43.79013",
+                            "longitude": "-65.868484",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 107,
                         "activeQuotes": 200,
                         "activeQuotesTotalAmount": 63078.759999999995,
-                        "newActiveQuotes": 200,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 192,
                         "expiredQuotes": 827,
                         "expiredContracts": 808,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

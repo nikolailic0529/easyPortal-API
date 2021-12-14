@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "daf17cad-6736-4658-a88c-eee7b7035346",
-                    "name": "Aufderhar, Weimann and Bode",
-                    "updatedAt": "1633370818149",
+                    "name": "Abbott LLC",
+                    "updatedAt": "1638478180947",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Pierre Kutch",
+                            "name": "Kaya Rowe",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Pierre Kutch",
+                            "name": "Kaya Rowe",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Pierre Kutch",
+                            "name": "Kaya Rowe",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "17908",
-                            "address": "778 Hettinger Place",
-                            "city": "West Travon",
+                            "zip": "97852-7980",
+                            "address": "4843 Bradtke Summit",
+                            "city": "Dachville",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-25.602605",
-                            "longitude": "62.804648",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "54.21974",
+                            "longitude": "42.776031",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -62,11 +62,11 @@
                         "activeContracts": 17,
                         "activeContractTotalAmount": 565.2,
                         "newActiveContracts": null,
-                        "expiringContracts": 1,
+                        "expiringContracts": 4,
                         "activeQuotes": 8,
                         "activeQuotesTotalAmount": 854.3700000000001,
-                        "newActiveQuotes": 8,
-                        "expiringQuotes": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 4,
                         "expiredQuotes": 9,
                         "expiredContracts": 24,
                         "orderedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

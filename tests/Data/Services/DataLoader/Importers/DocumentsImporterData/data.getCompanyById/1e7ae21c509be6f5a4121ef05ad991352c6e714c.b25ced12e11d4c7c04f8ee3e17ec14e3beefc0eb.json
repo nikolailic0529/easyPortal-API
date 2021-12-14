@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f",
-                    "name": "Conroy-Cremin",
-                    "updatedAt": "1633391890101",
+                    "name": "DuBuque-Torp",
+                    "updatedAt": "1639131373550",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "36960",
-                            "address": "244 Gabrielle Underpass",
-                            "city": "West Jerome",
+                            "zip": "39434",
+                            "address": "656 Torphy Groves",
+                            "city": "Rosendoborough",
                             "locationType": "HEADQUARTER",
-                            "country": "Taiwan",
-                            "latitude": "54.556035",
-                            "longitude": "7.362907",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-56.472761",
+                            "longitude": "-174.157833",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -39,7 +39,7 @@
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": 2,
-                        "newActiveCustomers": 2,
+                        "newActiveCustomers": 0,
                         "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,

@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "580238f9-bdd2-46c0-a54f-bd2f6dfe15a8",
-                    "name": "Hand-Spinka",
-                    "updatedAt": "1633334824915",
+                    "name": "Simonis-Larson",
+                    "updatedAt": "1639140563138",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18083872212",
-                            "name": "Hosea Fadel",
+                            "phoneNumber": "+3021831002052",
+                            "name": "Kaylin Gaylord",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18083872212",
-                            "name": "Hosea Fadel",
+                            "phoneNumber": "+3021831002052",
+                            "name": "Kaylin Gaylord",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "06086",
-                            "address": "44794 Ondricka Crossing",
-                            "city": "West Jerome",
+                            "zip": "48620",
+                            "address": "173 Uriah Run Suite 946",
+                            "city": "Rosendoborough",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "61.567282",
-                            "longitude": "-176.832057",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-81.044093",
+                            "longitude": "0.805475",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

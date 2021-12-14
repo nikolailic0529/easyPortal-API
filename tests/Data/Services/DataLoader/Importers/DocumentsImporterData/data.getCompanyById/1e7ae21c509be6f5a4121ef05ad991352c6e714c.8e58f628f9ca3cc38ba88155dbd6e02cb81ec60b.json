@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "c9719ee6-0604-43f3-9e34-6effb43dcb4b",
-                    "name": "Schuppe, Schuppe and Goldner",
-                    "updatedAt": "1633358988429",
+                    "name": "Pacocha-Halvorson",
+                    "updatedAt": "1638476565677",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16897296628",
-                            "name": "Damian Boyle DDS",
+                            "phoneNumber": "+7196246830983",
+                            "name": "Haleigh Leuschke",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16897296628",
-                            "name": "Damian Boyle DDS",
+                            "phoneNumber": "+7196246830983",
+                            "name": "Haleigh Leuschke",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16897296628",
-                            "name": "Damian Boyle DDS",
+                            "phoneNumber": "+7196246830983",
+                            "name": "Haleigh Leuschke",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "47892",
-                            "address": "8006 Jettie Ridges Suite 893",
-                            "city": "Friesenstad",
+                            "zip": "39062",
+                            "address": "3290 Kieran Extensions",
+                            "city": "Port Duane",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-50.310586",
-                            "longitude": "-118.195859",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-2.195075",
+                            "longitude": "34.901995",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

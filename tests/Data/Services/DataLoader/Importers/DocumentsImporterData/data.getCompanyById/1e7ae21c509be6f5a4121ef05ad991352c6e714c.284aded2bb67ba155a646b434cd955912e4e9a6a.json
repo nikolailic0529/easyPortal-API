@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "8f4f286a-59b6-464e-9634-63a25298db57",
-                    "name": "Okuneva Group",
-                    "updatedAt": "1633348120947",
+                    "name": "Anderson LLC",
+                    "updatedAt": "1638469496494",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14585489028",
-                            "name": "Darrion McLaughlin",
+                            "phoneNumber": "+8808278474197",
+                            "name": "Demetrius Kemmer I",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14585489028",
-                            "name": "Darrion McLaughlin",
+                            "phoneNumber": "+8808278474197",
+                            "name": "Demetrius Kemmer I",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14585489028",
-                            "name": "Darrion McLaughlin",
+                            "phoneNumber": "+8808278474197",
+                            "name": "Demetrius Kemmer I",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "77045-3977",
-                            "address": "2287 Weston Mall Apt. 816",
-                            "city": "North Gussie",
+                            "zip": "36635",
+                            "address": "21529 Mertz Spring Suite 556",
+                            "city": "North Bradmouth",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "86.898971",
-                            "longitude": "46.5505",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "43.79013",
+                            "longitude": "-65.868484",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 52,
                         "activeQuotes": 42,
                         "activeQuotesTotalAmount": 11717.04,
-                        "newActiveQuotes": 42,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 39,
                         "expiredQuotes": 202,
                         "expiredContracts": 169,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "a3297dd0-f63e-4838-b596-5a034b64079f",
-                    "name": "Sipes PLC",
-                    "updatedAt": "1633351613066",
+                    "name": "Gutkowski-Schuppe",
+                    "updatedAt": "1638471230059",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12510166367",
-                            "name": "Prof. Pinkie Pouros Jr.",
+                            "phoneNumber": "+8381241097111",
+                            "name": "Ryleigh Weimann",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12510166367",
-                            "name": "Prof. Pinkie Pouros Jr.",
+                            "phoneNumber": "+8381241097111",
+                            "name": "Ryleigh Weimann",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12510166367",
-                            "name": "Prof. Pinkie Pouros Jr.",
+                            "phoneNumber": "+8381241097111",
+                            "name": "Ryleigh Weimann",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "09782-7293",
-                            "address": "4380 Collins Greens",
-                            "city": "North Gussie",
+                            "zip": "53587-1216",
+                            "address": "723 Leta Passage",
+                            "city": "North Bradmouth",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-73.14612",
-                            "longitude": "39.782809",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "87.169882",
+                            "longitude": "117.058042",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

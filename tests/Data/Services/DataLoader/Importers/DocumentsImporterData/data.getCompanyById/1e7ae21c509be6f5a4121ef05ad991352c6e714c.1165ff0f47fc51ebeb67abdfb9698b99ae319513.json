@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2544e72d-27cf-4a7b-8291-c3fd6c65f3f9",
-                    "name": "Keebler-Denesik",
-                    "updatedAt": "1633342675313",
+                    "name": "McCullough-Christiansen",
+                    "updatedAt": "1639136784581",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17268107199",
-                            "name": "Leila Auer",
+                            "phoneNumber": "+3249213165696",
+                            "name": "Rossie Pacocha",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17268107199",
-                            "name": "Leila Auer",
+                            "phoneNumber": "+3249213165696",
+                            "name": "Rossie Pacocha",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17268107199",
-                            "name": "Leila Auer",
+                            "phoneNumber": "+3249213165696",
+                            "name": "Rossie Pacocha",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "48665-5005",
-                            "address": "236 Hilbert Plaza",
-                            "city": "Okunevaborough",
+                            "zip": "70808-7401",
+                            "address": "232 Marquardt Roads Suite 563",
+                            "city": "New Gregshire",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-56.476042",
-                            "longitude": "-4.799948",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-55.693047",
+                            "longitude": "86.773766",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

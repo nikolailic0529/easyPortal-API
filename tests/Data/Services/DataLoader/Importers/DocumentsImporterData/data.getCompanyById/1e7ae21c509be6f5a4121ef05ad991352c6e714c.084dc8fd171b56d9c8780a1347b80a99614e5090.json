@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "433e2336-b5bd-4dd4-a0ee-a925a0e7996b",
-                    "name": "Beahan PLC",
-                    "updatedAt": "1633331288932",
+                    "name": "McGlynn-Runolfsdottir",
+                    "updatedAt": "1639138921111",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17040517296",
-                            "name": "Velma Ward",
+                            "phoneNumber": "+3431526068577",
+                            "name": "Ms. Kylie Bernier I",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17040517296",
-                            "name": "Velma Ward",
+                            "phoneNumber": "+3431526068577",
+                            "name": "Ms. Kylie Bernier I",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17040517296",
-                            "name": "Velma Ward",
+                            "phoneNumber": "+3431526068577",
+                            "name": "Ms. Kylie Bernier I",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "51503",
-                            "address": "2987 Junior Dam",
-                            "city": "West Emmanuel",
+                            "zip": "16976-9993",
+                            "address": "4798 Darby Point",
+                            "city": "West Haylie",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "71.989194",
-                            "longitude": "38.806228",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "20.294636",
+                            "longitude": "-166.758302",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 828,
-                        "activeAssets": 816,
-                        "activeAssetsPercentage": 98.55072463768117,
+                        "activeAssets": 781,
+                        "activeAssetsPercentage": 94.32367149758454,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 13,
+                        "activeContracts": 12,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 1,
+                        "expiringContracts": 2,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 76.64,
-                        "newActiveQuotes": 1,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 1,
                         "expiredQuotes": 0,
-                        "expiredContracts": 0,
+                        "expiredContracts": 1,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

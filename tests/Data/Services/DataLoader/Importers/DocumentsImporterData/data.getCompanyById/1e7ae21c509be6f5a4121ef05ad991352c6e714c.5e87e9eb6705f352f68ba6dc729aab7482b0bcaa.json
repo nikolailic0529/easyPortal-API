@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "54016e50-bfbb-4613-b91f-9abaf03b00ce",
-                    "name": "Johnson-Miller",
-                    "updatedAt": "1633334343296",
+                    "name": "Schuppe, Bechtelar and Thiel",
+                    "updatedAt": "1639139714575",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15672399592",
-                            "name": "Mr. Haskell Lind II",
+                            "phoneNumber": "+6313376682157",
+                            "name": "Ms. Shea Dietrich",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15672399592",
-                            "name": "Mr. Haskell Lind II",
+                            "phoneNumber": "+6313376682157",
+                            "name": "Ms. Shea Dietrich",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "47298",
-                            "address": "826 Dare Walks Apt. 687",
-                            "city": "Port Javontehaven",
+                            "zip": "61877",
+                            "address": "383 Buddy Lodge",
+                            "city": "Caesarfort",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-25.670859",
-                            "longitude": "-106.014569",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-81.58539",
+                            "longitude": "159.745281",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
@@ -65,7 +65,7 @@
                         "expiringContracts": 0,
                         "activeQuotes": 11,
                         "activeQuotesTotalAmount": 1396.78,
-                        "newActiveQuotes": 11,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 1,
                         "expiredQuotes": 28,
                         "expiredContracts": 0,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

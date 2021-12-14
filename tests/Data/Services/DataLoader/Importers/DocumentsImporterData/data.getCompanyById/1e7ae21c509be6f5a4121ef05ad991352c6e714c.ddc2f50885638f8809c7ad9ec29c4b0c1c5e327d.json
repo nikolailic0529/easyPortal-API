@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "daa843a3-203e-409c-b200-63a0bbee29aa",
-                    "name": "Hyatt, Wisozk and Abbott",
-                    "updatedAt": "1633370810415",
+                    "name": "Goyette, Lynch and Reynolds",
+                    "updatedAt": "1638478165133",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,7 +23,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Prof. Nicklaus Hauck",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "02844",
-                            "address": "5628 Sauer Mission",
-                            "city": "Lake Joelle",
+                            "zip": "29136",
+                            "address": "8484 Dewayne Grove",
+                            "city": "Tillmantown",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "0.96767",
-                            "longitude": "-112.383243",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-8.286421",
+                            "longitude": "63.479115",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 55,
-                        "activeAssets": 30,
-                        "activeAssetsPercentage": 54.54545454545454,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 1,
+                        "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 1,
+                        "expiringContracts": 0,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 2,
-                        "expiredContracts": 0,
+                        "expiredContracts": 1,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "09315cab-ce9b-4e99-9b80-4e6dc1dce88d",
-                    "name": "Rippin-Eichmann",
-                    "updatedAt": "1633338397806",
+                    "name": "Reynolds Inc",
+                    "updatedAt": "1639134730526",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Ramona Littel",
+                            "name": "Jed Watsica",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ramona Littel",
+                            "name": "Jed Watsica",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ramona Littel",
+                            "name": "Jed Watsica",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "94430-9024",
-                            "address": "1158 Marianna Loop",
-                            "city": "North Gussie",
+                            "zip": "39646",
+                            "address": "8662 Deanna Stravenue",
+                            "city": "North Bradmouth",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "-28.710979",
-                            "longitude": "107.249483",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "86.564793",
+                            "longitude": "-93.395459",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 9267,
-                        "activeAssets": 4100,
-                        "activeAssetsPercentage": 44.2430128412647,
+                        "activeAssets": 3911,
+                        "activeAssetsPercentage": 42.20351785906982,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 30,
+                        "activeContracts": 29,
                         "activeContractTotalAmount": 1709.6,
                         "newActiveContracts": null,
-                        "expiringContracts": 10,
+                        "expiringContracts": 11,
                         "activeQuotes": 9,
                         "activeQuotesTotalAmount": 2829.39,
-                        "newActiveQuotes": 9,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 8,
                         "expiredQuotes": 33,
-                        "expiredContracts": 42,
+                        "expiredContracts": 43,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -82,7 +82,7 @@
                         "serviceRevenueTotalAmountChange": null
                     },
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

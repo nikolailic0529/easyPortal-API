@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28",
-                    "name": "Wintheiser, Howe and Spinka",
-                    "updatedAt": "1633333117891",
+                    "name": "Feest-Stanton",
+                    "updatedAt": "1639133319785",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "94191-0122",
-                            "address": "577 Lia Route",
-                            "city": "Doyletown",
+                            "zip": "86860-4969",
+                            "address": "2181 Hazel Turnpike Apt. 879",
+                            "city": "Feilland",
                             "locationType": "HEADQUARTER",
-                            "country": "Taiwan",
-                            "latitude": "50.786431",
-                            "longitude": "70.822686",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "-60.468325",
+                            "longitude": "-14.101666",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
@@ -39,7 +39,7 @@
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": 2,
-                        "newActiveCustomers": 2,
+                        "newActiveCustomers": 0,
                         "activeContracts": 0,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,

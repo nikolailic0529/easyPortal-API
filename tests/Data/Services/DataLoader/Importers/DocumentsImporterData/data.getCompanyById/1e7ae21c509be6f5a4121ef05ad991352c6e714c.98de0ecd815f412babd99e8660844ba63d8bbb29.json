@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "b126338b-539c-4aba-936d-f02cd30bde5e",
-                    "name": "Torp-Kertzmann",
-                    "updatedAt": "1633355272194",
+                    "name": "Heaney, Dickinson and Reichel",
+                    "updatedAt": "1638471998509",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14320531841",
-                            "name": "Randall Kris PhD",
+                            "phoneNumber": "+3275568773393",
+                            "name": "Karolann Ledner",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14580817173",
-                            "name": "Claude Wolff",
+                            "phoneNumber": "+7322545704274",
+                            "name": "Lukas Sawayn",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14320531841",
-                            "name": "Randall Kris PhD",
+                            "phoneNumber": "+3275568773393",
+                            "name": "Karolann Ledner",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,33 +42,33 @@
                     ],
                     "locations": [
                         {
-                            "zip": "65128",
-                            "address": "19079 Vernon Grove Apt. 073",
-                            "city": "North Gussie",
+                            "zip": "67946",
+                            "address": "8788 Hollis Corners",
+                            "city": "North Bradmouth",
                             "locationType": null,
-                            "country": "Indonesia",
-                            "latitude": "5.86817",
-                            "longitude": "-44.531641",
-                            "countryCode": "GH"
+                            "country": "Bahrain",
+                            "latitude": "-84.690104",
+                            "longitude": "106.150849",
+                            "countryCode": "HN"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 43627,
-                        "activeAssets": 7899,
-                        "activeAssetsPercentage": 18.105760194375044,
+                        "activeAssets": 2577,
+                        "activeAssetsPercentage": 5.906892520686731,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 85,
+                        "activeContracts": 70,
                         "activeContractTotalAmount": 30524.29,
                         "newActiveContracts": null,
-                        "expiringContracts": 82,
+                        "expiringContracts": 70,
                         "activeQuotes": 102,
-                        "activeQuotesTotalAmount": 18856.74,
-                        "newActiveQuotes": 102,
+                        "activeQuotesTotalAmount": 18856.739999999998,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 102,
                         "expiredQuotes": 413,
-                        "expiredContracts": 424,
+                        "expiredContracts": 439,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -81,7 +81,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

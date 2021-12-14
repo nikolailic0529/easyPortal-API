@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0e29edd4-12f1-4787-8944-322a9b767cb2",
-                    "name": "Goyette-Nolan",
-                    "updatedAt": "1633338514984",
+                    "name": "Hammes Inc",
+                    "updatedAt": "1639134950655",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17430296226",
-                            "name": "Eloisa Nader",
+                            "phoneNumber": "+4664574791773",
+                            "name": "Julie O'Kon DDS",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17430296226",
-                            "name": "Felipa Auer",
+                            "phoneNumber": "+4664574791773",
+                            "name": "Nathen Rowe",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17430296226",
-                            "name": "Eloisa Nader",
+                            "phoneNumber": "+4664574791773",
+                            "name": "Julie O'Kon DDS",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "51410",
-                            "address": "80743 Harris Parks",
-                            "city": "Lake Jarvis",
+                            "zip": "71104",
+                            "address": "5139 Winona Fields Suite 167",
+                            "city": "Swiftland",
                             "locationType": null,
-                            "country": "Taiwan",
-                            "latitude": "-6.933568",
-                            "longitude": "-121.796185",
-                            "countryCode": "MS"
+                            "country": "Ethiopia",
+                            "latitude": "28.931229",
+                            "longitude": "71.437103",
+                            "countryCode": "KP"
                         }
                     ],
                     "brandingData": null,
