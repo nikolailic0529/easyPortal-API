@@ -4,9 +4,11 @@
     "params": [],
     "response": {
         "data": {
-            "getCentralAssetDbStatistics": {
-                "companiesResellerAmount": 4719
-            }
+            "getCentralAssetDbStatistics": [
+                {
+                    "companiesResellerAmount": 4720
+                }
+            ]
         }
     }
 }
