@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Steuber LLC",
+                    "name": "Lubowitz-Schimmel",
                     "updatedAt": "1631098284917",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "64850",
-                            "address": "550 Kub Stream",
-                            "city": "Rowechester",
+                            "zip": "92010-2083",
+                            "address": "7365 Mayer Corners",
+                            "city": "Ondrickashire",
                             "locationType": "HEADQUARTER",
-                            "country": "Maldives",
-                            "latitude": "67.899171",
-                            "longitude": "127.772387",
-                            "countryCode": "BR"
+                            "country": "Lao People's Democratic Republic",
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": null
                         }
                     ],
                     "brandingData": null,
