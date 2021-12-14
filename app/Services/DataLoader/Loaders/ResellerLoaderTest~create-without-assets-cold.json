@@ -28,6 +28,28 @@
         ]
     },
     {
+        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "inactive",
+            "reseller"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Reseller",
+            "INACTIVE",
+            "INACTIVE",
+            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            "2021-08-30 00:00:03",
+            "2021-08-30 00:00:03"
+        ]
+    },
+    {
         "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "hardware contact person",
@@ -40,9 +62,9 @@
             "Contact",
             "Hardware Contact Person",
             "Hardware Contact Person",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "2021-08-30 00:00:03",
-            "2021-08-30 00:00:03"
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:04",
+            "2021-08-30 00:00:04"
         ]
     },
     {
@@ -58,9 +80,9 @@
             "Contact",
             "System Manager",
             "System Manager",
-            "78282ba7-a73f-59f8-9871-ba703198d433",
-            "2021-08-30 00:00:04",
-            "2021-08-30 00:00:04"
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:05",
+            "2021-08-30 00:00:05"
         ]
     },
     {
@@ -76,9 +98,9 @@
             "Contact",
             "Software Contact Person",
             "Software Contact Person",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "2021-08-30 00:00:05",
-            "2021-08-30 00:00:05"
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "2021-08-30 00:00:06",
+            "2021-08-30 00:00:06"
         ]
     },
     {
@@ -94,17 +116,17 @@
     {
         "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
-            "us"
+            "ad"
         ]
     },
     {
         "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "US",
+            "AD",
             "Qatar",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "2021-08-30 00:00:06",
-            "2021-08-30 00:00:06"
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:00:07",
+            "2021-08-30 00:00:07"
         ]
     },
     {
@@ -114,44 +136,44 @@
     {
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "north lillianaview"
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "julianside"
         ]
     },
     {
         "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "North Lillianaview",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "Julianside",
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "2021-08-30 00:00:07",
-            "2021-08-30 00:00:07"
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:08",
+            "2021-08-30 00:00:08"
         ]
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "52960 stiedemann vista suite 118",
-            "75570-2132"
+            "3635 johnson drives suite 372",
+            "85046-1790"
         ]
     },
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "75570-2132",
-            "",
-            "52960 Stiedemann Vista Suite 118",
-            "",
-            "-66.473023",
-            "74.52014",
-            "jshvzdzyt47u",
             "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "2021-08-30 00:00:08",
-            "2021-08-30 00:00:08"
+            "85046-1790",
+            "",
+            "3635 Johnson Drives Suite 372",
+            "",
+            "-79.744752",
+            "-69.882505",
+            "43y63fcj5sg9",
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
+            "2021-08-30 00:00:09",
+            "2021-08-30 00:00:09"
         ]
     },
     {
@@ -174,6 +196,7 @@
             0,
             1,
             0.0,
+            0,
             1,
             0,
             0,
@@ -182,30 +205,39 @@
             0,
             0,
             0,
-            0,
             0.0,
             0.0,
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
-            "2021-08-30 00:00:09",
-            "2021-08-30 00:00:09"
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "2021-08-30 00:00:10",
+            "2021-08-30 00:00:10"
         ]
     },
     {
         "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `customers_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Torphy-Treutel",
+            "Bauch PLC",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-09-08 15:30:35",
-            0,
+            "2021-12-10 13:05:51",
             1,
             1,
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
-            "2021-08-30 00:00:10",
-            0,
-            0,
+            1,
+            "863f844b-efde-5781-a57c-0d127a496cfe",
             "2021-08-30 00:00:11",
-            "2021-08-30 00:00:11"
+            0,
+            0,
+            "2021-08-30 00:00:12",
+            "2021-08-30 00:00:12"
+        ]
+    },
+    {
+        "query": "insert into `reseller_statuses` (`status_id`, `reseller_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "2021-08-30 00:00:13",
+            "2021-08-30 00:00:13"
         ]
     },
     {
@@ -213,30 +245,10 @@
         "bindings": [
             "Reseller",
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Retha Crona",
-            "+15738720329",
+            "Colten Rempel",
+            "+2351100468428",
             null,
-            true,
-            "863f844b-efde-5781-a57c-0d127a496cfe",
-            "2021-08-30 00:00:12",
-            "2021-08-30 00:00:12"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "863f844b-efde-5781-a57c-0d127a496cfe",
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "2021-08-30 00:00:13",
-            "2021-08-30 00:00:13"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "78282ba7-a73f-59f8-9871-ba703198d433",
-            "863f844b-efde-5781-a57c-0d127a496cfe",
+            false,
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "2021-08-30 00:00:14",
             "2021-08-30 00:00:14"
@@ -245,21 +257,41 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "93dff777-6006-5616-bdb5-a56ec97248bb",
             "17b119b9-4e2f-59be-982f-ae4da47cddf7",
             "2021-08-30 00:00:15",
             "2021-08-30 00:00:15"
         ]
     },
     {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "93dff777-6006-5616-bdb5-a56ec97248bb",
+            "bb5cf030-282d-5742-abdb-557648ab4139",
+            "2021-08-30 00:00:16",
+            "2021-08-30 00:00:16"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "93dff777-6006-5616-bdb5-a56ec97248bb",
+            "81d95584-bdc4-5497-9ead-b81582b26bd2",
+            "2021-08-30 00:00:17",
+            "2021-08-30 00:00:17"
+        ]
+    },
+    {
         "query": "insert into `reseller_locations` (`reseller_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "0d8b1849-cb13-5658-b504-726208f6ccae",
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "2021-08-30 00:00:16",
-            "2021-08-30 00:00:16"
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "2021-08-30 00:00:18",
+            "2021-08-30 00:00:18"
         ]
     },
     {
@@ -272,9 +304,9 @@
         "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "Torphy-Treutel",
-            "2021-08-30 00:00:17",
-            "2021-08-30 00:00:17"
+            "Bauch PLC",
+            "2021-08-30 00:00:19",
+            "2021-08-30 00:00:19"
         ]
     },
     {
@@ -345,60 +377,60 @@
     {
         "query": "select * from `locations` where `id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     },
     {
         "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             0,
-            "2021-08-30 00:00:21",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:23",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "2021-08-30 00:00:21"
+            "2021-08-30 00:00:23"
         ]
     },
     {
         "query": "select * from `location_customers` where `deleted_at` is null and `location_customers`.`location_id` = ?",
         "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae"
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     }
 ]
