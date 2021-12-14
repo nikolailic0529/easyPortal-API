@@ -3148,7 +3148,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:36:09",
@@ -3175,7 +3175,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:36:19",
@@ -3202,7 +3202,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:36:29",
@@ -3229,7 +3229,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:36:39",
@@ -3256,7 +3256,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:36:49",
@@ -3282,7 +3282,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             0,
             "2021-08-30 00:36:59",
@@ -3309,7 +3309,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:37:09",
@@ -3702,7 +3702,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "04fa855e-091e-55a8-99da-a1624fb8253a"
         ]
@@ -3741,7 +3741,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0a775d76-3bb2-5cc6-98a2-7191afac6b91"
         ]
@@ -3753,7 +3753,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "2b861375-ade1-54ec-be9c-176c411736b4"
         ]
@@ -3781,7 +3781,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "362b2a7c-cf9f-586c-84d5-f9745ec0bb68"
         ]
@@ -3831,7 +3831,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "49af19cb-036b-57f7-874c-ae48888adcbc"
         ]
@@ -3843,7 +3843,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "678054a9-3274-53af-b3c5-305d99c7cb4c"
         ]
@@ -3882,7 +3882,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "6da0dd01-5e79-55d7-80d6-4a5d44b5ac7c"
         ]
@@ -3894,7 +3894,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "784893f2-8072-53c2-9932-79e1ff1bc437"
         ]
@@ -3906,7 +3906,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "99ca764f-3397-540d-ba39-2b81a15e0624"
         ]
@@ -3918,7 +3918,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ac072e58-e6a8-5601-a191-d6d9bb75d541"
         ]
@@ -3957,7 +3957,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b6bd49fb-9a4a-5809-b304-8cec7c3962f7"
         ]
@@ -3969,7 +3969,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "c4be0086-b010-5f27-8f67-ffba693eb6d7"
         ]
@@ -4008,7 +4008,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "c56d2324-c7e8-5478-bea9-c97bc9573934"
         ]
@@ -4036,7 +4036,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "cbd7b704-3dcd-52c1-9fab-eae8732af763"
         ]
@@ -4064,7 +4064,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e66b6850-acc8-5182-a02d-6dcb56f37ad5"
         ]
@@ -4092,7 +4092,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80"
         ]
@@ -4104,7 +4104,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "fbccd637-a1b5-5179-aaaa-c2928e04ad07"
         ]
@@ -4143,7 +4143,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "fdf45b90-43b7-5cfe-b207-1d6baabac8f0"
         ]
@@ -7042,7 +7042,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:49:32",
@@ -7068,7 +7068,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             0,
             "2021-08-30 00:49:42",
@@ -7095,7 +7095,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:49:52",
@@ -7122,7 +7122,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:50:02",
@@ -7149,7 +7149,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:50:12",
@@ -7176,7 +7176,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:50:22",
@@ -7203,7 +7203,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:50:32",
@@ -7230,7 +7230,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:50:42",
@@ -7257,7 +7257,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 00:50:52",
@@ -7650,7 +7650,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "02a2e600-5d24-57aa-bd01-194a1446a7e3"
         ]
@@ -7689,7 +7689,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "127a795c-0c96-5530-b4a4-f9e40cbf07ab"
         ]
@@ -7701,7 +7701,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "221eeb9d-2555-5807-ba51-c55e90790a9f"
         ]
@@ -7740,7 +7740,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "326f29ce-449c-5ec3-a939-4bafb38258ef"
         ]
@@ -7752,7 +7752,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
         ]
@@ -7764,7 +7764,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "3d8a8bda-81e3-5a97-9f57-b3ff9fab2788"
         ]
@@ -7803,7 +7803,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "435ba31b-3626-5814-a5f7-a46fbf6ac0bd"
         ]
@@ -7842,7 +7842,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "60675dbf-80f8-526e-b911-70816f927008"
         ]
@@ -7870,7 +7870,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "63472d7e-4cbf-51c2-9909-05e2cbca91be"
         ]
@@ -7882,7 +7882,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "76143473-6842-58cd-a8df-6c9c818bdcdb"
         ]
@@ -7921,7 +7921,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "76dc1bd8-f28b-5d78-a1fe-3950002e5872"
         ]
@@ -7933,7 +7933,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "9669ea09-ea08-5423-8277-62e986197d0a"
         ]
@@ -7972,7 +7972,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "9f2d2ca7-559c-5cec-9d4a-ee836de62c7c"
         ]
@@ -8000,7 +8000,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b"
         ]
@@ -8012,7 +8012,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
         ]
@@ -8024,7 +8024,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "a5a644d7-ea1d-582b-91eb-786495362e46"
         ]
@@ -8063,7 +8063,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "bf325e65-38a6-574d-b6b2-ee166953588e"
         ]
@@ -8075,7 +8075,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e6d734ae-140f-5e86-a6a5-a8005e736845"
         ]
@@ -10646,7 +10646,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:02:28",
@@ -10673,7 +10673,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:02:38",
@@ -10700,7 +10700,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:02:48",
@@ -10727,7 +10727,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:02:58",
@@ -10754,7 +10754,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:03:08",
@@ -10781,7 +10781,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:03:18",
@@ -10808,7 +10808,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:03:28",
@@ -11197,7 +11197,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "42727e4a-76ba-5a70-8a4a-61643276099f"
         ]
@@ -11236,7 +11236,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "5ea0a190-6335-59cd-8ec2-3ed19b3c286f"
         ]
@@ -11264,7 +11264,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594"
         ]
@@ -11276,7 +11276,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "65604b70-edb8-537a-a3b5-65ef2d5f97d2"
         ]
@@ -11288,7 +11288,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "751329de-0889-525b-afb7-3d0abe197d0a"
         ]
@@ -11316,7 +11316,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "79456eac-351a-5993-85d5-552cf4346967"
         ]
@@ -11328,7 +11328,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "886083e8-e006-5067-a35c-5b02e1e10e06"
         ]
@@ -11367,7 +11367,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "8aa06fc2-3232-5ebc-a82e-b463aab72859"
         ]
@@ -11406,7 +11406,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "8c3f697a-8de9-5c34-9219-21bcebcf88ed"
         ]
@@ -11445,7 +11445,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "9127b71a-0660-569e-a298-77974be6fffd"
         ]
@@ -11484,7 +11484,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "95ce4b47-fc5b-5216-8046-8dcd80ff1953"
         ]
@@ -11496,7 +11496,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "a916f797-9a7d-544b-b1be-e28aa5a704de"
         ]
@@ -11508,7 +11508,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "af1bc00d-cf32-5f42-91cb-ddb21eea65b7"
         ]
@@ -11536,7 +11536,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e1f914de-5d9b-59e1-a0c2-828a14c93b2b"
         ]
@@ -11575,7 +11575,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e268b786-8d37-53de-a8a5-4c22d64dc60a"
         ]
@@ -11587,7 +11587,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "f410e45f-7cbd-568c-83a7-c59193e79cfe"
         ]
@@ -15282,7 +15282,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:17:33",
@@ -15315,7 +15315,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             0,
             "2021-08-30 01:17:45",
@@ -15341,7 +15341,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             0,
             "2021-08-30 01:17:55",
@@ -15368,7 +15368,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:18:05",
@@ -15395,7 +15395,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:18:15",
@@ -15436,7 +15436,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:18:29",
@@ -15463,7 +15463,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:18:39",
@@ -15490,7 +15490,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:18:49",
@@ -15517,7 +15517,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:18:59",
@@ -15543,7 +15543,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             0,
             "2021-08-30 01:19:09",
@@ -15954,7 +15954,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0867a50d-9435-5053-8525-2e7fde523328"
         ]
@@ -15993,7 +15993,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec"
         ]
@@ -16005,7 +16005,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "1111b9fd-b8b4-58eb-a65c-417b1a423800"
         ]
@@ -16055,7 +16055,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "1546244d-ab5e-57b2-83aa-9616738f8b2e"
         ]
@@ -16094,7 +16094,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "25020d14-20da-52e0-9a14-a68a8cc9d57f"
         ]
@@ -16106,7 +16106,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "284eb6c4-fd7d-5988-b02b-7c4fc53e6309"
         ]
@@ -16118,7 +16118,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "377beb4c-2c47-5a14-b249-38dddb33c1e0"
         ]
@@ -16130,7 +16130,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "4f594d06-6c38-5241-82b6-41b575c43987"
         ]
@@ -16142,7 +16142,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "60180ac1-41ee-5bde-b27f-875d2bf737fc"
         ]
@@ -16181,7 +16181,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "751329de-0889-525b-afb7-3d0abe197d0a"
         ]
@@ -16193,7 +16193,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "7cecb585-147f-5e46-8b47-44f0cf9b7c22"
         ]
@@ -16232,7 +16232,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e"
         ]
@@ -16244,7 +16244,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "9aa5871b-dd32-527f-a78a-bbec176e1672"
         ]
@@ -16256,7 +16256,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "9ab7a8a9-6c70-5716-b817-786165f89b3b"
         ]
@@ -16268,7 +16268,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34"
         ]
@@ -16307,7 +16307,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b1136a17-b48c-5f54-921c-2f94e29176b5"
         ]
@@ -16319,7 +16319,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b3f7f2fa-1082-5415-9461-ac5b355e7390"
         ]
@@ -16347,7 +16347,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "c1b84c34-3e6c-5c8a-adcd-00c032e5497d"
         ]
@@ -16375,7 +16375,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "d473e847-27b3-5a2f-b31d-d2b6ef6154a9"
         ]
@@ -16414,7 +16414,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e7bb65ec-26fd-5d34-9d32-9c8004e17ae4"
         ]
@@ -18857,7 +18857,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:30:53",
@@ -18890,7 +18890,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:31:03",
@@ -18917,7 +18917,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:31:13",
@@ -18944,7 +18944,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:31:23",
@@ -18978,7 +18978,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:31:35",
@@ -19005,7 +19005,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:31:45",
@@ -19032,7 +19032,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:31:55",
@@ -19059,7 +19059,7 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `locations_count` = values(`locations_count`), `assets_count` = values(`assets_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             1,
             "2021-08-30 01:32:05",
@@ -19448,7 +19448,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "06b2f264-8e2f-5fef-a019-ca0ab541192d"
         ]
@@ -19487,7 +19487,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "20ed1ab4-7b2a-5746-8ead-c8e7b0803ca5"
         ]
@@ -19526,7 +19526,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "3c346ba5-fb54-5cfc-be58-f2f3135200df"
         ]
@@ -19565,7 +19565,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "550a6830-a3f8-525f-8d2f-77e43b95c51c"
         ]
@@ -19577,7 +19577,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "62b4a964-9ca8-5f45-9e19-8eb3adf194bf"
         ]
@@ -19589,7 +19589,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9"
         ]
@@ -19601,7 +19601,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "701cb66e-d09d-594c-b1e6-123db7b62492"
         ]
@@ -19613,7 +19613,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "8624bb37-c846-50b5-b14e-9eaf8f56c933"
         ]
@@ -19652,7 +19652,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "8801d050-7448-5710-a9e3-e6df85949679"
         ]
@@ -19664,7 +19664,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "9426ad29-9fa9-596a-904d-07f452ce7ffe"
         ]
@@ -19703,7 +19703,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "964e79c1-3d9b-59bf-88fd-8bb118839c42"
         ]
@@ -19742,7 +19742,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "a65b0772-2114-5c17-951d-38de5feda665"
         ]
@@ -19754,7 +19754,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b8ae2c4d-10af-5b92-818d-e7fa4e9a1e68"
         ]
@@ -19782,7 +19782,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "bf26cdb3-bfc8-5430-aba2-e4e5c9840ac1"
         ]
@@ -19821,7 +19821,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "f1b1ecde-fb18-5f4d-95f8-e3bba069c9a2"
         ]
@@ -19860,7 +19860,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "fd97c2c3-1c39-54f8-b1e6-42407440d4ab"
         ]

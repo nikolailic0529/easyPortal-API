@@ -21,7 +21,6 @@ trait WithKpi {
             $normalizer = $this->getNormalizer();
             $kpi        = ($owner->exists || $owner->relationLoaded('kpi') ? $owner->kpi : null) ?: new Kpi();
 
-            $kpi->object                              = $owner;
             $kpi->assets_total                        = (int) $normalizer->number($kpis->totalAssets);
             $kpi->assets_active                       = (int) $normalizer->number($kpis->activeAssets);
             $kpi->assets_active_percent               = (float) $normalizer->number($kpis->activeAssetsPercentage);

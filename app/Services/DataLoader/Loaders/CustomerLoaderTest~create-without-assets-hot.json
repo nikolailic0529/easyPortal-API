@@ -153,7 +153,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `deleted_at` is null and `location_resellers`.`location_id` = ?",
+        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
         ]

@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-use App\Utils\Eloquent\PolymorphicModel;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Kpi.
  *
  * @property string                                        $id
- * @property string                                        $object_id
- * @property string                                        $object_type
  * @property int                                           $assets_total
  * @property int                                           $assets_active
  * @property float                                         $assets_active_percent
@@ -47,7 +45,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Kpi query()
  * @mixin \Eloquent
  */
-class Kpi extends PolymorphicModel {
+class Kpi extends Model {
     use HasFactory;
 
     /**
