@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Customer;
+use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithKpi;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
@@ -152,6 +153,42 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
 
         // Return
         return $customer;
+    }
+
+    /**
+     * @param array<\App\Services\DataLoader\Schema\CompanyKpis> $kpis
+     *
+     * @return Collection<\App\Models\ResellerCustomer>
+     */
+    protected function resellers(Customer $customer, array $kpis = null): Collection {
+        $pivots   = new Collection();
+        $existing = $customer->resellersPivots->keyBy(
+            $customer->resellers()->getRelatedPivotKeyName(),
+        );
+
+        foreach ($kpis as $kpi) {
+            // Reseller?
+            if (!$kpi->resellerId) {
+                continue;
+            }
+
+            // Exists?
+            $id         = $this->normalizer->uuid($kpi->resellerId);
+            $pivot      = $existing->get($id) ?: new ResellerCustomer();
+            $pivot->kpi = $this->kpi($pivot, $kpi);
+
+            $pivots[$id] = $pivot;
+
+            // Mark
+            unset($existing[$id]);
+        }
+
+        foreach ($existing as $reseller => $pivot) {
+            $pivot->kpi        = null;
+            $pivots[$reseller] = $pivot;
+        }
+
+        return $pivots;
     }
     //</editor-fold>
 }

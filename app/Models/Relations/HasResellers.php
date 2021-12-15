@@ -13,6 +13,8 @@ use Illuminate\Support\Collection;
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
+ * @property \Illuminate\Support\Collection<string,TPivot> $resellersPivots
+ *
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasResellers {
@@ -29,11 +31,21 @@ trait HasResellers {
                 Reseller::class,
                 $pivot->getTable(),
                 foreignPivotKey: $this->getResellersForeignPivotKey(),
-                parentKey: $this->getResellersParentKey(),
+                parentKey      : $this->getResellersParentKey(),
             )
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
+    }
+
+    public function resellersPivots(): HasMany {
+        $resellers = $this->resellers();
+        $relation  = $this->hasMany(
+            $resellers->getPivotClass(),
+            $resellers->getForeignPivotKeyName(),
+        );
+
+        return $relation;
     }
 
     /**

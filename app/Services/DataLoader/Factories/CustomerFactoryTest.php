@@ -2,15 +2,20 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Models\Customer;
+use App\Models\Kpi;
+use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -339,6 +344,111 @@ class CustomerFactoryTest extends TestCase {
         $resolver->get($document->customerId);
 
         $this->assertCount(0, $this->getQueryLog());
+    }
+
+    /**
+     * @covers ::resellers
+     */
+    public function testResellers(): void {
+        $kpiA      = Kpi::factory()->create();
+        $kpiB      = Kpi::factory()->create();
+        $customer  = Customer::factory()->create();
+        $resellerA = ResellerCustomer::factory()
+            ->create([
+                'kpi_id'      => $kpiA,
+                'customer_id' => $customer,
+            ])
+            ->reseller_id;
+        $resellerB = ResellerCustomer::factory()
+            ->create([
+                'kpi_id'      => $kpiB,
+                'customer_id' => $customer,
+            ])
+            ->reseller_id;
+        $resellerC = $this->faker->uuid;
+        $kpis      = CompanyKpis::make([
+            // Should be ignored
+            [
+                'resellerId'  => null,
+                'totalAssets' => 1,
+            ],
+            // Should be updated
+            [
+                'resellerId'  => $resellerB,
+                'totalAssets' => 2,
+            ],
+            // Should be added
+            [
+                'resellerId'  => $resellerC,
+                'totalAssets' => 3,
+            ],
+        ]);
+
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = new class($normalizer) extends CustomerFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inerhitDoc
+             */
+            public function resellers(Customer $customer, array $kpis = null): Collection {
+                return parent::resellers($customer, $kpis);
+            }
+        };
+
+        $actual = $factory->resellers($customer, $kpis);
+
+        $this->assertTrue($customer->save());
+
+        $kpiC     = Kpi::query()
+            ->whereKeyNot($kpiA->getKey())
+            ->whereKeyNot($kpiB->getKey())
+            ->first();
+        $actual   = $actual
+            ->map(static function (ResellerCustomer $customer): array {
+                return [
+                    'customer_id' => $customer->customer_id,
+                    'reseller_id' => $customer->reseller_id,
+                    'kpi'         => [
+                        'id'           => $customer->kpi_id,
+                        'total_assets' => $customer->kpi->assets_total ?? null,
+                    ],
+                ];
+            })
+            ->all();
+        $expected = [
+            $resellerA => [
+                'customer_id' => $customer->getKey(),
+                'reseller_id' => $resellerA,
+                'kpi'         => [
+                    'id'           => null,
+                    'total_assets' => null,
+                ],
+            ],
+            $resellerB => [
+                'customer_id' => $customer->getKey(),
+                'reseller_id' => $resellerB,
+                'kpi'         => [
+                    'id'           => $kpiB->getKey(),
+                    'total_assets' => 2,
+                ],
+            ],
+            $resellerC => [
+                'customer_id' => null,
+                'reseller_id' => null,
+                'kpi'         => [
+                    'id'           => $kpiC->getKey(),
+                    'total_assets' => 3,
+                ],
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 
