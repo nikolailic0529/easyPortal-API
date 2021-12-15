@@ -167,6 +167,7 @@ class DocumentsTest extends TestCase {
                             name
                             code
                         }
+                        entries_count
                         entries {
                             id
                             document_id
@@ -215,6 +216,7 @@ class DocumentsTest extends TestCase {
                             name
                             code
                         }
+                        contacts_count
                         contacts {
                             name
                             email
@@ -385,15 +387,17 @@ class DocumentsTest extends TestCase {
                     'renewal'          => 24.20,
                 ])
                 ->create([
-                    'id'           => '323feb6f-dff3-4eb7-a2d6-b064139be2dd',
-                    'oem_said'     => '1234-5678-9012',
-                    'number'       => '1323',
-                    'price'        => 100,
-                    'start'        => '2021-01-01',
-                    'end'          => '2024-01-01',
-                    'assets_count' => 1,
-                    'changed_at'   => '2021-10-19 10:15:00',
-                    'synced_at'    => '2021-10-19 10:25:00',
+                    'id'             => '323feb6f-dff3-4eb7-a2d6-b064139be2dd',
+                    'oem_said'       => '1234-5678-9012',
+                    'number'         => '1323',
+                    'price'          => 100,
+                    'start'          => '2021-01-01',
+                    'end'            => '2024-01-01',
+                    'assets_count'   => 1,
+                    'entries_count'  => 2,
+                    'contacts_count' => 3,
+                    'changed_at'     => '2021-10-19 10:15:00',
+                    'synced_at'      => '2021-10-19 10:25:00',
                 ]);
 
             Document::factory()
@@ -426,15 +430,17 @@ class DocumentsTest extends TestCase {
                     'renewal'          => 24.20,
                 ])
                 ->create([
-                    'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                    'oem_said'     => '1234-5678-9012',
-                    'number'       => '1323',
-                    'price'        => 100,
-                    'start'        => '2021-01-01',
-                    'end'          => '2024-01-01',
-                    'assets_count' => 1,
-                    'changed_at'   => '2021-10-19 10:15:00',
-                    'synced_at'    => '2021-10-19 10:25:00',
+                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                    'oem_said'       => '1234-5678-9012',
+                    'number'         => '1323',
+                    'price'          => 100,
+                    'start'          => '2021-01-01',
+                    'end'            => '2024-01-01',
+                    'assets_count'   => 1,
+                    'entries_count'  => 2,
+                    'contacts_count' => 3,
+                    'changed_at'     => '2021-10-19 10:15:00',
+                    'synced_at'      => '2021-10-19 10:25:00',
                 ]);
 
             $customer->resellers()->attach($reseller, [
@@ -532,6 +538,7 @@ class DocumentsTest extends TestCase {
                 'name' => 'Currency1',
                 'code' => 'CUR',
             ],
+            'entries_count'  => 2,
             'entries'        => [
                 [
                     'id'               => '7294133d-33d4-4c0d-94bb-b012a5b0512c',
@@ -582,6 +589,7 @@ class DocumentsTest extends TestCase {
                 'name' => 'Lang1',
                 'code' => 'en',
             ],
+            'contacts_count' => 3,
             'contacts'       => [
                 [
                     'name'        => 'contact2',
@@ -687,6 +695,7 @@ class DocumentsTest extends TestCase {
                 'name' => 'Currency1',
                 'code' => 'CUR',
             ],
+            'entries_count'  => 2,
             'entries'        => [
                 [
                     'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
@@ -737,6 +746,7 @@ class DocumentsTest extends TestCase {
                 'name' => 'Lang1',
                 'code' => 'en',
             ],
+            'contacts_count' => 3,
             'contacts'       => [
                 [
                     'name'        => 'contact2',

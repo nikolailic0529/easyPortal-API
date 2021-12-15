@@ -509,6 +509,7 @@ class CustomerTest extends TestCase {
                                 name
                                 code
                             }
+                            entries_count
                             entries {
                                 id
                                 document_id
@@ -557,6 +558,7 @@ class CustomerTest extends TestCase {
                                 name
                                 code
                             }
+                            contacts_count
                             contacts {
                                 name
                                 email
@@ -707,6 +709,7 @@ class CustomerTest extends TestCase {
                                 name
                                 code
                             }
+                            entries_count
                             entries {
                                 id
                                 document_id
@@ -755,6 +758,7 @@ class CustomerTest extends TestCase {
                                 name
                                 code
                             }
+                            contacts_count
                             contacts {
                                 name
                                 email
@@ -1670,6 +1674,7 @@ class CustomerTest extends TestCase {
                                             'name' => 'Currency1',
                                             'code' => 'CUR',
                                         ],
+                                        'entries_count'  => 2,
                                         'entries'        => [
                                             [
                                                 'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
@@ -1720,6 +1725,7 @@ class CustomerTest extends TestCase {
                                             'name' => 'Lang1',
                                             'code' => 'en',
                                         ],
+                                        'contacts_count' => 3,
                                         'contacts'       => [
                                             [
                                                 'name'        => 'contact3',
@@ -1892,6 +1898,8 @@ class CustomerTest extends TestCase {
                                     'start'          => '2021-01-01',
                                     'end'            => '2024-01-01',
                                     'assets_count'   => 1,
+                                    'entries_count'  => 2,
+                                    'contacts_count' => 3,
                                     'statuses_count' => 1,
                                     'changed_at'     => '2021-10-19 10:15:00',
                                     'synced_at'      => '2021-10-19 10:25:00',
@@ -2143,6 +2151,8 @@ class CustomerTest extends TestCase {
                     'start'          => '2021-01-01',
                     'end'            => '2024-01-01',
                     'assets_count'   => 1,
+                    'entries_count'  => 2,
+                    'contacts_count' => 3,
                     'statuses_count' => 1,
                     'changed_at'     => '2021-10-19 10:15:00',
                     'synced_at'      => '2021-10-19 10:25:00',
@@ -2243,6 +2253,7 @@ class CustomerTest extends TestCase {
                         'name' => 'Currency1',
                         'code' => 'CUR',
                     ],
+                    'entries_count'  => 2,
                     'entries'        => [
                         [
                             'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
@@ -2293,6 +2304,7 @@ class CustomerTest extends TestCase {
                         'name' => 'Lang1',
                         'code' => 'en',
                     ],
+                    'contacts_count' => 3,
                     'contacts'       => [
                         [
                             'name'        => 'contact3',

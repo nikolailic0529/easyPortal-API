@@ -23,12 +23,14 @@ type Document {
   entries(
     where: DocumentEntriesQuery @searchBy
   ): [DocumentEntry!]! @hasMany
+  entries_count: Int!
   language_id: ID
   language: Language @belongsTo
   contacts (
     where: ContactsQuery @searchBy
     order: ContactsSort @sortBy
   ): [Contact!]! @morphMany
+  contacts_count: Int!
   distributor_id: ID
   distributor: Distributor @belongsTo
   assets_count: Int

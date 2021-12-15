@@ -961,9 +961,11 @@ type Document {
   is_contract: Boolean!
   is_quote: Boolean!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
+  entries_count: Int!
   language_id: ID
   language: Language
   contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
+  contacts_count: Int!
   distributor_id: ID
   distributor: Distributor
   assets_count: Int
