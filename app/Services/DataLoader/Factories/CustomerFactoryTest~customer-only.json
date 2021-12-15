@@ -55,5 +55,6 @@
         "activeExposedAssets": 24,
         "serviceRevenueTotalAmount": 25,
         "serviceRevenueTotalAmountChange": 26
-    }
+    },
+    "companyResellerKpis": null
 }

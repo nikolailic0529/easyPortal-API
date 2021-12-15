@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Customer;
 use App\Models\Kpi;
+use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -85,6 +86,11 @@ class CustomerFactoryTest extends TestCase {
         $factory    = $this->app->make(CustomerFactory::class);
         $normalizer = $this->app->make(Normalizer::class);
 
+        // Models
+        $reseller = Reseller::factory()->create([
+            'id' => '38722ba3-d1ee-46d0-ab7a-c9678258e493',
+        ]);
+
         // Load
         $json    = $this->getTestData()->json('~customer-full.json');
         $company = new Company($json);
@@ -108,6 +114,9 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($customer));
         $this->assertCount(2, $customer->locations);
         $this->assertEquals(2, $customer->locations_count);
+        $this->assertCount(1, $customer->resellersPivots);
+        $this->assertEquals($reseller->getKey(), $customer->resellersPivots->first()->reseller_id);
+        $this->assertNotNull($customer->resellersPivots->first()->kpi_id);
         $this->assertEquals(
             $this->getCompanyLocations($company),
             $this->getCompanyModelLocations($customer),
@@ -253,6 +262,9 @@ class CustomerFactoryTest extends TestCase {
             $this->getModelContacts($updated),
         );
         $this->assertNull($updated->kpi);
+        $this->assertCount(1, $updated->resellersPivots);
+        $this->assertEquals($reseller->getKey(), $updated->resellersPivots->first()->reseller_id);
+        $this->assertNull($updated->resellersPivots->first()->kpi_id);
 
         $this->flushQueryLog();
 

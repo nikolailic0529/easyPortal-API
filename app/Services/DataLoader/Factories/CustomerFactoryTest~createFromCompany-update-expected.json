@@ -1,4 +1,5 @@
 [
+    "select * from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
     "update `customers` set `name` = ?, `changed_at` = ?, `statuses_count` = ?, `contacts_count` = ?, `locations_count` = ?, `kpi_id` = ?, `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
     "update `customer_statuses` set `deleted_at` = ?, `customer_statuses`.`updated_at` = ? where `id` = ?",
     "update `contact_types` set `deleted_at` = ?, `contact_types`.`updated_at` = ? where `id` = ?",
@@ -10,5 +11,7 @@
     "update `customer_location_types` set `deleted_at` = ?, `customer_location_types`.`updated_at` = ? where `id` = ?",
     "update `customer_location_types` set `deleted_at` = ?, `customer_location_types`.`updated_at` = ? where `id` = ?",
     "update `customer_locations` set `deleted_at` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+    "update `kpis` set `deleted_at` = ?, `kpis`.`updated_at` = ? where `id` = ?",
+    "update `reseller_customers` set `kpi_id` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
     "update `kpis` set `deleted_at` = ?, `kpis`.`updated_at` = ? where `id` = ?"
 ]
