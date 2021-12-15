@@ -82,7 +82,14 @@
         "newActiveQuotes": 1,
         "expiringQuotes": 0
     },
-    "companyResellerKpis": null,
+    "companyResellerKpis": [
+        {
+            "resellerId": "8de430ea-f501-4a1d-8638-7207ca378aec",
+            "totalAssets": 23,
+            "activeAssets": 20,
+            "activeAssetsPercentage": 86.95652173913044
+        }
+    ],
     "status": [
         "INACTIVE"
     ]

@@ -32,7 +32,7 @@ class CompanyTest extends TestCase {
         $this->assertInstanceOf(ViewAsset::class, reset($actual->assets));
         $this->assertInstanceOf(BrandingData::class, $actual->brandingData);
         $this->assertInstanceOf(CompanyKpis::class, $actual->companyKpis);
-        $this->assertNull($actual->companyResellerKpis);
+        $this->assertInstanceOf(CompanyKpis::class, $actual->companyResellerKpis[0]);
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
