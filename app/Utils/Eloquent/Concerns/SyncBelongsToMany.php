@@ -10,12 +10,13 @@ use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Pivot as EloquentPivot;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LogicException;
 
+use function array_merge;
 use function is_a;
-use function is_array;
 use function reset;
 use function sprintf;
 
@@ -132,6 +133,13 @@ trait SyncBelongsToMany {
 
                 return $pivot;
             }
+
+            /**
+             * @return array<string, mixed>
+             */
+            public function getPivotAttributes(string $key): array {
+                return $this->belongsToMany->formatAttachRecord(0, $key, [], false);
+            }
         };
         $children       = new Collection();
         $existing       = new EloquentCollection();
@@ -147,10 +155,18 @@ trait SyncBelongsToMany {
         }
 
         foreach ($pivots as $key => $pivot) {
-            $attributes =  $pivot->getDirty();
+            $attributes = $pivot->getDirty();
 
             if ($existing->has($key)) {
-                $children->push($existing->get($key)->forceFill($attributes));
+                $object     = $existing->get($key);
+                $attributes = array_merge($attributes, $wrapper->getPivotAttributes($key));
+                $attributes = Arr::except($attributes, [
+                    $object->getKeyName(),
+                    $object->getCreatedAtColumn(),
+                    $object->getUpdatedAtColumn(),
+                ]);
+
+                $children->push($object->forceFill($attributes));
                 $existing->forget($key);
             } else {
                 $children->push($wrapper->createNewPivot($key, $attributes));
