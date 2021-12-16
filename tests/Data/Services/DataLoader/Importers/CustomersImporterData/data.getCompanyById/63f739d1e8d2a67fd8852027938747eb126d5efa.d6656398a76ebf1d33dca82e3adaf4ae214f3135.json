@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "5c0c8f15-a86f-4534-980b-9208a2e01233",
-                    "name": "Kub Ltd",
+                    "name": "Watsica Ltd",
                     "updatedAt": "1639140765542",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+6127236259346",
-                            "name": "Mr. Claude Zieme",
+                            "phoneNumber": "+4496553128335",
+                            "name": "Royal Hammes",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+6127236259346",
-                            "name": "Mr. Claude Zieme",
+                            "phoneNumber": "+4496553128335",
+                            "name": "Royal Hammes",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+6127236259346",
-                            "name": "Mr. Claude Zieme",
+                            "phoneNumber": "+4496553128335",
+                            "name": "Royal Hammes",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,13 +42,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "43613-7851",
-                            "address": "29422 Electa Harbors",
-                            "city": "Hermanburgh",
+                            "zip": "56389",
+                            "address": "77692 Einar Mews",
+                            "city": "Demetriusburgh",
                             "locationType": null,
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-42.481309",
-                            "longitude": "108.07465",
+                            "latitude": "3.89576",
+                            "longitude": "20.026207",
                             "countryCode": "LU"
                         }
                     ],

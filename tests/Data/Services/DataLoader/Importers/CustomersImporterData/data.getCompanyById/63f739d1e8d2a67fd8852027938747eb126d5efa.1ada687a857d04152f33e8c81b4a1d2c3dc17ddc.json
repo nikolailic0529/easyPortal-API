@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "afe646d5-3d89-4a68-bca4-4ad0be6be121",
-                    "name": "Balistreri Ltd",
+                    "name": "Stracke, Padberg and Ortiz",
                     "updatedAt": "1639133081558",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "10452",
-                            "address": "32134 Spinka Island",
-                            "city": "Jaquanberg",
+                            "zip": "38499-5504",
+                            "address": "7773 Brielle Ferry",
+                            "city": "Lexusbury",
                             "locationType": "HEADQUARTER",
                             "country": "Guadeloupe",
-                            "latitude": "34.450873",
-                            "longitude": "-152.581653",
+                            "latitude": "27.508648",
+                            "longitude": "-124.964635",
                             "countryCode": "SN"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "f099856f-d50e-4440-b938-375cab3b8e1b",
-                    "name": "Schiller, Dooley and O'Connell",
+                    "name": "Kreiger, McLaughlin and Kerluke",
                     "updatedAt": "1639133522259",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "24788",
-                            "address": "32432 Adeline Mission Apt. 153",
+                            "zip": "01637-1916",
+                            "address": "2091 Rowe Forges",
                             "city": "East Roryfort",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "39.883622",
-                            "longitude": "15.616688",
+                            "latitude": "67.255491",
+                            "longitude": "8.014421",
                             "countryCode": "LU"
                         }
                     ],

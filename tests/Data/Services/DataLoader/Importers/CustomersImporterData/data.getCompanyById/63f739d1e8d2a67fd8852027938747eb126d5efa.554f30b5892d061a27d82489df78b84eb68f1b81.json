@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "1a5ecce7-dfbf-462a-a4cc-a59528fb9d73",
-                    "name": "Rath, Ratke and Bashirian",
+                    "name": "Tillman and Sons",
                     "updatedAt": "1639131229516",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -24,12 +24,12 @@
                     "locations": [
                         {
                             "zip": "68411-6776",
-                            "address": "31576 Douglas Garden Suite 277",
+                            "address": "434 Cloyd Tunnel",
                             "city": "Port Elsa",
                             "locationType": "HEADQUARTER",
                             "country": "Iceland",
-                            "latitude": "23.179263",
-                            "longitude": "-176.155454",
+                            "latitude": "-72.930953",
+                            "longitude": "-104.894337",
                             "countryCode": "MQ"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "6829d438-60f2-41c7-a40f-c292d7330379",
-                    "name": "Reynolds-Konopelski",
+                    "name": "Reynolds Inc",
                     "updatedAt": "1639132478418",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "71918-0453",
-                            "address": "176 Patrick Rapids Apt. 929",
+                            "zip": "32708-9836",
+                            "address": "71625 Lueilwitz Summit",
                             "city": "Greentown",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "80.875971",
-                            "longitude": "-55.834489",
+                            "latitude": "83.978605",
+                            "longitude": "167.882857",
                             "countryCode": "LU"
                         }
                     ],

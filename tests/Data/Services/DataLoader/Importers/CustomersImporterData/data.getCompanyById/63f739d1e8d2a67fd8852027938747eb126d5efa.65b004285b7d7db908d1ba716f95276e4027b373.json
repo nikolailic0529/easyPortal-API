@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "dac60106-eeb0-435f-9527-3a29f85b8f38",
-                    "name": "Kautzer, Cronin and O'Hara",
+                    "name": "Gleason, Hegmann and Grady",
                     "updatedAt": "1639133358145",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "00917",
-                            "address": "28846 Ambrose Radial",
-                            "city": "Port Kelly",
+                            "zip": "84128-7756",
+                            "address": "663 Walter Landing",
+                            "city": "South Deontae",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-13.37188",
-                            "longitude": "69.201017",
+                            "latitude": "10.210329",
+                            "longitude": "155.369916",
                             "countryCode": "LU"
                         }
                     ],

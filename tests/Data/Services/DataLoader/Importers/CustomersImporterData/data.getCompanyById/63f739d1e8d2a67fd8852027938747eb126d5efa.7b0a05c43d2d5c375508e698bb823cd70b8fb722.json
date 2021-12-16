@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "902ea03a-8852-442c-a520-5f319b6d47f5",
-                    "name": "Homenick Ltd",
+                    "name": "Dooley Group",
                     "updatedAt": "1639132848357",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "61631",
-                            "address": "55530 Grant Turnpike",
+                            "zip": "88689",
+                            "address": "1799 McCullough Bridge",
                             "city": "Juanaport",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "-2.56757",
-                            "longitude": "126.515344",
+                            "latitude": "47.96551",
+                            "longitude": "136.224696",
                             "countryCode": "AG"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
-                    "name": "Effertz, Schultz and Stroman",
+                    "name": "Schmeler LLC",
                     "updatedAt": "1639131628898",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -25,12 +25,12 @@
                         {
                             "zip": "",
                             "address": "16982 Hahn Junction Apt. 596",
-                            "city": "Thielhaven",
+                            "city": "Schambergerburgh",
                             "locationType": "HEADQUARTER",
-                            "country": "Heard Island and McDonald Islands",
-                            "latitude": "-72.151856",
-                            "longitude": "-3.031534",
-                            "countryCode": "PS"
+                            "country": "Saint Lucia",
+                            "latitude": "-82.496954",
+                            "longitude": "-113.501434",
+                            "countryCode": "KR"
                         }
                     ],
                     "brandingData": null,

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "0ef725db-68a6-462d-8f03-05220c9c9ae6",
-                    "name": "Marquardt, Kohler and Shanahan",
+                    "name": "Beer, Schinner and Reinger",
                     "updatedAt": "1639131149405",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "34949-4618",
-                            "address": "93800 Mante Crescent",
-                            "city": "Lake Lolashire",
+                            "zip": "38997-2480",
+                            "address": "550 Larkin Squares",
+                            "city": "South Allymouth",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-36.042523",
-                            "longitude": "121.873844",
+                            "latitude": "73.828027",
+                            "longitude": "-123.342646",
                             "countryCode": "LU"
                         }
                     ],

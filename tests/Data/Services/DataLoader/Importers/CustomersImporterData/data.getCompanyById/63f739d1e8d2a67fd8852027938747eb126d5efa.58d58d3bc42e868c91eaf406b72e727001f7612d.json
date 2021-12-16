@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "bf766311-a200-453a-ab80-22bde604c287",
-                    "name": "Kohler-Block",
+                    "name": "Schmidt-McCullough",
                     "updatedAt": "1638473379030",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -17,7 +17,7 @@
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Reba Kihn",
+                            "name": "Wilson Rohan",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -29,7 +29,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Reba Kihn",
+                            "name": "Wilson Rohan",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,13 +42,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "09624",
-                            "address": "167 Adams Throughway",
-                            "city": "Jesusborough",
+                            "zip": "93866-8269",
+                            "address": "5218 Magdalen Ville",
+                            "city": "Gerholdchester",
                             "locationType": null,
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "29.939151",
-                            "longitude": "-21.115642",
+                            "latitude": "23.171371",
+                            "longitude": "-24.286928",
                             "countryCode": "LU"
                         }
                     ],

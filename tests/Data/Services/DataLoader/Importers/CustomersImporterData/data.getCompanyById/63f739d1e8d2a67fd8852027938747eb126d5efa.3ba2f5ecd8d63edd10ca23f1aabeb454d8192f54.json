@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "d04083cc-0b69-41d1-b8ce-b3460f9a3398",
-                    "name": "Adams-Altenwerth",
+                    "name": "Ankunding, Bruen and Mills",
                     "updatedAt": "1639133296550",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "26635",
-                            "address": "16719 Samson Mission",
-                            "city": "North Raphaelle",
+                            "zip": "88624",
+                            "address": "8113 Frederik Mews Apt. 108",
+                            "city": "North Odaton",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "61.3175",
-                            "longitude": "47.165893",
+                            "latitude": "28.308621",
+                            "longitude": "170.165514",
                             "countryCode": "LU"
                         }
                     ],

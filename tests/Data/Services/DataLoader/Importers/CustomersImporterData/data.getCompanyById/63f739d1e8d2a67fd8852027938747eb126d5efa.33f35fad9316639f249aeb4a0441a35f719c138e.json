@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "9ce50ef2-25b0-49c1-b9ec-f90b0fa5cbd5",
-                    "name": "Mitchell, Mueller and Conroy",
+                    "name": "Kassulke, Cassin and DuBuque",
                     "updatedAt": "1639132938314",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "08653",
-                            "address": "363 Nikolaus Skyway Suite 435",
-                            "city": "West Joyce",
+                            "zip": "04805-8802",
+                            "address": "980 Fritsch Bypass",
+                            "city": "North Ricardo",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-66.068734",
-                            "longitude": "159.276511",
+                            "latitude": "65.926046",
+                            "longitude": "135.285034",
                             "countryCode": "LU"
                         }
                     ],

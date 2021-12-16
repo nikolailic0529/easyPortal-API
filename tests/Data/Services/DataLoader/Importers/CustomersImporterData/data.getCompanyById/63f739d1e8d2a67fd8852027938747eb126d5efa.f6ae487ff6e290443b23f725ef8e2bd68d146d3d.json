@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "8b9acb90-3827-467d-8d68-b47d840957f9",
-                    "name": "Olson Ltd",
+                    "name": "Schimmel-Dickens",
                     "updatedAt": "1639132817027",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89336",
-                            "address": "7332 Kole Prairie",
-                            "city": "Emmetbury",
+                            "zip": "10634-1885",
+                            "address": "8393 Justen Rue Apt. 851",
+                            "city": "West Hortense",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-30.860675",
-                            "longitude": "-15.13348",
+                            "latitude": "-47.388386",
+                            "longitude": "-47.252064",
                             "countryCode": "LU"
                         }
                     ],

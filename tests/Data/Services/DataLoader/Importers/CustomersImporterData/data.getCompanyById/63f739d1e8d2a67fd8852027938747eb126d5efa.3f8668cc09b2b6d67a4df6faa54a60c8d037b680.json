@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "b0c9cac9-f3f5-4076-acf9-69b60d9dfb8d",
-                    "name": "Hammes, Hickle and Wuckert",
+                    "name": "Hackett and Sons",
                     "updatedAt": "1639133089933",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "86693-2313",
-                            "address": "865 Rau Road",
+                            "zip": "55523-3638",
+                            "address": "405 Marjorie Club Suite 536",
                             "city": "Juanaport",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "-25.735953",
-                            "longitude": "14.347532",
+                            "latitude": "-56.717629",
+                            "longitude": "-86.412542",
                             "countryCode": "AG"
                         }
                     ],

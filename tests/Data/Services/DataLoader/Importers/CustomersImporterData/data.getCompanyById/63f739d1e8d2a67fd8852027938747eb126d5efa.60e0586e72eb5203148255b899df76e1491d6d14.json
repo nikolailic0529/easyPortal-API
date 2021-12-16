@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "1a613acc-20e3-4407-ad59-d2a005e18f53",
-                    "name": "Price-Schinner",
+                    "name": "Wiza, Corkery and Turcotte",
                     "updatedAt": "1639131229907",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "08573-9647",
-                            "address": "864 Joelle Field Apt. 710",
-                            "city": "Emmetbury",
+                            "zip": "14421",
+                            "address": "6948 Moen Court Suite 128",
+                            "city": "West Hortense",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "76.056126",
-                            "longitude": "-49.049142",
+                            "latitude": "-34.065654",
+                            "longitude": "155.938225",
                             "countryCode": "LU"
                         }
                     ],

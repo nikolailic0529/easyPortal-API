@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "0f65a088-375b-44ad-be51-e4b1c4c772d9",
-                    "name": "Ernser-Friesen",
+                    "name": "Towne Inc",
                     "updatedAt": "1639131151796",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "21708-8308",
-                            "address": "9571 Kelley Summit",
-                            "city": "Karachester",
+                            "zip": "68434",
+                            "address": "825 Crist Falls",
+                            "city": "Weberchester",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-41.368381",
-                            "longitude": "-179.807413",
+                            "latitude": "38.340288",
+                            "longitude": "71.377123",
                             "countryCode": "LU"
                         }
                     ],

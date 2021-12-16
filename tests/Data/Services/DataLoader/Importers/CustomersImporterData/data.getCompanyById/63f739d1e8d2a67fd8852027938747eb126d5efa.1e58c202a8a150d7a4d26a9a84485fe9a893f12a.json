@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "7b1359b4-b946-435b-b006-e9dff24640bd",
-                    "name": "Stiedemann, Graham and Nader",
+                    "name": "Bins, Johns and Hagenes",
                     "updatedAt": "1639132699943",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74730",
-                            "address": "977 Mohr Court",
-                            "city": "Port Travisbury",
+                            "zip": "18235",
+                            "address": "912 Neil Trafficway",
+                            "city": "New Terrenceshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Uzbekistan",
-                            "latitude": "-7.055578",
-                            "longitude": "111.986902",
-                            "countryCode": "CV"
+                            "country": "United States of America",
+                            "latitude": "-76.1178",
+                            "longitude": "166.847716",
+                            "countryCode": "AI"
                         }
                     ],
                     "brandingData": null,

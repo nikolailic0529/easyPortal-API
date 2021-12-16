@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "ad7a030a-b5c8-42df-a8aa-4b1b6c274d28",
-                    "name": "Torphy PLC",
+                    "name": "Smith, Littel and Carroll",
                     "updatedAt": "1639133059901",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "37456",
-                            "address": "756 Kemmer Fords Suite 447",
-                            "city": "Port Zita",
+                            "zip": "50000",
+                            "address": "6940 Woodrow Flats Apt. 469",
+                            "city": "Randymouth",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-37.864732",
-                            "longitude": "24.658656",
+                            "latitude": "-68.358069",
+                            "longitude": "117.910221",
                             "countryCode": "LU"
                         }
                     ],

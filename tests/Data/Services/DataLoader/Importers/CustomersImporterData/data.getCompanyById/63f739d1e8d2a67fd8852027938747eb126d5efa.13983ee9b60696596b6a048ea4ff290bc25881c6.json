@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "c1cf963a-6447-4d22-9d3b-6f8899370c3c",
-                    "name": "Quitzon-Beer",
+                    "name": "Stracke and Sons",
                     "updatedAt": "1639133190862",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "55495",
-                            "address": "790 Conroy Lake",
+                            "zip": "16156-8527",
+                            "address": "51903 Laisha Underpass",
                             "city": "Juanaport",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "-33.172713",
-                            "longitude": "-92.69354",
+                            "latitude": "-15.592367",
+                            "longitude": "-107.395385",
                             "countryCode": "AG"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "561b9925-3781-46d7-a734-78efad4f5ae6",
-                    "name": "Reynolds-Konopelski",
+                    "name": "Reynolds Inc",
                     "updatedAt": "1639132359305",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "12901",
-                            "address": "41554 Steuber Ridges Apt. 001",
-                            "city": "Lake Isaias",
+                            "zip": "83854",
+                            "address": "141 Murazik Road",
+                            "city": "Coopermouth",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "50.827914",
-                            "longitude": "-106.73413",
+                            "latitude": "-84.695481",
+                            "longitude": "163.668533",
                             "countryCode": "LU"
                         }
                     ],

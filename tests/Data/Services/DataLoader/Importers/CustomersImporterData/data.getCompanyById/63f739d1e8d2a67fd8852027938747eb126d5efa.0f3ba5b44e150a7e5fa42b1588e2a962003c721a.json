@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "e42b7fcc-00b2-4cca-90aa-88056a2b642f",
-                    "name": "Marquardt-Kovacek",
+                    "name": "Pollich-McGlynn",
                     "updatedAt": "1639133441958",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "24788",
-                            "address": "357 Kaylee Glen Apt. 410",
+                            "zip": "01637-1916",
+                            "address": "14359 Rippin Path Apt. 742",
                             "city": "East Roryfort",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-28.938775",
-                            "longitude": "98.163356",
+                            "latitude": "-30.945227",
+                            "longitude": "-104.493358",
                             "countryCode": "LU"
                         }
                     ],

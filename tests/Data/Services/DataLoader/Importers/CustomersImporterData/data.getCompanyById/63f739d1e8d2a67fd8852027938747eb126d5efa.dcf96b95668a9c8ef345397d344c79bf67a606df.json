@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "09b46a58-b36a-4eea-aaf3-231feb74b733",
-                    "name": "Blanda LLC",
+                    "name": "Borer-Lubowitz",
                     "updatedAt": "1639131118029",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31034-6824",
-                            "address": "80240 Koch Roads Apt. 319",
-                            "city": "East Tillmanborough",
+                            "zip": "15049-2786",
+                            "address": "7077 Ivah Ford Apt. 685",
+                            "city": "Lake Theresiachester",
                             "locationType": "HEADQUARTER",
                             "country": "Iceland",
-                            "latitude": "45.366919",
-                            "longitude": "-31.139144",
+                            "latitude": "-69.83671",
+                            "longitude": "78.638653",
                             "countryCode": "MQ"
                         }
                     ],

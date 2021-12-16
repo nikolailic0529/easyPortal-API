@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "abad51bc-e4cf-4599-a205-e5c0a1d846b8",
-                    "name": "Mitchell, Mueller and Conroy",
+                    "name": "Kassulke, Cassin and DuBuque",
                     "updatedAt": "1639133048448",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "22027",
-                            "address": "825 Adah Pike",
+                            "zip": "57468",
+                            "address": "95985 Burdette Manor Apt. 807",
                             "city": "East Roryfort",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "37.186627",
-                            "longitude": "31.170535",
+                            "latitude": "87.227544",
+                            "longitude": "-132.391092",
                             "countryCode": "LU"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "a19a46a0-16c8-45a6-9d04-96098b0116f4",
-                    "name": "Kub Ltd",
+                    "name": "Watsica Ltd",
                     "updatedAt": "1639132972974",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "08653",
-                            "address": "363 Nikolaus Skyway Suite 435",
-                            "city": "West Joyce",
+                            "zip": "04805-8802",
+                            "address": "980 Fritsch Bypass",
+                            "city": "North Ricardo",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-66.068734",
-                            "longitude": "159.276511",
+                            "latitude": "65.926046",
+                            "longitude": "135.285034",
                             "countryCode": "LU"
                         }
                     ],

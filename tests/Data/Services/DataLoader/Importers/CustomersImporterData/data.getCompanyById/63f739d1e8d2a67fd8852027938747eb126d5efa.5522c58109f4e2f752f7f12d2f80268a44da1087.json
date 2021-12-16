@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "75026113-e205-40e8-831e-0a2f9dee75bf",
-                    "name": "Medhurst, Huel and Jenkins",
+                    "name": "Boehm-Metz",
                     "updatedAt": "1639132649208",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "62405",
-                            "address": "9273 Keeling Squares",
-                            "city": "Aaronchester",
+                            "zip": "65302-1418",
+                            "address": "119 Cullen Rue",
+                            "city": "South Kennethland",
                             "locationType": "HEADQUARTER",
                             "country": "Guadeloupe",
-                            "latitude": "-19.083435",
-                            "longitude": "57.657885",
+                            "latitude": "-37.619506",
+                            "longitude": "-173.625972",
                             "countryCode": "SN"
                         }
                     ],

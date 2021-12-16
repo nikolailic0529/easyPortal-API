@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "3c93d20d-9b30-449b-adc5-08e2b056878e",
-                    "name": "Stroman-Kerluke",
+                    "name": "Paucek Group",
                     "updatedAt": "1639131465332",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "42645-3833",
-                            "address": "95534 Christy Wells Apt. 034",
-                            "city": "Wildermanview",
+                            "zip": "59728-8157",
+                            "address": "923 Jedidiah Trace",
+                            "city": "Dareside",
                             "locationType": "HEADQUARTER",
-                            "country": "Germany",
-                            "latitude": "35.277477",
-                            "longitude": "112.890965",
-                            "countryCode": "MK"
+                            "country": "Nigeria",
+                            "latitude": "49.991894",
+                            "longitude": "139.166844",
+                            "countryCode": "GY"
                         }
                     ],
                     "brandingData": null,

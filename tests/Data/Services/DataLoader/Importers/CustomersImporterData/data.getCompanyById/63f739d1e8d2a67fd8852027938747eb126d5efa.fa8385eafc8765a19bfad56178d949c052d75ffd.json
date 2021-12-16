@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "f7e46a82-e182-4e65-9924-bcdacc28bd93",
-                    "name": "Schinner, Schuster and Lehner",
+                    "name": "Heller-Kling",
                     "updatedAt": "1639133581385",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "42868-0654",
-                            "address": "77478 Hyatt Underpass Suite 556",
-                            "city": "Cartwrightchester",
+                            "zip": "75154-6853",
+                            "address": "5342 Borer Extension",
+                            "city": "South Michealchester",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-60.698878",
-                            "longitude": "-6.307925",
+                            "latitude": "-7.077473",
+                            "longitude": "-179.570106",
                             "countryCode": "LU"
                         }
                     ],

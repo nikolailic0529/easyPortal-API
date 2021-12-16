@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "88e40ada-934b-47d1-b731-c440c1b7cdbb",
-                    "name": "Dooley, Bogisich and Monahan",
+                    "name": "Leuschke, Kertzmann and Kohler",
                     "updatedAt": "1639132791757",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74373-0208",
-                            "address": "42354 Olson Glen Apt. 395",
-                            "city": "Loyceview",
+                            "zip": "17600-8611",
+                            "address": "23876 Ebert Key",
+                            "city": "Schustermouth",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "-62.345208",
-                            "longitude": "68.752687",
+                            "latitude": "74.804779",
+                            "longitude": "152.213056",
                             "countryCode": "AG"
                         }
                     ],

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "4048c553-b5cc-4f67-8d63-5a0cababf07f",
-                    "name": "Maggio LLC",
+                    "name": "Abernathy-Anderson",
                     "updatedAt": "1639138098383",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+9071631648069",
-                            "name": "Ms. Zoila Olson",
+                            "phoneNumber": "+2550134356839",
+                            "name": "Maudie Veum",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+9071631648069",
-                            "name": "Ms. Zoila Olson",
+                            "phoneNumber": "+2550134356839",
+                            "name": "Maudie Veum",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+9071631648069",
-                            "name": "Ms. Zoila Olson",
+                            "phoneNumber": "+2550134356839",
+                            "name": "Maudie Veum",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,13 +42,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "77844-1529",
-                            "address": "9349 Allie Mission Apt. 289",
-                            "city": "Oswaldtown",
+                            "zip": "07965",
+                            "address": "461 Rex Via",
+                            "city": "Lake Vidal",
                             "locationType": null,
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "68.496393",
-                            "longitude": "-71.090392",
+                            "latitude": "74.424679",
+                            "longitude": "-54.352119",
                             "countryCode": "LU"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "e7e872e2-5009-4d3e-b36c-ab0360ce6103",
-                    "name": "VonRueden, Corwin and Gaylord",
+                    "name": "Lindgren-Hagenes",
                     "updatedAt": "1639133466880",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "98157",
-                            "address": "7929 Stiedemann Run Suite 156",
-                            "city": "South Maia",
+                            "zip": "23453-7128",
+                            "address": "191 Blaze Alley",
+                            "city": "West Sherwoodhaven",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "68.628639",
-                            "longitude": "-176.458092",
+                            "latitude": "-13.952892",
+                            "longitude": "87.938819",
                             "countryCode": "AG"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "3df86b88-c48b-4cb3-8dc7-36ab8335a2db",
-                    "name": "Kutch Ltd",
+                    "name": "Bernhard and Sons",
                     "updatedAt": "1639131477457",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "76063",
-                            "address": "941 Gislason Glen",
-                            "city": "South Aracelyborough",
+                            "zip": "89022-8082",
+                            "address": "4236 Jevon Ports Apt. 872",
+                            "city": "South Luigiburgh",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "11.442731",
-                            "longitude": "65.712853",
+                            "latitude": "25.007147",
+                            "longitude": "161.557242",
                             "countryCode": "LU"
                         }
                     ],

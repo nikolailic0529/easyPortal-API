@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "c81fb0c0-10f5-4de0-8db2-89e5b7a576d8",
-                    "name": "Maggio LLC",
+                    "name": "Abernathy-Anderson",
                     "updatedAt": "1639133229768",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "33843-0454",
-                            "address": "170 Dibbert Underpass Suite 064",
-                            "city": "Oswaldtown",
+                            "zip": "27273-7332",
+                            "address": "423 Osborne Fort Suite 435",
+                            "city": "Lake Vidal",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-18.9684",
-                            "longitude": "131.015782",
+                            "latitude": "-27.4992",
+                            "longitude": "131.812034",
                             "countryCode": "LU"
                         }
                     ],

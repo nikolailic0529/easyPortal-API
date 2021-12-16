@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "0f552580-766f-40b7-b089-edcb00d7b0d0",
-                    "name": "Langosh-Gorczany",
+                    "name": "Langworth-Boehm",
                     "updatedAt": "1639131151155",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "52703-2968",
-                            "address": "7287 Jerome Mountain",
-                            "city": "Johanburgh",
+                            "zip": "45351",
+                            "address": "6086 Andre Hills",
+                            "city": "West Lacymouth",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-87.933043",
-                            "longitude": "66.496297",
+                            "latitude": "-67.32378",
+                            "longitude": "6.005438",
                             "countryCode": "LU"
                         }
                     ],

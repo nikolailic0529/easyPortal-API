@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "6130ff7e-b429-49cd-aef6-225735195e16",
-                    "name": "Ankunding-Howe",
+                    "name": "Cummerata-Heidenreich",
                     "updatedAt": "1639141024584",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+9892942120892",
-                            "name": "Brisa Welch PhD",
+                            "phoneNumber": "+1631092994592",
+                            "name": "Joelle Beier",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+9892942120892",
-                            "name": "Brisa Welch PhD",
+                            "phoneNumber": "+1631092994592",
+                            "name": "Joelle Beier",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,13 +42,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "30863-1715",
-                            "address": "811 Paucek Place Suite 021",
-                            "city": "West Lavernemouth",
+                            "zip": "89259",
+                            "address": "54604 Daugherty Landing",
+                            "city": "South Davionport",
                             "locationType": null,
                             "country": "Cook Islands",
-                            "latitude": "-10.71797",
-                            "longitude": "-123.020095",
+                            "latitude": "-67.892403",
+                            "longitude": "-5.842696",
                             "countryCode": "AG"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "e0ada779-5a4a-4cda-8b94-f368bf939187",
-                    "name": "Cummings, Abshire and Nikolaus",
+                    "name": "Hackett Ltd",
                     "updatedAt": "1639133411317",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "49833",
-                            "address": "6671 Felton Shoal Apt. 920",
+                            "zip": "23748-8254",
+                            "address": "5402 Lang Club Apt. 339",
                             "city": "South Kolemouth",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-15.471333",
-                            "longitude": "72.333732",
+                            "latitude": "-18.057132",
+                            "longitude": "-6.395143",
                             "countryCode": "LU"
                         }
                     ],

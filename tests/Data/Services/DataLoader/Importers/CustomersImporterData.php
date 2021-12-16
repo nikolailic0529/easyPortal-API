@@ -2,6 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
+use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
 
@@ -19,5 +20,14 @@ class CustomersImporterData extends Data {
 
             return $success;
         });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function generateContext(string $path): array {
+        return $this->app->make(ClientDumpContext::class)->get($path, [
+            ClientDumpContext::RESELLERS,
+        ]);
     }
 }

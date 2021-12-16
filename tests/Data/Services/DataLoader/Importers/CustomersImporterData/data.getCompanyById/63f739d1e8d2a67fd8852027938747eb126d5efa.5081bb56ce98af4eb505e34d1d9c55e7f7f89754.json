@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "f0515cc5-7a91-47ce-bb40-6d54e202a7ee",
-                    "name": "Dicki PLC",
+                    "name": "Schulist and Sons",
                     "updatedAt": "1639133518227",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "68801",
-                            "address": "2440 Metz Corner",
-                            "city": "Lake Geraldine",
+                            "zip": "96771",
+                            "address": "430 Thiel Hills Suite 219",
+                            "city": "Eleanoreside",
                             "locationType": "HEADQUARTER",
                             "country": "Guadeloupe",
-                            "latitude": "43.981896",
-                            "longitude": "-165.472692",
+                            "latitude": "8.249447",
+                            "longitude": "138.194963",
                             "countryCode": "SN"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "d579e027-5a28-4537-bd72-03c698e14660",
-                    "name": "Mraz, Lowe and Rodriguez",
+                    "name": "Dicki, Wehner and Gutkowski",
                     "updatedAt": "1639133325801",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74373-0208",
-                            "address": "42354 Olson Glen Apt. 395",
-                            "city": "Loyceview",
+                            "zip": "17600-8611",
+                            "address": "23876 Ebert Key",
+                            "city": "Schustermouth",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "18.669088",
-                            "longitude": "123.596989",
+                            "latitude": "-46.905305",
+                            "longitude": "64.314802",
                             "countryCode": "AG"
                         }
                     ],

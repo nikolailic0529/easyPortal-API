@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "1dd25cff-e6e2-4cca-8f86-44a3077a45c3",
-                    "name": "Stamm-Lakin",
+                    "name": "Klein LLC",
                     "updatedAt": "1639131254814",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "11450",
-                            "address": "73861 Tillman Pine",
-                            "city": "Halleshire",
+                            "zip": "69057-1386",
+                            "address": "952 Casper Villages Suite 447",
+                            "city": "Adanstad",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "-86.35371",
-                            "longitude": "100.67282",
+                            "latitude": "61.001711",
+                            "longitude": "166.0217",
                             "countryCode": "LU"
                         }
                     ],

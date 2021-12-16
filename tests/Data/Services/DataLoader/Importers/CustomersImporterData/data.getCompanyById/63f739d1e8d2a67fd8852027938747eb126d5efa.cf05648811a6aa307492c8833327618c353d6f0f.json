@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "6173b7c4-4e9a-4b3c-a662-39c7a48fdf75",
-                    "name": "Breitenberg, Farrell and Grady",
+                    "name": "Smitham-Hackett",
                     "updatedAt": "1639132433979",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "56736",
-                            "address": "69717 Considine Crossroad",
-                            "city": "Vadaport",
+                            "zip": "83365",
+                            "address": "60332 Smith Plaza Suite 563",
+                            "city": "West Jaystad",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "1.092532",
-                            "longitude": "20.762875",
+                            "latitude": "-87.849139",
+                            "longitude": "165.689026",
                             "countryCode": "AG"
                         }
                     ],

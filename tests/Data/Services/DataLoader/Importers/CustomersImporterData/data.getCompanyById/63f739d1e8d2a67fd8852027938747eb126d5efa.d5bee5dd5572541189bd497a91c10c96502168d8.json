@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "405f942d-c8f5-425e-a533-c24397e4e677",
-                    "name": "Braun-Howell",
+                    "name": "Ondricka Ltd",
                     "updatedAt": "1639131497194",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "93116",
-                            "address": "7094 Ocie Plaza Suite 724",
-                            "city": "New Stan",
+                            "zip": "53390-8937",
+                            "address": "1569 Fritsch Canyon",
+                            "city": "New Olinbury",
                             "locationType": "HEADQUARTER",
                             "country": "Guadeloupe",
-                            "latitude": "33.283269",
-                            "longitude": "-85.094169",
+                            "latitude": "31.9803",
+                            "longitude": "-151.454017",
                             "countryCode": "SN"
                         }
                     ],

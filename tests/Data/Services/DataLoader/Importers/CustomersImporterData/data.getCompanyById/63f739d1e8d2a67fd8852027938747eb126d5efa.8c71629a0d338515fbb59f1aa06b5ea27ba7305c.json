@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "21c3389b-02ba-4c0c-9f85-3629052f9c45",
-                    "name": "Grant LLC",
+                    "name": "Schneider Group",
                     "updatedAt": "1639131295612",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74373-0208",
-                            "address": "42354 Olson Glen Apt. 395",
-                            "city": "Loyceview",
+                            "zip": "17600-8611",
+                            "address": "23876 Ebert Key",
+                            "city": "Schustermouth",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "34.670529",
-                            "longitude": "-18.418778",
+                            "latitude": "61.660408",
+                            "longitude": "128.140094",
                             "countryCode": "AG"
                         }
                     ],

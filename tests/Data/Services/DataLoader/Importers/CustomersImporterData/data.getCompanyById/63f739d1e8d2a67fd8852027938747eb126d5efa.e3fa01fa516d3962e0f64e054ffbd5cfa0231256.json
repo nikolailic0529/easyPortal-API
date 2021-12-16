@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "10fc76c5-2be2-43f7-b719-375f6ef6791e",
-                    "name": "Douglas-Corwin",
+                    "name": "Kessler, Konopelski and Kihn",
                     "updatedAt": "1639131162171",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74373-0208",
-                            "address": "42354 Olson Glen Apt. 395",
-                            "city": "Loyceview",
+                            "zip": "17600-8611",
+                            "address": "23876 Ebert Key",
+                            "city": "Schustermouth",
                             "locationType": "HEADQUARTER",
                             "country": "Cook Islands",
-                            "latitude": "34.670529",
-                            "longitude": "-18.418778",
+                            "latitude": "61.660408",
+                            "longitude": "128.140094",
                             "countryCode": "AG"
                         }
                     ],

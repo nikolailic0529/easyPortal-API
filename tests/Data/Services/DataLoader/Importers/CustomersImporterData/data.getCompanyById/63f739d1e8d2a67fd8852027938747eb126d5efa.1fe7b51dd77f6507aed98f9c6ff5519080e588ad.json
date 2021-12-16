@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1d1abbb3-ff1f-440b-b5f7-29e0173e7122",
-                    "name": "Gaylord Group",
+                    "name": "Lesch-Feil",
                     "updatedAt": "1639135690288",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+8495833821010",
-                            "name": "Wellington Mraz Jr.",
+                            "phoneNumber": "+9416769868860",
+                            "name": "Mrs. Joy Hermiston",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+4931190227565",
-                            "name": "Letha Gorczany",
+                            "phoneNumber": "+6996247384246",
+                            "name": "Merle Bauch",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+8495833821010",
-                            "name": "Wellington Mraz Jr.",
+                            "phoneNumber": "+9416769868860",
+                            "name": "Mrs. Joy Hermiston",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,13 +42,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "22264-5106",
-                            "address": "976 Koch Parkways",
+                            "zip": "20103-5843",
+                            "address": "4122 Denesik Motorway Apt. 088",
                             "city": "New Marionbury",
                             "locationType": null,
                             "country": "Cook Islands",
-                            "latitude": "-0.452827",
-                            "longitude": "-136.825188",
+                            "latitude": "-24.356477",
+                            "longitude": "-127.089333",
                             "countryCode": "AG"
                         }
                     ],

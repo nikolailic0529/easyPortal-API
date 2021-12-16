@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "7dcbb5c5-db08-4c80-964f-54602aad82ac",
-                    "name": "Kub Ltd",
+                    "name": "Watsica Ltd",
                     "updatedAt": "1639132715052",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "22027",
-                            "address": "825 Adah Pike",
+                            "zip": "57468",
+                            "address": "95985 Burdette Manor Apt. 807",
                             "city": "East Roryfort",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "37.186627",
-                            "longitude": "31.170535",
+                            "latitude": "87.227544",
+                            "longitude": "-132.391092",
                             "countryCode": "LU"
                         }
                     ],

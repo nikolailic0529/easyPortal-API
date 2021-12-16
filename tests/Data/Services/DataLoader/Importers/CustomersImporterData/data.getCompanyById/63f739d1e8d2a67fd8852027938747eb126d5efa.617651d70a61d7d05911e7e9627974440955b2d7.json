@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "b0233a33-e6b2-488a-b5ff-22408194ba83",
-                    "name": "Abernathy, Dickinson and Quigley",
+                    "name": "Koss, Veum and Corwin",
                     "updatedAt": "1639133087168",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,13 +23,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "09624",
-                            "address": "167 Adams Throughway",
-                            "city": "Jesusborough",
+                            "zip": "93866-8269",
+                            "address": "5218 Magdalen Ville",
+                            "city": "Gerholdchester",
                             "locationType": "HEADQUARTER",
                             "country": "Holy See (Vatican City State)",
-                            "latitude": "29.939151",
-                            "longitude": "-21.115642",
+                            "latitude": "23.171371",
+                            "longitude": "-24.286928",
                             "countryCode": "LU"
                         }
                     ],
