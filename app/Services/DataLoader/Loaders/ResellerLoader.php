@@ -5,15 +5,17 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
+use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\ObjectIterator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
-class ResellerLoader extends CompanyLoader implements LoaderRecalculable {
+class ResellerLoader extends Loader implements LoaderRecalculable {
     use WithAssets;
 
     // <editor-fold desc="API">
@@ -28,6 +30,17 @@ class ResellerLoader extends CompanyLoader implements LoaderRecalculable {
 
         // Return
         return $company;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getObject(array $properties): ?Type {
+        return new Company($properties);
+    }
+
+    protected function getObjectById(string $id): ?Type {
+        return $this->client->getResellerById($id);
     }
 
     protected function getObjectFactory(): ModelFactory {
