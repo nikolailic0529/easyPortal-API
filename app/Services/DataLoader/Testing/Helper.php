@@ -472,22 +472,6 @@ trait Helper {
     }
     // </editor-fold>
 
-    // <editor-fold desc="QueryLog">
-    // =========================================================================
-    /**
-     * @param array<array{query: string, bindings: array<mixed>, time: float|null}> $queries
-     *
-     * @return array<array{query: string, bindings: array<mixed>}>
-     */
-    protected function cleanupQueryLog(array $queries): array {
-        foreach ($queries as &$query) {
-            unset($query['time']);
-        }
-
-        return $queries;
-    }
-    // </editor-fold>
-
     // <editor-fold desc="Data">
     // =========================================================================
     /**

@@ -4,18 +4,16 @@ namespace App\Services\DataLoader\Importers;
 
 use App\Models\Document;
 use App\Services\DataLoader\Testing\Helper;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Importers\DocumentsImporterData;
 use Tests\TestCase;
-
-use function count;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Importers\DocumentsImporter
  */
 class DocumentsImporterTest extends TestCase {
-    use WithQueryLog;
+    use WithQueryLogs;
     use Helper;
 
     /**
@@ -36,11 +34,7 @@ class DocumentsImporterTest extends TestCase {
 
         $importer->import(true, chunk: DocumentsImporterData::CHUNK, limit: DocumentsImporterData::LIMIT);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~import-cold.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~import-cold.json', $queries);
         $this->assertModelsCount([
             Document::class => DocumentsImporterData::LIMIT,
         ]);
@@ -53,11 +47,7 @@ class DocumentsImporterTest extends TestCase {
 
         $importer->import(true, chunk: DocumentsImporterData::CHUNK, limit: DocumentsImporterData::LIMIT);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~import-hot.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~import-hot.json', $queries);
 
         $queries->flush();
     }

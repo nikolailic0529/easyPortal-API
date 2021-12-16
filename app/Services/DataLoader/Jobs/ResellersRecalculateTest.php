@@ -13,17 +13,15 @@ use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
-
-use function count;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Jobs\ResellersRecalculate
  */
 class ResellersRecalculateTest extends TestCase {
-    use WithQueryLog;
+    use WithQueryLogs;
     use Helper;
 
     /**
@@ -175,11 +173,7 @@ class ResellersRecalculateTest extends TestCase {
 
         $job();
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json();
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('.json', $queries);
 
         // Properties
         $customers  = static function (Reseller $reseller): Collection {

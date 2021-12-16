@@ -11,19 +11,17 @@ use App\Models\DocumentEntry;
 use App\Models\Reseller;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Testing\Helper;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderCreateWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderCreateWithoutAssets;
 use Tests\TestCase;
-
-use function count;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Loaders\ResellerLoader
  */
 class ResellerLoaderTest extends TestCase {
-    use WithQueryLog;
+    use WithQueryLogs;
     use Helper;
 
     /**
@@ -53,11 +51,7 @@ class ResellerLoaderTest extends TestCase {
 
         $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-assets-cold.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-without-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 1,
@@ -79,11 +73,7 @@ class ResellerLoaderTest extends TestCase {
 
         $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-assets-hot.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-without-assets-hot.json', $queries);
 
         $queries->flush();
     }
@@ -115,11 +105,7 @@ class ResellerLoaderTest extends TestCase {
 
         $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-assets-cold.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-with-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
@@ -141,11 +127,7 @@ class ResellerLoaderTest extends TestCase {
 
         $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-assets-hot.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-with-assets-hot.json', $queries);
 
         $queries->flush();
     }

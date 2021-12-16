@@ -11,18 +11,16 @@ use App\Models\DocumentEntry;
 use App\Models\Reseller;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Testing\Helper;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Loaders\DocumentLoaderCreate;
 use Tests\TestCase;
-
-use function count;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Loaders\DocumentLoader
  */
 class DocumentLoaderTest extends TestCase {
-    use WithQueryLog;
+    use WithQueryLogs;
     use Helper;
 
     /**
@@ -50,11 +48,7 @@ class DocumentLoaderTest extends TestCase {
 
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-cold.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
@@ -74,11 +68,7 @@ class DocumentLoaderTest extends TestCase {
 
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-hot.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-hot.json', $queries);
 
         $queries->flush();
     }

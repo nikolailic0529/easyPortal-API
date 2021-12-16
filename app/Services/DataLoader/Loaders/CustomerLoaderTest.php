@@ -13,20 +13,18 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery\MockInterface;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithoutAssets;
 use Tests\TestCase;
-
-use function count;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Loaders\CustomerLoader
  */
 class CustomerLoaderTest extends TestCase {
-    use WithQueryLog;
+    use WithQueryLogs;
     use Helper;
 
     /**
@@ -56,11 +54,7 @@ class CustomerLoaderTest extends TestCase {
 
         $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-assets-cold.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-without-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 0,
@@ -82,11 +76,7 @@ class CustomerLoaderTest extends TestCase {
 
         $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-without-assets-hot.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-without-assets-hot.json', $queries);
 
         $queries->flush();
     }
@@ -118,11 +108,7 @@ class CustomerLoaderTest extends TestCase {
 
         $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-assets-cold.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-with-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 2,
@@ -144,11 +130,7 @@ class CustomerLoaderTest extends TestCase {
 
         $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~create-with-assets-hot.json');
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('~create-with-assets-hot.json', $queries);
 
         $queries->flush();
     }
