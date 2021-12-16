@@ -908,34 +908,9 @@ class Client {
     }
 
     protected function getCompanyKpisGraphQL(): string {
-        return <<<'GRAPHQL'
+        return <<<GRAPHQL
             companyKpis {
-                totalAssets
-                activeAssets
-                activeAssetsPercentage
-                activeCustomers
-                newActiveCustomers
-                activeContracts
-                activeContractTotalAmount
-                newActiveContracts
-                expiringContracts
-                activeQuotes
-                activeQuotesTotalAmount
-                newActiveQuotes
-                expiringQuotes
-                expiredQuotes
-                expiredContracts
-                orderedQuotes
-                acceptedQuotes
-                requestedQuotes
-                receivedQuotes
-                rejectedQuotes
-                awaitingQuotes
-                activeAssetsOnContract
-                activeAssetsOnWarranty
-                activeExposedAssets
-                serviceRevenueTotalAmount
-                serviceRevenueTotalAmountChange
+                {$this->getKpisGraphQL()}
             }
             GRAPHQL;
     }
@@ -985,6 +960,10 @@ class Client {
             {$this->getCompanyContactPersonsGraphQL()}
             {$this->getCompanyLocationsGraphQL()}
             {$this->getCompanyKpisGraphQL()}
+            companyResellerKpis {
+                resellerId
+                {$this->getKpisGraphQL()}
+            }
             GRAPHQL;
     }
 
@@ -1137,6 +1116,37 @@ class Client {
                 type
                 mail
             }
+            GRAPHQL;
+    }
+
+    protected function getKpisGraphQL(): string {
+        return <<<'GRAPHQL'
+            totalAssets
+            activeAssets
+            activeAssetsPercentage
+            activeCustomers
+            newActiveCustomers
+            activeContracts
+            activeContractTotalAmount
+            newActiveContracts
+            expiringContracts
+            activeQuotes
+            activeQuotesTotalAmount
+            newActiveQuotes
+            expiringQuotes
+            expiredQuotes
+            expiredContracts
+            orderedQuotes
+            acceptedQuotes
+            requestedQuotes
+            receivedQuotes
+            rejectedQuotes
+            awaitingQuotes
+            activeAssetsOnContract
+            activeAssetsOnWarranty
+            activeExposedAssets
+            serviceRevenueTotalAmount
+            serviceRevenueTotalAmountChange
             GRAPHQL;
     }
     //</editor-fold>

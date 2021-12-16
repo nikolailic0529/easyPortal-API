@@ -1,7 +1,6 @@
 {
-    "generated": "2021-11-10T10:49:14+00:00",
-    "distributors": [],
-    "resellers": [],
-    "customers": [],
-    "oems": null
+    "generated": "2021-12-16T12:15:31+00:00",
+    "resellers": [
+        "d1a2f39f-bf78-43a1-acb1-99641fccc7bc"
+    ]
 }

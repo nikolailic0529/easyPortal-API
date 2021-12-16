@@ -30,7 +30,7 @@
                     "longitude": "-126.955059",
                     "countryCode": "MG",
                     "status": "ACTIVE",
-                    "updatedAt": "1636526857151",
+                    "updatedAt": "1639406047139",
                     "assetCoverage": [
                         "ARCHIVED",
                         "CONFLICT"
@@ -101,22 +101,22 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636526857151",
+                        "coverageStatusUpdatedAt": "1639406047139",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-06-01",
                                 "coverageEndDate": "2022-05-31",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
                                 "serviceSku": null
                             },
                             {
                                 "coverageStartDate": "2021-10-26",
                                 "coverageEndDate": "2021-10-26",
                                 "type": "FactoryWarranty",
-                                "status": "Expiring",
-                                "description": null,
+                                "status": "Expired",
+                                "description": "",
                                 "serviceSku": null
                             }
                         ]
@@ -143,7 +143,7 @@
                     "longitude": "90.420993",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636526874582",
+                    "updatedAt": "1637852895594",
                     "assetCoverage": [
                         "COVERED",
                         "ON_CONTRACT"
@@ -212,14 +212,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636526874582",
+                        "coverageStatusUpdatedAt": "1637852895578",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2018-06-26",
                                 "coverageEndDate": "2023-06-25",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
                                 "serviceSku": null
                             },
                             {
@@ -227,7 +227,7 @@
                                 "coverageEndDate": "2021-07-10",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
                                 "serviceSku": null
                             }
                         ]
@@ -1014,7 +1014,7 @@
                     "longitude": "179.01916",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636526892169",
+                    "updatedAt": "1637852895575",
                     "assetCoverage": [
                         "COVERED",
                         "ON_CONTRACT"
@@ -1083,14 +1083,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636526892169",
+                        "coverageStatusUpdatedAt": "1637852895575",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2017-07-27",
                                 "coverageEndDate": "2022-07-26",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
                                 "serviceSku": null
                             },
                             {
@@ -1098,7 +1098,7 @@
                                 "coverageEndDate": "2020-11-26",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "",
                                 "serviceSku": null
                             }
                         ]
@@ -1125,10 +1125,9 @@
                     "longitude": "168.636066",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636526897772",
+                    "updatedAt": "1637852165832",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -1192,20 +1191,7 @@
                             "type": "Software Contact Person"
                         }
                     ],
-                    "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636526897772",
-                        "coverageEntries": [
-                            {
-                                "coverageStartDate": "2020-08-26",
-                                "coverageEndDate": "2020-08-26",
-                                "type": "FactoryWarranty",
-                                "status": "Expired",
-                                "description": null,
-                                "serviceSku": null
-                            }
-                        ]
-                    }
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "00001f4a-79e9-4a90-8ef7-0575ec58b1f9",
@@ -1228,10 +1214,9 @@
                     "longitude": "91.319751",
                     "countryCode": "AU",
                     "status": "ACTIVE",
-                    "updatedAt": "1636526903515",
+                    "updatedAt": "1638440187811",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "CONFLICT"
+                        "EXPOSED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -1298,15 +1283,15 @@
                         }
                     ],
                     "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636526903515",
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1638440187811",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2017-11-29",
                                 "coverageEndDate": "2020-11-30",
                                 "type": "Contract",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
                                 "serviceSku": null
                             },
                             {
@@ -1314,7 +1299,7 @@
                                 "coverageEndDate": "2018-12-20",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
                                 "serviceSku": null
                             }
                         ]
@@ -1432,11 +1417,9 @@
                     "longitude": "173.481252",
                     "countryCode": "LB",
                     "status": "ACTIVE",
-                    "updatedAt": "1636526918904",
+                    "updatedAt": "1637852895813",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "CONFLICT",
-                        "CONFLICT"
+                        "EXPOSED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -1540,15 +1523,15 @@
                         }
                     ],
                     "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636526918904",
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1637852895813",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2018-07-25",
                                 "coverageEndDate": "2021-07-31",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
                                 "serviceSku": null
                             }
                         ]

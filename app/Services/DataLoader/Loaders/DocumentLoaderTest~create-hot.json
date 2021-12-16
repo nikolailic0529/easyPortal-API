@@ -57,13 +57,13 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
+            "bf3e54d2-37a0-585e-835b-80ddee8de633"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "bd0c34db-542e-55ff-84f1-309e785c25b3"
+            "1b99939b-c780-5e17-baf6-c040f864173f"
         ]
     },
     {
@@ -86,8 +86,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:01:20",
-            "2021-08-30 00:01:25",
+            "2021-08-30 00:02:26",
+            "2021-08-30 00:02:31",
             "c63823c9-ccae-493b-92ca-5cb2a696da69"
         ]
     },

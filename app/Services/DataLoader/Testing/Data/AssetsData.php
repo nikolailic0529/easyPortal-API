@@ -92,6 +92,8 @@ abstract class AssetsData extends Data {
                     $object->supportPackage ?? null,
                     $object->skuNumber ?? null,
                 ];
+            } elseif ($object instanceof CompanyKpis) {
+                $resellers[] = $object->resellerId ?? null;
             } else {
                 // empty
             }

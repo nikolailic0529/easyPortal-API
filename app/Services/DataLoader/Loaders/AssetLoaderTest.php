@@ -37,7 +37,7 @@ class AssetLoaderTest extends TestCase {
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 0,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -56,7 +56,7 @@ class AssetLoaderTest extends TestCase {
         $this->assertQueryLogEquals('~create-without-documents-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 0,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 1,
             AssetWarranty::class => 2,

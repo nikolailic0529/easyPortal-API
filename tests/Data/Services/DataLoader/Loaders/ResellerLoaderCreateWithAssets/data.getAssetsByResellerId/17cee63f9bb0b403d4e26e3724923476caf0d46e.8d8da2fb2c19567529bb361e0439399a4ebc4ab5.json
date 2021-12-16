@@ -163,10 +163,10 @@
                     "longitude": "-128.859024",
                     "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1633047394638",
+                    "updatedAt": "1639129987892",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "EOSL"
+                        "EOSL",
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [

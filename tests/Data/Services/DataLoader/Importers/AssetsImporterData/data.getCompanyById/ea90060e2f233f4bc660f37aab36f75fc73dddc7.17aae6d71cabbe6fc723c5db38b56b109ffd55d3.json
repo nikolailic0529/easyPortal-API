@@ -1,0 +1,150 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "params": {
+        "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b",
+                    "name": "Hessel-Reilly",
+                    "updatedAt": "1639139423017",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19787285196",
+                            "name": "Maiya Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19787285196",
+                            "name": "Maiya Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+19787285196",
+                            "name": "Maiya Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "42286",
+                            "address": "19320 White River",
+                            "city": "Gleasonbury",
+                            "locationType": null,
+                            "country": "Romania",
+                            "latitude": "53.576303",
+                            "longitude": "-115.318855",
+                            "countryCode": "MN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 30789,
+                        "activeAssets": 9572,
+                        "activeAssetsPercentage": 31.08902530124395,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 50,
+                        "activeContractTotalAmount": 3069.2799999999997,
+                        "newActiveContracts": null,
+                        "expiringContracts": 50,
+                        "activeQuotes": 58,
+                        "activeQuotesTotalAmount": 4889.96,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 58,
+                        "expiredQuotes": 5,
+                        "expiredContracts": 111,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "714aa057-1ea0-4666-b3be-4b69af99e997",
+                            "totalAssets": 21031,
+                            "activeAssets": 3407,
+                            "activeAssetsPercentage": 16.19989539251581,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 17,
+                            "activeContractTotalAmount": 931.3199999999999,
+                            "newActiveContracts": null,
+                            "expiringContracts": 17,
+                            "activeQuotes": 58,
+                            "activeQuotesTotalAmount": 4889.959999999999,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 58,
+                            "expiredQuotes": 5,
+                            "expiredContracts": 92,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+                            "totalAssets": 9758,
+                            "activeAssets": 6165,
+                            "activeAssetsPercentage": 63.17893010862882,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 33,
+                            "activeContractTotalAmount": 2137.96,
+                            "newActiveContracts": null,
+                            "expiringContracts": 33,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 19,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

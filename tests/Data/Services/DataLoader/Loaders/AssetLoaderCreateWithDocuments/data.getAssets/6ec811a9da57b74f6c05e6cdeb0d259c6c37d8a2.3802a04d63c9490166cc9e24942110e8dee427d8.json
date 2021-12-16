@@ -28,10 +28,9 @@
                     "longitude": "-175.122992",
                     "countryCode": "EG",
                     "status": "ACTIVE",
-                    "updatedAt": "1636529113492",
+                    "updatedAt": "1639658114337",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -713,15 +712,15 @@
                         }
                     ],
                     "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636529113492",
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1639658114337",
                         "coverageEntries": [
                             {
-                                "coverageStartDate": "2019-06-13",
+                                "coverageStartDate": "2020-06-13",
                                 "coverageEndDate": "2021-06-12",
                                 "type": "Contract",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
                                 "serviceSku": null
                             },
                             {
@@ -729,7 +728,7 @@
                                 "coverageEndDate": "2017-06-05",
                                 "type": "FixedSupportService",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HPE 1Y PW FC 24x7 DL385p Gen8 SVC",
                                 "serviceSku": "U8BU8PE"
                             },
                             {
@@ -737,7 +736,7 @@
                                 "coverageEndDate": "2016-02-25",
                                 "type": "FixedSupportService",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HPE 3Y 4H 24x7 DL38x(p) HW Support",
                                 "serviceSku": "U4545E"
                             },
                             {
@@ -745,7 +744,7 @@
                                 "coverageEndDate": "2017-07-08",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "",
                                 "serviceSku": null
                             }
                         ]
