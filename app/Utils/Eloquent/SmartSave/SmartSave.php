@@ -50,7 +50,11 @@ trait SmartSave {
         $query = parent::newModelQuery();
 
         if (BatchSave::$instance) {
-            $query->macro('insert', BatchSave::$instance);
+            $query->macro('insert', static function(Builder $builder, array $attributes): bool {
+                return BatchSave::$instance
+                    ? BatchSave::$instance->add($builder->getModel(), $attributes)
+                    : $builder->toBase()->insert($attributes);
+            });
         }
 
         return $query;

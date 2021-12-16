@@ -2,7 +2,6 @@
 
 namespace App\Utils\Eloquent\SmartSave;
 
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Arr;
@@ -39,20 +38,15 @@ class BatchInsert {
     /**
      * @param array<string,mixed> $attributes
      */
-    public function __invoke(EloquentBuilder $builder, array $attributes): void {
-        $this->add($builder->getModel(), $attributes);
-    }
-
-    /**
-     * @param array<string,mixed> $attributes
-     */
-    public function add(Model $model, array $attributes): void {
+    public function add(Model $model, array $attributes): bool {
         if (!$this->isSame($model) || count($this->inserts) >= static::LIMIT) {
             $this->save();
         }
 
         $this->model     = $model;
         $this->inserts[] = $attributes;
+
+        return true;
     }
 
     protected function isSame(Model $model): bool {
