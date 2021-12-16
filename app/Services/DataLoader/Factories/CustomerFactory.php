@@ -5,9 +5,12 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Customer;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithKpi;
+use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\FactoryPrefetchable;
+use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
@@ -28,6 +31,7 @@ use function sprintf;
 
 class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
     use WithKpi;
+    use WithReseller;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -37,6 +41,8 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         ContactFactory $contactFactory,
         LocationFactory $locationFactory,
         protected CustomerResolver $customerResolver,
+        protected ResellerResolver $resellerResolver,
+        protected ?ResellerFinder $resellerFinder = null,
     ) {
         parent::__construct(
             $exceptionHandler,
@@ -47,6 +53,17 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
             $locationFactory,
         );
     }
+
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    protected function getResellerFinder(): ?ResellerFinder {
+        return $this->resellerFinder;
+    }
+
+    protected function getResellerResolver(): ResellerResolver {
+        return $this->resellerResolver;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Factory">
     // =========================================================================
@@ -169,12 +186,14 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
 
         foreach ((array) $kpis as $kpi) {
             // Reseller?
-            if (!$kpi->resellerId) {
+            $reseller = $this->reseller($kpi);
+
+            if (!$reseller) {
                 continue;
             }
 
             // Exists?
-            $id         = $this->normalizer->uuid($kpi->resellerId);
+            $id         = $reseller->getKey();
             $pivot      = $existing->get($id) ?: new ResellerCustomer();
             $pivot->kpi = $this->kpi($pivot, $kpi);
 
