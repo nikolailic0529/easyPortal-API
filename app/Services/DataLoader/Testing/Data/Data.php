@@ -27,12 +27,7 @@ use const JSON_UNESCAPED_UNICODE;
 abstract class Data {
     use WithTestData;
 
-    public const MAP                  = 'map.json';
-    public const CONTEXT_DISTRIBUTORS = 'distributors';
-    public const CONTEXT_RESELLERS    = 'resellers';
-    public const CONTEXT_CUSTOMERS    = 'customers';
-    public const CONTEXT_TYPES        = 'types';
-    public const CONTEXT_OEMS         = 'oems';
+    public const MAP = 'map.json';
 
     public function __construct(
         protected Kernel $kernel,
@@ -97,41 +92,41 @@ abstract class Data {
         $result   = true;
         $settings = [];
 
-        if ($context[static::CONTEXT_OEMS] ?? null) {
+        if ($context[ClientDumpContext::OEMS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-import-oems', [
-                    'file' => "{$path}/{$context[static::CONTEXT_OEMS]}",
+                    'file' => "{$path}/{$context[ClientDumpContext::OEMS]}",
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_DISTRIBUTORS] ?? null) {
+        if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-distributor', [
-                    'id'       => $context[static::CONTEXT_DISTRIBUTORS],
+                    'id'       => $context[ClientDumpContext::DISTRIBUTORS],
                     '--create' => true,
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_RESELLERS] ?? null) {
+        if ($context[ClientDumpContext::RESELLERS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-reseller', [
-                    'id'       => $context[static::CONTEXT_RESELLERS],
+                    'id'       => $context[ClientDumpContext::RESELLERS],
                     '--create' => true,
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_CUSTOMERS] ?? null) {
+        if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-customer', [
-                    'id'       => $context[static::CONTEXT_CUSTOMERS],
+                    'id'       => $context[ClientDumpContext::CUSTOMERS],
                     '--create' => true,
                 ]) === Command::SUCCESS;
         }
 
-        if ($context[static::CONTEXT_TYPES] ?? null) {
+        if ($context[ClientDumpContext::TYPES] ?? null) {
             $owner = (new DocumentModel())->getMorphClass();
 
-            foreach ($context[static::CONTEXT_TYPES] as $key) {
+            foreach ($context[ClientDumpContext::TYPES] as $key) {
                 // Create
                 $type              = new TypeModel();
                 $type->object_type = $owner;
