@@ -21,15 +21,15 @@ trait WithQueryLogs {
     use WithQueryLog;
 
     protected function assertQueryLogEquals(string $expected, QueryLog $log, string $message = ''): void {
-        $data     = $this->getTestData();
-        $queries  = $this->cleanupQueryLog($log->get());
-        $actual   = json_encode($queries, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR);
-        $expected = trim($data->content($expected));
+        $data    = $this->getTestData();
+        $queries = $this->cleanupQueryLog($log->get());
+        $actual  = json_encode($queries, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR);
+        $content = trim($data->content($expected));
 
-        if ($expected === '') {
-            self::assertNotFalse(file_put_contents($data->path($expected), $actual));
+        if ($content === '') {
+            self::assertNotFalse(file_put_contents($data->path($expected), "{$actual}\n"));
         } else {
-            self::assertEquals($expected, $actual, $message);
+            self::assertEquals($content, $actual, $message);
         }
     }
 
