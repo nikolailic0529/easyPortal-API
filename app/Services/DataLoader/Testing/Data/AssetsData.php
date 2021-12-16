@@ -2,11 +2,10 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
-use App\Models\Document as DocumentModel;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
+use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -15,7 +14,6 @@ use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Finders\OemFinder as OemFinderImpl;
 use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder as ServiceGroupFinderImpl;
 use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder as ServiceLevelFinderImpl;
-use Illuminate\Console\Command;
 
 use function array_filter;
 use function array_unique;
@@ -24,83 +22,10 @@ use function fclose;
 use function fopen;
 use function fputcsv;
 use function is_array;
-use function mb_stripos;
 
 use const SORT_REGULAR;
 
 abstract class AssetsData extends Data {
-    public const CONTEXT_DISTRIBUTORS = 'distributors';
-    public const CONTEXT_RESELLERS    = 'resellers';
-    public const CONTEXT_CUSTOMERS    = 'customers';
-    public const CONTEXT_TYPES        = 'types';
-    public const CONTEXT_OEMS         = 'oems';
-
-    /**
-     * @inheritDoc
-     */
-    public function restore(string $path, array $context): bool {
-        $result   = true;
-        $settings = [];
-
-        if ($context[static::CONTEXT_OEMS] ?? null) {
-            $result = $result && $this->kernel->call('ep:data-loader-import-oems', [
-                    'file' => "{$path}/{$context[static::CONTEXT_OEMS]}",
-                ]) === Command::SUCCESS;
-        }
-
-        if ($context[static::CONTEXT_DISTRIBUTORS] ?? null) {
-            $result = $result && $this->kernel->call('ep:data-loader-update-distributor', [
-                    'id'       => $context[static::CONTEXT_DISTRIBUTORS],
-                    '--create' => true,
-                ]) === Command::SUCCESS;
-        }
-
-        if ($context[static::CONTEXT_RESELLERS] ?? null) {
-            $result = $result && $this->kernel->call('ep:data-loader-update-reseller', [
-                    'id'       => $context[static::CONTEXT_RESELLERS],
-                    '--create' => true,
-                ]) === Command::SUCCESS;
-        }
-
-        if ($context[static::CONTEXT_CUSTOMERS] ?? null) {
-            $result = $result && $this->kernel->call('ep:data-loader-update-customer', [
-                    'id'       => $context[static::CONTEXT_CUSTOMERS],
-                    '--create' => true,
-                ]) === Command::SUCCESS;
-        }
-
-        if ($context[static::CONTEXT_TYPES] ?? null) {
-            $owner = (new DocumentModel())->getMorphClass();
-
-            foreach ($context[static::CONTEXT_TYPES] as $key) {
-                // Create
-                $type              = new TypeModel();
-                $type->object_type = $owner;
-                $type->key         = $this->normalizer->string($key);
-                $type->name        = $this->normalizer->string($key);
-
-                $type->save();
-
-                // Collect settings
-                if (mb_stripos($key, 'contract') !== false) {
-                    $settings['ep.contract_types'][] = $type->getKey();
-                } elseif (mb_stripos($key, 'quote') !== false) {
-                    $settings['ep.quote_types'][] = $type->getKey();
-                } else {
-                    // empty
-                }
-            }
-        }
-
-        // Update settings
-        foreach ($settings as $setting => $value) {
-            $this->config->set($setting, $value);
-        }
-
-        // Return
-        return $result;
-    }
-
     /**
      * @inerhitDoc
      */
@@ -229,7 +154,7 @@ abstract class AssetsData extends Data {
         }
 
         // Return
-        return $context;
+        return array_filter($context);
     }
 
     abstract protected function generateData(string $path): bool;

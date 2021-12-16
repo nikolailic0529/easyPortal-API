@@ -2,9 +2,12 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Models\Document as DocumentModel;
+use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Normalizer;
 use Closure;
 use Faker\Generator;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
@@ -24,7 +27,12 @@ use const JSON_UNESCAPED_UNICODE;
 abstract class Data {
     use WithTestData;
 
-    public const MAP = 'map.json';
+    public const MAP                  = 'map.json';
+    public const CONTEXT_DISTRIBUTORS = 'distributors';
+    public const CONTEXT_RESELLERS    = 'resellers';
+    public const CONTEXT_CUSTOMERS    = 'customers';
+    public const CONTEXT_TYPES        = 'types';
+    public const CONTEXT_OEMS         = 'oems';
 
     public function __construct(
         protected Kernel $kernel,
@@ -86,7 +94,70 @@ abstract class Data {
      * @param array<string,mixed> $context
      */
     public function restore(string $path, array $context): bool {
-        return true;
+        $result   = true;
+        $settings = [];
+
+        if ($context[static::CONTEXT_OEMS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-import-oems', [
+                    'file' => "{$path}/{$context[static::CONTEXT_OEMS]}",
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[static::CONTEXT_DISTRIBUTORS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-distributor', [
+                    'id'       => $context[static::CONTEXT_DISTRIBUTORS],
+                    '--create' => true,
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[static::CONTEXT_RESELLERS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-reseller', [
+                    'id'       => $context[static::CONTEXT_RESELLERS],
+                    '--create' => true,
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[static::CONTEXT_CUSTOMERS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-customer', [
+                    'id'       => $context[static::CONTEXT_CUSTOMERS],
+                    '--create' => true,
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[static::CONTEXT_TYPES] ?? null) {
+            $owner = (new DocumentModel())->getMorphClass();
+
+            foreach ($context[static::CONTEXT_TYPES] as $key) {
+                // Create
+                $type              = new TypeModel();
+                $type->object_type = $owner;
+                $type->key         = $this->normalizer->string($key);
+                $type->name        = $this->normalizer->string($key);
+
+                $type->save();
+
+                // Collect settings
+                if (mb_stripos($key, 'contract') !== false) {
+                    $settings['ep.contract_types'][] = $type->getKey();
+                } elseif (mb_stripos($key, 'quote') !== false) {
+                    $settings['ep.quote_types'][] = $type->getKey();
+                } else {
+                    // empty
+                }
+            }
+        }
+
+        // Update settings
+        foreach ($settings as $setting => $value) {
+            $this->config->set($setting, $value);
+        }
+
+        // Return
+        return $result;
     }
 
     protected function dumpClientResponses(string $path, Closure $closure): bool {
@@ -123,15 +194,16 @@ abstract class Data {
     private function saveMap(string $path, array $map): bool {
         ksort($map);
 
-        (new Filesystem())->dumpFile($path, json_encode(
-            $map,
-            JSON_PRETTY_PRINT
-            | JSON_UNESCAPED_SLASHES
-            | JSON_UNESCAPED_UNICODE
-            | JSON_UNESCAPED_LINE_TERMINATORS
-            | JSON_PRESERVE_ZERO_FRACTION
-            | JSON_THROW_ON_ERROR,
-        ));
+        (new Filesystem())->dumpFile($path,
+            json_encode(
+                $map,
+                JSON_PRETTY_PRINT
+                | JSON_UNESCAPED_SLASHES
+                | JSON_UNESCAPED_UNICODE
+                | JSON_UNESCAPED_LINE_TERMINATORS
+                | JSON_PRESERVE_ZERO_FRACTION
+                | JSON_THROW_ON_ERROR,
+            ));
 
         return true;
     }
