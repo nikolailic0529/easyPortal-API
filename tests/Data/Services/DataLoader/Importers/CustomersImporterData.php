@@ -9,7 +9,7 @@ class CustomersImporterData extends Data {
     public const LIMIT = 50;
     public const CHUNK = 10;
 
-    public function generate(string $path): array|bool {
+    protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $result  = $this->kernel->call('ep:data-loader-import-customers', [
                 '--limit' => static::LIMIT,

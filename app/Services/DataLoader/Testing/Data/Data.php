@@ -39,7 +39,48 @@ abstract class Data {
     /**
      * @return bool|array<string,mixed>
      */
-    abstract public function generate(string $path): bool|array;
+    public function generate(string $path): array|bool {
+        $result   = false;
+        $bindings = $this->generateBindings();
+
+        try {
+            foreach ($bindings as $abstract => $concrete) {
+                if (!$this->app->bound($abstract)) {
+                    $this->app->bind($abstract, $concrete);
+                } else {
+                    unset($bindings[$abstract]);
+                }
+            }
+
+            $result = $this->generateData($path);
+        } finally {
+            foreach ($bindings as $abstract => $concrete) {
+                unset($this->app[$abstract]);
+            }
+        }
+
+        if ($result) {
+            $result = $this->generateContext($path);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array<class-string,class-string>
+     */
+    protected function generateBindings(): array {
+        return [];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function generateContext(string $path): array {
+        return [];
+    }
+
+    abstract protected function generateData(string $path): bool;
 
     /**
      * @param array<string,mixed> $context

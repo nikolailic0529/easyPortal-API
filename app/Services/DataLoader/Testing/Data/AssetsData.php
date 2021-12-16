@@ -101,41 +101,21 @@ abstract class AssetsData extends Data {
         return $result;
     }
 
-    public function generate(string $path): array|bool {
-        $result   = false;
-        $bindings = [
+    /**
+     * @inerhitDoc
+     */
+    protected function generateBindings(): array {
+        return [
             OemFinder::class          => OemFinderImpl::class,
             ServiceGroupFinder::class => ServiceGroupFinderImpl::class,
             ServiceLevelFinder::class => ServiceLevelFinderImpl::class,
         ];
-
-        try {
-            foreach ($bindings as $abstract => $concrete) {
-                if (!$this->app->bound($abstract)) {
-                    $this->app->bind($abstract, $concrete);
-                } else {
-                    unset($bindings[$abstract]);
-                }
-            }
-
-            $result = $this->generateData($path);
-        } finally {
-            foreach ($bindings as $abstract => $concrete) {
-                unset($this->app[$abstract]);
-            }
-        }
-
-        if ($result) {
-            $result = $this->generateContext($path);
-        }
-
-        return $result;
     }
 
     /**
      * @return array<mixed>
      */
-    public function generateContext(string $path): array {
+    protected function generateContext(string $path): array {
         // Extract
         $distributors = [];
         $resellers    = [];

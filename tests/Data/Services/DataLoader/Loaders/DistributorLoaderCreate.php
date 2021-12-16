@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 class DistributorLoaderCreate extends Data {
     public const DISTRIBUTOR = '143c456a-e894-4710-a1c2-745b9582ca47';
 
-    public function generate(string $path): bool|array {
+    protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $result  = $this->kernel->call('ep:data-loader-update-distributor', [
                 'id'       => [static::DISTRIBUTOR],
