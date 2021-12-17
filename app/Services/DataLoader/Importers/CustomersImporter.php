@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Importers;
 
 use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;
@@ -40,10 +41,15 @@ class CustomersImporter extends Importer {
                 $customers->loadMissing('locations.types');
                 $customers->loadMissing('contacts');
                 $customers->loadMissing('kpi');
+                $customers->loadMissing('resellersPivots.kpi');
 
                 $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
                 $contacts->add($customers->pluck('contacts')->flatten());
             });
+
+        $this->container
+            ->make(ResellerFactory::class)
+            ->prefetch($items);
 
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }

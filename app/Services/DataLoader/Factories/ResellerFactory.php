@@ -62,6 +62,12 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
 
                 if ($model instanceof Company) {
                     $keys[] = $model->id;
+
+                    if (isset($model->companyResellerKpis)) {
+                        foreach ($model->companyResellerKpis as $kpi) {
+                            $keys[] = $kpi->resellerId ?? null;
+                        }
+                    }
                 } elseif ($model instanceof Document) {
                     $keys[] = $model->resellerId;
                 } elseif ($model instanceof ViewAsset) {

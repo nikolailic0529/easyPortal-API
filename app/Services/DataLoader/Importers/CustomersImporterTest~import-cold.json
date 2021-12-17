@@ -15,6 +15,36 @@
         ]
     },
     {
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "000514de-cbf8-4955-b027-fc94e44e24a7",
+            "9e95812a-af8a-40c9-bffd-6f9ee8564c93",
+            "75026113-e205-40e8-831e-0a2f9dee75bf",
+            "00086c84-47ba-4796-a753-b6ab59580865",
+            "0008751b-2d84-4edf-9075-789a071a84d0",
+            "0f65a088-375b-44ad-be51-e4b1c4c772d9",
+            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
+            "5c0c8f15-a86f-4534-980b-9208a2e01233",
+            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
+            "bf790e1a-9908-4115-a907-23da9f7ef594",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
+            "3c93d20d-9b30-449b-adc5-08e2b056878e",
+            "00162413-6913-41cf-b328-f441d958ae75",
+            "7b1359b4-b946-435b-b006-e9dff24640bd",
+            "00168fb1-b86c-42f0-abab-6582ea1a865e",
+            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
+            "24e45cee-e209-412b-af50-6d62f4e57441",
+            "da76f44c-a303-4eb8-ada5-76b80e12a0ac",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "001891b4-fe07-4d88-9a01-816a1c4709cc",
+            "21c3389b-02ba-4c0c-9f85-3629052f9c45",
+            "10fc76c5-2be2-43f7-b719-375f6ef6791e",
+            "88e40ada-934b-47d1-b731-c440c1b7cdbb"
+        ]
+    },
+    {
         "query": "select * from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -156,12 +186,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9e95812a-af8a-40c9-bffd-6f9ee8564c93"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             3,
@@ -193,12 +217,6 @@
             "ef0621a3-9714-5872-bd49-4ab14b91906b",
             "2021-08-30 00:13:58",
             "2021-08-30 00:13:58"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "75026113-e205-40e8-831e-0a2f9dee75bf"
         ]
     },
     {
@@ -637,12 +655,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0f65a088-375b-44ad-be51-e4b1c4c772d9"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
@@ -845,12 +857,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "000cbefe-925a-43e1-a67d-31fe0b73ab71"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5c0c8f15-a86f-4534-980b-9208a2e01233"
         ]
     },
     {
@@ -1061,12 +1067,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bf790e1a-9908-4115-a907-23da9f7ef594"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             27,
@@ -1098,12 +1098,6 @@
             "fb82bcd9-daa4-5103-9bbf-18827c2a04c5",
             "2021-08-30 00:15:02",
             "2021-08-30 00:15:02"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6130ff7e-b429-49cd-aef6-225735195e16"
         ]
     },
     {
@@ -1337,12 +1331,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3c93d20d-9b30-449b-adc5-08e2b056878e"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             16,
@@ -1545,12 +1533,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "00162413-6913-41cf-b328-f441d958ae75"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "7b1359b4-b946-435b-b006-e9dff24640bd"
         ]
     },
     {
@@ -1964,12 +1946,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "24e45cee-e209-412b-af50-6d62f4e57441"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             6,
@@ -2001,12 +1977,6 @@
             "10186f07-52fd-5767-ba41-04f701cf968e",
             "2021-08-30 00:16:06",
             "2021-08-30 00:16:06"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "da76f44c-a303-4eb8-ada5-76b80e12a0ac"
         ]
     },
     {
@@ -2044,12 +2014,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             8,
@@ -2081,12 +2045,6 @@
             "451d80fa-ead3-5ebe-a22b-f9f5699d2dd5",
             "2021-08-30 00:16:08",
             "2021-08-30 00:16:08"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
     },
     {
@@ -2332,12 +2290,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "21c3389b-02ba-4c0c-9f85-3629052f9c45"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             3,
@@ -2372,12 +2324,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "10fc76c5-2be2-43f7-b719-375f6ef6791e"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
@@ -2409,12 +2355,6 @@
             "63f50061-97fc-54fb-8a54-a7ccc0cb2a71",
             "2021-08-30 00:16:32",
             "2021-08-30 00:16:32"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "88e40ada-934b-47d1-b731-c440c1b7cdbb"
         ]
     },
     {
@@ -3377,6 +3317,32 @@
         ]
     },
     {
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "001e8e14-f724-4a25-85b4-df4ed547a822",
+            "e0ada779-5a4a-4cda-8b94-f368bf939187",
+            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
+            "f7e46a82-e182-4e65-9924-bcdacc28bd93",
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "00287225-33bf-471b-8642-c2daa9c413f8",
+            "002a6618-f02a-49af-8f4f-8bce8876318f",
+            "4048c553-b5cc-4f67-8d63-5a0cababf07f",
+            "c81fb0c0-10f5-4de0-8db2-89e5b7a576d8",
+            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
+            "f0515cc5-7a91-47ce-bb40-6d54e202a7ee",
+            "002e1544-0996-4bd1-852b-43497fde643a",
+            "88e40ada-934b-47d1-b731-c440c1b7cdbb",
+            "002f8f2e-1cd9-40b9-bc11-60769495f733",
+            "e7e872e2-5009-4d3e-b36c-ab0360ce6103",
+            "00304660-44aa-446d-9b52-72ab9858fbe4",
+            "fa450d57-5488-4095-bff8-0a4f5f990cec",
+            "003073af-d3a8-49b2-bed7-678ba80d1890",
+            "1a5ecce7-dfbf-462a-a4cc-a59528fb9d73",
+            "00377726-408c-4090-b2b5-527650642d1f",
+            "afe646d5-3d89-4a68-bca4-4ad0be6be121"
+        ]
+    },
+    {
         "query": "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "active",
@@ -3464,12 +3430,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "001e8e14-f724-4a25-85b4-df4ed547a822"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e0ada779-5a4a-4cda-8b94-f368bf939187"
         ]
     },
     {
@@ -3678,12 +3638,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f7e46a82-e182-4e65-9924-bcdacc28bd93"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             2,
@@ -3715,12 +3669,6 @@
             "370242ec-d3ba-597b-a9c2-9b8bbbc5393a",
             "2021-08-30 00:20:47",
             "2021-08-30 00:20:47"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "143c456a-e894-4710-a1c2-745b9582ca47"
         ]
     },
     {
@@ -4078,12 +4026,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "4048c553-b5cc-4f67-8d63-5a0cababf07f"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             10,
@@ -4115,12 +4057,6 @@
             "6cef1bb4-b0fe-5f75-bf97-1e347e6a9dc0",
             "2021-08-30 00:21:16",
             "2021-08-30 00:21:16"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "c81fb0c0-10f5-4de0-8db2-89e5b7a576d8"
         ]
     },
     {
@@ -4335,12 +4271,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f0515cc5-7a91-47ce-bb40-6d54e202a7ee"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             3,
@@ -4546,12 +4476,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "88e40ada-934b-47d1-b731-c440c1b7cdbb"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             4,
@@ -4737,12 +4661,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "002f8f2e-1cd9-40b9-bc11-60769495f733"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e7e872e2-5009-4d3e-b36c-ab0360ce6103"
         ]
     },
     {
@@ -4953,12 +4871,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "fa450d57-5488-4095-bff8-0a4f5f990cec"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             2,
@@ -5134,12 +5046,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "003073af-d3a8-49b2-bed7-678ba80d1890"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1a5ecce7-dfbf-462a-a4cc-a59528fb9d73"
         ]
     },
     {
@@ -5345,12 +5251,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "00377726-408c-4090-b2b5-527650642d1f"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "afe646d5-3d89-4a68-bca4-4ad0be6be121"
         ]
     },
     {
@@ -6256,6 +6156,40 @@
         ]
     },
     {
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
+            "6829d438-60f2-41c7-a40f-c292d7330379",
+            "003d5627-b1a7-4b59-b264-876022125810",
+            "003df82c-b286-408e-a5e2-70d0341ff922",
+            "d579e027-5a28-4537-bd72-03c698e14660",
+            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
+            "0f552580-766f-40b7-b089-edcb00d7b0d0",
+            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
+            "00489f55-ca17-4136-8a1f-ab9472b8e138",
+            "8b9acb90-3827-467d-8d68-b47d840957f9",
+            "004abfbe-9f96-4294-8de3-a05955920828",
+            "f099856f-d50e-4440-b938-375cab3b8e1b",
+            "09b46a58-b36a-4eea-aaf3-231feb74b733",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "a19a46a0-16c8-45a6-9d04-96098b0116f4",
+            "18b54e5a-4300-4180-85db-e87a19eb0eaa",
+            "abad51bc-e4cf-4599-a205-e5c0a1d846b8",
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "9ce50ef2-25b0-49c1-b9ec-f90b0fa5cbd5",
+            "5c0c8f15-a86f-4534-980b-9208a2e01233",
+            "1dd25cff-e6e2-4cca-8f86-44a3077a45c3",
+            "0ef725db-68a6-462d-8f03-05220c9c9ae6",
+            "e42b7fcc-00b2-4cca-90aa-88056a2b642f",
+            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
+            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
+            "1d1abbb3-ff1f-440b-b5f7-29e0173e7122",
+            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
+            "d04083cc-0b69-41d1-b8ce-b3460f9a3398",
+            "5f63cdda-9ed9-49c9-abdf-8d80d07dc6d5"
+        ]
+    },
+    {
         "query": "select * from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "003b3d2c-0021-4832-8b9e-9b3d4c323fb1"
@@ -6342,12 +6276,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "003b3d2c-0021-4832-8b9e-9b3d4c323fb1"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6829d438-60f2-41c7-a40f-c292d7330379"
         ]
     },
     {
@@ -6737,12 +6665,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d579e027-5a28-4537-bd72-03c698e14660"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
@@ -6945,12 +6867,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "00416109-eeb9-4e45-9b1b-72a0086c7d12"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0f552580-766f-40b7-b089-edcb00d7b0d0"
         ]
     },
     {
@@ -7321,12 +7237,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8b9acb90-3827-467d-8d68-b47d840957f9"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
@@ -7522,12 +7432,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f099856f-d50e-4440-b938-375cab3b8e1b"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             4,
@@ -7559,12 +7463,6 @@
             "f790768f-45e4-5331-80bd-4631366bed9d",
             "2021-08-30 00:27:40",
             "2021-08-30 00:27:40"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "09b46a58-b36a-4eea-aaf3-231feb74b733"
         ]
     },
     {
@@ -7602,12 +7500,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             100,
@@ -7639,12 +7531,6 @@
             "01e323de-fe45-512a-8c7e-5b57790b43bb",
             "2021-08-30 00:27:42",
             "2021-08-30 00:27:42"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a19a46a0-16c8-45a6-9d04-96098b0116f4"
         ]
     },
     {
@@ -7682,12 +7568,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "18b54e5a-4300-4180-85db-e87a19eb0eaa"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             50,
@@ -7719,12 +7599,6 @@
             "c074ed54-74da-51bb-8aeb-6d62a22efb93",
             "2021-08-30 00:27:44",
             "2021-08-30 00:27:44"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "abad51bc-e4cf-4599-a205-e5c0a1d846b8"
         ]
     },
     {
@@ -7762,12 +7636,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "143c456a-e894-4710-a1c2-745b9582ca47"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             35,
@@ -7799,12 +7667,6 @@
             "61b9e9b9-e713-57a2-ae0d-8817ed78f470",
             "2021-08-30 00:27:46",
             "2021-08-30 00:27:46"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9ce50ef2-25b0-49c1-b9ec-f90b0fa5cbd5"
         ]
     },
     {
@@ -7842,12 +7704,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5c0c8f15-a86f-4534-980b-9208a2e01233"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1217,
@@ -7879,12 +7735,6 @@
             "70b2dddf-11c0-53f2-ae0a-177ebcb5fba1",
             "2021-08-30 00:27:48",
             "2021-08-30 00:27:48"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1dd25cff-e6e2-4cca-8f86-44a3077a45c3"
         ]
     },
     {
@@ -7922,12 +7772,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0ef725db-68a6-462d-8f03-05220c9c9ae6"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             0,
@@ -7959,12 +7803,6 @@
             "ac072e58-e6a8-5601-a191-d6d9bb75d541",
             "2021-08-30 00:27:50",
             "2021-08-30 00:27:50"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e42b7fcc-00b2-4cca-90aa-88056a2b642f"
         ]
     },
     {
@@ -8324,12 +8162,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1d1abbb3-ff1f-440b-b5f7-29e0173e7122"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             19,
@@ -8537,12 +8369,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d04083cc-0b69-41d1-b8ce-b3460f9a3398"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             2,
@@ -8574,12 +8400,6 @@
             "49683017-8dcf-5c54-88e3-e46250a5cfea",
             "2021-08-30 00:28:50",
             "2021-08-30 00:28:50"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5f63cdda-9ed9-49c9-abdf-8d80d07dc6d5"
         ]
     },
     {
@@ -9606,6 +9426,31 @@
         ]
     },
     {
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "00561888-ff56-4b14-b6bd-03b2abe0ea79",
+            "38dcd9a6-6890-4836-be25-3476f48211a9",
+            "6173b7c4-4e9a-4b3c-a662-39c7a48fdf75",
+            "00562638-2237-4cdb-b580-2c82a65a94ff",
+            "561b9925-3781-46d7-a734-78efad4f5ae6",
+            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
+            "75026113-e205-40e8-831e-0a2f9dee75bf",
+            "0059bbe6-5c23-4244-9174-58401ca51e1c",
+            "dac60106-eeb0-435f-9527-3a29f85b8f38",
+            "005bb000-a71b-406f-a48c-016176bd329a",
+            "b0233a33-e6b2-488a-b5ff-22408194ba83",
+            "bf766311-a200-453a-ab80-22bde604c287",
+            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
+            "00605988-7243-4135-9da0-2cec80179f6d",
+            "139faed8-e355-40a6-8bdb-4410b7cec9c6",
+            "b0c9cac9-f3f5-4076-acf9-69b60d9dfb8d",
+            "00616f5f-afae-4b5d-b131-824034b6ec39",
+            "902ea03a-8852-442c-a520-5f319b6d47f5",
+            "0065cb2a-2556-449e-ad18-255f06049b22",
+            "0065fc39-38ba-4f55-9409-82727defe7f0"
+        ]
+    },
+    {
         "query": "select * from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "00561888-ff56-4b14-b6bd-03b2abe0ea79"
@@ -9661,12 +9506,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "38dcd9a6-6890-4836-be25-3476f48211a9"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             4,
@@ -9698,12 +9537,6 @@
             "59d58a12-efc6-55cf-9599-159ff766e07c",
             "2021-08-30 00:33:25",
             "2021-08-30 00:33:25"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6173b7c4-4e9a-4b3c-a662-39c7a48fdf75"
         ]
     },
     {
@@ -9915,12 +9748,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "00562638-2237-4cdb-b580-2c82a65a94ff"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "561b9925-3781-46d7-a734-78efad4f5ae6"
         ]
     },
     {
@@ -10148,12 +9975,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "75026113-e205-40e8-831e-0a2f9dee75bf"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
@@ -10351,12 +10172,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0059bbe6-5c23-4244-9174-58401ca51e1c"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dac60106-eeb0-435f-9527-3a29f85b8f38"
         ]
     },
     {
@@ -10565,12 +10380,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b0233a33-e6b2-488a-b5ff-22408194ba83"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             29,
@@ -10602,12 +10411,6 @@
             "25d29b0f-386b-510a-88a1-53b15538c99b",
             "2021-08-30 00:34:28",
             "2021-08-30 00:34:28"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bf766311-a200-453a-ab80-22bde604c287"
         ]
     },
     {
@@ -10982,12 +10785,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "139faed8-e355-40a6-8bdb-4410b7cec9c6"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             14,
@@ -11019,12 +10816,6 @@
             "32e4d87e-7972-5299-9f45-800188abe4f2",
             "2021-08-30 00:34:58",
             "2021-08-30 00:34:58"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b0c9cac9-f3f5-4076-acf9-69b60d9dfb8d"
         ]
     },
     {
@@ -11219,12 +11010,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "00616f5f-afae-4b5d-b131-824034b6ec39"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "902ea03a-8852-442c-a520-5f319b6d47f5"
         ]
     },
     {
@@ -12391,6 +12176,28 @@
         ]
     },
     {
+        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "006a6e2d-dda0-43fa-93bd-655b67af7276",
+            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
+            "c1cf963a-6447-4d22-9d3b-6f8899370c3c",
+            "006d21ef-9344-414d-9c06-f87528c53d70",
+            "006e83c9-99cc-47df-9860-dcb108ba64ef",
+            "006ef41b-5ffa-450b-9203-d00e91dc5283",
+            "d7783f3b-d5ea-4e8d-9419-0c69a2cc9c03",
+            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
+            "405f942d-c8f5-425e-a533-c24397e4e677",
+            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
+            "ad7a030a-b5c8-42df-a8aa-4b1b6c274d28",
+            "00758ebb-6391-4b89-a184-ca1b9fa49616",
+            "1a613acc-20e3-4407-ad59-d2a005e18f53",
+            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
+            "3df86b88-c48b-4cb3-8dc7-36ab8335a2db",
+            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
+            "1374b7cf-0aa4-41f9-be97-fc42f766bd0b"
+        ]
+    },
+    {
         "query": "select * from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "006a6e2d-dda0-43fa-93bd-655b67af7276"
@@ -12637,12 +12444,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "006bcb3e-ce37-458b-8ac3-754c861f7ff8"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "c1cf963a-6447-4d22-9d3b-6f8899370c3c"
         ]
     },
     {
@@ -13146,12 +12947,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d7783f3b-d5ea-4e8d-9419-0c69a2cc9c03"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             0,
@@ -13363,12 +13158,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "405f942d-c8f5-425e-a533-c24397e4e677"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             8,
@@ -13571,12 +13360,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0074113b-72a3-49b1-80c3-6ecfb2064bdb"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ad7a030a-b5c8-42df-a8aa-4b1b6c274d28"
         ]
     },
     {
@@ -13785,12 +13568,6 @@
         ]
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1a613acc-20e3-4407-ad59-d2a005e18f53"
-        ]
-    },
-    {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
@@ -13983,12 +13760,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3df86b88-c48b-4cb3-8dc7-36ab8335a2db"
         ]
     },
     {
@@ -14194,12 +13965,6 @@
         "query": "select * from `reseller_customers` where `reseller_customers`.`customer_id` = ? and `reseller_customers`.`customer_id` is not null and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0078b4cb-6122-4a90-8c98-0dea36a5dde2"
-        ]
-    },
-    {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1374b7cf-0aa4-41f9-be97-fc42f766bd0b"
         ]
     },
     {
