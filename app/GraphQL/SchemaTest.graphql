@@ -830,7 +830,6 @@ input CustomersSort {
   contacts_count: Int!
   assets_count: Int!
   type: TypesSort!
-  kpi: KpiSort!
   headquarter: CustomerLocationsSort!
 }
 
@@ -5297,9 +5296,6 @@ input SortByClauseCustomersSort {
 
   """Property clause."""
   type: SortByClauseTypesSort
-
-  """Property clause."""
-  kpi: SortByClauseKpiSort
 
   """Property clause."""
   headquarter: SortByClauseCustomerLocationsSort

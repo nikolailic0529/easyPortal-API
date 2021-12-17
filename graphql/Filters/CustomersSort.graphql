@@ -4,6 +4,5 @@ input CustomersSort {
   contacts_count: Int!
   assets_count: Int! @orgProperty
   type: TypesSort!
-  kpi: KpiSort!
   headquarter: CustomerLocationsSort!
 }

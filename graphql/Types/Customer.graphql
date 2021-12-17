@@ -19,8 +19,7 @@ type Customer {
   assets_count: Int! @orgProperty
   locations_count: Int! @orgProperty
 
-  # TODO [GraphQL] Should be available only for root organization
-  kpi: Kpi @morphOne
+  kpi: Kpi @orgRelation
 
   # Contracts
   contracts (
