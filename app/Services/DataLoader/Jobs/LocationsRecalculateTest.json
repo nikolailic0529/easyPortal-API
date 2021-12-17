@@ -65,7 +65,7 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `deleted_at` is null and `location_customers`.`location_id` = ?",
+        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "09477b7e-4f12-5f29-ad60-559bab1718e4"
         ]
@@ -110,7 +110,7 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `deleted_at` is null and `location_customers`.`location_id` = ?",
+        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234"
         ]
@@ -138,7 +138,7 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `deleted_at` is null and `location_customers`.`location_id` = ?",
+        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433"
         ]

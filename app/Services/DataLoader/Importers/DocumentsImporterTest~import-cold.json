@@ -115,8 +115,8 @@
             "EUR",
             "EUR",
             "8caf4576-e2ab-5d10-a961-657af0f3bc7a",
-            "2021-08-30 00:58:55",
-            "2021-08-30 00:58:55"
+            "2021-08-30 16:34:57",
+            "2021-08-30 16:34:57"
         ]
     },
     {
@@ -135,8 +135,8 @@
             "EN",
             "EN",
             "5fa2341d-ddfd-5f1f-afb1-ced199a48eba",
-            "2021-08-30 00:58:56",
-            "2021-08-30 00:58:56"
+            "2021-08-30 16:34:58",
+            "2021-08-30 16:34:58"
         ]
     },
     {
@@ -161,8 +161,8 @@
             "EXPIRED",
             "EXPIRED",
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
-            "2021-08-30 00:59:00",
-            "2021-08-30 00:59:00"
+            "2021-08-30 16:35:02",
+            "2021-08-30 16:35:02"
         ]
     },
     {
@@ -185,9 +185,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 00:59:01",
-            "2021-08-30 00:59:02",
-            "2021-08-30 00:59:02"
+            "2021-08-30 16:35:03",
+            "2021-08-30 16:35:04",
+            "2021-08-30 16:35:04"
         ]
     },
     {
@@ -200,23 +200,23 @@
             null,
             false,
             "f63472a8-a731-55ac-b895-8c7876f2a691",
-            "2021-08-30 00:59:03",
-            "2021-08-30 00:59:03"
+            "2021-08-30 16:35:05",
+            "2021-08-30 16:35:05"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "f63472a8-a731-55ac-b895-8c7876f2a691",
-            "2021-08-30 00:59:04",
+            "2021-08-30 16:35:06",
             "fccb6bd8-2e34-51fb-91bb-289bc64726ff",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 00:59:04",
+            "2021-08-30 16:35:06",
             "f63472a8-a731-55ac-b895-8c7876f2a691",
-            "2021-08-30 00:59:05",
+            "2021-08-30 16:35:07",
             "7155d343-ef10-584f-b985-4545f88e4b44",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 00:59:05"
+            "2021-08-30 16:35:07"
         ]
     },
     {
@@ -229,8 +229,8 @@
             null,
             null,
             "61d18caf-8029-5435-99e9-7ac07f93b0f7",
-            "2021-08-30 00:59:06",
-            "2021-08-30 00:59:06"
+            "2021-08-30 16:35:08",
+            "2021-08-30 16:35:08"
         ]
     },
     {
@@ -239,8 +239,8 @@
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "61d18caf-8029-5435-99e9-7ac07f93b0f7",
             "aaf5a973-a92f-5b88-9541-eaea56298d14",
-            "2021-08-30 00:59:07",
-            "2021-08-30 00:59:07"
+            "2021-08-30 16:35:09",
+            "2021-08-30 16:35:09"
         ]
     },
     {
@@ -249,8 +249,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "000024e9-b3ec-4cb0-9f81-a487df3a0a14",
             "da585fb9-195e-5b08-871a-6c120b4e8183",
-            "2021-08-30 00:59:08",
-            "2021-08-30 00:59:08"
+            "2021-08-30 16:35:10",
+            "2021-08-30 16:35:10"
         ]
     },
     {
@@ -265,8 +265,8 @@
             "CHF",
             "CHF",
             "72f9a507-3f12-5b69-90c9-811a8234d64c",
-            "2021-08-30 00:59:09",
-            "2021-08-30 00:59:09"
+            "2021-08-30 16:35:11",
+            "2021-08-30 16:35:11"
         ]
     },
     {
@@ -289,9 +289,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 00:59:13",
-            "2021-08-30 00:59:14",
-            "2021-08-30 00:59:14"
+            "2021-08-30 16:35:15",
+            "2021-08-30 16:35:16",
+            "2021-08-30 16:35:16"
         ]
     },
     {
@@ -304,28 +304,28 @@
             null,
             false,
             "f77fb31b-6adf-547d-8b73-bbf820817662",
-            "2021-08-30 00:59:15",
-            "2021-08-30 00:59:15"
+            "2021-08-30 16:35:17",
+            "2021-08-30 16:35:17"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "f77fb31b-6adf-547d-8b73-bbf820817662",
-            "2021-08-30 00:59:16",
+            "2021-08-30 16:35:18",
             "45da41f2-c267-51c2-b09a-4baa90dccca4",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 00:59:16",
+            "2021-08-30 16:35:18",
             "f77fb31b-6adf-547d-8b73-bbf820817662",
-            "2021-08-30 00:59:17",
+            "2021-08-30 16:35:19",
             "8fb1977c-fbaa-5e54-ade6-a666fd94000f",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 00:59:17",
+            "2021-08-30 16:35:19",
             "f77fb31b-6adf-547d-8b73-bbf820817662",
-            "2021-08-30 00:59:18",
+            "2021-08-30 16:35:20",
             "b71c2a46-0339-50c3-b9c7-a04514f11882",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 00:59:18"
+            "2021-08-30 16:35:20"
         ]
     },
     {
@@ -334,8 +334,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0000e20b-e909-4037-97b8-a7474e65ba60",
             "1cfc6402-fb46-5612-ad83-adfb3572fb0e",
-            "2021-08-30 00:59:19",
-            "2021-08-30 00:59:19"
+            "2021-08-30 16:35:21",
+            "2021-08-30 16:35:21"
         ]
     },
     {
@@ -358,9 +358,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 00:59:23",
-            "2021-08-30 00:59:24",
-            "2021-08-30 00:59:24"
+            "2021-08-30 16:35:25",
+            "2021-08-30 16:35:26",
+            "2021-08-30 16:35:26"
         ]
     },
     {
@@ -373,23 +373,23 @@
             null,
             false,
             "f21a1c32-a6c2-58a8-aa62-698353ad09e4",
-            "2021-08-30 00:59:25",
-            "2021-08-30 00:59:25"
+            "2021-08-30 16:35:27",
+            "2021-08-30 16:35:27"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "f21a1c32-a6c2-58a8-aa62-698353ad09e4",
-            "2021-08-30 00:59:26",
+            "2021-08-30 16:35:28",
             "d392384c-daaa-5908-b7e8-da4f7130f432",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 00:59:26",
+            "2021-08-30 16:35:28",
             "f21a1c32-a6c2-58a8-aa62-698353ad09e4",
-            "2021-08-30 00:59:27",
+            "2021-08-30 16:35:29",
             "30c5b100-b32c-511d-979c-dbea9586a29b",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 00:59:27"
+            "2021-08-30 16:35:29"
         ]
     },
     {
@@ -402,8 +402,8 @@
             null,
             false,
             "8d3cb951-7ccb-5c69-9e8a-419e9b3a3fcd",
-            "2021-08-30 00:59:28",
-            "2021-08-30 00:59:28"
+            "2021-08-30 16:35:30",
+            "2021-08-30 16:35:30"
         ]
     },
     {
@@ -412,8 +412,8 @@
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "8d3cb951-7ccb-5c69-9e8a-419e9b3a3fcd",
             "d471ae0b-cd14-5bd2-ab19-06729b5b77e7",
-            "2021-08-30 00:59:29",
-            "2021-08-30 00:59:29"
+            "2021-08-30 16:35:31",
+            "2021-08-30 16:35:31"
         ]
     },
     {
@@ -422,8 +422,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00012228-a1ac-40dc-b47e-85b53a836289",
             "eeeaf0b5-9255-53d6-91f0-80de6e69ea3d",
-            "2021-08-30 00:59:30",
-            "2021-08-30 00:59:30"
+            "2021-08-30 16:35:32",
+            "2021-08-30 16:35:32"
         ]
     },
     {
@@ -446,9 +446,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 00:59:34",
-            "2021-08-30 00:59:35",
-            "2021-08-30 00:59:35"
+            "2021-08-30 16:35:36",
+            "2021-08-30 16:35:37",
+            "2021-08-30 16:35:37"
         ]
     },
     {
@@ -461,23 +461,23 @@
             null,
             null,
             "dc2b3dd1-9719-5395-bf86-a3ca1bbdf52c",
-            "2021-08-30 00:59:36",
-            "2021-08-30 00:59:36"
+            "2021-08-30 16:35:38",
+            "2021-08-30 16:35:38"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "dc2b3dd1-9719-5395-bf86-a3ca1bbdf52c",
-            "2021-08-30 00:59:37",
+            "2021-08-30 16:35:39",
             "a23d4a52-9a0a-5475-8136-20a5ab5d80cd",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 00:59:37",
+            "2021-08-30 16:35:39",
             "dc2b3dd1-9719-5395-bf86-a3ca1bbdf52c",
-            "2021-08-30 00:59:38",
+            "2021-08-30 16:35:40",
             "005d8d26-5051-5d61-aee6-d35058d1fa8c",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 00:59:38"
+            "2021-08-30 16:35:40"
         ]
     },
     {
@@ -490,8 +490,8 @@
             null,
             null,
             "278c0e04-fe78-5d12-8800-c3402e5a0df4",
-            "2021-08-30 00:59:39",
-            "2021-08-30 00:59:39"
+            "2021-08-30 16:35:41",
+            "2021-08-30 16:35:41"
         ]
     },
     {
@@ -500,8 +500,8 @@
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "278c0e04-fe78-5d12-8800-c3402e5a0df4",
             "e96efa1d-48e8-5bb0-bfdc-571b4413d8b2",
-            "2021-08-30 00:59:40",
-            "2021-08-30 00:59:40"
+            "2021-08-30 16:35:42",
+            "2021-08-30 16:35:42"
         ]
     },
     {
@@ -510,8 +510,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00028755-940a-4f99-8229-115562af56f5",
             "b02dbf98-1dcb-5600-85f7-ad309cf8fe99",
-            "2021-08-30 00:59:41",
-            "2021-08-30 00:59:41"
+            "2021-08-30 16:35:43",
+            "2021-08-30 16:35:43"
         ]
     },
     {
@@ -534,9 +534,9 @@
             "2021-07-15 10:47:00",
             2,
             1,
-            "2021-08-30 00:59:45",
-            "2021-08-30 00:59:46",
-            "2021-08-30 00:59:46"
+            "2021-08-30 16:35:47",
+            "2021-08-30 16:35:48",
+            "2021-08-30 16:35:48"
         ]
     },
     {
@@ -549,23 +549,23 @@
             null,
             false,
             "3a97c8c7-ef53-5d78-87ed-375e902a27b9",
-            "2021-08-30 00:59:47",
-            "2021-08-30 00:59:47"
+            "2021-08-30 16:35:49",
+            "2021-08-30 16:35:49"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "3a97c8c7-ef53-5d78-87ed-375e902a27b9",
-            "2021-08-30 00:59:48",
+            "2021-08-30 16:35:50",
             "6da4981e-216e-5aa8-b073-d6a4ccb06bcd",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 00:59:48",
+            "2021-08-30 16:35:50",
             "3a97c8c7-ef53-5d78-87ed-375e902a27b9",
-            "2021-08-30 00:59:49",
+            "2021-08-30 16:35:51",
             "dc88cd1a-9d09-55b4-b719-9d50fb62a7bd",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 00:59:49"
+            "2021-08-30 16:35:51"
         ]
     },
     {
@@ -578,8 +578,8 @@
             null,
             null,
             "fee0d113-7bb2-52fc-91a1-162e675b387d",
-            "2021-08-30 00:59:50",
-            "2021-08-30 00:59:50"
+            "2021-08-30 16:35:52",
+            "2021-08-30 16:35:52"
         ]
     },
     {
@@ -588,8 +588,8 @@
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "fee0d113-7bb2-52fc-91a1-162e675b387d",
             "24327be8-049c-5c87-a94a-f47a39fc5f84",
-            "2021-08-30 00:59:51",
-            "2021-08-30 00:59:51"
+            "2021-08-30 16:35:53",
+            "2021-08-30 16:35:53"
         ]
     },
     {
@@ -598,8 +598,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0003797e-fb3b-4d17-85f4-15acfc03f0a4",
             "f6a03fb3-ca1d-5c28-b26b-a96435291861",
-            "2021-08-30 00:59:52",
-            "2021-08-30 00:59:52"
+            "2021-08-30 16:35:54",
+            "2021-08-30 16:35:54"
         ]
     },
     {
@@ -622,9 +622,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 00:59:56",
-            "2021-08-30 00:59:57",
-            "2021-08-30 00:59:57"
+            "2021-08-30 16:35:58",
+            "2021-08-30 16:35:59",
+            "2021-08-30 16:35:59"
         ]
     },
     {
@@ -637,23 +637,23 @@
             null,
             false,
             "0c83a04c-949a-5be3-bd72-a0556d6b1ad0",
-            "2021-08-30 00:59:58",
-            "2021-08-30 00:59:58"
+            "2021-08-30 16:36:00",
+            "2021-08-30 16:36:00"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "0c83a04c-949a-5be3-bd72-a0556d6b1ad0",
-            "2021-08-30 00:59:59",
+            "2021-08-30 16:36:01",
             "b61c3fae-b878-5128-8f4d-54ffb3e657c6",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 00:59:59",
+            "2021-08-30 16:36:01",
             "0c83a04c-949a-5be3-bd72-a0556d6b1ad0",
-            "2021-08-30 01:00:00",
+            "2021-08-30 16:36:02",
             "aa70ab1e-ffa0-575e-a066-72ad90abcf3f",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:00:00"
+            "2021-08-30 16:36:02"
         ]
     },
     {
@@ -666,8 +666,8 @@
             null,
             false,
             "e612dab7-3f51-5b3b-9b2e-609d1d1fe5c2",
-            "2021-08-30 01:00:01",
-            "2021-08-30 01:00:01"
+            "2021-08-30 16:36:03",
+            "2021-08-30 16:36:03"
         ]
     },
     {
@@ -676,8 +676,8 @@
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "e612dab7-3f51-5b3b-9b2e-609d1d1fe5c2",
             "efba9a13-c6aa-5947-bfb4-198f7d94bb44",
-            "2021-08-30 01:00:02",
-            "2021-08-30 01:00:02"
+            "2021-08-30 16:36:04",
+            "2021-08-30 16:36:04"
         ]
     },
     {
@@ -686,8 +686,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0003f423-579a-43d6-9c15-93917f06f5c0",
             "6ff6d560-5f9f-5787-aa02-b8932d153b67",
-            "2021-08-30 01:00:03",
-            "2021-08-30 01:00:03"
+            "2021-08-30 16:36:05",
+            "2021-08-30 16:36:05"
         ]
     },
     {
@@ -704,8 +704,8 @@
             "ACTIVE",
             "ACTIVE",
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
-            "2021-08-30 01:00:07",
-            "2021-08-30 01:00:07"
+            "2021-08-30 16:36:09",
+            "2021-08-30 16:36:09"
         ]
     },
     {
@@ -728,9 +728,9 @@
             "2021-07-15 10:47:00",
             1,
             1,
-            "2021-08-30 01:00:08",
-            "2021-08-30 01:00:09",
-            "2021-08-30 01:00:09"
+            "2021-08-30 16:36:10",
+            "2021-08-30 16:36:11",
+            "2021-08-30 16:36:11"
         ]
     },
     {
@@ -743,28 +743,28 @@
             null,
             false,
             "ff256b65-da5d-50f2-9915-24ef13d73d86",
-            "2021-08-30 01:00:10",
-            "2021-08-30 01:00:10"
+            "2021-08-30 16:36:12",
+            "2021-08-30 16:36:12"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "ff256b65-da5d-50f2-9915-24ef13d73d86",
-            "2021-08-30 01:00:11",
+            "2021-08-30 16:36:13",
             "864bbb08-949d-500e-ab49-3386b5aa325a",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:00:11",
+            "2021-08-30 16:36:13",
             "ff256b65-da5d-50f2-9915-24ef13d73d86",
-            "2021-08-30 01:00:12",
+            "2021-08-30 16:36:14",
             "f5316927-4826-551f-9a23-7f284d324bb7",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:00:12",
+            "2021-08-30 16:36:14",
             "ff256b65-da5d-50f2-9915-24ef13d73d86",
-            "2021-08-30 01:00:13",
+            "2021-08-30 16:36:15",
             "b20c985e-05a3-5471-9ed8-0b873616beac",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:00:13"
+            "2021-08-30 16:36:15"
         ]
     },
     {
@@ -773,8 +773,8 @@
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "00056844-154d-4a63-94ed-454b67879105",
             "b72a973f-ee63-5791-9e4b-b78c0d97c24c",
-            "2021-08-30 01:00:14",
-            "2021-08-30 01:00:14"
+            "2021-08-30 16:36:16",
+            "2021-08-30 16:36:16"
         ]
     },
     {
@@ -797,9 +797,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:00:18",
-            "2021-08-30 01:00:19",
-            "2021-08-30 01:00:19"
+            "2021-08-30 16:36:20",
+            "2021-08-30 16:36:21",
+            "2021-08-30 16:36:21"
         ]
     },
     {
@@ -812,28 +812,28 @@
             null,
             false,
             "a8bcb5d2-674a-5e8c-bf8a-895601a8d71e",
-            "2021-08-30 01:00:20",
-            "2021-08-30 01:00:20"
+            "2021-08-30 16:36:22",
+            "2021-08-30 16:36:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "a8bcb5d2-674a-5e8c-bf8a-895601a8d71e",
-            "2021-08-30 01:00:21",
+            "2021-08-30 16:36:23",
             "f1f0e566-dec0-5c32-a7a6-a8a261dfa9fd",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:00:21",
+            "2021-08-30 16:36:23",
             "a8bcb5d2-674a-5e8c-bf8a-895601a8d71e",
-            "2021-08-30 01:00:22",
+            "2021-08-30 16:36:24",
             "846576ff-47a4-5493-acdf-09f0f88f285c",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:00:22",
+            "2021-08-30 16:36:24",
             "a8bcb5d2-674a-5e8c-bf8a-895601a8d71e",
-            "2021-08-30 01:00:23",
+            "2021-08-30 16:36:25",
             "f0962c17-9a68-5a80-b9a6-fd9726015980",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:00:23"
+            "2021-08-30 16:36:25"
         ]
     },
     {
@@ -842,8 +842,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0005f5b4-507b-4d3b-85c9-c4f6d57532ab",
             "5b8af9d5-fb27-57b1-b511-cc31f3911934",
-            "2021-08-30 01:00:24",
-            "2021-08-30 01:00:24"
+            "2021-08-30 16:36:26",
+            "2021-08-30 16:36:26"
         ]
     },
     {
@@ -866,9 +866,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:00:28",
-            "2021-08-30 01:00:29",
-            "2021-08-30 01:00:29"
+            "2021-08-30 16:36:30",
+            "2021-08-30 16:36:31",
+            "2021-08-30 16:36:31"
         ]
     },
     {
@@ -881,8 +881,8 @@
             null,
             null,
             "42cfffe8-2864-509d-9320-ea785de31e27",
-            "2021-08-30 01:00:30",
-            "2021-08-30 01:00:30"
+            "2021-08-30 16:36:32",
+            "2021-08-30 16:36:32"
         ]
     },
     {
@@ -891,8 +891,8 @@
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "42cfffe8-2864-509d-9320-ea785de31e27",
             "8b001ef6-70f8-5c9b-8034-01c32735121e",
-            "2021-08-30 01:00:31",
-            "2021-08-30 01:00:31"
+            "2021-08-30 16:36:33",
+            "2021-08-30 16:36:33"
         ]
     },
     {
@@ -901,8 +901,8 @@
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0006b230-c61c-4e4c-836c-ea684984fbdb",
             "a8dc9bb1-ec4f-56d0-b766-b606d79ae1f3",
-            "2021-08-30 01:00:32",
-            "2021-08-30 01:00:32"
+            "2021-08-30 16:36:34",
+            "2021-08-30 16:36:34"
         ]
     },
     {
@@ -925,9 +925,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:00:36",
-            "2021-08-30 01:00:37",
-            "2021-08-30 01:00:37"
+            "2021-08-30 16:36:38",
+            "2021-08-30 16:36:39",
+            "2021-08-30 16:36:39"
         ]
     },
     {
@@ -940,28 +940,28 @@
             null,
             false,
             "4b16a4d4-914e-5345-b13d-3e49cdd19f4f",
-            "2021-08-30 01:00:38",
-            "2021-08-30 01:00:38"
+            "2021-08-30 16:36:40",
+            "2021-08-30 16:36:40"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "4b16a4d4-914e-5345-b13d-3e49cdd19f4f",
-            "2021-08-30 01:00:39",
+            "2021-08-30 16:36:41",
             "efda24e0-a000-5e41-9bf4-9711c204c549",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:00:39",
+            "2021-08-30 16:36:41",
             "4b16a4d4-914e-5345-b13d-3e49cdd19f4f",
-            "2021-08-30 01:00:40",
+            "2021-08-30 16:36:42",
             "d8f7bcd8-435f-5fe3-8f44-7fe48ef9189d",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:00:40",
+            "2021-08-30 16:36:42",
             "4b16a4d4-914e-5345-b13d-3e49cdd19f4f",
-            "2021-08-30 01:00:41",
+            "2021-08-30 16:36:43",
             "96bf0b96-07e8-523b-9a8b-1647501f5170",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:00:41"
+            "2021-08-30 16:36:43"
         ]
     },
     {
@@ -970,8 +970,8 @@
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "0006d945-d750-4aa0-b8b8-7cc82e63c7f2",
             "1f9023c5-4f08-5e1a-915f-59a822c57ac5",
-            "2021-08-30 01:00:42",
-            "2021-08-30 01:00:42"
+            "2021-08-30 16:36:44",
+            "2021-08-30 16:36:44"
         ]
     },
     {
@@ -1019,6 +1019,20 @@
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
+            "08f7b011-400a-441c-8d49-f1233f67ca3b",
+            "4cfceead-f53f-474d-9a38-14d7985ee644",
+            "6b5ccf6c-e945-47ac-9024-7caa1f3c698c",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "d579e027-5a28-4537-bd72-03c698e14660",
+            "ea6d0bee-5d1a-47ea-bc43-1af56cf78dec",
+            "eb7c13ee-fb10-45e0-87e8-8cc527fea1dd"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
@@ -1108,242 +1122,33 @@
     {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            1,
-            "2021-08-30 01:00:43",
-            "0675aa3f-9ad4-48bf-b4eb-57e42edd198d"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "0675aa3f-9ad4-48bf-b4eb-57e42edd198d"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:00:51",
-            "6afaf60a-84c6-420d-826e-c83cb56f58da",
-            "b61d392f-f092-59a4-9388-b81f686c237e",
-            0,
-            "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
-            "2021-08-30 01:00:51"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:00:53",
-            "08f7b011-400a-441c-8d49-f1233f67ca3b"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "08f7b011-400a-441c-8d49-f1233f67ca3b"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:01:01",
-            "d1f6d61b-6197-4788-b4db-1a4acd420a2b",
-            "822d5a0a-430f-5feb-b6e9-ed7aa9d7827a",
-            0,
-            "08f7b011-400a-441c-8d49-f1233f67ca3b",
-            "2021-08-30 01:01:01"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:01:03",
-            "4cfceead-f53f-474d-9a38-14d7985ee644"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "4cfceead-f53f-474d-9a38-14d7985ee644"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:01:11",
-            "acf4b516-e2d7-40b7-b8af-004f4d690415",
-            "18e64efe-69cb-5fd3-bcfe-f569c65aed09",
-            0,
-            "4cfceead-f53f-474d-9a38-14d7985ee644",
-            "2021-08-30 01:01:11"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:01:13",
-            "6b5ccf6c-e945-47ac-9024-7caa1f3c698c"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "6b5ccf6c-e945-47ac-9024-7caa1f3c698c"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:01:21",
-            "7d49688d-6842-4d20-bd68-3b8b114ab89d",
-            "f2e96c6c-ea78-514b-9ef5-adbbae988845",
-            0,
-            "6b5ccf6c-e945-47ac-9024-7caa1f3c698c",
-            "2021-08-30 01:01:21"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
             2,
-            "2021-08-30 01:01:23",
+            "2021-08-30 16:36:45",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            10,
+            "2021-08-30 16:36:53",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:01:31",
-            "93404a3d-6fce-4c8e-8d6a-5027e715099e",
-            "253ea6d6-7d34-56d4-94b8-951124b87e10",
-            0,
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 01:01:31",
-            0,
-            "2021-08-30 01:01:32",
-            "09315cab-ce9b-4e99-9b80-4e6dc1dce88d",
-            "f9bed9d6-6c00-54dd-9c94-733b96debf58",
-            0,
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 01:01:32"
-        ]
-    },
-    {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 01:01:35",
-            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:01:43",
-            "573cf122-f679-48d1-8277-f783e4de1561",
-            "d024afbf-b63c-527a-8372-07b92349361d",
-            0,
-            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
-            "2021-08-30 01:01:43"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:01:45",
+            "2021-08-30 16:37:01",
             "d579e027-5a28-4537-bd72-03c698e14660"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            3,
+            "2021-08-30 16:37:09",
             "d579e027-5a28-4537-bd72-03c698e14660"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:01:53",
-            "c9719ee6-0604-43f3-9e34-6effb43dcb4b",
-            "b440b861-2c64-5e8b-b022-a972cac847db",
-            0,
-            "d579e027-5a28-4537-bd72-03c698e14660",
-            "2021-08-30 01:01:53"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:01:55",
-            "ea6d0bee-5d1a-47ea-bc43-1af56cf78dec"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "ea6d0bee-5d1a-47ea-bc43-1af56cf78dec"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:02:03",
-            "1869320d-1466-44c8-aff7-171700a9f1e3",
-            "126bacc8-73df-5aa7-9879-dd90ed5379fb",
-            0,
-            "ea6d0bee-5d1a-47ea-bc43-1af56cf78dec",
-            "2021-08-30 01:02:03"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:02:05",
-            "eb7c13ee-fb10-45e0-87e8-8cc527fea1dd"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "eb7c13ee-fb10-45e0-87e8-8cc527fea1dd"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:02:13",
-            "e3f069e3-2bea-4d88-8610-234bfc11fcee",
-            "289a18ea-8468-5c01-823a-0d204c6120bc",
-            0,
-            "eb7c13ee-fb10-45e0-87e8-8cc527fea1dd",
-            "2021-08-30 01:02:13"
         ]
     },
     {
@@ -1460,9 +1265,9 @@
             "2021-07-15 10:47:00",
             2,
             1,
-            "2021-08-30 01:02:18",
-            "2021-08-30 01:02:19",
-            "2021-08-30 01:02:19"
+            "2021-08-30 16:37:20",
+            "2021-08-30 16:37:21",
+            "2021-08-30 16:37:21"
         ]
     },
     {
@@ -1474,24 +1279,24 @@
             "+6313376682157",
             null,
             false,
-            "b64726ac-45b3-50d1-bacb-d470058b44e7",
-            "2021-08-30 01:02:20",
-            "2021-08-30 01:02:20"
+            "b61d392f-f092-59a4-9388-b81f686c237e",
+            "2021-08-30 16:37:22",
+            "2021-08-30 16:37:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "b64726ac-45b3-50d1-bacb-d470058b44e7",
-            "2021-08-30 01:02:21",
-            "76443c14-0c47-5e48-8943-c2d3140cba3c",
+            "b61d392f-f092-59a4-9388-b81f686c237e",
+            "2021-08-30 16:37:23",
+            "822d5a0a-430f-5feb-b6e9-ed7aa9d7827a",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:02:21",
-            "b64726ac-45b3-50d1-bacb-d470058b44e7",
-            "2021-08-30 01:02:22",
-            "47d08223-70cc-5f48-88a3-2b10602a226c",
+            "2021-08-30 16:37:23",
+            "b61d392f-f092-59a4-9388-b81f686c237e",
+            "2021-08-30 16:37:24",
+            "18e64efe-69cb-5fd3-bcfe-f569c65aed09",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:02:22"
+            "2021-08-30 16:37:24"
         ]
     },
     {
@@ -1503,19 +1308,19 @@
             null,
             null,
             null,
-            "4ab20929-7ddc-507c-a4a3-444e76d59eaa",
-            "2021-08-30 01:02:23",
-            "2021-08-30 01:02:23"
+            "f2e96c6c-ea78-514b-9ef5-adbbae988845",
+            "2021-08-30 16:37:25",
+            "2021-08-30 16:37:25"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "4ab20929-7ddc-507c-a4a3-444e76d59eaa",
-            "731012f8-732a-5887-b52f-fd6b84558aaa",
-            "2021-08-30 01:02:24",
-            "2021-08-30 01:02:24"
+            "f2e96c6c-ea78-514b-9ef5-adbbae988845",
+            "253ea6d6-7d34-56d4-94b8-951124b87e10",
+            "2021-08-30 16:37:26",
+            "2021-08-30 16:37:26"
         ]
     },
     {
@@ -1523,9 +1328,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0007aa3c-be1f-4d8a-ab92-85ca7ebe5618",
-            "e019eb60-bfca-5aa8-828e-b3d40891aef7",
-            "2021-08-30 01:02:25",
-            "2021-08-30 01:02:25"
+            "f9bed9d6-6c00-54dd-9c94-733b96debf58",
+            "2021-08-30 16:37:27",
+            "2021-08-30 16:37:27"
         ]
     },
     {
@@ -1548,9 +1353,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:02:29",
-            "2021-08-30 01:02:30",
-            "2021-08-30 01:02:30"
+            "2021-08-30 16:37:31",
+            "2021-08-30 16:37:32",
+            "2021-08-30 16:37:32"
         ]
     },
     {
@@ -1562,24 +1367,24 @@
             "+2428738417340",
             null,
             false,
-            "9e02aa79-bf07-5f74-99fa-9fa8012ca1c2",
-            "2021-08-30 01:02:31",
-            "2021-08-30 01:02:31"
+            "d024afbf-b63c-527a-8372-07b92349361d",
+            "2021-08-30 16:37:33",
+            "2021-08-30 16:37:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "9e02aa79-bf07-5f74-99fa-9fa8012ca1c2",
-            "2021-08-30 01:02:32",
-            "0f5af0ef-bd8a-5e7f-ab35-7973d048f8e0",
+            "d024afbf-b63c-527a-8372-07b92349361d",
+            "2021-08-30 16:37:34",
+            "b440b861-2c64-5e8b-b022-a972cac847db",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:02:32",
-            "9e02aa79-bf07-5f74-99fa-9fa8012ca1c2",
-            "2021-08-30 01:02:33",
-            "0bd635c0-e615-5638-8361-d1f0513dbda1",
+            "2021-08-30 16:37:34",
+            "d024afbf-b63c-527a-8372-07b92349361d",
+            "2021-08-30 16:37:35",
+            "126bacc8-73df-5aa7-9879-dd90ed5379fb",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:02:33"
+            "2021-08-30 16:37:35"
         ]
     },
     {
@@ -1591,19 +1396,19 @@
             "+3438043679938",
             null,
             false,
-            "639a9905-b767-5c8b-a17f-d9d68bcf93fe",
-            "2021-08-30 01:02:34",
-            "2021-08-30 01:02:34"
+            "289a18ea-8468-5c01-823a-0d204c6120bc",
+            "2021-08-30 16:37:36",
+            "2021-08-30 16:37:36"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "639a9905-b767-5c8b-a17f-d9d68bcf93fe",
-            "37db1cd3-37a5-5b22-9646-72f43acceb50",
-            "2021-08-30 01:02:35",
-            "2021-08-30 01:02:35"
+            "289a18ea-8468-5c01-823a-0d204c6120bc",
+            "b64726ac-45b3-50d1-bacb-d470058b44e7",
+            "2021-08-30 16:37:37",
+            "2021-08-30 16:37:37"
         ]
     },
     {
@@ -1611,9 +1416,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "00085a10-c87e-46cf-9db4-86f199e2d143",
-            "feb63e98-2abf-58e3-8761-fe005251f4ea",
-            "2021-08-30 01:02:36",
-            "2021-08-30 01:02:36"
+            "76443c14-0c47-5e48-8943-c2d3140cba3c",
+            "2021-08-30 16:37:38",
+            "2021-08-30 16:37:38"
         ]
     },
     {
@@ -1636,9 +1441,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:02:40",
-            "2021-08-30 01:02:41",
-            "2021-08-30 01:02:41"
+            "2021-08-30 16:37:42",
+            "2021-08-30 16:37:43",
+            "2021-08-30 16:37:43"
         ]
     },
     {
@@ -1650,19 +1455,19 @@
             null,
             null,
             null,
-            "0d29e356-0a50-5eab-a9f6-73315e35c542",
-            "2021-08-30 01:02:42",
-            "2021-08-30 01:02:42"
+            "47d08223-70cc-5f48-88a3-2b10602a226c",
+            "2021-08-30 16:37:44",
+            "2021-08-30 16:37:44"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "0d29e356-0a50-5eab-a9f6-73315e35c542",
-            "33049237-5a68-5dfb-849a-82a8fc4c80a3",
-            "2021-08-30 01:02:43",
-            "2021-08-30 01:02:43"
+            "47d08223-70cc-5f48-88a3-2b10602a226c",
+            "4ab20929-7ddc-507c-a4a3-444e76d59eaa",
+            "2021-08-30 16:37:45",
+            "2021-08-30 16:37:45"
         ]
     },
     {
@@ -1670,9 +1475,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0008bfae-f111-4673-b087-914c2aa33cc0",
-            "f82bc3d1-5571-55a3-92d7-4718a3e4a42c",
-            "2021-08-30 01:02:44",
-            "2021-08-30 01:02:44"
+            "731012f8-732a-5887-b52f-fd6b84558aaa",
+            "2021-08-30 16:37:46",
+            "2021-08-30 16:37:46"
         ]
     },
     {
@@ -1695,9 +1500,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:02:48",
-            "2021-08-30 01:02:49",
-            "2021-08-30 01:02:49"
+            "2021-08-30 16:37:50",
+            "2021-08-30 16:37:51",
+            "2021-08-30 16:37:51"
         ]
     },
     {
@@ -1709,24 +1514,24 @@
             "+3021831002052",
             null,
             false,
-            "bb8af038-3e09-59c6-9a1d-4095448d842c",
-            "2021-08-30 01:02:50",
-            "2021-08-30 01:02:50"
+            "e019eb60-bfca-5aa8-828e-b3d40891aef7",
+            "2021-08-30 16:37:52",
+            "2021-08-30 16:37:52"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "bb8af038-3e09-59c6-9a1d-4095448d842c",
-            "2021-08-30 01:02:51",
-            "47938dd2-739b-52a6-b1a7-a3f3c3d485f7",
+            "e019eb60-bfca-5aa8-828e-b3d40891aef7",
+            "2021-08-30 16:37:53",
+            "9e02aa79-bf07-5f74-99fa-9fa8012ca1c2",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:02:51",
-            "bb8af038-3e09-59c6-9a1d-4095448d842c",
-            "2021-08-30 01:02:52",
-            "60385eb6-3ccb-5902-9705-72358c2708e7",
+            "2021-08-30 16:37:53",
+            "e019eb60-bfca-5aa8-828e-b3d40891aef7",
+            "2021-08-30 16:37:54",
+            "0f5af0ef-bd8a-5e7f-ab35-7973d048f8e0",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:02:52"
+            "2021-08-30 16:37:54"
         ]
     },
     {
@@ -1734,9 +1539,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0008dec0-d3c2-48bc-8928-40e9deba478d",
-            "8c2e7de9-c6d5-5e61-8367-552238fdbf77",
-            "2021-08-30 01:02:53",
-            "2021-08-30 01:02:53"
+            "0bd635c0-e615-5638-8361-d1f0513dbda1",
+            "2021-08-30 16:37:55",
+            "2021-08-30 16:37:55"
         ]
     },
     {
@@ -1759,9 +1564,9 @@
             "2021-07-15 10:47:00",
             1,
             1,
-            "2021-08-30 01:02:57",
-            "2021-08-30 01:02:58",
-            "2021-08-30 01:02:58"
+            "2021-08-30 16:37:59",
+            "2021-08-30 16:38:00",
+            "2021-08-30 16:38:00"
         ]
     },
     {
@@ -1773,29 +1578,29 @@
             "+5078528752937",
             null,
             false,
-            "d8167780-0d71-5f0f-92aa-cc010f03c219",
-            "2021-08-30 01:02:59",
-            "2021-08-30 01:02:59"
+            "639a9905-b767-5c8b-a17f-d9d68bcf93fe",
+            "2021-08-30 16:38:01",
+            "2021-08-30 16:38:01"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "d8167780-0d71-5f0f-92aa-cc010f03c219",
-            "2021-08-30 01:03:00",
-            "59117274-7f85-5f40-a57a-0a3fe1f88842",
+            "639a9905-b767-5c8b-a17f-d9d68bcf93fe",
+            "2021-08-30 16:38:02",
+            "37db1cd3-37a5-5b22-9646-72f43acceb50",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:03:00",
-            "d8167780-0d71-5f0f-92aa-cc010f03c219",
-            "2021-08-30 01:03:01",
-            "44cd6fab-ddd4-58e1-8467-65742a4ceff7",
+            "2021-08-30 16:38:02",
+            "639a9905-b767-5c8b-a17f-d9d68bcf93fe",
+            "2021-08-30 16:38:03",
+            "feb63e98-2abf-58e3-8761-fe005251f4ea",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:03:01",
-            "d8167780-0d71-5f0f-92aa-cc010f03c219",
-            "2021-08-30 01:03:02",
-            "f831413a-9440-501a-936a-7b8f2346958e",
+            "2021-08-30 16:38:03",
+            "639a9905-b767-5c8b-a17f-d9d68bcf93fe",
+            "2021-08-30 16:38:04",
+            "0d29e356-0a50-5eab-a9f6-73315e35c542",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:03:02"
+            "2021-08-30 16:38:04"
         ]
     },
     {
@@ -1803,9 +1608,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0008e06a-bd56-4e99-b753-63f2dc41b71d",
-            "2ac61171-3851-5b55-94a0-f5ca71321942",
-            "2021-08-30 01:03:03",
-            "2021-08-30 01:03:03"
+            "33049237-5a68-5dfb-849a-82a8fc4c80a3",
+            "2021-08-30 16:38:05",
+            "2021-08-30 16:38:05"
         ]
     },
     {
@@ -1828,9 +1633,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:03:07",
-            "2021-08-30 01:03:08",
-            "2021-08-30 01:03:08"
+            "2021-08-30 16:38:09",
+            "2021-08-30 16:38:10",
+            "2021-08-30 16:38:10"
         ]
     },
     {
@@ -1842,24 +1647,24 @@
             "+3508080269815",
             null,
             false,
-            "50e2a23c-73cb-5cad-976c-c2fce35e2ab6",
-            "2021-08-30 01:03:09",
-            "2021-08-30 01:03:09"
+            "f82bc3d1-5571-55a3-92d7-4718a3e4a42c",
+            "2021-08-30 16:38:11",
+            "2021-08-30 16:38:11"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "50e2a23c-73cb-5cad-976c-c2fce35e2ab6",
-            "2021-08-30 01:03:10",
-            "b11ec81f-21dc-56cb-8eb1-8d67baca8a1a",
+            "f82bc3d1-5571-55a3-92d7-4718a3e4a42c",
+            "2021-08-30 16:38:12",
+            "bb8af038-3e09-59c6-9a1d-4095448d842c",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:03:10",
-            "50e2a23c-73cb-5cad-976c-c2fce35e2ab6",
-            "2021-08-30 01:03:11",
-            "9550723a-2a3f-54b6-bc46-f681c49f19d4",
+            "2021-08-30 16:38:12",
+            "f82bc3d1-5571-55a3-92d7-4718a3e4a42c",
+            "2021-08-30 16:38:13",
+            "47938dd2-739b-52a6-b1a7-a3f3c3d485f7",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:03:11"
+            "2021-08-30 16:38:13"
         ]
     },
     {
@@ -1867,9 +1672,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00090a06-657f-4893-a999-e742e55e7850",
-            "636b4393-cef9-5577-8274-d8f72f783b78",
-            "2021-08-30 01:03:12",
-            "2021-08-30 01:03:12"
+            "60385eb6-3ccb-5902-9705-72358c2708e7",
+            "2021-08-30 16:38:14",
+            "2021-08-30 16:38:14"
         ]
     },
     {
@@ -1892,9 +1697,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:03:16",
-            "2021-08-30 01:03:17",
-            "2021-08-30 01:03:17"
+            "2021-08-30 16:38:18",
+            "2021-08-30 16:38:19",
+            "2021-08-30 16:38:19"
         ]
     },
     {
@@ -1906,29 +1711,29 @@
             "+6677308167564",
             null,
             false,
-            "ca21f5bd-f7bd-5d01-b0d3-163e8f478c84",
-            "2021-08-30 01:03:18",
-            "2021-08-30 01:03:18"
+            "8c2e7de9-c6d5-5e61-8367-552238fdbf77",
+            "2021-08-30 16:38:20",
+            "2021-08-30 16:38:20"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "ca21f5bd-f7bd-5d01-b0d3-163e8f478c84",
-            "2021-08-30 01:03:19",
-            "40603ca1-5319-5186-978a-9f95a8cf35ae",
+            "8c2e7de9-c6d5-5e61-8367-552238fdbf77",
+            "2021-08-30 16:38:21",
+            "d8167780-0d71-5f0f-92aa-cc010f03c219",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:03:19",
-            "ca21f5bd-f7bd-5d01-b0d3-163e8f478c84",
-            "2021-08-30 01:03:20",
-            "8e0363b2-4546-54a6-86f3-8f6554eb433c",
+            "2021-08-30 16:38:21",
+            "8c2e7de9-c6d5-5e61-8367-552238fdbf77",
+            "2021-08-30 16:38:22",
+            "59117274-7f85-5f40-a57a-0a3fe1f88842",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:03:20",
-            "ca21f5bd-f7bd-5d01-b0d3-163e8f478c84",
-            "2021-08-30 01:03:21",
-            "b8e5069a-68ab-59b7-9308-24fe31621afb",
+            "2021-08-30 16:38:22",
+            "8c2e7de9-c6d5-5e61-8367-552238fdbf77",
+            "2021-08-30 16:38:23",
+            "44cd6fab-ddd4-58e1-8467-65742a4ceff7",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:03:21"
+            "2021-08-30 16:38:23"
         ]
     },
     {
@@ -1936,9 +1741,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00092485-221e-492f-8b20-700278384c1e",
-            "8381c21c-8778-5f05-8c5a-969efb0c38dd",
-            "2021-08-30 01:03:22",
-            "2021-08-30 01:03:22"
+            "f831413a-9440-501a-936a-7b8f2346958e",
+            "2021-08-30 16:38:24",
+            "2021-08-30 16:38:24"
         ]
     },
     {
@@ -1961,9 +1766,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:03:26",
-            "2021-08-30 01:03:27",
-            "2021-08-30 01:03:27"
+            "2021-08-30 16:38:28",
+            "2021-08-30 16:38:29",
+            "2021-08-30 16:38:29"
         ]
     },
     {
@@ -1975,19 +1780,19 @@
             null,
             null,
             null,
-            "f0993ef9-7f43-5f6d-98cb-23c071df0822",
-            "2021-08-30 01:03:28",
-            "2021-08-30 01:03:28"
+            "2ac61171-3851-5b55-94a0-f5ca71321942",
+            "2021-08-30 16:38:30",
+            "2021-08-30 16:38:30"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "f0993ef9-7f43-5f6d-98cb-23c071df0822",
-            "b3a6b9a9-83a4-5b69-8480-bd3e608ef8b9",
-            "2021-08-30 01:03:29",
-            "2021-08-30 01:03:29"
+            "2ac61171-3851-5b55-94a0-f5ca71321942",
+            "50e2a23c-73cb-5cad-976c-c2fce35e2ab6",
+            "2021-08-30 16:38:31",
+            "2021-08-30 16:38:31"
         ]
     },
     {
@@ -1995,9 +1800,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "000a6d45-df35-43d7-a2e7-26315f54531d",
-            "37f23f58-aa6d-55d9-a422-b4e5daf3b6dc",
-            "2021-08-30 01:03:30",
-            "2021-08-30 01:03:30"
+            "b11ec81f-21dc-56cb-8eb1-8d67baca8a1a",
+            "2021-08-30 16:38:32",
+            "2021-08-30 16:38:32"
         ]
     },
     {
@@ -2020,9 +1825,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:03:34",
-            "2021-08-30 01:03:35",
-            "2021-08-30 01:03:35"
+            "2021-08-30 16:38:36",
+            "2021-08-30 16:38:37",
+            "2021-08-30 16:38:37"
         ]
     },
     {
@@ -2034,29 +1839,29 @@
             "+8789624357946",
             null,
             false,
-            "dafb2779-f1e1-5ece-bd32-7b6252cbd8ad",
-            "2021-08-30 01:03:36",
-            "2021-08-30 01:03:36"
+            "9550723a-2a3f-54b6-bc46-f681c49f19d4",
+            "2021-08-30 16:38:38",
+            "2021-08-30 16:38:38"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "dafb2779-f1e1-5ece-bd32-7b6252cbd8ad",
-            "2021-08-30 01:03:37",
-            "b4e9ecaf-6ca6-536c-9280-a9b6a68badde",
+            "9550723a-2a3f-54b6-bc46-f681c49f19d4",
+            "2021-08-30 16:38:39",
+            "636b4393-cef9-5577-8274-d8f72f783b78",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:03:37",
-            "dafb2779-f1e1-5ece-bd32-7b6252cbd8ad",
-            "2021-08-30 01:03:38",
-            "e0a2dc08-2e84-5ac1-9f3f-610b50587f51",
+            "2021-08-30 16:38:39",
+            "9550723a-2a3f-54b6-bc46-f681c49f19d4",
+            "2021-08-30 16:38:40",
+            "ca21f5bd-f7bd-5d01-b0d3-163e8f478c84",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:03:38",
-            "dafb2779-f1e1-5ece-bd32-7b6252cbd8ad",
-            "2021-08-30 01:03:39",
-            "8346a1e9-301d-5e94-9831-0fdb4f008428",
+            "2021-08-30 16:38:40",
+            "9550723a-2a3f-54b6-bc46-f681c49f19d4",
+            "2021-08-30 16:38:41",
+            "40603ca1-5319-5186-978a-9f95a8cf35ae",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:03:39"
+            "2021-08-30 16:38:41"
         ]
     },
     {
@@ -2064,9 +1869,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "000b31c7-6e15-4b21-8127-ee5f10f21270",
-            "5983449b-4a18-5692-af69-67febfc6d4f1",
-            "2021-08-30 01:03:40",
-            "2021-08-30 01:03:40"
+            "8e0363b2-4546-54a6-86f3-8f6554eb433c",
+            "2021-08-30 16:38:42",
+            "2021-08-30 16:38:42"
         ]
     },
     {
@@ -2089,9 +1894,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:03:44",
-            "2021-08-30 01:03:45",
-            "2021-08-30 01:03:45"
+            "2021-08-30 16:38:46",
+            "2021-08-30 16:38:47",
+            "2021-08-30 16:38:47"
         ]
     },
     {
@@ -2103,24 +1908,24 @@
             "+3211633603563",
             null,
             false,
-            "c8b09482-d965-5ae7-baca-0e04a802bd6b",
-            "2021-08-30 01:03:46",
-            "2021-08-30 01:03:46"
+            "b8e5069a-68ab-59b7-9308-24fe31621afb",
+            "2021-08-30 16:38:48",
+            "2021-08-30 16:38:48"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "c8b09482-d965-5ae7-baca-0e04a802bd6b",
-            "2021-08-30 01:03:47",
-            "ae1e4153-18de-5c64-b717-b661595ae9da",
+            "b8e5069a-68ab-59b7-9308-24fe31621afb",
+            "2021-08-30 16:38:49",
+            "8381c21c-8778-5f05-8c5a-969efb0c38dd",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:03:47",
-            "c8b09482-d965-5ae7-baca-0e04a802bd6b",
-            "2021-08-30 01:03:48",
-            "a7f74a44-1868-50dc-978c-668bd52ee4ce",
+            "2021-08-30 16:38:49",
+            "b8e5069a-68ab-59b7-9308-24fe31621afb",
+            "2021-08-30 16:38:50",
+            "f0993ef9-7f43-5f6d-98cb-23c071df0822",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:03:48"
+            "2021-08-30 16:38:50"
         ]
     },
     {
@@ -2132,19 +1937,19 @@
             "+7884491125078",
             null,
             false,
-            "1283e892-7fee-5e0a-94b5-2135715faa31",
-            "2021-08-30 01:03:49",
-            "2021-08-30 01:03:49"
+            "b3a6b9a9-83a4-5b69-8480-bd3e608ef8b9",
+            "2021-08-30 16:38:51",
+            "2021-08-30 16:38:51"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "1283e892-7fee-5e0a-94b5-2135715faa31",
-            "7bb5e9d5-e68a-5367-82ba-b0f22aeb278a",
-            "2021-08-30 01:03:50",
-            "2021-08-30 01:03:50"
+            "b3a6b9a9-83a4-5b69-8480-bd3e608ef8b9",
+            "37f23f58-aa6d-55d9-a422-b4e5daf3b6dc",
+            "2021-08-30 16:38:52",
+            "2021-08-30 16:38:52"
         ]
     },
     {
@@ -2152,9 +1957,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "000b674f-1aa2-4eca-8d31-cb0b4c888bc9",
-            "e7724bc7-6023-5005-a006-f7ebbb4fea7e",
-            "2021-08-30 01:03:51",
-            "2021-08-30 01:03:51"
+            "dafb2779-f1e1-5ece-bd32-7b6252cbd8ad",
+            "2021-08-30 16:38:53",
+            "2021-08-30 16:38:53"
         ]
     },
     {
@@ -2199,6 +2004,19 @@
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0dc5ead1-a082-4249-9918-117e67a34ab9",
+            "0e29edd4-12f1-4787-8944-322a9b767cb2",
+            "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f",
+            "561b9925-3781-46d7-a734-78efad4f5ae6",
+            "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
+            "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9",
+            "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
+            "a0db69e6-944a-4db7-8744-b8300f711cc9"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
@@ -2283,208 +2101,32 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 01:03:52",
-            "0dc5ead1-a082-4249-9918-117e67a34ab9"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "0dc5ead1-a082-4249-9918-117e67a34ab9"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:04:00",
-            "1e741743-b1f0-42dd-b5c1-95eb48bf4157",
-            "b1af4434-1109-5912-b4fa-25f688202191",
-            0,
-            "0dc5ead1-a082-4249-9918-117e67a34ab9",
-            "2021-08-30 01:04:00"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:04:02",
-            "0e29edd4-12f1-4787-8944-322a9b767cb2"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "0e29edd4-12f1-4787-8944-322a9b767cb2"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:04:10",
-            "4cbc4d85-f593-428c-bcf1-a91762e34447",
-            "d13e4968-896f-56b7-a2b3-64e1dc6460c9",
-            0,
-            "0e29edd4-12f1-4787-8944-322a9b767cb2",
-            "2021-08-30 01:04:10"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:04:12",
-            "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:04:20",
-            "580238f9-bdd2-46c0-a54f-bd2f6dfe15a8",
-            "6416cdc6-ab3a-55b3-a9ce-008386055808",
-            0,
-            "2e9e22ab-489e-48b7-a1f2-9cee3d37e91f",
-            "2021-08-30 01:04:20"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:04:22",
+            "2021-08-30 16:38:54",
             "561b9925-3781-46d7-a734-78efad4f5ae6"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            3,
+            "2021-08-30 16:39:02",
             "561b9925-3781-46d7-a734-78efad4f5ae6"
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:04:30",
-            "4f619843-9516-422b-99bd-97376b595369",
-            "7f36e1e1-06c9-5fb1-ae19-cd1c396ddf3c",
-            0,
-            "561b9925-3781-46d7-a734-78efad4f5ae6",
-            "2021-08-30 01:04:30"
-        ]
-    },
-    {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 01:04:32",
+            "2021-08-30 16:39:10",
             "8c9be72c-8b1b-460e-87e5-68c81a92bfa4"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            2,
+            "2021-08-30 16:39:18",
             "8c9be72c-8b1b-460e-87e5-68c81a92bfa4"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:04:40",
-            "54016e50-bfbb-4613-b91f-9abaf03b00ce",
-            "62a57c94-1e3f-5cd8-a6d4-8e66f8e6dea8",
-            0,
-            "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
-            "2021-08-30 01:04:40"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:04:42",
-            "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:04:50",
-            "f67d17d3-3437-47c4-8069-5643b27eadad",
-            "a5b3a1f6-143f-54e7-9071-874a60d4a2b3",
-            0,
-            "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9",
-            "2021-08-30 01:04:50"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:04:52",
-            "9ebe8e19-8abb-4927-b0e6-b0547d610b76"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "9ebe8e19-8abb-4927-b0e6-b0547d610b76"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:05:00",
-            "2e942796-9bc7-49e7-b397-1e2757b63655",
-            "986b4170-ac71-5753-a924-a3d89608a5c0",
-            0,
-            "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
-            "2021-08-30 01:05:00"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:05:02",
-            "a0db69e6-944a-4db7-8744-b8300f711cc9"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "a0db69e6-944a-4db7-8744-b8300f711cc9"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:05:10",
-            "24b528a6-c3a7-45d6-aab7-fb61d65a3d6f",
-            "d9299e38-2cfd-583b-b595-4e76731f5996",
-            0,
-            "a0db69e6-944a-4db7-8744-b8300f711cc9",
-            "2021-08-30 01:05:10"
         ]
     },
     {
@@ -2597,9 +2239,9 @@
             "2021-07-15 10:47:00",
             1,
             1,
-            "2021-08-30 01:05:15",
-            "2021-08-30 01:05:16",
-            "2021-08-30 01:05:16"
+            "2021-08-30 16:39:29",
+            "2021-08-30 16:39:30",
+            "2021-08-30 16:39:30"
         ]
     },
     {
@@ -2611,24 +2253,24 @@
             "+4910262192534",
             null,
             false,
-            "75bb4fca-a83b-53d8-9a3b-74fd75673419",
-            "2021-08-30 01:05:17",
-            "2021-08-30 01:05:17"
+            "e0a2dc08-2e84-5ac1-9f3f-610b50587f51",
+            "2021-08-30 16:39:31",
+            "2021-08-30 16:39:31"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "75bb4fca-a83b-53d8-9a3b-74fd75673419",
-            "2021-08-30 01:05:18",
-            "ceea4769-3ece-5379-842c-e1267bc8ffc5",
+            "e0a2dc08-2e84-5ac1-9f3f-610b50587f51",
+            "2021-08-30 16:39:32",
+            "8346a1e9-301d-5e94-9831-0fdb4f008428",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:05:18",
-            "75bb4fca-a83b-53d8-9a3b-74fd75673419",
-            "2021-08-30 01:05:19",
-            "b12ed0c2-4e0b-508f-aee9-2eaee21171b6",
+            "2021-08-30 16:39:32",
+            "e0a2dc08-2e84-5ac1-9f3f-610b50587f51",
+            "2021-08-30 16:39:33",
+            "5983449b-4a18-5692-af69-67febfc6d4f1",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:05:19"
+            "2021-08-30 16:39:33"
         ]
     },
     {
@@ -2636,9 +2278,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "000e7abf-c3b9-4790-917a-2e9cff9ddfa5",
-            "7f82440c-2b39-5eea-b729-fbb4cb12367a",
-            "2021-08-30 01:05:20",
-            "2021-08-30 01:05:20"
+            "c8b09482-d965-5ae7-baca-0e04a802bd6b",
+            "2021-08-30 16:39:34",
+            "2021-08-30 16:39:34"
         ]
     },
     {
@@ -2661,9 +2303,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:05:24",
-            "2021-08-30 01:05:25",
-            "2021-08-30 01:05:25"
+            "2021-08-30 16:39:38",
+            "2021-08-30 16:39:39",
+            "2021-08-30 16:39:39"
         ]
     },
     {
@@ -2675,24 +2317,24 @@
             "+7394769819628",
             null,
             false,
-            "b006fc80-c8a6-5f3c-b4eb-fc354c248927",
-            "2021-08-30 01:05:26",
-            "2021-08-30 01:05:26"
+            "ae1e4153-18de-5c64-b717-b661595ae9da",
+            "2021-08-30 16:39:40",
+            "2021-08-30 16:39:40"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "b006fc80-c8a6-5f3c-b4eb-fc354c248927",
-            "2021-08-30 01:05:27",
-            "5364663c-8885-566f-ae34-823e86973268",
+            "ae1e4153-18de-5c64-b717-b661595ae9da",
+            "2021-08-30 16:39:41",
+            "a7f74a44-1868-50dc-978c-668bd52ee4ce",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:05:27",
-            "b006fc80-c8a6-5f3c-b4eb-fc354c248927",
-            "2021-08-30 01:05:28",
-            "a4c6b179-5676-5894-a28b-aaff339851ff",
+            "2021-08-30 16:39:41",
+            "ae1e4153-18de-5c64-b717-b661595ae9da",
+            "2021-08-30 16:39:42",
+            "1283e892-7fee-5e0a-94b5-2135715faa31",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:05:28"
+            "2021-08-30 16:39:42"
         ]
     },
     {
@@ -2704,19 +2346,19 @@
             null,
             null,
             null,
-            "bc761060-8213-5455-a3fb-f7b2fb9fee40",
-            "2021-08-30 01:05:29",
-            "2021-08-30 01:05:29"
+            "7bb5e9d5-e68a-5367-82ba-b0f22aeb278a",
+            "2021-08-30 16:39:43",
+            "2021-08-30 16:39:43"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "bc761060-8213-5455-a3fb-f7b2fb9fee40",
-            "a41970ac-c8f6-5d9b-8bd5-d583f425e413",
-            "2021-08-30 01:05:30",
-            "2021-08-30 01:05:30"
+            "7bb5e9d5-e68a-5367-82ba-b0f22aeb278a",
+            "e7724bc7-6023-5005-a006-f7ebbb4fea7e",
+            "2021-08-30 16:39:44",
+            "2021-08-30 16:39:44"
         ]
     },
     {
@@ -2724,9 +2366,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "000efc42-e572-458e-af35-614281db06cd",
-            "e802c0d4-da4c-5894-beb9-5d56b1aeb0f4",
-            "2021-08-30 01:05:31",
-            "2021-08-30 01:05:31"
+            "396f9797-562e-5fdb-aac9-c673e987a219",
+            "2021-08-30 16:39:45",
+            "2021-08-30 16:39:45"
         ]
     },
     {
@@ -2749,9 +2391,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:05:35",
-            "2021-08-30 01:05:36",
-            "2021-08-30 01:05:36"
+            "2021-08-30 16:39:49",
+            "2021-08-30 16:39:50",
+            "2021-08-30 16:39:50"
         ]
     },
     {
@@ -2763,29 +2405,29 @@
             "+8419404701735",
             null,
             false,
-            "ea641bd2-c36c-54c4-9027-f178db12c388",
-            "2021-08-30 01:05:37",
-            "2021-08-30 01:05:37"
+            "b1af4434-1109-5912-b4fa-25f688202191",
+            "2021-08-30 16:39:51",
+            "2021-08-30 16:39:51"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "ea641bd2-c36c-54c4-9027-f178db12c388",
-            "2021-08-30 01:05:38",
-            "2c29ded8-b5cd-50fb-a862-3951042c20c5",
+            "b1af4434-1109-5912-b4fa-25f688202191",
+            "2021-08-30 16:39:52",
+            "d13e4968-896f-56b7-a2b3-64e1dc6460c9",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:05:38",
-            "ea641bd2-c36c-54c4-9027-f178db12c388",
-            "2021-08-30 01:05:39",
-            "62c9deb1-e8eb-517b-b207-575caa8ef5ad",
+            "2021-08-30 16:39:52",
+            "b1af4434-1109-5912-b4fa-25f688202191",
+            "2021-08-30 16:39:53",
+            "6416cdc6-ab3a-55b3-a9ce-008386055808",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:05:39",
-            "ea641bd2-c36c-54c4-9027-f178db12c388",
-            "2021-08-30 01:05:40",
-            "22e776c4-5996-5273-b463-6230863d5499",
+            "2021-08-30 16:39:53",
+            "b1af4434-1109-5912-b4fa-25f688202191",
+            "2021-08-30 16:39:54",
+            "7f36e1e1-06c9-5fb1-ae19-cd1c396ddf3c",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:05:40"
+            "2021-08-30 16:39:54"
         ]
     },
     {
@@ -2793,9 +2435,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "000f908c-47e2-4be3-832c-d35bc58402b0",
-            "42e2c481-259d-575b-9bd7-28301be8deba",
-            "2021-08-30 01:05:41",
-            "2021-08-30 01:05:41"
+            "62a57c94-1e3f-5cd8-a6d4-8e66f8e6dea8",
+            "2021-08-30 16:39:55",
+            "2021-08-30 16:39:55"
         ]
     },
     {
@@ -2818,9 +2460,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:05:45",
-            "2021-08-30 01:05:46",
-            "2021-08-30 01:05:46"
+            "2021-08-30 16:39:59",
+            "2021-08-30 16:40:00",
+            "2021-08-30 16:40:00"
         ]
     },
     {
@@ -2832,29 +2474,29 @@
             "+9691688534537",
             null,
             false,
-            "0e0a9fce-df3a-5179-9c91-75468d354417",
-            "2021-08-30 01:05:47",
-            "2021-08-30 01:05:47"
+            "a5b3a1f6-143f-54e7-9071-874a60d4a2b3",
+            "2021-08-30 16:40:01",
+            "2021-08-30 16:40:01"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "0e0a9fce-df3a-5179-9c91-75468d354417",
-            "2021-08-30 01:05:48",
-            "2f5d55ba-2a0d-57d2-a607-2dc4159b9a31",
+            "a5b3a1f6-143f-54e7-9071-874a60d4a2b3",
+            "2021-08-30 16:40:02",
+            "986b4170-ac71-5753-a924-a3d89608a5c0",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:05:48",
-            "0e0a9fce-df3a-5179-9c91-75468d354417",
-            "2021-08-30 01:05:49",
-            "51f68693-b018-5ab2-80cb-3cfaf14c3b3a",
+            "2021-08-30 16:40:02",
+            "a5b3a1f6-143f-54e7-9071-874a60d4a2b3",
+            "2021-08-30 16:40:03",
+            "d9299e38-2cfd-583b-b595-4e76731f5996",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:05:49",
-            "0e0a9fce-df3a-5179-9c91-75468d354417",
-            "2021-08-30 01:05:50",
-            "f0a1bbb2-6648-5eae-925b-1a082bad9831",
+            "2021-08-30 16:40:03",
+            "a5b3a1f6-143f-54e7-9071-874a60d4a2b3",
+            "2021-08-30 16:40:04",
+            "75bb4fca-a83b-53d8-9a3b-74fd75673419",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:05:50"
+            "2021-08-30 16:40:04"
         ]
     },
     {
@@ -2862,9 +2504,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "001223a7-067a-4092-9b80-6e73909cee17",
-            "32649d24-89ec-5f53-97e2-781f975c332a",
-            "2021-08-30 01:05:51",
-            "2021-08-30 01:05:51"
+            "ceea4769-3ece-5379-842c-e1267bc8ffc5",
+            "2021-08-30 16:40:05",
+            "2021-08-30 16:40:05"
         ]
     },
     {
@@ -2887,9 +2529,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:05:55",
-            "2021-08-30 01:05:56",
-            "2021-08-30 01:05:56"
+            "2021-08-30 16:40:09",
+            "2021-08-30 16:40:10",
+            "2021-08-30 16:40:10"
         ]
     },
     {
@@ -2901,24 +2543,24 @@
             "+3249213165696",
             null,
             false,
-            "77c02427-c720-5085-b5e4-4901483783bd",
-            "2021-08-30 01:05:57",
-            "2021-08-30 01:05:57"
+            "b12ed0c2-4e0b-508f-aee9-2eaee21171b6",
+            "2021-08-30 16:40:11",
+            "2021-08-30 16:40:11"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "77c02427-c720-5085-b5e4-4901483783bd",
-            "2021-08-30 01:05:58",
-            "cd02f08f-7d4d-5ae9-86bc-c1216e17a5b9",
+            "b12ed0c2-4e0b-508f-aee9-2eaee21171b6",
+            "2021-08-30 16:40:12",
+            "7f82440c-2b39-5eea-b729-fbb4cb12367a",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:05:58",
-            "77c02427-c720-5085-b5e4-4901483783bd",
-            "2021-08-30 01:05:59",
-            "a01f3f7b-5c45-5da3-acfb-b866aadf60b2",
+            "2021-08-30 16:40:12",
+            "b12ed0c2-4e0b-508f-aee9-2eaee21171b6",
+            "2021-08-30 16:40:13",
+            "b006fc80-c8a6-5f3c-b4eb-fc354c248927",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:05:59"
+            "2021-08-30 16:40:13"
         ]
     },
     {
@@ -2930,19 +2572,19 @@
             null,
             null,
             null,
-            "9b363217-426b-53c6-ab89-64ae73f0cf68",
-            "2021-08-30 01:06:00",
-            "2021-08-30 01:06:00"
+            "5364663c-8885-566f-ae34-823e86973268",
+            "2021-08-30 16:40:14",
+            "2021-08-30 16:40:14"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "9b363217-426b-53c6-ab89-64ae73f0cf68",
-            "94aed7cd-43bc-552b-9891-342dd1eb8c4c",
-            "2021-08-30 01:06:01",
-            "2021-08-30 01:06:01"
+            "5364663c-8885-566f-ae34-823e86973268",
+            "a4c6b179-5676-5894-a28b-aaff339851ff",
+            "2021-08-30 16:40:15",
+            "2021-08-30 16:40:15"
         ]
     },
     {
@@ -2950,9 +2592,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001291a5-b99f-4ff1-bffe-b8d89d133d0c",
-            "ff5073bd-d692-550e-b9e6-187bfb2be27a",
-            "2021-08-30 01:06:02",
-            "2021-08-30 01:06:02"
+            "bc761060-8213-5455-a3fb-f7b2fb9fee40",
+            "2021-08-30 16:40:16",
+            "2021-08-30 16:40:16"
         ]
     },
     {
@@ -2975,9 +2617,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:06:06",
-            "2021-08-30 01:06:07",
-            "2021-08-30 01:06:07"
+            "2021-08-30 16:40:20",
+            "2021-08-30 16:40:21",
+            "2021-08-30 16:40:21"
         ]
     },
     {
@@ -2989,29 +2631,29 @@
             "+2214370917720",
             null,
             false,
-            "0b4cf75a-abb8-5435-ba8b-b0877b932e82",
-            "2021-08-30 01:06:08",
-            "2021-08-30 01:06:08"
+            "a41970ac-c8f6-5d9b-8bd5-d583f425e413",
+            "2021-08-30 16:40:22",
+            "2021-08-30 16:40:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "0b4cf75a-abb8-5435-ba8b-b0877b932e82",
-            "2021-08-30 01:06:09",
-            "2182a98f-844d-5058-bf91-224ecae5f262",
+            "a41970ac-c8f6-5d9b-8bd5-d583f425e413",
+            "2021-08-30 16:40:23",
+            "e802c0d4-da4c-5894-beb9-5d56b1aeb0f4",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:06:09",
-            "0b4cf75a-abb8-5435-ba8b-b0877b932e82",
-            "2021-08-30 01:06:10",
-            "f915c1bc-6893-5504-90b6-ec14dbb8255a",
+            "2021-08-30 16:40:23",
+            "a41970ac-c8f6-5d9b-8bd5-d583f425e413",
+            "2021-08-30 16:40:24",
+            "ea641bd2-c36c-54c4-9027-f178db12c388",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:06:10",
-            "0b4cf75a-abb8-5435-ba8b-b0877b932e82",
-            "2021-08-30 01:06:11",
-            "25ea318b-c454-5221-bdf5-49adadd2c686",
+            "2021-08-30 16:40:24",
+            "a41970ac-c8f6-5d9b-8bd5-d583f425e413",
+            "2021-08-30 16:40:25",
+            "2c29ded8-b5cd-50fb-a862-3951042c20c5",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:06:11"
+            "2021-08-30 16:40:25"
         ]
     },
     {
@@ -3019,9 +2661,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0012d86c-bf4a-40be-a105-f00c440c314a",
-            "79ed069b-f7aa-54b3-ad41-401e4feb4f5b",
-            "2021-08-30 01:06:12",
-            "2021-08-30 01:06:12"
+            "62c9deb1-e8eb-517b-b207-575caa8ef5ad",
+            "2021-08-30 16:40:26",
+            "2021-08-30 16:40:26"
         ]
     },
     {
@@ -3044,9 +2686,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:06:16",
-            "2021-08-30 01:06:17",
-            "2021-08-30 01:06:17"
+            "2021-08-30 16:40:30",
+            "2021-08-30 16:40:31",
+            "2021-08-30 16:40:31"
         ]
     },
     {
@@ -3058,29 +2700,29 @@
             "+7766114500757",
             null,
             false,
-            "4dd1d349-70d2-5b50-99a4-4b4ed49f6bd0",
-            "2021-08-30 01:06:18",
-            "2021-08-30 01:06:18"
+            "22e776c4-5996-5273-b463-6230863d5499",
+            "2021-08-30 16:40:32",
+            "2021-08-30 16:40:32"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "4dd1d349-70d2-5b50-99a4-4b4ed49f6bd0",
-            "2021-08-30 01:06:19",
-            "b762abb5-419e-5c1a-be81-caa6dbba8457",
+            "22e776c4-5996-5273-b463-6230863d5499",
+            "2021-08-30 16:40:33",
+            "42e2c481-259d-575b-9bd7-28301be8deba",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:06:19",
-            "4dd1d349-70d2-5b50-99a4-4b4ed49f6bd0",
-            "2021-08-30 01:06:20",
-            "381a9e22-1e0b-505e-b9ed-c1c6454b00ea",
+            "2021-08-30 16:40:33",
+            "22e776c4-5996-5273-b463-6230863d5499",
+            "2021-08-30 16:40:34",
+            "0e0a9fce-df3a-5179-9c91-75468d354417",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:06:20",
-            "4dd1d349-70d2-5b50-99a4-4b4ed49f6bd0",
-            "2021-08-30 01:06:21",
-            "0841bd5e-6d90-58cb-8a66-7afa9545cf76",
+            "2021-08-30 16:40:34",
+            "22e776c4-5996-5273-b463-6230863d5499",
+            "2021-08-30 16:40:35",
+            "2f5d55ba-2a0d-57d2-a607-2dc4159b9a31",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:06:21"
+            "2021-08-30 16:40:35"
         ]
     },
     {
@@ -3088,9 +2730,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "0012efd7-efd2-4125-9241-cb11a32a28f6",
-            "49e0c118-236e-5c06-89a4-9b2420d3f6a4",
-            "2021-08-30 01:06:22",
-            "2021-08-30 01:06:22"
+            "51f68693-b018-5ab2-80cb-3cfaf14c3b3a",
+            "2021-08-30 16:40:36",
+            "2021-08-30 16:40:36"
         ]
     },
     {
@@ -3113,9 +2755,9 @@
             "2021-07-15 10:47:00",
             1,
             1,
-            "2021-08-30 01:06:26",
-            "2021-08-30 01:06:27",
-            "2021-08-30 01:06:27"
+            "2021-08-30 16:40:40",
+            "2021-08-30 16:40:41",
+            "2021-08-30 16:40:41"
         ]
     },
     {
@@ -3127,29 +2769,29 @@
             "+8381241097111",
             null,
             false,
-            "14768aa0-ba6a-5b0b-862d-d34b0021e255",
-            "2021-08-30 01:06:28",
-            "2021-08-30 01:06:28"
+            "f0a1bbb2-6648-5eae-925b-1a082bad9831",
+            "2021-08-30 16:40:42",
+            "2021-08-30 16:40:42"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "14768aa0-ba6a-5b0b-862d-d34b0021e255",
-            "2021-08-30 01:06:29",
-            "60b6d777-b23d-5210-81e7-38b9e5e8e1c6",
+            "f0a1bbb2-6648-5eae-925b-1a082bad9831",
+            "2021-08-30 16:40:43",
+            "32649d24-89ec-5f53-97e2-781f975c332a",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:06:29",
-            "14768aa0-ba6a-5b0b-862d-d34b0021e255",
-            "2021-08-30 01:06:30",
-            "24631e6b-ee0a-50f4-ba29-add7b77a785d",
+            "2021-08-30 16:40:43",
+            "f0a1bbb2-6648-5eae-925b-1a082bad9831",
+            "2021-08-30 16:40:44",
+            "77c02427-c720-5085-b5e4-4901483783bd",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:06:30",
-            "14768aa0-ba6a-5b0b-862d-d34b0021e255",
-            "2021-08-30 01:06:31",
-            "73433617-8821-5846-b597-53058ad964f2",
+            "2021-08-30 16:40:44",
+            "f0a1bbb2-6648-5eae-925b-1a082bad9831",
+            "2021-08-30 16:40:45",
+            "cd02f08f-7d4d-5ae9-86bc-c1216e17a5b9",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:06:31"
+            "2021-08-30 16:40:45"
         ]
     },
     {
@@ -3157,9 +2799,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001327a2-793b-48bc-8fde-ec2965337e4e",
-            "871c3946-1547-55ae-ac59-120ceabe34a9",
-            "2021-08-30 01:06:32",
-            "2021-08-30 01:06:32"
+            "a01f3f7b-5c45-5da3-acfb-b866aadf60b2",
+            "2021-08-30 16:40:46",
+            "2021-08-30 16:40:46"
         ]
     },
     {
@@ -3182,9 +2824,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:06:36",
-            "2021-08-30 01:06:37",
-            "2021-08-30 01:06:37"
+            "2021-08-30 16:40:50",
+            "2021-08-30 16:40:51",
+            "2021-08-30 16:40:51"
         ]
     },
     {
@@ -3196,24 +2838,24 @@
             "+5952916009812",
             null,
             false,
-            "0abb3a4b-4fc8-5e87-8bf2-721913f923af",
-            "2021-08-30 01:06:38",
-            "2021-08-30 01:06:38"
+            "9b363217-426b-53c6-ab89-64ae73f0cf68",
+            "2021-08-30 16:40:52",
+            "2021-08-30 16:40:52"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "0abb3a4b-4fc8-5e87-8bf2-721913f923af",
-            "2021-08-30 01:06:39",
-            "3fcd3eb8-7209-5c9e-814b-4898a69ccff6",
+            "9b363217-426b-53c6-ab89-64ae73f0cf68",
+            "2021-08-30 16:40:53",
+            "94aed7cd-43bc-552b-9891-342dd1eb8c4c",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:06:39",
-            "0abb3a4b-4fc8-5e87-8bf2-721913f923af",
-            "2021-08-30 01:06:40",
-            "e952820e-48af-5095-ac1e-2583f145af13",
+            "2021-08-30 16:40:53",
+            "9b363217-426b-53c6-ab89-64ae73f0cf68",
+            "2021-08-30 16:40:54",
+            "ff5073bd-d692-550e-b9e6-187bfb2be27a",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:06:40"
+            "2021-08-30 16:40:54"
         ]
     },
     {
@@ -3225,19 +2867,19 @@
             "+3962172699195",
             null,
             false,
-            "a120c2c9-0f23-5fbd-a4c3-4f3d04e4184f",
-            "2021-08-30 01:06:41",
-            "2021-08-30 01:06:41"
+            "0b4cf75a-abb8-5435-ba8b-b0877b932e82",
+            "2021-08-30 16:40:55",
+            "2021-08-30 16:40:55"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "a120c2c9-0f23-5fbd-a4c3-4f3d04e4184f",
-            "4060c1fd-8d10-515a-9c4c-a34da7ad9cfb",
-            "2021-08-30 01:06:42",
-            "2021-08-30 01:06:42"
+            "0b4cf75a-abb8-5435-ba8b-b0877b932e82",
+            "2182a98f-844d-5058-bf91-224ecae5f262",
+            "2021-08-30 16:40:56",
+            "2021-08-30 16:40:56"
         ]
     },
     {
@@ -3245,9 +2887,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0013dc4b-fb3f-4166-923c-1f96cd9a6977",
-            "91e86f1b-51ef-5866-9d71-69bd1f635299",
-            "2021-08-30 01:06:43",
-            "2021-08-30 01:06:43"
+            "f915c1bc-6893-5504-90b6-ec14dbb8255a",
+            "2021-08-30 16:40:57",
+            "2021-08-30 16:40:57"
         ]
     },
     {
@@ -3270,9 +2912,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:06:47",
-            "2021-08-30 01:06:48",
-            "2021-08-30 01:06:48"
+            "2021-08-30 16:41:01",
+            "2021-08-30 16:41:02",
+            "2021-08-30 16:41:02"
         ]
     },
     {
@@ -3284,24 +2926,24 @@
             "+2858856924713",
             null,
             false,
-            "ffae12b1-f8ad-53ec-8eeb-fbf8a8a2c75b",
-            "2021-08-30 01:06:49",
-            "2021-08-30 01:06:49"
+            "25ea318b-c454-5221-bdf5-49adadd2c686",
+            "2021-08-30 16:41:03",
+            "2021-08-30 16:41:03"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "ffae12b1-f8ad-53ec-8eeb-fbf8a8a2c75b",
-            "2021-08-30 01:06:50",
-            "32c29a65-72a3-5f24-a52e-fee2b4f3ed4b",
+            "25ea318b-c454-5221-bdf5-49adadd2c686",
+            "2021-08-30 16:41:04",
+            "79ed069b-f7aa-54b3-ad41-401e4feb4f5b",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:06:50",
-            "ffae12b1-f8ad-53ec-8eeb-fbf8a8a2c75b",
-            "2021-08-30 01:06:51",
-            "6bb452a3-83fe-562f-b106-7301cdfd308f",
+            "2021-08-30 16:41:04",
+            "25ea318b-c454-5221-bdf5-49adadd2c686",
+            "2021-08-30 16:41:05",
+            "4dd1d349-70d2-5b50-99a4-4b4ed49f6bd0",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:06:51"
+            "2021-08-30 16:41:05"
         ]
     },
     {
@@ -3309,9 +2951,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00141f97-c7d5-4c77-b0c4-e269b277bea1",
-            "3dd7eed4-ccb5-5f56-97ef-13469630cfcb",
-            "2021-08-30 01:06:52",
-            "2021-08-30 01:06:52"
+            "b762abb5-419e-5c1a-be81-caa6dbba8457",
+            "2021-08-30 16:41:06",
+            "2021-08-30 16:41:06"
         ]
     },
     {
@@ -3356,6 +2998,19 @@
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "3d1c5e51-86e7-4687-946f-6553b8e2f131",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "4fa9312d-16e8-4c48-9810-1def4a53b0b1",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "878a1eac-f90f-4eef-9732-fbeca5e67ff4",
+            "87d3547c-966f-4581-9b75-6794e5eec86d",
+            "8ba0d575-29d6-442b-81fc-0d953e4201b5",
+            "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
@@ -3440,215 +3095,32 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 01:06:53",
-            "3d1c5e51-86e7-4687-946f-6553b8e2f131"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "3d1c5e51-86e7-4687-946f-6553b8e2f131"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:07:01",
-            "e12324ee-3d3e-498b-a4e3-e1da51ff32c8",
-            "9d41badc-e706-5521-8db5-b835be106801",
-            0,
-            "3d1c5e51-86e7-4687-946f-6553b8e2f131",
-            "2021-08-30 01:07:01"
+            "2021-08-30 16:41:07",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
         ]
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            1,
-            "2021-08-30 01:07:03",
+            6,
+            "2021-08-30 16:41:15",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:07:11",
-            "2d68db4b-87e0-4933-aedf-4db281af2bb3",
-            "07886b87-050f-5faf-b337-f0448f725c38",
-            0,
-            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
-            "2021-08-30 01:07:11"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:07:13",
-            "4fa9312d-16e8-4c48-9810-1def4a53b0b1"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "4fa9312d-16e8-4c48-9810-1def4a53b0b1"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:07:21",
-            "a3297dd0-f63e-4838-b596-5a034b64079f",
-            "589dec48-c3ae-5539-8039-6a13bb60a7c2",
-            0,
-            "4fa9312d-16e8-4c48-9810-1def4a53b0b1",
-            "2021-08-30 01:07:21"
         ]
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             4,
-            "2021-08-30 01:07:23",
+            "2021-08-30 16:41:23",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            10,
+            "2021-08-30 16:41:31",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:07:31",
-            "c2e2afee-820b-409e-a0a7-18084c520461",
-            "817411c2-fb4d-5362-ab55-1e2e96f76061",
-            0,
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 01:07:31",
-            0,
-            "2021-08-30 01:07:32",
-            "66065912-aff9-4323-9dde-bb4c54512db4",
-            "deb0ca2e-7871-57d7-99d7-7ac8ea2975fc",
-            0,
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 01:07:32"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:07:35",
-            "878a1eac-f90f-4eef-9732-fbeca5e67ff4"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "878a1eac-f90f-4eef-9732-fbeca5e67ff4"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:07:43",
-            "22472b80-4601-4be2-8a6d-3b17f550fac0",
-            "82f38946-db7c-55eb-a281-a89d5670a4dd",
-            0,
-            "878a1eac-f90f-4eef-9732-fbeca5e67ff4",
-            "2021-08-30 01:07:43"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:07:45",
-            "87d3547c-966f-4581-9b75-6794e5eec86d"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "87d3547c-966f-4581-9b75-6794e5eec86d"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:07:53",
-            "2544e72d-27cf-4a7b-8291-c3fd6c65f3f9",
-            "67596fd7-9b9b-5a6d-ac64-abe987a3293a",
-            0,
-            "87d3547c-966f-4581-9b75-6794e5eec86d",
-            "2021-08-30 01:07:53"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:07:55",
-            "8ba0d575-29d6-442b-81fc-0d953e4201b5"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "8ba0d575-29d6-442b-81fc-0d953e4201b5"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:08:03",
-            "4ae28414-3992-4350-abca-f933625fc3db",
-            "d1ac65fc-224d-5d2c-b92b-8a760facd745",
-            0,
-            "8ba0d575-29d6-442b-81fc-0d953e4201b5",
-            "2021-08-30 01:08:03"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:08:05",
-            "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:08:13",
-            "360983d1-a19d-44b0-9ad9-34293fb13e63",
-            "ac8cbdfb-2ebf-5835-a1ff-4bb1f4e4e98f",
-            0,
-            "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28",
-            "2021-08-30 01:08:13"
         ]
     },
     {
@@ -3766,9 +3238,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:08:18",
-            "2021-08-30 01:08:19",
-            "2021-08-30 01:08:19"
+            "2021-08-30 16:41:42",
+            "2021-08-30 16:41:43",
+            "2021-08-30 16:41:43"
         ]
     },
     {
@@ -3780,29 +3252,29 @@
             "+9410450810677",
             null,
             false,
-            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
-            "2021-08-30 01:08:20",
-            "2021-08-30 01:08:20"
+            "0841bd5e-6d90-58cb-8a66-7afa9545cf76",
+            "2021-08-30 16:41:44",
+            "2021-08-30 16:41:44"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
-            "2021-08-30 01:08:21",
-            "8c0c6a1a-95ff-592d-b386-27eb8a3e0932",
+            "0841bd5e-6d90-58cb-8a66-7afa9545cf76",
+            "2021-08-30 16:41:45",
+            "49e0c118-236e-5c06-89a4-9b2420d3f6a4",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:08:21",
-            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
-            "2021-08-30 01:08:22",
-            "2b0c2c22-c9d7-5629-b6d4-73e6d086223f",
+            "2021-08-30 16:41:45",
+            "0841bd5e-6d90-58cb-8a66-7afa9545cf76",
+            "2021-08-30 16:41:46",
+            "14768aa0-ba6a-5b0b-862d-d34b0021e255",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:08:22",
-            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
-            "2021-08-30 01:08:23",
-            "c69742f6-c840-50d7-9603-d3a622f5987b",
+            "2021-08-30 16:41:46",
+            "0841bd5e-6d90-58cb-8a66-7afa9545cf76",
+            "2021-08-30 16:41:47",
+            "60b6d777-b23d-5210-81e7-38b9e5e8e1c6",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:08:23"
+            "2021-08-30 16:41:47"
         ]
     },
     {
@@ -3810,9 +3282,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "00142305-d9b7-4a70-a618-b93ea36b0bc4",
-            "53b9b380-ffc6-50c1-ae9f-2a2fc3de5378",
-            "2021-08-30 01:08:24",
-            "2021-08-30 01:08:24"
+            "24631e6b-ee0a-50f4-ba29-add7b77a785d",
+            "2021-08-30 16:41:48",
+            "2021-08-30 16:41:48"
         ]
     },
     {
@@ -3835,9 +3307,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:08:28",
-            "2021-08-30 01:08:29",
-            "2021-08-30 01:08:29"
+            "2021-08-30 16:41:52",
+            "2021-08-30 16:41:53",
+            "2021-08-30 16:41:53"
         ]
     },
     {
@@ -3849,19 +3321,19 @@
             null,
             null,
             null,
-            "d067739c-c537-5d59-ba79-47da1091254c",
-            "2021-08-30 01:08:30",
-            "2021-08-30 01:08:30"
+            "73433617-8821-5846-b597-53058ad964f2",
+            "2021-08-30 16:41:54",
+            "2021-08-30 16:41:54"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "d067739c-c537-5d59-ba79-47da1091254c",
-            "6ea3c935-75a8-5363-9757-07479c5fcfd8",
-            "2021-08-30 01:08:31",
-            "2021-08-30 01:08:31"
+            "73433617-8821-5846-b597-53058ad964f2",
+            "871c3946-1547-55ae-ac59-120ceabe34a9",
+            "2021-08-30 16:41:55",
+            "2021-08-30 16:41:55"
         ]
     },
     {
@@ -3869,9 +3341,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00149067-a82c-4030-ae1a-0e26027378f7",
-            "f0206362-de7c-5517-8957-30b088a74d82",
-            "2021-08-30 01:08:32",
-            "2021-08-30 01:08:32"
+            "0abb3a4b-4fc8-5e87-8bf2-721913f923af",
+            "2021-08-30 16:41:56",
+            "2021-08-30 16:41:56"
         ]
     },
     {
@@ -3894,9 +3366,9 @@
             "2021-08-16 03:16:05",
             1,
             1,
-            "2021-08-30 01:08:36",
-            "2021-08-30 01:08:37",
-            "2021-08-30 01:08:37"
+            "2021-08-30 16:42:00",
+            "2021-08-30 16:42:01",
+            "2021-08-30 16:42:01"
         ]
     },
     {
@@ -3908,19 +3380,19 @@
             "+7322545704274",
             null,
             false,
-            "908957db-d42f-5cb2-b9d2-5c09e8d1f095",
-            "2021-08-30 01:08:38",
-            "2021-08-30 01:08:38"
+            "3fcd3eb8-7209-5c9e-814b-4898a69ccff6",
+            "2021-08-30 16:42:02",
+            "2021-08-30 16:42:02"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "908957db-d42f-5cb2-b9d2-5c09e8d1f095",
-            "571e7edb-be76-5706-a5c9-7b71ad10bb48",
-            "2021-08-30 01:08:39",
-            "2021-08-30 01:08:39"
+            "3fcd3eb8-7209-5c9e-814b-4898a69ccff6",
+            "e952820e-48af-5095-ac1e-2583f145af13",
+            "2021-08-30 16:42:03",
+            "2021-08-30 16:42:03"
         ]
     },
     {
@@ -3928,9 +3400,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0014cbdd-6a8e-4150-90c0-9ec6b2bbb2b1",
-            "2c8e18e8-1207-5c55-ae72-73d7274ffa8f",
-            "2021-08-30 01:08:40",
-            "2021-08-30 01:08:40"
+            "a120c2c9-0f23-5fbd-a4c3-4f3d04e4184f",
+            "2021-08-30 16:42:04",
+            "2021-08-30 16:42:04"
         ]
     },
     {
@@ -3953,9 +3425,9 @@
             "2021-07-15 12:51:38",
             0,
             1,
-            "2021-08-30 01:08:44",
-            "2021-08-30 01:08:45",
-            "2021-08-30 01:08:45"
+            "2021-08-30 16:42:08",
+            "2021-08-30 16:42:09",
+            "2021-08-30 16:42:09"
         ]
     },
     {
@@ -3963,9 +3435,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0014fb26-a353-4245-8b66-9a65ab2b104b",
-            "ff0cfe3e-8e0b-5c7f-b6d6-13ac809e1fea",
-            "2021-08-30 01:08:46",
-            "2021-08-30 01:08:46"
+            "4060c1fd-8d10-515a-9c4c-a34da7ad9cfb",
+            "2021-08-30 16:42:10",
+            "2021-08-30 16:42:10"
         ]
     },
     {
@@ -3988,9 +3460,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:08:50",
-            "2021-08-30 01:08:51",
-            "2021-08-30 01:08:51"
+            "2021-08-30 16:42:14",
+            "2021-08-30 16:42:15",
+            "2021-08-30 16:42:15"
         ]
     },
     {
@@ -4002,24 +3474,24 @@
             null,
             null,
             null,
-            "6decd0e5-ecf8-5690-b13a-6bc5fcf901e4",
-            "2021-08-30 01:08:52",
-            "2021-08-30 01:08:52"
+            "91e86f1b-51ef-5866-9d71-69bd1f635299",
+            "2021-08-30 16:42:16",
+            "2021-08-30 16:42:16"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "6decd0e5-ecf8-5690-b13a-6bc5fcf901e4",
-            "2021-08-30 01:08:53",
-            "e0eb2344-cf82-5653-a7e3-9f4ed75db23c",
+            "91e86f1b-51ef-5866-9d71-69bd1f635299",
+            "2021-08-30 16:42:17",
+            "ffae12b1-f8ad-53ec-8eeb-fbf8a8a2c75b",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:08:53",
-            "6decd0e5-ecf8-5690-b13a-6bc5fcf901e4",
-            "2021-08-30 01:08:54",
-            "04027164-6542-50e7-b76a-3b1dbbee5475",
+            "2021-08-30 16:42:17",
+            "91e86f1b-51ef-5866-9d71-69bd1f635299",
+            "2021-08-30 16:42:18",
+            "32c29a65-72a3-5f24-a52e-fee2b4f3ed4b",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:08:54"
+            "2021-08-30 16:42:18"
         ]
     },
     {
@@ -4031,19 +3503,19 @@
             null,
             null,
             null,
-            "630ff7e3-5eaa-5414-959a-249456b7f6de",
-            "2021-08-30 01:08:55",
-            "2021-08-30 01:08:55"
+            "6bb452a3-83fe-562f-b106-7301cdfd308f",
+            "2021-08-30 16:42:19",
+            "2021-08-30 16:42:19"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "630ff7e3-5eaa-5414-959a-249456b7f6de",
-            "df7f00b4-fb6c-5cf4-9018-4ffb708eae5e",
-            "2021-08-30 01:08:56",
-            "2021-08-30 01:08:56"
+            "6bb452a3-83fe-562f-b106-7301cdfd308f",
+            "3dd7eed4-ccb5-5f56-97ef-13469630cfcb",
+            "2021-08-30 16:42:20",
+            "2021-08-30 16:42:20"
         ]
     },
     {
@@ -4051,9 +3523,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00150f5c-92d5-49aa-9ade-854ca890d8d5",
-            "456f9652-efc0-5fbc-951b-5e1f3ce37bb2",
-            "2021-08-30 01:08:57",
-            "2021-08-30 01:08:57"
+            "91c83c66-e802-5609-a4ea-93eb8275c9a7",
+            "2021-08-30 16:42:21",
+            "2021-08-30 16:42:21"
         ]
     },
     {
@@ -4076,9 +3548,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:09:01",
-            "2021-08-30 01:09:02",
-            "2021-08-30 01:09:02"
+            "2021-08-30 16:42:25",
+            "2021-08-30 16:42:26",
+            "2021-08-30 16:42:26"
         ]
     },
     {
@@ -4090,24 +3562,24 @@
             "+1312443659093",
             null,
             false,
-            "7ffc2fa3-eb39-502e-a1be-4aed844f2059",
-            "2021-08-30 01:09:03",
-            "2021-08-30 01:09:03"
+            "9d41badc-e706-5521-8db5-b835be106801",
+            "2021-08-30 16:42:27",
+            "2021-08-30 16:42:27"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "7ffc2fa3-eb39-502e-a1be-4aed844f2059",
-            "2021-08-30 01:09:04",
-            "2d9640d9-c86f-5b5c-934a-953e90b11e5a",
+            "9d41badc-e706-5521-8db5-b835be106801",
+            "2021-08-30 16:42:28",
+            "07886b87-050f-5faf-b337-f0448f725c38",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:09:04",
-            "7ffc2fa3-eb39-502e-a1be-4aed844f2059",
-            "2021-08-30 01:09:05",
-            "7bc4a5e0-da58-5de9-ac7c-a78c22c9e675",
+            "2021-08-30 16:42:28",
+            "9d41badc-e706-5521-8db5-b835be106801",
+            "2021-08-30 16:42:29",
+            "589dec48-c3ae-5539-8039-6a13bb60a7c2",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:09:05"
+            "2021-08-30 16:42:29"
         ]
     },
     {
@@ -4115,9 +3587,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00156265-1b48-4bf0-b381-b9e769e2b139",
-            "2ce177e2-99dc-5a74-8ac7-02c147f04ad8",
-            "2021-08-30 01:09:06",
-            "2021-08-30 01:09:06"
+            "817411c2-fb4d-5362-ab55-1e2e96f76061",
+            "2021-08-30 16:42:30",
+            "2021-08-30 16:42:30"
         ]
     },
     {
@@ -4140,9 +3612,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:09:10",
-            "2021-08-30 01:09:11",
-            "2021-08-30 01:09:11"
+            "2021-08-30 16:42:34",
+            "2021-08-30 16:42:35",
+            "2021-08-30 16:42:35"
         ]
     },
     {
@@ -4154,29 +3626,29 @@
             null,
             null,
             null,
-            "72c5a7ec-1731-53e4-a3c0-ad36ff31cb21",
-            "2021-08-30 01:09:12",
-            "2021-08-30 01:09:12"
+            "deb0ca2e-7871-57d7-99d7-7ac8ea2975fc",
+            "2021-08-30 16:42:36",
+            "2021-08-30 16:42:36"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "72c5a7ec-1731-53e4-a3c0-ad36ff31cb21",
-            "2021-08-30 01:09:13",
-            "5eb3d019-2344-5b8f-937d-a8a679e7043e",
+            "deb0ca2e-7871-57d7-99d7-7ac8ea2975fc",
+            "2021-08-30 16:42:37",
+            "82f38946-db7c-55eb-a281-a89d5670a4dd",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:09:13",
-            "72c5a7ec-1731-53e4-a3c0-ad36ff31cb21",
-            "2021-08-30 01:09:14",
-            "c933ae28-498e-5937-8daa-846a44ea4cc5",
+            "2021-08-30 16:42:37",
+            "deb0ca2e-7871-57d7-99d7-7ac8ea2975fc",
+            "2021-08-30 16:42:38",
+            "67596fd7-9b9b-5a6d-ac64-abe987a3293a",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:09:14",
-            "72c5a7ec-1731-53e4-a3c0-ad36ff31cb21",
-            "2021-08-30 01:09:15",
-            "d738e8ee-e11e-540d-b14d-540089ad61d4",
+            "2021-08-30 16:42:38",
+            "deb0ca2e-7871-57d7-99d7-7ac8ea2975fc",
+            "2021-08-30 16:42:39",
+            "d1ac65fc-224d-5d2c-b92b-8a760facd745",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:09:15"
+            "2021-08-30 16:42:39"
         ]
     },
     {
@@ -4184,9 +3656,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0015825c-2a8e-48ac-8707-edee66a63087",
-            "b52b6e73-ad06-51f7-ae4f-1676b6253cab",
-            "2021-08-30 01:09:16",
-            "2021-08-30 01:09:16"
+            "ac8cbdfb-2ebf-5835-a1ff-4bb1f4e4e98f",
+            "2021-08-30 16:42:40",
+            "2021-08-30 16:42:40"
         ]
     },
     {
@@ -4209,9 +3681,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:09:20",
-            "2021-08-30 01:09:21",
-            "2021-08-30 01:09:21"
+            "2021-08-30 16:42:44",
+            "2021-08-30 16:42:45",
+            "2021-08-30 16:42:45"
         ]
     },
     {
@@ -4223,29 +3695,29 @@
             "+5830917777843",
             null,
             false,
-            "f103c24b-c88d-5149-afb5-a5cc276ddd9d",
-            "2021-08-30 01:09:22",
-            "2021-08-30 01:09:22"
+            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
+            "2021-08-30 16:42:46",
+            "2021-08-30 16:42:46"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "f103c24b-c88d-5149-afb5-a5cc276ddd9d",
-            "2021-08-30 01:09:23",
-            "138ba76f-033d-56cd-9719-78cf75e3b4fd",
+            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
+            "2021-08-30 16:42:47",
+            "8c0c6a1a-95ff-592d-b386-27eb8a3e0932",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:09:23",
-            "f103c24b-c88d-5149-afb5-a5cc276ddd9d",
-            "2021-08-30 01:09:24",
-            "e80601f8-7767-5fa2-877d-d9f758462912",
+            "2021-08-30 16:42:47",
+            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
+            "2021-08-30 16:42:48",
+            "2b0c2c22-c9d7-5629-b6d4-73e6d086223f",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:09:24",
-            "f103c24b-c88d-5149-afb5-a5cc276ddd9d",
-            "2021-08-30 01:09:25",
-            "7833cd1a-b673-574b-bb6f-8a1477c6afc4",
+            "2021-08-30 16:42:48",
+            "cc47fbe3-a82a-5a98-a26d-0952cc36b8f1",
+            "2021-08-30 16:42:49",
+            "c69742f6-c840-50d7-9603-d3a622f5987b",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:09:25"
+            "2021-08-30 16:42:49"
         ]
     },
     {
@@ -4253,9 +3725,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0015a5d7-fdd5-4517-9ce9-e95437e2a682",
-            "617db138-3ffa-53be-a993-b16de08d3303",
-            "2021-08-30 01:09:26",
-            "2021-08-30 01:09:26"
+            "53b9b380-ffc6-50c1-ae9f-2a2fc3de5378",
+            "2021-08-30 16:42:50",
+            "2021-08-30 16:42:50"
         ]
     },
     {
@@ -4278,9 +3750,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:09:30",
-            "2021-08-30 01:09:31",
-            "2021-08-30 01:09:31"
+            "2021-08-30 16:42:54",
+            "2021-08-30 16:42:55",
+            "2021-08-30 16:42:55"
         ]
     },
     {
@@ -4292,29 +3764,29 @@
             "+3431526068577",
             null,
             false,
-            "01a2684d-ce61-5241-93d7-b3463f3b0a93",
-            "2021-08-30 01:09:32",
-            "2021-08-30 01:09:32"
+            "d067739c-c537-5d59-ba79-47da1091254c",
+            "2021-08-30 16:42:56",
+            "2021-08-30 16:42:56"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "01a2684d-ce61-5241-93d7-b3463f3b0a93",
-            "2021-08-30 01:09:33",
-            "ee5e41dc-6863-5edc-b625-7c8b446301b1",
+            "d067739c-c537-5d59-ba79-47da1091254c",
+            "2021-08-30 16:42:57",
+            "6ea3c935-75a8-5363-9757-07479c5fcfd8",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:09:33",
-            "01a2684d-ce61-5241-93d7-b3463f3b0a93",
-            "2021-08-30 01:09:34",
-            "990b12a6-8e0a-5894-bca2-fe2073343233",
+            "2021-08-30 16:42:57",
+            "d067739c-c537-5d59-ba79-47da1091254c",
+            "2021-08-30 16:42:58",
+            "f0206362-de7c-5517-8957-30b088a74d82",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:09:34",
-            "01a2684d-ce61-5241-93d7-b3463f3b0a93",
-            "2021-08-30 01:09:35",
-            "9f8c0a4e-7d4a-567d-9826-7c85a892ca1a",
+            "2021-08-30 16:42:58",
+            "d067739c-c537-5d59-ba79-47da1091254c",
+            "2021-08-30 16:42:59",
+            "908957db-d42f-5cb2-b9d2-5c09e8d1f095",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:09:35"
+            "2021-08-30 16:42:59"
         ]
     },
     {
@@ -4322,9 +3794,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "0016c42d-0bd0-4780-b3ae-b5961fbe70fe",
-            "789a7613-7673-58c7-9187-328b02c10175",
-            "2021-08-30 01:09:36",
-            "2021-08-30 01:09:36"
+            "571e7edb-be76-5706-a5c9-7b71ad10bb48",
+            "2021-08-30 16:43:00",
+            "2021-08-30 16:43:00"
         ]
     },
     {
@@ -4347,9 +3819,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:09:40",
-            "2021-08-30 01:09:41",
-            "2021-08-30 01:09:41"
+            "2021-08-30 16:43:04",
+            "2021-08-30 16:43:05",
+            "2021-08-30 16:43:05"
         ]
     },
     {
@@ -4361,24 +3833,24 @@
             "+4568450575462",
             null,
             false,
-            "7c5bd6cd-c956-519c-b437-a77c70702bd7",
-            "2021-08-30 01:09:42",
-            "2021-08-30 01:09:42"
+            "2c8e18e8-1207-5c55-ae72-73d7274ffa8f",
+            "2021-08-30 16:43:06",
+            "2021-08-30 16:43:06"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "7c5bd6cd-c956-519c-b437-a77c70702bd7",
-            "2021-08-30 01:09:43",
-            "09851fe2-446d-533f-8e21-b3b310915b26",
+            "2c8e18e8-1207-5c55-ae72-73d7274ffa8f",
+            "2021-08-30 16:43:07",
+            "ff0cfe3e-8e0b-5c7f-b6d6-13ac809e1fea",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:09:43",
-            "7c5bd6cd-c956-519c-b437-a77c70702bd7",
-            "2021-08-30 01:09:44",
-            "fbe9fbc5-0021-5851-84ac-64ea2e5b62dd",
+            "2021-08-30 16:43:07",
+            "2c8e18e8-1207-5c55-ae72-73d7274ffa8f",
+            "2021-08-30 16:43:08",
+            "6decd0e5-ecf8-5690-b13a-6bc5fcf901e4",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:09:44"
+            "2021-08-30 16:43:08"
         ]
     },
     {
@@ -4390,19 +3862,19 @@
             null,
             null,
             null,
-            "19e01961-8e22-5206-bdac-eb0bff2b843f",
-            "2021-08-30 01:09:45",
-            "2021-08-30 01:09:45"
+            "e0eb2344-cf82-5653-a7e3-9f4ed75db23c",
+            "2021-08-30 16:43:09",
+            "2021-08-30 16:43:09"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "19e01961-8e22-5206-bdac-eb0bff2b843f",
-            "f13f9f25-9b4a-5c88-bcfa-cc1240fecd66",
-            "2021-08-30 01:09:46",
-            "2021-08-30 01:09:46"
+            "e0eb2344-cf82-5653-a7e3-9f4ed75db23c",
+            "04027164-6542-50e7-b76a-3b1dbbee5475",
+            "2021-08-30 16:43:10",
+            "2021-08-30 16:43:10"
         ]
     },
     {
@@ -4410,9 +3882,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "0017faba-7a1a-44b2-9622-39b1b06879c5",
-            "a1c4d922-71da-5556-95db-a91e92aeeab0",
-            "2021-08-30 01:09:47",
-            "2021-08-30 01:09:47"
+            "630ff7e3-5eaa-5414-959a-249456b7f6de",
+            "2021-08-30 16:43:11",
+            "2021-08-30 16:43:11"
         ]
     },
     {
@@ -4463,6 +3935,21 @@
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "07224fc0-4363-411c-adbc-91ee977daa5f",
+            "0731be4c-624e-4802-a1d3-c672a9283562",
+            "0ada2df3-6fc0-4f16-8383-1fe11757f38d",
+            "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
+            "8fcc485d-f48c-4b6a-a001-d3e98e20b39f",
+            "93161fb7-a3b7-4694-b267-0729b81d47e6",
+            "e0669449-ba7c-4921-9b78-19bbd51e90db",
+            "e21bb455-8dcf-4ae1-93c0-f3af9b99e177",
+            "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d",
+            "fd2ae590-896c-4a02-bfde-da7ff445aab4"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "07224fc0-4363-411c-adbc-91ee977daa5f",
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -4559,260 +4046,16 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 01:09:48",
-            "07224fc0-4363-411c-adbc-91ee977daa5f"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "07224fc0-4363-411c-adbc-91ee977daa5f"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:09:56",
-            "e70e8372-5bc8-4719-8e32-d4eababf8cbd",
-            "8e287b28-3b65-5245-8444-da95a30a4cbc",
-            0,
-            "07224fc0-4363-411c-adbc-91ee977daa5f",
-            "2021-08-30 01:09:56"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:09:58",
-            "0731be4c-624e-4802-a1d3-c672a9283562"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "0731be4c-624e-4802-a1d3-c672a9283562"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:10:06",
-            "b3d3f3eb-4b1b-4cda-88ff-a1ce371c6552",
-            "4f983278-71aa-5f72-a32b-cab5f73efbea",
-            0,
-            "0731be4c-624e-4802-a1d3-c672a9283562",
-            "2021-08-30 01:10:06"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:10:08",
-            "0ada2df3-6fc0-4f16-8383-1fe11757f38d"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "0ada2df3-6fc0-4f16-8383-1fe11757f38d"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:10:16",
-            "daa843a3-203e-409c-b200-63a0bbee29aa",
-            "f2542975-1775-59af-a5d8-3a5a910ea6da",
-            0,
-            "0ada2df3-6fc0-4f16-8383-1fe11757f38d",
-            "2021-08-30 01:10:16"
+            "2021-08-30 16:43:12",
+            "fd2ae590-896c-4a02-bfde-da7ff445aab4"
         ]
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             2,
-            "2021-08-30 01:10:18",
-            "8c9be72c-8b1b-460e-87e5-68c81a92bfa4"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "8c9be72c-8b1b-460e-87e5-68c81a92bfa4"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:10:26",
-            "56b4a419-145c-4d4d-9d86-5959a240d1ae",
-            "32977eaa-24de-57b6-86c6-36ef882e82f1",
-            0,
-            "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
-            "2021-08-30 01:10:26"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:10:28",
-            "8fcc485d-f48c-4b6a-a001-d3e98e20b39f"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "8fcc485d-f48c-4b6a-a001-d3e98e20b39f"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:10:36",
-            "d8aa3a7e-ccca-434e-87ce-173dd54556d7",
-            "826eca5a-e9c1-504a-8eab-dfc6fd11e4b4",
-            0,
-            "8fcc485d-f48c-4b6a-a001-d3e98e20b39f",
-            "2021-08-30 01:10:36"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:10:38",
-            "93161fb7-a3b7-4694-b267-0729b81d47e6"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "93161fb7-a3b7-4694-b267-0729b81d47e6"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:10:46",
-            "0cf36158-bd01-4a59-b895-a00704462677",
-            "0b6bd327-9f4a-5870-9b1c-199838d1ce5c",
-            0,
-            "93161fb7-a3b7-4694-b267-0729b81d47e6",
-            "2021-08-30 01:10:46"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:10:48",
-            "e0669449-ba7c-4921-9b78-19bbd51e90db"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "e0669449-ba7c-4921-9b78-19bbd51e90db"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:10:56",
-            "433e2336-b5bd-4dd4-a0ee-a925a0e7996b",
-            "1e7d0078-6b02-5172-8d14-b4ddd7a45639",
-            0,
-            "e0669449-ba7c-4921-9b78-19bbd51e90db",
-            "2021-08-30 01:10:56"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:10:58",
-            "e21bb455-8dcf-4ae1-93c0-f3af9b99e177"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "e21bb455-8dcf-4ae1-93c0-f3af9b99e177"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:11:06",
-            "05811c76-e27c-43eb-8e4c-8ae1967784bc",
-            "ce8f2964-706f-5e0c-a5ca-8b095334b4e2",
-            0,
-            "e21bb455-8dcf-4ae1-93c0-f3af9b99e177",
-            "2021-08-30 01:11:06"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:11:08",
-            "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:11:16",
-            "f2a020bc-0b1f-4b6d-9f8b-f9a1ffa5fb91",
-            "f9f9ef6a-9a87-56e1-a1d1-7f1a5e208075",
-            0,
-            "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d",
-            "2021-08-30 01:11:16"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:11:18",
+            "2021-08-30 16:43:20",
             "fd2ae590-896c-4a02-bfde-da7ff445aab4"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "fd2ae590-896c-4a02-bfde-da7ff445aab4"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:11:26",
-            "dcdcbfd1-962a-4fe2-90ae-c5906915a683",
-            "2df7076f-8f6c-57c0-b3d9-1b8e169b403f",
-            0,
-            "fd2ae590-896c-4a02-bfde-da7ff445aab4",
-            "2021-08-30 01:11:26"
         ]
     },
     {
@@ -4924,9 +4167,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:11:31",
-            "2021-08-30 01:11:32",
-            "2021-08-30 01:11:32"
+            "2021-08-30 16:43:31",
+            "2021-08-30 16:43:32",
+            "2021-08-30 16:43:32"
         ]
     },
     {
@@ -4938,24 +4181,24 @@
             "+3275568773393",
             null,
             false,
-            "05c26da9-d433-5c24-896e-ccb3f9e4c627",
-            "2021-08-30 01:11:33",
-            "2021-08-30 01:11:33"
+            "456f9652-efc0-5fbc-951b-5e1f3ce37bb2",
+            "2021-08-30 16:43:33",
+            "2021-08-30 16:43:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "05c26da9-d433-5c24-896e-ccb3f9e4c627",
-            "2021-08-30 01:11:34",
-            "8f4b3077-bd82-5b15-806a-147ef4f4481f",
+            "456f9652-efc0-5fbc-951b-5e1f3ce37bb2",
+            "2021-08-30 16:43:34",
+            "7ffc2fa3-eb39-502e-a1be-4aed844f2059",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:11:34",
-            "05c26da9-d433-5c24-896e-ccb3f9e4c627",
-            "2021-08-30 01:11:35",
-            "eeaa68a2-1158-5af7-8932-e34d8c2a5a4e",
+            "2021-08-30 16:43:34",
+            "456f9652-efc0-5fbc-951b-5e1f3ce37bb2",
+            "2021-08-30 16:43:35",
+            "2d9640d9-c86f-5b5c-934a-953e90b11e5a",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:11:35"
+            "2021-08-30 16:43:35"
         ]
     },
     {
@@ -4967,19 +4210,19 @@
             "+7322545704274",
             null,
             false,
-            "cdad66a9-2d35-568f-ab40-a1194b1ef2d4",
-            "2021-08-30 01:11:36",
-            "2021-08-30 01:11:36"
+            "7bc4a5e0-da58-5de9-ac7c-a78c22c9e675",
+            "2021-08-30 16:43:36",
+            "2021-08-30 16:43:36"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "cdad66a9-2d35-568f-ab40-a1194b1ef2d4",
-            "8911e820-d8ac-5bc2-a019-874d324a8820",
-            "2021-08-30 01:11:37",
-            "2021-08-30 01:11:37"
+            "7bc4a5e0-da58-5de9-ac7c-a78c22c9e675",
+            "2ce177e2-99dc-5a74-8ac7-02c147f04ad8",
+            "2021-08-30 16:43:37",
+            "2021-08-30 16:43:37"
         ]
     },
     {
@@ -4987,9 +4230,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0018323f-0a5d-4e19-90ec-2c3351d49919",
-            "75bfff0d-dbf8-55d2-9b4e-3190a6bcf5fb",
-            "2021-08-30 01:11:38",
-            "2021-08-30 01:11:38"
+            "72c5a7ec-1731-53e4-a3c0-ad36ff31cb21",
+            "2021-08-30 16:43:38",
+            "2021-08-30 16:43:38"
         ]
     },
     {
@@ -5012,9 +4255,9 @@
             "2021-08-17 20:48:24",
             0,
             1,
-            "2021-08-30 01:11:42",
-            "2021-08-30 01:11:43",
-            "2021-08-30 01:11:43"
+            "2021-08-30 16:43:42",
+            "2021-08-30 16:43:43",
+            "2021-08-30 16:43:43"
         ]
     },
     {
@@ -5022,9 +4265,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "00194785-9fba-4865-8106-7a833082c1cc",
-            "03424ea3-f2ab-5919-9ae1-fd57781be2dc",
-            "2021-08-30 01:11:44",
-            "2021-08-30 01:11:44"
+            "5eb3d019-2344-5b8f-937d-a8a679e7043e",
+            "2021-08-30 16:43:44",
+            "2021-08-30 16:43:44"
         ]
     },
     {
@@ -5047,9 +4290,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:11:48",
-            "2021-08-30 01:11:49",
-            "2021-08-30 01:11:49"
+            "2021-08-30 16:43:48",
+            "2021-08-30 16:43:49",
+            "2021-08-30 16:43:49"
         ]
     },
     {
@@ -5061,29 +4304,29 @@
             "+5341498272135",
             null,
             false,
-            "275d8077-a195-5ccd-9827-3e302c1d9c3f",
-            "2021-08-30 01:11:50",
-            "2021-08-30 01:11:50"
+            "c933ae28-498e-5937-8daa-846a44ea4cc5",
+            "2021-08-30 16:43:50",
+            "2021-08-30 16:43:50"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "275d8077-a195-5ccd-9827-3e302c1d9c3f",
-            "2021-08-30 01:11:51",
-            "cbc438f8-a0e4-5ddb-902e-53d48512ab83",
+            "c933ae28-498e-5937-8daa-846a44ea4cc5",
+            "2021-08-30 16:43:51",
+            "d738e8ee-e11e-540d-b14d-540089ad61d4",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:11:51",
-            "275d8077-a195-5ccd-9827-3e302c1d9c3f",
-            "2021-08-30 01:11:52",
-            "d0378bd9-c143-5238-8117-87b778c9a942",
+            "2021-08-30 16:43:51",
+            "c933ae28-498e-5937-8daa-846a44ea4cc5",
+            "2021-08-30 16:43:52",
+            "b52b6e73-ad06-51f7-ae4f-1676b6253cab",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:11:52",
-            "275d8077-a195-5ccd-9827-3e302c1d9c3f",
-            "2021-08-30 01:11:53",
-            "7ae1e9bd-bc52-56eb-ae7f-e141bd1f919e",
+            "2021-08-30 16:43:52",
+            "c933ae28-498e-5937-8daa-846a44ea4cc5",
+            "2021-08-30 16:43:53",
+            "f103c24b-c88d-5149-afb5-a5cc276ddd9d",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:11:53"
+            "2021-08-30 16:43:53"
         ]
     },
     {
@@ -5091,9 +4334,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "0019fa4b-fc0e-44f5-8280-c0e271761b20",
-            "64e82b0e-78e5-5c24-afe6-67fd026ef53c",
-            "2021-08-30 01:11:54",
-            "2021-08-30 01:11:54"
+            "138ba76f-033d-56cd-9719-78cf75e3b4fd",
+            "2021-08-30 16:43:54",
+            "2021-08-30 16:43:54"
         ]
     },
     {
@@ -5116,9 +4359,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:11:58",
-            "2021-08-30 01:11:59",
-            "2021-08-30 01:11:59"
+            "2021-08-30 16:43:58",
+            "2021-08-30 16:43:59",
+            "2021-08-30 16:43:59"
         ]
     },
     {
@@ -5130,29 +4373,29 @@
             "+9039622940855",
             null,
             false,
-            "e1dc461a-2308-5207-a5c0-d9c2d67edc9e",
-            "2021-08-30 01:12:00",
-            "2021-08-30 01:12:00"
+            "e80601f8-7767-5fa2-877d-d9f758462912",
+            "2021-08-30 16:44:00",
+            "2021-08-30 16:44:00"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "e1dc461a-2308-5207-a5c0-d9c2d67edc9e",
-            "2021-08-30 01:12:01",
-            "2e0ca03b-da47-5adf-bce1-a15387e3ceb4",
+            "e80601f8-7767-5fa2-877d-d9f758462912",
+            "2021-08-30 16:44:01",
+            "7833cd1a-b673-574b-bb6f-8a1477c6afc4",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:12:01",
-            "e1dc461a-2308-5207-a5c0-d9c2d67edc9e",
-            "2021-08-30 01:12:02",
-            "1f5ab8ee-23a9-5416-8e1e-7509b6f9eb5d",
+            "2021-08-30 16:44:01",
+            "e80601f8-7767-5fa2-877d-d9f758462912",
+            "2021-08-30 16:44:02",
+            "617db138-3ffa-53be-a993-b16de08d3303",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:12:02",
-            "e1dc461a-2308-5207-a5c0-d9c2d67edc9e",
-            "2021-08-30 01:12:03",
-            "55778645-c8e7-5898-8923-668a72a7ad66",
+            "2021-08-30 16:44:02",
+            "e80601f8-7767-5fa2-877d-d9f758462912",
+            "2021-08-30 16:44:03",
+            "01a2684d-ce61-5241-93d7-b3463f3b0a93",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:12:03"
+            "2021-08-30 16:44:03"
         ]
     },
     {
@@ -5160,9 +4403,9 @@
         "bindings": [
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
             "001b00bd-d1c1-434c-859f-936098b00929",
-            "a1a308c5-183a-57c4-9f3d-426745a1cda6",
-            "2021-08-30 01:12:04",
-            "2021-08-30 01:12:04"
+            "ee5e41dc-6863-5edc-b625-7c8b446301b1",
+            "2021-08-30 16:44:04",
+            "2021-08-30 16:44:04"
         ]
     },
     {
@@ -5185,9 +4428,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:12:08",
-            "2021-08-30 01:12:09",
-            "2021-08-30 01:12:09"
+            "2021-08-30 16:44:08",
+            "2021-08-30 16:44:09",
+            "2021-08-30 16:44:09"
         ]
     },
     {
@@ -5199,29 +4442,29 @@
             "+5206336245660",
             null,
             false,
-            "6b5c43f4-0c51-577c-91ad-5b26b2873fde",
-            "2021-08-30 01:12:10",
-            "2021-08-30 01:12:10"
+            "990b12a6-8e0a-5894-bca2-fe2073343233",
+            "2021-08-30 16:44:10",
+            "2021-08-30 16:44:10"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "6b5c43f4-0c51-577c-91ad-5b26b2873fde",
-            "2021-08-30 01:12:11",
-            "8f3e73c0-e66a-51b6-b94e-2816353f1be4",
+            "990b12a6-8e0a-5894-bca2-fe2073343233",
+            "2021-08-30 16:44:11",
+            "9f8c0a4e-7d4a-567d-9826-7c85a892ca1a",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:12:11",
-            "6b5c43f4-0c51-577c-91ad-5b26b2873fde",
-            "2021-08-30 01:12:12",
-            "48067c6d-bb3f-596a-93e3-0246cd4fbdb5",
+            "2021-08-30 16:44:11",
+            "990b12a6-8e0a-5894-bca2-fe2073343233",
+            "2021-08-30 16:44:12",
+            "789a7613-7673-58c7-9187-328b02c10175",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:12:12",
-            "6b5c43f4-0c51-577c-91ad-5b26b2873fde",
-            "2021-08-30 01:12:13",
-            "a370320c-5e3f-5892-8f70-7c137729aa88",
+            "2021-08-30 16:44:12",
+            "990b12a6-8e0a-5894-bca2-fe2073343233",
+            "2021-08-30 16:44:13",
+            "7c5bd6cd-c956-519c-b437-a77c70702bd7",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:12:13"
+            "2021-08-30 16:44:13"
         ]
     },
     {
@@ -5229,9 +4472,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001b09e8-64ce-4999-814b-f3b351560ef4",
-            "5a4b974d-942f-5134-a2ce-f23fc947e4db",
-            "2021-08-30 01:12:14",
-            "2021-08-30 01:12:14"
+            "09851fe2-446d-533f-8e21-b3b310915b26",
+            "2021-08-30 16:44:14",
+            "2021-08-30 16:44:14"
         ]
     },
     {
@@ -5254,9 +4497,9 @@
             "2021-07-15 12:51:38",
             1,
             1,
-            "2021-08-30 01:12:18",
-            "2021-08-30 01:12:19",
-            "2021-08-30 01:12:19"
+            "2021-08-30 16:44:18",
+            "2021-08-30 16:44:19",
+            "2021-08-30 16:44:19"
         ]
     },
     {
@@ -5268,29 +4511,29 @@
             "+4214446361060",
             null,
             false,
-            "fdb57a14-36d3-5899-b3e7-6bebd25bf471",
-            "2021-08-30 01:12:20",
-            "2021-08-30 01:12:20"
+            "fbe9fbc5-0021-5851-84ac-64ea2e5b62dd",
+            "2021-08-30 16:44:20",
+            "2021-08-30 16:44:20"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "fdb57a14-36d3-5899-b3e7-6bebd25bf471",
-            "2021-08-30 01:12:21",
-            "d8494d9a-334c-5d53-b4a6-b09bf8de1bf7",
+            "fbe9fbc5-0021-5851-84ac-64ea2e5b62dd",
+            "2021-08-30 16:44:21",
+            "19e01961-8e22-5206-bdac-eb0bff2b843f",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:12:21",
-            "fdb57a14-36d3-5899-b3e7-6bebd25bf471",
-            "2021-08-30 01:12:22",
-            "07c8d50f-b8cd-56b5-a10f-310f6698f6e5",
+            "2021-08-30 16:44:21",
+            "fbe9fbc5-0021-5851-84ac-64ea2e5b62dd",
+            "2021-08-30 16:44:22",
+            "f13f9f25-9b4a-5c88-bcfa-cc1240fecd66",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:12:22",
-            "fdb57a14-36d3-5899-b3e7-6bebd25bf471",
-            "2021-08-30 01:12:23",
-            "90f16844-d428-58b8-a4a2-4cc4f2af46e4",
+            "2021-08-30 16:44:22",
+            "fbe9fbc5-0021-5851-84ac-64ea2e5b62dd",
+            "2021-08-30 16:44:23",
+            "a1c4d922-71da-5556-95db-a91e92aeeab0",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:12:23"
+            "2021-08-30 16:44:23"
         ]
     },
     {
@@ -5298,9 +4541,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001c691c-abe3-410a-b855-3eff1c10ab52",
-            "6d8ff79c-a2af-5778-922d-5aa30889d831",
-            "2021-08-30 01:12:24",
-            "2021-08-30 01:12:24"
+            "68ad1442-9076-5993-857d-e16edfdf7d6e",
+            "2021-08-30 16:44:24",
+            "2021-08-30 16:44:24"
         ]
     },
     {
@@ -5323,9 +4566,9 @@
             "2021-07-15 10:47:00",
             2,
             1,
-            "2021-08-30 01:12:28",
-            "2021-08-30 01:12:29",
-            "2021-08-30 01:12:29"
+            "2021-08-30 16:44:28",
+            "2021-08-30 16:44:29",
+            "2021-08-30 16:44:29"
         ]
     },
     {
@@ -5337,24 +4580,24 @@
             "+8712127575206",
             null,
             false,
-            "c1245a83-a0c1-580a-b43d-ccd003924e13",
-            "2021-08-30 01:12:30",
-            "2021-08-30 01:12:30"
+            "8e287b28-3b65-5245-8444-da95a30a4cbc",
+            "2021-08-30 16:44:30",
+            "2021-08-30 16:44:30"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "c1245a83-a0c1-580a-b43d-ccd003924e13",
-            "2021-08-30 01:12:31",
-            "eadff69b-0ce0-5830-91ad-7f2d9d049824",
+            "8e287b28-3b65-5245-8444-da95a30a4cbc",
+            "2021-08-30 16:44:31",
+            "4f983278-71aa-5f72-a32b-cab5f73efbea",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:12:31",
-            "c1245a83-a0c1-580a-b43d-ccd003924e13",
-            "2021-08-30 01:12:32",
-            "e30c294a-7731-58cf-9d04-3012202390fd",
+            "2021-08-30 16:44:31",
+            "8e287b28-3b65-5245-8444-da95a30a4cbc",
+            "2021-08-30 16:44:32",
+            "f2542975-1775-59af-a5d8-3a5a910ea6da",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:12:32"
+            "2021-08-30 16:44:32"
         ]
     },
     {
@@ -5366,19 +4609,19 @@
             "+8712127575206",
             null,
             false,
-            "50e46247-6a47-59d2-985c-33c015508ff6",
-            "2021-08-30 01:12:33",
-            "2021-08-30 01:12:33"
+            "32977eaa-24de-57b6-86c6-36ef882e82f1",
+            "2021-08-30 16:44:33",
+            "2021-08-30 16:44:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "50e46247-6a47-59d2-985c-33c015508ff6",
-            "12b65c3a-0e9c-58e2-b49b-132867839d6e",
-            "2021-08-30 01:12:34",
-            "2021-08-30 01:12:34"
+            "32977eaa-24de-57b6-86c6-36ef882e82f1",
+            "826eca5a-e9c1-504a-8eab-dfc6fd11e4b4",
+            "2021-08-30 16:44:34",
+            "2021-08-30 16:44:34"
         ]
     },
     {
@@ -5386,9 +4629,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001cc22e-7985-4304-aa60-fd9713a048a3",
-            "50f17bac-5f34-5a7d-906b-b99675ed2eb7",
-            "2021-08-30 01:12:35",
-            "2021-08-30 01:12:35"
+            "0b6bd327-9f4a-5870-9b1c-199838d1ce5c",
+            "2021-08-30 16:44:35",
+            "2021-08-30 16:44:35"
         ]
     },
     {
@@ -5404,9 +4647,9 @@
             "Document",
             "EXPIRES_IN_30_DAYS",
             "EXPIRES_IN_30_DAYS",
-            "07ef68f9-ee30-59d0-9c7a-2de2751af45f",
-            "2021-08-30 01:12:39",
-            "2021-08-30 01:12:39"
+            "1e7d0078-6b02-5172-8d14-b4ddd7a45639",
+            "2021-08-30 16:44:39",
+            "2021-08-30 16:44:39"
         ]
     },
     {
@@ -5429,9 +4672,9 @@
             "2021-12-02 11:06:22",
             1,
             2,
-            "2021-08-30 01:12:40",
-            "2021-08-30 01:12:41",
-            "2021-08-30 01:12:41"
+            "2021-08-30 16:44:40",
+            "2021-08-30 16:44:41",
+            "2021-08-30 16:44:41"
         ]
     },
     {
@@ -5443,44 +4686,44 @@
             "+1914628971061",
             null,
             false,
-            "ac70242c-f090-5937-ab84-ebb5709c558d",
-            "2021-08-30 01:12:42",
-            "2021-08-30 01:12:42"
+            "ce8f2964-706f-5e0c-a5ca-8b095334b4e2",
+            "2021-08-30 16:44:42",
+            "2021-08-30 16:44:42"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "ac70242c-f090-5937-ab84-ebb5709c558d",
-            "2021-08-30 01:12:43",
-            "cecc9993-f295-58bf-8e70-a3d8b4a1af4f",
+            "ce8f2964-706f-5e0c-a5ca-8b095334b4e2",
+            "2021-08-30 16:44:43",
+            "f9f9ef6a-9a87-56e1-a1d1-7f1a5e208075",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:12:43",
-            "ac70242c-f090-5937-ab84-ebb5709c558d",
-            "2021-08-30 01:12:44",
-            "9577bcb3-c668-5969-b1c4-c164423a2d96",
+            "2021-08-30 16:44:43",
+            "ce8f2964-706f-5e0c-a5ca-8b095334b4e2",
+            "2021-08-30 16:44:44",
+            "2df7076f-8f6c-57c0-b3d9-1b8e169b403f",
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "2021-08-30 01:12:44",
-            "ac70242c-f090-5937-ab84-ebb5709c558d",
-            "2021-08-30 01:12:45",
-            "ce4ba703-bb82-5509-ac2a-f290cf730c76",
+            "2021-08-30 16:44:44",
+            "ce8f2964-706f-5e0c-a5ca-8b095334b4e2",
+            "2021-08-30 16:44:45",
+            "05c26da9-d433-5c24-896e-ccb3f9e4c627",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:12:45"
+            "2021-08-30 16:44:45"
         ]
     },
     {
         "query": "insert into `document_statuses` (`created_at`, `document_id`, `id`, `status_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "2021-08-30 01:12:46",
+            "2021-08-30 16:44:46",
             "001cdeac-3333-42f9-8480-f3ba90e99f64",
-            "a23535a3-6bbd-5d4c-8a9b-573265da46d9",
+            "8f4b3077-bd82-5b15-806a-147ef4f4481f",
             "e88bf508-5079-58ac-b8f1-a98b66d0c3f1",
-            "2021-08-30 01:12:46",
-            "2021-08-30 01:12:47",
+            "2021-08-30 16:44:46",
+            "2021-08-30 16:44:47",
             "001cdeac-3333-42f9-8480-f3ba90e99f64",
-            "9ffcc8e1-cd86-535e-8b22-788cf50858ec",
-            "07ef68f9-ee30-59d0-9c7a-2de2751af45f",
-            "2021-08-30 01:12:47"
+            "eeaa68a2-1158-5af7-8932-e34d8c2a5a4e",
+            "1e7d0078-6b02-5172-8d14-b4ddd7a45639",
+            "2021-08-30 16:44:47"
         ]
     },
     {
@@ -5503,9 +4746,9 @@
             "2021-09-22 08:43:49",
             2,
             1,
-            "2021-08-30 01:12:51",
-            "2021-08-30 01:12:52",
-            "2021-08-30 01:12:52"
+            "2021-08-30 16:44:51",
+            "2021-08-30 16:44:52",
+            "2021-08-30 16:44:52"
         ]
     },
     {
@@ -5517,24 +4760,24 @@
             "+6967128798472",
             null,
             false,
-            "9b5cb1da-66da-5aad-8088-66a16ee6ee58",
-            "2021-08-30 01:12:53",
-            "2021-08-30 01:12:53"
+            "cdad66a9-2d35-568f-ab40-a1194b1ef2d4",
+            "2021-08-30 16:44:53",
+            "2021-08-30 16:44:53"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "9b5cb1da-66da-5aad-8088-66a16ee6ee58",
-            "2021-08-30 01:12:54",
-            "3f67fe19-ce13-5dee-bdd0-f79f9ce6dc01",
+            "cdad66a9-2d35-568f-ab40-a1194b1ef2d4",
+            "2021-08-30 16:44:54",
+            "8911e820-d8ac-5bc2-a019-874d324a8820",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:12:54",
-            "9b5cb1da-66da-5aad-8088-66a16ee6ee58",
-            "2021-08-30 01:12:55",
-            "39240f1e-c010-56b0-b868-ec16faf20b01",
+            "2021-08-30 16:44:54",
+            "cdad66a9-2d35-568f-ab40-a1194b1ef2d4",
+            "2021-08-30 16:44:55",
+            "75bfff0d-dbf8-55d2-9b4e-3190a6bcf5fb",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:12:55"
+            "2021-08-30 16:44:55"
         ]
     },
     {
@@ -5546,19 +4789,19 @@
             "+3438043679938",
             null,
             false,
-            "059e3e42-de3b-52a9-812e-c840d543f4a0",
-            "2021-08-30 01:12:56",
-            "2021-08-30 01:12:56"
+            "03424ea3-f2ab-5919-9ae1-fd57781be2dc",
+            "2021-08-30 16:44:56",
+            "2021-08-30 16:44:56"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "059e3e42-de3b-52a9-812e-c840d543f4a0",
-            "4d06f464-f527-50e9-b48d-3c54affb04fa",
-            "2021-08-30 01:12:57",
-            "2021-08-30 01:12:57"
+            "03424ea3-f2ab-5919-9ae1-fd57781be2dc",
+            "275d8077-a195-5ccd-9827-3e302c1d9c3f",
+            "2021-08-30 16:44:57",
+            "2021-08-30 16:44:57"
         ]
     },
     {
@@ -5566,9 +4809,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001e471a-fae0-449a-b86f-9855403e3790",
-            "b3ad2568-59d2-5bdb-aecc-fa3f776ef069",
-            "2021-08-30 01:12:58",
-            "2021-08-30 01:12:58"
+            "cbc438f8-a0e4-5ddb-902e-53d48512ab83",
+            "2021-08-30 16:44:58",
+            "2021-08-30 16:44:58"
         ]
     },
     {
@@ -5591,9 +4834,9 @@
             "2021-07-15 12:51:38",
             2,
             1,
-            "2021-08-30 01:13:02",
-            "2021-08-30 01:13:03",
-            "2021-08-30 01:13:03"
+            "2021-08-30 16:45:02",
+            "2021-08-30 16:45:03",
+            "2021-08-30 16:45:03"
         ]
     },
     {
@@ -5605,24 +4848,24 @@
             "+7575109601171",
             null,
             false,
-            "e3a40545-86a2-58e0-8403-ba4a70421f3e",
-            "2021-08-30 01:13:04",
-            "2021-08-30 01:13:04"
+            "d0378bd9-c143-5238-8117-87b778c9a942",
+            "2021-08-30 16:45:04",
+            "2021-08-30 16:45:04"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "e3a40545-86a2-58e0-8403-ba4a70421f3e",
-            "2021-08-30 01:13:05",
-            "8703f852-81e1-5f6b-94f2-191b374c6162",
+            "d0378bd9-c143-5238-8117-87b778c9a942",
+            "2021-08-30 16:45:05",
+            "7ae1e9bd-bc52-56eb-ae7f-e141bd1f919e",
             "026d358d-b01e-5079-8fd9-9c955a9064ce",
-            "2021-08-30 01:13:05",
-            "e3a40545-86a2-58e0-8403-ba4a70421f3e",
-            "2021-08-30 01:13:06",
-            "b80aff51-33be-5fea-b377-581474c8efab",
+            "2021-08-30 16:45:05",
+            "d0378bd9-c143-5238-8117-87b778c9a942",
+            "2021-08-30 16:45:06",
+            "64e82b0e-78e5-5c24-afe6-67fd026ef53c",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 01:13:06"
+            "2021-08-30 16:45:06"
         ]
     },
     {
@@ -5634,19 +4877,19 @@
             "+7322545704274",
             null,
             false,
-            "e9f5f371-908e-5271-a21c-b82583691066",
-            "2021-08-30 01:13:07",
-            "2021-08-30 01:13:07"
+            "e1dc461a-2308-5207-a5c0-d9c2d67edc9e",
+            "2021-08-30 16:45:07",
+            "2021-08-30 16:45:07"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "e9f5f371-908e-5271-a21c-b82583691066",
-            "4557db9a-f1ab-5bd2-a218-abacd720c9a2",
-            "2021-08-30 01:13:08",
-            "2021-08-30 01:13:08"
+            "e1dc461a-2308-5207-a5c0-d9c2d67edc9e",
+            "2e0ca03b-da47-5adf-bce1-a15387e3ceb4",
+            "2021-08-30 16:45:08",
+            "2021-08-30 16:45:08"
         ]
     },
     {
@@ -5654,9 +4897,9 @@
         "bindings": [
             "d1ed5008-055f-5d06-b26f-4c8dcccbf2ac",
             "001f544e-dfe0-4e95-bceb-6813426327ec",
-            "e42c6857-bbc4-533c-804b-26b4453e7da9",
-            "2021-08-30 01:13:09",
-            "2021-08-30 01:13:09"
+            "1f5ab8ee-23a9-5416-8e1e-7509b6f9eb5d",
+            "2021-08-30 16:45:09",
+            "2021-08-30 16:45:09"
         ]
     },
     {
@@ -5698,6 +4941,18 @@
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "561b9925-3781-46d7-a734-78efad4f5ae6",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+            "936f8f18-b561-4d28-9f0c-b642b6fc9da9",
+            "9d926695-6d2b-404e-9d6d-31bcaf44e7d2",
+            "a36b83d1-a49b-45be-adb7-3c5defb55234"
+        ]
+    },
+    {
+        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
             "561b9925-3781-46d7-a734-78efad4f5ae6",
@@ -5776,189 +5031,76 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             2,
-            "2021-08-30 01:13:10",
+            "2021-08-30 16:45:10",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:13:18",
-            "8f4f286a-59b6-464e-9634-63a25298db57",
-            "2870e6e5-7bca-5734-9489-2912ccd8d0bd",
-            0,
-            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
-            "2021-08-30 01:13:18"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            2,
-            "2021-08-30 01:13:20",
-            "561b9925-3781-46d7-a734-78efad4f5ae6"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "561b9925-3781-46d7-a734-78efad4f5ae6"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:13:28",
-            "6030b200-8206-4f12-89bd-93768534486b",
-            "51291932-8494-5d5a-a08c-2925195e1952",
-            0,
-            "561b9925-3781-46d7-a734-78efad4f5ae6",
-            "2021-08-30 01:13:28"
         ]
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             6,
-            "2021-08-30 01:13:30",
+            "2021-08-30 16:45:18",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            2,
+            "2021-08-30 16:45:26",
+            "561b9925-3781-46d7-a734-78efad4f5ae6"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            3,
+            "2021-08-30 16:45:34",
+            "561b9925-3781-46d7-a734-78efad4f5ae6"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            6,
+            "2021-08-30 16:45:42",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            11,
+            "2021-08-30 16:45:51",
             "714aa057-1ea0-4666-b3be-4b69af99e997"
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
         "bindings": [
             0,
-            "2021-08-30 01:13:38",
-            "b126338b-539c-4aba-936d-f02cd30bde5e",
-            "34e11c13-8998-5077-b38b-be28bb2147eb",
-            0,
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 01:13:38",
-            0,
-            "2021-08-30 01:13:39",
+            "2021-08-30 16:45:50",
             "26e0cca3-2cb0-4d79-b01c-68fe09d7700e",
-            "64e0be3f-b0b7-5e61-ab28-bb0e4e7bdc0d",
+            "a1a308c5-183a-57c4-9f3d-426745a1cda6",
             0,
             "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 01:13:39"
+            "2021-08-30 16:45:50"
         ]
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 01:13:42",
-            "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:13:50",
-            "d674d244-8a3c-4357-8b62-3bc908495789",
-            "7fefe45d-8fc7-5fe8-9b79-d40ea9098631",
-            0,
-            "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
-            "2021-08-30 01:13:50"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:13:52",
+            "2021-08-30 16:46:00",
             "936f8f18-b561-4d28-9f0c-b642b6fc9da9"
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
+            2,
+            "2021-08-30 16:46:08",
             "936f8f18-b561-4d28-9f0c-b642b6fc9da9"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:14:00",
-            "a20076c1-802a-450f-8b0b-cd627fc0d2c4",
-            "374cbbdf-374b-5a87-b23e-2e0f63edaa57",
-            0,
-            "936f8f18-b561-4d28-9f0c-b642b6fc9da9",
-            "2021-08-30 01:14:00"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:14:02",
-            "9d926695-6d2b-404e-9d6d-31bcaf44e7d2"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "9d926695-6d2b-404e-9d6d-31bcaf44e7d2"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:14:10",
-            "57275aee-01e3-4490-b6ef-4cacfce38c44",
-            "83f63ef0-f8c4-578a-9096-27498c12fab9",
-            0,
-            "9d926695-6d2b-404e-9d6d-31bcaf44e7d2",
-            "2021-08-30 01:14:10"
-        ]
-    },
-    {
-        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 01:14:12",
-            "a36b83d1-a49b-45be-adb7-3c5defb55234"
-        ]
-    },
-    {
-        "query": "select * from `reseller_customers` where `deleted_at` is null and `reseller_customers`.`reseller_id` = ?",
-        "bindings": [
-            "a36b83d1-a49b-45be-adb7-3c5defb55234"
-        ]
-    },
-    {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
-        "bindings": [
-            0,
-            "2021-08-30 01:14:20",
-            "c1c5a133-c373-4212-a836-adfb33fa314c",
-            "7aa30347-cf40-5622-8f26-b76927452390",
-            0,
-            "a36b83d1-a49b-45be-adb7-3c5defb55234",
-            "2021-08-30 01:14:20"
         ]
     }
 ]

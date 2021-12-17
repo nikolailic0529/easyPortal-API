@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
@@ -111,6 +112,16 @@ class ResellersRecalculateTest extends TestCase {
             'id'         => Str::uuid()->toString(),
             'deleted_at' => Date::now(),
         ]);
+        $customerE = Customer::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+
+        $kpiA = Kpi::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $kpiB = Kpi::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
 
         ResellerCustomer::factory()->create([
             'id'              => Str::uuid()->toString(),
@@ -118,6 +129,15 @@ class ResellersRecalculateTest extends TestCase {
             'customer_id'     => $customerA,
             'assets_count'    => $count,
             'locations_count' => $count,
+            'kpi_id'          => $kpiA,
+        ]);
+        ResellerCustomer::factory()->create([
+            'id'              => Str::uuid()->toString(),
+            'reseller_id'     => $resellerA,
+            'customer_id'     => $customerE,
+            'assets_count'    => $count,
+            'locations_count' => $count,
+            'kpi_id'          => $kpiB,
         ]);
 
         Asset::factory()->create([
@@ -200,32 +220,43 @@ class ResellersRecalculateTest extends TestCase {
         $attributes = [
             'customer_id',
             'location_id',
+            'kpi_id',
         ];
 
         // A
         $this->assertEquals([
-            'customers_count' => 3,
+            'customers_count' => 4,
             'locations_count' => 1,
             'assets_count'    => 5,
             'contacts_count'  => 0,
             'statuses_count'  => 1,
+            'kpi_id'          => null,
         ], $this->getModelCountableProperties($aReseller, $attributes));
 
         $this->assertEquals([
             [
                 'assets_count'    => 1,
-                'locations_count' => 0,
-                'customer_id'     => $customerB->getKey(),
-            ],
-            [
-                'assets_count'    => 1,
                 'locations_count' => 1,
                 'customer_id'     => $customerA->getKey(),
+                'kpi_id'          => $kpiA->getKey(),
+            ],
+            [
+                'assets_count'    => 0,
+                'locations_count' => 0,
+                'customer_id'     => $customerE->getKey(),
+                'kpi_id'          => $kpiB->getKey(),
             ],
             [
                 'assets_count'    => 0,
                 'locations_count' => 0,
                 'customer_id'     => $customerC->getKey(),
+                'kpi_id'          => null,
+            ],
+            [
+                'assets_count'    => 1,
+                'locations_count' => 0,
+                'customer_id'     => $customerB->getKey(),
+                'kpi_id'          => null,
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 
@@ -244,6 +275,7 @@ class ResellersRecalculateTest extends TestCase {
             'assets_count'    => 0,
             'contacts_count'  => 1,
             'statuses_count'  => 0,
+            'kpi_id'          => null,
         ], $this->getModelCountableProperties($bReseller, $attributes));
 
         $this->assertEquals([
@@ -261,6 +293,7 @@ class ResellersRecalculateTest extends TestCase {
             'assets_count'    => 0,
             'contacts_count'  => 0,
             'statuses_count'  => 0,
+            'kpi_id'          => null,
         ], $this->getModelCountableProperties($cReseller, $attributes));
 
         $this->assertEquals([

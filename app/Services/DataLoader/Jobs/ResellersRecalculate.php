@@ -38,7 +38,7 @@ class ResellersRecalculate extends Recalculate {
         $model               = $this->getModel();
         $resellers           = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
-            ->with(['locations', 'contacts', 'statuses'])
+            ->with(['locations', 'contacts', 'statuses', 'customersPivots'])
             ->get();
         $assetsByReseller    = $this->calculateAssetsFor('reseller_id', $keys);
         $assetsByLocation    = $this->calculateAssetsByLocationFor('reseller_id', $keys);
@@ -88,6 +88,9 @@ class ResellersRecalculate extends Recalculate {
             // Customers
             $locations = array_filter(array_keys($resellerAssetsByLocation));
             $customers = [];
+            $existing  = $reseller->customersPivots->keyBy(
+                $reseller->customers()->getRelatedPivotKeyName(),
+            );
             $ids       = array_filter(array_unique(
                 array_merge($resellerCustomers, array_keys($resellerAssetsByCustomer)),
                 SORT_REGULAR,
@@ -100,6 +103,17 @@ class ResellersRecalculate extends Recalculate {
                     $customerLocations[$id] ?? [],
                     $locations,
                 ));
+
+                unset($existing[$id]);
+            }
+
+            foreach ($existing as $id => $customer) {
+                /** @var \App\Models\ResellerCustomer $customer */
+                if ($customer->kpi_id !== null) {
+                    $customers[$id]                  = $customer;
+                    $customers[$id]->assets_count    = 0;
+                    $customers[$id]->locations_count = 0;
+                }
             }
 
             $reseller->customersPivots = $customers;

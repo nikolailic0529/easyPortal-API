@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 use function count;
@@ -27,6 +27,16 @@ trait HasCustomers {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
+    }
+
+    public function customersPivots(): HasMany {
+        $customers = $this->customers();
+        $relation  = $this->hasMany(
+            $customers->getPivotClass(),
+            $customers->getForeignPivotKeyName(),
+        );
+
+        return $relation;
     }
 
     /**
