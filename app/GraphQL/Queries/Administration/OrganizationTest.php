@@ -435,6 +435,34 @@ class OrganizationTest extends TestCase {
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     ],
                     static function (TestCase $test, ?Organization $organization, ?User $user): Organization {
+                        $kpi      = Kpi::factory()->create([
+                            'assets_total'                        => 1,
+                            'assets_active'                       => 2,
+                            'assets_active_percent'               => 3.0,
+                            'assets_active_on_contract'           => 4,
+                            'assets_active_on_warranty'           => 5,
+                            'assets_active_exposed'               => 6,
+                            'customers_active'                    => 7,
+                            'customers_active_new'                => 8,
+                            'contracts_active'                    => 9,
+                            'contracts_active_amount'             => 10.0,
+                            'contracts_active_new'                => 11,
+                            'contracts_expiring'                  => 12,
+                            'contracts_expired'                   => 13,
+                            'quotes_active'                       => 14,
+                            'quotes_active_amount'                => 15.0,
+                            'quotes_active_new'                   => 16,
+                            'quotes_expiring'                     => 17,
+                            'quotes_expired'                      => 18,
+                            'quotes_ordered'                      => 19,
+                            'quotes_accepted'                     => 20,
+                            'quotes_requested'                    => 21,
+                            'quotes_received'                     => 22,
+                            'quotes_rejected'                     => 23,
+                            'quotes_awaiting'                     => 24,
+                            'service_revenue_total_amount'        => 25.0,
+                            'service_revenue_total_amount_change' => 26.0,
+                        ]);
                         $currency = Currency::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',
@@ -462,7 +490,8 @@ class OrganizationTest extends TestCase {
                                 'object_type' => (new Reseller())->getMorphClass(),
                             ])
                             ->create([
-                                'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                'id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                'kpi_id' => $kpi,
                             ]);
 
                         ResellerLocation::factory()
@@ -504,37 +533,6 @@ class OrganizationTest extends TestCase {
                                 'timezone'                         => 'Europe/London',
                                 'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
                             ]);
-
-                        Kpi::factory()->create([
-                            'object_id'                           => $organization->getKey(),
-                            'object_type'                         => (new Reseller())->getMorphClass(),
-                            'assets_total'                        => 1,
-                            'assets_active'                       => 2,
-                            'assets_active_percent'               => 3.0,
-                            'assets_active_on_contract'           => 4,
-                            'assets_active_on_warranty'           => 5,
-                            'assets_active_exposed'               => 6,
-                            'customers_active'                    => 7,
-                            'customers_active_new'                => 8,
-                            'contracts_active'                    => 9,
-                            'contracts_active_amount'             => 10.0,
-                            'contracts_active_new'                => 11,
-                            'contracts_expiring'                  => 12,
-                            'contracts_expired'                   => 13,
-                            'quotes_active'                       => 14,
-                            'quotes_active_amount'                => 15.0,
-                            'quotes_active_new'                   => 16,
-                            'quotes_expiring'                     => 17,
-                            'quotes_expired'                      => 18,
-                            'quotes_ordered'                      => 19,
-                            'quotes_accepted'                     => 20,
-                            'quotes_requested'                    => 21,
-                            'quotes_received'                     => 22,
-                            'quotes_rejected'                     => 23,
-                            'quotes_awaiting'                     => 24,
-                            'service_revenue_total_amount'        => 25.0,
-                            'service_revenue_total_amount_change' => 26.0,
-                        ]);
 
                         return $organization;
                     },

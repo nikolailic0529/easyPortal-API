@@ -142,11 +142,14 @@ class Organization extends Model implements
     }
 
     public function kpi(): HasOneThrough {
-        [$type, $id] = $this->getMorphs('object', null, null);
-
-        return $this
-            ->hasOneThrough(Kpi::class, Reseller::class, 'id', $id)
-            ->where($type, '=', (new Reseller())->getMorphClass());
+        return $this->hasOneThrough(
+            Kpi::class,
+            Reseller::class,
+            (new Reseller())->getKeyName(),
+            (new Kpi())->getKeyName(),
+            null,
+            'kpi_id'
+        );
     }
 
     public function reseller(): HasOne {

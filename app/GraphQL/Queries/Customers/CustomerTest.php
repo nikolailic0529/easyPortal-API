@@ -15,6 +15,7 @@ use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
+use App\Models\Kpi;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Oem;
@@ -1440,6 +1441,35 @@ class CustomerTest extends TestCase {
 
                             $location->resellers()->attach($reseller);
 
+                            $kpi = Kpi::factory()->create([
+                                'assets_total'                        => 1,
+                                'assets_active'                       => 2,
+                                'assets_active_percent'               => 3.0,
+                                'assets_active_on_contract'           => 4,
+                                'assets_active_on_warranty'           => 5,
+                                'assets_active_exposed'               => 6,
+                                'customers_active'                    => 7,
+                                'customers_active_new'                => 8,
+                                'contracts_active'                    => 9,
+                                'contracts_active_amount'             => 10.0,
+                                'contracts_active_new'                => 11,
+                                'contracts_expiring'                  => 12,
+                                'contracts_expired'                   => 13,
+                                'quotes_active'                       => 14,
+                                'quotes_active_amount'                => 15.0,
+                                'quotes_active_new'                   => 16,
+                                'quotes_expiring'                     => 17,
+                                'quotes_expired'                      => 18,
+                                'quotes_ordered'                      => 19,
+                                'quotes_accepted'                     => 20,
+                                'quotes_requested'                    => 21,
+                                'quotes_received'                     => 22,
+                                'quotes_rejected'                     => 23,
+                                'quotes_awaiting'                     => 24,
+                                'service_revenue_total_amount'        => 25.0,
+                                'service_revenue_total_amount_change' => 26.0,
+                            ]);
+
                             /** @var \App\Models\Customer $customer */
                             $customer = Customer::factory()
                                 ->hasContacts(1, [
@@ -1453,38 +1483,10 @@ class CustomerTest extends TestCase {
                                     'key'         => 'active',
                                     'object_type' => (new Customer())->getMorphClass(),
                                 ])
-                                ->hasKpi(1, [
-                                    'object_type'                         => (new Customer())->getMorphClass(),
-                                    'assets_total'                        => 1,
-                                    'assets_active'                       => 2,
-                                    'assets_active_percent'               => 3.0,
-                                    'assets_active_on_contract'           => 4,
-                                    'assets_active_on_warranty'           => 5,
-                                    'assets_active_exposed'               => 6,
-                                    'customers_active'                    => 7,
-                                    'customers_active_new'                => 8,
-                                    'contracts_active'                    => 9,
-                                    'contracts_active_amount'             => 10.0,
-                                    'contracts_active_new'                => 11,
-                                    'contracts_expiring'                  => 12,
-                                    'contracts_expired'                   => 13,
-                                    'quotes_active'                       => 14,
-                                    'quotes_active_amount'                => 15.0,
-                                    'quotes_active_new'                   => 16,
-                                    'quotes_expiring'                     => 17,
-                                    'quotes_expired'                      => 18,
-                                    'quotes_ordered'                      => 19,
-                                    'quotes_accepted'                     => 20,
-                                    'quotes_requested'                    => 21,
-                                    'quotes_received'                     => 22,
-                                    'quotes_rejected'                     => 23,
-                                    'quotes_awaiting'                     => 24,
-                                    'service_revenue_total_amount'        => 25.0,
-                                    'service_revenue_total_amount_change' => 26.0,
-                                ])
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
+                                    'kpi_id'          => $kpi,
                                     'assets_count'    => 2,
                                     'contacts_count'  => 1,
                                     'locations_count' => 2,
