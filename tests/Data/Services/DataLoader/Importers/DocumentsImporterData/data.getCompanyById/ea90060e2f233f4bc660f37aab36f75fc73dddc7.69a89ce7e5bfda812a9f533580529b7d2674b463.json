@@ -1,0 +1,150 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "params": {
+        "id": "e70e8372-5bc8-4719-8e32-d4eababf8cbd"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "e70e8372-5bc8-4719-8e32-d4eababf8cbd",
+                    "name": "McGlynn-Bradtke",
+                    "updatedAt": "1638478907939",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+5830917777843",
+                            "name": "Lindsay Towne",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+5830917777843",
+                            "name": "Lindsay Towne",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+5830917777843",
+                            "name": "Lindsay Towne",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "46911",
+                            "address": "1479 Tianna Mission Apt. 822",
+                            "city": "West Francesca",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "-80.655855",
+                            "longitude": "89.658169",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 26,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 1,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "07224fc0-4363-411c-adbc-91ee977daa5f",
+                            "totalAssets": 3,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 1,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": null,
+                            "totalAssets": 23,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 1,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

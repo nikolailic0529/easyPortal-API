@@ -98,6 +98,7 @@ type Company {
   keycloakName: String
   keycloakClientScopeName: String
   companyKpis: CompanyKpis
+  companyResellerKpis: [CompanyKpis]
   status: [String]
 }
 
@@ -126,6 +127,7 @@ type CompanyContactPerson {
 }
 
 type CompanyKpis {
+  resellerId: String
   totalAssets: Int
   activeAssets: Int
   activeAssetsPercentage: Float

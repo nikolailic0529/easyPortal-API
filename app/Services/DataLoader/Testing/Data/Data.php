@@ -2,18 +2,20 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Models\Document as DocumentModel;
+use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Normalizer;
 use Closure;
 use Faker\Generator;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
-
 use function json_encode;
 use function ksort;
-
+use function mb_stripos;
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -39,13 +41,117 @@ abstract class Data {
     /**
      * @return bool|array<string,mixed>
      */
-    abstract public function generate(string $path): bool|array;
+    public function generate(string $path): array|bool {
+        $result   = false;
+        $bindings = $this->generateBindings();
+
+        try {
+            foreach ($bindings as $abstract => $concrete) {
+                if (!$this->app->bound($abstract)) {
+                    $this->app->bind($abstract, $concrete);
+                } else {
+                    unset($bindings[$abstract]);
+                }
+            }
+
+            $result = $this->generateData($path);
+        } finally {
+            foreach ($bindings as $abstract => $concrete) {
+                unset($this->app[$abstract]);
+            }
+        }
+
+        if ($result) {
+            $result = $this->generateContext($path);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array<class-string,class-string>
+     */
+    protected function generateBindings(): array {
+        return [];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function generateContext(string $path): array {
+        return [];
+    }
+
+    abstract protected function generateData(string $path): bool;
 
     /**
      * @param array<string,mixed> $context
      */
     public function restore(string $path, array $context): bool {
-        return true;
+        $result   = true;
+        $settings = [];
+
+        if ($context[ClientDumpContext::OEMS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-import-oems', [
+                    'file' => "{$path}/{$context[ClientDumpContext::OEMS]}",
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-distributor', [
+                    'id'       => $context[ClientDumpContext::DISTRIBUTORS],
+                    '--create' => true,
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[ClientDumpContext::RESELLERS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-reseller', [
+                    'id'       => $context[ClientDumpContext::RESELLERS],
+                    '--create' => true,
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-customer', [
+                    'id'       => $context[ClientDumpContext::CUSTOMERS],
+                    '--create' => true,
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[ClientDumpContext::TYPES] ?? null) {
+            $owner = (new DocumentModel())->getMorphClass();
+
+            foreach ($context[ClientDumpContext::TYPES] as $key) {
+                // Create
+                $type              = new TypeModel();
+                $type->object_type = $owner;
+                $type->key         = $this->normalizer->string($key);
+                $type->name        = $this->normalizer->string($key);
+
+                $type->save();
+
+                // Collect settings
+                if (mb_stripos($key, 'contract') !== false) {
+                    $settings['ep.contract_types'][] = $type->getKey();
+                } elseif (mb_stripos($key, 'quote') !== false) {
+                    $settings['ep.quote_types'][] = $type->getKey();
+                } else {
+                    // empty
+                }
+            }
+        }
+
+        // Update settings
+        foreach ($settings as $setting => $value) {
+            $this->config->set($setting, $value);
+        }
+
+        // Return
+        return $result;
     }
 
     protected function dumpClientResponses(string $path, Closure $closure): bool {
@@ -63,7 +169,11 @@ abstract class Data {
     protected function cleanClientDumps(string $path): bool {
         $map     = static::MAP;
         $data    = $this->getTestData();
-        $cleaner = $this->app->make(ClientDataCleaner::class)->setDefaultMap($data->json($map));
+        $cleaner = $this->app->make(ClientDataCleaner::class);
+
+        if ($data->file($map)->isFile()) {
+            $cleaner = $cleaner->setDefaultMap($data->json($map));
+        }
 
         foreach ((new ClientDumpsIterator($path))->getResponseIterator(true) as $object) {
             $cleaner->clean($object);
@@ -78,15 +188,18 @@ abstract class Data {
     private function saveMap(string $path, array $map): bool {
         ksort($map);
 
-        (new Filesystem())->dumpFile($path, json_encode(
-            $map,
-            JSON_PRETTY_PRINT
-            | JSON_UNESCAPED_SLASHES
-            | JSON_UNESCAPED_UNICODE
-            | JSON_UNESCAPED_LINE_TERMINATORS
-            | JSON_PRESERVE_ZERO_FRACTION
-            | JSON_THROW_ON_ERROR,
-        ));
+        (new Filesystem())->dumpFile(
+            $path,
+            json_encode(
+                $map,
+                JSON_PRETTY_PRINT
+                | JSON_UNESCAPED_SLASHES
+                | JSON_UNESCAPED_UNICODE
+                | JSON_UNESCAPED_LINE_TERMINATORS
+                | JSON_PRESERVE_ZERO_FRACTION
+                | JSON_THROW_ON_ERROR,
+            ),
+        );
 
         return true;
     }

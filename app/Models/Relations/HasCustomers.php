@@ -6,10 +6,14 @@ use App\Models\Customer;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 use function count;
 
 /**
+ * @template TPivot of \App\Utils\Eloquent\Pivot
+ *
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomers {
@@ -25,13 +29,26 @@ trait HasCustomers {
             ->withTimestamps();
     }
 
+    public function customersPivots(): HasMany {
+        $customers = $this->customers();
+        $relation  = $this->hasMany(
+            $customers->getPivotClass(),
+            $customers->getForeignPivotKeyName(),
+        );
+
+        return $relation;
+    }
+
     /**
-     * @param array<string,array<string,mixed>> $customers
+     * @param array<string,TPivot>|\Illuminate\Support\Collection<string,TPivot> $customers
      */
-    public function setCustomersPivotsAttribute(array $customers): void {
+    public function setCustomersPivotsAttribute(Collection|array $customers): void {
         $this->syncBelongsToManyPivots('customers', $customers);
         $this->customers_count = count($customers);
     }
 
+    /**
+     * @return TPivot
+     */
     abstract protected function getCustomersPivot(): Pivot;
 }

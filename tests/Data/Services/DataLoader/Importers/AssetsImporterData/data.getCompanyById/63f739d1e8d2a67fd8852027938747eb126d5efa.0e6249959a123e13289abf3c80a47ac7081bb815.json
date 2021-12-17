@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "3ee4328d-b76a-4551-88ff-b43f43f4a3be"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "3ee4328d-b76a-4551-88ff-b43f43f4a3be",
+                    "name": "Hills Ltd",
+                    "updatedAt": "1639131488098",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "57111",
+                            "address": "30080 Hartmann Village Apt. 214",
+                            "city": "Lake Elmoreview",
+                            "locationType": "HEADQUARTER",
+                            "country": "Guinea-Bissau",
+                            "latitude": "6.128503",
+                            "longitude": "129.492413",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 15646,
+                        "activeAssets": 2784,
+                        "activeAssetsPercentage": 17.793685286974306,
+                        "activeCustomers": 78,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 53,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 4,
+                        "activeQuotes": 39,
+                        "activeQuotesTotalAmount": 1404.18,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 9,
+                        "expiredQuotes": 84,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

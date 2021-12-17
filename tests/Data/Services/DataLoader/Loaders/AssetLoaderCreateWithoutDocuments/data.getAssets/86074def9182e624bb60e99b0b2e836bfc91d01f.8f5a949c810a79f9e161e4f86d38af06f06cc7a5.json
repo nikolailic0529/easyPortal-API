@@ -11,7 +11,7 @@
                     "id": "dd3fd852-c29a-4f34-ac20-21b6f7079777",
                     "resellerId": null,
                     "customerId": "602673a2-b21d-44b7-8d8e-3423f0ee3795",
-                    "serialNumber": "c9b46a77-126c-393b-9213-7410127c87d9",
+                    "serialNumber": "e565ad24-c7ec-33ce-b081-a7b6ac20d072",
                     "productDescription": "HP 32GB 2Rx4 PC4-2133P-R Kit",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -20,50 +20,49 @@
                     "eolDate": "",
                     "eosDate": "",
                     "zip": "",
-                    "city": "New Ashleigh",
-                    "address": "9892 Feil Hollow Suite 224",
+                    "city": "South Mervin",
+                    "address": "88485 Lilla Forge",
                     "address2": "",
-                    "country": "Belize",
-                    "latitude": "33.037429",
-                    "longitude": "164.771742",
-                    "countryCode": "WF",
+                    "country": "Bahrain",
+                    "latitude": "-31.910544",
+                    "longitude": "-98.956037",
+                    "countryCode": "DE",
                     "status": "ACTIVE",
-                    "updatedAt": "1636529132553",
+                    "updatedAt": "1639463768289",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+16690201838",
-                            "name": "Yasmeen Bergstrom",
+                            "phoneNumber": "+9147479678344",
+                            "name": "Bo Johnson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Cordelia Toy",
+                            "name": "Bernadine Koepp V",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16690201838",
-                            "name": "Yasmeen Bergstrom",
+                            "phoneNumber": "+9147479678344",
+                            "name": "Bo Johnson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
                     ],
                     "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636529132553",
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1639463768289",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-01-01",
                                 "coverageEndDate": "2020-12-31",
                                 "type": "Contract",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
                                 "serviceSku": null
                             },
                             {
@@ -71,7 +70,7 @@
                                 "coverageEndDate": "2021-03-28",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "",
                                 "serviceSku": null
                             }
                         ]

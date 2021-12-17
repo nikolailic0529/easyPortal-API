@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Services\DataLoader\Schema\BrandingData;
 use App\Services\DataLoader\Schema\CentralAssetDbStatistics;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
@@ -23,6 +24,7 @@ use App\Services\DataLoader\Testing\Data\Fake\Company as CompanyValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryCode as CountryCodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryName as CountryNameValue;
 use App\Services\DataLoader\Testing\Data\Fake\Email as EmailValue;
+use App\Services\DataLoader\Testing\Data\Fake\ImageUrl;
 use App\Services\DataLoader\Testing\Data\Fake\Latitude as LatitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Longitude as LongitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Name as NameValue;
@@ -65,6 +67,7 @@ class ClientDataCleaner {
         protected PhoneValue $phone,
         protected EmailValue $email,
         protected NameValue $name,
+        protected ImageUrl $imageUrl,
     ) {
         // empty
     }
@@ -129,6 +132,14 @@ class ClientDataCleaner {
             $object->countryCode = $this->map($object->countryCode, $this->countryCode);
             $object->latitude    = $this->map($object->latitude, $this->latitude);
             $object->longitude   = $this->map($object->longitude, $this->longitude);
+        } elseif ($object instanceof BrandingData) {
+            $object->defaultLogoUrl      = $this->map($object->defaultLogoUrl, $this->imageUrl);
+            $object->favIconUrl          = $this->map($object->favIconUrl, $this->imageUrl);
+            $object->useDefaultFavIcon   = $this->map($object->useDefaultFavIcon, $this->imageUrl);
+            $object->mainImageOnTheRight = $this->map($object->mainImageOnTheRight, $this->imageUrl);
+            $object->mainHeadingText     = $this->map($object->mainHeadingText, $this->text);
+            $object->underlineText       = $this->map($object->underlineText, $this->text);
+            $object->logoUrl             = $this->map($object->logoUrl, $this->imageUrl);
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {

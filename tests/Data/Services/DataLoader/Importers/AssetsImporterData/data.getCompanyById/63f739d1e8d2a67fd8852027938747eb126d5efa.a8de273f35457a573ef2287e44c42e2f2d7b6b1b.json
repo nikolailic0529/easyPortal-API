@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "4c2568c5-2994-4586-b657-e3458e1a1d3f"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "4c2568c5-2994-4586-b657-e3458e1a1d3f",
+                    "name": "Ryan PLC",
+                    "updatedAt": "1639131639741",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "32186",
+                            "address": "63666 Hickle Estates Apt. 895",
+                            "city": "West Yoshikoberg",
+                            "locationType": "HEADQUARTER",
+                            "country": "Romania",
+                            "latitude": "-87.611106",
+                            "longitude": "-6.386513",
+                            "countryCode": "MN"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1551,
+                        "activeAssets": 27,
+                        "activeAssetsPercentage": 1.7408123791102514,
+                        "activeCustomers": 7,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 8,
+                        "activeQuotesTotalAmount": 1098.3600000000001,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 3,
+                        "expiredQuotes": 15,
+                        "expiredContracts": 13,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

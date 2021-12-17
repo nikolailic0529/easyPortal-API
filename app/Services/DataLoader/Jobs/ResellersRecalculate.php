@@ -6,11 +6,11 @@ use App\Models\Asset;
 use App\Models\CustomerLocation;
 use App\Models\Document;
 use App\Models\Reseller;
+use App\Models\ResellerCustomer;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-use function array_fill_keys;
 use function array_filter;
 use function array_intersect;
 use function array_keys;
@@ -18,6 +18,8 @@ use function array_merge;
 use function array_reduce;
 use function array_unique;
 use function count;
+
+use const SORT_REGULAR;
 
 /**
  * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Reseller>
@@ -36,7 +38,7 @@ class ResellersRecalculate extends Recalculate {
         $model               = $this->getModel();
         $resellers           = $model::query()
             ->whereIn($model->getKeyName(), $this->getKeys())
-            ->with(['locations', 'contacts', 'statuses'])
+            ->with(['locations', 'contacts', 'statuses', 'customersPivots'])
             ->get();
         $assetsByReseller    = $this->calculateAssetsFor('reseller_id', $keys);
         $assetsByLocation    = $this->calculateAssetsByLocationFor('reseller_id', $keys);
@@ -85,18 +87,32 @@ class ResellersRecalculate extends Recalculate {
 
             // Customers
             $locations = array_filter(array_keys($resellerAssetsByLocation));
-            $customers = array_fill_keys($resellerCustomers, [
-                'locations_count' => 0,
-                'assets_count'    => 0,
-            ]);
+            $customers = [];
+            $existing  = $reseller->customersPivots->keyBy(
+                $reseller->customers()->getRelatedPivotKeyName(),
+            );
+            $ids       = array_filter(array_unique(
+                array_merge($resellerCustomers, array_keys($resellerAssetsByCustomer)),
+                SORT_REGULAR,
+            ));
 
-            foreach ($resellerAssetsByCustomer as $customer => $assets) {
-                if ($customer) {
-                    $customers[$customer]['assets_count']    = $assets;
-                    $customers[$customer]['locations_count'] = count(array_intersect(
-                        $customerLocations[$customer] ?? [],
-                        $locations,
-                    ));
+            foreach ($ids as $id) {
+                $customers[$id]                  = new ResellerCustomer();
+                $customers[$id]->assets_count    = $resellerAssetsByCustomer[$id] ?? 0;
+                $customers[$id]->locations_count = count(array_intersect(
+                    $customerLocations[$id] ?? [],
+                    $locations,
+                ));
+
+                unset($existing[$id]);
+            }
+
+            foreach ($existing as $id => $customer) {
+                /** @var \App\Models\ResellerCustomer $customer */
+                if ($customer->kpi_id !== null) {
+                    $customers[$id]                  = $customer;
+                    $customers[$id]->assets_count    = 0;
+                    $customers[$id]->locations_count = 0;
                 }
             }
 

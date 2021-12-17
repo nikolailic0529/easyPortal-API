@@ -12,7 +12,7 @@
                 {
                     "id": "0018323f-0a5d-4e19-90ec-2c3351d49919",
                     "type": "Quote renewal",
-                    "documentNumber": "11003ff5-a1fe-39d1-8dcb-4a6128b3895c",
+                    "documentNumber": "c9119ea2-2455-3080-84c8-39ecb3965cd9",
                     "startDate": "2018-01-01",
                     "endDate": "2018-12-31",
                     "currencyCode": "CHF",
@@ -24,26 +24,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "f82eb669-e791-306a-a757-c9eb83be0a38",
+                        "said": "6f8c64ba-6f20-317c-b6fe-5ebe7e36e39c",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+14320531841",
-                            "name": "Randall Kris PhD",
+                            "phoneNumber": "+3275568773393",
+                            "name": "Karolann Ledner",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14580817173",
-                            "name": "Claude Wolff",
+                            "phoneNumber": "+7322545704274",
+                            "name": "Lukas Sawayn",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14320531841",
-                            "name": "Randall Kris PhD",
+                            "phoneNumber": "+3275568773393",
+                            "name": "Karolann Ledner",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -55,7 +55,7 @@
                 {
                     "id": "00194785-9fba-4865-8106-7a833082c1cc",
                     "type": "Quote New Business",
-                    "documentNumber": "a67e84a2-ae45-3142-9a27-567f02fd1aa1",
+                    "documentNumber": "8435d803-b29d-3a52-bd0e-6d61c511b109",
                     "startDate": "2020-08-18",
                     "endDate": "2021-08-16",
                     "currencyCode": "EUR",
@@ -67,7 +67,7 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "26f1993b-6b13-379f-ad77-c6a8381ef172",
+                        "said": "398bc3ff-1bdf-347e-9418-dc3df5f45d0d",
                         "groupId": null,
                         "groupDescription": null
                     },
@@ -98,7 +98,7 @@
                 {
                     "id": "0019fa4b-fc0e-44f5-8280-c0e271761b20",
                     "type": "Delivery contract",
-                    "documentNumber": "2fd0cef1-0368-3c3c-9c91-077ef76236db",
+                    "documentNumber": "a4571041-47d7-3b05-ba89-b51ffefcb531",
                     "startDate": "2016-09-27",
                     "endDate": "2019-09-30",
                     "currencyCode": "CHF",
@@ -110,26 +110,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "5d9fea91-561b-3a59-b02f-ae27181b9277",
+                        "said": "d87dc880-711a-33b5-b295-fbb88c5f3bc1",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+17262764940",
-                            "name": "Arvel Wyman",
+                            "phoneNumber": "+5341498272135",
+                            "name": "Garett Brakus",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17262764940",
-                            "name": "Arvel Wyman",
+                            "phoneNumber": "+5341498272135",
+                            "name": "Garett Brakus",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17262764940",
-                            "name": "Arvel Wyman",
+                            "phoneNumber": "+5341498272135",
+                            "name": "Garett Brakus",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -141,7 +141,7 @@
                 {
                     "id": "001b00bd-d1c1-434c-859f-936098b00929",
                     "type": "Quote New Business",
-                    "documentNumber": "b16d0109-0e23-3a3b-936d-15a5f53e654a",
+                    "documentNumber": "a915862e-bb36-36fd-8088-c98bdc5b3c8c",
                     "startDate": "2020-04-02",
                     "endDate": "2023-04-30",
                     "currencyCode": "EUR",
@@ -153,26 +153,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "cce1c27e-0ea6-3664-a3aa-be23c4cbacfd",
+                        "said": "b01be018-6e47-35a9-8add-362693dde5e9",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+17434098725",
-                            "name": "Alysson Herzog",
+                            "phoneNumber": "+9039622940855",
+                            "name": "Cordelia Rempel",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17434098725",
-                            "name": "Alysson Herzog",
+                            "phoneNumber": "+9039622940855",
+                            "name": "Cordelia Rempel",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17434098725",
-                            "name": "Alysson Herzog",
+                            "phoneNumber": "+9039622940855",
+                            "name": "Cordelia Rempel",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -184,7 +184,7 @@
                 {
                     "id": "001b09e8-64ce-4999-814b-f3b351560ef4",
                     "type": "Contract renewal",
-                    "documentNumber": "2354cf29-0aba-3216-b6af-3cc91ea9e5a0",
+                    "documentNumber": "14f81428-2fee-3a58-b9fa-be9ba85d6cb9",
                     "startDate": "2020-05-15",
                     "endDate": "2020-06-14",
                     "currencyCode": "CHF",
@@ -196,26 +196,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "0cbef180-ad9d-3bef-8d67-5242c003fff3",
+                        "said": "f878e5ac-6e67-31a7-bf74-065ba26b1fd9",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+13865637591",
-                            "name": "Nash Roob",
+                            "phoneNumber": "+5206336245660",
+                            "name": "Tara Carter",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13865637591",
-                            "name": "Nash Roob",
+                            "phoneNumber": "+5206336245660",
+                            "name": "Tara Carter",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13865637591",
-                            "name": "Nash Roob",
+                            "phoneNumber": "+5206336245660",
+                            "name": "Tara Carter",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -227,7 +227,7 @@
                 {
                     "id": "001c691c-abe3-410a-b855-3eff1c10ab52",
                     "type": "Quote renewal",
-                    "documentNumber": "f8e97d1d-8bc7-35ed-ad59-f08fbf4349d7",
+                    "documentNumber": "92e9a86f-a8d5-384e-b37a-2a9e567277f3",
                     "startDate": "2020-03-01",
                     "endDate": "2021-02-28",
                     "currencyCode": "EUR",
@@ -239,26 +239,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "8caaf8fd-8d6f-3c9b-9b6e-496d29969197",
+                        "said": "ad1230b3-d451-32a3-a3a5-419ea2207bce",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+19011954843",
-                            "name": "Alfonzo Cormier I",
+                            "phoneNumber": "+4214446361060",
+                            "name": "Angeline Pfannerstill",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19011954843",
-                            "name": "Alfonzo Cormier I",
+                            "phoneNumber": "+4214446361060",
+                            "name": "Angeline Pfannerstill",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19011954843",
-                            "name": "Alfonzo Cormier I",
+                            "phoneNumber": "+4214446361060",
+                            "name": "Angeline Pfannerstill",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -270,7 +270,7 @@
                 {
                     "id": "001cc22e-7985-4304-aa60-fd9713a048a3",
                     "type": "Quote New Business",
-                    "documentNumber": "5457746f-441e-3462-8249-a2efec30c7cf",
+                    "documentNumber": "1148c9c5-5d97-309b-bcd7-c41de4f2b00a",
                     "startDate": "2020-01-01",
                     "endDate": "2020-01-31",
                     "currencyCode": "EUR",
@@ -282,26 +282,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "e9544ce6-56e1-37d1-9ab5-010ebb6001bb",
+                        "said": "aaa877db-21ee-3522-b428-f3ea488447a3",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+16363663478",
-                            "name": "Magnolia Monahan PhD",
+                            "phoneNumber": "+8712127575206",
+                            "name": "Lauren Torphy",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16363663478",
-                            "name": "Dr. Mckayla Ruecker Jr.",
+                            "phoneNumber": "+8712127575206",
+                            "name": "Maryjane Schmidt",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16363663478",
-                            "name": "Magnolia Monahan PhD",
+                            "phoneNumber": "+8712127575206",
+                            "name": "Lauren Torphy",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -313,50 +313,51 @@
                 {
                     "id": "001cdeac-3333-42f9-8480-f3ba90e99f64",
                     "type": "Contract renewal",
-                    "documentNumber": "dc47b0bb-6c54-325d-be44-ed2cddc40573",
+                    "documentNumber": "faa72166-6165-3281-86f0-c2b4ff9eced0",
                     "startDate": "2021-01-01",
                     "endDate": "2021-12-31",
                     "currencyCode": "CHF",
                     "totalNetPrice": "689.88",
                     "languageCode": "EN",
-                    "updatedAt": "1626346020118",
+                    "updatedAt": "1638443182321",
                     "resellerId": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
                     "customerId": "8f4f286a-59b6-464e-9634-63a25298db57",
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "69acd33f-bb27-3d42-bcb1-7afa28005d90",
+                        "said": "8f04c038-f834-330a-ae90-4164ad100762",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+12543914826",
-                            "name": "Trevor Keeling",
+                            "phoneNumber": "+1914628971061",
+                            "name": "Miss Mollie O'Reilly",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12543914826",
-                            "name": "Trevor Keeling",
+                            "phoneNumber": "+1914628971061",
+                            "name": "Miss Mollie O'Reilly",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12543914826",
-                            "name": "Trevor Keeling",
+                            "phoneNumber": "+1914628971061",
+                            "name": "Miss Mollie O'Reilly",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "ACTIVE",
+                        "EXPIRES_IN_30_DAYS"
                     ]
                 },
                 {
                     "id": "001e471a-fae0-449a-b86f-9855403e3790",
                     "type": "Quote renewal",
-                    "documentNumber": "26a2c83d-6064-3072-b6a4-6010c91d5cf7",
+                    "documentNumber": "52873baf-0aa9-3d7a-b489-1a84cfe9544e",
                     "startDate": "2021-01-01",
                     "endDate": "2021-08-31",
                     "currencyCode": "EUR",
@@ -368,26 +369,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "b07646e7-3232-35a4-829e-b5f59710e286",
+                        "said": "9701b02a-db43-3d9d-a491-495615cb960b",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+18595642689",
-                            "name": "Leland Kihn",
+                            "phoneNumber": "+6967128798472",
+                            "name": "Mr. Evans Pfannerstill MD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12395362989",
-                            "name": "Prof. Nicklaus Hauck",
+                            "phoneNumber": "+3438043679938",
+                            "name": "Mabelle Metz",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18595642689",
-                            "name": "Leland Kihn",
+                            "phoneNumber": "+6967128798472",
+                            "name": "Mr. Evans Pfannerstill MD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -399,7 +400,7 @@
                 {
                     "id": "001f544e-dfe0-4e95-bceb-6813426327ec",
                     "type": "Quote New Business",
-                    "documentNumber": "82c0a606-6ba7-3f85-8983-74b753846a3b",
+                    "documentNumber": "61faa461-0c22-3f0b-8ee2-067c5d3c30ff",
                     "startDate": "2018-09-01",
                     "endDate": "2019-08-31",
                     "currencyCode": "CHF",
@@ -411,26 +412,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "f89ca075-636e-3b90-a8c0-ff6dfac95327",
+                        "said": "79fa465a-5c89-3216-aa59-d4afedf4c0c3",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+14587936319",
-                            "name": "Desmond Feeney",
+                            "phoneNumber": "+7575109601171",
+                            "name": "Prof. Jo Hill",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14580817173",
-                            "name": "Claude Wolff",
+                            "phoneNumber": "+7322545704274",
+                            "name": "Lukas Sawayn",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14587936319",
-                            "name": "Desmond Feeney",
+                            "phoneNumber": "+7575109601171",
+                            "name": "Prof. Jo Hill",
                             "mail": null,
                             "type": "Software Contact Person"
                         }

@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "name": "Koss, Dicki and Stoltenberg",
+                    "updatedAt": "1639132359305",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "15504-9135",
+                            "address": "6402 Dickens Locks Apt. 060",
+                            "city": "Hintzfurt",
+                            "locationType": "HEADQUARTER",
+                            "country": "Guinea-Bissau",
+                            "latitude": "-40.300678",
+                            "longitude": "28.466736",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 39626,
+                        "activeAssets": 15668,
+                        "activeAssetsPercentage": 39.53969615908747,
+                        "activeCustomers": 819,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 277,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 34,
+                        "activeQuotes": 262,
+                        "activeQuotesTotalAmount": 24272.59,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 99,
+                        "expiredQuotes": 838,
+                        "expiredContracts": 164,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

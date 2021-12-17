@@ -1,7 +1,9 @@
 {
-    "generated": "2021-11-10T07:26:57+00:00",
-    "distributors": [],
-    "resellers": [],
+    "generated": "2021-12-16T12:30:25+00:00",
+    "resellers": [
+        "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
+        "9191f7db-5f05-4c4a-9bd7-704fc3208d4e"
+    ],
     "customers": [
         "602673a2-b21d-44b7-8d8e-3423f0ee3795"
     ],

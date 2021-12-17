@@ -32,14 +32,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \App\Models\City                                                    $city
  * @property \App\Models\Country                                                 $country
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
- * @property-write array<string,array<string,mixed>>                             $customersPivots
+ * @property \Illuminate\Support\Collection<string,\App\Models\LocationCustomer> $customersPivots
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
- * @property-write array<string,array<string,mixed>>                             $resellersPivots
+ * @property \Illuminate\Support\Collection<string,\App\Models\LocationReseller> $resellersPivots
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location query()
  * @mixin \Eloquent
+ *
+ * @uses \App\Models\Relations\HasCustomers<\App\Models\LocationCustomer>
+ * @uses \App\Models\Relations\HasResellers<\App\Models\LocationReseller>
  */
 class Location extends Model {
     use HasFactory;

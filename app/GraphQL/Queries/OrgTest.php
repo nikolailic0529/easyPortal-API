@@ -340,45 +340,7 @@ class OrgTest extends TestCase {
                         ],
                         false,
                         static function (TestCase $test, ModelsOrganization $organization): void {
-                            $location = Location::factory()->create([
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => '47.91634204',
-                                'longitude' => '-2.26318359',
-                            ]);
-                            $reseller = Reseller::factory()
-                                ->hasContacts(1, [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ])
-                                ->hasStatuses(1, [
-                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                    'name'        => 'active',
-                                    'key'         => 'active',
-                                    'object_type' => (new Reseller())->getMorphClass(),
-                                ])
-                                ->create([
-                                    'id' => $organization->getKey(),
-                                ]);
-                            ResellerLocation::factory()
-                                ->hasTypes(1, [
-                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'name' => 'headquarter',
-                                ])
-                                ->create([
-                                    'reseller_id' => $reseller,
-                                    'location_id' => $location,
-                                ]);
-
-                            $location->resellers()->attach($reseller);
-
-                            Kpi::factory()->create([
-                                'object_id'                           => $organization->getKey(),
-                                'object_type'                         => (new Reseller())->getMorphClass(),
+                            $kpi      = Kpi::factory()->create([
                                 'assets_total'                        => 1,
                                 'assets_active'                       => 2,
                                 'assets_active_percent'               => 3.0,
@@ -406,6 +368,42 @@ class OrgTest extends TestCase {
                                 'service_revenue_total_amount'        => 25.0,
                                 'service_revenue_total_amount_change' => 26.0,
                             ]);
+                            $location = Location::factory()->create([
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => '47.91634204',
+                                'longitude' => '-2.26318359',
+                            ]);
+                            $reseller = Reseller::factory()
+                                ->hasContacts(1, [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ])
+                                ->hasStatuses(1, [
+                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                    'name'        => 'active',
+                                    'key'         => 'active',
+                                    'object_type' => (new Reseller())->getMorphClass(),
+                                ])
+                                ->create([
+                                    'id'     => $organization->getKey(),
+                                    'kpi_id' => $kpi,
+                                ]);
+                            ResellerLocation::factory()
+                                ->hasTypes(1, [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'name' => 'headquarter',
+                                ])
+                                ->create([
+                                    'reseller_id' => $reseller,
+                                    'location_id' => $location,
+                                ]);
+
+                            $location->resellers()->attach($reseller);
                         },
                     ],
                     'root' => [

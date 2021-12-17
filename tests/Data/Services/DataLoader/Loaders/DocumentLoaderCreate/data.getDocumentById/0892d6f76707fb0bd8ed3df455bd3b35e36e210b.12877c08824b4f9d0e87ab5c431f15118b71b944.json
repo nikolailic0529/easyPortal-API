@@ -10,7 +10,7 @@
                 {
                     "id": "c63823c9-ccae-493b-92ca-5cb2a696da69",
                     "type": "Quote New Business",
-                    "documentNumber": "cd32bfc2-5d7a-3057-9faa-2bc02a0612ce",
+                    "documentNumber": "d41d53c2-6574-31b5-a54f-68f4b8f81b5f",
                     "startDate": "2020-11-15",
                     "endDate": "2023-11-24",
                     "currencyCode": "EUR",
@@ -22,26 +22,26 @@
                     "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "vendorSpecificFields": {
                         "vendor": "HPE",
-                        "said": "7e55a8b2-bdc0-3132-b69e-6b414f0ea35f",
+                        "said": "df9a3196-e0f0-37ed-bdd2-57cf0e68d8b5",
                         "groupId": null,
                         "groupDescription": null
                     },
                     "contactPersons": [
                         {
-                            "phoneNumber": "+15717217257",
-                            "name": "Dr. Arthur Huels",
+                            "phoneNumber": "+2197908909897",
+                            "name": "Laurine Langosh",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Garry Beatty",
+                            "name": "Miss Vicky Kertzmann Sr.",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15717217257",
-                            "name": "Dr. Arthur Huels",
+                            "phoneNumber": "+2197908909897",
+                            "name": "Laurine Langosh",
                             "mail": null,
                             "type": "Software Contact Person"
                         }

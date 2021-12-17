@@ -21,7 +21,6 @@ use function array_merge;
 use function sprintf;
 
 // TODO Update property description?
-// TODO Support for other types/null besides int
 
 abstract class Property extends BaseDirective implements ArgBuilderDirective, FieldResolver {
     use RelationDirectiveHelpers;
@@ -48,7 +47,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
                 $batchLoader = BatchLoaderRegistry::instance(
                     array_merge(
                         $this->qualifyPath($args, $resolveInfo),
-                        ['@orgProperty'],
+                        ["@{$this->name()}"],
                     ),
                     function () use ($resolveInfo): RelationBatchLoader {
                         return new RelationBatchLoader(
@@ -82,7 +81,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
         }
 
         // Add property
-        $name  = $this->definitionNode->name->value;
+        $name  = $this->nodeName();
         $query = (new Loader($this->organization, $name))->getQuery($builder);
 
         if ($query) {

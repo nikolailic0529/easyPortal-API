@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "714aa057-1ea0-4666-b3be-4b69af99e997"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "714aa057-1ea0-4666-b3be-4b69af99e997",
+                    "name": "West Inc",
+                    "updatedAt": "1639132617191",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "",
+                            "address": "3239 Renner Walk Apt. 908",
+                            "city": "Port Normatown",
+                            "locationType": "HEADQUARTER",
+                            "country": "Pitcairn Islands",
+                            "latitude": "54.083496",
+                            "longitude": "87.9152",
+                            "countryCode": "HN"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 345535,
+                        "activeAssets": 37350,
+                        "activeAssetsPercentage": 10.809324670438595,
+                        "activeCustomers": 926,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 283,
+                        "activeContractTotalAmount": 9640.66,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 89,
+                        "activeQuotes": 492,
+                        "activeQuotesTotalAmount": 39725.35,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 207,
+                        "expiredQuotes": 6317,
+                        "expiredContracts": 3824,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

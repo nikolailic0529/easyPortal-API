@@ -1,7 +1,9 @@
 {
     "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "name": "Gusikowski and Simonis",
-    "status": ["INACTIVE"],
+    "status": [
+        "INACTIVE"
+    ],
     "updatedAt": null,
     "companyContactPersons": [
         {
@@ -29,5 +31,6 @@
             "locationType": "EQUIPMENT_LOCATION"
         }
     ],
-    "companyKpis": null
+    "companyKpis": null,
+    "companyResellerKpis": null
 }

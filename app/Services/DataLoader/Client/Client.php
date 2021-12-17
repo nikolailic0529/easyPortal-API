@@ -96,6 +96,23 @@ class Client {
             ->setOffset($lastId);
     }
 
+    public function getDistributorById(string $id): ?Company {
+        return $this->get(
+            'getCompanyById',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getCompanyById(\$id: String!) {
+                getCompanyById(id: \$id) {
+                    {$this->getDistributorPropertiesGraphQL()}
+                }
+            }
+            GRAPHQL,
+            [
+                'id' => $id,
+            ],
+            $this->getCompanyRetriever(),
+        );
+    }
+
     public function getResellersCount(): int {
         return (int) $this->call(
             'data.getCentralAssetDbStatistics.companiesResellerAmount',
@@ -134,6 +151,23 @@ class Client {
             )
             ->setLimit($limit)
             ->setOffset($lastId);
+    }
+
+    public function getResellerById(string $id): ?Company {
+        return $this->get(
+            'getCompanyById',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getCompanyById(\$id: String!) {
+                getCompanyById(id: \$id) {
+                    {$this->getResellerPropertiesGraphQL()}
+                }
+            }
+            GRAPHQL,
+            [
+                'id' => $id,
+            ],
+            $this->getCompanyRetriever(),
+        );
     }
 
     public function getCustomersCount(): int {
@@ -176,13 +210,13 @@ class Client {
             ->setOffset($lastId);
     }
 
-    public function getCompanyById(string $id): ?Company {
+    public function getCustomerById(string $id): ?Company {
         return $this->get(
             'getCompanyById',
             /** @lang GraphQL */ <<<GRAPHQL
             query getCompanyById(\$id: String!) {
                 getCompanyById(id: \$id) {
-                    {$this->getCompanyPropertiesGraphQL()}
+                    {$this->getCustomerPropertiesGraphQL()}
                 }
             }
             GRAPHQL,
@@ -549,9 +583,9 @@ class Client {
     // =========================================================================
     public function isEnabled(): bool {
         return $this->config->get('ep.data_loader.enabled')
-            && $this->config->get('ep.data_loader.url')
-            && $this->config->get('ep.data_loader.client_id')
-            && $this->config->get('ep.data_loader.client_secret');
+               && $this->config->get('ep.data_loader.url')
+               && $this->config->get('ep.data_loader.client_id')
+               && $this->config->get('ep.data_loader.client_secret');
     }
 
     /**
@@ -834,17 +868,6 @@ class Client {
 
     // <editor-fold desc="GraphQL">
     // =========================================================================
-    protected function getCompanyPropertiesGraphQL(): string {
-        return <<<GRAPHQL
-            {$this->getCompanyInfoGraphQL()}
-            {$this->getCompanyContactPersonsGraphQL()}
-            {$this->getCompanyLocationsGraphQL()}
-            {$this->getCompanyKpisGraphQL()}
-            {$this->getCompanyKeyCloakGraphQL()}
-            {$this->getCompanyBrandingDataGraphQL()}
-            GRAPHQL;
-    }
-
     protected function getCompanyInfoGraphQL(): string {
         return <<<'GRAPHQL'
             id
@@ -885,34 +908,9 @@ class Client {
     }
 
     protected function getCompanyKpisGraphQL(): string {
-        return <<<'GRAPHQL'
+        return <<<GRAPHQL
             companyKpis {
-                totalAssets
-                activeAssets
-                activeAssetsPercentage
-                activeCustomers
-                newActiveCustomers
-                activeContracts
-                activeContractTotalAmount
-                newActiveContracts
-                expiringContracts
-                activeQuotes
-                activeQuotesTotalAmount
-                newActiveQuotes
-                expiringQuotes
-                expiredQuotes
-                expiredContracts
-                orderedQuotes
-                acceptedQuotes
-                requestedQuotes
-                receivedQuotes
-                rejectedQuotes
-                awaitingQuotes
-                activeAssetsOnContract
-                activeAssetsOnWarranty
-                activeExposedAssets
-                serviceRevenueTotalAmount
-                serviceRevenueTotalAmountChange
+                {$this->getKpisGraphQL()}
             }
             GRAPHQL;
     }
@@ -946,7 +944,14 @@ class Client {
     }
 
     protected function getResellerPropertiesGraphQL(): string {
-        return $this->getCompanyPropertiesGraphQL();
+        return <<<GRAPHQL
+            {$this->getCompanyInfoGraphQL()}
+            {$this->getCompanyContactPersonsGraphQL()}
+            {$this->getCompanyLocationsGraphQL()}
+            {$this->getCompanyKpisGraphQL()}
+            {$this->getCompanyKeyCloakGraphQL()}
+            {$this->getCompanyBrandingDataGraphQL()}
+            GRAPHQL;
     }
 
     protected function getCustomerPropertiesGraphQL(): string {
@@ -955,6 +960,10 @@ class Client {
             {$this->getCompanyContactPersonsGraphQL()}
             {$this->getCompanyLocationsGraphQL()}
             {$this->getCompanyKpisGraphQL()}
+            companyResellerKpis {
+                resellerId
+                {$this->getKpisGraphQL()}
+            }
             GRAPHQL;
     }
 
@@ -1107,6 +1116,37 @@ class Client {
                 type
                 mail
             }
+            GRAPHQL;
+    }
+
+    protected function getKpisGraphQL(): string {
+        return <<<'GRAPHQL'
+            totalAssets
+            activeAssets
+            activeAssetsPercentage
+            activeCustomers
+            newActiveCustomers
+            activeContracts
+            activeContractTotalAmount
+            newActiveContracts
+            expiringContracts
+            activeQuotes
+            activeQuotesTotalAmount
+            newActiveQuotes
+            expiringQuotes
+            expiredQuotes
+            expiredContracts
+            orderedQuotes
+            acceptedQuotes
+            requestedQuotes
+            receivedQuotes
+            rejectedQuotes
+            awaitingQuotes
+            activeAssetsOnContract
+            activeAssetsOnWarranty
+            activeExposedAssets
+            serviceRevenueTotalAmount
+            serviceRevenueTotalAmountChange
             GRAPHQL;
     }
     //</editor-fold>

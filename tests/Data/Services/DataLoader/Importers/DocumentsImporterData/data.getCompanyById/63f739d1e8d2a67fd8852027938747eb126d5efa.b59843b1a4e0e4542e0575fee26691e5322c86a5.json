@@ -1,0 +1,70 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "3d74bf5d-4d4f-4f58-acb1-146f5c8e69f1"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "3d74bf5d-4d4f-4f58-acb1-146f5c8e69f1",
+                    "name": "Abbott Group",
+                    "updatedAt": "1639131475082",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "89699",
+                            "address": "97710 Jaquan Cape",
+                            "city": "Howellberg",
+                            "locationType": "HEADQUARTER",
+                            "country": "Bahrain",
+                            "latitude": "-85.002897",
+                            "longitude": "-12.702205",
+                            "countryCode": "HN"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 5002,
+                        "activeAssets": 3234,
+                        "activeAssetsPercentage": 64.65413834466214,
+                        "activeCustomers": 14,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 29,
+                        "activeContractTotalAmount": 1367.24,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 11,
+                        "activeQuotes": 13,
+                        "activeQuotesTotalAmount": 2037.92,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 11,
+                        "expiredQuotes": 9,
+                        "expiredContracts": 22,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

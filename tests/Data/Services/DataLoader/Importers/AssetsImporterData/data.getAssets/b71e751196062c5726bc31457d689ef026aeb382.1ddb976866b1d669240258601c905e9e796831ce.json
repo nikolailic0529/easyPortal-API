@@ -30,10 +30,9 @@
                     "longitude": "44.00451",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527062118",
+                    "updatedAt": "1637852169117",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -300,28 +299,7 @@
                             "type": "Software Contact Person"
                         }
                     ],
-                    "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527062118",
-                        "coverageEntries": [
-                            {
-                                "coverageStartDate": "2016-04-20",
-                                "coverageEndDate": "2022-12-31",
-                                "type": "Contract",
-                                "status": "Active",
-                                "description": null,
-                                "serviceSku": null
-                            },
-                            {
-                                "coverageStartDate": "2021-03-28",
-                                "coverageEndDate": "2021-03-28",
-                                "type": "FactoryWarranty",
-                                "status": "Expired",
-                                "description": null,
-                                "serviceSku": null
-                            }
-                        ]
-                    }
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "000097d6-928b-41dd-9938-8aada1ba2916",
@@ -526,10 +504,9 @@
                     "longitude": "-22.984257",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527085313",
+                    "updatedAt": "1637852898483",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "CONFLICT"
+                        "EXPOSED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -760,15 +737,15 @@
                         }
                     ],
                     "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527085313",
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1637852898483",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-11-25",
                                 "coverageEndDate": "2020-11-25",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "",
                                 "serviceSku": null
                             }
                         ]
@@ -795,10 +772,9 @@
                     "longitude": "137.937776",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527090838",
+                    "updatedAt": "1637852243141",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -1438,20 +1414,7 @@
                             "type": "Software Contact Person"
                         }
                     ],
-                    "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527090838",
-                        "coverageEntries": [
-                            {
-                                "coverageStartDate": "2020-06-28",
-                                "coverageEndDate": "2020-06-28",
-                                "type": "FactoryWarranty",
-                                "status": "Expired",
-                                "description": null,
-                                "serviceSku": null
-                            }
-                        ]
-                    }
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "0000aea4-cdd6-4e2f-a48f-e92286c72d64",
@@ -1565,7 +1528,7 @@
                     "longitude": "-105.92232",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527099093",
+                    "updatedAt": "1637852898301",
                     "assetCoverage": [
                         "COVERED",
                         "ON_WARRANTY"
@@ -2258,14 +2221,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527099093",
+                        "coverageStatusUpdatedAt": "1637852898301",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2017-11-24",
                                 "coverageEndDate": "2022-11-23",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
                                 "serviceSku": null
                             }
                         ]

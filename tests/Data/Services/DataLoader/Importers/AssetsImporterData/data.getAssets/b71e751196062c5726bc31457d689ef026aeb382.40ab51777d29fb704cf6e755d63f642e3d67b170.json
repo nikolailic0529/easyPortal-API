@@ -483,7 +483,7 @@
                     "longitude": "91.927598",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527012685",
+                    "updatedAt": "1637852898403",
                     "assetCoverage": [
                         "COVERED",
                         "ON_WARRANTY",
@@ -1099,14 +1099,22 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527012685",
+                        "coverageStatusUpdatedAt": "1637852898403",
                         "coverageEntries": [
+                            {
+                                "coverageStartDate": "2017-10-24",
+                                "coverageEndDate": "2022-10-23",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
+                                "serviceSku": null
+                            },
                             {
                                 "coverageStartDate": "2017-10-16",
                                 "coverageEndDate": "2022-11-14",
                                 "type": "FactoryWarranty",
                                 "status": "Active",
-                                "description": null,
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
                                 "serviceSku": null
                             }
                         ]
@@ -1406,7 +1414,7 @@
                     "longitude": "-85.30747",
                     "countryCode": "AU",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527055559",
+                    "updatedAt": "1637852898858",
                     "assetCoverage": [
                         "COVERED",
                         "ON_CONTRACT"
@@ -1600,14 +1608,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527055559",
+                        "coverageStatusUpdatedAt": "1637852898858",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-06-06",
                                 "coverageEndDate": "2025-07-18",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "HT7A5AC-HPE Datacenter Care 24x7 Addon SVC",
                                 "serviceSku": null
                             }
                         ]

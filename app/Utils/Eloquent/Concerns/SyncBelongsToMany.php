@@ -10,10 +10,12 @@ use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Pivot as EloquentPivot;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LogicException;
 
+use function array_merge;
 use function is_a;
 use function reset;
 use function sprintf;
@@ -90,9 +92,9 @@ trait SyncBelongsToMany {
      * @see \Illuminate\Database\Eloquent\Relations\BelongsToMany::sync()
      * @see \App\Utils\Eloquent\SmartSave\Upsertable
      *
-     * @param array<string,array<string,mixed>> $pivots
+     * @param array<string,\Illuminate\Support\Collection<string,\App\Utils\Eloquent\Pivot>> $pivots
      */
-    protected function syncBelongsToManyPivots(string $relation, array $pivots): void {
+    protected function syncBelongsToManyPivots(string $relation, Collection|array $pivots): void {
         // Prepare
         $belongsToMany = $this->getBelongsToMany($relation);
 
@@ -104,7 +106,7 @@ trait SyncBelongsToMany {
         }
 
         // Process
-        $wrapper  = new class($belongsToMany) extends BelongsToMany {
+        $wrapper        = new class($belongsToMany) extends BelongsToMany {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected BelongsToMany $belongsToMany,
@@ -131,21 +133,40 @@ trait SyncBelongsToMany {
 
                 return $pivot;
             }
+
+            /**
+             * @return array<string, mixed>
+             */
+            public function getPivotAttributes(string $key): array {
+                return $this->belongsToMany->formatAttachRecord(0, $key, [], false);
+            }
         };
-        $children = new Collection();
-        $existing = new EloquentCollection();
+        $children       = new Collection();
+        $existing       = new EloquentCollection();
+        $relationPivots = "{$relation}Pivots";
 
         if ($this->exists) {
-            $existing = $wrapper
-                ->getCurrentlyAttachedPivots()
-                ->keyBy(static function (Pivot $pivot) use ($belongsToMany): string {
-                    return $pivot->{$belongsToMany->getRelatedPivotKeyName()};
-                });
+            $existing = (new ModelHelper($this))->isRelation($relationPivots)
+                ? $this->syncManyGetExisting($this, $relationPivots)
+                : $wrapper->getCurrentlyAttachedPivots();
+            $existing = $existing->keyBy(static function (Pivot $pivot) use ($belongsToMany): string {
+                return $pivot->{$belongsToMany->getRelatedPivotKeyName()};
+            });
         }
 
-        foreach ($pivots as $key => $attributes) {
+        foreach ($pivots as $key => $pivot) {
+            $attributes = $pivot->getDirty();
+
             if ($existing->has($key)) {
-                $children->push($existing->get($key)->forceFill($attributes));
+                $object     = $existing->get($key);
+                $attributes = array_merge($attributes, $wrapper->getPivotAttributes($key));
+                $attributes = Arr::except($attributes, [
+                    $object->getKeyName(),
+                    $object->getCreatedAtColumn(),
+                    $object->getUpdatedAtColumn(),
+                ]);
+
+                $children->push($object->forceFill($attributes));
                 $existing->forget($key);
             } else {
                 $children->push($wrapper->createNewPivot($key, $attributes));
@@ -154,17 +175,18 @@ trait SyncBelongsToMany {
 
         // Update relation
         $this->unsetRelation($relation);
+        $this->unsetRelation($relationPivots);
 
         // Update database
         if (!$children->isEmpty() || !$existing->isEmpty()) {
             $this->onSave(static function () use ($belongsToMany, $children, $existing): void {
                 // Sync
                 $key    = $belongsToMany->getForeignPivotKeyName();
-                $parent = $belongsToMany->getParent()->{$belongsToMany->getParentKeyName()};
+                $parent = $belongsToMany->getParent()->getAttribute($belongsToMany->getParentKeyName());
 
                 foreach ($children as $pivot) {
                     /** @var \App\Utils\Eloquent\Pivot $pivot */
-                    $pivot->{$key} = $parent;
+                    $pivot->setAttribute($key, $parent);
                     $pivot->save();
                 }
 

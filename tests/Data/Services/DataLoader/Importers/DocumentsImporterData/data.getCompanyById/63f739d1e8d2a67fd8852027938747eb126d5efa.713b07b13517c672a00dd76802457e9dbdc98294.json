@@ -1,0 +1,91 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "fa450d57-5488-4095-bff8-0a4f5f990cec"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "fa450d57-5488-4095-bff8-0a4f5f990cec",
+                    "name": "Konopelski-Kirlin",
+                    "updatedAt": "1638265021610",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+2457025172527",
+                            "name": "Thora Turner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+2457025172527",
+                            "name": "Thora Turner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+2457025172527",
+                            "name": "Thora Turner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "32078-7246",
+                            "address": "8001 Dakota Dale Suite 139",
+                            "city": "Gusikowskihaven",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "50.157118",
+                            "longitude": "-4.939546",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 30,
+                        "activeAssets": 18,
+                        "activeAssetsPercentage": 60.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 5,
+                        "activeQuotesTotalAmount": 877.2,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 11,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

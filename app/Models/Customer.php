@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                                 $id
  * @property string                                                                 $type_id
  * @property string                                                                 $name
+ * @property string|null                                                            $kpi_id
  * @property int                                                                    $assets_count
  * @property int                                                                    $locations_count
  * @property int                                                                    $contacts_count
@@ -41,7 +42,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller>    $resellers
- * @property-write array<string,array<string,mixed>>                                $resellersPivots
+ * @property \Illuminate\Support\Collection<string,\App\Models\ResellerCustomer>    $resellersPivots
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
  * @property \App\Models\Type                                                       $type
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)
@@ -49,6 +50,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
  * @mixin \Eloquent
+ *
+ * @uses \App\Models\Relations\HasResellers<\App\Models\ResellerCustomer>
  */
 class Customer extends Model {
     use Searchable;

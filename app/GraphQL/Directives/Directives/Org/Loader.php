@@ -14,22 +14,16 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Execution\ModelsLoader\ModelsLoader;
-use WeakMap;
 
 use function sprintf;
 use function str_ends_with;
 
 class Loader implements ModelsLoader {
-    /**
-     * @var \WeakMap<\Illuminate\Database\Eloquent\Model, mixed>
-     */
-    protected WeakMap $map;
-
     public function __construct(
         protected CurrentOrganization $organization,
         protected string $property,
     ) {
-        $this->map = new WeakMap();
+        // empty
     }
 
     protected function getProperty(): string {
@@ -44,6 +38,9 @@ class Loader implements ModelsLoader {
         return "org_property__{$this->getProperty()}";
     }
 
+    /**
+     * @param \Illuminate\Database\Eloquent\Collection<\Illuminate\Database\Eloquent\Model> $parents
+     */
     public function load(EloquentCollection $parents): void {
         // Root organization should always use original property
         if ($this->organization->isRoot()) {
@@ -67,14 +64,13 @@ class Loader implements ModelsLoader {
         $property = $this->getProperty();
 
         foreach ($parents as $parent) {
-            $this->map[$parent] = $values->get($parent->getKey())->{$property} ?? null;
+            /** @var \App\Services\Logger\Models\Model $parent */
+            $parent->setAttribute($property, $values->get($parent->getKey())->{$property} ?? null);
         }
     }
 
     public function extract(Model $model): mixed {
-        return !isset($this->map[$model])
-            ? (int) $model->getAttribute($this->getProperty())
-            : (int) $this->map[$model];
+        return $model->getAttribute($this->getProperty());
     }
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {

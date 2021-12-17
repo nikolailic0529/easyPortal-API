@@ -9,6 +9,7 @@ use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -149,6 +150,13 @@ class WithResellerTest extends TestCase {
             Document::class          => [
                 static function (TestCase $test, Reseller $reseller) {
                     return new Document([
+                        'resellerId' => $reseller->getKey(),
+                    ]);
+                },
+            ],
+            CompanyKpis::class       => [
+                static function (TestCase $test, Reseller $reseller) {
+                    return new CompanyKpis([
                         'resellerId' => $reseller->getKey(),
                     ]);
                 },

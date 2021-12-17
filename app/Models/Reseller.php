@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                                 $id
  * @property string                                                                 $type_id
  * @property string                                                                 $name
+ * @property string|null                                                            $kpi_id
  * @property int                                                                    $customers_count
  * @property int                                                                    $locations_count
  * @property int                                                                    $assets_count
@@ -33,7 +34,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>    $customers
- * @property-write array<string,array<string,mixed>>                                $customersPivots
+ * @property \Illuminate\Support\Collection<string,\App\Models\ResellerCustomer>    $customersPivots
  * @property-read \App\Models\ResellerLocation|null                                 $headquarter
  * @property \App\Models\Kpi|null                                                   $kpi
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation> $locations
@@ -44,6 +45,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller query()
  * @mixin \Eloquent
+ *
+ * @uses \App\Models\Relations\HasCustomers<\App\Models\ResellerCustomer>
  */
 class Reseller extends Model {
     use HasFactory;

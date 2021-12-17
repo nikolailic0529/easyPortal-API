@@ -30,10 +30,9 @@
                     "longitude": "79.403694",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527116025",
+                    "updatedAt": "1637852243834",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -181,20 +180,7 @@
                             "type": "Software Contact Person"
                         }
                     ],
-                    "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527116025",
-                        "coverageEntries": [
-                            {
-                                "coverageStartDate": "2014-04-17",
-                                "coverageEndDate": "2017-05-16",
-                                "type": "FactoryWarranty",
-                                "status": "Expired",
-                                "description": null,
-                                "serviceSku": null
-                            }
-                        ]
-                    }
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2",
@@ -217,7 +203,7 @@
                     "longitude": "-132.530855",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527120525",
+                    "updatedAt": "1637852903503",
                     "assetCoverage": [
                         "COVERED",
                         "ON_CONTRACT"
@@ -288,14 +274,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527120525",
+                        "coverageStatusUpdatedAt": "1637852903503",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2018-05-04",
                                 "coverageEndDate": "2023-05-03",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
                                 "serviceSku": null
                             },
                             {
@@ -303,7 +289,7 @@
                                 "coverageEndDate": "2021-05-16",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
                                 "serviceSku": null
                             }
                         ]
@@ -330,7 +316,7 @@
                     "longitude": "134.978171",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527126774",
+                    "updatedAt": "1637852898483",
                     "assetCoverage": [
                         "COVERED",
                         "ON_WARRANTY",
@@ -714,14 +700,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527126774",
+                        "coverageStatusUpdatedAt": "1637852898483",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2018-12-04",
                                 "coverageEndDate": "2023-12-03",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
                                 "serviceSku": null
                             },
                             {
@@ -729,7 +715,7 @@
                                 "coverageEndDate": "2021-12-25",
                                 "type": "FactoryWarranty",
                                 "status": "Expiring",
-                                "description": null,
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
                                 "serviceSku": null
                             }
                         ]
@@ -756,7 +742,7 @@
                     "longitude": "-13.035864",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527131161",
+                    "updatedAt": "1637852903418",
                     "assetCoverage": [
                         "COVERED",
                         "ON_WARRANTY",
@@ -828,14 +814,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527131161",
+                        "coverageStatusUpdatedAt": "1637852903418",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2019-02-06",
                                 "coverageEndDate": "2024-02-05",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
                                 "serviceSku": null
                             },
                             {
@@ -843,7 +829,7 @@
                                 "coverageEndDate": "2022-02-19",
                                 "type": "FactoryWarranty",
                                 "status": "Expiring",
-                                "description": null,
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
                                 "serviceSku": null
                             }
                         ]
@@ -870,7 +856,7 @@
                     "longitude": "-16.556356",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527136076",
+                    "updatedAt": "1637852902782",
                     "assetCoverage": [
                         "COVERED",
                         "ON_CONTRACT"
@@ -941,14 +927,14 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527136076",
+                        "coverageStatusUpdatedAt": "1637852902782",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-08-18",
                                 "coverageEndDate": "2024-08-17",
                                 "type": "Contract",
                                 "status": "Active",
-                                "description": null,
+                                "description": "H7J33AC-HPE Foundation Care NBD wDMR SVC",
                                 "serviceSku": null
                             },
                             {
@@ -956,7 +942,7 @@
                                 "coverageEndDate": "2021-09-08",
                                 "type": "FactoryWarranty",
                                 "status": "Expired",
-                                "description": null,
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
                                 "serviceSku": null
                             }
                         ]
@@ -983,10 +969,9 @@
                     "longitude": "-7.989677",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1636527141244",
+                    "updatedAt": "1637852245152",
                     "assetCoverage": [
-                        "ARCHIVED",
-                        "CONFLICT"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -1052,28 +1037,7 @@
                             "type": "Software Contact Person"
                         }
                     ],
-                    "coverageStatusCheck": {
-                        "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1636527141244",
-                        "coverageEntries": [
-                            {
-                                "coverageStartDate": "2016-02-24",
-                                "coverageEndDate": "2021-02-28",
-                                "type": "Contract",
-                                "status": "Expired",
-                                "description": null,
-                                "serviceSku": null
-                            },
-                            {
-                                "coverageStartDate": "2020-08-26",
-                                "coverageEndDate": "2020-08-26",
-                                "type": "FactoryWarranty",
-                                "status": "Expired",
-                                "description": null,
-                                "serviceSku": null
-                            }
-                        ]
-                    }
+                    "coverageStatusCheck": null
                 },
                 {
                     "id": "0000dd75-826a-424b-b090-7d85ae4b2782",

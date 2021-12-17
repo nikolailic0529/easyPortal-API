@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -23,6 +24,8 @@ use Tests\TestCase;
  * @coversNothing
  */
 class CustomersTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @dataProvider dataProviderQuery
      *
@@ -191,7 +194,6 @@ class CustomersTest extends TestCase {
                                                 ],
                                             ],
                                         ],
-
                                     ],
                                     'contacts_count'  => 1,
                                     'contacts'        => [
@@ -227,32 +229,32 @@ class CustomersTest extends TestCase {
                                         ],
                                     ],
                                     'kpi'             => [
-                                        'assets_total'                        => 1,
-                                        'assets_active'                       => 2,
-                                        'assets_active_percent'               => 3.0,
-                                        'assets_active_on_contract'           => 4,
-                                        'assets_active_on_warranty'           => 5,
-                                        'assets_active_exposed'               => 6,
-                                        'customers_active'                    => 7,
-                                        'customers_active_new'                => 8,
-                                        'contracts_active'                    => 9,
-                                        'contracts_active_amount'             => 10.0,
-                                        'contracts_active_new'                => 11,
-                                        'contracts_expiring'                  => 12,
-                                        'contracts_expired'                   => 13,
-                                        'quotes_active'                       => 14,
-                                        'quotes_active_amount'                => 15.0,
-                                        'quotes_active_new'                   => 16,
-                                        'quotes_expiring'                     => 17,
-                                        'quotes_expired'                      => 18,
-                                        'quotes_ordered'                      => 19,
-                                        'quotes_accepted'                     => 20,
-                                        'quotes_requested'                    => 21,
-                                        'quotes_received'                     => 22,
-                                        'quotes_rejected'                     => 23,
-                                        'quotes_awaiting'                     => 24,
-                                        'service_revenue_total_amount'        => 25.0,
-                                        'service_revenue_total_amount_change' => 26.0,
+                                        'assets_total'                        => 1_001,
+                                        'assets_active'                       => 1_002,
+                                        'assets_active_percent'               => 1_003.0,
+                                        'assets_active_on_contract'           => 1_004,
+                                        'assets_active_on_warranty'           => 1_005,
+                                        'assets_active_exposed'               => 1_006,
+                                        'customers_active'                    => 1_007,
+                                        'customers_active_new'                => 1_008,
+                                        'contracts_active'                    => 1_009,
+                                        'contracts_active_amount'             => 1_0010.0,
+                                        'contracts_active_new'                => 1_0011,
+                                        'contracts_expiring'                  => 1_0012,
+                                        'contracts_expired'                   => 1_0013,
+                                        'quotes_active'                       => 1_0014,
+                                        'quotes_active_amount'                => 1_0015.0,
+                                        'quotes_active_new'                   => 1_0016,
+                                        'quotes_expiring'                     => 1_0017,
+                                        'quotes_expired'                      => 1_0018,
+                                        'quotes_ordered'                      => 1_0019,
+                                        'quotes_accepted'                     => 1_0020,
+                                        'quotes_requested'                    => 1_0021,
+                                        'quotes_received'                     => 1_0022,
+                                        'quotes_rejected'                     => 1_0023,
+                                        'quotes_awaiting'                     => 1_0024,
+                                        'service_revenue_total_amount'        => 1_0025.0,
+                                        'service_revenue_total_amount_change' => 1_0026.0,
                                     ],
                                     'changed_at'      => '2021-10-19T10:15:00+00:00',
                                     'synced_at'       => '2021-10-19T10:25:00+00:00',
@@ -266,6 +268,35 @@ class CustomersTest extends TestCase {
                             'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                         static function (TestCase $test, Organization $organization): void {
+                            $kpi = Kpi::factory()->create([
+                                'assets_total'                        => 1,
+                                'assets_active'                       => 2,
+                                'assets_active_percent'               => 3.0,
+                                'assets_active_on_contract'           => 4,
+                                'assets_active_on_warranty'           => 5,
+                                'assets_active_exposed'               => 6,
+                                'customers_active'                    => 7,
+                                'customers_active_new'                => 8,
+                                'contracts_active'                    => 9,
+                                'contracts_active_amount'             => 10.0,
+                                'contracts_active_new'                => 11,
+                                'contracts_expiring'                  => 12,
+                                'contracts_expired'                   => 13,
+                                'quotes_active'                       => 14,
+                                'quotes_active_amount'                => 15.0,
+                                'quotes_active_new'                   => 16,
+                                'quotes_expiring'                     => 17,
+                                'quotes_expired'                      => 18,
+                                'quotes_ordered'                      => 19,
+                                'quotes_accepted'                     => 20,
+                                'quotes_requested'                    => 21,
+                                'quotes_received'                     => 22,
+                                'quotes_rejected'                     => 23,
+                                'quotes_awaiting'                     => 24,
+                                'service_revenue_total_amount'        => 25.0,
+                                'service_revenue_total_amount_change' => 26.0,
+                            ]);
+
                             /** @var \App\Models\Reseller $reseller */
                             $reseller = Reseller::factory()->create([
                                 'id' => $organization,
@@ -285,7 +316,7 @@ class CustomersTest extends TestCase {
                             $location->resellers()->attach($reseller);
 
                             /** @var \App\Models\Customer $customer */
-                            $customer = Customer::factory()
+                            $customer    = Customer::factory()
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',
                                     'email'       => 'contact1@test.com',
@@ -297,48 +328,49 @@ class CustomersTest extends TestCase {
                                     'key'         => 'active',
                                     'object_type' => (new Customer())->getMorphClass(),
                                 ])
-                                ->hasKpi(1, [
-                                    'object_type'                         => (new Customer())->getMorphClass(),
-                                    'assets_total'                        => 1,
-                                    'assets_active'                       => 2,
-                                    'assets_active_percent'               => 3.0,
-                                    'assets_active_on_contract'           => 4,
-                                    'assets_active_on_warranty'           => 5,
-                                    'assets_active_exposed'               => 6,
-                                    'customers_active'                    => 7,
-                                    'customers_active_new'                => 8,
-                                    'contracts_active'                    => 9,
-                                    'contracts_active_amount'             => 10.0,
-                                    'contracts_active_new'                => 11,
-                                    'contracts_expiring'                  => 12,
-                                    'contracts_expired'                   => 13,
-                                    'quotes_active'                       => 14,
-                                    'quotes_active_amount'                => 15.0,
-                                    'quotes_active_new'                   => 16,
-                                    'quotes_expiring'                     => 17,
-                                    'quotes_expired'                      => 18,
-                                    'quotes_ordered'                      => 19,
-                                    'quotes_accepted'                     => 20,
-                                    'quotes_requested'                    => 21,
-                                    'quotes_received'                     => 22,
-                                    'quotes_rejected'                     => 23,
-                                    'quotes_awaiting'                     => 24,
-                                    'service_revenue_total_amount'        => 25.0,
-                                    'service_revenue_total_amount_change' => 26.0,
-                                ])
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
+                                    'kpi_id'          => $kpi,
                                     'assets_count'    => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
                                     'changed_at'      => '2021-10-19 10:15:00',
                                     'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
+                            $customerKpi = Kpi::factory()->create([
+                                'assets_total'                        => 1_001,
+                                'assets_active'                       => 1_002,
+                                'assets_active_percent'               => 1_003.0,
+                                'assets_active_on_contract'           => 1_004,
+                                'assets_active_on_warranty'           => 1_005,
+                                'assets_active_exposed'               => 1_006,
+                                'customers_active'                    => 1_007,
+                                'customers_active_new'                => 1_008,
+                                'contracts_active'                    => 1_009,
+                                'contracts_active_amount'             => 1_0010.0,
+                                'contracts_active_new'                => 1_0011,
+                                'contracts_expiring'                  => 1_0012,
+                                'contracts_expired'                   => 1_0013,
+                                'quotes_active'                       => 1_0014,
+                                'quotes_active_amount'                => 1_0015.0,
+                                'quotes_active_new'                   => 1_0016,
+                                'quotes_expiring'                     => 1_0017,
+                                'quotes_expired'                      => 1_0018,
+                                'quotes_ordered'                      => 1_0019,
+                                'quotes_accepted'                     => 1_0020,
+                                'quotes_requested'                    => 1_0021,
+                                'quotes_received'                     => 1_0022,
+                                'quotes_rejected'                     => 1_0023,
+                                'quotes_awaiting'                     => 1_0024,
+                                'service_revenue_total_amount'        => 1_0025.0,
+                                'service_revenue_total_amount_change' => 1_0026.0,
+                            ]);
 
                             $customer->resellers()->attach($reseller, [
                                 'locations_count' => 1,
                                 'assets_count'    => 1,
+                                'kpi_id'          => $customerKpi->getKey(),
                             ]);
 
                             CustomerLocation::factory()

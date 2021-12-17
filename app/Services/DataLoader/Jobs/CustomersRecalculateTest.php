@@ -12,17 +12,15 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
-
-use function count;
+use Tests\WithQueryLogs;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomersRecalculate
  */
 class CustomersRecalculateTest extends TestCase {
-    use WithQueryLog;
+    use WithQueryLogs;
     use Helper;
 
     /**
@@ -93,11 +91,7 @@ class CustomersRecalculateTest extends TestCase {
 
         $job();
 
-        $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json();
-
-        $this->assertCount(count($expected), $actual);
-        $this->assertEquals($expected, $actual);
+        $this->assertQueryLogEquals('.json', $queries);
 
         // Properties
         $locations  = static function (Customer $customer): Collection {

@@ -5,16 +5,18 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithWarrantyCheck;
+use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\ObjectIterator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
-class CustomerLoader extends CompanyLoader implements LoaderRecalculable {
+class CustomerLoader extends Loader implements LoaderRecalculable {
     use WithWarrantyCheck;
     use WithAssets;
 
@@ -32,12 +34,19 @@ class CustomerLoader extends CompanyLoader implements LoaderRecalculable {
         return $company;
     }
 
+    /**
+     * @inheritDoc
+     */
+    protected function getObject(array $properties): ?Type {
+        return new Company($properties);
+    }
+
     protected function getObjectById(string $id): ?Type {
         if ($this->isWithWarrantyCheck()) {
             $this->runCustomerWarrantyCheck($id);
         }
 
-        return parent::getObjectById($id);
+        return $this->client->getCustomerById($id);
     }
 
     protected function getObjectFactory(): ModelFactory {
