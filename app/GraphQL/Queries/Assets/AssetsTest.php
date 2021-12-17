@@ -13,6 +13,7 @@ use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
@@ -347,7 +348,7 @@ class AssetsTest extends TestCase {
                                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'locations'       => [
                                             [
                                                 'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -403,7 +404,7 @@ class AssetsTest extends TestCase {
                                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                                 'name'            => 'name aaa',
                                                 'assets_count'    => 0,
-                                                'locations_count' => 1,
+                                                'locations_count' => 0,
                                                 'locations'       => [
                                                     [
                                                         'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -554,6 +555,10 @@ class AssetsTest extends TestCase {
                                     'synced_at'       => '2021-10-19 10:25:00',
                                 ]);
 
+                            ResellerCustomer::factory()->create([
+                                'customer_id' => $customer,
+                                'reseller_id' => $reseller,
+                            ]);
                             CustomerLocation::factory()->create([
                                 'customer_id' => $customer,
                                 'location_id' => $location,

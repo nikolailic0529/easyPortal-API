@@ -60,6 +60,8 @@ class LoaderTest extends TestCase {
         $this->assertEquals($countA, $loader->extract($customerA));
         $this->assertEquals($countB, $loader->extract($customerB));
         $this->assertEquals(0, $loader->extract($customerC));
+        $this->assertEquals($countA, $customerA->assets_count);
+        $this->assertEquals($countB, $customerB->assets_count);
     }
 
     /**

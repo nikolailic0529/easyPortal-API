@@ -48,7 +48,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
                 $batchLoader = BatchLoaderRegistry::instance(
                     array_merge(
                         $this->qualifyPath($args, $resolveInfo),
-                        ['@orgProperty'],
+                        ["@{$this->name()}"],
                     ),
                     function () use ($resolveInfo): RelationBatchLoader {
                         return new RelationBatchLoader(
@@ -82,7 +82,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
         }
 
         // Add property
-        $name  = $this->definitionNode->name->value;
+        $name  = $this->nodeName();
         $query = (new Loader($this->organization, $name))->getQuery($builder);
 
         if ($query) {
