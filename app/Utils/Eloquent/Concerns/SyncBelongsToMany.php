@@ -92,7 +92,7 @@ trait SyncBelongsToMany {
      * @see \Illuminate\Database\Eloquent\Relations\BelongsToMany::sync()
      * @see \App\Utils\Eloquent\SmartSave\Upsertable
      *
-     * @param array<string,array<string,\App\Utils\Eloquent\Pivot>|\Illuminate\Support\Collection<string,\App\Utils\Eloquent\Pivot>> $pivots
+     * @param array<string,\Illuminate\Support\Collection<string,\App\Utils\Eloquent\Pivot>> $pivots
      */
     protected function syncBelongsToManyPivots(string $relation, Collection|array $pivots): void {
         // Prepare

@@ -11,7 +11,7 @@ use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder as ServiceLevelFi
 
 abstract class AssetsData extends Data {
     /**
-     * @inerhitDoc
+     * @inheritDoc
      */
     protected function generateBindings(): array {
         return [

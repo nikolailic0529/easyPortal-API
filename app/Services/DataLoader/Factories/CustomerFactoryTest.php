@@ -411,7 +411,7 @@ class CustomerFactoryTest extends TestCase {
             }
 
             /**
-             * @inerhitDoc
+             * @inheritDoc
              */
             public function resellers(Customer $customer, array $kpis = null): Collection {
                 return parent::resellers($customer, $kpis);

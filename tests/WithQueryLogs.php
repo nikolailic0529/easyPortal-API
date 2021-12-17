@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Tests;
 
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\QueryLog;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
-
 use function file_put_contents;
 use function json_encode;
-
+use function trim;
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;

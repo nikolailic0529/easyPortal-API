@@ -176,7 +176,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
     /**
      * @param array<\App\Services\DataLoader\Schema\CompanyKpis> $kpis
      *
-     * @return Collection<\App\Models\ResellerCustomer>
+     * @return \Illuminate\Support\Collection<\App\Models\ResellerCustomer>
      */
     protected function resellers(Customer $customer, array $kpis = null): Collection {
         $pivots   = new Collection();

@@ -13,10 +13,9 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
-
 use function json_encode;
 use function ksort;
-
+use function mb_stripos;
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -189,7 +188,8 @@ abstract class Data {
     private function saveMap(string $path, array $map): bool {
         ksort($map);
 
-        (new Filesystem())->dumpFile($path,
+        (new Filesystem())->dumpFile(
+            $path,
             json_encode(
                 $map,
                 JSON_PRETTY_PRINT
@@ -198,7 +198,8 @@ abstract class Data {
                 | JSON_UNESCAPED_LINE_TERMINATORS
                 | JSON_PRESERVE_ZERO_FRACTION
                 | JSON_THROW_ON_ERROR,
-            ));
+            ),
+        );
 
         return true;
     }

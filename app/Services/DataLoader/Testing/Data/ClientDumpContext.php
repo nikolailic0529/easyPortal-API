@@ -37,6 +37,8 @@ class ClientDumpContext {
     }
 
     /**
+     * @param array<string> $data
+     *
      * @return array<mixed>
      */
     public function get(string $path, array $data = null): array {
@@ -101,11 +103,11 @@ class ClientDumpContext {
         // Cleanup
         $data    = array_fill_keys($data, true);
         $context = [
-            static::DISTRIBUTORS => fn() => $distributors,
-            static::RESELLERS    => fn() => $resellers,
-            static::CUSTOMERS    => fn() => $customers,
+            static::DISTRIBUTORS => static fn() => $distributors,
+            static::RESELLERS    => static fn() => $resellers,
+            static::CUSTOMERS    => static fn() => $customers,
             static::OEMS         => fn() => $this->getOemsCsv($oems, $path),
-            static::TYPES        => fn() => $types,
+            static::TYPES        => static fn() => $types,
         ];
 
         foreach ($context as $key => $value) {

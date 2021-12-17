@@ -148,7 +148,7 @@ class Organization extends Model implements
             (new Reseller())->getKeyName(),
             (new Kpi())->getKeyName(),
             null,
-            'kpi_id'
+            'kpi_id',
         );
     }
 
