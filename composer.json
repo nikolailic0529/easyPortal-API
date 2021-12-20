@@ -9,11 +9,11 @@
   "license": "proprietary",
   "require": {
     "php": "^8.0",
+    "ext-intl": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
     "ext-pdo_mysql": "*",
     "ext-redis": "*",
-    "ext-intl": "*",
     "babenkoivan/elastic-scout-driver": "^2.0",
     "babenkoivan/elastic-scout-driver-plus": "^3.0",
     "barryvdh/laravel-snappy": "^0.4.8",
@@ -44,6 +44,7 @@
     "nuwave/lighthouse": "^5.2",
     "phpdocumentor/reflection-docblock": "^5.2",
     "propaganistas/laravel-phone": "^4.2",
+    "sentry/sentry-laravel": "^2.10",
     "staudenmeir/eloquent-has-many-deep": "^1.14",
     "symfony/mime": "^5.3",
     "symfony/polyfill-php81": "^1.23"

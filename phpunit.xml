@@ -42,5 +42,6 @@
         <server name="SCOUT_DRIVER" value="null"/>
         <server name="EP_LOGGER_ENABLED" value="false"/>
         <server name="LIGHTHOUSE_CACHE_ENABLE" value="false"/>
+        <server name="SENTRY_LARAVEL_DSN" value="null"/>
     </php>
 </phpunit>
