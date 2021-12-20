@@ -25,7 +25,7 @@ class GraphQLErrorFormatter {
             $result['message'] = $this->handler->getExceptionMessage($error->getPrevious() ?? $error);
 
             if ($this->config->get('app.debug')) {
-                $result['extensions']['stack'] = $this->handler->getExceptionTrace($error);
+                $result['extensions']['debug'] = $this->handler->getExceptionData($error);
             }
         }
 
