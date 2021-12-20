@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Services\Service;
 use Exception;
 use GraphQL\Error\Error as GraphQLError;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -332,12 +333,37 @@ class Handler extends ExceptionHandler {
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    protected function getExceptionTags(Throwable $exception): array {
+        $tags = [];
+
+        if ($exception instanceof ExternalException) {
+            $tags['external'] = Service::getServiceName($exception) ?? 'unknown';
+        }
+
+        return $tags;
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getExceptionFingerprint(Throwable $exception): array {
+        return [
+            $exception::class,
+            $exception->getMessage(),
+        ];
+    }
+
+    /**
      * @return array<string,mixed>
      */
     protected function getExceptionContext(Throwable $exception): array {
         return [
-            'message' => $this->getExceptionMessage($exception),
-            'context' => $this->getExceptionTrace($exception),
+            'message'     => $this->getExceptionMessage($exception),
+            'tags'        => $this->getExceptionTags($exception),
+            'fingerprint' => $this->getExceptionFingerprint($exception),
+            'context'     => $this->getExceptionTrace($exception),
         ];
     }
 

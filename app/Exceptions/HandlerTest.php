@@ -213,8 +213,13 @@ class HandlerTest extends TestCase {
                     'channel' => null,
                     'message' => 'test',
                     'context' => [
-                        'message' => 'Server Error.',
-                        'context' => [
+                        'message'     => 'Server Error.',
+                        'tags'        => [],
+                        'fingerprint' => [
+                            $exception::class,
+                            $exception->getMessage(),
+                        ],
+                        'context'     => [
                             [
                                 'class'   => $exception::class,
                                 'message' => 'test',
@@ -236,8 +241,13 @@ class HandlerTest extends TestCase {
                     'channel' => $application->getChannel(),
                     'message' => $application->getMessage(),
                     'context' => [
-                        'message' => 'Server Error.',
-                        'context' => [
+                        'message'     => 'Server Error.',
+                        'tags'        => [],
+                        'fingerprint' => [
+                            $application::class,
+                            $application->getMessage(),
+                        ],
+                        'context'     => [
                             [
                                 'class'   => $application::class,
                                 'message' => 'test',
@@ -259,8 +269,13 @@ class HandlerTest extends TestCase {
                     'channel' => $application->getChannel(),
                     'message' => $application->getMessage(),
                     'context' => [
-                        'message' => 'Server Error.',
-                        'context' => [
+                        'message'     => 'Server Error.',
+                        'tags'        => [],
+                        'fingerprint' => [
+                            $application::class,
+                            $application->getMessage(),
+                        ],
+                        'context'     => [
                             [
                                 'class'   => $application::class,
                                 'message' => 'test',
