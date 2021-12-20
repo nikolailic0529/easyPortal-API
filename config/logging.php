@@ -30,26 +30,45 @@ $mailChannel    = static function (string $recipients, string $channel = null) u
     ];
 };
 
-$serviceChannel = static function (string $service, string $recipients) use ($tap, $days, $mailChannel): array {
+$sentryChannel  = static function (string $channel = null) use ($tap): array {
+    return [
+        'driver' => 'sentry',
+        'level'  => env('LOG_LEVEL', 'debug'),
+        'name'   => $channel,
+        'tap'    => $tap,
+    ];
+};
+
+$serviceChannel = static function (
+    string $service,
+    string $recipients,
+) use (
+    $tap,
+    $days,
+    $mailChannel,
+    $sentryChannel,
+): array {
     $channel = array_slice(explode('\\', $service), -2, 1);
     $channel = reset($channel);
 
     return [
-        "{$service}"       => [
+        "{$service}"        => [
             'driver'   => 'stack',
             'channels' => [
                 "{$service}@daily",
+                "{$service}@sentry",
                 "{$service}@mail",
             ],
         ],
-        "{$service}@daily" => [
+        "{$service}@daily"  => [
             'driver' => 'daily',
             'path'   => storage_path("logs/{$channel}/EAP-{$channel}.log"),
             'level'  => env('LOG_LEVEL', 'debug'),
             'days'   => $days,
             'tap'    => $tap,
         ],
-        "{$service}@mail"  => $mailChannel($recipients, $channel),
+        "{$service}@mail"   => $mailChannel($recipients, $channel),
+        "{$service}@sentry" => $sentryChannel($channel),
     ];
 };
 
@@ -91,7 +110,7 @@ return [
         [
             'stack'      => [
                 'driver'   => 'stack',
-                'channels' => ['daily', 'mail'],
+                'channels' => ['daily', 'sentry', 'mail'],
                 'tap'      => $tap,
             ],
 
@@ -111,6 +130,8 @@ return [
             ],
 
             'mail'       => $mailChannel((string) env('EP_LOG_EMAILS')),
+
+            'sentry'     => $sentryChannel(),
 
             // Default
             'slack'      => [
