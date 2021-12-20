@@ -12,31 +12,35 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
 // Default Settings
-$tap  = [Configurator::class];
-$days = 365;
+$tap   = [Configurator::class];
+$days  = 365;
+$level = env('LOG_LEVEL', 'debug');
 
 // Helpers
-$mailChannel    = static function (string $recipients, string $channel = null) use ($tap): array {
-    return [
+$mailChannel    = static function (string $channel = null, string $recipients = null) use ($tap, $level): ?array {
+    return env('EP_LOG_EMAIL_ENABLED') ? [
         'driver'    => 'monolog',
         'handler'   => MailableHandler::class,
         'formatter' => HtmlFormatter::class,
-        'level'     => env('LOG_LEVEL', 'debug'),
+        'level'     => env('EP_LOG_EMAIL_LEVEL') ?: $level,
         'with'      => [
             'channel'    => $channel,
-            'recipients' => explode(Settings::DELIMITER, $recipients),
+            'recipients' => explode(
+                Settings::DELIMITER,
+                (string) ($recipients ?: env('EP_LOG_EMAIL_RECIPIENTS')),
+            ),
         ],
         'tap'       => $tap,
-    ];
+    ] : null;
 };
 
-$sentryChannel  = static function (string $channel = null) use ($tap): array {
-    return [
+$sentryChannel  = static function (string $channel = null) use ($tap, $level): ?array {
+    return env('EP_LOG_SENTRY_ENABLED') ? [
         'driver' => 'sentry',
-        'level'  => env('LOG_LEVEL', 'debug'),
+        'level'  => env('EP_LOG_SENTRY_LEVEL') ?: $level,
         'name'   => $channel,
         'tap'    => $tap,
-    ];
+    ] : null;
 };
 
 $serviceChannel = static function (
@@ -45,34 +49,48 @@ $serviceChannel = static function (
 ) use (
     $tap,
     $days,
+    $level,
     $mailChannel,
     $sentryChannel,
 ): array {
-    $channel = array_slice(explode('\\', $service), -2, 1);
-    $channel = reset($channel);
-
-    return [
-        "{$service}"        => [
-            'driver'   => 'stack',
-            'channels' => [
-                "{$service}@daily",
-                "{$service}@sentry",
-                "{$service}@mail",
-            ],
-        ],
+    $channel  = array_slice(explode('\\', $service), -2, 1);
+    $channel  = reset($channel);
+    $channels = array_filter([
         "{$service}@daily"  => [
             'driver' => 'daily',
             'path'   => storage_path("logs/{$channel}/EAP-{$channel}.log"),
-            'level'  => env('LOG_LEVEL', 'debug'),
+            'level'  => $level,
             'days'   => $days,
             'tap'    => $tap,
         ],
-        "{$service}@mail"   => $mailChannel($recipients, $channel),
+        "{$service}@mail"   => $mailChannel($channel, $recipients),
         "{$service}@sentry" => $sentryChannel($channel),
-    ];
+    ]);
+
+    return array_merge(
+        [
+            "{$service}" => [
+                'driver'   => 'stack',
+                'channels' => array_keys($channels),
+            ],
+        ],
+        $channels,
+    );
 };
 
 // Settings
+$channels = [
+    'daily'  => [
+        'driver' => 'daily',
+        'path'   => storage_path('logs/laravel.log'),
+        'level'  => $level,
+        'days'   => $days,
+        'tap'    => $tap,
+    ],
+    'mail'   => $mailChannel(),
+    'sentry' => $sentryChannel(),
+];
+
 return [
 
     /*
@@ -104,34 +122,23 @@ return [
     */
 
     'channels' => array_merge(
-        $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAILS')),
-        $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAILS')),
-        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAILS')),
+        $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAIL_RECIPIENTS')),
+        $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAIL_RECIPIENTS')),
+        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS')),
+        $channels,
         [
             'stack'      => [
                 'driver'   => 'stack',
-                'channels' => ['daily', 'sentry', 'mail'],
+                'channels' => array_keys($channels),
                 'tap'      => $tap,
             ],
 
             'single'     => [
                 'driver' => 'single',
                 'path'   => storage_path('logs/laravel.log'),
-                'level'  => env('LOG_LEVEL', 'debug'),
+                'level'  => $level,
                 'tap'    => $tap,
             ],
-
-            'daily'      => [
-                'driver' => 'daily',
-                'path'   => storage_path('logs/laravel.log'),
-                'level'  => env('LOG_LEVEL', 'debug'),
-                'days'   => $days,
-                'tap'    => $tap,
-            ],
-
-            'mail'       => $mailChannel((string) env('EP_LOG_EMAILS')),
-
-            'sentry'     => $sentryChannel(),
 
             // Default
             'slack'      => [
@@ -145,7 +152,7 @@ return [
 
             'papertrail' => [
                 'driver'       => 'monolog',
-                'level'        => env('LOG_LEVEL', 'debug'),
+                'level'        => $level,
                 'handler'      => SyslogUdpHandler::class,
                 'handler_with' => [
                     'host' => env('PAPERTRAIL_URL'),
@@ -166,13 +173,13 @@ return [
 
             'syslog'     => [
                 'driver' => 'syslog',
-                'level'  => env('LOG_LEVEL', 'debug'),
+                'level'  => $level,
                 'tap'    => $tap,
             ],
 
             'errorlog'   => [
                 'driver' => 'errorlog',
-                'level'  => env('LOG_LEVEL', 'debug'),
+                'level'  => $level,
                 'tap'    => $tap,
             ],
 

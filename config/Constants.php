@@ -40,6 +40,7 @@ use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\Email;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
+use App\Services\Settings\Types\LogLevel;
 use App\Services\Settings\Types\Organization;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Text;
@@ -148,6 +149,17 @@ interface Constants {
     public const CLOCKWORK_STORAGE_EXPIRATION = 7 * 24 * 60;
     // </editor-fold>
 
+    // <editor-fold desc="SENTRY">
+    // =========================================================================
+    /**
+     * DSN
+     */
+    #[Setting]
+    #[Group('sentry')]
+    #[Type(StringType::class)]
+    public const SENTRY_LARAVEL_DSN = null;
+    // </editor-fold>
+
     // <editor-fold desc="EP">
     // =========================================================================
     /**
@@ -239,18 +251,6 @@ interface Constants {
     public const EP_INVITE_EXPIRE = 'PT24H';
 
     /**
-     * Email addresses that will receive errors.
-     *
-     * You can use subaddressing to specify desired error level, eg
-     * `test+warning@example.com` will receive "warning", "error" and up but
-     * not "info", "notice".
-     */
-    #[Setting]
-    #[Group('ep')]
-    #[Type(Email::class)]
-    public const EP_LOG_EMAILS = ['chief.wraith+notice@gmail.com'];
-
-    /**
      * Pagination: Default value for `limit`.
      */
     #[Setting('ep.pagination.limit.default')]
@@ -267,6 +267,59 @@ interface Constants {
     #[Group('ep')]
     #[Type(IntType::class)]
     public const EP_PAGINATION_LIMIT_MAX = 100;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_LOG">
+    // =========================================================================
+    /**
+     * Minimum severity that should be logged.
+     */
+    #[Setting]
+    #[Group('log')]
+    #[Type(LogLevel::class)]
+    public const LOG_LEVEL = 'debug';
+
+    /**
+     * Send errors to Sentry?
+     */
+    #[Setting]
+    #[Group('log')]
+    public const EP_LOG_SENTRY_ENABLED = true;
+
+    /**
+     * Minimum severity that should be logged via Sentry.
+     */
+    #[Setting]
+    #[Group('log')]
+    #[Type(LogLevel::class)]
+    public const EP_LOG_SENTRY_LEVEL = self::LOG_LEVEL;
+
+    /**
+     * Send errors to emails?
+     */
+    #[Setting]
+    #[Group('log')]
+    public const EP_LOG_EMAIL_ENABLED = false;
+
+    /**
+     * Minimum severity that should be logged via emails.
+     */
+    #[Setting]
+    #[Group('log')]
+    #[Type(LogLevel::class)]
+    public const EP_LOG_EMAIL_LEVEL = self::LOG_LEVEL;
+
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('log')]
+    #[Type(Email::class)]
+    public const EP_LOG_EMAIL_RECIPIENTS = ['chief.wraith+notice@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_CACHE">
@@ -325,7 +378,7 @@ interface Constants {
     // <editor-fold desc="EP_AUTH">
     // =========================================================================
     /**
-     * Email addresses that will receive errors.
+     * Email addresses that will receive errors (overwrites default setting).
      *
      * You can use subaddressing to specify desired error level, eg
      * `test+warning@example.com` will receive "warning", "error" and up but
@@ -334,7 +387,7 @@ interface Constants {
     #[Setting]
     #[Group('auth')]
     #[Type(Email::class)]
-    public const EP_AUTH_LOG_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_AUTH_LOG_EMAIL_RECIPIENTS = [];
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
@@ -470,7 +523,7 @@ interface Constants {
     public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
 
     /**
-     * Email addresses that will receive errors.
+     * Email addresses that will receive errors (overwrites default setting).
      *
      * You can use subaddressing to specify desired error level, eg
      * `test+warning@example.com` will receive "warning", "error" and up but
@@ -479,7 +532,7 @@ interface Constants {
     #[Setting]
     #[Group('keycloak')]
     #[Type(Email::class)]
-    public const EP_KEYCLOAK_LOG_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS = [];
 
     /**
      * OrgAdmin Role UUID. You should sync KeyCloak permissions via command or
@@ -665,7 +718,7 @@ interface Constants {
     public const EP_DATA_LOADER_DUMP = null;
 
     /**
-     * Email addresses that will receive errors.
+     * Email addresses that will receive errors (overwrites default setting).
      *
      * You can use subaddressing to specify desired error level, eg
      * `test+warning@example.com` will receive "warning", "error" and up but
@@ -674,7 +727,7 @@ interface Constants {
     #[Setting]
     #[Group('data_loader')]
     #[Type(Email::class)]
-    public const EP_DATA_LOADER_LOG_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_DATA_LOADER_LOG_EMAIL_RECIPIENTS = [];
 
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
