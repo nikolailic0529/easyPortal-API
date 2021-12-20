@@ -45,6 +45,7 @@ use App\Services\Settings\Types\Organization;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
+use Psr\Log\LogLevel as PsrLogLevel;
 
 /**
  * A list of application settings.
@@ -277,14 +278,14 @@ interface Constants {
     #[Setting]
     #[Group('log')]
     #[Type(LogLevel::class)]
-    public const LOG_LEVEL = 'debug';
+    public const LOG_LEVEL = PsrLogLevel::DEBUG;
 
     /**
      * Send errors to Sentry?
      */
     #[Setting]
     #[Group('log')]
-    public const EP_LOG_SENTRY_ENABLED = true;
+    public const EP_LOG_SENTRY_ENABLED = false;
 
     /**
      * Minimum severity that should be logged via Sentry.
@@ -307,7 +308,7 @@ interface Constants {
     #[Setting]
     #[Group('log')]
     #[Type(LogLevel::class)]
-    public const EP_LOG_EMAIL_LEVEL = self::LOG_LEVEL;
+    public const EP_LOG_EMAIL_LEVEL = PsrLogLevel::ERROR;
 
     /**
      * Email addresses that will receive errors.
