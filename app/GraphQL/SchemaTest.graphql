@@ -247,7 +247,7 @@ type ApplicationSettingGroup {
   settings: [String!]!
 }
 
-union ApplicationSettingValues = Type
+union ApplicationSettingValues = Type | StringValue
 
 type ApplicationTranslation {
   key: String!
@@ -5843,6 +5843,10 @@ input StopApplicationServiceInput {
 
 type StopApplicationServicePayload {
   result: Boolean!
+}
+
+type StringValue {
+  value: String!
 }
 
 type Tag {

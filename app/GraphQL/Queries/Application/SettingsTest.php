@@ -95,8 +95,13 @@ class SettingsTest extends TestCase {
                             value
                             values {
                                 ... on Type {
+                                  __typename
                                   id
                                   name
+                                }
+                                ... on StringValue {
+                                  __typename
+                                  value
                                 }
                             }
                             secret
@@ -162,8 +167,13 @@ class SettingsTest extends TestCase {
                                 'value'       => 'null',
                                 'values'      => [
                                     [
-                                        'id'   => '3dd66188-0fb9-408e-8d7d-80700ba182de',
-                                        'name' => 'type-a',
+                                        '__typename' => 'Type',
+                                        'id'         => '3dd66188-0fb9-408e-8d7d-80700ba182de',
+                                        'name'       => 'type-a',
+                                    ],
+                                    [
+                                        '__typename' => 'StringValue',
+                                        'value'      => 'string',
                                     ],
                                 ],
                                 'secret'      => false,
@@ -304,6 +314,7 @@ class SettingsTest_TypeWithValues extends Type {
                 'id'   => '3dd66188-0fb9-408e-8d7d-80700ba182de',
                 'name' => 'type-a',
             ]),
+            'string',
         ];
     }
 }
