@@ -19,6 +19,7 @@ $level = env('LOG_LEVEL', 'debug');
 // Helpers
 $mailChannel    = static function (string $channel = null, string $recipients = null) use ($tap, $level): ?array {
     return env('EP_LOG_EMAIL_ENABLED') ? [
+        'name'      => $channel,
         'driver'    => 'monolog',
         'handler'   => MailableHandler::class,
         'formatter' => HtmlFormatter::class,
@@ -36,9 +37,9 @@ $mailChannel    = static function (string $channel = null, string $recipients = 
 
 $sentryChannel  = static function (string $channel = null) use ($tap, $level): ?array {
     return env('EP_LOG_SENTRY_ENABLED') ? [
+        'name'   => $channel,
         'driver' => 'sentry',
         'level'  => env('EP_LOG_SENTRY_LEVEL') ?: $level,
-        'name'   => $channel,
         'tap'    => $tap,
     ] : null;
 };
@@ -53,23 +54,26 @@ $serviceChannel = static function (
     $mailChannel,
     $sentryChannel,
 ): array {
-    $channel  = array_slice(explode('\\', $service), -2, 1);
-    $channel  = reset($channel);
+    $env      = env('APP_ENV', 'production');
+    $base     = array_slice(explode('\\', $service), -2, 1);
+    $base     = reset($base);
+    $name     = "{$env}.{$base}";
     $channels = array_filter([
         "{$service}@daily"  => [
             'driver' => 'daily',
-            'path'   => storage_path("logs/{$channel}/EAP-{$channel}.log"),
+            'path'   => storage_path("logs/{$base}/EAP-{$base}.log"),
             'level'  => $level,
             'days'   => $days,
             'tap'    => $tap,
         ],
-        "{$service}@mail"   => $mailChannel($channel, $recipients),
-        "{$service}@sentry" => $sentryChannel($channel),
+        "{$service}@mail"   => $mailChannel($name, $recipients),
+        "{$service}@sentry" => $sentryChannel($name),
     ]);
 
     return array_merge(
         [
             "{$service}" => [
+                'name'     => $name,
                 'driver'   => 'stack',
                 'channels' => array_keys($channels),
             ],
