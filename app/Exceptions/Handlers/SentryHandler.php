@@ -8,6 +8,7 @@ use Sentry\Event;
 use Sentry\EventHint;
 use Sentry\ExceptionDataBag;
 use Sentry\ExceptionMechanism;
+use Sentry\Options;
 use Sentry\SentrySdk;
 use Sentry\Serializer\RepresentationSerializer;
 use Sentry\StacktraceBuilder;
@@ -73,7 +74,7 @@ class SentryHandler {
         }
 
         // Convert
-        $options    = SentrySdk::getCurrentHub()->getClient()->getOptions();
+        $options    = SentrySdk::getCurrentHub()->getClient()?->getOptions() ?? new Options();
         $builder    = new StacktraceBuilder($options, new RepresentationSerializer($options));
         $exceptions = [];
 
