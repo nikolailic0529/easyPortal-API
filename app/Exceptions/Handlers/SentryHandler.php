@@ -2,9 +2,15 @@
 
 namespace App\Exceptions\Handlers;
 
+use ReflectionClass;
 use Sentry\Breadcrumb;
 use Sentry\Event;
 use Sentry\EventHint;
+use Sentry\ExceptionDataBag;
+use Sentry\ExceptionMechanism;
+use Sentry\SentrySdk;
+use Sentry\Serializer\RepresentationSerializer;
+use Sentry\StacktraceBuilder;
 use Throwable;
 
 use function array_is_list;
@@ -31,6 +37,18 @@ class SentryHandler {
             unset($extra[$key]['context']);
         }
 
+        // Exceptions?
+        $exceptions = static::getContextExceptions($extra[$key]['stacktrace'] ?? null);
+
+        if ($exceptions) {
+            $event->setExceptions(array_merge(
+                $event->getExceptions(),
+                $exceptions,
+            ));
+
+            unset($extra[$key]['stacktrace']);
+        }
+
         // Cleanup
         unset($extra[$key]['tags']);
 
@@ -43,6 +61,35 @@ class SentryHandler {
 
         // Return
         return $event;
+    }
+
+    /**
+     * @return array<\Sentry\ExceptionDataBag>
+     */
+    protected static function getContextExceptions(mixed $stacktrace): array {
+        // Empty?
+        if (!$stacktrace) {
+            return [];
+        }
+
+        // Convert
+        $options    = SentrySdk::getCurrentHub()->getClient()->getOptions();
+        $builder    = new StacktraceBuilder($options, new RepresentationSerializer($options));
+        $exceptions = [];
+
+        foreach ($stacktrace as $item) {
+            $exception = (new ReflectionClass($item['class']))->newInstanceWithoutConstructor();
+            $mechanism = new ExceptionMechanism(ExceptionMechanism::TYPE_GENERIC, true);
+            $trace     = $builder->buildFromBacktrace($item['trace'], $item['file'], $item['line']);
+            $bag       = new ExceptionDataBag($exception, $trace, $mechanism);
+
+            $bag->setValue($item['message']);
+
+            $exceptions[] = $bag;
+        }
+
+        // Return
+        return $exceptions;
     }
 
     /**
