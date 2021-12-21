@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Data\Context;
 use App\Services\Service;
 use Exception;
 use GraphQL\Error\Error as GraphQLError;
@@ -338,12 +339,17 @@ class Handler extends ExceptionHandler {
         $context = [];
 
         do {
-            $context[] = [
-                'class'   => $exception::class,
-                'message' => $exception->getMessage(),
-                'context' => $this->exceptionContext($exception),
-                'level'   => $this->getExceptionLevel($exception),
-            ];
+            $data = $this->exceptionContext($exception);
+
+            if ($data) {
+                $context[] = [
+                    'class'   => $exception::class,
+                    'message' => $exception->getMessage(),
+                    'context' => $data,
+                    'level'   => $this->getExceptionLevel($exception),
+                ];
+            }
+
             $exception = $exception->getPrevious();
         } while ($exception);
 
@@ -354,12 +360,22 @@ class Handler extends ExceptionHandler {
      * @return array<string, mixed>
      */
     protected function getExceptionTags(Throwable $exception): array {
+        // Prepare
         $tags = [];
 
+        // Code
+        $code = $this->getExceptionErrorCode($exception);
+
+        if ($code) {
+            $tags['code'] = $code;
+        }
+
+        // External
         if ($exception instanceof ExternalException) {
             $tags['external'] = Service::getServiceName($exception) ?? 'unknown';
         }
 
+        // Return
         return $tags;
     }
 
@@ -380,9 +396,9 @@ class Handler extends ExceptionHandler {
         return [
             'message'     => $this->getExceptionMessage($exception),
             'tags'        => $this->getExceptionTags($exception),
-            'fingerprint' => $this->getExceptionFingerprint($exception),
             'context'     => $this->getExceptionContext($exception),
             'stacktrace'  => $this->getExceptionStacktrace($exception),
+            'fingerprint' => $this->getExceptionFingerprint($exception),
         ];
     }
 
