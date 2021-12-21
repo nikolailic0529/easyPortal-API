@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use App\Exceptions\Data\Context;
 use App\Services\Service;
 use Exception;
 use GraphQL\Error\Error as GraphQLError;
