@@ -83,7 +83,7 @@ $serviceChannel = static function (
 };
 
 // Settings
-$channels = [
+$channels = array_filter([
     'daily'  => [
         'driver' => 'daily',
         'path'   => storage_path('logs/laravel.log'),
@@ -93,7 +93,7 @@ $channels = [
     ],
     'mail'   => $mailChannel(),
     'sentry' => $sentryChannel(),
-];
+]);
 
 return [
 
