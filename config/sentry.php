@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+use App\Exceptions\Handlers\SentryHandler;
+
 return [
 
     'dsn'                        => env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
@@ -10,6 +12,10 @@ return [
     // When left empty or `null` the Laravel environment will be used
     'environment'                => env('SENTRY_ENVIRONMENT'),
 
+    // Events
+    'before_send'                => [SentryHandler::class, 'beforeSend'],
+
+    // Breadcrumbs
     'breadcrumbs'                => [
         // Capture Laravel logs in breadcrumbs
         'logs'         => false,

@@ -76,7 +76,7 @@ class Handler extends ExceptionHandler {
      */
     protected function convertExceptionToArray(Throwable $e): array {
         $config = $this->container->make(Repository::class);
-        $array  = $this->getExceptionContext($e);
+        $array  = $this->getExceptionData($e);
 
         if (!$config->get('app.debug')) {
             $array = Arr::only($array, ['message']);
@@ -133,7 +133,7 @@ class Handler extends ExceptionHandler {
 
         // Log
         $level   = $this->getExceptionLevel($exception);
-        $context = $this->getExceptionContext($exception);
+        $context = $this->getExceptionData($exception);
         $message = $exception->getMessage();
 
         $logger->log($level, $message, $context);
@@ -287,7 +287,7 @@ class Handler extends ExceptionHandler {
     /**
      * @return array<mixed>
      */
-    public function getExceptionTrace(Throwable $exception): array {
+    protected function getExceptionStacktrace(Throwable $exception): array {
         $stack    = [];
         $filter   = static function (array $trace): array {
             return Arr::except($trace, ['args']);
@@ -319,7 +319,6 @@ class Handler extends ExceptionHandler {
             $stack[]   = [
                 'class'   => $exception::class,
                 'message' => $exception->getMessage(),
-                'context' => $this->exceptionContext($exception),
                 'code'    => $exception->getCode(),
                 'file'    => $exception->getFile(),
                 'line'    => $exception->getLine(),
@@ -333,15 +332,49 @@ class Handler extends ExceptionHandler {
     }
 
     /**
+     * @return array<mixed>
+     */
+    protected function getExceptionContext(Throwable $exception): array {
+        $context = [];
+
+        do {
+            $data = $this->exceptionContext($exception);
+
+            if ($data) {
+                $context[] = [
+                    'class'   => $exception::class,
+                    'message' => $exception->getMessage(),
+                    'context' => $data,
+                    'level'   => $this->getExceptionLevel($exception),
+                ];
+            }
+
+            $exception = $exception->getPrevious();
+        } while ($exception);
+
+        return $context;
+    }
+
+    /**
      * @return array<string, mixed>
      */
     protected function getExceptionTags(Throwable $exception): array {
+        // Prepare
         $tags = [];
 
+        // Code
+        $code = $this->getExceptionErrorCode($exception);
+
+        if ($code) {
+            $tags['code'] = $code;
+        }
+
+        // External
         if ($exception instanceof ExternalException) {
             $tags['external'] = Service::getServiceName($exception) ?? 'unknown';
         }
 
+        // Return
         return $tags;
     }
 
@@ -358,12 +391,13 @@ class Handler extends ExceptionHandler {
     /**
      * @return array<string,mixed>
      */
-    protected function getExceptionContext(Throwable $exception): array {
+    public function getExceptionData(Throwable $exception): array {
         return [
             'message'     => $this->getExceptionMessage($exception),
             'tags'        => $this->getExceptionTags($exception),
+            'context'     => $this->getExceptionContext($exception),
+            'stacktrace'  => $this->getExceptionStacktrace($exception),
             'fingerprint' => $this->getExceptionFingerprint($exception),
-            'context'     => $this->getExceptionTrace($exception),
         ];
     }
 

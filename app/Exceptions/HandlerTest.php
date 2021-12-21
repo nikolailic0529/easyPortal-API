@@ -120,8 +120,8 @@ class HandlerTest extends TestCase {
 
         $handler->report($exception);
 
-        unset($context['context'][0]['line']);
-        unset($context['context'][0]['trace']);
+        unset($context['stacktrace'][0]['line']);
+        unset($context['stacktrace'][0]['trace']);
 
         $this->assertEquals($expected['context'], $context);
 
@@ -129,21 +129,32 @@ class HandlerTest extends TestCase {
     }
 
     /**
-     * @covers ::getExceptionTrace
+     * @covers ::getExceptionStacktrace
      */
-    public function testGetExceptionTrace(): void {
+    public function testGetExceptionStacktrace(): void {
         $a       = (static function (): Exception {
             return new Exception('a');
         })();
         $b       = new Exception('b', 0, $a);
-        $handler = $this->app->make(Handler::class);
-        $trace   = $handler->getExceptionTrace($b);
+        $handler = new class() extends Handler {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getExceptionStacktrace(Throwable $exception): array {
+                return parent::getExceptionStacktrace($exception);
+            }
+        };
+        $trace   = $handler->getExceptionStacktrace($b);
 
         $this->assertEquals([
             [
                 'class'   => $b::class,
                 'message' => $b->getMessage(),
-                'context' => [],
                 'code'    => $b->getCode(),
                 'file'    => $b->getFile(),
                 'line'    => $b->getLine(),
@@ -156,7 +167,6 @@ class HandlerTest extends TestCase {
             [
                 'class'   => $a::class,
                 'message' => $a->getMessage(),
-                'context' => [],
                 'code'    => $a->getCode(),
                 'file'    => $a->getFile(),
                 'line'    => $a->getLine(),
@@ -168,6 +178,67 @@ class HandlerTest extends TestCase {
                     ->all(),
             ],
         ], $trace);
+    }
+
+    /**
+     * @covers ::getExceptionContext
+     */
+    public function testGetExceptionContext(): void {
+        $a       = (static function (): Exception {
+            return new class('a') extends Exception {
+                /**
+                 * @return array<mixed>
+                 */
+                public function context(): array {
+                    return [
+                        'a' => 'exception',
+                    ];
+                }
+            };
+        })();
+        $b       = new class('b', 0, $a) extends Exception {
+            /**
+             * @return array<mixed>
+             */
+            public function context(): array {
+                return [
+                    'b' => 'exception',
+                ];
+            }
+        };
+        $handler = new class() extends Handler {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getExceptionContext(Throwable $exception): array {
+                return parent::getExceptionContext($exception);
+            }
+        };
+        $context = $handler->getExceptionContext($b);
+
+        $this->assertEquals([
+            [
+                'class'   => $b::class,
+                'message' => $b->getMessage(),
+                'context' => [
+                    'b' => 'exception',
+                ],
+                'level'   => 'error',
+            ],
+            [
+                'class'   => $a::class,
+                'message' => $a->getMessage(),
+                'context' => [
+                    'a' => 'exception',
+                ],
+                'level'   => 'error',
+            ],
+        ], $context);
     }
     // </editor-fold>
 
@@ -224,6 +295,13 @@ class HandlerTest extends TestCase {
                                 'class'   => $exception::class,
                                 'message' => 'test',
                                 'context' => [1, 2, 3],
+                                'level'   => 'error',
+                            ],
+                        ],
+                        'stacktrace'  => [
+                            [
+                                'class'   => $exception::class,
+                                'message' => 'test',
                                 'file'    => __FILE__,
                                 'code'    => 0,
                             ],
@@ -252,6 +330,13 @@ class HandlerTest extends TestCase {
                                 'class'   => $application::class,
                                 'message' => 'test',
                                 'context' => [1, 2, 3],
+                                'level'   => 'alert',
+                            ],
+                        ],
+                        'stacktrace'  => [
+                            [
+                                'class'   => $application::class,
+                                'message' => 'test',
                                 'file'    => __FILE__,
                                 'code'    => 0,
                             ],
@@ -280,6 +365,13 @@ class HandlerTest extends TestCase {
                                 'class'   => $application::class,
                                 'message' => 'test',
                                 'context' => [1, 2, 3],
+                                'level'   => 'alert',
+                            ],
+                        ],
+                        'stacktrace'  => [
+                            [
+                                'class'   => $application::class,
+                                'message' => 'test',
                                 'file'    => __FILE__,
                                 'code'    => 0,
                             ],
