@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasCustomers;
 use App\Models\Relations\HasResellers;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -74,10 +75,12 @@ class Location extends Model {
      */
     protected $casts = self::CASTS;
 
+    #[CascadeDelete(false)]
     public function country(): BelongsTo {
         return $this->belongsTo(Country::class);
     }
 
+    #[CascadeDelete(false)]
     public function city(): BelongsTo {
         return $this->belongsTo(City::class);
     }

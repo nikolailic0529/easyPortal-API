@@ -3,12 +3,14 @@
 namespace App\Models\Relations;
 
 use App\Models\Organization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasOrganizationNullable {
+    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
     }

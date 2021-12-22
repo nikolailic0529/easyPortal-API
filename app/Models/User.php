@@ -188,6 +188,7 @@ class User extends Model implements
         return $this->hasMany(UserSearch::class);
     }
 
+    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
     }

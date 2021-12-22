@@ -86,6 +86,7 @@ class QuoteRequest extends Model implements Auditable {
         $this->contact()->save($contact);
     }
 
+    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
     }

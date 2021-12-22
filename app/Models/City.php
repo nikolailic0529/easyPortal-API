@@ -5,6 +5,7 @@ namespace App\Models;
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Relations\HasAssetsThroughLocations;
 use App\Models\Relations\HasCustomersThroughLocations;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +42,7 @@ class City extends Model implements Translatable {
      */
     protected $table = 'cities';
 
+    #[CascadeDelete(false)]
     public function country(): BelongsTo {
         return $this->belongsTo(Country::class);
     }

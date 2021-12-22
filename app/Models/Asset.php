@@ -113,6 +113,7 @@ class Asset extends Model {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    #[CascadeDelete(false)]
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
     }

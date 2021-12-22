@@ -147,6 +147,7 @@ class Document extends Model implements CascadeDeletable {
             ->count();
     }
 
+    #[CascadeDelete(false)]
     public function distributor(): BelongsTo {
         return $this->belongsTo(Distributor::class);
     }
@@ -155,6 +156,7 @@ class Document extends Model implements CascadeDeletable {
         $this->distributor()->associate($distributor);
     }
 
+    #[CascadeDelete(false)]
     public function oemGroup(): BelongsTo {
         return $this->belongsTo(OemGroup::class);
     }

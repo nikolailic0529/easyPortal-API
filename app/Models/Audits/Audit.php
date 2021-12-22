@@ -5,6 +5,7 @@ namespace App\Models\Audits;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -52,11 +53,13 @@ class Audit extends Model {
      */
     protected $casts = self::CASTS;
 
+    #[CascadeDelete(false)]
     public function user(): BelongsTo {
         // Relation between 2 table on 2 different db
         return $this->setConnection((new User())->getConnectionName())->belongsTo(User::class);
     }
 
+    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         // Relation between 2 table on 2 different db
         return $this->setConnection((new Organization())->getConnectionName())->belongsTo(Organization::class);
