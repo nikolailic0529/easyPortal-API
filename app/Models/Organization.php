@@ -71,6 +71,7 @@ class Organization extends Model implements
     use HasFactory;
     use HasCurrency;
     use HasLocations {
+        locations as private getLocationsRelation;
         setLocationsAttribute as private;
     }
 
@@ -123,6 +124,11 @@ class Organization extends Model implements
 
     public function preferredTimezone(): ?string {
         return $this->timezone;
+    }
+
+    #[CascadeDelete(false)]
+    public function locations(): HasMany {
+        return $this->getLocationsRelation();
     }
 
     #[CascadeDelete(false)]
