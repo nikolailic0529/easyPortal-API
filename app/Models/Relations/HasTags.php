@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Tag;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,7 @@ use Illuminate\Support\Collection;
 trait HasTags {
     use SyncBelongsToMany;
 
+    #[CascadeDelete(true)]
     public function tags(): BelongsToMany {
         $pivot = $this->getTagsPivot();
 

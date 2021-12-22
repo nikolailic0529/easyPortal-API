@@ -13,6 +13,7 @@ use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -195,6 +196,7 @@ class Asset extends Model {
         return new AssetTag();
     }
 
+    #[CascadeDelete(true)]
     public function coverages(): BelongsToMany {
         $pivot = new AssetCoverage();
 

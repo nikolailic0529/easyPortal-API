@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Relations\HasAssets;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,6 +51,7 @@ class Status extends Model implements Translatable {
         return ['name'];
     }
 
+    #[CascadeDelete(true)]
     public function customers(): BelongsToMany {
         $pivot = new CustomerStatus();
 
@@ -60,6 +62,7 @@ class Status extends Model implements Translatable {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(true)]
     public function contracts(): BelongsToMany {
         $pivot = new DocumentStatus();
 
@@ -74,6 +77,7 @@ class Status extends Model implements Translatable {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(true)]
     public function quotes(): BelongsToMany {
         $pivot = new DocumentStatus();
 
@@ -88,6 +92,7 @@ class Status extends Model implements Translatable {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(true)]
     public function documents(): BelongsToMany {
         $pivot = new DocumentStatus();
 

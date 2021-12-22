@@ -7,6 +7,7 @@ use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasLocations;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -124,6 +125,7 @@ class Organization extends Model implements
         return $this->timezone;
     }
 
+    #[CascadeDelete(false)]
     public function statuses(): BelongsToMany {
         $pivot = new ResellerStatus();
 
