@@ -1,6 +1,6 @@
 [
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -15,11 +15,11 @@
         ]
     },
     {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "reseller",
             "reseller"
@@ -37,17 +37,17 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818"
         ]
     },
     {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
+        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "aw"
         ]
@@ -63,11 +63,11 @@
         ]
     },
     {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
+        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "jazminstad"
@@ -84,7 +84,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -110,7 +110,7 @@
         ]
     },
     {
-        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "headquarter",
             "resellerlocation"
@@ -200,7 +200,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818"
         ]
@@ -215,13 +215,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0013a4cf-8654-4a5b-b747-d29746704f09"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "goodwinside"
@@ -238,7 +238,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -336,7 +336,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0013a4cf-8654-4a5b-b747-d29746704f09"
         ]
@@ -351,13 +351,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "002b83e1-6107-4098-89f1-fe5602bef8ce"
         ]
     },
     {
-        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "ax"
         ]
@@ -373,7 +373,7 @@
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "north lewbury"
@@ -390,7 +390,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -488,7 +488,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "002b83e1-6107-4098-89f1-fe5602bef8ce"
         ]
@@ -503,13 +503,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0040fc99-9023-4847-aff0-317aff613050"
         ]
     },
     {
-        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "fj"
         ]
@@ -525,7 +525,7 @@
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "east major"
@@ -542,7 +542,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "567c81f4-bea4-55bd-8406-1c0d3d58da68",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -640,7 +640,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0040fc99-9023-4847-aff0-317aff613050"
         ]
@@ -655,13 +655,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0048be0f-a435-45cc-ac9d-2fe215991ebf"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "anthonyborough"
@@ -678,7 +678,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "78609dcb-283b-510b-91c4-7466bd9a0b5a",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -776,7 +776,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0048be0f-a435-45cc-ac9d-2fe215991ebf"
         ]
@@ -791,13 +791,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0049fc18-6477-4b4f-a637-ef0f27e082d4"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "port lizamouth"
@@ -814,7 +814,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "f27913f0-d434-5842-8dd1-3338f4acc863",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -912,7 +912,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0049fc18-6477-4b4f-a637-ef0f27e082d4"
         ]
@@ -927,13 +927,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "lake jordyn"
@@ -950,7 +950,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "aa00595d-60cb-53fa-bf65-dd002065f6d5",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -1048,7 +1048,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd"
         ]
@@ -1063,13 +1063,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "006218e4-47c0-4363-ab9f-91e91ff1baac"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -1167,7 +1167,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "006218e4-47c0-4363-ab9f-91e91ff1baac"
         ]
@@ -1182,13 +1182,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0066dc39-3655-43bf-9cb8-3dcc006987ff"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "south luella"
@@ -1205,7 +1205,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "faa04214-add0-5aa9-8316-6ae79cf767cc",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -1303,7 +1303,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0066dc39-3655-43bf-9cb8-3dcc006987ff"
         ]
@@ -1318,13 +1318,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0067eb04-2fca-49f9-8fd8-4996ce4b3668"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "new idellaborough"
@@ -1341,7 +1341,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "5e30ce04-ad54-528a-8290-4e461cffe5e9",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -1439,7 +1439,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0067eb04-2fca-49f9-8fd8-4996ce4b3668"
         ]
@@ -1454,7 +1454,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -1469,7 +1469,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -1484,7 +1484,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -1515,7 +1515,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "0013a4cf-8654-4a5b-b747-d29746704f09",
@@ -1609,7 +1609,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
@@ -1699,7 +1699,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09"
         ]
@@ -1716,13 +1716,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "0a58eb87-b006-5bc3-97cb-2e4cc768fe09"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
         ]
@@ -1739,13 +1739,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
         ]
@@ -1762,13 +1762,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
         ]
@@ -1785,13 +1785,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa"
         ]
@@ -1808,13 +1808,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
         ]
@@ -1831,13 +1831,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b"
         ]
@@ -1854,13 +1854,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3"
         ]
@@ -1877,13 +1877,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5"
         ]
@@ -1900,13 +1900,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "ac09955a-534c-5ad4-8d55-b6579a9784b5"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "dc107b85-353d-53ef-bfeb-46b656a50ebc"
         ]
@@ -1923,13 +1923,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "dc107b85-353d-53ef-bfeb-46b656a50ebc"
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -1944,13 +1944,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "hamillburgh"
@@ -1967,7 +1967,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "bf3e54d2-37a0-585e-835b-80ddee8de633",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -2065,7 +2065,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
         ]
@@ -2080,13 +2080,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00759fe9-9614-4147-a1f9-83d9fd5472e7"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "kovacekton"
@@ -2103,7 +2103,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -2201,7 +2201,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00759fe9-9614-4147-a1f9-83d9fd5472e7"
         ]
@@ -2216,13 +2216,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0075f877-bfaa-4014-a520-4f10331763bd"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "port odieberg"
@@ -2239,7 +2239,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "3a4fb277-bbd2-5710-a542-5274e3b53cc2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -2337,7 +2337,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0075f877-bfaa-4014-a520-4f10331763bd"
         ]
@@ -2352,13 +2352,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "007646a5-c5b9-4929-9e94-9c09eaff90e5"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "north chazshire"
@@ -2375,7 +2375,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "1ef32220-4547-5581-8b7b-986ee08fcbba",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -2473,7 +2473,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "007646a5-c5b9-4929-9e94-9c09eaff90e5"
         ]
@@ -2488,7 +2488,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "007657c9-b620-445b-8676-01e491661b4a"
         ]
@@ -2546,7 +2546,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "007657c9-b620-445b-8676-01e491661b4a"
         ]
@@ -2561,13 +2561,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "port eliezer"
@@ -2584,7 +2584,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "83a75595-9b20-5c94-af50-9999f1ddc25e",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -2682,7 +2682,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
         ]
@@ -2697,13 +2697,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0079e60d-1c53-4a85-9edd-31ec6324c96e"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "artfort"
@@ -2720,7 +2720,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "0920fd14-67d6-501c-a409-3f9ae82c6f81",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -2818,7 +2818,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0079e60d-1c53-4a85-9edd-31ec6324c96e"
         ]
@@ -2833,13 +2833,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "new zachariah"
@@ -2856,7 +2856,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "3b8ff96c-d8fa-56ba-bc76-4dfb5c732583",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -2954,7 +2954,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
         ]
@@ -2969,13 +2969,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "009a0762-e369-4efb-a88a-1a8b49e1ab14"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "christiansenland"
@@ -2992,7 +2992,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "539d47df-edd1-5c3f-9752-2fed455c94b5",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -3090,7 +3090,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "009a0762-e369-4efb-a88a-1a8b49e1ab14"
         ]
@@ -3105,13 +3105,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00a51569-935d-4155-971b-05713d3f860c"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "lake guillermoville"
@@ -3128,7 +3128,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "79aa20b0-3def-5ac1-99e0-e5791b5a8640",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -3226,7 +3226,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00a51569-935d-4155-971b-05713d3f860c"
         ]
@@ -3241,7 +3241,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -3256,7 +3256,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -3271,7 +3271,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -3302,7 +3302,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
@@ -3396,7 +3396,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "247f5a54-605d-580c-b91f-0a3daae1c462",
@@ -3480,7 +3480,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b"
         ]
@@ -3497,13 +3497,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "247f5a54-605d-580c-b91f-0a3daae1c462"
         ]
@@ -3520,13 +3520,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "247f5a54-605d-580c-b91f-0a3daae1c462"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "311c4a8b-7d91-5fc2-870f-2c5a03681902"
         ]
@@ -3543,13 +3543,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "311c4a8b-7d91-5fc2-870f-2c5a03681902"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
         ]
@@ -3566,13 +3566,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699"
         ]
@@ -3589,13 +3589,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "5a7b86a2-274d-5e4a-b8c3-3a6c1e07f699"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7"
         ]
@@ -3612,13 +3612,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "8805a24e-730d-5ca0-909a-a43a5d9821f9"
         ]
@@ -3635,13 +3635,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "8805a24e-730d-5ca0-909a-a43a5d9821f9"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ca350e8f-fc92-535d-ac8c-5371d439ccca"
         ]
@@ -3658,13 +3658,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "ca350e8f-fc92-535d-ac8c-5371d439ccca"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "de043353-98fa-5311-963f-a44c70e71e67"
         ]
@@ -3681,13 +3681,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "de043353-98fa-5311-963f-a44c70e71e67"
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -3702,13 +3702,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "new johnpaulberg"
@@ -3725,7 +3725,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "d4c100d1-75af-5ea0-8c84-224150bd1843",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -3823,7 +3823,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
         ]
@@ -3838,13 +3838,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "port giovannatown"
@@ -3861,7 +3861,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "4c65a05e-a7d1-5bcc-8474-6feeecc4d49e",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -3959,7 +3959,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
         ]
@@ -3974,13 +3974,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00c02780-d026-4a8e-a402-f63aca4e65f4"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "theodorashire"
@@ -3997,7 +3997,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "9aa5871b-dd32-527f-a78a-bbec176e1672",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -4095,7 +4095,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00c02780-d026-4a8e-a402-f63aca4e65f4"
         ]
@@ -4110,13 +4110,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "east justentown"
@@ -4133,7 +4133,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -4231,7 +4231,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b"
         ]
@@ -4246,13 +4246,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00c871be-e0f6-4577-a4d9-a770878eea15"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "new isaac"
@@ -4269,7 +4269,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "88a7396e-a946-59f1-9c89-86b53617d00d",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -4367,7 +4367,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00c871be-e0f6-4577-a4d9-a770878eea15"
         ]
@@ -4382,13 +4382,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00e4a8ff-1d07-428b-acd0-e858973e5707"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "sauerview"
@@ -4405,7 +4405,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8cd09c24-e067-5cc9-8d9f-c9e04697415a",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -4503,7 +4503,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00e4a8ff-1d07-428b-acd0-e858973e5707"
         ]
@@ -4518,13 +4518,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "lake julietmouth"
@@ -4541,7 +4541,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "fb52d2dc-b5b1-57e4-80bf-bb16a019b019",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -4639,7 +4639,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a"
         ]
@@ -4654,13 +4654,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01085380-44ac-4429-b128-28a70140fb67"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "port jolie"
@@ -4677,7 +4677,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "19b7c700-0727-5683-98e3-18f421f2e275",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -4775,7 +4775,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01085380-44ac-4429-b128-28a70140fb67"
         ]
@@ -4790,13 +4790,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "jedton"
@@ -4813,7 +4813,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "1041d9c8-06d5-59f5-8ff2-6ee7a0d243c8",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -4911,7 +4911,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502"
         ]
@@ -4926,13 +4926,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0119600e-c938-4472-95ba-7855c2b174cc"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "jerdeport"
@@ -4949,7 +4949,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "966f2f09-e7a4-58b3-be60-187bbb1825ab",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -5047,7 +5047,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0119600e-c938-4472-95ba-7855c2b174cc"
         ]
@@ -5062,7 +5062,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -5077,7 +5077,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -5092,7 +5092,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -5123,7 +5123,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
@@ -5217,7 +5217,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
@@ -5307,7 +5307,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec"
         ]
@@ -5324,13 +5324,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "31cd877f-51fe-56f1-8a9d-293720ff8434"
         ]
@@ -5347,13 +5347,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "31cd877f-51fe-56f1-8a9d-293720ff8434"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "334a7956-4330-5742-9d8b-64e189a0a142"
         ]
@@ -5370,13 +5370,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "334a7956-4330-5742-9d8b-64e189a0a142"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40"
         ]
@@ -5393,13 +5393,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "85c2d18e-c7a6-549f-a933-e7d10b285807"
         ]
@@ -5416,13 +5416,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "85c2d18e-c7a6-549f-a933-e7d10b285807"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "89a334cc-2831-5b5d-89fd-06002b07bae8"
         ]
@@ -5439,13 +5439,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "89a334cc-2831-5b5d-89fd-06002b07bae8"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "95cfb95c-a621-585a-94e2-413e15a9fd37"
         ]
@@ -5462,13 +5462,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "95cfb95c-a621-585a-94e2-413e15a9fd37"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "964b027c-6543-5bfd-97b5-94a7504e7c42"
         ]
@@ -5485,13 +5485,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "964b027c-6543-5bfd-97b5-94a7504e7c42"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e"
         ]
@@ -5508,13 +5508,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "d3462d54-53b1-5c47-967c-35b200db2725"
         ]
@@ -5531,13 +5531,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "d3462d54-53b1-5c47-967c-35b200db2725"
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -5552,13 +5552,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "jocelynborough"
@@ -5575,7 +5575,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "6ec01053-58d4-550d-a993-b676c1f4733d",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -5673,7 +5673,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8"
         ]
@@ -5688,13 +5688,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "014c23fe-cf3a-4880-be62-5e148f551d9d"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "fb52d2dc-b5b1-57e4-80bf-bb16a019b019",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -5792,7 +5792,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "014c23fe-cf3a-4880-be62-5e148f551d9d"
         ]
@@ -5807,13 +5807,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "west raechester"
@@ -5830,7 +5830,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "79e1f2e5-708e-5db2-a15b-0d0ceaaf69cf",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -5928,7 +5928,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1"
         ]
@@ -5943,13 +5943,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "015516f4-9b7a-4419-82fd-72cd76be8771"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "west lillie"
@@ -5966,7 +5966,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "84e911e7-05cc-5359-98b1-fe80230e4510",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -6064,7 +6064,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "015516f4-9b7a-4419-82fd-72cd76be8771"
         ]
@@ -6079,13 +6079,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "port soledad"
@@ -6102,7 +6102,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "550a6830-a3f8-525f-8d2f-77e43b95c51c",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -6200,7 +6200,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1"
         ]
@@ -6215,13 +6215,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38"
         ]
     },
     {
-        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "co"
         ]
@@ -6237,7 +6237,7 @@
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "af99b187-7c9a-5080-b4c5-3d079054f326",
             "east aiyanamouth"
@@ -6254,7 +6254,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "765c620b-e79b-5291-8290-43f4d17bcd1a",
             "af99b187-7c9a-5080-b4c5-3d079054f326",
@@ -6352,7 +6352,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38"
         ]
@@ -6367,13 +6367,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "019d772d-6ce8-48dc-8585-22681d2eacac"
         ]
     },
     {
-        "query": "select * from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
         "bindings": [
             "sg"
         ]
@@ -6389,7 +6389,7 @@
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "a65b0772-2114-5c17-951d-38de5feda665",
             "west isaacbury"
@@ -6406,7 +6406,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "18874622-2457-5aaa-ab76-fab5e1716258",
             "a65b0772-2114-5c17-951d-38de5feda665",
@@ -6504,7 +6504,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "019d772d-6ce8-48dc-8585-22681d2eacac"
         ]
@@ -6519,13 +6519,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "019eabdd-e58b-4eb1-905e-975fd7607332"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "east jonatan"
@@ -6542,7 +6542,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "b6d8d311-7241-5aec-9f9c-8fd76e70d893",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -6640,7 +6640,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "019eabdd-e58b-4eb1-905e-975fd7607332"
         ]
@@ -6655,7 +6655,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01a34dcd-4231-4df0-8005-0d3306cd218c"
         ]
@@ -6713,7 +6713,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01a34dcd-4231-4df0-8005-0d3306cd218c"
         ]
@@ -6728,13 +6728,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "kesslerview"
@@ -6751,7 +6751,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "701cb66e-d09d-594c-b1e6-123db7b62492",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -6849,7 +6849,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954"
         ]
@@ -6864,7 +6864,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -6879,7 +6879,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -6894,7 +6894,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -6925,7 +6925,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
@@ -7019,7 +7019,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "0816268d-ba49-50c9-b572-fa98c33c28d7",
             "60536b95-cb1a-53d6-a151-49eda7d7fa24",
@@ -7103,7 +7103,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "0816268d-ba49-50c9-b572-fa98c33c28d7"
         ]
@@ -7120,13 +7120,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "0816268d-ba49-50c9-b572-fa98c33c28d7"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "60536b95-cb1a-53d6-a151-49eda7d7fa24"
         ]
@@ -7143,13 +7143,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "60536b95-cb1a-53d6-a151-49eda7d7fa24"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9"
         ]
@@ -7166,13 +7166,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "6bab8e13-1fa7-5656-90f1-a98aee27adf9"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "7fb2465b-3158-5c55-983f-ddee3597c1fd"
         ]
@@ -7189,13 +7189,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "7fb2465b-3158-5c55-983f-ddee3597c1fd"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91"
         ]
@@ -7212,13 +7212,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a"
         ]
@@ -7235,13 +7235,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "b01803f7-ed17-5eaf-a529-6a3f2b24b26a"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b9c1728b-103f-5855-a750-591a28da63a1"
         ]
@@ -7258,13 +7258,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "b9c1728b-103f-5855-a750-591a28da63a1"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1"
         ]
@@ -7281,13 +7281,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "eb33d88c-28d0-5057-93d1-4668ef673b37"
         ]
@@ -7304,13 +7304,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "eb33d88c-28d0-5057-93d1-4668ef673b37"
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -7325,13 +7325,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "port audramouth"
@@ -7348,7 +7348,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "f89c9951-3e2e-5563-97f1-c64ace939a0c",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -7446,7 +7446,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2"
         ]
@@ -7461,13 +7461,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "east christelle"
@@ -7484,7 +7484,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -7582,7 +7582,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b"
         ]
@@ -7597,13 +7597,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "west narciso"
@@ -7620,7 +7620,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "5a82ae22-db37-5649-9862-3eda26aa6fd2",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -7718,7 +7718,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f"
         ]
@@ -7733,13 +7733,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01c45daa-5b06-46ba-a3de-927ed79e6033"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "305091d8-9610-5841-9743-85d05494e34c",
             "east alexanderhaven"
@@ -7756,7 +7756,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "a8339ce8-239e-51c9-aa44-d7e31ff412b6",
             "305091d8-9610-5841-9743-85d05494e34c",
@@ -7854,7 +7854,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01c45daa-5b06-46ba-a3de-927ed79e6033"
         ]
@@ -7869,13 +7869,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01d6fadd-1b36-4cf9-834e-3a46430cab78"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "rosenbaumchester"
@@ -7892,7 +7892,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -7990,7 +7990,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01d6fadd-1b36-4cf9-834e-3a46430cab78"
         ]
@@ -8005,13 +8005,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01d94fc2-0987-4c40-8c46-af29fbb924f8"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "south casandrachester"
@@ -8028,7 +8028,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "f009e685-d0ca-5c48-bd42-e4dab3fc8dc5",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -8126,7 +8126,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01d94fc2-0987-4c40-8c46-af29fbb924f8"
         ]
@@ -8141,13 +8141,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01e5d413-1a68-4f16-9e46-ad9fd781579b"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "south millieport"
@@ -8164,7 +8164,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "845cad98-c769-5a3c-af3d-ce1e3d19ea07",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -8262,7 +8262,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01e5d413-1a68-4f16-9e46-ad9fd781579b"
         ]
@@ -8277,13 +8277,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01f149ea-eb28-4357-bbca-046198fe2abe"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "vernicetown"
@@ -8300,7 +8300,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "3a2648a5-4822-525d-8f45-9a29667bede6",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -8398,7 +8398,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01f149ea-eb28-4357-bbca-046198fe2abe"
         ]
@@ -8413,13 +8413,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "desireeborough"
@@ -8436,7 +8436,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -8534,7 +8534,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c"
         ]
@@ -8549,13 +8549,13 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "02015448-c2bb-4987-87e0-8b4e94a2ab15"
         ]
     },
     {
-        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "pollichfurt"
@@ -8572,7 +8572,7 @@
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "55c5d12a-02e7-5973-95c6-c2e5300ff7d2",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
@@ -8670,7 +8670,7 @@
         ]
     },
     {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "query": "select `organizations`.* from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "02015448-c2bb-4987-87e0-8b4e94a2ab15"
         ]
@@ -8685,7 +8685,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -8700,7 +8700,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -8715,7 +8715,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -8746,7 +8746,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
@@ -8840,7 +8840,7 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "1520a917-841d-5876-b183-a9142c11f486",
@@ -8930,7 +8930,7 @@
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a"
         ]
@@ -8947,13 +8947,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "1520a917-841d-5876-b183-a9142c11f486"
         ]
@@ -8970,13 +8970,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "1520a917-841d-5876-b183-a9142c11f486"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d"
         ]
@@ -8993,13 +8993,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "1c6d7d36-ffc2-5dbc-ae53-4f1867518b6d"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f"
         ]
@@ -9016,13 +9016,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "b040f399-dbf2-5157-afca-02344dd90703"
         ]
@@ -9039,13 +9039,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "b040f399-dbf2-5157-afca-02344dd90703"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a"
         ]
@@ -9062,13 +9062,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "c22a0407-1b3b-5d02-b9e3-caba9493d845"
         ]
@@ -9085,13 +9085,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "c22a0407-1b3b-5d02-b9e3-caba9493d845"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317"
         ]
@@ -9108,13 +9108,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "e268b786-8d37-53de-a8a5-4c22d64dc60a"
         ]
@@ -9131,13 +9131,13 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "e268b786-8d37-53de-a8a5-4c22d64dc60a"
         ]
     },
     {
-        "query": "select * from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
         ]
@@ -9154,7 +9154,7 @@
         ]
     },
     {
-        "query": "select * from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
             "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
         ]

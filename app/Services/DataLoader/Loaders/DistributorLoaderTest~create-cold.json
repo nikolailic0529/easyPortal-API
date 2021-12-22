@@ -1,10 +1,10 @@
 [
     {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `distributors` where (`distributors`.`id` = ?) and `distributors`.`deleted_at` is null limit 1",
+        "query": "select `distributors`.* from `distributors` where (`distributors`.`id` = ?) and `distributors`.`deleted_at` is null limit 1",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47"
         ]

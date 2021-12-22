@@ -1332,10 +1332,10 @@ class DocumentFactoryTest extends TestCase {
         $json     = $this->getTestData()->json('~createFromDocument-document-changed.json');
         $object   = new Document($json);
         $expected = [
-            'select * from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null',
-            'select * from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null',
-            'select * from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1',
-            'select * from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1',
+            'select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null',
+            'select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null',
+            'select `assets`.* from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1',
+            'select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1',
             'update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?',
         ];
 

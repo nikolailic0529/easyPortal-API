@@ -1,20 +1,20 @@
 [
     {
-        "query": "select * from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1",
+        "query": "select `assets`.* from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1",
         "bindings": [
             "dd3fd852-c29a-4f34-ac20-21b6f7079777"
         ]
     },
     {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "hardware",
             "asset"
@@ -32,11 +32,11 @@
         ]
     },
     {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "active",
             "asset"
@@ -54,11 +54,11 @@
         ]
     },
     {
-        "query": "select * from `products` where `products`.`deleted_at` is null",
+        "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "728629-b21"
@@ -78,17 +78,17 @@
         ]
     },
     {
-        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "query": "select `customers`.* from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
         "bindings": [
             "602673a2-b21d-44b7-8d8e-3423f0ee3795"
         ]
     },
     {
-        "query": "select * from `tags` where `tags`.`deleted_at` is null",
+        "query": "select `tags`.* from `tags` where `tags`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
+        "query": "select `tags`.* from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
         "bindings": [
             "hardware"
         ]
@@ -103,11 +103,11 @@
         ]
     },
     {
-        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
+        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
         "bindings": [
             "archived"
         ]
@@ -123,7 +123,7 @@
         ]
     },
     {
-        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "contract",
             "assetwarranty"
@@ -141,7 +141,7 @@
         ]
     },
     {
-        "query": "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "expired",
             "assetwarranty"
@@ -159,7 +159,7 @@
         ]
     },
     {
-        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "factorywarranty",
             "assetwarranty"
@@ -316,19 +316,19 @@
         ]
     },
     {
-        "query": "select * from `customers` where `id` in (?) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where `id` in (?) and `customers`.`deleted_at` is null",
         "bindings": [
             "602673a2-b21d-44b7-8d8e-3423f0ee3795"
         ]
     },
     {
-        "query": "select * from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "602673a2-b21d-44b7-8d8e-3423f0ee3795"
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "602673a2-b21d-44b7-8d8e-3423f0ee3795",
             "Customer"
