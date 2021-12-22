@@ -143,6 +143,7 @@ class Organization extends Model implements
             ->where($type, '=', (new Reseller())->getMorphClass());
     }
 
+    #[CascadeDelete(false)]
     public function kpi(): HasOneThrough {
         return $this->hasOneThrough(
             Kpi::class,
@@ -154,6 +155,7 @@ class Organization extends Model implements
         );
     }
 
+    #[CascadeDelete(false)]
     public function reseller(): HasOne {
         return $this->hasOne(Reseller::class, (new Reseller())->getKeyName());
     }

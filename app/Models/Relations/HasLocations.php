@@ -2,6 +2,7 @@
 
 namespace App\Models\Relations;
 
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
@@ -37,6 +38,7 @@ trait HasLocations {
         $this->locations_count = count($locations);
     }
 
+    #[CascadeDelete(false)]
     public function headquarter(): HasOne {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');
 

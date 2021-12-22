@@ -215,6 +215,7 @@ class Asset extends Model {
         $this->coverages_count = count($this->coverages);
     }
 
+    #[CascadeDelete(false)]
     public function quoteRequest(): HasOneThrough {
         $request = new QuoteRequest();
 
@@ -223,6 +224,7 @@ class Asset extends Model {
             ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
     }
 
+    #[CascadeDelete(false)]
     public function changeRequest(): HasOne {
         $request = new ChangeRequest();
 
