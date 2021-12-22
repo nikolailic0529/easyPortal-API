@@ -23,6 +23,7 @@ use function count;
 trait HasLocations {
     use SyncHasMany;
 
+    #[CascadeDelete(true)]
     public function locations(): HasMany {
         return $this->hasMany(
             $this->getLocationsModel()::class,

@@ -8,6 +8,7 @@ use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\HasOrganization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
@@ -182,6 +183,7 @@ class User extends Model implements
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    #[CascadeDelete(true)]
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
     }
@@ -198,6 +200,7 @@ class User extends Model implements
         return $this->organization;
     }
 
+    #[CascadeDelete(true)]
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
     }
@@ -209,6 +212,7 @@ class User extends Model implements
         $this->syncBelongsToMany('teams', $teams);
     }
 
+    #[CascadeDelete(true)]
     public function organizations(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

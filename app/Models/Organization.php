@@ -160,10 +160,12 @@ class Organization extends Model implements
         return $this->hasOne(Reseller::class, (new Reseller())->getKeyName());
     }
 
+    #[CascadeDelete(true)]
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
     }
 
+    #[CascadeDelete(false)]
     public function audits(): HasMany {
         return $this->hasMany(Audit::class);
     }

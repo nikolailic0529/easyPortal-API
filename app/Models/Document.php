@@ -21,6 +21,7 @@ use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -127,6 +128,7 @@ class Document extends Model implements CascadeDeletable {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    #[CascadeDelete(true)]
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
@@ -161,6 +163,7 @@ class Document extends Model implements CascadeDeletable {
         $this->oemGroup()->associate($group);
     }
 
+    #[CascadeDelete(true)]
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }

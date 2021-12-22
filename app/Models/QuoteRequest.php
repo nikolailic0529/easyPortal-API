@@ -8,6 +8,7 @@ use App\Models\Relations\HasOem;
 use App\Models\Relations\HasType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -64,6 +65,7 @@ class QuoteRequest extends Model implements Auditable {
         return $this->qualifyColumn('organization_id');
     }
 
+    #[CascadeDelete(true)]
     public function assets(): HasMany {
         return $this->hasMany(QuoteRequestAsset::class, 'request_id');
     }
@@ -75,6 +77,7 @@ class QuoteRequest extends Model implements Auditable {
         $this->syncHasMany('assets', $assets);
     }
 
+    #[CascadeDelete(true)]
     public function contact(): MorphOne {
         return $this->morphOne(Contact::class, 'object');
     }

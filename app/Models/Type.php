@@ -96,10 +96,12 @@ class Type extends PolymorphicModel implements Translatable {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(false)]
     public function customers(): HasMany {
         return $this->hasMany(Customer::class);
     }
 
+    #[CascadeDelete(false)]
     public function documents(): HasMany {
         return $this
             ->hasMany(Document::class)

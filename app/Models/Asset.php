@@ -121,6 +121,7 @@ class Asset extends Model {
         $this->location()->associate($location);
     }
 
+    #[CascadeDelete(true)]
     public function warranties(): HasMany {
         return $this->hasMany(AssetWarranty::class);
     }
@@ -138,6 +139,7 @@ class Asset extends Model {
             ->max();
     }
 
+    #[CascadeDelete(false)]
     public function contractWarranties(): HasMany {
         return $this->hasMany(AssetWarranty::class)->where(static function (Builder $builder): void {
             $builder->orWhere(static function (Builder $builder): void {
@@ -152,10 +154,12 @@ class Asset extends Model {
         });
     }
 
+    #[CascadeDelete(false)]
     public function documentEntries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
 
+    #[CascadeDelete(false)]
     protected function documents(): HasManyThrough {
         return $this->hasManyThrough(
             Document::class,
@@ -167,6 +171,7 @@ class Asset extends Model {
         );
     }
 
+    #[CascadeDelete(false)]
     public function contracts(): HasManyThrough {
         return $this
             ->documents()
@@ -176,6 +181,7 @@ class Asset extends Model {
             });
     }
 
+    #[CascadeDelete(false)]
     public function quotes(): HasManyThrough {
         return $this
             ->documents()
