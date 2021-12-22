@@ -1,44 +1,44 @@
 [
     {
-        "query": "select * from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+        "query": "select `documents`.* from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
         "bindings": [
             "c63823c9-ccae-493b-92ca-5cb2a696da69"
         ]
     },
     {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "query": "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "d3762413-69b4-4993-9713-f823102b98cc"
         ]
     },
     {
-        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "query": "select `customers`.* from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
         "bindings": [
             "9964b0c8-8b88-4b48-9c13-cfcb5e33d0ab"
         ]
     },
     {
-        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
+        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `languages` where `languages`.`deleted_at` is null",
+        "query": "select `languages`.* from `languages` where `languages`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
+        "query": "select `contacts`.* from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
         "bindings": [
             "laurine langosh",
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
@@ -47,7 +47,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
+        "query": "select `contacts`.* from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
         "bindings": [
             "miss vicky kertzmann sr.",
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
@@ -67,14 +67,14 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
             "Document"
         ]
     },
     {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -92,19 +92,19 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "d3762413-69b4-4993-9713-f823102b98cc"
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "d3762413-69b4-4993-9713-f823102b98cc"
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "d3762413-69b4-4993-9713-f823102b98cc",
             "Reseller"
@@ -117,7 +117,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "d3762413-69b4-4993-9713-f823102b98cc"
         ]

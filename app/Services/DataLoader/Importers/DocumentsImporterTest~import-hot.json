@@ -1,6 +1,6 @@
 [
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
             "000024e9-b3ec-4cb0-9f81-a487df3a0a14",
             "0000e20b-e909-4037-97b8-a7474e65ba60",
@@ -15,7 +15,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "000024e9-b3ec-4cb0-9f81-a487df3a0a14",
             "0000e20b-e909-4037-97b8-a7474e65ba60",
@@ -31,7 +31,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "eb7c13ee-fb10-45e0-87e8-8cc527fea1dd",
             "d579e027-5a28-4537-bd72-03c698e14660",
@@ -45,7 +45,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
@@ -60,7 +60,7 @@
         ]
     },
     {
-        "query": "select * from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
             "e3f069e3-2bea-4d88-8610-234bfc11fcee",
             "c9719ee6-0604-43f3-9e34-6effb43dcb4b",
@@ -75,7 +75,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "09315cab-ce9b-4e99-9b80-4e6dc1dce88d",
             "1869320d-1466-44c8-aff7-171700a9f1e3",
@@ -123,27 +123,27 @@
         ]
     },
     {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
+        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `languages` where `languages`.`deleted_at` is null",
+        "query": "select `languages`.* from `languages` where `languages`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -287,7 +287,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
@@ -301,7 +301,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
@@ -315,7 +315,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
@@ -344,7 +344,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0675aa3f-9ad4-48bf-b4eb-57e42edd198d",
             "08f7b011-400a-441c-8d49-f1233f67ca3b",
@@ -464,7 +464,7 @@
         ]
     },
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
             "0007aa3c-be1f-4d8a-ab92-85ca7ebe5618",
             "00085a10-c87e-46cf-9db4-86f199e2d143",
@@ -479,7 +479,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "0007aa3c-be1f-4d8a-ab92-85ca7ebe5618",
             "00085a10-c87e-46cf-9db4-86f199e2d143",
@@ -495,7 +495,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
             "9cb6a8e1-95f7-488e-a0d2-4eee0a905cb9",
@@ -508,7 +508,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
@@ -522,7 +522,7 @@
         ]
     },
     {
-        "query": "select * from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
             "54016e50-bfbb-4613-b91f-9abaf03b00ce",
             "f67d17d3-3437-47c4-8069-5643b27eadad",
@@ -537,7 +537,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "1e741743-b1f0-42dd-b5c1-95eb48bf4157",
             "24b528a6-c3a7-45d6-aab7-fb61d65a3d6f",
@@ -727,7 +727,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
@@ -740,7 +740,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
@@ -753,7 +753,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
@@ -780,7 +780,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "0dc5ead1-a082-4249-9918-117e67a34ab9",
             "0e29edd4-12f1-4787-8944-322a9b767cb2",
@@ -878,7 +878,7 @@
         ]
     },
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
             "000e7abf-c3b9-4790-917a-2e9cff9ddfa5",
             "000efc42-e572-458e-af35-614281db06cd",
@@ -893,7 +893,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "000e7abf-c3b9-4790-917a-2e9cff9ddfa5",
             "000efc42-e572-458e-af35-614281db06cd",
@@ -909,7 +909,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "878a1eac-f90f-4eef-9732-fbeca5e67ff4",
             "d4c1f81c-aee4-4c6d-9d08-8a515fb3be28",
@@ -922,7 +922,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
@@ -936,7 +936,7 @@
         ]
     },
     {
-        "query": "select * from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
             "22472b80-4601-4be2-8a6d-3b17f550fac0",
             "360983d1-a19d-44b0-9ad9-34293fb13e63",
@@ -951,7 +951,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "22472b80-4601-4be2-8a6d-3b17f550fac0",
             "2544e72d-27cf-4a7b-8291-c3fd6c65f3f9",
@@ -1137,7 +1137,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
@@ -1150,7 +1150,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
@@ -1163,7 +1163,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
@@ -1190,7 +1190,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "3d1c5e51-86e7-4687-946f-6553b8e2f131",
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
@@ -1304,7 +1304,7 @@
         ]
     },
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
             "00142305-d9b7-4a70-a618-b93ea36b0bc4",
             "00149067-a82c-4030-ae1a-0e26027378f7",
@@ -1319,7 +1319,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "00142305-d9b7-4a70-a618-b93ea36b0bc4",
             "00149067-a82c-4030-ae1a-0e26027378f7",
@@ -1335,7 +1335,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "8c9be72c-8b1b-460e-87e5-68c81a92bfa4",
             "0ada2df3-6fc0-4f16-8383-1fe11757f38d",
@@ -1350,7 +1350,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "07224fc0-4363-411c-adbc-91ee977daa5f",
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -1366,7 +1366,7 @@
         ]
     },
     {
-        "query": "select * from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
             "56b4a419-145c-4d4d-9d86-5959a240d1ae",
             "daa843a3-203e-409c-b200-63a0bbee29aa",
@@ -1381,7 +1381,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "05811c76-e27c-43eb-8e4c-8ae1967784bc",
             "0cf36158-bd01-4a59-b895-a00704462677",
@@ -1566,7 +1566,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "07224fc0-4363-411c-adbc-91ee977daa5f",
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -1581,7 +1581,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "07224fc0-4363-411c-adbc-91ee977daa5f",
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -1596,7 +1596,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "07224fc0-4363-411c-adbc-91ee977daa5f",
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -1627,7 +1627,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "07224fc0-4363-411c-adbc-91ee977daa5f",
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -1737,7 +1737,7 @@
         ]
     },
     {
-        "query": "select * from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
             "0018323f-0a5d-4e19-90ec-2c3351d49919",
             "00194785-9fba-4865-8106-7a833082c1cc",
@@ -1752,7 +1752,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "0018323f-0a5d-4e19-90ec-2c3351d49919",
             "00194785-9fba-4865-8106-7a833082c1cc",
@@ -1768,7 +1768,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "714aa057-1ea0-4666-b3be-4b69af99e997",
             "a36b83d1-a49b-45be-adb7-3c5defb55234",
@@ -1780,7 +1780,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
             "561b9925-3781-46d7-a734-78efad4f5ae6",
@@ -1793,7 +1793,7 @@
         ]
     },
     {
-        "query": "select * from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
             "b126338b-539c-4aba-936d-f02cd30bde5e",
             "c1c5a133-c373-4212-a836-adfb33fa314c",
@@ -1808,7 +1808,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "26e0cca3-2cb0-4d79-b01c-68fe09d7700e",
             "3175bd91-7a17-48d1-ba9c-94fc11162c26",
@@ -1995,7 +1995,7 @@
         ]
     },
     {
-        "query": "select * from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
         "bindings": [
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
             "561b9925-3781-46d7-a734-78efad4f5ae6",
@@ -2007,7 +2007,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
             "561b9925-3781-46d7-a734-78efad4f5ae6",
@@ -2019,7 +2019,7 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
             "561b9925-3781-46d7-a734-78efad4f5ae6",
@@ -2044,7 +2044,7 @@
         ]
     },
     {
-        "query": "select * from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
             "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
             "561b9925-3781-46d7-a734-78efad4f5ae6",

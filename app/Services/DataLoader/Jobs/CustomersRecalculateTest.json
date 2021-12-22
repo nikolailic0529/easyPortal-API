@@ -1,20 +1,20 @@
 [
     {
-        "query": "select * from `customers` where `id` in (?, ?) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where `id` in (?, ?) and `customers`.`deleted_at` is null",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
         ]
     },
     {
-        "query": "select * from `customer_locations` where `customer_locations`.`customer_id` in (?, ?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",

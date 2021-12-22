@@ -75,15 +75,19 @@ class AssetsAggregated {
 
         $coverage   = new Coverage();
         $results    = $coverage::query()
-            ->selectRaw($coverage->qualifyColumn('*'))
-            ->selectRaw('SUM(a.`count`) as assets_count')
+            ->select([
+                new Expression($coverage->qualifyColumn('*')),
+                new Expression('SUM(a.`count`) as assets_count'),
+            ])
             ->joinRelation(
                 'assets',
                 'a',
                 static function (BelongsToMany $relation, Builder $query) use ($builder): Builder {
                     return $query
-                        ->selectRaw("COUNT({$query->getModel()->getQualifiedKeyName()}) as `count`")
-                        ->selectRaw($relation->getQualifiedForeignPivotKeyName())
+                        ->select([
+                            new Expression("COUNT({$query->getModel()->getQualifiedKeyName()}) as `count`"),
+                            new Expression($relation->getQualifiedForeignPivotKeyName()),
+                        ])
                         ->mergeConstraintsFrom($builder)
                         ->groupBy($relation->getQualifiedForeignPivotKeyName());
                 },

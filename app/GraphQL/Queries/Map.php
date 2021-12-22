@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use League\Geotools\BoundingBox\BoundingBoxInterface;
@@ -54,9 +55,11 @@ class Map {
         $keyname = $model->getQualifiedKeyName();
         $level   = $args['level'];
         $query   = (clone $base)
-            ->selectRaw("AVG({$model->qualifyColumn('latitude')}) as latitude")
-            ->selectRaw("AVG({$model->qualifyColumn('longitude')}) as longitude")
-            ->selectRaw("GROUP_CONCAT({$keyname} ORDER BY {$keyname} SEPARATOR ',') as locations_ids")
+            ->select([
+                new Expression("AVG({$model->qualifyColumn('latitude')}) as latitude"),
+                new Expression("AVG({$model->qualifyColumn('longitude')}) as longitude"),
+                new Expression("GROUP_CONCAT({$keyname} ORDER BY {$keyname} SEPARATOR ',') as locations_ids"),
+            ])
             ->when(
                 $level < Location::GEOHASH_LENGTH,
                 static function (Builder $builder) use ($model, $level): void {
@@ -95,8 +98,10 @@ class Map {
                     return $where
                         ->enhanceBuilder($builder, [])
                         ->distinct()
-                        ->selectRaw($foreignKeyName)
-                        ->selectRaw("{$customerKeyName} as customer_id")
+                        ->select([
+                            new Expression($foreignKeyName),
+                            new Expression("{$customerKeyName} as customer_id")
+                        ])
                         ->whereIn('location_id', $query);
                 },
             );
@@ -112,8 +117,10 @@ class Map {
                     $customerKeyName = $relation->getQualifiedRelatedKeyName();
 
                     return $builder
-                        ->selectRaw($pivotKeyName)
-                        ->selectRaw("{$customerKeyName} as customer_id");
+                        ->select([
+                            new Expression($pivotKeyName),
+                            new Expression("{$customerKeyName} as customer_id"),
+                        ]);
                 },
             );
         }
