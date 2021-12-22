@@ -3,7 +3,6 @@
 namespace App\Utils\Eloquent\CascadeDeletes;
 
 use App\Utils\Eloquent\Pivot;
-use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,6 +16,7 @@ use Tests\TestCase;
 
 use function array_keys;
 use function count;
+use function sprintf;
 
 /**
  * @internal
@@ -65,10 +65,6 @@ class CascadeProcessorTest extends TestCase {
             public function getRelations(Model $model): array {
                 return parent::getRelations($model);
             }
-
-            protected function isRelation(Model $model, string $name, Relation $relation): bool {
-                return true;
-            }
         };
         $model     = new class() extends Model {
             /**
@@ -79,14 +75,22 @@ class CascadeProcessorTest extends TestCase {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            #[CascadeDelete(true)]
             public function relationWithTypehint(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            #[CascadeDelete(false)]
+            public function relationWithTypehintIgnored(): BelongsTo {
+                return Mockery::mock(BelongsTo::class);
+            }
+
+            #[CascadeDelete(true)]
             protected function relationProtected(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            #[CascadeDelete(true)]
             public function relationWithUnionTypehint(): BelongsTo|HasOne {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -101,19 +105,31 @@ class CascadeProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::isRelation
-     *
-     * @dataProvider dataProviderIsRelation
+     * @covers ::getRelations
      */
-    public function testIsRelation(bool $expected, Closure $modelFactory, Closure $relationFactory): void {
+    public function testGetRelationsNoAttribute(): void {
         $processor = new class() extends CascadeProcessor {
-            public function isRelation(Model $model, string $name, Relation $relation): bool {
-                return parent::isRelation($model, $name, $relation);
+            /**
+             * @inheritDoc
+             */
+            public function getRelations(Model $model): array {
+                return parent::getRelations($model);
+            }
+        };
+        $model     = new class() extends Model {
+            public function relationWithoutAttribute(): BelongsTo {
+                return Mockery::mock(BelongsTo::class);
             }
         };
 
+        $this->expectErrorMessage(sprintf(
+            'Relation `%s::%s()` must have `%s` attribute.',
+            $model::class,
+            'relationWithoutAttribute',
+            CascadeDelete::class,
+        ));
 
-        $this->assertEquals($expected, $processor->isRelation($modelFactory($this), 'name', $relationFactory($this)));
+        $processor->getRelations($model);
     }
 
     /**
@@ -243,6 +259,7 @@ class CascadeProcessorTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
+     * @deprecated
      * @return array<mixed>
      */
     public function dataProviderIsRelation(): array {
