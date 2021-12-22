@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasDocumentEntries {
-    #[CascadeDelete(true)]
+    #[CascadeDelete(false)]
     public function documentEntries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }

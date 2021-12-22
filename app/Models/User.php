@@ -201,7 +201,7 @@ class User extends Model implements
         return $this->organization;
     }
 
-    #[CascadeDelete(true)]
+    #[CascadeDelete(false)]
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
     }
