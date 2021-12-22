@@ -20,7 +20,6 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Text;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
 use function app;
@@ -85,7 +83,7 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryQuotes()
  * @mixin \Eloquent
  */
-class Document extends Model implements CascadeDeletable {
+class Document extends Model {
     use HasFactory;
     use Searchable;
     use OwnedByReseller;
@@ -195,13 +193,6 @@ class Document extends Model implements CascadeDeletable {
 
     public function getIsQuoteAttribute(): bool {
         return app()->make(QuoteType::class)->isQuoteType($this->type_id);
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="CascadeDeletes">
-    // =========================================================================
-    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
-        return $name === 'entries';
     }
     // </editor-fold>
 

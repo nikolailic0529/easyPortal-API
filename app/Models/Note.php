@@ -7,11 +7,9 @@ use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDeletable;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * Note.
@@ -35,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note query()
  * @mixin \Eloquent
  */
-class Note extends Model implements CascadeDeletable {
+class Note extends Model {
     use HasFactory;
     use OwnedByOrganization;
     use SyncHasMany;
@@ -63,8 +61,4 @@ class Note extends Model implements CascadeDeletable {
      * @var array<string>
      */
     protected $casts = self::CASTS;
-
-    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
-        return $name === 'files';
-    }
 }
