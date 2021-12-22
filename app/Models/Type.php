@@ -64,6 +64,7 @@ class Type extends PolymorphicModel implements Translatable {
         return ['name'];
     }
 
+    #[CascadeDelete(false)]
     public function locations(): HasManyDeep {
         return $this->hasManyDeep(
             Location::class,
