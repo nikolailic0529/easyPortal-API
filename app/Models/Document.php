@@ -168,6 +168,7 @@ class Document extends Model implements CascadeDeletable {
         return $this->hasMany(Note::class);
     }
 
+    #[CascadeDelete(false)]
     public function assets(): HasManyThrough {
         return $this->hasManyThrough(
             Asset::class,

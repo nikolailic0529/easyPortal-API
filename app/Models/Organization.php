@@ -136,6 +136,7 @@ class Organization extends Model implements
             ->withTimestamps();
     }
 
+    #[CascadeDelete(false)]
     public function contacts(): HasManyThrough {
         [$type, $id] = $this->getMorphs('object', null, null);
 
@@ -170,6 +171,7 @@ class Organization extends Model implements
         return $this->hasMany(Audit::class);
     }
 
+    #[CascadeDelete(false)]
     public function users(): HasManyThrough {
         return $this->hasManyThrough(
             User::class,
