@@ -242,7 +242,7 @@ class SearchTest extends TestCase {
                         ]),
                         $settings,
                         $factory,
-                        'Asset',
+                        'Asset A',
                     ],
                     'search customer' => [
                         new GraphQLPaginated('search', self::class, [$objects['Customer']], [
@@ -250,7 +250,7 @@ class SearchTest extends TestCase {
                         ]),
                         $settings,
                         $factory,
-                        'Customer',
+                        'Customer A',
                     ],
                     'search contract' => [
                         new GraphQLPaginated('search', self::class, [$objects['Contract']], [
@@ -258,7 +258,7 @@ class SearchTest extends TestCase {
                         ]),
                         $settings,
                         $factory,
-                        'Contract',
+                        'Contract A',
                     ],
                     'search quote'    => [
                         new GraphQLPaginated('search', self::class, [$objects['Quote']], [
@@ -266,7 +266,7 @@ class SearchTest extends TestCase {
                         ]),
                         $settings,
                         $factory,
-                        'Quote',
+                        'Quote A',
                     ],
                 ]),
             ),
