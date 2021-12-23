@@ -141,15 +141,7 @@ class Configuration {
     }
 
     public function getIndexName(): string {
-        $properties = $this->getProperties();
-
-        array_walk_recursive($properties, static function (mixed &$value): void {
-            $value = $value instanceof Property
-                ? implode('@', [$value::class, $value->getName()])
-                : (string) $value;
-        });
-
-        $hash = sha1(json_encode($properties));
+        $hash = sha1(json_encode($this->getMappings()));
         $name = "{$this->getIndexAlias()}@{$hash}";
 
         return $name;
