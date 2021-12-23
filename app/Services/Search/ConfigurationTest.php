@@ -4,6 +4,7 @@ namespace App\Services\Search;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -219,13 +220,33 @@ class ConfigurationTest extends TestCase {
         $actual   = $this
             ->getModel(
                 [
-                    'meta' => new Text('meta'),
+                    'meta' => new class('meta') extends Property {
+                        public function getType(): string {
+                            return 'text';
+                        }
+
+                        public function hasKeyword(): bool {
+                            return true;
+                        }
+                    },
                 ],
                 [
-                    'name'  => new Text('name'),
+                    'name'  => new class('name') extends Property {
+                        public function getType(): string {
+                            return 'text';
+                        }
+                    },
                     'child' => [
-                        'id'   => new Uuid('id'),
-                        'name' => new Text('name'),
+                        'id'   => new class('id') extends Property {
+                            public function getType(): string {
+                                return 'keyword';
+                            }
+                        },
+                        'name' => new class('name') extends Property {
+                            public function getType(): string {
+                                return 'text';
+                            }
+                        },
                     ],
                 ],
             )
@@ -248,12 +269,7 @@ class ConfigurationTest extends TestCase {
                 Configuration::getPropertyName() => [
                     'properties' => [
                         'name'  => [
-                            'type'   => 'text',
-                            'fields' => [
-                                'keyword' => [
-                                    'type' => 'keyword',
-                                ],
-                            ],
+                            'type' => 'text',
                         ],
                         'child' => [
                             'properties' => [
@@ -261,12 +277,7 @@ class ConfigurationTest extends TestCase {
                                     'type' => 'keyword',
                                 ],
                                 'name' => [
-                                    'type'   => 'text',
-                                    'fields' => [
-                                        'keyword' => [
-                                            'type' => 'keyword',
-                                        ],
-                                    ],
+                                    'type' => 'text',
                                 ],
                             ],
                         ],

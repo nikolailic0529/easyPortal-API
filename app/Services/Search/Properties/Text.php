@@ -4,7 +4,7 @@ namespace App\Services\Search\Properties;
 
 class Text extends Property {
     public function getType(): string {
-        return 'text';
+        return 'wildcard';
     }
 
     public function hasKeyword(): bool {
