@@ -3,12 +3,14 @@
 namespace App\Models\Relations;
 
 use App\Models\Oem;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasOem {
+    #[CascadeDelete(false)]
     public function oem(): BelongsTo {
         return $this->belongsTo(Oem::class);
     }

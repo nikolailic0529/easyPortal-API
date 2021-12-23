@@ -7,6 +7,7 @@ use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasLocations;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,6 +71,7 @@ class Organization extends Model implements
     use HasFactory;
     use HasCurrency;
     use HasLocations {
+        locations as private getLocationsRelation;
         setLocationsAttribute as private;
     }
 
@@ -124,6 +126,12 @@ class Organization extends Model implements
         return $this->timezone;
     }
 
+    #[CascadeDelete(false)]
+    public function locations(): HasMany {
+        return $this->getLocationsRelation();
+    }
+
+    #[CascadeDelete(false)]
     public function statuses(): BelongsToMany {
         $pivot = new ResellerStatus();
 
@@ -134,6 +142,7 @@ class Organization extends Model implements
             ->withTimestamps();
     }
 
+    #[CascadeDelete(false)]
     public function contacts(): HasManyThrough {
         [$type, $id] = $this->getMorphs('object', null, null);
 
@@ -141,6 +150,7 @@ class Organization extends Model implements
             ->where($type, '=', (new Reseller())->getMorphClass());
     }
 
+    #[CascadeDelete(false)]
     public function kpi(): HasOneThrough {
         return $this->hasOneThrough(
             Kpi::class,
@@ -152,18 +162,22 @@ class Organization extends Model implements
         );
     }
 
+    #[CascadeDelete(false)]
     public function reseller(): HasOne {
         return $this->hasOne(Reseller::class, (new Reseller())->getKeyName());
     }
 
+    #[CascadeDelete(true)]
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
     }
 
+    #[CascadeDelete(false)]
     public function audits(): HasMany {
         return $this->hasMany(Audit::class);
     }
 
+    #[CascadeDelete(false)]
     public function users(): HasManyThrough {
         return $this->hasManyThrough(
             User::class,

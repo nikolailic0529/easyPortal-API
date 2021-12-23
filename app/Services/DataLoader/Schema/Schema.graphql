@@ -335,7 +335,7 @@ type Query {
   getDistributors(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
   getDocumentTypes: [String]!
   getDocuments(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Document]!
-  getDocumentById(id: String!): Document!
+  getDocumentById(id: String!): Document
   getCentralAssetDbStatistics: CentralAssetDbStatistics
 }
 

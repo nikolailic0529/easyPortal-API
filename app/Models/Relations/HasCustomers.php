@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Customer;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -19,6 +20,7 @@ use function count;
 trait HasCustomers {
     use SyncBelongsToMany;
 
+    #[CascadeDelete(false)]
     public function customers(): BelongsToMany {
         $pivot = $this->getCustomersPivot();
 
@@ -29,6 +31,7 @@ trait HasCustomers {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(true)]
     public function customersPivots(): HasMany {
         $customers = $this->customers();
         $relation  = $this->hasMany(

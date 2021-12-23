@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasOrganization;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,6 +45,7 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
         'enabled' => 'bool',
     ] + parent::CASTS;
 
+    #[CascadeDelete(false)]
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);
     }
@@ -52,6 +54,7 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
         $this->role()->associate($role);
     }
 
+    #[CascadeDelete(false)]
     public function team(): BelongsTo {
         return $this->belongsTo(Team::class);
     }

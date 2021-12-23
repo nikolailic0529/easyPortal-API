@@ -13,6 +13,7 @@ use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -112,6 +113,7 @@ class Asset extends Model {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    #[CascadeDelete(false)]
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
     }
@@ -120,6 +122,7 @@ class Asset extends Model {
         $this->location()->associate($location);
     }
 
+    #[CascadeDelete(true)]
     public function warranties(): HasMany {
         return $this->hasMany(AssetWarranty::class);
     }
@@ -137,6 +140,7 @@ class Asset extends Model {
             ->max();
     }
 
+    #[CascadeDelete(false)]
     public function contractWarranties(): HasMany {
         return $this->hasMany(AssetWarranty::class)->where(static function (Builder $builder): void {
             $builder->orWhere(static function (Builder $builder): void {
@@ -151,10 +155,12 @@ class Asset extends Model {
         });
     }
 
+    #[CascadeDelete(false)]
     public function documentEntries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
 
+    #[CascadeDelete(false)]
     protected function documents(): HasManyThrough {
         return $this->hasManyThrough(
             Document::class,
@@ -166,6 +172,7 @@ class Asset extends Model {
         );
     }
 
+    #[CascadeDelete(false)]
     public function contracts(): HasManyThrough {
         return $this
             ->documents()
@@ -175,6 +182,7 @@ class Asset extends Model {
             });
     }
 
+    #[CascadeDelete(false)]
     public function quotes(): HasManyThrough {
         return $this
             ->documents()
@@ -195,6 +203,7 @@ class Asset extends Model {
         return new AssetTag();
     }
 
+    #[CascadeDelete(true)]
     public function coverages(): BelongsToMany {
         $pivot = new AssetCoverage();
 
@@ -213,6 +222,7 @@ class Asset extends Model {
         $this->coverages_count = count($this->coverages);
     }
 
+    #[CascadeDelete(false)]
     public function quoteRequest(): HasOneThrough {
         $request = new QuoteRequest();
 
@@ -221,6 +231,7 @@ class Asset extends Model {
             ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
     }
 
+    #[CascadeDelete(false)]
     public function changeRequest(): HasOne {
         $request = new ChangeRequest();
 

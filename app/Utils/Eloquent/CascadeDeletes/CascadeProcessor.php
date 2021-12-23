@@ -4,22 +4,20 @@ namespace App\Utils\Eloquent\CascadeDeletes;
 
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\ModelHelper;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
-use ReflectionNamedType;
 
 use function array_filter;
 use function array_map;
-use function is_a;
-use function str_starts_with;
+use function reset;
+use function sprintf;
 
 class CascadeProcessor {
     public function delete(Model $model): void {
@@ -32,43 +30,44 @@ class CascadeProcessor {
      * @return array<\Illuminate\Database\Eloquent\Relations\Relation>
      */
     protected function getRelations(Model $model): array {
+        $helper    = new ModelHelper($model);
         $methods   = (new ReflectionClass($model))->getMethods(ReflectionMethod::IS_PUBLIC);
         $relations = [];
 
         foreach ($methods as $method) {
-            $name     = $method->getName();
-            $type     = $method->getReturnType();
-            $relation = null;
+            // Relation?
+            $name = $method->getName();
 
-            if ($type instanceof ReflectionNamedType && is_a($type->getName(), Relation::class, true)) {
-                $relation = $model->{$name}();
+            if (!$helper->isRelation($name)) {
+                continue;
             }
 
-            if ($relation instanceof Relation && $this->isRelation($model, $name, $relation)) {
-                $relations[$name] = $relation;
+            // Attribute?
+            $attribute = $this->getAttribute($method);
+
+            if ($attribute) {
+                if ($attribute->isDelete()) {
+                    $relations[$name] = $helper->getRelation($name);
+                }
+            } else {
+                throw new Exception(sprintf(
+                    'Relation `%s::%s()` must have `%s` attribute.',
+                    $model::class,
+                    $name,
+                    CascadeDelete::class,
+                ));
             }
         }
 
         return $relations;
     }
 
-    protected function isRelation(Model $model, string $name, Relation $relation): bool {
-        $cascade = false;
+    protected function getAttribute(ReflectionMethod $method): ?CascadeDelete {
+        $attributes = $method->getAttributes(CascadeDelete::class);
+        $attribute  = reset($attributes) ?: null;
+        $attribute  = $attribute?->newInstance();
 
-        if ($relation instanceof MorphMany || $this->isBelongsToMany($model, $name, $relation)) {
-            $cascade = true;
-        } else {
-            // When: items - item_types
-            $base    = Str::singular($model->getTable()).'_';
-            $table   = $relation->newModelInstance()->getTable();
-            $cascade = str_starts_with($table, $base);
-        }
-
-        if ($model instanceof CascadeDeletable) {
-            $cascade = $model->isCascadeDeletableRelation($name, $relation, $cascade);
-        }
-
-        return $cascade;
+        return $attribute;
     }
 
     protected function runDelete(Model $model, string $name, Relation $relation): void {

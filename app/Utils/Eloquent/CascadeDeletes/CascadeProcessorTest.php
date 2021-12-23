@@ -3,13 +3,10 @@
 namespace App\Utils\Eloquent\CascadeDeletes;
 
 use App\Utils\Eloquent\Pivot;
-use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Mockery;
@@ -17,6 +14,7 @@ use Tests\TestCase;
 
 use function array_keys;
 use function count;
+use function sprintf;
 
 /**
  * @internal
@@ -65,10 +63,6 @@ class CascadeProcessorTest extends TestCase {
             public function getRelations(Model $model): array {
                 return parent::getRelations($model);
             }
-
-            protected function isRelation(Model $model, string $name, Relation $relation): bool {
-                return true;
-            }
         };
         $model     = new class() extends Model {
             /**
@@ -79,14 +73,22 @@ class CascadeProcessorTest extends TestCase {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            #[CascadeDelete(true)]
             public function relationWithTypehint(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            #[CascadeDelete(false)]
+            public function relationWithTypehintIgnored(): BelongsTo {
+                return Mockery::mock(BelongsTo::class);
+            }
+
+            #[CascadeDelete(true)]
             protected function relationProtected(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            #[CascadeDelete(true)]
             public function relationWithUnionTypehint(): BelongsTo|HasOne {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -101,19 +103,31 @@ class CascadeProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::isRelation
-     *
-     * @dataProvider dataProviderIsRelation
+     * @covers ::getRelations
      */
-    public function testIsRelation(bool $expected, Closure $modelFactory, Closure $relationFactory): void {
+    public function testGetRelationsNoAttribute(): void {
         $processor = new class() extends CascadeProcessor {
-            public function isRelation(Model $model, string $name, Relation $relation): bool {
-                return parent::isRelation($model, $name, $relation);
+            /**
+             * @inheritDoc
+             */
+            public function getRelations(Model $model): array {
+                return parent::getRelations($model);
+            }
+        };
+        $model     = new class() extends Model {
+            public function relationWithoutAttribute(): BelongsTo {
+                return Mockery::mock(BelongsTo::class);
             }
         };
 
+        $this->expectErrorMessage(sprintf(
+            'Relation `%s::%s()` must have `%s` attribute.',
+            $model::class,
+            'relationWithoutAttribute',
+            CascadeDelete::class,
+        ));
 
-        $this->assertEquals($expected, $processor->isRelation($modelFactory($this), 'name', $relationFactory($this)));
+        $processor->getRelations($model);
     }
 
     /**
@@ -237,185 +251,6 @@ class CascadeProcessorTest extends TestCase {
         $this->assertEquals([$pivot], $processor->getRelatedObjects($model, 'collection', $relation));
         $this->assertEquals([$pivot], $processor->getRelatedObjects($model, 'model', $relation));
         $this->assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="DataProviders">
-    // =========================================================================
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderIsRelation(): array {
-        return [
-            'Model + MorphMany'            => [
-                true,
-                static function (): Model {
-                    return new class() extends Model {
-                        // empty
-                    };
-                },
-                static function (): Relation {
-                    return Mockery::mock(MorphMany::class);
-                },
-            ],
-            'CascadeDeletable + MorphMany' => [
-                false,
-                static function (): Model {
-                    return new class() extends Model implements CascadeDeletable {
-                        public function isCascadeDeletableRelation(
-                            string $name,
-                            Relation $relation,
-                            bool $default,
-                        ): bool {
-                            return false;
-                        }
-                    };
-                },
-                static function (): Relation {
-                    return Mockery::mock(MorphMany::class);
-                },
-            ],
-            'Model + Relation'             => [
-                false,
-                static function (): Model {
-                    return new class() extends Model {
-                        /**
-                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                         *
-                         * @var string
-                         */
-                        protected $table = 'items';
-                    };
-                },
-                static function (): Relation {
-                    $relation = Mockery::mock(Relation::class);
-                    $relation
-                        ->shouldReceive('newModelInstance')
-                        ->once()
-                        ->andReturn(new class() extends Model {
-                            /**
-                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                             *
-                             * @var string
-                             */
-                            protected $table = 'objects';
-                        });
-
-                    return $relation;
-                },
-            ],
-            'CascadeDeletable + Relation'  => [
-                true,
-                static function (): Model {
-                    return new class() extends Model implements CascadeDeletable {
-                        /**
-                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                         *
-                         * @var string
-                         */
-                        protected $table = 'items';
-
-                        public function isCascadeDeletableRelation(
-                            string $name,
-                            Relation $relation,
-                            bool $default,
-                        ): bool {
-                            return true;
-                        }
-                    };
-                },
-                static function (): Relation {
-                    $relation = Mockery::mock(Relation::class);
-                    $relation
-                        ->shouldReceive('newModelInstance')
-                        ->once()
-                        ->andReturn(new class() extends Model {
-                            /**
-                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                             *
-                             * @var string
-                             */
-                            protected $table = 'objects';
-                        });
-
-                    return $relation;
-                },
-            ],
-            'Model + Child'                => [
-                true,
-                static function (): Model {
-                    return new class() extends Model {
-                        /**
-                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                         *
-                         * @var string
-                         */
-                        protected $table = 'items';
-                    };
-                },
-                static function (): Relation {
-                    $relation = Mockery::mock(Relation::class);
-                    $relation
-                        ->shouldReceive('newModelInstance')
-                        ->once()
-                        ->andReturn(new class() extends Model {
-                            /**
-                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                             *
-                             * @var string
-                             */
-                            protected $table = 'item_objects';
-                        });
-
-                    return $relation;
-                },
-            ],
-            'Model + BelongsToMany'        => [
-                true,
-                static function (): Model {
-                    return new class() extends Model {
-                        /**
-                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                         *
-                         * @var string
-                         */
-                        protected $table = 'items';
-                    };
-                },
-                static function (): Relation {
-                    return Mockery::mock(BelongsToMany::class);
-                },
-            ],
-            'Model + MorphToMany'          => [
-                false,
-                static function (): Model {
-                    return new class() extends Model {
-                        /**
-                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                         *
-                         * @var string
-                         */
-                        protected $table = 'items';
-                    };
-                },
-                static function (): Relation {
-                    $relation = Mockery::mock(MorphToMany::class);
-                    $relation
-                        ->shouldReceive('newModelInstance')
-                        ->once()
-                        ->andReturn(new class() extends Model {
-                            /**
-                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-                             *
-                             * @var string
-                             */
-                            protected $table = 'objects';
-                        });
-
-                    return $relation;
-                },
-            ],
-        ];
     }
     // </editor-fold>
 }

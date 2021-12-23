@@ -100,7 +100,7 @@ class Map {
                         ->distinct()
                         ->select([
                             new Expression($foreignKeyName),
-                            new Expression("{$customerKeyName} as customer_id")
+                            new Expression("{$customerKeyName} as customer_id"),
                         ])
                         ->whereIn('location_id', $query);
                 },

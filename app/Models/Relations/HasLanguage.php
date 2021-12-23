@@ -3,12 +3,14 @@
 namespace App\Models\Relations;
 
 use App\Models\Language;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasLanguage {
+    #[CascadeDelete(false)]
     public function language(): BelongsTo {
         return $this->belongsTo(Language::class);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,6 +32,7 @@ class Tag extends Model {
      */
     protected $table = 'tags';
 
+    #[CascadeDelete(true)]
     public function assets(): BelongsToMany {
         $pivot = new AssetTag();
 

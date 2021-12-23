@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -54,10 +55,12 @@ class Invitation extends Model {
      */
     protected $casts = self::CASTS;
 
+    #[CascadeDelete(false)]
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
 
+    #[CascadeDelete(false)]
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);
     }

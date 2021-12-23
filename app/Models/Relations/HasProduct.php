@@ -3,12 +3,14 @@
 namespace App\Models\Relations;
 
 use App\Models\Product;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasProduct {
+    #[CascadeDelete(false)]
     public function product(): BelongsTo {
         return $this->belongsTo(Product::class);
     }

@@ -7,6 +7,7 @@ use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContracts;
 use App\Models\Relations\HasQuotes;
 use App\Models\Scopes\DocumentTypeQuery;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\TranslateProperties;
 use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Builder;
@@ -63,6 +64,7 @@ class Type extends PolymorphicModel implements Translatable {
         return ['name'];
     }
 
+    #[CascadeDelete(false)]
     public function locations(): HasManyDeep {
         return $this->hasManyDeep(
             Location::class,
@@ -83,6 +85,7 @@ class Type extends PolymorphicModel implements Translatable {
         );
     }
 
+    #[CascadeDelete(true)]
     public function contacts(): BelongsToMany {
         $pivot = new ContactType();
 
@@ -93,10 +96,12 @@ class Type extends PolymorphicModel implements Translatable {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(false)]
     public function customers(): HasMany {
         return $this->hasMany(Customer::class);
     }
 
+    #[CascadeDelete(false)]
     public function documents(): HasMany {
         return $this
             ->hasMany(Document::class)

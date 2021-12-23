@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Type;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use InvalidArgumentException;
 
@@ -12,6 +13,7 @@ use function sprintf;
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasTypeNullable {
+    #[CascadeDelete(false)]
     public function type(): BelongsTo {
         return $this->belongsTo(Type::class);
     }

@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Status;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -18,6 +19,7 @@ use function count;
 trait HasStatuses {
     use SyncBelongsToMany;
 
+    #[CascadeDelete(true)]
     public function statuses(): BelongsToMany {
         $pivot = $this->getStatusesPivot();
 

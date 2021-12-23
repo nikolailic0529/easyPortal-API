@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Type;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,7 @@ use Illuminate\Support\Collection;
 trait HasTypes {
     use SyncBelongsToMany;
 
+    #[CascadeDelete(true)]
     public function types(): BelongsToMany {
         $pivot = $this->getTypesPivot();
 

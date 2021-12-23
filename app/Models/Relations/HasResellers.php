@@ -4,6 +4,7 @@ namespace App\Models\Relations;
 
 use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -23,6 +24,7 @@ trait HasResellers {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    #[CascadeDelete(false)]
     public function resellers(): BelongsToMany {
         $pivot = $this->getResellersPivot();
 
@@ -38,6 +40,7 @@ trait HasResellers {
             ->withTimestamps();
     }
 
+    #[CascadeDelete(true)]
     public function resellersPivots(): HasMany {
         $resellers = $this->resellers();
         $relation  = $this->hasMany(
