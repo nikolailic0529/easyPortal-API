@@ -7,11 +7,14 @@ use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Scope;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Builder as ScoutBuilder;
+use stdClass;
 use Tests\TestCase;
 
 /**
@@ -120,14 +123,13 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'query_string' => [
-                                        'query'            => '*a\\[b\\]c*',
-                                        'fields'           => [
-                                            Configuration::getPropertyName('a'),
-                                            Configuration::getPropertyName('a.keyword'),
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('a') => [
+                                                'value'            => '*a[b]c*',
+                                                'case_insensitive' => true,
+                                            ],
                                         ],
-                                        'default_operator' => 'AND',
-                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -142,14 +144,13 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'query_string' => [
-                                        'query'            => '*a\\[b\\]c*',
-                                        'fields'           => [
-                                            Configuration::getPropertyName('a'),
-                                            Configuration::getPropertyName('a.keyword'),
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('a') => [
+                                                'value'            => '*a[b]c*',
+                                                'case_insensitive' => true,
+                                            ],
                                         ],
-                                        'default_operator' => 'AND',
-                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -232,14 +233,13 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'query_string' => [
-                                        'query'            => '*a\\[b\\]c*',
-                                        'fields'           => [
-                                            Configuration::getPropertyName('a'),
-                                            Configuration::getPropertyName('a.keyword'),
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('a') => [
+                                                'value'            => '*a[b]c*',
+                                                'case_insensitive' => true,
+                                            ],
                                         ],
-                                        'default_operator' => 'AND',
-                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -262,20 +262,47 @@ class SearchRequestFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::prepareQueryString
+     * @covers ::makeQuery
      *
      * @dataProvider dataProviderEscapeQueryString
+     *
+     * @param array<mixed> $expected
+     * @param array<mixed> $properties
      */
-    public function testPrepareQueryString(string $expected, string $query): void {
-        $this->assertEquals($expected, (new class() extends SearchRequestFactory {
+    public function testMakeQuery(array $expected, array $properties, string $query): void {
+        $model   = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public static array $properties = [];
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return self::$properties;
+            }
+        };
+        $builder = new ScoutBuilder($model, $query);
+        $factory = new class() extends SearchRequestFactory {
             public function __construct() {
                 // empty
             }
 
-            public function prepareQueryString(string $string): string {
-                return parent::prepareQueryString($string);
+            /**
+             * @inheritDoc
+             */
+            public function makeQuery(ScoutBuilder $builder): array {
+                return parent::makeQuery($builder);
             }
-        })->prepareQueryString($query));
+        };
+
+        $model::$properties = $properties;
+        $actual             = $factory->makeQuery($builder);
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -295,6 +322,24 @@ class SearchRequestFactoryTest extends TestCase {
             })->escapeQueryString('"<te-xt>>> (with)! {special} * && /characters?\\"'),
         );
     }
+
+    /**
+     * @covers ::escapeWildcardString
+     */
+    public function testEscapeWildcardString(): void {
+        $this->assertEquals(
+            'text with \\* and \\? and \\ characters.',
+            (new class() extends SearchRequestFactory {
+                public function __construct() {
+                    // empty
+                }
+
+                public function escapeWildcardString(string $string): string {
+                    return parent::escapeWildcardString($string);
+                }
+            })->escapeWildcardString('text with * and ? and \\ characters.'),
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -304,14 +349,8 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function dataProviderMakeFromBuilder(): array {
         $must = [
-            'query_string' => [
-                'query'            => '*',
-                'fields'           => [
-                    Configuration::getPropertyName('a'),
-                    Configuration::getPropertyName('a.keyword'),
-                ],
-                'default_operator' => 'AND',
-                'analyze_wildcard' => true,
+            [
+                'match_all' => new stdClass(),
             ],
         ];
 
@@ -515,18 +554,260 @@ class SearchRequestFactoryTest extends TestCase {
      * @return array<string, array{string, string}>
      */
     public function dataProviderEscapeQueryString(): array {
+        $a = new class('', true) extends Property {
+            public function getType(): string {
+                return 'text';
+            }
+        };
+        $b = new class('', true) extends Property {
+            public function getType(): string {
+                return 'text';
+            }
+        };
+        $c = new class('', false) extends Property {
+            public function getType(): string {
+                return 'text';
+            }
+        };
+
         return [
-            '*'            => [
-                '*',
+            ''                         => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match_all' => new stdClass(),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
+                '',
+            ],
+            '*'                        => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match_all' => new stdClass(),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
                 '*',
             ],
-            'simple'       => [
-                '*te\\-xt* *\\(with\\)\\!* *\\{special\\}* *\\** *\\&&* *\\/characters\\?\\\\*',
-                '<te-xt>>> (with)! {special} * && /characters?\\',
+            '""'                       => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match_none' => new stdClass(),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
+                '""',
             ],
-            'exact phrase' => [
-                '"exact \\(with\\)\\! phrase"',
-                '"exact <(with)!> phrase"',
+            '  ""  '                   => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match_none' => new stdClass(),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
+                '  ""  ',
+            ],
+            'no searchable properties' => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'match_none' => new stdClass(),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'c' => $c,
+                ],
+                'search',
+            ],
+            'string (single)'          => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'wildcard' => [
+                                    Configuration::getPropertyName('a') => [
+                                        'value'            => '*se\\*\\?ch*',
+                                        'case_insensitive' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                ],
+                'se*?ch',
+            ],
+            'string (multi)'           => [
+                [
+                    'bool' => [
+                        'must' => [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('a') => [
+                                                'value'            => '*se\\arch*',
+                                                'case_insensitive' => true,
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('b') => [
+                                                'value'            => '*se\\arch*',
+                                                'case_insensitive' => true,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
+                'se\\arch',
+            ],
+            '"the phrase" (single)'    => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'wildcard' => [
+                                    Configuration::getPropertyName('a') => [
+                                        'value'            => '*the phrase*',
+                                        'case_insensitive' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                ],
+                '"the phrase"',
+            ],
+            '"the phrase" (multi)'     => [
+                [
+                    'bool' => [
+                        'must' => [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('a') => [
+                                                'value'            => '*the phrase*',
+                                                'case_insensitive' => true,
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('b') => [
+                                                'value'            => '*the phrase*',
+                                                'case_insensitive' => true,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
+                '"the phrase"',
+            ],
+            'words (single)'           => [
+                [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'wildcard' => [
+                                    Configuration::getPropertyName('a') => [
+                                        'value'            => '*one*two*',
+                                        'case_insensitive' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                ],
+                'one two',
+            ],
+            'words (multi)'            => [
+                [
+                    'bool' => [
+                        'must' => [
+                            'bool' => [
+                                'should' => [
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('a') => [
+                                                'value'            => '*one*two*',
+                                                'case_insensitive' => true,
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'wildcard' => [
+                                            Configuration::getPropertyName('b') => [
+                                                'value'            => '*one*two*',
+                                                'case_insensitive' => true,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'a' => $a,
+                    'b' => $b,
+                ],
+                'one two',
             ],
         ];
     }

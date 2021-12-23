@@ -398,7 +398,7 @@ class ConfigurationTest extends TestCase {
         return [
             'no searchable'                       => [
                 [
-                    '',
+                    // empty
                 ],
                 [
                     'm' => new Text('m'),
@@ -414,7 +414,6 @@ class ConfigurationTest extends TestCase {
             'no searchable + metadata searchable' => [
                 [
                     Configuration::getMetadataName('m'),
-                    Configuration::getMetadataName('m.keyword'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -429,7 +428,10 @@ class ConfigurationTest extends TestCase {
             ],
             'all searchable'                      => [
                 [
-                    '*',
+                    Configuration::getMetadataName('m'),
+                    Configuration::getPropertyName('a'),
+                    Configuration::getPropertyName('b.a'),
+                    Configuration::getPropertyName('b.b'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -456,9 +458,7 @@ class ConfigurationTest extends TestCase {
             'mixed one'                           => [
                 [
                     Configuration::getMetadataName('m'),
-                    Configuration::getMetadataName('m.keyword'),
                     Configuration::getPropertyName('b.b'),
-                    Configuration::getPropertyName('b.b.keyword'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -474,9 +474,7 @@ class ConfigurationTest extends TestCase {
             'mixed two'                           => [
                 [
                     Configuration::getPropertyName('b.a'),
-                    Configuration::getPropertyName('b.a.keyword'),
                     Configuration::getPropertyName('b.b'),
-                    Configuration::getPropertyName('b.b.keyword'),
                 ],
                 [
                     // empty

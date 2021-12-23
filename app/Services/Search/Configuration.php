@@ -13,8 +13,6 @@ use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_merge;
-use function array_walk_recursive;
-use function implode;
 use function is_array;
 use function json_encode;
 use function sha1;
@@ -83,34 +81,11 @@ class Configuration {
     public function getSearchable(): array {
         // Convert into flat array: ['properties.id` => new Property(), 'properties.name` => new Property()]
         $properties = $this->getSearchableProcess($this->getProperties());
-        $searchable = array_filter($properties, static function (?Property $property): bool {
+        $searchable = array_keys(array_filter($properties, static function (?Property $property): bool {
             return (bool) $property?->isSearchable();
-        });
+        }));
 
-        // Empty?
-        if (!$searchable) {
-            return [''];
-        }
-
-        // All?
-        if (array_keys($properties) === array_keys($searchable)) {
-            return ['*'];
-        }
-
-        // Convert
-        $names = [];
-
-        foreach ($searchable as $name => $property) {
-            /** @var \App\Services\Search\Properties\Property $property */
-            $names[] = $name;
-
-            if ($property->hasKeyword()) {
-                $names[] = "{$name}.keyword";
-            }
-        }
-
-        // Return
-        return $names;
+        return $searchable;
     }
 
     /**
