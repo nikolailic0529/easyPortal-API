@@ -38,8 +38,8 @@ class OffsetBasedObjectIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorWithLimitOffset(): void {
-        $data          = range(1, 10);
-        $executor      = Mockery::spy(static function (array $variables = []) use ($data): array {
+        $data     = range(1, 10);
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
 

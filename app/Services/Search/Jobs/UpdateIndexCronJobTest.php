@@ -126,7 +126,7 @@ class UpdateIndexCronJobTest extends TestCase {
         $job->makePartial();
 
         // Ok
-        $service  = Mockery::mock(Service::class);
+        $service = Mockery::mock(Service::class);
         $service
             ->shouldReceive('get')
             ->with($job, Mockery::type(Closure::class))
