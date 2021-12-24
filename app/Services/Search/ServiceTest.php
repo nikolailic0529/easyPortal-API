@@ -34,10 +34,11 @@ class ServiceTest extends TestCase {
             })
             ->keys()
             ->all();
-        $actual   = Service::getSearchableModels();
+        $service  = $this->app->make(Service::class);
+        $actual   = $service->getSearchableModels();
         $missed   = array_diff($expected, $actual);
-        $invalid  = array_filter($actual, static function (string $model): bool {
-            return !is_a(Service::getSearchableModelJob($model), UpdateIndexCronJob::class, true);
+        $invalid  = array_filter($actual, static function (string $model) use ($service): bool {
+            return !is_a($service->getSearchableModelJob($model), UpdateIndexCronJob::class, true);
         });
 
         $this->assertEmpty(
@@ -55,8 +56,9 @@ class ServiceTest extends TestCase {
      * @covers ::callWithoutIndexing
      */
     public function testCallWithoutIndexing(): void {
-        $model = $this->faker->randomElement(Service::getSearchableModels());
-        $spy   = Mockery::spy(function () use ($model): void {
+        $service = $this->app->make(Service::class);
+        $model   = $this->faker->randomElement($service->getSearchableModels());
+        $spy     = Mockery::spy(function () use ($model): void {
             $this->assertFalse($model::isSearchSyncingEnabled());
         });
 

@@ -38,6 +38,7 @@ use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
+use App\Services\Search\Commands\RebuildIndex as SearchRebuildIndex;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -77,6 +78,7 @@ class Kernel extends ConsoleKernel {
         RecalculateLocations::class,
         MaintenanceStart::class,
         MaintenanceStop::class,
+        SearchRebuildIndex::class,
 
         // Dev
         ModelsCommand::class,

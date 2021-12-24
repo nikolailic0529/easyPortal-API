@@ -11,8 +11,10 @@ use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
 use Illuminate\Support\Collection;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
+use stdClass;
 
 use function array_map;
+use function count;
 use function implode;
 use function is_array;
 use function key;
@@ -23,6 +25,7 @@ use function reset;
 use function sprintf;
 use function str_ends_with;
 use function str_starts_with;
+use function trim;
 
 use const PREG_SPLIT_NO_EMPTY;
 
@@ -133,20 +136,103 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
      * @inheritDoc
      */
     protected function makeQuery(ScoutBuilder $builder): array {
-        $query = parent::makeQuery($builder);
+        /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+        $model  = $builder->model;
+        $query  = parent::makeQuery($builder);
+        $string = trim((string) $builder->query);
+        $fields = $model->getSearchConfiguration()->getSearchable();
 
-        if (isset($query['bool']['must']['query_string'])) {
-            /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
-            $model                                 = $builder->model;
-            $query['bool']['must']['query_string'] = [
-                'query'            => $this->prepareQueryString($query['bool']['must']['query_string']['query']),
-                'fields'           => $model->getSearchConfiguration()->getSearchable(),
-                'default_operator' => 'AND',
-                'analyze_wildcard' => true,
-            ];
+        if (!$fields || $string === '""') {
+            $query['bool']['must'] = $this->makeQueryNone($builder, $fields, $string);
+        } elseif (!$string || $string === '*') {
+            $query['bool']['must'] = $this->makeQueryAll($builder, $fields, $string);
+        } elseif (str_starts_with($string, '"') && str_ends_with($string, '"')) {
+            $phrase                = mb_substr($string, 1, -1);
+            $query['bool']['must'] = $this->makeQueryPhrase($builder, $fields, $phrase);
+        } else {
+            $words                 = preg_split('/\s+/', $string, -1, PREG_SPLIT_NO_EMPTY);
+            $query['bool']['must'] = $this->makeQueryWords($builder, $fields, $words);
         }
 
         return $query;
+    }
+
+    /**
+     * @param array<string> $fields
+     *
+     * @return array<mixed>
+     */
+    private function makeQueryAll(ScoutBuilder $builder, array $fields, string $string): array {
+        return [
+            ['match_all' => new stdClass()],
+        ];
+    }
+
+    /**
+     * @param array<string> $fields
+     *
+     * @return array<mixed>
+     */
+    private function makeQueryNone(ScoutBuilder $builder, array $fields, string $string): array {
+        return [
+            ['match_none' => new stdClass()],
+        ];
+    }
+
+    /**
+     * @param array<string> $fields
+     *
+     * @return array<mixed>
+     */
+    private function makeQueryPhrase(ScoutBuilder $builder, array $fields, string $string): array {
+        $string = "*{$this->escapeWildcardString($string)}*";
+        $query  = $this->makeQueryWildcard($builder, $fields, $string);
+
+        return $query;
+    }
+
+    /**
+     * @param array<string> $fields
+     * @param array<string> $words
+     *
+     * @return array<mixed>
+     */
+    private function makeQueryWords(ScoutBuilder $builder, array $fields, array $words): array {
+        $words  = array_map(fn(string $word): string => $this->escapeWildcardString($word), $words);
+        $string = '*'.implode('*', $words).'*';
+        $query  = $this->makeQueryWildcard($builder, $fields, $string);
+
+        return $query;
+    }
+
+    /**
+     * @param array<string> $fields
+     *
+     * @return array<mixed>
+     */
+    private function makeQueryWildcard(ScoutBuilder $builder, array $fields, string $string): array {
+        $conditions = [];
+
+        foreach ($fields as $field) {
+            $conditions[] = [
+                'wildcard' => [
+                    $field => [
+                        'value'            => $string,
+                        'case_insensitive' => true,
+                    ],
+                ],
+            ];
+        }
+
+        if (count($fields) > 1) {
+            $conditions = [
+                'bool' => [
+                    'should' => $conditions,
+                ],
+            ];
+        }
+
+        return $conditions;
     }
 
     /**
@@ -233,24 +319,6 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         return $this->makeFrom($options) ?? $offset;
     }
 
-    protected function prepareQueryString(string $string): string {
-        if (str_starts_with($string, '"') && str_ends_with($string, '"')) {
-            // Exact phrase
-            $string = '"'.mb_substr($this->escapeQueryString($string), 2, -2).'"';
-        } elseif ($string === '*') {
-            // as is
-        } else {
-            // Wildcard words
-            $words  = preg_split('/\s+/', $string, -1, PREG_SPLIT_NO_EMPTY);
-            $words  = array_map(function (string $word): string {
-                return "*{$this->escapeQueryString($word)}*";
-            }, $words);
-            $string = implode(' ', $words);
-        }
-
-        return $string;
-    }
-
     protected function escapeQueryString(string $string): string {
         // https://github.com/elastic/elasticsearch-php/issues/620#issuecomment-901727162
         return preg_replace(
@@ -264,5 +332,9 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             ],
             $string,
         );
+    }
+
+    protected function escapeWildcardString(string $string): string {
+        return preg_replace('/[*?]/', '\\\\$0', $string);
     }
 }

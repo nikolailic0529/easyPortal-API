@@ -4,6 +4,7 @@ namespace App\Services\Search;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -219,13 +220,33 @@ class ConfigurationTest extends TestCase {
         $actual   = $this
             ->getModel(
                 [
-                    'meta' => new Text('meta'),
+                    'meta' => new class('meta') extends Property {
+                        public function getType(): string {
+                            return 'text';
+                        }
+
+                        public function hasKeyword(): bool {
+                            return true;
+                        }
+                    },
                 ],
                 [
-                    'name'  => new Text('name'),
+                    'name'  => new class('name') extends Property {
+                        public function getType(): string {
+                            return 'text';
+                        }
+                    },
                     'child' => [
-                        'id'   => new Uuid('id'),
-                        'name' => new Text('name'),
+                        'id'   => new class('id') extends Property {
+                            public function getType(): string {
+                                return 'keyword';
+                            }
+                        },
+                        'name' => new class('name') extends Property {
+                            public function getType(): string {
+                                return 'text';
+                            }
+                        },
                     ],
                 ],
             )
@@ -248,12 +269,7 @@ class ConfigurationTest extends TestCase {
                 Configuration::getPropertyName() => [
                     'properties' => [
                         'name'  => [
-                            'type'   => 'text',
-                            'fields' => [
-                                'keyword' => [
-                                    'type' => 'keyword',
-                                ],
-                            ],
+                            'type' => 'text',
                         ],
                         'child' => [
                             'properties' => [
@@ -261,12 +277,7 @@ class ConfigurationTest extends TestCase {
                                     'type' => 'keyword',
                                 ],
                                 'name' => [
-                                    'type'   => 'text',
-                                    'fields' => [
-                                        'keyword' => [
-                                            'type' => 'keyword',
-                                        ],
-                                    ],
+                                    'type' => 'text',
                                 ],
                             ],
                         ],
@@ -387,7 +398,7 @@ class ConfigurationTest extends TestCase {
         return [
             'no searchable'                       => [
                 [
-                    '',
+                    // empty
                 ],
                 [
                     'm' => new Text('m'),
@@ -403,7 +414,6 @@ class ConfigurationTest extends TestCase {
             'no searchable + metadata searchable' => [
                 [
                     Configuration::getMetadataName('m'),
-                    Configuration::getMetadataName('m.keyword'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -418,7 +428,10 @@ class ConfigurationTest extends TestCase {
             ],
             'all searchable'                      => [
                 [
-                    '*',
+                    Configuration::getMetadataName('m'),
+                    Configuration::getPropertyName('a'),
+                    Configuration::getPropertyName('b.a'),
+                    Configuration::getPropertyName('b.b'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -445,9 +458,7 @@ class ConfigurationTest extends TestCase {
             'mixed one'                           => [
                 [
                     Configuration::getMetadataName('m'),
-                    Configuration::getMetadataName('m.keyword'),
                     Configuration::getPropertyName('b.b'),
-                    Configuration::getPropertyName('b.b.keyword'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -463,9 +474,7 @@ class ConfigurationTest extends TestCase {
             'mixed two'                           => [
                 [
                     Configuration::getPropertyName('b.a'),
-                    Configuration::getPropertyName('b.a.keyword'),
                     Configuration::getPropertyName('b.b'),
-                    Configuration::getPropertyName('b.b.keyword'),
                 ],
                 [
                     // empty

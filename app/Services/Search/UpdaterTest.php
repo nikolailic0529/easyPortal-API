@@ -5,7 +5,7 @@ namespace App\Services\Search;
 use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
-use App\Services\Search\Properties\Text;
+use App\Services\Search\Properties\Property;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Database\Factories\AssetFactory;
@@ -437,7 +437,7 @@ class UpdaterTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderCreateIndex(): array {
-        $index = 'testing_test_models@84da83a20276200ffe0201417c4a35e7ffc0832f';
+        $index = 'testing_test_models@2bb4cb3d8663868fd8b185c0f9da96a28ba3f3e3';
         $model = new class() extends Model {
             use Searchable;
 
@@ -458,7 +458,11 @@ class UpdaterTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'a' => new Text('a'),
+                    'a' => new class('a') extends Property {
+                        public function getType(): string {
+                            return 'text';
+                        }
+                    },
                 ];
             }
         };
@@ -716,7 +720,7 @@ class UpdaterTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderIsIndexActual(): array {
-        $index = 'testing_test_models@84da83a20276200ffe0201417c4a35e7ffc0832f';
+        $index = 'testing_test_models@2bb4cb3d8663868fd8b185c0f9da96a28ba3f3e3';
         $model = new class() extends Model {
             use Searchable;
 
@@ -737,7 +741,11 @@ class UpdaterTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'a' => new Text('a'),
+                    'a' => new class('a') extends Property {
+                        public function getType(): string {
+                            return 'text';
+                        }
+                    },
                 ];
             }
         };
