@@ -48,8 +48,9 @@ class Provider extends ServiceProvider {
 
                 // Convert
                 $converter = $container->make(ModelConverter::class);
+                $service   = $container->make(Service::class);
 
-                foreach (Service::getSearchableModels() as $model) {
+                foreach ($service->getSearchableModels() as $model) {
                     foreach ($converter->toInputObjectTypes($model) as $type) {
                         $types->register($type);
                     }

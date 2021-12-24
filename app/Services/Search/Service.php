@@ -27,7 +27,7 @@ class Service extends BaseService {
     /**
      * @return array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
      */
-    public static function getSearchableModels(): array {
+    public function getSearchableModels(): array {
         return array_keys(static::$searchable);
     }
 
@@ -36,7 +36,7 @@ class Service extends BaseService {
      *
      * @return class-string<\App\Services\Search\Jobs\UpdateIndexCronJob>|null
      */
-    public static function getSearchableModelJob(string $model): ?string {
+    public function getSearchableModelJob(string $model): ?string {
         return static::$searchable[$model] ?? null;
     }
 
