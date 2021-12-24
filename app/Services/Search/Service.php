@@ -19,9 +19,9 @@ class Service extends BaseService {
      * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,\App\Services\Search\Jobs\UpdateIndexCronJob>
      */
     protected static array $searchable = [
-        Asset::class    => AssetsUpdaterCronJob::class,
         Customer::class => CustomersUpdaterCronJob::class,
         Document::class => DocumentsUpdaterCronJob::class,
+        Asset::class    => AssetsUpdaterCronJob::class,
     ];
 
     /**
