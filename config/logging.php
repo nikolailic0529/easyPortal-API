@@ -17,7 +17,7 @@ $days  = 365;
 $level = env('LOG_LEVEL', 'debug');
 
 // Helpers
-$mailChannel    = static function (string $channel = null, string $recipients = null) use ($tap, $level): ?array {
+$mailChannel = static function (string $channel = null, string $recipients = null) use ($tap, $level): ?array {
     return env('EP_LOG_EMAIL_ENABLED') ? [
         'name'      => $channel,
         'driver'    => 'monolog',
@@ -35,7 +35,7 @@ $mailChannel    = static function (string $channel = null, string $recipients = 
     ] : null;
 };
 
-$sentryChannel  = static function (string $channel = null) use ($tap, $level): ?array {
+$sentryChannel = static function (string $channel = null) use ($tap, $level): ?array {
     return env('EP_LOG_SENTRY_ENABLED') ? [
         'name'   => $channel,
         'driver' => 'sentry',

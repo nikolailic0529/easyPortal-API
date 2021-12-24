@@ -70,13 +70,13 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getDistributors(
         DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
-    ): LastIdBasedIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getDistributors',
@@ -127,13 +127,13 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getResellers(
         DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
-    ): LastIdBasedIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getResellers',
@@ -184,13 +184,13 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getCustomers(
         DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
-    ): LastIdBasedIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getCustomers',
@@ -276,9 +276,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null, string $lastId = null): LastIdBasedIterator {
+    public function getAssetsByCustomerId(string $id, int $limit = null, string $lastId = null): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByCustomerId',
@@ -299,13 +299,13 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByCustomerIdWithDocuments(
         string $id,
         int $limit = null,
         string $lastId = null,
-    ): LastIdBasedIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByCustomerId',
@@ -327,9 +327,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByResellerId(string $id, int $limit = null, string $lastId = null): LastIdBasedIterator {
+    public function getAssetsByResellerId(string $id, int $limit = null, string $lastId = null): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByResellerId',
@@ -350,13 +350,13 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByResellerIdWithDocuments(
         string $id,
         int $limit = null,
         string $lastId = null,
-    ): LastIdBasedIterator {
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByResellerId',

@@ -41,8 +41,8 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorWithLimitOffset(): void {
-        $data          = range(1, 10);
-        $executor      = Mockery::spy(function (array $variables = []) use ($data): array {
+        $data     = range(1, 10);
+        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
             $this->assertEmpty($variables);
 
             return $data;

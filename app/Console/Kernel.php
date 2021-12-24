@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Dev\IdeHelper\ModelsCommand;
 use App\Services\DataLoader\Commands\AnalyzeAssets;
+use App\Services\DataLoader\Commands\CountAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
 use App\Services\DataLoader\Commands\ImportCustomers;
 use App\Services\DataLoader\Commands\ImportDistributors;
@@ -70,6 +71,7 @@ class Kernel extends ConsoleKernel {
         UpdateCustomer::class,
         UpdateDocument::class,
         UpdateAsset::class,
+        CountAssets::class,
         AnalyzeAssets::class,
         SyncPermissions::class,
         SyncUsers::class,
