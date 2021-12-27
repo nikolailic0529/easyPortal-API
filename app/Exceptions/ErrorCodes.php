@@ -9,6 +9,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken as GraphQLSignUpByInvi
 use App\GraphQL\Mutations\Auth\SignUpByInviteNotFound as GraphQLSignUpByInviteNotFound;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
+use App\GraphQL\Mutations\Org\Role\DeleteImpossibleAssignedToUsers as GraphQLDeleteImpossibleAssignedToUsers;
 use App\Http\Controllers\Export\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
 use App\Http\Controllers\Export\HeadersUnknownFunction as HttpExportHeadersUnknownFunction;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
@@ -57,6 +58,7 @@ class ErrorCodes {
         GraphQLResetOrgUserPasswordInvalidUser::class        => 'GraphQL005',
         GraphQLSignUpByInviteExpired::class                  => 'GraphQL006',
         GraphQLSignUpByInviteNotFound::class                 => 'GraphQL007',
+        GraphQLDeleteImpossibleAssignedToUsers::class        => 'GraphQL008',
 
         // Queue
         QueueServiceNotFound::class                          => 'Queue001',

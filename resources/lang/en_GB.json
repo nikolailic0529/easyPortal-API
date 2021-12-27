@@ -148,6 +148,7 @@
     "graphql.mutations.signUpByInvite.not_found": "Invitation not found.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
+    "graphql.mutations.org.role.delete.impossible_assigned_to_users": "Impossible to delete the role because it is assigned to the user(s).",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",

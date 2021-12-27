@@ -134,12 +134,20 @@ class Client {
 
     public function deleteGroup(Group|RoleModel $group): bool {
         // DELETE /{realm}/groups/{id}
-        $id       = $group instanceof Group ? $group->id : $group->getKey();
-        $endpoint = "groups/{$id}";
+        $id     = $group instanceof Group ? $group->id : $group->getKey();
+        $result = true;
 
-        $this->call($endpoint, 'DELETE');
+        try {
+            $this->call("groups/{$id}", 'DELETE');
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_NOT_FOUND)) {
+                $result = false;
+            } else {
+                throw $exception;
+            }
+        }
 
-        return true;
+        return $result;
     }
 
     /**
