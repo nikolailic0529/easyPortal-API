@@ -188,9 +188,9 @@ class UsersTest extends TestCase {
                             ],
                         ),
                         static function (TestCase $test, Organization $organization, User $user): void {
-                            if ($user) {
-                                $user->type = UserType::keycloak();
-                            }
+                            // Exclude auth user (because we don't know id and cannot use it in `GraphQLPaginated`)
+                            $user->delete();
+
                             // user1
                             $role1 = Role::factory()->create([
                                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
@@ -377,9 +377,10 @@ class UsersTest extends TestCase {
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
-                            if ($user) {
-                                $user->type = UserType::local();
-                            }
+                            // Exclude auth user (because we don't know id and cannot use it in `GraphQLPaginated`)
+                            $user->type = UserType::local();
+                            $user->delete();
+
                             // User 1
                             $role1 = Role::factory()->create([
                                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',

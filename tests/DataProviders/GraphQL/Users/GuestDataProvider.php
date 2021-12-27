@@ -25,7 +25,7 @@ class GuestDataProvider extends ArrayDataProvider {
             'user is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (TestCase $test, ?Organization $organization): ?User {
-                    return User::factory()->make([
+                    return User::factory()->create([
                         'organization_id' => $organization,
                     ]);
                 },
