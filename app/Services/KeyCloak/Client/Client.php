@@ -132,10 +132,14 @@ class Client {
         $this->call($endpoint, 'PUT', ['json' => $input->toArray()]);
     }
 
-    public function deleteGroup(RoleModel $role): void {
+    public function deleteGroup(Group|RoleModel $group): bool {
         // DELETE /{realm}/groups/{id}
-        $endpoint = "groups/{$role->getKey()}";
+        $id       = $group instanceof Group ? $group->id : $group->getKey();
+        $endpoint = "groups/{$id}";
+
         $this->call($endpoint, 'DELETE');
+
+        return true;
     }
 
     /**
@@ -393,13 +397,13 @@ class Client {
         }
 
         // Prepare
-        $timeout   = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
+        $timeout = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
         $baseUrl ??= $this->getBaseUrl();
-        $headers   = [
+        $headers = [
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $request   = $this->client
+        $request = $this->client
             ->baseUrl($baseUrl)
             ->timeout($timeout)
             ->withHeaders($headers)
