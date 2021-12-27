@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Org;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Collection;
@@ -51,6 +50,7 @@ class CreateOrgRole {
         $permissions       = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
         $role->permissions = $permissions;
         $role->save();
+
         return $permissions;
     }
 
@@ -65,31 +65,5 @@ class CreateOrgRole {
             ];
         })->all();
         $this->client->addRolesToGroup($role, $keycloakPermissions);
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    public function transformGroup(Role $role): ?array {
-        $group = $this->client->getGroup($role);
-        return [
-            'id'          => $group->id,
-            'name'        => $group->name,
-            'permissions' => $this->getPermissionsIds($group),
-        ];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getPermissionsIds(Group $group): array {
-        $clientRoles  = $group->clientRoles;
-        $clientId     = (string) $this->config->get('ep.keycloak.client_id');
-        $currentRoles = [];
-        if (array_key_exists($clientId, $clientRoles)) {
-            $currentRoles = $clientRoles[$clientId];
-        }
-
-        return Permission::whereIn('key', $currentRoles)->pluck('id')->all();
     }
 }
