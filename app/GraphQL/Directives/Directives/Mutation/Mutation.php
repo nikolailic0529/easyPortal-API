@@ -129,7 +129,7 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
             Mutation::class,
             MutationCall::class,
             MutationCreate::class,
-            MutationUpdate::class,
+            MutationMutate::class,
         ]);
         $requiredDirectivesNames = $requiredDirectives
             ->map(static function (string $directive) use ($manipulator): string {

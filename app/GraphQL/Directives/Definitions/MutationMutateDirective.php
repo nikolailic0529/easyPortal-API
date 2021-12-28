@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Mutation\MutationUpdate;
+use App\GraphQL\Directives\Directives\Mutation\MutationMutate;
 
-class MutationUpdateDirective extends MutationUpdate {
+class MutationMutateDirective extends MutationMutate {
     // Lighthouse loads all files from the directives directory...
 }

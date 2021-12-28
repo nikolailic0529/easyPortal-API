@@ -18,9 +18,9 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\MutationUpdate
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\MutationMutate
  */
-class MutationUpdateTest extends TestCase {
+class MutationMutateTest extends TestCase {
     use WithoutOrganizationScope;
     use WithGraphQLSchema;
 
@@ -28,8 +28,8 @@ class MutationUpdateTest extends TestCase {
      * @covers ::resolveField
      */
     public function testResolveFieldModelNotDefined(): void {
-        $mutation = json_encode(MutationUpdateTest_Mutation::class);
-        $builder  = json_encode(MutationUpdateTest_Builder::class);
+        $mutation = json_encode(MutationMutateTest_Mutation::class);
+        $builder  = json_encode(MutationMutateTest_Builder::class);
 
         $this
             ->useGraphQLSchema(
@@ -47,7 +47,7 @@ class MutationUpdateTest extends TestCase {
 
                 type ModelMutations {
                     call: String
-                    @mutationUpdate(
+                    @mutationMutate(
                         resolver: {$mutation},
                     )
                 }
@@ -71,11 +71,11 @@ class MutationUpdateTest extends TestCase {
      */
     public function testResolveFieldModelDefined(): void {
         $customer = Customer::factory()->create();
-        $mutation = json_encode(MutationUpdateTest_Mutation::class);
-        $builder  = json_encode(MutationUpdateTest_Builder::class);
+        $mutation = json_encode(MutationMutateTest_Mutation::class);
+        $builder  = json_encode(MutationMutateTest_Builder::class);
 
         $this->override(
-            MutationUpdateTest_Mutation::class,
+            MutationMutateTest_Mutation::class,
             static function (MockInterface $mock) use ($customer): void {
                 $mock
                     ->shouldReceive('__invoke')
@@ -103,7 +103,7 @@ class MutationUpdateTest extends TestCase {
 
                 type ModelMutations {
                     call: String
-                    @mutationUpdate(
+                    @mutationMutate(
                         resolver: {$mutation},
                     )
                 }
@@ -139,7 +139,7 @@ class MutationUpdateTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class MutationUpdateTest_Builder {
+class MutationMutateTest_Builder {
     public function __invoke(): EloquentBuilder {
         return Customer::query();
     }
@@ -149,7 +149,7 @@ class MutationUpdateTest_Builder {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class MutationUpdateTest_Mutation {
+class MutationMutateTest_Mutation {
     public function __invoke(): mixed {
         return null;
     }

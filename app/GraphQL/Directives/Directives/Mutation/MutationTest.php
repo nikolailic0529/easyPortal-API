@@ -112,7 +112,7 @@ class MutationTest extends TestCase {
     public function testManipulateFieldDefinitionFieldIsNotMutation(): void {
         $this->expectExceptionObject(new DefinitionException(
             'Field `ModelMutations.mutation` must use one of '.
-            '`@mutation`, `@mutationCall`, `@mutationCreate`, `@mutationUpdate`'.
+            '`@mutation`, `@mutationCall`, `@mutationCreate`, `@mutationMutate`'.
             ' directives.',
         ));
 
