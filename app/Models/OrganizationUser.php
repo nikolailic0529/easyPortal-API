@@ -8,6 +8,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\Upsertable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -25,12 +26,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \App\Models\Organization     $organization
  * @property \App\Models\Role|null        $role
  * @property \App\Models\Team|null        $team
+ * @method static \Database\Factories\OrganizationUserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser query()
  * @mixin \Eloquent
  */
 class OrganizationUser extends Model implements Auditable, Upsertable {
+    use HasFactory;
     use OwnedByOrganization;
     use HasOrganization;
 

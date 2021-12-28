@@ -24,6 +24,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
  * @property \App\Models\Organization|null                                    $organization
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Permission> $permissions
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\User>       $users
  * @method static \Database\Factories\RoleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newQuery()
@@ -42,6 +43,17 @@ class Role extends Model implements Auditable, OwnedByShared {
      * @var string
      */
     protected $table = 'roles';
+
+    #[CascadeDelete(false)]
+    public function users(): BelongsToMany {
+        $pivot = new OrganizationUser();
+
+        return $this
+            ->belongsToMany(User::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
 
     #[CascadeDelete(true)]
     public function permissions(): BelongsToMany {

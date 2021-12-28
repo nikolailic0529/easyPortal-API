@@ -19,7 +19,7 @@ trait Override {
      */
     private array $overrides = [];
 
-    protected function tearDownOverride(): void {
+    protected function assertPostConditions(): void {
         foreach ($this->overrides as $class => $spy) {
             try {
                 $spy->shouldHaveBeenCalled();
@@ -30,6 +30,8 @@ trait Override {
                 ));
             }
         }
+
+        parent::assertPostConditions();
     }
 
     /**

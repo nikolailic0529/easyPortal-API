@@ -2,14 +2,15 @@
 
 namespace App\GraphQL\Mutations\Org;
 
+use App\GraphQL\Mutations\Org\Role\Delete;
 use App\Models\Role;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\Organization\CurrentOrganization;
 
+/**
+ * @deprecated
+ */
 class DeleteOrgRole {
     public function __construct(
-        protected Client $client,
-        protected CurrentOrganization $organization,
+        protected Delete $mutation,
     ) {
         // empty
     }
@@ -21,15 +22,14 @@ class DeleteOrgRole {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $organization = $this->organization->get();
-        $role         = Role::query()
+        $role = Role::query()
             ->whereKey($args['input']['id'])
-            ->where('organization_id', '=', $organization->getKey())
             ->first();
+
         if ($role) {
-            $this->client->deleteGroup($role);
-            $role->delete();
+            ($this->mutation)($role);
         }
-        return ['deleted' => (bool) $role ];
+
+        return ['deleted' => (bool) $role];
     }
 }

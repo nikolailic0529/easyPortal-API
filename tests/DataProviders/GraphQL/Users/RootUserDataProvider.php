@@ -27,7 +27,7 @@ class RootUserDataProvider extends ArrayDataProvider {
             'user is not allowed'   => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 static function (TestCase $test, ?Organization $organization): ?User {
-                    return User::factory()->make([
+                    return User::factory()->create([
                         'type'            => UserType::keycloak(),
                         'organization_id' => $organization,
                     ]);
@@ -36,7 +36,7 @@ class RootUserDataProvider extends ArrayDataProvider {
             'local root is allowed' => [
                 new UnknownValue(),
                 static function (TestCase $test, ?Organization $organization): ?User {
-                    return User::factory()->make([
+                    return User::factory()->create([
                         'type'            => UserType::local(),
                         'organization_id' => $organization,
                     ]);

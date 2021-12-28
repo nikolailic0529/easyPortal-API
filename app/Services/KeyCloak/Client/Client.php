@@ -132,10 +132,22 @@ class Client {
         $this->call($endpoint, 'PUT', ['json' => $input->toArray()]);
     }
 
-    public function deleteGroup(RoleModel $role): void {
+    public function deleteGroup(Group|RoleModel $group): bool {
         // DELETE /{realm}/groups/{id}
-        $endpoint = "groups/{$role->getKey()}";
-        $this->call($endpoint, 'DELETE');
+        $id     = $group instanceof Group ? $group->id : $group->getKey();
+        $result = true;
+
+        try {
+            $this->call("groups/{$id}", 'DELETE');
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_NOT_FOUND)) {
+                $result = false;
+            } else {
+                throw $exception;
+            }
+        }
+
+        return $result;
     }
 
     /**

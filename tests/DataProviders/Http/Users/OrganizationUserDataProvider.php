@@ -33,7 +33,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 'user from another organization is not allowed'             => [
                     new ExpectedFinal(new Forbidden()),
                     static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
-                        return User::factory()->make([
+                        return User::factory()->create([
                             'organization_id' => Organization::factory()->create(),
                             'permissions'     => $permissions,
                         ]);
@@ -42,7 +42,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 'user without permissions from organization is not allowed' => [
                     new ExpectedFinal(new Forbidden()),
                     static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->make([
+                        return User::factory()->create([
                             'organization_id' => $organization,
                             'permissions'     => [],
                         ]);
@@ -51,7 +51,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 'user with permissions from organization is allowed'        => [
                     new UnknownValue(),
                     static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
-                        return User::factory()->make([
+                        return User::factory()->create([
                             'organization_id' => $organization,
                             'permissions'     => $permissions,
                         ]);
@@ -63,7 +63,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 'user from another organization is not allowed' => [
                     new ExpectedFinal(new Forbidden()),
                     static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->make([
+                        return User::factory()->create([
                             'organization_id' => Organization::factory()->create(),
                         ]);
                     },
@@ -71,7 +71,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 'user from organization is allowed'             => [
                     new UnknownValue(),
                     static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->make([
+                        return User::factory()->create([
                             'organization_id' => $organization,
                         ]);
                     },

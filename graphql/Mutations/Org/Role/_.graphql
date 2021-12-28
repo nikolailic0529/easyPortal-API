@@ -1,0 +1,8 @@
+extend type OrgMutations {
+  role(id: ID @eq): OrgRoleMutations
+  @mutation(
+    model: "App\\Models\\Role"
+  )
+}
+
+type OrgRoleMutations
