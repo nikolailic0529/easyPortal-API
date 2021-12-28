@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Org\Role;
 
-use App\GraphQL\Mutations\Org\Role\DeleteImpossibleAssignedToUsers;
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
@@ -17,22 +17,21 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Throwable;
 
 /**
- * @deprecated
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\DeleteOrgRole
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Delete
  */
-class DeleteOrgRoleTest extends TestCase {
+class DeleteTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
-     *
-     * @param array<string,mixed> $input
      */
     public function testInvoke(
         Response $expected,
@@ -56,11 +55,15 @@ class DeleteOrgRoleTest extends TestCase {
 
         // Test
         $response = $this
-            ->graphQL(/** @lang GraphQL */ 'mutation DeleteOrgRole($input: DeleteOrgRoleInput!) {
-                deleteOrgRole(input:$input) {
-                    deleted
+            ->graphQL(/** @lang GraphQL */ 'mutation delete($id: ID!) {
+                org {
+                    role(id: $id) {
+                        delete {
+                            result
+                        }
+                    }
                 }
-            }', ['input' => ['id' => $role->getKey()]])
+            }', ['id' => $role->getKey()])
             ->assertThat($expected);
 
         if ($response instanceof GraphQLSuccess) {
@@ -76,28 +79,28 @@ class DeleteOrgRoleTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('deleteOrgRole', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
-            new OrganizationUserDataProvider('deleteOrgRole', [
+            new OrganizationDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
+            new OrganizationUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'role not exists'                => [
-                    new GraphQLSuccess('deleteOrgRole', DeleteOrgRole::class, [
-                        'deleted' => false,
-                    ]),
+                    new GraphQLError('org', static function (): Throwable {
+                        return new ObjectNotFound();
+                    }),
                     static function (TestCase $test): Role {
                         return Role::factory()->make();
                     },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('deleteGroup')
-                            ->never();
-                    },
+                    null,
                 ],
                 'role without users'             => [
-                    new GraphQLSuccess('deleteOrgRole', DeleteOrgRole::class, [
-                        'deleted' => true,
-                    ]),
+                    new GraphQLSuccess(
+                        'org',
+                        new JsonFragmentSchema('role.delete', self::class),
+                        new JsonFragment('role.delete', [
+                            'result' => true,
+                        ]),
+                    ),
                     static function (TestCase $test, Organization $organization, User $user): Role {
                         return Role::factory()->create([
                             'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
@@ -113,7 +116,7 @@ class DeleteOrgRoleTest extends TestCase {
                     },
                 ],
                 'role with users'                => [
-                    new GraphQLError('deleteOrgRole', static function (): Throwable {
+                    new GraphQLError('org', static function (): Throwable {
                         return new DeleteImpossibleAssignedToUsers(new Role());
                     }),
                     static function (TestCase $test, Organization $organization, User $user): Role {
@@ -136,20 +139,16 @@ class DeleteOrgRoleTest extends TestCase {
                     },
                 ],
                 'role from another organization' => [
-                    new GraphQLSuccess('deleteOrgRole', DeleteOrgRole::class, [
-                        'deleted' => false,
-                    ]),
-                    static function (TestCase $test): Role {
+                    new GraphQLError('org', static function (): Throwable {
+                        return new ObjectNotFound();
+                    }),
+                    static function (): Role {
                         return Role::factory()->create([
                             'id'              => 'c92d38b1-401a-4501-8f1e-c0c03244596d',
                             'organization_id' => Organization::factory()->create(),
                         ]);
                     },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('deleteGroup')
-                            ->never();
-                    },
+                    null,
                 ],
             ]),
         ))->getData();

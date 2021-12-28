@@ -5,6 +5,9 @@ namespace App\GraphQL\Mutations\Org;
 use App\GraphQL\Mutations\Org\Role\Delete;
 use App\Models\Role;
 
+/**
+ * @deprecated
+ */
 class DeleteOrgRole {
     public function __construct(
         protected Delete $mutation,
