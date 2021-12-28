@@ -6,7 +6,6 @@ use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
-use Mockery;
 use Mockery\MockInterface;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\Schemas\AnySchema;
