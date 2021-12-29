@@ -2,25 +2,22 @@
 
 namespace App\GraphQL\Mutations\Org;
 
+use App\GraphQL\Mutations\Org\Role\Update;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\Role as KeyCloakRole;
 use App\Services\Organization\CurrentOrganization;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Collection;
 
 use function array_key_exists;
-use function array_push;
-use function array_search;
 
+/**
+ * @deprecated
+ */
 class UpdateOrgRole {
     public function __construct(
-        protected Client $client,
         protected CurrentOrganization $organization,
-        protected CreateOrgRole $createOrgRole,
-        protected Repository $config,
+        protected Update $mutation,
     ) {
         // empty
     }
@@ -33,8 +30,18 @@ class UpdateOrgRole {
      */
     public function __invoke($_, array $args): array {
         $organization = $this->organization->get();
-        $input        = $args['input'];
-        return ['updated' => $this->updateRole($organization, $input)];
+        $role         = Role::query()
+            ->whereKey($args['input']['id'])
+            ->where('organization_id', '=', $organization->getKey())
+            ->first();
+
+        unset($args['input']['id']);
+
+        ($this->mutation)($role, $args);
+
+        return [
+            'updated' => $role,
+        ];
     }
 
     /**
@@ -51,13 +58,13 @@ class UpdateOrgRole {
         if (array_key_exists('name', $input)) {
             // Update Role Name
             $name = $input['name'];
-            $this->client->editSubGroup($role, $name);
+            $this->client->updateGroup($role, $name);
             $role->name = $name;
             $role->save();
         }
 
         if (array_key_exists('permissions', $input)) {
-            $permissions = $this->createOrgRole->savePermissions($role, $input['permissions']);
+            $permissions = $this->savePermissions($role, $input['permissions']);
             $this->syncPermissions($role, $permissions);
         }
 
@@ -67,56 +74,18 @@ class UpdateOrgRole {
     /**
      * @param \Illuminate\Database\Eloquent\Collection<\App\Models\Permission> $permissions
      */
-    protected function syncPermissions(Role $role, Collection $permissions): void {
-        // Get Current keycloak roles
-        $group        = $this->client->getGroup($role);
-        $clientId     = (string) $this->config->get('ep.keycloak.client_id');
-        $clientRoles  = $group->clientRoles;
-        $currentRoles = [];
-        if (array_key_exists($clientId, $clientRoles)) {
-            $currentRoles = $clientRoles[$clientId];
-        }
-
-        // Update Keycloak
-        $keycloakPermissions = $permissions->map(function ($permission) {
-            // map to Roles
-            return $this->transformPermission($permission);
-        });
-
-        $added = [];
-        foreach ($keycloakPermissions as $permission) {
-            $key = array_search($permission->name, $currentRoles, true);
-            if ($key !== false) {
-                unset($currentRoles[$key]);
-            } else {
-                array_push($added, $permission->toArray());
-            }
-        }
-
-        // Add new subgroup roles
-        if (!empty($added)) {
-            $this->client->addRolesToGroup($role, $added);
-        }
-
-        // Remove old permissions
-        $deleted = [];
-
-        foreach ($currentRoles as $currentRole) {
-            $permission = Permission::where('key', '=', $currentRole)->first();
-            if ($permission) {
-                array_push($deleted, $this->transformPermission($permission));
-            }
-        }
-
-        if (!empty($deleted)) {
-            $this->client->removeRolesFromGroup($role, $deleted);
-        }
+    protected function syncPermissions(Role $role, Collection $permissions): bool {
+        return $this->client->updateGroupRoles($role, $permissions->all());
     }
 
-    protected function transformPermission(Permission $permission): KeyCloakRole {
-        return new KeyCloakRole([
-            'id'   => $permission->id,
-            'name' => $permission->key,
-        ]);
+    /**
+     * @param array<string> $permissions
+     */
+    protected function savePermissions(Role $role, array $permissions): Collection {
+        $permissions       = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
+        $role->permissions = $permissions;
+        $role->save();
+
+        return $permissions;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\InvalidContext as GraphQLInvalidContext;
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound as GraphQLObjectNotFound;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException as GraphQLResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed as GraphQLSignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteExpired as GraphQLSignUpByInviteExpired;
@@ -59,6 +61,8 @@ class ErrorCodes {
         GraphQLSignUpByInviteExpired::class                  => 'GraphQL006',
         GraphQLSignUpByInviteNotFound::class                 => 'GraphQL007',
         GraphQLDeleteImpossibleAssignedToUsers::class        => 'GraphQL008',
+        GraphQLInvalidContext::class                         => 'GraphQL009',
+        GraphQLObjectNotFound::class                         => 'GraphQL010',
 
         // Queue
         QueueServiceNotFound::class                          => 'Queue001',

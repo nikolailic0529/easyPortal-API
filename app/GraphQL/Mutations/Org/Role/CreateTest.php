@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Org\Role;
 
 use App\Models\Permission;
 use App\Models\Role;
@@ -15,16 +15,17 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 use function __;
 
 /**
- * @deprecated
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\CreateOrgRole
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Create
  */
-class CreateOrgRoleTest extends TestCase {
+class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -70,19 +71,23 @@ class CreateOrgRoleTest extends TestCase {
             $this->override(Client::class, $clientFactory);
         }
 
-
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation CreateOrgRole($input: CreateOrgRoleInput!) {
-                createOrgRole(input:$input) {
-                    created {
-                        id
-                        name
-                        permissions {
-                            id
-                            name
-                            key
-                            description
+            ->graphQL(/** @lang GraphQL */ 'mutation create($input: OrgRoleCreateInput!) {
+                org {
+                    role {
+                        create (input: $input) {
+                            result
+                            role {
+                                id
+                                name
+                                permissions {
+                                    id
+                                    name
+                                    key
+                                    description
+                                }
+                            }
                         }
                     }
                 }
@@ -132,26 +137,31 @@ class CreateOrgRoleTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('createOrgRole', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
-            new OrganizationUserDataProvider('createOrgRole', [
+            new OrganizationDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
+            new OrganizationUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'                  => [
-                    new GraphQLSuccess('createOrgRole', CreateOrgRole::class, [
-                        'created' => [
-                            'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                            'name'        => 'subgroup',
-                            'permissions' => [
-                                [
-                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                                    'key'         => 'permission1',
-                                    'name'        => 'permission1',
-                                    'description' => 'permission1',
+                    new GraphQLSuccess(
+                        'org',
+                        new JsonFragmentSchema('role.create', self::class),
+                        new JsonFragment('role.create', [
+                            'result' => true,
+                            'role'   => [
+                                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                                'name'        => 'subgroup',
+                                'permissions' => [
+                                    [
+                                        'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                        'key'         => 'permission1',
+                                        'name'        => 'permission1',
+                                        'description' => 'permission1',
+                                    ],
                                 ],
                             ],
-                        ],
-                    ]),
+                        ]),
+                    ),
                     $permissionFactory,
                     [
                         'name'        => 'subgroup',
@@ -162,7 +172,7 @@ class CreateOrgRoleTest extends TestCase {
                     $clientFactory,
                 ],
                 'Invalid name'        => [
-                    new GraphQLError('createOrgRole', static function (): array {
+                    new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $permissionFactory,
@@ -172,14 +182,10 @@ class CreateOrgRoleTest extends TestCase {
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                         ],
                     ],
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('createGroup')
-                            ->never();
-                    },
+                    null,
                 ],
                 'Invalid permissions' => [
-                    new GraphQLError('createOrgRole', static function (): array {
+                    new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $permissionFactory,
@@ -189,11 +195,7 @@ class CreateOrgRoleTest extends TestCase {
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfd',
                         ],
                     ],
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('createGroup')
-                            ->never();
-                    },
+                    null,
                 ],
             ]),
         ))->getData();

@@ -1,5 +1,7 @@
 extend type OrgMutations {
   role(id: ID @eq): OrgRoleMutations
+  @organization
+  @me(permissions: ["org-administer"])
   @mutation(
     model: "App\\Models\\Role"
   )

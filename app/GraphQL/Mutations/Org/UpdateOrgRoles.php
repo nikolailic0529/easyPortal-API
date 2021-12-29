@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Services\Organization\CurrentOrganization;
-
+/**
+ * @deprecated
+ */
 class UpdateOrgRoles {
     public function __construct(
-        protected CurrentOrganization $organization,
         protected UpdateOrgRole $updateOrgRole,
     ) {
         // empty
@@ -19,11 +19,12 @@ class UpdateOrgRoles {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $organization = $this->organization->get();
-        $updated      = [];
+        $updated = [];
 
         foreach ($args['input'] as $roleInput) {
-            $updated[] = $this->updateOrgRole->updateRole($organization, $roleInput);
+            $updated[] = ($this->updateOrgRole)(null, [
+                'input' => $roleInput,
+            ])['updated'];
         }
 
         return ['updated' => $updated];

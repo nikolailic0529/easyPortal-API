@@ -6,6 +6,9 @@ extend type Mutation {
   @organization
   @me(permissions: ["org-administer"])
   @field(resolver: "App\\GraphQL\\Mutations\\Org\\CreateOrgRole")
+  @deprecated(
+    reason: "Please use `mutation { org { role { create }` instead."
+  )
 }
 
 input CreateOrgRoleInput @validator {

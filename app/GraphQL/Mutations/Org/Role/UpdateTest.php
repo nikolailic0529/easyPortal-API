@@ -1,7 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Org\Role;
 
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
@@ -15,15 +17,18 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Throwable;
 
 use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\UpdateOrgRoles
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Update
  */
-class UpdateOrgRolesTest extends TestCase {
+class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -40,22 +45,23 @@ class UpdateOrgRolesTest extends TestCase {
         Closure $userFactory = null,
         Closure $roleFactory = null,
         Closure $clientFactory = null,
-        array $data = [
-            [
-                'id'          => '',
-                'name'        => 'wrong',
-                'permissions' => [],
-            ],
-        ],
+        array $data = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
         ]);
-        if ($roleFactory) {
-            $roleFactory($this);
-        }
+
+        $role   = $roleFactory
+            ? $roleFactory($this, $organization, $user)
+            : Role::factory()->make();
+        $data ??= [
+            'name'        => 'wrong',
+            'permissions' => [],
+        ];
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -63,31 +69,44 @@ class UpdateOrgRolesTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation UpdateOrgRoles($input: [UpdateOrgRolesInput!]!) {
-                updateOrgRoles(input:$input) {
-                    updated {
-                        id
-                        name
-                        permissions {
-                            id
-                            name
-                            key
-                            description
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation update($id: ID!, $input: OrgRoleUpdateInput!) {
+                    org {
+                        role(id: $id) {
+                            update(input: $input) {
+                                result
+                                role {
+                                    id
+                                    name
+                                    permissions {
+                                        id
+                                        name
+                                        key
+                                        description
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }', ['input' => $data])
+                GRAPHQL,
+                [
+                    'id'    => $role->getKey(),
+                    'input' => $data,
+                ],
+            )
             ->assertThat($expected);
+
         if ($expected instanceof GraphQLSuccess) {
-            foreach ($data as $item) {
-                $role = Role::with('permissions')->whereKey($item['id'])->first();
-                $this->assertNotNull($role);
-                $this->assertEquals($item['name'], $role->name);
-                $this->assertEquals(
-                    $role->permissions->pluck((new Permission())->getKeyName())->all(),
-                    $item['permissions'],
-                );
-            }
+            $update = $role->fresh();
+
+            $this->assertEquals($data['name'], $update->name);
+            $this->assertEquals(
+                $update->permissions->pluck((new Permission())->getKeyName())->all(),
+                $data['permissions'],
+            );
         }
     }
     // </editor-fold>
@@ -98,29 +117,34 @@ class UpdateOrgRolesTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $factory = static function (TestCase $test): void {
-            Role::factory()->create([
+        $factory = static function (TestCase $test, Organization $organization): Role {
+            $role = Role::factory()->create([
                 'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                 'name'            => 'name',
-                'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                'organization_id' => $organization,
             ]);
 
             Permission::factory()->create([
                 'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                 'key' => 'permission1',
             ]);
+
+            return $role;
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('updateOrgRoles', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
-            new OrganizationUserDataProvider('updateOrgRoles', [
+            new OrganizationDataProvider('org'),
+            new OrganizationUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'                     => [
-                    new GraphQLSuccess('updateOrgRoles', UpdateOrgRoles::class, [
-                        'updated' => [
-                            [
+                    new GraphQLSuccess(
+                        'org',
+                        new JsonFragmentSchema('role.update', self::class),
+                        new JsonFragment('role.update', [
+                            'result' => true,
+                            'role'   => [
                                 'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                                 'name'        => 'change',
                                 'permissions' => [
@@ -132,8 +156,8 @@ class UpdateOrgRolesTest extends TestCase {
                                     ],
                                 ],
                             ],
-                        ],
-                    ]),
+                        ]),
+                    ),
                     $factory,
                     static function (MockInterface $mock): void {
                         $mock
@@ -153,38 +177,42 @@ class UpdateOrgRolesTest extends TestCase {
                             ->andReturn(true);
                     },
                     [
-                        [
-                            'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                            'name'        => 'change',
-                            'permissions' => [
-                                'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                            ],
+                        'name'        => 'change',
+                        'permissions' => [
+                            'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                        ],
+                    ],
+                ],
+                'Role not found'         => [
+                    new GraphQLError('org', static function (): Throwable {
+                        return new ObjectNotFound();
+                    }),
+                    null,
+                    null,
+                    null,
+                ],
+                'Empty name'             => [
+                    new GraphQLError('org', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $factory,
+                    null,
+                    [
+                        'name'        => '',
+                        'permissions' => [
+                            'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                         ],
                     ],
                 ],
                 'Invalid permissionsIds' => [
-                    new GraphQLError('updateOrgRoles', static function (): array {
+                    new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $factory,
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('updateGroup')
-                            ->never();
-                        $mock
-                            ->shouldReceive('createGroupRoles')
-                            ->never();
-                        $mock
-                            ->shouldReceive('getGroup')
-                            ->never();
-                    },
+                    null,
                     [
-                        [
-                            'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                            'name'        => 'change',
-                            'permissions' => [
-                                'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
-                            ],
+                        'permissions' => [
+                            'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
                         ],
                     ],
                 ],
