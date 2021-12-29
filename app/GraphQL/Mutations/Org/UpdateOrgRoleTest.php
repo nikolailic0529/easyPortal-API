@@ -131,34 +131,20 @@ class UpdateOrgRoleTest extends TestCase {
                     $factory,
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('editSubGroup')
-                            ->once();
-                        $mock
-                            ->shouldReceive('addRolesToGroup')
-                            ->once();
-                        $mock
-                            ->shouldReceive('getGroup')
+                            ->shouldReceive('createGroup')
                             ->once()
-                            ->andReturns(
-                                new Group([
-                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                                    'name'        => 'name',
-                                    'clientRoles' => [
-                                        'client_id' => [
-                                            'permission2',
-                                        ],
-                                    ],
-                                ]),
-                                new Group([
-                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                                    'name'        => 'change',
-                                    'clientRoles' => [
-                                        'client_id' => [
-                                            'permission1',
-                                        ],
-                                    ],
-                                ]),
-                            );
+                            ->andReturn(new Group([
+                                'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                                'name' => 'name',
+                            ]));
+                        $mock
+                            ->shouldReceive('updateGroup')
+                            ->once()
+                            ->andReturn(true);
+                        $mock
+                            ->shouldReceive('updateGroupRoles')
+                            ->once()
+                            ->andReturn(true);
                     },
                     [
                         'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
@@ -175,10 +161,10 @@ class UpdateOrgRoleTest extends TestCase {
                     $factory,
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('editSubGroup')
+                            ->shouldReceive('updateGroup')
                             ->never();
                         $mock
-                            ->shouldReceive('addRolesToGroup')
+                            ->shouldReceive('createGroupRoles')
                             ->never();
                         $mock
                             ->shouldReceive('getGroup')

@@ -1672,7 +1672,7 @@ type Mutation {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload
+  updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload @deprecated(reason: "Please use `mutation { org { role(id) { update }` instead.")
 
   """
   Update Organization Roles.
@@ -1681,7 +1681,7 @@ type Mutation {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload
+  updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload @deprecated(reason: "Please use `mutation { org { role(id) { update }` instead.")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1740,6 +1740,11 @@ input OemsQuery {
 }
 
 type OrgMutations {
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
   role(id: ID): OrgRoleMutations
 }
 
@@ -1771,6 +1776,23 @@ type OrgRoleMutations {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   delete: OrgRoleDeletePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  update(input: OrgRoleUpdateInput): OrgRoleUpdatePayload
+}
+
+input OrgRoleUpdateInput {
+  name: String
+  permissions: [ID!]
+}
+
+type OrgRoleUpdatePayload implements Payload {
+  result: Boolean!
+  role: Role!
 }
 
 type Organization {

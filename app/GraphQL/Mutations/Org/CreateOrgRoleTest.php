@@ -116,6 +116,10 @@ class CreateOrgRoleTest extends TestCase {
                     'name' => 'subgroup',
                 ]));
             $mock
+                ->shouldReceive('updateGroup')
+                ->once()
+                ->andReturn(true);
+            $mock
                 ->shouldReceive('updateGroupRoles')
                 ->once()
                 ->andReturn(true);
