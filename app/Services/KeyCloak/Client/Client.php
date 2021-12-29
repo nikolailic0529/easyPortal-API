@@ -74,6 +74,22 @@ class Client {
             throw new RealmGroupUnknown();
         }
 
+        // Exists?
+        $parent = $this->getGroup($organization);
+        $group  = null;
+
+        foreach ($parent->subGroups as $child) {
+            if ($child->name === $name) {
+                $group = $child;
+                break;
+            }
+        }
+
+        if ($group) {
+            return $group;
+        }
+
+        // Create
         $endpoint = "groups/{$organization->keycloak_group_id}/children";
         $input    = new KeyCloakGroup(['name' => $name]);
         $result   = $this->call($endpoint, 'POST', ['json' => $input->toArray()]);
@@ -82,11 +98,14 @@ class Client {
         return $group;
     }
 
-    public function updateGroup(Role $role, string $name): void {
+    public function updateGroup(KeyCloakGroup|Role $group, string $name): bool {
         // PUT /{realm}/groups/{id}
-        $endpoint = "groups/{$role->id}";
-        $input    = new KeyCloakGroup(['name' => $name]);
-        $this->call($endpoint, 'PUT', ['json' => $input->toArray()]);
+        $id    = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $input = new KeyCloakGroup(['name' => $name]);
+
+        $this->call("groups/{$id}", 'PUT', ['json' => $input->toArray()]);
+
+        return true;
     }
 
     public function deleteGroup(KeyCloakGroup|Role $group): bool {
@@ -418,13 +437,13 @@ class Client {
         }
 
         // Prepare
-        $timeout   = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
+        $timeout = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
         $baseUrl ??= $this->getBaseUrl();
-        $headers   = [
+        $headers = [
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $request   = $this->client
+        $request = $this->client
             ->baseUrl($baseUrl)
             ->timeout($timeout)
             ->withHeaders($headers)
