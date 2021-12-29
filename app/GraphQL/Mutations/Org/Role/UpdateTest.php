@@ -20,7 +20,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
-
 use Throwable;
 
 use function __;
