@@ -69,7 +69,7 @@ class SyncPermissionsTest extends TestCase {
                     ]),
                 );
             $mock
-                ->shouldReceive('deleteRoleByName')
+                ->shouldReceive('deleteRole')
                 ->with('permission-c')
                 ->once()
                 ->andReturns();
@@ -194,7 +194,7 @@ class SyncPermissionsTest extends TestCase {
                 ->once()
                 ->andReturn($group);
             $mock
-                ->shouldReceive('setGroupRoles')
+                ->shouldReceive('updateGroupRoles')
                 ->with($group, [$roleA])
                 ->once()
                 ->andReturn(true);

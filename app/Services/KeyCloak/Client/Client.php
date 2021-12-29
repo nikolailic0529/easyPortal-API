@@ -3,6 +3,7 @@
 namespace App\Services\KeyCloak\Client;
 
 use App\Models\Organization;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
@@ -40,7 +41,7 @@ class Client {
         // empty
     }
 
-    // <editor-fold desc="endpoints">
+    // <editor-fold desc="Groups">
     // =========================================================================
     public function getGroup(Organization|Role|string $object): ?KeyCloakGroup {
         // GET /{realm}/groups/{id}
@@ -67,48 +68,7 @@ class Client {
         return $result;
     }
 
-    /**
-     * @return array<\App\Services\KeyCloak\Client\Types\Role>
-     */
-    public function getRoles(): array {
-        // GET /{realm}/clients/{id}/roles
-        $endpoint = "{$this->getClientUrl()}/roles";
-        $result   = KeyCloakRole::make($this->call($endpoint));
-
-        return $result;
-    }
-
-    public function createRole(KeyCloakRole $role): KeyCloakRole {
-        // POST /{realm}/clients/{id}/roles
-        $endpoint = "{$this->getClientUrl()}/roles";
-        $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
-
-        return $this->getRoleByName($role->name);
-    }
-
-    public function getRoleByName(string $name): KeyCloakRole {
-        // GET /{realm}/clients/{id}/roles/{role-name}
-        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
-        $result   = $this->call($endpoint, 'GET');
-
-        return new KeyCloakRole($result);
-    }
-
-    public function updateRoleByName(string $name, KeyCloakRole $role): void {
-        // PUT /{realm}/clients/{id}/roles/{role-name}
-        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
-        $this->call($endpoint, 'PUT', [
-            'json' => $role->toArray(),
-        ]);
-    }
-
-    public function deleteRoleByName(string $name): void {
-        // PUT /{realm}/clients/{id}/roles/{role-name}
-        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
-        $this->call($endpoint, 'DELETE');
-    }
-
-    public function createSubGroup(Organization $organization, string $name): KeyCloakGroup {
+    public function createGroup(Organization $organization, string $name): KeyCloakGroup {
         // POST /{realm}/groups/{id}/children
         if (!$organization->keycloak_group_id) {
             throw new RealmGroupUnknown();
@@ -122,7 +82,7 @@ class Client {
         return $group;
     }
 
-    public function editSubGroup(Role $role, string $name): void {
+    public function updateGroup(Role $role, string $name): void {
         // PUT /{realm}/groups/{id}
         $endpoint = "groups/{$role->id}";
         $input    = new KeyCloakGroup(['name' => $name]);
@@ -147,6 +107,8 @@ class Client {
         return $result;
     }
 
+    // <editor-fold desc="Roles">
+    // -------------------------------------------------------------------------
     /**
      * @return array<\App\Services\KeyCloak\Client\Types\Role>
      */
@@ -160,39 +122,104 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
+     * @param array<\App\Services\KeyCloak\Client\Types\Role|\App\Models\Permission> $roles
      */
-    public function addRolesToGroup(KeyCloakGroup|Role $group, array $roles): void {
+    public function createGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
         $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $roles    = $this->toRoles($roles)->all();
         $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
 
         $this->call($endpoint, 'POST', ['json' => $roles]);
+
+        return true;
     }
 
     /**
-     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
+     * @param array<\App\Services\KeyCloak\Client\Types\Role|\App\Models\Permission> $roles
      */
-    public function setGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
+    public function updateGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
         $keyBy    = static function (KeyCloakRole $role): string {
             return $role->id;
         };
-        $roles    = (new Collection($roles))->keyBy($keyBy);
+        $roles    = $this->toRoles($roles)->keyBy($keyBy);
         $existing = (new Collection($this->getGroupRoles($group)))->keyBy($keyBy);
         $remove   = $existing->diffKeys($roles)->values()->all();
         $create   = $roles->diffKeys($existing)->values()->all();
 
         if ($remove) {
-            $this->removeRolesFromGroup($group, $remove);
+            $this->deleteGroupRoles($group, $remove);
         }
 
         if ($create) {
-            $this->addRolesToGroup($group, $create);
+            $this->createGroupRoles($group, $create);
         }
 
         return true;
     }
 
+    /**
+     * @param array<\App\Services\KeyCloak\Client\Types\Role|\App\Models\Permission> $roles
+     */
+    public function deleteGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
+        // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
+        $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $roles    = $this->toRoles($roles)->all();
+        $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
+
+        $this->call($endpoint, 'DELETE', ['json' => $roles]);
+
+        return true;
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    // <editor-fold desc="Roles">
+    // =========================================================================
+    /**
+     * @return array<\App\Services\KeyCloak\Client\Types\Role>
+     */
+    public function getRoles(): array {
+        // GET /{realm}/clients/{id}/roles
+        $endpoint = "{$this->getClientUrl()}/roles";
+        $result   = KeyCloakRole::make($this->call($endpoint));
+
+        return $result;
+    }
+
+    public function getRole(string $name): KeyCloakRole {
+        // GET /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
+        $result   = $this->call($endpoint, 'GET');
+
+        return new KeyCloakRole($result);
+    }
+
+    public function createRole(KeyCloakRole $role): KeyCloakRole {
+        // POST /{realm}/clients/{id}/roles
+        $endpoint = "{$this->getClientUrl()}/roles";
+        $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
+
+        return $this->getRole($role->name);
+    }
+
+    public function updateRole(string $name, KeyCloakRole $role): void {
+        // PUT /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
+        $this->call($endpoint, 'PUT', [
+            'json' => $role->toArray(),
+        ]);
+    }
+
+    public function deleteRole(string $name): void {
+        // PUT /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
+        $this->call($endpoint, 'DELETE');
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="endpoints">
+    // =========================================================================
     public function inviteUser(Role $role, string $email): bool {
         // POST /{realm}/users
         $endpoint = 'users';
@@ -249,17 +276,6 @@ class Client {
         $this->call($endpoint, 'PUT', ['json' => $user->toArray()]);
 
         return true;
-    }
-
-    /**
-     * @param array<string> $permissions
-     */
-    public function removeRolesFromGroup(KeyCloakGroup|Role $group, array $permissions): void {
-        // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
-        $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
-        $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
-
-        $this->call($endpoint, 'DELETE', ['json' => $permissions]);
     }
 
     public function getUserByEmail(string $email): ?KeyCloakUser {
@@ -443,4 +459,26 @@ class Client {
         return "clients/{$uuid}";
     }
     // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\KeyCloak\Client\Types\Role|\App\Models\Permission> $roles
+     *
+     * @return \Illuminate\Support\Collection<\App\Services\KeyCloak\Client\Types\Role>
+     */
+    protected function toRoles(array $roles): Collection {
+        return (new Collection($roles))
+            ->map(static function (KeyCloakRole|Permission $role): KeyCloakRole {
+                if ($role instanceof Permission) {
+                    $role = new KeyCloakRole([
+                        'id'   => $role->getKey(),
+                        'name' => $role->key,
+                    ]);
+                }
+
+                return $role;
+            });
+    }
+    //</editor-fold>
 }

@@ -258,7 +258,7 @@ class ClientTest extends TestCase {
     }
 
     /**
-     * @covers ::deleteRoleByName
+     * @covers ::deleteRole
      */
     public function testDeleteRoleByName(): void {
         $config = Mockery::mock(Repository::class);
@@ -284,11 +284,11 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $client->deleteRoleByName('name');
+        $client->deleteRole('name');
     }
 
     /**
-     * @covers ::setGroupRoles
+     * @covers ::updateGroupRoles
      */
     public function testSetGroupRoles(): void {
         $group = $this->faker->randomElement([
@@ -308,17 +308,17 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturn([$a, $b]);
         $client
-            ->shouldReceive('removeRolesFromGroup')
+            ->shouldReceive('deleteGroupRoles')
             ->with($group, [$a])
             ->once()
             ->andReturns();
         $client
-            ->shouldReceive('addRolesToGroup')
+            ->shouldReceive('createGroupRoles')
             ->with($group, [$c])
             ->once()
             ->andReturns();
 
-        $this->assertTrue($client->setGroupRoles($group, [$b, $c]));
+        $this->assertTrue($client->updateGroupRoles($group, [$b, $c]));
     }
     //</editor-fold>
 

@@ -107,7 +107,7 @@ class SyncPermissions extends Command {
 
         // Remove unused Roles
         foreach ($actualRoles->diffKeys($usedRoles) as $role) {
-            $this->client->deleteRoleByName($role->name);
+            $this->client->deleteRole($role->name);
         }
 
         // Update Org Admin group
@@ -121,7 +121,7 @@ class SyncPermissions extends Command {
                     });
 
                 // Update Permissions
-                $this->client->setGroupRoles(
+                $this->client->updateGroupRoles(
                     $orgAdminGroup,
                     $actualRoles->intersectByKeys($orgAdminPermissions)->values()->all(),
                 );
