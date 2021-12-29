@@ -55,7 +55,7 @@ class UpdateTest extends TestCase {
             'ep.keycloak.client_id' => 'client_id',
         ]);
 
-        $role   = $roleFactory
+        $role = $roleFactory
             ? $roleFactory($this, $organization, $user)
             : Role::factory()->make();
         $data ??= [
@@ -138,7 +138,7 @@ class UpdateTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'                     => [
+                'ok'                             => [
                     new GraphQLSuccess(
                         'org',
                         new JsonFragmentSchema('role.update', self::class),
@@ -183,7 +183,7 @@ class UpdateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Role not found'         => [
+                'Role not found'                 => [
                     new GraphQLError('org', static function (): Throwable {
                         return new ObjectNotFound();
                     }),
@@ -191,7 +191,7 @@ class UpdateTest extends TestCase {
                     null,
                     null,
                 ],
-                'Empty name'             => [
+                'Empty name'                     => [
                     new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -204,7 +204,7 @@ class UpdateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid permissionsIds' => [
+                'Invalid permissionsIds'         => [
                     new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -215,6 +215,16 @@ class UpdateTest extends TestCase {
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfz',
                         ],
                     ],
+                ],
+                'Role from another organization' => [
+                    new GraphQLError('org', static function (): Throwable {
+                        return new ObjectNotFound();
+                    }),
+                    static function (): Role {
+                        return Role::factory()->create();
+                    },
+                    null,
+                    null,
                 ],
             ]),
         ))->getData();

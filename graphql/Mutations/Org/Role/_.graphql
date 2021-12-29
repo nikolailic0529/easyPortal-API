@@ -3,7 +3,7 @@ extend type OrgMutations {
   @organization
   @me(permissions: ["org-administer"])
   @mutation(
-    model: "App\\Models\\Role"
+    builder: "App\\GraphQL\\Mutations\\Org\\Role\\Role"
   )
 }
 
