@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org\Role;
 
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
@@ -38,7 +39,7 @@ class CreateTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $permissionFactory = null,
+        Closure $factory = null,
         array $data = [
             'name'        => 'wrong',
             'permissions' => [],
@@ -46,15 +47,8 @@ class CreateTest extends TestCase {
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $organization = null;
-
-        if ($organizationFactory) {
-            $organization = $organizationFactory($this);
-        }
-
-        if ($permissionFactory) {
-            $permissionFactory($this);
-        }
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $this->setOrganization($organization));
 
         if ($organization && !$organization->keycloak_group_id) {
             $organization->keycloak_group_id = $this->faker->uuid();
@@ -62,10 +56,13 @@ class CreateTest extends TestCase {
             $organization = $organization->fresh();
         }
 
-        $this->setUser($userFactory, $this->setOrganization($organization));
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
         ]);
+
+        if ($factory) {
+            $factory($this, $organization, $user);
+        }
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -194,6 +191,22 @@ class CreateTest extends TestCase {
                         'permissions' => [
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfd',
                         ],
+                    ],
+                    null,
+                ],
+                'Role exists'         => [
+                    new GraphQLError('org', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (TestCase $test, Organization $organization): void {
+                        Role::factory()->create([
+                            'name'            => 'new role',
+                            'organization_id' => $organization,
+                        ]);
+                    },
+                    [
+                        'name'        => 'new role',
+                        'permissions' => [],
                     ],
                     null,
                 ],

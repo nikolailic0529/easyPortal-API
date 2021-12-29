@@ -138,15 +138,12 @@ class DeleteTest extends TestCase {
                         // empty
                     },
                 ],
-                'role from another organization' => [
+                'Role from another organization' => [
                     new GraphQLError('org', static function (): Throwable {
                         return new ObjectNotFound();
                     }),
                     static function (): Role {
-                        return Role::factory()->create([
-                            'id'              => 'c92d38b1-401a-4501-8f1e-c0c03244596d',
-                            'organization_id' => Organization::factory()->create(),
-                        ]);
+                        return Role::factory()->create();
                     },
                     null,
                 ],

@@ -30,6 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
 use function array_map;
 use function http_build_query;
 use function is_string;
+use function mb_strtolower;
 use function rtrim;
 
 class Client {
@@ -75,11 +76,12 @@ class Client {
         }
 
         // Exists?
+        $search = mb_strtolower($name);
         $parent = $this->getGroup($organization);
         $group  = null;
 
         foreach ($parent->subGroups as $child) {
-            if ($child->name === $name) {
+            if (mb_strtolower($child->name) === $search) {
                 $group = $child;
                 break;
             }
