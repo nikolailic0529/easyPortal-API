@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings;
+namespace App\Utils;
 
 use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionClass;
