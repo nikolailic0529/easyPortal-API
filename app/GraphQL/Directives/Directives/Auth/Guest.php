@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Directives\Directives\Auth;
 
-use App\GraphQL\Directives\AuthDirective;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
