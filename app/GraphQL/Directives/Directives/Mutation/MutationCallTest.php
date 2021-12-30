@@ -2,15 +2,20 @@
 
 namespace App\GraphQL\Directives\Directives\Mutation;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
+use App\GraphQL\Directives\Directives\Mutation\Rules\Rule;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Mockery\MockInterface;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
+use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 use Tests\WithoutOrganizationScope;
 
+use function __;
 use function json_encode;
 
 /**
@@ -155,6 +160,69 @@ class MutationCallTest extends TestCase {
                     ],
                 ],
             ]));
+    }
+
+    /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldValidate(): void {
+        $customer   = Customer::factory()->create();
+        $mutation   = json_encode(MutationCallTest_Mutation::class);
+        $builder    = json_encode(MutationCallTest_Builder::class);
+        $directives = $this->app->make(DirectiveLocator::class);
+
+        $directives->setResolved('isValid', (new class() extends Rule {
+            public static function definition(): string {
+                return '';
+            }
+
+            public function validate(Context $context, mixed $value): bool {
+                return false;
+            }
+        })::class);
+
+        $this
+            ->useGraphQLSchema(
+            /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    mocked: String @mock
+                }
+                type Mutation {
+                    model(id: ID! @eq): ModelMutations!
+                    @mutation(
+                        builder: {$builder},
+                    )
+                }
+
+                type ModelMutations {
+                    call(input: Parameters): String
+                    @mutationCall(
+                        resolver: {$mutation},
+                    )
+                }
+
+                input Parameters {
+                    test: Int @isValid
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation test($id: ID!) {
+                    model(id: $id) {
+                        call(input: { test: 123 })
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $customer->getKey(),
+                ],
+            )
+            ->assertThat(new GraphQLError('model', static function (): array {
+                return ['validation.rule.isValid'];
+            }));
     }
 }
 
