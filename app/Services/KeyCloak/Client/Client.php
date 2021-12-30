@@ -90,15 +90,15 @@ class Client {
         foreach ($parent->subGroups as $child) {
             if ($id === $child->id) {
                 $groupById = $child;
-            }
-
-            if (mb_strtolower($child->name) === $search) {
+            } elseif (mb_strtolower($child->name) === $search) {
                 $groupByName = $child;
                 break;
+            } else {
+                // empty
             }
         }
 
-        if ($groupById) {
+        if ($groupById && !$groupByName) {
             return $groupById;
         }
 
