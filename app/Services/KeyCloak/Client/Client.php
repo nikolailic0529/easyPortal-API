@@ -108,10 +108,11 @@ class Client {
         try {
             $name     = $groupByName ? $groupByName->name : $role->name;
             $endpoint = "groups/{$organization->keycloak_group_id}/children";
+            $input    = new KeyCloakGroup([
+                'name' => $name,
+            ]);
             $result   = $this->call($endpoint, 'POST', [
-                'json' => new KeyCloakGroup([
-                    'name' => $name,
-                ]),
+                'json' => $input->toArray(),
             ]);
             $group    = new KeyCloakGroup($result);
         } catch (RequestFailed $exception) {
@@ -173,7 +174,7 @@ class Client {
     public function createGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
         $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
-        $roles    = $this->toRoles($roles)->all();
+        $roles    = $this->toRoles($roles)->toArray();
         $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
 
         $this->call($endpoint, 'POST', ['json' => $roles]);
@@ -210,7 +211,7 @@ class Client {
     public function deleteGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
         $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
-        $roles    = $this->toRoles($roles)->all();
+        $roles    = $this->toRoles($roles)->toArray();
         $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
 
         $this->call($endpoint, 'DELETE', ['json' => $roles]);
