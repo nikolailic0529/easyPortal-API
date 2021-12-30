@@ -2,19 +2,22 @@
 
 namespace App\Exceptions;
 
+use App\Services\Service;
 use Exception;
 use Throwable;
+
+use function __;
 
 abstract class ApplicationException extends Exception {
     use HasErrorCode;
 
-    protected ?string $level   = null;
-    protected ?string $channel = null;
+    private ?string $level   = null;
+    private ?string $channel = null;
 
     /**
      * @var array<string,mixed>
      */
-    protected array $context = [];
+    private array $context = [];
 
     protected function __construct(string $message, Throwable $previous = null) {
         parent::__construct($message, 0, $previous);
@@ -54,5 +57,20 @@ abstract class ApplicationException extends Exception {
         $this->context = $context;
 
         return $this;
+    }
+
+    /**
+     * @param array<string, scalar|\Stringable> $replacements
+     */
+    protected function translate(?Exception $service, string $message, array $replacements = []): string {
+        if ($service) {
+            $name = Service::getServiceName($service);
+
+            if ($name) {
+                $message = "services.{$name}.{$message}";
+            }
+        }
+
+        return __($message, $replacements);
     }
 }
