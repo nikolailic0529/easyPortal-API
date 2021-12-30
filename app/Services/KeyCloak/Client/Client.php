@@ -102,6 +102,10 @@ class Client {
             return $groupById;
         }
 
+        if ($groupByName && !$role->exists) {
+            return $groupByName;
+        }
+
         // Role names are case-sensitive on KeyCloak, but case-insensitive in
         // our app. So if another role is found we use its name to get
         // "conflict".
