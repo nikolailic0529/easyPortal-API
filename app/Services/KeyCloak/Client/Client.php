@@ -9,6 +9,7 @@ use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakUnavailable;
 use App\Services\KeyCloak\Client\Exceptions\RealmGroupUnknown;
+use App\Services\KeyCloak\Client\Exceptions\RealmRoleAlreadyExists;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Exceptions\RequestFailed;
@@ -69,33 +70,57 @@ class Client {
         return $result;
     }
 
-    public function createGroup(Organization $organization, string $name): KeyCloakGroup {
+    public function createGroup(Role $role): KeyCloakGroup {
         // POST /{realm}/groups/{id}/children
+
+        // Organization?
+        $organization = $role->organization;
+
         if (!$organization->keycloak_group_id) {
             throw new RealmGroupUnknown();
         }
 
         // Exists?
-        $search = mb_strtolower($name);
-        $parent = $this->getGroup($organization);
-        $group  = null;
+        $id          = $role->getKey();
+        $search      = mb_strtolower($role->name);
+        $parent      = $this->getGroup($organization);
+        $groupById   = null;
+        $groupByName = null;
 
         foreach ($parent->subGroups as $child) {
+            if ($id === $child->id) {
+                $groupById = $child;
+            }
+
             if (mb_strtolower($child->name) === $search) {
-                $group = $child;
+                $groupByName = $child;
                 break;
             }
         }
 
-        if ($group) {
-            return $group;
+        if ($groupById) {
+            return $groupById;
         }
 
-        // Create
-        $endpoint = "groups/{$organization->keycloak_group_id}/children";
-        $input    = new KeyCloakGroup(['name' => $name]);
-        $result   = $this->call($endpoint, 'POST', ['json' => $input->toArray()]);
-        $group    = new KeyCloakGroup($result);
+        // Role names are case-sensitive on KeyCloak, but case-insensitive in
+        // our app. So if another role is found we use its name to get
+        // "conflict".
+        try {
+            $name     = $groupByName ? $groupByName->name : $role->name;
+            $endpoint = "groups/{$organization->keycloak_group_id}/children";
+            $result   = $this->call($endpoint, 'POST', [
+                'json' => new KeyCloakGroup([
+                    'name' => $name,
+                ]),
+            ]);
+            $group    = new KeyCloakGroup($result);
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_CONFLICT)) {
+                throw new RealmRoleAlreadyExists($name, $exception);
+            }
+
+            throw $exception;
+        }
 
         return $group;
     }

@@ -90,8 +90,11 @@ class Update {
 
     protected function sync(Role $role): bool {
         // Ensure that Role exists on KeyCloak
-        $group                       = $this->client->createGroup($role->organization, $role->name);
-        $role->{$role->getKeyName()} = $group->id;
+        $group = $this->client->createGroup($role);
+
+        if (!$role->exists) {
+            $role->{$role->getKeyName()} = $group->id;
+        }
 
         // Save
         return $role->save()
