@@ -24,6 +24,7 @@ use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid as KeyCloak
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled as KeyCloakKeyCloakDisabled;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakUnavailable as KeyCloakKeyCloakUnavailable;
 use App\Services\KeyCloak\Client\Exceptions\RealmGroupUnknown as KeyCloakRealmGroupUnknown;
+use App\Services\KeyCloak\Client\Exceptions\RealmRoleAlreadyExists as KeyCloakRealmRoleAlreadyExistsAlias;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists as KeyCloakRealmUserAlreadyExists;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound as KeyCloakRealmUserNotFound;
 use App\Services\KeyCloak\Client\Exceptions\RequestFailed as KeyCloakRequestFailed;
@@ -93,6 +94,7 @@ class ErrorCodes {
         KeyCloakUserDisabled::class                          => 'KeyCloak014',
         KeyCloakKeyCloakUnavailable::class                   => 'KeyCloak015',
         KeyCloakServerError::class                           => 'KeyCloak016',
+        KeyCloakRealmRoleAlreadyExistsAlias::class           => 'KeyCloak017',
 
         // Organization
         OrganizationUnknownOrganization::class               => 'Organization001',

@@ -237,6 +237,7 @@
     "keycloak.client.invalid_setting_client_uuid": "Invalid KeyCloak Client UUID.",
     "keycloak.client.realm_user_already_exists": "KeyCloak user already exists.",
     "keycloak.client.realm_user_not_found": "KeyCloak user doesn't exists.",
+    "keycloak.client.realm_role_already_exists": "KeyCloak role this same name already exists.",
     "keycloak.auth.another_user_exists": "Another user already exists.",
     "keycloak.auth.insufficient_data": "Insufficient data to create/update User.",
     "queue.errors.service_not_found": "Service :service not found.",
