@@ -86,7 +86,7 @@ class DeleteTest extends TestCase {
             new ArrayDataProvider([
                 'role not exists'                => [
                     new GraphQLError('org', static function (): Throwable {
-                        return new ObjectNotFound();
+                        return new ObjectNotFound((new Role())->getMorphClass());
                     }),
                     static function (TestCase $test): Role {
                         return Role::factory()->make();
@@ -140,7 +140,7 @@ class DeleteTest extends TestCase {
                 ],
                 'Role from another organization' => [
                     new GraphQLError('org', static function (): Throwable {
-                        return new ObjectNotFound();
+                        return new ObjectNotFound((new Role())->getMorphClass());
                     }),
                     static function (): Role {
                         return Role::factory()->create();

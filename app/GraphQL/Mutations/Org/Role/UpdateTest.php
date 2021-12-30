@@ -191,7 +191,7 @@ class UpdateTest extends TestCase {
                 ],
                 'Role not found'                     => [
                     new GraphQLError('org', static function (): Throwable {
-                        return new ObjectNotFound();
+                        return new ObjectNotFound((new Role())->getMorphClass());
                     }),
                     null,
                     null,
@@ -224,7 +224,7 @@ class UpdateTest extends TestCase {
                 ],
                 'Role from another organization'     => [
                     new GraphQLError('org', static function (): Throwable {
-                        return new ObjectNotFound();
+                        return new ObjectNotFound((new Role())->getMorphClass());
                     }),
                     static function (): Role {
                         return Role::factory()->create();

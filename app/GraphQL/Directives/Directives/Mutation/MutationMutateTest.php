@@ -29,6 +29,7 @@ class MutationMutateTest extends TestCase {
     public function testResolveFieldModelNotDefined(): void {
         $mutation = json_encode(MutationMutateTest_Mutation::class);
         $builder  = json_encode(MutationMutateTest_Builder::class);
+        $query    = $this->app->call(MutationMutateTest_Builder::class);
 
         $this
             ->useGraphQLSchema(
@@ -62,7 +63,9 @@ class MutationMutateTest extends TestCase {
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLError('model', new ObjectNotFound()));
+            ->assertThat(new GraphQLError('model', new ObjectNotFound(
+                (new Customer())->getMorphClass(),
+            )));
     }
 
     /**

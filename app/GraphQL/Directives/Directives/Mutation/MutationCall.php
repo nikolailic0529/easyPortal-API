@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Mutation;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Model;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
@@ -37,13 +38,13 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     public function resolveField(FieldValue $fieldValue): FieldValue {
         return $fieldValue->setResolver(
             function (Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
-                return $this->resolve($this->getRoot($root), $args, $context, $resolveInfo);
+                return $this->resolve($this->getContext($root)?->getRoot(), $args, $context, $resolveInfo);
             },
         );
     }
 
-    protected function getRoot(Context $context): ?Model {
-        return $context->getModel() ?? $context->getParent();
+    protected function getContext(Context $context): ?Context {
+        return $context->getContext();
     }
 
     /**

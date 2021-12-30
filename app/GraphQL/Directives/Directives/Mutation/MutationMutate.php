@@ -2,17 +2,17 @@
 
 namespace App\GraphQL\Directives\Directives\Mutation;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class MutationMutate extends MutationCall {
     protected const NAME = 'mutationMutate';
 
-    protected function getRoot(Context $context): ?Model {
-        if (!$context->getModel()) {
-            throw new ObjectNotFound();
+    protected function getContext(Context $context): ?Context {
+        if (!$context->getRoot()) {
+            throw new ObjectNotFound($context->getModel());
         }
 
-        return parent::getRoot($context);
+        return $context;
     }
 }
