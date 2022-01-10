@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Mutation\Rules;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @implements \App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule
@@ -16,6 +17,12 @@ trait ContextAwareRuleImpl {
 
     protected function getMutationContext(): Context {
         return $this->mutationContext;
+    }
+
+    protected function getMutationRoot(): ?Model {
+        return $this->hasMutationContext()
+            ? $this->getMutationContext()->getRoot()
+            : null;
     }
 
     /**

@@ -121,6 +121,7 @@
     "validation.quote_request_duration_id": "Unknown Quote Request Duration",
     "validation.org_role_id": "Invalid role",
     "validation.org_user_id": "Invalid user",
+    "validation.organization_role_id": "The role is not found or belongs to another organization.",
     "validation.user_id": "Invalid user",
     "validation.team_id": "Invalid team",
     "validation.user_not_me": "Cannot change own content",
