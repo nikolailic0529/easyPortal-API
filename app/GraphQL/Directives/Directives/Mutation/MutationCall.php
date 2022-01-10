@@ -7,7 +7,6 @@ use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule;
 use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
 use App\GraphQL\Directives\Directives\Mutation\Rules\LaravelRule;
 use App\GraphQL\Directives\Directives\Mutation\Rules\Rule as RuleDirective;
-use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Rule;

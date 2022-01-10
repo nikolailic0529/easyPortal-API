@@ -348,7 +348,7 @@ class MutationCallTest_Directive extends CustomRule {
         return 'directive @isValid';
     }
 
-    protected static function getRuleClass(): string {
+    protected function getRuleClass(): string {
         return MutationCallTest_Rule::class;
     }
 }

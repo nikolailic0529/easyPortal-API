@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Mutation\Rules;
 
 use App\Utils\Description;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use ReflectionClass;
 
@@ -13,7 +14,7 @@ abstract class Rule extends BaseDirective {
 
     public static function definition(): string {
         $class       = new ReflectionClass(static::class);
-        $directive   = "@is{$class->getShortName()}";
+        $directive   = '@'.Str::camel($class->getShortName());
         $description = (new Description())->get($class);
 
         return /** @lang GraphQL */ <<<GRAPHQL

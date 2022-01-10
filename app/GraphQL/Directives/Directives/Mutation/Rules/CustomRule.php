@@ -19,5 +19,5 @@ abstract class CustomRule extends Rule {
     /**
      * @return class-string<\Illuminate\Contracts\Validation\Rule>
      */
-    abstract protected static function getRuleClass(): string;
+    abstract protected function getRuleClass(): string;
 }
