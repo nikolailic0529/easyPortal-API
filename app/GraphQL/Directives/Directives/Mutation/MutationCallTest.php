@@ -4,6 +4,7 @@ namespace App\GraphQL\Directives\Directives\Mutation;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
+use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
 use App\GraphQL\Directives\Directives\Mutation\Rules\Rule;
 use App\Models\Customer;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
@@ -269,15 +270,12 @@ class MutationCallTest extends TestCase {
 
         $this->assertInstanceOf(InputObjectTypeDefinitionNode::class, $input);
 
-        // Test (no input)
+        // Test (no args)
         $args     = [];
         $set      = $this->app->make(ArgumentSetFactory::class)->wrapArgs($input, $args);
         $context  = new EmptyContext(null);
         $actual   = $mutation->getRules($context, $set);
-        $expected = [
-            'a' => [MutationCallTest_Rule::class],
-            'b' => [MutationCallTest_Rule::class],
-        ];
+        $expected = [];
 
         $this->assertEquals($expected, array_map(static function (array $rules): array {
             return array_map('get_class', $rules);
@@ -285,8 +283,10 @@ class MutationCallTest extends TestCase {
 
         // Test (with input)
         $args     = [
+            'a' => 123,
             'b' => [
                 [
+                    'a' => 123,
                     'c' => true,
                 ],
             ],
@@ -343,7 +343,7 @@ class MutationCallTest_NullResolver {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class MutationCallTest_Directive extends Rule {
+class MutationCallTest_Directive extends CustomRule {
     public static function definition(): string {
         return 'directive @isValid';
     }

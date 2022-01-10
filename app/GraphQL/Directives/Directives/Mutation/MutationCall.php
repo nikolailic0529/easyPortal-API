@@ -4,13 +4,17 @@ namespace App\GraphQL\Directives\Directives\Mutation;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule;
+use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
+use App\GraphQL\Directives\Directives\Mutation\Rules\LaravelRule;
 use App\GraphQL\Directives\Directives\Mutation\Rules\Rule as RuleDirective;
+use Exception;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException as LaravelValidationException;
+use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 use Nuwave\Lighthouse\Execution\Arguments\ListType;
@@ -24,8 +28,10 @@ use function array_filter;
 use function array_merge;
 use function array_slice;
 use function current;
+use function implode;
 use function is_bool;
 use function reset;
+use function sprintf;
 
 abstract class MutationCall extends BaseDirective implements FieldResolver {
     protected const NAME              = 'mutationCall';
@@ -127,7 +133,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             ]);
         }
 
-        $arguments = $set->argumentsWithUndefined();
+        $arguments = $set->arguments;
         $rules     = array_merge($rules, $this->getRulesFromArguments($context, $prefix, $arguments));
 
         return array_filter($rules);
@@ -160,16 +166,34 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param \Illuminate\Support\Collection<\Nuwave\Lighthouse\Support\Contracts\Directive> $directives
      *
-     * @return array<\Illuminate\Contracts\Validation\Rule>
+     * @return array<string,\Illuminate\Contracts\Validation\Rule>
      */
     private function getRulesFromDirectives(Context $context, Collection $directives): array {
         return $directives
             ->filter(Utils::instanceofMatcher(RuleDirective::class))
-            ->map(static function (RuleDirective $directive) use ($context): Rule {
-                $rule = $directive->getRule();
+            ->map(static function (RuleDirective $directive) use ($context): Rule|string {
+                $rule = null;
+
+                if ($directive instanceof CustomRule) {
+                    $rule = $directive->getRule();
+                } elseif ($directive instanceof LaravelRule) {
+                    $rule = $directive->getRule();
+                } elseif ($directive instanceof Rule) {
+                    $rule = $directive;
+                } else {
+                    throw new DefinitionException(sprintf(
+                        'Directive `@%s` must be one of `%s`.',
+                        $directive->name(),
+                        implode('`, `', [
+                            LaravelRule::class,
+                            CustomRule::class,
+                            Rule::class,
+                        ]),
+                    ));
+                }
 
                 if ($rule instanceof ContextAwareRule) {
-                    $rule = $rule->setMutationContext($context);
+                    $rule->setMutationContext($context);
                 }
 
                 return $rule;
