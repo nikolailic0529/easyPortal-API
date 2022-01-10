@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Rules\Required;
+use App\GraphQL\Directives\Directives\Rules\Nullable;
 
-class IsRequired extends Required {
+class IsNullableDirective extends Nullable {
     // Lighthouse loads all files from the directives directory...
 }

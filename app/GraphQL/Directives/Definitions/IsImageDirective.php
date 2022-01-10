@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Rules\Locale;
+use App\GraphQL\Directives\Directives\Rules\Image;
 
-class IsLocale extends Locale {
+class IsImageDirective extends Image {
     // Lighthouse loads all files from the directives directory...
 }

@@ -4,6 +4,6 @@ namespace App\GraphQL\Directives\Definitions;
 
 use App\GraphQL\Directives\Directives\Rules\Timezone;
 
-class IsTimezone extends Timezone {
+class IsTimezoneDirective extends Timezone {
     // Lighthouse loads all files from the directives directory...
 }

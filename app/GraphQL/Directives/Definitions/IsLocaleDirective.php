@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Rules\NotMe;
+use App\GraphQL\Directives\Directives\Rules\Locale;
 
-class IsNotMe extends NotMe {
+class IsLocaleDirective extends Locale {
     // Lighthouse loads all files from the directives directory...
 }

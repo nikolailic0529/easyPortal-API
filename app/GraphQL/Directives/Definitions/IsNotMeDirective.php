@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Rules\Image;
+use App\GraphQL\Directives\Directives\Rules\NotMe;
 
-class IsImage extends Image {
+class IsNotMeDirective extends NotMe {
     // Lighthouse loads all files from the directives directory...
 }
