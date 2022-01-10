@@ -3,29 +3,36 @@
 namespace App\GraphQL\Directives\Directives\Mutation;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
-use App\GraphQL\Directives\Directives\Mutation\Exceptions\ValidatorException;
-use App\GraphQL\Directives\Directives\Mutation\Rules\Rule;
+use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule;
+use App\GraphQL\Directives\Directives\Mutation\Rules\Rule as RuleDirective;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Model;
-use Nuwave\Lighthouse\Execution\Arguments\Argument;
+use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException as LaravelValidationException;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
-use Nuwave\Lighthouse\Schema\DirectiveLocator;
+use Nuwave\Lighthouse\Execution\Arguments\ListType;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Support\Utils;
 
+use function array_filter;
+use function array_merge;
 use function array_slice;
 use function current;
 use function is_bool;
+use function reset;
 
 abstract class MutationCall extends BaseDirective implements FieldResolver {
     protected const NAME              = 'mutationCall';
     protected const ARGUMENT_RESOLVER = 'resolver';
 
     public function __construct(
-        protected DirectiveLocator $directives,
+        protected Factory $factory,
     ) {
         // empty
     }
@@ -50,7 +57,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     public function resolveField(FieldValue $fieldValue): FieldValue {
         return $fieldValue->setResolver(
             function (Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
-                return $this->validate($root, $resolveInfo->argumentSet)
+                return $this->validate($root, $args, $context, $resolveInfo)
                     ? $this->resolve($this->getContext($root)?->getRoot(), $args, $context, $resolveInfo)
                     : ['result' => false];
             },
@@ -91,35 +98,82 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
         return $result;
     }
 
-    protected function validate(Context $context, ArgumentSet|Argument $arguments): bool {
-        $failed = $arguments->directives
-            ->filter(Utils::instanceofMatcher(Rule::class))
-            ->first(static function (Rule $rule) use ($context, $arguments): bool {
-                $value = $arguments instanceof ArgumentSet ? $arguments->toArray() : $arguments->toPlain();
-                $valid = $rule->validate($context, $value);
+    /**
+     * @param array<mixed> $args
+     */
+    protected function validate(Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): bool {
+        try {
+            $rules = $this->getRules($root, $resolveInfo->argumentSet);
 
-                return !$valid;
-            });
-
-        if ($failed) {
-            throw new ValidatorException($failed->name());
-        }
-
-        if ($arguments instanceof ArgumentSet) {
-            foreach ($arguments->arguments as $argument) {
-                $this->validate($context, $argument);
+            if ($rules) {
+                $this->factory->make($args, $rules)->validate();
             }
-        } else {
-            Utils::applyEach(
-                function (mixed $value) use ($context): void {
-                    if ($value instanceof ArgumentSet || $value instanceof Argument) {
-                        $this->validate($context, $value);
-                    }
-                },
-                $arguments->value,
-            );
+        } catch (LaravelValidationException $exception) {
+            throw ValidationException::fromLaravel($exception);
         }
 
         return true;
+    }
+
+    /**
+     * @return array<string, array<\Illuminate\Contracts\Validation\Rule>>
+     */
+    protected function getRules(Context $context, ArgumentSet $set, string $prefix = null): array {
+        $rules = [];
+
+        if ($prefix) {
+            $rules = array_merge($rules, [
+                $prefix => $this->getRulesFromDirectives($context, $set->directives),
+            ]);
+        }
+
+        $arguments = $set->argumentsWithUndefined();
+        $rules     = array_merge($rules, $this->getRulesFromArguments($context, $prefix, $arguments));
+
+        return array_filter($rules);
+    }
+
+    /**
+     * @param array<\Nuwave\Lighthouse\Execution\Arguments\Argument> $arguments
+     *
+     * @return array<\Illuminate\Contracts\Validation\Rule>
+     */
+    private function getRulesFromArguments(Context $context, ?string $prefix, array $arguments): array {
+        $rules = [];
+
+        foreach ($arguments as $name => $argument) {
+            $key         = $prefix ? "{$prefix}.{$name}" : $name;
+            $rules[$key] = $this->getRulesFromDirectives($context, $argument->directives);
+
+            if ($argument->type instanceof ListType && $argument->value) {
+                $rules = array_merge($rules, $this->getRules($context, reset($argument->value), "{$key}.*"));
+            } elseif ($argument->value instanceof ArgumentSet) {
+                $rules = array_merge($rules, $this->getRules($context, $argument->value, $key));
+            } else {
+                // empty
+            }
+        }
+
+        return $rules;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\Nuwave\Lighthouse\Support\Contracts\Directive> $directives
+     *
+     * @return array<\Illuminate\Contracts\Validation\Rule>
+     */
+    private function getRulesFromDirectives(Context $context, Collection $directives): array {
+        return $directives
+            ->filter(Utils::instanceofMatcher(RuleDirective::class))
+            ->map(static function (RuleDirective $directive) use ($context): Rule {
+                $rule = $directive->getRule();
+
+                if ($rule instanceof ContextAwareRule) {
+                    $rule = $rule->setMutationContext($context);
+                }
+
+                return $rule;
+            })
+            ->all();
     }
 }

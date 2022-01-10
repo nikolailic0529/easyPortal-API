@@ -3,19 +3,25 @@
 namespace App\GraphQL\Directives\Directives\Mutation;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
+use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
 use App\GraphQL\Directives\Directives\Mutation\Rules\Rule;
 use App\Models\Customer;
+use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Contracts\Validation\Rule as RuleContract;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Mockery\MockInterface;
+use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
+use Nuwave\Lighthouse\Execution\Arguments\ArgumentSetFactory;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
-use Tests\GraphQL\GraphQLError;
+use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 use Tests\WithoutOrganizationScope;
 
-use function __;
+use function array_map;
 use function json_encode;
 
 /**
@@ -171,15 +177,7 @@ class MutationCallTest extends TestCase {
         $builder    = json_encode(MutationCallTest_Builder::class);
         $directives = $this->app->make(DirectiveLocator::class);
 
-        $directives->setResolved('isValid', (new class() extends Rule {
-            public static function definition(): string {
-                return '';
-            }
-
-            public function validate(Context $context, mixed $value): bool {
-                return false;
-            }
-        })::class);
+        $directives->setResolved('isValid', MutationCallTest_Directive::class);
 
         $this
             ->useGraphQLSchema(
@@ -220,9 +218,91 @@ class MutationCallTest extends TestCase {
                     'id' => $customer->getKey(),
                 ],
             )
-            ->assertThat(new GraphQLError('model', static function (): array {
-                return ['validation.rule.isValid'];
-            }));
+            ->assertThat(new GraphQLValidationError('model'));
+    }
+
+    /**
+     * @covers ::getRules
+     */
+    public function testGetRules(): void {
+        // Mocks
+        $factory  = $this->app->make(Factory::class);
+        $mutation = new class($factory) extends MutationCall {
+            /**
+             * @inheritDoc
+             */
+            public function getRules(Context $context, ArgumentSet $set, string $prefix = null): array {
+                return parent::getRules($context, $set, $prefix);
+            }
+        };
+
+        // Schema
+        $directives = $this->app->make(DirectiveLocator::class);
+        $directives->setResolved('isValid', MutationCallTest_Directive::class);
+
+        $input = $this
+            ->getGraphQLSchema(
+            /* @lang GraphQL */
+                <<<'GRAPHQL'
+                type Query {
+                    mocked: String @mock
+                }
+
+                type Mutation {
+                    test(input: TestInput): Boolean @mock
+                }
+
+                input TestInput {
+                    a: Int @isValid
+                    b: [TestItem] @isValid
+                    c: Boolean
+                }
+
+                input TestItem {
+                    a: Int @isValid @isValid
+                    c: Boolean
+                }
+                GRAPHQL,
+            )
+            ->getType('TestInput')
+            ?->astNode;
+
+        $this->assertInstanceOf(InputObjectTypeDefinitionNode::class, $input);
+
+        // Test (no input)
+        $args     = [];
+        $set      = $this->app->make(ArgumentSetFactory::class)->wrapArgs($input, $args);
+        $context  = new EmptyContext(null);
+        $actual   = $mutation->getRules($context, $set);
+        $expected = [
+            'a' => [MutationCallTest_Rule::class],
+            'b' => [MutationCallTest_Rule::class],
+        ];
+
+        $this->assertEquals($expected, array_map(static function (array $rules): array {
+            return array_map('get_class', $rules);
+        }, $actual));
+
+        // Test (with input)
+        $args     = [
+            'b' => [
+                [
+                    'c' => true,
+                ],
+            ],
+        ];
+        $set      = $this->app->make(ArgumentSetFactory::class)->wrapArgs($input, $args);
+        $context  = new EmptyContext(null);
+        $actual   = $mutation->getRules($context, $set);
+        $expected = [
+            'a'     => [MutationCallTest_Rule::class],
+            'b'     => [MutationCallTest_Rule::class],
+            'b.*.a' => [MutationCallTest_Rule::class, MutationCallTest_Rule::class],
+        ];
+
+        $this->assertEquals($expected, array_map(static function (array $rules): array {
+            return array_map('get_class', $rules);
+        }, $actual));
     }
 }
 
@@ -256,5 +336,36 @@ class MutationCallTest_Mutation {
 class MutationCallTest_NullResolver {
     public function __invoke(): mixed {
         return null;
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class MutationCallTest_Directive extends Rule {
+    public static function definition(): string {
+        return 'directive @isValid';
+    }
+
+    protected static function getRuleClass(): string {
+        return MutationCallTest_Rule::class;
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class MutationCallTest_Rule implements RuleContract {
+    /**
+     * @inheritdoc
+     */
+    public function passes($attribute, $value): bool {
+        return false;
+    }
+
+    public function message(): string {
+        return 'validation.rule.isValid';
     }
 }
