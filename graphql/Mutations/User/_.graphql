@@ -1,0 +1,10 @@
+extend type Mutation {
+  user(id: ID @eq): UserMutations
+  @organization(root: true)
+  @root
+  @mutation(
+    model: "App\\Models\\User"
+  )
+}
+
+type UserMutations
