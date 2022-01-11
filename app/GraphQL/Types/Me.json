@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "given_name",
+        "family_name"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "given_name": {
+            "type": "string"
+        },
+        "family_name": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "contact_email": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "title": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "locale": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "photo": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "root": {
+            "type": "boolean"
+        },
+        "permissions": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "timezone": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "homepage": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "previous_sign_in": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    }
+}
