@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Exceptions\GraphQLErrorFormatter;
+use App\GraphQL\Directives\Lighthouse\EqDirective;
 use App\GraphQL\Directives\SearchBy\Operators\Complex\Relation as RelationOperator;
 use App\Models\Asset;
 use App\Models\AssetCoverage;
@@ -70,6 +71,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Complex\Relation as SearchByRelationOperator;
 use Nuwave\Lighthouse\Events\ManipulateResult;
+use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
 
 class AppServiceProvider extends ServiceProvider {
     /**
@@ -102,7 +104,9 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     protected function bootGraphQL(Dispatcher $dispatcher): void {
+        $this->app->bind(LighthouseEqDirective::class, EqDirective::class);
         $this->app->bind(SearchByRelationOperator::class, RelationOperator::class);
+
         $dispatcher->listen(
             ManipulateResult::class,
             function (ManipulateResult $event): void {
