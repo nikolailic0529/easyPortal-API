@@ -6,6 +6,9 @@ use App\GraphQL\Mutations\Org\UpdateOrgUser;
 use App\Services\KeyCloak\Client\Client;
 use Illuminate\Auth\AuthManager;
 
+/**
+ * @deprecated
+ */
 class UpdateMe {
     public function __construct(
         protected AuthManager $auth,

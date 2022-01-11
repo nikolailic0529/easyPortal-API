@@ -1605,7 +1605,7 @@ type Mutation {
   
   @require <me> User must be authenticated.
   """
-  updateMe(input: UpdateMeInput!): UpdateMePayload
+  updateMe(input: UpdateMeInput!): UpdateMePayload @deprecated(reason: "Please use `me { update }`")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.

@@ -2,6 +2,7 @@ extend type Mutation {
   updateMe(
     input: UpdateMeInput!
   ): UpdateMePayload
+  @deprecated(reason: "Please use `me { update }`")
   @organization
   @me
   @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMe")
