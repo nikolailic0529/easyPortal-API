@@ -3,7 +3,7 @@ extend type UserMutations {
     input: UserUpdateInput
   ): UserUpdatePayload
   @organization(root: true)
-  @root
+  @me(permissions: ["administer"])
   @mutationMutate(
     resolver: "App\\GraphQL\\Mutations\\User\\Update"
   )

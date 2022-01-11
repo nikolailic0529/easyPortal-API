@@ -15,6 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -142,7 +143,9 @@ class UpdateTest extends TestCase {
 
         return (new CompositeDataProvider(
             new RootOrganizationDataProvider('user'),
-            new RootUserDataProvider('user'),
+            new OrganizationUserDataProvider('user', [
+                'administer',
+            ]),
             new ArrayDataProvider([
                 'All possible properties'            => [
                     new GraphQLSuccess(

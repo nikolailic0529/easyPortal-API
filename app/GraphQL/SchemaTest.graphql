@@ -1694,7 +1694,7 @@ type Mutation {
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
-  @require <root> Authenticated user must be a root.
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   user(id: ID): UserMutations
 }
@@ -6199,14 +6199,14 @@ type UserMutations {
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
-  @require <root> Authenticated user must be a root.
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   update(input: UserUpdateInput): UserUpdatePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
-  @require <root> Authenticated user must be a root.
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   organization(id: ID): UserOrganizationMutations
 }
@@ -6223,7 +6223,7 @@ type UserOrganizationMutations {
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
-  @require <root> Authenticated user must be a root.
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   update(input: UserOrganizationUpdateInput): UserOrganizationUpdatePayload
 }
