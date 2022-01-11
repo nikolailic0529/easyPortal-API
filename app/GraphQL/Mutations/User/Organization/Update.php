@@ -21,7 +21,7 @@ class Update {
         return $this->update($user, UpdateInput::make($args['input']));
     }
 
-    protected function update(OrganizationUser $user, UpdateInput $input): bool {
+    public function update(OrganizationUser $user, UpdateInput $input): bool {
         // Model
         $user           = $user->forceFill($input->getProperties());
         $previousRoleId = $user->getOriginal('role_id');
@@ -32,7 +32,11 @@ class Update {
 
         // KeyCloak
         $keycloakUser = $this->client->getUserById($user->user_id);
-        $result       = $this->client->addUserToGroup($keycloakUser, $user->role_id);
+        $result       = true;
+
+        if ($user->role_id) {
+            $result = $this->client->addUserToGroup($keycloakUser, $user->role_id);
+        }
 
         if ($previousRoleId) {
             try {

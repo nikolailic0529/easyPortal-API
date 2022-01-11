@@ -10,8 +10,8 @@ extend type UserOrganizationMutations {
 }
 
 input UserOrganizationUpdateInput {
-  enabled: Boolean @isRequired @isNotMe
-  role_id: ID @isRequired @isOrganizationRoleId @isNotMe
+  enabled: Boolean @isNotMe @isRequired
+  role_id: ID @isNotMe @isRequired @isOrganizationRoleId
   team_id: ID @isNullable @isTeamId
 }
 

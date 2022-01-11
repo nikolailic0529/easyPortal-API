@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Collection;
 
 // @phpcs:disable Generic.Files.LineLength.TooLong
 
@@ -54,6 +55,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property-read \App\Models\ResellerLocation|null                                      $headquarter
  * @property-read \App\Models\Kpi|null                                                   $kpi
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\ResellerLocation> $locations
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\OrganizationUser>      $organizationUsers
  * @property-read \App\Models\Reseller|null                                              $reseller
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Role>             $roles
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
@@ -187,6 +189,19 @@ class Organization extends Model implements
             null,
             'user_id',
         );
+    }
+
+    #[CascadeDelete(true)]
+    public function organizationUsers(): HasMany {
+        return $this->hasMany(OrganizationUser::class);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\OrganizationUser>
+     *     |array<\App\Models\OrganizationUser> $organizations
+     */
+    public function setOrganizationUsersAttribute(Collection|array $users): void {
+        $this->syncHasMany('organizationUsers', $users);
     }
 
     protected function getLocationsModel(): Model {
