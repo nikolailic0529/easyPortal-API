@@ -6186,6 +6186,13 @@ type UserMutations {
   @require <root> Authenticated user must be a root.
   """
   update(input: UserUpdateInput): UserUpdatePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  organization(id: ID): UserOrganizationMutations
 }
 
 type UserOrganization {
@@ -6194,6 +6201,26 @@ type UserOrganization {
   role: Role
   team: Team
   enabled: Boolean!
+}
+
+type UserOrganizationMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  update(input: UserOrganizationUpdateInput): UserOrganizationUpdatePayload
+}
+
+input UserOrganizationUpdateInput {
+  enabled: Boolean
+  role_id: ID
+  team_id: ID
+}
+
+type UserOrganizationUpdatePayload implements Payload {
+  result: Boolean!
+  organization: UserOrganization!
 }
 
 type UserTeam {

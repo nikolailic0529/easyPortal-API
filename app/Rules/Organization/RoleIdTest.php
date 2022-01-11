@@ -5,6 +5,7 @@ namespace App\Rules\Organization;
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Directives\Directives\Mutation\Context\ResolverContext;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\Role;
 use Closure;
 use Illuminate\Support\Facades\Date;
@@ -91,6 +92,17 @@ class RoleIdTest extends TestCase {
                 static function (): ?Role {
                     return Role::factory()->create([
                         'organization_id' => null,
+                    ]);
+                },
+            ],
+            'OrganizationUser'                                => [
+                true,
+                static function (): ?Context {
+                    return new ResolverContext(null, OrganizationUser::factory()->create());
+                },
+                static function (self $test, OrganizationUser $organization): ?Role {
+                    return Role::factory()->create([
+                        'organization_id' => $organization->organization_id,
                     ]);
                 },
             ],

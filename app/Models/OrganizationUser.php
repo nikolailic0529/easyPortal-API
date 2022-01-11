@@ -37,6 +37,10 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
     use OwnedByOrganization;
     use HasOrganization;
 
+    protected const CASTS = [
+        'enabled' => 'bool',
+    ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -44,9 +48,14 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
      */
     protected $table = 'organization_users';
 
-    protected const CASTS = [
-        'enabled' => 'bool',
-    ] + parent::CASTS;
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS;
 
     #[CascadeDelete(false)]
     public function role(): BelongsTo {

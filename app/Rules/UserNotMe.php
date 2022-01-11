@@ -28,8 +28,7 @@ class UserNotMe implements Rule, ContextAwareRule {
         $user = $value;
 
         if ($this->hasMutationContext()) {
-            $model = $this->getMutationContext()->getRoot();
-            $user  = $model instanceof User ? $model->getKey() : null;
+            $user = $this->getMutationRoot(User::class)?->getKey();
         }
 
         return $auth && $user && $auth !== $user;

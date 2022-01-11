@@ -9,6 +9,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use Closure;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -23,7 +24,9 @@ use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Throwable;
 
+use function array_combine;
 use function array_keys;
+use function array_map;
 use function count;
 
 /**
@@ -100,39 +103,16 @@ class UpdateTest extends TestCase {
             ->multipartGraphQL($operations, $map, $files)
             ->assertThat($expected);
 
-//        if ($expected instanceof GraphQLSuccess) {
-//            /** @var \App\Models\User $updatedUser */
-//            $updatedUser = User::query()->whereKey($input['user_id'])->first();
-//            $this->assertNotNull($updatedUser);
-//            if ($nullableData) {
-//                $this->assertNull($updatedUser->given_name);
-//                $this->assertNull($updatedUser->family_name);
-//                $this->assertNull($updatedUser->title);
-//                $this->assertNull($updatedUser->academic_title);
-//                $this->assertNull($updatedUser->office_phone);
-//                $this->assertNull($updatedUser->mobile_phone);
-//                $this->assertNull($updatedUser->contact_email);
-//                $this->assertNull($updatedUser->department);
-//                $this->assertNull($updatedUser->job_title);
-//                $this->assertNull($updatedUser->photo);
-//                $this->assertNull($updatedUser->timezone);
-//                $this->assertNull($updatedUser->locale);
-//                $this->assertNull($updatedUser->homepage);
-//            } else {
-//                $this->assertEquals($updatedUser->given_name, $input['given_name']);
-//                $this->assertEquals($updatedUser->family_name, $input['family_name']);
-//                $this->assertEquals($updatedUser->title, $input['title']);
-//                $this->assertEquals($updatedUser->academic_title, $input['academic_title']);
-//                $this->assertEquals($updatedUser->office_phone, $input['office_phone']);
-//                $this->assertEquals($updatedUser->mobile_phone, $input['mobile_phone']);
-//                $this->assertEquals($updatedUser->contact_email, $input['contact_email']);
-//                $this->assertEquals($updatedUser->department, $input['department']);
-//                $this->assertEquals($updatedUser->job_title, $input['job_title']);
-//                $this->assertEquals($updatedUser->timezone, $input['timezone']);
-//                $this->assertEquals($updatedUser->locale, $input['locale']);
-//                $this->assertEquals($updatedUser->homepage, $input['homepage']);
-//            }
-//        }
+        if ($expected instanceof GraphQLSuccess) {
+            /** @var \App\Models\User $updated */
+            $updated    = User::query()->whereKey($input['id'])->firstOrFail();
+            $expected   = Arr::except($input['input'], ['photo']);
+            $attributes = array_keys($expected);
+            $values     = array_map(static fn(string $attr) => $updated->getAttribute($attr), $attributes);
+            $actual     = array_combine($attributes, $values);
+
+            $this->assertEquals($expected, $actual);
+        }
     }
     // </editor-fold>
 
@@ -224,11 +204,7 @@ class UpdateTest extends TestCase {
                         ];
                         $count      = $test->faker->numberBetween(1, count($properties));
                         $keys       = $test->faker->randomElements(array_keys($properties), $count);
-                        $updated    = [];
-
-                        foreach ($keys as $key) {
-                            $updated[$key] = $properties[$key];
-                        }
+                        $updated    = Arr::only($properties, $keys);
 
                         return $updated;
                     },

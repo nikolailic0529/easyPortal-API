@@ -1,0 +1,10 @@
+extend type UserMutations {
+  organization(id: ID @eq(key: "organization_id")): UserOrganizationMutations
+  @organization(root: true)
+  @root
+  @mutation(
+    relation: "organizations"
+  )
+}
+
+type UserOrganizationMutations

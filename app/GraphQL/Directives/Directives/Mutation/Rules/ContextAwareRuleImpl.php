@@ -19,10 +19,26 @@ trait ContextAwareRuleImpl {
         return $this->mutationContext;
     }
 
-    protected function getMutationRoot(): ?Model {
-        return $this->hasMutationContext()
-            ? $this->getMutationContext()->getRoot()
-            : null;
+    /**
+     * @template T of \Illuminate\Database\Eloquent\Model
+     *
+     * @param class-string<T> $class
+     *
+     * @return T|null
+     */
+    protected function getMutationRoot(string $class = null): ?Model {
+        $model = null;
+
+        if ($this->hasMutationContext()) {
+            $context = $this->getMutationContext();
+
+            do {
+                $model   = $context->getRoot();
+                $context = $context->getParent();
+            } while ($context && $class !== null && !($model instanceof $class));
+        }
+
+        return $model;
     }
 
     /**
