@@ -17,6 +17,7 @@ use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 use Nuwave\Lighthouse\Execution\Arguments\ListType;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
@@ -37,6 +38,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     protected const ARGUMENT_RESOLVER = 'resolver';
 
     public function __construct(
+        protected DirectiveLocator $directives,
         protected Factory $factory,
     ) {
         // empty
@@ -108,10 +110,29 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
      */
     protected function validate(Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): bool {
         try {
-            $rules = $this->getRules($root, $resolveInfo->argumentSet);
+            // Field
+            $fieldNode  = $resolveInfo->fieldDefinition->astNode;
+            $directives = $this->directives->associated($fieldNode);
+            $fieldRules = $this->getRulesFromDirectives($root, $directives);
 
-            if ($rules) {
-                $this->factory->make($args, $rules)->validate();
+            if ($fieldRules) {
+                $this->factory
+                    ->make(
+                        [
+                            'context' => $root,
+                        ],
+                        [
+                            'context' => $fieldRules,
+                        ],
+                    )
+                    ->validate();
+            }
+
+            // Arguments
+            $argsRules = $this->getRules($root, $resolveInfo->argumentSet);
+
+            if ($argsRules) {
+                $this->factory->make($args, $argsRules)->validate();
             }
         } catch (LaravelValidationException $exception) {
             throw ValidationException::fromLaravel($exception);

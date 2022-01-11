@@ -223,12 +223,67 @@ class MutationCallTest extends TestCase {
     }
 
     /**
+     * @covers ::resolveField
+     */
+    public function testResolveFieldValidateField(): void {
+        $customer   = Customer::factory()->create();
+        $mutation   = json_encode(MutationCallTest_Mutation::class);
+        $builder    = json_encode(MutationCallTest_Builder::class);
+        $directives = $this->app->make(DirectiveLocator::class);
+
+        $directives->setResolved('isValid', MutationCallTest_Directive::class);
+
+        $this
+            ->useGraphQLSchema(
+            /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    mocked: String @mock
+                }
+                type Mutation {
+                    model(id: ID! @eq): ModelMutations!
+                    @mutation(
+                        builder: {$builder},
+                    )
+                }
+
+                type ModelMutations {
+                    call(input: Parameters): String
+                    @isValid
+                    @mutationCall(
+                        resolver: {$mutation},
+                    )
+                }
+
+                input Parameters {
+                    test: Int
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation test($id: ID!) {
+                    model(id: $id) {
+                        call(input: { test: 123 })
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $customer->getKey(),
+                ],
+            )
+            ->assertThat(new GraphQLValidationError('model'));
+    }
+
+    /**
      * @covers ::getRules
      */
     public function testGetRules(): void {
         // Mocks
+        $locator  = $this->app->make(DirectiveLocator::class);
         $factory  = $this->app->make(Factory::class);
-        $mutation = new class($factory) extends MutationCall {
+        $mutation = new class($locator, $factory) extends MutationCall {
             /**
              * @inheritDoc
              */
