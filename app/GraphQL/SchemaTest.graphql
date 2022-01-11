@@ -1626,14 +1626,14 @@ type Mutation {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  disableOrgUser(input: DisableOrgUserInput!): DisableOrgUserPayload
+  disableOrgUser(input: DisableOrgUserInput!): DisableOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  enableOrgUser(input: EnableOrgUserInput!): EnableOrgUserPayload
+  enableOrgUser(input: EnableOrgUserInput!): EnableOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1688,7 +1688,7 @@ type Mutation {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload
+  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
   quote: QuoteMutations
 
   """

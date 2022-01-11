@@ -26,6 +26,7 @@ use function __;
 use function array_key_exists;
 
 /**
+ * @deprecated
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\UpdateOrgUser
  */

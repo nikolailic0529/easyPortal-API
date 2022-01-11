@@ -4,6 +4,9 @@ namespace App\GraphQL\Mutations\Org;
 
 use App\GraphQL\Mutations\DisableUser;
 
+/**
+ * @deprecated
+ */
 class DisableOrgUser {
     public function __construct(
         protected DisableUser $mutation,
