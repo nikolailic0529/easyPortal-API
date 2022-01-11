@@ -31,7 +31,7 @@ class UserNotMe implements Rule, ContextAwareRule {
             $user = $this->getMutationRoot(User::class)?->getKey();
         }
 
-        return $auth && $user && $auth !== $user;
+        return $user && $auth !== $user;
     }
 
     public function message(): string {
