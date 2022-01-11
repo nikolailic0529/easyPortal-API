@@ -148,14 +148,16 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
 
         foreach ($arguments as $name => $argument) {
             $key         = $prefix ? "{$prefix}.{$name}" : $name;
+            $value       = $argument->value;
             $rules[$key] = $this->getRulesFromDirectives($context, $argument->directives);
 
-            if ($argument->type instanceof ListType && $argument->value) {
-                $rules = array_merge($rules, $this->getRules($context, reset($argument->value), "{$key}.*"));
-            } elseif ($argument->value instanceof ArgumentSet) {
-                $rules = array_merge($rules, $this->getRules($context, $argument->value, $key));
-            } else {
-                // empty
+            if ($argument->type instanceof ListType && $value) {
+                $value = reset($value);
+                $key   = "{$key}.*";
+            }
+
+            if ($value instanceof ArgumentSet) {
+                $rules = array_merge($rules, $this->getRules($context, $value, $key));
             }
         }
 
