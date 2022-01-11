@@ -7,5 +7,5 @@ use App\Utils\JsonObject;
 class UpdateInput extends JsonObject {
     public bool   $enabled;
     public string $role_id;
-    public string $team_id;
+    public ?string $team_id;
 }

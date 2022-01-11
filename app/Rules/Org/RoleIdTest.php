@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Rules;
+namespace App\Rules\Org;
 
 use App\Models\Organization;
 use App\Models\Role;
@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\OrgRoleId
+ * @coversDefaultClass \App\Rules\Org\RoleId
  */
-class OrgRoleIdTest extends TestCase {
+class RoleIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -27,7 +27,7 @@ class OrgRoleIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(OrgRoleId::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
     }
 
     /**
@@ -37,8 +37,8 @@ class OrgRoleIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $roleFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
-        $orgRoleId    = $roleFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(OrgRoleId::class)->passes('test', $orgRoleId));
+        $rule         = $roleFactory($this, $organization);
+        $this->assertEquals($expected, $this->app->make(RoleId::class)->passes('test', $rule));
     }
     // </editor-fold>
 
@@ -56,6 +56,7 @@ class OrgRoleIdTest extends TestCase {
                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         'organization_id' => $organization->getKey(),
                     ]);
+
                     return $role->getKey();
                 },
             ],
@@ -66,6 +67,7 @@ class OrgRoleIdTest extends TestCase {
                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         'organization_id' => Organization::factory(),
                     ]);
+
                     return $role->getKey();
                 },
             ],
@@ -83,6 +85,7 @@ class OrgRoleIdTest extends TestCase {
                         'organization_id' => $organization->getKey(),
                     ]);
                     $role->delete();
+
                     return $role->getKey();
                 },
             ],

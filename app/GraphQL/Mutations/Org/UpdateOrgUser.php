@@ -13,6 +13,9 @@ use App\Services\Organization\CurrentOrganization;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 
+/**
+ * @deprecated
+ */
 class UpdateOrgUser {
     public function __construct(
         protected Auth $auth,

@@ -2,6 +2,7 @@ extend type Mutation {
   disableOrgUser(
     input: DisableOrgUserInput!
   ): DisableOrgUserPayload
+  @deprecated(reason: "Please use `org { user(id) { update } }`")
   @organization
   @me(permissions: ["org-administer"])
   @field(resolver: "App\\GraphQL\\Mutations\\Org\\DisableOrgUser")

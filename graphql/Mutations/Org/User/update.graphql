@@ -1,0 +1,34 @@
+extend type OrgUserMutations {
+  update(
+    input: OrgUserUpdateInput
+  ): OrgUserUpdatePayload
+  @organization
+  @me(permissions: ["org-administer"])
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\Org\\User\\Update"
+  )
+}
+
+input OrgUserUpdateInput {
+  enabled: Boolean @isNotMe @isRequired
+  role_id: ID @isNotMe @isRequired @isOrgRoleId
+  team_id: ID @isNullable @isTeamId
+  given_name: String @isRequired
+  family_name: String @isRequired
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  photo: Upload @isNullable @isImage
+  homepage: String
+  locale: String @isNullable @isLocale
+  timezone: String @isNullable @isTimezone
+}
+
+type OrgUserUpdatePayload implements Payload {
+  result: Boolean!
+  user: User!
+}

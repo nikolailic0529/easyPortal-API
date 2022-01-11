@@ -2,6 +2,7 @@ extend type Mutation {
   updateOrgUser(
     input: UpdateOrgUserInput!
   ): UpdateOrgUserPayload
+  @deprecated(reason: "Please use `org { user(id) { update } }`")
   @organization
   @me(permissions: ["org-administer"])
   @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrgUser")
@@ -22,7 +23,7 @@ input UpdateOrgUserInput {
   homepage: String
   locale: String @rules(apply: ["nullable","App\\Rules\\Locale"])
   timezone: String @rules(apply: ["nullable","timezone"])
-  role_id: ID @rules(apply: ["nullable","App\\Rules\\OrgRoleId"])
+  role_id: ID @rules(apply: ["nullable","App\\Rules\\Org\\RoleId"])
   team_id: ID @rules(apply: ["nullable","App\\Rules\\TeamId"])
 }
 

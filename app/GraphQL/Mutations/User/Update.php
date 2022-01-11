@@ -23,7 +23,7 @@ class Update {
         return $this->update($user, UpdateInput::make($args['input']));
     }
 
-    protected function update(User $user, UpdateInput $input): bool {
+    public function update(User $user, UpdateInput $input): bool {
         $keycloakUser = $this->client->getUserById($user->getKey());
         $attributes   = $keycloakUser->attributes;
         $properties   = new KeycloakUser();
