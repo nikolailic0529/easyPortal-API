@@ -34,4 +34,10 @@ extend type Query {
   @me(permissions: ["administer"])
   @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
   @paginated
+
+  user(id: ID! @eq): User
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
+  @find
 }

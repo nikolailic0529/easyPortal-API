@@ -2034,6 +2034,13 @@ type Query {
   users(where: SearchByConditionUsersQuery, order: [SortByClauseUsersSort!], limit: Int! = 25, offset: Int! = 0): [User!]!
 
   """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  user(id: ID!): User
+
+  """
   List of all possible asset types.
   
   @require <organization> Authenticated user must be a member of the current organization.

@@ -21,6 +21,7 @@ use Tests\TestCase;
 
 /**
  * @internal
+ * @coversDefaultClass \App\GraphQL\Queries\Administration\Users
  */
 class UsersTest extends TestCase {
     // <editor-fold desc="Tests">
