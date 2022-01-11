@@ -2,17 +2,18 @@
 
 namespace App\GraphQL\Directives\Directives\Mutation;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
+use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\InvalidContext;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class MutationCreate extends MutationCall {
     protected const NAME = 'mutationCreate';
 
-    protected function getRoot(Context $context): ?Model {
-        if ($context->getModel()) {
+    protected function getContext(Context $context): ?Context {
+        if (!($context instanceof EmptyContext)) {
             throw new InvalidContext();
         }
 
-        return parent::getRoot($context);
+        return parent::getContext($context);
     }
 }

@@ -1,0 +1,22 @@
+extend type UserOrganizationMutations {
+  update(
+    input: UserOrganizationUpdateInput
+  ): UserOrganizationUpdatePayload
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @isNotMe
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\User\\Organization\\Update"
+  )
+}
+
+input UserOrganizationUpdateInput {
+  enabled: Boolean @isRequired
+  role_id: ID @isRequired @isOrganizationRoleId
+  team_id: ID @isRequired @isTeamId
+}
+
+type UserOrganizationUpdatePayload implements Payload {
+  result: Boolean!
+  organization: UserOrganization!
+}

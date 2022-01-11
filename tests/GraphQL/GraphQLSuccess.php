@@ -4,9 +4,11 @@ namespace Tests\GraphQL;
 
 use JsonSerializable;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesFragment;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
 use SplFileInfo;
 use stdClass;
 
+use function array_merge;
 use function is_null;
 
 class GraphQLSuccess extends GraphQLResponse {
@@ -26,7 +28,22 @@ class GraphQLSuccess extends GraphQLResponse {
     }
 
     /**
-     * @return array<\PHPUnit\Framework\Constraint\Constraint>
+     * @inheritDoc
+     */
+    protected function getSchemaConstraints(): array {
+        $constraints = parent::getSchemaConstraints();
+
+        if ($this::class === self::class) {
+            $constraints = array_merge($constraints, [
+                new JsonMatchesSchema(new SchemaWrapper(self::class, $this->root)),
+            ]);
+        }
+
+        return $constraints;
+    }
+
+    /**
+     * @inheritDoc
      */
     protected function getResponseConstraints(): array {
         return [

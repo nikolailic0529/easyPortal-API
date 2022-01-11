@@ -17,6 +17,7 @@ use App\Services\KeyCloak\Client\Exceptions\ServerError;
 use App\Services\KeyCloak\Client\Types\Credential as KeyCloakCredential;
 use App\Services\KeyCloak\Client\Types\Group as KeyCloakGroup;
 use App\Services\KeyCloak\Client\Types\Role as KeyCloakRole;
+use App\Services\KeyCloak\Client\Types\User;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
@@ -367,10 +368,14 @@ class Client {
         }, $groups);
     }
 
-    public function addUserToGroup(string $userId, string $groupId): void {
+    public function addUserToGroup(User|string $user, string $groupId): bool {
         // PUT /{realm}/users/{id}/groups/{groupId}
+        $userId   = $user instanceof User ? $user->id : $user;
         $endpoint = "users/{$userId}/groups/{$groupId}";
+
         $this->call($endpoint, 'PUT');
+
+        return true;
     }
 
     public function resetPassword(string $id, string $password): bool {
@@ -437,10 +442,14 @@ class Client {
         });
     }
 
-    public function removeUserFromGroup(string $userId, string $groupId): void {
+    public function removeUserFromGroup(User|string $user, string $groupId): bool {
         // DELETE /{realm}/users/{id}/groups/{groupId}
+        $userId   = $user instanceof User ? $user->id : $user;
         $endpoint = "users/{$userId}/groups/{$groupId}";
+
         $this->call($endpoint, 'DELETE');
+
+        return true;
     }
     // </editor-fold>
 

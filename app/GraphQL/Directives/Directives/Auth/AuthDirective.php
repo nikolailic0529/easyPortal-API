@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives;
+namespace App\GraphQL\Directives\Directives\Auth;
 
 use Closure;
 use GraphQL\Language\AST\DirectiveDefinitionNode;

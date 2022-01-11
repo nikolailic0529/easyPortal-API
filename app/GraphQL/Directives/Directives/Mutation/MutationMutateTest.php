@@ -62,7 +62,9 @@ class MutationMutateTest extends TestCase {
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLError('model', new ObjectNotFound()));
+            ->assertThat(new GraphQLError('model', new ObjectNotFound(
+                (new Customer())->getMorphClass(),
+            )));
     }
 
     /**

@@ -6,13 +6,32 @@ use App\GraphQL\Directives\Directives\Mutation\MutationException;
 use Throwable;
 
 use function __;
+use function sprintf;
 
 class ObjectNotFound extends MutationException {
-    public function __construct(Throwable $previous = null) {
-        parent::__construct('Object not found.', $previous);
+    public function __construct(
+        protected ?string $object,
+        Throwable $previous = null,
+    ) {
+        parent::__construct(sprintf(
+            'Object `%s` not found.',
+            $this->object,
+        ), $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.directives.@mutation.object_not_found');
+        return __('graphql.directives.@mutation.object_not_found', [
+            'object' => $this->getObjectName(),
+        ]);
+    }
+
+    protected function getObjectName(): string {
+        $object     = $this->object ?: 'Object';
+        $string     = "model.{$object}";
+        $translated = __($string);
+
+        return $string !== $translated
+            ? $translated
+            : $object;
     }
 }

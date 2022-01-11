@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Directives\Directives\Auth;
 
-use App\GraphQL\Directives\AuthDirective;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;

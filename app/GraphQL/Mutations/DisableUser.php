@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
 
+/**
+ * @deprecated
+ */
 class DisableUser {
     public function __construct(
         protected Client $client,

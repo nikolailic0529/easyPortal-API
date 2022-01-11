@@ -17,42 +17,43 @@ use function str_starts_with;
 trait WithSearch {
     // <editor-fold desc="SetUp">
     // =========================================================================
-    protected function setUpWithSearch(): void {
-        // Right now only ElasticSearch is supported.
-        $token  = ParallelTesting::token();
-        $prefix = $token ? "testing_{$token}_" : 'testing_';
+    /**
+     * @before
+     */
+    public function initWithSearch(): void {
+        $this->afterApplicationCreated(function (): void {
+            // Right now only ElasticSearch is supported.
+            $token  = ParallelTesting::token();
+            $prefix = $token ? "testing_{$token}_" : 'testing_';
 
-        $this->setSettings([
-            'scout.driver'                           => 'elastic',
-            'scout.prefix'                           => $prefix,
-            'scout.queue'                            => false,
-            'elastic.scout_driver.refresh_documents' => true,
-        ]);
+            $this->setSettings([
+                'scout.driver'                           => 'elastic',
+                'scout.prefix'                           => $prefix,
+                'scout.queue'                            => false,
+                'elastic.scout_driver.refresh_documents' => true,
+            ]);
 
-        // Available?
-        $client = $this->app->make(Client::class);
+            // Available?
+            $client = $this->app->make(Client::class);
 
-        try {
-            $client->info();
-        } catch (Throwable) {
-            $this->markTestSkipped('Elastic Search is not installed/configured.');
-        }
+            try {
+                $client->info();
+            } catch (Throwable) {
+                $this->markTestSkipped('Elastic Search is not installed/configured.');
+            }
 
-        // Remove all indexes
-        $indexes = (new Collection($client->indices()->getAlias()))
-            ->keys()
-            ->filter(function (string $index): bool {
-                return $this->isSearchName($index);
-            })
-            ->join(',');
+            // Remove all indexes
+            $indexes = (new Collection($client->indices()->getAlias()))
+                ->keys()
+                ->filter(function (string $index): bool {
+                    return $this->isSearchName($index);
+                })
+                ->join(',');
 
-        if ($indexes) {
-            $client->indices()->delete(['index' => $indexes]);
-        }
-    }
-
-    protected function tearDownWithSearch(): void {
-        // empty
+            if ($indexes) {
+                $client->indices()->delete(['index' => $indexes]);
+            }
+        });
     }
     // </editor-fold>
 

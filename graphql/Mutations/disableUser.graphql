@@ -2,6 +2,7 @@ extend type Mutation {
   disableUser(
     input: DisableUserInput!
   ): DisableUserPayload
+  @deprecated(reason: "Please use `user(id) { update }` instead.")
   @organization
   @me(permissions: ["administer"])
 }

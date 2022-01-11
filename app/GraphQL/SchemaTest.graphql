@@ -1361,14 +1361,14 @@ type Mutation {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  disableUser(input: DisableUserInput!): DisableUserPayload
+  disableUser(input: DisableUserInput!): DisableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  enableUser(input: EnableUserInput!): EnableUserPayload
+  enableUser(input: EnableUserInput!): EnableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1690,6 +1690,13 @@ type Mutation {
   """
   updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload
   quote: QuoteMutations
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  user(id: ID): UserMutations
 }
 
 type Note {
@@ -2025,6 +2032,22 @@ type Query {
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   users(where: SearchByConditionUsersQuery, order: [SortByClauseUsersSort!], limit: Int! = 25, offset: Int! = 0): [User!]!
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  user(id: ID!): User
+
+  """
+  List of all shared roles.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  roles: [Role!]!
 
   """
   List of all possible asset types.
@@ -6172,6 +6195,22 @@ type User {
   organizations: [UserOrganization!]!
 }
 
+type UserMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  update(input: UserUpdateInput): UserUpdatePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  organization(id: ID): UserOrganizationMutations
+}
+
 type UserOrganization {
   organization_id: ID!
   organization: Organization!
@@ -6180,9 +6219,51 @@ type UserOrganization {
   enabled: Boolean!
 }
 
+type UserOrganizationMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  update(input: UserOrganizationUpdateInput): UserOrganizationUpdatePayload
+}
+
+input UserOrganizationUpdateInput {
+  enabled: Boolean
+  role_id: ID
+  team_id: ID
+}
+
+type UserOrganizationUpdatePayload implements Payload {
+  result: Boolean!
+  organization: UserOrganization!
+}
+
 type UserTeam {
   team: Team!
   organization: Organization!
+}
+
+input UserUpdateInput {
+  enabled: Boolean
+  given_name: String
+  family_name: String
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  photo: Upload
+  homepage: String
+  locale: String
+  timezone: String
+}
+
+type UserUpdatePayload implements Payload {
+  result: Boolean!
+  user: User!
 }
 
 """Aggregated data for type User."""

@@ -15,18 +15,23 @@ trait FakeDisks {
      */
     private array $fakeDisks = [];
 
-    protected function setUpFakeDisks(): void {
-        $this->app->afterResolving(Disk::class, function (Disk $disk): void {
-            if (!isset($this->fakeDisks[$disk->getName()])) {
-                $name                              = $disk->getName();
-                $config                            = $this->app()->make(Repository::class);
-                $settings                          = $config->get("filesystems.disks.{$name}", []);
-                $this->fakeDisks[$disk->getName()] = (bool) Storage::fake($name, $settings);
-            }
+    /**
+     * @before
+     */
+    public function initFakeDisks(): void {
+        $this->afterApplicationCreated(function (): void {
+            $this->app->afterResolving(Disk::class, function (Disk $disk): void {
+                if (!isset($this->fakeDisks[$disk->getName()])) {
+                    $name                              = $disk->getName();
+                    $config                            = $this->app()->make(Repository::class);
+                    $settings                          = $config->get("filesystems.disks.{$name}", []);
+                    $this->fakeDisks[$disk->getName()] = (bool) Storage::fake($name, $settings);
+                }
+            });
         });
-    }
 
-    protected function tearDownFakeDisks(): void {
-        $this->fakeDisks = [];
+        $this->beforeApplicationDestroyed(function (): void {
+            $this->fakeDisks = [];
+        });
     }
 }

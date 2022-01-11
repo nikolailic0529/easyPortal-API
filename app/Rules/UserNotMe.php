@@ -2,12 +2,17 @@
 
 namespace App\Rules;
 
+use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule;
+use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRuleImpl;
+use App\Models\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Validation\Rule;
 
 use function __;
 
-class UserNotMe implements Rule {
+class UserNotMe implements Rule, ContextAwareRule {
+    use ContextAwareRuleImpl;
+
     public function __construct(
         protected AuthManager $auth,
     ) {
@@ -18,7 +23,15 @@ class UserNotMe implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return $this->auth->user()?->getAuthIdentifier() !== $value;
+        // todo(graphql): $value should be used as User ID
+        $auth = $this->auth->user()?->getAuthIdentifier();
+        $user = $value;
+
+        if ($this->hasMutationContext()) {
+            $user = $this->getMutationRoot(User::class)?->getKey();
+        }
+
+        return $user && $auth !== $user;
     }
 
     public function message(): string {

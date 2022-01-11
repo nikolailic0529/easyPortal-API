@@ -2,6 +2,10 @@
 
 namespace App\GraphQL\Directives\Directives\Mutation;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\BuilderContext;
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
+use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
+use App\GraphQL\Directives\Directives\Mutation\Context\ResolverContext;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Utils\Eloquent\ModelHelper;
 use Closure;
@@ -11,9 +15,7 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
-use Laravel\Scout\Builder as ScoutBuilder;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
@@ -85,12 +87,8 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
     // =========================================================================
     public function resolveField(FieldValue $fieldValue): FieldValue {
         return $fieldValue->setResolver(
-            function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Context {
-                $root    = $root instanceof Context ? ($root->getModel() ?? $root->getParent()) : $root;
-                $object  = $this->getObject($root, $args, $context, $resolveInfo);
-                $context = new Context($root, $object);
-
-                return $context;
+            function (?Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Context {
+                return $this->resolve($root ?? new EmptyContext(null), $args, $context, $resolveInfo);
             },
         );
     }
@@ -168,28 +166,34 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
     /**
      * @param array<mixed> $args
      */
-    protected function getObject(
-        mixed $root,
+    protected function resolve(
+        ?Context $rootContext,
         array $args,
-        GraphQLContext $context,
+        GraphQLContext $graphQLContext,
         ResolveInfo $resolveInfo,
-    ): ?Model {
-        // Value
-        $object   = null;
+    ): Context {
+        $root     = $rootContext->getContext()?->getRoot();
+        $context  = null;
         $resolver = $this->getResolver(static::ARGUMENT_RESOLVER);
 
         if ($resolver) {
-            $object = $resolver($root, $args, $context, $resolveInfo);
+            $object = $resolver($root, $args, $graphQLContext, $resolveInfo);
 
-            if ($object !== null && !($object instanceof Model)) {
+            if ($object instanceof Model) {
+                $context = new ResolverContext($rootContext, $object);
+            } elseif ($object === null) {
+                $context = new EmptyContext($rootContext);
+            } else {
                 throw new DefinitionException(sprintf(
                     'Resolver for directive `@%s` must return `null` or Model instance.',
                     $this->name(),
                 ));
             }
         } elseif ($args) {
-            $objects = $this->getBuilder($root, $args, $context, $resolveInfo)->limit(2)->get();
+            $builder = $this->getBuilder($root, $args, $graphQLContext, $resolveInfo);
+            $objects = $resolveInfo->argumentSet->enhanceBuilder(clone $builder, [])->limit(2)->get();
             $object  = $objects->first();
+            $context = new BuilderContext($rootContext, $object, $builder);
 
             if (count($objects) > 1) {
                 throw new DefinitionException(sprintf(
@@ -199,13 +203,14 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
             }
 
             if (!($object instanceof Model)) {
-                throw new ObjectNotFound();
+                throw new ObjectNotFound($context->getModel());
             }
         } else {
-            // empty
+            $builder = $this->getBuilder($root, $args, $graphQLContext, $resolveInfo);
+            $context = new EmptyContext($rootContext, (new BuilderContext($rootContext, null, $builder))->getModel());
         }
 
-        return $object;
+        return $context;
     }
 
     /**
@@ -216,7 +221,7 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-    ): EloquentBuilder|QueryBuilder|ScoutBuilder {
+    ): EloquentBuilder {
         // Get
         $builder  = null;
         $resolver = $this->getResolver(static::ARGUMENT_BUILDER);
@@ -242,19 +247,12 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
         }
 
         // Builder?
-        if (
-            !($builder instanceof EloquentBuilder)
-            && !($builder instanceof QueryBuilder)
-            && !($builder instanceof ScoutBuilder)
-        ) {
+        if (!($builder instanceof EloquentBuilder)) {
             throw new DefinitionException(sprintf(
-                'Directive `@%s` must return an instance of Builder.',
+                'Directive `@%s` must return an instance of Eloquent Builder.',
                 $this->name(),
             ));
         }
-
-        // Enhance
-        $builder = $resolveInfo->argumentSet->enhanceBuilder($builder, []);
 
         // Return
         return $builder;

@@ -4,8 +4,11 @@ namespace Tests\GraphQL;
 
 use JsonSerializable;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesFragment;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
 use SplFileInfo;
 use stdClass;
+
+use function array_merge;
 
 class GraphQLPaginated extends GraphQLSuccess {
     protected JsonFragment|null $data      = null;
@@ -25,6 +28,15 @@ class GraphQLPaginated extends GraphQLSuccess {
         $this->paginator = $this->getJsonFragment("data.{$root}Aggregated", $paginator);
 
         parent::__construct($root, $schema, null);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getSchemaConstraints(): array {
+        return array_merge(parent::getSchemaConstraints(), [
+            new JsonMatchesSchema(new SchemaWrapper(self::class, $this->root)),
+        ]);
     }
 
     /**

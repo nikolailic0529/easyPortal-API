@@ -11,11 +11,22 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 trait WithoutOrganizationScope {
     private bool $withoutOrganizationScope;
 
-    public function setUpWithoutOrganizationScope(): void {
-        $this->withoutOrganizationScope = GlobalScopes::setGlobalScopeDisabled(OwnedByOrganizationScope::class, true);
-    }
+    /**
+     * @before
+     */
+    public function initWithoutOrganizationScope(): void {
+        $this->afterApplicationCreated(function (): void {
+            $this->withoutOrganizationScope = GlobalScopes::setGlobalScopeDisabled(
+                OwnedByOrganizationScope::class,
+                true,
+            );
+        });
 
-    public function tearDownWithoutOrganizationScope(): void {
-        GlobalScopes::setGlobalScopeDisabled(OwnedByOrganizationScope::class, $this->withoutOrganizationScope);
+        $this->beforeApplicationDestroyed(function (): void {
+            GlobalScopes::setGlobalScopeDisabled(
+                OwnedByOrganizationScope::class,
+                $this->withoutOrganizationScope,
+            );
+        });
     }
 }
