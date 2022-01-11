@@ -7,15 +7,19 @@ use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
 
+/**
+ * @deprecated
+ */
 class EnableUser {
     public function __construct(
         protected Client $client,
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      *
      * @return array<string, mixed>
      */
@@ -32,6 +36,7 @@ class EnableUser {
                 new KeycloakUser(['enabled' => true]),
             );
         }
+
         return ['result' => $result && $user->save()];
     }
 }

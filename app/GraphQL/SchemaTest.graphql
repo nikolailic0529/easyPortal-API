@@ -1361,14 +1361,14 @@ type Mutation {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  disableUser(input: DisableUserInput!): DisableUserPayload
+  disableUser(input: DisableUserInput!): DisableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  enableUser(input: EnableUserInput!): EnableUserPayload
+  enableUser(input: EnableUserInput!): EnableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
