@@ -10,7 +10,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 

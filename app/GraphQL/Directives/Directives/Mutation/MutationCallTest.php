@@ -5,7 +5,6 @@ namespace App\GraphQL\Directives\Directives\Mutation;
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
 use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
-use App\GraphQL\Directives\Directives\Mutation\Rules\Rule;
 use App\Models\Customer;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use Illuminate\Contracts\Validation\Factory;
