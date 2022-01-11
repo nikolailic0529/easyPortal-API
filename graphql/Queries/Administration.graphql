@@ -40,4 +40,11 @@ extend type Query {
   @me(permissions: ["administer"])
   @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
   @find
+
+  "List of all shared roles."
+  roles: [Role!]!
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @builder(method: "App\\GraphQL\\Queries\\Administration\\Roles")
+  @all
 }

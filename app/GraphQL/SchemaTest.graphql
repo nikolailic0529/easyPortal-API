@@ -2041,6 +2041,15 @@ type Query {
   user(id: ID!): User
 
   """
+  List of all shared roles.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  roles: [Role!]!
+
+  """
   List of all possible asset types.
   
   @require <organization> Authenticated user must be a member of the current organization.
