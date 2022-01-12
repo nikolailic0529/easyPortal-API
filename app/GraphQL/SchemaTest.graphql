@@ -1281,7 +1281,7 @@ type Me {
   locale: String
   timezone: String
   homepage: String
-  photo: String
+  photo: Url
   title: String
   academic_title: String
   office_phone: String
@@ -2031,7 +2031,7 @@ type Profile {
   job_title: String
   company: String
   phone: String
-  photo: String
+  photo: Url
 }
 
 type Query {
@@ -6366,7 +6366,7 @@ type User {
   job_title: String
   company: String
   phone: String
-  photo: String
+  photo: Url
   locale: String
   timezone: String
 

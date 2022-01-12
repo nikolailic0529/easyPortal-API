@@ -10,5 +10,5 @@ type Profile {
   job_title: String
   company: String
   phone: String
-  photo: String
+  photo: Url
 }

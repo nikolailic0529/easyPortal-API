@@ -6,7 +6,7 @@ type Me {
   locale: String
   timezone: String
   homepage: String
-  photo: String
+  photo: Url
   title: String
   academic_title: String
   office_phone: String

@@ -14,7 +14,7 @@ type User {
   job_title: String
   company: String
   phone: String
-  photo: String
+  photo: Url
   locale: String
   timezone: String
 
