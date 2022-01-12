@@ -16,7 +16,7 @@ input UpdateOrgUserInput {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String @rules(apply: ["nullable","email"])
+  contact_email: Email @rules(apply: ["nullable","email"])
   department: String
   job_title: String
   photo: Upload @rules(apply: ["nullable","App\\Rules\\Image"])

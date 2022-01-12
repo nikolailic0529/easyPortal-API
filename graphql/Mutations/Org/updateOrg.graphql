@@ -11,7 +11,7 @@ input UpdateOrgInput @validator {
   locale: String
   currency_id: ID
   website_url: Url
-  email: String                     # TODO [GraphQL] Email type needed
+  email: Email
   analytics_code: String
   branding: UpdateOrgBranding
   timezone: String

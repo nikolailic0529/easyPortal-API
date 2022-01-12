@@ -1,7 +1,7 @@
 type Contact {
   id: ID!
   name: String
-  email: String
+  email: Email
   phone_number: String
   "Indicates that phone_number in E.164 format"
   phone_valid: Boolean

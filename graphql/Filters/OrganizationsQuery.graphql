@@ -2,7 +2,7 @@ input OrganizationsQuery {
   id: ID!
   name: String!
   website_url: Url
-  email: String
+  email: Email
   statuses: StatusesQuery
   contacts: ContactsQuery
   locations: ResellerLocationsQuery

@@ -2,14 +2,14 @@ type User {
   id: ID!
   given_name: String
   family_name: String
-  email: String!
+  email: Email!
   email_verified: Boolean!
   enabled: Boolean!
   title: String
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   company: String

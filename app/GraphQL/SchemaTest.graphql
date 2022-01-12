@@ -540,7 +540,7 @@ type ClientTranslation {
 type Contact {
   id: ID!
   name: String
-  email: String
+  email: Email
   phone_number: String
 
   """Indicates that phone_number in E.164 format"""
@@ -555,7 +555,7 @@ input ContactTypesQuery {
 input ContactsQuery {
   id: ID!
   name: String
-  email: String
+  email: Email
   phone_number: String
   phone_valid: Boolean
   types: TypesQuery
@@ -565,7 +565,7 @@ input ContactsQuery {
 
 input ContactsSort {
   name: String
-  email: String
+  email: Email
   phone_number: String
   phone_valid: Boolean
 }
@@ -683,7 +683,7 @@ input CreateQuoteRequestInput {
   files: [Upload!]
   contact_name: String!
   contact_phone: String!
-  contact_email: String!
+  contact_email: Email!
   assets: [CreateQuoteRequestAssetsInput!]
 }
 
@@ -1077,6 +1077,9 @@ input DocumentsSort {
   price: Float
 }
 
+"""The Email."""
+scalar Email
+
 input EnableOrgUserInput {
   id: ID!
 }
@@ -1116,13 +1119,13 @@ type Invitation {
   organization_id: ID!
   role_id: ID!
   role: Role
-  email: String!
+  email: Email!
   used_at: DateTime
   expired_at: DateTime!
 }
 
 input InviteOrgUserInput {
-  email: String!
+  email: Email!
   role_id: ID!
   team_id: ID
 }
@@ -1269,7 +1272,7 @@ input MapQuery {
 
 type Me {
   id: ID!
-  email: String!
+  email: Email!
   given_name: String!
   family_name: String!
   locale: String
@@ -1280,7 +1283,7 @@ type Me {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   company: String
@@ -1329,7 +1332,7 @@ input MeUpdateInput {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   photo: Upload
@@ -1875,7 +1878,7 @@ input OrgUserUpdateInput {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   photo: Upload
@@ -1895,7 +1898,7 @@ type Organization {
   root: Boolean!
   locale: String
   website_url: Url
-  email: String
+  email: Email
   currency_id: ID
   currency: Currency
   analytics_code: String
@@ -1963,7 +1966,7 @@ input OrganizationsQuery {
   id: ID!
   name: String!
   website_url: Url
-  email: String
+  email: Email
   statuses: StatusesQuery
   contacts: ContactsQuery
   locations: ResellerLocationsQuery
@@ -1973,7 +1976,7 @@ input OrganizationsQuery {
 input OrganizationsSort {
   name: String!
   website_url: Url
-  email: String
+  email: Email
   kpi: KpiSort!
 }
 
@@ -2020,7 +2023,7 @@ type Profile {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   company: String
@@ -2634,9 +2637,9 @@ input RequestAssetChangeInput {
   asset_id: ID!
   subject: String!
   message: String!
-  from: String!
-  cc: [String!]
-  bcc: [String!]
+  from: Email!
+  cc: [Email!]
+  bcc: [Email!]
   files: [Upload!]
 }
 
@@ -2648,9 +2651,9 @@ input RequestContractChangeInput {
   contract_id: ID!
   subject: String!
   message: String!
-  from: String!
-  cc: [String!]
-  bcc: [String!]
+  from: Email!
+  cc: [Email!]
+  bcc: [Email!]
   files: [Upload!]
 }
 
@@ -2662,9 +2665,9 @@ input RequestCustomerChangeInput {
   customer_id: ID!
   subject: String!
   message: String!
-  from: String!
-  cc: [String!]
-  bcc: [String!]
+  from: Email!
+  cc: [Email!]
+  bcc: [Email!]
   files: [Upload!]
 }
 
@@ -2675,9 +2678,9 @@ type RequestCustomerChangePayload {
 input RequestOrgChangeInput {
   subject: String!
   message: String!
-  from: String!
-  cc: [String!]
-  bcc: [String!]
+  from: Email!
+  cc: [Email!]
+  bcc: [Email!]
   files: [Upload!]
 }
 
@@ -2689,9 +2692,9 @@ input RequestQuoteChangeInput {
   quote_id: ID!
   subject: String!
   message: String!
-  from: String!
-  cc: [String!]
-  bcc: [String!]
+  from: Email!
+  cc: [Email!]
+  bcc: [Email!]
   files: [Upload!]
 }
 
@@ -2748,7 +2751,7 @@ type ResetOrgUserPasswordPayload {
 }
 
 input ResetPasswordInput {
-  email: String!
+  email: Email!
   token: String!
   password: String!
 }
@@ -3674,7 +3677,7 @@ input SearchByConditionContactsQuery {
   name: SearchByScalarStringOrNull
 
   """Property condition."""
-  email: SearchByScalarStringOrNull
+  email: SearchByScalarEmailOrNull
 
   """Property condition."""
   phone_number: SearchByScalarStringOrNull
@@ -4306,7 +4309,7 @@ input SearchByConditionOrganizationsQuery {
   website_url: SearchByScalarUrlOrNull
 
   """Property condition."""
-  email: SearchByScalarStringOrNull
+  email: SearchByScalarEmailOrNull
 
   """Property condition."""
   statuses: SearchByComplexRelationStatusesQuery
@@ -4553,7 +4556,7 @@ input SearchByConditionUsersQuery {
   id: SearchByScalarID
 
   """Property condition."""
-  email: SearchByScalarString
+  email: SearchByScalarEmail
 
   """Property condition."""
   given_name: SearchByScalarString
@@ -4731,6 +4734,64 @@ input SearchByScalarDateTimeOrNull {
 
   """Outside a range."""
   notBetween: SearchByTypeRangeDateTime
+
+  """Is NULL?"""
+  isNull: SearchByTypeFlag
+
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
+}
+
+"""
+Available operators for scalar Email! (only one operator allowed at a time).
+"""
+input SearchByScalarEmail {
+  """Equal (`=`)."""
+  equal: Email
+
+  """Not Equal (`!=`)."""
+  notEqual: Email
+
+  """Within a set of values."""
+  in: [Email!]
+
+  """Outside a set of values."""
+  notIn: [Email!]
+
+  """Contains."""
+  contains: Email
+
+  """Ends with a string."""
+  endsWith: Email
+
+  """Starts with a string."""
+  startsWith: Email
+}
+
+"""
+Available operators for scalar Email (only one operator allowed at a time).
+"""
+input SearchByScalarEmailOrNull {
+  """Equal (`=`)."""
+  equal: Email
+
+  """Not Equal (`!=`)."""
+  notEqual: Email
+
+  """Within a set of values."""
+  in: [Email!]
+
+  """Outside a set of values."""
+  notIn: [Email!]
+
+  """Contains."""
+  contains: Email
+
+  """Ends with a string."""
+  endsWith: Email
+
+  """Starts with a string."""
+  startsWith: Email
 
   """Is NULL?"""
   isNull: SearchByTypeFlag
@@ -4989,7 +5050,7 @@ the simple syntax:
 scalar SearchString
 
 input SendResetPasswordLinkInput {
-  email: String!
+  email: Email!
 }
 
 type SendResetPasswordLinkPayload {
@@ -5036,7 +5097,7 @@ type SetApplicationLocalePayload {
 }
 
 input SignInInput {
-  email: String!
+  email: Email!
   password: String!
 }
 
@@ -6156,7 +6217,7 @@ type UpdateContractNotePayload {
 }
 
 input UpdateMeEmailInput {
-  email: String!
+  email: Email!
 }
 
 type UpdateMeEmailPayload {
@@ -6170,7 +6231,7 @@ input UpdateMeInput {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   photo: Upload
@@ -6208,7 +6269,7 @@ input UpdateOrgInput {
   locale: String
   currency_id: ID
   website_url: Url
-  email: String
+  email: Email
   analytics_code: String
   branding: UpdateOrgBranding
   timezone: String
@@ -6247,7 +6308,7 @@ input UpdateOrgUserInput {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   photo: Upload
@@ -6290,14 +6351,14 @@ type User {
   id: ID!
   given_name: String
   family_name: String
-  email: String!
+  email: Email!
   email_verified: Boolean!
   enabled: Boolean!
   title: String
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   company: String
@@ -6380,7 +6441,7 @@ input UserUpdateInput {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   photo: Upload
@@ -6401,14 +6462,14 @@ type UsersAggregated {
 
 input UsersQuery {
   id: ID!
-  email: String!
+  email: Email!
   given_name: String!
   family_name: String!
   enabled: Boolean!
 }
 
 input UsersSort {
-  email: String!
+  email: Email!
   given_name: String!
   family_name: String!
   enabled: Boolean!

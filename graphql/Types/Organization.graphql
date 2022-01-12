@@ -6,7 +6,7 @@ type Organization {
 
   locale: String
   website_url: Url
-  email: String
+  email: Email
   currency_id: ID
   currency: Currency @belongsTo
   analytics_code: String

@@ -1,6 +1,6 @@
 type Me {
   id: ID!
-  email: String!                # TODO [GraphQL] Email type needed
+  email: Email!
   given_name: String!
   family_name: String!
   locale: String
@@ -11,7 +11,7 @@ type Me {
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   company: String

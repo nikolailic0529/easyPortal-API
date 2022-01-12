@@ -33,6 +33,7 @@ return [
             'Date'                          => 'Int',
             'DateTime'                      => 'Date',
             'Url'                           => SearchByDirective::ScalarString,
+            'Email'                         => SearchByDirective::ScalarString,
             SearchByDirective::ScalarString => [
                 Equal::class,
                 NotEqual::class,
