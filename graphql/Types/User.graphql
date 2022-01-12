@@ -10,7 +10,7 @@ type User {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
+  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
