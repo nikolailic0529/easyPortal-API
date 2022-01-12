@@ -19,8 +19,8 @@ input UpdateOrgInput @validator {
 
 input UpdateOrgBranding {
   dark_theme: Boolean
-  main_color: String                # TODO [GraphQL] Color type needed
-  secondary_color: String           # TODO [GraphQL] Color type needed
+  main_color: Color
+  secondary_color: Color
   logo_url: Upload
   favicon_url: Upload
   welcome_image_url: Upload
