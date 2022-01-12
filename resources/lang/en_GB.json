@@ -107,7 +107,6 @@
     "validation.cron": "The :attribute is not a valid cron expression.",
     "validation.currency_id": "Unknown currency",
     "validation.organization_id": "Unknown organization",
-    "validation.role_id": "Unknown Role",
     "validation.quote_id'": "Unknown Quote.",
     "validation.note_id": "Unknown Note.",
     "validation.file_id": "Unknown File.",

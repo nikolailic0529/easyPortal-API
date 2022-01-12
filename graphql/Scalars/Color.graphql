@@ -1,0 +1,5 @@
+"""
+The RGB Color (eg `#FF0000`).
+
+"""
+scalar Color @scalar(class: "GraphQL\\Type\\Definition\\StringType")

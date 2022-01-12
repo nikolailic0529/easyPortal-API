@@ -1,7 +1,7 @@
 input ContactsQuery {
   id: ID!
   name: String
-  email: String
+  email: Email
   phone_number: String
   phone_valid: Boolean
   types: TypesQuery

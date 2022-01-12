@@ -51,6 +51,7 @@ class Me {
     }
 
     /**
+     * @deprecated
      * @return array<string,mixed>|null
      */
     public function profile(?User $user): ?array {

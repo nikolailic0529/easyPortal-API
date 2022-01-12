@@ -1,15 +1,15 @@
 type OrganizationBranding {
   dark_theme: Boolean
-  main_color: String
-  secondary_color: String
-  logo_url: String
-  favicon_url: String
-  default_main_color: String
-  default_secondary_color: String
-  default_logo_url: String
-  default_favicon_url: String
-  welcome_image_url: String
+  main_color: Color
+  secondary_color: Color
+  logo_url: Url
+  favicon_url: Url
+  default_main_color: Color
+  default_secondary_color: Color
+  default_logo_url: Url
+  default_favicon_url: Url
+  welcome_image_url: Url
   welcome_heading: String
   welcome_underline: String
-  dashboard_image_url: String
+  dashboard_image_url: Url
 }

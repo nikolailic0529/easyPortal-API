@@ -1,0 +1,4 @@
+"""
+The Email.
+"""
+scalar Email @scalar(class: "GraphQL\\Type\\Definition\\StringType")

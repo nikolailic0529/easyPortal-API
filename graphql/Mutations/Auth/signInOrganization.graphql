@@ -13,5 +13,5 @@ input SignInOrganizationInput {
 
 type SignInOrganizationPayload {
   "The link where the User should be redirected to Sign In."
-  url: String!
+  url: Url!
 }

@@ -1,5 +1,5 @@
 input UsersSort {
-  email: String!
+  email: Email!
   given_name: String!
   family_name: String!
   enabled: Boolean!

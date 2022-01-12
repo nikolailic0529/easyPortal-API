@@ -9,7 +9,7 @@ extend type Mutation {
 }
 
 input UpdateMeEmailInput @validator {
-  email: String!
+  email: Email!
 }
 
 type UpdateMeEmailPayload {

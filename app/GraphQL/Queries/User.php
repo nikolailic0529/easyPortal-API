@@ -16,6 +16,9 @@ class User {
         // empty
     }
 
+    /**
+     * @deprecated
+     */
     public function role(UserModel $user): ?Role {
         $organizationUser = OrganizationUser::query()
             ->where('organization_id', '=', $this->organization->getKey())
@@ -25,6 +28,9 @@ class User {
         return $organizationUser?->role;
     }
 
+    /**
+     * @deprecated
+     */
     public function team(UserModel $user): ?Team {
         $organizationUser = OrganizationUser::query()
             ->where('organization_id', '=', $this->organization->getKey())

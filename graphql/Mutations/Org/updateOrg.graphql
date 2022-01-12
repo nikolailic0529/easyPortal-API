@@ -10,8 +10,8 @@ extend type Mutation {
 input UpdateOrgInput @validator {
   locale: String
   currency_id: ID
-  website_url: String               # TODO [GraphQL] URL type needed
-  email: String                     # TODO [GraphQL] Email type needed
+  website_url: Url
+  email: Email
   analytics_code: String
   branding: UpdateOrgBranding
   timezone: String
@@ -19,8 +19,8 @@ input UpdateOrgInput @validator {
 
 input UpdateOrgBranding {
   dark_theme: Boolean
-  main_color: String                # TODO [GraphQL] Color type needed
-  secondary_color: String           # TODO [GraphQL] Color type needed
+  main_color: Color
+  secondary_color: Color
   logo_url: Upload
   favicon_url: Upload
   welcome_image_url: Upload

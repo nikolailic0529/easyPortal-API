@@ -5,8 +5,8 @@ type Organization {
   @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
 
   locale: String
-  website_url: String
-  email: String
+  website_url: Url
+  email: Email
   currency_id: ID
   currency: Currency @belongsTo
   analytics_code: String

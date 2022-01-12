@@ -14,7 +14,7 @@ use Tests\WithoutOrganizationScope;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\RoleId
+ * @coversDefaultClass \App\Rules\Organization\RoleId
  */
 class RoleIdTest extends TestCase {
     use WithoutOrganizationScope;

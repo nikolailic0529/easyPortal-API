@@ -5,6 +5,9 @@ namespace App\GraphQL\Validators;
 use App\Rules\Image;
 use Nuwave\Lighthouse\Validation\Validator;
 
+/**
+ * @deprecated
+ */
 class UpdateMeProfileInputValidator extends Validator {
     public function __construct(
         protected Image $image,

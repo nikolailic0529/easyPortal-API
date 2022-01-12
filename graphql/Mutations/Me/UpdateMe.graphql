@@ -15,7 +15,7 @@ input UpdateMeInput {
   academic_title: String @rules(apply: ["nullable","string"])
   office_phone: String @rules(apply: ["nullable","string"])
   mobile_phone: String @rules(apply: ["nullable","string"])
-  contact_email: String @rules(apply: ["nullable","email"])
+  contact_email: Email @rules(apply: ["nullable","email"])
   department: String @rules(apply: ["nullable","string"])
   job_title: String @rules(apply: ["nullable","string"])
   photo: Upload @rules(apply: ["nullable","App\\Rules\\Image"])

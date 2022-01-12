@@ -32,6 +32,9 @@ return [
         'scalars' => [
             'Date'                          => 'Int',
             'DateTime'                      => 'Date',
+            'Url'                           => SearchByDirective::ScalarString,
+            'Email'                         => SearchByDirective::ScalarString,
+            'Color'                         => SearchByDirective::ScalarString,
             SearchByDirective::ScalarString => [
                 Equal::class,
                 NotEqual::class,

@@ -2,14 +2,17 @@
 
 namespace App\GraphQL\Directives\Directives\Auth;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use LengthException;
 
 use function array_diff;
+use function array_filter;
 use function array_map;
 use function implode;
 use function is_array;
@@ -40,12 +43,13 @@ abstract class Me extends AuthDirective {
             GRAPHQL;
     }
 
-    protected function isAuthorized(?Authenticatable $user): bool {
+    protected function isAuthorized(?Authenticatable $user, mixed $root): bool {
         $permissions = $this->getPermissions();
         $authorized  = is_null($permissions);
 
         if ($permissions) {
-            $authorized = $this->gate->forUser($user)->any($permissions);
+            $arguments  = $this->getGateArguments($root);
+            $authorized = $this->getGateForUser($user)->any($permissions, $arguments);
         }
 
         return $authorized;
@@ -113,5 +117,26 @@ abstract class Me extends AuthDirective {
         $invalid   = array_diff($permissions, $available);
 
         return $invalid;
+    }
+
+    /**
+     * @return array<\Illuminate\Database\Eloquent\Model|class-string<\Illuminate\Database\Eloquent\Model>>
+     */
+    protected function getGateArguments(mixed $root): array {
+        $model = null;
+
+        if ($root instanceof Context) {
+            $model = $root->getRoot() ?? $root->getModel();
+        } elseif ($root instanceof Model) {
+            $model = $root;
+        } else {
+            // empty
+        }
+
+        return array_filter([$model]);
+    }
+
+    protected function getGateForUser(?Authenticatable $user): Gate {
+        return $this->gate->forUser($user);
     }
 }

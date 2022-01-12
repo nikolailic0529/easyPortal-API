@@ -2,12 +2,15 @@
 
 namespace App\GraphQL\Directives\Directives\Auth;
 
+use App\GraphQL\Directives\Directives\Mutation\Context\BuilderContext;
+use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\InternalServerError;
@@ -155,6 +158,32 @@ class MeTest extends TestCase {
             GRAPHQL,
         );
     }
+
+    /**
+     * @covers ::getGateArguments
+     *
+     * @dataProvider dataProviderGetGateArguments
+     *
+     * @param array<mixed> $expected
+     */
+    public function testGetGateArguments(array $expected, Closure $root): void {
+        $root = $root($this);
+        $me   = new class() extends Me {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @return array<mixed>
+             */
+            public function getGateArguments(mixed $root): array {
+                return parent::getGateArguments($root);
+            }
+        };
+
+        $this->assertEquals($expected, $me->getGateArguments($root));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -224,6 +253,56 @@ class MeTest extends TestCase {
                         'type'        => UserType::local(),
                         'permissions' => [],
                     ]);
+                },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string,array<mixed>,mixed>
+     */
+    public function dataProviderGetGateArguments(): array {
+        $model = new class() extends Model {
+            // empty
+        };
+
+        return [
+            'mixed'                             => [
+                [],
+                static function (): ?Context {
+                    return null;
+                },
+            ],
+            Context::class                      => [
+                [$model],
+                static function () use ($model): Context {
+                    return new class(null, $model) extends Context {
+                        // empty
+                    };
+                },
+            ],
+            Context::class.' (null)'            => [
+                [],
+                static function (): Context {
+                    return new class(null, null) extends Context {
+                        // empty
+                    };
+                },
+            ],
+            BuilderContext::class.' (no model)' => [
+                [$model::class],
+                static function () use ($model): Context {
+                    return new class(null, null, $model->newQuery()) extends BuilderContext {
+                        // empty
+                    };
+                },
+            ],
+            BuilderContext::class               => [
+                [$model],
+                static function () use ($model): Context {
+                    return new class(null, $model, $model->newQuery()) extends BuilderContext {
+                        // empty
+                    };
                 },
             ],
         ];

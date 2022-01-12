@@ -2,35 +2,37 @@ type User {
   id: ID!
   given_name: String
   family_name: String
-  email: String!
+  email: Email!
   email_verified: Boolean!
   enabled: Boolean!
-
-  invitations: [Invitation!]!
-  @field(resolver: "App\\GraphQL\\Queries\\User@invitations")
-
-  team: Team
-  @field(resolver: "App\\GraphQL\\Queries\\User@team")
-
-  role: Role
-  @field(resolver: "App\\GraphQL\\Queries\\User@role")
-
   title: String
   academic_title: String
   office_phone: String
   mobile_phone: String
-  contact_email: String
+  contact_email: Email
   department: String
   job_title: String
   company: String
   phone: String
   photo: String
-
   locale: String
   timezone: String
 
+  invitations: [Invitation!]!
+  @organization
+  @me(permissions: ["administer", "org-administer"])
+  @field(resolver: "App\\GraphQL\\Queries\\User@invitations")
+
   organizations: [UserOrganization!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
+  @organization
+  @me(permissions: ["administer", "org-administer"])
   @hasMany
+
+  team: Team
+  @deprecated(reason: "Please use `organizations` property.")
+  @field(resolver: "App\\GraphQL\\Queries\\User@team")
+
+  role: Role
+  @deprecated(reason: "Please use `organizations` property.")
+  @field(resolver: "App\\GraphQL\\Queries\\User@role")
 }
