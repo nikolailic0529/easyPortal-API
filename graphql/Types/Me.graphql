@@ -6,18 +6,21 @@ type Me {
   locale: String
   timezone: String
   homepage: String
-  photo: String
+  photo: Url
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
+  department: String @deprecated
   job_title: String
   company: String
-  phone: String
+  phone: PhoneNumber
 
   permissions: [String!]
+
+  team: Team
+  @field(resolver: "App\\GraphQL\\Queries\\Me@team")
 
   root: Boolean!
   @field(resolver: "App\\GraphQL\\Queries\\Me@root")

@@ -4,6 +4,9 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Audits\Audit;
 use App\Models\Enums\UserType;
+use App\Models\Organization;
+use App\Models\OrganizationUser;
+use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSearch;
 use App\Services\Audit\Enums\Action;
@@ -62,6 +65,10 @@ class MeTest extends TestCase {
                     permissions
                     root
                     previous_sign_in
+                    team {
+                        id
+                        name
+                    }
                 }
             }')
             ->assertThat($expected);
@@ -138,6 +145,36 @@ class MeTest extends TestCase {
                     }
                 }
             }')->assertThat($expected);
+    }
+
+    /**
+     * @deprecated
+     *
+     * @covers ::__invoke
+     *
+     * @dataProvider dataProviderTeam
+     */
+    public function testTeam(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory,
+    ): void {
+        // Prepare
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */
+                'query profile {
+                    me {
+                        team {
+                            id
+                            name
+                        }
+                    }
+                }',
+            )
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -291,6 +328,83 @@ class MeTest extends TestCase {
                 ],
             ]),
         ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderTeam(): array {
+        return [
+            'no organization'   => [
+                new GraphQLSuccess('me', self::class, 'null'),
+                static function (): ?Organization {
+                    return null;
+                },
+                static function (): ?User {
+                    return null;
+                },
+            ],
+            'no user'           => [
+                new GraphQLSuccess('me', self::class, 'null'),
+                static function (): ?Organization {
+                    return Organization::factory()->create();
+                },
+                static function (): ?User {
+                    return null;
+                },
+            ],
+            'user without team' => [
+                new GraphQLSuccess('me', null, ['team' => null]),
+                static function (): ?Organization {
+                    return Organization::factory()->create();
+                },
+                static function (self $test, Organization $organization): ?User {
+                    $user = User::factory()->create();
+
+                    OrganizationUser::factory()->create([
+                        'organization_id' => $organization,
+                        'user_id'         => $user,
+                    ]);
+
+                    return $user;
+                },
+            ],
+            'user with team'    => [
+                new GraphQLSuccess('me', null, new JsonFragment('team', [
+                    'id'   => 'cff96820-82e2-4c0e-8441-e5cb80107f5b',
+                    'name' => 'Team',
+                ])),
+                static function (): ?Organization {
+                    return Organization::factory()->create();
+                },
+                static function (self $test, Organization $organization): ?User {
+                    $user = User::factory()->create();
+                    $team = Team::factory()->create([
+                        'id'   => 'cff96820-82e2-4c0e-8441-e5cb80107f5b',
+                        'name' => 'Team',
+                    ]);
+
+                    OrganizationUser::factory()->create([
+                        'organization_id' => $organization,
+                        'user_id'         => $user,
+                        'team_id'         => $team,
+                    ]);
+
+                    return $user;
+                },
+            ],
+            'root without team' => [
+                new GraphQLSuccess('me', null, ['team' => null]),
+                static function (): ?Organization {
+                    return Organization::factory()->create();
+                },
+                static function (): ?User {
+                    return User::factory()->create([
+                        'type' => UserType::local(),
+                    ]);
+                },
+            ],
+        ];
     }
     // </editor-fold>
 }

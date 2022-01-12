@@ -1,6 +1,6 @@
 input ContactsSort {
   name: String
   email: Email
-  phone_number: String
+  phone_number: PhoneNumber
   phone_valid: Boolean
 }

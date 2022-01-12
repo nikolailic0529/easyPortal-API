@@ -544,7 +544,7 @@ type Contact {
   id: ID!
   name: String
   email: Email
-  phone_number: String
+  phone_number: PhoneNumber
 
   """Indicates that phone_number in E.164 format"""
   phone_valid: Boolean
@@ -559,7 +559,7 @@ input ContactsQuery {
   id: ID!
   name: String
   email: Email
-  phone_number: String
+  phone_number: PhoneNumber
   phone_valid: Boolean
   types: TypesQuery
   assets: AssetsQuery
@@ -569,7 +569,7 @@ input ContactsQuery {
 input ContactsSort {
   name: String
   email: Email
-  phone_number: String
+  phone_number: PhoneNumber
   phone_valid: Boolean
 }
 
@@ -685,7 +685,7 @@ input CreateQuoteRequestInput {
   message: String
   files: [Upload!]
   contact_name: String!
-  contact_phone: String!
+  contact_phone: PhoneNumber!
   contact_email: Email!
   assets: [CreateQuoteRequestAssetsInput!]
 }
@@ -1281,17 +1281,18 @@ type Me {
   locale: String
   timezone: String
   homepage: String
-  photo: String
+  photo: Url
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
+  department: String @deprecated
   job_title: String
   company: String
-  phone: String
+  phone: PhoneNumber
   permissions: [String!]
+  team: Team
   root: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
@@ -1333,8 +1334,8 @@ input MeUpdateInput {
   family_name: String
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
@@ -1879,8 +1880,8 @@ input OrgUserUpdateInput {
   family_name: String
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
@@ -1994,6 +1995,9 @@ type Permission {
   description: String!
 }
 
+"""Phone number in E.164 format (https://en.wikipedia.org/wiki/E.164)."""
+scalar PhoneNumber
+
 type Product {
   id: ID!
   oem_id: ID!
@@ -2030,8 +2034,8 @@ type Profile {
   department: String
   job_title: String
   company: String
-  phone: String
-  photo: String
+  phone: PhoneNumber
+  photo: Url
 }
 
 type Query {
@@ -3683,7 +3687,7 @@ input SearchByConditionContactsQuery {
   email: SearchByScalarEmailOrNull
 
   """Property condition."""
-  phone_number: SearchByScalarStringOrNull
+  phone_number: SearchByScalarPhoneNumberOrNull
 
   """Property condition."""
   phone_valid: SearchByScalarBooleanOrNull
@@ -4917,6 +4921,38 @@ input SearchByScalarInt {
 
   """Outside a range."""
   notBetween: SearchByTypeRangeInt
+}
+
+"""
+Available operators for scalar PhoneNumber (only one operator allowed at a time).
+"""
+input SearchByScalarPhoneNumberOrNull {
+  """Equal (`=`)."""
+  equal: PhoneNumber
+
+  """Not Equal (`!=`)."""
+  notEqual: PhoneNumber
+
+  """Within a set of values."""
+  in: [PhoneNumber!]
+
+  """Outside a set of values."""
+  notIn: [PhoneNumber!]
+
+  """Contains."""
+  contains: PhoneNumber
+
+  """Ends with a string."""
+  endsWith: PhoneNumber
+
+  """Starts with a string."""
+  startsWith: PhoneNumber
+
+  """Is NULL?"""
+  isNull: SearchByTypeFlag
+
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
 }
 
 """
@@ -6359,14 +6395,14 @@ type User {
   enabled: Boolean!
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
+  department: String @deprecated
   job_title: String
   company: String
-  phone: String
-  photo: String
+  phone: PhoneNumber
+  photo: Url
   locale: String
   timezone: String
 
@@ -6442,8 +6478,8 @@ input UserUpdateInput {
   family_name: String
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String

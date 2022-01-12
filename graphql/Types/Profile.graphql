@@ -9,6 +9,6 @@ type Profile {
   department: String
   job_title: String
   company: String
-  phone: String
-  photo: String
+  phone: PhoneNumber
+  photo: Url
 }
