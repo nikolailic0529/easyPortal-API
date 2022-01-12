@@ -74,6 +74,48 @@
                     "type": "null"
                 }
             ]
+        },
+        "academic_title": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "office_phone": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "mobile_phone": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "department": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "job_title": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "company": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "phone": {
+            "type": [
+                "string",
+                "null"
+            ]
         }
     }
 }

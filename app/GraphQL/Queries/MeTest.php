@@ -43,16 +43,24 @@ class MeTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '{
                 me {
                     id
-                    family_name
-                    given_name
                     email
-                    locale
-                    photo
-                    root
-                    permissions
+                    given_name
+                    family_name
                     locale
                     timezone
                     homepage
+                    photo
+                    title
+                    academic_title
+                    office_phone
+                    mobile_phone
+                    contact_email
+                    department
+                    job_title
+                    company
+                    phone
+                    permissions
+                    root
                     previous_sign_in
                 }
             }')
@@ -96,6 +104,8 @@ class MeTest extends TestCase {
     }
 
     /**
+     * @deprecated
+     *
      * @covers ::__invoke
      *
      * @dataProvider dataProviderProfile
@@ -199,7 +209,7 @@ class MeTest extends TestCase {
                     static function (): ?User {
                         return null;
                     },
-                    static function (TestCase $test, ?User $user): string {
+                    static function (TestCase $test, ?User $user) {
                         return 'key';
                     },
                 ],
@@ -215,7 +225,7 @@ class MeTest extends TestCase {
                     static function (): ?User {
                         return User::factory()->create();
                     },
-                    static function (TestCase $test, ?User $user): string {
+                    static function (TestCase $test, ?User $user) {
                         if ($user) {
                             UserSearch::factory([
                                 'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
@@ -234,6 +244,7 @@ class MeTest extends TestCase {
     }
 
     /**
+     * @deprecated
      * @return array<mixed>
      */
     public function dataProviderProfile(): array {

@@ -1269,18 +1269,27 @@ input MapQuery {
 
 type Me {
   id: ID!
+  email: String!
   given_name: String!
   family_name: String!
-  email: String!
   locale: String
   timezone: String
   homepage: String
-  permissions: [String!]
   photo: String
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  company: String
+  phone: String
+  permissions: [String!]
   root: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
-  profile: Profile
+  profile: Profile @deprecated(reason: "Please use `Me` properties.")
 }
 
 type MeMutations {

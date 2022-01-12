@@ -1,13 +1,24 @@
 type Me {
   id: ID!
+  email: String!                # TODO [GraphQL] Email type needed
   given_name: String!
   family_name: String!
-  email: String!                # TODO [GraphQL] Email type needed
   locale: String
   timezone: String
   homepage: String
-  permissions: [String!]
   photo: String
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  company: String
+  phone: String
+
+  permissions: [String!]
+
   root: Boolean!
   @field(resolver: "App\\GraphQL\\Queries\\Me@root")
 
@@ -21,5 +32,6 @@ type Me {
   @hasMany
 
   profile: Profile
+  @deprecated(reason: "Please use `Me` properties.")
   @field(resolver: "App\\GraphQL\\Queries\\Me@profile")
 }
