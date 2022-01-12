@@ -14,7 +14,7 @@ input CreateQuoteRequestInput {
   message: String
   files: [Upload!] @rules(apply:["nullable","App\\Rules\\File"])
   contact_name: String! @rules(apply:["required"])
-  contact_phone: String! @rules(apply:["required","phone:AUTO"])
+  contact_phone: PhoneNumber! @rules(apply:["required","phone:AUTO"])
   contact_email: Email! @rules(apply:["required","email"])
   assets: [CreateQuoteRequestAssetsInput!] @rulesForArray(apply: ["nullable", "min:1"])
 }

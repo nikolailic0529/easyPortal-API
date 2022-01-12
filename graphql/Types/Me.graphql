@@ -15,7 +15,7 @@ type Me {
   department: String
   job_title: String
   company: String
-  phone: String
+  phone: PhoneNumber
 
   permissions: [String!]
 

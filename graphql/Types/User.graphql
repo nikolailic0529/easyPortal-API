@@ -13,7 +13,7 @@ type User {
   department: String
   job_title: String
   company: String
-  phone: String
+  phone: PhoneNumber
   photo: Url
   locale: String
   timezone: String
