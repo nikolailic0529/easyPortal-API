@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\User\Organization;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
+use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
@@ -19,6 +20,7 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -341,6 +343,68 @@ class UpdateTest extends TestCase {
                     static function (): array {
                         return [
                             'role_id' => '347a96c0-97e4-49d6-b6f7-7ae24538e2e0',
+                        ];
+                    },
+                ],
+                'Root cannot be updated by user'            => [
+                    new GraphQLUnauthorized('user'),
+                    null,
+                    static function (): User {
+                        return User::factory()->create([
+                            'id'   => 'd47a1cd2-9fa8-45c0-9593-90d65d5b0a19',
+                            'type' => UserType::local(),
+                        ]);
+                    },
+                    static function (): Organization {
+                        $organization = Organization::factory()->create();
+
+                        OrganizationUser::factory()->create([
+                            'organization_id' => $organization,
+                            'user_id'         => 'd47a1cd2-9fa8-45c0-9593-90d65d5b0a19',
+                        ]);
+
+                        return $organization;
+                    },
+                    static function (): array {
+                        return [
+                            'enabled' => false,
+                        ];
+                    },
+                ],
+                'Root can be updated by root'               => [
+                    new GraphQLSuccess(
+                        'user',
+                        new JsonFragmentSchema('organization.update', self::class),
+                        new JsonFragment('organization.update.result', true),
+                    ),
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new KeyCloakUser());
+                    },
+                    static function (self $test, Organization $organization, User $user): User {
+                        $user->type = UserType::local();
+                        $user->save();
+
+                        return User::factory()->create([
+                            'id'   => '1c97ad0b-d36e-4564-91ba-676a4e741bad',
+                            'type' => UserType::local(),
+                        ]);
+                    },
+                    static function (): Organization {
+                        $organization = Organization::factory()->create();
+
+                        OrganizationUser::factory()->create([
+                            'organization_id' => $organization,
+                            'user_id'         => '1c97ad0b-d36e-4564-91ba-676a4e741bad',
+                        ]);
+
+                        return $organization;
+                    },
+                    static function (): array {
+                        return [
+                            'enabled' => false,
                         ];
                     },
                 ],

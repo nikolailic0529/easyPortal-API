@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\User;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
+use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
@@ -18,6 +19,7 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -233,7 +235,43 @@ class UpdateTest extends TestCase {
                     null,
                     null,
                 ],
+                'Root cannot be updated by user'     => [
+                    new GraphQLUnauthorized('user'),
+                    null,
+                    null,
+                    static function (): User {
+                        return User::factory()->create([
+                            'type' => UserType::local(),
+                        ]);
+                    },
+                    static function (self $test): array {
+                        return [
+                            'given_name' => $test->faker->firstName,
+                        ];
+                    },
+                ],
+                'Root can be updated by root'        => [
+                    new GraphQLSuccess(
+                        'user',
+                        new JsonFragmentSchema('update', self::class),
+                        new JsonFragment('update.result', true),
+                    ),
+                    null,
+                    $client,
+                    static function (self $test, Organization $organization, User $user): User {
+                        $user->type = UserType::local();
+                        $user->save();
 
+                        return User::factory()->create([
+                            'type' => UserType::local(),
+                        ]);
+                    },
+                    static function (self $test): array {
+                        return [
+                            'given_name' => $test->faker->firstName,
+                        ];
+                    },
+                ],
             ]),
         ))->getData();
     }

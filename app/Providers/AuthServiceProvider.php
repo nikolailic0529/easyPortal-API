@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Note;
 use App\Models\User;
 use App\Policies\NotePolicy;
+use App\Policies\UserPolicy;
 use App\Services\Auth\Auth;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -23,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider {
      * @var array<string>
      */
     protected $policies = [
+        User::class => UserPolicy::class,
         Note::class => NotePolicy::class,
     ];
 
