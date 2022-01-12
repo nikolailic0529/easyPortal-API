@@ -6249,9 +6249,6 @@ type User {
   email: String!
   email_verified: Boolean!
   enabled: Boolean!
-  invitations: [Invitation!]!
-  team: Team
-  role: Role
   title: String
   academic_title: String
   office_phone: String
@@ -6266,11 +6263,20 @@ type User {
   timezone: String
 
   """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  invitations: [Invitation!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   organizations: [UserOrganization!]!
+  team: Team @deprecated(reason: "Please use `organizations` property.")
+  role: Role @deprecated(reason: "Please use `organizations` property.")
 }
 
 type UserMutations {
