@@ -19,6 +19,9 @@ type Me {
 
   permissions: [String!]
 
+  team: Team
+  @field(resolver: "App\\GraphQL\\Queries\\Me@team")
+
   root: Boolean!
   @field(resolver: "App\\GraphQL\\Queries\\Me@root")
 

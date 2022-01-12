@@ -116,6 +116,16 @@
                 "string",
                 "null"
             ]
+        },
+        "team": {
+            "oneOf": [
+                {
+                    "$ref": "Team.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

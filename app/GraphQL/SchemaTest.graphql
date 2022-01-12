@@ -1292,6 +1292,7 @@ type Me {
   company: String
   phone: PhoneNumber
   permissions: [String!]
+  team: Team
   root: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!

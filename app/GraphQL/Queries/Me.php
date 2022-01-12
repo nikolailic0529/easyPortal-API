@@ -3,9 +3,11 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Audits\Audit;
+use App\Models\Team;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Auth\Auth;
+use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use DateTimeInterface;
@@ -15,6 +17,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 class Me {
     public function __construct(
         protected Auth $auth,
+        protected CurrentOrganization $organization,
     ) {
         // empty
     }
@@ -95,5 +98,18 @@ class Me {
         }
 
         return $value;
+    }
+
+    public function team(User $user): ?Team {
+        $team = null;
+
+        if ($this->organization->defined()) {
+            $orgUser = $user->organizations()
+                ->where('organization_id', '=', $this->organization->getKey())
+                ->first();
+            $team    = $orgUser?->team;
+        }
+
+        return $team;
     }
 }
