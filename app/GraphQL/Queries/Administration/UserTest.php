@@ -86,14 +86,6 @@ class UserTest extends TestCase {
                             used_at
                             expired_at
                         }
-                        team {
-                            id
-                            name
-                        }
-                        role {
-                            id
-                            name
-                        }
                         organizations {
                             organization_id
                             role {
@@ -166,14 +158,6 @@ class UserTest extends TestCase {
                                 'used_at'         => null,
                                 'expired_at'      => '2021-01-01T00:00:00+00:00',
                             ],
-                        ],
-                        'team'           => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                            'name' => 'IT',
-                        ],
-                        'role'           => [
-                            'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                            'name' => 'role1',
                         ],
                         'organizations'  => [
                             [
@@ -352,14 +336,6 @@ class UserTest extends TestCase {
                                 'used_at'         => null,
                                 'expired_at'      => '2021-01-01T00:00:00+00:00',
                             ],
-                        ],
-                        'team'           => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                            'name' => 'IT',
-                        ],
-                        'role'           => [
-                            'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                            'name' => 'role1',
                         ],
                         'organizations'  => [
                             [

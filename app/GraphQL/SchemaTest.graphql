@@ -762,15 +762,6 @@ type CreateMeSearchPayload {
   created: MeSearch!
 }
 
-input CreateOrgRoleInput {
-  name: String!
-  permissions: [ID!]
-}
-
-type CreateOrgRolePayload {
-  created: Role!
-}
-
 input CreateQuoteNoteInput {
   note: String!
   quote_id: String!
@@ -997,36 +988,12 @@ type DeleteMeSearchPayload {
   deleted: Boolean!
 }
 
-input DeleteOrgRoleInput {
-  id: ID!
-}
-
-type DeleteOrgRolePayload {
-  deleted: Boolean!
-}
-
 input DeleteQuoteNoteInput {
   id: ID!
 }
 
 type DeleteQuoteNotePayload {
   deleted: Boolean!
-}
-
-input DisableOrgUserInput {
-  id: ID!
-}
-
-type DisableOrgUserPayload {
-  result: Boolean!
-}
-
-input DisableUserInput {
-  id: ID!
-}
-
-type DisableUserPayload {
-  result: Boolean!
 }
 
 input DispatchApplicationServiceInput {
@@ -1193,22 +1160,6 @@ input DocumentsSort {
 
 """The Email."""
 scalar Email
-
-input EnableOrgUserInput {
-  id: ID!
-}
-
-type EnableOrgUserPayload {
-  result: Boolean!
-}
-
-input EnableUserInput {
-  id: ID!
-}
-
-type EnableUserPayload {
-  result: Boolean!
-}
 
 type File {
   id: ID!
@@ -1409,7 +1360,6 @@ type Me {
   enabled: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
-  profile: Profile @deprecated(reason: "Please use `Me` properties.")
 }
 
 type MeMutations {
@@ -1514,20 +1464,6 @@ type Mutation {
   authenticated and have any of these permissions.
   """
   deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  disableUser(input: DisableUserInput!): DisableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  enableUser(input: EnableUserInput!): EnableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1734,13 +1670,6 @@ type Mutation {
   
   @require <me> User must be authenticated.
   """
-  updateMe(input: UpdateMeInput!): UpdateMePayload @deprecated(reason: "Please use `me { update }`")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
   me: MeMutations
 
   """@require <me> User must be authenticated."""
@@ -1771,38 +1700,6 @@ type Mutation {
   org: OrgMutations
 
   """
-  Create Organization Role.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  createOrgRole(input: CreateOrgRoleInput): CreateOrgRolePayload @deprecated(reason: "Please use `mutation { org { role { create }` instead.")
-
-  """
-  DELETE Organization Role.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload @deprecated(reason: "Please use `mutation { org { role(id: <id>) { delete }` instead.")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  disableOrgUser(input: DisableOrgUserInput!): DisableOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  enableOrgUser(input: EnableOrgUserInput!): EnableOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
-
-  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
@@ -1831,31 +1728,6 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
-
-  """
-  Update Organization Role.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload @deprecated(reason: "Please use `mutation { org { role(id) { update }` instead.")
-
-  """
-  Update Organization Roles.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload @deprecated(reason: "Please use `mutation { org { role(id) { update }` instead.")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -2203,20 +2075,6 @@ input ProductsSort {
   name: String!
   eol: Date
   eos: Date
-}
-
-type Profile {
-  given_name: String
-  family_name: String
-  title: String
-  academic_title: String
-  office_phone: String
-  mobile_phone: String
-  contact_email: Email
-  job_title: String
-  company: String
-  phone: PhoneNumber
-  photo: Url
 }
 
 type Query {
@@ -6444,31 +6302,12 @@ type UpdateMeEmailPayload {
   result: Boolean!
 }
 
-input UpdateMeInput {
-  given_name: String
-  family_name: String
-  title: String
-  academic_title: String
-  office_phone: String
-  mobile_phone: String
-  contact_email: Email
-  job_title: String
-  photo: Upload
-  homepage: String
-  locale: String
-  timezone: String
-}
-
 input UpdateMePasswordInput {
   current_password: String
   password: String!
 }
 
 type UpdateMePasswordPayload {
-  result: Boolean!
-}
-
-type UpdateMePayload {
   result: Boolean!
 }
 
@@ -6497,48 +6336,6 @@ input UpdateOrgInput {
 type UpdateOrgPayload {
   result: Boolean!
   organization: Organization!
-}
-
-input UpdateOrgRoleInput {
-  id: ID!
-  name: String
-  permissions: [ID!]
-}
-
-type UpdateOrgRolePayload {
-  updated: Role!
-}
-
-input UpdateOrgRolesInput {
-  id: ID!
-  name: String
-  permissions: [ID!]
-}
-
-type UpdateOrgRolesPayload {
-  updated: [Role!]!
-}
-
-input UpdateOrgUserInput {
-  user_id: ID!
-  given_name: String
-  family_name: String
-  title: String
-  academic_title: String
-  office_phone: String
-  mobile_phone: String
-  contact_email: Email
-  job_title: String
-  photo: Upload
-  homepage: String
-  locale: String
-  timezone: String
-  role_id: ID
-  team_id: ID
-}
-
-type UpdateOrgUserPayload {
-  result: Boolean!
 }
 
 input UpdateQuoteNoteFile {
@@ -6597,8 +6394,6 @@ type User {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   organizations: [UserOrganization!]!
-  team: Team @deprecated(reason: "Please use `organizations` property.")
-  role: Role @deprecated(reason: "Please use `organizations` property.")
 }
 
 type UserMutations {

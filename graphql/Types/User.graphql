@@ -26,12 +26,4 @@ type User {
   @organization
   @me(permissions: ["administer", "org-administer"])
   @hasMany
-
-  team: Team
-  @deprecated(reason: "Please use `organizations` property.")
-  @field(resolver: "App\\GraphQL\\Queries\\User@team")
-
-  role: Role
-  @deprecated(reason: "Please use `organizations` property.")
-  @field(resolver: "App\\GraphQL\\Queries\\User@role")
 }

@@ -58,30 +58,6 @@ class Me {
         return $me;
     }
 
-    /**
-     * @deprecated
-     * @return array<string,mixed>|null
-     */
-    public function profile(?User $user): ?array {
-        if (!$user) {
-            return null;
-        }
-
-        return [
-            'given_name'     => $user->given_name,
-            'family_name'    => $user->family_name,
-            'office_phone'   => $user->office_phone,
-            'contact_email'  => $user->contact_email,
-            'title'          => $user->title,
-            'academic_title' => $user->academic_title,
-            'mobile_phone'   => $user->mobile_phone,
-            'job_title'      => $user->job_title,
-            'phone'          => $user->phone,
-            'company'        => $user->company,
-            'photo'          => $user->photo,
-        ];
-    }
-
     public function previousSignIn(?User $user): ?DateTimeInterface {
         $value = null;
 

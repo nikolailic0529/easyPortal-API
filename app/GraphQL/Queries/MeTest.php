@@ -111,44 +111,6 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @deprecated
-     *
-     * @covers ::__invoke
-     *
-     * @dataProvider dataProviderProfile
-     */
-    public function testProfile(
-        Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-    ): void {
-        // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-
-        // Test
-        $this->graphQL(/** @lang GraphQL */ '
-            query profile {
-                me {
-                    profile {
-                        given_name
-                        family_name
-                        title
-                        academic_title
-                        office_phone
-                        mobile_phone
-                        contact_email
-                        job_title
-                        company
-                        phone
-                        photo
-                    }
-                }
-            }')->assertThat($expected);
-    }
-
-    /**
-     * @deprecated
-     *
      * @covers ::__invoke
      *
      * @dataProvider dataProviderTeam
@@ -273,54 +235,6 @@ class MeTest extends TestCase {
                         }
 
                         return 'key';
-                    },
-                ],
-            ]),
-        ))->getData();
-    }
-
-    /**
-     * @deprecated
-     * @return array<mixed>
-     */
-    public function dataProviderProfile(): array {
-        return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('me'),
-            new ArrayDataProvider([
-                'guest is allowed' => [
-                    new GraphQLSuccess('me', self::class, 'null'),
-                    static function (): ?User {
-                        return null;
-                    },
-                ],
-                'user is allowed'  => [
-                    new GraphQLSuccess('me', self::class, new JsonFragment('profile', [
-                        'given_name'     => 'first',
-                        'family_name'    => 'last',
-                        'title'          => 'Mr',
-                        'academic_title' => 'academic_title',
-                        'office_phone'   => '01000230232',
-                        'mobile_phone'   => '0100023023232',
-                        'contact_email'  => 'test@gmail.com',
-                        'job_title'      => 'manger',
-                        'phone'          => '0100023023235',
-                        'company'        => 'EP',
-                        'photo'          => 'http://example.com/photo.jpg',
-                    ])),
-                    static function (): ?User {
-                        return User::factory()->create([
-                            'given_name'     => 'first',
-                            'family_name'    => 'last',
-                            'title'          => 'Mr',
-                            'academic_title' => 'academic_title',
-                            'office_phone'   => '01000230232',
-                            'mobile_phone'   => '0100023023232',
-                            'contact_email'  => 'test@gmail.com',
-                            'job_title'      => 'manger',
-                            'phone'          => '0100023023235',
-                            'company'        => 'EP',
-                            'photo'          => 'http://example.com/photo.jpg',
-                        ]);
                     },
                 ],
             ]),

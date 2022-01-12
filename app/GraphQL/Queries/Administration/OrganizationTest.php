@@ -200,10 +200,6 @@ class OrganizationTest extends TestCase {
                             given_name
                             family_name
                             email_verified
-                            role {
-                                id
-                                name
-                            }
                         }
                         usersAggregated {
                             count
@@ -562,7 +558,6 @@ class OrganizationTest extends TestCase {
                                     'email_verified' => true,
                                     'given_name'     => 'first',
                                     'family_name'    => 'last',
-                                    'role'           => null,
                                 ],
                             ],
                             'usersAggregated' => [
@@ -608,7 +603,6 @@ class OrganizationTest extends TestCase {
                                     'email_verified' => true,
                                     'given_name'     => 'first',
                                     'family_name'    => 'last',
-                                    'role'           => null,
                                 ],
                             ],
                             'usersAggregated' => [
