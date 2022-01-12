@@ -21,7 +21,7 @@ abstract class Guest extends AuthDirective implements FieldMiddleware {
         return is_null($user);
     }
 
-    protected function isAuthorized(Authenticatable|null $user): bool {
+    protected function isAuthorized(Authenticatable|null $user, mixed $root): bool {
         return is_null($user);
     }
 }

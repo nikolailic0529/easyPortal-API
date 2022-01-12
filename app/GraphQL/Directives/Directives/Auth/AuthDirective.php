@@ -51,7 +51,7 @@ abstract class AuthDirective extends BaseDirective implements
         ) use (
             $previous,
         ): mixed {
-            if (!$this->allowed($context)) {
+            if (!$this->allowed($root, $context)) {
                 throw $this->getAuthenticationException();
             }
 
@@ -61,12 +61,12 @@ abstract class AuthDirective extends BaseDirective implements
         return $next($fieldValue->setResolver($resolver));
     }
 
-    protected function allowed(GraphQLContext $context): bool {
+    protected function allowed(mixed $root, GraphQLContext $context): bool {
         $user = $context->user();
 
         if (!$this->isAuthenticated($user)) {
             throw $this->getAuthenticationException();
-        } elseif (!$this->isAuthorized($user)) {
+        } elseif (!$this->isAuthorized($user, $root)) {
             throw $this->getAuthorizationException();
         } else {
             // passed
@@ -79,7 +79,7 @@ abstract class AuthDirective extends BaseDirective implements
         return (bool) $user;
     }
 
-    abstract protected function isAuthorized(Authenticatable|null $user): bool;
+    abstract protected function isAuthorized(Authenticatable|null $user, mixed $root): bool;
 
     protected function getAuthenticationException(): AuthenticationException {
         return new AuthenticationException(

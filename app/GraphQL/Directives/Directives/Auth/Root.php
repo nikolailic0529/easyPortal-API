@@ -21,7 +21,7 @@ abstract class Root extends AuthDirective {
             GRAPHQL;
     }
 
-    protected function isAuthorized(Authenticatable|null $user): bool {
+    protected function isAuthorized(Authenticatable|null $user, mixed $root): bool {
         return $this->auth->isRoot($user);
     }
 }

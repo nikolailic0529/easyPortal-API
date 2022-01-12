@@ -28,7 +28,7 @@ abstract class Organization extends AuthDirective implements FieldMiddleware {
             GRAPHQL;
     }
 
-    protected function isAuthorized(Authenticatable|null $user): bool {
+    protected function isAuthorized(Authenticatable|null $user, mixed $root): bool {
         return $user instanceof HasOrganization
             && $this->organization->defined()
             && $this->organization->is($user->getOrganization())
