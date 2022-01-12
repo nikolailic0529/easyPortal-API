@@ -55,7 +55,6 @@
                         "title",
                         "academic_title",
                         "mobile_phone",
-                        "department",
                         "job_title",
                         "phone",
                         "company",
@@ -104,12 +103,6 @@
                                 "null"
                             ]
                         },
-                        "department": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
                         "job_title": {
                             "type": [
                                 "string",
@@ -143,4 +136,3 @@
         }
     ]
 }
-

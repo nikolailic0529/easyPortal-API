@@ -1400,7 +1400,6 @@ type Me {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
@@ -1451,7 +1450,6 @@ input MeUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String
@@ -2031,7 +2029,6 @@ input OrgUserUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String
@@ -2216,7 +2213,6 @@ type Profile {
   office_phone: String
   mobile_phone: String
   contact_email: Email
-  department: String
   job_title: String
   company: String
   phone: PhoneNumber
@@ -6456,7 +6452,6 @@ input UpdateMeInput {
   office_phone: String
   mobile_phone: String
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String
@@ -6533,7 +6528,6 @@ input UpdateOrgUserInput {
   office_phone: String
   mobile_phone: String
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String
@@ -6583,7 +6577,6 @@ type User {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
@@ -6666,7 +6659,6 @@ input UserUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String

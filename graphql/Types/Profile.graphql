@@ -6,7 +6,6 @@ type Profile {
   office_phone: String
   mobile_phone: String
   contact_email: Email
-  department: String
   job_title: String
   company: String
   phone: PhoneNumber

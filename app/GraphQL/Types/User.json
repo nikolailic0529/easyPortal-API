@@ -87,12 +87,6 @@
                 "null"
             ]
         },
-        "department": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
         "job_title": {
             "type": [
                 "string",

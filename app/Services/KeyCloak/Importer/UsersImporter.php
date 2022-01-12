@@ -110,7 +110,6 @@ class UsersImporter {
                     $user->title          = $attributes['title'][0] ?? null;
                     $user->academic_title = $attributes['academic_title'][0] ?? null;
                     $user->mobile_phone   = $attributes['mobile_phone'][0] ?? null;
-                    $user->department     = $attributes['department'][0] ?? null;
                     $user->job_title      = $attributes['job_title'][0] ?? null;
                     $user->phone          = $attributes['phone'][0] ?? null;
                     $user->company        = $attributes['company'][0] ?? null;

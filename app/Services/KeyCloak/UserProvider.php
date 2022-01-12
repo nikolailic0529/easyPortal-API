@@ -42,7 +42,6 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_JOB_TITLE             = 'job_title';
     protected const CLAIM_MOBILE_PHONE          = 'mobile_phone';
     protected const CLAIM_OFFICE_PHONE          = 'office_phone';
-    protected const CLAIM_DEPARTMENT            = 'department';
     protected const CLAIM_TITLE                 = 'title';
     protected const CLAIM_CONTACT_EMAIL         = 'contact_email';
     protected const CLAIM_ACADEMIC_TITLE        = 'academic_title';
@@ -114,12 +113,6 @@ class UserProvider implements UserProviderContract {
         ],
         self::CLAIM_OFFICE_PHONE          => [
             'property' => 'office_phone',
-            'required' => false,
-            'default'  => null,
-            'if'       => null,
-        ],
-        self::CLAIM_DEPARTMENT            => [
-            'property' => 'department',
             'required' => false,
             'default'  => null,
             'if'       => null,

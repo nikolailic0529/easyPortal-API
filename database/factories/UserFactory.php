@@ -51,7 +51,6 @@ class UserFactory extends Factory {
             'title'           => null,
             'academic_title'  => null,
             'mobile_phone'    => null,
-            'department'      => null,
             'job_title'       => null,
             'company'         => null,
             'enabled'         => true,

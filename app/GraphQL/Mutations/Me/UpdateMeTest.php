@@ -95,7 +95,6 @@ class UpdateMeTest extends TestCase {
                 $this->assertNull($user->office_phone);
                 $this->assertNull($user->mobile_phone);
                 $this->assertNull($user->contact_email);
-                $this->assertNull($user->department);
                 $this->assertNull($user->job_title);
                 $this->assertNull($user->photo);
                 $this->assertNull($user->homepage);
@@ -109,7 +108,6 @@ class UpdateMeTest extends TestCase {
                 $this->assertEquals($user->office_phone, $input['office_phone']);
                 $this->assertEquals($user->mobile_phone, $input['mobile_phone']);
                 $this->assertEquals($user->contact_email, $input['contact_email']);
-                $this->assertEquals($user->department, $input['department']);
                 $this->assertEquals($user->job_title, $input['job_title']);
                 $this->assertEquals($user->homepage, $input['homepage']);
                 $this->assertEquals($user->locale, $input['locale']);
@@ -143,7 +141,6 @@ class UpdateMeTest extends TestCase {
                             'office_phone'   => '+1-202-555-0197',
                             'mobile_phone'   => '+1-202-555-0147',
                             'contact_email'  => 'test@gmail.com',
-                            'department'     => 'HR',
                             'job_title'      => 'Manger',
                             'photo'          => UploadedFile::fake()->create('photo.jpg', 200),
                             'homepage'       => 'dashboard',
@@ -232,7 +229,6 @@ class UpdateMeTest extends TestCase {
                             'office_phone'   => null,
                             'mobile_phone'   => null,
                             'contact_email'  => null,
-                            'department'     => null,
                             'job_title'      => null,
                             'photo'          => null,
                             'homepage'       => null,

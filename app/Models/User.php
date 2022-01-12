@@ -54,7 +54,6 @@ use LogicException;
  * @property string|null                                                            $title
  * @property string|null                                                            $academic_title
  * @property string|null                                                            $mobile_phone
- * @property string|null                                                            $department
  * @property string|null                                                            $job_title
  * @property string|null                                                            $company
  * @property \Carbon\CarbonImmutable                                                $created_at

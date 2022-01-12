@@ -26,7 +26,6 @@ class UpdateMeProfileInputValidator extends Validator {
             'contact_email'  => ['nullable', 'email'],
             'title'          => ['nullable', 'string'],
             'academic_title' => ['nullable', 'string'],
-            'department'     => ['nullable', 'string'],
             'job_title'      => ['nullable', 'string'],
             'photo'          => ['nullable', $this->image],
         ];

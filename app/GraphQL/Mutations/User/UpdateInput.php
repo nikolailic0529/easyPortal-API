@@ -14,7 +14,6 @@ class UpdateInput extends JsonObject {
     public ?string       $office_phone;
     public ?string       $mobile_phone;
     public ?string       $contact_email;
-    public ?string       $department;
     public ?string       $job_title;
     public ?UploadedFile $photo;
     public ?string       $homepage;

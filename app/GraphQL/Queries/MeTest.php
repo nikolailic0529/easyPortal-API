@@ -58,7 +58,6 @@ class MeTest extends TestCase {
                     office_phone
                     mobile_phone
                     contact_email
-                    department
                     job_title
                     company
                     phone
@@ -138,7 +137,6 @@ class MeTest extends TestCase {
                         office_phone
                         mobile_phone
                         contact_email
-                        department
                         job_title
                         company
                         phone
@@ -304,7 +302,6 @@ class MeTest extends TestCase {
                         'office_phone'   => '01000230232',
                         'mobile_phone'   => '0100023023232',
                         'contact_email'  => 'test@gmail.com',
-                        'department'     => 'hr',
                         'job_title'      => 'manger',
                         'phone'          => '0100023023235',
                         'company'        => 'EP',
@@ -319,7 +316,6 @@ class MeTest extends TestCase {
                             'office_phone'   => '01000230232',
                             'mobile_phone'   => '0100023023232',
                             'contact_email'  => 'test@gmail.com',
-                            'department'     => 'hr',
                             'job_title'      => 'manger',
                             'phone'          => '0100023023235',
                             'company'        => 'EP',

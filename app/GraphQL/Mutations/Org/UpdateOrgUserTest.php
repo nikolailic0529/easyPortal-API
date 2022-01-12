@@ -111,7 +111,6 @@ class UpdateOrgUserTest extends TestCase {
                 $this->assertNull($updatedUser->office_phone);
                 $this->assertNull($updatedUser->mobile_phone);
                 $this->assertNull($updatedUser->contact_email);
-                $this->assertNull($updatedUser->department);
                 $this->assertNull($updatedUser->job_title);
                 $this->assertNull($updatedUser->photo);
                 $this->assertNull($updatedUser->timezone);
@@ -125,7 +124,6 @@ class UpdateOrgUserTest extends TestCase {
                 $this->assertEquals($updatedUser->office_phone, $input['office_phone']);
                 $this->assertEquals($updatedUser->mobile_phone, $input['mobile_phone']);
                 $this->assertEquals($updatedUser->contact_email, $input['contact_email']);
-                $this->assertEquals($updatedUser->department, $input['department']);
                 $this->assertEquals($updatedUser->job_title, $input['job_title']);
                 $this->assertEquals($updatedUser->timezone, $input['timezone']);
                 $this->assertEquals($updatedUser->locale, $input['locale']);
@@ -199,13 +197,11 @@ class UpdateOrgUserTest extends TestCase {
                             'office_phone'   => '+1-202-555-0197',
                             'mobile_phone'   => '+1-202-555-0147',
                             'contact_email'  => 'test@gmail.com',
-                            'department'     => 'HR',
                             'job_title'      => 'Manger',
                             'photo'          => UploadedFile::fake()->create('photo.jpg', 100),
                             'homepage'       => 'dashboard',
                             'timezone'       => 'Europe/London',
                             'locale'         => 'en_GB',
-                            'role_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'role_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'team_id'        => 'fd421bad-069f-491c-ad5f-5841aa9a9ded',
                         ];
@@ -361,7 +357,6 @@ class UpdateOrgUserTest extends TestCase {
                             'office_phone'   => null,
                             'mobile_phone'   => null,
                             'contact_email'  => null,
-                            'department'     => null,
                             'job_title'      => null,
                             'photo'          => null,
                             'homepage'       => null,

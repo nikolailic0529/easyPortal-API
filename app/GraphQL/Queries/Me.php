@@ -75,7 +75,6 @@ class Me {
             'title'          => $user->title,
             'academic_title' => $user->academic_title,
             'mobile_phone'   => $user->mobile_phone,
-            'department'     => $user->department,
             'job_title'      => $user->job_title,
             'phone'          => $user->phone,
             'company'        => $user->company,

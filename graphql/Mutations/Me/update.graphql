@@ -17,7 +17,6 @@ input MeUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email @isNullable @isEmail
-  department: String
   job_title: String
   photo: Upload @isNullable @isImage
   homepage: String

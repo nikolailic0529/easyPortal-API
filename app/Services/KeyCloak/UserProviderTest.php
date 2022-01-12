@@ -237,7 +237,6 @@ class UserProviderTest extends TestCase {
                 'office_phone'   => '+1-202-555-0197',
                 'mobile_phone'   => '+1-202-555-0147',
                 'contact_email'  => 'test@gmail.com',
-                'department'     => 'HR',
                 'job_title'      => 'Manger',
             ]);
 
@@ -256,7 +255,6 @@ class UserProviderTest extends TestCase {
         $this->assertEquals('+1-202-555-0197', $user->office_phone);
         $this->assertEquals('+1-202-555-0147', $user->mobile_phone);
         $this->assertEquals('test@gmail.com', $user->contact_email);
-        $this->assertEquals('HR', $user->department);
         $this->assertEquals('Manger', $user->job_title);
     }
 
@@ -616,7 +614,6 @@ class UserProviderTest extends TestCase {
                         'office_phone'   => '+1-202-555-0197',
                         'mobile_phone'   => '+1-202-555-0147',
                         'contact_email'  => 'test@gmail.com',
-                        'department'     => 'HR',
                         'job_title'      => 'Manger',
                         'locale'         => 'it_IT',
                     ];
@@ -657,7 +654,6 @@ class UserProviderTest extends TestCase {
                         'office_phone'          => '+1-202-555-0197',
                         'mobile_phone'          => '+1-202-555-0147',
                         'contact_email'         => 'test@gmail.com',
-                        'department'            => 'HR',
                         'job_title'             => 'Manger',
                         'locale'                => 'it',
                     ];
@@ -681,7 +677,6 @@ class UserProviderTest extends TestCase {
                         'office_phone'   => '+1-202-555-0197',
                         'mobile_phone'   => '+1-202-555-0147',
                         'contact_email'  => 'test@gmail.com',
-                        'department'     => 'HR',
                         'job_title'      => 'Manger',
                         'locale'         => 'de_DE',
                     ];
@@ -707,7 +702,6 @@ class UserProviderTest extends TestCase {
                         'office_phone'       => '+1-202-555-0197',
                         'mobile_phone'       => '+1-202-555-0147',
                         'contact_email'      => 'test@gmail.com',
-                        'department'         => 'HR',
                         'job_title'          => 'Manger',
                         'locale'             => 'de',
                     ];
@@ -731,7 +725,6 @@ class UserProviderTest extends TestCase {
                         'office_phone'   => '+1-202-555-0197',
                         'mobile_phone'   => '+1-202-555-0147',
                         'contact_email'  => 'test@gmail.com',
-                        'department'     => 'HR',
                         'job_title'      => 'Manger',
                         'locale'         => null,
                     ];
@@ -757,7 +750,6 @@ class UserProviderTest extends TestCase {
                         'office_phone'          => '+1-202-555-0197',
                         'mobile_phone'          => '+1-202-555-0147',
                         'contact_email'         => 'test@gmail.com',
-                        'department'            => 'HR',
                         'job_title'             => 'Manger',
                         'locale'                => 'unknown',
                     ];

@@ -61,7 +61,6 @@ class UsersTest extends TestCase {
                         office_phone
                         mobile_phone
                         contact_email
-                        department
                         job_title
                         photo
                         company
@@ -145,7 +144,6 @@ class UsersTest extends TestCase {
                                     'office_phone'   => '+1-202-555-0197',
                                     'mobile_phone'   => '+1-202-555-0147',
                                     'contact_email'  => 'test@gmail.com',
-                                    'department'     => 'HR',
                                     'job_title'      => 'Manger',
                                     'photo'          => 'https://example.com/photo.jpg',
                                     'company'        => 'company1',
@@ -237,7 +235,6 @@ class UsersTest extends TestCase {
                                     'office_phone'   => '+1-202-555-0197',
                                     'mobile_phone'   => '+1-202-555-0147',
                                     'contact_email'  => 'test@gmail.com',
-                                    'department'     => 'HR',
                                     'job_title'      => 'Manger',
                                     'photo'          => 'https://example.com/photo.jpg',
                                     'company'        => 'company1',
@@ -287,7 +284,6 @@ class UsersTest extends TestCase {
                                 'office_phone'   => '+1-202-555-0197',
                                 'mobile_phone'   => '+1-202-555-0147',
                                 'contact_email'  => 'test@gmail.com',
-                                'department'     => 'HR',
                                 'job_title'      => 'Manger',
                                 'photo'          => 'https://example.com/photo.jpg',
                                 'company'        => 'company1',
@@ -348,7 +344,6 @@ class UsersTest extends TestCase {
                                 'office_phone'   => '+1-202-555-0198',
                                 'mobile_phone'   => '+1-202-555-0148',
                                 'contact_email'  => 'test2@gmail.com',
-                                'department'     => 'IT',
                                 'job_title'      => 'Employee',
                                 'photo'          => 'https://example.com/photo1.jpg',
                                 'company'        => 'company2',
@@ -434,7 +429,6 @@ class UsersTest extends TestCase {
                                     'office_phone'   => '+1-202-555-0197',
                                     'mobile_phone'   => '+1-202-555-0147',
                                     'contact_email'  => 'test@gmail.com',
-                                    'department'     => 'HR',
                                     'job_title'      => 'Manger',
                                     'photo'          => 'https://example.com/photo.jpg',
                                     'company'        => 'company1',
@@ -483,7 +477,6 @@ class UsersTest extends TestCase {
                                     'office_phone'   => '+1-202-555-0198',
                                     'mobile_phone'   => '+1-202-555-0148',
                                     'contact_email'  => 'test2@gmail.com',
-                                    'department'     => 'IT',
                                     'job_title'      => 'Employee',
                                     'photo'          => 'https://example.com/photo1.jpg',
                                     'company'        => 'company2',
