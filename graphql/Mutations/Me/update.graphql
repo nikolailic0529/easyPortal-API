@@ -14,8 +14,8 @@ input MeUpdateInput {
   family_name: String @isRequired
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email @isNullable @isEmail
   department: String
   job_title: String

@@ -1284,8 +1284,8 @@ type Me {
   photo: Url
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
@@ -1333,8 +1333,8 @@ input MeUpdateInput {
   family_name: String
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
@@ -1879,8 +1879,8 @@ input OrgUserUpdateInput {
   family_name: String
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
@@ -6394,8 +6394,8 @@ type User {
   enabled: Boolean!
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
@@ -6477,8 +6477,8 @@ input UserUpdateInput {
   family_name: String
   title: String
   academic_title: String
-  office_phone: String
-  mobile_phone: String
+  office_phone: PhoneNumber
+  mobile_phone: PhoneNumber
   contact_email: Email
   department: String
   job_title: String
