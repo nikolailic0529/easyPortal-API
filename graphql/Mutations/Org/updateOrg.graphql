@@ -10,7 +10,7 @@ extend type Mutation {
 input UpdateOrgInput @validator {
   locale: String
   currency_id: ID
-  website_url: String               # TODO [GraphQL] URL type needed
+  website_url: Url
   email: String                     # TODO [GraphQL] Email type needed
   analytics_code: String
   branding: UpdateOrgBranding

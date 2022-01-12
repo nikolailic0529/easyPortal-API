@@ -1096,7 +1096,7 @@ type EnableUserPayload {
 type File {
   id: ID!
   name: String!
-  url: String!
+  url: Url!
   size: Int!
 }
 
@@ -1894,7 +1894,7 @@ type Organization {
   name: String!
   root: Boolean!
   locale: String
-  website_url: String
+  website_url: Url
   email: String
   currency_id: ID
   currency: Currency
@@ -1942,16 +1942,16 @@ type OrganizationBranding {
   dark_theme: Boolean
   main_color: String
   secondary_color: String
-  logo_url: String
-  favicon_url: String
+  logo_url: Url
+  favicon_url: Url
   default_main_color: String
   default_secondary_color: String
-  default_logo_url: String
-  default_favicon_url: String
-  welcome_image_url: String
+  default_logo_url: Url
+  default_favicon_url: Url
+  welcome_image_url: Url
   welcome_heading: String
   welcome_underline: String
-  dashboard_image_url: String
+  dashboard_image_url: Url
 }
 
 """Aggregated data for type Organization."""
@@ -1962,7 +1962,7 @@ type OrganizationsAggregated {
 input OrganizationsQuery {
   id: ID!
   name: String!
-  website_url: String
+  website_url: Url
   email: String
   statuses: StatusesQuery
   contacts: ContactsQuery
@@ -1972,7 +1972,7 @@ input OrganizationsQuery {
 
 input OrganizationsSort {
   name: String!
-  website_url: String
+  website_url: Url
   email: String
   kpi: KpiSort!
 }
@@ -4303,7 +4303,7 @@ input SearchByConditionOrganizationsQuery {
   name: SearchByScalarString
 
   """Property condition."""
-  website_url: SearchByScalarStringOrNull
+  website_url: SearchByScalarUrlOrNull
 
   """Property condition."""
   email: SearchByScalarStringOrNull
@@ -4913,6 +4913,38 @@ input SearchByScalarStringOrNull {
   isNotNull: SearchByTypeFlag
 }
 
+"""
+Available operators for scalar Url (only one operator allowed at a time).
+"""
+input SearchByScalarUrlOrNull {
+  """Equal (`=`)."""
+  equal: Url
+
+  """Not Equal (`!=`)."""
+  notEqual: Url
+
+  """Within a set of values."""
+  in: [Url!]
+
+  """Outside a set of values."""
+  notIn: [Url!]
+
+  """Contains."""
+  contains: Url
+
+  """Ends with a string."""
+  endsWith: Url
+
+  """Starts with a string."""
+  startsWith: Url
+
+  """Is NULL?"""
+  isNull: SearchByTypeFlag
+
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
+}
+
 enum SearchByTypeFlag {
   yes
 }
@@ -5014,7 +5046,7 @@ input SignInOrganizationInput {
 
 type SignInOrganizationPayload {
   """The link where the User should be redirected to Sign In."""
-  url: String!
+  url: Url!
 }
 
 type SignInPayload {
@@ -5023,7 +5055,7 @@ type SignInPayload {
 
 type SignOutPayload {
   """The link where the User should be redirected to complete Sign Out."""
-  url: String
+  url: Url
 }
 
 input SignUpByInviteInput {
@@ -5035,7 +5067,7 @@ input SignUpByInviteInput {
 
 type SignUpByInvitePayload {
   """The link where the User should be redirected to Sign In."""
-  url: String!
+  url: Url!
 }
 
 """
@@ -6175,7 +6207,7 @@ input UpdateOrgBranding {
 input UpdateOrgInput {
   locale: String
   currency_id: ID
-  website_url: String
+  website_url: Url
   email: String
   analytics_code: String
   branding: UpdateOrgBranding
@@ -6250,6 +6282,9 @@ type UpdateQuoteNotePayload {
 Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec
 """
 scalar Upload
+
+"""The URL."""
+scalar Url
 
 type User {
   id: ID!

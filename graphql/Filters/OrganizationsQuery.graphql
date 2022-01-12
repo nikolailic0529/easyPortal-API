@@ -1,7 +1,7 @@
 input OrganizationsQuery {
   id: ID!
   name: String!
-  website_url: String
+  website_url: Url
   email: String
   statuses: StatusesQuery
   contacts: ContactsQuery

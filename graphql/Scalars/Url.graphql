@@ -1,0 +1,4 @@
+"""
+The URL.
+"""
+scalar Url @scalar(class: "GraphQL\\Type\\Definition\\StringType")
