@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\Enums\UserType;
 use App\Models\User;
+use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
 use Closure;
@@ -67,6 +68,7 @@ class AuthTest extends TestCase {
     public function testGate(
         bool $expected,
         array|null $permissions,
+        bool $isEnabled,
         bool $isRoot,
         string $permission,
         bool|null $can,
@@ -75,13 +77,20 @@ class AuthTest extends TestCase {
         $user = null;
 
         if (!is_null($permissions)) {
-            $user = Mockery::mock(Authenticatable::class, Rootable::class, HasPermissions::class);
+            $user = Mockery::mock(Authenticatable::class, Enableable::class, Rootable::class, HasPermissions::class);
             $user
-                ->shouldReceive('isRoot')
+                ->shouldReceive('isEnabled')
                 ->once()
-                ->andReturn($isRoot);
+                ->andReturn($isEnabled);
 
-            if (!$isRoot) {
+            if ($isEnabled) {
+                $user
+                    ->shouldReceive('isRoot')
+                    ->once()
+                    ->andReturn($isRoot);
+            }
+
+            if ($isEnabled && !$isRoot) {
                 $user
                     ->shouldReceive('getPermissions')
                     ->once()
@@ -179,6 +188,7 @@ class AuthTest extends TestCase {
             'gate defined - guest with can'           => [
                 false,
                 null,
+                true,
                 false,
                 'a',
                 true,
@@ -186,6 +196,7 @@ class AuthTest extends TestCase {
             'gate defined - guest without can'        => [
                 false,
                 null,
+                true,
                 false,
                 'a',
                 null,
@@ -193,6 +204,7 @@ class AuthTest extends TestCase {
             'user - without can - without permission' => [
                 false,
                 ['a'],
+                true,
                 false,
                 'b',
                 null,
@@ -200,6 +212,7 @@ class AuthTest extends TestCase {
             'user - without can - with permission'    => [
                 true,
                 ['a'],
+                true,
                 false,
                 'a',
                 null,
@@ -207,6 +220,7 @@ class AuthTest extends TestCase {
             'user - can - without permission'         => [
                 false,
                 ['a'],
+                true,
                 false,
                 'b',
                 true,
@@ -214,6 +228,7 @@ class AuthTest extends TestCase {
             'user - cannot - without permission'      => [
                 false,
                 ['a'],
+                true,
                 false,
                 'b',
                 false,
@@ -221,6 +236,7 @@ class AuthTest extends TestCase {
             'user - can - with permission'            => [
                 true,
                 ['a'],
+                true,
                 false,
                 'a',
                 true,
@@ -228,6 +244,7 @@ class AuthTest extends TestCase {
             'user - cannot - with permission'         => [
                 false,
                 ['a'],
+                true,
                 false,
                 'a',
                 false,
@@ -236,12 +253,14 @@ class AuthTest extends TestCase {
                 true,
                 ['a'],
                 true,
+                true,
                 'b',
                 null,
             ],
             'root - can - without permission'         => [
                 true,
                 ['a'],
+                true,
                 true,
                 'b',
                 true,
@@ -250,6 +269,7 @@ class AuthTest extends TestCase {
                 true,
                 ['a'],
                 true,
+                true,
                 'b',
                 false,
             ],
@@ -257,8 +277,25 @@ class AuthTest extends TestCase {
                 true,
                 ['a'],
                 true,
+                true,
                 'a',
                 false,
+            ],
+            'disabled user - can - with permission'   => [
+                false,
+                ['a'],
+                false,
+                false,
+                'a',
+                true,
+            ],
+            'disabled root'                           => [
+                false,
+                ['a'],
+                false,
+                true,
+                'a',
+                true,
             ],
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -16,6 +17,10 @@ class Auth {
 
     public function isRoot(Authenticatable|null $user): bool {
         return $user instanceof Rootable && $user->isRoot();
+    }
+
+    public function isEnabled(Authenticatable|null $user): bool {
+        return !($user instanceof Enableable) || $user->isEnabled();
     }
 
     /**
@@ -68,6 +73,11 @@ class Auth {
      * @param array<mixed> $arguments
      */
     public function gateBefore(Authenticatable|null $user, string $ability, array $arguments): ?bool {
+        // Enabled?
+        if (!$this->isEnabled($user)) {
+            return false;
+        }
+
         // Root?
         if ($this->isRoot($user)) {
             return true;

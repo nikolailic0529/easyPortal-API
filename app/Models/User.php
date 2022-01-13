@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
+use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
@@ -80,6 +81,7 @@ class User extends Model implements
     HasTimezonePreference,
     HasOrganization,
     HasPermissions,
+    Enableable,
     Rootable,
     Auditable {
     use HasFactory;
