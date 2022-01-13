@@ -2,6 +2,8 @@
 
 namespace App\Services\Auth\Contracts;
 
+use App\Models\Organization;
+
 interface Enableable {
-    public function isEnabled(): bool;
+    public function isEnabled(?Organization $organization): bool;
 }

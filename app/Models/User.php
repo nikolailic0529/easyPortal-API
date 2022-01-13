@@ -253,7 +253,7 @@ class User extends Model implements
 
     // <editor-fold desc="Enableable">
     // =========================================================================
-    public function isEnabled(): bool {
+    public function isEnabled(?Organization $organization): bool {
         // Enabled?
         if (!$this->enabled) {
             return false;
@@ -265,19 +265,22 @@ class User extends Model implements
         }
 
         // Member of organization?
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): bool {
-            $user = null;
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            function () use ($organization): bool {
+                $orgUser = null;
 
-            if ($this->organization_id) {
-                $user = $this->organizations
-                    ->first(function (OrganizationUser $user): bool {
-                        return $user->organization_id === $this->organization_id;
-                    });
-            }
+                if ($organization) {
+                    $orgUser = $this->organizations
+                        ->first(static function (OrganizationUser $user) use ($organization): bool {
+                            return $user->organization_id === $organization->getKey();
+                        });
+                }
 
-            return $user instanceof OrganizationUser
-                && $user->enabled;
-        });
+                return $orgUser instanceof OrganizationUser
+                    && $orgUser->enabled;
+            },
+        );
     }
     // </editor-fold>
 }

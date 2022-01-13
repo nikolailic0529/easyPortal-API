@@ -41,6 +41,11 @@ class AuthTest extends TestCase {
     public function testHasPermission(bool $expected, array|null $permissions, string $permission): void {
         $user = null;
         $auth = new class() extends Auth {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
             public function hasPermission(?Authenticatable $user, string $permission): bool {
                 return parent::hasPermission($user, $permission);
             }

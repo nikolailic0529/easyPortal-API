@@ -5,13 +5,16 @@ namespace App\Services\Auth;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
+use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use function in_array;
 use function is_null;
 
 class Auth {
-    public function __construct() {
+    public function __construct(
+        protected CurrentOrganization $organization,
+    ) {
         // empty
     }
 
@@ -20,7 +23,13 @@ class Auth {
     }
 
     public function isEnabled(Authenticatable|null $user): bool {
-        return !($user instanceof Enableable) || $user->isEnabled();
+        if (!($user instanceof Enableable)) {
+            return true;
+        }
+
+        return $this->organization->defined()
+            ? $user->isEnabled($this->organization->get())
+            : $user->isEnabled(null);
     }
 
     /**
