@@ -117,17 +117,18 @@ class DeleteOrgRoleTest extends TestCase {
                         return new DeleteImpossibleAssignedToUsers(new Role());
                     }),
                     static function (TestCase $test, Organization $organization, User $user): Role {
-                        $role = Role::factory()->create([
+                        $role    = Role::factory()->create([
                             'id'              => '2ce0a956-b314-40b8-b192-3aaeeb067e37',
                             'name'            => 'name',
                             'organization_id' => $organization,
                         ]);
+                        $orgUser = $user->organizations
+                            ->first(static function (OrganizationUser $user) use ($organization): bool {
+                                return $user->organization_id === $organization->getKey();
+                            });
 
-                        OrganizationUser::factory()->create([
-                            'organization_id' => $organization,
-                            'user_id'         => $user,
-                            'role_id'         => $role,
-                        ]);
+                        $orgUser->role = $role;
+                        $orgUser->save();
 
                         return $role;
                     },

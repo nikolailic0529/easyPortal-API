@@ -370,9 +370,17 @@ class AssetTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider('asset', [
-                    'assets-view',
-                ]),
+                new OrganizationUserDataProvider(
+                    'asset',
+                    [
+                        'assets-view',
+                    ],
+                    static function (User $user): void {
+                        $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                        $user->given_name  = 'first';
+                        $user->family_name = 'last';
+                    },
+                ),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', self::class, [
@@ -687,12 +695,6 @@ class AssetTest extends TestCase {
                             ],
                         ],
                         static function (TestCase $test, Organization $organization, User $user): Asset {
-                            if ($user) {
-                                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                                $user->given_name  = 'first';
-                                $user->family_name = 'last';
-                                $user->save();
-                            }
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',

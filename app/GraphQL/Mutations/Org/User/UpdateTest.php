@@ -272,11 +272,6 @@ class UpdateTest extends TestCase {
                     null,
                     null,
                     static function (TestCase $test, Organization $organization, User $user): User {
-                        OrganizationUser::factory()->create([
-                            'organization_id' => $organization,
-                            'user_id'         => $user,
-                        ]);
-
                         return $user;
                     },
                     static function (): array {
@@ -290,11 +285,6 @@ class UpdateTest extends TestCase {
                     null,
                     null,
                     static function (TestCase $test, Organization $organization, User $user): User {
-                        OrganizationUser::factory()->create([
-                            'organization_id' => $organization,
-                            'user_id'         => $user,
-                        ]);
-
                         return $user;
                     },
                     static function (): array {

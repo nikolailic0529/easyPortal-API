@@ -35,7 +35,6 @@ class RequestContractChangeTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed> $input
-     *
      * @param array<string,mixed> $settings
      */
     public function testInvoke(
@@ -86,11 +85,11 @@ class RequestContractChangeTest extends TestCase {
         }
 
         $input = $input ?: [
-            'from'        => 'user@example.com',
-            'subject'     => 'subject',
-            'message'     => 'message',
-            'contract_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-        ];
+                'from'        => 'user@example.com',
+                'subject'     => 'subject',
+                'message'     => 'message',
+                'contract_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            ];
 
         $map  = [];
         $file = [];
@@ -145,14 +144,7 @@ class RequestContractChangeTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
-            if ($user) {
-                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                $user->given_name  = 'first';
-                $user->family_name = 'last';
-                $user->save();
-            }
-
+        $prepare  = static function (TestCase $test, ?Organization $organization): void {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
@@ -172,9 +164,17 @@ class RequestContractChangeTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('requestContractChange'),
-            new OrganizationUserDataProvider('requestContractChange', [
-                'requests-contract-change',
-            ]),
+            new OrganizationUserDataProvider(
+                'requestContractChange',
+                [
+                    'requests-contract-change',
+                ],
+                static function (User $user): void {
+                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                    $user->given_name  = 'first';
+                    $user->family_name = 'last';
+                },
+            ),
             new ArrayDataProvider([
                 'ok'               => [
                     new GraphQLSuccess('requestContractChange', RequestAssetChange::class, [
