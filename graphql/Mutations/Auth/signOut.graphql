@@ -19,6 +19,7 @@ type AuthSignOutPayload implements Payload {
 extend type Mutation {
   "Sign Out."
   signOut: SignOutPayload
+    @deprecated(reason: "Please use `auth { signOut }` instead.")
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut")
     @me
 }

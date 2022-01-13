@@ -59,6 +59,7 @@ class SignOutTest extends TestCase {
     }
 
     /**
+     * @deprecated
      * @covers ::__invoke
      * @dataProvider dataProviderInvokeDeprecated
      */
@@ -116,6 +117,7 @@ class SignOutTest extends TestCase {
     }
 
     /**
+     * @deprecated
      * @return array<mixed>
      */
     public function dataProviderInvokeDeprecated(): array {
