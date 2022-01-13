@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Relations\HasOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Organization     $organization
  * @property-read \App\Models\Role        $role
  * @property-read \App\Models\User        $user
  * @method static \Database\Factories\InvitationFactory factory(...$parameters)
@@ -33,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Invitation extends Model {
     use HasFactory;
     use OwnedByOrganization;
+    use HasOrganization;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
