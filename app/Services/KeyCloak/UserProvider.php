@@ -46,6 +46,7 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_TITLE                 = 'title';
     protected const CLAIM_CONTACT_EMAIL         = 'contact_email';
     protected const CLAIM_ACADEMIC_TITLE        = 'academic_title';
+    protected const CLAIM_LOCALE                = 'locale';
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
@@ -140,6 +141,18 @@ class UserProvider implements UserProviderContract {
             'required' => false,
             'default'  => null,
             'if'       => null,
+        ],
+        self::CLAIM_LOCALE                => [
+            'property' => 'locale',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+            'map'      => [
+                'de' => 'de_DE',
+                'en' => 'en_GB',
+                'fr' => 'fr_FR',
+                'it' => 'it_IT',
+            ],
         ],
     ];
 
@@ -313,7 +326,10 @@ class UserProvider implements UserProviderContract {
             if ($property['required'] && !$claims->has($claim)) {
                 $missed[] = $claim;
             } elseif ($property['if'] === null || $claims->has($property['if'])) {
-                $properties[$property['property']] = $claims->get($claim, $property['default']);
+                $value                             = $claims->get($claim, $property['default']);
+                $properties[$property['property']] = isset($property['map'])
+                    ? ($property['map'][$value] ?? null)
+                    : $value;
             } else {
                 $properties[$property['property']] = null;
             }

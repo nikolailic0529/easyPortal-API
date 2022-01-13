@@ -618,6 +618,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'department'     => 'HR',
                         'job_title'      => 'Manger',
+                        'locale'         => 'it_IT',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -658,6 +659,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'         => 'test@gmail.com',
                         'department'            => 'HR',
                         'job_title'             => 'Manger',
+                        'locale'                => 'it',
                     ];
                 },
             ],
@@ -681,6 +683,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'department'     => 'HR',
                         'job_title'      => 'Manger',
+                        'locale'         => 'de_DE',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -706,6 +709,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'      => 'test@gmail.com',
                         'department'         => 'HR',
                         'job_title'          => 'Manger',
+                        'locale'             => 'de',
                     ];
                 },
             ],
@@ -729,6 +733,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'department'     => 'HR',
                         'job_title'      => 'Manger',
+                        'locale'         => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -754,6 +759,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'         => 'test@gmail.com',
                         'department'            => 'HR',
                         'job_title'             => 'Manger',
+                        'locale'                => 'unknown',
                     ];
                 },
             ],
