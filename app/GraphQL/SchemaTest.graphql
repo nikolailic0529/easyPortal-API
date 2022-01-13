@@ -458,6 +458,9 @@ input AuditsSort {
 }
 
 type AuthMutations {
+  """@require <me> User must be authenticated."""
+  signOut: AuthSignOutPayload
+
   """
   Organization Sign In.
   
@@ -527,6 +530,13 @@ type AuthOrganizationSignInPayload implements Payload {
 
   """The link where the User should be redirected to Sign In."""
   url: Url!
+}
+
+type AuthSignOutPayload implements Payload {
+  result: Boolean!
+
+  """The link where the User should be redirected to complete Sign Out."""
+  url: Url
 }
 
 input AuthorizeOrganizationInput {

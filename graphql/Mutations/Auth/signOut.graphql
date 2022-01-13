@@ -1,3 +1,21 @@
+extend type AuthMutations {
+  signOut: AuthSignOutPayload
+  @me
+  @mutationCall(
+    resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
+  )
+}
+
+type AuthSignOutPayload implements Payload {
+  result: Boolean!
+
+  """
+  The link where the User should be redirected to complete Sign Out.
+  """
+  url: Url
+}
+
+# Deprecated
 extend type Mutation {
   "Sign Out."
   signOut: SignOutPayload

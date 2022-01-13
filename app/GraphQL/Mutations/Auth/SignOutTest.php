@@ -7,10 +7,12 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 /**
@@ -24,23 +26,59 @@ class SignOutTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      */
-    public function testInvoke(Response $expected, Closure $organizationFactory, Closure $userFactory = null): void {
+    public function testInvoke(Response $expected, Closure $orgFactory, Closure $userFactory = null): void {
+        // Prepare
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
+
+        // Mock
+        if ($expected instanceof GraphQLSuccess) {
+            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('signOut')
+                    ->once()
+                    ->andReturn('http://example.com/');
+            });
+        }
+
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation {
+                    auth {
+                        signOut {
+                            result
+                            url
+                        }
+                    }
+                }
+                GRAPHQL,
+            )
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @dataProvider dataProviderInvokeDeprecated
+     */
+    public function testInvokeDeprecated(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+    ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Mock
-        $service = Mockery::mock(KeyCloak::class);
-
         if ($expected instanceof GraphQLSuccess) {
-            $service
-                ->shouldReceive('signOut')
-                ->once()
-                ->andReturn('http://example.com/');
+            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('signOut')
+                    ->once()
+                    ->andReturn('http://example.com/');
+            });
         }
-
-        $this->app->bind(KeyCloak::class, static function () use ($service): KeyCloak {
-            return $service;
-        });
 
         // Test
         $this
@@ -60,11 +98,33 @@ class SignOutTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
+            new OrganizationDataProvider('auth'),
+            new UserDataProvider('auth'),
+            new ArrayDataProvider([
+                'ok' => [
+                    new GraphQLSuccess(
+                        'auth',
+                        new JsonFragmentSchema('signOut', self::class),
+                        new JsonFragment('signOut', [
+                            'result' => true,
+                            'url'    => 'http://example.com/',
+                        ]),
+                    ),
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderInvokeDeprecated(): array {
+        return (new CompositeDataProvider(
             new OrganizationDataProvider('signOut'),
             new UserDataProvider('signOut'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('signOut', self::class, [
+                    new GraphQLSuccess('signOut', null, [
                         'url' => 'http://example.com/',
                     ]),
                 ],

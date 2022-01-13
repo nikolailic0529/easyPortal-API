@@ -18,7 +18,8 @@ class SignOut {
      */
     public function __invoke(mixed $_, array $args): array {
         return [
-            'url' => $this->keycloak->signOut(),
+            'result' => true,
+            'url'    => $this->keycloak->signOut(),
         ];
     }
 }
