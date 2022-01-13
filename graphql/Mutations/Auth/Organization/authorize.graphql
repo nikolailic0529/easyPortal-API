@@ -1,0 +1,19 @@
+extend type AuthOrganizationMutations {
+  authorize(
+    input: AuthOrganizationAuthorizeInput
+  ): AuthOrganizationAuthorizePayload
+  @guest
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\Auth\\Organization\\Authorize"
+  )
+}
+
+input AuthOrganizationAuthorizeInput {
+  code: String!
+  state: String!
+}
+
+type AuthOrganizationAuthorizePayload implements Payload {
+  result: Boolean!
+  me: Me
+}

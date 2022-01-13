@@ -504,7 +504,20 @@ type AuthMutations {
   organization(id: ID): AuthOrganizationMutations
 }
 
+input AuthOrganizationAuthorizeInput {
+  code: String!
+  state: String!
+}
+
+type AuthOrganizationAuthorizePayload implements Payload {
+  result: Boolean!
+  me: Me
+}
+
 type AuthOrganizationMutations {
+  """@require <guest> Current visitor must be a guest."""
+  authorize(input: AuthOrganizationAuthorizeInput): AuthOrganizationAuthorizePayload
+
   """@require <guest> Current visitor must be a guest."""
   signIn: AuthOrganizationSignInPayload
 }

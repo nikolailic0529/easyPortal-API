@@ -4,6 +4,8 @@ namespace App\GraphQL\Mutations\Auth\Organization;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
+use App\Models\User;
+use App\Services\KeyCloak\Exceptions\Auth\StateMismatch;
 use App\Services\KeyCloak\KeyCloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -21,9 +23,9 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\Organization\SignIn
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\Organization\Authorize
  */
-class SignInTest extends TestCase {
+class AuthorizeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -35,30 +37,37 @@ class SignInTest extends TestCase {
         Closure $orgFactory,
         Closure $userFactory = null,
         Closure $organizationFactory = null,
+        ?string $state = null,
     ): void {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
-        // Organization
-        $id = $this->faker->uuid;
+        // Mock
+        $me      = User::factory()->make([
+            'id' => '7ad49dda-6b3c-43f7-81bb-1d86260a6e07',
+        ]);
+        $id      = $this->faker->uuid;
+        $code    = $this->faker->word;
+        $state ??= $this->faker->word;
 
         if ($organizationFactory) {
-            $passed = $organizationFactory($this, $org, $user);
-
-            if ($passed) {
-                $id = $passed->getKey();
-            }
+            $id = $organizationFactory($this, $org, $user)?->getKey() ?? $id;
         }
 
-        // Mock
-
         if ($expected instanceof GraphQLSuccess) {
-            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
+            $this->override(KeyCloak::class, static function (MockInterface $mock) use ($me, $code, $state): void {
                 $mock
-                    ->shouldReceive('getAuthorizationUrl')
+                    ->shouldReceive('authorize')
+                    ->with($code, $state)
                     ->once()
-                    ->andReturn('http://example.com/');
+                    ->andReturnUsing(static function () use ($me, $state): User {
+                        if ($state === 'mismatch') {
+                            throw new StateMismatch();
+                        }
+
+                        return $me;
+                    });
             });
         }
 
@@ -67,19 +76,25 @@ class SignInTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation test($id: ID!) {
+                mutation authorize($id: ID!, $input: AuthOrganizationAuthorizeInput!) {
                     auth {
                         organization(id: $id) {
-                            signIn {
+                            authorize(input: $input) {
                                 result
-                                url
+                                me {
+                                    id
+                                }
                             }
                         }
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'    => $id,
+                    'input' => [
+                        'code'  => $code,
+                        'state' => $state,
+                    ],
                 ],
             )
             ->assertThat($expected);
@@ -105,19 +120,37 @@ class SignInTest extends TestCase {
                     static function (): mixed {
                         return null;
                     },
+                    null,
                 ],
-                'redirect to login'       => [
+                'state mismatch'          => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('organization.signIn', self::class),
-                        new JsonFragment('organization.signIn', [
-                            'result' => true,
-                            'url'    => 'http://example.com/',
+                        new JsonFragmentSchema('organization.authorize', self::class),
+                        new JsonFragment('organization.authorize', [
+                            'result' => false,
+                            'me'     => null,
                         ]),
                     ),
                     static function (): Organization {
                         return Organization::factory()->create();
                     },
+                    'mismatch',
+                ],
+                'success'                 => [
+                    new GraphQLSuccess(
+                        'auth',
+                        new JsonFragmentSchema('organization.authorize', self::class),
+                        new JsonFragment('organization.authorize', [
+                            'result' => true,
+                            'me'     => [
+                                'id' => '7ad49dda-6b3c-43f7-81bb-1d86260a6e07',
+                            ],
+                        ]),
+                    ),
+                    static function (): Organization {
+                        return Organization::factory()->create();
+                    },
+                    null,
                 ],
             ]),
         ))->getData();
