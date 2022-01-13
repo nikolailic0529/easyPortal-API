@@ -225,12 +225,12 @@ class UserProvider implements UserProviderContract {
             if ($user) {
                 $user = $this->updateLocalUser($user);
             }
+
+            if ($user && !$user->isEnabled()) {
+                throw new UserDisabled($user);
+            }
         } else {
             // empty
-        }
-
-        if ($user && !$user->enabled) {
-            throw new UserDisabled($user);
         }
 
         return $user;

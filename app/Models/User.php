@@ -7,10 +7,12 @@ use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -236,14 +238,44 @@ class User extends Model implements
     }
     // </editor-fold>
 
-    // <editor-fold desc="HasOrganization">
+    // <editor-fold desc="Rootable">
     // =========================================================================
     /**
-     * Must not be used directly to check root. You must use
+     * Must not be used directly to check root! You must use
      * {@link \App\Services\Auth\Auth::isRoot()} instead.
      */
     public function isRoot(): bool {
         return $this->type === UserType::local();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Enableable">
+    // =========================================================================
+    public function isEnabled(): bool {
+        // Enabled?
+        if (!$this->enabled) {
+            return false;
+        }
+
+        // Root?
+        if ($this->isRoot()) {
+            return true;
+        }
+
+        // Member of organization?
+        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): bool {
+            $user = null;
+
+            if ($this->organization_id) {
+                $user = $this->organizations
+                    ->first(function (OrganizationUser $user): bool {
+                        return $user->organization_id === $this->organization_id;
+                    });
+            }
+
+            return $user instanceof OrganizationUser
+                && $user->enabled;
+        });
     }
     // </editor-fold>
 }

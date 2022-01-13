@@ -478,9 +478,7 @@ class UserProviderTest extends TestCase {
                 false,
             ],
             'keycloak user disabled + valid token'   => [
-                new UserDisabled((new User())->forceFill([
-                    'id' => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
-                ])),
+                false,
                 static function (): void {
                     User::factory()->create([
                         'id'   => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
