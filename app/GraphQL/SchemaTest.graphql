@@ -457,6 +457,65 @@ input AuditsSort {
   updated_at: DateTime!
 }
 
+type AuthMutations {
+  """
+  Organization Sign In.
+  
+  Application use standard OAuth 2.0 Authorization Code Grant.
+  
+  1. Call `signIn` mutation
+      ```graphql
+      mutation {
+        auth {
+          organization(id) {
+            signIn {
+              url
+            }
+          }
+        }
+      }
+      ```
+  2. Redirect the User to `url`
+  3. After successful Sign In the User will come back and Client should call
+      `authorize` mutation with `code` and `state` to finish the authorization:
+  
+      ```graphql
+        mutation {
+          auth {
+            organization(id) {
+              authorize(input: {code: "...", state: "..."}) {
+                result
+                me {
+                  enabled
+                }
+              }
+            }
+          }
+        }
+      ```
+  4. Check result:
+      - `result = false` -> something wrong, please try to repeat step (1)
+      - `me.enabled = false` -> user disabled or doesn't have access to the
+        Organization. In this case, the Client should allow the User to
+        Sign Out (so the User may repeat auth process if it want).
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  organization(id: ID): AuthOrganizationMutations
+}
+
+type AuthOrganizationMutations {
+  """@require <guest> Current visitor must be a guest."""
+  signIn: AuthOrganizationSignInPayload
+}
+
+type AuthOrganizationSignInPayload implements Payload {
+  result: Boolean!
+
+  """The link where the User should be redirected to Sign In."""
+  url: Url!
+}
+
 input AuthorizeOrganizationInput {
   code: String!
   state: String!
@@ -1569,6 +1628,7 @@ type Mutation {
   """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
   asset: AssetMutations
+  auth: AuthMutations
 
   """
   Finish the Sign In for Organization.
