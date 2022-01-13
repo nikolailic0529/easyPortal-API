@@ -8,7 +8,6 @@ use App\Models\Currency;
 use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization;
-use App\Models\OrganizationUser;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Models\Role;
