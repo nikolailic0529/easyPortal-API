@@ -1648,7 +1648,7 @@ type Mutation {
   
   @require <guest> Current visitor must be a guest.
   """
-  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload
+  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { authorize } }` instead.")
 
   """
   Reset password.
