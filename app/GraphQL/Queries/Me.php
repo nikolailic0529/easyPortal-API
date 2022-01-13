@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Audits\Audit;
+use App\Models\OrganizationUser;
 use App\Models\Team;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
@@ -33,6 +34,10 @@ class Me {
 
     public function root(?User $user): bool {
         return $this->auth->isRoot($user);
+    }
+
+    public function enabled(?User $user): bool {
+        return $this->auth->isEnabled($user);
     }
 
     /**
@@ -104,9 +109,11 @@ class Me {
         $team = null;
 
         if ($this->organization->defined()) {
-            $orgUser = $user->organizations()
-                ->where('organization_id', '=', $this->organization->getKey())
-                ->first();
+            $orgId   = $this->organization->getKey();
+            $orgUser = $user->organizations
+                ->first(static function (OrganizationUser $user) use ($orgId): bool {
+                    return $user->organization_id === $orgId;
+                });
             $team    = $orgUser?->team;
         }
 

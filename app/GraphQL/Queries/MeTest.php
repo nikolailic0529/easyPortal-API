@@ -64,6 +64,7 @@ class MeTest extends TestCase {
                     phone
                     permissions
                     root
+                    enabled
                     previous_sign_in
                     team {
                         id

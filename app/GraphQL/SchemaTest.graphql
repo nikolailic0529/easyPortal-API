@@ -1294,6 +1294,7 @@ type Me {
   permissions: [String!]
   team: Team
   root: Boolean!
+  enabled: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
   profile: Profile @deprecated(reason: "Please use `Me` properties.")

@@ -46,6 +46,9 @@
         "root": {
             "type": "boolean"
         },
+        "enabled": {
+            "type": "boolean"
+        },
         "permissions": {
             "type": "array",
             "items": {
