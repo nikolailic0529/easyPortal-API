@@ -2,6 +2,8 @@
 
 namespace App\Services\Auth;
 
+use App\Services\Auth\Contracts\HasPermissions;
+use App\Services\Auth\Contracts\Rootable;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use function in_array;

@@ -4,6 +4,8 @@ namespace App\Services\Auth;
 
 use App\Models\Enums\UserType;
 use App\Models\User;
+use App\Services\Auth\Contracts\HasPermissions;
+use App\Services\Auth\Contracts\Rootable;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
