@@ -4,6 +4,7 @@ namespace App\Services\KeyCloak;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
@@ -192,6 +193,10 @@ class UserProviderTest extends TestCase {
             ->atLeast()
             ->once()
             ->andReturn($keycloak);
+        $provider
+            ->shouldReceive('getOrganization')
+            ->once()
+            ->andReturn($organization);
 
         // Test
         $user   = new User();
@@ -253,6 +258,40 @@ class UserProviderTest extends TestCase {
         $this->assertEquals('test@gmail.com', $user->contact_email);
         $this->assertEquals('HR', $user->department);
         $this->assertEquals('Manger', $user->job_title);
+    }
+
+    /**
+     * @covers ::getOrganization
+     *
+     * @dataProvider dataProviderGetOrganization
+     */
+    public function testGetOrganization(bool $expected, Closure $claims): void {
+        $organization = Organization::factory()->create([
+            'keycloak_scope' => $this->faker->word,
+        ]);
+        $user         = User::factory()->create();
+        $clientId     = $this->faker->word;
+        $claims       = $claims($this, $clientId, $organization, $user);
+        $token        = $this->getToken($claims);
+        $provider     = new class() extends UserProvider {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function getOrganization(User $user, UnencryptedToken $token): ?Organization {
+                return parent::getOrganization($user, $token);
+            }
+        };
+
+        $actual = $provider->getOrganization($user, $token);
+
+        if ($expected) {
+            $this->assertNotNull($actual);
+            $this->assertEquals($organization->getKey(), $actual->getKey());
+        } else {
+            $this->assertNull($actual);
+        }
     }
     // </editor-fold>
 
@@ -733,6 +772,70 @@ class UserProviderTest extends TestCase {
                         'family_name'           => 'Test',
                         'reseller_access'       => [
                             $organization->keycloak_scope => true,
+                        ],
+                    ];
+                },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGetOrganization(): array {
+        return [
+            'organization not found'                                          => [
+                false,
+                static function (self $test, string $client, Organization $organization): array {
+                    return [
+                        'typ'             => 'Bearer',
+                        'scope'           => 'openid profile email',
+                        'reseller_access' => [],
+                    ];
+                },
+            ],
+            'organization found but the user is not a member of it'           => [
+                false,
+                static function (self $test, string $client, Organization $organization): array {
+                    return [
+                        'typ'             => 'Bearer',
+                        'scope'           => 'openid profile email',
+                        'reseller_access' => [
+                            $organization->keycloak_scope => true,
+                        ],
+                    ];
+                },
+            ],
+            'organization found and the user is a member of it'               => [
+                true,
+                static function (self $test, string $client, Organization $organization, User $user): array {
+                    OrganizationUser::factory()->create([
+                        'organization_id' => $organization,
+                        'user_id'         => $user,
+                    ]);
+
+                    return [
+                        'typ'             => 'Bearer',
+                        'scope'           => 'openid profile email',
+                        'reseller_access' => [
+                            $organization->keycloak_scope => true,
+                        ],
+                    ];
+                },
+            ],
+            'organization found and the user is a member of it but no access' => [
+                false,
+                static function (self $test, string $client, Organization $organization, User $user): array {
+                    OrganizationUser::factory()->create([
+                        'organization_id' => $organization,
+                        'user_id'         => $user,
+                    ]);
+
+                    return [
+                        'typ'             => 'Bearer',
+                        'scope'           => 'openid profile email',
+                        'reseller_access' => [
+                            $organization->keycloak_scope => false,
                         ],
                     ];
                 },

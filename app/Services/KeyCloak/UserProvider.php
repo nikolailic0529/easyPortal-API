@@ -4,11 +4,14 @@ namespace App\Services\KeyCloak;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
 use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\RootOrganization;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -317,7 +320,7 @@ class UserProvider implements UserProviderContract {
         }
 
         // Organization
-        $properties['organization'] = $this->getOrganization($token);
+        $properties['organization'] = $this->getOrganization($user, $token);
 
         // Permissions
         $properties['permissions'] = $this->getPermissions($token);
@@ -331,14 +334,31 @@ class UserProvider implements UserProviderContract {
         return $properties;
     }
 
-    protected function getOrganization(UnencryptedToken $token): ?Organization {
-        $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-        $organizations = array_filter(array_keys(array_filter($organizations)));
-        $organization  = Organization::query()
-            ->whereIn('keycloak_scope', $organizations)
-            ->first();
+    protected function getOrganization(User $user, UnencryptedToken $token): ?Organization {
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($user, $token): ?Organization {
+                $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
+                $organizations = array_filter(array_keys(array_filter($organizations)));
+                $organization  = Organization::query()
+                    ->whereIn('keycloak_scope', $organizations)
+                    ->first();
+                $isMember      = false;
 
-        return $organization;
+                if ($organization) {
+                    $isMember = $user->organizations
+                        ->contains(static function (OrganizationUser $user) use ($organization): bool {
+                            return $user->organization_id === $organization->getKey();
+                        });
+                }
+
+                if (!$isMember) {
+                    $organization = null;
+                }
+
+                return $organization;
+            },
+        );
     }
 
     /**
