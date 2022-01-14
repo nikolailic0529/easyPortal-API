@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Relations\HasOrganization;
+use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \App\Models\Organization     $organization
  * @property \App\Models\Role|null        $role
  * @property \App\Models\Team|null        $team
+ * @property \App\Models\User             $user
  * @method static \Database\Factories\OrganizationUserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newQuery()
@@ -36,6 +38,7 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
     use HasFactory;
     use OwnedByOrganization;
     use HasOrganization;
+    use HasUser;
 
     protected const CASTS = [
         'enabled' => 'bool',
