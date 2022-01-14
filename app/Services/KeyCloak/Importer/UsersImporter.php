@@ -115,7 +115,7 @@ class UsersImporter {
                     $user->phone          = $attributes['phone'][0] ?? null;
                     $user->company        = $attributes['company'][0] ?? null;
                     $user->photo          = $attributes['photo'][0] ?? null;
-                    $user->organizations  = $this->getOrganizations($item);
+                    $user->organizations  = $this->getOrganizations($user, $item);
 
                     $user->save();
                 } catch (Throwable $exception) {
@@ -204,51 +204,67 @@ class UsersImporter {
     /**
      * @return \Illuminate\Support\Collection<\App\Models\OrganizationUser>
      */
-    protected function getOrganizations(KeyCloakUser $item): Collection {
+    protected function getOrganizations(User $user, KeyCloakUser $item): Collection {
         // Organizations & Roles
         // (some groups refers to the organization some to roles)
         $organizations = Organization::query()
             ->whereIn('keycloak_group_id', $item->groups)
             ->get()
             ->keyBy(new GetKey());
+        $existing      = $user->organizations
+            ->keyBy(static function (OrganizationUser $user): string {
+                return $user->organization_id;
+            });
+        $skipped       = clone $existing;
         $roles         = Role::query()
+            ->whereIn('organization_id', $organizations->keys())
             ->whereIn(
                 (new Role())->getKeyName(),
                 array_diff($item->groups, $organizations->keys()->all()),
             )
-            ->whereIn('organization_id', $organizations->keys())
             ->get();
-        $orgs          = new Collection();
 
         foreach ($roles as $role) {
-            $key = $role->organization_id;
-            $org = new OrganizationUser();
-
-            $org->organization_id = $key;
-            $org->role            = $role;
+            $key                      = $role->organization_id;
+            $orgUser                  = $existing->get($key) ?? new OrganizationUser();
+            $orgUser->organization_id = $key;
+            $orgUser->role            = $role;
 
             $organizations->forget($key);
-            $orgs->put($key, $org);
+            $existing->put($key, $orgUser);
+            $skipped->forget($key);
         }
 
-        // Org Admin is not related to organizations roles.
+        // Reset
+        foreach ($skipped as $orgUser) {
+            $orgUser->role = null;
+        }
+
+        // Technically we should update Shared Roles here. But they are not
+        // related to any Organization thus we cannot associate them with
+        // proper Organization...
+        //
+        // For this reason, we process the Owner role only.
         $orgAdminRole = Role::query()
             ->whereKey($this->config->get('ep.keycloak.org_admin_group'))
             ->first();
 
         if ($orgAdminRole && in_array($orgAdminRole->getKey(), $item->groups, true)) {
             foreach ($organizations as $organization) {
-                $key = $organization->getKey();
-                $org = $orgs->get($key) ?: new OrganizationUser();
+                $key     = $organization->getKey();
+                $orgUser = $existing->get($key) ?: new OrganizationUser();
 
-                $org->organization = $organization;
-                $org->role         = $orgAdminRole;
+                if ($orgUser->role_id === null) {
+                    $orgUser->organization = $organization;
+                    $orgUser->role         = $orgAdminRole;
 
-                $orgs->put($key, $org);
+                    $existing->put($key, $orgUser);
+                    $skipped->forget($key);
+                }
             }
         }
 
         // Return
-        return $orgs->values();
+        return $existing;
     }
 }
