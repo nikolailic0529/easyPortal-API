@@ -476,11 +476,14 @@ interface Constants {
 
     /**
      * The URI (can be relative) where user should be redirected after Sign In.
+     *
+     * Replacements:
+     * * `{organization}` - current organization id
      */
     #[Setting('ep.keycloak.redirects.signin_uri')]
     #[Group('keycloak')]
     #[Type(StringType::class)]
-    public const EP_KEYCLOAK_REDIRECTS_SIGNIN_URI = 'auth/organizations';
+    public const EP_KEYCLOAK_REDIRECTS_SIGNIN_URI = 'auth/organizations/{organization}';
 
     /**
      * The URI (can be relative) where user should be redirected after Sign Out.

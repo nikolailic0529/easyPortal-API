@@ -45,7 +45,11 @@ class KeyCloak {
     public function getAuthorizationUrl(Organization $organization): string {
         $provider = $this->getProvider();
         $url      = $provider->getAuthorizationUrl([
-            'scope' => $this->getOrganizationScopes($organization),
+            'scope'        => $this->getOrganizationScopes($organization),
+            'redirect_uri' => $this->getRedirectUri(
+                $this->config->get('ep.keycloak.redirects.signin_uri'),
+                $organization,
+            ),
         ]);
         $state    = $provider->getState();
 
