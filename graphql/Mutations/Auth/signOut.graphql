@@ -14,17 +14,3 @@ type AuthSignOutPayload implements Payload {
   """
   url: Url
 }
-
-# Deprecated
-extend type Mutation {
-  "Sign Out."
-  signOut: SignOutPayload
-    @deprecated(reason: "Please use `auth { signOut }` instead.")
-    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut")
-    @me
-}
-
-type SignOutPayload {
-  "The link where the User should be redirected to complete Sign Out."
-  url: Url
-}

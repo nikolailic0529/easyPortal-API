@@ -568,15 +568,6 @@ type AuthSignUpByInvitePayload implements Payload {
   url: Url
 }
 
-input AuthorizeOrganizationInput {
-  code: String!
-  state: String!
-}
-
-type AuthorizeOrganizationPayload {
-  me: Me
-}
-
 enum CachedMode {
   """
   In this mode all queries will be cached in addition the resolver will
@@ -1619,13 +1610,6 @@ type Mutation {
   auth: AuthMutations
 
   """
-  Finish the Sign In for Organization.
-  
-  @require <guest> Current visitor must be a guest.
-  """
-  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { authorize } }` instead.")
-
-  """
   Reset password.
   
   @require <guest> Current visitor must be a guest.
@@ -1645,20 +1629,6 @@ type Mutation {
   @require <guest> Current visitor must be a guest.
   """
   signIn(input: SignInInput): SignInPayload
-
-  """
-  Begins the Sign In for Organization.
-  
-  @require <guest> Current visitor must be a guest.
-  """
-  signInOrganization(input: SignInOrganizationInput): SignInOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { signIn } }` instead.")
-
-  """
-  Sign Out.
-  
-  @require <me> User must be authenticated.
-  """
-  signOut: SignOutPayload @deprecated(reason: "Please use `auth { signOut }` instead.")
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload @deprecated(reason: "Please use `auth { signUpByInvite }` instead.")
@@ -5179,22 +5149,8 @@ input SignInInput {
   password: String!
 }
 
-input SignInOrganizationInput {
-  organization_id: ID!
-}
-
-type SignInOrganizationPayload {
-  """The link where the User should be redirected to Sign In."""
-  url: Url!
-}
-
 type SignInPayload {
   me: Me
-}
-
-type SignOutPayload {
-  """The link where the User should be redirected to complete Sign Out."""
-  url: Url
 }
 
 input SignUpByInviteInput {

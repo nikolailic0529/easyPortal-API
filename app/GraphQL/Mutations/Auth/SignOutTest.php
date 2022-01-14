@@ -57,39 +57,6 @@ class SignOutTest extends TestCase {
             )
             ->assertThat($expected);
     }
-
-    /**
-     * @deprecated
-     * @covers ::__invoke
-     * @dataProvider dataProviderInvokeDeprecated
-     */
-    public function testInvokeDeprecated(
-        Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-    ): void {
-        // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-
-        // Mock
-        if ($expected instanceof GraphQLSuccess) {
-            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
-                $mock
-                    ->shouldReceive('signOut')
-                    ->once()
-                    ->andReturn('http://example.com/');
-            });
-        }
-
-        // Test
-        $this
-            ->graphQL(/** @lang GraphQL */ 'mutation {
-                signOut {
-                    url
-                }
-            }')
-            ->assertThat($expected);
-    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -111,24 +78,6 @@ class SignOutTest extends TestCase {
                             'url'    => 'http://example.com/',
                         ]),
                     ),
-                ],
-            ]),
-        ))->getData();
-    }
-
-    /**
-     * @deprecated
-     * @return array<mixed>
-     */
-    public function dataProviderInvokeDeprecated(): array {
-        return (new CompositeDataProvider(
-            new OrganizationDataProvider('signOut'),
-            new UserDataProvider('signOut'),
-            new ArrayDataProvider([
-                'ok' => [
-                    new GraphQLSuccess('signOut', null, [
-                        'url' => 'http://example.com/',
-                    ]),
                 ],
             ]),
         ))->getData();
