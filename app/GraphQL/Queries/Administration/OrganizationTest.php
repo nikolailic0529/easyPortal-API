@@ -181,9 +181,10 @@ class OrganizationTest extends TestCase {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
+        $id           = $organization?->getKey();
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $id = $prepare($this, $organization, $user)->getKey();
         }
 
         // Test
@@ -211,7 +212,7 @@ class OrganizationTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $organization?->getKey() ?: $this->faker->uuid,
+                    'id' => $id ?: $this->faker->uuid,
                 ],
             )
             ->assertThat($expected);
@@ -568,12 +569,12 @@ class OrganizationTest extends TestCase {
                                 'count' => 1,
                             ],
                         ]),
-                        static function (TestCase $test, Organization $organization): void {
-                            $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
+                        static function (): Organization {
+                            $organization = Organization::factory()->create();
+
                             Reseller::factory()->create([
                                 'id' => $organization->getKey(),
                             ]);
-                            $organization->save();
 
                             User::factory()
                                 ->hasOrganizations(1, [
@@ -586,6 +587,8 @@ class OrganizationTest extends TestCase {
                                     'given_name'     => 'first',
                                     'family_name'    => 'last',
                                 ]);
+
+                            return $organization;
                         },
                     ],
                 ]),
@@ -612,12 +615,12 @@ class OrganizationTest extends TestCase {
                                 'count' => 1,
                             ],
                         ]),
-                        static function (TestCase $test, Organization $organization): void {
-                            $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
+                        static function (TestCase $test, Organization $organization): Organization {
+                            $organization = Organization::factory()->create();
+
                             Reseller::factory()->create([
                                 'id' => $organization->getKey(),
                             ]);
-                            $organization->save();
 
                             User::factory()
                                 ->hasOrganizations(1, [
@@ -630,6 +633,8 @@ class OrganizationTest extends TestCase {
                                     'given_name'     => 'first',
                                     'family_name'    => 'last',
                                 ]);
+
+                            return $organization;
                         },
                     ],
                 ]),

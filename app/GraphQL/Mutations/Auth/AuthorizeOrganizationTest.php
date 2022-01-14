@@ -20,6 +20,7 @@ use Tests\TestCase;
 //      path of the schema where $ref defined).
 
 /**
+ * @deprecated
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\AuthorizeOrganization
  */

@@ -2,18 +2,34 @@
 
 namespace App\Services\Auth;
 
+use App\Services\Auth\Contracts\Enableable;
+use App\Services\Auth\Contracts\HasPermissions;
+use App\Services\Auth\Contracts\Rootable;
+use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 use function in_array;
 use function is_null;
 
 class Auth {
-    public function __construct() {
+    public function __construct(
+        protected CurrentOrganization $organization,
+    ) {
         // empty
     }
 
     public function isRoot(Authenticatable|null $user): bool {
         return $user instanceof Rootable && $user->isRoot();
+    }
+
+    public function isEnabled(Authenticatable|null $user): bool {
+        if (!($user instanceof Enableable)) {
+            return true;
+        }
+
+        return $this->organization->defined()
+            ? $user->isEnabled($this->organization->get())
+            : $user->isEnabled(null);
     }
 
     /**
@@ -66,6 +82,11 @@ class Auth {
      * @param array<mixed> $arguments
      */
     public function gateBefore(Authenticatable|null $user, string $ability, array $arguments): ?bool {
+        // Enabled?
+        if (!$this->isEnabled($user)) {
+            return false;
+        }
+
         // Root?
         if ($this->isRoot($user)) {
             return true;

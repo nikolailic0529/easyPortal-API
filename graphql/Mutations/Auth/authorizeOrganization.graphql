@@ -3,6 +3,7 @@ extend type Mutation {
   authorizeOrganization(
     input: AuthorizeOrganizationInput
   ): AuthorizeOrganizationPayload
+    @deprecated(reason: "Please use `auth { organization(id) { authorize } }` instead.")
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\AuthorizeOrganization")
     @guest
 }

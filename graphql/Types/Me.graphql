@@ -25,6 +25,9 @@ type Me {
   root: Boolean!
   @field(resolver: "App\\GraphQL\\Queries\\Me@root")
 
+  enabled: Boolean!
+  @field(resolver: "App\\GraphQL\\Queries\\Me@enabled")
+
   previous_sign_in: DateTime
   @field(resolver: "App\\GraphQL\\Queries\\Me@previousSignIn")
 

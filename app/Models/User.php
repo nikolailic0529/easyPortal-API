@@ -4,13 +4,16 @@ namespace App\Models;
 
 use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
-use App\Services\Auth\HasPermissions;
-use App\Services\Auth\Rootable;
+use App\Services\Auth\Contracts\Enableable;
+use App\Services\Auth\Contracts\HasPermissions;
+use App\Services\Auth\Contracts\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -78,6 +81,7 @@ class User extends Model implements
     HasTimezonePreference,
     HasOrganization,
     HasPermissions,
+    Enableable,
     Rootable,
     Auditable {
     use HasFactory;
@@ -236,14 +240,47 @@ class User extends Model implements
     }
     // </editor-fold>
 
-    // <editor-fold desc="HasOrganization">
+    // <editor-fold desc="Rootable">
     // =========================================================================
     /**
-     * Must not be used directly to check root. You must use
+     * Must not be used directly to check root! You must use
      * {@link \App\Services\Auth\Auth::isRoot()} instead.
      */
     public function isRoot(): bool {
         return $this->type === UserType::local();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Enableable">
+    // =========================================================================
+    public function isEnabled(?Organization $organization): bool {
+        // Enabled?
+        if (!$this->enabled) {
+            return false;
+        }
+
+        // Root?
+        if ($this->isRoot()) {
+            return true;
+        }
+
+        // Member of organization?
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            function () use ($organization): bool {
+                $orgUser = null;
+
+                if ($organization) {
+                    $orgUser = $this->organizations
+                        ->first(static function (OrganizationUser $user) use ($organization): bool {
+                            return $user->organization_id === $organization->getKey();
+                        });
+                }
+
+                return $orgUser instanceof OrganizationUser
+                    && $orgUser->enabled;
+            },
+        );
     }
     // </editor-fold>
 }

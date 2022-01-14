@@ -292,9 +292,17 @@ class AssetsSearchTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('assetsSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider('assetsSearch', [
-                    'assets-view',
-                ]),
+                new OrganizationUserDataProvider(
+                    'assetsSearch',
+                    [
+                        'assets-view',
+                    ],
+                    static function (User $user): void {
+                        $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                        $user->given_name  = 'first';
+                        $user->family_name = 'last';
+                    },
+                ),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated(
@@ -535,13 +543,7 @@ class AssetsSearchTest extends TestCase {
                                 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization, ?User $user): Asset {
-                            if ($user) {
-                                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                                $user->given_name  = 'first';
-                                $user->family_name = 'last';
-                                $user->save();
-                            }
+                        static function (TestCase $test, Organization $organization): Asset {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',

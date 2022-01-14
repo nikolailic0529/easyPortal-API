@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "allOf": [
         {
-            "$ref": "../../Types/Payload.json"
+            "$ref": "../../../Types/Payload.json"
         },
         {
             "type": "object",

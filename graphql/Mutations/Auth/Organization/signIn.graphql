@@ -1,0 +1,16 @@
+extend type AuthOrganizationMutations {
+  signIn: AuthOrganizationSignInPayload
+  @guest
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\Auth\\Organization\\SignIn"
+  )
+}
+
+type AuthOrganizationSignInPayload implements Payload {
+  result: Boolean!
+
+  """
+  The link where the User should be redirected to Sign In.
+  """
+  url: Url!
+}

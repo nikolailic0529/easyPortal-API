@@ -2,10 +2,6 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "additionalProperties": false,
-    "required": [
-        "given_name",
-        "family_name"
-    ],
     "properties": {
         "id": {
             "$ref": "../types.json#/definitions/ID"
@@ -44,6 +40,9 @@
             ]
         },
         "root": {
+            "type": "boolean"
+        },
+        "enabled": {
             "type": "boolean"
         },
         "permissions": {

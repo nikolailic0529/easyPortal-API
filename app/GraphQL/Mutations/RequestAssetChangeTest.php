@@ -75,11 +75,11 @@ class RequestAssetChangeTest extends TestCase {
         }
 
         $input = $input ?: [
-            'from'     => 'user@example.com',
-            'subject'  => 'subject',
-            'message'  => 'message',
-            'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-        ];
+                'from'     => 'user@example.com',
+                'subject'  => 'subject',
+                'message'  => 'message',
+                'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            ];
 
         $map  = [];
         $file = [];
@@ -135,14 +135,7 @@ class RequestAssetChangeTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
-            if ($user) {
-                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                $user->given_name  = 'first';
-                $user->family_name = 'last';
-                $user->save();
-            }
-
+        $prepare  = static function (TestCase $test, ?Organization $organization): void {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
@@ -158,9 +151,17 @@ class RequestAssetChangeTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('requestAssetChange'),
-            new OrganizationUserDataProvider('requestAssetChange', [
-                'requests-asset-change',
-            ]),
+            new OrganizationUserDataProvider(
+                'requestAssetChange',
+                [
+                    'requests-asset-change',
+                ],
+                static function (User $user): void {
+                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                    $user->given_name  = 'first';
+                    $user->family_name = 'last';
+                },
+            ),
             new ArrayDataProvider([
                 'ok'              => [
                     new GraphQLSuccess('requestAssetChange', RequestAssetChange::class, [

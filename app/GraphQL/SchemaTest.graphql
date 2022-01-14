@@ -457,6 +457,88 @@ input AuditsSort {
   updated_at: DateTime!
 }
 
+type AuthMutations {
+  """@require <me> User must be authenticated."""
+  signOut: AuthSignOutPayload
+
+  """
+  Organization Sign In.
+  
+  Application use standard OAuth 2.0 Authorization Code Grant.
+  
+  1. Call `signIn` mutation
+      ```graphql
+      mutation {
+        auth {
+          organization(id) {
+            signIn {
+              url
+            }
+          }
+        }
+      }
+      ```
+  2. Redirect the User to `url`
+  3. After successful Sign In the User will come back and Client should call
+      `authorize` mutation with `code` and `state` to finish the authorization:
+  
+      ```graphql
+        mutation {
+          auth {
+            organization(id) {
+              authorize(input: {code: "...", state: "..."}) {
+                result
+                me {
+                  enabled
+                }
+              }
+            }
+          }
+        }
+      ```
+  4. Check result:
+      - `result = false` -> something wrong, please try to repeat step (1)
+      - `me.enabled = false` -> user disabled or doesn't have access to the
+        Organization. In this case, the Client should allow the User to
+        Sign Out (so the User may repeat auth process if it want).
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  organization(id: ID): AuthOrganizationMutations
+}
+
+input AuthOrganizationAuthorizeInput {
+  code: String!
+  state: String!
+}
+
+type AuthOrganizationAuthorizePayload implements Payload {
+  result: Boolean!
+  me: Me
+}
+
+type AuthOrganizationMutations {
+  """@require <guest> Current visitor must be a guest."""
+  authorize(input: AuthOrganizationAuthorizeInput): AuthOrganizationAuthorizePayload
+
+  """@require <guest> Current visitor must be a guest."""
+  signIn: AuthOrganizationSignInPayload
+}
+
+type AuthOrganizationSignInPayload implements Payload {
+  result: Boolean!
+
+  """The link where the User should be redirected to Sign In."""
+  url: Url!
+}
+
+type AuthSignOutPayload implements Payload {
+  result: Boolean!
+
+  """The link where the User should be redirected to complete Sign Out."""
+  url: Url
+}
+
 input AuthorizeOrganizationInput {
   code: String!
   state: String!
@@ -1294,6 +1376,7 @@ type Me {
   permissions: [String!]
   team: Team
   root: Boolean!
+  enabled: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
   profile: Profile @deprecated(reason: "Please use `Me` properties.")
@@ -1568,13 +1651,14 @@ type Mutation {
   """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
   asset: AssetMutations
+  auth: AuthMutations
 
   """
   Finish the Sign In for Organization.
   
   @require <guest> Current visitor must be a guest.
   """
-  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload
+  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { authorize } }` instead.")
 
   """
   Reset password.
@@ -1602,14 +1686,14 @@ type Mutation {
   
   @require <guest> Current visitor must be a guest.
   """
-  signInOrganization(input: SignInOrganizationInput): SignInOrganizationPayload
+  signInOrganization(input: SignInOrganizationInput): SignInOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { signIn } }` instead.")
 
   """
   Sign Out.
   
   @require <me> User must be authenticated.
   """
-  signOut: SignOutPayload
+  signOut: SignOutPayload @deprecated(reason: "Please use `auth { signOut }` instead.")
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload

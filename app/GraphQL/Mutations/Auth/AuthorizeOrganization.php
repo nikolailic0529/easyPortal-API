@@ -5,6 +5,9 @@ namespace App\GraphQL\Mutations\Auth;
 use App\GraphQL\Queries\Me;
 use App\Services\KeyCloak\KeyCloak;
 
+/**
+ * @deprecated
+ */
 class AuthorizeOrganization {
     public function __construct(
         protected KeyCloak $keycloak,

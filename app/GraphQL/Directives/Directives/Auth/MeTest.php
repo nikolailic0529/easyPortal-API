@@ -6,9 +6,12 @@ use App\GraphQL\Directives\Directives\Mutation\Context\BuilderContext;
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\Enums\UserType;
+use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\User;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
+use App\Services\Organization\CurrentOrganization;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -33,13 +36,17 @@ use function sprintf;
 class MeTest extends TestCase {
     use WithGraphQLSchema;
 
-    // <editor-fold desc="Prepare">
+    // <editor-fold desc="Tests">
     // =========================================================================
-    public function setUp(): void {
-        parent::setUp();
-
-        $this->override(Auth::class, static function (): Auth {
-            return new class() extends Auth {
+    /**
+     * @covers ::manipulateTypeExtension
+     * @covers ::manipulateTypeDefinition
+     * @covers ::manipulateFieldDefinition
+     * @covers ::addRequirements
+     */
+    public function testDirective(): void {
+        $this->override(Auth::class, function (): Auth {
+            return new class($this->app->make(CurrentOrganization::class)) extends Auth {
                 /**
                  * @inheritDoc
                  */
@@ -52,18 +59,7 @@ class MeTest extends TestCase {
                 }
             };
         });
-    }
-    // </editor-fold>
 
-    // <editor-fold desc="Tests">
-    // =========================================================================
-    /**
-     * @covers ::manipulateTypeExtension
-     * @covers ::manipulateTypeDefinition
-     * @covers ::manipulateFieldDefinition
-     * @covers ::addRequirements
-     */
-    public function testDirective(): void {
         $this->assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
             $this->getTestData()->content('~schema.graphql'),
@@ -110,9 +106,25 @@ class MeTest extends TestCase {
     public function testResolveFieldPermissions(
         Response $expected,
         array $permissions,
+        Closure $organizationFactory,
         Closure $userFactory,
     ): void {
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+
+        $this->override(Auth::class, function (): Auth {
+            return new class($this->app->make(CurrentOrganization::class)) extends Auth {
+                /**
+                 * @inheritDoc
+                 */
+                public function getPermissions(): array {
+                    return [
+                        new Permission('a'),
+                        new Permission('b'),
+                        new Permission('c'),
+                    ];
+                }
+            };
+        });
 
         $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode($permissions);
@@ -148,6 +160,19 @@ class MeTest extends TestCase {
             'Unknown permissions: `%s`',
             implode('`, `', ['unknown']),
         )));
+
+        $this->override(Auth::class, function (): Auth {
+            return new class($this->app->make(CurrentOrganization::class)) extends Auth {
+                /**
+                 * @inheritDoc
+                 */
+                public function getPermissions(): array {
+                    return [
+                        new Permission('a'),
+                    ];
+                }
+            };
+        });
 
         $this->getGraphQLSchema(
         /** @lang GraphQL */
@@ -213,41 +238,66 @@ class MeTest extends TestCase {
      */
     public function dataProviderResolveFieldPermissions(): array {
         return [
-            'permissions empty'       => [
+            'permissions empty'        => [
                 new ErrorResponse(new InternalServerError()),
                 [],
                 static function () {
                     return null;
                 },
+                static function () {
+                    return null;
+                },
             ],
-            'guest'                   => [
+            'guest'                    => [
                 new GraphQLUnauthenticated('value'),
                 ['a', 'b', 'c'],
                 static function () {
                     return null;
                 },
-            ],
-            'user with permission'    => [
-                new GraphQLSuccess('value', null),
-                ['a', 'b', 'c'],
                 static function () {
-                    return User::factory()->make([
-                        'permissions' => ['a'],
-                    ]);
+                    return null;
                 },
             ],
-            'user without permission' => [
+            'org user with permission' => [
+                new GraphQLSuccess('value', null),
+                ['a', 'b', 'c'],
+                static function (): Organization {
+                    return Organization::factory()->create();
+                },
+                static function (self $test, Organization $organization): User {
+                    $user = User::factory()->create([
+                        'organization_id' => $organization,
+                        'permissions'     => ['a'],
+                        'enabled'         => true,
+                    ]);
+
+                    OrganizationUser::factory()->create([
+                        'organization_id' => $organization,
+                        'user_id'         => $user,
+                        'enabled'         => true,
+                    ]);
+
+                    return $user;
+                },
+            ],
+            'user without permission'  => [
                 new GraphQLUnauthorized('value'),
                 ['a', 'b', 'c'],
+                static function () {
+                    return null;
+                },
                 static function () {
                     return User::factory()->make([
                         'permissions' => ['unknown'],
                     ]);
                 },
             ],
-            'root without permission' => [
+            'root without permission'  => [
                 new GraphQLSuccess('value', null),
                 ['a', 'b', 'c'],
+                static function () {
+                    return null;
+                },
                 static function () {
                     return User::factory()->make([
                         'type'        => UserType::local(),

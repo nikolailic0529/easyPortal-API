@@ -74,11 +74,11 @@ class RequestCustomerChangeTest extends TestCase {
         }
 
         $input = $input ?: [
-            'from'        => 'user@example.com',
-            'subject'     => 'subject',
-            'message'     => 'message',
-            'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-        ];
+                'from'        => 'user@example.com',
+                'subject'     => 'subject',
+                'message'     => 'message',
+                'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            ];
         $map   = [];
         $file  = [];
 
@@ -133,14 +133,7 @@ class RequestCustomerChangeTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
-            if ($user) {
-                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                $user->given_name  = 'first';
-                $user->family_name = 'last';
-                $user->save();
-            }
-
+        $prepare  = static function (TestCase $test, ?Organization $organization): void {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
@@ -155,9 +148,17 @@ class RequestCustomerChangeTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('requestCustomerChange'),
-            new OrganizationUserDataProvider('requestCustomerChange', [
-                'requests-customer-change',
-            ]),
+            new OrganizationUserDataProvider(
+                'requestCustomerChange',
+                [
+                    'requests-customer-change',
+                ],
+                static function (User $user): void {
+                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                    $user->given_name  = 'first';
+                    $user->family_name = 'last';
+                },
+            ),
             new ArrayDataProvider([
                 'ok'               => [
                     new GraphQLSuccess('requestCustomerChange', RequestAssetChange::class, [

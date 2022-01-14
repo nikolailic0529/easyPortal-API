@@ -1,28 +1,29 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Auth;
+namespace App\GraphQL\Mutations\Auth\Organization;
 
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
 use App\Services\KeyCloak\KeyCloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
-
-use function __;
+use Throwable;
 
 /**
- * @deprecated
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignInOrganization
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\Organization\SignIn
  */
-class SignInOrganizationTest extends TestCase {
+class SignInTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -31,21 +32,19 @@ class SignInOrganizationTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
+        Closure $orgFactory,
         Closure $userFactory = null,
-        Closure $passedOrganizationFactory = null,
+        Closure $organizationFactory = null,
     ): void {
-        $this->markTestSkipped('Temporary disabled because https://github.com/nuwave/lighthouse/issues/1780');
-
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         // Organization
         $id = $this->faker->uuid;
 
-        if ($passedOrganizationFactory) {
-            $passed = $passedOrganizationFactory($this, $organization, $user);
+        if ($organizationFactory) {
+            $passed = $organizationFactory($this, $org, $user);
 
             if ($passed) {
                 $id = $passed->getKey();
@@ -53,27 +52,29 @@ class SignInOrganizationTest extends TestCase {
         }
 
         // Mock
-        $service = Mockery::mock(KeyCloak::class);
 
         if ($expected instanceof GraphQLSuccess) {
-            $service
-                ->shouldReceive('getAuthorizationUrl')
-                ->once()
-                ->andReturn('http://example.com/');
+            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('getAuthorizationUrl')
+                    ->once()
+                    ->andReturn('http://example.com/');
+            });
         }
-
-        $this->app->bind(KeyCloak::class, static function () use ($service): KeyCloak {
-            return $service;
-        });
 
         // Test
         $this
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation signin($id: ID!) {
-                    signInOrganization(input: {organization_id: $id}) {
-                        url
+                mutation test($id: ID!) {
+                    auth {
+                        organization(id: $id) {
+                            signIn {
+                                result
+                                url
+                            }
+                        }
                     }
                 }
                 GRAPHQL,
@@ -92,22 +93,29 @@ class SignInOrganizationTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('signIn'),
-            new GuestDataProvider('signIn'),
+            new AnyOrganizationDataProvider('auth'),
+            new GuestDataProvider('auth'),
             new ArrayDataProvider([
                 'organization not exists' => [
-                    new GraphQLError('signIn', static function (): array {
-                        return [__('errors.validation_failed')];
+                    new GraphQLError('auth', static function (): Throwable {
+                        return new ObjectNotFound(
+                            (new Organization())->getMorphClass(),
+                        );
                     }),
-                    static function () {
+                    static function (): mixed {
                         return null;
                     },
                 ],
                 'redirect to login'       => [
-                    new GraphQLSuccess('signIn', self::class, [
-                        'url' => 'http://example.com/',
-                    ]),
-                    static function () {
+                    new GraphQLSuccess(
+                        'auth',
+                        new JsonFragmentSchema('organization.signIn', self::class),
+                        new JsonFragment('organization.signIn', [
+                            'result' => true,
+                            'url'    => 'http://example.com/',
+                        ]),
+                    ),
+                    static function (): Organization {
                         return Organization::factory()->create();
                     },
                 ],

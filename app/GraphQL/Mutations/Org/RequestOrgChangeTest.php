@@ -56,10 +56,10 @@ class RequestOrgChangeTest extends TestCase {
         }
 
         $input = $input ?: [
-            'from'    => 'user@example.com',
-            'subject' => 'subject',
-            'message' => 'message',
-        ];
+                'from'    => 'user@example.com',
+                'subject' => 'subject',
+                'message' => 'message',
+            ];
         $map   = [];
         $file  = [];
 
@@ -116,12 +116,7 @@ class RequestOrgChangeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
-            if ($user) {
-                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                $user->given_name  = 'first';
-                $user->family_name = 'last';
-                $user->save();
-            }
+            // empty
         };
         $settings = [
             'ep.email_address' => 'test@example.com',
@@ -129,9 +124,17 @@ class RequestOrgChangeTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('requestOrgChange'),
-            new OrganizationUserDataProvider('requestOrgChange', [
-                'org-administer',
-            ]),
+            new OrganizationUserDataProvider(
+                'requestOrgChange',
+                [
+                    'org-administer',
+                ],
+                static function (User $user): void {
+                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                    $user->given_name  = 'first';
+                    $user->family_name = 'last';
+                },
+            ),
             new ArrayDataProvider([
                 'ok'              => [
                     new GraphQLSuccess('requestOrgChange', RequestAssetChange::class, [

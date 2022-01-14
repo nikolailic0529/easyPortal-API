@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\GraphQL\Mutations\Auth\Organization\SignIn;
 use App\Models\Invitation;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Credential;
@@ -18,7 +19,7 @@ class SignUpByInvite {
     public function __construct(
         protected Client $client,
         protected Encrypter $encrypter,
-        protected SignInOrganization $signInOrganization,
+        protected SignIn $signInOrganization,
     ) {
         // empty
     }
@@ -93,19 +94,6 @@ class SignUpByInvite {
         $invitation->used_at = Date::now();
         $invitation->save();
 
-        return $this->getSignInUri($invitation->organization_id);
-    }
-
-    /**
-     * @return array<string,string>
-     */
-    protected function getSignInUri(string $organization): array {
-        $signInOrganization = $this->signInOrganization;
-
-        return $signInOrganization(null, [
-            'input' => [
-                'organization_id' => $organization,
-            ],
-        ]);
+        return ($this->signInOrganization)($invitation->organization);
     }
 }

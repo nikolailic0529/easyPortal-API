@@ -4,11 +4,14 @@ namespace App\Services\KeyCloak;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
 use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\RootOrganization;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -43,6 +46,7 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_TITLE                 = 'title';
     protected const CLAIM_CONTACT_EMAIL         = 'contact_email';
     protected const CLAIM_ACADEMIC_TITLE        = 'academic_title';
+    protected const CLAIM_LOCALE                = 'locale';
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
@@ -138,6 +142,18 @@ class UserProvider implements UserProviderContract {
             'default'  => null,
             'if'       => null,
         ],
+        self::CLAIM_LOCALE                => [
+            'property' => 'locale',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+            'map'      => [
+                'de' => 'de_DE',
+                'en' => 'en_GB',
+                'fr' => 'fr_FR',
+                'it' => 'it_IT',
+            ],
+        ],
     ];
 
     public function __construct(
@@ -222,12 +238,12 @@ class UserProvider implements UserProviderContract {
             if ($user) {
                 $user = $this->updateLocalUser($user);
             }
+
+            if ($user && !$user->isEnabled(null)) {
+                throw new UserDisabled($user);
+            }
         } else {
             // empty
-        }
-
-        if ($user && !$user->enabled) {
-            throw new UserDisabled($user);
         }
 
         return $user;
@@ -310,14 +326,17 @@ class UserProvider implements UserProviderContract {
             if ($property['required'] && !$claims->has($claim)) {
                 $missed[] = $claim;
             } elseif ($property['if'] === null || $claims->has($property['if'])) {
-                $properties[$property['property']] = $claims->get($claim, $property['default']);
+                $value                             = $claims->get($claim, $property['default']);
+                $properties[$property['property']] = isset($property['map'])
+                    ? ($property['map'][$value] ?? null)
+                    : $value;
             } else {
                 $properties[$property['property']] = null;
             }
         }
 
         // Organization
-        $properties['organization'] = $this->getOrganization($token);
+        $properties['organization'] = $this->getOrganization($user, $token);
 
         // Permissions
         $properties['permissions'] = $this->getPermissions($token);
@@ -331,14 +350,31 @@ class UserProvider implements UserProviderContract {
         return $properties;
     }
 
-    protected function getOrganization(UnencryptedToken $token): ?Organization {
-        $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-        $organizations = array_filter(array_keys(array_filter($organizations)));
-        $organization  = Organization::query()
-            ->whereIn('keycloak_scope', $organizations)
-            ->first();
+    protected function getOrganization(User $user, UnencryptedToken $token): ?Organization {
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($user, $token): ?Organization {
+                $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
+                $organizations = array_filter(array_keys(array_filter($organizations)));
+                $organization  = Organization::query()
+                    ->whereIn('keycloak_scope', $organizations)
+                    ->first();
+                $isMember      = false;
 
-        return $organization;
+                if ($organization) {
+                    $isMember = $user->organizations
+                        ->contains(static function (OrganizationUser $user) use ($organization): bool {
+                            return $user->organization_id === $organization->getKey();
+                        });
+                }
+
+                if (!$isMember) {
+                    $organization = null;
+                }
+
+                return $organization;
+            },
+        );
     }
 
     /**
