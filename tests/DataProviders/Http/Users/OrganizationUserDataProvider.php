@@ -2,83 +2,27 @@
 
 namespace Tests\DataProviders\Http\Users;
 
-use App\Models\Organization;
-use App\Models\User;
+use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
-use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
-use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
-use Tests\TestCase;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider as GraphQLOrganizationUserDataProvider;
 
 /**
  * Only User with permission(s) can perform the action.
  */
-class OrganizationUserDataProvider extends ArrayDataProvider {
+class OrganizationUserDataProvider extends GraphQLOrganizationUserDataProvider {
     /**
-     * @param array<string> $permissions
+     * @inheritDoc
      */
-    public function __construct(array $permissions = []) {
-        $data = [
-            'guest is not allowed' => [
-                new ExpectedFinal(new Unauthorized()),
-                static function (): ?User {
-                    return null;
-                },
-            ],
-        ];
+    public function __construct(array $permissions = [], Closure $callback = null) {
+        parent::__construct('', $permissions, $callback);
+    }
 
-        if ($permissions) {
-            $data += [
-                'user from another organization is not allowed'             => [
-                    new ExpectedFinal(new Forbidden()),
-                    static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
-                        return User::factory()->create([
-                            'organization_id' => Organization::factory()->create(),
-                            'permissions'     => $permissions,
-                        ]);
-                    },
-                ],
-                'user without permissions from organization is not allowed' => [
-                    new ExpectedFinal(new Forbidden()),
-                    static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->create([
-                            'organization_id' => $organization,
-                            'permissions'     => [],
-                        ]);
-                    },
-                ],
-                'user with permissions from organization is allowed'        => [
-                    new UnknownValue(),
-                    static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
-                        return User::factory()->create([
-                            'organization_id' => $organization,
-                            'permissions'     => $permissions,
-                        ]);
-                    },
-                ],
-            ];
-        } else {
-            $data += [
-                'user from another organization is not allowed' => [
-                    new ExpectedFinal(new Forbidden()),
-                    static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->create([
-                            'organization_id' => Organization::factory()->create(),
-                        ]);
-                    },
-                ],
-                'user from organization is allowed'             => [
-                    new UnknownValue(),
-                    static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->create([
-                            'organization_id' => $organization,
-                        ]);
-                    },
-                ],
-            ];
-        }
+    protected function getUnauthenticated(string $root): mixed {
+        return new Unauthorized();
+    }
 
-        parent::__construct($data);
+    protected function getUnauthorized(string $root): mixed {
+        return new Forbidden();
     }
 }

@@ -27,7 +27,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
         $factory = User::factory();
         $data    = [
             'guest is not allowed' => [
-                new ExpectedFinal(new GraphQLUnauthenticated($root)),
+                new ExpectedFinal($this->getUnauthenticated($root)),
                 static function (): ?User {
                     return null;
                 },
@@ -41,7 +41,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
         if ($permissions) {
             $data += [
                 'user from another organization is not allowed'             => [
-                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    new ExpectedFinal($this->getUnauthorized($root)),
                     static function (TestCase $test) use ($factory, $permissions): ?User {
                         $organization = Organization::factory()->create();
                         $user         = $factory->create([
@@ -59,7 +59,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                     },
                 ],
                 'user without permissions from organization is not allowed' => [
-                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    new ExpectedFinal($this->getUnauthorized($root)),
                     static function (TestCase $test, ?Organization $organization) use ($factory): ?User {
                         $user = $factory->create([
                             'organization_id' => $organization,
@@ -102,7 +102,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
         } else {
             $data += [
                 'user from another organization is not allowed' => [
-                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    new ExpectedFinal($this->getUnauthorized($root)),
                     static function (TestCase $test) use ($factory): ?User {
                         $organization = Organization::factory()->create();
                         $user         = $factory->create([
@@ -138,5 +138,13 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
         }
 
         parent::__construct($data);
+    }
+
+    protected function getUnauthenticated(string $root): mixed {
+        return new GraphQLUnauthenticated($root);
+    }
+
+    protected function getUnauthorized(string $root): mixed {
+        return new GraphQLUnauthorized($root);
     }
 }
