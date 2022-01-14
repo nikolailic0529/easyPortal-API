@@ -24,7 +24,7 @@ class AuthorizeOrganization {
     public function __invoke(mixed $_, array $args): array {
         return [
             'me' => $this->query->getMe(
-                $this->keycloak->authorize($args['input']['code'], $args['input']['state']),
+                $this->keycloak->authorize(null, $args['input']['code'], $args['input']['state']),
             ),
         ];
     }

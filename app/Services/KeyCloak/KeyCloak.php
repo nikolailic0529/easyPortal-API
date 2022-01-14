@@ -46,10 +46,7 @@ class KeyCloak {
         $provider = $this->getProvider();
         $url      = $provider->getAuthorizationUrl([
             'scope'        => $this->getOrganizationScopes($organization),
-            'redirect_uri' => $this->getRedirectUri(
-                $this->config->get('ep.keycloak.redirects.signin_uri'),
-                $organization,
-            ),
+            'redirect_uri' => $this->getSignInUri($organization),
         ]);
         $state    = $provider->getState();
 
@@ -58,7 +55,7 @@ class KeyCloak {
         return $url;
     }
 
-    public function authorize(string $code, string $state): ?Authenticatable {
+    public function authorize(?Organization $organization, string $code, string $state): ?Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
             throw new StateMismatch();
@@ -67,7 +64,8 @@ class KeyCloak {
         // Get Access Token
         try {
             $token = $this->getProvider()->getAccessToken('authorization_code', [
-                'code' => $code,
+                'code'         => $code,
+                'redirect_uri' => $this->getSignInUri($organization),
             ]);
         } catch (Exception $exception) {
             throw new InvalidIdentity($exception);
@@ -145,10 +143,7 @@ class KeyCloak {
 
         if ($token && !$successful) {
             $url = $provider->getSignOutUrl([
-                'redirect_uri' => $this->getRedirectUri(
-                    $this->config->get('ep.keycloak.redirects.signout_uri'),
-                    $this->organization->get(),
-                ),
+                'redirect_uri' => $this->getSignOutUri($this->organization->get()),
             ]);
         }
 
@@ -181,7 +176,7 @@ class KeyCloak {
                 'realm'        => $this->config->get('ep.keycloak.realm'),
                 'clientId'     => $this->config->get('ep.keycloak.client_id'),
                 'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
-                'redirectUri'  => $this->getRedirectUri($this->config->get('ep.keycloak.redirects.signin_uri')),
+                'redirectUri'  => $this->getSignInUri(null),
             ]);
         }
 
@@ -226,6 +221,20 @@ class KeyCloak {
 
     protected function forgetToken(): void {
         $this->session->forget(self::TOKEN);
+    }
+
+    protected function getSignInUri(?Organization $organization): string {
+        return $this->getRedirectUri(
+            $this->config->get('ep.keycloak.redirects.signin_uri'),
+            $organization,
+        );
+    }
+
+    protected function getSignOutUri(?Organization $organization): string {
+        return $this->getRedirectUri(
+            $this->config->get('ep.keycloak.redirects.signout_uri'),
+            $organization,
+        );
     }
     // </editor-fold>
 }

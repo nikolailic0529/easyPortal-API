@@ -48,7 +48,7 @@ class AuthorizeOrganizationTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             $service
                 ->shouldReceive('authorize')
-                ->with($code, $state)
+                ->with(null, $code, $state)
                 ->once()
                 ->andReturn($user);
         }

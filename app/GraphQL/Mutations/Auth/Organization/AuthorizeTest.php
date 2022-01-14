@@ -11,6 +11,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
@@ -56,19 +57,22 @@ class AuthorizeTest extends TestCase {
         }
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->override(KeyCloak::class, static function (MockInterface $mock) use ($me, $code, $state): void {
-                $mock
-                    ->shouldReceive('authorize')
-                    ->with($code, $state)
-                    ->once()
-                    ->andReturnUsing(static function () use ($me, $state): User {
-                        if ($state === 'mismatch') {
-                            throw new StateMismatch();
-                        }
+            $this->override(
+                KeyCloak::class,
+                static function (MockInterface $mock) use ($me, $code, $state): void {
+                    $mock
+                        ->shouldReceive('authorize')
+                        ->with(Mockery::any(), $code, $state)
+                        ->once()
+                        ->andReturnUsing(static function () use ($me, $state): User {
+                            if ($state === 'mismatch') {
+                                throw new StateMismatch();
+                            }
 
-                        return $me;
-                    });
-            });
+                            return $me;
+                        });
+                },
+            );
         }
 
         // Test

@@ -23,7 +23,7 @@ class Authorize {
 
         try {
             $input = new AuthorizeInput($args['input']);
-            $me    = $this->keycloak->authorize($input->code, $input->state);
+            $me    = $this->keycloak->authorize($organization, $input->code, $input->state);
             $me    = $this->query->getMe($me);
         } catch (StateMismatch) {
             // This may happen if the User opened multiple tabs. To allow UI to
