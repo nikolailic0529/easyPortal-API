@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Rules;
+namespace App\Rules\Organization;
 
 use App\Models\Organization;
 use Closure;
@@ -8,9 +8,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\OrganizationId
+ * @coversDefaultClass \App\Rules\Organization\Id
  */
-class OrganizationIdTest extends TestCase {
+class IdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -26,7 +26,7 @@ class OrganizationIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(OrganizationId::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(Id::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class OrganizationIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $currencyFactory): void {
         $currencyId = $currencyFactory();
-        $this->assertEquals($expected, $this->app->make(OrganizationId::class)->passes('test', $currencyId));
+        $this->assertEquals($expected, $this->app->make(Id::class)->passes('test', $currencyId));
     }
     // </editor-fold>
 

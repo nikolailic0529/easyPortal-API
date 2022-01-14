@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Rules;
+namespace App\Rules\Organization;
 
 use App\Models\Organization;
 use Illuminate\Contracts\Validation\Rule;
 
 use function __;
 
-class OrganizationId implements Rule {
+class Id implements Rule {
     /**
      * @inheritdoc
      */
