@@ -3,6 +3,7 @@
 namespace App\Services\KeyCloak\Importer;
 
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
@@ -124,15 +125,129 @@ class UsersImporterTest extends TestCase {
         $this->assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
 
         // Organization
-        $this->assertContains(
-            $organization->getKey(),
-            $user->organizations->pluck('organization_id'),
+        $this->assertEquals(
+            [$organization->getKey()],
+            $user->organizations->pluck('organization_id')->all(),
         );
 
         // Role
-        $this->assertContains(
-            $role->getKey(),
-            $user->organizations->pluck('role_id'),
+        $this->assertEquals(
+            [$role->getKey()],
+            $user->organizations->pluck('role_id')->all(),
         );
+    }
+
+    /**
+     * @covers ::import
+     */
+    public function testImportExistingUserWithRoles(): void {
+        // Prepare
+        $orgA  = Organization::factory()->create([
+            'keycloak_group_id' => 'c0200a6c-1b8a-4365-9f1b-32d753194336',
+        ]);
+        $orgB  = Organization::factory()->create([
+            'keycloak_group_id' => 'a2ff9b08-0404-4bde-a400-288d6ce4a1c8',
+        ]);
+        $roleA = Role::factory()->create([
+            'id'              => 'c0200a6c-1b8a-4365-9f1b-32d753194337',
+            'organization_id' => $orgA->getKey(),
+        ]);
+        $roleB = Role::factory()->create([
+            'id'              => '4b3d3c8f-4a55-45f9-ac8b-1b3f3547d7b0',
+            'organization_id' => $orgA->getKey(),
+        ]);
+        $user  = User::factory()->create([
+            'id' => 'c0200a6c-1b8a-4365-9f1b-32d753194335',
+        ]);
+
+        GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($user, $orgA, $orgB, $roleB): void {
+                OrganizationUser::factory()->create([
+                    'organization_id' => $orgA,
+                    'user_id'         => $user,
+                    'role_id'         => null,
+                ]);
+
+                OrganizationUser::factory()->create([
+                    'organization_id' => $orgB,
+                    'user_id'         => $user,
+                    'role_id'         => $roleB,
+                ]);
+            },
+        );
+
+        $keycloakUser = new KeyCloakUser([
+            'id'            => $user->getKey(),
+            'email'         => 'test@example.com',
+            'firstName'     => 'first',
+            'lastName'      => 'last',
+            'emailVerified' => false,
+            'enabled'       => true,
+            'groups'        => [
+                $orgA->keycloak_group_id,
+                $roleA->getKey(),
+            ],
+        ]);
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($keycloakUser): void {
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock->makePartial();
+            $mock
+                ->shouldReceive('call')
+                ->never();
+            $mock
+                ->shouldReceive('getUsers')
+                ->once()
+                ->andReturns([
+                    $keycloakUser,
+                ]);
+            $mock
+                ->shouldReceive('usersCount')
+                ->once()
+                ->andReturns(1);
+        });
+
+        // call
+        $importer = $this->app->make(UsersImporter::class);
+        $importer->import(null, 1, 1);
+
+        $user = GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($keycloakUser) {
+                return User::query()
+                    ->with(['organizations'])
+                    ->whereKey($keycloakUser->id)
+                    ->first();
+            },
+        );
+        $this->assertNotNull($user);
+        $this->assertFalse($user->email_verified);
+        $this->assertTrue($user->enabled);
+        $this->assertEquals($user->given_name, $keycloakUser->firstName);
+        $this->assertEquals($user->family_name, $keycloakUser->lastName);
+        $this->assertEquals($user->email, $keycloakUser->email);
+
+        // Organization
+        $expected = [
+            [
+                'organization_id' => $orgA->getKey(),
+                'role_id'         => $roleA->getKey(),
+            ],
+            [
+                'organization_id' => $orgB->getKey(),
+                'role_id'         => null,
+            ],
+        ];
+        $actual   = $user->organizations
+            ->map(static function (OrganizationUser $user): array {
+                return [
+                    'organization_id' => $user->organization_id,
+                    'role_id'         => $user->role_id,
+                ];
+            })
+            ->all();
+
+        $this->assertEquals($expected, $actual);
     }
 }
