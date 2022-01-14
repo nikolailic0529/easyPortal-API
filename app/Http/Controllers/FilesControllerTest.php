@@ -68,10 +68,6 @@ class FilesControllerTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare = static function (TestCase $test, ?Organization $organization, User $user): string {
-            if ($user) {
-                $user->save();
-            }
-
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
