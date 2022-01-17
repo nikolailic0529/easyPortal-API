@@ -2,20 +2,33 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Factory;
 
 use function in_array;
 use function is_null;
 
 class Auth {
     public function __construct(
+        protected Factory $auth,
         protected CurrentOrganization $organization,
     ) {
         // empty
+    }
+
+    public function getUser(): ?User {
+        $user = $this->auth->guard()->user();
+
+        if (!($user instanceof User)) {
+            $user = null;
+        }
+
+        return $user;
     }
 
     public function isRoot(Authenticatable|null $user): bool {

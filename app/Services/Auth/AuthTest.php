@@ -10,7 +10,10 @@ use App\Services\Auth\Contracts\Rootable;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Contracts\Auth\Guard;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 use function is_null;
@@ -110,6 +113,58 @@ class AuthTest extends TestCase {
         }
 
         $this->assertEquals($expected, $gate->forUser($user)->allows($permission));
+    }
+
+    /**
+     * @covers ::getUser
+     */
+    public function testGetUser(): void {
+        $user  = new User();
+        $guard = Mockery::mock(Guard::class);
+
+        $guard
+            ->shouldReceive('user')
+            ->once()
+            ->andReturn($user);
+
+        $this->override(Factory::class, static function (MockInterface $mock) use ($guard): void {
+            $mock
+                ->shouldReceive('guard')
+                ->withNoArgs()
+                ->once()
+                ->andReturn($guard);
+        });
+
+        $auth   = $this->app->make(Auth::class);
+        $actual = $auth->getUser();
+
+        $this->assertSame($user, $actual);
+    }
+
+    /**
+     * @covers ::getUser
+     */
+    public function testGetUserAuthenticatable(): void {
+        $user  = Mockery::mock(Authenticatable::class);
+        $guard = Mockery::mock(Guard::class);
+
+        $guard
+            ->shouldReceive('user')
+            ->once()
+            ->andReturn($user);
+
+        $this->override(Factory::class, static function (MockInterface $mock) use ($guard): void {
+            $mock
+                ->shouldReceive('guard')
+                ->withNoArgs()
+                ->once()
+                ->andReturn($guard);
+        });
+
+        $auth   = $this->app->make(Auth::class);
+        $actual = $auth->getUser();
+
+        $this->assertNull($actual);
     }
     // </editor-fold>
 
