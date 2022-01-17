@@ -8,7 +8,6 @@ use App\Services\Maintenance\Settings;
 use App\Services\Notificator\NotificationQueued;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Date;
 
 use function array_merge;
@@ -22,10 +21,6 @@ class Scheduled extends NotificationQueued {
 
     public function shouldSend(User $notifiable, string $channel): bool {
         return $this->settings->end && Date::now() < $this->settings->end;
-    }
-
-    protected function getMailAction(User $notifiable, Repository $config, Formatter $formatter): ?Action {
-        return null;
     }
 
     /**

@@ -59,7 +59,7 @@ abstract class Notification extends IlluminateNotification {
             ->forLocale($this->getPreferredLocale($notifiable))
             ->forTimezone($this->getTimezone($notifiable));
         $config    = $container->make(Repository::class);
-        $service   = Service::getServiceName($this);
+        $service   = Service::getServiceName($this) ?? 'App';
         $name      = (new ReflectionClass($this))->getShortName();
         $translate = static function (string $string, array $replacements = []) use ($service, $name): ?string {
             $key        = "notifications.{$service}.{$name}.{$string}";
@@ -111,7 +111,7 @@ abstract class Notification extends IlluminateNotification {
                 },
             )
             ->when(
-                $this->getMailAction($notifiable, $config, $formatter),
+                $this->getMailAction($notifiable, $config, $formatter, $translate, $replacements),
                 static function (MailMessage $message, Action $action): MailMessage {
                     return $message->with($action);
                 },
@@ -137,12 +137,22 @@ abstract class Notification extends IlluminateNotification {
         return $message;
     }
 
-    protected function getMailAction(User $notifiable, Repository $config, Formatter $formatter): ?Action {
-        return new Action($config->get('app.name'), $config->get('app.url'));
+    /**
+     * @param \Closure(string, array<string,scalar|\Stringable>): ?string $translate
+     * @param array<string,scalar|\Stringable>                            $replacements
+     */
+    protected function getMailAction(
+        User $notifiable,
+        Repository $config,
+        Formatter $formatter,
+        Closure $translate,
+        array $replacements,
+    ): ?Action {
+        return null;
     }
 
     /**
-     * @param \Closure(string, array<string>): ?string $translate
+     * @param \Closure(string, array<string,scalar|\Stringable>): ?string $translate
      *
      * @return array<string,scalar|\Stringable>
      */
