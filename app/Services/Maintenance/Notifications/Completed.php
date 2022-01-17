@@ -2,8 +2,8 @@
 
 namespace App\Services\Maintenance\Notifications;
 
-use App\Services\Notificator\Notification;
+use App\Services\Notificator\NotificationQueued;
 
-class Completed extends Notification {
+class Completed extends NotificationQueued {
     // empty
 }

@@ -5,7 +5,7 @@ namespace App\Services\Maintenance\Notifications;
 use App\Models\User;
 use App\Services\I18n\Formatter;
 use App\Services\Maintenance\Settings;
-use App\Services\Notificator\Notification;
+use App\Services\Notificator\NotificationQueued;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Notifications\Action;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Date;
 
 use function array_merge;
 
-class Scheduled extends Notification {
+class Scheduled extends NotificationQueued {
     public function __construct(
         protected Settings $settings,
     ) {

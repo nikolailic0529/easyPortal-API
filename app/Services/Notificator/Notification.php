@@ -3,14 +3,11 @@
 namespace App\Services\Notificator;
 
 use App\Models\User;
-use App\Queues;
 use App\Services\I18n\Formatter;
 use App\Services\Service;
 use Closure;
-use Illuminate\Bus\Queueable;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Action;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as IlluminateNotification;
@@ -19,9 +16,7 @@ use ReflectionClass;
 use function __;
 use function trim;
 
-abstract class Notification extends IlluminateNotification implements ShouldQueue {
-    use Queueable;
-
+abstract class Notification extends IlluminateNotification {
     public ?string $timezone = null;
 
     public function __construct() {
@@ -46,16 +41,6 @@ abstract class Notification extends IlluminateNotification implements ShouldQueu
         $this->timezone = $timezone;
 
         return $this;
-    }
-
-    /**
-     * @return array<string,string>
-     */
-    public function viaQueues(): array {
-        $this->queue       = Queues::NOTIFICATOR;
-        $this->afterCommit = true;
-
-        return [];
     }
 
     /**
