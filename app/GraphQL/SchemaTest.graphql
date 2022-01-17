@@ -1204,6 +1204,8 @@ type Invitation {
   organization_id: ID!
   role_id: ID!
   role: Role
+  team_id: ID
+  team: Team
   email: Email!
   used_at: DateTime
   expired_at: DateTime!

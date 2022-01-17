@@ -43,6 +43,7 @@ class InvitationFactory extends Factory {
             'role_id'         => static function (): Role {
                 return Role::factory()->create();
             },
+            'team_id'         => null,
             'email'           => $this->faker->unique()->safeEmail,
             'used_at'         => null,
             'expired_at'      => Date::now()->addHour(),

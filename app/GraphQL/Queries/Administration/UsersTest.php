@@ -76,6 +76,11 @@ class UsersTest extends TestCase {
                                 id
                                 name
                             }
+                            team_id
+                            team {
+                                id
+                                name
+                            }
                             email
                             used_at
                             expired_at
@@ -156,6 +161,11 @@ class UsersTest extends TestCase {
                                                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                                 'name' => 'role1',
                                             ],
+                                            'team_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                            'team'            => [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                'name' => 'IT',
+                                            ],
                                             'used_at'         => null,
                                             'expired_at'      => '2021-01-01T00:00:00+00:00',
                                         ],
@@ -197,13 +207,18 @@ class UsersTest extends TestCase {
                                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                 'name' => 'role1',
                             ]);
+                            $team1 = Team::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'name' => 'IT',
+                            ]);
                             $user1 = User::factory()
                                 ->hasInvitations(1, [
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
                                     'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                                    'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'role_id'         => $role1,
+                                    'team_id'         => $team1,
                                     'used_at'         => null,
                                     'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'expired_at'      => '2021-01-01T00:00:00+00:00',
@@ -230,18 +245,13 @@ class UsersTest extends TestCase {
                                     'timezone'       => 'Europe/Guernsey',
                                 ]);
 
-                            $team1 = Team::factory()->create([
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                'name' => 'IT',
+                            OrganizationUser::factory()->create([
+                                'organization_id' => $organization,
+                                'user_id'         => $user1,
+                                'role_id'         => $role1,
+                                'team_id'         => $team1,
+                                'enabled'         => true,
                             ]);
-
-                            $pivot                  = new OrganizationUser();
-                            $pivot->organization_id = $organization->getKey();
-                            $pivot->user_id         = $user1->getKey();
-                            $pivot->role_id         = $role1->getKey();
-                            $pivot->team_id         = $team1->getKey();
-                            $pivot->enabled         = true;
-                            $pivot->save();
 
                             User::factory()->create([
                                 'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
@@ -292,6 +302,11 @@ class UsersTest extends TestCase {
                                         'role'            => [
                                             'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                             'name' => 'role1',
+                                        ],
+                                        'team_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                        'team'            => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                            'name' => 'IT',
                                         ],
                                         'used_at'         => null,
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
@@ -349,6 +364,8 @@ class UsersTest extends TestCase {
                                             'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                             'name' => 'role2',
                                         ],
+                                        'team_id'         => null,
+                                        'team'            => null,
                                         'used_at'         => null,
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
@@ -387,13 +404,18 @@ class UsersTest extends TestCase {
                                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                 'name' => 'role1',
                             ]);
+                            $team1 = Team::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'name' => 'IT',
+                            ]);
                             $user1 = User::factory()
                                 ->hasInvitations(1, [
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
                                     'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                                    'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'role_id'         => $role1,
+                                    'team_id'         => $team1,
                                     'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'used_at'         => null,
                                     'expired_at'      => '2021-01-01T00:00:00+00:00',
@@ -421,19 +443,14 @@ class UsersTest extends TestCase {
                                     'created_at'     => Date::now()->subMinutes(1),
                                 ]);
 
-                            $team1 = Team::factory()->create([
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                'name' => 'IT',
-                            ]);
-
                             // Relation
-                            $organizationUser                  = new OrganizationUser();
-                            $organizationUser->organization_id = $organization->getKey();
-                            $organizationUser->user_id         = $user1->getKey();
-                            $organizationUser->team_id         = $team1->getKey();
-                            $organizationUser->role_id         = $role1->getKey();
-                            $organizationUser->enabled         = true;
-                            $organizationUser->save();
+                            OrganizationUser::factory()->create([
+                                'organization_id' => $organization,
+                                'user_id'         => $user1,
+                                'role_id'         => $role1,
+                                'team_id'         => $team1,
+                                'enabled'         => true,
+                            ]);
 
                             // User2
                             $role2 = Role::factory()->create([
@@ -447,6 +464,7 @@ class UsersTest extends TestCase {
                                     'organization_id' => $organization->getKey(),
                                     'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                    'team_id'         => null,
                                     'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                     'used_at'         => null,
                                     'expired_at'      => '2021-01-01T00:00:00+00:00',
@@ -479,13 +497,13 @@ class UsersTest extends TestCase {
                             ]);
 
                             // Relation
-                            $organizationUser                  = new OrganizationUser();
-                            $organizationUser->organization_id = $organization->getKey();
-                            $organizationUser->user_id         = $user2->getKey();
-                            $organizationUser->team_id         = $team2->getKey();
-                            $organizationUser->role_id         = $role2->getKey();
-                            $organizationUser->enabled         = true;
-                            $organizationUser->save();
+                            OrganizationUser::factory()->create([
+                                'organization_id' => $organization,
+                                'user_id'         => $user2,
+                                'role_id'         => $role2,
+                                'team_id'         => $team2,
+                                'enabled'         => true,
+                            ]);
                         },
                     ],
                 ]),

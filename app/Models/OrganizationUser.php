@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\Models\Relations\HasOrganization;
+use App\Models\Relations\HasRole;
+use App\Models\Relations\HasTeam;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Organization User (pivot)
@@ -39,6 +39,8 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
     use OwnedByOrganization;
     use HasOrganization;
     use HasUser;
+    use HasRole;
+    use HasTeam;
 
     protected const CASTS = [
         'enabled' => 'bool',
@@ -59,24 +61,6 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
      * @var array<string>
      */
     protected $casts = self::CASTS;
-
-    #[CascadeDelete(false)]
-    public function role(): BelongsTo {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function setRoleAttribute(?Role $role): void {
-        $this->role()->associate($role);
-    }
-
-    #[CascadeDelete(false)]
-    public function team(): BelongsTo {
-        return $this->belongsTo(Team::class);
-    }
-
-    public function setTeamAttribute(?Team $team): void {
-        $this->team()->associate($team);
-    }
 
     /**
      * @inheritDoc
