@@ -4,10 +4,13 @@ namespace App\Services\Notificator;
 
 use App\Models\User;
 use App\Services\I18n\Formatter;
+use App\Services\I18n\Locale;
+use App\Services\I18n\Timezone;
 use App\Services\Service;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container as ContainerContract;
 use Illuminate\Notifications\Action;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as IlluminateNotification;
@@ -51,11 +54,10 @@ abstract class Notification extends IlluminateNotification {
     }
 
     public function toMail(User $notifiable): MailMessage {
-        // FIXME Formatter should use Timezone ($formatter->forTimezone())
-        $container = Container::getInstance();
+        $container = $this->getContainer();
         $formatter = $container->make(Formatter::class)
-            ->forLocale($this->getLocale())
-            ->forTimezone($this->getTimezone());
+            ->forLocale($this->getPreferredLocale($notifiable))
+            ->forTimezone($this->getTimezone($notifiable));
         $config    = $container->make(Repository::class);
         $service   = Service::getServiceName($this);
         $name      = (new ReflectionClass($this))->getShortName();
@@ -156,5 +158,21 @@ abstract class Notification extends IlluminateNotification {
             'userGivenName'  => trim($notifiable->given_name),
             'userFamilyName' => trim($notifiable->family_name),
         ];
+    }
+
+    protected function getPreferredLocale(User $notifiable): ?string {
+        return $this->getLocale()
+            ?? $notifiable->preferredLocale()
+            ?? $this->getContainer()->make(Locale::class)->get();
+    }
+
+    protected function getPreferredTimezone(User $notifiable): ?string {
+        return $this->getTimezone()
+            ?? $notifiable->preferredTimezone()
+            ?? $this->getContainer()->make(Timezone::class)->get();
+    }
+
+    protected function getContainer(): ContainerContract {
+        return Container::getInstance();
     }
 }
