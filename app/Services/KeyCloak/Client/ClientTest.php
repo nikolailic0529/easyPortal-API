@@ -59,16 +59,16 @@ class ClientTest extends TestCase {
 
     /**
      *
-     * @covers ::inviteUser
+     * @covers ::createUser
      *
-     * @dataProvider dataProviderInviteUser
+     * @dataProvider dataProviderCreateUser
      */
-    public function testInviteUser(string $email, bool|Exception $expected): void {
+    public function testCreateUser(string $email, bool|Exception $expected): void {
         $this->prepareClient();
-        $this->override(Token::class, static function (MockInterface $mock): void {
+        $this->override(Token::class, static function (MockInterface $mock) use ($expected): void {
             $mock
                 ->shouldReceive('getAccessToken')
-                ->twice()
+                ->times($expected === true ? 3 : 2)
                 ->andReturn('token');
         });
         if ($expected instanceof Exception) {
@@ -98,9 +98,14 @@ class ClientTest extends TestCase {
         });
         $client   = $this->app->make(Client::class);
         $role     = RoleModel::factory()->create();
-        $response = $client->inviteUser($role, $email);
+        $response = $client->createUser($email, $role);
+
         if (is_bool($expected)) {
-            $this->assertEquals($expected, $response);
+            if ($expected) {
+                $this->assertNotNull($response);
+            } else {
+                $this->assertNull($response);
+            }
         }
     }
 
@@ -343,7 +348,7 @@ class ClientTest extends TestCase {
     /**
      * @return array<mixed>
      */
-    public function dataProviderInviteUser(): array {
+    public function dataProviderCreateUser(): array {
         return [
             ['correct@gmail.com', true],
             ['wrong@gmail.com', new RealmUserAlreadyExists('wrong@gmail.com')],

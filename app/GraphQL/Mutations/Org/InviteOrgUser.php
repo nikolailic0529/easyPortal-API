@@ -53,7 +53,7 @@ class InviteOrgUser {
         }
 
         try {
-            $this->client->inviteUser($role, $email);
+            $this->client->createUser($email, $role);
             $invited = true;
         } catch (RealmUserAlreadyExists $e) {
             $invited = false;

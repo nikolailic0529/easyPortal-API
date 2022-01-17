@@ -270,9 +270,9 @@ class Client {
     }
     //</editor-fold>
 
-    // <editor-fold desc="endpoints">
+    // <editor-fold desc="Users">
     // =========================================================================
-    public function inviteUser(Role $role, string $email): bool {
+    public function createUser(string $email, Role $role): KeyCloakUser {
         // POST /{realm}/users
         $endpoint = 'users';
 
@@ -302,7 +302,7 @@ class Client {
             throw $exception;
         }
 
-        return true;
+        return $this->getUserByEmail($email);
     }
 
     public function getUserById(string $id): KeyCloakUser {
@@ -334,6 +334,7 @@ class Client {
         // GET /{realm}/users?email={email}
         $endpoint = "users?email={$email}";
         $users    = $this->call($endpoint);
+
         if (empty($users)) {
             return null;
         }
