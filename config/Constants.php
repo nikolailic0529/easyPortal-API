@@ -429,6 +429,18 @@ interface Constants {
     #[Group('client')]
     #[Type(StringType::class)]
     public const EP_CLIENT_SIGNIN_INVITE_URI = 'auth/organizations/{organization}';
+
+    /**
+     * The URI (can be relative) where user should be redirected to complete
+     * Sign Up by invitation.
+     *
+     * Replacements:
+     * * `{token}` - token (required)
+     */
+    #[Setting('ep.client.invite_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_INVITE_URI = 'auth/signup/{token}';
     //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">

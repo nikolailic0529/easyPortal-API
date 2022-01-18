@@ -7,8 +7,10 @@ use App\Models\Relations\HasRole;
 use App\Models\Relations\HasTeam;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Invitation.
@@ -27,6 +29,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\Organization     $organization
  * @property \App\Models\Role             $role
+ * @property \App\Models\User             $sender
  * @property \App\Models\Team|null        $team
  * @property \App\Models\User             $user
  * @method static \Database\Factories\InvitationFactory factory(...$parameters)
@@ -63,4 +66,13 @@ class Invitation extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    #[CascadeDelete(false)]
+    public function sender(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    public function setSenderAttribute(User $sender): void {
+        $this->sender()->associate($sender);
+    }
 }

@@ -259,6 +259,11 @@ class User extends Model implements
             return false;
         }
 
+        // Global?
+        if ($organization === null) {
+            return true;
+        }
+
         // Root?
         if ($this->isRoot()) {
             return true;

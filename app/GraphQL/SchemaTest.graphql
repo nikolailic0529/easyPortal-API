@@ -1829,6 +1829,13 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  organization(id: ID): OrganizationMutations
   quote: QuoteMutations
 
   """
@@ -2045,6 +2052,41 @@ type OrganizationBranding {
   welcome_heading: String
   welcome_underline: String
   dashboard_image_url: Url
+}
+
+type OrganizationMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  user(id: ID): OrganizationUserMutations
+}
+
+input OrganizationUserInviteInput {
+  email: Email!
+  role_id: ID!
+  team_id: ID
+}
+
+type OrganizationUserInvitePayload implements Payload {
+  result: Boolean!
+}
+
+type OrganizationUserMutations {
+  """
+  Adds user into Organization and send invite to join.
+  
+  Please note that mutation will return `false` when:
+  - User is already a member of the organization
+  - User is disabled/banned
+  - User is Root
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  invite(input: OrganizationUserInviteInput!): OrganizationUserInvitePayload
 }
 
 """Aggregated data for type Organization."""
