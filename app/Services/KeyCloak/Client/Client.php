@@ -286,7 +286,7 @@ class Client {
         $input = new KeyCloakUser([
             'email'         => $email,
             'groups'        => [$group->path],
-            'enabled'       => false,
+            'enabled'       => true,
             'emailVerified' => false,
         ]);
 
