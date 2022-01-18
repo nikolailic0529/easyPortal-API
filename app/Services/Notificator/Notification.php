@@ -165,8 +165,8 @@ abstract class Notification extends IlluminateNotification {
         return [
             'appName'        => trim((string) $config->get('app.name')),
             'userName'       => trim("{$notifiable->given_name} {$notifiable->family_name}"),
-            'userGivenName'  => trim($notifiable->given_name),
-            'userFamilyName' => trim($notifiable->family_name),
+            'userGivenName'  => trim("{$notifiable->given_name}"),
+            'userFamilyName' => trim("{$notifiable->family_name}"),
         ];
     }
 
