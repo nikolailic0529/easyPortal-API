@@ -56,6 +56,7 @@ class Invite {
             }
         } else {
             $user                 = new User();
+            $user->type           = UserType::keycloak();
             $user->enabled        = true;
             $user->email          = $input->email;
             $user->email_verified = false;
