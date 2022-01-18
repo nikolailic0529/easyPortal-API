@@ -39,7 +39,7 @@ class OrganizationUserFactory extends Factory {
             'role_id'         => null,
             'team_id'         => null,
             'enabled'         => true,
-            'invited'         => true,
+            'invited'         => false,
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),
             'deleted_at'      => null,
