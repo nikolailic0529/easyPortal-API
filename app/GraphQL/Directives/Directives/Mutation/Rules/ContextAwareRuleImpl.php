@@ -33,7 +33,7 @@ trait ContextAwareRuleImpl {
             $context = $this->getMutationContext();
 
             do {
-                $model   = $context->getRoot();
+                $model   = $context->getContext()->getRoot();
                 $context = $context->getParent();
             } while ($context && $class !== null && !($model instanceof $class));
         }
