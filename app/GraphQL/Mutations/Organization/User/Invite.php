@@ -37,7 +37,7 @@ class Invite {
         return $this->invite($root, InviteInput::make($args['input']));
     }
 
-    public function invite(Organization $organization, InviteInput $input): bool {
+    protected function invite(Organization $organization, InviteInput $input): bool {
         // Prepare
         $user = User::query()->where('email', '=', $input->email)->first();
         $role = Role::query()->whereKey($input->role_id)->firstOrFail();

@@ -1956,7 +1956,31 @@ type OrgRoleUpdatePayload implements Payload {
   role: Role!
 }
 
+input OrgUserInviteInput {
+  email: Email!
+  role_id: ID!
+  team_id: ID
+}
+
+type OrgUserInvitePayload implements Payload {
+  result: Boolean!
+}
+
 type OrgUserMutations {
+  """
+  Adds user into Organization and send invite to join.
+  
+  Please note that mutation will return `false` when:
+  - User is already a member of the organization
+  - User is disabled/banned
+  - User is Root
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  invite(input: OrgUserInviteInput!): OrgUserInvitePayload
+
   """
   @require <organization> Authenticated user must be a member of the current organization.
   

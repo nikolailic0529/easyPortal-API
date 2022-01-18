@@ -1,0 +1,28 @@
+extend type OrgUserMutations {
+  """
+  Adds user into Organization and send invite to join.
+
+  Please note that mutation will return `false` when:
+  - User is already a member of the organization
+  - User is disabled/banned
+  - User is Root
+  """
+  invite(
+    input: OrgUserInviteInput!
+  ): OrgUserInvitePayload
+  @organization
+  @me(permissions: ["org-administer"])
+  @mutationCreate(
+    resolver: "App\\GraphQL\\Mutations\\Org\\User\\Invite"
+  )
+}
+
+input OrgUserInviteInput {
+  email: Email! @isEmail
+  role_id: ID! @isOrgRoleId
+  team_id: ID @isNullable @isTeamId
+}
+
+type OrgUserInvitePayload implements Payload {
+  result: Boolean!
+}
