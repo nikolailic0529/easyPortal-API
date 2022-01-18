@@ -1,6 +1,6 @@
 extend type OrgRoleMutations {
   create(
-    input: OrgRoleCreateInput
+    input: OrgRoleCreateInput!
   ): OrgRoleCreatePayload
   @organization
   @me(permissions: ["org-administer"])

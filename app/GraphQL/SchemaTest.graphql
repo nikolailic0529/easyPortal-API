@@ -519,7 +519,7 @@ type AuthOrganizationAuthorizePayload implements Payload {
 
 type AuthOrganizationMutations {
   """@require <guest> Current visitor must be a guest."""
-  authorize(input: AuthOrganizationAuthorizeInput): AuthOrganizationAuthorizePayload
+  authorize(input: AuthOrganizationAuthorizeInput!): AuthOrganizationAuthorizePayload
 
   """@require <guest> Current visitor must be a guest."""
   signIn: AuthOrganizationSignInPayload
@@ -1390,7 +1390,7 @@ type MeMutations {
   
   @require <me> User must be authenticated.
   """
-  update(input: MeUpdateInput): MeUpdatePayload
+  update(input: MeUpdateInput!): MeUpdatePayload
 }
 
 type MeSearch {
@@ -1929,7 +1929,7 @@ type OrgRoleMutations {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  create(input: OrgRoleCreateInput): OrgRoleCreatePayload
+  create(input: OrgRoleCreateInput!): OrgRoleCreatePayload
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1943,7 +1943,7 @@ type OrgRoleMutations {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: OrgRoleUpdateInput): OrgRoleUpdatePayload
+  update(input: OrgRoleUpdateInput!): OrgRoleUpdatePayload
 }
 
 input OrgRoleUpdateInput {
@@ -1986,7 +1986,7 @@ type OrgUserMutations {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: OrgUserUpdateInput): OrgUserUpdatePayload
+  update(input: OrgUserUpdateInput!): OrgUserUpdatePayload
 }
 
 input OrgUserUpdateInput {
@@ -6581,7 +6581,7 @@ type UserMutations {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: UserUpdateInput): UserUpdatePayload
+  update(input: UserUpdateInput!): UserUpdatePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -6605,7 +6605,7 @@ type UserOrganizationMutations {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: UserOrganizationUpdateInput): UserOrganizationUpdatePayload
+  update(input: UserOrganizationUpdateInput!): UserOrganizationUpdatePayload
 }
 
 input UserOrganizationUpdateInput {

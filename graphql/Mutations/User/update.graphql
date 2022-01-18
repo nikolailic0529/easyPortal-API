@@ -1,6 +1,6 @@
 extend type UserMutations {
   update(
-    input: UserUpdateInput
+    input: UserUpdateInput!
   ): UserUpdatePayload
   @organization(root: true)
   @me(permissions: ["administer"])

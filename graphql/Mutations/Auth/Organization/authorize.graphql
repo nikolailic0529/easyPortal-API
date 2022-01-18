@@ -1,6 +1,6 @@
 extend type AuthOrganizationMutations {
   authorize(
-    input: AuthOrganizationAuthorizeInput
+    input: AuthOrganizationAuthorizeInput!
   ): AuthOrganizationAuthorizePayload
   @guest
   @mutationMutate(
