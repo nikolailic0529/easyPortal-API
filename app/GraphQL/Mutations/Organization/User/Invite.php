@@ -41,7 +41,9 @@ class Invite {
         // Prepare
         $user = User::query()->where('email', '=', $input->email)->first();
         $role = Role::query()->whereKey($input->role_id)->firstOrFail();
-        $team = Team::query()->whereKey($input->team_id)->first();
+        $team = isset($input->team_id)
+            ? Team::query()->whereKey($input->team_id)->first()
+            : null;
 
         // User?
         if ($user) {
