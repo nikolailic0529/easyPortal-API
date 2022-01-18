@@ -48,7 +48,7 @@ class Invite {
         // User?
         if ($user) {
             // Disabled User cannot be invited
-            if (!$user->isEnabled(null)) {
+            if ($user->email_verified && !$user->isEnabled(null)) {
                 return false;
             }
 
