@@ -229,6 +229,7 @@ class UsersImporter {
             $orgUser                  = $existing->get($key) ?? new OrganizationUser();
             $orgUser->organization_id = $key;
             $orgUser->role            = $role;
+            $orgUser->enabled       ??= $item->enabled;
 
             $organizations->forget($key);
             $existing->put($key, $orgUser);
@@ -257,6 +258,7 @@ class UsersImporter {
                 if ($orgUser->role_id === null) {
                     $orgUser->organization = $organization;
                     $orgUser->role         = $orgAdminRole;
+                    $orgUser->enabled    ??= $item->enabled;
 
                     $existing->put($key, $orgUser);
                     $skipped->forget($key);

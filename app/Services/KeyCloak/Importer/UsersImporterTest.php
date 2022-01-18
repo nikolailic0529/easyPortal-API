@@ -10,6 +10,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use Illuminate\Support\Collection;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -36,7 +37,7 @@ class UsersImporterTest extends TestCase {
             'firstName'     => 'first',
             'lastName'      => 'last',
             'emailVerified' => false,
-            'enabled'       => true,
+            'enabled'       => false,
             'groups'        => [
                 'c0200a6c-1b8a-4365-9f1b-32d753194336',
                 'c0200a6c-1b8a-4365-9f1b-32d753194337',
@@ -108,7 +109,7 @@ class UsersImporterTest extends TestCase {
         );
         $this->assertNotNull($user);
         $this->assertFalse($user->email_verified);
-        $this->assertTrue($user->enabled);
+        $this->assertFalse($user->enabled);
         $this->assertEquals($user->given_name, $keycloakUser->firstName);
         $this->assertEquals($user->family_name, $keycloakUser->lastName);
         $this->assertEquals($user->email, $keycloakUser->email);
@@ -124,17 +125,25 @@ class UsersImporterTest extends TestCase {
         $this->assertEquals($user->company, $keycloakUser->attributes['company'][0]);
         $this->assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
 
-        // Organization
-        $this->assertEquals(
-            [$organization->getKey()],
-            $user->organizations->pluck('organization_id')->all(),
-        );
+        // Test
+        $expected = [
+            [
+                'organization_id' => $organization->getKey(),
+                'role_id'         => $role->getKey(),
+                'enabled'         => false,
+            ],
+        ];
+        $actual   = $user->organizations
+            ->map(static function (OrganizationUser $user): array {
+                return [
+                    'organization_id' => $user->organization_id,
+                    'role_id'         => $user->role_id,
+                    'enabled'         => $user->enabled,
+                ];
+            })
+            ->all();
 
-        // Role
-        $this->assertEquals(
-            [$role->getKey()],
-            $user->organizations->pluck('role_id')->all(),
-        );
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -173,6 +182,7 @@ class UsersImporterTest extends TestCase {
                     'organization_id' => $orgB,
                     'user_id'         => $user,
                     'role_id'         => $roleB,
+                    'enabled'         => false,
                 ]);
             },
         );
@@ -229,23 +239,32 @@ class UsersImporterTest extends TestCase {
         $this->assertEquals($user->email, $keycloakUser->email);
 
         // Organization
-        $expected = [
+        $order    = 'organization_id';
+        $expected = (new Collection([
             [
                 'organization_id' => $orgA->getKey(),
                 'role_id'         => $roleA->getKey(),
+                'enabled'         => true,
             ],
             [
                 'organization_id' => $orgB->getKey(),
                 'role_id'         => null,
+                'enabled'         => false,
             ],
-        ];
+        ]))
+            ->sortBy($order)
+            ->values()
+            ->all();
         $actual   = $user->organizations
             ->map(static function (OrganizationUser $user): array {
                 return [
                     'organization_id' => $user->organization_id,
                     'role_id'         => $user->role_id,
+                    'enabled'         => $user->enabled,
                 ];
             })
+            ->sortBy($order)
+            ->values()
             ->all();
 
         $this->assertEquals($expected, $actual);
