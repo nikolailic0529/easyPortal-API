@@ -55,9 +55,8 @@ class SignUpByInvite {
         $organization     = $this->getOrganization($invite);
         $organizationUser = $this->getOrganizationUser($invite);
 
-        // If User accepted the invitation and its profile is filled we should
-        // redirect it to the Sing In
-        if (!$organizationUser->invited && $user->given_name && $user->family_name) {
+        // If User profile is filled we should redirect it to the Sing In
+        if ($user->email_verified) {
             return $this->getResult($organization, $this->markAsUsed($invite, $organizationUser));
         }
 
@@ -84,8 +83,9 @@ class SignUpByInvite {
         ]));
 
         // Update Local user
-        $user->given_name  = $input->given_name;
-        $user->family_name = $input->family_name;
+        $user->given_name     = $input->given_name;
+        $user->family_name    = $input->family_name;
+        $user->email_verified = true;
         $user->save();
 
         // Return
