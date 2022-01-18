@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\Invitation;
-use App\Models\Organization;
 use App\Models\User;
 use App\Services\I18n\Formatter;
 use App\Services\Notificator\Notification;

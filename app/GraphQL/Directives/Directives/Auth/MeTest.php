@@ -45,8 +45,13 @@ class MeTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $this->override(Auth::class, function (): Auth {
-            return new class($this->app->make(CurrentOrganization::class)) extends Auth {
+        $this->override(Auth::class, static function (): Auth {
+            return new class() extends Auth {
+                /** @noinspection PhpMissingParentConstructorInspection */
+                public function __construct() {
+                    // empty
+                }
+
                 /**
                  * @inheritDoc
                  */
@@ -111,8 +116,13 @@ class MeTest extends TestCase {
     ): void {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        $this->override(Auth::class, function (): Auth {
-            return new class($this->app->make(CurrentOrganization::class)) extends Auth {
+        $this->override(Auth::class, static function (): Auth {
+            return new class() extends Auth {
+                /** @noinspection PhpMissingParentConstructorInspection */
+                public function __construct() {
+                    // empty
+                }
+
                 /**
                  * @inheritDoc
                  */
@@ -161,8 +171,13 @@ class MeTest extends TestCase {
             implode('`, `', ['unknown']),
         )));
 
-        $this->override(Auth::class, function (): Auth {
-            return new class($this->app->make(CurrentOrganization::class)) extends Auth {
+        $this->override(Auth::class, static function (): Auth {
+            return new class() extends Auth {
+                /** @noinspection PhpMissingParentConstructorInspection */
+                public function __construct() {
+                    // empty
+                }
+
                 /**
                  * @inheritDoc
                  */
