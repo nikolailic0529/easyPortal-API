@@ -4,6 +4,9 @@ namespace App\GraphQL\Validators;
 
 use Nuwave\Lighthouse\Validation\Validator;
 
+/**
+ * @deprecated
+ */
 class SignUpByInviteInputValidator extends Validator {
     /**
      * @return array<string, array<mixed>>

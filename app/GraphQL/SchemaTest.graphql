@@ -1714,7 +1714,7 @@ type Mutation {
   signOut: SignOutPayload @deprecated(reason: "Please use `auth { signOut }` instead.")
 
   """@require <guest> Current visitor must be a guest."""
-  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload @deprecated(reason: "Please use `auth { signUpByInvite }` instead.")
   contract: ContractMutations
   customer: CustomerMutations
 
