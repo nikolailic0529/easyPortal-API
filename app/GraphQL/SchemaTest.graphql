@@ -1780,7 +1780,7 @@ type Mutation {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
+  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload @deprecated(reason: "Please use `org { user { invite } }` instead.")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.

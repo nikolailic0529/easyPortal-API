@@ -9,6 +9,9 @@ use Illuminate\Queue\SerializesModels;
 use function config;
 use function sprintf;
 
+/**
+ * @deprecated
+ */
 class InviteOrganizationUser extends Mailable {
     use Queueable;
     use SerializesModels;

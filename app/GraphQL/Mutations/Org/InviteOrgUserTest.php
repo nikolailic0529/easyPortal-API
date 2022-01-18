@@ -25,6 +25,7 @@ use Tests\TestCase;
 use function __;
 
 /**
+ * @deprecated
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\InviteOrgUser
  */

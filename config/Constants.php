@@ -412,6 +412,8 @@ interface Constants {
      *
      * Replacements:
      * * `{token}` - token
+     *
+     * @deprecated
      */
     #[Setting('ep.client.signup_invite_uri')]
     #[Group('client')]
@@ -424,6 +426,8 @@ interface Constants {
      *
      * Replacements:
      * * `{organization}` - organization
+     *
+     * @deprecated
      */
     #[Setting('ep.client.signin_invite_uri')]
     #[Group('client')]
