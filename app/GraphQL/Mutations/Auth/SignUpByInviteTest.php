@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\Invitation;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
@@ -35,10 +36,11 @@ class SignUpByInviteTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::__invoke
-     * @dataProvider dataProviderInvoke
+     * @deprecated
+     * @covers ::deprecated
+     * @dataProvider dataProviderDeprecated
      */
-    public function testInvoke(
+    public function testDeprecated(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
@@ -95,9 +97,10 @@ class SignUpByInviteTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
+     * @deprecated
      * @return array<mixed>
      */
-    public function dataProviderInvoke(): array {
+    public function dataProviderDeprecated(): array {
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
             new GuestDataProvider('signUpByInvite'),
@@ -114,6 +117,13 @@ class SignUpByInviteTest extends TestCase {
                             'user_id'         => $user->getKey(),
                             'organization_id' => $organization->getKey(),
                         ]);
+
+                        OrganizationUser::factory()->create([
+                            'organization_id' => $organization,
+                            'user_id'         => $user,
+                            'invited'         => true,
+                        ]);
+
                         return [
                             'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
@@ -127,7 +137,7 @@ class SignUpByInviteTest extends TestCase {
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()
-                            ->andReturns();
+                            ->andReturns(true);
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
@@ -149,6 +159,13 @@ class SignUpByInviteTest extends TestCase {
                             'user_id'         => $user->getKey(),
                             'organization_id' => $organization->getKey(),
                         ]);
+
+                        OrganizationUser::factory()->create([
+                            'organization_id' => $organization,
+                            'user_id'         => $user,
+                            'invited'         => true,
+                        ]);
+
                         return [
                             'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
@@ -169,7 +186,7 @@ class SignUpByInviteTest extends TestCase {
                 'Invalid token invitation' => [
                     new GraphQLError(
                         'signUpByInvite',
-                        new SignUpByInviteNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'),
+                        new SignUpByInviteInvitationNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'),
                     ),
                     static function (TestCase $test): array {
                         return [
@@ -183,7 +200,7 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 'Invalid token encrypt'    => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken('wrong_encryption')),
+                    new GraphQLError('signUpByInvite', new SignUpByInviteTokenInvalid('wrong_encryption')),
                     static function (TestCase $test): array {
                         return [
                             'token'       => 'wrong_encryption',
@@ -195,7 +212,7 @@ class SignUpByInviteTest extends TestCase {
                 ],
                 'Invalid token key'        => [
                     new GraphQLError('signUpByInvite', static function (): Throwable {
-                        return new SignUpByInviteInvalidToken(app()->make(Encrypter::class)->encrypt([
+                        return new SignUpByInviteTokenInvalid(app()->make(Encrypter::class)->encrypt([
                             'key' => 'value',
                         ]));
                     }),
@@ -212,7 +229,7 @@ class SignUpByInviteTest extends TestCase {
                 ],
                 'Invitation used'          => [
                     new GraphQLError('signUpByInvite', static function (): Throwable {
-                        return new SignUpByInviteAlreadyUsed((new Invitation())->forceFill([
+                        return new SignUpByInviteInvitationUsed((new Invitation())->forceFill([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         ]));
                     }),
@@ -227,6 +244,7 @@ class SignUpByInviteTest extends TestCase {
                             'organization_id' => $organization->getKey(),
                             'used_at'         => Date::now(),
                         ]);
+
                         return [
                             'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),
@@ -247,7 +265,7 @@ class SignUpByInviteTest extends TestCase {
                 ],
                 'Invitation expired'       => [
                     new GraphQLError('signUpByInvite', static function (): Throwable {
-                        return new SignUpByInviteExpired((new Invitation())->forceFill([
+                        return new SignUpByInviteInvitationExpired((new Invitation())->forceFill([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         ]));
                     }),
@@ -263,6 +281,7 @@ class SignUpByInviteTest extends TestCase {
                             'used_at'         => null,
                             'expired_at'      => Date::now(),
                         ]);
+
                         return [
                             'token'       => $test->app->make(Encrypter::class)->encrypt([
                                 'invitation' => $invitation->getKey(),

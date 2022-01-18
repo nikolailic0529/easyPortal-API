@@ -4,96 +4,203 @@ namespace App\GraphQL\Mutations\Auth;
 
 use App\GraphQL\Mutations\Auth\Organization\SignIn;
 use App\Models\Invitation;
+use App\Models\Organization;
+use App\Models\OrganizationUser;
+use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Credential;
-use App\Services\KeyCloak\Client\Types\User;
+use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;
 
-use function array_key_exists;
-
 class SignUpByInvite {
     public function __construct(
         protected Client $client,
         protected Encrypter $encrypter,
-        protected SignIn $signInOrganization,
+        protected SignIn $signIn,
     ) {
         // empty
     }
 
     /**
-     * @param null                 $_
-     * @param array<string, mixed> $args
+     * @deprecated
      *
-     * @return  array<string, mixed>
+     * @param array<mixed> $args
+     *
+     * @return array<mixed>
      */
-    public function __invoke($_, array $args): array {
-        $input = $args['input'];
-        $data  = [];
+    public function deprecated(mixed $root, array $args): array {
+        return ($this)($root, [
+            'token' => $args['input']['token'],
+            'input' => [
+                'given_name'  => $args['input']['given_name'],
+                'family_name' => $args['input']['family_name'],
+                'password'    => $args['input']['password'],
+            ],
+        ]);
+    }
+
+    /**
+     * @param array{token:string,input:array<string,mixed>} $args
+     *
+     * @return array{result: bool, url: ?string}
+     */
+    public function __invoke(mixed $root, array $args): array {
+        // Objects
+        $invite           = $this->getInvitation($args['token']);
+        $user             = $this->getUser($invite);
+        $organization     = $this->getOrganization($invite);
+        $organizationUser = $this->getOrganizationUser($invite);
+
+        // If User accepted the invitation and its profile is filled we should
+        // redirect it to the Sing In
+        if (!$organizationUser->invited && $user->given_name && $user->family_name) {
+            return $this->getResult($organization, $this->markAsUsed($invite, $organizationUser));
+        }
+
+        // Args?
+        if (!isset($args['input'])) {
+            return $this->getResult($organization, false);
+        }
+
+        // Update KeyCloak user
+        $input        = SignUpByInviteInput::make($args['input']);
+        $keyCloakUser = $this->client->getUserById($user->getKey());
+
+        $this->client->updateUser($keyCloakUser->id, new KeyCloakUser([
+            'firstName'     => $input->given_name,
+            'lastName'      => $input->family_name,
+            'emailVerified' => true,
+            'credentials'   => [
+                new Credential([
+                    'type'      => 'password',
+                    'temporary' => false,
+                    'value'     => $input->password,
+                ]),
+            ],
+        ]));
+
+        // Update Local user
+        $user->given_name  = $input->given_name;
+        $user->family_name = $input->family_name;
+        $user->save();
+
+        // Return
+        return $this->getResult($organization, $this->markAsUsed($invite, $organizationUser));
+    }
+
+    /**
+     * @return array{result: bool, url: ?string}
+     */
+    protected function getResult(Organization $organization, bool $result): array {
+        return [
+            'result' => $result,
+            'url'    => $result
+                ? $this->signIn->getUrl($organization)
+                : null,
+        ];
+    }
+
+    protected function getInvitation(string $token): Invitation {
+        // Id
+        $id = null;
+
         try {
-            $data = $this->encrypter->decrypt($input['token']);
+            $id = $this->encrypter->decrypt($token)['invitation'] ?? null;
         } catch (DecryptException $exception) {
-            throw new SignUpByInviteInvalidToken($input['token'], $exception);
+            throw new SignUpByInviteTokenInvalid($token, $exception);
         }
 
-        if (!array_key_exists('invitation', $data)) {
-            throw new SignUpByInviteInvalidToken($input['token']);
+        if (!$id) {
+            throw new SignUpByInviteTokenInvalid($token);
         }
 
+        // Invitation
+        /** @var \App\Models\Invitation|null $invitation */
         $invitation = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($data) {
-                return Invitation::whereKey($data['invitation'])->first();
+            static function () use ($id): ?Invitation {
+                return Invitation::query()->whereKey($id)->first();
             },
         );
 
         if (!$invitation) {
-            throw new SignUpByInviteNotFound($data['invitation']);
-        }
-        /** @var \App\Models\Invitation $invitation */
-        if ($invitation->expired_at->isPast()) {
-            throw new SignUpByInviteExpired($invitation);
+            throw new SignUpByInviteInvitationNotFound($id);
         }
 
         if ($invitation->used_at) {
-            throw new SignUpByInviteAlreadyUsed($invitation);
+            throw new SignUpByInviteInvitationUsed($invitation);
         }
 
-        // Get user from keycloak
-        $keycloakUser = $this->client->getUserById($invitation->user_id);
+        if ($invitation->expired_at->isPast()) {
+            throw new SignUpByInviteInvitationExpired($invitation);
+        }
 
-        // Create new credentials
-        $credential = new Credential([
-            'type'      => 'password',
-            'temporary' => false,
-            'value'     => $input['password'],
-        ]);
+        $last = GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($invitation): ?Invitation {
+                return Invitation::query()
+                    ->where('organization_id', '=', $invitation->organization_id)
+                    ->where('user_id', '=', $invitation->user_id)
+                    ->orderByDesc('created_at')
+                    ->first();
+            },
+        );
 
-        // update local values
-        $user                 = $invitation->user;
-        $user->given_name     = $input['given_name'];
-        $user->family_name    = $input['family_name'];
-        $user->enabled        = true;
-        $user->email_verified = true;
-        $user->save();
+        if (!$invitation->is($last)) {
+            throw new SignUpByInviteInvitationOutdated($invitation);
+        }
 
-        // update keycloak
-        $this->client->updateUser($keycloakUser->id, new User([
-            'firstName'     => $input['given_name'],
-            'lastName'      => $input['family_name'],
-            'enabled'       => true,
-            'emailVerified' => true,
-            'credentials'   => [
-                $credential,
-            ],
-        ]));
+        // Return
+        return $invitation;
+    }
 
-        $invitation->used_at = Date::now();
-        $invitation->save();
+    protected function getOrganizationUser(Invitation $invitation): OrganizationUser {
+        $user = GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($invitation): ?OrganizationUser {
+                return OrganizationUser::query()
+                    ->where('organization_id', '=', $invitation->organization_id)
+                    ->where('user_id', '=', $invitation->user_id)
+                    ->first();
+            },
+        );
 
-        return ($this->signInOrganization)($invitation->organization);
+        if (!($user instanceof OrganizationUser)) {
+            throw new SignUpByInviteInvitationUserNotFound($invitation);
+        }
+
+        return $user;
+    }
+
+    protected function getUser(Invitation $invitation): User {
+        $user = $invitation->user;
+
+        if (!($user instanceof User)) {
+            throw new SignUpByInviteInvitationUserNotFound($invitation);
+        }
+
+        return $user;
+    }
+
+    protected function getOrganization(Invitation $invitation): Organization {
+        $organization = $invitation->organization;
+
+        if (!($organization instanceof Organization)) {
+            throw new SignUpByInviteInvitationOrganizationNotFound($invitation);
+        }
+
+        return $organization;
+    }
+
+    protected function markAsUsed(Invitation $invitation, OrganizationUser $organizationUser): bool {
+        $invitation->used_at       = Date::now();
+        $organizationUser->invited = false;
+
+        return $invitation->save()
+            && $organizationUser->save();
     }
 }

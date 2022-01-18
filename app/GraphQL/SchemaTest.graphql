@@ -461,6 +461,9 @@ type AuthMutations {
   """@require <me> User must be authenticated."""
   signOut: AuthSignOutPayload
 
+  """@require <guest> Current visitor must be a guest."""
+  signUpByInvite(token: String!, input: AuthSignUpByInviteInput): AuthSignUpByInvitePayload
+
   """
   Organization Sign In.
   
@@ -536,6 +539,19 @@ type AuthSignOutPayload implements Payload {
   result: Boolean!
 
   """The link where the User should be redirected to complete Sign Out."""
+  url: Url
+}
+
+input AuthSignUpByInviteInput {
+  given_name: String!
+  family_name: String!
+  password: String!
+}
+
+type AuthSignUpByInvitePayload implements Payload {
+  result: Boolean!
+
+  """The link where the User should be redirected to Sign In."""
   url: Url
 }
 

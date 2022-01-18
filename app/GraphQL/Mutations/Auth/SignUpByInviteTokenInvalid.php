@@ -7,7 +7,7 @@ use Throwable;
 
 use function __;
 
-class SignUpByInviteInvalidToken extends GraphQLException {
+class SignUpByInviteTokenInvalid extends GraphQLException {
     public function __construct(protected mixed $token, Throwable $previous = null) {
         parent::__construct('Invalid invite token.', $previous);
 
@@ -17,6 +17,6 @@ class SignUpByInviteInvalidToken extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.invalid_token');
+        return __('graphql.mutations.signUpByInvite.token_invalid');
     }
 }

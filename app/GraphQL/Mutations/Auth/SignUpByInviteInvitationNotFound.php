@@ -8,7 +8,7 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class SignUpByInviteNotFound extends GraphQLException {
+class SignUpByInviteInvitationNotFound extends GraphQLException {
     public function __construct(string $id, Throwable $previous = null) {
         parent::__construct(sprintf(
             'Invitation `%s` not found.',
@@ -17,6 +17,6 @@ class SignUpByInviteNotFound extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.not_found');
+        return __('graphql.mutations.signUpByInvite.invitation_not_found');
     }
 }

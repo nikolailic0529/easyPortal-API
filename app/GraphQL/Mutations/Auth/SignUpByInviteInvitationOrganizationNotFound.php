@@ -9,15 +9,15 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class SignUpByInviteAlreadyUsed extends GraphQLException {
+class SignUpByInviteInvitationOrganizationNotFound extends GraphQLException {
     public function __construct(Invitation $invitation, Throwable $previous = null) {
         parent::__construct(sprintf(
-            'User already used invitation `%s` .',
+            'Organization associated with Invitation `%s` not found.',
             $invitation->getKey(),
         ), $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.already_used');
+        return __('graphql.mutations.signUpByInvite.invitation_organization_not_found');
     }
 }
