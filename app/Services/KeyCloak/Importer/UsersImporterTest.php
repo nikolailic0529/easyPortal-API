@@ -193,7 +193,7 @@ class UsersImporterTest extends TestCase {
             'firstName'     => 'first',
             'lastName'      => 'last',
             'emailVerified' => false,
-            'enabled'       => false,
+            'enabled'       => true,
             'groups'        => [
                 $orgA->keycloak_group_id,
                 $roleA->getKey(),
@@ -233,7 +233,7 @@ class UsersImporterTest extends TestCase {
         );
         $this->assertNotNull($user);
         $this->assertFalse($user->email_verified);
-        $this->assertFalse($user->enabled);
+        $this->assertTrue($user->enabled);
         $this->assertEquals($user->given_name, $keycloakUser->firstName);
         $this->assertEquals($user->family_name, $keycloakUser->lastName);
         $this->assertEquals($user->email, $keycloakUser->email);
