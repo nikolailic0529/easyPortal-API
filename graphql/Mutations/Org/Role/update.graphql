@@ -1,6 +1,6 @@
 extend type OrgRoleMutations {
   update(
-    input: OrgRoleUpdateInput
+    input: OrgRoleUpdateInput!
   ): OrgRoleUpdatePayload
   @organization
   @me(permissions: ["org-administer"])

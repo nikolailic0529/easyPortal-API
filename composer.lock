@@ -4121,12 +4121,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-core.git",
-                "reference": "5147d545b45fde00997532a7a362c3a0ed9e8732"
+                "reference": "ad78ecd47377393a7503da320e48facc142c89ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-core/zipball/5147d545b45fde00997532a7a362c3a0ed9e8732",
-                "reference": "5147d545b45fde00997532a7a362c3a0ed9e8732",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-core/zipball/ad78ecd47377393a7503da320e48facc142c89ef",
+                "reference": "ad78ecd47377393a7503da320e48facc142c89ef",
                 "shasum": ""
             },
             "require": {
@@ -4168,7 +4168,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-12-25T17:36:17+00:00"
+            "time": "2022-01-17T07:08:55+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-eloquent",
@@ -4236,12 +4236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-formatter.git",
-                "reference": "0eb7cda98520715d004413d210eec1af01ddf2ac"
+                "reference": "190d55cc8904e84e664733f9ff3534ecde1f2945"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/0eb7cda98520715d004413d210eec1af01ddf2ac",
-                "reference": "0eb7cda98520715d004413d210eec1af01ddf2ac",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/190d55cc8904e84e664733f9ff3534ecde1f2945",
+                "reference": "190d55cc8904e84e664733f9ff3534ecde1f2945",
                 "shasum": ""
             },
             "require": {
@@ -4294,7 +4294,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-12-25T17:36:17+00:00"
+            "time": "2022-01-17T07:08:55+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-graphql",
@@ -4302,12 +4302,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "aac260417b6cb295eda4332d9d9e2f5cd6f422b5"
+                "reference": "1b9977a31eda132667e01f1be028fadc246c792c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/aac260417b6cb295eda4332d9d9e2f5cd6f422b5",
-                "reference": "aac260417b6cb295eda4332d9d9e2f5cd6f422b5",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/1b9977a31eda132667e01f1be028fadc246c792c",
+                "reference": "1b9977a31eda132667e01f1be028fadc246c792c",
                 "shasum": ""
             },
             "require": {
@@ -4366,7 +4366,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-12-25T17:36:17+00:00"
+            "time": "2022-01-17T07:06:56+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",

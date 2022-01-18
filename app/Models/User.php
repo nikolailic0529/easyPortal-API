@@ -255,8 +255,13 @@ class User extends Model implements
     // =========================================================================
     public function isEnabled(?Organization $organization): bool {
         // Enabled?
-        if (!$this->enabled) {
+        if (!$this->enabled || !$this->email_verified) {
             return false;
+        }
+
+        // Global?
+        if ($organization === null) {
+            return true;
         }
 
         // Root?
@@ -273,7 +278,8 @@ class User extends Model implements
                 if ($organization) {
                     $orgUser = $this->organizations
                         ->first(static function (OrganizationUser $user) use ($organization): bool {
-                            return $user->organization_id === $organization->getKey();
+                            return $user->organization_id === $organization->getKey()
+                                && $user->invited === false;
                         });
                 }
 

@@ -412,6 +412,8 @@ interface Constants {
      *
      * Replacements:
      * * `{token}` - token
+     *
+     * @deprecated
      */
     #[Setting('ep.client.signup_invite_uri')]
     #[Group('client')]
@@ -424,11 +426,25 @@ interface Constants {
      *
      * Replacements:
      * * `{organization}` - organization
+     *
+     * @deprecated
      */
     #[Setting('ep.client.signin_invite_uri')]
     #[Group('client')]
     #[Type(StringType::class)]
     public const EP_CLIENT_SIGNIN_INVITE_URI = 'auth/organizations/{organization}';
+
+    /**
+     * The URI (can be relative) where user should be redirected to complete
+     * Sign Up by invitation.
+     *
+     * Replacements:
+     * * `{token}` - token (required)
+     */
+    #[Setting('ep.client.invite_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_INVITE_URI = 'auth/signup/{token}';
     //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">

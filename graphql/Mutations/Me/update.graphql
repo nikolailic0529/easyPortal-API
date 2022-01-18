@@ -1,6 +1,6 @@
 extend type MeMutations {
   update(
-    input: MeUpdateInput
+    input: MeUpdateInput!
   ): MeUpdatePayload
   @organization
   @me

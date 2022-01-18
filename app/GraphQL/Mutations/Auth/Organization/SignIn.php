@@ -15,7 +15,11 @@ class SignIn {
     public function __invoke(Organization $organization): mixed {
         return [
             'result' => true,
-            'url'    => $this->keycloak->getAuthorizationUrl($organization),
+            'url'    => $this->getUrl($organization),
         ];
+    }
+
+    public function getUrl(Organization $organization): string {
+        return $this->keycloak->getAuthorizationUrl($organization);
     }
 }

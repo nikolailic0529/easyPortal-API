@@ -8,6 +8,9 @@ use Nuwave\Lighthouse\Validation\Validator;
 
 use function app;
 
+/**
+ * @deprecated
+ */
 class InviteOrgUserInputValidator extends Validator {
     /**
      * @return array<string, array<mixed>>

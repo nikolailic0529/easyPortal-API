@@ -1,9 +1,47 @@
+extend type AuthMutations {
+  """
+  Completes Sign Up.
+
+  1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
+     User to the `url` if `true`.
+  2. If `false` you should provide addition details (`input`) to complete Sign Up
+     process.
+
+  See also:
+  * `mutation { organization(id) { user { invite } }`
+  * `mutation { org { user { invite } }`
+  """
+  signUpByInvite(
+    token: String!
+    input: AuthSignUpByInviteInput
+  ): AuthSignUpByInvitePayload
+  @guest
+  @mutationCall(
+    resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
+  )
+}
+
+input AuthSignUpByInviteInput {
+  given_name: String!
+  family_name: String!
+  password: String!
+}
+
+type AuthSignUpByInvitePayload implements Payload{
+  result: Boolean!
+
+  "The link where the User should be redirected to Sign In."
+  url: Url
+}
+
+# Deprecated
 extend type Mutation {
   signUpByInvite(
     input: SignUpByInviteInput!
   ): SignUpByInvitePayload
+  @deprecated(reason: "Please use `auth { signUpByInvite }` instead.")
   @guest
-  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite")
+  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite@deprecated")
 }
 
 input SignUpByInviteInput @validator {

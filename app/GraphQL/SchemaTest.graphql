@@ -462,6 +462,22 @@ type AuthMutations {
   signOut: AuthSignOutPayload
 
   """
+  Completes Sign Up.
+  
+  1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
+     User to the `url` if `true`.
+  2. If `false` you should provide addition details (`input`) to complete Sign Up
+     process.
+  
+  See also:
+  * `mutation { organization(id) { user { invite } }`
+  * `mutation { org { user { invite } }`
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  signUpByInvite(token: String!, input: AuthSignUpByInviteInput): AuthSignUpByInvitePayload
+
+  """
   Organization Sign In.
   
   Application use standard OAuth 2.0 Authorization Code Grant.
@@ -519,7 +535,7 @@ type AuthOrganizationAuthorizePayload implements Payload {
 
 type AuthOrganizationMutations {
   """@require <guest> Current visitor must be a guest."""
-  authorize(input: AuthOrganizationAuthorizeInput): AuthOrganizationAuthorizePayload
+  authorize(input: AuthOrganizationAuthorizeInput!): AuthOrganizationAuthorizePayload
 
   """@require <guest> Current visitor must be a guest."""
   signIn: AuthOrganizationSignInPayload
@@ -536,6 +552,19 @@ type AuthSignOutPayload implements Payload {
   result: Boolean!
 
   """The link where the User should be redirected to complete Sign Out."""
+  url: Url
+}
+
+input AuthSignUpByInviteInput {
+  given_name: String!
+  family_name: String!
+  password: String!
+}
+
+type AuthSignUpByInvitePayload implements Payload {
+  result: Boolean!
+
+  """The link where the User should be redirected to Sign In."""
   url: Url
 }
 
@@ -1204,6 +1233,8 @@ type Invitation {
   organization_id: ID!
   role_id: ID!
   role: Role
+  team_id: ID
+  team: Team
   email: Email!
   used_at: DateTime
   expired_at: DateTime!
@@ -1388,7 +1419,7 @@ type MeMutations {
   
   @require <me> User must be authenticated.
   """
-  update(input: MeUpdateInput): MeUpdatePayload
+  update(input: MeUpdateInput!): MeUpdatePayload
 }
 
 type MeSearch {
@@ -1696,7 +1727,7 @@ type Mutation {
   signOut: SignOutPayload @deprecated(reason: "Please use `auth { signOut }` instead.")
 
   """@require <guest> Current visitor must be a guest."""
-  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload @deprecated(reason: "Please use `auth { signUpByInvite }` instead.")
   contract: ContractMutations
   customer: CustomerMutations
 
@@ -1778,7 +1809,7 @@ type Mutation {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
+  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload @deprecated(reason: "Please use `org { user { invite } }` instead.")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1827,6 +1858,13 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  organization(id: ID): OrganizationMutations
   quote: QuoteMutations
 
   """
@@ -1920,7 +1958,7 @@ type OrgRoleMutations {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  create(input: OrgRoleCreateInput): OrgRoleCreatePayload
+  create(input: OrgRoleCreateInput!): OrgRoleCreatePayload
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1934,7 +1972,7 @@ type OrgRoleMutations {
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: OrgRoleUpdateInput): OrgRoleUpdatePayload
+  update(input: OrgRoleUpdateInput!): OrgRoleUpdatePayload
 }
 
 input OrgRoleUpdateInput {
@@ -1947,13 +1985,39 @@ type OrgRoleUpdatePayload implements Payload {
   role: Role!
 }
 
+input OrgUserInviteInput {
+  email: Email!
+  role_id: ID!
+  team_id: ID
+}
+
+type OrgUserInvitePayload implements Payload {
+  result: Boolean!
+}
+
 type OrgUserMutations {
+  """
+  Adds user into Organization and send invite to join.
+  
+  To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
+  
+  Please note that mutation will return `false` when:
+  - User is already a member of the organization
+  - User is disabled/banned
+  - User is Root
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  invite(input: OrgUserInviteInput!): OrgUserInvitePayload
+
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: OrgUserUpdateInput): OrgUserUpdatePayload
+  update(input: OrgUserUpdateInput!): OrgUserUpdatePayload
 }
 
 input OrgUserUpdateInput {
@@ -2043,6 +2107,43 @@ type OrganizationBranding {
   welcome_heading: String
   welcome_underline: String
   dashboard_image_url: Url
+}
+
+type OrganizationMutations {
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  user(id: ID): OrganizationUserMutations
+}
+
+input OrganizationUserInviteInput {
+  email: Email!
+  role_id: ID!
+  team_id: ID
+}
+
+type OrganizationUserInvitePayload implements Payload {
+  result: Boolean!
+}
+
+type OrganizationUserMutations {
+  """
+  Adds user into Organization and send invite to join.
+  
+  To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
+  
+  Please note that mutation will return `false` when:
+  - User is already a member of the organization
+  - User is disabled/banned
+  - User is Root
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  invite(input: OrganizationUserInviteInput!): OrganizationUserInvitePayload
 }
 
 """Aggregated data for type Organization."""
@@ -6513,7 +6614,7 @@ type UserMutations {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: UserUpdateInput): UserUpdatePayload
+  update(input: UserUpdateInput!): UserUpdatePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -6537,7 +6638,7 @@ type UserOrganizationMutations {
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  update(input: UserOrganizationUpdateInput): UserOrganizationUpdatePayload
+  update(input: UserOrganizationUpdateInput!): UserOrganizationUpdatePayload
 }
 
 input UserOrganizationUpdateInput {

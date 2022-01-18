@@ -9,15 +9,15 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class SignUpByInviteExpired extends GraphQLException {
+class SignUpByInviteInvitationOutdated extends GraphQLException {
     public function __construct(Invitation $invitation, Throwable $previous = null) {
         parent::__construct(sprintf(
-            'Invitation `%s` is expired.',
+            'Invitation `%s` is outdated.',
             $invitation->getKey(),
         ), $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.expired');
+        return __('graphql.mutations.signUpByInvite.invitation_outdated');
     }
 }

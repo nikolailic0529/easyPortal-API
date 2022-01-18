@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Date;
 
 use function strtr;
 
+/**
+ * @deprecated
+ */
 class InviteOrgUser {
     public function __construct(
         protected Client $client,
@@ -53,7 +56,7 @@ class InviteOrgUser {
         }
 
         try {
-            $this->client->inviteUser($role, $email);
+            $this->client->createUser($email, $role);
             $invited = true;
         } catch (RealmUserAlreadyExists $e) {
             $invited = false;

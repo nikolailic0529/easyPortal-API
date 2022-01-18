@@ -25,6 +25,7 @@ use Tests\TestCase;
 use function __;
 
 /**
+ * @deprecated
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\InviteOrgUser
  */
@@ -169,18 +170,20 @@ class InviteOrgUserTest extends TestCase {
                         'team_id' => '745e3dd2-915e-31b2-b02b-cbab069c9d65',
                     ],
                     static function (MockInterface $mock): void {
+                        $user = new User([
+                            'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'email'         => 'test@gmail.com',
+                            'emailVerified' => false,
+                        ]);
+
                         $mock
-                            ->shouldReceive('inviteUser')
+                            ->shouldReceive('createUser')
                             ->once()
-                            ->andReturns(true);
+                            ->andReturns($user);
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
-                            ->andReturns(new User([
-                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'email'         => 'test@gmail.com',
-                                'emailVerified' => false,
-                            ]));
+                            ->andReturns($user);
                         $mock
                             ->shouldReceive('addUserToGroup')
                             ->never();
@@ -196,18 +199,20 @@ class InviteOrgUserTest extends TestCase {
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ],
                     static function (MockInterface $mock): void {
+                        $user = new User([
+                            'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'email'         => 'test@gmail.com',
+                            'emailVerified' => false,
+                        ]);
+
                         $mock
-                            ->shouldReceive('inviteUser')
+                            ->shouldReceive('createUser')
                             ->once()
-                            ->andReturns(true);
+                            ->andReturns($user);
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
-                            ->andReturns(new User([
-                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'email'         => 'test@gmail.com',
-                                'emailVerified' => false,
-                            ]));
+                            ->andReturns($user);
                         $mock
                             ->shouldReceive('addUserToGroup')
                             ->never();
@@ -225,7 +230,7 @@ class InviteOrgUserTest extends TestCase {
                     ],
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('inviteUser')
+                            ->shouldReceive('createUser')
                             ->once()
                             ->andThrow(new RealmUserAlreadyExists('test@gmail.com'));
                         $mock
@@ -275,7 +280,7 @@ class InviteOrgUserTest extends TestCase {
                     ],
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('inviteUser')
+                            ->shouldReceive('createUser')
                             ->once()
                             ->andThrow(new RealmUserAlreadyExists('test@gmail.com'));
                         $mock
@@ -310,7 +315,7 @@ class InviteOrgUserTest extends TestCase {
                     ],
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('inviteUser')
+                            ->shouldReceive('createUser')
                             ->never();
                         $mock
                             ->shouldReceive('getUserByEmail')

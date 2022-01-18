@@ -1,10 +1,10 @@
 extend type UserOrganizationMutations {
   update(
-    input: UserOrganizationUpdateInput
+    input: UserOrganizationUpdateInput!
   ): UserOrganizationUpdatePayload
   @organization(root: true)
   @me(permissions: ["administer"])
-    @mutationMutate(
+  @mutationMutate(
     resolver: "App\\GraphQL\\Mutations\\User\\Organization\\Update"
   )
 }

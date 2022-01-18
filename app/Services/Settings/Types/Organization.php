@@ -2,13 +2,13 @@
 
 namespace App\Services\Settings\Types;
 
-use App\Rules\OrganizationId;
+use App\Rules\Organization\Id;
 
 class Organization extends Type {
     /**
      * @inheritDoc
      */
     public function getValidationRules(): array {
-        return [new OrganizationId()];
+        return [new Id()];
     }
 }

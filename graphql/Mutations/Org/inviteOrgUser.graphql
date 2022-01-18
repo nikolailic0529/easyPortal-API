@@ -2,6 +2,7 @@ extend type Mutation {
   inviteOrgUser(
     input: InviteOrgUserInput!
   ): InviteOrgUserPayload
+  @deprecated(reason: "Please use `org { user { invite } }` instead.")
   @organization
   @me(permissions: ["org-administer"])
   @field(resolver: "App\\GraphQL\\Mutations\\Org\\InviteOrgUser")

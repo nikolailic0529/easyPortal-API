@@ -23,6 +23,26 @@
         "role": {
             "$ref": "./Role.json"
         },
+        "team_id": {
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "team": {
+            "oneOf": [
+                {
+                    "$ref": "./Team.json"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "email": {
             "type": "string"
         },
