@@ -1,4 +1,16 @@
 extend type AuthMutations {
+  """
+  Completes Sign Up.
+
+  1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
+     User to the `url` if `true`.
+  2. If `false` you should provide addition details (`input`) to complete Sign Up
+     process.
+
+  See also:
+  * `mutation { organization(id) { user { invite } }`
+  * `mutation { org { user { invite } }`
+  """
   signUpByInvite(
     token: String!
     input: AuthSignUpByInviteInput

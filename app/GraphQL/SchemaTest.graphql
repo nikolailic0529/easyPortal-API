@@ -461,7 +461,20 @@ type AuthMutations {
   """@require <me> User must be authenticated."""
   signOut: AuthSignOutPayload
 
-  """@require <guest> Current visitor must be a guest."""
+  """
+  Completes Sign Up.
+  
+  1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
+     User to the `url` if `true`.
+  2. If `false` you should provide addition details (`input`) to complete Sign Up
+     process.
+  
+  See also:
+  * `mutation { organization(id) { user { invite } }`
+  * `mutation { org { user { invite } }`
+  
+  @require <guest> Current visitor must be a guest.
+  """
   signUpByInvite(token: String!, input: AuthSignUpByInviteInput): AuthSignUpByInvitePayload
 
   """
@@ -1986,6 +1999,8 @@ type OrgUserMutations {
   """
   Adds user into Organization and send invite to join.
   
+  To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
+  
   Please note that mutation will return `false` when:
   - User is already a member of the organization
   - User is disabled/banned
@@ -2116,6 +2131,8 @@ type OrganizationUserInvitePayload implements Payload {
 type OrganizationUserMutations {
   """
   Adds user into Organization and send invite to join.
+  
+  To complete Sign Up the `mutation { auth { signUpByInvite } }` should be used.
   
   Please note that mutation will return `false` when:
   - User is already a member of the organization
