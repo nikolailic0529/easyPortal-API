@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                  $role_id
  * @property string|null                  $team_id
  * @property bool                         $enabled
+ * @property bool                         $invited
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -44,6 +45,7 @@ class OrganizationUser extends Model implements Auditable, Upsertable {
 
     protected const CASTS = [
         'enabled' => 'bool',
+        'invited' => 'bool',
     ] + parent::CASTS;
 
     /**
