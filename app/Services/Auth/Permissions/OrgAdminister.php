@@ -3,9 +3,10 @@
 namespace App\Services\Auth\Permissions;
 
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 
-final class OrgAdminister extends Permission {
+final class OrgAdminister extends Permission implements IsOrgAdmin {
     public function __construct() {
-        parent::__construct('org-administer', orgAdmin: true);
+        parent::__construct('org-administer');
     }
 }

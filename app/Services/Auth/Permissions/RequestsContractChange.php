@@ -3,9 +3,10 @@
 namespace App\Services\Auth\Permissions;
 
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 
-final class RequestsContractChange extends Permission {
+final class RequestsContractChange extends Permission implements IsOrgAdmin {
     public function __construct() {
-        parent::__construct('requests-contract-change', orgAdmin: true);
+        parent::__construct('requests-contract-change');
     }
 }

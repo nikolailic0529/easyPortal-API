@@ -3,9 +3,10 @@
 namespace App\Services\Auth\Permissions;
 
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 
-final class QuotesDownload extends Permission {
+final class QuotesDownload extends Permission implements IsOrgAdmin {
     public function __construct() {
-        parent::__construct('quotes-download', orgAdmin: true);
+        parent::__construct('quotes-download');
     }
 }

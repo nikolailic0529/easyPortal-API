@@ -3,9 +3,10 @@
 namespace App\Services\Auth\Permissions;
 
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 
-final class RequestsQuoteAdd extends Permission {
+final class RequestsQuoteAdd extends Permission implements IsOrgAdmin {
     public function __construct() {
-        parent::__construct('requests-quote-add', orgAdmin: true);
+        parent::__construct('requests-quote-add');
     }
 }

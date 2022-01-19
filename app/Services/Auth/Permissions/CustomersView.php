@@ -3,9 +3,10 @@
 namespace App\Services\Auth\Permissions;
 
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 
-final class CustomersView extends Permission {
+final class CustomersView extends Permission implements IsOrgAdmin {
     public function __construct() {
-        parent::__construct('customers-view', orgAdmin: true);
+        parent::__construct('customers-view');
     }
 }

@@ -6,6 +6,6 @@ use App\Services\Auth\Permission;
 
 final class Administer extends Permission {
     public function __construct() {
-        parent::__construct('administer', orgAdmin: false);
+        parent::__construct('administer');
     }
 }

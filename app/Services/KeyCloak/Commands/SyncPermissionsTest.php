@@ -6,6 +6,7 @@ use App\Models\Permission as PermissionModel;
 use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
@@ -34,8 +35,12 @@ class SyncPermissionsTest extends TestCase {
                 ->shouldReceive('getPermissions')
                 ->once()
                 ->andReturns([
-                    new Permission('permission-a', orgAdmin: false),
-                    new Permission('permission-b', orgAdmin: false),
+                    new class('permission-a') extends Permission {
+                        // empty
+                    },
+                    new class('permission-b') extends Permission {
+                        // empty
+                    },
                 ]);
         });
         $this->override(Client::class, function (MockInterface $mock): void {
@@ -110,7 +115,9 @@ class SyncPermissionsTest extends TestCase {
                 ->shouldReceive('getPermissions')
                 ->once()
                 ->andReturns([
-                    new Permission('permission-a'),
+                    new class('permission-a') extends Permission {
+                        // empty
+                    },
                 ]);
         });
         $this->override(Client::class, function (MockInterface $mock) use ($groupId): void {
@@ -166,8 +173,12 @@ class SyncPermissionsTest extends TestCase {
                 ->shouldReceive('getPermissions')
                 ->once()
                 ->andReturns([
-                    new Permission('permission-a', orgAdmin: true),
-                    new Permission('permission-b', orgAdmin: false),
+                    new class('permission-a') extends Permission implements IsOrgAdmin {
+                        // empty
+                    },
+                    new class('permission-b') extends Permission {
+                        // empty
+                    },
                 ]);
         });
         $this->override(Client::class, function (MockInterface $mock) use ($groupId, $groupName): void {
