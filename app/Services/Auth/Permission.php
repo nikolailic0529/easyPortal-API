@@ -4,8 +4,8 @@ namespace App\Services\Auth;
 
 use Stringable;
 
-class Permission implements Stringable {
-    public function __construct(
+abstract class Permission implements Stringable {
+    protected function __construct(
         protected string $name,
         protected bool $orgAdmin = false,
     ) {

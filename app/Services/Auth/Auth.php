@@ -6,6 +6,30 @@ use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
+use App\Services\Auth\Permissions\Administer;
+use App\Services\Auth\Permissions\AssetsDownload;
+use App\Services\Auth\Permissions\AssetsSupport;
+use App\Services\Auth\Permissions\AssetsSync;
+use App\Services\Auth\Permissions\AssetsView;
+use App\Services\Auth\Permissions\ContractsDownload;
+use App\Services\Auth\Permissions\ContractsSupport;
+use App\Services\Auth\Permissions\ContractsSync;
+use App\Services\Auth\Permissions\ContractsView;
+use App\Services\Auth\Permissions\CustomersDownload;
+use App\Services\Auth\Permissions\CustomersSupport;
+use App\Services\Auth\Permissions\CustomersSync;
+use App\Services\Auth\Permissions\CustomersView;
+use App\Services\Auth\Permissions\OrgAdminister;
+use App\Services\Auth\Permissions\QuotesDownload;
+use App\Services\Auth\Permissions\QuotesSupport;
+use App\Services\Auth\Permissions\QuotesSync;
+use App\Services\Auth\Permissions\QuotesView;
+use App\Services\Auth\Permissions\RequestsAssetAdd;
+use App\Services\Auth\Permissions\RequestsAssetChange;
+use App\Services\Auth\Permissions\RequestsContractChange;
+use App\Services\Auth\Permissions\RequestsCustomerChange;
+use App\Services\Auth\Permissions\RequestsQuoteAdd;
+use App\Services\Auth\Permissions\RequestsQuoteChange;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
@@ -51,36 +75,36 @@ class Auth {
     public function getPermissions(): array {
         return [
             // Assets
-            new Permission('assets-view', orgAdmin: true),
-            new Permission('assets-support', orgAdmin: true),
-            new Permission('assets-download', orgAdmin: true),
-            new Permission('assets-sync', orgAdmin: true),
+            new AssetsView(),
+            new AssetsSupport(),
+            new AssetsDownload(),
+            new AssetsSync(),
             // Contracts
-            new Permission('contracts-view', orgAdmin: true),
-            new Permission('contracts-support', orgAdmin: true),
-            new Permission('contracts-download', orgAdmin: true),
-            new Permission('contracts-sync', orgAdmin: true),
+            new ContractsView(),
+            new ContractsSupport(),
+            new ContractsDownload(),
+            new ContractsSync(),
             // Customers
-            new Permission('customers-view', orgAdmin: true),
-            new Permission('customers-support', orgAdmin: true),
-            new Permission('customers-download', orgAdmin: true),
-            new Permission('customers-sync', orgAdmin: true),
+            new CustomersView(),
+            new CustomersSupport(),
+            new CustomersDownload(),
+            new CustomersSync(),
             // Quotes
-            new Permission('quotes-view', orgAdmin: true),
-            new Permission('quotes-support', orgAdmin: true),
-            new Permission('quotes-download', orgAdmin: true),
-            new Permission('quotes-sync', orgAdmin: true),
+            new QuotesView(),
+            new QuotesSupport(),
+            new QuotesDownload(),
+            new QuotesSync(),
             // "+ Request" buttons
-            new Permission('requests-asset-add', orgAdmin: true),
-            new Permission('requests-asset-change', orgAdmin: true),
-            new Permission('requests-quote-add', orgAdmin: true),
-            new Permission('requests-quote-change', orgAdmin: true),
-            new Permission('requests-customer-change', orgAdmin: true),
-            new Permission('requests-contract-change', orgAdmin: true),
+            new RequestsAssetAdd(),
+            new RequestsAssetChange(),
+            new RequestsQuoteAdd(),
+            new RequestsQuoteChange(),
+            new RequestsCustomerChange(),
+            new RequestsContractChange(),
             // Your Organization
-            new Permission('org-administer', orgAdmin: true),
+            new OrgAdminister(),
             // Portal Administration
-            new Permission('administer', orgAdmin: false),
+            new Administer(),
         ];
     }
 
