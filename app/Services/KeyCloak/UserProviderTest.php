@@ -185,7 +185,7 @@ class UserProviderTest extends TestCase {
 
         $auth = Mockery::mock(Auth::class);
         $auth
-            ->shouldReceive('getPermissions')
+            ->shouldReceive('getAvailablePermissions')
             ->once()
             ->andReturn([
                 new class('permission-a') extends Permission {
@@ -201,13 +201,6 @@ class UserProviderTest extends TestCase {
             ->shouldReceive('getClientId')
             ->once()
             ->andReturn($clientId);
-
-        $rootOrganization = Mockery::mock(RootOrganization::class);
-        $rootOrganization
-            ->shouldReceive('is')
-            ->with($organization)
-            ->once()
-            ->andReturn(true);
 
         $provider = Mockery::mock(UserProvider::class);
         $provider->shouldAllowMockingProtectedMethods();
@@ -225,10 +218,6 @@ class UserProviderTest extends TestCase {
             ->shouldReceive('getOrganization')
             ->once()
             ->andReturn($organization);
-        $provider
-            ->shouldReceive('getRootOrganization')
-            ->once()
-            ->andReturn($rootOrganization);
 
         // Test
         $user   = new User();
@@ -332,18 +321,12 @@ class UserProviderTest extends TestCase {
      * @param array<string>     $expected
      * @param array<Permission> $permissions
      */
-    public function testGetPermissions(array $expected, ?bool $organization, array $permissions, Closure $claims): void {
-        if ($organization !== null) {
-            $organization = $organization
-                ? $this->setRootOrganization(Organization::factory()->create())
-                : Organization::factory()->create();
-        }
-
+    public function testGetPermissions(array $expected, bool $organization, array $permissions, Closure $claims): void {
         $auth = Mockery::mock(Auth::class);
 
         if ($organization) {
             $auth
-                ->shouldReceive('getPermissions')
+                ->shouldReceive('getAvailablePermissions')
                 ->once()
                 ->andReturn($permissions);
         }
@@ -358,6 +341,7 @@ class UserProviderTest extends TestCase {
                 ->andReturn($clientId);
         }
 
+        $org      = $organization ? new Organization() : null;
         $root     = $this->app->make(RootOrganization::class);
         $user     = User::factory()->create();
         $claims   = $claims($this, $clientId);
@@ -377,7 +361,7 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $this->assertEquals($expected, $provider->getPermissions($user, $token, $organization));
+        $this->assertEquals($expected, $provider->getPermissions($user, $token, $org));
     }
     // </editor-fold>
 
@@ -932,18 +916,13 @@ class UserProviderTest extends TestCase {
      * @return array<string,mixed>
      */
     public function dataProviderGetPermissions(): array {
-        $permissions = [
-            new class('permission-a') extends Permission implements IsRoot {
-                // empty,
-            },
-            new class('permission-b') extends Permission {
-                // empty,
-            },
-            new class('permission-c') extends Permission {
-                // empty,
-            },
-        ];
-        $claims      = static function (self $test, string $client): array {
+        $a      = new class('permission-a') extends Permission implements IsRoot {
+            // empty,
+        };
+        $b      = new class('permission-b') extends Permission {
+            // empty,
+        };
+        $claims = static function (self $test, string $client): array {
             return [
                 'typ'             => 'Bearer',
                 'resource_access' => [
@@ -958,29 +937,20 @@ class UserProviderTest extends TestCase {
         };
 
         return [
-            'no organization'   => [
+            'no organization' => [
                 [
                     // empty
                 ],
-                null,
-                $permissions,
-                $claims,
-            ],
-            'organization'      => [
-                [
-                    'permission-b',
-                ],
                 false,
-                $permissions,
+                [$a, $b],
                 $claims,
             ],
-            'root organization' => [
+            'organization'    => [
                 [
-                    'permission-a',
                     'permission-b',
                 ],
                 true,
-                $permissions,
+                [$b],
                 $claims,
             ],
         ];

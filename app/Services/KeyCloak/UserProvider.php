@@ -7,7 +7,7 @@ use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permissions\Markers\IsRoot;
+use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
 use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData;
@@ -25,6 +25,7 @@ use Lcobucci\JWT\UnencryptedToken;
 use function array_filter;
 use function array_intersect;
 use function array_keys;
+use function array_map;
 use function array_unique;
 use function array_values;
 
@@ -394,20 +395,10 @@ class UserProvider implements UserProviderContract {
         $roles = array_unique(array_values($roles));
 
         // Available
-        $isRoot      = $this->getRootOrganization()->is($organization);
-        $permissions = [];
-
-        foreach ($this->getAuth()->getPermissions() as $permission) {
-            if (!$isRoot && $permission instanceof IsRoot) {
-                continue;
-            }
-
-            $permissions[] = $permission->getName();
-        }
-
-        // Filter
-        $roles = array_intersect($roles, $permissions);
-        $roles = array_values($roles);
+        $permissions = $this->getAuth()->getAvailablePermissions($organization);
+        $permissions = array_map(static fn(Permission $permission): string => $permission->getName(), $permissions);
+        $roles       = array_intersect($roles, $permissions);
+        $roles       = array_values($roles);
 
         // Return
         return $roles;

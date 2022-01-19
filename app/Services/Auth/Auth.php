@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
@@ -19,6 +20,7 @@ use App\Services\Auth\Permissions\CustomersDownload;
 use App\Services\Auth\Permissions\CustomersSupport;
 use App\Services\Auth\Permissions\CustomersSync;
 use App\Services\Auth\Permissions\CustomersView;
+use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Auth\Permissions\OrgAdminister;
 use App\Services\Auth\Permissions\QuotesDownload;
 use App\Services\Auth\Permissions\QuotesSupport;
@@ -31,6 +33,7 @@ use App\Services\Auth\Permissions\RequestsCustomerChange;
 use App\Services\Auth\Permissions\RequestsQuoteAdd;
 use App\Services\Auth\Permissions\RequestsQuoteChange;
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 
@@ -40,7 +43,8 @@ use function is_null;
 class Auth {
     public function __construct(
         protected Factory $auth,
-        protected CurrentOrganization $organization,
+        protected RootOrganization $rootOrganization,
+        protected CurrentOrganization $currentOrganization,
     ) {
         // empty
     }
@@ -64,8 +68,8 @@ class Auth {
             return true;
         }
 
-        return $this->organization->defined()
-            ? $user->isEnabled($this->organization->get())
+        return $this->currentOrganization->defined()
+            ? $user->isEnabled($this->currentOrganization->get())
             : $user->isEnabled(null);
     }
 
@@ -106,6 +110,24 @@ class Auth {
             // Portal Administration
             new Administer(),
         ];
+    }
+
+    /**
+     * @return array<\App\Services\Auth\Permission>
+     */
+    public function getAvailablePermissions(Organization $organization): array {
+        $isRoot      = $this->rootOrganization->is($organization);
+        $permissions = [];
+
+        foreach ($this->getPermissions() as $permission) {
+            if (!$isRoot && $permission instanceof IsRoot) {
+                continue;
+            }
+
+            $permissions[] = $permission;
+        }
+
+        return $permissions;
     }
 
     protected function hasPermission(Authenticatable|null $user, string $permission): bool {
