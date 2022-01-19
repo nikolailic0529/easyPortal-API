@@ -26,24 +26,6 @@ class SignUpByInvite {
     }
 
     /**
-     * @deprecated
-     *
-     * @param array<mixed> $args
-     *
-     * @return array<mixed>
-     */
-    public function deprecated(mixed $root, array $args): array {
-        return ($this)($root, [
-            'token' => $args['input']['token'],
-            'input' => [
-                'given_name'  => $args['input']['given_name'],
-                'family_name' => $args['input']['family_name'],
-                'password'    => $args['input']['password'],
-            ],
-        ]);
-    }
-
-    /**
      * @param array{token:string,input:array<string,mixed>} $args
      *
      * @return array{result: bool, url: ?string}

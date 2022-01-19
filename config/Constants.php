@@ -407,34 +407,6 @@ interface Constants {
     public const EP_CLIENT_PASSWORD_RESET_URI = 'auth/reset-password/{token}?email={email}';
 
     /**
-     * The URI (can be relative) where user should be redirected to add his password
-     * Access EP after invitation.
-     *
-     * Replacements:
-     * * `{token}` - token
-     *
-     * @deprecated
-     */
-    #[Setting('ep.client.signup_invite_uri')]
-    #[Group('client')]
-    #[Type(StringType::class)]
-    public const EP_CLIENT_SIGNUP_INVITE_URI = 'auth/signup/{token}';
-
-    /**
-     * The URI (can be relative) where user should be redirected to access portal.
-     * Access EP after invitation.
-     *
-     * Replacements:
-     * * `{organization}` - organization
-     *
-     * @deprecated
-     */
-    #[Setting('ep.client.signin_invite_uri')]
-    #[Group('client')]
-    #[Type(StringType::class)]
-    public const EP_CLIENT_SIGNIN_INVITE_URI = 'auth/organizations/{organization}';
-
-    /**
      * The URI (can be relative) where user should be redirected to complete
      * Sign Up by invitation.
      *

@@ -33,25 +33,3 @@ type AuthSignUpByInvitePayload implements Payload{
   "The link where the User should be redirected to Sign In."
   url: Url
 }
-
-# Deprecated
-extend type Mutation {
-  signUpByInvite(
-    input: SignUpByInviteInput!
-  ): SignUpByInvitePayload
-  @deprecated(reason: "Please use `auth { signUpByInvite }` instead.")
-  @guest
-  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite@deprecated")
-}
-
-input SignUpByInviteInput @validator {
-  token: String!
-  given_name: String!
-  family_name: String!
-  password: String!
-}
-
-type SignUpByInvitePayload {
-  "The link where the User should be redirected to Sign In."
-  url: Url!
-}
