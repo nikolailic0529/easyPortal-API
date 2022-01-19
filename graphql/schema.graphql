@@ -57,7 +57,9 @@ type Query {
   permissions: [Permission!]!
   @organization
   @me(permissions: ["administer", "org-administer"])
-  @all
+  @field(
+    resolver: "App\\GraphQL\\Queries\\Permissions"
+  )
 
   "List of all possible teams."
   teams: [Team!]!

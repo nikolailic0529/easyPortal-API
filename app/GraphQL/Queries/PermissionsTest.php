@@ -2,13 +2,22 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Organization;
 use App\Models\Permission;
+use App\Services\Auth\Auth;
+use App\Services\Auth\Permission as AuthPermission;
+use App\Services\Auth\Permissions\Markers\IsRoot;
+use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\RootOrganization;
 use Closure;
+use Illuminate\Contracts\Auth\Factory;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
+use Mockery;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -33,7 +42,22 @@ class PermissionsTest extends TestCase {
         $this->setTranslations($translationsFactory);
 
         if ($permissionsFactory) {
-            $permissionsFactory($this);
+            $permissions = $permissionsFactory($this);
+
+            $this->override(Auth::class, function () use ($permissions): MockInterface {
+                $auth                = $this->app->make(Factory::class);
+                $rootOrganization    = $this->app->make(RootOrganization::class);
+                $currentOrganization = $this->app->make(CurrentOrganization::class);
+
+                $mock = Mockery::mock(Auth::class, [$auth, $rootOrganization, $currentOrganization]);
+                $mock->makePartial();
+                $mock
+                    ->shouldReceive('getPermissions')
+                    ->once()
+                    ->andReturn($permissions);
+
+                return $mock;
+            });
         }
 
         // Test
@@ -56,14 +80,26 @@ class PermissionsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $provider = new ArrayDataProvider([
+        $a      = new class('permission-a') extends AuthPermission implements IsRoot {
+            // empty,
+        };
+        $b      = new class('permission-b') extends AuthPermission {
+            // empty,
+        };
+        $root   = new ArrayDataProvider([
             'ok' => [
                 new GraphQLSuccess('permissions', self::class, [
                     [
                         'id'          => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                        'name'        => 'translated-name',
-                        'key'         => 'assets-view',
-                        'description' => 'translated-description',
+                        'name'        => 'translated-a-name',
+                        'key'         => 'permission-a',
+                        'description' => 'translated-a-description',
+                    ],
+                    [
+                        'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
+                        'name'        => 'permission-b',
+                        'key'         => 'permission-b',
+                        'description' => 'permission-b',
                     ],
                 ]),
                 static function (TestCase $test, string $locale): array {
@@ -72,34 +108,111 @@ class PermissionsTest extends TestCase {
 
                     return [
                         $locale => [
-                            "models.{$model}.{$id}.name"        => 'translated-name',
-                            "models.{$model}.{$id}.description" => 'translated-description',
+                            "models.{$model}.{$id}.name"        => 'translated-a-name',
+                            "models.{$model}.{$id}.description" => 'translated-a-description',
                         ],
                     ];
                 },
-                static function (): void {
+                static function () use ($a, $b): array {
                     Permission::factory()->create([
                         'id'  => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                        'key' => 'assets-view',
+                        'key' => 'permission-a',
                     ]);
+                    Permission::factory()->create([
+                        'id'  => '42c1ad7c-d371-47cc-8809-59a491f18406',
+                        'key' => 'permission-b',
+                    ]);
+                    Permission::factory()->create([
+                        'id'  => '1e454d44-70b3-447f-97e6-e2bbcdf148e1',
+                        'key' => 'permission-c',
+                    ]);
+
+                    return [$a, $b];
+                },
+            ],
+        ]);
+        $normal = new ArrayDataProvider([
+            'ok' => [
+                new GraphQLSuccess('permissions', self::class, [
+                    [
+                        'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
+                        'name'        => 'permission-b',
+                        'key'         => 'permission-b',
+                        'description' => 'permission-b',
+                    ],
+                ]),
+                null,
+                static function () use ($a, $b): array {
+                    Permission::factory()->create([
+                        'id'  => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'key' => 'permission-a',
+                    ]);
+                    Permission::factory()->create([
+                        'id'  => '42c1ad7c-d371-47cc-8809-59a491f18406',
+                        'key' => 'permission-b',
+                    ]);
+                    Permission::factory()->create([
+                        'id'  => '1e454d44-70b3-447f-97e6-e2bbcdf148e1',
+                        'key' => 'permission-c',
+                    ]);
+
+                    return [$a, $b];
                 },
             ],
         ]);
 
         return (new MergeDataProvider([
-            'administer'     => new CompositeDataProvider(
-                new OrganizationDataProvider('permissions'),
-                new OrganizationUserDataProvider('permissions', [
-                    'administer',
+            'root organization'   => new CompositeDataProvider(
+                new ArrayDataProvider([
+                    [
+                        new UnknownValue(),
+                        static function (TestCase $test): ?Organization {
+                            return $test->setRootOrganization(
+                                Organization::factory()->create(),
+                            );
+                        },
+                    ],
                 ]),
-                $provider,
+                new MergeDataProvider([
+                    'administer'     => new CompositeDataProvider(
+                        new OrganizationUserDataProvider('permissions', [
+                            'administer',
+                        ]),
+                        $root,
+                    ),
+                    'org-administer' => new CompositeDataProvider(
+                        new OrganizationUserDataProvider('permissions', [
+                            'org-administer',
+                        ]),
+                        $root,
+                    ),
+                ]),
             ),
-            'org-administer' => new CompositeDataProvider(
-                new OrganizationDataProvider('permissions'),
-                new OrganizationUserDataProvider('permissions', [
-                    'org-administer',
+            'normal organization' => new CompositeDataProvider(
+                new ArrayDataProvider([
+                    [
+                        new UnknownValue(),
+                        static function (TestCase $test): ?Organization {
+                            return $test->setOrganization(
+                                Organization::factory()->create(),
+                            );
+                        },
+                    ],
                 ]),
-                $provider,
+                new MergeDataProvider([
+                    'administer'     => new CompositeDataProvider(
+                        new OrganizationUserDataProvider('permissions', [
+                            'administer',
+                        ]),
+                        $normal,
+                    ),
+                    'org-administer' => new CompositeDataProvider(
+                        new OrganizationUserDataProvider('permissions', [
+                            'org-administer',
+                        ]),
+                        $normal,
+                    ),
+                ]),
             ),
         ]))->getData();
     }
