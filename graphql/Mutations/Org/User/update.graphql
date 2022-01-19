@@ -20,7 +20,6 @@ input OrgUserUpdateInput {
   office_phone: PhoneNumber @isNullable @isPhoneNumber
   mobile_phone: PhoneNumber @isNullable @isPhoneNumber
   contact_email: Email @isNullable @isEmail
-  department: String
   job_title: String
   photo: Upload @isNullable @isImage
   homepage: String

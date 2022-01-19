@@ -568,15 +568,6 @@ type AuthSignUpByInvitePayload implements Payload {
   url: Url
 }
 
-input AuthorizeOrganizationInput {
-  code: String!
-  state: String!
-}
-
-type AuthorizeOrganizationPayload {
-  me: Me
-}
-
 enum CachedMode {
   """
   In this mode all queries will be cached in addition the resolver will
@@ -760,15 +751,6 @@ input CreateMeSearchInput {
 
 type CreateMeSearchPayload {
   created: MeSearch!
-}
-
-input CreateOrgRoleInput {
-  name: String!
-  permissions: [ID!]
-}
-
-type CreateOrgRolePayload {
-  created: Role!
 }
 
 input CreateQuoteNoteInput {
@@ -997,36 +979,12 @@ type DeleteMeSearchPayload {
   deleted: Boolean!
 }
 
-input DeleteOrgRoleInput {
-  id: ID!
-}
-
-type DeleteOrgRolePayload {
-  deleted: Boolean!
-}
-
 input DeleteQuoteNoteInput {
   id: ID!
 }
 
 type DeleteQuoteNotePayload {
   deleted: Boolean!
-}
-
-input DisableOrgUserInput {
-  id: ID!
-}
-
-type DisableOrgUserPayload {
-  result: Boolean!
-}
-
-input DisableUserInput {
-  id: ID!
-}
-
-type DisableUserPayload {
-  result: Boolean!
 }
 
 input DispatchApplicationServiceInput {
@@ -1193,22 +1151,6 @@ input DocumentsSort {
 
 """The Email."""
 scalar Email
-
-input EnableOrgUserInput {
-  id: ID!
-}
-
-type EnableOrgUserPayload {
-  result: Boolean!
-}
-
-input EnableUserInput {
-  id: ID!
-}
-
-type EnableUserPayload {
-  result: Boolean!
-}
 
 type File {
   id: ID!
@@ -1400,7 +1342,6 @@ type Me {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
@@ -1410,7 +1351,6 @@ type Me {
   enabled: Boolean!
   previous_sign_in: DateTime
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
-  profile: Profile @deprecated(reason: "Please use `Me` properties.")
 }
 
 type MeMutations {
@@ -1451,7 +1391,6 @@ input MeUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String
@@ -1516,20 +1455,6 @@ type Mutation {
   authenticated and have any of these permissions.
   """
   deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  disableUser(input: DisableUserInput!): DisableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
-  """
-  enableUser(input: EnableUserInput!): EnableUserPayload @deprecated(reason: "Please use `user(id) { update }` instead.")
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1685,13 +1610,6 @@ type Mutation {
   auth: AuthMutations
 
   """
-  Finish the Sign In for Organization.
-  
-  @require <guest> Current visitor must be a guest.
-  """
-  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { authorize } }` instead.")
-
-  """
   Reset password.
   
   @require <guest> Current visitor must be a guest.
@@ -1712,31 +1630,10 @@ type Mutation {
   """
   signIn(input: SignInInput): SignInPayload
 
-  """
-  Begins the Sign In for Organization.
-  
-  @require <guest> Current visitor must be a guest.
-  """
-  signInOrganization(input: SignInOrganizationInput): SignInOrganizationPayload @deprecated(reason: "Please use `auth { organization(id) { signIn } }` instead.")
-
-  """
-  Sign Out.
-  
-  @require <me> User must be authenticated.
-  """
-  signOut: SignOutPayload @deprecated(reason: "Please use `auth { signOut }` instead.")
-
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload @deprecated(reason: "Please use `auth { signUpByInvite }` instead.")
   contract: ContractMutations
   customer: CustomerMutations
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  updateMe(input: UpdateMeInput!): UpdateMePayload @deprecated(reason: "Please use `me { update }`")
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1773,38 +1670,6 @@ type Mutation {
   org: OrgMutations
 
   """
-  Create Organization Role.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  createOrgRole(input: CreateOrgRoleInput): CreateOrgRolePayload @deprecated(reason: "Please use `mutation { org { role { create }` instead.")
-
-  """
-  DELETE Organization Role.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload @deprecated(reason: "Please use `mutation { org { role(id: <id>) { delete }` instead.")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  disableOrgUser(input: DisableOrgUserInput!): DisableOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  enableOrgUser(input: EnableOrgUserInput!): EnableOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
-
-  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
@@ -1833,31 +1698,6 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
-
-  """
-  Update Organization Role.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload @deprecated(reason: "Please use `mutation { org { role(id) { update }` instead.")
-
-  """
-  Update Organization Roles.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload @deprecated(reason: "Please use `mutation { org { role(id) { update }` instead.")
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrgUser(input: UpdateOrgUserInput!): UpdateOrgUserPayload @deprecated(reason: "Please use `org { user(id) { update } }`")
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -2031,7 +1871,6 @@ input OrgUserUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String
@@ -2206,21 +2045,6 @@ input ProductsSort {
   name: String!
   eol: Date
   eos: Date
-}
-
-type Profile {
-  given_name: String
-  family_name: String
-  title: String
-  academic_title: String
-  office_phone: String
-  mobile_phone: String
-  contact_email: Email
-  department: String
-  job_title: String
-  company: String
-  phone: PhoneNumber
-  photo: Url
 }
 
 type Query {
@@ -5325,22 +5149,8 @@ input SignInInput {
   password: String!
 }
 
-input SignInOrganizationInput {
-  organization_id: ID!
-}
-
-type SignInOrganizationPayload {
-  """The link where the User should be redirected to Sign In."""
-  url: Url!
-}
-
 type SignInPayload {
   me: Me
-}
-
-type SignOutPayload {
-  """The link where the User should be redirected to complete Sign Out."""
-  url: Url
 }
 
 input SignUpByInviteInput {
@@ -6448,32 +6258,12 @@ type UpdateMeEmailPayload {
   result: Boolean!
 }
 
-input UpdateMeInput {
-  given_name: String
-  family_name: String
-  title: String
-  academic_title: String
-  office_phone: String
-  mobile_phone: String
-  contact_email: Email
-  department: String
-  job_title: String
-  photo: Upload
-  homepage: String
-  locale: String
-  timezone: String
-}
-
 input UpdateMePasswordInput {
   current_password: String
   password: String!
 }
 
 type UpdateMePasswordPayload {
-  result: Boolean!
-}
-
-type UpdateMePayload {
   result: Boolean!
 }
 
@@ -6502,49 +6292,6 @@ input UpdateOrgInput {
 type UpdateOrgPayload {
   result: Boolean!
   organization: Organization!
-}
-
-input UpdateOrgRoleInput {
-  id: ID!
-  name: String
-  permissions: [ID!]
-}
-
-type UpdateOrgRolePayload {
-  updated: Role!
-}
-
-input UpdateOrgRolesInput {
-  id: ID!
-  name: String
-  permissions: [ID!]
-}
-
-type UpdateOrgRolesPayload {
-  updated: [Role!]!
-}
-
-input UpdateOrgUserInput {
-  user_id: ID!
-  given_name: String
-  family_name: String
-  title: String
-  academic_title: String
-  office_phone: String
-  mobile_phone: String
-  contact_email: Email
-  department: String
-  job_title: String
-  photo: Upload
-  homepage: String
-  locale: String
-  timezone: String
-  role_id: ID
-  team_id: ID
-}
-
-type UpdateOrgUserPayload {
-  result: Boolean!
 }
 
 input UpdateQuoteNoteFile {
@@ -6583,7 +6330,6 @@ type User {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
@@ -6604,8 +6350,6 @@ type User {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   organizations: [UserOrganization!]!
-  team: Team @deprecated(reason: "Please use `organizations` property.")
-  role: Role @deprecated(reason: "Please use `organizations` property.")
 }
 
 type UserMutations {
@@ -6666,7 +6410,6 @@ input UserUpdateInput {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String
   job_title: String
   photo: Upload
   homepage: String

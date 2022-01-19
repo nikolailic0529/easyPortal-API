@@ -10,7 +10,6 @@ type User {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
@@ -27,12 +26,4 @@ type User {
   @organization
   @me(permissions: ["administer", "org-administer"])
   @hasMany
-
-  team: Team
-  @deprecated(reason: "Please use `organizations` property.")
-  @field(resolver: "App\\GraphQL\\Queries\\User@team")
-
-  role: Role
-  @deprecated(reason: "Please use `organizations` property.")
-  @field(resolver: "App\\GraphQL\\Queries\\User@role")
 }

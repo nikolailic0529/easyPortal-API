@@ -55,7 +55,7 @@ class KeyCloak {
         return $url;
     }
 
-    public function authorize(?Organization $organization, string $code, string $state): ?Authenticatable {
+    public function authorize(Organization $organization, string $code, string $state): ?Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
             throw new StateMismatch();

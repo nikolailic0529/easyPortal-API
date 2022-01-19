@@ -58,9 +58,6 @@ class UsersImporterTest extends TestCase {
                 'mobile_phone'   => [
                     '0100023023232',
                 ],
-                'department'     => [
-                    'hr',
-                ],
                 'job_title'      => [
                     'manger',
                 ],
@@ -119,7 +116,6 @@ class UsersImporterTest extends TestCase {
         $this->assertEquals($user->contact_email, $keycloakUser->attributes['contact_email'][0]);
         $this->assertEquals($user->title, $keycloakUser->attributes['title'][0]);
         $this->assertEquals($user->mobile_phone, $keycloakUser->attributes['mobile_phone'][0]);
-        $this->assertEquals($user->department, $keycloakUser->attributes['department'][0]);
         $this->assertEquals($user->job_title, $keycloakUser->attributes['job_title'][0]);
         $this->assertEquals($user->phone, $keycloakUser->attributes['phone'][0]);
         $this->assertEquals($user->company, $keycloakUser->attributes['company'][0]);

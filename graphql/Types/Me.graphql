@@ -12,7 +12,6 @@ type Me {
   office_phone: PhoneNumber
   mobile_phone: PhoneNumber
   contact_email: Email
-  department: String @deprecated
   job_title: String
   company: String
   phone: PhoneNumber
@@ -36,8 +35,4 @@ type Me {
     order: MeSearchSort @sortBy
   ): [MeSearch!]!
   @hasMany
-
-  profile: Profile
-  @deprecated(reason: "Please use `Me` properties.")
-  @field(resolver: "App\\GraphQL\\Queries\\Me@profile")
 }
