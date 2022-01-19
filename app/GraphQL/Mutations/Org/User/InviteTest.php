@@ -190,6 +190,10 @@ class InviteTest extends TestCase {
                                 'id'      => 'e7dbdf00-dcca-4263-8cf4-af9e36038f66',
                                 'enabled' => true,
                             ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once()
+                            ->andReturn(true);
                     },
                     $dataFactory,
                     static function (): void {
@@ -238,6 +242,10 @@ class InviteTest extends TestCase {
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once()
+                            ->andReturn(true);
                     },
                     $dataFactory,
                     static function (): void {
@@ -283,6 +291,10 @@ class InviteTest extends TestCase {
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once()
+                            ->andReturn(true);
                     },
                     $dataFactory,
                     static function (self $test, Organization $org, User $user, array $data): void {
@@ -335,6 +347,10 @@ class InviteTest extends TestCase {
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once()
+                            ->andReturn(true);
                     },
                     $dataFactory,
                     static function (self $test, Organization $org, User $user, array $data): void {

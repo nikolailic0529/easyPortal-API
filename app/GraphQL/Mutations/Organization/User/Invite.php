@@ -99,6 +99,8 @@ class Invite {
         $user->save();
 
         // Add to Organization
+        $this->client->addUserToGroup($keyCloakUser, $role->getKey());
+
         if (!$orgUser) {
             $orgUser               = new OrganizationUser();
             $orgUser->organization = $organization;
