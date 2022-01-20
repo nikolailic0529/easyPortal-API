@@ -33,6 +33,10 @@ class QuoteRequestDuration extends Model implements Translatable {
      */
     protected $table = 'quote_request_durations';
 
+    protected function getTranslatableKey(): ?string {
+        return $this->key;
+    }
+
     /**
      * @inheritdoc
      */

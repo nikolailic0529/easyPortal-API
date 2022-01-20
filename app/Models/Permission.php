@@ -34,6 +34,10 @@ class Permission extends Model implements Translatable {
      */
     protected $table = 'permissions';
 
+    protected function getTranslatableKey(): ?string {
+        return $this->key;
+    }
+
     /**
      * @inheritdoc
      */

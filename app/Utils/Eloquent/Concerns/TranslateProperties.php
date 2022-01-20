@@ -48,8 +48,23 @@ trait TranslateProperties {
      * @return array<string>
      */
     protected function getTranslatedPropertyKeys(string $property): array {
-        return [
-            "models.{$this->getMorphClass()}.{$this->getKey()}.{$property}",
+        $strings = [];
+        $model   = $this->getMorphClass();
+        $keys    = [
+            $this->getTranslatableKey(),
+            $this->getKey(),
         ];
+
+        foreach ($keys as $key) {
+            if ($key) {
+                $strings[] = "models.{$model}.{$key}.{$property}";
+            }
+        }
+
+        return $strings;
+    }
+
+    protected function getTranslatableKey(): ?string {
+        return null;
     }
 }

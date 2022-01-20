@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\GraphQL\Contracts\Translatable;
 use App\Models\Relations\HasDocumentEntries;
 use App\Models\Relations\HasOem;
+use App\Utils\Eloquent\Concerns\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,8 +27,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceGroup query()
  * @mixin \Eloquent
  */
-class ServiceGroup extends Model {
+class ServiceGroup extends Model implements Translatable {
     use HasFactory;
+    use TranslateProperties;
     use HasOem;
     use HasDocumentEntries;
 
@@ -36,4 +39,15 @@ class ServiceGroup extends Model {
      * @var string
      */
     protected $table = 'service_groups';
+
+    public function getTranslatableKey(): ?string {
+        return "{$this->oem->getTranslatableKey()}/{$this->sku}";
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTranslatableProperties(): array {
+        return ['name'];
+    }
 }

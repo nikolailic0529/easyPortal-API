@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\GraphQL\Contracts\Translatable;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasDocuments;
+use App\Utils\Eloquent\Concerns\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,8 +26,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Oem query()
  * @mixin \Eloquent
  */
-class Oem extends Model {
+class Oem extends Model implements Translatable {
     use HasFactory;
+    use TranslateProperties;
     use HasAssets;
     use HasDocuments;
 
@@ -35,4 +38,15 @@ class Oem extends Model {
      * @var string
      */
     protected $table = 'oems';
+
+    public function getTranslatableKey(): ?string {
+        return $this->key;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTranslatableProperties(): array {
+        return ['name'];
+    }
 }

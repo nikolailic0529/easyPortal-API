@@ -180,35 +180,17 @@ class OemsImporterTest extends TestCase {
 
         // Translations
         $translations = $storage->load();
-        $expected     = [];
-        $regexp       = '/^(models\.ServiceLevel)\.([^.]+)\.(.+)/u';
-        $callback     = static function (array $matches) use ($oems, $groups, $levels): string {
-            /** @var \App\Models\ServiceLevel|null $level */
-            $level = $levels->get($matches[2]);
-
-            return implode('.', [
-                $matches[1],
-                $oems->get($level?->oem_id)?->key,
-                $groups->get($level?->service_group_id)?->sku,
-                $level?->sku,
-                $matches[3],
-            ]);
-        };
-
-        foreach ($translations as $key => $translation) {
-            $expected[preg_replace_callback($regexp, $callback, $key)] = $translation;
-        }
 
         $this->assertEquals([
-            'models.ServiceLevel.ABC.GA.LA.name'        => 'Level LA French',
-            'models.ServiceLevel.ABC.GA.LA.description' => "Level LA Description French\nline of text",
-            'models.ServiceLevel.ABC.GB.LB.name'        => 'Level LB French',
-            'models.ServiceLevel.ABC.GB.LB.description' => "Level LB Description French\nline of text",
-            'models.ServiceLevel.ABC.GC.LC.name'        => 'Level LC French',
-            'models.ServiceLevel.ABC.GC.LD.name'        => 'Level LD French',
-            'models.ServiceLevel.ABC.GC.LD.description' => "Level LD Description French\nline of text",
-            'models.ServiceLevel.CBA.GA.LA.name'        => 'Level LA French',
-            'models.ServiceLevel.CBA.GA.LA.description' => "Level LA Description French\nline of text",
-        ], $expected);
+            'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA French',
+            'models.ServiceLevel.ABC/GA/LA.description' => "Level LA Description French\nline of text",
+            'models.ServiceLevel.ABC/GB/LB.name'        => 'Level LB French',
+            'models.ServiceLevel.ABC/GB/LB.description' => "Level LB Description French\nline of text",
+            'models.ServiceLevel.ABC/GC/LC.name'        => 'Level LC French',
+            'models.ServiceLevel.ABC/GC/LD.name'        => 'Level LD French',
+            'models.ServiceLevel.ABC/GC/LD.description' => "Level LD Description French\nline of text",
+            'models.ServiceLevel.CBA/GA/LA.name'        => 'Level LA French',
+            'models.ServiceLevel.CBA/GA/LA.description' => "Level LA Description French\nline of text",
+        ], $translations);
     }
 }

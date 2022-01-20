@@ -36,6 +36,10 @@ class Currency extends Model implements Translatable {
      */
     protected $table = 'currencies';
 
+    protected function getTranslatableKey(): ?string {
+        return $this->code;
+    }
+
     /**
      * @inheritdoc
      */

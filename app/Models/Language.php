@@ -36,6 +36,10 @@ class Language extends Model implements Translatable {
      */
     protected $table = 'languages';
 
+    protected function getTranslatableKey(): ?string {
+        return $this->code;
+    }
+
     /**
      * @inheritdoc
      */

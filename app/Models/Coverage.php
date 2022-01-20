@@ -36,6 +36,10 @@ class Coverage extends Model implements Translatable {
      */
     protected $table = 'coverages';
 
+    protected function getTranslatableKey(): ?string {
+        return $this->key;
+    }
+
     /**
      * @inheritdoc
      */

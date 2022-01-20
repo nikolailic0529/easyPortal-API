@@ -42,6 +42,10 @@ class Country extends Model implements Translatable {
      */
     protected $table = 'countries';
 
+    protected function getTranslatableKey(): ?string {
+        return $this->code;
+    }
+
     /**
      * @inheritdoc
      */
