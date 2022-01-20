@@ -112,6 +112,8 @@
     "validation.file_id": "Unknown File.",
     "validation.color": "Color should be in #RRGGBB format.",
     "validation.permissions_id": "Unknown permission",
+    "validation.org_permission_id": "Unknown permission.",
+    "validation.organization_permissions_id": "Unknown permission.",
     "validation.asset_id": "Unknown Asset",
     "validation.customer_id": "Unknown Customer",
     "validation.oem_id": "Unknown Oem",
