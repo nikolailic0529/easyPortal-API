@@ -6,6 +6,8 @@ use App\Models\Organization;
 use App\Models\Permission;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission as AuthPermission;
+use App\Services\Auth\Permissions;
+use App\Services\Auth\Permissions as AuthPermissions;
 use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
@@ -44,19 +46,24 @@ class PermissionsTest extends TestCase {
         if ($permissionsFactory) {
             $permissions = $permissionsFactory($this);
 
-            $this->override(Auth::class, function () use ($permissions): MockInterface {
-                $auth                = $this->app->make(Factory::class);
-                $rootOrganization    = $this->app->make(RootOrganization::class);
-                $currentOrganization = $this->app->make(CurrentOrganization::class);
+            $this->override(AuthPermissions::class, function () use ($permissions): AuthPermissions {
+                return new class($permissions) extends Permissions {
+                    /**
+                     * @param array<\App\Services\Auth\Permission> $permissions
+                     */
+                    public function __construct(
+                        protected array $permissions,
+                    ) {
+                        parent::__construct();
+                    }
 
-                $mock = Mockery::mock(Auth::class, [$auth, $rootOrganization, $currentOrganization]);
-                $mock->makePartial();
-                $mock
-                    ->shouldReceive('getPermissions')
-                    ->once()
-                    ->andReturn($permissions);
-
-                return $mock;
+                    /**
+                     * @inheritDoc
+                     */
+                    public function get(): array {
+                        return $this->permissions;
+                    }
+                };
             });
         }
 

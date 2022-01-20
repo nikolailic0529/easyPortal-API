@@ -185,25 +185,35 @@ class AuthTest extends TestCase {
             ->once()
             ->andReturn($isRootOrganization);
 
-        $service = new class($rootOrganization, $permissions) extends Auth {
+        $permissions = new class($permissions) extends Permissions {
             /**
              * @param array<\App\Services\Auth\Permission> $permissions
              */
             public function __construct(
-                protected RootOrganization $rootOrganization,
                 protected array $permissions,
             ) {
-                // empty
+                parent::__construct();
             }
 
             /**
              * @inheritDoc
              */
-            public function getPermissions(): array {
+            public function get(): array {
                 return $this->permissions;
             }
         };
-        $actual  = $service->getAvailablePermissions(new Organization());
+
+        $service = new class($rootOrganization, $permissions) extends Auth {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected RootOrganization $rootOrganization,
+                protected Permissions $permissions,
+            ) {
+                // empty
+            }
+        };
+
+        $actual = $service->getAvailablePermissions(new Organization());
 
         $this->assertEquals($expected, $actual);
     }
