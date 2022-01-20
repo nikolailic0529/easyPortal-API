@@ -4,14 +4,15 @@ namespace App\Rules\Org;
 
 use App\Models\Permission;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission as AuthPermission;
+use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Collection;
 
 use function __;
 
 class PermissionId implements Rule {
+    use AvailablePermissions;
+
     public function __construct(
         protected Auth $auth,
         protected CurrentOrganization $organization,
@@ -28,11 +29,7 @@ class PermissionId implements Rule {
         }
 
         $organization = $this->organization->get();
-        $available    = (new Collection($this->auth->getAvailablePermissions($organization)))
-            ->map(static function (AuthPermission $permission): string {
-                return $permission->getName();
-            })
-            ->all();
+        $available    = $this->getAvailablePermissions($organization);
         $exists       = Permission::query()
             ->whereKey($value)
             ->whereIn('key', $available)
@@ -43,5 +40,9 @@ class PermissionId implements Rule {
 
     public function message(): string {
         return __('validation.org_permission_id');
+    }
+
+    protected function getAuth(): Auth {
+        return $this->auth;
     }
 }

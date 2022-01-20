@@ -4,11 +4,13 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Permission;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission as AuthPermission;
+use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Support\Collection;
 
 class Permissions {
+    use AvailablePermissions;
+
     public function __construct(
         protected Auth $auth,
         protected CurrentOrganization $organization,
@@ -21,14 +23,15 @@ class Permissions {
      */
     public function __invoke(): Collection {
         $organization = $this->organization->get();
-        $available    = (new Collection($this->auth->getAvailablePermissions($organization)))
-            ->map(static function (AuthPermission $permission): string {
-                return $permission->getName();
-            });
+        $available    = $this->getAvailablePermissions($organization);
         $permissions  = Permission::query()
             ->whereIn('key', $available)
             ->get();
 
         return $permissions;
+    }
+
+    protected function getAuth(): Auth {
+        return $this->auth;
     }
 }
