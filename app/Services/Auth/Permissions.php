@@ -15,6 +15,12 @@ use App\Services\Auth\Permissions\CustomersDownload;
 use App\Services\Auth\Permissions\CustomersSupport;
 use App\Services\Auth\Permissions\CustomersSync;
 use App\Services\Auth\Permissions\CustomersView;
+use App\Services\Auth\Permissions\MapWidgetAssets;
+use App\Services\Auth\Permissions\MapWidgetAssetSplit;
+use App\Services\Auth\Permissions\MapWidgetContractValue;
+use App\Services\Auth\Permissions\MapWidgetCoverage;
+use App\Services\Auth\Permissions\MapWidgetCustomers;
+use App\Services\Auth\Permissions\MapWidgetInsights;
 use App\Services\Auth\Permissions\OrgAdminister;
 use App\Services\Auth\Permissions\QuotesDownload;
 use App\Services\Auth\Permissions\QuotesSupport;
@@ -57,6 +63,13 @@ class Permissions {
             new QuotesSupport(),
             new QuotesDownload(),
             new QuotesSync(),
+            // Map
+            new MapWidgetAssets(),
+            new MapWidgetAssetSplit(),
+            new MapWidgetContractValue(),
+            new MapWidgetCoverage(),
+            new MapWidgetCustomers(),
+            new MapWidgetInsights(),
             // "+ Request" buttons
             new RequestsAssetAdd(),
             new RequestsAssetChange(),
