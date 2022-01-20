@@ -51,6 +51,10 @@ class ServiceLevel extends Model implements Translatable {
         $this->setServiceGroupAttributeNullable($group);
     }
 
+    protected function getTranslatableKey(): ?string {
+        return "{$this->serviceGroup->getTranslatableKey()}/{$this->sku}";
+    }
+
     /**
      * @inheritDoc
      */

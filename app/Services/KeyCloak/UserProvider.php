@@ -6,6 +6,8 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
+use App\Services\Auth\Auth;
+use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
 use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData;
@@ -21,7 +23,9 @@ use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
+use function array_intersect;
 use function array_keys;
+use function array_map;
 use function array_unique;
 use function array_values;
 
@@ -150,10 +154,11 @@ class UserProvider implements UserProviderContract {
     ];
 
     public function __construct(
-        protected KeyCloak $keycloak,
+        protected KeyCloak $keyCloak,
         protected Jwt $jwt,
         protected Hasher $hasher,
         protected RootOrganization $rootOrganization,
+        protected Auth $auth,
     ) {
         // empty
     }
@@ -161,7 +166,7 @@ class UserProvider implements UserProviderContract {
     // <editor-fold desc="Getters">
     // =========================================================================
     protected function getKeyCloak(): KeyCloak {
-        return $this->keycloak;
+        return $this->keyCloak;
     }
 
     protected function getJwt(): Jwt {
@@ -172,8 +177,12 @@ class UserProvider implements UserProviderContract {
         return $this->hasher;
     }
 
-    public function getRootOrganization(): Organization {
-        return $this->rootOrganization->get();
+    public function getRootOrganization(): RootOrganization {
+        return $this->rootOrganization;
+    }
+
+    protected function getAuth(): Auth {
+        return $this->auth;
     }
     // </editor-fold>
 
@@ -329,10 +338,11 @@ class UserProvider implements UserProviderContract {
         }
 
         // Organization
-        $properties['organization'] = $this->getOrganization($user, $token);
+        $organization               = $this->getOrganization($user, $token);
+        $properties['organization'] = $organization;
 
         // Permissions
-        $properties['permissions'] = $this->getPermissions($token);
+        $properties['permissions'] = $this->getPermissions($user, $token, $organization);
 
         // Sufficient?
         if ($missed) {
@@ -373,16 +383,29 @@ class UserProvider implements UserProviderContract {
     /**
      * @return array<string>
      */
-    protected function getPermissions(UnencryptedToken $token): array {
+    protected function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
+        // Organization is required
+        if (!$organization) {
+            return [];
+        }
+
+        // Extract
         $roles = $token->claims()->get(self::CLAIM_RESOURCE_ACCESS, []);
         $roles = Arr::get($roles, "{$this->getKeyCloak()->getClientId()}.roles", []);
         $roles = array_unique(array_values($roles));
 
+        // Available
+        $permissions = $this->getAuth()->getAvailablePermissions($organization);
+        $permissions = array_map(static fn(Permission $permission): string => $permission->getName(), $permissions);
+        $roles       = array_intersect($roles, $permissions);
+        $roles       = array_values($roles);
+
+        // Return
         return $roles;
     }
 
     protected function updateLocalUser(User $user): User {
-        $user->organization = $this->getRootOrganization();
+        $user->organization = $this->getRootOrganization()->get();
         $user->save();
 
         return $user;

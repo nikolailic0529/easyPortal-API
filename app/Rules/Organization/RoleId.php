@@ -3,9 +3,6 @@
 namespace App\Rules\Organization;
 
 use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule;
-use App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRuleImpl;
-use App\Models\Organization;
-use App\Models\OrganizationUser;
 use App\Models\Role;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,20 +10,16 @@ use Illuminate\Database\Eloquent\Builder;
 use function __;
 
 class RoleId implements Rule, ContextAwareRule {
-    use ContextAwareRuleImpl;
+    use HasOrganization;
 
     /**
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
         // Organization?
-        $organization = $this->getMutationRoot();
+        $organization = $this->getContextOrganization();
 
-        if ($organization instanceof OrganizationUser) {
-            $organization = $organization->organization;
-        }
-
-        if (!($organization instanceof Organization)) {
+        if (!$organization) {
             return false;
         }
 

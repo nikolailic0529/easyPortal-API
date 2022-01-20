@@ -5,6 +5,8 @@ namespace App\GraphQL\Mutations\Org\Role;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Services\Auth\Permission as AuthPermission;
+use App\Services\Auth\Permissions;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
@@ -49,12 +51,6 @@ class CreateTest extends TestCase {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $this->setOrganization($organization));
-
-        if ($organization && !$organization->keycloak_group_id) {
-            $organization->keycloak_group_id = $this->faker->uuid();
-            $organization->save();
-            $organization = $organization->fresh();
-        }
 
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
@@ -109,7 +105,7 @@ class CreateTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $clientFactory     = static function (MockInterface $mock): void {
+        $clientFactory = static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('createGroup')
                 ->once()
@@ -126,10 +122,21 @@ class CreateTest extends TestCase {
                 ->once()
                 ->andReturn(true);
         };
-        $permissionFactory = static function (TestCase $test): void {
+        $prepare       = static function (TestCase $test): void {
+            $test->override(Permissions::class, static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('get')
+                    ->once()
+                    ->andReturn([
+                        new class('permission-a') extends AuthPermission {
+                            // empty
+                        },
+                    ]);
+            });
+
             Permission::factory()->create([
                 'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                'key' => 'permission1',
+                'key' => 'permission-a',
             ]);
         };
 
@@ -151,15 +158,15 @@ class CreateTest extends TestCase {
                                 'permissions' => [
                                     [
                                         'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                                        'key'         => 'permission1',
-                                        'name'        => 'permission1',
-                                        'description' => 'permission1',
+                                        'key'         => 'permission-a',
+                                        'name'        => 'permission-a',
+                                        'description' => 'permission-a',
                                     ],
                                 ],
                             ],
                         ]),
                     ),
-                    $permissionFactory,
+                    $prepare,
                     [
                         'name'        => 'subgroup',
                         'permissions' => [
@@ -172,7 +179,7 @@ class CreateTest extends TestCase {
                     new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
-                    $permissionFactory,
+                    $prepare,
                     [
                         'name'        => '',
                         'permissions' => [
@@ -185,7 +192,7 @@ class CreateTest extends TestCase {
                     new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
-                    $permissionFactory,
+                    $prepare,
                     [
                         'name'        => 'subgroup',
                         'permissions' => [

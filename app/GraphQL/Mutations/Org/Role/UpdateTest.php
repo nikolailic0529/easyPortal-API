@@ -6,6 +6,8 @@ use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Services\Auth\Permission as AuthPermission;
+use App\Services\Auth\Permissions;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
@@ -131,8 +133,19 @@ class UpdateTest extends TestCase {
 
             Permission::factory()->create([
                 'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                'key' => 'permission1',
+                'key' => 'permission-a',
             ]);
+
+            $test->override(Permissions::class, static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('get')
+                    ->once()
+                    ->andReturn([
+                        new class('permission-a') extends AuthPermission {
+                            // empty
+                        },
+                    ]);
+            });
 
             return $role;
         };
@@ -172,9 +185,9 @@ class UpdateTest extends TestCase {
                                 'permissions' => [
                                     [
                                         'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                                        'key'         => 'permission1',
-                                        'name'        => 'permission1',
-                                        'description' => 'permission1',
+                                        'key'         => 'permission-a',
+                                        'name'        => 'permission-a',
+                                        'description' => 'permission-a',
                                     ],
                                 ],
                             ],

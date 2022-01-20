@@ -2,11 +2,14 @@
 
 namespace App\Services\Auth;
 
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
+use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 
@@ -16,7 +19,9 @@ use function is_null;
 class Auth {
     public function __construct(
         protected Factory $auth,
-        protected CurrentOrganization $organization,
+        protected RootOrganization $rootOrganization,
+        protected CurrentOrganization $currentOrganization,
+        protected Permissions $permissions,
     ) {
         // empty
     }
@@ -40,8 +45,8 @@ class Auth {
             return true;
         }
 
-        return $this->organization->defined()
-            ? $user->isEnabled($this->organization->get())
+        return $this->currentOrganization->defined()
+            ? $user->isEnabled($this->currentOrganization->get())
             : $user->isEnabled(null);
     }
 
@@ -49,39 +54,25 @@ class Auth {
      * @return array<\App\Services\Auth\Permission>
      */
     public function getPermissions(): array {
-        return [
-            // Assets
-            new Permission('assets-view', orgAdmin: true),
-            new Permission('assets-support', orgAdmin: true),
-            new Permission('assets-download', orgAdmin: true),
-            new Permission('assets-sync', orgAdmin: true),
-            // Contracts
-            new Permission('contracts-view', orgAdmin: true),
-            new Permission('contracts-support', orgAdmin: true),
-            new Permission('contracts-download', orgAdmin: true),
-            new Permission('contracts-sync', orgAdmin: true),
-            // Customers
-            new Permission('customers-view', orgAdmin: true),
-            new Permission('customers-support', orgAdmin: true),
-            new Permission('customers-download', orgAdmin: true),
-            new Permission('customers-sync', orgAdmin: true),
-            // Quotes
-            new Permission('quotes-view', orgAdmin: true),
-            new Permission('quotes-support', orgAdmin: true),
-            new Permission('quotes-download', orgAdmin: true),
-            new Permission('quotes-sync', orgAdmin: true),
-            // "+ Request" buttons
-            new Permission('requests-asset-add', orgAdmin: true),
-            new Permission('requests-asset-change', orgAdmin: true),
-            new Permission('requests-quote-add', orgAdmin: true),
-            new Permission('requests-quote-change', orgAdmin: true),
-            new Permission('requests-customer-change', orgAdmin: true),
-            new Permission('requests-contract-change', orgAdmin: true),
-            // Your Organization
-            new Permission('org-administer', orgAdmin: true),
-            // Portal Administration
-            new Permission('administer', orgAdmin: false),
-        ];
+        return $this->permissions->get();
+    }
+
+    /**
+     * @return array<\App\Services\Auth\Permission>
+     */
+    public function getAvailablePermissions(Organization $organization): array {
+        $isRoot      = $this->rootOrganization->is($organization);
+        $permissions = [];
+
+        foreach ($this->getPermissions() as $permission) {
+            if (!$isRoot && $permission instanceof IsRoot) {
+                continue;
+            }
+
+            $permissions[] = $permission;
+        }
+
+        return $permissions;
     }
 
     protected function hasPermission(Authenticatable|null $user, string $permission): bool {

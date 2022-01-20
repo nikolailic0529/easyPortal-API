@@ -9,9 +9,8 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
-use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
-use App\Services\Organization\CurrentOrganization;
+use App\Services\Auth\Permissions;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -45,21 +44,22 @@ class MeTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $this->override(Auth::class, static function (): Auth {
-            return new class() extends Auth {
-                /** @noinspection PhpMissingParentConstructorInspection */
-                public function __construct() {
-                    // empty
-                }
-
+        $this->override(Permissions::class, static function (): Permissions {
+            return new class() extends Permissions {
                 /**
                  * @inheritDoc
                  */
-                public function getPermissions(): array {
+                public function get(): array {
                     return [
-                        new Permission('a'),
-                        new Permission('b'),
-                        new Permission('c'),
+                        new class('a') extends Permission {
+                            // empty
+                        },
+                        new class('b') extends Permission {
+                            // empty
+                        },
+                        new class('c') extends Permission {
+                            // empty
+                        },
                     ];
                 }
             };
@@ -116,21 +116,22 @@ class MeTest extends TestCase {
     ): void {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        $this->override(Auth::class, static function (): Auth {
-            return new class() extends Auth {
-                /** @noinspection PhpMissingParentConstructorInspection */
-                public function __construct() {
-                    // empty
-                }
-
+        $this->override(Permissions::class, static function (): Permissions {
+            return new class() extends Permissions {
                 /**
                  * @inheritDoc
                  */
-                public function getPermissions(): array {
+                public function get(): array {
                     return [
-                        new Permission('a'),
-                        new Permission('b'),
-                        new Permission('c'),
+                        new class('a') extends Permission {
+                            // empty
+                        },
+                        new class('b') extends Permission {
+                            // empty
+                        },
+                        new class('c') extends Permission {
+                            // empty
+                        },
                     ];
                 }
             };
@@ -171,19 +172,16 @@ class MeTest extends TestCase {
             implode('`, `', ['unknown']),
         )));
 
-        $this->override(Auth::class, static function (): Auth {
-            return new class() extends Auth {
-                /** @noinspection PhpMissingParentConstructorInspection */
-                public function __construct() {
-                    // empty
-                }
-
+        $this->override(Permissions::class, static function (): Permissions {
+            return new class() extends Permissions {
                 /**
                  * @inheritDoc
                  */
-                public function getPermissions(): array {
+                public function get(): array {
                     return [
-                        new Permission('a'),
+                        new class('a') extends Permission {
+                            // empty
+                        },
                     ];
                 }
             };

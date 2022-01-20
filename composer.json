@@ -124,9 +124,18 @@
       "@php artisan telescope:publish --ansi"
     ],
     "ide-helper": [
+      "@ide-helper-php",
+      "@ide-helper-models",
+      "@ide-helper-graphql"
+    ],
+    "ide-helper-php": [
       "@php artisan ide-helper:meta --filename .phpstorm.meta.php/meta.php",
-      "@php artisan ide-helper:generate .phpstorm.meta.php/helper.php",
-      "@php artisan ide-helper:models --write",
+      "@php artisan ide-helper:generate .phpstorm.meta.php/helper.php"
+    ],
+    "ide-helper-models": [
+      "@php artisan ide-helper:models --write"
+    ],
+    "ide-helper-graphql": [
       "@php artisan lighthouse:ide-helper",
       "@php -r 'file_put_contents(\"schema-directives.graphql\", str_replace(\"repeatable\", \"\", file_get_contents(\"schema-directives.graphql\")));'",
       "@php -r 'rename(\"_lighthouse_ide_helper.php\", \".phpstorm.meta.php/lighthouse.php\");'",

@@ -10,8 +10,8 @@ extend type OrgRoleMutations {
 }
 
 input OrgRoleUpdateInput {
-  name: String @rules(apply: ["required"])
-  permissions: [ID!] @rules(apply: ["App\\Rules\\PermissionId"])
+  name: String @isRequired
+  permissions: [ID!] @isOrgPermissionId
 }
 
 type OrgRoleUpdatePayload implements Payload {
