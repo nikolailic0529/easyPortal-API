@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Org\Role;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Services\Auth\Auth;
 use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Auth\Permissions;
 use App\Services\KeyCloak\Client\Client;
@@ -24,7 +23,6 @@ use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 use function __;
-use function Clue\StreamFilter\fun;
 
 /**
  * @internal

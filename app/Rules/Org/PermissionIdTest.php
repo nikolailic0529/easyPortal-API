@@ -2,7 +2,6 @@
 
 namespace App\Rules\Org;
 
-use App\GraphQL\Directives\Directives\Mutation\Context\ResolverContext;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Services\Auth\Auth;

@@ -319,7 +319,7 @@ class UserProviderTest extends TestCase {
      * @dataProvider dataProviderGetPermissions
      *
      * @param array<string>     $expected
-     * @param array<Permission> $permissions
+     * @param array<\App\Services\Auth\Permission> $permissions
      */
     public function testGetPermissions(array $expected, bool $organization, array $permissions, Closure $claims): void {
         $auth = Mockery::mock(Auth::class);
@@ -356,6 +356,9 @@ class UserProviderTest extends TestCase {
                 // empty
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
                 return parent::getPermissions($user, $token, $organization);
             }

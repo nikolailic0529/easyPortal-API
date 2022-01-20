@@ -14,8 +14,6 @@ use Tests\TestCase;
 
 use function array_map;
 use function array_merge;
-use function implode;
-use function preg_replace_callback;
 
 /**
  * @internal
