@@ -101,7 +101,7 @@ class ClientDumpContext {
         }
 
         // Cleanup
-        $data    = array_fill_keys($data, true);
+        $data    = array_fill_keys((array) $data, true);
         $context = [
             static::DISTRIBUTORS => static fn() => $distributors,
             static::RESELLERS    => static fn() => $resellers,
