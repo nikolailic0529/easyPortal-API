@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak\Client\Exceptions;
 
-use App\Exceptions\ExternalException;
+use App\Exceptions\Contracts\ExternalException;
 use Throwable;
 
 use function __;

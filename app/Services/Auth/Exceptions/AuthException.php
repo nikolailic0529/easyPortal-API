@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth\Exceptions;
 
-use App\Exceptions\TranslatedException;
+use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Auth\ServiceException;
 
 abstract class AuthException extends ServiceException implements TranslatedException {

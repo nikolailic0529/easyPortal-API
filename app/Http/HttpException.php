@@ -3,7 +3,7 @@
 namespace App\Http;
 
 use App\Exceptions\ApplicationException;
-use App\Exceptions\TranslatedException;
+use App\Exceptions\Contracts\TranslatedException;
 
 abstract class HttpException extends ApplicationException implements TranslatedException {
     // empty

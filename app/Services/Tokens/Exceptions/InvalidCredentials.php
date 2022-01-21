@@ -2,7 +2,7 @@
 
 namespace App\Services\Tokens\Exceptions;
 
-use App\Exceptions\TranslatedException;
+use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Tokens\ServiceException;
 use Throwable;
 

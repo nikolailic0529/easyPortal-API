@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Contracts\TranslatedException;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use Tests\Helpers\ClassMap;

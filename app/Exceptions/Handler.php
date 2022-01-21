@@ -2,6 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Contracts\ApplicationMessage;
+use App\Exceptions\Contracts\ExternalException;
+use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Service;
 use ElasticAdapter\Exceptions\BulkRequestException;
 use Exception;

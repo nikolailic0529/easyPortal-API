@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Exceptions\ApplicationMessage;
+use App\Exceptions\Contracts\ApplicationMessage;
 use App\Services\DataLoader\ServiceException;
 use Psr\Log\LogLevel;
 use Throwable;
