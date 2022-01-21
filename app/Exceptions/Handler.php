@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Services\Service;
+use ElasticAdapter\Exceptions\BulkRequestException;
 use Exception;
 use GraphQL\Error\Error as GraphQLError;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -103,6 +104,10 @@ class Handler extends ExceptionHandler {
 
         if ($e instanceof RendersErrorsExtensions) {
             $context = array_merge($context, $e->extensionsContent());
+        }
+
+        if ($e instanceof BulkRequestException) {
+            $context['elastic'] = $e->getResponse();
         }
 
         if ($e instanceof ApplicationException) {
