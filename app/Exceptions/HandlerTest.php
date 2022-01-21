@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Contracts\GenericException;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Log\LogManager;
@@ -240,6 +241,31 @@ class HandlerTest extends TestCase {
             ],
         ], $context);
     }
+
+    /**
+     * @covers ::getExceptionFingerprint
+     *
+     * @dataProvider dataProviderGetExceptionFingerprint
+     *
+     * @param array<string> $expected
+     */
+    public function testGetExceptionFingerprint(array $expected, Throwable $exception): void {
+        $handler = new class() extends Handler {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getExceptionFingerprint(Throwable $exception): array {
+                return parent::getExceptionFingerprint($exception);
+            }
+        };
+
+        $this->assertEquals($expected, $handler->getExceptionFingerprint($exception));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProvider">
@@ -382,6 +408,47 @@ class HandlerTest extends TestCase {
                     // empty
                 ],
                 $application,
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function dataProviderGetExceptionFingerprint(): array {
+        $a = new class('a') extends Exception {
+            // empty
+        };
+        $b = new class('b', 0, $a) extends Exception implements GenericException {
+            // empty
+        };
+        $c = new class('c', 0, $b) extends Exception {
+            // empty
+        };
+
+        return [
+            'a' => [
+                [
+                    $a::class,
+                    $a->getMessage(),
+                ],
+                $a,
+            ],
+            'b' => [
+                [
+                    $b::class,
+                    $b->getMessage(),
+                    $a::class,
+                    $a->getMessage(),
+                ],
+                $b,
+            ],
+            'c' => [
+                [
+                    $c::class,
+                    $c->getMessage(),
+                ],
+                $c,
             ],
         ];
     }
