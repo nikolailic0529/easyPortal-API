@@ -4,9 +4,11 @@ namespace App\Services\Search\Eloquent;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Jobs\UpdateIndexJob;
+use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
@@ -80,36 +82,47 @@ class SearchableTest extends TestCase {
      */
     public function testToSearchableArray(): void {
         // Prepare
-        $sku   = $this->faker->uuid;
-        $oem   = Oem::factory()->create();
-        $group = ServiceGroup::factory()->create([
+        $sku    = $this->faker->uuid;
+        $oem    = Oem::factory()->create();
+        $group  = ServiceGroup::factory()->create([
             'sku'    => $sku,
             'oem_id' => $oem,
+        ]);
+        $levelA = ServiceLevel::factory()->create([
+            'id'               => '5cd434b1-8fa1-4a25-95f2-5d92f556cae7',
+            'oem_id'           => $oem,
+            'service_group_id' => $group,
+        ]);
+        $levelB = ServiceLevel::factory()->create([
+            'id'               => 'ab4d13fb-f769-4d20-9835-b4c0b2139439',
+            'oem_id'           => $oem,
+            'service_group_id' => $group,
         ]);
 
         // Model
         $model = new class() extends ServiceGroup {
             use Searchable;
 
+            public function getForeignKey(): string {
+                return 'service_group_id';
+            }
+
             /**
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku'            => new Text('sku'),
-                    'oem'            => [
-                        'id' => new Uuid('oem.id'),
-                    ],
-                    'unknown'        => [
-                        'id' => new Uuid('oem.unknown'),
-                    ],
-                    'unknown_nested' => [
-                        'null'    => new Uuid('oem.unknown'),
-                        'oem_id'  => new Uuid('oem.id'),
-                        'unknown' => [
-                            'id' => new Uuid('oem.unknown'),
-                        ],
-                    ],
+                    'sku'     => new Text('sku'),
+                    'oem'     => new Relation('oem', [
+                        'id' => new Uuid('id'),
+                    ]),
+                    'unknown' => new Uuid('unknown'),
+                    'levels'  => new Relation('levels', [
+                        'null'    => new Uuid('unknown'),
+                        'sku'     => new Uuid('sku'),
+                        'oem_id'  => new Uuid('oem_id'),
+                        'unknown' => new Uuid('unknown'),
+                    ]),
                 ];
             }
         };
@@ -143,15 +156,24 @@ class SearchableTest extends TestCase {
                 'sku' => $sku,
             ],
             Configuration::getPropertyName() => [
-                'sku'            => $sku,
-                'oem'            => [
+                'sku'     => $sku,
+                'oem'     => [
                     'id' => $oem->getKey(),
                 ],
-                'unknown'        => null,
-                'unknown_nested' => [
-                    'null'    => null,
-                    'oem_id'  => $oem->getKey(),
-                    'unknown' => null,
+                'unknown' => null,
+                'levels'  => [
+                    [
+                        'null'    => null,
+                        'sku'     => $levelA->sku,
+                        'oem_id'  => $levelA->oem_id,
+                        'unknown' => null,
+                    ],
+                    [
+                        'null'    => null,
+                        'sku'     => $levelB->sku,
+                        'oem_id'  => $levelB->oem_id,
+                        'unknown' => null,
+                    ],
                 ],
             ],
         ];
@@ -176,14 +198,14 @@ class SearchableTest extends TestCase {
             ->once()
             ->andReturn([
                 'a' => new Text('a'),
-                'b' => [
-                    'a' => new Uuid('b.a'),
-                ],
-                'c' => [
-                    'b' => [
-                        'a' => new Uuid('c.b.a'),
-                    ],
-                ],
+                'b' => new Relation('b', [
+                    'a' => new Uuid('a'),
+                ]),
+                'c' => new Relation('c', [
+                    'b' => new Relation('b', [
+                        'a' => new Uuid('a'),
+                    ]),
+                ]),
             ]);
 
         // Test
