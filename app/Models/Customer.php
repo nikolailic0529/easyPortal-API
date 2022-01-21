@@ -12,6 +12,7 @@ use App\Models\Relations\HasResellers;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
@@ -112,11 +113,11 @@ class Customer extends Model {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'name'        => new Text('name', true),
-            'headquarter' => [
-                'city' => [
-                    'name' => new Text('headquarter.location.city.name'),
-                ],
-            ],
+            'headquarter' => new Relation('headquarter.location', [
+                'city' => new Relation('city', [
+                    'name' => new Text('name'),
+                ]),
+            ]),
         ];
     }
     // </editor-fold>

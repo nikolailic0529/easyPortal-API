@@ -19,6 +19,7 @@ use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
+use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
@@ -212,9 +213,9 @@ class Document extends Model {
             'start'    => new Date('start'),
             'end'      => new Date('end'),
             'price'    => new Double('price'),
-            'customer' => [
-                'name' => new Text('customer.name', true),
-            ],
+            'customer' => new Relation('customer', [
+                'name' => new Text('name', true),
+            ]),
         ];
     }
     // </editor-fold>

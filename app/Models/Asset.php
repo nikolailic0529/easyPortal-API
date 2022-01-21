@@ -12,6 +12,7 @@ use App\Models\Relations\HasTags;
 use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
@@ -251,13 +252,13 @@ class Asset extends Model {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'serial_number' => new Text('serial_number', true),
-            'product'       => [
-                'sku'  => new Text('product.sku', true),
-                'name' => new Text('product.name', true),
-            ],
-            'customer'      => [
-                'name' => new Text('customer.name', true),
-            ],
+            'product'       => new Relation('product', [
+                'sku'  => new Text('sku', true),
+                'name' => new Text('name', true),
+            ]),
+            'customer'      => new Relation('customer', [
+                'name' => new Text('name', true),
+            ]),
         ];
     }
     // </editor-fold>
