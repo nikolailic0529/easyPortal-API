@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Exceptions\GraphQLErrorFormatter;
+use App\Exceptions\GraphQL\ErrorFormatter;
 use App\GraphQL\Directives\Lighthouse\EqDirective;
 use App\GraphQL\Directives\SearchBy\Operators\Complex\Relation as RelationOperator;
 use App\Models\Asset;
@@ -110,7 +110,7 @@ class AppServiceProvider extends ServiceProvider {
         $dispatcher->listen(
             ManipulateResult::class,
             function (ManipulateResult $event): void {
-                $event->result->setErrorFormatter($this->app->make(GraphQLErrorFormatter::class));
+                $event->result->setErrorFormatter($this->app->make(ErrorFormatter::class));
             },
         );
     }

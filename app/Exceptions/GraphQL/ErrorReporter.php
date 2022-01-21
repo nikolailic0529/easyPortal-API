@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Exceptions;
+namespace App\Exceptions\GraphQL;
 
 use Closure;
 use GraphQL\Error\Error;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Nuwave\Lighthouse\Execution\ErrorHandler;
 
-class GraphQLErrorReporter implements ErrorHandler {
+class ErrorReporter implements ErrorHandler {
     public function __construct(
         protected ExceptionHandler $handler,
     ) {

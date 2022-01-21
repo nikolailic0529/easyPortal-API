@@ -1,13 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\Exceptions;
+namespace App\Exceptions\GraphQL;
 
+use App\Exceptions\Handler;
 use GraphQL\Error\Error as GraphQLError;
 use GraphQL\Error\FormattedError;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
-class GraphQLErrorFormatter {
+class ErrorFormatter {
     public function __construct(
         protected Repository $config,
         protected ExceptionHandler $handler,
