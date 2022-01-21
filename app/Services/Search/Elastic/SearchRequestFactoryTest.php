@@ -10,6 +10,7 @@ use App\Services\Search\Eloquent\UnionModel;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
+use App\Services\Search\Properties\Value;
 use App\Services\Search\Scope;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -554,17 +555,17 @@ class SearchRequestFactoryTest extends TestCase {
      * @return array<string, array{string, string}>
      */
     public function dataProviderEscapeQueryString(): array {
-        $a = new class('', true) extends Property {
+        $a = new class('', true) extends Value {
             public function getType(): string {
                 return 'text';
             }
         };
-        $b = new class('', true) extends Property {
+        $b = new class('', true) extends Value {
             public function getType(): string {
                 return 'text';
             }
         };
-        $c = new class('', false) extends Property {
+        $c = new class('', false) extends Value {
             public function getType(): string {
                 return 'text';
             }

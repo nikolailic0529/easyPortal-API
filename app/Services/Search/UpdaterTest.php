@@ -437,7 +437,7 @@ class UpdaterTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderCreateIndex(): array {
-        $index = 'testing_test_models@2bb4cb3d8663868fd8b185c0f9da96a28ba3f3e3';
+        $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
             use Searchable;
 
@@ -720,7 +720,7 @@ class UpdaterTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderIsIndexActual(): array {
-        $index = 'testing_test_models@2bb4cb3d8663868fd8b185c0f9da96a28ba3f3e3';
+        $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
             use Searchable;
 
