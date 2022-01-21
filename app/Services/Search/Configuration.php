@@ -3,9 +3,11 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Properties\Property;
+use App\Services\Search\Properties\Relation;
+use App\Services\Search\Properties\Value;
 use App\Utils\Eloquent\ModelProperty;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LogicException;
 
@@ -13,6 +15,7 @@ use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_merge;
+use function explode;
 use function is_array;
 use function json_encode;
 use function sha1;
@@ -24,14 +27,14 @@ class Configuration {
     protected const PROPERTIES = 'properties';
 
     /**
-     * @var array<string,\App\Services\Search\Properties\Property|array<mixed>>
+     * @var array<string,array<string, \App\Services\Search\Properties\Property>>
      */
     protected array $properties;
 
     /**
      * @param \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model
-     * @param array<string,\App\Services\Search\Properties\Property|array<mixed>>          $metadata
-     * @param array<string,\App\Services\Search\Properties\Property|array<mixed>>          $properties
+     * @param array<string,\App\Services\Search\Properties\Property>                       $metadata
+     * @param array<string,\App\Services\Search\Properties\Property>                       $properties
      */
     public function __construct(
         protected Model $model,
@@ -49,7 +52,7 @@ class Configuration {
     }
 
     /**
-     * @return array<string,\App\Services\Search\Properties\Property|array<mixed>>
+     * @return array<string,\App\Services\Search\Properties\Property>
      */
     public function getProperties(): array {
         return $this->properties;
@@ -59,10 +62,15 @@ class Configuration {
      * @return array<string>
      */
     public function getRelations(): array {
-        return (new Collection($this->getProperties()))
-            ->flatten()
-            ->map(static function (Property $property): ModelProperty {
-                return new ModelProperty($property->getName());
+        $properties = $this->getFlatProperties(
+            static function (string $key, ?Property $property): ?string {
+                return $property?->getName();
+            },
+        );
+        $properties = (new Collection($properties))
+            ->keys()
+            ->map(static function (string $property): ModelProperty {
+                return new ModelProperty($property);
             })
             ->filter(static function (ModelProperty $property): bool {
                 return $property->isRelation();
@@ -73,36 +81,75 @@ class Configuration {
             ->unique()
             ->values()
             ->all();
+
+        return $properties;
     }
 
     /**
      * @return array<string>
      */
     public function getSearchable(): array {
-        // Convert into flat array: ['properties.id` => new Property(), 'properties.name` => new Property()]
-        $properties = $this->getSearchableProcess($this->getProperties());
-        $searchable = array_keys(array_filter($properties, static function (?Property $property): bool {
-            return (bool) $property?->isSearchable();
-        }));
+        $properties = $this->getFlatProperties(
+            static function (string $key): string {
+                return $key;
+            },
+            static function (Value $property): bool {
+                return $property->isSearchable();
+            },
+        );
+        $properties = array_keys($properties);
 
-        return $searchable;
+        return $properties;
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property|mixed> $properties
+     * @param \Closure(string,?\App\Services\Search\Properties\Property): ?string $keyer
+     * @param \Closure(\App\Services\Search\Properties\Value): bool|null          $filter
      *
-     * @return array<string,\App\Services\Search\Properties\Property|null>
+     * @return array<string,\App\Services\Search\Properties\Value>
      */
-    protected function getSearchableProcess(array $properties, string $prefix = null): array {
+    private function getFlatProperties(Closure $keyer, Closure $filter = null): array {
+        $flat = [];
+
+        foreach ($this->getProperties() as $key => $properties) {
+            $key  = $keyer($key, null);
+            $flat = array_merge($flat, $this->getFlatPropertiesProcess($properties, $keyer, $filter, $key));
+        }
+
+        return $flat;
+    }
+
+    /**
+     * @param array<string,\App\Services\Search\Properties\Property> $properties
+     * @param \Closure(string,\App\Services\Search\Properties\Property): string $keyer
+     * @param \Closure(\App\Services\Search\Properties\Value): bool|null        $filter
+     *
+     * @return array<string,\App\Services\Search\Properties\Value>
+     */
+    private function getFlatPropertiesProcess(
+        array $properties,
+        Closure $keyer,
+        Closure $filter = null,
+        string $prefix = null,
+    ): array {
         $flat = [];
 
         foreach ($properties as $name => $property) {
-            $key = $prefix ? "{$prefix}.{$name}" : $name;
+            $key = $keyer($name, $property);
+            $key = $prefix ? "{$prefix}.{$key}" : $key;
 
-            if ($property instanceof Property) {
-                $flat[$key] = $property;
-            } elseif (is_array($property)) {
-                $flat = array_merge($flat, $this->getSearchableProcess($property, $key) ?: [$key => null]);
+            if ($property instanceof Value) {
+                if ($filter === null || $filter($property)) {
+                    $flat[$key] = $property;
+                } else {
+                    // ignore
+                }
+            } elseif ($property instanceof Relation) {
+                $processed = $this->getFlatPropertiesProcess($property->getProperties(), $keyer, $filter, $key);
+
+                if ($processed) {
+                    $flat = array_merge($flat, $processed);
+                }
             } else {
                 // ignore
             }
@@ -112,7 +159,29 @@ class Configuration {
     }
 
     public function getProperty(string $name): ?Property {
-        return Arr::get($this->getProperties(), $name) ?: null;
+        $path       = explode('.', $name);
+        $property   = null;
+        $properties = $this->getProperties();
+
+        foreach ($path as $segment) {
+            if (isset($properties[$segment])) {
+                if ($properties[$segment] instanceof Relation) {
+                    $properties = $properties[$segment]->getProperties();
+                } elseif ($properties[$segment] instanceof Property) {
+                    $property   = $properties[$segment];
+                    $properties = [];
+                } elseif (is_array($properties[$segment])) {
+                    $properties = $properties[$segment];
+                } else {
+                    $properties = [];
+                }
+            } else {
+                $property = null;
+                break;
+            }
+        }
+
+        return $property;
     }
 
     public function getIndexName(): string {
@@ -134,29 +203,37 @@ class Configuration {
      * @return array<mixed>
      */
     public function getMappings(): array {
+        $mappings = [];
+
+        foreach ($this->getProperties() as $key => $properties) {
+            $mappings[$key]['properties'] = $this->getMappingsProcess($properties);
+        }
+
         return [
-            'properties' => $this->getMappingsProcess($this->getProperties()),
+            'properties' => $mappings,
         ];
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property|mixed> $properties
+     * @param array<string,\App\Services\Search\Properties\Property> $properties
      *
      * @return array<mixed>
      */
-    protected function getMappingsProcess(array $properties): array {
+    private function getMappingsProcess(array $properties): array {
         $mappings = [];
 
         foreach ($properties as $name => $property) {
-            if (is_array($property)) {
+            if ($property instanceof Relation) {
                 $mappings[$name] = [
-                    'properties' => $this->getMappingsProcess($property),
+                    'properties' => $this->getMappingsProcess($property->getProperties()),
                 ];
-            } else {
+            } elseif ($property instanceof Value) {
                 $mappings[$name] = array_filter([
                     'type'   => $property->getType(),
                     'fields' => $property->getFields(),
                 ]);
+            } else {
+                // ignore
             }
         }
 
@@ -172,10 +249,10 @@ class Configuration {
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property|array<mixed>> $metadata
-     * @param array<string,\App\Services\Search\Properties\Property|array<mixed>> $properties
+     * @param array<string,\App\Services\Search\Properties\Property> $metadata
+     * @param array<string,\App\Services\Search\Properties\Property> $properties
      *
-     * @return array<string,\App\Services\Search\Properties\Property|array<mixed>>
+     * @return array<string,array<string, \App\Services\Search\Properties\Property>>
      */
     protected function buildProperties(array $metadata, array $properties): array {
         $model      = $this->getModel();

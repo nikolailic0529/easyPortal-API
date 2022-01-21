@@ -5,6 +5,8 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
+use App\Services\Search\Properties\Relation;
+use App\Services\Search\Properties\Value;
 use App\Services\Search\Updater;
 use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
@@ -13,6 +15,7 @@ use DateTimeInterface;
 use ElasticScoutDriverPlus\Searchable as ElasticSearchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\ModelObserver;
@@ -22,7 +25,6 @@ use function app;
 use function array_filter;
 use function array_intersect;
 use function array_keys;
-use function array_walk_recursive;
 use function count;
 use function is_array;
 use function is_iterable;
@@ -62,7 +64,7 @@ trait Searchable {
      *          ],
      *      ]
      *
-     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
+     * @return array<string,\App\Services\Search\Properties\Property>
      */
     abstract protected static function getSearchProperties(): array;
 
@@ -71,7 +73,7 @@ trait Searchable {
      *
      * @see getSearchProperties()
      *
-     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
+     * @return array<string,\App\Services\Search\Properties\Property>
      */
     protected static function getSearchMetadata(): array {
         return [];
@@ -109,23 +111,23 @@ trait Searchable {
      * @return array<string,mixed>
      */
     public function toSearchableArray(): array {
-        // Eager Loading & Values
+        // Eager Loading
         $configuration = $this->getSearchConfiguration();
-        $properties    = $configuration->getProperties();
 
         $this->loadMissing($configuration->getRelations());
 
-        array_walk_recursive($properties, function (mixed &$value): void {
-            $value = $value instanceof Property
-                ? $this->toSearchableValue((new ModelProperty($value->getName()))->getValue($this))
-                : $value;
-        });
+        // Values
+        $array = [];
+
+        foreach ($configuration->getProperties() as $key => $properties) {
+            $array[$key] = $this->toSearchableArrayProcess($this, $properties);
+        }
 
         // Remove empty nodes
-        $properties = $this->toSearchableArrayCleanup($properties);
+        $array = $this->toSearchableArrayCleanup($array);
 
         // Return
-        return $properties;
+        return $array;
     }
 
     public static function makeAllSearchable(int $chunk = null): void {
@@ -171,6 +173,39 @@ trait Searchable {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    /**
+     * @param array<string, \App\Services\Search\Properties\Property> $properties
+     *
+     * @return array<string, mixed>
+     */
+    protected function toSearchableArrayProcess(Model $model, array $properties): array {
+        $values = [];
+
+        foreach ($properties as $name => $property) {
+            $value = (new ModelProperty($property->getName()))->getValue($model);
+
+            if ($property instanceof Relation) {
+                if ($value instanceof Collection) {
+                    $values[$name] = $value
+                        ->map(function (Model $model) use ($property): mixed {
+                            return $this->toSearchableArrayProcess($model, $property->getProperties());
+                        })
+                        ->all();
+                } elseif ($value !== null) {
+                    $values[$name] = $this->toSearchableArrayProcess($value, $property->getProperties());
+                } else {
+                    $values[$name] = null;
+                }
+            } elseif ($property instanceof Value) {
+                $values[$name] = $this->toSearchableValue($value);
+            } else {
+                throw new LogicException('Not yet supported.');
+            }
+        }
+
+        return $values;
+    }
+
     /**
      * @template T
      *

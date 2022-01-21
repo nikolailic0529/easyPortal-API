@@ -3,6 +3,8 @@
 namespace App\Services\Search\GraphQL;
 
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Relation;
+use App\Services\Search\Properties\Text;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Utils\SchemaPrinter;
 use Illuminate\Database\Eloquent\Model;
@@ -61,15 +63,15 @@ class ModelConverterTest_Model extends Model {
      */
     protected static function getSearchProperties(): array {
         return [
-            'name'  => '1',
-            'test'  => 'value',
-            'child' => [
-                'name'    => '2',
-                'another' => 'value',
-                'nested'  => [
-                    'name' => 'name',
-                ],
-            ],
+            'name'  => new Text('name'),
+            'test'  => new Text('value'),
+            'child' => new Relation('child', [
+                'name'    => new Text('name'),
+                'another' => new Text('another'),
+                'nested'  => new Relation('nested', [
+                    'name' => new Text('name'),
+                ]),
+            ]),
         ];
     }
 }

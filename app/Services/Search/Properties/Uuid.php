@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Properties;
 
-class Uuid extends Property {
+class Uuid extends Value {
     public function getType(): string {
         return 'keyword';
     }

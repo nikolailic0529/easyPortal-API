@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Properties;
 
-class Double extends Property {
+class Double extends Value {
     public function getType(): string {
         return 'double';
     }

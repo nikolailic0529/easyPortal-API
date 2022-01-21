@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Properties;
 
-class Integer extends Property {
+class Integer extends Value {
     public function getType(): string {
         return 'long';
     }

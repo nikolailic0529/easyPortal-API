@@ -4,6 +4,7 @@ namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
+use App\Services\Search\Properties\Value;
 use ElasticAdapter\Search\SearchRequest;
 use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactory;
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
@@ -290,7 +291,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
                 $name     = key($clause);
                 $property = $model->getSearchConfiguration()->getProperty($name);
 
-                if ($property?->hasKeyword()) {
+                if ($property instanceof Value && $property->hasKeyword()) {
                     $name = "{$name}.keyword";
                 }
 

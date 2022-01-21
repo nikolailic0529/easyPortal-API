@@ -3,12 +3,14 @@
 namespace App\Services\Search;
 
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Search\Exceptions\FailedToIndex;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\ModelHelper;
 use Closure;
 use DateTimeInterface;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -30,6 +32,7 @@ class Updater {
         protected Repository $config,
         protected Dispatcher $dispatcher,
         protected Client $client,
+        protected ExceptionHandler $exceptionHandler,
     ) {
         // empty
     }
@@ -44,6 +47,10 @@ class Updater {
 
     protected function getClient(): Client {
         return $this->client;
+    }
+
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     public function onInit(?Closure $closure): static {
@@ -104,12 +111,9 @@ class Updater {
                         $item->setSearchableAs($index)->searchable();
                     }
                 } catch (Throwable $exception) {
-                    // TODO: Use Exception + handler
-                    $this->logger->warning('Failed to add object into search index.', [
-                        'importer'  => $this::class,
-                        'object'    => $item,
-                        'exception' => $exception,
-                    ]);
+                    $this->getExceptionHandler()->report(
+                        new FailedToIndex($item, $exception),
+                    );
                 } finally {
                     $status->processed++;
                 }

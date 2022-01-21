@@ -3,6 +3,8 @@
 namespace App\Services\Search\GraphQL;
 
 use App\Services\Search\Configuration;
+use App\Services\Search\Properties\Relation;
+use App\Services\Search\Properties\Value;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Str;
@@ -12,7 +14,6 @@ use function array_map;
 use function array_merge;
 use function end;
 use function implode;
-use function is_array;
 
 class ModelConverter {
     public function __construct() {
@@ -32,8 +33,8 @@ class ModelConverter {
     }
 
     /**
-     * @param array<string>        $path
-     * @param array<string, mixed> $properties
+     * @param array<string>                                           $path
+     * @param array<string, \App\Services\Search\Properties\Property> $properties
      *
      * @return array<\GraphQL\Type\Definition\InputObjectType>
      */
@@ -42,17 +43,19 @@ class ModelConverter {
         $fields = [];
 
         foreach ($properties as $property => $value) {
-            if (is_array($value)) {
-                $types    = array_merge($types, $this->convert([...$path, $property], $value));
+            if ($value instanceof Relation) {
+                $types    = array_merge($types, $this->convert([...$path, $property], $value->getProperties()));
                 $fields[] = [
                     'name' => $property,
                     'type' => end($types),
                 ];
-            } else {
+            } elseif ($value instanceof Value) {
                 $fields[] = [
                     'name' => $property,
                     'type' => Type::string(), // doesn't matter now
                 ];
+            } else {
+                // ignore
             }
         }
 
