@@ -141,7 +141,7 @@ class KeyCloak {
         // And the last step - redirect if sign out failed.
         $url = null;
 
-        if ($token && !$successful) {
+        if ($token && !$successful && $this->organization->defined()) {
             $url = $provider->getSignOutUrl([
                 'redirect_uri' => $this->getSignOutUri($this->organization->get()),
             ]);

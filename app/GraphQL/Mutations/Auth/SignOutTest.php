@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -26,18 +26,18 @@ class SignOutTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      */
-    public function testInvoke(Response $expected, Closure $orgFactory, Closure $userFactory = null): void {
+    public function testInvoke(
+        Response $expected,
+        Closure $orgFactory,
+        Closure $userFactory = null,
+        Closure $keyCloakFactory = null,
+    ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Mock
-        if ($expected instanceof GraphQLSuccess) {
-            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
-                $mock
-                    ->shouldReceive('signOut')
-                    ->once()
-                    ->andReturn('http://example.com/');
-            });
+        if ($keyCloakFactory) {
+            $this->override(KeyCloak::class, $keyCloakFactory);
         }
 
         // Test
@@ -66,7 +66,7 @@ class SignOutTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('auth'),
+            new AnyOrganizationDataProvider('auth'),
             new UserDataProvider('auth'),
             new ArrayDataProvider([
                 'ok' => [
@@ -78,6 +78,12 @@ class SignOutTest extends TestCase {
                             'url'    => 'http://example.com/',
                         ]),
                     ),
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('signOut')
+                            ->once()
+                            ->andReturn('http://example.com/');
+                    },
                 ],
             ]),
         ))->getData();
