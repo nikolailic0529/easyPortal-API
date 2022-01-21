@@ -1134,12 +1134,23 @@ input DocumentsSearchCustomerSort {
   name: String
 }
 
+input DocumentsSearchEntriesProductSort {
+  sku: String
+  name: String
+}
+
+input DocumentsSearchEntriesSort {
+  serial_number: String
+  product: DocumentsSearchEntriesProductSort
+}
+
 input DocumentsSearchSort {
   number: String
   start: String
   end: String
   price: String
   customer: DocumentsSearchCustomerSort
+  entries: DocumentsSearchEntriesSort
 }
 
 input DocumentsSort {
@@ -5717,6 +5728,28 @@ input SortByClauseDocumentsSearchCustomerSort {
 }
 
 """
+Sort clause for input DocumentsSearchEntriesProductSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentsSearchEntriesProductSort {
+  """Property clause."""
+  sku: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input DocumentsSearchEntriesSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentsSearchEntriesSort {
+  """Property clause."""
+  serial_number: SortByDirection
+
+  """Property clause."""
+  product: SortByClauseDocumentsSearchEntriesProductSort
+}
+
+"""
 Sort clause for input DocumentsSearchSort (only one property allowed at a time).
 """
 input SortByClauseDocumentsSearchSort {
@@ -5734,6 +5767,9 @@ input SortByClauseDocumentsSearchSort {
 
   """Property clause."""
   customer: SortByClauseDocumentsSearchCustomerSort
+
+  """Property clause."""
+  entries: SortByClauseDocumentsSearchEntriesSort
 }
 
 """

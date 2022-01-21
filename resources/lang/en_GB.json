@@ -154,7 +154,6 @@
     "graphql.directives.@mutation.object_not_found": ":object not found",
     "graphql.directives.@mutation.invalid_context": "Mutation cannot be called due to invalid context.",
     "models.Country.??.name": "Unknown Country",
-    "models.Currency.EUR.name": "Euro",
     "models.Type.EQUIPMENT_LOCATION.name": "Equipment",
     "models.Type.HEADQUARTER.name": "Headquarter",
     "models.Type.SYSTEM_MANAGER.name": "System Manager",
