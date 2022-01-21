@@ -216,6 +216,13 @@ class Document extends Model {
             'customer' => new Relation('customer', [
                 'name' => new Text('name', true),
             ]),
+            'entries'  => new Relation('entries', [
+                'serial_number' => new Text('serial_number', true),
+                'product'       => new Relation('product', [
+                    'sku'  => new Text('sku', true),
+                    'name' => new Text('name', true),
+                ]),
+            ]),
         ];
     }
     // </editor-fold>
