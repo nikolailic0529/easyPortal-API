@@ -23,8 +23,7 @@
     ],
     "companyTypes": [
         {
-            "type": "CUSTOMER",
-            "status": "ACTIVE"
+            "type": "CUSTOMER"
         }
     ],
     "locations": [

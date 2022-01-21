@@ -2,6 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Contracts\ApplicationMessage;
+use App\Exceptions\Contracts\ExternalException;
+use App\Exceptions\Contracts\GenericException;
+use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Service;
 use ElasticAdapter\Exceptions\BulkRequestException;
 use Exception;
@@ -387,10 +391,16 @@ class Handler extends ExceptionHandler {
      * @return array<string>
      */
     protected function getExceptionFingerprint(Throwable $exception): array {
-        return [
+        $fingerprint = [
             $exception::class,
             $exception->getMessage(),
         ];
+
+        if ($exception instanceof GenericException && $exception->getPrevious()) {
+            $fingerprint = array_merge($fingerprint, $this->getExceptionFingerprint($exception->getPrevious()));
+        }
+
+        return $fingerprint;
     }
 
     /**

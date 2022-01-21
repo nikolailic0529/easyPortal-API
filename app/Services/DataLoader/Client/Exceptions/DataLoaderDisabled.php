@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
-use App\Exceptions\TranslatedException;
+use App\Exceptions\Contracts\TranslatedException;
 use Throwable;
 
 use function __;

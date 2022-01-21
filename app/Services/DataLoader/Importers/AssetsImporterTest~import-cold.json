@@ -2095,7 +2095,7 @@
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "96a956b3-f459-4ea2-a81c-7cdc01c24433",
             "c28e3109-4a8b-5ef3-8aeb-8de0eb93f3c6",
-            "2021-12-02 10:16:27",
+            "2021-12-22 11:24:25",
             "bf18b1c1-eb0d-3821-aa45-b42dcf2bfa77",
             "130",
             2,
@@ -2173,7 +2173,7 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "e42c6857-bbc4-533c-804b-26b4453e7da9",
+            "55778645-c8e7-5898-8923-668a72a7ad66",
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9",
             "eeee8b9f-aab5-506c-8f32-b6fa6343bae4",
             "2021-08-30 18:52:23",

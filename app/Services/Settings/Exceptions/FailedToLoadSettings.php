@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings\Exceptions;
 
-use App\Exceptions\TranslatedException;
+use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Settings\ServiceException;
 use Psr\Log\LogLevel;
 use Throwable;

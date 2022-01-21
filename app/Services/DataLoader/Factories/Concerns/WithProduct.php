@@ -18,7 +18,7 @@ trait WithProduct {
     protected function product(
         Oem $oem,
         string $sku,
-        string $name,
+        ?string $name,
         ?string $eol,
         ?string $eos,
     ): Product {
@@ -39,7 +39,7 @@ trait WithProduct {
                     // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
                     //
                     // To avoid infinite updates we will not update it at all.
-                    $product->name = $normalizer->string($name);
+                    $product->name = (string) $normalizer->string($name);
                 }
 
                 $product->save();

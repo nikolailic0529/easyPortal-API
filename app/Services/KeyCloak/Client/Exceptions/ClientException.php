@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak\Client\Exceptions;
 
-use App\Exceptions\TranslatedException;
+use App\Exceptions\Contracts\TranslatedException;
 use App\Services\KeyCloak\ServiceException;
 
 abstract class ClientException extends ServiceException implements TranslatedException {
