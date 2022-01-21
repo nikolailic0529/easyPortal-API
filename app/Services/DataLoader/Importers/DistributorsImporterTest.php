@@ -36,7 +36,7 @@ class DistributorsImporterTest extends TestCase {
 
         $this->assertQueryLogEquals('~import-cold.json', $queries);
         $this->assertModelsCount([
-            Distributor::class => 1,
+            Distributor::class => 5,
         ]);
 
         $queries->flush();

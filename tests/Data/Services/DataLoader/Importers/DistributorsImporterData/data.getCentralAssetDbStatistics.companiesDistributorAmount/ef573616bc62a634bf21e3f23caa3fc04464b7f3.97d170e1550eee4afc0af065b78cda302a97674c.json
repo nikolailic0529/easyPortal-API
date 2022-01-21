@@ -6,7 +6,7 @@
         "data": {
             "getCentralAssetDbStatistics": [
                 {
-                    "companiesDistributorAmount": 1
+                    "companiesDistributorAmount": 5
                 }
             ]
         }

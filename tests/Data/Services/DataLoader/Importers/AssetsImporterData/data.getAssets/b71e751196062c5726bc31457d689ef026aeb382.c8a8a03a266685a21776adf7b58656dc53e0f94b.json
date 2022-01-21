@@ -1214,9 +1214,9 @@
                     "longitude": "91.319751",
                     "countryCode": "AU",
                     "status": "ACTIVE",
-                    "updatedAt": "1638440187811",
+                    "updatedAt": "1640172265661",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [

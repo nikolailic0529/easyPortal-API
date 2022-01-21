@@ -876,7 +876,6 @@ class Client {
             updatedAt
             companyTypes {
                 type
-                status
             }
             GRAPHQL;
     }

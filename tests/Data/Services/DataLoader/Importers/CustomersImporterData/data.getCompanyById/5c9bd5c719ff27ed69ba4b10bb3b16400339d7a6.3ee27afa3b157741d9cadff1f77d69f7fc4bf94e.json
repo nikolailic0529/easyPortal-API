@@ -1,0 +1,69 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "a19a46a0-16c8-45a6-9d04-96098b0116f4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a19a46a0-16c8-45a6-9d04-96098b0116f4",
+                    "name": "Watsica Ltd",
+                    "updatedAt": "1640174968149",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "04805-8802",
+                            "address": "980 Fritsch Bypass",
+                            "city": "North Ricardo",
+                            "locationType": "HEADQUARTER",
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "65.926046",
+                            "longitude": "135.285034",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3675,
+                        "activeAssets": 1059,
+                        "activeAssetsPercentage": 28.816326530612248,
+                        "activeCustomers": 44,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 12,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 3,
+                        "activeQuotes": 12,
+                        "activeQuotesTotalAmount": 1901.96,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 3,
+                        "expiredQuotes": 65,
+                        "expiredContracts": 5,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}
