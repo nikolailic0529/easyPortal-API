@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Properties;
 
-class Text extends Property {
+class Text extends Value {
     public function getType(): string {
         return 'wildcard';
     }

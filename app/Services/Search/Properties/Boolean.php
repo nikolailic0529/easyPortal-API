@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Properties;
 
-class Boolean extends Property {
+class Boolean extends Value {
     public function getType(): string {
         return 'boolean';
     }

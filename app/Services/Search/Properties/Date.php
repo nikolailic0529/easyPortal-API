@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Properties;
 
-class Date extends Property {
+class Date extends Value {
     public function getType(): string {
         return 'date';
     }
