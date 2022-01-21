@@ -14,7 +14,6 @@ use function array_map;
 use function array_merge;
 use function end;
 use function implode;
-use function is_array;
 
 class ModelConverter {
     public function __construct() {

@@ -7,7 +7,6 @@ use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
-use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Properties\Value;
