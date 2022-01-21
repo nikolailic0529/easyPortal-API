@@ -9,6 +9,7 @@
 use App\GraphQL\Directives\Directives\Cached\CachedMode;
 use App\GraphQL\Directives\SearchBy\Operators\Comparison\Contains;
 use App\GraphQL\Directives\SearchBy\Operators\Comparison\EndsWith;
+use App\GraphQL\Enums\UserOrganizationStatus;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\In;
@@ -57,5 +58,6 @@ return [
      */
     'enums'     => [
         CachedMode::class,
+        UserOrganizationStatus::class,
     ],
 ];
