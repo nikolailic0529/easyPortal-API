@@ -2,10 +2,11 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
+use App\Exceptions\Contracts\GenericException;
 use Psr\Log\LogLevel;
 use Throwable;
 
-class FailedToProcessChunkItem extends FailedToProcessObject {
+class FailedToProcessChunkItem extends FailedToProcessObject implements GenericException {
     public function __construct(
         protected mixed $item,
         Throwable $previous = null,
