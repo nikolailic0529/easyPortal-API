@@ -20,7 +20,7 @@ type User {
   invitations: [Invitation!]!
   @organization
   @me(permissions: ["administer", "org-administer"])
-  @field(resolver: "App\\GraphQL\\Queries\\Administration\\User@invitations")
+  @hasMany
 
   organizations: [UserOrganization!]!
   @organization
