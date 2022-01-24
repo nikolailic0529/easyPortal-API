@@ -12,13 +12,13 @@ use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
-use ElasticScoutDriverPlus\Searchable as ElasticSearchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\ModelObserver;
+use Laravel\Scout\Searchable as ScoutSearchable;
 use LogicException;
 
 use function app;
@@ -35,7 +35,7 @@ use function is_scalar;
  * @mixin \App\Utils\Eloquent\Model
  */
 trait Searchable {
-    use ElasticSearchable {
+    use ScoutSearchable {
         search as protected scoutSearch;
         searchableAs as public scoutSearchableAs;
         queueMakeSearchable as protected scoutQueueMakeSearchable;
@@ -255,6 +255,25 @@ trait Searchable {
         }
 
         return $value;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="\ElasticScoutDriverPlus\Searchable">
+    // =========================================================================
+    /**
+     * @see \ElasticScoutDriverPlus\Searchable::shardRouting()
+     */
+    public function shardRouting(): string|int|null {
+        return null;
+    }
+
+    /**
+     * @see \ElasticScoutDriverPlus\Searchable::searchableWith()
+     *
+     * @return array<string>|string|null
+     */
+    public function searchableWith(): array|string|null {
+        return null;
     }
     // </editor-fold>
 }
