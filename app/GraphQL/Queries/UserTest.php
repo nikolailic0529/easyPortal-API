@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Enums\UserOrganizationStatus;
 use App\Models\Invitation;
 use App\Models\OrganizationUser;
+use App\Models\Status;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
@@ -24,17 +24,17 @@ class UserTest extends TestCase {
      *
      * @param \Closure(self): \App\Models\OrganizationUser $organizationUserFactory
      */
-    public function testStatus(UserOrganizationStatus $expected, Closure $organizationUserFactory): void {
+    public function testStatus(Status $expected, Closure $organizationUserFactory): void {
         $user   = $organizationUserFactory($this);
         $query  = $this->app->make(User::class);
         $actual = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($user, $query): UserOrganizationStatus {
+            static function () use ($user, $query): Status {
                 return $query->status($user);
             },
         );
 
-        $this->assertSame($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 
@@ -46,7 +46,11 @@ class UserTest extends TestCase {
     public function dataProviderStatus(): array {
         return [
             'disabled'                               => [
-                UserOrganizationStatus::inactive(),
+                (new Status())->forceFill([
+                    'id'   => '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
+                    'key'  => 'inactive',
+                    'name' => 'inactive',
+                ]),
                 static function (): OrganizationUser {
                     return OrganizationUser::factory()->make([
                         'enabled' => false,
@@ -54,7 +58,11 @@ class UserTest extends TestCase {
                 },
             ],
             'enabled + not invited'                  => [
-                UserOrganizationStatus::active(),
+                (new Status())->forceFill([
+                    'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                    'key'  => 'active',
+                    'name' => 'active',
+                ]),
                 static function (): OrganizationUser {
                     return OrganizationUser::factory()->make([
                         'enabled' => true,
@@ -62,7 +70,11 @@ class UserTest extends TestCase {
                 },
             ],
             'enabled + invited + no invitation'      => [
-                UserOrganizationStatus::expired(),
+                (new Status())->forceFill([
+                    'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                    'key'  => 'expired',
+                    'name' => 'expired',
+                ]),
                 static function (): OrganizationUser {
                     return OrganizationUser::factory()->make([
                         'enabled' => true,
@@ -71,7 +83,11 @@ class UserTest extends TestCase {
                 },
             ],
             'enabled + invited + invitation'         => [
-                UserOrganizationStatus::invited(),
+                (new Status())->forceFill([
+                    'id'   => '849deaf1-1ff4-4cd4-9c03-a1c4d9ba0402',
+                    'key'  => 'invited',
+                    'name' => 'invited',
+                ]),
                 static function (): OrganizationUser {
                     $invitation = Invitation::factory()->create([
                         'expired_at' => Date::now()->addDay(),
@@ -86,7 +102,11 @@ class UserTest extends TestCase {
                 },
             ],
             'enabled + invited + expired invitation' => [
-                UserOrganizationStatus::expired(),
+                (new Status())->forceFill([
+                    'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                    'key'  => 'expired',
+                    'name' => 'expired',
+                ]),
                 static function (): OrganizationUser {
                     $invitation = Invitation::factory()->create([
                         'expired_at' => Date::now()->subDay(),

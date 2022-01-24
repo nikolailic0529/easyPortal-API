@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Enums\UserOrganizationStatus;
 use App\Models\Invitation;
 use App\Models\OrganizationUser;
+use App\Models\Status;
 use App\Models\User as UserModel;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Support\Collection;
@@ -23,10 +23,34 @@ class User {
             ->get();
     }
 
-    public function status(OrganizationUser $user): UserOrganizationStatus {
+    public function status(OrganizationUser $user): Status {
+        // Statuses
+        $statuses = [
+            'active'   => (new Status())->forceFill([
+                'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                'key'  => 'active',
+                'name' => 'active',
+            ]),
+            'inactive' => (new Status())->forceFill([
+                'id'   => '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
+                'key'  => 'inactive',
+                'name' => 'inactive',
+            ]),
+            'invited'  => (new Status())->forceFill([
+                'id'   => '849deaf1-1ff4-4cd4-9c03-a1c4d9ba0402',
+                'key'  => 'invited',
+                'name' => 'invited',
+            ]),
+            'expired'  => (new Status())->forceFill([
+                'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                'key'  => 'expired',
+                'name' => 'expired',
+            ]),
+        ];
+
         // Disabled
         if (!$user->enabled) {
-            return UserOrganizationStatus::inactive();
+            return $statuses['inactive'];
         }
 
         // Invited?
@@ -38,13 +62,13 @@ class User {
                 ->first();
 
             if ($last && $last->expired_at->isFuture()) {
-                return UserOrganizationStatus::invited();
+                return $statuses['invited'];
             } else {
-                return UserOrganizationStatus::expired();
+                return $statuses['expired'];
             }
         }
 
         // Active
-        return UserOrganizationStatus::active();
+        return $statuses['active'];
     }
 }
