@@ -2,12 +2,17 @@
 
 namespace App\GraphQL\Queries\Administration;
 
+use App\GraphQL\Queries\Administration\User as UserQuery;
 use App\Models\Enums\UserType;
+use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
+use App\Models\Status;
 use App\Models\Team;
 use App\Models\User;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Illuminate\Support\Facades\Date;
 use JsonSerializable;
@@ -96,6 +101,11 @@ class UserTest extends TestCase {
                                 id
                                 name
                             }
+                            status {
+                                id
+                                key
+                                name
+                            }
                             enabled
                         }
                     }
@@ -106,6 +116,26 @@ class UserTest extends TestCase {
                 ],
             )
             ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::status
+     *
+     * @dataProvider dataProviderStatus
+     *
+     * @param \Closure(self): \App\Models\OrganizationUser $organizationUserFactory
+     */
+    public function testStatus(Status $expected, Closure $organizationUserFactory): void {
+        $user   = $organizationUserFactory($this);
+        $query  = $this->app->make(UserQuery::class);
+        $actual = GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($user, $query): Status {
+                return $query->status($user);
+            },
+        );
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 
@@ -170,6 +200,11 @@ class UserTest extends TestCase {
                                 'role'            => [
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'name' => 'role1',
+                                ],
+                                'status'          => [
+                                    'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                                    'key'  => 'active',
+                                    'name' => 'active',
                                 ],
                             ],
                         ],
@@ -349,6 +384,11 @@ class UserTest extends TestCase {
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'name' => 'role1',
                                 ],
+                                'status'          => [
+                                    'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                                    'key'  => 'active',
+                                    'name' => 'active',
+                                ],
                             ],
                         ],
                     ]),
@@ -415,6 +455,89 @@ class UserTest extends TestCase {
                 ],
             ]),
         ))->getData();
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function dataProviderStatus(): array {
+        return [
+            'disabled'                               => [
+                (new Status())->forceFill([
+                    'id'   => '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
+                    'key'  => 'inactive',
+                    'name' => 'inactive',
+                ]),
+                static function (): OrganizationUser {
+                    return OrganizationUser::factory()->make([
+                        'enabled' => false,
+                    ]);
+                },
+            ],
+            'enabled + not invited'                  => [
+                (new Status())->forceFill([
+                    'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                    'key'  => 'active',
+                    'name' => 'active',
+                ]),
+                static function (): OrganizationUser {
+                    return OrganizationUser::factory()->make([
+                        'enabled' => true,
+                    ]);
+                },
+            ],
+            'enabled + invited + no invitation'      => [
+                (new Status())->forceFill([
+                    'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                    'key'  => 'expired',
+                    'name' => 'expired',
+                ]),
+                static function (): OrganizationUser {
+                    return OrganizationUser::factory()->make([
+                        'enabled' => true,
+                        'invited' => true,
+                    ]);
+                },
+            ],
+            'enabled + invited + invitation'         => [
+                (new Status())->forceFill([
+                    'id'   => '849deaf1-1ff4-4cd4-9c03-a1c4d9ba0402',
+                    'key'  => 'invited',
+                    'name' => 'invited',
+                ]),
+                static function (): OrganizationUser {
+                    $invitation = Invitation::factory()->create([
+                        'expired_at' => Date::now()->addDay(),
+                    ]);
+
+                    return OrganizationUser::factory()->make([
+                        'enabled'         => true,
+                        'invited'         => true,
+                        'user_id'         => $invitation->user_id,
+                        'organization_id' => $invitation->organization_id,
+                    ]);
+                },
+            ],
+            'enabled + invited + expired invitation' => [
+                (new Status())->forceFill([
+                    'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                    'key'  => 'expired',
+                    'name' => 'expired',
+                ]),
+                static function (): OrganizationUser {
+                    $invitation = Invitation::factory()->create([
+                        'expired_at' => Date::now()->subDay(),
+                    ]);
+
+                    return OrganizationUser::factory()->make([
+                        'enabled'         => true,
+                        'invited'         => true,
+                        'user_id'         => $invitation->user_id,
+                        'organization_id' => $invitation->organization_id,
+                    ]);
+                },
+            ],
+        ];
     }
     // </editor-fold>
 }

@@ -26,6 +26,9 @@
         },
         "enabled": {
             "type": "boolean"
+        },
+        "status": {
+            "$ref": "../types.json#/definitions/Status"
         }
     }
 }

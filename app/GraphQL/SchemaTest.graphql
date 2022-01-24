@@ -6378,6 +6378,7 @@ type UserOrganization {
   role: Role
   team: Team
   enabled: Boolean!
+  status: Status!
 }
 
 type UserOrganizationMutations {
