@@ -1,7 +1,7 @@
 type Note {
   id: ID!
   pinned: Boolean!
-  note: String!
+  note: HtmlString!
   created_at: DateTime!
   updated_at: DateTime!
   user_id: ID!
