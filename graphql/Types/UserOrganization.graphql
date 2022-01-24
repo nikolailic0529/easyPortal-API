@@ -6,6 +6,6 @@ type UserOrganization {
   enabled: Boolean!
   status: Status!
   @field(
-    resolver: "App\\GraphQL\\Queries\\User@status"
+    resolver: "App\\GraphQL\\Queries\\Administration\\User@status"
   )
 }

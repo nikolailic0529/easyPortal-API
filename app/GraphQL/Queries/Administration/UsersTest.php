@@ -95,6 +95,11 @@ class UsersTest extends TestCase {
                                 name
                             }
                             enabled
+                            status {
+                                id
+                                key
+                                name
+                            }
                         }
                     }
                     usersAggregated {
@@ -171,6 +176,11 @@ class UsersTest extends TestCase {
                                             'role'            => [
                                                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                                 'name' => 'role1',
+                                            ],
+                                            'status'          => [
+                                                'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                                                'key'  => 'active',
+                                                'name' => 'active',
                                             ],
                                         ],
                                     ],
@@ -304,6 +314,11 @@ class UsersTest extends TestCase {
                                             'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                             'name' => 'role1',
                                         ],
+                                        'status'          => [
+                                            'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                                            'key'  => 'active',
+                                            'name' => 'active',
+                                        ],
                                     ],
                                 ],
                             ],
@@ -352,6 +367,11 @@ class UsersTest extends TestCase {
                                         'role'            => [
                                             'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                             'name' => 'role2',
+                                        ],
+                                        'status'          => [
+                                            'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                                            'key'  => 'active',
+                                            'name' => 'active',
                                         ],
                                     ],
                                 ],
