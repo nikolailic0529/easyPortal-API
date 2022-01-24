@@ -7,6 +7,7 @@ use App\Services\DataLoader\Schema\TypeWithId;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 use function array_map;
@@ -31,7 +32,7 @@ class LastIdBasedIteratorTest extends TestCase {
 
         $expected = $data;
         $actual   = iterator_to_array(
-            (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))->setChunkSize(5),
+            (new LastIdBasedIterator($handler, $this->getQuery($executor)))->setChunkSize(5),
         );
 
         $this->assertEquals($expected, $actual);
@@ -54,7 +55,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))
+        $iterator      = (new LastIdBasedIterator($handler, $this->getQuery($executor)))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset('5')
@@ -89,7 +90,7 @@ class LastIdBasedIteratorTest extends TestCase {
         });
 
         $expected = $data;
-        $iterator = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))
+        $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))
             ->setLimit(10)
             ->setChunkSize(2);
         $actual   = iterator_to_array($iterator);
@@ -114,7 +115,7 @@ class LastIdBasedIteratorTest extends TestCase {
         });
 
         $expected = ['1', '2'];
-        $iterator = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))
+        $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))
             ->setLimit(2)
             ->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
@@ -139,7 +140,7 @@ class LastIdBasedIteratorTest extends TestCase {
         });
 
         $expected = [];
-        $iterator = (new LastIdBasedIterator($handler, Closure::fromCallable($executor)))->setLimit(0);
+        $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -178,6 +179,24 @@ class LastIdBasedIteratorTest extends TestCase {
             }
 
             return array_slice($data, $index, $params['limit']);
+        };
+    }
+
+    protected function getQuery(MockInterface $executor): Query {
+        return new class($executor) extends Query {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected MockInterface $executor,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function __invoke(array $variables): array {
+                return ($this->executor)($variables);
+            }
         };
     }
     //</editor-fold>

@@ -10,20 +10,21 @@ use Throwable;
 
 /**
  * @template T
+ * @template V
  *
- * @extends \App\Utils\Iterators\ObjectIteratorImpl
+ * @extends \App\Utils\Iterators\ObjectIteratorImpl<T,V>
  */
 trait IteratorErrorHandler {
     /**
-     * @param \Closure(array $variables): array<mixed> $executor
+     * @param \App\Services\DataLoader\Client\Query<V> $query
      * @param \Closure(mixed $item): T                 $retriever
      */
     public function __construct(
         protected ExceptionHandler $handler,
-        ?Closure $executor,
+        protected Query $query,
         ?Closure $retriever = null,
     ) {
-        parent::__construct($executor, $retriever);
+        parent::__construct(Closure::fromCallable($this->query), $retriever);
     }
 
     /**
@@ -37,7 +38,7 @@ trait IteratorErrorHandler {
         } catch (GraphQLRequestFailed $exception) {
             throw $exception;
         } catch (Throwable $exception) {
-            $this->handler->report(new FailedToProcessChunkItem($item, $exception));
+            $this->handler->report(new FailedToProcessChunkItem($this->query, $item, $exception));
         }
 
         return null;

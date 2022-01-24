@@ -3,11 +3,15 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Exceptions\Contracts\GenericException;
+use App\Services\DataLoader\Client\Query;
 use Psr\Log\LogLevel;
 use Throwable;
 
+use function array_merge;
+
 class FailedToProcessChunkItem extends FailedToProcessObject implements GenericException {
     public function __construct(
+        protected Query $query,
         protected mixed $item,
         Throwable $previous = null,
     ) {
@@ -15,11 +19,18 @@ class FailedToProcessChunkItem extends FailedToProcessObject implements GenericE
 
         $this->setLevel(LogLevel::ERROR);
         $this->setContext([
-            'item' => $this->item,
+            'selector' => $this->query->getSelector(),
+            'graphql'  => $this->query->getQuery(),
+            'params'   => array_merge($this->query->getParams(), (array) $this->query->getVariables()),
+            'item'     => $this->item,
         ]);
     }
 
     public function getItem(): mixed {
         return $this->item;
+    }
+
+    public function getQuery(): Query {
+        return $this->query;
     }
 }
