@@ -224,34 +224,48 @@ class ExportController extends Controller {
      * @return \App\Utils\Iterators\ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
-        $chunk     = $this->getChunkSize();
-        $context   = $this->context->generate($request);
-        $executor  = function (array $variables) use ($context, $parameters): array {
+        $chunk           = $this->getChunkSize();
+        $context         = $this->context->generate($request);
+        $executor        = function (array $variables) use ($context, $parameters): array {
             return $this->execute($context, $parameters, $variables);
         };
-        $variables = $parameters['variables'] ?? [];
-        $iterator  = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
+        $variables       = $parameters['variables'] ?? [];
+        $iterator        = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
             ? new OffsetBasedObjectIterator($executor)
             : new OneChunkOffsetBasedObjectIterator($executor);
-        $recording = null;
+        $recording       = null;
+        $paginationLimit = null;
 
         $iterator->setLimit($parameters['variables']['limit'] ?? null);
         $iterator->setOffset($parameters['variables']['offset'] ?? null);
         $iterator->setChunkSize($chunk);
-        $iterator->onInit(static function () use (&$recording): void {
+        $iterator->onInit(function () use (&$recording, &$paginationLimit, $chunk): void {
+            // Telescope should be disabled because it stored all data in memory
+            // and will dump it only after the job/command/request is finished.
+            // For long-running requests, this will lead to huge memory usage
             $recording = Telescope::isRecording();
 
-            Telescope::stopRecording();
+            if ($recording) {
+                Telescope::stopRecording();
+            }
+
+            // We need to override pagination limit to speed up export.
+            $paginationLimit = $this->config->get('ep.pagination.limit.max');
+
+            if ($paginationLimit < $chunk) {
+                $this->config->set('ep.pagination.limit.max', $chunk);
+            }
         });
-        $iterator->onFinish(static function () use ($recording): void {
+        $iterator->onFinish(function () use ($recording, $paginationLimit): void {
+            // Restore previous state
             if ($recording) {
                 Telescope::startRecording();
             }
-        });
 
-        if ($this->config->get('ep.pagination.limit.max') < $chunk) {
-            $this->config->set('ep.pagination.limit.max', $chunk);
-        }
+            if ($paginationLimit) {
+                $this->config->set('ep.pagination.limit.max', $paginationLimit);
+            }
+        });
 
         return $iterator;
     }
