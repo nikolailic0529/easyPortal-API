@@ -10,6 +10,8 @@ trait ObjectIteratorInitialState {
 
     protected function init(): void {
         $this->initial = clone $this;
+
+        $this->initialized();
     }
 
     protected function finish(): void {
@@ -20,5 +22,11 @@ trait ObjectIteratorInitialState {
         }
 
         $this->initial = null;
+
+        $this->finished();
     }
+
+    abstract protected function initialized(): void;
+
+    abstract protected function finished(): void;
 }

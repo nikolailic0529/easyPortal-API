@@ -77,6 +77,12 @@ class ObjectIteratorIteratorTest extends TestCase {
             ->once()
             ->andReturnSelf();
         $one
+            ->shouldReceive('onInit')
+            ->never();
+        $one
+            ->shouldReceive('onFinish')
+            ->never();
+        $one
             ->shouldReceive('onBeforeChunk')
             ->with($before)
             ->once()
@@ -119,6 +125,12 @@ class ObjectIteratorIteratorTest extends TestCase {
             ->with(7)
             ->once()
             ->andReturnSelf();
+        $two
+            ->shouldReceive('onInit')
+            ->never();
+        $two
+            ->shouldReceive('onFinish')
+            ->never();
         $two
             ->shouldReceive('onBeforeChunk')
             ->with($before)

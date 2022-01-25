@@ -3,15 +3,62 @@
 namespace App\Utils\Iterators;
 
 use Closure;
+use LastDragon_ru\LaraASP\Core\Observer\Subject;
 
 /**
  * @template T
  *
- * @mixin \App\Utils\Iterators\ObjectIterator
+ * @mixin \App\Utils\Iterators\ObjectIterator<T>
  */
 trait ObjectIteratorSubjects {
-    private ?Closure $beforeChunk = null;
-    private ?Closure $afterChunk  = null;
+    private Subject $onInitSubject;
+    private Subject $onFinishSubject;
+
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     */
+    private Subject $onBeforeChunkSubject;
+
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     */
+    private Subject $onAfterChunkSubject;
+
+    public function onInit(?Closure $closure): static {
+        $this->getOnInitSubject()->attach($closure);
+
+        return $this;
+    }
+
+    protected function initialized(): void {
+        $this->getOnInitSubject()->notify();
+    }
+
+    private function getOnInitSubject(): Subject {
+        if (!isset($this->onInitSubject)) {
+            $this->onInitSubject = new Subject();
+        }
+
+        return $this->onInitSubject;
+    }
+
+    public function onFinish(?Closure $closure): static {
+        $this->getOnFinishSubject()->attach($closure);
+
+        return $this;
+    }
+
+    protected function finished(): void {
+        $this->getOnFinishSubject()->notify();
+    }
+
+    private function getOnFinishSubject(): Subject {
+        if (!isset($this->onFinishSubject)) {
+            $this->onFinishSubject = new Subject();
+        }
+
+        return $this->onFinishSubject;
+    }
 
     /**
      * Sets the closure that will be called after received each non-empty chunk.
@@ -21,9 +68,29 @@ trait ObjectIteratorSubjects {
      * @return $this<T>
      */
     public function onBeforeChunk(?Closure $closure): static {
-        $this->beforeChunk = $closure;
+        $this->getOnBeforeChunkSubject()->attach($closure);
 
         return $this;
+    }
+
+    /**
+     * @param array<T> $items
+     */
+    protected function chunkLoaded(array $items): void {
+        if ($items) {
+            $this->getOnBeforeChunkSubject()->notify($items);
+        }
+    }
+
+    /**
+     * @return \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     */
+    private function getOnBeforeChunkSubject(): Subject {
+        if (!isset($this->onBeforeChunkSubject)) {
+            $this->onBeforeChunkSubject = new Subject();
+        }
+
+        return $this->onBeforeChunkSubject;
     }
 
     /**
@@ -34,7 +101,7 @@ trait ObjectIteratorSubjects {
      * @return $this<T>
      */
     public function onAfterChunk(?Closure $closure): static {
-        $this->afterChunk = $closure;
+        $this->getOnAfterChunkSubject()->attach($closure);
 
         return $this;
     }
@@ -42,20 +109,22 @@ trait ObjectIteratorSubjects {
     /**
      * @param array<T> $items
      */
-    protected function chunkLoaded(array $items): void {
-        if ($this->beforeChunk && $items) {
-            ($this->beforeChunk)($items);
-        }
-    }
-
-    /**
-     * @param array<T> $items
-     */
     protected function chunkProcessed(array $items): bool {
-        if ($this->afterChunk && $items) {
-            ($this->afterChunk)($items);
+        if ($items) {
+            $this->getOnAfterChunkSubject()->notify($items);
         }
 
         return true;
+    }
+
+    /**
+     * @return \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     */
+    private function getOnAfterChunkSubject(): Subject {
+        if (!isset($this->onAfterChunkSubject)) {
+            $this->onAfterChunkSubject = new Subject();
+        }
+
+        return $this->onAfterChunkSubject;
     }
 }

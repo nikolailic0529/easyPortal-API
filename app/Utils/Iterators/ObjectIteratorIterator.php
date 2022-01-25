@@ -108,8 +108,8 @@ class ObjectIteratorIterator implements ObjectIterator {
         $index     = $this->getIndex();
         $limit     = $this->getLimit();
         $chunk     = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
-        $after     = $this->afterChunk;
-        $before    = $this->beforeChunk;
+        $after     = $this->getOnAfterChunkSubject()->getObservers();
+        $before    = $this->getOnBeforeChunkSubject()->getObservers();
         $iterating = false;
 
         try {
@@ -129,8 +129,14 @@ class ObjectIteratorIterator implements ObjectIterator {
                 // Prepare
                 $iterator->setLimit(null);
                 $iterator->setChunkSize($chunk);
-                $iterator->onBeforeChunk($before);
-                $iterator->onAfterChunk($after);
+
+                foreach ($before as $observer) {
+                    $iterator->onBeforeChunk($observer);
+                }
+
+                foreach ($after as $observer) {
+                    $iterator->onAfterChunk($observer);
+                }
 
                 if ($limit) {
                     $iterator->setLimit($limit - $index);

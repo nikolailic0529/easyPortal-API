@@ -4044,12 +4044,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-core.git",
-                "reference": "ad78ecd47377393a7503da320e48facc142c89ef"
+                "reference": "7d72884e9d311573f2fd2c180ceef2d3ed2de744"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-core/zipball/ad78ecd47377393a7503da320e48facc142c89ef",
-                "reference": "ad78ecd47377393a7503da320e48facc142c89ef",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-core/zipball/7d72884e9d311573f2fd2c180ceef2d3ed2de744",
+                "reference": "7d72884e9d311573f2fd2c180ceef2d3ed2de744",
                 "shasum": ""
             },
             "require": {
@@ -4091,7 +4091,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-01-17T07:08:55+00:00"
+            "time": "2022-01-25T12:50:07+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-eloquent",
