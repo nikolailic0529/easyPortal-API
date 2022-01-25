@@ -122,7 +122,8 @@
     ],
     "post-update-cmd": [
       "@php artisan horizon:publish --ansi",
-      "@php artisan telescope:publish --ansi"
+      "@php artisan telescope:publish --ansi",
+      "@php artisan vendor:publish --tag=laravel-mail"
     ],
     "ide-helper": [
       "@ide-helper-php",
