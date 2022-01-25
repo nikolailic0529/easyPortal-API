@@ -29,6 +29,8 @@ use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
@@ -37,6 +39,7 @@ use function array_slice;
 use function count;
 use function is_null;
 use function reset;
+use function response;
 use function rtrim;
 use function str_starts_with;
 use function trim;
@@ -61,6 +64,14 @@ class Handler extends ExceptionHandler {
         $this->reportable(function (Throwable $exception): bool {
             return !$this->reportException($exception);
         });
+    }
+
+    protected function unauthenticated(mixed $request, AuthenticationException $exception): Response {
+        // By default, Laravel will redirect the User to the "login" page, but
+        // this is unwanted behavior in our case.
+        return $this->shouldReturnJson($request, $exception)
+            ? response()->json(['message' => $exception->getMessage()], 401)
+            : $this->prepareResponse($request, new HttpException(401, $exception->getMessage(), $exception));
     }
 
     /**
