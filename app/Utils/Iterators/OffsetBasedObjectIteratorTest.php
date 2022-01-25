@@ -21,16 +21,27 @@ class OffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $data     = range(1, 10);
+        $onInit   = Mockery::spy(static function (): void {
+            // empty
+        });
+        $onFinish = Mockery::spy(static function (): void {
+            // empty
+        });
         $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
+        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))
+            ->setChunkSize(5)
+            ->onInit(Closure::fromCallable($onInit))
+            ->onFinish(Closure::fromCallable($onFinish));
 
-        $iterator = (new OffsetBasedObjectIterator(Closure::fromCallable($executor)))->setChunkSize(5);
         $expected = $data;
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
 
+        $onInit->shouldHaveBeenCalled()->once();
+        $onFinish->shouldHaveBeenCalled()->once();
         $executor->shouldHaveBeenCalled()->times(3);
     }
 

@@ -20,13 +20,22 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $data     = range(1, 10);
+        $onInit   = Mockery::spy(static function (): void {
+            // empty
+        });
+        $onFinish = Mockery::spy(static function (): void {
+            // empty
+        });
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
             $this->assertEmpty($variables);
 
             return $data;
         });
+        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
+            ->setChunkSize(5)
+            ->onInit(Closure::fromCallable($onInit))
+            ->onFinish(Closure::fromCallable($onFinish));
 
-        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))->setChunkSize(5);
         $expected = $data;
         $actual   = iterator_to_array($iterator);
         $second   = iterator_to_array($iterator);
@@ -34,6 +43,8 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $this->assertEquals($expected, $actual);
         $this->assertEquals($second, $actual);
 
+        $onInit->shouldHaveBeenCalled()->twice();
+        $onFinish->shouldHaveBeenCalled()->twice();
         $executor->shouldHaveBeenCalled()->times(1);
     }
 
