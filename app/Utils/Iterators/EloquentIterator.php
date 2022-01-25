@@ -3,6 +3,7 @@
 namespace App\Utils\Iterators;
 
 use Closure;
+use Exception;
 use Generator;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 
@@ -75,5 +76,13 @@ class EloquentIterator implements ObjectIterator {
         $this->iterator->onAfterChunk($closure);
 
         return $this;
+    }
+
+    public function onInit(?Closure $closure): static {
+        throw new Exception('Not implemented');
+    }
+
+    public function onFinish(?Closure $closure): static {
+        throw new Exception('Not implemented');
     }
 }
