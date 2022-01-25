@@ -22,6 +22,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Iterator;
+use Laravel\Telescope\Telescope;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -232,10 +233,21 @@ class ExportController extends Controller {
         $iterator  = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
             ? new OffsetBasedObjectIterator($executor)
             : new OneChunkOffsetBasedObjectIterator($executor);
+        $recording = null;
 
         $iterator->setLimit($parameters['variables']['limit'] ?? null);
         $iterator->setOffset($parameters['variables']['offset'] ?? null);
         $iterator->setChunkSize($chunk);
+        $iterator->onInit(static function () use (&$recording): void {
+            $recording = Telescope::isRecording();
+
+            Telescope::stopRecording();
+        });
+        $iterator->onFinish(static function () use ($recording): void {
+            if ($recording) {
+                Telescope::startRecording();
+            }
+        });
 
         if ($this->config->get('ep.pagination.limit.max') < $chunk) {
             $this->config->set('ep.pagination.limit.max', $chunk);
