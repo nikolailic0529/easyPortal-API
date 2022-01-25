@@ -1,0 +1,4 @@
+"""
+HTML (https://en.wikipedia.org/wiki/HTML).
+"""
+scalar HtmlString @scalar(class: "App\\GraphQL\\Scalars\\HtmlString")

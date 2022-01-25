@@ -7,7 +7,7 @@ extend type Mutation {
 }
 
 input CreateQuoteNoteInput @validator {
-  note: String!
+  note: HtmlString!
   quote_id: String!
   files: [Upload!]
   pinned: Boolean

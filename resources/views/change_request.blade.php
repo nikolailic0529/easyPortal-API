@@ -3,7 +3,13 @@
 
 A new {{ $type }} change request from {{ $request->from }} to change {{ $title }}.
 
-{!! $request->message !!}
+-----
+
+@html($request->message)
+
+
+-----
+
 
 Thanks,<br>
 Support Team<br>

@@ -162,6 +162,7 @@ type CompanyType {
   vendor: String
   type: String
   status: String
+  source: String
 }
 
 type CoverageEntry {
@@ -238,6 +239,7 @@ type Document {
   documentNumber: String
   type: String
   startDate: String
+  sourceDocuments: [SourceDocument]
   sourceDocument: [SourceDocument]
   updatedAt: String
   languageCode: String
@@ -342,6 +344,7 @@ type Query {
 type SourceDocument {
   id: String
   timestamp: String
+  source: String
 }
 
 input TriggerCoverageStatusCheck {

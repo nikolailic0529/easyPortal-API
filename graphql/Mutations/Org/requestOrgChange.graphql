@@ -9,7 +9,7 @@ extend type Mutation {
 
 input RequestOrgChangeInput {
   subject: String! @rules(apply:["required"])
-  message: String! @rules(apply:["required"])
+  message: HtmlString! @rules(apply:["required"])
   from: Email! @rules(apply:["email"])
   cc: [Email!] @rules(apply:["email"])
   bcc: [Email!] @rules(apply:["email"])

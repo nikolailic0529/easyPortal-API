@@ -36,6 +36,7 @@ return [
             'Email'                         => SearchByDirective::ScalarString,
             'Color'                         => SearchByDirective::ScalarString,
             'PhoneNumber'                   => SearchByDirective::ScalarString,
+            'HtmlString'                    => SearchByDirective::ScalarString,
             SearchByDirective::ScalarString => [
                 Equal::class,
                 NotEqual::class,

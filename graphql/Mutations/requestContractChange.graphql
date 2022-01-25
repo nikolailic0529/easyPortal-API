@@ -9,7 +9,7 @@ extend type Mutation {
 input RequestContractChangeInput {
   contract_id: ID! @rules(apply:["required","App\\Rules\\ContractId"])
   subject: String! @rules(apply:["required"])
-  message: String! @rules(apply:["required"])
+  message: HtmlString! @rules(apply:["required"])
   from: Email! @rules(apply:["email"])
   cc: [Email!] @rules(apply:["email"])
   bcc: [Email!] @rules(apply:["email"])

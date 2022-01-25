@@ -7,7 +7,7 @@ extend type Mutation {
 }
 
 input CreateContractNoteInput @validator {
-  note: String!
+  note: HtmlString!
   contract_id: String!
   files: [Upload!]
   pinned: Boolean

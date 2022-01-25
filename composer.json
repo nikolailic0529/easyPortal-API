@@ -46,6 +46,7 @@
     "propaganistas/laravel-phone": "^4.2",
     "sentry/sentry-laravel": "^2.10",
     "staudenmeir/eloquent-has-many-deep": "^1.14",
+    "stevebauman/purify": "^4.0",
     "symfony/mime": "^5.3",
     "symfony/polyfill-php81": "^1.23"
   },
@@ -121,7 +122,8 @@
     ],
     "post-update-cmd": [
       "@php artisan horizon:publish --ansi",
-      "@php artisan telescope:publish --ansi"
+      "@php artisan telescope:publish --ansi",
+      "@php artisan vendor:publish --tag=laravel-mail"
     ],
     "ide-helper": [
       "@ide-helper-php",

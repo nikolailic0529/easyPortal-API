@@ -23,7 +23,13 @@ phone: <span>{{ $request->contact->phone_number }}</span><br>
 
 @if($request->message)
 <b>Message:</b><br>
-{!! $request->message !!}
+
+-----
+
+@html($request->message)
+
+
+-----
 @endif
 
 Thanks,<br>

@@ -733,7 +733,7 @@ input CoveragesQuery {
 }
 
 input CreateContractNoteInput {
-  note: String!
+  note: HtmlString!
   contract_id: String!
   files: [Upload!]
   pinned: Boolean
@@ -754,7 +754,7 @@ type CreateMeSearchPayload {
 }
 
 input CreateQuoteNoteInput {
-  note: String!
+  note: HtmlString!
   quote_id: String!
   files: [Upload!]
   pinned: Boolean
@@ -775,7 +775,7 @@ input CreateQuoteRequestInput {
   customer_id: ID
   customer_name: String
   type_id: ID!
-  message: String
+  message: HtmlString
   files: [Upload!]
   contact_name: String!
   contact_phone: PhoneNumber!
@@ -1172,6 +1172,9 @@ type File {
 
 """Geohash (https://en.wikipedia.org/wiki/Geohash)"""
 scalar Geohash
+
+"""HTML (https://en.wikipedia.org/wiki/HTML)."""
+scalar HtmlString
 
 input ImportOemsInput {
   file: Upload!
@@ -1709,7 +1712,7 @@ type Mutation {
 type Note {
   id: ID!
   pinned: Boolean!
-  note: String!
+  note: HtmlString!
   created_at: DateTime!
   updated_at: DateTime!
   user_id: ID!
@@ -1723,7 +1726,7 @@ type NotesAggregated {
 }
 
 input NotesQuery {
-  note: String!
+  note: HtmlString!
   pinned: Boolean!
   user_id: ID!
   user: UsersQuery
@@ -2643,7 +2646,7 @@ type RecoverClientTranslationsPayload {
 input RequestAssetChangeInput {
   asset_id: ID!
   subject: String!
-  message: String!
+  message: HtmlString!
   from: Email!
   cc: [Email!]
   bcc: [Email!]
@@ -2657,7 +2660,7 @@ type RequestAssetChangePayload {
 input RequestContractChangeInput {
   contract_id: ID!
   subject: String!
-  message: String!
+  message: HtmlString!
   from: Email!
   cc: [Email!]
   bcc: [Email!]
@@ -2671,7 +2674,7 @@ type RequestContractChangePayload {
 input RequestCustomerChangeInput {
   customer_id: ID!
   subject: String!
-  message: String!
+  message: HtmlString!
   from: Email!
   cc: [Email!]
   bcc: [Email!]
@@ -2684,7 +2687,7 @@ type RequestCustomerChangePayload {
 
 input RequestOrgChangeInput {
   subject: String!
-  message: String!
+  message: HtmlString!
   from: Email!
   cc: [Email!]
   bcc: [Email!]
@@ -2698,7 +2701,7 @@ type RequestOrgChangePayload {
 input RequestQuoteChangeInput {
   quote_id: ID!
   subject: String!
-  message: String!
+  message: HtmlString!
   from: Email!
   cc: [Email!]
   bcc: [Email!]
@@ -4261,7 +4264,7 @@ input SearchByConditionNotesQuery {
   not: SearchByConditionNotesQuery
 
   """Property condition."""
-  note: SearchByScalarString
+  note: SearchByScalarHtmlString
 
   """Property condition."""
   pinned: SearchByScalarBoolean
@@ -4846,6 +4849,32 @@ input SearchByScalarFloatOrNull {
 
   """Is NOT NULL?"""
   isNotNull: SearchByTypeFlag
+}
+
+"""
+Available operators for scalar HtmlString! (only one operator allowed at a time).
+"""
+input SearchByScalarHtmlString {
+  """Equal (`=`)."""
+  equal: HtmlString
+
+  """Not Equal (`!=`)."""
+  notEqual: HtmlString
+
+  """Within a set of values."""
+  in: [HtmlString!]
+
+  """Outside a set of values."""
+  notIn: [HtmlString!]
+
+  """Contains."""
+  contains: HtmlString
+
+  """Ends with a string."""
+  endsWith: HtmlString
+
+  """Starts with a string."""
+  startsWith: HtmlString
 }
 
 """
@@ -6245,7 +6274,7 @@ input UpdateContractNoteFile {
 
 input UpdateContractNoteInput {
   id: ID!
-  note: String
+  note: HtmlString
   pinned: Boolean
   files: [UpdateContractNoteFile!]
 }
@@ -6305,7 +6334,7 @@ input UpdateQuoteNoteFile {
 
 input UpdateQuoteNoteInput {
   id: ID!
-  note: String
+  note: HtmlString
   pinned: Boolean
   files: [UpdateQuoteNoteFile!]
 }
