@@ -37,9 +37,9 @@ class ViewAsset extends Type implements TypeWithId {
     public array $assetDocument;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
+     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>|null
      */
-    public array $latestContactPersons;
+    public ?array $latestContactPersons;
 
     public ?ViewCompany         $reseller;
     public ?ViewCompany         $customer;

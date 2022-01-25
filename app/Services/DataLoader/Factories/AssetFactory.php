@@ -276,7 +276,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->changed_at    = $normalizer->datetime($asset->updatedAt);
             $model->serial_number = $normalizer->string($asset->serialNumber);
             $model->data_quality  = $normalizer->string($asset->dataQualityScore);
-            $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
+            $model->contacts      = $this->objectContacts($model, (array) $asset->latestContactPersons);
             $model->tags          = $this->assetTags($asset);
             $model->coverages     = $this->assetCoverages($asset);
             $model->synced_at     = Date::now();

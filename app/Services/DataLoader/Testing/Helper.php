@@ -205,7 +205,7 @@ trait Helper {
         } elseif ($object instanceof Company) {
             $persons = $object->companyContactPersons;
         } elseif ($object instanceof ViewAsset) {
-            $persons = $object->latestContactPersons;
+            $persons = (array) $object->latestContactPersons;
         } else {
             // empty
         }
