@@ -74,8 +74,8 @@ class RequestAssetChange {
         $request->message      = $message;
         $request->from         = $from;
         $request->to           = [$this->config->get('ep.email_address')];
-        $request->cc           = array_unique(array_filter($cc)) ?: null;
-        $request->bcc          = array_unique(array_filter($bcc)) ?: null;
+        $request->cc           = array_unique(array_filter((array) $cc)) ?: null;
+        $request->bcc          = array_unique(array_filter((array) $bcc)) ?: null;
         $request->save();
 
         // Add Files
