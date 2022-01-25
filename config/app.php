@@ -173,6 +173,7 @@ return [
          * Application Service Providers...
          */
         App\Services\Logger\Provider::class,
+        App\Services\View\Provider::class,
         App\Services\Passwords\Provider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
