@@ -2,8 +2,17 @@
 
 namespace App\GraphQL;
 
+use App\Models\Enums\UserType;
+use App\Models\User;
+use Closure;
+use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
+use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Symfony\Component\Finder\Finder;
+use Tests\GraphQL\GraphQLError;
+use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 
@@ -20,6 +29,22 @@ class SchemaTest extends TestCase {
     // =========================================================================
     public function testSchema(): void {
         $this->assertGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
+    }
+
+    /**
+     * @dataProvider dataProviderIntrospection
+     */
+    public function testIntrospection(
+        Response $expected,
+        Closure $settingsFactory,
+        Closure $userFactory,
+    ): void {
+        $this->setSettings($settingsFactory);
+        $this->setUser($userFactory);
+
+        $this
+            ->graphQL(Introspection::getIntrospectionQuery())
+            ->assertThat($expected);
     }
 
     /**
@@ -53,6 +78,72 @@ class SchemaTest extends TestCase {
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderIntrospection(): array {
+        $success  = new GraphQLSuccess('__schema', null);
+        $failed   = new GraphQLError('__schema');
+        $enabled  = static function (): array {
+            return [
+                'app.debug' => true,
+            ];
+        };
+        $disabled = static function (): array {
+            return [
+                'app.debug' => false,
+            ];
+        };
+        $guest    = static function (): ?User {
+            return null;
+        };
+        $user     = static function (): ?User {
+            return User::factory()->create();
+        };
+        $root     = static function (): ?User {
+            return User::factory()->create([
+                'type' => UserType::local(),
+            ]);
+        };
+
+        return (new MergeDataProvider([
+            'debug on'  => new ArrayDataProvider([
+                'guest' => [
+                    $success,
+                    $enabled,
+                    $guest,
+                ],
+                'user'  => [
+                    $success,
+                    $enabled,
+                    $user,
+                ],
+                'root'  => [
+                    $success,
+                    $enabled,
+                    $root,
+                ],
+            ]),
+            'debug off' => new ArrayDataProvider([
+                'guest' => [
+                    $failed,
+                    $disabled,
+                    $guest,
+                ],
+                'user'  => [
+                    $failed,
+                    $disabled,
+                    $user,
+                ],
+                'root'  => [
+                    $success,
+                    $disabled,
+                    $root,
+                ],
+            ]),
+        ]))->getData();
+    }
+
     /**
      * @return array<mixed>
      */
