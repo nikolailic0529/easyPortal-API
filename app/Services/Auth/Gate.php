@@ -9,7 +9,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
 
 use function in_array;
-use function is_null;
 
 class Gate {
     use AvailablePermissions;
@@ -52,7 +51,7 @@ class Gate {
      * @param array<mixed> $arguments
      */
     public function after(Authenticatable|null $user, string $ability, bool|null $result, array $arguments): ?bool {
-        return is_null($result);
+        return $result === true || ($result === null && $this->isPermission($ability));
     }
 
     protected function isPermission(string $permission): bool {
