@@ -5,21 +5,16 @@ namespace App\Services\Auth;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Auth\Contracts\Enableable;
-use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Organization\RootOrganization;
 use Closure;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Auth\Guard;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
-
-use function is_null;
 
 /**
  * @internal
