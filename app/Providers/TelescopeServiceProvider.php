@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Telescope\HomeController as AppTelescopeHomeController;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\Http\Controllers\HomeController as TelescopeHomeController;
 use Laravel\Telescope\Telescope;
@@ -45,7 +46,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider {
      * This gate determines who can access Telescope in non-local environments.
      */
     protected function gate(): void {
-        Gate::define('viewTelescope', static function ($user): bool {
+        Gate::define('viewTelescope', static function (?Authenticatable $user): bool {
             return false;
         });
     }
