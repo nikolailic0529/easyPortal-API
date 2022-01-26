@@ -8,11 +8,15 @@ use App\Services\I18n\Locale;
 use Closure;
 use GraphQL\Type\Introspection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+
+use function array_map;
 
 /**
  * @internal
@@ -73,6 +77,22 @@ class ServiceTest extends TestCase {
             ->graphQL(Introspection::getIntrospectionQuery())
             ->assertThat($expected);
     }
+
+    /**
+     * @dataProvider dataProviderPlayground
+     */
+    public function testPlayground(
+        Response $expected,
+        Closure $settingsFactory,
+        Closure $userFactory,
+    ): void {
+        $this->setSettings($settingsFactory);
+        $this->setUser($userFactory);
+
+        $this
+            ->get('/graphql-playground')
+            ->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -93,8 +113,27 @@ class ServiceTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderIntrospection(): array {
-        $success  = new GraphQLSuccess('__schema', null);
-        $failed   = new GraphQLError('__schema');
+        $data = $this->dataProviderPlayground();
+        $data = array_map(
+            static function (array $case): array {
+                $case[0] = $case[0] instanceof Ok
+                    ? new GraphQLSuccess('__schema', null)
+                    : new GraphQLError('__schema');
+
+                return $case;
+            },
+            $data,
+        );
+
+        return $data;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderPlayground(): array {
+        $success  = new Ok();
+        $failed   = new Forbidden();
         $enabled  = static function (): array {
             return [
                 'app.debug' => true,
