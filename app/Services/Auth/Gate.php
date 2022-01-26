@@ -25,8 +25,8 @@ class Gate {
     private array $permissions = [];
 
     public function __construct(
-        protected CurrentOrganization $currentOrganization,
         protected Auth $auth,
+        protected CurrentOrganization $currentOrganization,
     ) {
         $this->cache = new WeakMap();
     }
