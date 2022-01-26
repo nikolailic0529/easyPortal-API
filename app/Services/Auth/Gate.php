@@ -7,17 +7,28 @@ use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Collection;
+use WeakMap;
 
 use function in_array;
 
 class Gate {
     use AvailablePermissions;
 
+    /**
+     * @var \WeakMap<\App\Models\User,array<string,array{result:?bool}>>
+     */
+    private WeakMap $cache;
+
+    /**
+     * @var array<string, bool>
+     */
+    private array $permissions = [];
+
     public function __construct(
         protected CurrentOrganization $currentOrganization,
         protected Auth $auth,
     ) {
-        // empty
+        $this->cache = new WeakMap();
     }
 
     protected function getAuth(): Auth {
@@ -28,6 +39,34 @@ class Gate {
      * @param array<mixed> $arguments
      */
     public function before(Authenticatable|null $user, string $ability, array $arguments): ?bool {
+        // Cached?
+        if ($user && isset($this->cache[$user][$ability])) {
+            return $this->cache[$user][$ability]['result'];
+        }
+
+        // Check
+        $can = $this->can($user, $ability);
+
+        if ($user) {
+            if (!isset($this->cache[$user])) {
+                $this->cache[$user] = [];
+            }
+
+            $this->cache[$user][$ability] = ['result' => $can];
+        }
+
+        // Return
+        return $can;
+    }
+
+    /**
+     * @param array<mixed> $arguments
+     */
+    public function after(Authenticatable|null $user, string $ability, bool|null $result, array $arguments): ?bool {
+        return $result === true || ($result === null && $this->isPermission($ability));
+    }
+
+    protected function can(Authenticatable|null $user, string $ability): ?bool {
         // Enabled?
         if (!$this->getAuth()->isEnabled($user)) {
             return false;
@@ -47,18 +86,15 @@ class Gate {
         return null;
     }
 
-    /**
-     * @param array<mixed> $arguments
-     */
-    public function after(Authenticatable|null $user, string $ability, bool|null $result, array $arguments): ?bool {
-        return $result === true || ($result === null && $this->isPermission($ability));
-    }
-
     protected function isPermission(string $permission): bool {
-        return (new Collection($this->getAuth()->getPermissions()))
-            ->contains(static function (Permission $p) use ($permission): bool {
-                return $p->getName() === $permission;
-            });
+        if (!isset($this->permissions[$permission])) {
+            $this->permissions[$permission] = (new Collection($this->getAuth()->getPermissions()))
+                ->contains(static function (Permission $p) use ($permission): bool {
+                    return $p->getName() === $permission;
+                });
+        }
+
+        return $this->permissions[$permission];
     }
 
     protected function hasPermission(Authenticatable|null $user, string $permission): bool {
