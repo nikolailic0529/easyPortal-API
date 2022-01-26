@@ -33,16 +33,7 @@ class AuthServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         $this->registerPolicies();
-        $this->bootPermission();
         $this->bootPasswordResetUrl();
-    }
-
-    protected function bootPermission(): void {
-        $gate = $this->app->make(Gate::class);
-        $auth = $this->app->make(Auth::class);
-
-        $gate->before([$auth, 'gateBefore']);
-        $gate->after([$auth, 'gateAfter']);
     }
 
     protected function bootPasswordResetUrl(): void {
