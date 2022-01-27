@@ -123,7 +123,7 @@ class CreateTest extends TestCase {
                 ->andReturn(true);
         };
         $prepare       = static function (TestCase $test): void {
-            Permissions::add([
+            $test->app->make(Permissions::class)->add([
                 new class('permission-a') extends AuthPermission {
                     // empty
                 },

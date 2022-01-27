@@ -39,7 +39,9 @@ class PermissionsTest extends TestCase {
         $this->setTranslations($translationsFactory);
 
         if ($permissionsFactory) {
-            Permissions::add($permissionsFactory($this, $org, $user));
+            $this->app->make(Permissions::class)->add(
+                $permissionsFactory($this, $org, $user),
+            );
         }
 
         // Test

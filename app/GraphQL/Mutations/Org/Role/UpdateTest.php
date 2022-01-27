@@ -136,7 +136,7 @@ class UpdateTest extends TestCase {
                 'key' => 'permission-a',
             ]);
 
-            Permissions::add([
+            $test->app->make(Permissions::class)->add([
                 new class('permission-a') extends AuthPermission {
                     // empty
                 },

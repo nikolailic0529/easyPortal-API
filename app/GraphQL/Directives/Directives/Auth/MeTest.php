@@ -44,7 +44,7 @@ class MeTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        Permissions::set([
+        $this->app->make(Permissions::class)->set([
             new class('a') extends Permission {
                 // empty
             },
@@ -107,7 +107,7 @@ class MeTest extends TestCase {
     ): void {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        Permissions::set([
+        $this->app->make(Permissions::class)->set([
             new class('a') extends Permission {
                 // empty
             },
@@ -154,7 +154,7 @@ class MeTest extends TestCase {
             implode('`, `', ['unknown']),
         )));
 
-        Permissions::set([
+        $this->app->make(Permissions::class)->set([
             new class('a') extends Permission {
                 // empty
             },

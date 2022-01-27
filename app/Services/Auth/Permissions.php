@@ -39,7 +39,7 @@ class Permissions {
     /**
      * @var array<\App\Services\Auth\Permission>
      */
-    protected static array $permissions;
+    protected array $permissions;
 
     public function __construct() {
         // empty
@@ -48,26 +48,30 @@ class Permissions {
     /**
      * @return array<\App\Services\Auth\Permission>
      */
-    public static function get(): array {
-        if (!isset(self::$permissions)) {
-            self::$permissions = self::default();
+    public function get(): array {
+        if (!isset($this->permissions)) {
+            $this->permissions = $this->default();
         }
 
-        return self::$permissions;
+        return $this->permissions;
     }
 
     /**
      * @param array<\App\Services\Auth\Permission> $permissions
      */
-    public static function set(array $permissions): void {
-        self::$permissions = $permissions;
+    public function set(array $permissions): static {
+        $this->permissions = $permissions;
+
+        return $this;
     }
 
     /**
      * @param array<\App\Services\Auth\Permission> $permissions
      */
-    public static function add(array $permissions): void {
-        self::$permissions = array_merge(self::get(), $permissions);
+    public function add(array $permissions): static {
+        $this->permissions = array_merge($this->get(), $permissions);
+
+        return $this;
     }
 
     /**

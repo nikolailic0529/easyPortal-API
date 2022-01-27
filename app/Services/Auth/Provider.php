@@ -7,6 +7,12 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
 class Provider extends ServiceProvider {
+    public function register(): void {
+        parent::register();
+
+        $this->app->singleton(Permissions::class);
+    }
+
     public function boot(): void {
         $this->app->afterResolving(
             GateContract::class,

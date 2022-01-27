@@ -17,6 +17,7 @@ class Auth {
         protected Factory $auth,
         protected RootOrganization $rootOrganization,
         protected CurrentOrganization $currentOrganization,
+        protected Permissions $permissions,
     ) {
         // empty
     }
@@ -49,7 +50,7 @@ class Auth {
      * @return array<\App\Services\Auth\Permission>
      */
     public function getPermissions(): array {
-        return Permissions::get();
+        return $this->permissions->get();
     }
 
     /**

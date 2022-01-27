@@ -99,12 +99,13 @@ class AuthTest extends TestCase {
             ->once()
             ->andReturn($isRootOrganization);
 
-        Permissions::set($permissions);
+        $permissions = $this->app->make(Permissions::class)->set($permissions);
 
-        $service = new class($rootOrganization) extends Auth {
+        $service = new class($rootOrganization, $permissions) extends Auth {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected RootOrganization $rootOrganization,
+                protected Permissions $permissions,
             ) {
                 // empty
             }
