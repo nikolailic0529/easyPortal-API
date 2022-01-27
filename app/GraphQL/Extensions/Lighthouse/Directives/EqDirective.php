@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Lighthouse;
+namespace App\GraphQL\Extensions\Lighthouse\Directives;
 
 use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
 

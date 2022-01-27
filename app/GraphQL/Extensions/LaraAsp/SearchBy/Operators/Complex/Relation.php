@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators\Complex;
+namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

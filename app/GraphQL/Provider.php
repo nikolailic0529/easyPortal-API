@@ -3,8 +3,8 @@
 namespace App\GraphQL;
 
 use App\Exceptions\GraphQL\ErrorFormatter;
-use App\GraphQL\Directives\Lighthouse\EqDirective;
-use App\GraphQL\Directives\SearchBy\Operators\Complex\Relation as RelationOperator;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation as RelationOperator;
+use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
 use App\GraphQL\Providers\ValidationRulesProvider;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy;
+namespace App\GraphQL\Extensions\LaraAsp\SearchBy;
 
 use App\Models\Asset;
 use App\Models\Customer;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Metadata
+ * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata
  */
 class MetadataTest extends TestCase {
     /**

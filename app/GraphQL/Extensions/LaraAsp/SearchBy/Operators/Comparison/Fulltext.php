@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
+namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison;
 
-use App\GraphQL\Directives\SearchBy\Metadata;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
