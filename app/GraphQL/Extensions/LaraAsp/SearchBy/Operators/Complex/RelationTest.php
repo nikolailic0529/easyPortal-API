@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators\Complex;
+namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex;
 
 use Closure;
 use Exception;
@@ -18,7 +18,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Complex\Relation
+ * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation
  */
 class RelationTest extends TestCase {
     // <editor-fold desc="Tests">

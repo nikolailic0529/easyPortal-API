@@ -2,11 +2,12 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
+use App\Exceptions\Contracts\GenericException;
 use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\KeyCloak\ServiceException;
 use Throwable;
 
-class FailedToImportObject extends ServiceException {
+final class FailedToImportObject extends ServiceException implements GenericException {
     public function __construct(
         protected UsersImporter $importer,
         protected object $object,

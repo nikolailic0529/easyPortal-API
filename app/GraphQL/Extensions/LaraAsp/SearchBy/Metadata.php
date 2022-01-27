@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy;
+namespace App\GraphQL\Extensions\LaraAsp\SearchBy;
 
 use App\Models\Asset;
 use App\Models\Customer;

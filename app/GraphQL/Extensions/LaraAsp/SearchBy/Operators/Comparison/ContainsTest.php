@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\SearchBy\Operators\Comparison;
+namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison;
 
-use App\GraphQL\Directives\SearchBy\Metadata;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\SearchBy\Operators\Comparison\Contains
+ * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains
  */
 class ContainsTest extends TestCase {
     // <editor-fold desc="Tests">
