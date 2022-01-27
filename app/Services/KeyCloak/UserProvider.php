@@ -7,7 +7,7 @@ use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission;
+use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
 use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData;
@@ -25,11 +25,12 @@ use Lcobucci\JWT\UnencryptedToken;
 use function array_filter;
 use function array_intersect;
 use function array_keys;
-use function array_map;
 use function array_unique;
 use function array_values;
 
 class UserProvider implements UserProviderContract {
+    use AvailablePermissions;
+
     public const    CREDENTIAL_ACCESS_TOKEN     = 'access_token';
     public const    CREDENTIAL_PASSWORD         = 'password';
     public const    CREDENTIAL_EMAIL            = 'email';
@@ -395,8 +396,7 @@ class UserProvider implements UserProviderContract {
         $roles = array_unique(array_values($roles));
 
         // Available
-        $permissions = $this->getAuth()->getAvailablePermissions($organization);
-        $permissions = array_map(static fn(Permission $permission): string => $permission->getName(), $permissions);
+        $permissions = $this->getAvailablePermissions($organization);
         $roles       = array_intersect($roles, $permissions);
         $roles       = array_values($roles);
 

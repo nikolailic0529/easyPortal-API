@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Horizon\HomeController as AppHorizonHomeController;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 use Laravel\Horizon\Http\Controllers\HomeController as HorizonHomeController;
 
@@ -34,8 +34,13 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider {
      * This gate determines who can access Horizon in non-local environments.
      */
     protected function gate(): void {
-        Gate::define('viewHorizon', static function (Authenticatable|null $user): bool {
-            return false;
-        });
+        $this->app->afterResolving(
+            Gate::class,
+            static function (Gate $gate): void {
+                $gate->define('viewHorizon', static function (?Authenticatable $user): bool {
+                    return false;
+                });
+            },
+        );
     }
 }

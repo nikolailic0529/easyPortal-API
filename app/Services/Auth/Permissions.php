@@ -33,7 +33,14 @@ use App\Services\Auth\Permissions\RequestsCustomerChange;
 use App\Services\Auth\Permissions\RequestsQuoteAdd;
 use App\Services\Auth\Permissions\RequestsQuoteChange;
 
+use function array_merge;
+
 class Permissions {
+    /**
+     * @var array<\App\Services\Auth\Permission>
+     */
+    protected array $permissions;
+
     public function __construct() {
         // empty
     }
@@ -42,6 +49,35 @@ class Permissions {
      * @return array<\App\Services\Auth\Permission>
      */
     public function get(): array {
+        if (!isset($this->permissions)) {
+            $this->permissions = $this->default();
+        }
+
+        return $this->permissions;
+    }
+
+    /**
+     * @param array<\App\Services\Auth\Permission> $permissions
+     */
+    public function set(array $permissions): static {
+        $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * @param array<\App\Services\Auth\Permission> $permissions
+     */
+    public function add(array $permissions): static {
+        $this->permissions = array_merge($this->get(), $permissions);
+
+        return $this;
+    }
+
+    /**
+     * @return array<\App\Services\Auth\Permission>
+     */
+    protected static function default(): array {
         return [
             // Assets
             new AssetsView(),

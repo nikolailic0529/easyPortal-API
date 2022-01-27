@@ -6,7 +6,6 @@ use App\Models\Organization;
 use App\Models\Permission;
 use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Auth\Permissions;
-use App\Services\Auth\Permissions as AuthPermissions;
 use App\Services\Auth\Permissions\Markers\IsRoot;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -34,31 +33,15 @@ class PermissionsTest extends TestCase {
         Closure $permissionsFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $org  = $this->setOrganization($organizationFactory);
+        $user = $this->setUser($userFactory, $org);
+
         $this->setTranslations($translationsFactory);
 
         if ($permissionsFactory) {
-            $permissions = $permissionsFactory($this);
-
-            $this->override(AuthPermissions::class, function () use ($permissions): AuthPermissions {
-                return new class($permissions) extends Permissions {
-                    /**
-                     * @param array<\App\Services\Auth\Permission> $permissions
-                     */
-                    public function __construct(
-                        protected array $permissions,
-                    ) {
-                        parent::__construct();
-                    }
-
-                    /**
-                     * @inheritDoc
-                     */
-                    public function get(): array {
-                        return $this->permissions;
-                    }
-                };
-            });
+            $this->app->make(Permissions::class)->add(
+                $permissionsFactory($this, $org, $user),
+            );
         }
 
         // Test
@@ -91,16 +74,16 @@ class PermissionsTest extends TestCase {
             'ok' => [
                 new GraphQLSuccess('permissions', self::class, [
                     [
-                        'id'          => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                        'name'        => 'translated-a-name',
-                        'key'         => 'permission-a',
-                        'description' => 'translated-a-description',
-                    ],
-                    [
                         'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
                         'name'        => 'permission-b',
                         'key'         => 'permission-b',
                         'description' => 'permission-b',
+                    ],
+                    [
+                        'id'          => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name'        => 'translated-a-name',
+                        'key'         => 'permission-a',
+                        'description' => 'translated-a-description',
                     ],
                 ]),
                 static function (TestCase $test, string $locale): array {

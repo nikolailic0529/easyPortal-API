@@ -172,9 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Services\Auth\Provider::class,
         App\Services\Logger\Provider::class,
         App\Services\View\Provider::class,
         App\Services\Passwords\Provider::class,
+        App\GraphQL\Provider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

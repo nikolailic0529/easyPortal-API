@@ -6,43 +6,31 @@ use App\Models\Note;
 use App\Models\User;
 use App\Policies\NotePolicy;
 use App\Policies\UserPolicy;
-use App\Services\Auth\Auth;
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 use function strtr;
 
 class AuthServiceProvider extends ServiceProvider {
     /**
-     * The policy mappings for the application.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $policies = [
-        User::class => UserPolicy::class,
-        Note::class => NotePolicy::class,
-    ];
-
-    /**
      * Register any authentication / authorization services.
      */
     public function boot(): void {
-        $this->registerPolicies();
-        $this->bootPermission();
+        $this->bootPolicies();
         $this->bootPasswordResetUrl();
     }
 
-    protected function bootPermission(): void {
-        $gate = $this->app->make(Gate::class);
-        $auth = $this->app->make(Auth::class);
-
-        $gate->before([$auth, 'gateBefore']);
-        $gate->after([$auth, 'gateAfter']);
+    protected function bootPolicies(): void {
+        $this->app->afterResolving(
+            GateContract::class,
+            static function (GateContract $gate): void {
+                $gate->policy(User::class, UserPolicy::class);
+                $gate->policy(Note::class, NotePolicy::class);
+            },
+        );
     }
 
     protected function bootPasswordResetUrl(): void {

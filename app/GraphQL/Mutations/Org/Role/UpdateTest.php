@@ -136,16 +136,11 @@ class UpdateTest extends TestCase {
                 'key' => 'permission-a',
             ]);
 
-            $test->override(Permissions::class, static function (MockInterface $mock): void {
-                $mock
-                    ->shouldReceive('get')
-                    ->once()
-                    ->andReturn([
-                        new class('permission-a') extends AuthPermission {
-                            // empty
-                        },
-                    ]);
-            });
+            $test->app->make(Permissions::class)->add([
+                new class('permission-a') extends AuthPermission {
+                    // empty
+                },
+            ]);
 
             return $role;
         };
