@@ -64,14 +64,15 @@ class BatchInsert {
         }
 
         // Save (single query will be the same as without batch)
-        if ($this->model instanceof Upsertable) {
-            $this->upsert();
-        } else {
-            $this->insert();
+        try {
+            if ($this->model instanceof Upsertable) {
+                $this->upsert();
+            } else {
+                $this->insert();
+            }
+        } finally {
+            $this->reset();
         }
-
-        // Reset
-        $this->reset();
     }
 
     protected function upsert(): void {
