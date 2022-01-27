@@ -50,8 +50,8 @@ abstract class Processor {
     private Subject $onFinish;
 
     protected function __construct(
-        protected ExceptionHandler $exceptionHandler,
-        protected Dispatcher $dispatcher,
+        private ExceptionHandler $exceptionHandler,
+        private Dispatcher $dispatcher,
     ) {
         $this->onInit   = new Subject();
         $this->onChange = new Subject();
@@ -60,6 +60,14 @@ abstract class Processor {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
+    }
+
+    protected function getDispatcher(): Dispatcher {
+        return $this->dispatcher;
+    }
+
     public function getService(): ?Service {
         return $this->service;
     }
@@ -301,7 +309,7 @@ abstract class Processor {
         $event = $this->getOnChangeEvent($state, $items);
 
         if ($event) {
-            $this->dispatcher->dispatch($event);
+            $this->getDispatcher()->dispatch($event);
         }
     }
 
@@ -318,7 +326,7 @@ abstract class Processor {
      * @return TState|null
      */
     protected function getState(): ?State {
-        return $this->service?->get($this, fn(array $state) => $this->restoreState($state));
+        return $this->getService()?->get($this, fn(array $state) => $this->restoreState($state));
     }
 
     /**
@@ -346,11 +354,11 @@ abstract class Processor {
      * @param TState $state
      */
     protected function saveState(State $state): void {
-        $this->service?->set($this, $state);
+        $this->getService()?->set($this, $state);
     }
 
     protected function resetState(): void {
-        $this->service?->delete($this);
+        $this->getService()?->delete($this);
     }
 
     /**
