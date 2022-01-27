@@ -10,6 +10,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Complex\Relation as SearchByRelationOperator;
@@ -21,10 +22,10 @@ class Provider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      */
-    public function boot(Repository $config, Gate $gate, Dispatcher $dispatcher): void {
+    public function boot(Dispatcher $dispatcher): void {
         $this->bootGraphQL($dispatcher);
-        $this->bootPlayground($config, $gate);
-        $this->bootIntrospection($config, $gate);
+        $this->bootPlayground();
+        $this->bootIntrospection();
     }
 
     protected function bootGraphQL(Dispatcher $dispatcher): void {
@@ -39,17 +40,26 @@ class Provider extends ServiceProvider {
         );
     }
 
-    protected function bootPlayground(Repository $config, Gate $gate): void {
-        $gate->define('graphql-playground', $this->getGateCallback($config));
+    protected function bootPlayground(): void {
+        $this->app->afterResolving(
+            Gate::class,
+            static function (Gate $gate, Container $container): void {
+                $gate->define('graphql-playground', static::getGateCallback($container->make(Repository::class)));
+            },
+        );
     }
 
-    protected function bootIntrospection(Repository $config, Gate $gate): void {
+    protected function bootIntrospection(): void {
         $this->app->bind(ProvidesValidationRules::class, ValidationRulesProvider::class);
-
-        $gate->define('graphql-introspection', $this->getGateCallback($config));
+        $this->app->afterResolving(
+            Gate::class,
+            static function (Gate $gate, Container $container): void {
+                $gate->define('graphql-introspection', static::getGateCallback($container->make(Repository::class)));
+            },
+        );
     }
 
-    protected function getGateCallback(Repository $config): Closure {
+    protected static function getGateCallback(Repository $config): Closure {
         return static function (?Authenticatable $user) use ($config): bool {
             return (bool) $config->get('app.debug');
         };
