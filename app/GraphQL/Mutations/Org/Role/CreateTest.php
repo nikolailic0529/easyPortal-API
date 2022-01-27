@@ -123,16 +123,11 @@ class CreateTest extends TestCase {
                 ->andReturn(true);
         };
         $prepare       = static function (TestCase $test): void {
-            $test->override(Permissions::class, static function (MockInterface $mock): void {
-                $mock
-                    ->shouldReceive('get')
-                    ->once()
-                    ->andReturn([
-                        new class('permission-a') extends AuthPermission {
-                            // empty
-                        },
-                    ]);
-            });
+            Permissions::add([
+                new class('permission-a') extends AuthPermission {
+                    // empty
+                },
+            ]);
 
             Permission::factory()->create([
                 'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',

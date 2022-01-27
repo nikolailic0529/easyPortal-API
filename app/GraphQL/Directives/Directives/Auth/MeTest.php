@@ -44,26 +44,17 @@ class MeTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $this->override(Permissions::class, static function (): Permissions {
-            return new class() extends Permissions {
-                /**
-                 * @inheritDoc
-                 */
-                public function get(): array {
-                    return [
-                        new class('a') extends Permission {
-                            // empty
-                        },
-                        new class('b') extends Permission {
-                            // empty
-                        },
-                        new class('c') extends Permission {
-                            // empty
-                        },
-                    ];
-                }
-            };
-        });
+        Permissions::set([
+            new class('a') extends Permission {
+                // empty
+            },
+            new class('b') extends Permission {
+                // empty
+            },
+            new class('c') extends Permission {
+                // empty
+            },
+        ]);
 
         $this->assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
@@ -116,26 +107,17 @@ class MeTest extends TestCase {
     ): void {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        $this->override(Permissions::class, static function (): Permissions {
-            return new class() extends Permissions {
-                /**
-                 * @inheritDoc
-                 */
-                public function get(): array {
-                    return [
-                        new class('a') extends Permission {
-                            // empty
-                        },
-                        new class('b') extends Permission {
-                            // empty
-                        },
-                        new class('c') extends Permission {
-                            // empty
-                        },
-                    ];
-                }
-            };
-        });
+        Permissions::set([
+            new class('a') extends Permission {
+                // empty
+            },
+            new class('b') extends Permission {
+                // empty
+            },
+            new class('c') extends Permission {
+                // empty
+            },
+        ]);
 
         $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode($permissions);
@@ -172,20 +154,11 @@ class MeTest extends TestCase {
             implode('`, `', ['unknown']),
         )));
 
-        $this->override(Permissions::class, static function (): Permissions {
-            return new class() extends Permissions {
-                /**
-                 * @inheritDoc
-                 */
-                public function get(): array {
-                    return [
-                        new class('a') extends Permission {
-                            // empty
-                        },
-                    ];
-                }
-            };
-        });
+        Permissions::set([
+            new class('a') extends Permission {
+                // empty
+            },
+        ]);
 
         $this->getGraphQLSchema(
         /** @lang GraphQL */

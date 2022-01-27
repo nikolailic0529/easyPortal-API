@@ -99,29 +99,12 @@ class AuthTest extends TestCase {
             ->once()
             ->andReturn($isRootOrganization);
 
-        $permissions = new class($permissions) extends Permissions {
-            /**
-             * @param array<\App\Services\Auth\Permission> $permissions
-             */
-            public function __construct(
-                protected array $permissions,
-            ) {
-                parent::__construct();
-            }
+        Permissions::set($permissions);
 
-            /**
-             * @inheritDoc
-             */
-            public function get(): array {
-                return $this->permissions;
-            }
-        };
-
-        $service = new class($rootOrganization, $permissions) extends Auth {
+        $service = new class($rootOrganization) extends Auth {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected RootOrganization $rootOrganization,
-                protected Permissions $permissions,
             ) {
                 // empty
             }
