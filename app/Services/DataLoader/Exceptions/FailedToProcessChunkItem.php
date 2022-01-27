@@ -9,7 +9,7 @@ use Throwable;
 
 use function array_merge;
 
-class FailedToProcessChunkItem extends FailedToProcessObject implements GenericException {
+final class FailedToProcessChunkItem extends FailedToProcessObject implements GenericException {
     public function __construct(
         protected Query $query,
         protected mixed $item,

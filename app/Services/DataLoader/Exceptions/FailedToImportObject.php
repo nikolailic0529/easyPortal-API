@@ -7,7 +7,7 @@ use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Schema\Type;
 use Throwable;
 
-class FailedToImportObject extends FailedToProcessObject implements GenericException {
+final class FailedToImportObject extends FailedToProcessObject implements GenericException {
     public function __construct(
         protected Importer $importer,
         protected Type $object,
