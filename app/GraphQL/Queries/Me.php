@@ -37,7 +37,10 @@ class Me {
     }
 
     public function enabled(?User $user): bool {
-        return $this->auth->isEnabled($user);
+        $org     = $this->organization->defined() ? $this->organization->get() : null;
+        $enabled = $this->auth->isEnabled($user, $org);
+
+        return $enabled;
     }
 
     /**

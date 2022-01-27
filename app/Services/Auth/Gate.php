@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 
-use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -12,8 +11,6 @@ use WeakMap;
 use function in_array;
 
 class Gate {
-    use AvailablePermissions;
-
     /**
      * @var \WeakMap<\App\Models\User,array<string,array{result:?bool}>>
      */
@@ -26,7 +23,7 @@ class Gate {
 
     public function __construct(
         protected Auth $auth,
-        protected CurrentOrganization $currentOrganization,
+        protected CurrentOrganization $organization,
     ) {
         $this->cache = new WeakMap();
     }
@@ -68,7 +65,10 @@ class Gate {
 
     protected function can(Authenticatable|null $user, string $ability): ?bool {
         // Enabled?
-        if (!$this->getAuth()->isEnabled($user)) {
+        $org     = $this->organization->defined() ? $this->organization->get() : null;
+        $enabled = $this->getAuth()->isEnabled($user, $org);
+
+        if (!$enabled) {
             return false;
         }
 

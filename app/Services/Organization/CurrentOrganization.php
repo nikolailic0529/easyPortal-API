@@ -3,12 +3,12 @@
 namespace App\Services\Organization;
 
 use App\Models\Organization;
-use Illuminate\Contracts\Auth\Factory;
+use App\Services\Auth\Auth;
 
 class CurrentOrganization extends OrganizationProvider {
     public function __construct(
         protected RootOrganization $root,
-        protected Factory $auth,
+        protected Auth $auth,
     ) {
         parent::__construct();
     }
@@ -18,7 +18,7 @@ class CurrentOrganization extends OrganizationProvider {
     }
 
     protected function getCurrent(): ?Organization {
-        $user         = $this->auth->guard()->user();
+        $user         = $this->auth->getUser();
         $organization = $user instanceof HasOrganization
             ? $user->getOrganization()
             : null;

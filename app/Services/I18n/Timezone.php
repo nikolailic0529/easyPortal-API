@@ -2,17 +2,17 @@
 
 namespace App\Services\I18n;
 
+use App\Services\Auth\Auth;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\CurrentOrganization;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
 
 class Timezone {
     public function __construct(
         protected Repository $config,
-        protected AuthManager $auth,
         protected Session $session,
+        protected Auth $auth,
         protected CurrentOrganization $organization,
     ) {
         // empty
@@ -25,7 +25,7 @@ class Timezone {
         }
 
         // User.timezone
-        $user = $this->auth->guard()->user();
+        $user = $this->auth->getUser();
 
         if ($user instanceof HasTimezonePreference && $user->preferredTimezone()) {
             return $user->preferredTimezone();

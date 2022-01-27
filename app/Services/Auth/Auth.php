@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\Auth\Permissions\Markers\IsRoot;
-use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
@@ -15,9 +14,8 @@ use Illuminate\Contracts\Auth\Factory;
 class Auth {
     public function __construct(
         protected Factory $auth,
-        protected RootOrganization $rootOrganization,
-        protected CurrentOrganization $currentOrganization,
         protected Permissions $permissions,
+        protected RootOrganization $rootOrganization,
     ) {
         // empty
     }
@@ -36,14 +34,12 @@ class Auth {
         return $user instanceof Rootable && $user->isRoot();
     }
 
-    public function isEnabled(Authenticatable|null $user): bool {
+    public function isEnabled(Authenticatable|null $user, ?Organization $organization): bool {
         if (!($user instanceof Enableable)) {
             return true;
         }
 
-        return $this->currentOrganization->defined()
-            ? $user->isEnabled($this->currentOrganization->get())
-            : $user->isEnabled(null);
+        return $user->isEnabled($organization);
     }
 
     /**
