@@ -23,8 +23,6 @@ use Nuwave\Lighthouse\Support\Contracts\ProvidesValidationRules;
 use Nuwave\Lighthouse\Validation\ValidatorDirective as LighthouseValidatorDirective;
 
 class Provider extends ServiceProvider {
-    // <editor-fold desc="Register">
-    // =========================================================================
     public function register(): void {
         parent::register();
 
