@@ -24,6 +24,7 @@ use function min;
 
 /**
  * @template TItem
+ * @template TChunkData
  * @template TState of \App\Utils\Processor\State
  */
 abstract class Processor {
@@ -138,15 +139,20 @@ abstract class Processor {
     }
 
     protected function run(State $state): void {
+        $data     = null;
         $iterator = $this->getIterator()
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
-            ->onBeforeChunk(function (array $items) use ($state): void {
+            ->onBeforeChunk(function (array $items) use ($state, &$data): void {
+                $data = $this->prefetch($state, $items);
+
                 $this->chunkLoaded($state, $items);
             })
-            ->onAfterChunk(function (array $items) use ($state): void {
+            ->onAfterChunk(function (array $items) use ($state, &$data): void {
+                $data = null;
+
                 $this->chunkProcessed($state, $items);
             });
 
@@ -154,7 +160,7 @@ abstract class Processor {
 
         foreach ($iterator as $item) {
             try {
-                $this->process($item);
+                $this->process($data, $item);
 
                 $state->success++;
             } catch (Throwable $exception) {
@@ -176,16 +182,23 @@ abstract class Processor {
     abstract protected function getIterator(): ObjectIterator;
 
     /**
-     * @param TItem $item
+     * @param TChunkData|null $data
+     * @param TItem           $item
      */
-    abstract protected function process(mixed $item): void;
+    abstract protected function process(mixed $data, mixed $item): void;
 
     /**
      * @param TItem $item
      */
-    protected function report(Throwable $exception, mixed $item): void {
-        throw $exception;
-    }
+    abstract protected function report(Throwable $exception, mixed $item): void;
+
+    /**
+     * @param TState       $state
+     * @param array<TItem> $items
+     *
+     * @return TChunkData|null
+     */
+    abstract protected function prefetch(State $state, array $items): mixed;
     //</editor-fold>
 
     // <editor-fold desc="Events">
@@ -268,6 +281,7 @@ abstract class Processor {
      */
     protected function finish(State $state): void {
         $this->notifyOnFinish($state);
+        $this->resetState();
     }
 
     /**
@@ -312,7 +326,9 @@ abstract class Processor {
      * @param TState       $state
      * @param array<TItem> $items
      */
-    abstract protected function getOnChangeEvent(State $state, array $items): ?object;
+    protected function getOnChangeEvent(State $state, array $items): ?object {
+        return null;
+    }
     // </editor-fold>
 
     // <editor-fold desc="State">

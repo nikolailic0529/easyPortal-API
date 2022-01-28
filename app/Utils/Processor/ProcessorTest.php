@@ -13,6 +13,7 @@ use LogicException;
 use Mockery;
 use stdClass;
 use Tests\TestCase;
+use Throwable;
 
 /**
  * @internal
@@ -181,6 +182,7 @@ class ProcessorTest extends TestCase {
             ->once()
             ->andReturn([]);
 
+        $data       = new stdClass();
         $handler    = $this->app->make(ExceptionHandler::class);
         $dispatcher = $this->app->make(Dispatcher::class);
         $processor  = Mockery::mock(ProcessorTest__Processor::class, [$handler, $dispatcher]);
@@ -192,12 +194,12 @@ class ProcessorTest extends TestCase {
             ->andReturn($iterator);
         $processor
             ->shouldReceive('process')
-            ->with($a)
+            ->with($data, $a)
             ->once()
             ->andReturns();
         $processor
             ->shouldReceive('process')
-            ->with($b)
+            ->with($data, $b)
             ->once()
             ->andThrow($exception);
         $processor
@@ -205,6 +207,10 @@ class ProcessorTest extends TestCase {
             ->with($exception, $b)
             ->once()
             ->andReturns();
+        $processor
+            ->shouldReceive('prefetch')
+            ->once()
+            ->andReturn($data);
         $processor
             ->shouldReceive('getOnChangeEvent')
             ->once()
@@ -280,8 +286,19 @@ class ProcessorTest extends TestCase {
                 throw new Exception();
             }
 
-            protected function process(mixed $item): void {
+            protected function process(mixed $item, mixed $data): void {
                 throw new Exception();
+            }
+
+            protected function report(Throwable $exception, mixed $item): void {
+                throw $exception;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected function prefetch(State $state, array $items): mixed {
+                return null;
             }
 
             /**
