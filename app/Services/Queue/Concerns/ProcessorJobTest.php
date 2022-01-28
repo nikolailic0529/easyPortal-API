@@ -6,6 +6,7 @@ use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Job;
 use App\Services\Queue\Pinger;
 use App\Services\Queue\Progress;
+use App\Services\Service;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use App\Utils\Processor\Processor;
@@ -37,7 +38,88 @@ class ProcessorJobTest extends TestCase {
             ->once();
         $processor
             ->shouldReceive('process')
+            ->times(5);
+
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('get')
+            ->once()
+            ->andReturn(null);
+        $service
+            ->shouldReceive('set')
+            ->once()
+            ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
+                return $value;
+            });
+        $service
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(true);
+
+        $pinger = Mockery::mock(Pinger::class);
+        $pinger
+            ->shouldReceive('ping')
+            ->twice()
+            ->andReturns();
+
+        $job = new class($service, $processor) extends Job {
+            use ProcessorJob;
+
+            public function __construct(
+                protected Service $service,
+                protected Processor $processor,
+            ) {
+                parent::__construct();
+            }
+
+            public function displayName(): string {
+                return 'test';
+            }
+
+            protected function getService(Container $container): ?Service {
+                return $this->service;
+            }
+
+            protected function getProcessor(Container $container): Processor {
+                return $this->processor;
+            }
+        };
+
+        $job->handle($this->app, $pinger);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeStopped(): void {
+        $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
+            $this->app->make(ExceptionHandler::class),
+            $this->app->make(Dispatcher::class),
+            null,
+        ]);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('prefetch')
+            ->once();
+        $processor
+            ->shouldReceive('process')
             ->twice();
+
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('get')
+            ->once()
+            ->andReturn(null);
+        $service
+            ->shouldReceive('set')
+            ->once()
+            ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
+                return $value;
+            });
+        $service
+            ->shouldReceive('delete')
+            ->never();
 
         $pinger = Mockery::mock(Pinger::class);
         $pinger
@@ -49,10 +131,11 @@ class ProcessorJobTest extends TestCase {
             ->once()
             ->andThrow(new JobStopped());
 
-        $job = new class($processor) extends Job {
+        $job = new class($service, $processor) extends Job {
             use ProcessorJob;
 
             public function __construct(
+                protected Service $service,
                 protected Processor $processor,
             ) {
                 parent::__construct();
@@ -60,6 +143,10 @@ class ProcessorJobTest extends TestCase {
 
             public function displayName(): string {
                 return 'test';
+            }
+
+            protected function getService(Container $container): ?Service {
+                return $this->service;
             }
 
             protected function getProcessor(Container $container): Processor {
@@ -125,7 +212,6 @@ class ProcessorJobTest extends TestCase {
         );
     }
 }
-
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
 // @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
