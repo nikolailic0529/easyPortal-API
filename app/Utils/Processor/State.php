@@ -14,5 +14,4 @@ class State extends JsonObject {
     public int               $processed = 0;
     public int               $success   = 0;
     public int               $failed    = 0;
-    public int               $skipped   = 0;
 }
