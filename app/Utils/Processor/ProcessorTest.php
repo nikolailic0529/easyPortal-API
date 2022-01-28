@@ -142,10 +142,10 @@ class ProcessorTest extends TestCase {
         $b         = new class() extends stdClass {
             // empty
         };
-        $chunk     = $this->faker->randomNumber(3);
+        $chunk     = $this->faker->randomElement([10, 100, 250, 500]);
         $state     = new State([
-            'index'  => $this->faker->randomNumber(),
-            'limit'  => $this->faker->randomNumber(),
+            'index'  => $this->faker->numberBetween(1, 100),
+            'limit'  => $this->faker->numberBetween(1, 100),
             'offset' => $this->faker->uuid,
         ]);
         $exception = new Exception();

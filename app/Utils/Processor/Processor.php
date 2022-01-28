@@ -32,8 +32,10 @@ abstract class Processor {
     use Offset;
     use ChunkSize;
 
-    private bool $stopped = false;
-    private bool $running = false;
+    private mixed    $cacheKey = null;
+    private ?Service $service  = null;
+    private bool     $stopped  = false;
+    private bool     $running  = false;
 
     /**
      * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
@@ -53,7 +55,6 @@ abstract class Processor {
     public function __construct(
         private ExceptionHandler $exceptionHandler,
         private Dispatcher $dispatcher,
-        private ?Service $service,
     ) {
         $this->onInit   = new Subject();
         $this->onChange = new Subject();
@@ -70,16 +71,27 @@ abstract class Processor {
         return $this->dispatcher;
     }
 
-    public function getService(): ?Service {
-        return $this->service;
-    }
-
     public function isStopped(): bool {
         return $this->stopped;
     }
 
     public function isRunning(): bool {
         return $this->running;
+    }
+
+    protected function getService(): ?Service {
+        return $this->service;
+    }
+
+    protected function getCacheKey(): mixed {
+        return $this->cacheKey;
+    }
+
+    public function setCacheKey(Service $service, mixed $key): static {
+        $this->service  = $service;
+        $this->cacheKey = $key;
+
+        return $this;
     }
     // </editor-fold>
 
@@ -337,7 +349,9 @@ abstract class Processor {
      * @return TState|null
      */
     public function getState(): ?State {
-        return $this->getService()?->get($this, fn(array $state) => $this->restoreState($state));
+        return $this->getService()?->get($this->getCacheKey(), function (array $state): State {
+            return $this->restoreState($state);
+        });
     }
 
     /**
@@ -366,11 +380,11 @@ abstract class Processor {
      * @param TState $state
      */
     protected function saveState(State $state): void {
-        $this->getService()?->set($this, $state);
+        $this->getService()?->set($this->getCacheKey(), $state);
     }
 
     protected function resetState(): void {
-        $this->getService()?->delete($this);
+        $this->getService()?->delete($this->getCacheKey());
     }
 
     /**

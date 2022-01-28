@@ -4,6 +4,7 @@ namespace App\Services\Queue\Concerns;
 
 use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Progress;
+use App\Services\Service;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -11,8 +12,8 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 /**
  * Special helper for {@see \App\Utils\Processor\Processor}.
  *
- * @extends \App\Services\Queue\Job
- * @extends \App\Services\Queue\CronJob
+ * @mixin \App\Services\Queue\Job
+ * @mixin \App\Services\Queue\CronJob
  * @implements \App\Services\Queue\Progressable
  */
 trait ProcessorJob {
@@ -29,11 +30,13 @@ trait ProcessorJob {
 
     public function __invoke(Container $container, QueueableConfigurator $configurator): void {
         $processor = $this->getProcessor($container);
+        $service   = $container->make(Service::getService($this));
         $config    = $configurator->config($this);
         $chunk     = $config->setting('chunk');
 
         $processor
             ->setChunkSize($chunk)
+            ->setCacheKey($service, $this)
             ->onChange(function () use ($processor): void {
                 try {
                     $this->ping();

@@ -33,6 +33,9 @@ class ProcessorJobTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
+            ->shouldReceive('prefetch')
+            ->once();
+        $processor
             ->shouldReceive('process')
             ->twice();
 
