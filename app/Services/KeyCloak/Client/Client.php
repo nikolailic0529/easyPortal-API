@@ -435,7 +435,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Client\Types\User>
+     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\KeyCloak\Client\Types\User>
      */
     public function getUsersIterator(): ObjectIterator {
         return new OffsetBasedObjectIterator(function (array $variables): array {

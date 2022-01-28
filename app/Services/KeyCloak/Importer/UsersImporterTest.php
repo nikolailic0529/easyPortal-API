@@ -92,8 +92,10 @@ class UsersImporterTest extends TestCase {
         });
 
         // call
-        $importer = $this->app->make(UsersImporter::class);
-        $importer->import(null, 1, 1);
+        $this->app->make(UsersImporter::class)
+            ->setChunkSize(1)
+            ->setLimit(1)
+            ->start();
 
         $user = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
@@ -215,8 +217,10 @@ class UsersImporterTest extends TestCase {
         });
 
         // call
-        $importer = $this->app->make(UsersImporter::class);
-        $importer->import(null, 1, 1);
+        $this->app->make(UsersImporter::class)
+            ->setChunkSize(1)
+            ->setLimit(1)
+            ->start();
 
         $user = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,

@@ -2,6 +2,9 @@
 
 namespace App\Services\KeyCloak\Importer;
 
+/**
+ * @deprecated
+ */
 class Status {
     public function __construct(
         public string|int|null $continue = null,
