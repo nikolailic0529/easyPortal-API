@@ -25,7 +25,11 @@ trait ObjectIteratorSubjects {
     private Subject $onAfterChunkSubject;
 
     public function onInit(?Closure $closure): static {
-        $this->getOnInitSubject()->attach($closure);
+        if ($closure) {
+            $this->getOnInitSubject()->attach($closure);
+        } else {
+            $this->getOnInitSubject()->reset();
+        }
 
         return $this;
     }
@@ -43,7 +47,11 @@ trait ObjectIteratorSubjects {
     }
 
     public function onFinish(?Closure $closure): static {
-        $this->getOnFinishSubject()->attach($closure);
+        if ($closure) {
+            $this->getOnFinishSubject()->attach($closure);
+        } else {
+            $this->getOnFinishSubject()->reset();
+        }
 
         return $this;
     }
@@ -68,7 +76,11 @@ trait ObjectIteratorSubjects {
      * @return $this<T>
      */
     public function onBeforeChunk(?Closure $closure): static {
-        $this->getOnBeforeChunkSubject()->attach($closure);
+        if ($closure) {
+            $this->getOnBeforeChunkSubject()->attach($closure);
+        } else {
+            $this->getOnBeforeChunkSubject()->reset();
+        }
 
         return $this;
     }
@@ -101,7 +113,11 @@ trait ObjectIteratorSubjects {
      * @return $this<T>
      */
     public function onAfterChunk(?Closure $closure): static {
-        $this->getOnAfterChunkSubject()->attach($closure);
+        if ($closure) {
+            $this->getOnAfterChunkSubject()->attach($closure);
+        } else {
+            $this->getOnAfterChunkSubject()->reset();
+        }
 
         return $this;
     }
