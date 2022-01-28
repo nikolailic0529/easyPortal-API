@@ -225,14 +225,14 @@ class KeyCloak {
 
     protected function getSignInUri(?Organization $organization): string {
         return $this->getRedirectUri(
-            $this->config->get('ep.keycloak.redirects.signin_uri'),
+            $this->config->get('ep.client.signin_uri'),
             $organization,
         );
     }
 
     protected function getSignOutUri(?Organization $organization): string {
         return $this->getRedirectUri(
-            $this->config->get('ep.keycloak.redirects.signout_uri'),
+            $this->config->get('ep.client.signout_uri'),
             $organization,
         );
     }
