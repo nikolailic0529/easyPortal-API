@@ -3,13 +3,13 @@
 namespace App\Utils\Iterators\Concerns;
 
 trait ChunkSize {
-    private int $chunkSize = 1000;
+    private ?int $chunkSize = null;
 
     public function getChunkSize(): int {
-        return $this->chunkSize;
+        return $this->chunkSize ?? 500;
     }
 
-    public function setChunkSize(int $chunk): static {
+    public function setChunkSize(?int $chunk): static {
         $this->chunkSize = $chunk;
 
         return $this;

@@ -49,7 +49,7 @@ abstract class Processor {
      */
     private Subject $onFinish;
 
-    protected function __construct(
+    public function __construct(
         private ExceptionHandler $exceptionHandler,
         private Dispatcher $dispatcher,
         private ?Service $service,
@@ -320,7 +320,7 @@ abstract class Processor {
     /**
      * @return TState|null
      */
-    protected function getState(): ?State {
+    public function getState(): ?State {
         return $this->getService()?->get($this, fn(array $state) => $this->restoreState($state));
     }
 

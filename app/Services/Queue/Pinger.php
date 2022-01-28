@@ -36,7 +36,7 @@ class Pinger {
 
     /**
      * Prolongs expiration time for the job. It is required to prevent rerun
-     * the job when running time is bigger than `retry_after` (t is not
+     * the job when running time is bigger than `retry_after` (it is not
      * possible to set `retry_after` high because in this case job will
      * be restarted after a very long time).
      */
