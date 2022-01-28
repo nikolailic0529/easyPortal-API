@@ -19,12 +19,26 @@ class SyncUsersCronJob extends CronJob implements Progressable {
         return 'ep-keycloak-sync-users';
     }
 
+    /**
+     * @return array<mixed>
+     */
+    public function getQueueConfig(): array {
+        return [
+                'settings' => [
+                    'chunk' => null,
+                ],
+            ] + parent::getQueueConfig();
+    }
+
     public function __invoke(
         QueueableConfigurator $configurator,
         Service $service,
         UsersImporter $importer,
     ): void {
-        $this->process($configurator, $service, $importer);
+        $config = $configurator->config($this);
+        $chunk  = $config->setting('chunk');
+
+        $this->process($configurator, $service, $importer, $chunk);
     }
 
     protected function process(

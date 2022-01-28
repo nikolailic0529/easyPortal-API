@@ -583,6 +583,14 @@ interface Constants {
     #[Service(SyncUsersCronJob::class, 'queue')]
     #[Group('keycloak')]
     public const EP_KEYCLOAK_SYNC_USERS_QUEUE = Queues::KEYCLOAK;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(SyncUsersCronJob::class, 'settings.chunk')]
+    #[Group('keycloak')]
+    #[Type(IntType::class)]
+    public const EP_KEYCLOAK_SYNC_USERS_CHUNK = 500;
     // </editor-fold>
 
     // </editor-fold>
