@@ -2,9 +2,8 @@
 
 namespace App\Services\KeyCloak\Commands;
 
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Importer\Status;
 use App\Services\KeyCloak\Importer\UsersImporter;
+use App\Utils\Processor\State;
 use Illuminate\Console\Command;
 
 use function strtr;
@@ -16,9 +15,9 @@ class SyncUsers extends Command {
      * @var string
      */
     protected $signature = '${command}
-        {--continue= : continue processing from given ${object}}
-        {--limit= : max ${objects} to process}
-        {--chunk= : chunk size}
+        {--offset= : start processing from given ${object}}
+        {--limit=  : max ${objects} to process}
+        {--chunk=  : chunk size}
     ';
 
     /**
@@ -28,10 +27,7 @@ class SyncUsers extends Command {
      */
     protected $description = 'Import all ${objects}.';
 
-    public function __construct(
-        protected Client $client,
-        protected UsersImporter $importer,
-    ) {
+    public function __construct() {
         $replacements      = $this->getReplacements();
         $this->signature   = strtr($this->signature, $replacements);
         $this->description = strtr($this->description, $replacements);
@@ -50,29 +46,34 @@ class SyncUsers extends Command {
         ];
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle(
-        UsersImporter $importer,
-    ): void {
-        // param
-        $continue = $this->option('continue');
-        $chunk    = (int) $this->option('chunk');
-        $limit    = (int) $this->option('limit');
-        $bar      = null;
+    public function __invoke(UsersImporter $importer): int {
+        // Import
+        $offset = $this->option('offset');
+        $chunk  = ((int) $this->option('chunk')) ?: null;
+        $limit  = ((int) $this->option('limit')) ?: null;
+        $bar    = $this->output->createProgressBar();
+
         $importer
-            ->onInit(function (Status $status) use (&$bar, &$total): void {
-                $total = $status->total;
-                $bar   = $this->output->createProgressBar($total);
+            ->setChunkSize($chunk)
+            ->setOffset($offset)
+            ->setLimit($limit)
+            ->onInit(static function (State $state) use ($bar): void {
+                if ($state->total) {
+                    $bar->setMaxSteps($state->total);
+                }
             })
-            ->onChange(static function (Status $status, int $offset) use (&$bar): void {
-                $bar->setProgress($status->processed);
+            ->onChange(static function (State $state) use ($bar): void {
+                $bar->setProgress($state->processed);
             })
-            ->import($continue, $chunk, $limit);
+            ->start();
 
         $bar->finish();
+
+        // Done
+        $this->newLine(2);
+        $this->info('Done.');
+
+        // Return
+        return self::SUCCESS;
     }
 }
