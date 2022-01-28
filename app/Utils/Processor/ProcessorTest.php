@@ -8,6 +8,7 @@ use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Date;
 use LogicException;
 use Mockery;
 use stdClass;
@@ -291,13 +292,16 @@ class ProcessorTest extends TestCase {
             }
         };
 
+        Date::setTestNow(Date::now());
+
         // Offset
         $this->assertEquals(
             new State([
-                'index'  => 0,
-                'limit'  => null,
-                'total'  => null,
-                'offset' => 'abc',
+                'index'   => 0,
+                'limit'   => null,
+                'total'   => null,
+                'offset'  => 'abc',
+                'started' => Date::now(),
             ]),
             (clone $processor)->setOffset('abc')->getDefaultState(),
         );
@@ -305,10 +309,11 @@ class ProcessorTest extends TestCase {
         // No Limit & No Total
         $this->assertEquals(
             new State([
-                'index'  => 0,
-                'limit'  => null,
-                'total'  => null,
-                'offset' => null,
+                'index'   => 0,
+                'limit'   => null,
+                'total'   => null,
+                'offset'  => null,
+                'started' => Date::now(),
             ]),
             $processor->getDefaultState(),
         );
@@ -316,10 +321,11 @@ class ProcessorTest extends TestCase {
         // Limit & No Total
         $this->assertEquals(
             new State([
-                'index'  => 0,
-                'limit'  => 123,
-                'total'  => 123,
-                'offset' => null,
+                'index'   => 0,
+                'limit'   => 123,
+                'total'   => 123,
+                'offset'  => null,
+                'started' => Date::now(),
             ]),
             (clone $processor)->setLimit(123)->getDefaultState(),
         );
@@ -327,10 +333,11 @@ class ProcessorTest extends TestCase {
         // No Limit & Total
         $this->assertEquals(
             new State([
-                'index'  => 0,
-                'limit'  => null,
-                'total'  => 321,
-                'offset' => null,
+                'index'   => 0,
+                'limit'   => null,
+                'total'   => 321,
+                'offset'  => null,
+                'started' => Date::now(),
             ]),
             (clone $processor)->setTotal(321)->getDefaultState(),
         );
@@ -338,10 +345,11 @@ class ProcessorTest extends TestCase {
         // Limit & Total
         $this->assertEquals(
             new State([
-                'index'  => 0,
-                'limit'  => 456,
-                'total'  => 321,
-                'offset' => null,
+                'index'   => 0,
+                'limit'   => 456,
+                'total'   => 321,
+                'offset'  => null,
+                'started' => Date::now(),
             ]),
             (clone $processor)->setTotal(321)->setLimit(456)->getDefaultState(),
         );
@@ -417,7 +425,7 @@ class ProcessorTest extends TestCase {
  */
 abstract class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, null);
     }
 
     public function run(State $state): void {

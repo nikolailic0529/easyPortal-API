@@ -14,6 +14,7 @@ use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Date;
 use Laravel\Telescope\Telescope;
 use LastDragon_ru\LaraASP\Core\Observer\Subject;
 use LogicException;
@@ -30,9 +31,8 @@ abstract class Processor {
     use Offset;
     use ChunkSize;
 
-    private ?Service $service = null;
-    private bool     $stopped = false;
-    private bool     $running = false;
+    private bool $stopped = false;
+    private bool $running = false;
 
     /**
      * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
@@ -52,6 +52,7 @@ abstract class Processor {
     protected function __construct(
         private ExceptionHandler $exceptionHandler,
         private Dispatcher $dispatcher,
+        private ?Service $service,
     ) {
         $this->onInit   = new Subject();
         $this->onChange = new Subject();
@@ -70,12 +71,6 @@ abstract class Processor {
 
     public function getService(): ?Service {
         return $this->service;
-    }
-
-    public function setService(?Service $service): static {
-        $this->service = $service;
-
-        return $this;
     }
 
     public function isStopped(): bool {
@@ -343,10 +338,11 @@ abstract class Processor {
         }
 
         return new State([
-            'index'  => 0,
-            'limit'  => $limit,
-            'total'  => $total,
-            'offset' => $this->getOffset(),
+            'index'   => 0,
+            'limit'   => $limit,
+            'total'   => $total,
+            'offset'  => $this->getOffset(),
+            'started' => Date::now(),
         ]);
     }
 
