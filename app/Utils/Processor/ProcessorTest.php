@@ -2,6 +2,8 @@
 
 namespace App\Utils\Processor;
 
+use App\Services\Service;
+use App\Utils\Cache\CacheKeyable;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Closure;
@@ -430,6 +432,67 @@ class ProcessorTest extends TestCase {
         $processor->stop();
         $processor->chunkProcessed($state, $items);
     }
+
+    /**
+     * @covers ::getState
+     */
+    public function testGetState(): void {
+        $state   = new State();
+        $key     = new class() implements CacheKeyable {
+            // empty
+        };
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('get')
+            ->once()
+            ->with($key, Mockery::andAnyOtherArgs())
+            ->andReturn($state);
+
+        $this->app->make(ProcessorTest__Processor::class)
+            ->setCacheKey($service, $key)
+            ->getState();
+    }
+
+    /**
+     * @covers ::saveState
+     */
+    public function testSaveState(): void {
+        $state   = new State();
+        $key     = new class() implements CacheKeyable {
+            // empty
+        };
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('set')
+            ->once()
+            ->with($key, Mockery::andAnyOtherArgs())
+            ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
+                return $value;
+            });
+
+        $this->app->make(ProcessorTest__Processor::class)
+            ->setCacheKey($service, $key)
+            ->saveState($state);
+    }
+
+    /**
+     * @covers ::resetState
+     */
+    public function testResetState(): void {
+        $key     = new class() implements CacheKeyable {
+            // empty
+        };
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('delete')
+            ->once()
+            ->with($key)
+            ->andReturn(true);
+
+        $this->app->make(ProcessorTest__Processor::class)
+            ->setCacheKey($service, $key)
+            ->resetState();
+    }
     // </editor-fold>
 }
 
@@ -440,7 +503,7 @@ class ProcessorTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-abstract class ProcessorTest__Processor extends Processor {
+class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {
         parent::__construct($exceptionHandler, $dispatcher, null);
     }
@@ -454,5 +517,37 @@ abstract class ProcessorTest__Processor extends Processor {
      */
     public function chunkProcessed(State $state, array $items): void {
         parent::chunkProcessed($state, $items);
+    }
+
+    protected function getTotal(): ?int {
+        return null;
+    }
+
+    protected function getIterator(): ObjectIterator {
+        throw new Exception('should not be called');
+    }
+
+    protected function process(mixed $data, mixed $item): void {
+        throw new Exception('should not be called');
+    }
+
+    protected function report(Throwable $exception, mixed $item): void {
+        throw new Exception('should not be called');
+    }
+
+    protected function prefetch(State $state, array $items): mixed {
+        throw new Exception('should not be called');
+    }
+
+    public function getState(): ?State {
+        return parent::getState();
+    }
+
+    public function saveState(State $state): void {
+        parent::saveState($state);
+    }
+
+    public function resetState(): void {
+        parent::resetState();
     }
 }
