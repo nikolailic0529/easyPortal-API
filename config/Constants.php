@@ -394,6 +394,28 @@ interface Constants {
     // <editor-fold desc="EP_CLIENT">
     // =========================================================================
     /**
+     * The URI (can be relative) where user should be redirected after Sign In.
+     *
+     * Replacements:
+     * * `{organization}` - current organization id
+     */
+    #[Setting('ep.client.signin_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_SIGNIN_URI = 'auth/organizations/{organization}';
+
+    /**
+     * The URI (can be relative) where user should be redirected after Sign Out.
+     *
+     * Replacements:
+     * * `{organization}` - current organization id
+     */
+    #[Setting('ep.client.signout_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_SIGNOUT_URI = 'auth/organizations/{organization}';
+
+    /**
      * The URI (can be relative) where user should be redirected to complete
      * Password Reset.
      *
@@ -461,28 +483,6 @@ interface Constants {
     #[Group('keycloak')]
     #[Type(StringType::class)]
     public const EP_KEYCLOAK_CLIENT_SECRET = null;
-
-    /**
-     * The URI (can be relative) where user should be redirected after Sign In.
-     *
-     * Replacements:
-     * * `{organization}` - current organization id
-     */
-    #[Setting('ep.keycloak.redirects.signin_uri')]
-    #[Group('keycloak')]
-    #[Type(StringType::class)]
-    public const EP_KEYCLOAK_REDIRECTS_SIGNIN_URI = 'auth/organizations/{organization}';
-
-    /**
-     * The URI (can be relative) where user should be redirected after Sign Out.
-     *
-     * Replacements:
-     * * `{organization}` - current organization id
-     */
-    #[Setting('ep.keycloak.redirects.signout_uri')]
-    #[Group('keycloak')]
-    #[Type(StringType::class)]
-    public const EP_KEYCLOAK_REDIRECTS_SIGNOUT_URI = 'auth/organizations/{organization}';
 
     /**
      * Encryption Algorithm.
