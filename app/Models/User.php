@@ -64,9 +64,6 @@ use LogicException;
  * @property \App\Models\Organization|null                                          $organization
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\OrganizationUser> $organizations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch>  $searches
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Team>        $teams
- * @property-read \App\Models\Team                                                  $team
- * @property-read \App\Models\Team                                                  $role
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -187,7 +184,7 @@ class User extends Model implements
 
     // <editor-fold desc="Relations">
     // =========================================================================
-    #[CascadeDelete(true)]
+    #[CascadeDelete(false)]
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
     }
@@ -208,13 +205,6 @@ class User extends Model implements
     #[CascadeDelete(false)]
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\App\Models\Team>|array<\App\Models\Team> $teams
-     */
-    public function setTeamsAttribute(Collection|array $teams): void {
-        $this->syncBelongsToMany('teams', $teams);
     }
 
     #[CascadeDelete(true)]

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Enums\UserType;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Tests\TestCase;
 
 /**
@@ -19,5 +21,74 @@ class UserTest extends TestCase {
                 'type' => $type,
             ])->isRoot());
         }
+    }
+
+    /**
+     * @covers ::delete
+     */
+    public function testDelete(): void {
+        // Disable unwanted scopes
+        GlobalScopes::setGlobalScopeDisabled(
+            OwnedByOrganizationScope::class,
+            true,
+        );
+
+        // Create
+        $orgA = Organization::factory()->create();
+        $orgB = Organization::factory()->create();
+        $user = User::factory()->create([
+            'organization_id' => $orgA,
+        ]);
+
+        UserSearch::factory()->create([
+            'user_id' => $user,
+        ]);
+
+        Invitation::factory()->create([
+            'user_id'         => $user,
+            'organization_id' => $orgA,
+        ]);
+
+        OrganizationUser::factory()->create([
+            'user_id'         => $user,
+            'organization_id' => $orgA,
+        ]);
+        OrganizationUser::factory()->create([
+            'user_id'         => $user,
+            'organization_id' => $orgB,
+        ]);
+
+        Note::factory()->create([
+            'user_id' => $user,
+        ]);
+
+        ChangeRequest::factory()->create([
+            'user_id' => $user,
+        ]);
+
+        // Pretest
+        $this->assertModelsCount([
+            User::class             => 2,
+            UserSearch::class       => 1,
+            Invitation::class       => 1,
+            Organization::class     => 2,
+            OrganizationUser::class => 2,
+            Note::class             => 1,
+            ChangeRequest::class    => 1,
+        ]);
+
+        // Run
+        $user->delete();
+
+        // Test
+        $this->assertModelsCount([
+            User::class             => 1,
+            UserSearch::class       => 1,
+            Invitation::class       => 1,
+            Organization::class     => 2,
+            OrganizationUser::class => 0,
+            Note::class             => 1,
+            ChangeRequest::class    => 1,
+        ]);
     }
 }
