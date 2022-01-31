@@ -19,7 +19,7 @@ class SyncUsersCronJob extends CronJob implements Progressable {
         return 'ep-keycloak-sync-users';
     }
 
-    protected function getProcessor(Container $container): Processor {
+    protected function makeProcessor(Container $container): Processor {
         return $container->make(UsersImporter::class);
     }
 }

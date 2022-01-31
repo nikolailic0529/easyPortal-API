@@ -9,8 +9,9 @@ use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\KeyCloak\Exceptions\FailedToImport;
 use App\Services\KeyCloak\Exceptions\FailedToImportObject;
-use App\Services\KeyCloak\Service;
+use App\Services\KeyCloak\Exceptions\FailedToImportUserConflictType;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\Processor;
@@ -31,11 +32,10 @@ class UsersImporter extends Processor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
-        Service $service,
         private Repository $config,
         private Client $client,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher, $service);
+        parent::__construct($exceptionHandler, $dispatcher);
     }
 
     protected function getConfig(): Repository {
@@ -55,9 +55,11 @@ class UsersImporter extends Processor {
     }
 
     protected function report(Throwable $exception, mixed $item): void {
-        $this->getExceptionHandler()->report(
-            new FailedToImportObject($item, $exception),
-        );
+        if (!($exception instanceof FailedToImport)) {
+            $exception = new FailedToImportObject($item, $exception);
+        }
+
+        $this->getExceptionHandler()->report($exception);
     }
 
     /**
@@ -72,16 +74,22 @@ class UsersImporter extends Processor {
      * @param \App\Services\KeyCloak\Client\Types\User               $item
      */
     protected function process(mixed $data, mixed $item): void {
-        $user       = $data->getUsersById()->get($item->id);
-        $attributes = $item->attributes;
+        // User
+        $user    = $this->getUser($data, $item);
+        $another = $data->getUserByEmail($item->email);
 
-        if (!$user) {
-            $user                        = new User();
-            $user->{$user->getKeyName()} = $item->id;
+        if ($another && !$another->is($user)) {
+            // Email should be unique, or we will get "Integrity constraint
+            // violation" error. So we mark the conflicting user to update it
+            // later.
+            $another->email = "(conflict) {$another->email}";
+
+            $another->save();
         }
 
+        // Properties
+        $attributes           = $item->attributes;
         $user->email          = $item->email;
-        $user->type           = UserType::keycloak();
         $user->given_name     = $item->firstName ?? null;
         $user->family_name    = $item->lastName ?? null;
         $user->email_verified = $item->emailVerified;
@@ -98,7 +106,28 @@ class UsersImporter extends Processor {
         $user->photo          = $attributes['photo'][0] ?? null;
         $user->organizations  = $this->getUserOrganizations($user, $item);
 
+        // Save
         $user->save();
+    }
+
+    protected function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+        $user = $data->getUserById($item->id);
+
+        if (!$user) {
+            $user                        = new User();
+            $user->type                  = UserType::keycloak();
+            $user->{$user->getKeyName()} = $item->id;
+        }
+
+        if ($user->type !== UserType::keycloak()) {
+            throw new FailedToImportUserConflictType($this, $item, $user);
+        }
+
+        if ($user->trashed()) {
+            $user->restore();
+        }
+
+        return $user;
     }
 
     /**

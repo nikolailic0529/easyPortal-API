@@ -2,17 +2,23 @@
 
 namespace App\Services\KeyCloak\Importer;
 
+use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\KeyCloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
+
+use function reset;
 
 /**
  * @internal
@@ -268,5 +274,251 @@ class UsersImporterTest extends TestCase {
             ->all();
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getUser
+     */
+    public function testGetUserNormal(): void {
+        $user = User::factory()->make();
+        $item = new KeyCloakUser(['id' => $user->getKey()]);
+        $data = Mockery::mock(UsersImporterChunkData::class);
+        $data
+            ->shouldReceive('getUserById')
+            ->once()
+            ->with($item->id)
+            ->andReturn(clone $user);
+
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+                return parent::getUser($data, $item);
+            }
+        };
+
+        $actual = $importer->getUser($data, $item);
+
+        $this->assertEquals($user, $actual);
+    }
+
+    /**
+     * @covers ::getUser
+     */
+    public function testGetUserNoUser(): void {
+        $item = new KeyCloakUser(['id' => $this->faker->uuid]);
+        $data = Mockery::mock(UsersImporterChunkData::class);
+        $data
+            ->shouldReceive('getUserById')
+            ->once()
+            ->with($item->id)
+            ->andReturn(null);
+
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+                return parent::getUser($data, $item);
+            }
+        };
+
+        $actual = $importer->getUser($data, $item);
+
+        $this->assertFalse($actual->exists);
+        $this->assertEquals($item->id, $actual->getKey());
+        $this->assertEquals(UserType::keycloak(), $actual->type);
+    }
+
+    /**
+     * @covers ::getUser
+     */
+    public function testGetUserTrashed(): void {
+        $user = User::factory()->make(['deleted_at' => Date::now()]);
+        $item = new KeyCloakUser(['id' => $user->getKey()]);
+        $data = Mockery::mock(UsersImporterChunkData::class);
+        $data
+            ->shouldReceive('getUserById')
+            ->once()
+            ->with($item->id)
+            ->andReturn(clone $user);
+
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+                return parent::getUser($data, $item);
+            }
+        };
+
+        $actual = $importer->getUser($data, $item);
+
+        $this->assertTrue($user->trashed());
+        $this->assertFalse($actual->trashed());
+    }
+
+    /**
+     * @covers ::getUser
+     */
+    public function testGetUserInvalidType(): void {
+        $user = User::factory()->make(['type' => UserType::local()]);
+        $item = new KeyCloakUser(['id' => $user->getKey()]);
+        $data = Mockery::mock(UsersImporterChunkData::class);
+        $data
+            ->shouldReceive('getUserById')
+            ->once()
+            ->with($item->id)
+            ->andReturn(clone $user);
+
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+                return parent::getUser($data, $item);
+            }
+        };
+
+        $this->expectExceptionObject(
+            new FailedToImportUserConflictType($importer, $item, $user),
+        );
+
+        $importer->getUser($data, $item);
+    }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcess(): void {
+        $user = User::factory()->make();
+        $item = new KeyCloakUser([
+            'id'            => $user->getKey(),
+            'email'         => $this->faker->email,
+            'firstName'     => $this->faker->firstName,
+            'lastName'      => $this->faker->lastName,
+            'emailVerified' => $this->faker->boolean,
+            'enabled'       => $this->faker->boolean,
+            'groups'        => [],
+            'attributes'    => [
+                'phone'          => [$this->faker->e164PhoneNumber],
+                'office_phone'   => [$this->faker->e164PhoneNumber],
+                'mobile_phone'   => [$this->faker->e164PhoneNumber],
+                'contact_email'  => [$this->faker->email],
+                'title'          => [$this->faker->title],
+                'job_title'      => [$this->faker->title],
+                'academic_title' => [$this->faker->title],
+                'company'        => [$this->faker->company],
+                'photo'          => [$this->faker->url],
+            ],
+        ]);
+        $data = Mockery::mock(UsersImporterChunkData::class);
+        $data
+            ->shouldReceive('getUserById')
+            ->with($item->id)
+            ->once()
+            ->andReturn(clone $user);
+        $data
+            ->shouldReceive('getUserByEmail')
+            ->with($item->email)
+            ->once()
+            ->andReturn(null);
+
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function process(mixed $data, mixed $item): void {
+                parent::process($data, $item);
+            }
+
+            protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
+                return new Collection();
+            }
+        };
+
+        $importer->process($data, $item);
+
+        $actual = User::query()->whereKey($item->id)->first();
+
+        $this->assertInstanceOf(User::class, $actual);
+        $this->assertEquals($item->id, $actual->getKey());
+        $this->assertEquals($item->email, $actual->email);
+        $this->assertEquals($item->emailVerified, $actual->email_verified);
+        $this->assertEquals($item->enabled, $actual->enabled);
+        $this->assertEquals($item->firstName, $actual->given_name);
+        $this->assertEquals($item->lastName, $actual->family_name);
+        $this->assertEquals(reset($item->attributes['office_phone']), $actual->office_phone);
+        $this->assertEquals(reset($item->attributes['contact_email']), $actual->contact_email);
+        $this->assertEquals(reset($item->attributes['title']), $actual->title);
+        $this->assertEquals(reset($item->attributes['academic_title']), $actual->academic_title);
+        $this->assertEquals(reset($item->attributes['job_title']), $actual->job_title);
+        $this->assertEquals(reset($item->attributes['phone']), $actual->phone);
+        $this->assertEquals(reset($item->attributes['mobile_phone']), $actual->mobile_phone);
+        $this->assertEquals(reset($item->attributes['company']), $actual->company);
+        $this->assertEquals(reset($item->attributes['photo']), $actual->photo);
+        $this->assertEquals([], $actual->permissions);
+    }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcessEmailConflict(): void {
+        $another = User::factory()->make();
+        $user    = User::factory()->make();
+        $item    = new KeyCloakUser([
+            'id'            => $user->getKey(),
+            'email'         => $another->email,
+            'firstName'     => $this->faker->firstName,
+            'lastName'      => $this->faker->lastName,
+            'emailVerified' => $this->faker->boolean,
+            'enabled'       => $this->faker->boolean,
+            'groups'        => [],
+        ]);
+        $data    = Mockery::mock(UsersImporterChunkData::class);
+        $data
+            ->shouldReceive('getUserById')
+            ->with($item->id)
+            ->once()
+            ->andReturn(clone $user);
+        $data
+            ->shouldReceive('getUserByEmail')
+            ->with($item->email)
+            ->once()
+            ->andReturn($another);
+
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function process(mixed $data, mixed $item): void {
+                parent::process($data, $item);
+            }
+
+            protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
+                return new Collection();
+            }
+        };
+
+        $importer->process($data, $item);
+
+        $actual  = User::query()->whereKey($item->id)->first();
+        $another = $another->refresh();
+
+        $this->assertEquals("(conflict) {$item->email}", $another->email);
+        $this->assertEquals($item->email, $actual->email);
     }
 }
