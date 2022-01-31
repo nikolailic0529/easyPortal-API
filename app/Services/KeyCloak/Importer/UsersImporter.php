@@ -19,6 +19,7 @@ use App\Utils\Processor\State;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Throwable;
@@ -112,6 +113,30 @@ class UsersImporter extends Processor {
         $user->save();
     }
 
+    protected function finish(State $state): void {
+        // Remove deleted users
+        if ($state->overall && $state->failed === 0) {
+            $users = User::query()
+                ->where('type', '=', UserType::keycloak())
+                ->where(static function (Builder $builder) use ($state): void {
+                    $builder->orWhereNull('synced_at');
+                    $builder->orWhere('synced_at', '<', $state->started);
+                })
+                ->getChangeSafeIterator();
+
+            foreach ($users as $user) {
+                try {
+                    $this->deleteUser($user);
+                } catch (Throwable $exception) {
+                    $this->report($exception, $user);
+                }
+            }
+        }
+
+        // Finish
+        parent::finish($state);
+    }
+
     protected function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
         $user = $data->getUserById($item->id);
 
@@ -199,5 +224,9 @@ class UsersImporter extends Processor {
 
         // Return
         return $existing;
+    }
+
+    protected function deleteUser(User $user): void {
+        $user->delete();
     }
 }

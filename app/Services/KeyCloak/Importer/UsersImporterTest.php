@@ -12,6 +12,7 @@ use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use App\Services\KeyCloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Processor\State;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Mockery;
@@ -521,5 +522,92 @@ class UsersImporterTest extends TestCase {
 
         $this->assertEquals("(conflict) {$item->email}", $another->email);
         $this->assertEquals($item->email, $actual->email);
+    }
+
+    /**
+     * @covers ::finish
+     */
+    public function testFinish(): void {
+        // Users
+        $a = User::factory()->create([
+            'type'       => UserType::keycloak(),
+            'given_name' => 'Should be deleted (`synced_at` is `null`)',
+            'synced_at'  => null,
+        ]);
+        $b = User::factory()->create([
+            'type'       => UserType::keycloak(),
+            'given_name' => 'Should be deleted (`synced_at` is old)',
+            'synced_at'  => Date::now()->subDay(),
+        ]);
+        $c = User::factory()->create([
+            'type'       => UserType::local(),
+            'given_name' => 'Should not be deleted (local user)',
+            'synced_at'  => Date::now()->addDay(),
+        ]);
+        $d = User::factory()->create([
+            'type'       => UserType::keycloak(),
+            'given_name' => 'Should not be deleted',
+            'synced_at'  => Date::now()->addDay(),
+        ]);
+
+        // Mocks
+        $state    = new State([
+            'started' => Date::now(),
+            'overall' => true,
+            'failed'  => 0,
+        ]);
+        $importer = new class() extends UsersImporter {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function finish(State $state): void {
+                parent::finish($state);
+            }
+
+            protected function notifyOnFinish(State $state): void {
+                // empty
+            }
+        };
+
+        // Run
+        $importer->finish($state);
+
+        // Test
+        $this->assertFalse(User::query()->whereKey($a->getKey())->exists());
+        $this->assertFalse(User::query()->whereKey($b->getKey())->exists());
+        $this->assertTrue(User::query()->whereKey($c->getKey())->exists());
+        $this->assertTrue(User::query()->whereKey($d->getKey())->exists());
+    }
+
+    /**
+     * @covers ::finish
+     */
+    public function testFinishDeleteNotPossible(): void {
+        // Mock
+        $importer = Mockery::mock(UsersImporter::class);
+        $importer->shouldAllowMockingProtectedMethods();
+        $importer->makePartial();
+        $importer
+            ->shouldReceive('notifyOnFinish')
+            ->twice()
+            ->andReturns();
+        $importer
+            ->shouldReceive('deleteUser')
+            ->never();
+
+        // Iteration by part of Users
+        $importer->finish(new State([
+            'started' => Date::now(),
+            'overall' => false,
+        ]));
+
+        // Failed items
+        $importer->finish(new State([
+            'started' => Date::now(),
+            'overall' => true,
+            'failed'  => 1,
+        ]));
     }
 }
