@@ -590,7 +590,7 @@ interface Constants {
     #[Service(SyncUsersCronJob::class, 'settings.chunk')]
     #[Group('keycloak')]
     #[Type(IntType::class)]
-    public const EP_KEYCLOAK_SYNC_USERS_CHUNK = 500;
+    public const EP_KEYCLOAK_SYNC_USERS_CHUNK = 100;
     // </editor-fold>
 
     // </editor-fold>
