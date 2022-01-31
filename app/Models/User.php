@@ -56,6 +56,7 @@ use LogicException;
  * @property string|null                                                            $mobile_phone
  * @property string|null                                                            $job_title
  * @property string|null                                                            $company
+ * @property \Carbon\CarbonInterface|null                                           $synced_at
  * @property \Carbon\CarbonImmutable                                                $created_at
  * @property \Carbon\CarbonImmutable                                                $updated_at
  * @property \Carbon\CarbonImmutable|null                                           $deleted_at
@@ -98,6 +99,7 @@ class User extends Model implements
         'email_verified' => 'bool',
         'phone_verified' => 'bool',
         'enabled'        => 'bool',
+        'synced_at'      => 'datetime',
     ] + parent::CASTS;
 
     /**

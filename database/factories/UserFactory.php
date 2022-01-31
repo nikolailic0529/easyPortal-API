@@ -54,6 +54,7 @@ class UserFactory extends Factory {
             'job_title'       => null,
             'company'         => null,
             'enabled'         => true,
+            'synced_at'       => null,
         ];
     }
 }
