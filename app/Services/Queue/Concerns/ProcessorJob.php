@@ -30,13 +30,11 @@ trait ProcessorJob {
 
     public function __invoke(Container $container, QueueableConfigurator $configurator): void {
         $processor = $this->getProcessor($container);
-        $service   = $this->getService($container);
         $config    = $configurator->config($this);
         $chunk     = $config->setting('chunk');
 
         $processor
             ->setChunkSize($chunk)
-            ->setCacheKey($service, $this)
             ->onChange(function () use ($processor): void {
                 try {
                     $this->ping();
@@ -72,7 +70,13 @@ trait ProcessorJob {
         return $container->make(Service::getService($this));
     }
 
+    protected function getProcessor(Container $container): Processor {
+        return $this
+            ->makeProcessor($container)
+            ->setCacheKey($this->getService($container), $this);
+    }
+
     abstract protected function ping(): void;
 
-    abstract protected function getProcessor(Container $container): Processor;
+    abstract protected function makeProcessor(Container $container): Processor;
 }

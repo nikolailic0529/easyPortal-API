@@ -87,7 +87,7 @@ abstract class Processor {
         return $this->cacheKey;
     }
 
-    public function setCacheKey(Service $service, mixed $key): static {
+    public function setCacheKey(?Service $service, mixed $key): static {
         $this->service  = $service;
         $this->cacheKey = $key;
 
