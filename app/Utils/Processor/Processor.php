@@ -200,7 +200,7 @@ abstract class Processor {
     abstract protected function process(mixed $data, mixed $item): void;
 
     /**
-     * @param TItem $item
+     * @param TItem|null $item
      */
     abstract protected function report(Throwable $exception, mixed $item): void;
 
@@ -358,8 +358,9 @@ abstract class Processor {
      * @return TState
      */
     protected function getDefaultState(): State {
-        $limit = $this->getLimit();
-        $total = $this->getTotal();
+        $limit  = $this->getLimit();
+        $total  = $this->getTotal();
+        $offset = $this->getOffset();
 
         if ($limit !== null && $total !== null) {
             $total = min($limit, $total);
@@ -371,8 +372,9 @@ abstract class Processor {
             'index'   => 0,
             'limit'   => $limit,
             'total'   => $total,
-            'offset'  => $this->getOffset(),
+            'offset'  => $offset,
             'started' => Date::now(),
+            'overall' => $limit === null && $offset === null,
         ]);
     }
 

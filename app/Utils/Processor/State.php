@@ -7,6 +7,7 @@ use DateTimeInterface;
 
 class State extends JsonObject {
     public DateTimeInterface $started;
+    public bool              $overall;
     public string|int|null   $offset    = null;
     public int               $index     = 0;
     public ?int              $limit     = null;
