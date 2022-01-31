@@ -7,6 +7,7 @@ use App\Services\Logger\Logger;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Settings\Storage;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\GlobalScopes\State;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -58,6 +59,11 @@ abstract class TestCase extends BaseTestCase {
         // Some tests may change MorphMap, we need to reset it
         $this->beforeApplicationDestroyed(static function (): void {
             Relation::$morphMap = [];
+        });
+
+        // Some tests may change GlobalScopes, we need to reset it
+        $this->beforeApplicationDestroyed(static function (): void {
+            State::reset();
         });
 
         // Some tests may use custom UUIDs, we need to reset it

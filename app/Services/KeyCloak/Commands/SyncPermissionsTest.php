@@ -6,6 +6,7 @@ use App\Models\Permission as PermissionModel;
 use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
+use App\Services\Auth\Permissions;
 use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
@@ -165,22 +166,18 @@ class SyncPermissionsTest extends TestCase {
         $groupId   = $this->faker->uuid;
         $groupName = $this->faker->word;
 
+        $this->app->make(Permissions::class)->set([
+            new class('permission-a') extends Permission implements IsOrgAdmin {
+                // empty
+            },
+            new class('permission-b') extends Permission {
+                // empty
+            },
+        ]);
+
         $this->setSettings([
             'ep.keycloak.org_admin_group' => $groupId,
         ]);
-        $this->override(Auth::class, static function (MockInterface $mock): void {
-            $mock
-                ->shouldReceive('getPermissions')
-                ->once()
-                ->andReturns([
-                    new class('permission-a') extends Permission implements IsOrgAdmin {
-                        // empty
-                    },
-                    new class('permission-b') extends Permission {
-                        // empty
-                    },
-                ]);
-        });
         $this->override(Client::class, function (MockInterface $mock) use ($groupId, $groupName): void {
             $group = new Group([
                 'id'   => $groupId,

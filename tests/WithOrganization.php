@@ -3,10 +3,10 @@
 namespace Tests;
 
 use App\Models\Organization;
+use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Closure;
-use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -21,12 +21,12 @@ trait WithOrganization {
         if ($organization) {
             $this->app->bind(CurrentOrganization::class, function () use ($organization): CurrentOrganization {
                 $root = $this->app->make(RootOrganization::class);
-                $auth = $this->app->make(Factory::class);
+                $auth = $this->app->make(Auth::class);
 
                 return new class($root, $auth, $organization) extends CurrentOrganization {
                     public function __construct(
                         RootOrganization $root,
-                        Factory $auth,
+                        Auth $auth,
                         protected Organization $organization,
                     ) {
                         parent::__construct($root, $auth);

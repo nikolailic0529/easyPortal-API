@@ -78,4 +78,8 @@ class State {
         // Return
         return $previous;
     }
+
+    public static function reset(): void {
+        self::$disabled = [];
+    }
 }

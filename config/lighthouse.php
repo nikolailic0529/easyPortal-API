@@ -12,7 +12,6 @@ use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
 use Nuwave\Lighthouse\Validation\ValidateDirective;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Route Configuration
@@ -24,7 +23,7 @@ return [
     |
     */
 
-    'route'                       => [
+    'route'                              => [
         /*
          * The URI the endpoint responds to, e.g. mydomain.com/graphql.
          */
@@ -70,7 +69,7 @@ return [
     |
     */
 
-    'guard'                       => 'web',
+    'guard'                              => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +81,7 @@ return [
     |
     */
 
-    'schema'                      => [
+    'schema'                             => [
         'register' => base_path('graphql/schema.graphql'),
     ],
 
@@ -97,7 +96,7 @@ return [
     |
     */
 
-    'cache'                       => [
+    'cache'                              => [
         /*
          * Setting to true enables schema caching.
          */
@@ -133,6 +132,37 @@ return [
          * Only relevant if version is set to 2.
          */
         'path'    => env('LIGHTHOUSE_CACHE_PATH', base_path('bootstrap/cache/lighthouse-schema.php')),
+
+        /*
+         * Should the `@cache` directive use a tagged cache?
+         */
+        'tags'    => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Query Cache
+    |--------------------------------------------------------------------------
+    |
+    | Caches the result of parsing incoming query strings to boost performance on subsequent requests.
+    |
+    */
+
+    'query_cache'                        => [
+        /*
+         * Setting to true enables query caching.
+         */
+        'enable' => env('LIGHTHOUSE_QUERY_CACHE_ENABLE', true),
+
+        /*
+         * Allows using a specific cache store, uses the app's default if set to null.
+         */
+        'store'  => env('LIGHTHOUSE_QUERY_CACHE_STORE', null),
+
+        /*
+         * Duration in seconds the query should remain cached, null means forever.
+         */
+        'ttl'    => env('LIGHTHOUSE_QUERY_CACHE_TTL', 30 * 24 * 60 * 60),
     ],
 
     /*
@@ -146,7 +176,7 @@ return [
     |
     */
 
-    'namespaces'                  => [
+    'namespaces'                         => [
         'models'        => ['App\\Models'],
         'queries'       => 'App\\GraphQL\\Queries',
         'mutations'     => 'App\\GraphQL\\Mutations',
@@ -157,7 +187,7 @@ return [
         'directives'    => [
             'App\\GraphQL\\Directives\\Definitions',
             'App\\GraphQL\\Directives\\Rules',
-            ],
+        ],
         'validators'    => ['App\\GraphQL\\Validators'],
     ],
 
@@ -171,7 +201,7 @@ return [
     |
     */
 
-    'security'                    => [
+    'security'                           => [
         'max_query_complexity'  => QueryComplexity::DISABLED,
         'max_query_depth'       => QueryDepth::DISABLED,
         'disable_introspection' => DisableIntrospection::DISABLED,
@@ -187,7 +217,7 @@ return [
     |
     */
 
-    'pagination'                  => [
+    'pagination'                         => [
         /*
          * Allow clients to query paginated lists without specifying the amount of items.
          * Setting this to `null` means clients have to explicitly ask for the count.
@@ -229,7 +259,7 @@ return [
     |
     */
 
-    'debug'                       => env(
+    'debug'                              => env(
         'LIGHTHOUSE_DEBUG',
         DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE,
     ),
@@ -245,7 +275,7 @@ return [
     |
     */
 
-    'error_handlers'              => [
+    'error_handlers'                     => [
         ExtensionErrorHandler::class,
         ErrorReporter::class,
     ],
@@ -261,7 +291,7 @@ return [
     |
     */
 
-    'field_middleware'            => [
+    'field_middleware'                   => [
         TrimDirective::class,
         ValidateDirective::class,
     ],
@@ -276,7 +306,7 @@ return [
     |
     */
 
-    'global_id_field'             => 'id',
+    'global_id_field'                    => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -288,7 +318,20 @@ return [
     |
     */
 
-    'batched_queries'             => true,
+    'batched_queries'                    => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Persisted Queries
+    |--------------------------------------------------------------------------
+    |
+    | Lighthouse supports Automatic Persisted Queries (APQ), compatible with the
+    | [Apollo implementation](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    | You may set this flag to either process or deny these queries.
+    |
+    */
+
+    'persisted_queries'                  => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -300,7 +343,7 @@ return [
     |
     */
 
-    'transactional_mutations'     => true,
+    'transactional_mutations'            => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -313,7 +356,7 @@ return [
     |
     */
 
-    'force_fill'                  => true,
+    'force_fill'                         => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -325,7 +368,7 @@ return [
     |
     */
 
-    'batchload_relations'         => true,
+    'batchload_relations'                => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -340,7 +383,25 @@ return [
     |
     */
 
-    'non_null_pagination_results' => true,
+    'non_null_pagination_results'        => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Unbox BenSampo\Enum\Enum instances
+    |--------------------------------------------------------------------------
+    |
+    | If set to true, Lighthouse will extract the internal $value from instances of
+    | BenSampo\Enum\Enum before passing it to ArgBuilderDirective::handleBuilder().
+    |
+    | This setting will be removed and always behave as if it were false in v6.
+    |
+    | It is only here to preserve compatibility, e.g. when expecting the internal
+    | value to be passed to a scope when using @scope, but not needed due to Laravel
+    | calling the Enum's __toString() method automagically when used in a query.
+    |
+    */
+
+    'unbox_bensampo_enum_enum_instances' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -352,7 +413,7 @@ return [
     |
     */
 
-    'subscriptions'               => [
+    'subscriptions'                      => [
         /*
          * Determines if broadcasts should be queued by default.
          */
@@ -426,7 +487,7 @@ return [
     |
     */
 
-    'defer'                       => [
+    'defer'                              => [
         /*
          * Maximum number of nested fields that can be deferred in one query.
          * Once reached, remaining fields will be resolved synchronously.
@@ -451,11 +512,10 @@ return [
     |
     */
 
-    'federation'                  => [
+    'federation'                         => [
         /*
          * Location of resolver classes when resolving the `_entities` field.
          */
         'entities_resolver_namespace' => 'App\\GraphQL\\Entities',
     ],
-
 ];

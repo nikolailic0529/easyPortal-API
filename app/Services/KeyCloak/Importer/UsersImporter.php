@@ -9,201 +9,158 @@ use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\KeyCloak\Exceptions\FailedToImport;
 use App\Services\KeyCloak\Exceptions\FailedToImportObject;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\KeyCloak\Exceptions\FailedToImportUserConflictType;
 use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\ObjectIterator;
-use Closure;
+use App\Utils\Processor\Processor;
+use App\Utils\Processor\State;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Laravel\Telescope\Telescope;
+use Illuminate\Support\Facades\Date;
 use Throwable;
 
 use function array_diff;
-use function array_map;
 use function in_array;
-use function min;
 
-class UsersImporter {
-    protected ?Closure $onInit   = null;
-    protected ?Closure $onChange = null;
-    protected ?Closure $onFinish = null;
-
+/**
+ * @extends \App\Utils\Processor\Processor<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Importer\UsersImporterChunkData>
+ */
+class UsersImporter extends Processor {
     public function __construct(
-        protected ExceptionHandler $exceptionHandler,
-        protected Repository $config,
-        protected Client $client,
+        ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
+        private Repository $config,
+        private Client $client,
     ) {
-        // empty
+        parent::__construct($exceptionHandler, $dispatcher);
+    }
+
+    protected function getConfig(): Repository {
+        return $this->config;
     }
 
     protected function getClient(): Client {
         return $this->client;
     }
 
-    protected function getExceptionHandler(): ExceptionHandler {
-        return $this->exceptionHandler;
+    protected function getTotal(): ?int {
+        return $this->getClient()->usersCount();
     }
 
-    public function onInit(?Closure $closure): static {
-        $this->onInit = $closure;
-
-        return $this;
+    protected function getIterator(): ObjectIterator {
+        return $this->getClient()->getUsersIterator();
     }
 
-    public function onChange(?Closure $closure): static {
-        $this->onChange = $closure;
-
-        return $this;
-    }
-
-    public function onFinish(?Closure $closure): static {
-        $this->onFinish = $closure;
-
-        return $this;
-    }
-
-    public function import(
-        string|int $continue = null,
-        int $chunk = null,
-        int $limit = null,
-    ): void {
-        $this->call(function () use ($continue, $chunk, $limit): void {
-            $status   = new Status($continue, $this->getTotal($limit));
-            $iterator = $this->getIterator($chunk, $limit);
-            $users    = new Collection();
-            $iterator
-                ->onBeforeChunk(function ($items) use ($status, &$users): void {
-                    $users = $this->onBeforeChunk($items, $status);
-                })
-                ->onAfterChunk(function () use (&$iterator, $status): void {
-                    $this->onAfterChunk($status, $iterator->getOffset());
-                })
-                ->getIterator();
-
-            $this->onBeforeImport($status);
-
-            foreach ($iterator as $item) {
-                /** @var \App\Services\KeyCloak\Client\Types\User $item */
-                try {
-                    // Properties
-                    $user       = $users->get($item->id);
-                    $attributes = $item->attributes;
-
-                    if (!$user) {
-                        $user                        = new User();
-                        $user->{$user->getKeyName()} = $item->id;
-                    }
-
-                    $user->email          = $item->email;
-                    $user->type           = UserType::keycloak();
-                    $user->given_name     = $item->firstName ?? null;
-                    $user->family_name    = $item->lastName ?? null;
-                    $user->email_verified = $item->emailVerified;
-                    $user->enabled        = $item->enabled;
-                    $user->permissions    = [];
-                    $user->office_phone   = $attributes['office_phone'][0] ?? null;
-                    $user->contact_email  = $attributes['contact_email'][0] ?? null;
-                    $user->title          = $attributes['title'][0] ?? null;
-                    $user->academic_title = $attributes['academic_title'][0] ?? null;
-                    $user->mobile_phone   = $attributes['mobile_phone'][0] ?? null;
-                    $user->job_title      = $attributes['job_title'][0] ?? null;
-                    $user->phone          = $attributes['phone'][0] ?? null;
-                    $user->company        = $attributes['company'][0] ?? null;
-                    $user->photo          = $attributes['photo'][0] ?? null;
-                    $user->organizations  = $this->getOrganizations($user, $item);
-
-                    $user->save();
-                } catch (Throwable $exception) {
-                    $this->getExceptionHandler()->report(
-                        new FailedToImportObject($this, $item, $exception),
-                    );
-                } finally {
-                    $status->processed++;
-                }
-            }
-
-            $this->onAfterImport($status);
-        });
-    }
-
-    protected function getTotal(int $limit = null): ?int {
-        $total = $this->getClient()->usersCount();
-        if ($limit) {
-            $total = min($total, $limit);
+    protected function report(Throwable $exception, mixed $item): void {
+        if (!($exception instanceof FailedToImport)) {
+            $exception = new FailedToImportObject($item, $exception);
         }
 
-        return $total;
-    }
-
-    private function call(Closure $closure): void {
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
-            Telescope::withoutRecording(static function () use ($closure): void {
-                BatchSave::enable($closure);
-            });
-        });
-    }
-
-    protected function getIterator(int $chunk = null, int $limit = null): ObjectIterator {
-        $iterator = $this->getClient()->getUsersIterator();
-
-        if ($chunk) {
-            $iterator->setChunkSize($chunk);
-        }
-
-        if ($limit) {
-            $iterator->setLimit($limit);
-        }
-
-        return $iterator;
+        $this->getExceptionHandler()->report($exception);
     }
 
     /**
-     * @param array<string, mixed> $items
+     * @inheritDoc
      */
-    protected function onBeforeChunk(array $items, Status $status): Collection {
-        $ids   = array_map(static function (KeyCloakUser $item) {
-            return $item->id;
-        }, $items);
-        $key   = (new User())->getKeyName();
-        $users = User::query()
-            ->with('organizations')
-            ->whereIn($key, $ids)
-            ->get();
-
-        return $users->keyBy($key);
+    protected function prefetch(State $state, array $items): mixed {
+        return new UsersImporterChunkData($items);
     }
 
-    protected function onAfterChunk(Status $status, int|null $offset): void {
-        // Update status
-        $status->offset = $offset;
-        $status->chunk++;
+    /**
+     * @param \App\Services\KeyCloak\Importer\UsersImporterChunkData $data
+     * @param \App\Services\KeyCloak\Client\Types\User               $item
+     */
+    protected function process(mixed $data, mixed $item): void {
+        // User
+        $user    = $this->getUser($data, $item);
+        $another = $data->getUserByEmail($item->email);
 
-        // Call callback
-        if ($this->onChange) {
-            ($this->onChange)(clone $status, $offset);
+        if ($another && !$another->is($user)) {
+            // Email should be unique, or we will get "Integrity constraint
+            // violation" error. So we mark the conflicting user to update it
+            // later.
+            $another->email = "(conflict) {$another->email}";
+
+            $another->save();
         }
+
+        // Properties
+        $attributes           = $item->attributes;
+        $user->email          = $item->email;
+        $user->given_name     = $item->firstName ?? null;
+        $user->family_name    = $item->lastName ?? null;
+        $user->email_verified = $item->emailVerified;
+        $user->enabled        = $item->enabled;
+        $user->permissions    = [];
+        $user->office_phone   = $attributes['office_phone'][0] ?? null;
+        $user->contact_email  = $attributes['contact_email'][0] ?? null;
+        $user->title          = $attributes['title'][0] ?? null;
+        $user->academic_title = $attributes['academic_title'][0] ?? null;
+        $user->mobile_phone   = $attributes['mobile_phone'][0] ?? null;
+        $user->job_title      = $attributes['job_title'][0] ?? null;
+        $user->phone          = $attributes['phone'][0] ?? null;
+        $user->company        = $attributes['company'][0] ?? null;
+        $user->photo          = $attributes['photo'][0] ?? null;
+        $user->organizations  = $this->getUserOrganizations($user, $item);
+        $user->synced_at      = Date::now();
+
+        // Save
+        $user->save();
     }
 
-    protected function onBeforeImport(Status $status): void {
-        if ($this->onInit) {
-            ($this->onInit)(clone $status);
+    protected function finish(State $state): void {
+        // Remove deleted users
+        if ($state->overall && $state->failed === 0) {
+            $users = User::query()
+                ->where('type', '=', UserType::keycloak())
+                ->where(static function (Builder $builder) use ($state): void {
+                    $builder->orWhereNull('synced_at');
+                    $builder->orWhere('synced_at', '<', $state->started);
+                })
+                ->getChangeSafeIterator();
+
+            foreach ($users as $user) {
+                try {
+                    $this->deleteUser($user);
+                } catch (Throwable $exception) {
+                    $this->report($exception, $user);
+                }
+            }
         }
+
+        // Finish
+        parent::finish($state);
     }
 
-    protected function onAfterImport(Status $status): void {
-        if ($this->onFinish) {
-            ($this->onFinish)(clone $status);
+    protected function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+        $user = $data->getUserById($item->id);
+
+        if (!$user) {
+            $user                        = new User();
+            $user->type                  = UserType::keycloak();
+            $user->{$user->getKeyName()} = $item->id;
         }
+
+        if ($user->type !== UserType::keycloak()) {
+            throw new FailedToImportUserConflictType($this, $item, $user);
+        }
+
+        if ($user->trashed()) {
+            $user->restore();
+        }
+
+        return $user;
     }
 
     /**
      * @return \Illuminate\Support\Collection<\App\Models\OrganizationUser>
      */
-    protected function getOrganizations(User $user, KeyCloakUser $item): Collection {
+    protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
         // Organizations & Roles
         // (some groups refers to the organization some to roles)
         $organizations = Organization::query()
@@ -246,7 +203,7 @@ class UsersImporter {
         //
         // For this reason, we process the Owner role only.
         $orgAdminRole = Role::query()
-            ->whereKey($this->config->get('ep.keycloak.org_admin_group'))
+            ->whereKey($this->getConfig()->get('ep.keycloak.org_admin_group'))
             ->first();
 
         if ($orgAdminRole && in_array($orgAdminRole->getKey(), $item->groups, true)) {
@@ -267,5 +224,9 @@ class UsersImporter {
 
         // Return
         return $existing;
+    }
+
+    protected function deleteUser(User $user): void {
+        $user->delete();
     }
 }
