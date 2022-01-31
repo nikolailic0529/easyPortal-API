@@ -540,6 +540,9 @@ class ProcessorTest__Processor extends Processor {
         throw new Exception('should not be called');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function prefetch(State $state, array $items): mixed {
         throw new Exception('should not be called');
     }

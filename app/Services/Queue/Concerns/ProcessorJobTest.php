@@ -80,7 +80,7 @@ class ProcessorJobTest extends TestCase {
                 return $this->service;
             }
 
-            protected function getProcessor(Container $container): Processor {
+            protected function makeProcessor(Container $container): Processor {
                 return $this->processor;
             }
         };
@@ -149,7 +149,7 @@ class ProcessorJobTest extends TestCase {
                 return $this->service;
             }
 
-            protected function getProcessor(Container $container): Processor {
+            protected function makeProcessor(Container $container): Processor {
                 return $this->processor;
             }
         };
@@ -176,7 +176,7 @@ class ProcessorJobTest extends TestCase {
             ->once()
             ->andReturn($state);
 
-        $job = Mockery::mock(ProcessorJob::class);
+        $job = Mockery::mock(ProcessorJobTest__ProcessorJob::class);
         $job->shouldAllowMockingProtectedMethods();
         $job->makePartial();
         $job
@@ -199,7 +199,7 @@ class ProcessorJobTest extends TestCase {
             ->shouldReceive('reset')
             ->once();
 
-        $job = Mockery::mock(ProcessorJob::class);
+        $job = Mockery::mock(ProcessorJobTest__ProcessorJob::class);
         $job->shouldAllowMockingProtectedMethods();
         $job->makePartial();
         $job
@@ -237,4 +237,14 @@ abstract class ProcessorJobTest__Processor extends Processor {
     protected function getOnChangeEvent(State $state, array $items): ?object {
         return null;
     }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @see https://github.com/mockery/mockery/issues/1022
+ */
+abstract class ProcessorJobTest__ProcessorJob {
+    use ProcessorJob;
 }
