@@ -453,6 +453,7 @@ class UsersImporterTest extends TestCase {
         $actual = User::query()->whereKey($item->id)->first();
 
         $this->assertInstanceOf(User::class, $actual);
+        $this->assertNotNull($actual->synced_at);
         $this->assertEquals($item->id, $actual->getKey());
         $this->assertEquals($item->email, $actual->email);
         $this->assertEquals($item->emailVerified, $actual->email_verified);

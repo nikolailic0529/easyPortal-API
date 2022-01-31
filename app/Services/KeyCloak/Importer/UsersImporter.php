@@ -20,6 +20,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use Throwable;
 
 use function array_diff;
@@ -105,6 +106,7 @@ class UsersImporter extends Processor {
         $user->company        = $attributes['company'][0] ?? null;
         $user->photo          = $attributes['photo'][0] ?? null;
         $user->organizations  = $this->getUserOrganizations($user, $item);
+        $user->synced_at      = Date::now();
 
         // Save
         $user->save();
