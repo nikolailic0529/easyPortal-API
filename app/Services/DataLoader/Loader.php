@@ -18,7 +18,7 @@ use function is_string;
 
 /**
  * Load data from API and create app's objects. You must use
- * {@link \App\Services\DataLoader\DataLoaderService} to obtain instance.
+ * {@link \App\Services\DataLoader\Container\Container} to obtain instance.
  *
  * @internal
  */

@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Models\Logs\AnalyzeAsset;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\LastIdBasedIterator;
-use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Resolvers\AnalyzeAssetResolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -51,7 +51,7 @@ class AnalyzeAssets extends Command {
 
     public function handle(
         Repository $config,
-        DataLoaderService $service,
+        Client $client,
         AssetResolver $assetResolver,
         ResellerResolver $resellerResolver,
         CustomerResolver $customerResolver,
@@ -86,14 +86,14 @@ class AnalyzeAssets extends Command {
         GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use (
             $lastId,
             $chunk,
-            $service,
+            $client,
             $assetResolver,
             $resellerResolver,
             $customerResolver,
             $analyzeResolver,
         ): void {
             $this->process(
-                $this->getIterator($service, $lastId, $chunk),
+                $this->getIterator($client, $lastId, $chunk),
                 $assetResolver,
                 $resellerResolver,
                 $customerResolver,
@@ -255,8 +255,8 @@ class AnalyzeAssets extends Command {
         }, $company->companyTypes ?? [])));
     }
 
-    protected function getIterator(DataLoaderService $service, ?string $lastId, int $chunk): LastIdBasedIterator {
-        return $service->getClient()
+    protected function getIterator(Client $client, ?string $lastId, int $chunk): LastIdBasedIterator {
+        return $client
             ->getLastIdBasedIterator(
                 'getAssets',
                 /** @lang GraphQL */ <<<'GRAPHQL'
