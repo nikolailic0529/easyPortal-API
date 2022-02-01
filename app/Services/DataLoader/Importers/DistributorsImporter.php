@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver;
@@ -19,9 +18,11 @@ class DistributorsImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
+        $data = new DistributorsImporterChunkData($items);
+
         $this->container
-            ->make(DistributorFactory::class)
-            ->prefetch($items);
+            ->make(DistributorResolver::class)
+            ->prefetch($data->getDistributors());
     }
 
     protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {

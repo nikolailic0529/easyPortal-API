@@ -17,7 +17,9 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\DocumentLoader;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -40,27 +42,28 @@ class DocumentsImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
+        $data     = new ChunkData($items);
         $contacts = $this->container->make(ContactResolver::class);
 
         $this->container
-            ->make(DocumentFactory::class)
-            ->prefetch($items, false, static function (Collection $assets) use ($contacts): void {
+            ->make(DocumentResolver::class)
+            ->prefetch($data->getDocuments(), static function (Collection $assets) use ($contacts): void {
                 $assets->loadMissing('contacts');
 
                 $contacts->add($assets->pluck('contacts')->flatten());
             });
 
         $this->container
-            ->make(ResellerFactory::class)
-            ->prefetch($items, false, static function (Collection $resellers) use ($contacts): void {
+            ->make(ResellerResolver::class)
+            ->prefetch($data->getResellers(), static function (Collection $resellers) use ($contacts): void {
                 $resellers->loadMissing('contacts');
 
                 $contacts->add($resellers->pluck('contacts')->flatten());
             });
 
         $this->container
-            ->make(CustomerFactory::class)
-            ->prefetch($items, false, static function (Collection $customers) use ($contacts): void {
+            ->make(CustomerResolver::class)
+            ->prefetch($data->getCustomers(), static function (Collection $customers) use ($contacts): void {
                 $customers->loadMissing('contacts');
 
                 $contacts->add($customers->pluck('contacts')->flatten());

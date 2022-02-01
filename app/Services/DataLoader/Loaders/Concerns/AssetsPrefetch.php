@@ -3,11 +3,12 @@
 namespace App\Services\DataLoader\Loaders\Concerns;
 
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Factories\AssetFactory;
-use App\Services\DataLoader\Factories\CustomerFactory;
-use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Importers\ChunkData;
+use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use Illuminate\Database\Eloquent\Collection;
 
 trait AssetsPrefetch {
@@ -17,13 +18,14 @@ trait AssetsPrefetch {
      * @param array<mixed> $items
      */
     protected function prefetchAssets(array $items): void {
+        $data      = new ChunkData($items);
         $container = $this->getContainer();
         $locations = $container->make(LocationResolver::class);
         $contacts  = $container->make(ContactResolver::class);
 
         $container
-            ->make(AssetFactory::class)
-            ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
+            ->make(AssetResolver::class)
+            ->prefetch($data->getAssets(), static function (Collection $assets) use ($locations, $contacts): void {
                 $assets->loadMissing('warranties.serviceLevels');
                 $assets->loadMissing('warranties.document');
                 $assets->loadMissing('contacts.types');
@@ -36,16 +38,16 @@ trait AssetsPrefetch {
             });
 
         $container
-            ->make(ResellerFactory::class)
-            ->prefetch($items, false, static function (Collection $resellers) use ($locations): void {
+            ->make(ResellerResolver::class)
+            ->prefetch($data->getResellers(), static function (Collection $resellers) use ($locations): void {
                 $resellers->loadMissing('locations.location');
 
                 $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
 
         $container
-            ->make(CustomerFactory::class)
-            ->prefetch($items, false, static function (Collection $customers) use ($locations): void {
+            ->make(CustomerResolver::class)
+            ->prefetch($data->getCustomers(), static function (Collection $customers) use ($locations): void {
                 $customers->loadMissing('locations.location');
 
                 $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());

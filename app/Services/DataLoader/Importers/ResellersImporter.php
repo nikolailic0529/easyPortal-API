@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\ResellerLoader;
 use App\Services\DataLoader\Resolver;
@@ -22,20 +21,24 @@ class ResellersImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
+        $data      = new ResellersImporterChunkData($items);
         $contacts  = $this->container->make(ContactResolver::class);
         $locations = $this->container->make(LocationResolver::class);
 
         $this->container
-            ->make(ResellerFactory::class)
-            ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
-                $resellers->loadMissing('locations.location');
-                $resellers->loadMissing('locations.types');
-                $resellers->loadMissing('contacts');
-                $resellers->loadMissing('kpi');
+            ->make(ResellerResolver::class)
+            ->prefetch(
+                $data->getResellers(),
+                static function (Collection $resellers) use ($locations, $contacts): void {
+                    $resellers->loadMissing('locations.location');
+                    $resellers->loadMissing('locations.types');
+                    $resellers->loadMissing('contacts');
+                    $resellers->loadMissing('kpi');
 
-                $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-                $contacts->add($resellers->pluck('contacts')->flatten());
-            });
+                    $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
+                    $contacts->add($resellers->pluck('contacts')->flatten());
+                },
+            );
 
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }

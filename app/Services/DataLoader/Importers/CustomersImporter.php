@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
@@ -12,6 +11,7 @@ use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -31,25 +31,29 @@ class CustomersImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
+        $data      = new CustomersImporterChunkData($items);
         $contacts  = $this->container->make(ContactResolver::class);
         $locations = $this->container->make(LocationResolver::class);
 
         $this->container
-            ->make(CustomerFactory::class)
-            ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
-                $customers->loadMissing('locations.location');
-                $customers->loadMissing('locations.types');
-                $customers->loadMissing('contacts');
-                $customers->loadMissing('kpi');
-                $customers->loadMissing('resellersPivots.kpi');
+            ->make(CustomerResolver::class)
+            ->prefetch(
+                $data->getCustomers(),
+                static function (Collection $customers) use ($locations, $contacts): void {
+                    $customers->loadMissing('locations.location');
+                    $customers->loadMissing('locations.types');
+                    $customers->loadMissing('contacts');
+                    $customers->loadMissing('kpi');
+                    $customers->loadMissing('resellersPivots.kpi');
 
-                $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-                $contacts->add($customers->pluck('contacts')->flatten());
-            });
+                    $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
+                    $contacts->add($customers->pluck('contacts')->flatten());
+                },
+            );
 
         $this->container
-            ->make(ResellerFactory::class)
-            ->prefetch($items);
+            ->make(ResellerResolver::class)
+            ->prefetch($data->getResellers());
 
         (new Collection($contacts->getResolved()))->loadMissing('types');
     }
