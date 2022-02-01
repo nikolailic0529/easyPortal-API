@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Factory;
 use function is_string;
 use function trim;
 
-class ColorNormalizer implements Normalizer {
+class ColorNormalizer implements ValueNormalizer {
     public function __construct(
         protected Factory $validator,
     ) {

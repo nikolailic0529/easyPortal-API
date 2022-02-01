@@ -2,6 +2,6 @@
 
 namespace App\Services\DataLoader\Normalizers;
 
-interface Normalizer {
+interface ValueNormalizer {
     public function normalize(mixed $value): mixed;
 }

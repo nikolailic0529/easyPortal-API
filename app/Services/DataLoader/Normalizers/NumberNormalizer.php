@@ -12,7 +12,7 @@ use function number_format;
 use const FILTER_FLAG_ALLOW_THOUSAND;
 use const FILTER_VALIDATE_FLOAT;
 
-class NumberNormalizer implements Normalizer {
+class NumberNormalizer implements ValueNormalizer {
     public function __construct() {
         // empty
     }

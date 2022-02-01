@@ -10,7 +10,7 @@ use function is_int;
 use function is_string;
 use function preg_match;
 
-class DateTimeNormalizer implements Normalizer {
+class DateTimeNormalizer implements ValueNormalizer {
     public function __construct(
         protected Repository $config,
     ) {

@@ -9,7 +9,7 @@ use function is_string;
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_BOOLEAN;
 
-class BoolNormalizer implements Normalizer {
+class BoolNormalizer implements ValueNormalizer {
     public function __construct() {
         // empty
     }

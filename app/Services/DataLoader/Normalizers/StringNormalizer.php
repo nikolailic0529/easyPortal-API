@@ -6,7 +6,7 @@ use function is_null;
 use function preg_replace;
 use function trim;
 
-class StringNormalizer implements Normalizer {
+class StringNormalizer implements ValueNormalizer {
     public function normalize(mixed $value): ?string {
         if (!is_null($value)) {
             $value = (string) $value;

@@ -7,7 +7,7 @@ use function preg_replace;
 use function str_replace;
 use function trim;
 
-class TextNormalizer implements Normalizer {
+class TextNormalizer implements ValueNormalizer {
     public function normalize(mixed $value): ?string {
         if (!is_null($value)) {
             $value = (string) $value;
