@@ -9,9 +9,11 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends \App\Services\DataLoader\Resolver<\App\Models\Distributor>
+ */
 class DistributorResolver extends Resolver implements SingletonPersistent {
     public function get(string|int $id, Closure $factory = null): ?Distributor {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }
 

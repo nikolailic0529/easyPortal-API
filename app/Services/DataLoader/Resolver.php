@@ -25,7 +25,7 @@ use function is_string;
  * Important notes:
  * - providers must be independent of each other.
  *
- * @template T of \Illuminate\Database\Eloquent\Model
+ * @template TModel of \Illuminate\Database\Eloquent\Model
  *
  * @internal
  */
@@ -39,7 +39,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<T>
+     * @return \Illuminate\Support\Collection<TModel>
      */
     public function getResolved(): Collection {
         return $this->getCache()->getAll();
@@ -52,7 +52,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return T|null
+     * @return TModel|null
      */
     protected function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
         // Model already in cache or can be found?
@@ -91,7 +91,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return T|null
+     * @return TModel|null
      */
     protected function find(Key $key): ?Model {
         return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
@@ -101,7 +101,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
 
     /**
      * @param array<mixed> $keys
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection<T>):void|null $callback
+     * @param \Closure(\Illuminate\Database\Eloquent\Collection<TModel>):void|null $callback
      */
     protected function prefetch(array $keys, Closure|null $callback = null): static {
         // Possible?
@@ -142,7 +142,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param T|\Illuminate\Support\Collection<T>|array<T> $object
+     * @param TModel|\Illuminate\Support\Collection<TModel>|array<TModel> $object
      */
     protected function put(Model|Collection|array $object): void {
         $cache = $this->getCache();
@@ -180,16 +180,29 @@ abstract class Resolver implements Singleton, KeyRetriever {
         ];
     }
 
+    /**
+     * @param TModel $model
+     */
     public function getKey(Model $model): Key {
         return $this->getCacheKey([
             $model->getKeyName() => $model->getKey(),
         ]);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder<TModel>|null
+     */
     protected function getFindQuery(): ?Builder {
         return null;
     }
 
+    /**
+     * @template T of \Illuminate\Database\Eloquent\Builder<TModel>
+     *
+     * @param T $builder
+     *
+     * @return T
+     */
     protected function getFindWhere(Builder $builder, Key $key): Builder {
         foreach ($key->get() as $property => $value) {
             $builder = is_string($property)
@@ -200,12 +213,19 @@ abstract class Resolver implements Singleton, KeyRetriever {
         return $builder;
     }
 
+    /**
+     * @template T of \Illuminate\Database\Eloquent\Builder<TModel>
+     *
+     * @param T $builder
+     *
+     * @return T
+     */
     protected function getFindWhereProperty(Builder $builder, string $property, ?string $value): Builder {
         return $builder->where($property, '=', $value);
     }
 
     /**
-     * @return \Illuminate\Support\Collection<T>
+     * @return \Illuminate\Support\Collection<TModel>
      */
     protected function getPreloadedItems(): Collection {
         return new Collection();

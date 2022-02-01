@@ -7,9 +7,11 @@ use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @extends \App\Services\DataLoader\Resolver<\App\Models\Customer>
+ */
 class CustomerResolver extends Resolver {
     public function get(string|int $id, Closure $factory = null): ?Customer {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }
 

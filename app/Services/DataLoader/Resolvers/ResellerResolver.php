@@ -7,9 +7,11 @@ use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @extends \App\Services\DataLoader\Resolver<\App\Models\Reseller>
+ */
 class ResellerResolver extends Resolver {
     public function get(string|int $id, Closure $factory = null): ?Reseller {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }
 
