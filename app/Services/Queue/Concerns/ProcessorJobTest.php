@@ -234,7 +234,7 @@ abstract class ProcessorJobTest__Processor extends Processor {
     /**
      * @inheritDoc
      */
-    protected function getOnChangeEvent(State $state, array $items): ?object {
+    protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
         return null;
     }
 }

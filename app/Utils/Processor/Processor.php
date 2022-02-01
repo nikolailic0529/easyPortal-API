@@ -160,12 +160,12 @@ abstract class Processor {
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
                 $data = $this->prefetch($state, $items);
 
-                $this->chunkLoaded($state, $items);
+                $this->chunkLoaded($state, $items, $data);
             })
             ->onAfterChunk(function (array $items) use ($state, &$data): void {
-                $data = null;
+                $this->chunkProcessed($state, $items, $data);
 
-                $this->chunkProcessed($state, $items);
+                $data = null;
             });
 
         $this->init($state);
@@ -297,24 +297,26 @@ abstract class Processor {
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function chunkLoaded(State $state, array $items): void {
+    protected function chunkLoaded(State $state, array $items, mixed $data): void {
         // empty
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function chunkProcessed(State $state, array $items): void {
+    protected function chunkProcessed(State $state, array $items, mixed $data): void {
         // Update state
         $this->saveState($state);
 
         // Notify
         $this->notifyOnChange($state);
-        $this->dispatchOnChange($state, $items);
+        $this->dispatchOnChange($state, $items, $data);
 
         // Stopped?
         if ($this->stopped) {
@@ -323,11 +325,12 @@ abstract class Processor {
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function dispatchOnChange(State $state, array $items): void {
-        $event = $this->getOnChangeEvent($state, $items);
+    protected function dispatchOnChange(State $state, array $items, mixed $data): void {
+        $event = $this->getOnChangeEvent($state, $items, $data);
 
         if ($event) {
             $this->getDispatcher()->dispatch($event);
@@ -335,10 +338,11 @@ abstract class Processor {
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function getOnChangeEvent(State $state, array $items): ?object {
+    protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
         return null;
     }
     // </editor-fold>

@@ -306,7 +306,7 @@ class ProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function getOnChangeEvent(State $state, array $items): ?object {
+            protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
                 return null;
             }
         };
@@ -383,6 +383,7 @@ class ProcessorTest extends TestCase {
      * @covers ::chunkProcessed
      */
     public function testChunkProcessed(): void {
+        $data      = null;
         $state     = new State();
         $items     = [new stdClass()];
         $processor = Mockery::mock(ProcessorTest__Processor::class);
@@ -400,11 +401,11 @@ class ProcessorTest extends TestCase {
             ->andReturns();
         $processor
             ->shouldReceive('dispatchOnChange')
-            ->with($state, $items)
+            ->with($state, $items, $data)
             ->once()
             ->andReturns();
 
-        $processor->chunkProcessed($state, $items);
+        $processor->chunkProcessed($state, $items, $data);
     }
 
     /**
@@ -413,6 +414,7 @@ class ProcessorTest extends TestCase {
     public function testChunkProcessedStopped(): void {
         $this->expectException(Interrupt::class);
 
+        $data      = null;
         $state     = new State();
         $items     = [new stdClass()];
         $processor = Mockery::mock(ProcessorTest__Processor::class);
@@ -430,12 +432,12 @@ class ProcessorTest extends TestCase {
             ->andReturns();
         $processor
             ->shouldReceive('dispatchOnChange')
-            ->with($state, $items)
+            ->with($state, $items, $data)
             ->once()
             ->andReturns();
 
         $processor->stop();
-        $processor->chunkProcessed($state, $items);
+        $processor->chunkProcessed($state, $items, $data);
     }
 
     /**
@@ -545,8 +547,8 @@ class ProcessorTest__Processor extends Processor {
     /**
      * @inheritDoc
      */
-    public function chunkProcessed(State $state, array $items): void {
-        parent::chunkProcessed($state, $items);
+    public function chunkProcessed(State $state, array $items, mixed $data): void {
+        parent::chunkProcessed($state, $items, $data);
     }
 
     protected function getTotal(): ?int {
