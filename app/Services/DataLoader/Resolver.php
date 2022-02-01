@@ -11,7 +11,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 use LogicException;
 
 use function array_map;
@@ -175,7 +174,6 @@ abstract class Resolver implements Singleton, KeyRetriever {
     /**
      * @return array<\App\Services\DataLoader\Cache\KeyRetriever>
      */
-    #[Pure]
     protected function getKeyRetrievers(): array {
         return [
             'default' => $this,
@@ -188,12 +186,10 @@ abstract class Resolver implements Singleton, KeyRetriever {
         ]);
     }
 
-    #[Pure]
     protected function getFindQuery(): ?Builder {
         return null;
     }
 
-    #[Pure]
     protected function getFindWhere(Builder $builder, Key $key): Builder {
         foreach ($key->get() as $property => $value) {
             $builder = is_string($property)

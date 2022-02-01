@@ -9,7 +9,6 @@ use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use JetBrains\PhpStorm\Pure;
 
 class OemGroupResolver extends Resolver {
     public function get(Oem $model, string $key, string $name, Closure $factory = null): ?OemGroup {
@@ -29,7 +28,6 @@ class OemGroupResolver extends Resolver {
     /**
      * @return array{oem_id: string, key: string, name: string}
      */
-    #[Pure]
     protected function getUniqueKey(Oem|string $model, string $key, string $name): array {
         return [
             'oem_id' => $model instanceof Oem ? $model->getKey() : $model,

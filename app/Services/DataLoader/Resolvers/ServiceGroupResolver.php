@@ -10,7 +10,6 @@ use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 class ServiceGroupResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?ServiceGroup {
@@ -30,7 +29,6 @@ class ServiceGroupResolver extends Resolver implements SingletonPersistent {
     /**
      * @return array{oem_id: string, sku: string}
      */
-    #[Pure]
     protected function getUniqueKey(Oem|string $oem, string $sku): array {
         return [
             'oem_id' => $oem instanceof Model ? $oem->getKey() : $oem,

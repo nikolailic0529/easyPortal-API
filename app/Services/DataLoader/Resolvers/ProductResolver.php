@@ -11,7 +11,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 class ProductResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
@@ -42,7 +41,6 @@ class ProductResolver extends Resolver implements SingletonPersistent {
     /**
      * @return array{oem_id: string, sku: string}
      */
-    #[Pure]
     protected function getUniqueKey(Oem|string $oem, string $sku): array {
         return [
             'oem_id' => $oem instanceof Model ? $oem->getKey() : $oem,

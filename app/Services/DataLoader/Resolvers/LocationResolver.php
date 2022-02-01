@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use JetBrains\PhpStorm\Pure;
 
 class LocationResolver extends Resolver {
     public function get(
@@ -81,7 +80,6 @@ class LocationResolver extends Resolver {
     /**
      * @return array{country_id:string, city_id:string, postcode:string, line_one:string, line_two:string}
      */
-    #[Pure]
     protected function getUniqueKey(
         Country|string $country,
         City|string $city,

@@ -10,7 +10,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 class StatusResolver extends Resolver implements SingletonPersistent {
     public function get(Model $model, string $key, Closure $factory = null): ?Status {
@@ -34,7 +33,6 @@ class StatusResolver extends Resolver implements SingletonPersistent {
     /**
      * @return array{model: string, type: string}
      */
-    #[Pure]
     protected function getUniqueKey(Model|string $model, string $key): array {
         return [
             'object_type' => $model instanceof Model ? $model->getMorphClass() : $model,

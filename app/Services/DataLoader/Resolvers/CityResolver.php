@@ -11,7 +11,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * @extends \App\Services\DataLoader\Resolver<\App\Models\City>
@@ -38,7 +37,6 @@ class CityResolver extends Resolver implements SingletonPersistent {
     /**
      * @return array{country_id: string, name: string}
      */
-    #[Pure]
     protected function getUniqueKey(Country|string $country, string $name): array {
         return [
             'country_id' => $country instanceof Model ? $country->getKey() : $country,

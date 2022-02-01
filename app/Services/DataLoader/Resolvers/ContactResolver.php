@@ -9,7 +9,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
@@ -42,7 +41,6 @@ class ContactResolver extends Resolver {
     /**
      * @return array{object_type: string, object_id: string, name: string|null, phone: string|null}
      */
-    #[Pure]
     protected function getUniqueKey(Model|Contact $model, ?string $name, ?string $phone, ?string $mail): array {
         return ($model instanceof Contact
                 ? ['object_type' => $model->object_type, 'object_id' => $model->object_id]
