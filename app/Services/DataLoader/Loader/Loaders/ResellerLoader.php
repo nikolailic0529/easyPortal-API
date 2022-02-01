@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
-use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;

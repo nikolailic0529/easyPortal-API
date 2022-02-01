@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
-use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;

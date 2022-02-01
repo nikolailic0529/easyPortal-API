@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
-use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
