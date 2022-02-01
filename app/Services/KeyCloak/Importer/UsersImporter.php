@@ -56,7 +56,7 @@ class UsersImporter extends Processor {
         return $this->getClient()->getUsersIterator();
     }
 
-    protected function report(Throwable $exception, mixed $item): void {
+    protected function report(Throwable $exception, mixed $item = null): void {
         if (!($exception instanceof FailedToImport)) {
             $exception = new FailedToImportObject($item, $exception);
         }

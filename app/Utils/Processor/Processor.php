@@ -202,7 +202,7 @@ abstract class Processor {
     /**
      * @param TItem|null $item
      */
-    abstract protected function report(Throwable $exception, mixed $item): void;
+    abstract protected function report(Throwable $exception, mixed $item = null): void;
 
     /**
      * @param TState       $state
@@ -349,8 +349,14 @@ abstract class Processor {
      * @return TState|null
      */
     public function getState(): ?State {
-        return $this->getService()?->get($this->getCacheKey(), function (array $state): State {
-            return $this->restoreState($state);
+        return $this->getService()?->get($this->getCacheKey(), function (array $state): ?State {
+            try {
+                return $this->restoreState($state);
+            } catch (Throwable $exception) {
+                $this->report($exception);
+            }
+
+            return null;
         });
     }
 

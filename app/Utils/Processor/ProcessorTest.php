@@ -292,7 +292,7 @@ class ProcessorTest extends TestCase {
                 throw new Exception();
             }
 
-            protected function report(Throwable $exception, mixed $item): void {
+            protected function report(Throwable $exception, mixed $item = null): void {
                 throw $exception;
             }
 
@@ -453,9 +453,34 @@ class ProcessorTest extends TestCase {
             ->with($key, Mockery::andAnyOtherArgs())
             ->andReturn($state);
 
-        $this->app->make(ProcessorTest__Processor::class)
+        $actual = $this->app->make(ProcessorTest__Processor::class)
             ->setCacheKey($service, $key)
             ->getState();
+
+        $this->assertEquals($state, $actual);
+    }
+
+    /**
+     * @covers ::getState
+     */
+    public function testGetStateRestorationFailed(): void {
+        $key     = new class() implements CacheKeyable {
+            // empty
+        };
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('get')
+            ->once()
+            ->with($key, Mockery::andAnyOtherArgs())
+            ->andReturnUsing(static function (mixed $key, Closure $factory): mixed {
+                return $factory(['invalid state']);
+            });
+
+        $actual = $this->app->make(ProcessorTest__Processor::class)
+            ->setCacheKey($service, $key)
+            ->getState();
+
+        $this->assertNull($actual);
     }
 
     /**
@@ -536,8 +561,8 @@ class ProcessorTest__Processor extends Processor {
         throw new Exception('should not be called');
     }
 
-    protected function report(Throwable $exception, mixed $item): void {
-        throw new Exception('should not be called');
+    protected function report(Throwable $exception, mixed $item = null): void {
+        // empty
     }
 
     /**
