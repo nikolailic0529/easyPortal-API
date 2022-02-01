@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 
 class ImportAssets extends Import {
     /**

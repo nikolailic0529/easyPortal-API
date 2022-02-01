@@ -1,8 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Finders;
+namespace App\Services\DataLoader\Importer\Finders;
 
 use App\Models\Customer;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\Finder;
 use App\Services\DataLoader\Loaders\CustomerLoader;
 
 class CustomerLoaderFinder extends Finder implements CustomerFinder {

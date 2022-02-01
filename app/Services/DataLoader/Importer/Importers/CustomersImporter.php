@@ -1,9 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Importers;
+namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Finders\ResellerLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
+use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Importer\Status;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Resolver;

@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importers\Importer;
-use App\Services\DataLoader\Importers\Status;
+use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Importer\Status;
 use App\Utils\Console\WithBooleanOptions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;

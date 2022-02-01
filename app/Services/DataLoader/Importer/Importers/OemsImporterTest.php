@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Importers;
+namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
@@ -17,7 +17,7 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Importers\OemsImporter
+ * @coversDefaultClass \App\Services\DataLoader\Importer\Importers\OemsImporter
  */
 class OemsImporterTest extends TestCase {
     /**

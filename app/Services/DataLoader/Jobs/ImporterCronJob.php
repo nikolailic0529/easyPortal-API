@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Importers\Importer;
-use App\Services\DataLoader\Importers\Status;
+use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Importer\Status;
 use App\Services\DataLoader\Service;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Progress;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Importers;
+namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Testing\Helper;
@@ -10,7 +10,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Importers\CustomersImporter
+ * @coversDefaultClass \App\Services\DataLoader\Importer\Importers\CustomersImporter
  */
 class CustomersImporterTest extends TestCase {
     use WithQueryLogs;

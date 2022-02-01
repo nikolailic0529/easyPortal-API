@@ -1,8 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Finders;
+namespace App\Services\DataLoader\Importer\Finders;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Finders\Finder;
 use App\Services\DataLoader\Loaders\DistributorLoader;
 
 class DistributorLoaderFinder extends Finder implements DistributorFinder {

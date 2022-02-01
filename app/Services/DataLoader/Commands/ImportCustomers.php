@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importers\CustomersImporter;
+use App\Services\DataLoader\Importer\Importers\CustomersImporter;
 
 class ImportCustomers extends Import {
     /**

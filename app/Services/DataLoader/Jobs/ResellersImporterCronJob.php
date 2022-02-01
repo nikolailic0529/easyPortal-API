@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Importers\ResellersImporter;
+use App\Services\DataLoader\Importer\Importers\ResellersImporter;
 use App\Services\DataLoader\Service;
 use Config\Constants;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;

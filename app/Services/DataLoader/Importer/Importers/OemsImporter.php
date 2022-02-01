@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Importers;
+namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
-use App\Services\DataLoader\Importers\OemsImporter\CellType;
-use App\Services\DataLoader\Importers\OemsImporter\HeaderCell;
-use App\Services\DataLoader\Importers\OemsImporter\ParsedRow;
+use App\Services\DataLoader\Importer\Importers\OemsImporter\CellType;
+use App\Services\DataLoader\Importer\Importers\OemsImporter\HeaderCell;
+use App\Services\DataLoader\Importer\Importers\OemsImporter\ParsedRow;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
@@ -40,7 +40,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
     use Importable;
 
     /**
-     * @var array<\App\Services\DataLoader\Importers\OemsImporter\HeaderCell>
+     * @var array<\App\Services\DataLoader\Importer\Importers\OemsImporter\HeaderCell>
      */
     protected array $header = [];
 

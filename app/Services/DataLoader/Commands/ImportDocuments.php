@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importers\DocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
 
 class ImportDocuments extends Import {
     /**

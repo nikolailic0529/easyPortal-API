@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importers\ResellersImporter;
+use App\Services\DataLoader\Importer\Importers\ResellersImporter;
 
 class ImportResellers extends Import {
     /**
