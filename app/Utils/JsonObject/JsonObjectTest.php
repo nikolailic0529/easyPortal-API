@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils;
+namespace App\Utils\JsonObject;
 
 use DateTimeInterface;
 use Illuminate\Support\Facades\Date;
@@ -13,7 +13,7 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\JsonObject
+ * @coversDefaultClass \App\Utils\JsonObject\JsonObject
  */
 class JsonObjectTest extends TestCase {
     /**
@@ -295,7 +295,7 @@ class JsonObjectTest_Parent extends JsonObject {
     public array $array;
 
     /**
-     * @var array<\App\Utils\JsonObjectTest_Child>
+     * @var array<\App\Utils\JsonObject\JsonObjectTest_Child>
      */
     public array $children;
 
@@ -317,7 +317,7 @@ class JsonObjectTest_Child extends JsonObject {
     public ?DateTimeInterface $d;
 
     /**
-     * @var array<int, \App\Utils\JsonObjectTest_Child>
+     * @var array<int, \App\Utils\JsonObject\JsonObjectTest_Child>
      */
     public array|null $children;
 }

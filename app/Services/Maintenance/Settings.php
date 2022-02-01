@@ -2,7 +2,7 @@
 
 namespace App\Services\Maintenance;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 use DateTimeInterface;
 
 class Settings extends JsonObject {

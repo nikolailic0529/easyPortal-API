@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class SignUpByInviteInput extends JsonObject {
     public string $given_name;

@@ -1,17 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Testing\Data;
+namespace App\Utils\JsonObject;
 
-use App\Utils\JsonObject;
 use ArrayIterator;
 use RecursiveArrayIterator;
 use RecursiveIterator;
 
 use function is_array;
 
-class RecursiveJsonObjectsIterator extends ArrayIterator implements RecursiveIterator {
+class RecursiveJsonObjectIterator extends ArrayIterator implements RecursiveIterator {
     /**
-     * @param \App\Utils\JsonObject|array<mixed> $object
+     * @param \App\Utils\JsonObject\JsonObject|array<\App\Utils\JsonObject\JsonObject>|array<string, mixed> $object
      */
     public function __construct(JsonObject|array $object) {
         parent::__construct(is_array($object) ? $object : $object->getProperties());

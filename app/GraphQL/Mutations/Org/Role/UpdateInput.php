@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org\Role;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class UpdateInput extends JsonObject {
     public ?string $name;

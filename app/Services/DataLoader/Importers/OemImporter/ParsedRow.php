@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Importers\OemImporter;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class ParsedRow extends JsonObject {
     public Oem $oem;

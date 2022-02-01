@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Importers\OemImporter;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class ServiceLevel extends JsonObject {
     public string $sku;

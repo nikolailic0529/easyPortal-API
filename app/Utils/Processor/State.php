@@ -2,7 +2,7 @@
 
 namespace App\Utils\Processor;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 use DateTimeInterface;
 
 class State extends JsonObject {

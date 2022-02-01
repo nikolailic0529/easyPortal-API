@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Organization\User;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class InviteInput extends JsonObject {
     public string  $email;

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class ImporterState extends JsonObject {
     public ?string $from      = null;

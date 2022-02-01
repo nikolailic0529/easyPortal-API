@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Jobs;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class UpdateIndexState extends JsonObject {
     public ?string $from      = null;
