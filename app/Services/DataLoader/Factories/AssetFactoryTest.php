@@ -22,20 +22,16 @@ use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CoverageResolver;
-use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\CoverageEntry;
-use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Callbacks\KeysComparator;
-use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -1072,61 +1068,6 @@ class AssetFactoryTest extends TestCase {
         };
 
         $this->assertNull($factory->assetLocation($asset));
-    }
-
-    /**
-     * @covers ::prefetch
-     */
-    public function testPrefetch(): void {
-        $a          = new ViewAsset([
-            'id'           => $this->faker->uuid,
-            'serialNumber' => $this->faker->uuid,
-        ]);
-        $b          = new ViewAsset([
-            'id'           => $this->faker->uuid,
-            'serialNumber' => $this->faker->uuid,
-        ]);
-        $c          = new DocumentEntry([
-            'assetId' => $this->faker->uuid,
-        ]);
-        $resolver   = $this->app->make(AssetResolver::class);
-        $normalizer = $this->app->make(Normalizer::class);
-        $products   = Mockery::mock(ProductResolver::class);
-        $locations  = Mockery::mock(LocationFactory::class);
-
-        Asset::factory()->create([
-            'id' => $a->id,
-        ]);
-
-        $factory = new class($normalizer, $resolver, $products, $locations) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected AssetResolver $assetResolver,
-                protected ProductResolver $productResolver,
-                protected LocationFactory $locationFactory,
-            ) {
-                // empty
-            }
-        };
-
-        $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(1, $collection);
-        });
-
-        $factory->prefetch([$a, $b, $c], false, Closure::fromCallable($callback));
-
-        $callback->shouldHaveBeenCalled()->once();
-
-        $this->flushQueryLog();
-
-        $factory->find($a);
-        $factory->find($b);
-        $factory->find(new ViewAsset([
-            'id' => $c->assetId,
-        ]));
-
-        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

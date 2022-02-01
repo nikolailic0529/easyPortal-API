@@ -4,14 +4,9 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
-use Closure;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
@@ -313,68 +308,6 @@ class ResellerFactoryTest extends TestCase {
 
         // Events
         Event::assertDispatchedTimes(ResellerUpdated::class, 1);
-    }
-
-    /**
-     * @covers ::prefetch
-     */
-    public function testPrefetch(): void {
-        $a          = new Company([
-            'id' => $this->faker->uuid,
-        ]);
-        $b          = new Company([
-            'id' => $this->faker->uuid,
-        ]);
-        $asset      = new ViewAsset([
-            'resellerId'    => $b->id,
-            'assetDocument' => [
-                [
-                    'reseller' => [
-                        'id' => $this->faker->uuid,
-                    ],
-                    'document' => [
-                        'resellerId' => $this->faker->uuid,
-                    ],
-                ],
-            ],
-        ]);
-        $document   = new Document([
-            'resellerId' => $this->faker->uuid,
-        ]);
-        $resolver   = $this->app->make(ResellerResolver::class);
-        $normalizer = $this->app->make(Normalizer::class);
-
-        $factory = new class($normalizer, $resolver) extends ResellerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected ResellerResolver $resellerResolver,
-            ) {
-                // empty
-            }
-        };
-
-        $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(0, $collection);
-        });
-
-        $factory->prefetch(
-            [$a, $asset, new ViewAsset(['resellerId' => null]), $document],
-            false,
-            Closure::fromCallable($callback),
-        );
-
-        $callback->shouldHaveBeenCalled()->once();
-
-        $this->flushQueryLog();
-
-        $factory->find($a);
-        $factory->find($b);
-        $resolver->get($asset->assetDocument[0]->reseller->id);
-        $resolver->get($asset->assetDocument[0]->document->resellerId);
-        $resolver->get($document->resellerId);
-
-        $this->assertCount(0, $this->getQueryLog());
     }
     // </editor-fold>
 

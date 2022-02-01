@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;

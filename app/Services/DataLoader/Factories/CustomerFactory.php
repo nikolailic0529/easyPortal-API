@@ -6,7 +6,6 @@ use App\Models\Customer;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithKpi;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
-use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -14,10 +13,7 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
-use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -26,10 +22,7 @@ use InvalidArgumentException;
 use function implode;
 use function sprintf;
 
-// TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
-//      If this is not true we need to update this factory and its tests.
-
-class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
+class CustomerFactory extends CompanyFactory {
     use WithKpi;
     use WithReseller;
 
@@ -87,49 +80,6 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         }
 
         return $model;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Prefetch">
-    // =========================================================================
-    /**
-     * @param array<\App\Services\DataLoader\Schema\Company
-     *          |\App\Services\DataLoader\Schema\Document
-     *          |\App\Services\DataLoader\Schema\ViewAsset> $objects
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
-     */
-    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
-        $keys = (new Collection($objects))
-            ->map(static function (Company|Document|ViewAsset $model): array {
-                $keys = [];
-
-                if ($model instanceof Company) {
-                    $keys[] = $model->id;
-                } elseif ($model instanceof Document) {
-                    $keys[] = $model->customerId;
-                } elseif ($model instanceof ViewAsset) {
-                    $keys[] = $model->customerId;
-
-                    if (isset($model->assetDocument)) {
-                        foreach ($model->assetDocument as $assetDocument) {
-                            $keys[] = $assetDocument->customer->id ?? null;
-                            $keys[] = $assetDocument->document->customerId ?? null;
-                        }
-                    }
-                } else {
-                    // empty
-                }
-
-                return $keys;
-            })
-            ->flatten()
-            ->unique()
-            ->filter()
-            ->all();
-
-        $this->customerResolver->prefetch($keys, $callback);
-
-        return $this;
     }
     // </editor-fold>
 

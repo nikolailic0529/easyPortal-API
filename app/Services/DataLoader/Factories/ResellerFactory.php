@@ -5,26 +5,21 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Factories\Concerns\WithKpi;
-use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
-use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
 use function implode;
 use function sprintf;
 
-class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
+class ResellerFactory extends CompanyFactory {
     use WithKpi;
 
     public function __construct(
@@ -46,55 +41,6 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
             $locationFactory,
         );
     }
-
-    // <editor-fold desc="Prefetch">
-    // =========================================================================
-    /**
-     * @param array<\App\Services\DataLoader\Schema\Company
-     *          |\App\Services\DataLoader\Schema\ViewAsset
-     *          |\App\Services\DataLoader\Schema\Document> $objects
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
-     */
-    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
-        $keys = (new Collection($objects))
-            ->map(static function (Company|ViewAsset|Document $model): array {
-                $keys = [];
-
-                if ($model instanceof Company) {
-                    $keys[] = $model->id;
-
-                    if (isset($model->companyResellerKpis)) {
-                        foreach ($model->companyResellerKpis as $kpi) {
-                            $keys[] = $kpi->resellerId ?? null;
-                        }
-                    }
-                } elseif ($model instanceof Document) {
-                    $keys[] = $model->resellerId;
-                } elseif ($model instanceof ViewAsset) {
-                    $keys[] = $model->resellerId;
-
-                    if (isset($model->assetDocument)) {
-                        foreach ($model->assetDocument as $assetDocument) {
-                            $keys[] = $assetDocument->reseller->id ?? null;
-                            $keys[] = $assetDocument->document->resellerId ?? null;
-                        }
-                    }
-                } else {
-                    // empty
-                }
-
-                return $keys;
-            })
-            ->flatten()
-            ->unique()
-            ->filter()
-            ->all();
-
-        $this->resellerResolver->prefetch($keys, $callback);
-
-        return $this;
-    }
-    // </editor-fold>
 
     // <editor-fold desc="Factory">
     // =========================================================================

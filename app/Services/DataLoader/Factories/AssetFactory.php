@@ -31,12 +31,12 @@ use App\Services\DataLoader\Factories\Concerns\WithServiceLevel;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
-use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
+use App\Services\DataLoader\Importers\ChunkData;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
@@ -52,11 +52,9 @@ use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\CoverageEntry;
-use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
-use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -73,7 +71,7 @@ use function sprintf;
 
 use const SORT_REGULAR;
 
-class AssetFactory extends ModelFactory implements FactoryPrefetchable {
+class AssetFactory extends ModelFactory {
     use Children;
     use WithReseller;
     use WithCustomer;
@@ -220,38 +218,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Prefetch">
-    // =========================================================================
-    /**
-     * @param array<\App\Services\DataLoader\Schema\ViewAsset|\App\Services\DataLoader\Schema\DocumentEntry> $objects
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
-     */
-    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
-        // Assets
-        $keys = (new Collection($objects))
-            ->map(static function (ViewAsset|DocumentEntry $object): array {
-                $keys = [];
-
-                if ($object instanceof ViewAsset) {
-                    $keys[] = $object->id;
-                } else {
-                    $keys[] = $object->assetId;
-                }
-
-                return $keys;
-            })
-            ->flatten()
-            ->filter()
-            ->unique()
-            ->all();
-
-        $this->assetResolver->prefetch($keys, $callback);
-
-        // Return
-        return $this;
-    }
-    // </editor-fold>
-
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAsset(ViewAsset $asset): ?AssetModel {
@@ -305,12 +271,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 try {
                     // Prefetch documents
-                    $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
-                        $documents->loadMissing('entries');
-                        $documents->loadMissing('contacts.types');
+                    $this->getDocumentResolver()->prefetch(
+                        (new ChunkData([$asset]))->getDocuments(),
+                        function (Collection $documents): void {
+                            $documents->loadMissing('entries');
+                            $documents->loadMissing('contacts.types');
 
-                        $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
-                    });
+                            $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
+                        },
+                    );
 
                     if (!$created) {
                         $model->loadMissing('warranties.serviceLevels');

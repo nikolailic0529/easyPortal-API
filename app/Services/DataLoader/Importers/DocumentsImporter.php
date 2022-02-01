@@ -2,9 +2,6 @@
 
 namespace App\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Factories\CustomerFactory;
-use App\Services\DataLoader\Factories\DocumentFactory;
-use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\AssetLoaderFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;

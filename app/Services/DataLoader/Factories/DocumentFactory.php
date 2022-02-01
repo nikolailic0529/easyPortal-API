@@ -31,7 +31,6 @@ use App\Services\DataLoader\Factories\Concerns\WithServiceGroup;
 use App\Services\DataLoader\Factories\Concerns\WithServiceLevel;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithType;
-use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -39,6 +38,7 @@ use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
+use App\Services\DataLoader\Importers\ChunkData;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CurrencyResolver;
@@ -57,7 +57,6 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
@@ -67,12 +66,11 @@ use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
-use function array_map;
 use function array_merge;
 use function implode;
 use function sprintf;
 
-class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
+class DocumentFactory extends ModelFactory {
     use Children;
     use WithOem;
     use WithOemGroup;
@@ -236,38 +234,6 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         }
 
         return $model;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Prefetch">
-    // =========================================================================
-    /**
-     * @param array<\App\Services\DataLoader\Schema\ViewAsset|\App\Services\DataLoader\Schema\Document> $objects
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
-     */
-    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
-        $keys = (new Collection($objects))
-            ->map(static function (Document|ViewAsset $object): array {
-                $keys = [];
-
-                if ($object instanceof Document) {
-                    $keys[] = $object->id;
-                } else {
-                    $keys = array_map(static function (ViewAssetDocument $document): ?string {
-                        return $document->document->id ?? null;
-                    }, $object->assetDocument ?? []);
-                }
-
-                return $keys;
-            })
-            ->flatten()
-            ->filter()
-            ->unique()
-            ->all();
-
-        $this->documentResolver->prefetch($keys, $callback);
-
-        return $this;
     }
     // </editor-fold>
 
@@ -454,9 +420,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             if (isset($document->documentEntries)) {
                 try {
                     // Prefetch
-                    $this->getAssetFactory()->prefetch(
-                        $document->documentEntries,
-                        false,
+                    $this->getAssetResolver()->prefetch(
+                        (new ChunkData($document->documentEntries))->getAssets(),
                         static function (Collection $assets): void {
                             $assets->loadMissing('oem');
                         },

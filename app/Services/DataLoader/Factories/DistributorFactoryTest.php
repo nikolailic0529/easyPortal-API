@@ -2,13 +2,9 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
-use Closure;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -118,45 +114,6 @@ class DistributorFactoryTest extends TestCase {
         $factory->create($company);
 
         $this->assertCount(1, $this->getQueryLog());
-    }
-
-    /**
-     * @covers ::prefetch
-     */
-    public function testPrefetch(): void {
-        $a          = new Company([
-            'id' => $this->faker->uuid,
-        ]);
-        $b          = new Company([
-            'id' => $this->faker->uuid,
-        ]);
-        $resolver   = $this->app->make(DistributorResolver::class);
-        $normalizer = $this->app->make(Normalizer::class);
-
-        $factory = new class($normalizer, $resolver) extends DistributorFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected DistributorResolver $distributorResolver,
-            ) {
-                // empty
-            }
-        };
-
-        $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(0, $collection);
-        });
-
-        $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));
-
-        $callback->shouldHaveBeenCalled()->once();
-
-        $this->flushQueryLog();
-
-        $factory->find($a);
-        $factory->find($b);
-
-        $this->assertCount(0, $this->getQueryLog());
     }
     // </editor-fold>
 

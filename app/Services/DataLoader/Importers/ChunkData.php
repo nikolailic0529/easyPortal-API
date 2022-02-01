@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Importers;
 
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -103,6 +104,8 @@ class ChunkData {
             $this->addReseller($item->resellerId ?? null);
             $this->addCustomer($item->customerId ?? null);
             $this->addDocument($item->id ?? null);
+        } elseif ($item instanceof DocumentEntry) {
+            $this->addAsset($item->assetId ?? null);
         } elseif ($item instanceof CompanyKpis) {
             $this->addReseller($item->resellerId ?? null);
         } else {

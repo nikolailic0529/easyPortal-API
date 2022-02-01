@@ -17,7 +17,6 @@ use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CurrencyResolver;
-use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
@@ -32,7 +31,6 @@ use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
@@ -714,80 +712,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::prefetch
-     */
-    public function testPrefetch(): void {
-        $a       = [
-            'document' => [
-                'id' => 'c11353d9-0560-41b7-92b1-e151d195e867',
-            ],
-        ];
-        $b       = [
-            'document' => [
-                'id' => '9b8dccbc-a72c-401b-bdc3-79b0ae6a2d67',
-            ],
-        ];
-        $c       = [
-            'document' => [
-                'id' => '2baf7184-af04-40f8-a652-f38b3fb56770',
-            ],
-        ];
-        $d       = [
-            'id' => '5c631e1e-d363-4992-a818-398966606441',
-        ];
-        $factory = new class(
-            $this->app->make(Normalizer::class),
-            $this->app->make(DocumentResolver::class),
-        ) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected DocumentResolver $documentResolver,
-            ) {
-                // empty
-            }
-        };
-
-        $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(0, $collection);
-        });
-
-        $factory->prefetch(
-            [
-                new ViewAsset([
-                    'assetDocument' => [$a, $b],
-                ]),
-                new ViewAsset([
-                    'assetDocument' => [$c],
-                ]),
-                new ViewAsset([
-                    // should pass
-                ]),
-                new Document($d),
-            ],
-            false,
-            Closure::fromCallable($callback),
-        );
-
-        $callback->shouldHaveBeenCalled()->once();
-
-        $this->flushQueryLog();
-
-        $factory->find(new AssetDocumentObject([
-            'document' => $a,
-        ]));
-        $factory->find(new AssetDocumentObject([
-            'document' => $b,
-        ]));
-        $factory->find(new AssetDocumentObject([
-            'document' => $c,
-        ]));
-        $factory->find(new Document($d));
-
-        $this->assertCount(0, $this->getQueryLog());
-    }
-
-    /**
      * @covers ::documentStatuses
      */
     public function testDocumentStatuses(): void {
@@ -1334,7 +1258,6 @@ class DocumentFactoryTest extends TestCase {
         $expected = [
             'select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null',
             'select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null',
-            'select `assets`.* from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1',
             'select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1',
             'update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?',
         ];

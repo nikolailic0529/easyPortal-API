@@ -3,22 +3,19 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
-use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 
-use function array_map;
 use function implode;
 use function sprintf;
 
-class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
+class DistributorFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -27,24 +24,6 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
     ) {
         parent::__construct($exceptionHandler, $normalizer);
     }
-
-    // <editor-fold desc="Prefetch">
-    // =========================================================================
-    /**
-     * @param array<\App\Services\DataLoader\Schema\Company> $distributors
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
-     */
-    public function prefetch(array $distributors, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_map(static function (Company $distributor): string {
-            return $distributor->id;
-        }, $distributors);
-
-        $this->distributorResolver->prefetch($keys, $callback);
-
-        return $this;
-    }
-
-    // </editor-fold>
 
     public function find(Type $type): ?Distributor {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

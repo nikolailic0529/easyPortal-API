@@ -8,16 +8,11 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyKpis;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
-use Closure;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
@@ -296,68 +291,6 @@ class CustomerFactoryTest extends TestCase {
         $this->assertTrue($customer->wasRecentlyCreated);
         $this->assertEquals($company->id, $customer->getKey());
         $this->assertEquals($company->name, $customer->name);
-    }
-
-    /**
-     * @covers ::prefetch
-     */
-    public function testPrefetch(): void {
-        $a          = new Company([
-            'id' => $this->faker->uuid,
-        ]);
-        $b          = new Company([
-            'id' => $this->faker->uuid,
-        ]);
-        $asset      = new ViewAsset([
-            'customerId'    => $b->id,
-            'assetDocument' => [
-                [
-                    'customer' => [
-                        'id' => $this->faker->uuid,
-                    ],
-                    'document' => [
-                        'customerId' => $this->faker->uuid,
-                    ],
-                ],
-            ],
-        ]);
-        $document   = new Document([
-            'customerId' => $this->faker->uuid,
-        ]);
-        $resolver   = $this->app->make(CustomerResolver::class);
-        $normalizer = $this->app->make(Normalizer::class);
-
-        $factory = new class($normalizer, $resolver) extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected CustomerResolver $customerResolver,
-            ) {
-                // empty
-            }
-        };
-
-        $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(0, $collection);
-        });
-
-        $factory->prefetch(
-            [$a, $asset, new ViewAsset(['customerId' => $b->id]), $document],
-            false,
-            Closure::fromCallable($callback),
-        );
-
-        $callback->shouldHaveBeenCalled()->once();
-
-        $this->flushQueryLog();
-
-        $factory->find($a);
-        $factory->find($b);
-        $resolver->get($asset->assetDocument[0]->customer->id);
-        $resolver->get($asset->assetDocument[0]->document->customerId);
-        $resolver->get($document->customerId);
-
-        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**
