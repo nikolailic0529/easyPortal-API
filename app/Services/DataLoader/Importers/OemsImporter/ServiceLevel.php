@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Importers\OemImporter;
+namespace App\Services\DataLoader\Importers\OemsImporter;
 
 use App\Utils\JsonObject\JsonObject;
 
