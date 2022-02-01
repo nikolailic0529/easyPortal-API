@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Container;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Factory;
-use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders\Concerns;
+namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;

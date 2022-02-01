@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders;
+namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
@@ -9,18 +9,21 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
-use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderCreateWithAssets;
-use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderCreateWithoutAssets;
+use Mockery\MockInterface;
+use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithAssets;
+use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithoutAssets;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Loaders\ResellerLoader
+ * @coversDefaultClass \App\Services\DataLoader\Loader\Loaders\CustomerLoader
  */
-class ResellerLoaderTest extends TestCase {
+class CustomerLoaderTest extends TestCase {
     use WithQueryLogs;
     use Helper;
 
@@ -29,12 +32,12 @@ class ResellerLoaderTest extends TestCase {
      */
     public function testCreateWithoutAssets(): void {
         // Generate
-        $this->generateData(ResellerLoaderCreateWithoutAssets::class);
+        $this->generateData(CustomerLoaderCreateWithoutAssets::class);
 
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 0,
+            Reseller::class      => 1,
             Customer::class      => 0,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -45,17 +48,17 @@ class ResellerLoaderTest extends TestCase {
         // Test (cold)
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS);
+            ->make(CustomerLoader::class)
+            ->setWithAssets(CustomerLoaderCreateWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderCreateWithoutAssets::ASSETS);
 
-        $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
+        $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
 
         $this->assertQueryLogEquals('~create-without-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 1,
-            Customer::class      => 0,
+            Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -67,11 +70,11 @@ class ResellerLoaderTest extends TestCase {
         // Test (hot)
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS);
+            ->make(CustomerLoader::class)
+            ->setWithAssets(CustomerLoaderCreateWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderCreateWithoutAssets::ASSETS);
 
-        $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
+        $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
 
         $this->assertQueryLogEquals('~create-without-assets-hot.json', $queries);
 
@@ -83,12 +86,12 @@ class ResellerLoaderTest extends TestCase {
      */
     public function testCreateWithAssets(): void {
         // Generate
-        $this->generateData(ResellerLoaderCreateWithAssets::class);
+        $this->generateData(CustomerLoaderCreateWithAssets::class);
 
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
+            Reseller::class      => 2,
             Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -99,20 +102,20 @@ class ResellerLoaderTest extends TestCase {
         // Test (cold)
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS);
+            ->make(CustomerLoader::class)
+            ->setWithAssets(CustomerLoaderCreateWithAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderCreateWithAssets::ASSETS);
 
-        $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
+        $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
 
         $this->assertQueryLogEquals('~create-with-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
+            Reseller::class      => 2,
             Customer::class      => 1,
-            Asset::class         => 5,
+            Asset::class         => 2,
             AssetWarranty::class => 10,
-            Document::class      => 2,
+            Document::class      => 3,
             DocumentEntry::class => 10,
         ]);
 
@@ -121,14 +124,35 @@ class ResellerLoaderTest extends TestCase {
         // Test (hot)
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS);
+            ->make(CustomerLoader::class)
+            ->setWithAssets(CustomerLoaderCreateWithAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderCreateWithAssets::ASSETS);
 
-        $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
+        $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
 
         $this->assertQueryLogEquals('~create-with-assets-hot.json', $queries);
 
         $queries->flush();
+    }
+
+    public function testCreateWithWarrantyCheck(): void {
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('triggerCoverageStatusCheck')
+                ->once()
+                ->andReturn(false);
+            $mock
+                ->shouldReceive('call')
+                ->never();
+        });
+
+        $id     = $this->faker->uuid;
+        $loader = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
+            ->setWithWarrantyCheck(true);
+
+        $this->expectExceptionObject(new CustomerWarrantyCheckFailed($id));
+
+        $loader->create($id);
     }
 }

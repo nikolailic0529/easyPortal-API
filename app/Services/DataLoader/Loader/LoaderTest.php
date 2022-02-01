@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Loader
+ * @coversDefaultClass \App\Services\DataLoader\Loader\Loader
  */
 class LoaderTest extends TestCase {
     /**

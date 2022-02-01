@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\Status;
-use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\Loaders\DistributorLoader;
+use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Utils\Iterators\ObjectIterator;

@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders;
+namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
-use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\LoaderRecalculable;
-use App\Services\DataLoader\Loaders\Concerns\WithAssets;
-use App\Services\DataLoader\Loaders\Concerns\WithWarrantyCheck;
+use App\Services\DataLoader\Loader\Concerns\WithAssets;
+use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
+use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;

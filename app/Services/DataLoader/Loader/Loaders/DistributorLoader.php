@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders;
+namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
-use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Exception;

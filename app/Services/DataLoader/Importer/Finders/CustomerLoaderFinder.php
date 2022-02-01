@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Importer\Finders;
 use App\Models\Customer;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\Finder;
-use App\Services\DataLoader\Loaders\CustomerLoader;
+use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 
 class CustomerLoaderFinder extends Finder implements CustomerFinder {
     public function find(string $key): ?Customer {

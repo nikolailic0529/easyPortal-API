@@ -1,15 +1,15 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders;
+namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
-use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\LoaderRecalculable;
-use App\Services\DataLoader\Loaders\Concerns\WithCalculatedProperties;
+use App\Services\DataLoader\Loader\Concerns\WithCalculatedProperties;
+use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;

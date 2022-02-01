@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\Loaders\ResellerLoader;
+use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
 use App\Utils\Console\WithBooleanOptions;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 

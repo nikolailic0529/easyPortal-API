@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders;
+namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
@@ -21,7 +21,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Loaders\AssetLoader
+ * @coversDefaultClass \App\Services\DataLoader\Loader\Loaders\AssetLoader
  */
 class AssetLoaderTest extends TestCase {
     use WithQueryLogs;

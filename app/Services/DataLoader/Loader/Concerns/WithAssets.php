@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Loaders\Concerns;
+namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
@@ -11,7 +11,7 @@ use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
-use App\Services\DataLoader\Loaders\AssetLoader;
+use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Throwable;
 
 /**
- * @mixin \App\Services\DataLoader\Loader
+ * @mixin \App\Services\DataLoader\Loader\Loader
  */
 trait WithAssets {
     use AssetsPrefetch;

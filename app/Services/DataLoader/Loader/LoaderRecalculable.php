@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Loader;
 
 /**
- * @see \App\Services\DataLoader\Loaders\Concerns\WithCalculatedProperties
+ * @see \App\Services\DataLoader\Loader\Concerns\WithCalculatedProperties
  */
 interface LoaderRecalculable {
     public function setRecalculate(bool $recalculate): static;

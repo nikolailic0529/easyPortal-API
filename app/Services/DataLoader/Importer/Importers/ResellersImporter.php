@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\Status;
-use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\Loaders\ResellerLoader;
+use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
