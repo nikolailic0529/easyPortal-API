@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Services\DataLoader\Resolver;
+use App\Services\DataLoader\Resolver\Resolver;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Support\Collection;
 use Throwable;

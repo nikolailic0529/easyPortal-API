@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

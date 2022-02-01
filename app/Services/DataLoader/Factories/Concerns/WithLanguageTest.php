@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Language;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\LanguageResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;

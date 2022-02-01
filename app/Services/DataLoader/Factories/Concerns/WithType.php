@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Type;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Utils\Eloquent\Model;
 
 /**

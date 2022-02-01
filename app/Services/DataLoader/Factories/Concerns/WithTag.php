@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Tag;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\TagResolver;
+use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

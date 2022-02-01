@@ -7,7 +7,7 @@ use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolver;
+use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;

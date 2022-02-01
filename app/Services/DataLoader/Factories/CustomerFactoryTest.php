@@ -8,7 +8,7 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Type;

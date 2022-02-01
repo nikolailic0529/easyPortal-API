@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Tag;
 use App\Services\DataLoader\Factories\DependentModelFactory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\TagResolver;
+use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;

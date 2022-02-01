@@ -7,7 +7,7 @@ use App\Services\DataLoader\Exceptions\OemNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use Mockery;
 use Tests\TestCase;
 

@@ -6,7 +6,7 @@ use App\Models\Oem;
 use App\Services\DataLoader\Exceptions\OemNotFound;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

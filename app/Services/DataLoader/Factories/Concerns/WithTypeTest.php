@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Factories\DependentModelFactory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;

@@ -7,7 +7,7 @@ use App\Services\DataLoader\Exceptions\ServiceLevelNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use Mockery;
 use Tests\TestCase;
 

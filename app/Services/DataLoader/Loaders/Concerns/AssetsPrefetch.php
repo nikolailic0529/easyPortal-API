@@ -4,11 +4,11 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 
 use App\Services\DataLoader\ChunkData;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\ContactResolver;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\LocationResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use Illuminate\Database\Eloquent\Collection;
 
 trait AssetsPrefetch {

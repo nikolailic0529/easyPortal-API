@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Currency;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

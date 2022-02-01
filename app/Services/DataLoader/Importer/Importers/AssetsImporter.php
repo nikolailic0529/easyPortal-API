@@ -13,8 +13,8 @@ use App\Services\DataLoader\Importer\Status;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Loaders\Concerns\AssetsPrefetch;
-use App\Services\DataLoader\Resolver;
-use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolver;
+use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Utils\Iterators\ObjectIterator;
 use DateTimeInterface;
 

@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Language;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\LanguageResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

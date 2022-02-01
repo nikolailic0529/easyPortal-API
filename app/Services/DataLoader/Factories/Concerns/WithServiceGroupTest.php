@@ -7,7 +7,7 @@ use App\Services\DataLoader\Exceptions\ServiceGroupNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use Mockery;
 use Tests\TestCase;
 

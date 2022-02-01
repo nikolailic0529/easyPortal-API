@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\DistributorResolver;
-use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
+use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Contracts\Debug\ExceptionHandler;

@@ -7,7 +7,7 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
-use App\Services\DataLoader\Resolver;
+use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;

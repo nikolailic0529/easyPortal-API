@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Coverage;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CoverageResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 
 /**
  * @mixin \App\Services\DataLoader\Factory

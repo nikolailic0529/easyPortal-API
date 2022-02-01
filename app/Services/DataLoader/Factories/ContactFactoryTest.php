@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
