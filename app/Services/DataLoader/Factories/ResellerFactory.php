@@ -90,7 +90,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
             ->filter()
             ->all();
 
-        $this->resellerResolver->prefetch($keys, $reset, $callback);
+        $this->resellerResolver->prefetch($keys, $callback);
 
         return $this;
     }

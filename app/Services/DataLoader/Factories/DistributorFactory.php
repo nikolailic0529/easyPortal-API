@@ -39,7 +39,7 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
             return $distributor->id;
         }, $distributors);
 
-        $this->distributorResolver->prefetch($keys, $reset, $callback);
+        $this->distributorResolver->prefetch($keys, $callback);
 
         return $this;
     }

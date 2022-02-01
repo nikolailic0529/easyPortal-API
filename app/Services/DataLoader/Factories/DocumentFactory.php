@@ -265,7 +265,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             ->unique()
             ->all();
 
-        $this->documentResolver->prefetch($keys, $reset, $callback);
+        $this->documentResolver->prefetch($keys, $callback);
 
         return $this;
     }

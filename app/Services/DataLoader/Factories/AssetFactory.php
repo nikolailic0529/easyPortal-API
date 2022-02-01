@@ -245,7 +245,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             ->unique()
             ->all();
 
-        $this->assetResolver->prefetch($keys, $reset, $callback);
+        $this->assetResolver->prefetch($keys, $callback);
 
         // Return
         return $this;

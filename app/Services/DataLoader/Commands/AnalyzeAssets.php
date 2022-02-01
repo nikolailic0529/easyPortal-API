@@ -300,32 +300,28 @@ class AnalyzeAssets extends Command {
             $analyzeResolver,
         ): void {
             // Prefetch
-            $assetResolver->prefetch(
+            $assetResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): string {
                     return $asset->id;
                 }, $assets))),
-                true,
             );
 
-            $analyzeResolver->prefetch(
+            $analyzeResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): string {
                     return $asset->id;
                 }, $assets))),
-                true,
             );
 
-            $resellerResolver->prefetch(
+            $resellerResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): ?string {
                     return $asset->reseller->id ?? null;
                 }, $assets))),
-                true,
             );
 
-            $customerResolver->prefetch(
+            $customerResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): ?string {
                     return $asset->customer->id ?? null;
                 }, $assets))),
-                true,
             );
         };
     }

@@ -127,7 +127,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
             ->filter()
             ->all();
 
-        $this->customerResolver->prefetch($keys, $reset, $callback);
+        $this->customerResolver->prefetch($keys, $callback);
 
         return $this;
     }

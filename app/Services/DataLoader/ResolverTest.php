@@ -194,7 +194,7 @@ class ResolverTest extends TestCase {
             ->andReturn($builder);
         $resolver
             ->shouldReceive('getCache')
-            ->twice()
+            ->once()
             ->andReturn($cache);
         $resolver
             ->shouldReceive('getCacheKey')
@@ -207,7 +207,7 @@ class ResolverTest extends TestCase {
             $this->assertEquals($items, $collection);
         });
 
-        $resolver->prefetch($keys, true, Closure::fromCallable($callback));
+        $resolver->prefetch($keys, Closure::fromCallable($callback));
 
         $callback->shouldHaveBeenCalled()->once();
 
@@ -300,7 +300,7 @@ class ResolverTest_Resolver extends Resolver {
     /**
      * @inheritdoc
      */
-    public function prefetch(array $keys, bool $reset = false, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $reset, $callback);
+    public function prefetch(array $keys, Closure|null $callback = null): static {
+        return parent::prefetch($keys, $callback);
     }
 }

@@ -104,17 +104,12 @@ abstract class Resolver implements Singleton, KeyRetriever {
      * @param array<mixed> $keys
      * @param \Closure(\Illuminate\Database\Eloquent\Collection<T>):void|null $callback
      */
-    protected function prefetch(array $keys, bool $reset = false, Closure|null $callback = null): static {
+    protected function prefetch(array $keys, Closure|null $callback = null): static {
         // Possible?
         $builder = $this->getFindQuery();
 
         if (!$builder) {
             throw new LogicException('Prefetch cannot be used with Resolver without the find query.');
-        }
-
-        // Reset?
-        if ($reset) {
-            $this->reset();
         }
 
         // Empty?
