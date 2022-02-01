@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
+use App\Services\DataLoader\ChunkData;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Importers\ChunkData;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;

@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importers;
 
+use App\Services\DataLoader\ChunkData;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 
