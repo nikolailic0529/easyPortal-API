@@ -284,7 +284,7 @@ class ProcessorTest extends TestCase {
                 return $this;
             }
 
-            protected function getIterator(): ObjectIterator {
+            protected function getIterator(State $state): ObjectIterator {
                 throw new Exception();
             }
 
@@ -537,7 +537,7 @@ class ProcessorTest extends TestCase {
  */
 class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {
-        parent::__construct($exceptionHandler, $dispatcher, null);
+        parent::__construct($exceptionHandler, $dispatcher);
     }
 
     public function run(State $state): void {
@@ -555,7 +555,7 @@ class ProcessorTest__Processor extends Processor {
         return null;
     }
 
-    protected function getIterator(): ObjectIterator {
+    protected function getIterator(State $state): ObjectIterator {
         throw new Exception('should not be called');
     }
 

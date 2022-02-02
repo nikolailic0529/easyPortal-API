@@ -225,7 +225,7 @@ abstract class ProcessorJobTest__Processor extends Processor {
         return 5;
     }
 
-    protected function getIterator(): ObjectIterator {
+    protected function getIterator(State $state): ObjectIterator {
         return new OneChunkOffsetBasedObjectIterator(static function (): array {
             return [1, 2, 3, 4, 5];
         });

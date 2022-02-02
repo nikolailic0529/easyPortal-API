@@ -150,9 +150,12 @@ abstract class Processor {
         });
     }
 
+    /**
+     * @param TState $state
+     */
     protected function run(State $state): void {
         $data     = null;
-        $iterator = $this->getIterator()
+        $iterator = $this->getIterator($state)
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
@@ -191,7 +194,10 @@ abstract class Processor {
 
     abstract protected function getTotal(): ?int;
 
-    abstract protected function getIterator(): ObjectIterator;
+    /**
+     * @param TState $state
+     */
+    abstract protected function getIterator(State $state): ObjectIterator;
 
     /**
      * @param TChunkData|null $data
@@ -218,7 +224,7 @@ abstract class Processor {
     /**
      * @param \Closure(TState)|null $closure
      *
-     * @return $this<TItem, TState>
+     * @return $this<TItem, TChunkData, TState>
      */
     public function onInit(?Closure $closure): static {
         if ($closure) {
@@ -240,7 +246,7 @@ abstract class Processor {
     /**
      * @param \Closure(TState, array<TItem>)|null $closure
      *
-     * @return $this<TItem, TState>
+     * @return $this<TItem, TChunkData, TState>
      */
     public function onChange(?Closure $closure): static {
         if ($closure) {
@@ -262,7 +268,7 @@ abstract class Processor {
     /**
      * @param \Closure(TState)|null $closure
      *
-     * @return $this<TItem, TState>
+     * @return $this<TItem, TChunkData, TState>
      */
     public function onFinish(?Closure $closure): static {
         if ($closure) {
@@ -378,7 +384,7 @@ abstract class Processor {
             $total ??= $limit;
         }
 
-        return new State([
+        return $this->restoreState([
             'index'   => 0,
             'limit'   => $limit,
             'total'   => $total,

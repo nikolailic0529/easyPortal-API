@@ -52,7 +52,7 @@ class UsersImporter extends Processor {
         return $this->getClient()->usersCount();
     }
 
-    protected function getIterator(): ObjectIterator {
+    protected function getIterator(State $state): ObjectIterator {
         return $this->getClient()->getUsersIterator();
     }
 
