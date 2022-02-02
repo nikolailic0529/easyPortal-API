@@ -259,8 +259,7 @@ class CacheTest extends TestCase {
 
     protected function cache(Collection $items): Cache {
         $normalizer = $this->app->make(Normalizer::class);
-
-        return new Cache($items, [
+        $cache      = new Cache([
             'key'      => new class($normalizer) implements KeyRetriever {
                 public function __construct(
                     protected Normalizer $normalizer,
@@ -284,6 +283,8 @@ class CacheTest extends TestCase {
                 }
             },
         ]);
+
+        return $cache->putAll($items);
     }
     // </editor-fold>
 }

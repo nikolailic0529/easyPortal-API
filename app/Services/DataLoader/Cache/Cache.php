@@ -21,14 +21,12 @@ class Cache {
     protected array $retrievers;
 
     /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $models
-     * @param array<\App\Services\DataLoader\Cache\KeyRetriever>                  $retrievers
+     * @param array<\App\Services\DataLoader\Cache\KeyRetriever> $retrievers
      */
-    public function __construct(Collection $models, array $retrievers) {
+    public function __construct(array $retrievers) {
         $this->retrievers = $retrievers;
 
         $this->reset();
-        $this->putAll($models);
     }
 
     public function has(Key $key): bool {

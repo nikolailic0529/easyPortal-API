@@ -74,7 +74,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
             try {
                 $model = $factory($this->normalizer);
             } catch (FactorySearchModeException $exception) {
-                $cache->putNull($key);
+                $this->putNull($key);
 
                 throw $exception;
             }
@@ -82,9 +82,9 @@ abstract class Resolver implements Singleton, KeyRetriever {
 
         // Put into cache
         if ($model) {
-            $cache->put($model);
+            $this->put($model);
         } else {
-            $cache->putNull($key);
+            $this->putNull($key);
         }
 
         // Return
@@ -136,7 +136,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
         }
 
         // Fill cache
-        $this->getCache()->putNulls($keys)->putAll($items);
+        $this->putNull($keys)->put($items);
 
         // Return
         return $this;
@@ -151,7 +151,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
         if ($object instanceof Collection || is_array($object)) {
             foreach ($object as $model) {
                 if ($model !== null) {
-                    $cache->put($model);
+                    $this->put($model);
                 }
             }
         } else {
@@ -159,10 +159,28 @@ abstract class Resolver implements Singleton, KeyRetriever {
         }
     }
 
+    /**
+     * @param \App\Services\DataLoader\Cache\Key|array<\App\Services\DataLoader\Cache\Key> $keys
+     */
+    protected function putNull(Key|array $keys): static {
+        $cache = $this->getCache();
+
+        if (is_array($keys)) {
+            $cache->putNulls($keys);
+        } else {
+            $cache->putNull($keys);
+        }
+
+        return $this;
+    }
+
     protected function getCache(bool $preload = true): Cache {
         if (!$this->cache) {
-            $items       = $preload ? $this->getPreloadedItems() : new Collection();
-            $this->cache = new Cache($items, $this->getKeyRetrievers());
+            $this->cache = new Cache($this->getKeyRetrievers());
+
+            if ($preload) {
+                $this->put($this->getPreloadedItems());
+            }
         }
 
         return $this->cache;

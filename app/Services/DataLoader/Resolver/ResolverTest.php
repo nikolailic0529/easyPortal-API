@@ -101,7 +101,7 @@ class ResolverTest extends TestCase {
         $resolver->makePartial();
         $resolver
             ->shouldReceive('getCache')
-            ->twice()
+            ->times(4)
             ->andReturn($cache);
         $resolver
             ->shouldReceive('find')
@@ -155,7 +155,7 @@ class ResolverTest extends TestCase {
             'b' => $this->faker->uuid,
             'c' => $this->faker->uuid,
         ];
-        $cache      = new Cache(new Collection(), [
+        $cache      = new Cache([
             'key' => new class($normalizer) implements KeyRetriever {
                 public function __construct(
                     protected Normalizer $normalizer,
@@ -195,7 +195,7 @@ class ResolverTest extends TestCase {
             ->andReturn($builder);
         $resolver
             ->shouldReceive('getCache')
-            ->once()
+            ->times(3)
             ->andReturn($cache);
         $resolver
             ->shouldReceive('getCacheKey')
