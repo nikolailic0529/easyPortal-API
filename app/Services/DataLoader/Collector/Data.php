@@ -14,13 +14,21 @@ use App\Services\DataLoader\Schema\DocumentEntry as SchemaDocumentEntry;
 use App\Services\DataLoader\Schema\ViewAsset as SchemaViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument as SchemaViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument as SchemaViewDocument;
+use Illuminate\Database\Eloquent\Model;
 
 class Data {
     /**
+     * We are using a whitelist here to reduce memory usage.
+     *
      * @var array<class-string,array<string,string>>
      */
     private array $data = [
-        // empty
+        Distributor::class => [],
+        Reseller::class    => [],
+        Customer::class    => [],
+        Document::class    => [],
+        Location::class    => [],
+        Asset::class       => [],
     ];
 
     public function __construct() {
@@ -58,25 +66,15 @@ class Data {
             $this->add(Asset::class, $object->assetId ?? null);
         } elseif ($object instanceof SchemaCompanyKpis) {
             $this->add(Reseller::class, $object->resellerId ?? null);
-        } elseif ($object instanceof Distributor) {
-            $this->add(Distributor::class, $object->getKey());
-        } elseif ($object instanceof Reseller) {
-            $this->add(Reseller::class, $object->getKey());
-        } elseif ($object instanceof Customer) {
-            $this->add(Customer::class, $object->getKey());
-        } elseif ($object instanceof Document) {
-            $this->add(Document::class, $object->getKey());
-        } elseif ($object instanceof Asset) {
-            $this->add(Asset::class, $object->getKey());
-        } elseif ($object instanceof Location) {
-            $this->add(Location::class, $object->getKey());
+        } elseif ($object instanceof Model) {
+            $this->add($object::class, $object->getKey());
         } else {
             // empty
         }
     }
 
     protected function add(string $class, ?string $id): void {
-        if ($id) {
+        if ($id && isset($this->data[$class])) {
             $this->data[$class][$id] = $id;
         }
     }
