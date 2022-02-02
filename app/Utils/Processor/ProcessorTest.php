@@ -321,7 +321,6 @@ class ProcessorTest extends TestCase {
                 'total'   => null,
                 'offset'  => 'abc',
                 'started' => Date::now(),
-                'overall' => false,
             ]),
             (clone $processor)->setOffset('abc')->getDefaultState(),
         );
@@ -334,7 +333,6 @@ class ProcessorTest extends TestCase {
                 'total'   => null,
                 'offset'  => null,
                 'started' => Date::now(),
-                'overall' => true,
             ]),
             $processor->getDefaultState(),
         );
@@ -347,7 +345,6 @@ class ProcessorTest extends TestCase {
                 'total'   => 123,
                 'offset'  => null,
                 'started' => Date::now(),
-                'overall' => false,
             ]),
             (clone $processor)->setLimit(123)->getDefaultState(),
         );
@@ -360,7 +357,6 @@ class ProcessorTest extends TestCase {
                 'total'   => 321,
                 'offset'  => null,
                 'started' => Date::now(),
-                'overall' => true,
             ]),
             (clone $processor)->setTotal(321)->getDefaultState(),
         );
@@ -373,7 +369,6 @@ class ProcessorTest extends TestCase {
                 'total'   => 321,
                 'offset'  => null,
                 'started' => Date::now(),
-                'overall' => false,
             ]),
             (clone $processor)->setTotal(321)->setLimit(456)->getDefaultState(),
         );

@@ -25,10 +25,11 @@ use Illuminate\Support\Facades\Date;
 use Throwable;
 
 use function array_diff;
+use function array_merge;
 use function in_array;
 
 /**
- * @extends \App\Utils\Processor\Processor<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Importer\UsersImporterChunkData>
+ * @extends \App\Utils\Processor\Processor<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Importer\UsersImporterChunkData,\App\Services\KeyCloak\Importer\UsersImporterState>
  */
 class UsersImporter extends Processor {
     public function __construct(
@@ -113,6 +114,9 @@ class UsersImporter extends Processor {
         $user->save();
     }
 
+    /**
+     * @param \App\Services\KeyCloak\Importer\UsersImporterState $state
+     */
     protected function finish(State $state): void {
         // Remove deleted users
         if ($state->overall && $state->failed === 0) {
@@ -228,5 +232,21 @@ class UsersImporter extends Processor {
 
     protected function deleteUser(User $user): void {
         $user->delete();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return parent::defaultState(array_merge($state, [
+            'overall' => $state['limit'] === null && $state['offset'] === null,
+        ]));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new UsersImporterState($state);
     }
 }

@@ -384,14 +384,13 @@ abstract class Processor {
             $total ??= $limit;
         }
 
-        return $this->restoreState([
+        return $this->restoreState($this->defaultState([
             'index'   => 0,
             'limit'   => $limit,
             'total'   => $total,
             'offset'  => $offset,
             'started' => Date::now(),
-            'overall' => $limit === null && $offset === null,
-        ]);
+        ]));
     }
 
     /**
@@ -403,6 +402,15 @@ abstract class Processor {
 
     protected function resetState(): void {
         $this->getService()?->delete($this->getCacheKey());
+    }
+
+    /**
+     * @param array<mixed> $state
+     *
+     * @return array<mixed>
+     */
+    protected function defaultState(array $state): array {
+        return $state;
     }
 
     /**

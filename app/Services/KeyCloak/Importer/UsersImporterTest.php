@@ -551,7 +551,7 @@ class UsersImporterTest extends TestCase {
         ]);
 
         // Mocks
-        $state    = new State([
+        $state    = new UsersImporterState([
             'started' => Date::now(),
             'overall' => true,
             'failed'  => 0,
@@ -598,13 +598,13 @@ class UsersImporterTest extends TestCase {
             ->never();
 
         // Iteration by part of Users
-        $importer->finish(new State([
+        $importer->finish(new UsersImporterState([
             'started' => Date::now(),
             'overall' => false,
         ]));
 
         // Failed items
-        $importer->finish(new State([
+        $importer->finish(new UsersImporterState([
             'started' => Date::now(),
             'overall' => true,
             'failed'  => 1,
