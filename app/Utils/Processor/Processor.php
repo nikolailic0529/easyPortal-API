@@ -175,7 +175,7 @@ abstract class Processor {
 
         foreach ($iterator as $item) {
             try {
-                $this->process($data, $item);
+                $this->process($state, $data, $item);
 
                 $state->success++;
             } catch (Throwable $exception) {
@@ -203,10 +203,11 @@ abstract class Processor {
     abstract protected function getIterator(State $state): ObjectIterator;
 
     /**
+     * @param TState          $state
      * @param TChunkData|null $data
      * @param TItem           $item
      */
-    abstract protected function process(mixed $data, mixed $item): void;
+    abstract protected function process(State $state, mixed $data, mixed $item): void;
 
     /**
      * @param TItem|null $item

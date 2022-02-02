@@ -73,10 +73,11 @@ class UsersImporter extends Processor {
     }
 
     /**
+     * @param \App\Services\KeyCloak\Importer\UsersImporterState     $state
      * @param \App\Services\KeyCloak\Importer\UsersImporterChunkData $data
      * @param \App\Services\KeyCloak\Client\Types\User               $item
      */
-    protected function process(mixed $data, mixed $item): void {
+    protected function process(State $state, mixed $data, mixed $item): void {
         // User
         $user    = $this->getUser($data, $item);
         $another = $data->getUserByEmail($item->email);

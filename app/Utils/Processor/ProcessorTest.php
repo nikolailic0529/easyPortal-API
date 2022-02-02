@@ -196,12 +196,12 @@ class ProcessorTest extends TestCase {
             ->andReturn($iterator);
         $processor
             ->shouldReceive('process')
-            ->with($data, $a)
+            ->with($state, $data, $a)
             ->once()
             ->andReturns();
         $processor
             ->shouldReceive('process')
-            ->with($data, $b)
+            ->with($state, $data, $b)
             ->once()
             ->andThrow($exception);
         $processor
@@ -288,7 +288,7 @@ class ProcessorTest extends TestCase {
                 throw new Exception();
             }
 
-            protected function process(mixed $item, mixed $data): void {
+            protected function process(State $state, mixed $item, mixed $data): void {
                 throw new Exception();
             }
 
@@ -554,7 +554,7 @@ class ProcessorTest__Processor extends Processor {
         throw new Exception('should not be called');
     }
 
-    protected function process(mixed $data, mixed $item): void {
+    protected function process(State $state, mixed $data, mixed $item): void {
         throw new Exception('should not be called');
     }
 
