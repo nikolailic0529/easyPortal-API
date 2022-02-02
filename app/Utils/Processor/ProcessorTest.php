@@ -316,11 +316,10 @@ class ProcessorTest extends TestCase {
         // Offset
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => null,
-                'total'   => null,
-                'offset'  => 'abc',
-                'started' => Date::now(),
+                'index'  => 0,
+                'limit'  => null,
+                'total'  => null,
+                'offset' => 'abc',
             ]),
             (clone $processor)->setOffset('abc')->getDefaultState(),
         );
@@ -328,11 +327,10 @@ class ProcessorTest extends TestCase {
         // No Limit & No Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => null,
-                'total'   => null,
-                'offset'  => null,
-                'started' => Date::now(),
+                'index'  => 0,
+                'limit'  => null,
+                'total'  => null,
+                'offset' => null,
             ]),
             $processor->getDefaultState(),
         );
@@ -340,11 +338,10 @@ class ProcessorTest extends TestCase {
         // Limit & No Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => 123,
-                'total'   => 123,
-                'offset'  => null,
-                'started' => Date::now(),
+                'index'  => 0,
+                'limit'  => 123,
+                'total'  => 123,
+                'offset' => null,
             ]),
             (clone $processor)->setLimit(123)->getDefaultState(),
         );
@@ -352,11 +349,10 @@ class ProcessorTest extends TestCase {
         // No Limit & Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => null,
-                'total'   => 321,
-                'offset'  => null,
-                'started' => Date::now(),
+                'index'  => 0,
+                'limit'  => null,
+                'total'  => 321,
+                'offset' => null,
             ]),
             (clone $processor)->setTotal(321)->getDefaultState(),
         );
@@ -364,11 +360,10 @@ class ProcessorTest extends TestCase {
         // Limit & Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => 456,
-                'total'   => 321,
-                'offset'  => null,
-                'started' => Date::now(),
+                'index'  => 0,
+                'limit'  => 456,
+                'total'  => 321,
+                'offset' => null,
             ]),
             (clone $processor)->setTotal(321)->setLimit(456)->getDefaultState(),
         );

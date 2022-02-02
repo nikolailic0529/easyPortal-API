@@ -14,7 +14,6 @@ use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Date;
 use Laravel\Telescope\Telescope;
 use LastDragon_ru\LaraASP\Core\Observer\Subject;
 use LogicException;
@@ -382,10 +381,9 @@ abstract class Processor {
         $limit  = $this->getLimit();
         $offset = $this->getOffset();
         $state  = $this->restoreState($this->defaultState([
-            'index'   => 0,
-            'limit'   => $limit,
-            'offset'  => $offset,
-            'started' => Date::now(),
+            'index'  => 0,
+            'limit'  => $limit,
+            'offset' => $offset,
         ]));
 
         // Total
