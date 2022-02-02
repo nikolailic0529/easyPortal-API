@@ -7,7 +7,7 @@ use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;

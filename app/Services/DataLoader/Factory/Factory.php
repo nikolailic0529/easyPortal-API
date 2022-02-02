@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory;
 
 use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 

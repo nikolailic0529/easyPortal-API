@@ -7,7 +7,7 @@ use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use Closure;

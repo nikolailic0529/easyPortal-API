@@ -7,7 +7,7 @@ use App\Models\Kpi;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyKpis;

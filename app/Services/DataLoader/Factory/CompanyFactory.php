@@ -12,7 +12,7 @@ use App\Services\DataLoader\Factory\Concerns\WithStatus;
 use App\Services\DataLoader\Factory\Concerns\WithType;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;

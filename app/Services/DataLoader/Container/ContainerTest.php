@@ -6,7 +6,7 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use Exception;

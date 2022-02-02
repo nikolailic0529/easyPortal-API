@@ -7,7 +7,7 @@ use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

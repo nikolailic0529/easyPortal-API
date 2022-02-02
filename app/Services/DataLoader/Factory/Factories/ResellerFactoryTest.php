@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;

@@ -6,7 +6,7 @@ use App\Models\Contact;
 use App\Models\Customer;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;

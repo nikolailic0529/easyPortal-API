@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;

@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Product;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;

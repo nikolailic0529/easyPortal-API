@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
 use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Company as CompanyObject;
 use App\Services\DataLoader\Schema\CompanyType;

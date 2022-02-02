@@ -38,7 +38,7 @@ use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;

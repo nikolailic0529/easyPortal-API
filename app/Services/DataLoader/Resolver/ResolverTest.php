@@ -6,7 +6,7 @@ use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Exception;

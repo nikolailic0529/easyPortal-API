@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizers;
+namespace App\Services\DataLoader\Normalizer\Normalizers;
 
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\ColorNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer
  */
 class ColorNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">

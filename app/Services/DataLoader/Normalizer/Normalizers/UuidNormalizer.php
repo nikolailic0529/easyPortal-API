@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizers;
+namespace App\Services\DataLoader\Normalizer\Normalizers;
 
 use function mb_strtolower;
 

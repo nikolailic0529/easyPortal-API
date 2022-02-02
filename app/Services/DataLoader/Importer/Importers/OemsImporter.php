@@ -8,7 +8,7 @@ use App\Models\ServiceLevel;
 use App\Services\DataLoader\Importer\Importers\OemsImporter\CellType;
 use App\Services\DataLoader\Importer\Importers\OemsImporter\HeaderCell;
 use App\Services\DataLoader\Importer\Importers\OemsImporter\ParsedRow;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;

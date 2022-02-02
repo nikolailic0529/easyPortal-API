@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizers;
+namespace App\Services\DataLoader\Normalizer\Normalizers;
 
 use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\DateTimeNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer
  */
 class DateTimeNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">

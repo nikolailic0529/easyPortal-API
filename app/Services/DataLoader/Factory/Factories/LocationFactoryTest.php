@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;

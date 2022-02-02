@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Kpi;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\CompanyKpis;
 
 /**

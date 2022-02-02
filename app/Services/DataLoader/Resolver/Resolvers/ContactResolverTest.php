@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;

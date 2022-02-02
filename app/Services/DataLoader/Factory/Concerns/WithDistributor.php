@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Distributor;
 use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Finders\DistributorFinder;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewDocument;

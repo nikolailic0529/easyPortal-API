@@ -1,20 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Normalizer;
 
-use App\Services\DataLoader\Normalizers\BoolNormalizer;
-use App\Services\DataLoader\Normalizers\ColorNormalizer;
-use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
-use App\Services\DataLoader\Normalizers\NumberNormalizer;
-use App\Services\DataLoader\Normalizers\StringNormalizer;
-use App\Services\DataLoader\Normalizers\TextNormalizer;
-use App\Services\DataLoader\Normalizers\UuidNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\NumberNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use Mockery;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizer
  */
 class NormalizerTest extends TestCase {
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;

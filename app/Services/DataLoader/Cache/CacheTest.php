@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Collection;

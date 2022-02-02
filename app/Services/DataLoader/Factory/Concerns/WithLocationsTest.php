@@ -8,7 +8,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;

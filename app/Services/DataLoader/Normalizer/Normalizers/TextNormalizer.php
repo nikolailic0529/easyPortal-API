@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizers;
+namespace App\Services\DataLoader\Normalizer\Normalizers;
+
+use App\Services\DataLoader\Normalizer\ValueNormalizer;
 
 use function is_null;
 use function preg_replace;

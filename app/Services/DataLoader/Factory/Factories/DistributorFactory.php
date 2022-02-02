@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;

@@ -9,7 +9,7 @@ use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\Document;

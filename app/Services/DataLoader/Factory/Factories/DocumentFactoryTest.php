@@ -15,7 +15,7 @@ use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocumen
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;

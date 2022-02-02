@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Customer;
 use App\Models\Status as StatusModel;
 use App\Services\DataLoader\Factory\DependentModelFactory;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
