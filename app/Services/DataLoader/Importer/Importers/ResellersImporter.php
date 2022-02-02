@@ -37,8 +37,8 @@ class ResellersImporter extends Importer {
                     $resellers->loadMissing('contacts');
                     $resellers->loadMissing('kpi');
 
-                    $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-                    $contacts->add($resellers->pluck('contacts')->flatten());
+                    $locations->put($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
+                    $contacts->put($resellers->pluck('contacts')->flatten());
                 },
             );
 

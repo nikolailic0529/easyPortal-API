@@ -47,8 +47,8 @@ class CustomersImporter extends Importer {
                     $customers->loadMissing('kpi');
                     $customers->loadMissing('resellersPivots.kpi');
 
-                    $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-                    $contacts->add($customers->pluck('contacts')->flatten());
+                    $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
+                    $contacts->put($customers->pluck('contacts')->flatten());
                 },
             );
 

@@ -50,7 +50,7 @@ class DocumentsImporter extends Importer {
             ->prefetch($data->getDocuments(), static function (Collection $assets) use ($contacts): void {
                 $assets->loadMissing('contacts');
 
-                $contacts->add($assets->pluck('contacts')->flatten());
+                $contacts->put($assets->pluck('contacts')->flatten());
             });
 
         $this->container
@@ -58,7 +58,7 @@ class DocumentsImporter extends Importer {
             ->prefetch($data->getResellers(), static function (Collection $resellers) use ($contacts): void {
                 $resellers->loadMissing('contacts');
 
-                $contacts->add($resellers->pluck('contacts')->flatten());
+                $contacts->put($resellers->pluck('contacts')->flatten());
             });
 
         $this->container
@@ -66,7 +66,7 @@ class DocumentsImporter extends Importer {
             ->prefetch($data->getCustomers(), static function (Collection $customers) use ($contacts): void {
                 $customers->loadMissing('contacts');
 
-                $contacts->add($customers->pluck('contacts')->flatten());
+                $contacts->put($customers->pluck('contacts')->flatten());
             });
 
         (new Collection($contacts->getResolved()))->loadMissing('types');

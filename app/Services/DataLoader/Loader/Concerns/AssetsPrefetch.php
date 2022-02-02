@@ -33,8 +33,8 @@ trait AssetsPrefetch {
                 $assets->loadMissing('tags');
                 $assets->loadMissing('oem');
 
-                $locations->add($assets->pluck('locations')->flatten());
-                $contacts->add($assets->pluck('contacts')->flatten());
+                $locations->put($assets->pluck('locations')->flatten());
+                $contacts->put($assets->pluck('contacts')->flatten());
             });
 
         $container
@@ -42,7 +42,7 @@ trait AssetsPrefetch {
             ->prefetch($data->getResellers(), static function (Collection $resellers) use ($locations): void {
                 $resellers->loadMissing('locations.location');
 
-                $locations->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
+                $locations->put($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
 
         $container
@@ -50,7 +50,7 @@ trait AssetsPrefetch {
             ->prefetch($data->getCustomers(), static function (Collection $customers) use ($locations): void {
                 $customers->loadMissing('locations.location');
 
-                $locations->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
+                $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
     }
 }

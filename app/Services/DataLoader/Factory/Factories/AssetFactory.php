@@ -278,7 +278,9 @@ class AssetFactory extends ModelFactory {
                             $documents->loadMissing('entries');
                             $documents->loadMissing('contacts.types');
 
-                            $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
+                            $this->getContactsResolver()->put(
+                                $documents->pluck('contacts')->flatten(),
+                            );
                         },
                     );
 

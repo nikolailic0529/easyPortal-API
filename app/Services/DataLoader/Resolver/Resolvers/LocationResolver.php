@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Location>
+ */
 class LocationResolver extends Resolver {
     public function get(
         Country $country,
@@ -28,12 +31,7 @@ class LocationResolver extends Resolver {
         );
     }
 
-    /**
-     * @param \App\Models\Location
-     *      |\Illuminate\Support\Collection<\App\Models\Location>
-     *      |array<\App\Models\Location> $object
-     */
-    public function add(Location|Collection|array $object): void {
+    public function put(Model|Collection|array $object): void {
         parent::put($object);
     }
 

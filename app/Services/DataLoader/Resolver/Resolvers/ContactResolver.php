@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Contact>
+ */
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
         return $this->resolve(
@@ -19,12 +22,7 @@ class ContactResolver extends Resolver {
         );
     }
 
-    /**
-     * @param \App\Models\Contact
-     *      |\Illuminate\Support\Collection<\App\Models\Contact>
-     *      |array<\App\Models\Contact> $object
-     */
-    public function add(Contact|Collection|array $object): void {
+    public function put(Model|Collection|array $object): void {
         parent::put($object);
     }
 
