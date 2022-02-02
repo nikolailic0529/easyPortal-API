@@ -192,7 +192,10 @@ abstract class Processor {
         $this->finish($state);
     }
 
-    abstract protected function getTotal(): ?int;
+    /**
+     * @param TState $state
+     */
+    abstract protected function getTotal(State $state): ?int;
 
     /**
      * @param TState $state
@@ -374,23 +377,28 @@ abstract class Processor {
      * @return TState
      */
     protected function getDefaultState(): State {
+        // State
         $limit  = $this->getLimit();
-        $total  = $this->getTotal();
         $offset = $this->getOffset();
-
-        if ($limit !== null && $total !== null) {
-            $total = min($limit, $total);
-        } else {
-            $total ??= $limit;
-        }
-
-        return $this->restoreState($this->defaultState([
+        $state  = $this->restoreState($this->defaultState([
             'index'   => 0,
             'limit'   => $limit,
-            'total'   => $total,
             'offset'  => $offset,
             'started' => Date::now(),
         ]));
+
+        // Total
+        $total        = $this->getTotal($state);
+        $state->total = $total;
+
+        if ($limit !== null && $total !== null) {
+            $state->total = min($limit, $total);
+        } else {
+            $state->total ??= $limit;
+        }
+
+        // Return
+        return $state;
     }
 
     /**

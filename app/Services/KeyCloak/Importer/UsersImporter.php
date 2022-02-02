@@ -49,7 +49,7 @@ class UsersImporter extends Processor {
         return $this->client;
     }
 
-    protected function getTotal(): ?int {
+    protected function getTotal(State $state): ?int {
         return $this->getClient()->usersCount();
     }
 

@@ -274,7 +274,7 @@ class ProcessorTest extends TestCase {
                 return parent::getDefaultState();
             }
 
-            protected function getTotal(): ?int {
+            protected function getTotal(State $state): ?int {
                 return $this->total;
             }
 
@@ -546,7 +546,7 @@ class ProcessorTest__Processor extends Processor {
         parent::chunkProcessed($state, $items, $data);
     }
 
-    protected function getTotal(): ?int {
+    protected function getTotal(State $state): ?int {
         return null;
     }
 

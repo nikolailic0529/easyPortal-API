@@ -221,7 +221,7 @@ class ProcessorJobTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 abstract class ProcessorJobTest__Processor extends Processor {
-    protected function getTotal(): ?int {
+    protected function getTotal(State $state): ?int {
         return 5;
     }
 
