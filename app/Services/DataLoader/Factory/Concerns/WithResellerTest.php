@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
@@ -53,8 +54,9 @@ class WithResellerTest extends TestCase {
      */
     public function testResellerExistsThroughFinder(Closure $objectFactory): void {
         $normalizer = $this->app->make(Normalizer::class);
+        $collector  = $this->app->make(Collector::class);
         $reseller   = Reseller::factory()->make();
-        $resolver   = Mockery::mock(ResellerResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver   = Mockery::mock(ResellerResolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver

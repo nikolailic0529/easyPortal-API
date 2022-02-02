@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\KeyRetriever;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Utils\Eloquent\Model;
@@ -31,7 +32,13 @@ class ResolverTest extends TestCase {
         // Prepare
         $key        = '123';
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = new class($normalizer) extends Resolver {
+        $collector  = Mockery::mock(Collector::class);
+        $collector
+            ->shouldReceive('collect')
+            ->times(4)
+            ->andReturns();
+
+        $provider = new class($normalizer, $collector) extends Resolver {
             public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
                 return parent::resolve($key, $factory, $find);
             }
@@ -96,7 +103,8 @@ class ResolverTest extends TestCase {
             ->twice()
             ->andReturnSelf();
 
-        $resolver = Mockery::mock(Resolver::class, [$normalizer]);
+        $collector = Mockery::mock(Collector::class);
+        $resolver  = Mockery::mock(Resolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -120,7 +128,8 @@ class ResolverTest extends TestCase {
         $key        = '123';
         $exception  = null;
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = new class($normalizer) extends Resolver {
+        $collector  = $this->app->make(Collector::class);
+        $provider   = new class($normalizer, $collector) extends Resolver {
             public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
                 return parent::resolve($key, $factory, true);
             }
@@ -186,7 +195,13 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturn($builder);
 
-        $resolver = Mockery::mock(ResolverTest_Resolver::class);
+        $collector = Mockery::mock(Collector::class);
+        $collector
+            ->shouldReceive('collect')
+            ->once()
+            ->andReturns();
+
+        $resolver = Mockery::mock(ResolverTest_Resolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver

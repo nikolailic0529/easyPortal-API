@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
@@ -49,8 +50,9 @@ class WithAssetTest extends TestCase {
      */
     public function testAssetExistsThroughFinder(Closure $objectFactory): void {
         $normalizer = $this->app->make(Normalizer::class);
+        $collector  = $this->app->make(Collector::class);
         $asset      = Asset::factory()->make();
-        $resolver   = Mockery::mock(AssetResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver   = Mockery::mock(AssetResolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver

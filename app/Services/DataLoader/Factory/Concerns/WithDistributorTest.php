@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -50,8 +51,9 @@ class WithDistributorTest extends TestCase {
      */
     public function testDistributorExistsThroughFinder(Closure $objectFactory): void {
         $normalizer  = $this->app->make(Normalizer::class);
+        $collector   = $this->app->make(Collector::class);
         $distributor = Distributor::factory()->make();
-        $resolver    = Mockery::mock(DistributorResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver    = Mockery::mock(DistributorResolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver

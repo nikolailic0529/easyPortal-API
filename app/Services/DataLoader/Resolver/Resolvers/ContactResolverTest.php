@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
@@ -105,8 +106,10 @@ class ContactResolverTest extends TestCase {
      * @covers ::get
      */
     public function testGetModelNotExistsWithoutId(): void {
-        $model    = new Customer();
-        $resolver = Mockery::mock(ContactResolver::class, [$this->app->make(Normalizer::class)]);
+        $model      = new Customer();
+        $collector  = $this->app->make(Collector::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(ContactResolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -122,8 +125,10 @@ class ContactResolverTest extends TestCase {
      * @covers ::get
      */
     public function testGetModelNotExistsWithId(): void {
-        $model    = Customer::factory()->make();
-        $resolver = Mockery::mock(ContactResolver::class, [$this->app->make(Normalizer::class)]);
+        $model      = Customer::factory()->make();
+        $collector  = $this->app->make(Collector::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(ContactResolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver

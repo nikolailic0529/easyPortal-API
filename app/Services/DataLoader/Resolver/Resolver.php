@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\KeyRetriever;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -35,6 +36,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
 
     public function __construct(
         protected Normalizer $normalizer,
+        protected Collector $collector,
     ) {
         // empty
     }
@@ -155,6 +157,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
                 }
             }
         } else {
+            $this->collector->collect($object);
             $cache->put($object);
         }
     }

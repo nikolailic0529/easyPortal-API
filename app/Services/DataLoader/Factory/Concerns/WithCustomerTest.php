@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
@@ -52,8 +53,9 @@ class WithCustomerTest extends TestCase {
      */
     public function testCustomerExistsThroughFinder(Closure $objectFactory): void {
         $normalizer = $this->app->make(Normalizer::class);
+        $collector  = $this->app->make(Collector::class);
         $customer   = Customer::factory()->make();
-        $resolver   = Mockery::mock(CustomerResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver   = Mockery::mock(CustomerResolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
