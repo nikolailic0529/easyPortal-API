@@ -918,12 +918,10 @@ class Client {
                 favIconUrl
                 logoUrl
                 mainColor
-                mainHeadingText
                 mainImageOnTheRight
                 resellerAnalyticsCode
                 secondaryColor
                 secondaryColorDefault
-                underlineText
                 useDefaultFavIcon
             }
             GRAPHQL;

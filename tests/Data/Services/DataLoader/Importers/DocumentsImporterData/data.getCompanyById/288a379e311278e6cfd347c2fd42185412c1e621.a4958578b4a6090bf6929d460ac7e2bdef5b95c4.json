@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "b3d3f3eb-4b1b-4cda-88ff-a1ce371c6552",
-                    "name": "Goodwin, Stroman and Kihn",
+                    "name": "Crist, Mayer and Armstrong",
                     "updatedAt": "1638472161203",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "45595",
-                            "address": "7312 Beahan Stravenue",
+                            "zip": "55114",
+                            "address": "5616 Davis Ford Suite 442",
                             "city": "New Elinor",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "76.536901",
-                            "longitude": "-29.299455",
+                            "latitude": "-82.272289",
+                            "longitude": "-88.282238",
                             "countryCode": "KP"
                         }
                     ],

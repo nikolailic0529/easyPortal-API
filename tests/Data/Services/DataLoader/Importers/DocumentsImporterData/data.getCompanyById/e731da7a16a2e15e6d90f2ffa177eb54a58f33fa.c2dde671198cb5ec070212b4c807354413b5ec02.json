@@ -1,0 +1,69 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "3d1c5e51-86e7-4687-946f-6553b8e2f131"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "3d1c5e51-86e7-4687-946f-6553b8e2f131",
+                    "name": "Nikolaus, O'Conner and Sporer",
+                    "updatedAt": "1640173418046",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "76160",
+                            "address": "5086 Trycia Green",
+                            "city": "Fabianchester",
+                            "locationType": "HEADQUARTER",
+                            "country": "Ethiopia",
+                            "latitude": "81.243565",
+                            "longitude": "-159.292286",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 4287,
+                        "activeAssets": 1136,
+                        "activeAssetsPercentage": 26.498717051551203,
+                        "activeCustomers": 42,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 26,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 4,
+                        "activeQuotes": 23,
+                        "activeQuotesTotalAmount": 655.47,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 5,
+                        "expiredQuotes": 43,
+                        "expiredContracts": 34,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

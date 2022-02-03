@@ -1,0 +1,101 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "params": {
+        "id": "82ca40f6-feb9-43a6-902c-16f490aa8657"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "82ca40f6-feb9-43a6-902c-16f490aa8657",
+                    "name": "Schulist-Olson",
+                    "updatedAt": "1643192703680",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19803285452",
+                            "name": "Celestine Jenkins",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17548494525",
+                            "name": "Kathryn Sanford",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15205572577",
+                            "name": "Nathanael Beahan DDS",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+7322545704274",
+                            "name": "Lukas Sawayn",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Clyde Brekke",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16297105456",
+                            "name": "Mrs. Dominique Okuneva",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18207987743",
+                            "name": "Prof. Maggie Jones IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12098438498",
+                            "name": "Brendon Klocko",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "85071",
+                            "address": "2309 Waldo Lodge Apt. 683",
+                            "city": "West Haylie",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-42.290375",
+                            "longitude": "6.381453",
+                            "countryCode": "HN"
+                        },
+                        {
+                            "zip": "85071",
+                            "address": "2309 Waldo Lodge Apt. 683",
+                            "city": "West Haylie",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-42.290375",
+                            "longitude": "6.381453",
+                            "countryCode": "HN"
+                        }
+                    ],
+                    "companyKpis": null,
+                    "companyResellerKpis": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

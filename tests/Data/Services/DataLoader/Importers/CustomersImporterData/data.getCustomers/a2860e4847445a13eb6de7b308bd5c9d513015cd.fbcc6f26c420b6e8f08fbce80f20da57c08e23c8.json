@@ -536,7 +536,7 @@
                 {
                     "id": "001daf39-8d88-4ea9-b335-f24717852bdd",
                     "name": "Kohler LLC",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393354",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -563,22 +563,22 @@
                         {
                             "zip": "24626-2255",
                             "address": "21893 Kenneth Prairie Suite 060",
-                            "city": "Desmondport",
+                            "city": "D'Amoremouth",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-15.880558",
+                            "longitude": "-151.999141",
+                            "countryCode": "LU"
                         },
                         {
                             "zip": "24626-2255",
                             "address": "21893 Kenneth Prairie Suite 060",
-                            "city": "Desmondport",
+                            "city": "D'Amoremouth",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-15.880558",
+                            "longitude": "-151.999141",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,
@@ -695,7 +695,7 @@
                 {
                     "id": "00212dde-e1bd-4591-a825-4767de009e6c",
                     "name": "Pollich, Koelpin and Mayert",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393385",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -721,23 +721,23 @@
                     "locations": [
                         {
                             "zip": "01223-8796",
-                            "address": "733 Nella Row",
+                            "address": "589 Wunsch Turnpike",
                             "city": "Lake Shanaview",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "70.957822",
+                            "longitude": "138.372468",
+                            "countryCode": "LU"
                         },
                         {
                             "zip": "01223-8796",
-                            "address": "733 Nella Row",
+                            "address": "589 Wunsch Turnpike",
                             "city": "Lake Shanaview",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "70.957822",
+                            "longitude": "138.372468",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,
@@ -747,7 +747,7 @@
                 {
                     "id": "002520da-ae14-43ab-a978-8721bdc27d4a",
                     "name": "Hyatt, McCullough and Fisher",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643359692962",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -767,23 +767,23 @@
                     "locations": [
                         {
                             "zip": "65309-2332",
-                            "address": "46531 Robel Lodge",
+                            "address": "129 Ines Brooks",
                             "city": "North Liana",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-74.269926",
+                            "longitude": "16.642497",
+                            "countryCode": "LU"
                         },
                         {
                             "zip": "65309-2332",
-                            "address": "46531 Robel Lodge",
+                            "address": "129 Ines Brooks",
                             "city": "North Liana",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-74.269926",
+                            "longitude": "16.642497",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,

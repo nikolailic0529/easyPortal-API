@@ -12,7 +12,7 @@
                 {
                     "id": "00004b6e-1bf3-4e29-b6ac-7934c85632f9",
                     "name": "Funk, Abbott and Carter",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191392900",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -38,23 +38,23 @@
                     "locations": [
                         {
                             "zip": "08173-8489",
-                            "address": "996 Bailey Spurs",
-                            "city": "Port Tobin",
+                            "address": "1768 Ankunding Prairie Suite 032",
+                            "city": "Port Valentinatown",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "-57.11484",
+                            "longitude": "-24.265313",
+                            "countryCode": "AG"
                         },
                         {
                             "zip": "08173-8489",
-                            "address": "996 Bailey Spurs",
-                            "city": "Port Tobin",
+                            "address": "1768 Ankunding Prairie Suite 032",
+                            "city": "Port Valentinatown",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "-57.11484",
+                            "longitude": "-24.265313",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": null,
@@ -64,7 +64,7 @@
                 {
                     "id": "000514de-cbf8-4955-b027-fc94e44e24a7",
                     "name": "Robel-Hoeger",
-                    "updatedAt": "1639133642793",
+                    "updatedAt": "1643114509058",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -414,7 +414,7 @@
                 {
                     "id": "000aea3a-0001-46e5-80fa-fa4315f086e0",
                     "name": "Lueilwitz-Robel",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393025",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -434,23 +434,23 @@
                     "locations": [
                         {
                             "zip": "35326-0289",
-                            "address": "3088 Willy Village",
-                            "city": "Florineshire",
+                            "address": "99012 Axel Mill Suite 053",
+                            "city": "Port Justina",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-59.202805",
+                            "longitude": "135.177992",
+                            "countryCode": "LU"
                         },
                         {
                             "zip": "35326-0289",
-                            "address": "3088 Willy Village",
-                            "city": "Florineshire",
+                            "address": "99012 Axel Mill Suite 053",
+                            "city": "Port Justina",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-59.202805",
+                            "longitude": "135.177992",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,
@@ -703,7 +703,7 @@
                 {
                     "id": "001018cb-b53a-484e-8cee-44142633ec19",
                     "name": "Mueller, Schumm and Eichmann",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393119",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -744,20 +744,20 @@
                             "address": "875 Litzy View",
                             "city": "New Casper",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "24.569482",
+                            "longitude": "-123.746596",
+                            "countryCode": "AG"
                         },
                         {
                             "zip": "31511-0391",
                             "address": "875 Litzy View",
                             "city": "New Casper",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "24.569482",
+                            "longitude": "-123.746596",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": null,
