@@ -2,6 +2,9 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
+use App\Models\Asset;
+use App\Models\Customer;
+use App\Models\Reseller;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
@@ -9,13 +12,18 @@ use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Loader\Concerns\AssetsPrefetch;
+use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
+use Illuminate\Database\Eloquent\Collection;
 
 use function array_merge;
 
@@ -27,8 +35,6 @@ use function array_merge;
  * @extends \App\Services\DataLoader\Importer\Importer<TItem, TChunkData, TState>
  */
 class AssetsImporter extends Importer {
-    use AssetsPrefetch;
-
     private bool $withDocuments = true;
 
     // <editor-fold desc="Getters / Setters">
@@ -56,7 +62,45 @@ class AssetsImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        return $this->prefetchAssets($items);
+        $data      = new ImporterChunkData($items);
+        $container = $this->getContainer();
+        $locations = $container->make(LocationResolver::class);
+        $contacts  = $container->make(ContactResolver::class);
+
+        $container
+            ->make(AssetResolver::class)
+            ->prefetch(
+                $data->get(Asset::class),
+                static function (Collection $assets) use ($locations, $contacts): void {
+                    $assets->loadMissing('warranties.serviceLevels');
+                    $assets->loadMissing('warranties.document');
+                    $assets->loadMissing('contacts.types');
+                    $assets->loadMissing('location');
+                    $assets->loadMissing('tags');
+                    $assets->loadMissing('oem');
+
+                    $locations->put($assets->pluck('locations')->flatten());
+                    $contacts->put($assets->pluck('contacts')->flatten());
+                },
+            );
+
+        $container
+            ->make(ResellerResolver::class)
+            ->prefetch($data->get(Reseller::class), static function (Collection $resellers) use ($locations): void {
+                $resellers->loadMissing('locations.location');
+
+                $locations->put($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
+            });
+
+        $container
+            ->make(CustomerResolver::class)
+            ->prefetch($data->get(Customer::class), static function (Collection $customers) use ($locations): void {
+                $customers->loadMissing('locations.location');
+
+                $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
+            });
+
+        return $data;
     }
 
     protected function getIterator(State $state): ObjectIterator {

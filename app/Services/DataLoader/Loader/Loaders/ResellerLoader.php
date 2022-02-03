@@ -5,13 +5,15 @@ namespace App\Services\DataLoader\Loader\Loaders;
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Importer\Importers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\ResellerAssetsImporter;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use App\Utils\Iterators\ObjectIterator;
+use DateTimeInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -54,18 +56,15 @@ class ResellerLoader extends Loader implements LoaderRecalculable {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): ObjectIterator {
-        return $this->isWithAssetsDocuments()
-            ? $this->client->getAssetsByResellerIdWithDocuments($owner->getKey())
-            : $this->client->getAssetsByResellerId($owner->getKey());
+    protected function getAssetsImporter(Model $owner): AssetsImporter {
+        return $this->getContainer()
+            ->make(ResellerAssetsImporter::class)
+            ->setResellerId($owner->getKey());
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getMissedAssets(Model $owner, array $current): ?Builder {
+    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): ?Builder {
         return $owner instanceof Reseller
-            ? $owner->assets()->whereNotIn('id', $current)->getQuery()
+            ? $owner->assets()->where('synced_at', '<', $datetime)->getQuery()
             : null;
     }
     // </editor-fold>

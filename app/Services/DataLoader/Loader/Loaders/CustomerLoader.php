@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Loader\Loaders;
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Importer\Importers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\CustomerAssetsImporter;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
@@ -12,7 +14,7 @@ use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use App\Utils\Iterators\ObjectIterator;
+use DateTimeInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -60,18 +62,15 @@ class CustomerLoader extends Loader implements LoaderRecalculable {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): ObjectIterator {
-        return $this->isWithAssetsDocuments()
-            ? $this->client->getAssetsByCustomerIdWithDocuments($owner->getKey())
-            : $this->client->getAssetsByCustomerId($owner->getKey());
+    protected function getAssetsImporter(Model $owner): AssetsImporter {
+        return $this->getContainer()
+            ->make(CustomerAssetsImporter::class)
+            ->setCustomerId($owner->getKey());
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getMissedAssets(Model $owner, array $current): ?Builder {
+    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): ?Builder {
         return $owner instanceof Customer
-            ? $owner->assets()->whereNotIn('id', $current)->getQuery()
+            ? $owner->assets()->where('synced_at', '<', $datetime)->getQuery()
             : null;
     }
     // </editor-fold>

@@ -4,28 +4,27 @@ namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Exceptions\FailedToProcessViewAsset;
-use App\Services\DataLoader\Factory\Factories\AssetFactory;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
+use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Eloquent\Model;
-use App\Utils\Iterators\ObjectIterator;
+use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Date;
 use Throwable;
 
 /**
  * @mixin \App\Services\DataLoader\Loader\Loader
  */
 trait WithAssets {
-    use AssetsPrefetch;
     use WithCalculatedProperties;
 
     protected bool $withAssets          = false;
@@ -39,7 +38,6 @@ trait WithAssets {
         protected CustomerFactory $customerFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
-        protected AssetFactory $assetFactory,
         protected AssetLoader $assetLoader,
         protected DocumentFactory $documentFactory,
     ) {
@@ -68,31 +66,18 @@ trait WithAssets {
 
     protected function loadAssets(Model $owner): bool {
         // Update assets
-        $factory  = $this->getAssetsFactory();
-        $updated  = [];
-        $prefetch = function (array $assets): void {
-            $this->prefetchAssets($assets);
-        };
+        $date = Date::now();
 
-        foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {
-            try {
-                $model = $factory->create($asset);
-
-                if ($model) {
-                    $updated[] = $model->getKey();
-                }
-            } catch (Throwable $exception) {
-                $this->getExceptionHandler()->report(
-                    new FailedToProcessViewAsset($asset, $exception),
-                );
-            }
-        }
+        $this
+            ->getAssetsImporter($owner)
+            ->setWithDocuments($this->isWithAssetsDocuments())
+            ->setFrom(null)
+            ->setLimit(null)
+            ->start();
 
         // Update missed
         $loader   = $this->getAssetLoader();
-        $iterator = $this->getMissedAssets($owner, $updated)?->getChangeSafeIterator() ?? [];
-
-        unset($updated);
+        $iterator = $this->getMissedAssets($owner, $date)?->getChangeSafeIterator() ?? [];
 
         foreach ($iterator as $missed) {
             /** @var \App\Models\Asset $missed */
@@ -107,27 +92,12 @@ trait WithAssets {
         return true;
     }
 
-    /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
-     */
-    abstract protected function getCurrentAssets(Model $owner): ObjectIterator;
+    abstract protected function getAssetsImporter(Model $owner): AssetsImporter;
 
     /**
-     * @param array<string> $current
-     *
      * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>|null
      */
-    abstract protected function getMissedAssets(Model $owner, array $current): ?Builder;
-
-    protected function getAssetsFactory(): AssetFactory {
-        if ($this->isWithAssetsDocuments()) {
-            $this->assetFactory->setDocumentFactory($this->documentFactory);
-        } else {
-            $this->assetFactory->setDocumentFactory(null);
-        }
-
-        return $this->assetFactory;
-    }
+    abstract protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): ?Builder;
 
     protected function getAssetLoader(): AssetLoader {
         return $this->assetLoader;
