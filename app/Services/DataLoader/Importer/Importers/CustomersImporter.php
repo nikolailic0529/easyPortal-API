@@ -7,7 +7,6 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Resolver\Resolver;
@@ -17,7 +16,6 @@ use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class CustomersImporter extends Importer {

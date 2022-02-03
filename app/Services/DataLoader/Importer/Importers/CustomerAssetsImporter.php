@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
-use App\Models\Customer;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
 
