@@ -9,7 +9,6 @@ use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolver;
-use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
@@ -77,20 +76,6 @@ abstract class Importer extends Processor {
 
     // <editor-fold desc="Import">
     // =========================================================================
-    /**
-     * @param \App\Services\DataLoader\Importer\ImporterState $state
-     */
-    protected function getTotal(State $state): ?int {
-        return $this->getObjectsCount($state->from);
-    }
-
-    /**
-     * @param \App\Services\DataLoader\Importer\ImporterState $state
-     */
-    protected function getIterator(State $state): ObjectIterator {
-        return $this->makeIterator($state->from);
-    }
-
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
             new FailedToImportObject($this, $item, $exception),
@@ -98,7 +83,7 @@ abstract class Importer extends Processor {
     }
 
     /**
-     * @param \App\Services\DataLoader\Importer\ImporterState $state
+     * @param TState $state
      */
     protected function process(State $state, mixed $data, mixed $item): void {
         if ($this->resolver->get($item->id)) {
@@ -177,13 +162,12 @@ abstract class Importer extends Processor {
 
     // </editor-fold>
 
+    // <editor-fold desc="Abstract">
+    // =========================================================================
     abstract protected function register(): void;
-
-    abstract protected function makeIterator(DateTimeInterface $from = null): ObjectIterator;
 
     abstract protected function makeLoader(): Loader;
 
     abstract protected function makeResolver(): Resolver;
-
-    abstract protected function getObjectsCount(DateTimeInterface $from = null): ?int;
+    // </editor-fold>
 }

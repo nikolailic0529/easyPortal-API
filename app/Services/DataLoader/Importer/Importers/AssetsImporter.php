@@ -16,7 +16,6 @@ use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
-use DateTimeInterface;
 
 class AssetsImporter extends Importer {
     use AssetsPrefetch;
@@ -34,8 +33,8 @@ class AssetsImporter extends Importer {
         return $this->prefetchAssets($items);
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->getClient()->getAssetsWithDocuments($from);
+    protected function getIterator(State $state): ObjectIterator {
+        return $this->getClient()->getAssetsWithDocuments($state->from);
     }
 
     protected function makeLoader(): Loader {
@@ -46,7 +45,7 @@ class AssetsImporter extends Importer {
         return $this->getContainer()->make(AssetResolver::class);
     }
 
-    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->getClient()->getAssetsCount();
+    protected function getTotal(State $state): ?int {
+        return $state->from ? null : $this->getClient()->getAssetsCount();
     }
 }

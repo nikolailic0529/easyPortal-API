@@ -24,7 +24,6 @@ use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class DocumentsImporter extends Importer {
@@ -71,8 +70,8 @@ class DocumentsImporter extends Importer {
         return $data;
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->getClient()->getDocuments($from);
+    protected function getIterator(State $state): ObjectIterator {
+        return $this->getClient()->getDocuments($state->from);
     }
 
     protected function makeLoader(): Loader {
@@ -83,7 +82,7 @@ class DocumentsImporter extends Importer {
         return $this->getContainer()->make(DocumentResolver::class);
     }
 
-    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->getClient()->getDocumentsCount();
+    protected function getTotal(State $state): ?int {
+        return $state->from ? null : $this->getClient()->getDocumentsCount();
     }
 }

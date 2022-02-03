@@ -12,7 +12,6 @@ use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class ResellersImporter extends Importer {
@@ -48,8 +47,8 @@ class ResellersImporter extends Importer {
         return $data;
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->getClient()->getResellers($from);
+    protected function getIterator(State $state): ObjectIterator {
+        return $this->getClient()->getResellers($state->from);
     }
 
     protected function makeLoader(): Loader {
@@ -60,7 +59,7 @@ class ResellersImporter extends Importer {
         return $this->getContainer()->make(ResellerResolver::class);
     }
 
-    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->getClient()->getResellersCount();
+    protected function getTotal(State $state): ?int {
+        return $state->from ? null : $this->getClient()->getResellersCount();
     }
 }

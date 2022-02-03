@@ -10,7 +10,6 @@ use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
-use DateTimeInterface;
 
 class DistributorsImporter extends Importer {
     protected function register(): void {
@@ -30,8 +29,8 @@ class DistributorsImporter extends Importer {
         return $data;
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->getClient()->getDistributors($from);
+    protected function getIterator(State $state): ObjectIterator {
+        return $this->getClient()->getDistributors($state->from);
     }
 
     protected function makeLoader(): Loader {
@@ -42,7 +41,7 @@ class DistributorsImporter extends Importer {
         return $this->getContainer()->make(DistributorResolver::class);
     }
 
-    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->getClient()->getDistributorsCount();
+    protected function getTotal(State $state): ?int {
+        return $state->from ? null : $this->getClient()->getDistributorsCount();
     }
 }

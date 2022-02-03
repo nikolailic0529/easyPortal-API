@@ -7,6 +7,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Resolver\Resolver;
@@ -57,8 +58,8 @@ class CustomersImporter extends Importer {
         return $data;
     }
 
-    protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->getClient()->getCustomers($from);
+    protected function getIterator(State $state): ObjectIterator {
+        return $this->getClient()->getCustomers($state->from);
     }
 
     protected function makeLoader(): Loader {
@@ -69,7 +70,7 @@ class CustomersImporter extends Importer {
         return $this->getContainer()->make(CustomerResolver::class);
     }
 
-    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->getClient()->getCustomersCount();
+    protected function getTotal(State $state): ?int {
+        return $state->from ? null : $this->getClient()->getCustomersCount();
     }
 }
