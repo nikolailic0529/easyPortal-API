@@ -3,9 +3,10 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Importer\Importers\CustomersImporter;
-use App\Services\DataLoader\Service;
+use App\Utils\Processor\Processor;
 use Config\Constants;
-use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
+use Illuminate\Contracts\Container\Container;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Imports customers.
@@ -28,11 +29,7 @@ class CustomersImporterCronJob extends ImporterCronJob {
             ] + parent::getQueueConfig();
     }
 
-    public function __invoke(
-        Service $service,
-        CustomersImporter $importer,
-        QueueableConfigurator $configurator,
-    ): void {
-        $this->process($service, $importer, $configurator);
+    protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
+        return $container->make(CustomersImporter::class);
     }
 }
