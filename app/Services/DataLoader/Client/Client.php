@@ -336,19 +336,25 @@ class Client {
     /**
      * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByResellerId(string $id, int $limit = null, string $lastId = null): ObjectIterator {
+    public function getAssetsByResellerId(
+        string $id,
+        DateTimeInterface $from = null,
+        int $limit = null,
+        string $lastId = null,
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByResellerId',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String) {
-                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId) {
+                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getAssetRetriever(),
             )
@@ -361,6 +367,7 @@ class Client {
      */
     public function getAssetsByResellerIdWithDocuments(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
@@ -368,15 +375,16 @@ class Client {
             ->getLastIdBasedIterator(
                 'getAssetsByResellerId',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String) {
-                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId) {
+                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                         {$this->getAssetDocumentsPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getAssetRetriever(),
             )

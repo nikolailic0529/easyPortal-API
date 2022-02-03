@@ -1,0 +1,24 @@
+{
+    "generated": "2022-02-03T10:57:07+00:00",
+    "distributors": [
+        "143c456a-e894-4710-a1c2-745b9582ca47"
+    ],
+    "resellers": [
+        "58e62519-69d2-4881-acd2-3f7989747aa4",
+        "9bfeb5e0-5dce-4a17-a051-717e96727448",
+        "59b5f3a2-b0fa-44bc-9155-7eb666a94c19",
+        "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
+        "b0fea5d7-96e6-4c54-835d-1a474267838c"
+    ],
+    "customers": [
+        "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
+        "c8468eeb-76d9-47b1-b156-d4586f777681",
+        "cba34fe2-26ba-4432-95b8-e433797c0c67",
+        "6d7fd925-dc04-42e9-bb63-178792d471d2"
+    ],
+    "oems": "oem.csv",
+    "types": [
+        "Delivery contract",
+        "Quote renewal"
+    ]
+}
