@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Importer\Status;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Utils\Console\WithBooleanOptions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
@@ -24,7 +24,7 @@ abstract class Import extends Command {
     protected $signature = '${command}
         {--u|update : Update ${objects} if exists}
         {--U|no-update : Do not update ${objects} if exists (default)}
-        {--continue= : continue processing from given ${object}}
+        {--offset= : start processing from given offset}
         {--from= : start processing from given datetime}
         {--limit= : max ${objects} to process}
         {--chunk= : chunk size}
@@ -52,18 +52,18 @@ abstract class Import extends Command {
 
     protected function process(Importer $importer): int {
         // Settings
-        $from     = $this->option('from');
-        $chunk    = $this->option('chunk');
-        $limit    = $this->option('limit');
-        $update   = $this->getBooleanOption('update', false);
-        $continue = $this->option('continue');
+        $from   = $this->option('from');
+        $chunk  = $this->option('chunk');
+        $limit  = $this->option('limit');
+        $update = $this->getBooleanOption('update', false);
+        $offset = $this->option('offset');
 
-        if ($from || $chunk || $limit || $continue) {
+        if ($from || $chunk || $limit || $offset) {
             $this->line('Settings:');
         }
 
-        if ($continue) {
-            $this->line("    Continue:  {$continue}");
+        if ($offset) {
+            $this->line("    Offset:  {$offset}");
         }
 
         if ($from) {
@@ -82,7 +82,7 @@ abstract class Import extends Command {
             $this->line("    Limit:     {$limit}");
         }
 
-        if ($from || $chunk || $limit || $continue) {
+        if ($from || $chunk || $limit || $offset) {
             $this->newLine();
         }
 
@@ -98,47 +98,56 @@ abstract class Import extends Command {
         );
 
         // Process
+        $chunkNumber = 0;
         $chunkLength = 10;
         $valueLength = 14;
-        $previous    = new Status();
+        $previous    = new ImporterState();
 
         $importer
-            ->onChange(function (array $models, Status $status) use (&$previous, $chunkLength, $valueLength): void {
-                $chunk        = $this->pad($status->chunk, $chunkLength, '0');
-                $chunkEmpty   = $this->pad('', $chunkLength + 2, '-');
-                $chunkFailed  = $this->pad($status->failed - $previous->failed, $valueLength);
-                $chunkCreated = $this->pad($status->created - $previous->created, $valueLength);
-                $chunkUpdated = $this->pad($status->updated - $previous->updated, $valueLength);
-                $processed    = $this->pad($status->processed, $valueLength);
-                $continue     = $this->pad(" {$status->continue} ", $valueLength * 4 + 4 * 2 + 3, '-');
-                $lineOne      = "| {$chunk} | {$processed} | {$chunkCreated} | {$chunkUpdated} | {$chunkFailed} |";
-                $lineTwo      = "+{$chunkEmpty}+{$continue}+";
+            ->setFrom($from)
+            ->setUpdate($update)
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->setChunkSize($chunk)
+            ->onChange(
+                function (ImporterState $state) use (&$previous, &$chunkNumber, $chunkLength, $valueLength): void {
+                    $chunk        = $this->pad($chunkNumber, $chunkLength, '0');
+                    $chunkEmpty   = $this->pad('', $chunkLength + 2, '-');
+                    $chunkFailed  = $this->pad($state->failed - $previous->failed, $valueLength);
+                    $chunkCreated = $this->pad($state->created - $previous->created, $valueLength);
+                    $chunkUpdated = $this->pad($state->updated - $previous->updated, $valueLength);
+                    $processed    = $this->pad($state->processed, $valueLength);
+                    $offset       = $this->pad(" {$state->offset} ", $valueLength * 4 + 4 * 2 + 3, '-');
+                    $lineOne      = "| {$chunk} | {$processed} | {$chunkCreated} | {$chunkUpdated} | {$chunkFailed} |";
+                    $lineTwo      = "+{$chunkEmpty}+{$offset}+";
 
-                if ($status->failed - $previous->failed > 0) {
-                    $this->warn($lineOne);
-                } elseif ($status->updated - $previous->updated > 0 || $status->created - $previous->created > 0) {
-                    $this->info($lineOne);
-                } else {
-                    $this->line($lineOne);
-                }
+                    if ($state->failed - $previous->failed > 0) {
+                        $this->warn($lineOne);
+                    } elseif ($state->updated - $previous->updated > 0 || $state->created - $previous->created > 0) {
+                        $this->info($lineOne);
+                    } else {
+                        $this->line($lineOne);
+                    }
 
-                $this->line($lineTwo);
+                    $this->line($lineTwo);
 
-                $previous = clone $status;
-            })
-            ->onFinish(function (Status $status) use ($valueLength): void {
+                    $previous    = clone $state;
+                    $chunkNumber = $chunkNumber + 1;
+                },
+            )
+            ->onFinish(function (ImporterState $state) use ($valueLength): void {
                 $this->newLine();
 
-                $processed = $this->pad($status->processed, $valueLength);
-                $created   = $this->pad($status->created, $valueLength);
-                $updated   = $this->pad($status->updated, $valueLength);
-                $failed    = $this->pad($status->failed, $valueLength);
+                $processed = $this->pad($state->processed, $valueLength);
+                $created   = $this->pad($state->created, $valueLength);
+                $updated   = $this->pad($state->updated, $valueLength);
+                $failed    = $this->pad($state->failed, $valueLength);
 
                 $this->line("Processed: {$processed}");
                 $this->line("Created:   {$created}");
                 $this->line("Updated:   {$updated}");
 
-                if ($status->failed) {
+                if ($state->failed) {
                     $this->warn("Failed:    {$failed}");
                 } else {
                     $this->line("Failed:    {$failed}");
@@ -146,7 +155,7 @@ abstract class Import extends Command {
 
                 $this->newLine();
             })
-            ->import($update, $from, $continue, $chunk, $limit);
+            ->start();
 
         // Done
         $this->info('Done.');

@@ -9,50 +9,44 @@ use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Importer\Status;
 use App\Services\DataLoader\Loader\Concerns\AssetsPrefetch;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Processor\State;
 use DateTimeInterface;
 
 class AssetsImporter extends Importer {
     use AssetsPrefetch;
 
-    protected function onRegister(): void {
-        parent::onRegister();
-
-        $this->container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
-        $this->container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
-        $this->container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
+    protected function register(): void {
+        $this->getContainer()->bind(DistributorFinder::class, DistributorLoaderFinder::class);
+        $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+        $this->getContainer()->bind(CustomerFinder::class, CustomerLoaderFinder::class);
     }
 
     /**
-     * @param array<mixed> $items
+     * @inheritDoc
      */
-    protected function onBeforeChunk(array $items, Status $status): void {
-        // Parent
-        parent::onBeforeChunk($items, $status);
-
-        // Prefetch
-        $this->prefetchAssets($items);
+    protected function prefetch(State $state, array $items): mixed {
+        return $this->prefetchAssets($items);
     }
 
     protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->client->getAssetsWithDocuments($from);
+        return $this->getClient()->getAssetsWithDocuments($from);
     }
 
     protected function makeLoader(): Loader {
-        return $this->container->make(AssetLoader::class)->setWithDocuments(true);
+        return $this->getContainer()->make(AssetLoader::class)->setWithDocuments(true);
     }
 
     protected function makeResolver(): Resolver {
-        return $this->container->make(AssetResolver::class);
+        return $this->getContainer()->make(AssetResolver::class);
     }
 
     protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->client->getAssetsCount();
+        return $from ? null : $this->getClient()->getAssetsCount();
     }
 }

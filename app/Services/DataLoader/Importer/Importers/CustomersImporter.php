@@ -2,10 +2,11 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
+use App\Models\Customer;
+use App\Models\Reseller;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Importer\Status;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Resolver\Resolver;
@@ -14,32 +15,27 @@ use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Processor\State;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class CustomersImporter extends Importer {
-    protected function onRegister(): void {
-        parent::onRegister();
-
-        $this->container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+    protected function register(): void {
+        $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
     }
 
     /**
-     * @param array<mixed> $items
+     * @inheritDoc
      */
-    protected function onBeforeChunk(array $items, Status $status): void {
-        // Parent
-        parent::onBeforeChunk($items, $status);
-
-        // Prefetch
+    protected function prefetch(State $state, array $items): mixed {
         $data      = new CustomersImporterChunkData($items);
-        $contacts  = $this->container->make(ContactResolver::class);
-        $locations = $this->container->make(LocationResolver::class);
+        $contacts  = $this->getContainer()->make(ContactResolver::class);
+        $locations = $this->getContainer()->make(LocationResolver::class);
 
-        $this->container
+        $this->getContainer()
             ->make(CustomerResolver::class)
             ->prefetch(
-                $data->getCustomers(),
+                $data->get(Customer::class),
                 static function (Collection $customers) use ($locations, $contacts): void {
                     $customers->loadMissing('locations.location');
                     $customers->loadMissing('locations.types');
@@ -52,26 +48,28 @@ class CustomersImporter extends Importer {
                 },
             );
 
-        $this->container
+        $this->getContainer()
             ->make(ResellerResolver::class)
-            ->prefetch($data->getResellers());
+            ->prefetch($data->get(Reseller::class));
 
         (new Collection($contacts->getResolved()))->loadMissing('types');
+
+        return $data;
     }
 
     protected function makeIterator(DateTimeInterface $from = null): ObjectIterator {
-        return $this->client->getCustomers($from);
+        return $this->getClient()->getCustomers($from);
     }
 
     protected function makeLoader(): Loader {
-        return $this->container->make(CustomerLoader::class);
+        return $this->getContainer()->make(CustomerLoader::class);
     }
 
     protected function makeResolver(): Resolver {
-        return $this->container->make(CustomerResolver::class);
+        return $this->getContainer()->make(CustomerResolver::class);
     }
 
     protected function getObjectsCount(DateTimeInterface $from = null): ?int {
-        return $from ? null : $this->client->getCustomersCount();
+        return $from ? null : $this->getClient()->getCustomersCount();
     }
 }

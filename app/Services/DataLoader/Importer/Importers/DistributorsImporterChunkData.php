@@ -2,16 +2,16 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
-use App\Services\DataLoader\ChunkData;
+use App\Models\Distributor;
+use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Type;
 
-class DistributorsImporterChunkData extends ChunkData {
-    protected function process(Type $item): void {
-        if ($item instanceof Company) {
-            $this->addDistributor($item->id ?? null);
+class DistributorsImporterChunkData extends ImporterChunkData {
+    public function collect(mixed $object): void {
+        if ($object instanceof Company) {
+            $this->add(Distributor::class, $object->id ?? null);
         } else {
-            parent::process($item);
+            parent::collect($object);
         }
     }
 }

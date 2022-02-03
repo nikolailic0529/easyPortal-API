@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Coverage;
+use App\Models\Document;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Location;
@@ -12,7 +13,6 @@ use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\ChunkData;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
@@ -38,6 +38,7 @@ use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
+use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
@@ -273,7 +274,7 @@ class AssetFactory extends ModelFactory {
                 try {
                     // Prefetch documents
                     $this->getDocumentResolver()->prefetch(
-                        (new ChunkData([$asset]))->getDocuments(),
+                        (new ImporterChunkData([$asset]))->get(Document::class),
                         function (Collection $documents): void {
                             $documents->loadMissing('entries');
                             $documents->loadMissing('contacts.types');

@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
+use App\Models\Asset;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
@@ -10,7 +11,6 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\ChunkData;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocument;
@@ -40,6 +40,7 @@ use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
+use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
@@ -422,7 +423,7 @@ class DocumentFactory extends ModelFactory {
                 try {
                     // Prefetch
                     $this->getAssetResolver()->prefetch(
-                        (new ChunkData($document->documentEntries))->getAssets(),
+                        (new ImporterChunkData($document->documentEntries))->get(Asset::class),
                         static function (Collection $assets): void {
                             $assets->loadMissing('oem');
                         },

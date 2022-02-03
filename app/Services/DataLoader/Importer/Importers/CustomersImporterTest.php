@@ -29,10 +29,13 @@ class CustomersImporterTest extends TestCase {
         ]);
 
         // Test (cold)
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(CustomersImporter::class);
+        $queries = $this->getQueryLog();
 
-        $importer->import(true, chunk: CustomersImporterData::CHUNK, limit: CustomersImporterData::LIMIT);
+        $this->app->make(CustomersImporter::class)
+            ->setUpdate(true)
+            ->setLimit(CustomersImporterData::LIMIT)
+            ->setChunkSize(CustomersImporterData::CHUNK)
+            ->start();
 
         $this->assertQueryLogEquals('~import-cold.json', $queries);
         $this->assertModelsCount([
@@ -42,10 +45,13 @@ class CustomersImporterTest extends TestCase {
         $queries->flush();
 
         // Test (hot)
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(CustomersImporter::class);
+        $queries = $this->getQueryLog();
 
-        $importer->import(true, chunk: CustomersImporterData::CHUNK, limit: CustomersImporterData::LIMIT);
+        $this->app->make(CustomersImporter::class)
+            ->setUpdate(true)
+            ->setLimit(CustomersImporterData::LIMIT)
+            ->setChunkSize(CustomersImporterData::CHUNK)
+            ->start();
 
         $this->assertQueryLogEquals('~import-hot.json', $queries);
 

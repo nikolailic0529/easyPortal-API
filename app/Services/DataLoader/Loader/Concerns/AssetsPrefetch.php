@@ -2,8 +2,11 @@
 
 namespace App\Services\DataLoader\Loader\Concerns;
 
-use App\Services\DataLoader\ChunkData;
+use App\Models\Asset;
+use App\Models\Customer;
+use App\Models\Reseller;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -17,29 +20,32 @@ trait AssetsPrefetch {
     /**
      * @param array<mixed> $items
      */
-    protected function prefetchAssets(array $items): void {
-        $data      = new ChunkData($items);
+    protected function prefetchAssets(array $items): ImporterChunkData {
+        $data      = new ImporterChunkData($items);
         $container = $this->getContainer();
         $locations = $container->make(LocationResolver::class);
         $contacts  = $container->make(ContactResolver::class);
 
         $container
             ->make(AssetResolver::class)
-            ->prefetch($data->getAssets(), static function (Collection $assets) use ($locations, $contacts): void {
-                $assets->loadMissing('warranties.serviceLevels');
-                $assets->loadMissing('warranties.document');
-                $assets->loadMissing('contacts.types');
-                $assets->loadMissing('location');
-                $assets->loadMissing('tags');
-                $assets->loadMissing('oem');
+            ->prefetch(
+                $data->get(Asset::class),
+                static function (Collection $assets) use ($locations, $contacts): void {
+                    $assets->loadMissing('warranties.serviceLevels');
+                    $assets->loadMissing('warranties.document');
+                    $assets->loadMissing('contacts.types');
+                    $assets->loadMissing('location');
+                    $assets->loadMissing('tags');
+                    $assets->loadMissing('oem');
 
-                $locations->put($assets->pluck('locations')->flatten());
-                $contacts->put($assets->pluck('contacts')->flatten());
-            });
+                    $locations->put($assets->pluck('locations')->flatten());
+                    $contacts->put($assets->pluck('contacts')->flatten());
+                },
+            );
 
         $container
             ->make(ResellerResolver::class)
-            ->prefetch($data->getResellers(), static function (Collection $resellers) use ($locations): void {
+            ->prefetch($data->get(Reseller::class), static function (Collection $resellers) use ($locations): void {
                 $resellers->loadMissing('locations.location');
 
                 $locations->put($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
@@ -47,10 +53,12 @@ trait AssetsPrefetch {
 
         $container
             ->make(CustomerResolver::class)
-            ->prefetch($data->getCustomers(), static function (Collection $customers) use ($locations): void {
+            ->prefetch($data->get(Customer::class), static function (Collection $customers) use ($locations): void {
                 $customers->loadMissing('locations.location');
 
                 $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
+
+        return $data;
     }
 }

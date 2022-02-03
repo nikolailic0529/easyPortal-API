@@ -29,10 +29,13 @@ class DocumentsImporterTest extends TestCase {
         ]);
 
         // Test (cold)
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(DocumentsImporter::class);
+        $queries = $this->getQueryLog();
 
-        $importer->import(true, chunk: DocumentsImporterData::CHUNK, limit: DocumentsImporterData::LIMIT);
+        $this->app->make(DocumentsImporter::class)
+            ->setUpdate(true)
+            ->setLimit(DocumentsImporterData::LIMIT)
+            ->setChunkSize(DocumentsImporterData::CHUNK)
+            ->start();
 
         $this->assertQueryLogEquals('~import-cold.json', $queries);
         $this->assertModelsCount([
@@ -42,10 +45,13 @@ class DocumentsImporterTest extends TestCase {
         $queries->flush();
 
         // Test (hot)
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(DocumentsImporter::class);
+        $queries = $this->getQueryLog();
 
-        $importer->import(true, chunk: DocumentsImporterData::CHUNK, limit: DocumentsImporterData::LIMIT);
+        $this->app->make(DocumentsImporter::class)
+            ->setUpdate(true)
+            ->setLimit(DocumentsImporterData::LIMIT)
+            ->setChunkSize(DocumentsImporterData::CHUNK)
+            ->start();
 
         $this->assertQueryLogEquals('~import-hot.json', $queries);
 

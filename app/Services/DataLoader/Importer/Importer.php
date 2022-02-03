@@ -3,241 +3,181 @@
 namespace App\Services\DataLoader\Importer;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolver;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Services\Search\Service as SearchService;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\ObjectIterator;
-use Closure;
+use App\Utils\Processor\Processor;
+use App\Utils\Processor\State;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Laravel\Telescope\Telescope;
+use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
 
-use function min;
+use function array_merge;
 
-abstract class Importer {
-    protected Loader   $loader;
-    protected Resolver $resolver;
-    protected ?Closure $onInit   = null;
-    protected ?Closure $onChange = null;
-    protected ?Closure $onFinish = null;
+/**
+ * @template TItem
+ * @template TChunkData of \App\Services\DataLoader\Collector\Data
+ * @template TState of \App\Services\DataLoader\Importer\ImporterState
+ *
+ * @extends \App\Utils\Processor\Processor<TItem, TChunkData, TState>
+ */
+abstract class Importer extends Processor {
+    private ?DateTimeInterface $from   = null;
+    private bool               $update = true;
+    private Loader             $loader;
+    private Resolver           $resolver;
+    private Collector          $collector;
 
     public function __construct(
-        protected ExceptionHandler $exceptionHandler,
-        protected Client $client,
-        protected Container $container,
+        ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
+        private Client $client,
+        private Container $container,
     ) {
-        $this->onRegister();
+        parent::__construct($exceptionHandler, $dispatcher);
+
+        $this->register();
     }
 
-    protected function getExceptionHandler(): ExceptionHandler {
-        return $this->exceptionHandler;
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    protected function getClient(): Client {
+        return $this->client;
     }
 
     protected function getContainer(): Container {
         return $this->container;
     }
 
-    public function onInit(?Closure $closure): static {
-        $this->onInit = $closure;
+    public function getFrom(): ?DateTimeInterface {
+        return $this->from;
+    }
+
+    public function setFrom(?DateTimeInterface $from): static {
+        $this->from = $from;
 
         return $this;
     }
 
-    public function onChange(?Closure $closure): static {
-        $this->onChange = $closure;
+    public function isUpdate(): bool {
+        return $this->update;
+    }
+
+    public function setUpdate(bool $update): static {
+        $this->update = $update;
 
         return $this;
     }
+    // </editor-fold>
 
-    public function onFinish(?Closure $closure): static {
-        $this->onFinish = $closure;
-
-        return $this;
-    }
-
-    public function import(
-        bool $update = false,
-        DateTimeInterface $from = null,
-        string|int $continue = null,
-        int $chunk = null,
-        int $limit = null,
-    ): void {
-        $this->call(function () use ($update, $from, $continue, $chunk, $limit): void {
-            $models   = [];
-            $status   = new Status($from, $continue, $this->getTotal($from, $limit));
-            $iterator = $this
-                ->getIterator($from, $chunk, $limit, $continue)
-                ->onBeforeChunk(function (array $items) use ($status): void {
-                    $this->onBeforeChunk($items, $status);
-                })
-                ->onAfterChunk(function () use (&$iterator, &$models, $status): void {
-                    $this->onAfterChunk($models, $status, $iterator->getOffset());
-
-                    $models = [];
-                });
-
-            $this->onBeforeImport($status);
-
-            foreach ($iterator as $item) {
-                /** @var \App\Services\DataLoader\Schema\Type&\App\Services\DataLoader\Schema\TypeWithId $item */
-                try {
-                    $model = null;
-
-                    if ($this->resolver->get($item->id)) {
-                        if ($update) {
-                            $model = $this->loader->update($item);
-                            $status->updated++;
-                        } else {
-                            $status->ignored++;
-                        }
-                    } else {
-                        $model = $this->loader->create($item);
-                        $status->created++;
-                    }
-
-                    if ($model) {
-                        $models[] = $model;
-                    }
-                } catch (Throwable $exception) {
-                    $status->failed++;
-
-                    $this->getExceptionHandler()->report(
-                        new FailedToImportObject($this, $item, $exception),
-                    );
-                } finally {
-                    $status->processed++;
-                }
-            }
-
-            $this->onAfterImport($status);
-        });
-    }
-
-    private function call(Closure $closure): void {
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
-            // Indexing should be disabled to avoid a lot of queued jobs and
-            // speed up the import.
-
-            SearchService::callWithoutIndexing(static function () use ($closure): void {
-                // Telescope should be disabled because it stored all data in memory
-                // and will dump it only after the job/command/request is finished.
-                // For long-running jobs, this will lead to huge memory usage
-
-                Telescope::withoutRecording(static function () use ($closure): void {
-                    // Import creates a lot of objects, so would be good to
-                    // group multiple inserts into one.
-
-                    BatchSave::enable($closure);
-                });
-            });
-        });
-    }
-
-    protected function getIterator(
-        ?DateTimeInterface $from,
-        ?int $chunk,
-        ?int $limit,
-        int|string|null $continue,
-    ): ObjectIterator {
-        $iterator = $this->makeIterator($from);
-
-        if ($chunk) {
-            $iterator->setChunkSize($chunk);
-        }
-
-        if ($limit) {
-            $iterator->setLimit($limit);
-        }
-
-        if ($continue) {
-            $iterator->setOffset($continue);
-        }
-
-        return $iterator;
-    }
-
-    protected function getTotal(DateTimeInterface $from = null, int $limit = null): ?int {
-        $total   = null;
-        $objects = $this->getObjectsCount($from);
-
-        if ($objects !== null && $limit !== null) {
-            $total = min($limit, $objects);
-        } elseif ($objects !== null) {
-            $total = $objects;
-        } elseif ($limit !== null) {
-            $total = $limit;
-        } else {
-            // empty
-        }
-
-        return $total;
+    // <editor-fold desc="Import">
+    // =========================================================================
+    /**
+     * @param \App\Services\DataLoader\Importer\ImporterState $state
+     */
+    protected function getTotal(State $state): ?int {
+        return $this->getObjectsCount($state->from);
     }
 
     /**
-     * @param array<mixed> $items
+     * @param \App\Services\DataLoader\Importer\ImporterState $state
      */
-    protected function onBeforeChunk(array $items, Status $status): void {
-        // Reset container
-        $this->container->forgetInstances();
+    protected function getIterator(State $state): ObjectIterator {
+        return $this->makeIterator($state->from);
+    }
 
+    protected function report(Throwable $exception, mixed $item = null): void {
+        $this->getExceptionHandler()->report(
+            new FailedToImportObject($this, $item, $exception),
+        );
+    }
+
+    /**
+     * @param \App\Services\DataLoader\Importer\ImporterState $state
+     */
+    protected function process(State $state, mixed $data, mixed $item): void {
+        if ($this->resolver->get($item->id)) {
+            if ($state->update) {
+                $this->loader->update($item);
+                $state->updated++;
+            } else {
+                $state->ignored++;
+            }
+        } else {
+            $this->loader->create($item);
+            $state->created++;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function chunkLoaded(State $state, array $items, mixed $data): void {
         // Reset objects
-        $this->resolver = $this->makeResolver();
-        $this->loader   = $this->makeLoader();
+        $this->collector = $this->getContainer()->make(Collector::class);
+        $this->resolver  = $this->makeResolver();
+        $this->loader    = $this->makeLoader();
 
         // Configure
         if ($this->loader instanceof LoaderRecalculable) {
             $this->loader->setRecalculate(false);
         }
+
+        $this->collector->subscribe($data);
+
+        // Parent
+        parent::chunkLoaded($state, $items, $data);
     }
 
     /**
-     * @param array<\Illuminate\Database\Eloquent\Model> $models
+     * @inheritDoc
      */
-    protected function onAfterChunk(array $models, Status $status, string|int|null $continue): void {
-        // Update status
-        $status->continue = $continue;
-        $status->chunk++;
-
+    protected function chunkProcessed(State $state, array $items, mixed $data): void {
         // Update calculated properties
-        if ($this->loader instanceof LoaderRecalculable && ($status->created || $status->updated || $status->failed)) {
+        if ($this->loader instanceof LoaderRecalculable && ($state->created || $state->updated || $state->failed)) {
             $this->loader->recalculate(true);
         }
 
         // Reset container
-        $this->container->forgetInstances();
+        $this->getContainer()->forgetInstances();
 
         // Unset
+        unset($this->collector);
         unset($this->resolver);
         unset($this->loader);
 
-        // Call callback
-        if ($this->onChange) {
-            ($this->onChange)($models, clone $status);
-        }
+        // Parent
+        parent::chunkProcessed($state, $items, $data);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new ImporterState($state);
     }
 
-    protected function onBeforeImport(Status $status): void {
-        if ($this->onInit) {
-            ($this->onInit)(clone $status);
-        }
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'from'   => $this->getFrom(),
+            'update' => $this->isUpdate(),
+        ]);
     }
 
-    protected function onAfterImport(Status $status): void {
-        if ($this->onFinish) {
-            ($this->onFinish)(clone $status);
-        }
-    }
+    // </editor-fold>
 
-    protected function onRegister(): void {
-        // empty
-    }
+    abstract protected function register(): void;
 
     abstract protected function makeIterator(DateTimeInterface $from = null): ObjectIterator;
 
