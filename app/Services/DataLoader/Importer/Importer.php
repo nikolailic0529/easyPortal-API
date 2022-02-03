@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Importer;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;
@@ -139,6 +140,13 @@ abstract class Importer extends Processor {
         // Parent
         parent::chunkProcessed($state, $items, $data);
     }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
+        return new DataImported($data);
+    }
     // </editor-fold>
 
     // <editor-fold desc="State">
@@ -159,7 +167,6 @@ abstract class Importer extends Processor {
             'update' => $this->isUpdate(),
         ]);
     }
-
     // </editor-fold>
 
     // <editor-fold desc="Abstract">

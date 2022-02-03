@@ -42,6 +42,13 @@ class Data {
         return $this->data[$class] ?? [];
     }
 
+    /**
+     * @return array<class-string,array<string,string>>
+     */
+    public function getData(): array {
+        return $this->data;
+    }
+
     public function collect(mixed $object): void {
         if ($object instanceof SchemaViewAsset) {
             $this->add(Reseller::class, $object->resellerId ?? null);

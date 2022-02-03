@@ -3,7 +3,9 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
+use Illuminate\Support\Facades\Event;
 use Tests\Data\Services\DataLoader\Importers\DistributorsImporterData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
@@ -30,6 +32,7 @@ class DistributorsImporterTest extends TestCase {
 
         // Test (cold)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(DistributorsImporter::class)
             ->setUpdate(true)
@@ -41,11 +44,18 @@ class DistributorsImporterTest extends TestCase {
         $this->assertModelsCount([
             Distributor::class => 5,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~run-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(DistributorsImporter::class)
             ->setUpdate(true)
@@ -54,7 +64,13 @@ class DistributorsImporterTest extends TestCase {
             ->start();
 
         $this->assertQueryLogEquals('~run-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~run-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 }

@@ -9,7 +9,9 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
+use Illuminate\Support\Facades\Event;
 use Tests\Data\Services\DataLoader\Importers\AssetsImporterData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
@@ -42,6 +44,7 @@ class AssetsImporterTest extends TestCase {
 
         // Test (cold)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
             ->setUpdate(true)
@@ -56,11 +59,18 @@ class AssetsImporterTest extends TestCase {
             Document::class      => 65,
             DocumentEntry::class => 157,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~run-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
             ->setUpdate(true)
@@ -69,7 +79,13 @@ class AssetsImporterTest extends TestCase {
             ->start();
 
         $this->assertQueryLogEquals('~run-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~run-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 }

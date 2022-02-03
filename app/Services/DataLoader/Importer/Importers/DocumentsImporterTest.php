@@ -3,7 +3,9 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Document;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
+use Illuminate\Support\Facades\Event;
 use Tests\Data\Services\DataLoader\Importers\DocumentsImporterData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
@@ -30,6 +32,7 @@ class DocumentsImporterTest extends TestCase {
 
         // Test (cold)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(DocumentsImporter::class)
             ->setUpdate(true)
@@ -41,11 +44,18 @@ class DocumentsImporterTest extends TestCase {
         $this->assertModelsCount([
             Document::class => DocumentsImporterData::LIMIT,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~run-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(DocumentsImporter::class)
             ->setUpdate(true)
@@ -54,7 +64,13 @@ class DocumentsImporterTest extends TestCase {
             ->start();
 
         $this->assertQueryLogEquals('~run-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~run-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 }

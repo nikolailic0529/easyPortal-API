@@ -9,7 +9,9 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
+use Illuminate\Support\Facades\Event;
 use Tests\Data\Services\DataLoader\Importers\ResellerAssetsImporterDataWithDocuments;
 use Tests\Data\Services\DataLoader\Importers\ResellerAssetsImporterDataWithoutDocuments;
 use Tests\TestCase;
@@ -43,6 +45,7 @@ class ResellerAssetsImporterTest extends TestCase {
 
         // Test (cold)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(ResellerAssetsImporter::class)
             ->setUpdate(true)
@@ -62,11 +65,18 @@ class ResellerAssetsImporterTest extends TestCase {
             Document::class      => 19,
             DocumentEntry::class => 86,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~run-with-documents-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(ResellerAssetsImporter::class)
             ->setUpdate(true)
@@ -77,8 +87,14 @@ class ResellerAssetsImporterTest extends TestCase {
             ->start();
 
         $this->assertQueryLogEquals('~run-with-documents-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~run-with-documents-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 
     /**
@@ -101,6 +117,7 @@ class ResellerAssetsImporterTest extends TestCase {
 
         // Test (cold)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(ResellerAssetsImporter::class)
             ->setUpdate(true)
@@ -120,11 +137,18 @@ class ResellerAssetsImporterTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~run-without-documents-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
         $queries = $this->getQueryLog();
+        $events  = Event::fake(DataImported::class);
 
         $this->app->make(ResellerAssetsImporter::class)
             ->setUpdate(true)
@@ -135,7 +159,13 @@ class ResellerAssetsImporterTest extends TestCase {
             ->start();
 
         $this->assertQueryLogEquals('~run-without-documents-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~run-without-documents-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 }
