@@ -13,8 +13,11 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 /**
  * Special helper for {@see \App\Utils\Processor\Processor}.
  *
+ * @template TProcessor of \App\Utils\Processor\Processor
+ *
  * @mixin \App\Services\Queue\Job
  * @mixin \App\Services\Queue\CronJob
+ *
  * @implements \App\Services\Queue\Progressable
  */
 trait ProcessorJob {
@@ -31,11 +34,9 @@ trait ProcessorJob {
 
     public function __invoke(Container $container, QueueableConfigurator $configurator): void {
         $config    = $configurator->config($this);
-        $chunk     = $config->setting('chunk');
         $processor = $this->getProcessor($container, $config);
 
         $processor
-            ->setChunkSize($chunk)
             ->onChange(function () use ($processor): void {
                 try {
                     $this->ping();
@@ -72,13 +73,24 @@ trait ProcessorJob {
         return $container->make(Service::getService($this));
     }
 
+    /**
+     * @return TProcessor
+     */
     protected function getProcessor(Container $container, QueueableConfig $config): Processor {
-        return $this
+        $chunk     = $config->setting('chunk');
+        $service   = $this->getService($container);
+        $processor = $this
             ->makeProcessor($container, $config)
-            ->setCacheKey($this->getService($container), $this);
+            ->setCacheKey($service, $this)
+            ->setChunkSize($chunk);
+
+        return $processor;
     }
 
     abstract protected function ping(): void;
 
+    /**
+     * @return TProcessor
+     */
     abstract protected function makeProcessor(Container $container, QueueableConfig $config): Processor;
 }
