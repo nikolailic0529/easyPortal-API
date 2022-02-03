@@ -33,11 +33,11 @@ class DistributorsImporter extends Importer {
         return $this->getClient()->getDistributors($state->from);
     }
 
-    protected function makeLoader(): Loader {
+    protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(DistributorLoader::class);
     }
 
-    protected function makeResolver(): Resolver {
+    protected function makeResolver(State $state): Resolver {
         return $this->getContainer()->make(DistributorResolver::class);
     }
 

@@ -105,8 +105,8 @@ abstract class Importer extends Processor {
     protected function chunkLoaded(State $state, array $items, mixed $data): void {
         // Reset objects
         $this->collector = $this->getContainer()->make(Collector::class);
-        $this->resolver  = $this->makeResolver();
-        $this->loader    = $this->makeLoader();
+        $this->resolver  = $this->makeResolver($state);
+        $this->loader    = $this->makeLoader($state);
 
         // Configure
         if ($this->loader instanceof LoaderRecalculable) {
@@ -166,8 +166,14 @@ abstract class Importer extends Processor {
     // =========================================================================
     abstract protected function register(): void;
 
-    abstract protected function makeLoader(): Loader;
+    /**
+     * @param TState $state
+     */
+    abstract protected function makeLoader(State $state): Loader;
 
-    abstract protected function makeResolver(): Resolver;
+    /**
+     * @param TState $state
+     */
+    abstract protected function makeResolver(State $state): Resolver;
     // </editor-fold>
 }

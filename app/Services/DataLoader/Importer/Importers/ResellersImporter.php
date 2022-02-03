@@ -51,11 +51,11 @@ class ResellersImporter extends Importer {
         return $this->getClient()->getResellers($state->from);
     }
 
-    protected function makeLoader(): Loader {
+    protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(ResellerLoader::class);
     }
 
-    protected function makeResolver(): Resolver {
+    protected function makeResolver(State $state): Resolver {
         return $this->getContainer()->make(ResellerResolver::class);
     }
 

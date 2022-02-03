@@ -62,11 +62,11 @@ class CustomersImporter extends Importer {
         return $this->getClient()->getCustomers($state->from);
     }
 
-    protected function makeLoader(): Loader {
+    protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(CustomerLoader::class);
     }
 
-    protected function makeResolver(): Resolver {
+    protected function makeResolver(State $state): Resolver {
         return $this->getContainer()->make(CustomerResolver::class);
     }
 

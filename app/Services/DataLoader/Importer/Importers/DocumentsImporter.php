@@ -74,11 +74,11 @@ class DocumentsImporter extends Importer {
         return $this->getClient()->getDocuments($state->from);
     }
 
-    protected function makeLoader(): Loader {
+    protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(DocumentLoader::class);
     }
 
-    protected function makeResolver(): Resolver {
+    protected function makeResolver(State $state): Resolver {
         return $this->getContainer()->make(DocumentResolver::class);
     }
 

@@ -20,6 +20,8 @@ use App\Utils\Processor\State;
 class AssetsImporter extends Importer {
     use AssetsPrefetch;
 
+    // <editor-fold desc="Importer">
+    // =========================================================================
     protected function register(): void {
         $this->getContainer()->bind(DistributorFinder::class, DistributorLoaderFinder::class);
         $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
@@ -37,15 +39,16 @@ class AssetsImporter extends Importer {
         return $this->getClient()->getAssetsWithDocuments($state->from);
     }
 
-    protected function makeLoader(): Loader {
+    protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(AssetLoader::class)->setWithDocuments(true);
     }
 
-    protected function makeResolver(): Resolver {
+    protected function makeResolver(State $state): Resolver {
         return $this->getContainer()->make(AssetResolver::class);
     }
 
     protected function getTotal(State $state): ?int {
         return $state->from ? null : $this->getClient()->getAssetsCount();
     }
+    // </editor-fold>
 }
