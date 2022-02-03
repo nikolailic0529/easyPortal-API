@@ -17,8 +17,32 @@ use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Processor\State;
 
+use function array_merge;
+
+/**
+ * @template TItem
+ * @template TChunkData of \App\Services\DataLoader\Collector\Data
+ * @template TState of \App\Services\DataLoader\Importer\Importers\AssetsImporterState
+ *
+ * @extends \App\Services\DataLoader\Importer\Importer<TItem, TChunkData, TState>
+ */
 class AssetsImporter extends Importer {
     use AssetsPrefetch;
+
+    private bool $withDocuments = true;
+
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    public function isWithDocuments(): bool {
+        return $this->withDocuments;
+    }
+
+    public function setWithDocuments(bool $withDocuments): static {
+        $this->withDocuments = $withDocuments;
+
+        return $this;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Importer">
     // =========================================================================
@@ -40,7 +64,7 @@ class AssetsImporter extends Importer {
     }
 
     protected function makeLoader(State $state): Loader {
-        return $this->getContainer()->make(AssetLoader::class)->setWithDocuments(true);
+        return $this->getContainer()->make(AssetLoader::class)->setWithDocuments($state->withDocuments);
     }
 
     protected function makeResolver(State $state): Resolver {
@@ -49,6 +73,25 @@ class AssetsImporter extends Importer {
 
     protected function getTotal(State $state): ?int {
         return $state->from ? null : $this->getClient()->getAssetsCount();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new AssetsImporterState($state);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'withDocuments' => $this->isWithDocuments(),
+        ]);
     }
     // </editor-fold>
 }

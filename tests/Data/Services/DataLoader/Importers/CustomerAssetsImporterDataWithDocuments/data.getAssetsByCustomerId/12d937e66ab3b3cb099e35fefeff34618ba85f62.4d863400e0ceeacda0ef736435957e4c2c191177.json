@@ -1,0 +1,1024 @@
+{
+    "selector": "data.getAssetsByCustomerId",
+    "graphql": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByCustomerId(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+        "from": null,
+        "lastId": "30b5846c-f4ef-4f14-bed4-b6b00f20ab8e",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getAssetsByCustomerId": [
+                {
+                    "id": "30f7deda-ebf5-45cd-b997-8f9c37eba9a8",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "c1d99454-5e70-3b8f-b04b-a03a28a1af00",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "P00924-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630825977035",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "4735bd86-9743-4189-9964-aab220c240d0",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "9691096a-b77b-3606-9532-8996380e2931",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "P00924-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630756411217",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "4a6e38bc-61fa-478c-ac7a-b4b00c16137e",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "78bb7aa4-5eea-3d94-ae41-13eb01742b9e",
+                    "productDescription": "HPE Smart Array P408i-a SR Gen10 Ctrlr",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "804331-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630762905549",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "53dacf4c-5ebb-485e-beb2-9c21bd6cca97",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": null,
+                    "productDescription": "HPE 500W FS Plat Ht Plg LH Pwr Sply Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "865408-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630782505465",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "70",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "54b5968b-c8ba-4447-a7d4-5f8404a084a3",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "08c023c7-4778-3648-8261-4fd33cb10c5b",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "P00924-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630784016422",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "57d61e57-b07e-417e-aa86-6dc9a500d0df",
+                    "resellerId": null,
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "72105315-9045-3f75-a0da-6f3b8a954a8e",
+                    "productDescription": "HPE MSL3040 Scalable Base Module",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "Q6Q62A",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630789237477",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2019-04-28",
+                            "documentNumber": "8eaf3bef-cf56-39b3-8701-d291fdfa866d",
+                            "document": {
+                                "id": "c26c6033-219a-453f-bc2f-d4a7bd1ffff4",
+                                "type": "Delivery contract",
+                                "documentNumber": "8eaf3bef-cf56-39b3-8701-d291fdfa866d",
+                                "startDate": "2018-04-18",
+                                "endDate": "2021-04-17",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "ff991e79-cd69-3d93-b769-e2dd72439008",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "cd296e3f-5677-4f25-a127-0414dadc5121",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2018-04-18",
+                            "endDate": "2021-04-17",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "cd296e3f-5677-4f25-a127-0414dadc5121"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2019-04-28",
+                            "documentNumber": "6628c1ec-50ec-3392-8ffc-bd67509e5aae",
+                            "document": {
+                                "id": "dc6ea696-b613-48fd-b032-540c4e95d244",
+                                "type": "Quote renewal",
+                                "documentNumber": "6628c1ec-50ec-3392-8ffc-bd67509e5aae",
+                                "startDate": "2021-04-18",
+                                "endDate": "2022-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "ff991e79-cd69-3d93-b769-e2dd72439008",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": null,
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-04-18",
+                            "endDate": "2022-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-26",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": null,
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2019-04-28",
+                            "documentNumber": "4f486ace-736c-3ffb-8608-8efb4c7e3168",
+                            "document": {
+                                "id": "c41aeb24-3103-4be3-9dbf-b6d55d751563",
+                                "type": "Quote renewal",
+                                "documentNumber": "4f486ace-736c-3ffb-8608-8efb4c7e3168",
+                                "startDate": "2021-02-01",
+                                "endDate": "2022-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "4780af9a-d27a-3b67-9ed0-ca6e10b38321",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": null,
+                                "customerId": "3e188912-729d-43c4-afb4-1b08962061e4",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-04-18",
+                            "endDate": "2022-01-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-26",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "9ae9b76a-eedb-47f4-b6bc-f7593e147621"
+                            },
+                            "customer": {
+                                "id": "3e188912-729d-43c4-afb4-1b08962061e4"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18307231051",
+                            "name": "Jadyn Toy",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18307231051",
+                            "name": "Jadyn Toy",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18307231051",
+                            "name": "Jadyn Toy",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "5ca1f839-d3c6-4709-8f84-7a3284c7b05e",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "65d013f5-90b4-3f03-9ac0-e32e50d8077b",
+                    "productDescription": "HPE 300GB SAS 10K SFF SC DS HDD",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "872475-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630796818236",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "601197e1-f5e4-4487-9185-c8b4337f0c28",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "3d18b347-d468-3e07-9de0-e1b07c7c56a6",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "P00924-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630802391367",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "61629996-7732-43dd-87e4-2c792b589517",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "9cc93192-31e5-3e12-9f17-d9ae70bf2d64",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "P00924-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630804145966",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "71494b4c-7056-46ad-9581-494fad46de3a",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                    "serialNumber": "baf7b6cc-db29-36d8-9847-b4ddddfd128e",
+                    "productDescription": "HPE SN1100Q 16Gb 2p FC HBA",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "P9D94A",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "03832",
+                    "city": "Geovannyburgh",
+                    "address": "1666 Cara Roads Suite 035",
+                    "address2": "",
+                    "country": "Jamaica",
+                    "latitude": "36.208876",
+                    "longitude": "-40.979935",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630744125068",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_WARRANTY",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2022-12-21",
+                            "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                            "document": {
+                                "id": "8b4964ce-2af4-44c8-a1e8-aa853f6a4e47",
+                                "type": "Delivery contract",
+                                "documentNumber": "9dbb74bd-bfe9-3db1-8b7b-682654efb86d",
+                                "startDate": "2019-11-29",
+                                "endDate": "2024-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a652eae0-3d21-3ec3-8c28-ac934b044e82",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                                "customerId": "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-11-29",
+                            "endDate": "2024-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+                            },
+                            "customer": {
+                                "id": "ee7b146b-181b-4339-a3c5-2e1d8a81383e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12016585840",
+                            "name": "Loyce Schinner",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}
