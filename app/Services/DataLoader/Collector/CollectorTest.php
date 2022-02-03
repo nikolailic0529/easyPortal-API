@@ -22,14 +22,14 @@ class CollectorTest extends TestCase {
 
         $a = Mockery::mock(Data::class);
         $a
-            ->shouldReceive('add')
+            ->shouldReceive('collect')
             ->with($object)
             ->once()
             ->andReturns();
 
         $b = Mockery::mock(Data::class);
         $b
-            ->shouldReceive('add')
+            ->shouldReceive('collect')
             ->with($object)
             ->once()
             ->andReturns();
