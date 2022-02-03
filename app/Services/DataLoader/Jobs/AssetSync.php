@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use Illuminate\Contracts\Console\Kernel;
 
+use function array_merge;
+
 /**
  * Syncs Asset.
  *
@@ -29,12 +31,12 @@ class AssetSync extends Sync {
 
     public function __invoke(Kernel $kernel): void {
         $this->checkCommandResult(
-            $kernel->call(UpdateAsset::class, $this->setBooleanOptions(
+            $kernel->call(UpdateAsset::class, $this->getOptions(array_merge(
+                $this->getArguments(),
                 [
                     'id' => $this->objectId,
                 ],
-                $this->getArguments(),
-            )),
+            ))),
         );
     }
 }
