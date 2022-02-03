@@ -17,7 +17,7 @@ class CustomersImporterTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::import
+     * @covers ::run
      */
     public function testImport(): void {
         // Generate
@@ -37,7 +37,7 @@ class CustomersImporterTest extends TestCase {
             ->setChunkSize(CustomersImporterData::CHUNK)
             ->start();
 
-        $this->assertQueryLogEquals('~import-cold.json', $queries);
+        $this->assertQueryLogEquals('~run-cold.json', $queries);
         $this->assertModelsCount([
             Customer::class => CustomersImporterData::LIMIT,
         ]);
@@ -53,7 +53,7 @@ class CustomersImporterTest extends TestCase {
             ->setChunkSize(CustomersImporterData::CHUNK)
             ->start();
 
-        $this->assertQueryLogEquals('~import-hot.json', $queries);
+        $this->assertQueryLogEquals('~run-hot.json', $queries);
 
         $queries->flush();
     }
