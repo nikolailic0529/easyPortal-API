@@ -50,6 +50,9 @@ class DataGenerator {
             return true;
         }
 
+        // Dir?
+        $fs->mkdir($contextPath);
+
         // Cleanup
         $finder  = (new Finder())->in($contextPath);
         $exclude = [
