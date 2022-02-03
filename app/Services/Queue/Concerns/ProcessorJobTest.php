@@ -14,6 +14,9 @@ use App\Utils\Processor\State;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
+use LastDragon_ru\LaraASP\Queue\Contracts\ConfigurableQueueable;
+use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use Mockery;
 use Tests\TestCase;
 
@@ -80,7 +83,7 @@ class ProcessorJobTest extends TestCase {
                 return $this->service;
             }
 
-            protected function makeProcessor(Container $container): Processor {
+            protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
                 return $this->processor;
             }
         };
@@ -149,7 +152,7 @@ class ProcessorJobTest extends TestCase {
                 return $this->service;
             }
 
-            protected function makeProcessor(Container $container): Processor {
+            protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
                 return $this->processor;
             }
         };
@@ -186,7 +189,7 @@ class ProcessorJobTest extends TestCase {
 
         $this->assertEquals(
             new Progress($total, $processed),
-            ($job->getProgressCallback())($this->app),
+            ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
     }
 
@@ -208,7 +211,7 @@ class ProcessorJobTest extends TestCase {
             ->andReturn($processor);
 
         $this->assertTrue(
-            ($job->getResetProgressCallback())($this->app),
+            ($job->getResetProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
     }
 }
@@ -245,6 +248,6 @@ abstract class ProcessorJobTest__Processor extends Processor {
  *
  * @see https://github.com/mockery/mockery/issues/1022
  */
-abstract class ProcessorJobTest__ProcessorJob {
+abstract class ProcessorJobTest__ProcessorJob implements ConfigurableQueueable {
     use ProcessorJob;
 }

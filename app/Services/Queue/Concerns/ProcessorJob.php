@@ -7,6 +7,7 @@ use App\Services\Queue\Progress;
 use App\Services\Service;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
@@ -29,9 +30,9 @@ trait ProcessorJob {
     }
 
     public function __invoke(Container $container, QueueableConfigurator $configurator): void {
-        $processor = $this->getProcessor($container);
         $config    = $configurator->config($this);
         $chunk     = $config->setting('chunk');
+        $processor = $this->getProcessor($container, $config);
 
         $processor
             ->setChunkSize($chunk)
@@ -46,9 +47,10 @@ trait ProcessorJob {
     }
 
     public function getProgressCallback(): callable {
-        return function (Container $container): ?Progress {
+        return function (Container $container, QueueableConfigurator $configurator): ?Progress {
             $progress = null;
-            $state    = $this->getProcessor($container)->getState();
+            $config   = $configurator->config($this);
+            $state    = $this->getProcessor($container, $config)->getState();
 
             if ($state) {
                 $progress = new Progress($state->total, $state->processed);
@@ -59,8 +61,8 @@ trait ProcessorJob {
     }
 
     public function getResetProgressCallback(): callable {
-        return function (Container $container): bool {
-            $this->getProcessor($container)->reset();
+        return function (Container $container, QueueableConfigurator $configurator): bool {
+            $this->getProcessor($container, $configurator->config($this))->reset();
 
             return true;
         };
@@ -70,13 +72,13 @@ trait ProcessorJob {
         return $container->make(Service::getService($this));
     }
 
-    protected function getProcessor(Container $container): Processor {
+    protected function getProcessor(Container $container, QueueableConfig $config): Processor {
         return $this
-            ->makeProcessor($container)
+            ->makeProcessor($container, $config)
             ->setCacheKey($this->getService($container), $this);
     }
 
     abstract protected function ping(): void;
 
-    abstract protected function makeProcessor(Container $container): Processor;
+    abstract protected function makeProcessor(Container $container, QueueableConfig $config): Processor;
 }
