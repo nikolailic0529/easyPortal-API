@@ -24,6 +24,24 @@ trait Subjects {
      */
     private Subject $onAfterChunkSubject;
 
+    public function __clone(): void {
+        if (isset($this->onInitSubject)) {
+            $this->onInitSubject = clone $this->onInitSubject;
+        }
+
+        if (isset($this->onFinishSubject)) {
+            $this->onFinishSubject = clone $this->onFinishSubject;
+        }
+
+        if (isset($this->onBeforeChunkSubject)) {
+            $this->onBeforeChunkSubject = clone $this->onBeforeChunkSubject;
+        }
+
+        if (isset($this->onAfterChunkSubject)) {
+            $this->onAfterChunkSubject = clone $this->onAfterChunkSubject;
+        }
+    }
+
     public function onInit(?Closure $closure): static {
         if ($closure) {
             $this->getOnInitSubject()->attach($closure);
