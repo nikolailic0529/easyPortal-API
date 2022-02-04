@@ -8,7 +8,7 @@ use App\Services\Queue\Pinger;
 use App\Services\Queue\Progress;
 use App\Services\Service;
 use App\Utils\Iterators\ObjectIterator;
-use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
+use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Container\Container;
@@ -229,9 +229,7 @@ abstract class ProcessorJobTest__Processor extends Processor {
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new OneChunkOffsetBasedObjectIterator(static function (): array {
-            return [1, 2, 3, 4, 5];
-        });
+        return new ObjectsIterator([1, 2, 3, 4, 5]);
     }
 
     /**

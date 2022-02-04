@@ -10,17 +10,17 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorIterator
+ * @coversDefaultClass \App\Utils\Iterators\ObjectsIterator
  */
-class ObjectIteratorIteratorTest extends TestCase {
+class ObjectsIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      * @covers ::setOffset
      * @covers ::setLimit
      */
     public function testGetIterator(): void {
-        $iterator = new ObjectIteratorIterator(
-            new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
+        $iterator = new ObjectsIterator(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             static function (int $item): int {
                 return $item * 10;
             },
@@ -55,8 +55,8 @@ class ObjectIteratorIteratorTest extends TestCase {
             // empty
         });
 
-        $iterator = (new ObjectIteratorIterator(
-            new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
+        $iterator = (new ObjectsIterator(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             static function (int $item): int {
                 return $item * 10;
             },

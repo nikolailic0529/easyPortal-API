@@ -198,6 +198,8 @@ abstract class Processor {
 
     /**
      * @param TState $state
+     *
+     * @return \App\Utils\Iterators\ObjectIterator<TItem>
      */
     abstract protected function getIterator(State $state): ObjectIterator;
 

@@ -7,7 +7,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\I18n\Formatter;
-use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
+use App\Utils\Iterators\ObjectsIterator;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -40,15 +40,12 @@ class CountAssetsTest extends TestCase {
         ];
 
         $this->override(Client::class, static function (MockInterface $mock) use ($reseller, $assets): void {
-            // $assets->toArray()
             $mock
                 ->shouldReceive('getAssetsByResellerId')
                 ->with($reseller->getKey())
                 ->once()
-                ->andReturn(new OneChunkOffsetBasedObjectIterator(
-                    static function () use ($assets): array {
-                        return $assets;
-                    },
+                ->andReturn(new ObjectsIterator(
+                    $assets,
                     static function (array $item): ViewAsset {
                         return ViewAsset::make($item);
                     },
