@@ -42,7 +42,7 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function setLimit(?int $limit): static {
-        $this->iterator->setIndex($limit);
+        $this->iterator->setIndex($limit ?? 0);
 
         return $this;
     }
@@ -58,11 +58,11 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function getOffset(): string|int|null {
-        return $this->getOffset();
+        return $this->iterator->getOffset();
     }
 
     public function setOffset(int|string|null $offset): static {
-        $this->setOffset($offset);
+        $this->iterator->setOffset($offset);
 
         return $this;
     }
