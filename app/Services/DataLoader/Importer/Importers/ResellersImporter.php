@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Factory\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;

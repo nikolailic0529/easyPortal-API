@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
-use App\Services\DataLoader\Factory\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;

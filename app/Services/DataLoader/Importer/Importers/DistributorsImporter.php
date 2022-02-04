@@ -3,12 +3,10 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Factory\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory\Factories\DistributorFactory;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
