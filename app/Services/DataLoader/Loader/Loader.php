@@ -3,9 +3,12 @@
 namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Container\Isolated;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
@@ -13,6 +16,7 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 
 use function is_string;
 
@@ -26,13 +30,21 @@ abstract class Loader implements Isolated {
     public function __construct(
         protected Container $container,
         protected ExceptionHandler $exceptionHandler,
+        protected Dispatcher $dispatcher,
         protected Client $client,
+        protected Collector $collector,
     ) {
         // empty
     }
 
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
     protected function getContainer(): Container {
         return $this->container;
+    }
+
+    protected function getDispatcher(): Dispatcher {
+        return $this->dispatcher;
     }
 
     protected function getExceptionHandler(): ExceptionHandler {
@@ -42,6 +54,11 @@ abstract class Loader implements Isolated {
     protected function getClient(): Client {
         return $this->client;
     }
+
+    protected function getCollector(): Collector {
+        return $this->collector;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Abstract">
     // =========================================================================
@@ -86,20 +103,35 @@ abstract class Loader implements Isolated {
         });
     }
 
-    private function run(?Type $object): ?Model {
+    protected function run(?Type $object): ?Model {
+        // Object?
+        if (!$object) {
+            return null;
+        }
+
+        // Subscribe
+        $data = new ImporterChunkData([$object]);
+
+        $this->getCollector()->subscribe($data);
+
+        // Process
         try {
-            return $this->process($object);
+            $model = $this->process($object);
         } finally {
             if ($this instanceof LoaderRecalculable) {
                 $this->recalculate();
             }
+
+            $this->getDispatcher()->dispatch(
+                new DataImported($data),
+            );
         }
+
+        return $model;
     }
 
-    protected function process(?Type $object): ?Model {
-        return $object
-            ? $this->getObjectFactory()->create($object)
-            : null;
+    protected function process(Type $object): ?Model {
+        return $this->getObjectFactory()->create($object);
     }
 
     protected function isModelExists(string $id): bool {

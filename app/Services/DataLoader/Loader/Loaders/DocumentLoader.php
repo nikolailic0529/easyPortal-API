@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
@@ -15,6 +16,7 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class DocumentLoader extends Loader implements LoaderRecalculable {
     use WithCalculatedProperties;
@@ -22,10 +24,12 @@ class DocumentLoader extends Loader implements LoaderRecalculable {
     public function __construct(
         Container $container,
         ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
         Client $client,
+        Collector $collector,
         protected DocumentFactory $documentFactory,
     ) {
-        parent::__construct($container, $exceptionHandler, $client);
+        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
     }
 
     /**

@@ -24,5 +24,17 @@
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4": "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
             "d164e377-3780-4587-8f97-a77c7952e953": "d164e377-3780-4587-8f97-a77c7952e953"
         }
+    },
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": {
+            "6c7c9474-3b59-4601-af72-1cd0f441b515": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        },
+        "App\\Models\\Customer": [],
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": {
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31": "c6083f78-ddd9-5474-a9f9-3599e2422b31"
+        },
+        "App\\Models\\Asset": []
     }
 ]

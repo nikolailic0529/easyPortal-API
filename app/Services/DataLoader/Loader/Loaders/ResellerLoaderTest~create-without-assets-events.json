@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": {
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e": "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
+        },
+        "App\\Models\\Customer": [],
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": {
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a": "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
+        },
+        "App\\Models\\Asset": []
+    }
+]

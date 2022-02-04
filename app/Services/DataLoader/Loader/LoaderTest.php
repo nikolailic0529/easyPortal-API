@@ -26,7 +26,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->with($type)
             ->once()
             ->andReturn($model);
@@ -63,7 +63,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->with($type)
             ->once()
             ->andReturn($model);
@@ -93,7 +93,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->never();
         $loader
             ->shouldReceive('getObject')
@@ -134,7 +134,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->never();
         $loader
             ->shouldReceive('getObject')
@@ -167,7 +167,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->with($type)
             ->once()
             ->andReturn($model);
@@ -202,7 +202,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->with($type)
             ->once()
             ->andReturn($model);
@@ -229,7 +229,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->with($type)
             ->once()
             ->andReturn($model);
@@ -262,7 +262,7 @@ class LoaderTest extends TestCase {
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('process')
+            ->shouldReceive('run')
             ->with($type)
             ->once()
             ->andReturn($model);

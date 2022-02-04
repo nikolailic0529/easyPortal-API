@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Container;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Loader;
@@ -11,6 +12,7 @@ use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 use Tests\TestCase;
 
 /**
@@ -160,10 +162,12 @@ class ContainerTest_Loader extends Loader {
     public function __construct(
         Container $container,
         ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
         Client $client,
+        Collector $collector,
         public ContainerTest_Singleton $singleton,
     ) {
-        parent::__construct($container, $exceptionHandler, $client);
+        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
     }
 
     /**

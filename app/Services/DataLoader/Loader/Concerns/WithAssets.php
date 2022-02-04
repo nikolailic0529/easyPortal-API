@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Factory\Factories\CustomerFactory;
@@ -18,6 +19,7 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\EloquentIterator;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 
@@ -35,14 +37,16 @@ trait WithAssets {
     public function __construct(
         Container $container,
         ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
         Client $client,
+        Collector $collector,
         protected ResellerFactory $resellerFactory,
         protected CustomerFactory $customerFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
         protected DocumentFactory $documentFactory,
     ) {
-        parent::__construct($container, $exceptionHandler, $client);
+        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
     }
 
     public function isWithAssets(): bool {
