@@ -101,7 +101,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     /**
      * @return $this<T,V>
      */
-    public function setChunkSize(int $chunk): static {
+    public function setChunkSize(?int $chunk): static {
         $this->iterator->setChunkSize($chunk);
 
         return $this;

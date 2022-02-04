@@ -2,6 +2,7 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\ChunkSize;
 use Closure;
 use Exception;
 use Generator;
@@ -50,8 +51,8 @@ class EloquentIterator implements ObjectIterator {
         return $this->iterator->getChunkSize();
     }
 
-    public function setChunkSize(int $chunk): static {
-        $this->iterator->setChunkSize($chunk);
+    public function setChunkSize(?int $chunk): static {
+        $this->iterator->setChunkSize($chunk ?? ChunkSize::getDefaultChunkSize());
 
         return $this;
     }

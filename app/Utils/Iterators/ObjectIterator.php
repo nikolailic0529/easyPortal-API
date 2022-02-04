@@ -21,7 +21,7 @@ interface ObjectIterator extends IteratorAggregate {
 
     public function getChunkSize(): int;
 
-    public function setChunkSize(int $chunk): static;
+    public function setChunkSize(?int $chunk): static;
 
     public function getOffset(): string|int|null;
 
