@@ -23,8 +23,8 @@ class ObjectIteratorsIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $iterator = new ObjectIteratorsIterator([
-            'one' => new ObjectIteratorIteratorTest__Iterator([1, 2, 3, 4, 5]),
-            'two' => new ObjectIteratorIteratorTest__Iterator([6, 7, 8, 9, 0]),
+            'one' => new ObjectIteratorsIteratorTest__Iterator([1, 2, 3, 4, 5]),
+            'two' => new ObjectIteratorsIteratorTest__Iterator([6, 7, 8, 9, 0]),
         ]);
 
         $this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], iterator_to_array($iterator));
@@ -250,7 +250,7 @@ class ObjectIteratorsIteratorTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ObjectIteratorIteratorTest__Iterator implements ObjectIterator {
+class ObjectIteratorsIteratorTest__Iterator implements ObjectIterator {
     use Properties;
     use Subjects;
 

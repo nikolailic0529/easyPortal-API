@@ -99,7 +99,7 @@ class ObjectIteratorImplTest extends TestCase {
         $iterator = new class() extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
-                $this->retriever = null;
+                $this->converter = null;
             }
 
             /**

@@ -35,7 +35,7 @@ trait ChunkConverter {
      */
     protected function chunkConvertItem(mixed $item): mixed {
         $converter = $this->getConverter();
-        $converted = null;
+        $converted = $item;
 
         if ($converter) {
             $converted = $converter($item);

@@ -2,6 +2,7 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\ChunkConverter;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
@@ -9,8 +10,6 @@ use Closure;
 use EmptyIterator;
 use Iterator;
 
-use function array_filter;
-use function array_map;
 use function end;
 use function min;
 use function reset;
@@ -21,11 +20,13 @@ use function reset;
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
+ * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
     use Subjects;
     use Properties;
     use InitialState;
+    use ChunkConverter;
 
     /**
      * @var array{array<V>,array<V>}
@@ -34,13 +35,17 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
 
     /**
      * @param \Closure(array $variables): array<V> $executor
-     * @param \Closure(V $item): T                 $retriever
+     * @param \Closure(V $item): T|null            $converter
      */
     public function __construct(
         protected ?Closure $executor,
-        protected ?Closure $retriever = null,
+        protected ?Closure $converter = null,
     ) {
         // empty
+    }
+
+    protected function getConverter(): ?Closure {
+        return $this->converter;
     }
 
     /**
@@ -116,17 +121,6 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
         $this->previous = $current;
 
         // Convert
-        return $this->retriever ? array_filter(array_map(function (mixed $item): mixed {
-            return $this->chunkPrepareItem($this->retriever, $item);
-        }, $items)) : $items;
-    }
-
-    /**
-     * @param \Closure(V $item): T $retriever
-     *
-     * @return T
-     */
-    protected function chunkPrepareItem(Closure $retriever, mixed $item): mixed {
-        return $retriever($item);
+        return $this->chunkConvert($items);
     }
 }
