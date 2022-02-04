@@ -3,6 +3,9 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Reseller;
+use App\Services\DataLoader\Factory\Factories\CustomerFactory;
+use App\Services\DataLoader\Factory\Factories\ResellerFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
@@ -53,6 +56,10 @@ class ResellersImporter extends Importer {
 
     protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(ResellerLoader::class);
+    }
+
+    protected function makeFactory(State $state): Factory {
+        return $this->getContainer()->make(ResellerFactory::class);
     }
 
     protected function makeResolver(State $state): Resolver {

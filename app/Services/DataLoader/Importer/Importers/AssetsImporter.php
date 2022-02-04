@@ -5,6 +5,9 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Reseller;
+use App\Services\DataLoader\Factory\Factories\AssetFactory;
+use App\Services\DataLoader\Factory\Factories\DocumentFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
@@ -111,6 +114,18 @@ class AssetsImporter extends Importer {
 
     protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(AssetLoader::class)->setWithDocuments($state->withDocuments);
+    }
+
+    protected function makeFactory(State $state): Factory {
+        $factory = $this->getContainer()->make(AssetFactory::class);
+
+        if ($state->withDocuments) {
+            $factory->setDocumentFactory(
+                $this->getContainer()->make(DocumentFactory::class),
+            );
+        }
+
+        return $factory;
     }
 
     protected function makeResolver(State $state): Resolver {

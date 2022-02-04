@@ -3,8 +3,12 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Factory\Factories\CustomerFactory;
+use App\Services\DataLoader\Factory\Factories\DistributorFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
@@ -35,6 +39,10 @@ class DistributorsImporter extends Importer {
 
     protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(DistributorLoader::class);
+    }
+
+    protected function makeFactory(State $state): Factory {
+        return $this->getContainer()->make(DistributorFactory::class);
     }
 
     protected function makeResolver(State $state): Resolver {

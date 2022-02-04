@@ -7,6 +7,7 @@ use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolver;
@@ -31,6 +32,7 @@ abstract class Importer extends Processor {
     private ?DateTimeInterface $from   = null;
     private bool               $update = true;
     private Loader             $loader;
+    private Factory            $factory;
     private Resolver           $resolver;
     private Collector          $collector;
 
@@ -91,19 +93,20 @@ abstract class Importer extends Processor {
         // Id?
         if (!$item instanceof TypeWithId) {
             $state->ignored++;
+
             return;
         }
 
         // Import
         if ($this->resolver->get($item->id)) {
             if ($state->update) {
-                $this->loader->update($item);
+                $this->factory->create($item);
                 $state->updated++;
             } else {
                 $state->ignored++;
             }
         } else {
-            $this->loader->create($item);
+            $this->factory->create($item);
             $state->created++;
         }
     }
@@ -115,6 +118,7 @@ abstract class Importer extends Processor {
         // Reset objects
         $this->collector = $this->getContainer()->make(Collector::class);
         $this->resolver  = $this->makeResolver($state);
+        $this->factory   = $this->makeFactory($state);
         $this->loader    = $this->makeLoader($state);
 
         // Configure
@@ -143,6 +147,7 @@ abstract class Importer extends Processor {
         // Unset
         unset($this->collector);
         unset($this->resolver);
+        unset($this->factory);
         unset($this->loader);
 
         // Parent
@@ -185,6 +190,11 @@ abstract class Importer extends Processor {
      * @param TState $state
      */
     abstract protected function makeLoader(State $state): Loader;
+
+    /**
+     * @param TState $state
+     */
+    abstract protected function makeFactory(State $state): Factory;
 
     /**
      * @param TState $state

@@ -5,6 +5,9 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
+use App\Services\DataLoader\Factory\Factories\CustomerFactory;
+use App\Services\DataLoader\Factory\Factories\DocumentFactory;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -76,6 +79,10 @@ class DocumentsImporter extends Importer {
 
     protected function makeLoader(State $state): Loader {
         return $this->getContainer()->make(DocumentLoader::class);
+    }
+
+    protected function makeFactory(State $state): Factory {
+        return $this->getContainer()->make(DocumentFactory::class);
     }
 
     protected function makeResolver(State $state): Resolver {
