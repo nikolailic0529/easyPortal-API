@@ -104,7 +104,9 @@ class AssetsImporter extends Importer {
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return $this->getClient()->getAssetsWithDocuments($state->from);
+        return $state->withDocuments
+            ? $this->getClient()->getAssetsWithDocuments($state->from)
+            : $this->getClient()->getAssets($state->from);
     }
 
     protected function makeLoader(State $state): Loader {
