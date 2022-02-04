@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils\Iterators;
+namespace App\Utils\Iterators\Concerns;
 
 use Closure;
 use LastDragon_ru\LaraASP\Core\Observer\Subject;
@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Core\Observer\Subject;
  *
  * @mixin \App\Utils\Iterators\ObjectIterator<T>
  */
-trait ObjectIteratorSubjects {
+trait Subjects {
     private Subject $onInitSubject;
     private Subject $onFinishSubject;
 

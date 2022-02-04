@@ -2,6 +2,8 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\Properties;
+use App\Utils\Iterators\Concerns\Subjects;
 use Generator;
 use InvalidArgumentException;
 use Mockery;
@@ -249,8 +251,8 @@ class ObjectIteratorsIteratorTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ObjectIteratorIteratorTest__Iterator implements ObjectIterator {
-    use ObjectIteratorProperties;
-    use ObjectIteratorSubjects;
+    use Properties;
+    use Subjects;
 
     /**
      * @param array<mixed> $data

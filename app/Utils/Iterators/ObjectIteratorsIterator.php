@@ -2,6 +2,9 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\InitialState;
+use App\Utils\Iterators\Concerns\Properties;
+use App\Utils\Iterators\Concerns\Subjects;
 use Generator;
 use InvalidArgumentException;
 
@@ -19,9 +22,9 @@ use function sprintf;
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 class ObjectIteratorsIterator implements ObjectIterator {
-    use ObjectIteratorInitialState;
-    use ObjectIteratorProperties;
-    use ObjectIteratorSubjects {
+    use InitialState;
+    use Properties;
+    use Subjects {
         chunkLoaded as private;
         chunkProcessed as private;
     }

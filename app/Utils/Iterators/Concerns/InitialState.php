@@ -1,11 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils\Iterators;
+namespace App\Utils\Iterators\Concerns;
+
+use App\Utils\Iterators\ObjectIterator;
 
 /**
  * @mixin \App\Utils\Iterators\ObjectIterator
  */
-trait ObjectIteratorInitialState {
+trait InitialState {
     private ?ObjectIterator $initial = null;
 
     protected function init(): void {

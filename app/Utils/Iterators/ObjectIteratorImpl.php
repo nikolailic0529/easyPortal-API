@@ -2,6 +2,9 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\InitialState;
+use App\Utils\Iterators\Concerns\Properties;
+use App\Utils\Iterators\Concerns\Subjects;
 use Closure;
 use EmptyIterator;
 use Iterator;
@@ -20,9 +23,9 @@ use function reset;
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
-    use ObjectIteratorSubjects;
-    use ObjectIteratorProperties;
-    use ObjectIteratorInitialState;
+    use Subjects;
+    use Properties;
+    use InitialState;
 
     /**
      * @var array{array<V>,array<V>}
