@@ -18,7 +18,7 @@ use function sprintf;
  * @implements \App\Utils\Iterators\ObjectIterator<T>
  * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
  */
-class ObjectIteratorIterator implements ObjectIterator {
+class ObjectIteratorsIterator implements ObjectIterator {
     use ObjectIteratorInitialState;
     use ObjectIteratorProperties;
     use ObjectIteratorSubjects {

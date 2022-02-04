@@ -13,14 +13,14 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorIterator
+ * @coversDefaultClass \App\Utils\Iterators\ObjectIteratorsIterator
  */
-class ObjectIteratorIteratorTest extends TestCase {
+class ObjectIteratorsIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $iterator = new ObjectIteratorIterator([
+        $iterator = new ObjectIteratorsIterator([
             'one' => new ObjectIteratorIteratorTest__Iterator([1, 2, 3, 4, 5]),
             'two' => new ObjectIteratorIteratorTest__Iterator([6, 7, 8, 9, 0]),
         ]);
@@ -148,7 +148,7 @@ class ObjectIteratorIteratorTest extends TestCase {
                 yield from [6, 7];
             });
 
-        $iterator = (new ObjectIteratorIterator([
+        $iterator = (new ObjectIteratorsIterator([
             'one' => $one,
             'two' => $two,
         ]))
@@ -205,7 +205,7 @@ class ObjectIteratorIteratorTest extends TestCase {
             ->andReturn(null);
 
         // Prepare
-        $iterator = new ObjectIteratorIterator([
+        $iterator = new ObjectIteratorsIterator([
             'one' => $one,
             'two' => $two,
         ]);
@@ -225,7 +225,7 @@ class ObjectIteratorIteratorTest extends TestCase {
             'unknown',
         )));
 
-        (new ObjectIteratorIterator([]))->setOffset('unknown');
+        (new ObjectIteratorsIterator([]))->setOffset('unknown');
     }
 
     /**
@@ -237,7 +237,7 @@ class ObjectIteratorIteratorTest extends TestCase {
             'integer',
         )));
 
-        (new ObjectIteratorIterator([]))->setOffset(123);
+        (new ObjectIteratorsIterator([]))->setOffset(123);
     }
 }
 
