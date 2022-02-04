@@ -10,7 +10,9 @@ use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
+use Illuminate\Support\Facades\Event;
 use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderCreateWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderCreateWithoutAssets;
 use Tests\TestCase;
@@ -43,6 +45,7 @@ class ResellerLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
+        $events   = Event::fake(DataImported::class);
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
             ->make(ResellerLoader::class)
@@ -61,10 +64,17 @@ class ResellerLoaderTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~create-without-assets-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
+        $events   = Event::fake(DataImported::class);
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
             ->make(ResellerLoader::class)
@@ -74,8 +84,14 @@ class ResellerLoaderTest extends TestCase {
         $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
 
         $this->assertQueryLogEquals('~create-without-assets-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~create-without-assets-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 
     /**
@@ -97,6 +113,7 @@ class ResellerLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
+        $events   = Event::fake(DataImported::class);
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
             ->make(ResellerLoader::class)
@@ -115,10 +132,17 @@ class ResellerLoaderTest extends TestCase {
             Document::class      => 2,
             DocumentEntry::class => 10,
         ]);
+        $this->assertDispatchedEventsEquals(
+            '~create-with-assets-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
 
+        unset($events);
+
         // Test (hot)
+        $events   = Event::fake(DataImported::class);
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(Container::class)
             ->make(ResellerLoader::class)
@@ -128,7 +152,13 @@ class ResellerLoaderTest extends TestCase {
         $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
 
         $this->assertQueryLogEquals('~create-with-assets-hot.json', $queries);
+        $this->assertDispatchedEventsEquals(
+            '~create-with-assets-events.json',
+            $events->dispatched(DataImported::class),
+        );
 
         $queries->flush();
+
+        unset($events);
     }
 }
