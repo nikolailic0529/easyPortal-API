@@ -1,0 +1,69 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "cf216adc-819b-49db-8066-b230ea95d380"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "cf216adc-819b-49db-8066-b230ea95d380",
+                    "name": "Hudson-Murazik",
+                    "updatedAt": "1639133290347",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "96411-7964",
+                            "address": "19960 Orrin Landing",
+                            "city": "Port Dejahshire",
+                            "locationType": "HEADQUARTER",
+                            "country": "Falkland Islands (Malvinas)",
+                            "latitude": "-87.7983",
+                            "longitude": "-26.916336",
+                            "countryCode": "DO"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 8579,
+                        "activeAssets": 1927,
+                        "activeAssetsPercentage": 22.46182538757431,
+                        "activeCustomers": 117,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 42,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 2,
+                        "activeQuotes": 33,
+                        "activeQuotesTotalAmount": 5289.72,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 13,
+                        "expiredQuotes": 103,
+                        "expiredContracts": 6,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

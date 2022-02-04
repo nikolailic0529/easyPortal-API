@@ -1,0 +1,149 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "params": {
+        "id": "b126338b-539c-4aba-936d-f02cd30bde5e"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "b126338b-539c-4aba-936d-f02cd30bde5e",
+                    "name": "Barton-Nikolaus",
+                    "updatedAt": "1638471998509",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16363646292",
+                            "name": "Joshuah Howe",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18169290708",
+                            "name": "Myrtis Kertzmann",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16363646292",
+                            "name": "Joshuah Howe",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "06149-2040",
+                            "address": "32450 Alanna Fort Apt. 119",
+                            "city": "Port Fabian",
+                            "locationType": null,
+                            "country": "Suriname",
+                            "latitude": "50.888323",
+                            "longitude": "178.574611",
+                            "countryCode": "CY"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 43627,
+                        "activeAssets": 2577,
+                        "activeAssetsPercentage": 5.906892520686731,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 70,
+                        "activeContractTotalAmount": 30524.29,
+                        "newActiveContracts": null,
+                        "expiringContracts": 70,
+                        "activeQuotes": 102,
+                        "activeQuotesTotalAmount": 18856.739999999998,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 102,
+                        "expiredQuotes": 413,
+                        "expiredContracts": 439,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+                            "totalAssets": 18499,
+                            "activeAssets": 2318,
+                            "activeAssetsPercentage": 12.530407049029677,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 69,
+                            "activeContractTotalAmount": 30524.289999999997,
+                            "newActiveContracts": null,
+                            "expiringContracts": 69,
+                            "activeQuotes": 102,
+                            "activeQuotesTotalAmount": 18856.739999999998,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 102,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 81,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": "714aa057-1ea0-4666-b3be-4b69af99e997",
+                            "totalAssets": 25128,
+                            "activeAssets": 259,
+                            "activeAssetsPercentage": 1.030722699777141,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 1,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 413,
+                            "expiredContracts": 358,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

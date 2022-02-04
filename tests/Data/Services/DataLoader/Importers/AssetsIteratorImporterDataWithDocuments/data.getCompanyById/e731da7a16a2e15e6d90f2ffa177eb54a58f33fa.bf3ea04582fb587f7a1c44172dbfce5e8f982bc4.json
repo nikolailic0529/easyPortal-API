@@ -1,0 +1,69 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
+                    "name": "Kihn-Bergnaum",
+                    "updatedAt": "1640175068122",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "55671",
+                            "address": "3140 Mauricio Tunnel Suite 406",
+                            "city": "North Evelynland",
+                            "locationType": "HEADQUARTER",
+                            "country": "Niue",
+                            "latitude": "-84.295462",
+                            "longitude": "43.628832",
+                            "countryCode": "PK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 7897,
+                        "activeAssets": 1331,
+                        "activeAssetsPercentage": 16.85450170950994,
+                        "activeCustomers": 81,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 35,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 4,
+                        "activeQuotes": 60,
+                        "activeQuotesTotalAmount": 3895.2300000000005,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 19,
+                        "expiredQuotes": 141,
+                        "expiredContracts": 11,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

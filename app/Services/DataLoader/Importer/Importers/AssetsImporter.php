@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Collection;
 use function array_merge;
 
 /**
- * @template TItem
+ * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\Importers\AssetsImporterState
  *

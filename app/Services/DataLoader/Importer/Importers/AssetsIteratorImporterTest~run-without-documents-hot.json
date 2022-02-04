@@ -1,0 +1,919 @@
+[
+    {
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "622403ca-1bcb-4268-86ef-98c559ba3767"
+        ]
+    },
+    {
+        "query": "select `asset_warranties`.* from `asset_warranties` where `asset_warranties`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `asset_warranties`.`deleted_at` is null",
+        "bindings": [
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "622403ca-1bcb-4268-86ef-98c559ba3767",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334"
+        ]
+    },
+    {
+        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?) and `service_levels`.`deleted_at` is null",
+        "bindings": [
+            "d1e686b9-6792-56a8-89cb-63252ef47e19",
+            "df1adce3-a5eb-5ec0-bc34-2f958862bbbc"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "622403ca-1bcb-4268-86ef-98c559ba3767",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "Asset"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "284eb6c4-fd7d-5988-b02b-7c4fc53e6309",
+            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "2c8bfede-d13b-567f-a2ee-89977b0c3d22",
+            "4294e32f-a9d9-563f-8807-779b4cc9c18d",
+            "54674e53-4eac-5b5f-99ef-c672f867b7c9",
+            "633f4fa2-3a87-51c9-8bb8-33deab6be040",
+            "664d7091-6081-59b2-a14a-8bbaea7bd9c0",
+            "8a4d5f7d-bb6e-56a5-abb7-d0d4723d06c6",
+            "961f7262-5ae2-5f39-bee9-9106f92451b2",
+            "a13e2817-b15b-540f-8424-e34df6867b01",
+            "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34",
+            "d010010a-29a6-5777-bed9-432f4a04fe00",
+            "f01d7ad6-c2ca-529f-9050-491af1738930"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`deleted_at` is null and `asset_tags`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `tags`.`deleted_at` is null",
+        "bindings": [
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "622403ca-1bcb-4268-86ef-98c559ba3767",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334"
+        ]
+    },
+    {
+        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7"
+        ]
+    },
+    {
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `tags`.* from `tags` where `tags`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "50670a45-ff6e-4008-baa2-7677d0f59a99"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:58:48",
+            "2021-08-30 00:58:51",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:59:08",
+            "2021-08-30 00:59:11",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:59:28",
+            "2021-08-30 00:59:31",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 00:59:48",
+            "2021-08-30 00:59:51",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 01:00:08",
+            "2021-08-30 01:00:11",
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 01:00:28",
+            "2021-08-30 01:00:31",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "a159098b-cea0-4a97-98f7-3b18fbb36311"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 01:00:48",
+            "2021-08-30 01:00:51",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "dd446309-f8fa-4c5e-952d-d335eaa08678"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 01:01:08",
+            "2021-08-30 01:01:11",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "badee429-473d-4f23-9d1a-ea2b13276596"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 01:01:28",
+            "2021-08-30 01:01:50",
+            "badee429-473d-4f23-9d1a-ea2b13276596"
+        ]
+    },
+    {
+        "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "622403ca-1bcb-4268-86ef-98c559ba3767"
+        ]
+    },
+    {
+        "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2021-08-30 01:02:19",
+            "2021-08-30 01:02:22",
+            "622403ca-1bcb-4268-86ef-98c559ba3767"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 01:02:38",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            2,
+            "2021-08-30 01:02:46",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 01:02:54",
+            "714aa057-1ea0-4666-b3be-4b69af99e997"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            3,
+            "2021-08-30 01:03:02",
+            "714aa057-1ea0-4666-b3be-4b69af99e997"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`deleted_at` is null and `customer_statuses`.`customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `customer_id`, count(*) as count from `assets` where `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `customer_id`",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `customer_id`, `location_id`, count(*) as count from `assets` where `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `customer_id`, `location_id`",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "17c73208-742c-50da-93c7-93a514201fee"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "17c73208-742c-50da-93c7-93a514201fee"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "86029556-8178-5562-a35b-d78c0a766e70"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "86029556-8178-5562-a35b-d78c0a766e70"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "863f844b-efde-5781-a57c-0d127a496cfe"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "863f844b-efde-5781-a57c-0d127a496cfe"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    }
+]

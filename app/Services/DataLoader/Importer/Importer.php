@@ -10,6 +10,7 @@ use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolver;
+use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
@@ -20,7 +21,7 @@ use Throwable;
 use function array_merge;
 
 /**
- * @template TItem
+ * @template TItem of \App\Services\DataLoader\Schema\Type
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\ImporterState
  *
@@ -87,6 +88,13 @@ abstract class Importer extends Processor {
      * @param TState $state
      */
     protected function process(State $state, mixed $data, mixed $item): void {
+        // Id?
+        if (!$item instanceof TypeWithId) {
+            $state->ignored++;
+            return;
+        }
+
+        // Import
         if ($this->resolver->get($item->id)) {
             if ($state->update) {
                 $this->loader->update($item);

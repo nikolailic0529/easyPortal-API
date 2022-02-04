@@ -1,0 +1,2358 @@
+[
+    {
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "622403ca-1bcb-4268-86ef-98c559ba3767"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7"
+        ]
+    },
+    {
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "hardware",
+            "asset"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "Hardware",
+            "Hardware",
+            "05eb200f-fe19-55f5-9a6c-f256a9c5c0b1",
+            "2021-08-30 00:49:36",
+            "2021-08-30 00:49:36"
+        ]
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "active",
+            "asset"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "ACTIVE",
+            "ACTIVE",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "2021-08-30 00:49:37",
+            "2021-08-30 00:49:37"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "647903r-b21"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "647903R-B21",
+            null,
+            null,
+            "HP 32GB 4Rx4 PC3L-10600L-9 Reman Kit",
+            "61e7f519-fc20-5156-b984-ee6d58ee7eba",
+            "2021-08-30 00:49:38",
+            "2021-08-30 00:49:38"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `tags`.* from `tags` where `tags`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `tags`.* from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
+        "bindings": [
+            "hardware"
+        ]
+    },
+    {
+        "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "bindings": [
+            "Hardware",
+            "14f9361b-131e-531d-91b5-b66148e9fb0e",
+            "2021-08-30 00:49:40",
+            "2021-08-30 00:49:40"
+        ]
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "exposed"
+        ]
+    },
+    {
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "EXPOSED",
+            "EXPOSED",
+            "6404014b-9c05-50f7-ad88-7122bb40b650",
+            "2021-08-30 00:49:41",
+            "2021-08-30 00:49:41"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "05eb200f-fe19-55f5-9a6c-f256a9c5c0b1",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "61e7f519-fc20-5156-b984-ee6d58ee7eba",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "2021-09-04 16:14:36",
+            "37dcd472-bafa-3088-a717-471784ce9796",
+            "130",
+            1,
+            1,
+            "2021-08-30 00:49:42",
+            "2021-08-30 00:49:43",
+            "2021-08-30 00:49:43"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "Mr. Quinten Wunsch",
+            "+12547308873",
+            null,
+            true,
+            "d010010a-29a6-5777-bed9-432f4a04fe00",
+            "2021-08-30 00:49:44",
+            "2021-08-30 00:49:44"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "d010010a-29a6-5777-bed9-432f4a04fe00",
+            "2021-08-30 00:49:45",
+            "6819320d-3b67-520e-aacb-83c19eaa7863",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:49:45",
+            "d010010a-29a6-5777-bed9-432f4a04fe00",
+            "2021-08-30 00:49:46",
+            "745d2b50-fc3d-5c4a-aa04-899b30b4432b",
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "2021-08-30 00:49:46",
+            "d010010a-29a6-5777-bed9-432f4a04fe00",
+            "2021-08-30 00:49:47",
+            "6c3075ae-6d3f-510a-9c07-704ec864af53",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:49:47"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "14f9361b-131e-531d-91b5-b66148e9fb0e",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "3d8a8bda-81e3-5a97-9f57-b3ff9fab2788",
+            "2021-08-30 00:49:48",
+            "2021-08-30 00:49:48"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6404014b-9c05-50f7-ad88-7122bb40b650",
+            "50670a45-ff6e-4008-baa2-7677d0f59a99",
+            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "2021-08-30 00:49:49",
+            "2021-08-30 00:49:49"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "software",
+            "asset"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "Software",
+            "Software",
+            "cfd57183-1c6c-5ca3-a812-2f69caf9b24c",
+            "2021-08-30 00:49:50",
+            "2021-08-30 00:49:50"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "bc756aae"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "BC756AAE",
+            null,
+            null,
+            "HP 3PAR 7200 Remote Copy Drive E-LTU",
+            "2a2c776a-3d3c-5351-aae0-f6c8fc2a0a88",
+            "2021-08-30 00:49:51",
+            "2021-08-30 00:49:51"
+        ]
+    },
+    {
+        "query": "select `tags`.* from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
+        "bindings": [
+            "software"
+        ]
+    },
+    {
+        "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "bindings": [
+            "Software",
+            "4d1955c9-0ccf-53e7-8f41-acd03510f1ea",
+            "2021-08-30 00:49:53",
+            "2021-08-30 00:49:53"
+        ]
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "archived"
+        ]
+    },
+    {
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "ARCHIVED",
+            "ARCHIVED",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "2021-08-30 00:49:54",
+            "2021-08-30 00:49:54"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "cfd57183-1c6c-5ca3-a812-2f69caf9b24c",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "2a2c776a-3d3c-5351-aae0-f6c8fc2a0a88",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "2021-09-05 06:08:43",
+            null,
+            "70",
+            2,
+            1,
+            "2021-08-30 00:49:55",
+            "2021-08-30 00:49:56",
+            "2021-08-30 00:49:56"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "Genoveva Kerluke",
+            "+19196048267",
+            null,
+            true,
+            "664d7091-6081-59b2-a14a-8bbaea7bd9c0",
+            "2021-08-30 00:49:57",
+            "2021-08-30 00:49:57"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "664d7091-6081-59b2-a14a-8bbaea7bd9c0",
+            "2021-08-30 00:49:58",
+            "5c350b1c-e4c0-5cb0-90a7-6c02a2a29aff",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:49:58",
+            "664d7091-6081-59b2-a14a-8bbaea7bd9c0",
+            "2021-08-30 00:49:59",
+            "983f957e-2e4b-5332-9708-97c7a2c6520a",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:49:59"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "Genoveva Kerluke",
+            "+14457612317",
+            null,
+            true,
+            "f01d7ad6-c2ca-529f-9050-491af1738930",
+            "2021-08-30 00:50:00",
+            "2021-08-30 00:50:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "f01d7ad6-c2ca-529f-9050-491af1738930",
+            "0867a50d-9435-5053-8525-2e7fde523328",
+            "2021-08-30 00:50:01",
+            "2021-08-30 00:50:01"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "4d1955c9-0ccf-53e7-8f41-acd03510f1ea",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "049b34d3-335c-5382-a5ff-6d4c06eca7af",
+            "2021-08-30 00:50:02",
+            "2021-08-30 00:50:02"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+            "eb4d5218-4aa1-5c1a-91cf-3c16f6f988f2",
+            "2021-08-30 00:50:03",
+            "2021-08-30 00:50:03"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "l7b50aae"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "L7B50AAE",
+            null,
+            null,
+            "HP 3PAR 8200 Replication Ste Drv E-LTU",
+            "44faac1c-8321-5dad-986d-c75192e1505c",
+            "2021-08-30 00:50:04",
+            "2021-08-30 00:50:04"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "cfd57183-1c6c-5ca3-a812-2f69caf9b24c",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "44faac1c-8321-5dad-986d-c75192e1505c",
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "2021-09-05 04:56:47",
+            null,
+            "70",
+            2,
+            1,
+            "2021-08-30 00:50:06",
+            "2021-08-30 00:50:07",
+            "2021-08-30 00:50:07"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "Margret Williamson MD",
+            "+14407216494",
+            null,
+            true,
+            "961f7262-5ae2-5f39-bee9-9106f92451b2",
+            "2021-08-30 00:50:08",
+            "2021-08-30 00:50:08"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "961f7262-5ae2-5f39-bee9-9106f92451b2",
+            "2021-08-30 00:50:09",
+            "2a984bf3-7c11-5532-b675-153b51263153",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:50:09",
+            "961f7262-5ae2-5f39-bee9-9106f92451b2",
+            "2021-08-30 00:50:10",
+            "e3aac4e8-9753-5d68-8df0-2ddcb1f62482",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:50:10"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "Jodie Lang",
+            null,
+            null,
+            null,
+            "4294e32f-a9d9-563f-8807-779b4cc9c18d",
+            "2021-08-30 00:50:11",
+            "2021-08-30 00:50:11"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "4294e32f-a9d9-563f-8807-779b4cc9c18d",
+            "87d96ae4-1224-5526-837d-b2c21bc714f2",
+            "2021-08-30 00:50:12",
+            "2021-08-30 00:50:12"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "4d1955c9-0ccf-53e7-8f41-acd03510f1ea",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "143640c5-413a-5067-9989-bbb4d20d1136",
+            "2021-08-30 00:50:13",
+            "2021-08-30 00:50:13"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+            "418460dc-3944-5efa-a041-232992c20a16",
+            "2021-08-30 00:50:14",
+            "2021-08-30 00:50:14"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "bc776aae"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "BC776AAE",
+            null,
+            null,
+            "HP 3PAR 7400 Replication Ste Drive E-LTU",
+            "4a1af4bf-171d-5edf-a387-3cb1d1408e46",
+            "2021-08-30 00:50:15",
+            "2021-08-30 00:50:15"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "cfd57183-1c6c-5ca3-a812-2f69caf9b24c",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "4a1af4bf-171d-5edf-a387-3cb1d1408e46",
+            null,
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "2021-09-05 02:42:28",
+            null,
+            "70",
+            2,
+            1,
+            "2021-08-30 00:50:17",
+            "2021-08-30 00:50:18",
+            "2021-08-30 00:50:18"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "Devante Lockman Jr.",
+            "+14356371532",
+            null,
+            true,
+            "284eb6c4-fd7d-5988-b02b-7c4fc53e6309",
+            "2021-08-30 00:50:19",
+            "2021-08-30 00:50:19"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "284eb6c4-fd7d-5988-b02b-7c4fc53e6309",
+            "2021-08-30 00:50:20",
+            "a19d0503-03e0-5db7-b8b4-647b21b66003",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:50:20",
+            "284eb6c4-fd7d-5988-b02b-7c4fc53e6309",
+            "2021-08-30 00:50:21",
+            "dfb351cb-73f9-55d7-b234-5b475dc143de",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:50:21"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "Cornell Collins",
+            "+17154175494",
+            null,
+            true,
+            "2c8bfede-d13b-567f-a2ee-89977b0c3d22",
+            "2021-08-30 00:50:22",
+            "2021-08-30 00:50:22"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "2c8bfede-d13b-567f-a2ee-89977b0c3d22",
+            "d0de6091-5ef0-5be9-8034-0ee089dc3d9f",
+            "2021-08-30 00:50:23",
+            "2021-08-30 00:50:23"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "4d1955c9-0ccf-53e7-8f41-acd03510f1ea",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "d98c7a90-76e6-5ddb-a725-28e350e3cb61",
+            "2021-08-30 00:50:24",
+            "2021-08-30 00:50:24"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "8b77fddd-1e19-42f4-92e7-c0f7f9f33ab2",
+            "95932234-3f4f-5c82-9035-169eac674002",
+            "2021-08-30 00:50:25",
+            "2021-08-30 00:50:25"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "865414-b21"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "865414-B21",
+            null,
+            null,
+            "HPE 800W FS Plat Ht Plg LH Pwr Sply Kit",
+            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
+            "2021-08-30 00:50:26",
+            "2021-08-30 00:50:26"
+        ]
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "covered"
+        ]
+    },
+    {
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "COVERED",
+            "COVERED",
+            "23e5f01f-fbae-5bec-beb9-7009943c0186",
+            "2021-08-30 00:50:28",
+            "2021-08-30 00:50:28"
+        ]
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "on_contract"
+        ]
+    },
+    {
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "ON_CONTRACT",
+            "ON_CONTRACT",
+            "444fa102-ff0c-506a-8065-43b43997dccf",
+            "2021-08-30 00:50:29",
+            "2021-08-30 00:50:29"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "05eb200f-fe19-55f5-9a6c-f256a9c5c0b1",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "2021-09-05 08:02:31",
+            null,
+            "70",
+            1,
+            2,
+            "2021-08-30 00:50:30",
+            "2021-08-30 00:50:31",
+            "2021-08-30 00:50:31"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "Amie Batz",
+            "+19474698621",
+            null,
+            true,
+            "a13e2817-b15b-540f-8424-e34df6867b01",
+            "2021-08-30 00:50:32",
+            "2021-08-30 00:50:32"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "a13e2817-b15b-540f-8424-e34df6867b01",
+            "2021-08-30 00:50:33",
+            "e7bb65ec-26fd-5d34-9d32-9c8004e17ae4",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:50:33",
+            "a13e2817-b15b-540f-8424-e34df6867b01",
+            "2021-08-30 00:50:34",
+            "aba97571-a0a0-5d30-bdd2-83db3f54f0a2",
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "2021-08-30 00:50:34",
+            "a13e2817-b15b-540f-8424-e34df6867b01",
+            "2021-08-30 00:50:35",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:50:35"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "14f9361b-131e-531d-91b5-b66148e9fb0e",
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "a7f78dfc-1f28-5281-8237-649e60f4e8f7",
+            "2021-08-30 00:50:36",
+            "2021-08-30 00:50:36"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`asset_id`, `coverage_id`, `created_at`, `id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "23e5f01f-fbae-5bec-beb9-7009943c0186",
+            "2021-08-30 00:50:37",
+            "463e4d76-8027-512d-8f77-af31891cb080",
+            "2021-08-30 00:50:37",
+            "33d080a9-af7e-47ca-9afc-7de11d7a7cbe",
+            "444fa102-ff0c-506a-8065-43b43997dccf",
+            "2021-08-30 00:50:38",
+            "a513a7fe-d457-5976-baa2-b77016718de3",
+            "2021-08-30 00:50:38"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "cfd57183-1c6c-5ca3-a812-2f69caf9b24c",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "2a2c776a-3d3c-5351-aae0-f6c8fc2a0a88",
+            null,
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "2021-09-04 12:06:25",
+            null,
+            "70",
+            1,
+            1,
+            "2021-08-30 00:50:40",
+            "2021-08-30 00:50:41",
+            "2021-08-30 00:50:41"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "Dannie Stamm",
+            "+13217372175",
+            null,
+            true,
+            "8a4d5f7d-bb6e-56a5-abb7-d0d4723d06c6",
+            "2021-08-30 00:50:42",
+            "2021-08-30 00:50:42"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8a4d5f7d-bb6e-56a5-abb7-d0d4723d06c6",
+            "2021-08-30 00:50:43",
+            "f53410e5-5586-5504-9d9d-fef142f446fc",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:50:43",
+            "8a4d5f7d-bb6e-56a5-abb7-d0d4723d06c6",
+            "2021-08-30 00:50:44",
+            "df727808-75c0-584b-906b-95ec63379b28",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:50:44"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "4d1955c9-0ccf-53e7-8f41-acd03510f1ea",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "c5993188-6d99-5297-a70c-0f7918254d8d",
+            "2021-08-30 00:50:45",
+            "2021-08-30 00:50:45"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6404014b-9c05-50f7-ad88-7122bb40b650",
+            "e87c18e7-caf6-4577-b1fe-5ca5ac5b0334",
+            "215c0c59-79ff-58a8-94bc-cc88bd221a2e",
+            "2021-08-30 00:50:46",
+            "2021-08-30 00:50:46"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "715216-l21"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "715216-L21",
+            null,
+            null,
+            "HP DL380p Gen8 E5-2670v2 FIO Kit",
+            "a6b6fabe-299e-51b9-8427-35c0dde23a54",
+            "2021-08-30 00:50:47",
+            "2021-08-30 00:50:47"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "05eb200f-fe19-55f5-9a6c-f256a9c5c0b1",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "a6b6fabe-299e-51b9-8427-35c0dde23a54",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "2021-09-05 03:01:04",
+            null,
+            "70",
+            2,
+            1,
+            "2021-08-30 00:50:49",
+            "2021-08-30 00:50:50",
+            "2021-08-30 00:50:50"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "Joshuah Howe",
+            "+16363646292",
+            null,
+            true,
+            "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34",
+            "2021-08-30 00:50:51",
+            "2021-08-30 00:50:51"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34",
+            "2021-08-30 00:50:52",
+            "86d3a7af-1ef8-5b93-81e9-5da026e10172",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:50:52",
+            "ae11ad3c-5fd6-5809-a4f5-b6ad17eaab34",
+            "2021-08-30 00:50:53",
+            "38720438-2184-5192-9eb5-e9b9a0c40f39",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:50:53"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "Myrtis Kertzmann",
+            "+18169290708",
+            null,
+            true,
+            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "2021-08-30 00:50:54",
+            "2021-08-30 00:50:54"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "c6a80813-a05c-5a0d-aed1-d272b00e6b1b",
+            "2021-08-30 00:50:55",
+            "2021-08-30 00:50:55"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "14f9361b-131e-531d-91b5-b66148e9fb0e",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "a4829470-3e2f-5434-9aee-73e3feda168a",
+            "2021-08-30 00:50:56",
+            "2021-08-30 00:50:56"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6404014b-9c05-50f7-ad88-7122bb40b650",
+            "a159098b-cea0-4a97-98f7-3b18fbb36311",
+            "c0ecca0c-a1ba-5b78-8af4-95b26efd3c12",
+            "2021-08-30 00:50:57",
+            "2021-08-30 00:50:57"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "e7y71a"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "E7Y71A",
+            null,
+            null,
+            "HP 3PAR 8000 SFF(2.5in) Fld Int Drv Encl",
+            "e1c8a96a-0b22-53af-a3a2-2c1f549102f4",
+            "2021-08-30 00:50:58",
+            "2021-08-30 00:50:58"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "05eb200f-fe19-55f5-9a6c-f256a9c5c0b1",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "e1c8a96a-0b22-53af-a3a2-2c1f549102f4",
+            null,
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "2021-09-05 00:56:30",
+            "2063dc25-6366-3f38-a0b6-8050d88889eb",
+            "130",
+            1,
+            1,
+            "2021-08-30 00:51:00",
+            "2021-08-30 00:51:01",
+            "2021-08-30 00:51:01"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "Alene Fay",
+            "+19069287541",
+            null,
+            true,
+            "633f4fa2-3a87-51c9-8bb8-33deab6be040",
+            "2021-08-30 00:51:02",
+            "2021-08-30 00:51:02"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "633f4fa2-3a87-51c9-8bb8-33deab6be040",
+            "2021-08-30 00:51:03",
+            "a0cb56a0-6393-5e0b-bd9e-f8370e6be143",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:51:03",
+            "633f4fa2-3a87-51c9-8bb8-33deab6be040",
+            "2021-08-30 00:51:04",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:51:04"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "14f9361b-131e-531d-91b5-b66148e9fb0e",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "b15d2f2b-47ef-5820-99ee-3067002a4a4b",
+            "2021-08-30 00:51:05",
+            "2021-08-30 00:51:05"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "6404014b-9c05-50f7-ad88-7122bb40b650",
+            "dd446309-f8fa-4c5e-952d-d335eaa08678",
+            "1546244d-ab5e-57b2-83aa-9616738f8b2e",
+            "2021-08-30 00:51:06",
+            "2021-08-30 00:51:06"
+        ]
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "conflict"
+        ]
+    },
+    {
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "CONFLICT",
+            "CONFLICT",
+            "aaf472e6-4361-5b4a-b398-b29de5c6a1ab",
+            "2021-08-30 00:51:08",
+            "2021-08-30 00:51:08"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "contract",
+            "assetwarranty"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "AssetWarranty",
+            "Contract",
+            "Contract",
+            "971ab876-65ad-52f8-a16e-ae7fc775f025",
+            "2021-08-30 00:51:13",
+            "2021-08-30 00:51:13"
+        ]
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "active",
+            "assetwarranty"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "AssetWarranty",
+            "Active",
+            "Active",
+            "143ebd35-7bca-5383-b2ce-4d9800b7850c",
+            "2021-08-30 00:51:14",
+            "2021-08-30 00:51:14"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "factorywarranty",
+            "assetwarranty"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "AssetWarranty",
+            "FactoryWarranty",
+            "FactoryWarranty",
+            "2b5cbd4b-4ac2-5beb-a551-a98aca365a0c",
+            "2021-08-30 00:51:17",
+            "2021-08-30 00:51:17"
+        ]
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "expired",
+            "assetwarranty"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "AssetWarranty",
+            "Expired",
+            "Expired",
+            "9a7aa783-3269-5138-b28d-9fe69e2901e9",
+            "2021-08-30 00:51:18",
+            "2021-08-30 00:51:18"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "05eb200f-fe19-55f5-9a6c-f256a9c5c0b1",
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "e1c8a96a-0b22-53af-a3a2-2c1f549102f4",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "2021-11-26 13:51:33",
+            "7e673c98-7427-3d37-8067-2ed0f3ad9924",
+            "130",
+            1,
+            2,
+            "2021-08-30 00:51:09",
+            "2024-10-24 00:00:00",
+            "2021-11-26 13:51:33",
+            "2021-08-30 00:51:23",
+            "2021-08-30 00:51:23"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "Prof. Greyson Wilderman",
+            "+14693222483",
+            null,
+            true,
+            "54674e53-4eac-5b5f-99ef-c672f867b7c9",
+            "2021-08-30 00:51:24",
+            "2021-08-30 00:51:24"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "54674e53-4eac-5b5f-99ef-c672f867b7c9",
+            "2021-08-30 00:51:25",
+            "d73f35c1-a10f-5d09-b4f7-cce73ed80cd2",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "2021-08-30 00:51:25",
+            "54674e53-4eac-5b5f-99ef-c672f867b7c9",
+            "2021-08-30 00:51:26",
+            "cab40471-b1ab-5bd0-8aef-6f01e42fd188",
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
+            "2021-08-30 00:51:26",
+            "54674e53-4eac-5b5f-99ef-c672f867b7c9",
+            "2021-08-30 00:51:27",
+            "7cecb585-147f-5e46-8b47-44f0cf9b7c22",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:51:27"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "14f9361b-131e-531d-91b5-b66148e9fb0e",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "904d104b-dc74-5fe4-9693-299e6be66634",
+            "2021-08-30 00:51:28",
+            "2021-08-30 00:51:28"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`asset_id`, `coverage_id`, `created_at`, `id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
+        "bindings": [
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "6404014b-9c05-50f7-ad88-7122bb40b650",
+            "2021-08-30 00:51:29",
+            "a1f37b4b-93ab-5fa6-a024-40ec7c4a01b6",
+            "2021-08-30 00:51:29",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "aaf472e6-4361-5b4a-b398-b29de5c6a1ab",
+            "2021-08-30 00:51:30",
+            "635c55a8-d0f8-50f3-a03a-1929a963c62f",
+            "2021-08-30 00:51:30"
+        ]
+    },
+    {
+        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "2021-08-30 00:51:31",
+            null,
+            "H2T12AC-HPE Complete Care SVC",
+            null,
+            null,
+            "2024-10-24 00:00:00",
+            "d1e686b9-6792-56a8-89cb-63252ef47e19",
+            null,
+            null,
+            "2016-10-25 00:00:00",
+            "143ebd35-7bca-5383-b2ce-4d9800b7850c",
+            "971ab876-65ad-52f8-a16e-ae7fc775f025",
+            "2021-08-30 00:51:31",
+            "badee429-473d-4f23-9d1a-ea2b13276596",
+            "2021-08-30 00:51:32",
+            null,
+            "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+            null,
+            null,
+            "2019-11-13 00:00:00",
+            "df1adce3-a5eb-5ec0-bc34-2f958862bbbc",
+            null,
+            null,
+            "2016-10-15 00:00:00",
+            "9a7aa783-3269-5138-b28d-9fe69e2901e9",
+            "2b5cbd4b-4ac2-5beb-a551-a98aca365a0c",
+            "2021-08-30 00:51:32"
+        ]
+    },
+    {
+        "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "835955-b21"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "835955-B21",
+            null,
+            null,
+            "",
+            "715ea868-8a95-5cbc-b70f-95041e6febd7",
+            "2021-08-30 00:51:33",
+            "2021-08-30 00:51:33"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "622403ca-1bcb-4268-86ef-98c559ba3767",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            null,
+            "184dfd68-7ed0-5293-8b64-2bd4cbc376a4",
+            "715ea868-8a95-5cbc-b70f-95041e6febd7",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            null,
+            "2022-01-24 09:14:38",
+            "8cdf3a44-5e6c-3e22-b489-ad95fbe0e5c9",
+            "80",
+            0,
+            0,
+            "2021-08-30 00:51:35",
+            "2021-08-30 00:51:36",
+            "2021-08-30 00:51:36"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?, ?, ?, ?, ?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "bindings": [
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "update `resellers` set `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:51:37",
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:51:45",
+            "fa63e851-a59a-530f-803c-30b6c453b197"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:51:53",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            2,
+            "2021-08-30 00:52:01",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:52:09",
+            "1491eeab-34c1-5fed-84a1-41d44123ac21"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:52:17",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558"
+        ]
+    },
+    {
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:52:25",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "6811b90c-c34b-5e88-9e0c-9b35a99740d1",
+            0,
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "2021-08-30 00:52:25"
+        ]
+    },
+    {
+        "query": "update `resellers` set `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:52:27",
+            "6130ff7e-b429-49cd-aef6-225735195e16"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:52:35",
+            "8f518e3e-4280-5eb7-815c-f6363e07cad0"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:52:43",
+            "714aa057-1ea0-4666-b3be-4b69af99e997"
+        ]
+    },
+    {
+        "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            3,
+            "2021-08-30 00:52:51",
+            "714aa057-1ea0-4666-b3be-4b69af99e997"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:52:59",
+            "12772d57-df6b-53ac-8707-ea4125b6ab0f"
+        ]
+    },
+    {
+        "query": "update `resellers` set `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:53:07",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:53:15",
+            "5b41ecb3-04cf-53f2-ab48-c56d0f61c2c6"
+        ]
+    },
+    {
+        "query": "update `resellers` set `assets_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:53:23",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            1,
+            "2021-08-30 00:53:31",
+            "c242aee0-0cc7-5864-873d-210765c03e38"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`deleted_at` is null and `customer_statuses`.`customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `customer_id`, count(*) as count from `assets` where `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `customer_id`",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `customer_id`, `location_id`, count(*) as count from `assets` where `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `customer_id`, `location_id`",
+        "bindings": [
+            "1af616b9-337f-444c-8b55-b590520cc393",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616",
+            "b126338b-539c-4aba-936d-f02cd30bde5e",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+            "c2e2afee-820b-409e-a0a7-18084c520461",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:53:39",
+            "806395b2-ae5e-58af-8b67-dc4208c79f40"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:53:47",
+            "1af616b9-337f-444c-8b55-b590520cc393"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:53:55",
+            "d35b40fd-e2a0-558b-91e9-36dd9e8df253"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:03",
+            "9d286986-02ac-4bb7-916e-4aec04fa2616"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:11",
+            "ef9e946b-406a-5a93-b2fe-5339c7dee306"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:19",
+            "b126338b-539c-4aba-936d-f02cd30bde5e"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:27",
+            "e0f59ff6-f76d-5894-b8c9-073de9f1c317"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:35",
+            "b7be7bdf-4028-40ea-aa82-43092e35cddf"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:43",
+            "c1adb773-0304-4cb0-b9e4-0a05ce3795d7"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:51",
+            "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:59",
+            "c2e2afee-820b-409e-a0a7-18084c520461"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:07",
+            "a68f57e0-4264-5049-a48e-f3c87edadcac"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:15",
+            "c30bd2df-5547-4967-bdc8-e14d5a8c92da"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:23",
+            "ee77a04d-6088-54b2-b132-ecf1227d730c"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:31",
+            "ee15ee71-3149-4b49-a9b0-7e23a2655d26"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:39",
+            "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:47",
+            "ef62f437-7ac5-423e-8081-9e8738c0a08a"
+        ]
+    },
+    {
+        "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:55",
+            "3a67ef93-5b75-5154-88df-109772c682b5"
+        ]
+    },
+    {
+        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:03",
+            "f4e4fe62-0514-4319-8bcc-2727a36b93d9"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7",
+            "17c73208-742c-50da-93c7-93a514201fee",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "86029556-8178-5562-a35b-d78c0a766e70",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:11",
+            "1f3112ee-1d17-5301-8abc-630ed1e4c61c"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:19",
+            "179bad9d-ee3f-5ec6-a3c6-c22fb2fc26d7"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "17c73208-742c-50da-93c7-93a514201fee"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "17c73208-742c-50da-93c7-93a514201fee"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:27",
+            "f329b9fa-9c79-56cb-9a6c-d80d76a737cf",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
+            "6130ff7e-b429-49cd-aef6-225735195e16",
+            "2021-08-30 00:56:27"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:29",
+            "a916f797-9a7d-544b-b1be-e28aa5a704de"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:37",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:45",
+            "a5135b75-b2e0-5665-bed6-e539c35d4765"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:56:53",
+            "5a82ae22-db37-5649-9862-3eda26aa6fd2"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:01",
+            "bdce6972-edd2-58b6-bc0e-417215c0711d",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
+            "2021-08-30 00:57:01"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:03",
+            "7e7560b4-4b5d-5c91-b834-8c5f8fc36b01"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:11",
+            "7d46364a-8d09-527a-aeb9-793da5e1cb3c"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "86029556-8178-5562-a35b-d78c0a766e70"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "86029556-8178-5562-a35b-d78c0a766e70"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "863f844b-efde-5781-a57c-0d127a496cfe"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "863f844b-efde-5781-a57c-0d127a496cfe"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:19",
+            "fcac4aea-82ed-5afa-92ad-20282f539709",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+            "2021-08-30 00:57:19"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:21",
+            "3a2648a5-4822-525d-8f45-9a29667bede6"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:29",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:37",
+            "d473e847-27b3-5a2f-b31d-d2b6ef6154a9",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43",
+            "7644c606-eb4e-47e3-b6c9-fb99964905c2",
+            "2021-08-30 00:57:37"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:39",
+            "97af097b-d955-53ab-aa10-9dee7cf231bc"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:47",
+            "a118a331-46c6-5587-8e4c-193fbb6a0f43"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:55",
+            "6ec86c5e-ca6d-5435-8648-391af96c3b91",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
+            "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+            "2021-08-30 00:57:55"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:57:57",
+            "6da0dd01-5e79-55d7-80d6-4a5d44b5ac7c"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:58:05",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:58:13",
+            "cb80e46f-f22b-5e2d-961e-8d55c315edd5"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:58:21",
+            "ba394e52-e076-5ace-bb0b-adf7c17178e3"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "bindings": [
+            1,
+            "2021-08-30 00:58:29",
+            "fb82bcd9-daa4-5103-9bbf-18827c2a04c5",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+            "2021-08-30 00:58:29"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:58:31",
+            "c476ad6c-1f67-592f-8849-e0954a66b3e1"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:58:39",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    }
+]
