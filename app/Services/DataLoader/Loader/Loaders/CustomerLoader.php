@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loader\Loaders;
 
-use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
@@ -18,6 +17,11 @@ use DateTimeInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @template TOwner of \App\Models\Customer
+ *
+ * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+ */
 class CustomerLoader extends Loader implements LoaderRecalculable {
     use WithWarrantyCheck;
     use WithAssets;
@@ -68,10 +72,8 @@ class CustomerLoader extends Loader implements LoaderRecalculable {
             ->setCustomerId($owner->getKey());
     }
 
-    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): ?Builder {
-        return $owner instanceof Customer
-            ? $owner->assets()->where('synced_at', '<', $datetime)->getQuery()
-            : null;
+    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
+        return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
     }
     // </editor-fold>
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loader\Loaders;
 
-use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
@@ -17,6 +16,11 @@ use DateTimeInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @template TOwner of \App\Models\Reseller
+ *
+ * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+ */
 class ResellerLoader extends Loader implements LoaderRecalculable {
     use WithAssets;
 
@@ -62,10 +66,8 @@ class ResellerLoader extends Loader implements LoaderRecalculable {
             ->setResellerId($owner->getKey());
     }
 
-    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): ?Builder {
-        return $owner instanceof Reseller
-            ? $owner->assets()->where('synced_at', '<', $datetime)->getQuery()
-            : null;
+    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
+        return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
     }
     // </editor-fold>
 }

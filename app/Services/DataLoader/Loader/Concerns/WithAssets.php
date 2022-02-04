@@ -10,18 +10,20 @@ use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
-use App\Services\DataLoader\Loader\Loaders\AssetLoader;
+use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Eloquent\Model;
+use App\Utils\Iterators\EloquentIterator;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
-use Throwable;
 
 /**
+ * @template TOwner of \App\Utils\Eloquent\Model
+ *
  * @mixin \App\Services\DataLoader\Loader\Loader
  */
 trait WithAssets {
@@ -38,7 +40,6 @@ trait WithAssets {
         protected CustomerFactory $customerFactory,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
-        protected AssetLoader $assetLoader,
         protected DocumentFactory $documentFactory,
     ) {
         parent::__construct($container, $exceptionHandler, $client);
@@ -64,6 +65,9 @@ trait WithAssets {
         return $this;
     }
 
+    /**
+     * @param TOwner $owner
+     */
     protected function loadAssets(Model $owner): bool {
         // Update assets
         $date = Date::now();
@@ -73,35 +77,37 @@ trait WithAssets {
             ->setWithDocuments($this->isWithAssetsDocuments())
             ->setFrom(null)
             ->setLimit(null)
+            ->setChunkSize(null)
             ->start();
 
         // Update missed
-        $loader   = $this->getAssetLoader();
-        $iterator = $this->getMissedAssets($owner, $date)?->getChangeSafeIterator() ?? [];
+        $iterator = $this->getMissedAssets($owner, $date)->getChangeSafeIterator();
+        $iterator = new EloquentIterator($iterator);
 
-        foreach ($iterator as $missed) {
-            /** @var \App\Models\Asset $missed */
-            try {
-                $loader->update($missed->getKey());
-            } catch (Throwable $exception) {
-                $this->getExceptionHandler()->report($exception);
-            }
-        }
+        $this
+            ->getContainer()
+            ->make(AssetsIteratorImporter::class)
+            ->setIterator($iterator)
+            ->setFrom(null)
+            ->setLimit(null)
+            ->setChunkSize(null)
+            ->start();
 
         // Return
         return true;
     }
 
+    /**
+     * @param TOwner $owner
+     */
     abstract protected function getAssetsImporter(Model $owner): AssetsImporter;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>|null
+     * @param TOwner $owner
+     *
+     * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>
      */
-    abstract protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): ?Builder;
-
-    protected function getAssetLoader(): AssetLoader {
-        return $this->assetLoader;
-    }
+    abstract protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder;
 
     protected function getResellersFactory(): ResellerFactory {
         return $this->resellerFactory;

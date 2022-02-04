@@ -610,7 +610,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `synced_at` < ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 1000 offset 0",
+        "query": "select `assets`.* from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `synced_at` < ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 250 offset 0",
         "bindings": [
             "15c8acb6-b191-46a2-8921-243282eeed54",
             "2021-08-30T00:06:23+00:00"
