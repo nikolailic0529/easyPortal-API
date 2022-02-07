@@ -69,7 +69,7 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function onBeforeChunk(?Closure $closure): static {
-        $this->iterator->onAfterChunk($this->wrapClosure($closure));
+        $this->iterator->onBeforeChunk($this->wrapClosure($closure));
 
         return $this;
     }
