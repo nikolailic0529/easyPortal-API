@@ -32,7 +32,6 @@ use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
-use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DateTime;
 use App\Services\Settings\Types\DocumentType;
