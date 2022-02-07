@@ -25,10 +25,11 @@ use Illuminate\Support\Facades\Date;
 use Throwable;
 
 use function array_diff;
+use function array_merge;
 use function in_array;
 
 /**
- * @extends \App\Utils\Processor\Processor<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Importer\UsersImporterChunkData>
+ * @extends \App\Utils\Processor\Processor<\App\Services\KeyCloak\Client\Types\User,\App\Services\KeyCloak\Importer\UsersImporterChunkData,\App\Services\KeyCloak\Importer\UsersImporterState>
  */
 class UsersImporter extends Processor {
     public function __construct(
@@ -48,15 +49,15 @@ class UsersImporter extends Processor {
         return $this->client;
     }
 
-    protected function getTotal(): ?int {
+    protected function getTotal(State $state): ?int {
         return $this->getClient()->usersCount();
     }
 
-    protected function getIterator(): ObjectIterator {
+    protected function getIterator(State $state): ObjectIterator {
         return $this->getClient()->getUsersIterator();
     }
 
-    protected function report(Throwable $exception, mixed $item): void {
+    protected function report(Throwable $exception, mixed $item = null): void {
         if (!($exception instanceof FailedToImport)) {
             $exception = new FailedToImportObject($item, $exception);
         }
@@ -72,10 +73,11 @@ class UsersImporter extends Processor {
     }
 
     /**
+     * @param \App\Services\KeyCloak\Importer\UsersImporterState     $state
      * @param \App\Services\KeyCloak\Importer\UsersImporterChunkData $data
      * @param \App\Services\KeyCloak\Client\Types\User               $item
      */
-    protected function process(mixed $data, mixed $item): void {
+    protected function process(State $state, mixed $data, mixed $item): void {
         // User
         $user    = $this->getUser($data, $item);
         $another = $data->getUserByEmail($item->email);
@@ -113,6 +115,9 @@ class UsersImporter extends Processor {
         $user->save();
     }
 
+    /**
+     * @param \App\Services\KeyCloak\Importer\UsersImporterState $state
+     */
     protected function finish(State $state): void {
         // Remove deleted users
         if ($state->overall && $state->failed === 0) {
@@ -228,5 +233,21 @@ class UsersImporter extends Processor {
 
     protected function deleteUser(User $user): void {
         $user->delete();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return parent::defaultState(array_merge($state, [
+            'overall' => $state['limit'] === null && $state['offset'] === null,
+        ]));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new UsersImporterState($state);
     }
 }

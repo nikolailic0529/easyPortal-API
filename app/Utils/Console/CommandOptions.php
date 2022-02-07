@@ -2,38 +2,48 @@
 
 namespace App\Utils\Console;
 
+use function is_bool;
+use function ltrim;
+
 /**
  * @see \App\Utils\Console\WithBooleanOptions
  */
 trait CommandOptions {
     /**
-     * @param array<string,mixed> $params
-     * @param array<string,?bool> $options
+     * @param array<string,mixed> $options
      *
      * @return array<string,mixed>
      */
-    protected function setBooleanOptions(array $params, array $options): array {
+    protected function getOptions(array $options): array {
+        $processed = [];
+
         foreach ($options as $name => $value) {
-            $params = $this->setBooleanOption($params, $name, $value);
-        }
-
-        return $params;
-    }
-
-    /**
-     * @param array<string,mixed> $params
-     *
-     * @return array<string,mixed>
-     */
-    protected function setBooleanOption(array $params, string $name, ?bool $value): array {
-        if ($value !== null) {
-            if ($value) {
-                $params["--{$name}"] = true;
+            if (is_bool($value)) {
+                $processed = $this->setBooleanOption($processed, $name, $value);
+            } elseif ($value !== null) {
+                $processed[$name] = $value;
             } else {
-                $params["--no-{$name}"] = true;
+                // empty
             }
         }
 
-        return $params;
+        return $processed;
+    }
+
+    /**
+     * @param array<string,mixed> $options
+     *
+     * @return array<string,mixed>
+     */
+    protected function setBooleanOption(array $options, string $name, bool $value): array {
+        $name = ltrim($name, '-');
+
+        if ($value) {
+            $options["--{$name}"] = true;
+        } else {
+            $options["--no-{$name}"] = true;
+        }
+
+        return $options;
     }
 }

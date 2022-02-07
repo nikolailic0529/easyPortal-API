@@ -1,0 +1,40 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "622403ca-1bcb-4268-86ef-98c559ba3767"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "622403ca-1bcb-4268-86ef-98c559ba3767",
+                    "resellerId": "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+                    "customerId": "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
+                    "serialNumber": "8cdf3a44-5e6c-3e22-b489-ad95fbe0e5c9",
+                    "productDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "835955-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "",
+                    "city": "",
+                    "address": "",
+                    "address2": null,
+                    "country": "",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1643015678098",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "latestContactPersons": null,
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -13,7 +13,7 @@ class BrandingData extends Type {
     public ?string $resellerAnalyticsCode;
     public ?string $brandingMode;
     public ?string $mainImageOnTheRight;
-    public ?string $mainHeadingText;
-    public ?string $underlineText;
+    public ?string $mainHeadingText = null;
+    public ?string $underlineText   = null;
     public ?string $logoUrl;
 }

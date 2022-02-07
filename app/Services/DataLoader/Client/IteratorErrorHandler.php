@@ -17,24 +17,24 @@ use Throwable;
 trait IteratorErrorHandler {
     /**
      * @param \App\Services\DataLoader\Client\Query<V> $query
-     * @param \Closure(mixed $item): T                 $retriever
+     * @param \Closure(mixed $item): T                 $converter
      */
     public function __construct(
         protected ExceptionHandler $handler,
         protected Query $query,
-        ?Closure $retriever = null,
+        ?Closure $converter = null,
     ) {
-        parent::__construct(Closure::fromCallable($this->query), $retriever);
+        parent::__construct(Closure::fromCallable($this->query), $converter);
     }
 
     /**
-     * @param \Closure(mixed $item): T $retriever
+     * @param T $item
      *
-     * @return T
+     * @return V
      */
-    protected function chunkPrepareItem(Closure $retriever, mixed $item): mixed {
+    protected function chunkConvertItem(mixed $item): mixed {
         try {
-            return parent::chunkPrepareItem($retriever, $item);
+            return parent::chunkConvertItem($item);
         } catch (GraphQLRequestFailed $exception) {
             throw $exception;
         } catch (Throwable $exception) {

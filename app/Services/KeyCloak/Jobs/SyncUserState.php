@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak\Jobs;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class SyncUserState extends JsonObject {
     public ?string $continue  = null;

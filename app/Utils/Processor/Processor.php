@@ -14,7 +14,6 @@ use App\Utils\Iterators\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Date;
 use Laravel\Telescope\Telescope;
 use LastDragon_ru\LaraASP\Core\Observer\Subject;
 use LogicException;
@@ -150,9 +149,12 @@ abstract class Processor {
         });
     }
 
+    /**
+     * @param TState $state
+     */
     protected function run(State $state): void {
         $data     = null;
-        $iterator = $this->getIterator()
+        $iterator = $this->getIterator($state)
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
@@ -160,19 +162,19 @@ abstract class Processor {
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
                 $data = $this->prefetch($state, $items);
 
-                $this->chunkLoaded($state, $items);
+                $this->chunkLoaded($state, $items, $data);
             })
             ->onAfterChunk(function (array $items) use ($state, &$data): void {
-                $data = null;
+                $this->chunkProcessed($state, $items, $data);
 
-                $this->chunkProcessed($state, $items);
+                $data = null;
             });
 
         $this->init($state);
 
         foreach ($iterator as $item) {
             try {
-                $this->process($data, $item);
+                $this->process($state, $data, $item);
 
                 $state->success++;
             } catch (Throwable $exception) {
@@ -189,20 +191,29 @@ abstract class Processor {
         $this->finish($state);
     }
 
-    abstract protected function getTotal(): ?int;
-
-    abstract protected function getIterator(): ObjectIterator;
+    /**
+     * @param TState $state
+     */
+    abstract protected function getTotal(State $state): ?int;
 
     /**
+     * @param TState $state
+     *
+     * @return \App\Utils\Iterators\ObjectIterator<TItem>
+     */
+    abstract protected function getIterator(State $state): ObjectIterator;
+
+    /**
+     * @param TState          $state
      * @param TChunkData|null $data
      * @param TItem           $item
      */
-    abstract protected function process(mixed $data, mixed $item): void;
+    abstract protected function process(State $state, mixed $data, mixed $item): void;
 
     /**
      * @param TItem|null $item
      */
-    abstract protected function report(Throwable $exception, mixed $item): void;
+    abstract protected function report(Throwable $exception, mixed $item = null): void;
 
     /**
      * @param TState       $state
@@ -218,7 +229,7 @@ abstract class Processor {
     /**
      * @param \Closure(TState)|null $closure
      *
-     * @return $this<TItem, TState>
+     * @return $this<TItem, TChunkData, TState>
      */
     public function onInit(?Closure $closure): static {
         if ($closure) {
@@ -240,7 +251,7 @@ abstract class Processor {
     /**
      * @param \Closure(TState, array<TItem>)|null $closure
      *
-     * @return $this<TItem, TState>
+     * @return $this<TItem, TChunkData, TState>
      */
     public function onChange(?Closure $closure): static {
         if ($closure) {
@@ -262,7 +273,7 @@ abstract class Processor {
     /**
      * @param \Closure(TState)|null $closure
      *
-     * @return $this<TItem, TState>
+     * @return $this<TItem, TChunkData, TState>
      */
     public function onFinish(?Closure $closure): static {
         if ($closure) {
@@ -297,24 +308,26 @@ abstract class Processor {
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function chunkLoaded(State $state, array $items): void {
+    protected function chunkLoaded(State $state, array $items, mixed $data): void {
         // empty
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function chunkProcessed(State $state, array $items): void {
+    protected function chunkProcessed(State $state, array $items, mixed $data): void {
         // Update state
         $this->saveState($state);
 
         // Notify
         $this->notifyOnChange($state);
-        $this->dispatchOnChange($state, $items);
+        $this->dispatchOnChange($state, $items, $data);
 
         // Stopped?
         if ($this->stopped) {
@@ -323,11 +336,12 @@ abstract class Processor {
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function dispatchOnChange(State $state, array $items): void {
-        $event = $this->getOnChangeEvent($state, $items);
+    protected function dispatchOnChange(State $state, array $items, mixed $data): void {
+        $event = $this->getOnChangeEvent($state, $items, $data);
 
         if ($event) {
             $this->getDispatcher()->dispatch($event);
@@ -335,10 +349,11 @@ abstract class Processor {
     }
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
+     * @param TState          $state
+     * @param array<TItem>    $items
+     * @param TChunkData|null $data
      */
-    protected function getOnChangeEvent(State $state, array $items): ?object {
+    protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
         return null;
     }
     // </editor-fold>
@@ -349,8 +364,14 @@ abstract class Processor {
      * @return TState|null
      */
     public function getState(): ?State {
-        return $this->getService()?->get($this->getCacheKey(), function (array $state): State {
-            return $this->restoreState($state);
+        return $this->getService()?->get($this->getCacheKey(), function (array $state): ?State {
+            try {
+                return $this->restoreState($state);
+            } catch (Throwable $exception) {
+                $this->report($exception);
+            }
+
+            return null;
         });
     }
 
@@ -358,24 +379,27 @@ abstract class Processor {
      * @return TState
      */
     protected function getDefaultState(): State {
+        // State
         $limit  = $this->getLimit();
-        $total  = $this->getTotal();
         $offset = $this->getOffset();
+        $state  = $this->restoreState($this->defaultState([
+            'index'  => 0,
+            'limit'  => $limit,
+            'offset' => $offset,
+        ]));
+
+        // Total
+        $total        = $this->getTotal($state);
+        $state->total = $total;
 
         if ($limit !== null && $total !== null) {
-            $total = min($limit, $total);
+            $state->total = min($limit, $total);
         } else {
-            $total ??= $limit;
+            $state->total ??= $limit;
         }
 
-        return new State([
-            'index'   => 0,
-            'limit'   => $limit,
-            'total'   => $total,
-            'offset'  => $offset,
-            'started' => Date::now(),
-            'overall' => $limit === null && $offset === null,
-        ]);
+        // Return
+        return $state;
     }
 
     /**
@@ -387,6 +411,15 @@ abstract class Processor {
 
     protected function resetState(): void {
         $this->getService()?->delete($this->getCacheKey());
+    }
+
+    /**
+     * @param array<mixed> $state
+     *
+     * @return array<mixed>
+     */
+    protected function defaultState(array $state): array {
+        return $state;
     }
 
     /**

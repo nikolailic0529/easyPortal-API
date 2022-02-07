@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importers\DistributorsImporter;
+use App\Services\DataLoader\Importer\Importers\DistributorsImporter;
 
 class ImportDistributors extends Import {
     /**

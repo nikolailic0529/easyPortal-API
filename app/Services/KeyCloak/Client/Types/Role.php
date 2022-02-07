@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak\Client\Types;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class Role extends JsonObject {
     public string  $id;

@@ -1,0 +1,83 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "ddf6df32-76f3-4122-9ad9-c537caf7ec05"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+                    "name": "Reynolds-O'Kon",
+                    "updatedAt": "1643277306638",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "13874",
+                            "address": "196 Sasha Gateway",
+                            "city": "West Rupertborough",
+                            "locationType": "HEADQUARTER",
+                            "country": "Niue",
+                            "latitude": "56.530447",
+                            "longitude": "-107.226505",
+                            "countryCode": "PK"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#1876BD",
+                        "secondaryColor": null,
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": "false",
+                        "mainImageOnTheRight": null,
+                        "mainHeadingText": null,
+                        "underlineText": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/00dd99?text=eius"
+                    },
+                    "companyKpis": {
+                        "totalAssets": 21691,
+                        "activeAssets": 3695,
+                        "activeAssetsPercentage": 17.034714858697157,
+                        "activeCustomers": 106,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 68,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 1,
+                        "activeQuotes": 59,
+                        "activeQuotesTotalAmount": 7724.9,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 20,
+                        "expiredQuotes": 208,
+                        "expiredContracts": 23,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

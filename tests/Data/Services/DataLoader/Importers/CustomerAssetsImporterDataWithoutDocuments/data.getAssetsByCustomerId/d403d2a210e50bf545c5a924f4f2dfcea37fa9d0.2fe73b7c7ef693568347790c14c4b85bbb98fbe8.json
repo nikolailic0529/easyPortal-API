@@ -1,0 +1,527 @@
+{
+    "selector": "data.getAssetsByCustomerId",
+    "graphql": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByCustomerId(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+        "from": null,
+        "lastId": "d840531e-af40-4b94-a2cc-2abb96905da9",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getAssetsByCustomerId": [
+                {
+                    "id": "da818d1f-66ca-41ca-8b35-c7235acf59e4",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "331e5a1f-f9a7-304b-b85f-14d618284e1a",
+                    "productDescription": "HPE Smart Array E208i-p SR Gen10 Ctrlr",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "804394-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129803418",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "dd4edf61-bfe5-4df1-b746-a1d84fedc3dc",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "b0318abb-9cd5-39a1-b8b8-2ea85a1d17f1",
+                    "productDescription": "HPE ML110 Gen10 8SFF CTO Server",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "872309-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129803887",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "e053343a-fd6d-48d5-91da-571f2637b947",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "b93dd6d0-2503-3d39-b0e6-facc0621dc4c",
+                    "productDescription": "HPE ML110 Gen10 Xeon-S 4108 FIO Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "876917-L21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129804246",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "e46d6644-eb36-4774-b721-c6ea5fad9570",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "0af84917-c511-33c1-979f-773da726e93b",
+                    "productDescription": "HPE ML110 Gen10 8SFF CTO Server",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "872309-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129804980",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "e778c7e1-bebf-4103-abe5-d2c8b252978b",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "f67aa279-2c9f-3c6d-a6d6-642ca81cb519",
+                    "productDescription": "HPE Smart Array E208i-p SR Gen10 Ctrlr",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "804394-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129805359",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1637938974076",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-11-16",
+                                "coverageEndDate": "2022-11-15",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-11-08",
+                                "coverageEndDate": "2021-12-07",
+                                "type": "FactoryWarranty",
+                                "status": "Expiring",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "edb558aa-df7d-41ec-a029-263e00c3a193",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "7133cc3b-716d-3816-b681-dbaeac5909e3",
+                    "productDescription": "HPE Smart Array E208i-p SR Gen10 Ctrlr",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "804394-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129810996",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "eefee879-90f7-4063-9b12-9f2af8683764",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "dfb0b148-5042-312e-9b85-79c1ca24805b",
+                    "productDescription": "HPE ML110 Gen10 8SFF CTO Server",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "872309-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129811293",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "ef66d515-0f3f-4767-907d-05f71d70c755",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "6ea66f59-d49b-3d48-b0da-1dc278ae4268",
+                    "productDescription": "HPE Smart Array E208i-p SR Gen10 Ctrlr",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "804394-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129811340",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "f7b72f3e-1ba8-42f1-914a-8f10c0603ef0",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "8fd77814-a9b6-3447-95b7-23202fcfa007",
+                    "productDescription": "HPE ML110 Gen10 RPS Enablement Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "867875-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129812262",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "fa65546b-1fc0-42d3-9c67-bce16def0805",
+                    "resellerId": null,
+                    "customerId": "45e660e4-a10d-49a5-ab47-d9e2c8aa44fe",
+                    "serialNumber": "d730dac0-de7c-326e-a773-c9f16e4e1df1",
+                    "productDescription": "HPE ML110 Gen10 RPS Enablement Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "867875-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "40582",
+                    "city": "Wolffburgh",
+                    "address": "806 Kayla Haven Suite 689",
+                    "address2": "",
+                    "country": "Pakistan",
+                    "latitude": "-80.471901",
+                    "longitude": "-95.207097",
+                    "countryCode": "BM",
+                    "status": "ACTIVE",
+                    "updatedAt": "1639129814215",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Caitlyn Lueilwitz PhD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

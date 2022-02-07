@@ -2,7 +2,7 @@
 
 namespace App\Services\Queue;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class QueueJob extends JsonObject {
     public const STATUS_FAILED    = 'failed';

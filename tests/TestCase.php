@@ -38,6 +38,7 @@ abstract class TestCase extends BaseTestCase {
     use Override;
     use FakeDisks;
     use WithTempFile;
+    use WithEvents;
 
     /**
      * @var array<string>

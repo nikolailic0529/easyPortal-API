@@ -9,7 +9,7 @@ use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\Document;
@@ -277,19 +277,25 @@ class Client {
     /**
      * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null, string $lastId = null): ObjectIterator {
+    public function getAssetsByCustomerId(
+        string $id,
+        DateTimeInterface $from = null,
+        int $limit = null,
+        string $lastId = null,
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByCustomerId',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String) {
-                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId) {
+                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getAssetRetriever(),
             )
@@ -302,6 +308,7 @@ class Client {
      */
     public function getAssetsByCustomerIdWithDocuments(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
@@ -309,15 +316,16 @@ class Client {
             ->getLastIdBasedIterator(
                 'getAssetsByCustomerId',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String) {
-                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId) {
+                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                         {$this->getAssetDocumentsPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getAssetRetriever(),
             )
@@ -328,19 +336,25 @@ class Client {
     /**
      * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByResellerId(string $id, int $limit = null, string $lastId = null): ObjectIterator {
+    public function getAssetsByResellerId(
+        string $id,
+        DateTimeInterface $from = null,
+        int $limit = null,
+        string $lastId = null,
+    ): ObjectIterator {
         return $this
             ->getLastIdBasedIterator(
                 'getAssetsByResellerId',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String) {
-                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId) {
+                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getAssetRetriever(),
             )
@@ -353,6 +367,7 @@ class Client {
      */
     public function getAssetsByResellerIdWithDocuments(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
@@ -360,15 +375,16 @@ class Client {
             ->getLastIdBasedIterator(
                 'getAssetsByResellerId',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String) {
-                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId) {
+                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                         {$this->getAssetDocumentsPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getAssetRetriever(),
             )
@@ -582,9 +598,9 @@ class Client {
     // =========================================================================
     public function isEnabled(): bool {
         return $this->config->get('ep.data_loader.enabled')
-               && $this->config->get('ep.data_loader.url')
-               && $this->config->get('ep.data_loader.client_id')
-               && $this->config->get('ep.data_loader.client_secret');
+            && $this->config->get('ep.data_loader.url')
+            && $this->config->get('ep.data_loader.client_id')
+            && $this->config->get('ep.data_loader.client_secret');
     }
 
     /**
@@ -918,12 +934,10 @@ class Client {
                 favIconUrl
                 logoUrl
                 mainColor
-                mainHeadingText
                 mainImageOnTheRight
                 resellerAnalyticsCode
                 secondaryColor
                 secondaryColorDefault
-                underlineText
                 useDefaultFavIcon
             }
             GRAPHQL;

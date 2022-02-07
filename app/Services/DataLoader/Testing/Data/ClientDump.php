@@ -6,12 +6,11 @@ use App\Services\DataLoader\Schema\CentralAssetDbStatistics;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Utils\JsonObject;
-use CallbackFilterIterator;
+use App\Utils\JsonObject\JsonObject;
+use App\Utils\JsonObject\JsonObjectIterator;
 use Exception;
 use Generator;
 use Illuminate\Support\Arr;
-use RecursiveIteratorIterator;
 
 use function array_slice;
 use function explode;
@@ -66,15 +65,7 @@ class ClientDump extends JsonObject {
             $data = [$data];
         }
 
-        yield from new CallbackFilterIterator(
-            new RecursiveIteratorIterator(
-                new RecursiveJsonObjectsIterator($data),
-                RecursiveIteratorIterator::SELF_FIRST,
-            ),
-            static function (mixed $current): bool {
-                return is_object($current);
-            },
-        );
+        yield from new JsonObjectIterator($data);
 
         if ($save) {
             Arr::set($this->response, $selector, $data);

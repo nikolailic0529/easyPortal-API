@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth\Organization;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 
 class AuthorizeInput extends JsonObject {
     public string $code;

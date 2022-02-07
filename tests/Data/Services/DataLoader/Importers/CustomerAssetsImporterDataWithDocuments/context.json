@@ -1,0 +1,20 @@
+{
+    "generated": "2022-02-03T10:35:27+00:00",
+    "distributors": [
+        "143c456a-e894-4710-a1c2-745b9582ca47"
+    ],
+    "resellers": [
+        "561b9925-3781-46d7-a734-78efad4f5ae6",
+        "cd296e3f-5677-4f25-a127-0414dadc5121",
+        "9ae9b76a-eedb-47f4-b6bc-f7593e147621"
+    ],
+    "customers": [
+        "ee7b146b-181b-4339-a3c5-2e1d8a81383e",
+        "3e188912-729d-43c4-afb4-1b08962061e4"
+    ],
+    "oems": "oem.csv",
+    "types": [
+        "Delivery contract",
+        "Quote renewal"
+    ]
+}

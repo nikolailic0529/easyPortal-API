@@ -1,0 +1,145 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
+                    "resellerId": "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+                    "customerId": "7285fa8e-9901-4207-b367-7988d1f185a2",
+                    "serialNumber": "47aa702f-a0ba-3738-920f-ed15dcb8fb5d",
+                    "productDescription": "HP 3PAR 7000 4-pt 8Gb/s FC Adapter",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "QR486A",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "08593",
+                    "city": "Mertzmouth",
+                    "address": "49449 Lucinda Overpass",
+                    "address2": "",
+                    "country": "Niue",
+                    "latitude": "-7.148062",
+                    "longitude": "27.14977",
+                    "countryCode": "PK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630800257667",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J34AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "69ce44ef-2fed-36d6-8107-13a0114bcc93",
+                            "document": {
+                                "id": "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
+                                "type": "Quote renewal",
+                                "documentNumber": "69ce44ef-2fed-36d6-8107-13a0114bcc93",
+                                "startDate": "2021-02-01",
+                                "endDate": "2022-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "3b950fcd-647a-3326-aa92-194715e1e017",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+                                "customerId": "7285fa8e-9901-4207-b367-7988d1f185a2",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-02-01",
+                            "endDate": "2022-10-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "477",
+                            "discount": "-5",
+                            "listPrice": "588",
+                            "estimatedValueRenewal": "588",
+                            "reseller": {
+                                "id": "ddf6df32-76f3-4122-9ad9-c537caf7ec05"
+                            },
+                            "customer": {
+                                "id": "7285fa8e-9901-4207-b367-7988d1f185a2"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J34AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "598272a3-e66d-3c51-a1dc-223b60edb60c",
+                            "document": {
+                                "id": "916cb400-7119-4088-a641-f8e96eba49f9",
+                                "type": "Quote New Business",
+                                "documentNumber": "598272a3-e66d-3c51-a1dc-223b60edb60c",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "3b950fcd-647a-3326-aa92-194715e1e017",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+                                "customerId": "7285fa8e-9901-4207-b367-7988d1f185a2",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-02-01",
+                            "endDate": "2021-01-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "184",
+                            "discount": "-11",
+                            "listPrice": "324",
+                            "estimatedValueRenewal": "324",
+                            "reseller": {
+                                "id": "ddf6df32-76f3-4122-9ad9-c537caf7ec05"
+                            },
+                            "customer": {
+                                "id": "7285fa8e-9901-4207-b367-7988d1f185a2"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17707057210",
+                            "name": "Prof. Nickolas Cassin",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17707057210",
+                            "name": "Prof. Nickolas Cassin",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17707057210",
+                            "name": "Prof. Nickolas Cassin",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

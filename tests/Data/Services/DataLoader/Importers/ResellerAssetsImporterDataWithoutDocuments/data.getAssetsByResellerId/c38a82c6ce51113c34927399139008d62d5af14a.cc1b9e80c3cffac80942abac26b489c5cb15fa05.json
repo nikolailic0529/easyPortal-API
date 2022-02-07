@@ -1,0 +1,496 @@
+{
+    "selector": "data.getAssetsByResellerId",
+    "graphql": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+        "from": null,
+        "lastId": "abee908d-7509-4d5e-ab33-6589dd0fc771",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getAssetsByResellerId": [
+                {
+                    "id": "afb9de93-2274-4aa0-b9ab-2fa31b01de2b",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": null,
+                    "productDescription": "HP 460W CS Gold Ht Plg Pwr Supply Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "503296-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "160 Savion Mountains Apt. 033",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "47.52114",
+                    "longitude": "-62.330252",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632138954497",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "b42041ec-e351-4bbb-bd63-82cfe9dc25d9",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "b8314a3e-a2a7-34b9-854d-6e832feadb3e",
+                    "productDescription": "HP DL360e Gen8 8SFF CTO Server",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "661189-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "160 Savion Mountains Apt. 033",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "47.52114",
+                    "longitude": "-62.330252",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632146870786",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "b92cc5b9-def9-45e7-99ee-2d72de2a447a",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": null,
+                    "productDescription": "HP DL360eGen8 CPU1 Riser FIO Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "661388-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "160 Savion Mountains Apt. 033",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "47.52114",
+                    "longitude": "-62.330252",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632157296553",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "ba317c1c-b3be-4edb-9841-5dd2801711b6",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": null,
+                    "productDescription": "HP 1U Gen8 Smart Array Cable Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "672242-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "160 Savion Mountains Apt. 033",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "47.52114",
+                    "longitude": "-62.330252",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632158597818",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "bd80332d-0bf6-4f1c-b05e-3a7d2f4cc9ac",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "7d23b2d9-55dd-37ac-87ab-ba9e76cd693a",
+                    "productDescription": "HP DL360e Gen8 8SFF CTO Server",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "661189-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "160 Savion Mountains Apt. 033",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "47.52114",
+                    "longitude": "-62.330252",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632162900807",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "c54e2c9e-6c12-4ec1-89f2-e247d2f67f8d",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "b6b3224b-188e-3087-93ad-3b1a7105d179",
+                    "productDescription": "HP DL360e Gen8 E5-2403v2 Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "708481-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "2444 Estelle Plains Suite 048",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "-46.224383",
+                    "longitude": "-81.024574",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632182044592",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "c846cba9-eabb-4c80-a495-7fdefdeb864f",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "5e5f2289-bf94-36be-bed8-b9f1861af017",
+                    "productDescription": "HP DL360e Gen8 E5-2403v2 Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "708481-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "2444 Estelle Plains Suite 048",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "-46.224383",
+                    "longitude": "-81.024574",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632204571100",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "cb50c5c5-a662-428f-b736-7080a09e393f",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "eccf88ca-471e-3551-b60b-33208740418f",
+                    "productDescription": "HP DL360e Gen8 E5-2403v2 Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "708481-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "2444 Estelle Plains Suite 048",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "-46.224383",
+                    "longitude": "-81.024574",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632223458658",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "dbbc69b6-80ca-4290-9114-e67d49c3a159",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "fefdb3d8-ee0f-3457-a917-38dfe67b3005",
+                    "productDescription": "HP DL360e Gen8 E5-2403v2 Kit",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "708481-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "2444 Estelle Plains Suite 048",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "-46.224383",
+                    "longitude": "-81.024574",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632265408708",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "e4c0691b-4423-4ecc-8114-e3b5a693364d",
+                    "resellerId": "8c248080-ad4f-4dbd-8310-6afb07f67a42",
+                    "customerId": "fc92a191-b33b-436d-9e35-71f5223e39fe",
+                    "serialNumber": "9bbddf5d-ecf2-3571-ad93-07dd40a5822f",
+                    "productDescription": "HP DL360e Gen8 8SFF CTO Server",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "661189-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "83978",
+                    "city": "Botsfordstad",
+                    "address": "2444 Estelle Plains Suite 048",
+                    "address2": "",
+                    "country": "Haiti",
+                    "latitude": "-46.224383",
+                    "longitude": "-81.024574",
+                    "countryCode": "AE",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632278159108",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12096979603",
+                            "name": "Darian Hills",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12019459156",
+                            "name": "Earline Ondricka",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -3,12 +3,12 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Models\Logs\AnalyzeAsset;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\LastIdBasedIterator;
-use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Resolvers\AnalyzeAssetResolver;
-use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\AnalyzeAssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
@@ -51,7 +51,7 @@ class AnalyzeAssets extends Command {
 
     public function handle(
         Repository $config,
-        DataLoaderService $service,
+        Client $client,
         AssetResolver $assetResolver,
         ResellerResolver $resellerResolver,
         CustomerResolver $customerResolver,
@@ -86,14 +86,14 @@ class AnalyzeAssets extends Command {
         GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use (
             $lastId,
             $chunk,
-            $service,
+            $client,
             $assetResolver,
             $resellerResolver,
             $customerResolver,
             $analyzeResolver,
         ): void {
             $this->process(
-                $this->getIterator($service, $lastId, $chunk),
+                $this->getIterator($client, $lastId, $chunk),
                 $assetResolver,
                 $resellerResolver,
                 $customerResolver,
@@ -255,8 +255,8 @@ class AnalyzeAssets extends Command {
         }, $company->companyTypes ?? [])));
     }
 
-    protected function getIterator(DataLoaderService $service, ?string $lastId, int $chunk): LastIdBasedIterator {
-        return $service->getClient()
+    protected function getIterator(Client $client, ?string $lastId, int $chunk): LastIdBasedIterator {
+        return $client
             ->getLastIdBasedIterator(
                 'getAssets',
                 /** @lang GraphQL */ <<<'GRAPHQL'
@@ -300,32 +300,28 @@ class AnalyzeAssets extends Command {
             $analyzeResolver,
         ): void {
             // Prefetch
-            $assetResolver->prefetch(
+            $assetResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): string {
                     return $asset->id;
                 }, $assets))),
-                true,
             );
 
-            $analyzeResolver->prefetch(
+            $analyzeResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): string {
                     return $asset->id;
                 }, $assets))),
-                true,
             );
 
-            $resellerResolver->prefetch(
+            $resellerResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): ?string {
                     return $asset->reseller->id ?? null;
                 }, $assets))),
-                true,
             );
 
-            $customerResolver->prefetch(
+            $customerResolver->reset()->prefetch(
                 array_filter(array_unique(array_map(static function (ViewAsset $asset): ?string {
                     return $asset->customer->id ?? null;
                 }, $assets))),
-                true,
             );
         };
     }

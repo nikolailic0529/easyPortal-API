@@ -8,6 +8,7 @@ use App\Services\Queue\CronJob;
 use App\Services\Queue\Progressable;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Sync application users with KeyCloak.
@@ -19,7 +20,7 @@ class SyncUsersCronJob extends CronJob implements Progressable {
         return 'ep-keycloak-sync-users';
     }
 
-    protected function makeProcessor(Container $container): Processor {
+    protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
         return $container->make(UsersImporter::class);
     }
 }

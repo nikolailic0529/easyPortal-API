@@ -148,7 +148,7 @@
                 {
                     "id": "005243b5-a132-4e3a-87ac-fd69249edd7d",
                     "name": "Becker PLC",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393744",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -177,20 +177,20 @@
                             "address": "180 Smitham Underpass Apt. 428",
                             "city": "Mrazport",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-7.994141",
+                            "longitude": "-175.453942",
+                            "countryCode": "LU"
                         },
                         {
                             "zip": "86876-5396",
                             "address": "180 Smitham Underpass Apt. 428",
                             "city": "Mrazport",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-7.994141",
+                            "longitude": "-175.453942",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,
@@ -200,7 +200,7 @@
                 {
                     "id": "005494c4-93d2-4db0-9aa4-d10a7e14aae6",
                     "name": "Gorczany, Schneider and Goyette",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393791",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -225,24 +225,24 @@
                     ],
                     "locations": [
                         {
-                            "zip": "66890",
+                            "zip": "85239-1934",
                             "address": "7587 Runolfsson Fork Suite 925",
                             "city": "Nikitamouth",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-49.083467",
+                            "longitude": "112.272252",
+                            "countryCode": "LU"
                         },
                         {
-                            "zip": "66890",
+                            "zip": "85239-1934",
                             "address": "7587 Runolfsson Fork Suite 925",
                             "city": "Nikitamouth",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-49.083467",
+                            "longitude": "112.272252",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,
@@ -874,7 +874,7 @@
                 {
                     "id": "005db8ae-ae5b-4320-8c0d-7d75002c515c",
                     "name": "VonRueden Inc",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393869",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -909,20 +909,20 @@
                             "address": "2984 Ian Ferry",
                             "city": "D'Amoremouth",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "57.852284",
+                            "longitude": "-68.397995",
+                            "countryCode": "LU"
                         },
                         {
                             "zip": "10867-3565",
                             "address": "2984 Ian Ferry",
                             "city": "D'Amoremouth",
                             "locationType": null,
-                            "country": "Albania",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "57.852284",
+                            "longitude": "-68.397995",
+                            "countryCode": "LU"
                         }
                     ],
                     "companyKpis": null,

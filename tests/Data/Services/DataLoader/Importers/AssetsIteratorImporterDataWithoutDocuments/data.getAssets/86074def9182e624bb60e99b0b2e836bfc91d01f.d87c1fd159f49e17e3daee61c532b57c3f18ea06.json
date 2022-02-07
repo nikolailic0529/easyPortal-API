@@ -1,0 +1,83 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "badee429-473d-4f23-9d1a-ea2b13276596"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "badee429-473d-4f23-9d1a-ea2b13276596",
+                    "resellerId": "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+                    "customerId": "f4e4fe62-0514-4319-8bcc-2727a36b93d9",
+                    "serialNumber": "7e673c98-7427-3d37-8067-2ed0f3ad9924",
+                    "productDescription": "HP 3PAR 8000 SFF(2.5in) Fld Int Drv Encl",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "E7Y71A",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "38899-9996",
+                    "city": "Lake Romaine",
+                    "address": "4000 Tyree Hill Suite 674",
+                    "address2": "",
+                    "country": "Falkland Islands (Malvinas)",
+                    "latitude": "52.748277",
+                    "longitude": "-174.772078",
+                    "countryCode": "DO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1637934693367",
+                    "assetCoverage": [
+                        "EXPOSED",
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14693222483",
+                            "name": "Prof. Greyson Wilderman",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14693222483",
+                            "name": "Prof. Greyson Wilderman",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14693222483",
+                            "name": "Prof. Greyson Wilderman",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1637934693367",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2016-10-25",
+                                "coverageEndDate": "2024-10-24",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H2T12AC-HPE Complete Care SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2016-10-15",
+                                "coverageEndDate": "2019-11-13",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

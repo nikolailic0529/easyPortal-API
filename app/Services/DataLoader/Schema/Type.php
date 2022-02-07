@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 use ReflectionClass;
 
 abstract class Type extends JsonObject {

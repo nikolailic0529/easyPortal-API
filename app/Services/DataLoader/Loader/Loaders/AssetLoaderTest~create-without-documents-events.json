@@ -1,0 +1,14 @@
+[
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": [],
+        "App\\Models\\Customer": {
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795": "602673a2-b21d-44b7-8d8e-3423f0ee3795"
+        },
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": [],
+        "App\\Models\\Asset": {
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777": "dd3fd852-c29a-4f34-ac20-21b6f7079777"
+        }
+    }
+]

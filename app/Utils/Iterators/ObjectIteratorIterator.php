@@ -2,155 +2,122 @@
 
 namespace App\Utils\Iterators;
 
-use Generator;
-use InvalidArgumentException;
-
-use function explode;
-use function gettype;
-use function is_null;
-use function is_string;
-use function min;
-use function sprintf;
+use App\Utils\Iterators\Concerns\ChunkConverter;
+use App\Utils\Iterators\Concerns\InitialState;
+use App\Utils\Iterators\Concerns\Subjects;
+use Closure;
+use Iterator;
 
 /**
  * @template T
+ * @template V
  *
- * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
+ * @implements \App\Utils\Iterators\ObjectIterator<V>
+ *
+ * @uses     \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 class ObjectIteratorIterator implements ObjectIterator {
-    use ObjectIteratorInitialState;
-    use ObjectIteratorProperties;
-    use ObjectIteratorSubjects {
-        chunkLoaded as private;
-        chunkProcessed as private;
-    }
-
-    protected ?string $current = null;
+    use ChunkConverter;
+    use InitialState;
+    use Subjects;
 
     /**
-     * @param array<string,\App\Utils\Iterators\ObjectIterator> $iterators
+     * @param \App\Utils\Iterators\ObjectIterator<V> $iterator
+     * @param \Closure(V $item): T                   $converter
      */
     public function __construct(
-        protected array $iterators,
+        protected ObjectIterator $iterator,
+        protected Closure $converter,
     ) {
-        $this->setChunkSize($this->getChunkSize());
-        $this->setOffset(null);
-        $this->setIndex(0);
+        // empty
     }
 
-    public function getOffset(): string|null {
-        $offset = null;
-
-        if ($this->current) {
-            $offset   = $this->current;
-            $iterator = $this->iterators[$this->current] ?? null;
-
-            if ($iterator?->getOffset() !== null) {
-                $offset = "{$offset}@{$iterator->getOffset()}";
-            }
-        }
-
-        return $offset;
+    protected function getConverter(): ?Closure {
+        return $this->converter;
     }
 
     /**
-     * @param string|int|null $offset in the following format: `<name>[@<offset>]`,
-     *                                where `<offset>` the offset for the iterator
-     *                                with index `<name>`.
-     *
-     * @return $this
+     * @return \Iterator<T>
      */
-    public function setOffset(string|int|null $offset): static {
-        // Valid?
-        if (!is_string($offset) && !is_null($offset)) {
-            throw new InvalidArgumentException(sprintf(
-                'The `$offset` must be `string` or `null`, `%s` given',
-                gettype($offset),
-            ));
-        }
-
-        // Parse
-        $newCurrent = null;
-        $newOffset  = null;
-
-        if ($offset !== null) {
-            $parts      = explode('@', $offset, 2);
-            $newCurrent = $parts[0];
-            $newOffset  = ($parts[1] ?? null) ?: null;
-
-            if (!isset($this->iterators[$newCurrent])) {
-                throw new InvalidArgumentException(sprintf(
-                    'The `$offset` is not valid, iterator `%s` is unknown.',
-                    $newCurrent,
-                ));
-            }
-        }
-
-        // Reset all
-        foreach ($this->iterators as $iterator) {
-            $iterator->setIndex(0);
-            $iterator->setOffset(null);
-        }
-
-        // Update
-        $this->current = $newCurrent;
-
-        if (isset($this->iterators[$newCurrent])) {
-            $this->iterators[$newCurrent]->setOffset($newOffset);
-        }
-
-        // Return
-        return $this;
-    }
-
-    public function getIterator(): Generator {
-        $index     = $this->getIndex();
-        $limit     = $this->getLimit();
-        $chunk     = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
-        $after     = $this->getOnAfterChunkSubject()->getObservers();
-        $before    = $this->getOnBeforeChunkSubject()->getObservers();
-        $iterating = false;
-
+    public function getIterator(): Iterator {
         try {
             $this->init();
 
-            foreach ($this->iterators as $key => $iterator) {
-                // Iterating?
-                $iterating = $iterating || $this->current === null || $this->current === $key;
+            $chunk    = [];
+            $iterator = (clone $this->iterator)
+                ->onBeforeChunk(function (array $items) use (&$chunk): void {
+                    $chunk = $this->chunkConvert($items);
 
-                if (!$iterating) {
-                    continue;
-                }
+                    $this->chunkLoaded($chunk);
+                })
+                ->onAfterChunk(function () use (&$chunk): void {
+                    $this->chunkProcessed($chunk);
 
-                // Update state
-                $this->current = $key;
+                    $chunk = null;
+                });
 
-                // Prepare
-                $iterator->setLimit(null);
-                $iterator->setChunkSize($chunk);
-
-                foreach ($before as $observer) {
-                    $iterator->onBeforeChunk($observer);
-                }
-
-                foreach ($after as $observer) {
-                    $iterator->onAfterChunk($observer);
-                }
-
-                if ($limit) {
-                    $iterator->setLimit($limit - $index);
-                }
-
-                // Iterate
-                foreach ($iterator as $item) {
-                    yield $index++ => $item;
-
-                    $this->setIndex($index);
+            foreach ($iterator as $key => $item) {
+                if (isset($chunk[$key])) {
+                    yield $key => $chunk[$key];
                 }
             }
         } finally {
             $this->finish();
         }
     }
+
+    // <editor-fold desc="Proxy">
+    // =========================================================================
+    public function getIndex(): int {
+        return $this->iterator->getIndex();
+    }
+
+    /**
+     * @return $this<T,V>
+     */
+    public function setIndex(int $index): static {
+        $this->iterator->setIndex($index);
+
+        return $this;
+    }
+
+    public function getLimit(): ?int {
+        return $this->iterator->getLimit();
+    }
+
+    /**
+     * @return $this<T,V>
+     */
+    public function setLimit(?int $limit): static {
+        $this->iterator->setLimit($limit);
+
+        return $this;
+    }
+
+    public function getChunkSize(): int {
+        return $this->iterator->getChunkSize();
+    }
+
+    /**
+     * @return $this<T,V>
+     */
+    public function setChunkSize(?int $chunk): static {
+        $this->iterator->setChunkSize($chunk);
+
+        return $this;
+    }
+
+    public function getOffset(): string|int|null {
+        return $this->iterator->getOffset();
+    }
+
+    /**
+     * @return $this<T,V>
+     */
+    public function setOffset(int|string|null $offset): static {
+        $this->iterator->setOffset($offset);
+
+        return $this;
+    }
+    // </editor-fold>
 }

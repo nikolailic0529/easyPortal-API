@@ -1,0 +1,27 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\n    }\n}",
+    "params": {
+        "id": "f066f65a-6455-4cff-8dfb-0aaaeba544f9"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "f066f65a-6455-4cff-8dfb-0aaaeba544f9",
+                    "name": "Dietrich Inc",
+                    "updatedAt": "1643194375636",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyTypes": [
+                        {
+                            "type": "DISTRIBUTOR"
+                        }
+                    ],
+                    "status": null
+                }
+            ]
+        }
+    }
+}

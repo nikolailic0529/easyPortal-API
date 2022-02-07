@@ -3,7 +3,6 @@
 namespace App\Utils\Eloquent;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use LastDragon_ru\LaraASP\Eloquent\ModelHelper as LaraAspModelHelper;
 
 use function class_uses_recursive;
@@ -23,13 +22,5 @@ class ModelHelper extends LaraAspModelHelper {
         }
 
         return self::$softDeletable[$model];
-    }
-
-    public function isRelation(string $name): bool {
-        try {
-            return (bool) $this->getRelation($name);
-        } catch (PropertyIsNotRelation) {
-            return false;
-        }
     }
 }

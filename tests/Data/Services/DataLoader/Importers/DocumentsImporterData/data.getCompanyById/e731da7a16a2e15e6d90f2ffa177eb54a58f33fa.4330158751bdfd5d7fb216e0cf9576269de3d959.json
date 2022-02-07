@@ -1,0 +1,115 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "bfacdad6-d1f8-4633-8830-f88c95929114"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "bfacdad6-d1f8-4633-8830-f88c95929114",
+                    "name": "Zboncak, Rau and Klocko",
+                    "updatedAt": "1643193619739",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14758605649",
+                            "name": "Ms. Willie Kuhlman MD",
+                            "mail": "kris.jazmyne@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18138276622",
+                            "name": "Dario West IV",
+                            "mail": "lhaag@beier.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15415598998",
+                            "name": "Billy Konopelski",
+                            "mail": "charlene.welch@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16304015956",
+                            "name": "Brenda Little",
+                            "mail": "ryan.nathanael@rippin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16283285768",
+                            "name": "Joanie Schiller",
+                            "mail": "freddie.koch@harber.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13369620494",
+                            "name": "Kyra Parker",
+                            "mail": "rrath@leuschke.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13806425518",
+                            "name": "Gregoria Tremblay",
+                            "mail": "tia.emmerich@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16679879913",
+                            "name": "Rodrigo Littel",
+                            "mail": "lkessler@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18576561398",
+                            "name": "Ken Steuber",
+                            "mail": "epredovic@waters.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13806425518",
+                            "name": "Miss Aida Murray DDS",
+                            "mail": "curtis.zieme@vonrueden.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "",
+                            "name": "Araceli Casper",
+                            "mail": "nathanial05@osinski.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16613435093",
+                            "name": "Jadon McClure DDS",
+                            "mail": "dixie60@jacobi.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "48227-1192",
+                            "address": "9254 Maggio Rapids Suite 451",
+                            "city": "East Skye",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "-79.955395",
+                            "longitude": "119.406223",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

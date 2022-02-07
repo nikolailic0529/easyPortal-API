@@ -255,7 +255,7 @@
                 {
                     "id": "0041e8c1-c5c0-420c-a912-53cde1921571",
                     "name": "Towne, DuBuque and Rowe",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393619",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -281,13 +281,13 @@
                     "locations": [
                         {
                             "zip": "17600-8611",
-                            "address": "627 Kilback Pines",
+                            "address": "375 Dooley View",
                             "city": "Schustermouth",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "6.921981",
+                            "longitude": "-116.004378",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": null,
@@ -404,7 +404,7 @@
                 {
                     "id": "00465ff6-818c-4a61-bbda-f49e1998fae6",
                     "name": "Pfannerstill Group",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393666",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -427,20 +427,20 @@
                             "address": "911 Meggie Island Suite 655",
                             "city": "Travisbury",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "-71.909336",
+                            "longitude": "-112.731019",
+                            "countryCode": "AG"
                         },
                         {
                             "zip": "84625",
                             "address": "911 Meggie Island Suite 655",
                             "city": "Travisbury",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "-71.909336",
+                            "longitude": "-112.731019",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": null,
@@ -1012,7 +1012,7 @@
                 {
                     "id": "004b5961-ec64-47c9-932e-4bf5895c67f9",
                     "name": "Kessler-Mosciski",
-                    "updatedAt": "1642688670193",
+                    "updatedAt": "1643191393713",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -1031,24 +1031,24 @@
                     ],
                     "locations": [
                         {
-                            "zip": "28565",
-                            "address": "6429 August Ways",
+                            "zip": "94356",
+                            "address": "5836 Brekke Trail Apt. 713",
                             "city": "Anthonyburgh",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "-31.139132",
+                            "longitude": "-174.13326",
+                            "countryCode": "AG"
                         },
                         {
-                            "zip": "28565",
-                            "address": "6429 August Ways",
+                            "zip": "94356",
+                            "address": "5836 Brekke Trail Apt. 713",
                             "city": "Anthonyburgh",
                             "locationType": null,
-                            "country": "Papua New Guinea",
-                            "latitude": null,
-                            "longitude": null,
-                            "countryCode": null
+                            "country": "Cook Islands",
+                            "latitude": "-31.139132",
+                            "longitude": "-174.13326",
+                            "countryCode": "AG"
                         }
                     ],
                     "companyKpis": null,

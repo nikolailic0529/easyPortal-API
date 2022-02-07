@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\DataLoader\Importers\OemsImporter;
+use App\Services\DataLoader\Importer\Importers\OemsImporter;
 use Closure;
 use Illuminate\Console\Command;
 use Illuminate\Http\UploadedFile;

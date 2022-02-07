@@ -5,6 +5,7 @@ namespace App\Utils\Processor;
 use App\Services\Service;
 use App\Utils\Cache\CacheKeyable;
 use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Closure;
 use Exception;
@@ -152,10 +153,8 @@ class ProcessorTest extends TestCase {
         ]);
         $exception = new Exception();
 
-        $iterator = Mockery::mock(OneChunkOffsetBasedObjectIterator::class, [
-            static function () use ($a, $b): array {
-                return [$a, $b];
-            },
+        $iterator = Mockery::mock(ObjectsIterator::class, [
+            [$a, $b],
         ]);
         $iterator->shouldAllowMockingProtectedMethods();
         $iterator->makePartial();
@@ -196,12 +195,12 @@ class ProcessorTest extends TestCase {
             ->andReturn($iterator);
         $processor
             ->shouldReceive('process')
-            ->with($data, $a)
+            ->with($state, $data, $a)
             ->once()
             ->andReturns();
         $processor
             ->shouldReceive('process')
-            ->with($data, $b)
+            ->with($state, $data, $b)
             ->once()
             ->andThrow($exception);
         $processor
@@ -274,7 +273,7 @@ class ProcessorTest extends TestCase {
                 return parent::getDefaultState();
             }
 
-            protected function getTotal(): ?int {
+            protected function getTotal(State $state): ?int {
                 return $this->total;
             }
 
@@ -284,15 +283,15 @@ class ProcessorTest extends TestCase {
                 return $this;
             }
 
-            protected function getIterator(): ObjectIterator {
+            protected function getIterator(State $state): ObjectIterator {
                 throw new Exception();
             }
 
-            protected function process(mixed $item, mixed $data): void {
+            protected function process(State $state, mixed $item, mixed $data): void {
                 throw new Exception();
             }
 
-            protected function report(Throwable $exception, mixed $item): void {
+            protected function report(Throwable $exception, mixed $item = null): void {
                 throw $exception;
             }
 
@@ -306,7 +305,7 @@ class ProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function getOnChangeEvent(State $state, array $items): ?object {
+            protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
                 return null;
             }
         };
@@ -316,12 +315,10 @@ class ProcessorTest extends TestCase {
         // Offset
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => null,
-                'total'   => null,
-                'offset'  => 'abc',
-                'started' => Date::now(),
-                'overall' => false,
+                'index'  => 0,
+                'limit'  => null,
+                'total'  => null,
+                'offset' => 'abc',
             ]),
             (clone $processor)->setOffset('abc')->getDefaultState(),
         );
@@ -329,12 +326,10 @@ class ProcessorTest extends TestCase {
         // No Limit & No Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => null,
-                'total'   => null,
-                'offset'  => null,
-                'started' => Date::now(),
-                'overall' => true,
+                'index'  => 0,
+                'limit'  => null,
+                'total'  => null,
+                'offset' => null,
             ]),
             $processor->getDefaultState(),
         );
@@ -342,12 +337,10 @@ class ProcessorTest extends TestCase {
         // Limit & No Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => 123,
-                'total'   => 123,
-                'offset'  => null,
-                'started' => Date::now(),
-                'overall' => false,
+                'index'  => 0,
+                'limit'  => 123,
+                'total'  => 123,
+                'offset' => null,
             ]),
             (clone $processor)->setLimit(123)->getDefaultState(),
         );
@@ -355,12 +348,10 @@ class ProcessorTest extends TestCase {
         // No Limit & Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => null,
-                'total'   => 321,
-                'offset'  => null,
-                'started' => Date::now(),
-                'overall' => true,
+                'index'  => 0,
+                'limit'  => null,
+                'total'  => 321,
+                'offset' => null,
             ]),
             (clone $processor)->setTotal(321)->getDefaultState(),
         );
@@ -368,12 +359,10 @@ class ProcessorTest extends TestCase {
         // Limit & Total
         $this->assertEquals(
             new State([
-                'index'   => 0,
-                'limit'   => 456,
-                'total'   => 321,
-                'offset'  => null,
-                'started' => Date::now(),
-                'overall' => false,
+                'index'  => 0,
+                'limit'  => 456,
+                'total'  => 321,
+                'offset' => null,
             ]),
             (clone $processor)->setTotal(321)->setLimit(456)->getDefaultState(),
         );
@@ -383,6 +372,7 @@ class ProcessorTest extends TestCase {
      * @covers ::chunkProcessed
      */
     public function testChunkProcessed(): void {
+        $data      = null;
         $state     = new State();
         $items     = [new stdClass()];
         $processor = Mockery::mock(ProcessorTest__Processor::class);
@@ -400,11 +390,11 @@ class ProcessorTest extends TestCase {
             ->andReturns();
         $processor
             ->shouldReceive('dispatchOnChange')
-            ->with($state, $items)
+            ->with($state, $items, $data)
             ->once()
             ->andReturns();
 
-        $processor->chunkProcessed($state, $items);
+        $processor->chunkProcessed($state, $items, $data);
     }
 
     /**
@@ -413,6 +403,7 @@ class ProcessorTest extends TestCase {
     public function testChunkProcessedStopped(): void {
         $this->expectException(Interrupt::class);
 
+        $data      = null;
         $state     = new State();
         $items     = [new stdClass()];
         $processor = Mockery::mock(ProcessorTest__Processor::class);
@@ -430,12 +421,12 @@ class ProcessorTest extends TestCase {
             ->andReturns();
         $processor
             ->shouldReceive('dispatchOnChange')
-            ->with($state, $items)
+            ->with($state, $items, $data)
             ->once()
             ->andReturns();
 
         $processor->stop();
-        $processor->chunkProcessed($state, $items);
+        $processor->chunkProcessed($state, $items, $data);
     }
 
     /**
@@ -453,9 +444,34 @@ class ProcessorTest extends TestCase {
             ->with($key, Mockery::andAnyOtherArgs())
             ->andReturn($state);
 
-        $this->app->make(ProcessorTest__Processor::class)
+        $actual = $this->app->make(ProcessorTest__Processor::class)
             ->setCacheKey($service, $key)
             ->getState();
+
+        $this->assertEquals($state, $actual);
+    }
+
+    /**
+     * @covers ::getState
+     */
+    public function testGetStateRestorationFailed(): void {
+        $key     = new class() implements CacheKeyable {
+            // empty
+        };
+        $service = Mockery::mock(Service::class);
+        $service
+            ->shouldReceive('get')
+            ->once()
+            ->with($key, Mockery::andAnyOtherArgs())
+            ->andReturnUsing(static function (mixed $key, Closure $factory): mixed {
+                return $factory(['invalid state']);
+            });
+
+        $actual = $this->app->make(ProcessorTest__Processor::class)
+            ->setCacheKey($service, $key)
+            ->getState();
+
+        $this->assertNull($actual);
     }
 
     /**
@@ -510,7 +526,7 @@ class ProcessorTest extends TestCase {
  */
 class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {
-        parent::__construct($exceptionHandler, $dispatcher, null);
+        parent::__construct($exceptionHandler, $dispatcher);
     }
 
     public function run(State $state): void {
@@ -520,24 +536,24 @@ class ProcessorTest__Processor extends Processor {
     /**
      * @inheritDoc
      */
-    public function chunkProcessed(State $state, array $items): void {
-        parent::chunkProcessed($state, $items);
+    public function chunkProcessed(State $state, array $items, mixed $data): void {
+        parent::chunkProcessed($state, $items, $data);
     }
 
-    protected function getTotal(): ?int {
+    protected function getTotal(State $state): ?int {
         return null;
     }
 
-    protected function getIterator(): ObjectIterator {
+    protected function getIterator(State $state): ObjectIterator {
         throw new Exception('should not be called');
     }
 
-    protected function process(mixed $data, mixed $item): void {
+    protected function process(State $state, mixed $data, mixed $item): void {
         throw new Exception('should not be called');
     }
 
-    protected function report(Throwable $exception, mixed $item): void {
-        throw new Exception('should not be called');
+    protected function report(Throwable $exception, mixed $item = null): void {
+        // empty
     }
 
     /**

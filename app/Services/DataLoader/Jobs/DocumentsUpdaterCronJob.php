@@ -19,7 +19,6 @@ class DocumentsUpdaterCronJob extends DocumentsImporterCronJob {
         return [
                 'settings' => [
                     'chunk'  => Constants::EP_DATA_LOADER_DOCUMENTS_UPDATER_CHUNK,
-                    'update' => true,
                     'expire' => Constants::EP_DATA_LOADER_DOCUMENTS_UPDATER_EXPIRE,
                 ],
             ] + parent::getQueueConfig();

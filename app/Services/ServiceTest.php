@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\GraphQL\Directives\Directives\Auth\AuthDirective as GraphQLAuthDirective;
 use App\GraphQL\Service as GraphQLService;
-use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
+use App\Services\DataLoader\Importer\Importer as DataLoaderImporter;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Utils\Cache\CacheKeyInvalidValue;
 use Closure;

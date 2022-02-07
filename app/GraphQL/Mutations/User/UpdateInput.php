@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\User;
 
-use App\Utils\JsonObject;
+use App\Utils\JsonObject\JsonObject;
 use Illuminate\Http\UploadedFile;
 
 class UpdateInput extends JsonObject {

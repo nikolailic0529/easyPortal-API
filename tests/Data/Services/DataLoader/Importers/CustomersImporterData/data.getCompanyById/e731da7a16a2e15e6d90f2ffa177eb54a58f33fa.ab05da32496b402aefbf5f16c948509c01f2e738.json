@@ -1,0 +1,69 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+                    "name": "Schmeler LLC",
+                    "updatedAt": "1640173569784",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "",
+                            "address": "16982 Hahn Junction Apt. 596",
+                            "city": "Schambergerburgh",
+                            "locationType": "HEADQUARTER",
+                            "country": "Saint Lucia",
+                            "latitude": "-82.496954",
+                            "longitude": "-113.501434",
+                            "countryCode": "KR"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 174910,
+                        "activeAssets": 55686,
+                        "activeAssetsPercentage": 31.836944714424558,
+                        "activeCustomers": 479,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 787,
+                        "activeContractTotalAmount": 183104.02000000002,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 480,
+                        "activeQuotes": 1866,
+                        "activeQuotesTotalAmount": 332952.89999999997,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 1531,
+                        "expiredQuotes": 435,
+                        "expiredContracts": 795,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

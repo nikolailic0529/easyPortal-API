@@ -401,8 +401,9 @@ class UsersImporterTest extends TestCase {
      * @covers ::process
      */
     public function testProcess(): void {
-        $user = User::factory()->make();
-        $item = new KeyCloakUser([
+        $state = new UsersImporterState();
+        $user  = User::factory()->make();
+        $item  = new KeyCloakUser([
             'id'            => $user->getKey(),
             'email'         => $this->faker->email,
             'firstName'     => $this->faker->firstName,
@@ -422,7 +423,7 @@ class UsersImporterTest extends TestCase {
                 'photo'          => [$this->faker->url],
             ],
         ]);
-        $data = Mockery::mock(UsersImporterChunkData::class);
+        $data  = Mockery::mock(UsersImporterChunkData::class);
         $data
             ->shouldReceive('getUserById')
             ->with($item->id)
@@ -440,8 +441,8 @@ class UsersImporterTest extends TestCase {
                 // empty
             }
 
-            public function process(mixed $data, mixed $item): void {
-                parent::process($data, $item);
+            public function process(State $state, mixed $data, mixed $item): void {
+                parent::process($state, $data, $item);
             }
 
             protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
@@ -449,7 +450,7 @@ class UsersImporterTest extends TestCase {
             }
         };
 
-        $importer->process($data, $item);
+        $importer->process($state, $data, $item);
 
         $actual = User::query()->whereKey($item->id)->first();
 
@@ -477,6 +478,7 @@ class UsersImporterTest extends TestCase {
      * @covers ::process
      */
     public function testProcessEmailConflict(): void {
+        $state   = new UsersImporterState();
         $another = User::factory()->make();
         $user    = User::factory()->make();
         $item    = new KeyCloakUser([
@@ -506,8 +508,8 @@ class UsersImporterTest extends TestCase {
                 // empty
             }
 
-            public function process(mixed $data, mixed $item): void {
-                parent::process($data, $item);
+            public function process(State $state, mixed $data, mixed $item): void {
+                parent::process($state, $data, $item);
             }
 
             protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
@@ -515,7 +517,7 @@ class UsersImporterTest extends TestCase {
             }
         };
 
-        $importer->process($data, $item);
+        $importer->process($state, $data, $item);
 
         $actual  = User::query()->whereKey($item->id)->first();
         $another = $another->refresh();
@@ -551,7 +553,7 @@ class UsersImporterTest extends TestCase {
         ]);
 
         // Mocks
-        $state    = new State([
+        $state    = new UsersImporterState([
             'started' => Date::now(),
             'overall' => true,
             'failed'  => 0,
@@ -598,13 +600,13 @@ class UsersImporterTest extends TestCase {
             ->never();
 
         // Iteration by part of Users
-        $importer->finish(new State([
+        $importer->finish(new UsersImporterState([
             'started' => Date::now(),
             'overall' => false,
         ]));
 
         // Failed items
-        $importer->finish(new State([
+        $importer->finish(new UsersImporterState([
             'started' => Date::now(),
             'overall' => true,
             'failed'  => 1,

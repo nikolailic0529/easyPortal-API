@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "94f3c58a-8609-4adf-ac81-25c50e1b38eb"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "94f3c58a-8609-4adf-ac81-25c50e1b38eb",
+                    "resellerId": "6130ff7e-b429-49cd-aef6-225735195e16",
+                    "customerId": "ee15ee71-3149-4b49-a9b0-7e23a2655d26",
+                    "serialNumber": null,
+                    "productDescription": "HP 3PAR 7200 Remote Copy Drive E-LTU",
+                    "assetTag": "Software",
+                    "assetType": "Software",
+                    "vendor": "HPE",
+                    "sku": "BC756AAE",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "31480-5635",
+                    "city": "Port Fabian",
+                    "address": "743 Danny Drive Apt. 214",
+                    "address2": "",
+                    "country": "Suriname",
+                    "latitude": "-12.616719",
+                    "longitude": "-44.278984",
+                    "countryCode": "CY",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630822123348",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19196048267",
+                            "name": "Genoveva Kerluke",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14457612317",
+                            "name": "Genoveva Kerluke",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+19196048267",
+                            "name": "Genoveva Kerluke",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

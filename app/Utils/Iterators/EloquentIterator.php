@@ -2,9 +2,11 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\ChunkSize;
 use Closure;
 use Exception;
 use Generator;
+use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 
 /**
@@ -41,7 +43,7 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function setLimit(?int $limit): static {
-        $this->iterator->setIndex($limit);
+        $this->iterator->setIndex($limit ?? 0);
 
         return $this;
     }
@@ -50,30 +52,30 @@ class EloquentIterator implements ObjectIterator {
         return $this->iterator->getChunkSize();
     }
 
-    public function setChunkSize(int $chunk): static {
-        $this->iterator->setChunkSize($chunk);
+    public function setChunkSize(?int $chunk): static {
+        $this->iterator->setChunkSize($chunk ?? ChunkSize::getDefaultChunkSize());
 
         return $this;
     }
 
     public function getOffset(): string|int|null {
-        return $this->getOffset();
+        return $this->iterator->getOffset();
     }
 
     public function setOffset(int|string|null $offset): static {
-        $this->setOffset($offset);
+        $this->iterator->setOffset($offset);
 
         return $this;
     }
 
     public function onBeforeChunk(?Closure $closure): static {
-        $this->iterator->onAfterChunk($closure);
+        $this->iterator->onBeforeChunk($this->wrapClosure($closure));
 
         return $this;
     }
 
     public function onAfterChunk(?Closure $closure): static {
-        $this->iterator->onAfterChunk($closure);
+        $this->iterator->onAfterChunk($this->wrapClosure($closure));
 
         return $this;
     }
@@ -84,5 +86,16 @@ class EloquentIterator implements ObjectIterator {
 
     public function onFinish(?Closure $closure): static {
         throw new Exception('Not implemented');
+    }
+
+    /**
+     * @param \Closure(array<T>):void|null $closure
+     *
+     * @return \Closure(\Illuminate\Support\Collection<T>):void|null
+     */
+    protected function wrapClosure(?Closure $closure): ?Closure {
+        return static function (Collection $items) use ($closure): void {
+            $closure($items->all());
+        };
     }
 }

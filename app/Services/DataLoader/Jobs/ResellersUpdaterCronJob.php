@@ -19,7 +19,6 @@ class ResellersUpdaterCronJob extends ResellersImporterCronJob {
         return [
                 'settings' => [
                     'chunk'  => Constants::EP_DATA_LOADER_RESELLERS_UPDATER_CHUNK,
-                    'update' => true,
                     'expire' => Constants::EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE,
                 ],
             ] + parent::getQueueConfig();

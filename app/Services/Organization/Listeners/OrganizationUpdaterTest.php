@@ -5,7 +5,7 @@ namespace App\Services\Organization\Listeners;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;

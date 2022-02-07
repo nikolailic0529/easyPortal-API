@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "6b537397-4fe6-4f12-8fd2-4dc2421fd46c"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "6b537397-4fe6-4f12-8fd2-4dc2421fd46c",
+                    "resellerId": "3d43abff-c166-487e-a2d2-8eaea0b18bfe",
+                    "customerId": "ef62f437-7ac5-423e-8081-9e8738c0a08a",
+                    "serialNumber": null,
+                    "productDescription": "HP 3PAR 8200 Replication Ste Drv E-LTU",
+                    "assetTag": "Software",
+                    "assetType": "Software",
+                    "vendor": "HPE",
+                    "sku": "L7B50AAE",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "72593",
+                    "city": "East Alexandrineville",
+                    "address": "3524 Brakus Mountains Suite 391",
+                    "address2": "",
+                    "country": "Suriname",
+                    "latitude": "83.642219",
+                    "longitude": "141.66315",
+                    "countryCode": "CY",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630817807717",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14407216494",
+                            "name": "Margret Williamson MD",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Jodie Lang",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14407216494",
+                            "name": "Margret Williamson MD",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use Illuminate\Contracts\Console\Kernel;
 
+use function array_merge;
+
 /**
  * Syncs Customer.
  *
@@ -35,12 +37,12 @@ class CustomerSync extends Sync {
 
     public function __invoke(Kernel $kernel): void {
         $this->checkCommandResult(
-            $kernel->call(UpdateCustomer::class, $this->setBooleanOptions(
+            $kernel->call(UpdateCustomer::class, $this->getOptions(array_merge(
+                $this->getArguments(),
                 [
                     'id' => $this->objectId,
                 ],
-                $this->getArguments(),
-            )),
+            ))),
         );
     }
 }

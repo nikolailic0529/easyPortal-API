@@ -4,12 +4,12 @@ namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Finders\CustomerFinder;
-use App\Services\DataLoader\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
-use App\Services\DataLoader\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Finders\ResellerLoaderFinder;
-use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
+use App\Services\DataLoader\Loader\Loader;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Throwable;

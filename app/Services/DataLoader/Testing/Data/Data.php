@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Testing\Data;
 
 use App\Models\Document as DocumentModel;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use Faker\Generator;
 use Illuminate\Console\Command;
@@ -13,9 +13,11 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
+
 use function json_encode;
 use function ksort;
 use function mb_stripos;
+
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -101,24 +103,21 @@ abstract class Data {
         if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-distributor', [
-                    'id'       => $context[ClientDumpContext::DISTRIBUTORS],
-                    '--create' => true,
+                    'id' => $context[ClientDumpContext::DISTRIBUTORS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::RESELLERS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-reseller', [
-                    'id'       => $context[ClientDumpContext::RESELLERS],
-                    '--create' => true,
+                    'id' => $context[ClientDumpContext::RESELLERS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-customer', [
-                    'id'       => $context[ClientDumpContext::CUSTOMERS],
-                    '--create' => true,
+                    'id' => $context[ClientDumpContext::CUSTOMERS],
                 ]) === Command::SUCCESS;
         }
 

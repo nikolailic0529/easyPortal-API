@@ -2,10 +2,11 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Importers\ResellersImporter;
-use App\Services\DataLoader\Service;
+use App\Services\DataLoader\Importer\Importers\ResellersImporter;
+use App\Utils\Processor\Processor;
 use Config\Constants;
-use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
+use Illuminate\Contracts\Container\Container;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Imports resellers.
@@ -22,17 +23,12 @@ class ResellersImporterCronJob extends ImporterCronJob {
         return [
                 'settings' => [
                     'chunk'  => Constants::EP_DATA_LOADER_RESELLERS_IMPORTER_CHUNK,
-                    'update' => Constants::EP_DATA_LOADER_RESELLERS_IMPORTER_UPDATE,
                     'expire' => null,
                 ],
             ] + parent::getQueueConfig();
     }
 
-    public function __invoke(
-        Service $service,
-        ResellersImporter $importer,
-        QueueableConfigurator $configurator,
-    ): void {
-        $this->process($service, $importer, $configurator);
+    protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
+        return $container->make(ResellersImporter::class);
     }
 }

@@ -1,0 +1,83 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "afe848a4-01a0-4a4b-ad0b-e29506d8a8f6"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "afe848a4-01a0-4a4b-ad0b-e29506d8a8f6",
+                    "resellerId": "07ce3aa3-2481-4db4-91f8-d2878bf304d4",
+                    "customerId": "6b2b3602-2751-486a-a488-3237f9656b2b",
+                    "serialNumber": "223491d4-b7f9-3729-be30-a115c26b2cfc",
+                    "productDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "QK724A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "",
+                    "city": "",
+                    "address": "",
+                    "address2": null,
+                    "country": "",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1643015678098",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "b0e36b47-d61a-3303-96b4-3980dafa5b99",
+                            "document": {
+                                "id": "8feec411-b709-44d9-b585-6c7a4ee50790",
+                                "type": "Quote renewal",
+                                "documentNumber": "b0e36b47-d61a-3303-96b4-3980dafa5b99",
+                                "startDate": "1627776000000",
+                                "endDate": "1682812800000",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1642773353136",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "07ce3aa3-2481-4db4-91f8-d2878bf304d4",
+                                "customerId": "6b2b3602-2751-486a-a488-3237f9656b2b",
+                                "distributorId": "eb1cb37a-48ab-43da-a01e-220220f8654a"
+                            },
+                            "startDate": "1627776000000",
+                            "endDate": "1682812800000",
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "07ce3aa3-2481-4db4-91f8-d2878bf304d4"
+                            },
+                            "customer": {
+                                "id": "6b2b3602-2751-486a-a488-3237f9656b2b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": null,
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}
