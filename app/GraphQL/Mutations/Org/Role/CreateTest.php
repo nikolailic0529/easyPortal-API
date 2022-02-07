@@ -170,6 +170,28 @@ class CreateTest extends TestCase {
                     ],
                     $clientFactory,
                 ],
+                'empty permissions'   => [
+                    new GraphQLSuccess(
+                        'org',
+                        new JsonFragmentSchema('role.create', self::class),
+                        new JsonFragment('role.create', [
+                            'result' => true,
+                            'role'   => [
+                                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                                'name'        => 'subgroup',
+                                'permissions' => [
+                                    // empty
+                                ],
+                            ],
+                        ]),
+                    ),
+                    $prepare,
+                    [
+                        'name'        => 'subgroup',
+                        'permissions' => [],
+                    ],
+                    $clientFactory,
+                ],
                 'Invalid name'        => [
                     new GraphQLError('org', static function (): array {
                         return [__('errors.validation_failed')];

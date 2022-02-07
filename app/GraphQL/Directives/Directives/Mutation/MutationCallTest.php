@@ -339,6 +339,10 @@ class MutationCallTest extends TestCase {
         $args     = [
             'a' => 123,
             'b' => [
+                null,
+                [
+                    'c' => true,
+                ],
                 [
                     'a' => 123,
                     'c' => true,
@@ -350,8 +354,10 @@ class MutationCallTest extends TestCase {
         $actual   = $mutation->getRules($context, $set);
         $expected = [
             'a'     => [MutationCallTest_Rule::class],
-            'b'     => [MutationCallTest_Rule::class],
-            'b.*.a' => [MutationCallTest_Rule::class, MutationCallTest_Rule::class],
+            'b.0'   => [MutationCallTest_Rule::class],
+            'b.1'   => [MutationCallTest_Rule::class],
+            'b.2'   => [MutationCallTest_Rule::class],
+            'b.2.a' => [MutationCallTest_Rule::class, MutationCallTest_Rule::class],
         ];
 
         $this->assertEquals($expected, array_map(static function (array $rules): array {
