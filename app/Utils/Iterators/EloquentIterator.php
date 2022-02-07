@@ -6,6 +6,7 @@ use App\Utils\Iterators\Concerns\ChunkSize;
 use Closure;
 use Exception;
 use Generator;
+use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 
 /**
@@ -68,13 +69,13 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function onBeforeChunk(?Closure $closure): static {
-        $this->iterator->onAfterChunk($closure);
+        $this->iterator->onAfterChunk($this->wrapClosure($closure));
 
         return $this;
     }
 
     public function onAfterChunk(?Closure $closure): static {
-        $this->iterator->onAfterChunk($closure);
+        $this->iterator->onAfterChunk($this->wrapClosure($closure));
 
         return $this;
     }
@@ -85,5 +86,16 @@ class EloquentIterator implements ObjectIterator {
 
     public function onFinish(?Closure $closure): static {
         throw new Exception('Not implemented');
+    }
+
+    /**
+     * @param \Closure(array<T>):void|null $closure
+     *
+     * @return \Closure(\Illuminate\Support\Collection<T>):void|null
+     */
+    protected function wrapClosure(?Closure $closure): ?Closure {
+        return static function (Collection $items) use ($closure): void {
+            $closure($items->all());
+        };
     }
 }
