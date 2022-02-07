@@ -776,14 +776,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
-
-    /**
-     * Update existing objects?
-     */
-    #[Service(ResellersImporterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_RESELLERS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_UPDATER">
@@ -890,14 +882,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
-
-    /**
-     * Update existing objects?
-     */
-    #[Service(CustomersImporterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_UPDATER">
@@ -1002,14 +986,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_CHUNK = 500;
-
-    /**
-     * Update existing objects?
-     */
-    #[Service(AssetsImporterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_ASSETS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_ASSETS_UPDATER">
@@ -1114,14 +1090,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
-
-    /**
-     * Update existing objects?
-     */
-    #[Service(DistributorsImporterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DISTRIBUTORS_UPDATER">
@@ -1226,14 +1194,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK = 500;
-
-    /**
-     * Update existing objects?
-     */
-    #[Service(DocumentsImporterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_UPDATE = true;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_UPDATER">

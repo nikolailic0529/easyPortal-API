@@ -19,7 +19,6 @@ class CustomersUpdaterCronJob extends CustomersImporterCronJob {
         return [
                 'settings' => [
                     'chunk'  => Constants::EP_DATA_LOADER_CUSTOMERS_UPDATER_CHUNK,
-                    'update' => true,
                     'expire' => Constants::EP_DATA_LOADER_CUSTOMERS_UPDATER_EXPIRE,
                 ],
             ] + parent::getQueueConfig();

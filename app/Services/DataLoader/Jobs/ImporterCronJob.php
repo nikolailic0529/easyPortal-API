@@ -28,18 +28,15 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
                 'settings' => [
                     'chunk'  => null,
                     'expire' => null,
-                    'update' => false,
                 ],
             ] + parent::getQueueConfig();
     }
 
     protected function getProcessor(Container $container, QueueableConfig $config): Processor {
-        $update    = $config->setting('update');
         $expire    = $config->setting('expire');
         $from      = $expire ? Date::now()->sub($expire) : null;
         $processor = $this
             ->createProcessor($container, $config)
-            ->setUpdate($update)
             ->setFrom($from);
 
         return $processor;
