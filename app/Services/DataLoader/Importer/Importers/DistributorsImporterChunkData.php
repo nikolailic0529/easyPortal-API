@@ -7,11 +7,13 @@ use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Schema\Company;
 
 class DistributorsImporterChunkData extends ImporterChunkData {
-    public function collect(mixed $object): void {
+    public function collect(mixed $object): static {
         if ($object instanceof Company) {
             $this->add(Distributor::class, $object->id ?? null);
         } else {
             parent::collect($object);
         }
+
+        return $this;
     }
 }

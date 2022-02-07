@@ -49,7 +49,7 @@ class Data {
         return $this->data;
     }
 
-    public function collect(mixed $object): void {
+    public function collect(mixed $object): static {
         if ($object instanceof SchemaViewAsset) {
             $this->add(Reseller::class, $object->resellerId ?? null);
             $this->add(Reseller::class, $object->reseller->id ?? null);
@@ -83,6 +83,8 @@ class Data {
         } else {
             // empty
         }
+
+        return $this;
     }
 
     protected function add(string $class, ?string $id): void {

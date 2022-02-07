@@ -19,12 +19,12 @@ class UpdateIndexJob extends Job {
     /**
      * @var class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>|null
      */
-    protected ?string $model;
+    private ?string $model;
 
     /**
      * @var array<string|int>
      */
-    protected array $ids;
+    private array $ids;
 
     /**
      * @param \Illuminate\Support\Collection<
@@ -33,13 +33,44 @@ class UpdateIndexJob extends Job {
      *
      * @noinspection PhpMissingParentConstructorInspection
      */
-    public function __construct(Collection $models) {
-        $this->model = $models->first() ? $models->first()::class : null;
-        $this->ids   = $models->map(new GetKey())->all();
+    public function __construct(?Collection $models = null) {
+        $models ??= new Collection();
+
+        $this->setModels(
+            $models->first() ? $models->first()::class : null,
+            $models->map(new GetKey())->all(),
+        );
+    }
+
+    /**
+     * @return class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>|null
+     */
+    public function getModel(): ?string {
+        return $this->model;
+    }
+
+    /**
+     * @return array<string|int>
+     */
+    public function getIds(): array {
+        return $this->ids;
     }
 
     public function displayName(): string {
         return 'ep-search-updater';
+    }
+
+    /**
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>|null $model
+     * @param array<string|int>                                                                               $ids
+     *
+     * @return $this
+     */
+    public function setModels(?string $model, array $ids): static {
+        $this->model = $model;
+        $this->ids   = $ids;
+
+        return $this;
     }
 
     public function __invoke(Container $container, Service $service, Updater $updater): void {
