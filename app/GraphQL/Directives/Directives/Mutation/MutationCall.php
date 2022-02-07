@@ -30,7 +30,6 @@ use function array_slice;
 use function current;
 use function implode;
 use function is_bool;
-use function reset;
 use function sprintf;
 
 abstract class MutationCall extends BaseDirective implements FieldResolver {
@@ -168,17 +167,24 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
         $rules = [];
 
         foreach ($arguments as $name => $argument) {
-            $key         = $prefix ? "{$prefix}.{$name}" : $name;
-            $value       = $argument->value;
-            $rules[$key] = $this->getRulesFromDirectives($context, $argument->directives);
+            $key      = $prefix ? "{$prefix}.{$name}" : $name;
+            $value    = $argument->value;
+            $argRules = $this->getRulesFromDirectives($context, $argument->directives);
 
-            if ($argument->type instanceof ListType && $value) {
-                $value = reset($value);
-                $key   = "{$key}.*";
-            }
+            if ($argument->type instanceof ListType) {
+                foreach ((array) $value as $k => $v) {
+                    $k         = "{$key}.{$k}";
+                    $rules[$k] = $argRules;
 
-            if ($value instanceof ArgumentSet) {
-                $rules = array_merge($rules, $this->getRules($context, $value, $key));
+                    if ($v instanceof ArgumentSet) {
+                        $rules = array_merge($rules, $this->getRules($context, $v, $k));
+                    }
+                }
+            } elseif ($value instanceof ArgumentSet) {
+                $rules[$key] = $argRules;
+                $rules       = array_merge($rules, $this->getRules($context, $value, $key));
+            } else {
+                $rules[$key] = $argRules;
             }
         }
 
