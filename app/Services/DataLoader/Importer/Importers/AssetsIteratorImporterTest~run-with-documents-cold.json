@@ -93,16 +93,16 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
@@ -126,7 +126,7 @@
             "Asset",
             "Software",
             "Software",
-            "bcb44a6f-9356-537d-94f6-a442e455026f",
+            "b0091168-5b93-5712-9f6b-df3cc52aa720",
             "2021-08-30 00:41:46",
             "2021-08-30 00:41:46"
         ]
@@ -148,7 +148,7 @@
             "Asset",
             "ACTIVE",
             "ACTIVE",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
             "2021-08-30 00:41:47",
             "2021-08-30 00:41:47"
         ]
@@ -172,7 +172,7 @@
             null,
             null,
             "HP-UX 11i v3 Virtual Server OE E-Del",
-            "0c4d328f-12cb-5d5c-ae49-8f082f001626",
+            "8996c18a-7c6d-5cd9-9842-2d0fcada6b28",
             "2021-08-30 00:41:48",
             "2021-08-30 00:41:48"
         ]
@@ -199,7 +199,7 @@
         "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
             "Software",
-            "10186f07-52fd-5767-ba41-04f701cf968e",
+            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
             "2021-08-30 00:41:50",
             "2021-08-30 00:41:50"
         ]
@@ -219,7 +219,7 @@
         "bindings": [
             "EXPOSED",
             "EXPOSED",
-            "12b10fd3-c129-5d96-81ab-3c38f9fef780",
+            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
             "2021-08-30 00:41:51",
             "2021-08-30 00:41:51"
         ]
@@ -229,12 +229,12 @@
         "bindings": [
             "6bad01f8-09bb-4809-bc5c-e154917dc505",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "bcb44a6f-9356-537d-94f6-a442e455026f",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "0c4d328f-12cb-5d5c-ae49-8f082f001626",
+            "b0091168-5b93-5712-9f6b-df3cc52aa720",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "8996c18a-7c6d-5cd9-9842-2d0fcada6b28",
             "c325b39c-d33e-44cd-b0d3-fefa921b9e71",
             "bab2f644-f964-4ecd-95a9-77a3818b646e",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
             "2021-09-05 05:02:24",
             null,
             "70",
@@ -254,7 +254,7 @@
             null,
             null,
             null,
-            "451d80fa-ead3-5ebe-a22b-f9f5699d2dd5",
+            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
             "2021-08-30 00:41:54",
             "2021-08-30 00:41:54"
         ]
@@ -263,8 +263,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
-            "451d80fa-ead3-5ebe-a22b-f9f5699d2dd5",
-            "a209dc6f-315e-50f9-a8a4-1958432bc3a7",
+            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "15e9a7e1-af31-5def-9873-5612a993eac7",
             "2021-08-30 00:41:55",
             "2021-08-30 00:41:55"
         ]
@@ -272,9 +272,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "10186f07-52fd-5767-ba41-04f701cf968e",
+            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
             "6bad01f8-09bb-4809-bc5c-e154917dc505",
-            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
+            "a4a10bb3-5cf6-5360-86a7-645a5bad5521",
             "2021-08-30 00:41:56",
             "2021-08-30 00:41:56"
         ]
@@ -282,9 +282,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "12b10fd3-c129-5d96-81ab-3c38f9fef780",
+            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
             "6bad01f8-09bb-4809-bc5c-e154917dc505",
-            "e797383d-5a2d-5808-be40-15b341b50104",
+            "00b0c094-0c7d-5234-85a9-2ae8a7d3dcc5",
             "2021-08-30 00:41:57",
             "2021-08-30 00:41:57"
         ]
@@ -310,7 +310,7 @@
         "bindings": [
             "EUR",
             "EUR",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "2021-08-30 00:41:59",
             "2021-08-30 00:41:59"
         ]
@@ -330,7 +330,7 @@
         "bindings": [
             "EN",
             "EN",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "2021-08-30 00:42:00",
             "2021-08-30 00:42:00"
         ]
@@ -354,11 +354,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "32897a0b-8063-32e8-be58-bd42621a232e",
-            "b3f7f2fa-1082-5415-9461-ac5b355e7390",
+            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
             "c325b39c-d33e-44cd-b0d3-fefa921b9e71",
             "bab2f644-f964-4ecd-95a9-77a3818b646e",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2019-12-01 00:00:00",
             "2021-06-30 00:00:00",
@@ -377,16 +377,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "6bad01f8-09bb-4809-bc5c-e154917dc505",
-            "0c4d328f-12cb-5d5c-ae49-8f082f001626",
+            "8996c18a-7c6d-5cd9-9842-2d0fcada6b28",
             null,
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "0.00",
             "0.00",
             "0.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "b0091168-5b93-5712-9f6b-df3cc52aa720",
+            "63f50061-97fc-54fb-8a54-a7ccc0cb2a71",
             "cd6a2bca-5a78-4b93-b135-49c7999149fd",
             "2021-08-30 00:42:05",
             "2021-08-30 00:42:05"
@@ -414,7 +414,7 @@
             "c325b39c-d33e-44cd-b0d3-fefa921b9e71",
             "cd6a2bca-5a78-4b93-b135-49c7999149fd",
             "156e01f1-5819-3f45-bc7c-c7960f85e77d",
-            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "05d94843-8131-55b7-ab9f-c3e5b18854b1",
             "2021-08-30 00:42:18",
             "2021-08-30 00:42:18"
         ]
@@ -423,8 +423,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
-            "8996c18a-7c6d-5cd9-9842-2d0fcada6b28",
+            "05d94843-8131-55b7-ab9f-c3e5b18854b1",
+            "92d035e2-2f2a-544b-a593-144af051e4c8",
             "2021-08-30 00:42:19",
             "2021-08-30 00:42:19"
         ]
@@ -442,7 +442,7 @@
             "Asset",
             "Hardware",
             "Hardware",
-            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
+            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
             "2021-08-30 00:42:20",
             "2021-08-30 00:42:20"
         ]
@@ -462,7 +462,7 @@
             null,
             null,
             "HP 3PAR 7000 4-pt 8Gb\/s FC Adapter",
-            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
+            "0a143f21-707e-55bd-a0be-9b5a2a250830",
             "2021-08-30 00:42:21",
             "2021-08-30 00:42:21"
         ]
@@ -477,7 +477,7 @@
         "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
         "bindings": [
             "Hardware",
-            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
             "2021-08-30 00:42:23",
             "2021-08-30 00:42:23"
         ]
@@ -493,7 +493,7 @@
         "bindings": [
             "ARCHIVED",
             "ARCHIVED",
-            "15e9a7e1-af31-5def-9873-5612a993eac7",
+            "89ee3fbd-41aa-51be-a9f0-5c91701323e8",
             "2021-08-30 00:42:24",
             "2021-08-30 00:42:24"
         ]
@@ -503,12 +503,12 @@
         "bindings": [
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
+            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "0a143f21-707e-55bd-a0be-9b5a2a250830",
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "7285fa8e-9901-4207-b367-7988d1f185a2",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
             "2021-09-05 00:04:17",
             "47aa702f-a0ba-3738-920f-ed15dcb8fb5d",
             "130",
@@ -528,7 +528,7 @@
             "+17707057210",
             null,
             true,
-            "a4a10bb3-5cf6-5360-86a7-645a5bad5521",
+            "fd4cc122-102c-50d6-85f7-9a84c6518263",
             "2021-08-30 00:42:27",
             "2021-08-30 00:42:27"
         ]
@@ -536,19 +536,19 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "a4a10bb3-5cf6-5360-86a7-645a5bad5521",
+            "fd4cc122-102c-50d6-85f7-9a84c6518263",
             "2021-08-30 00:42:28",
-            "00b0c094-0c7d-5234-85a9-2ae8a7d3dcc5",
+            "91747a0f-4a59-5440-a1f9-d31bc532d28b",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:42:28",
-            "a4a10bb3-5cf6-5360-86a7-645a5bad5521",
+            "fd4cc122-102c-50d6-85f7-9a84c6518263",
             "2021-08-30 00:42:29",
-            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "b8ae2c4d-10af-5b92-818d-e7fa4e9a1e68",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
             "2021-08-30 00:42:29",
-            "a4a10bb3-5cf6-5360-86a7-645a5bad5521",
+            "fd4cc122-102c-50d6-85f7-9a84c6518263",
             "2021-08-30 00:42:30",
-            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
+            "276e04c3-c50f-58e5-8790-8b40cb84dd82",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:42:30"
         ]
@@ -556,9 +556,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
-            "63f50061-97fc-54fb-8a54-a7ccc0cb2a71",
+            "c5b82969-5c50-5870-8429-9b8703b4422c",
             "2021-08-30 00:42:31",
             "2021-08-30 00:42:31"
         ]
@@ -566,9 +566,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "15e9a7e1-af31-5def-9873-5612a993eac7",
+            "89ee3fbd-41aa-51be-a9f0-5c91701323e8",
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
-            "05d94843-8131-55b7-ab9f-c3e5b18854b1",
+            "78e44f11-d610-5bd2-a963-7782064a5ab8",
             "2021-08-30 00:42:32",
             "2021-08-30 00:42:32"
         ]
@@ -587,11 +587,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "3b950fcd-647a-3326-aa92-194715e1e017",
-            "6e24fd8b-dca7-5f81-9978-1dc2d9f45933",
+            "e797383d-5a2d-5808-be40-15b341b50104",
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "7285fa8e-9901-4207-b367-7988d1f185a2",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2020-02-01 00:00:00",
             "2021-01-31 00:00:00",
@@ -610,16 +610,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
-            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
+            "0a143f21-707e-55bd-a0be-9b5a2a250830",
             "47aa702f-a0ba-3738-920f-ed15dcb8fb5d",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "184.00",
             "324.00",
             "-11.00",
             "324.00",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "92d035e2-2f2a-544b-a593-144af051e4c8",
+            "6f065698-b575-5b06-a73c-90f2f003f1a9",
             "916cb400-7119-4088-a641-f8e96eba49f9",
             "2021-08-30 00:42:38",
             "2021-08-30 00:42:38"
@@ -632,11 +632,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "3b950fcd-647a-3326-aa92-194715e1e017",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "7285fa8e-9901-4207-b367-7988d1f185a2",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2021-02-01 00:00:00",
             "2022-10-31 00:00:00",
@@ -655,16 +655,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
-            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
+            "0a143f21-707e-55bd-a0be-9b5a2a250830",
             "47aa702f-a0ba-3738-920f-ed15dcb8fb5d",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "477.00",
             "588.00",
             "-5.00",
             "588.00",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
+            "c7724070-a487-5cd2-8915-d1110cf785e9",
             "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
             "2021-08-30 00:42:44",
             "2021-08-30 00:42:44"
@@ -692,7 +692,7 @@
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "916cb400-7119-4088-a641-f8e96eba49f9",
             "598272a3-e66d-3c51-a1dc-223b60edb60c",
-            "0a143f21-707e-55bd-a0be-9b5a2a250830",
+            "b0001db1-42ed-5227-bf6b-c56442eab905",
             "2021-08-30 00:42:57",
             "2021-08-30 00:42:57"
         ]
@@ -701,8 +701,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "0a143f21-707e-55bd-a0be-9b5a2a250830",
-            "89ee3fbd-41aa-51be-a9f0-5c91701323e8",
+            "b0001db1-42ed-5227-bf6b-c56442eab905",
+            "abfb347e-e290-5253-85a3-c7942df50a19",
             "2021-08-30 00:42:58",
             "2021-08-30 00:42:58"
         ]
@@ -721,7 +721,7 @@
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
             "69ce44ef-2fed-36d6-8107-13a0114bcc93",
-            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
+            "15cd7cbe-a5bf-5c20-9637-99c7cb23bc90",
             "2021-08-30 00:42:59",
             "2021-08-30 00:42:59"
         ]
@@ -730,8 +730,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
-            "fd4cc122-102c-50d6-85f7-9a84c6518263",
+            "15cd7cbe-a5bf-5c20-9637-99c7cb23bc90",
+            "3c346ba5-fb54-5cfc-be58-f2f3135200df",
             "2021-08-30 00:43:00",
             "2021-08-30 00:43:00"
         ]
@@ -751,7 +751,7 @@
             null,
             null,
             "",
-            "91747a0f-4a59-5440-a1f9-d31bc532d28b",
+            "65c973aa-9fd9-5d22-8e3c-3e94dfe78677",
             "2021-08-30 00:43:01",
             "2021-08-30 00:43:01"
         ]
@@ -762,8 +762,8 @@
             "e39b8f88-3f4e-4eb5-9a9d-265574dc380d",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "91747a0f-4a59-5440-a1f9-d31bc532d28b",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "65c973aa-9fd9-5d22-8e3c-3e94dfe78677",
             "3f87404c-041b-4357-83f5-b0068e5f10a5",
             "8f8980f8-21a0-4fa7-b5ed-16d7b41c30e0",
             null,
@@ -790,10 +790,10 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             null,
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "3f87404c-041b-4357-83f5-b0068e5f10a5",
             "8f8980f8-21a0-4fa7-b5ed-16d7b41c30e0",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             null,
             "eb1cb37a-48ab-43da-a01e-220220f8654a",
             "2022-01-01 00:00:00",
@@ -813,16 +813,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e39b8f88-3f4e-4eb5-9a9d-265574dc380d",
-            "91747a0f-4a59-5440-a1f9-d31bc532d28b",
+            "65c973aa-9fd9-5d22-8e3c-3e94dfe78677",
             null,
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "24.00",
             null,
             "24.00",
             null,
             null,
-            "b8ae2c4d-10af-5b92-818d-e7fa4e9a1e68",
+            "be2c8b98-199a-54f0-8ecb-1412ca758c1d",
             "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922",
             "2021-08-30 00:43:10",
             "2021-08-30 00:43:10"
@@ -851,7 +851,7 @@
             null,
             null,
             "HPE 300GB SAS 10K SFF SC DS HDD",
-            "276e04c3-c50f-58e5-8790-8b40cb84dd82",
+            "67bc2e35-2a59-5f4d-a986-c2c626666e64",
             "2021-08-30 00:43:21",
             "2021-08-30 00:43:21"
         ]
@@ -869,7 +869,7 @@
             "AssetWarranty",
             "Contract",
             "Contract",
-            "c5b82969-5c50-5870-8429-9b8703b4422c",
+            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
             "2021-08-30 00:43:27",
             "2021-08-30 00:43:27"
         ]
@@ -887,7 +887,7 @@
             "AssetWarranty",
             "Expiring",
             "Expiring",
-            "78e44f11-d610-5bd2-a963-7782064a5ab8",
+            "726e4f28-15bf-5034-9a99-396090d574cb",
             "2021-08-30 00:43:28",
             "2021-08-30 00:43:28"
         ]
@@ -905,7 +905,7 @@
             "AssetWarranty",
             "FactoryWarranty",
             "FactoryWarranty",
-            "6f065698-b575-5b06-a73c-90f2f003f1a9",
+            "1a704417-beaf-543b-995c-9d4d330fe587",
             "2021-08-30 00:43:31",
             "2021-08-30 00:43:31"
         ]
@@ -915,9 +915,9 @@
         "bindings": [
             "b294de4a-bba9-4894-a300-510fcccfbca2",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "276e04c3-c50f-58e5-8790-8b40cb84dd82",
+            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "67bc2e35-2a59-5f4d-a986-c2c626666e64",
             "43da5a39-ae96-4577-9a89-fd47ac5f315b",
             "02f349a8-a8f0-4b12-a293-66533652c16f",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
@@ -942,7 +942,7 @@
             null,
             null,
             null,
-            "15cd7cbe-a5bf-5c20-9637-99c7cb23bc90",
+            "1d6f8cd3-df75-5f21-b75a-e7e98b21c28d",
             "2021-08-30 00:43:37",
             "2021-08-30 00:43:37"
         ]
@@ -950,19 +950,19 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "15cd7cbe-a5bf-5c20-9637-99c7cb23bc90",
+            "1d6f8cd3-df75-5f21-b75a-e7e98b21c28d",
             "2021-08-30 00:43:38",
-            "abfb347e-e290-5253-85a3-c7942df50a19",
+            "a9fa9c66-8f61-5bee-8712-d50083a94735",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:43:38",
-            "15cd7cbe-a5bf-5c20-9637-99c7cb23bc90",
+            "1d6f8cd3-df75-5f21-b75a-e7e98b21c28d",
             "2021-08-30 00:43:39",
-            "3c346ba5-fb54-5cfc-be58-f2f3135200df",
+            "8624bb37-c846-50b5-b14e-9eaf8f56c933",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
             "2021-08-30 00:43:39",
-            "15cd7cbe-a5bf-5c20-9637-99c7cb23bc90",
+            "1d6f8cd3-df75-5f21-b75a-e7e98b21c28d",
             "2021-08-30 00:43:40",
-            "65c973aa-9fd9-5d22-8e3c-3e94dfe78677",
+            "ddbaadfa-9022-52de-abe5-911568c2e53c",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:43:40"
         ]
@@ -970,9 +970,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
             "b294de4a-bba9-4894-a300-510fcccfbca2",
-            "be2c8b98-199a-54f0-8ecb-1412ca758c1d",
+            "2707787c-658a-5d18-b4eb-d2adc156b048",
             "2021-08-30 00:43:41",
             "2021-08-30 00:43:41"
         ]
@@ -980,9 +980,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "12b10fd3-c129-5d96-81ab-3c38f9fef780",
+            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
             "b294de4a-bba9-4894-a300-510fcccfbca2",
-            "67bc2e35-2a59-5f4d-a986-c2c626666e64",
+            "e55e15a8-682f-51fa-a950-47ca14e6ae00",
             "2021-08-30 00:43:42",
             "2021-08-30 00:43:42"
         ]
@@ -997,12 +997,12 @@
             null,
             null,
             "2021-12-09 00:00:00",
-            "c7724070-a487-5cd2-8915-d1110cf785e9",
+            "5cf8affa-9789-5ba3-a52d-685e6d7336f8",
             null,
             null,
             "2018-12-10 00:00:00",
-            "78e44f11-d610-5bd2-a963-7782064a5ab8",
-            "c5b82969-5c50-5870-8429-9b8703b4422c",
+            "726e4f28-15bf-5034-9a99-396090d574cb",
+            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
             "2021-08-30 00:43:43",
             "b294de4a-bba9-4894-a300-510fcccfbca2",
             "2021-08-30 00:43:44",
@@ -1011,12 +1011,12 @@
             null,
             null,
             "2021-12-31 00:00:00",
-            "b0001db1-42ed-5227-bf6b-c56442eab905",
+            "feb8c0aa-9439-563f-83d0-e483a92c8a5e",
             null,
             null,
             "2018-12-02 00:00:00",
-            "78e44f11-d610-5bd2-a963-7782064a5ab8",
-            "6f065698-b575-5b06-a73c-90f2f003f1a9",
+            "726e4f28-15bf-5034-9a99-396090d574cb",
+            "1a704417-beaf-543b-995c-9d4d330fe587",
             "2021-08-30 00:43:44"
         ]
     },
@@ -1037,7 +1037,7 @@
         "bindings": [
             "CHF",
             "CHF",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
             "2021-08-30 00:43:46",
             "2021-08-30 00:43:46"
         ]
@@ -1049,11 +1049,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "c234c073-38d9-33d2-a686-9151089706d5",
-            "2ceeb44c-1ede-5e3c-90b3-d3b0582101c2",
+            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
             "43da5a39-ae96-4577-9a89-fd47ac5f315b",
             "02f349a8-a8f0-4b12-a293-66533652c16f",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2018-12-10 00:00:00",
             "2021-12-09 00:00:00",
@@ -1073,13 +1073,13 @@
         "bindings": [
             "b294de4a-bba9-4894-a300-510fcccfbca2",
             "2021-08-30 00:43:51",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
             "0.00",
             "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
-            "726e4f28-15bf-5034-9a99-396090d574cb",
+            "be463fd3-7535-5a8a-a251-daf0b441163e",
             "0.00",
             "0.00",
-            "276e04c3-c50f-58e5-8790-8b40cb84dd82",
+            "67bc2e35-2a59-5f4d-a986-c2c626666e64",
             "0.00",
             "364e4986-0b97-3ee2-a0ec-2bd53582f5d4",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1087,13 +1087,13 @@
             "2021-08-30 00:43:51",
             "b294de4a-bba9-4894-a300-510fcccfbca2",
             "2021-08-30 00:43:52",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
             "0.00",
             "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
-            "1a704417-beaf-543b-995c-9d4d330fe587",
+            "ee76c8d2-f9b0-58cd-8978-e1153e83a0a3",
             "0.00",
             "0.00",
-            "276e04c3-c50f-58e5-8790-8b40cb84dd82",
+            "67bc2e35-2a59-5f4d-a986-c2c626666e64",
             "0.00",
             "364e4986-0b97-3ee2-a0ec-2bd53582f5d4",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1101,13 +1101,13 @@
             "2021-08-30 00:43:52",
             "b294de4a-bba9-4894-a300-510fcccfbca2",
             "2021-08-30 00:43:53",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
             "0.00",
             "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
-            "5cf8affa-9789-5ba3-a52d-685e6d7336f8",
+            "151132f6-fa95-5b4a-84bd-19cabbdda1e4",
             "0.00",
             "0.00",
-            "276e04c3-c50f-58e5-8790-8b40cb84dd82",
+            "67bc2e35-2a59-5f4d-a986-c2c626666e64",
             "0.00",
             "364e4986-0b97-3ee2-a0ec-2bd53582f5d4",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1129,7 +1129,7 @@
             "43da5a39-ae96-4577-9a89-fd47ac5f315b",
             "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
             "8cba7b31-c392-34dc-8c33-509053bdfb2c",
-            "feb8c0aa-9439-563f-83d0-e483a92c8a5e",
+            "b54704d1-28b9-5f81-8324-3748c9056770",
             "2021-08-30 00:44:06",
             "2021-08-30 00:44:06"
         ]
@@ -1138,8 +1138,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "feb8c0aa-9439-563f-83d0-e483a92c8a5e",
-            "1d6f8cd3-df75-5f21-b75a-e7e98b21c28d",
+            "b54704d1-28b9-5f81-8324-3748c9056770",
+            "370242ec-d3ba-597b-a9c2-9b8bbbc5393a",
             "2021-08-30 00:44:07",
             "2021-08-30 00:44:07"
         ]
@@ -1159,7 +1159,7 @@
             null,
             null,
             "",
-            "a9fa9c66-8f61-5bee-8712-d50083a94735",
+            "912ab82c-d6a9-5b86-b03e-c8b7350ade3a",
             "2021-08-30 00:44:08",
             "2021-08-30 00:44:08"
         ]
@@ -1170,8 +1170,8 @@
             "afe848a4-01a0-4a4b-ad0b-e29506d8a8f6",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "a9fa9c66-8f61-5bee-8712-d50083a94735",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "912ab82c-d6a9-5b86-b03e-c8b7350ade3a",
             "07ce3aa3-2481-4db4-91f8-d2878bf304d4",
             "6b2b3602-2751-486a-a488-3237f9656b2b",
             null,
@@ -1198,10 +1198,10 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             null,
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "07ce3aa3-2481-4db4-91f8-d2878bf304d4",
             "6b2b3602-2751-486a-a488-3237f9656b2b",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             null,
             "eb1cb37a-48ab-43da-a01e-220220f8654a",
             "2021-08-01 00:00:00",
@@ -1221,16 +1221,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "afe848a4-01a0-4a4b-ad0b-e29506d8a8f6",
-            "a9fa9c66-8f61-5bee-8712-d50083a94735",
+            "912ab82c-d6a9-5b86-b03e-c8b7350ade3a",
             "223491d4-b7f9-3729-be30-a115c26b2cfc",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "0.00",
             null,
             "0.00",
             null,
             null,
-            "8624bb37-c846-50b5-b14e-9eaf8f56c933",
+            "f1b1ecde-fb18-5f4d-95f8-e3bba069c9a2",
             "8feec411-b709-44d9-b585-6c7a4ee50790",
             "2021-08-30 00:44:17",
             "2021-08-30 00:44:17"
@@ -1259,7 +1259,7 @@
             null,
             null,
             "HPE DC Environment Wide Entitlement SVC",
-            "ddbaadfa-9022-52de-abe5-911568c2e53c",
+            "225c449e-f948-5686-9765-037c52751ae4",
             "2021-08-30 00:44:28",
             "2021-08-30 00:44:28"
         ]
@@ -1276,7 +1276,7 @@
         "bindings": [
             "West Georgiannashire",
             "ee77a04d-6088-54b2-b132-ecf1227d730c",
-            "2707787c-658a-5d18-b4eb-d2adc156b048",
+            "8a63bffd-2c2d-5060-a602-01649f2a160d",
             "2021-08-30 00:44:29",
             "2021-08-30 00:44:29"
         ]
@@ -1284,7 +1284,7 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "2707787c-658a-5d18-b4eb-d2adc156b048",
+            "8a63bffd-2c2d-5060-a602-01649f2a160d",
             "ee77a04d-6088-54b2-b132-ecf1227d730c",
             "406 hubert groves",
             "29454-0368"
@@ -1294,7 +1294,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ee77a04d-6088-54b2-b132-ecf1227d730c",
-            "2707787c-658a-5d18-b4eb-d2adc156b048",
+            "8a63bffd-2c2d-5060-a602-01649f2a160d",
             "29454-0368",
             "",
             "406 Hubert Groves",
@@ -1302,7 +1302,7 @@
             "-62.228189",
             "120.3008",
             "nsvtcx8qebf1",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "2021-08-30 00:44:30",
             "2021-08-30 00:44:30"
         ]
@@ -1312,12 +1312,12 @@
         "bindings": [
             "7dcc2021-9081-4213-8e0c-a6c8d50ffa2d",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "ddbaadfa-9022-52de-abe5-911568c2e53c",
+            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "225c449e-f948-5686-9765-037c52751ae4",
             "714aa057-1ea0-4666-b3be-4b69af99e997",
             "0b0cbbc9-eb17-4567-8582-574b51bb6fec",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "2021-09-04 22:03:52",
             null,
             "70",
@@ -1337,7 +1337,7 @@
             "+19738758273",
             null,
             true,
-            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
+            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
             "2021-08-30 00:44:34",
             "2021-08-30 00:44:34"
         ]
@@ -1345,14 +1345,14 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
+            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
             "2021-08-30 00:44:35",
-            "be463fd3-7535-5a8a-a251-daf0b441163e",
+            "5dffd483-450a-52bc-9745-0f527c6a92b0",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:44:35",
-            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
+            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
             "2021-08-30 00:44:36",
-            "ee76c8d2-f9b0-58cd-8978-e1153e83a0a3",
+            "b1e4f871-7fd5-50c4-99a1-276c749b605e",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:44:36"
         ]
@@ -1366,7 +1366,7 @@
             "+15406052093",
             null,
             true,
-            "151132f6-fa95-5b4a-84bd-19cabbdda1e4",
+            "e07b47c7-14c2-562f-a526-3d6c33cf1031",
             "2021-08-30 00:44:37",
             "2021-08-30 00:44:37"
         ]
@@ -1375,8 +1375,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
-            "151132f6-fa95-5b4a-84bd-19cabbdda1e4",
-            "b54704d1-28b9-5f81-8324-3748c9056770",
+            "e07b47c7-14c2-562f-a526-3d6c33cf1031",
+            "7129326a-695c-5688-bdc2-411fce7b8183",
             "2021-08-30 00:44:38",
             "2021-08-30 00:44:38"
         ]
@@ -1384,9 +1384,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
             "7dcc2021-9081-4213-8e0c-a6c8d50ffa2d",
-            "370242ec-d3ba-597b-a9c2-9b8bbbc5393a",
+            "fd222377-e1a7-5ef8-8c8e-c82ff1180162",
             "2021-08-30 00:44:39",
             "2021-08-30 00:44:39"
         ]
@@ -1394,9 +1394,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "15e9a7e1-af31-5def-9873-5612a993eac7",
+            "89ee3fbd-41aa-51be-a9f0-5c91701323e8",
             "7dcc2021-9081-4213-8e0c-a6c8d50ffa2d",
-            "912ab82c-d6a9-5b86-b03e-c8b7350ade3a",
+            "20ed1ab4-7b2a-5746-8ead-c8e7b0803ca5",
             "2021-08-30 00:44:40",
             "2021-08-30 00:44:40"
         ]
@@ -1414,11 +1414,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "e6b6d07a-09e9-3953-8ca4-f03e5a1bd23f",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "714aa057-1ea0-4666-b3be-4b69af99e997",
             "0b0cbbc9-eb17-4567-8582-574b51bb6fec",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2020-01-01 00:00:00",
             "2022-12-31 00:00:00",
@@ -1437,16 +1437,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "7dcc2021-9081-4213-8e0c-a6c8d50ffa2d",
-            "ddbaadfa-9022-52de-abe5-911568c2e53c",
+            "225c449e-f948-5686-9765-037c52751ae4",
             null,
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
             "0.00",
             "0.00",
             "0.00",
             "0.00",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "f1b1ecde-fb18-5f4d-95f8-e3bba069c9a2",
+            "74bf7d8c-fb53-571a-b1fb-3f84cc0752cb",
             "3cf865d5-3810-4dce-80eb-5a962403c8e7",
             "2021-08-30 00:44:46",
             "2021-08-30 00:44:46"
@@ -1474,7 +1474,7 @@
             "714aa057-1ea0-4666-b3be-4b69af99e997",
             "3cf865d5-3810-4dce-80eb-5a962403c8e7",
             "e5e6fe75-9117-3f4d-b0d1-078cb403615c",
-            "225c449e-f948-5686-9765-037c52751ae4",
+            "0a24756f-2458-50d8-ae83-ae9b8e083425",
             "2021-08-30 00:44:57",
             "2021-08-30 00:44:57"
         ]
@@ -1483,8 +1483,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "225c449e-f948-5686-9765-037c52751ae4",
-            "8a63bffd-2c2d-5060-a602-01649f2a160d",
+            "0a24756f-2458-50d8-ae83-ae9b8e083425",
+            "dba74d27-48f8-5885-9c49-c9d54259072e",
             "2021-08-30 00:44:58",
             "2021-08-30 00:44:58"
         ]
@@ -1504,7 +1504,7 @@
             null,
             null,
             "VMw vSphere EntPlus 1P 3yr E-LTU",
-            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
             "2021-08-30 00:44:59",
             "2021-08-30 00:44:59"
         ]
@@ -1514,12 +1514,12 @@
         "bindings": [
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "bcb44a6f-9356-537d-94f6-a442e455026f",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "b0091168-5b93-5712-9f6b-df3cc52aa720",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
             "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
             "0789e4fb-c13b-4c68-ba5b-32812c9d852c",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b",
             "2021-09-05 00:28:18",
             "6fcd09b0-9c61-30a2-82e1-29b8a37a120e",
             "130",
@@ -1539,7 +1539,7 @@
             "+13808151528",
             null,
             true,
-            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
+            "55678fe7-8a8e-5bb8-b20c-78b292e67e41",
             "2021-08-30 00:45:03",
             "2021-08-30 00:45:03"
         ]
@@ -1547,19 +1547,19 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
+            "55678fe7-8a8e-5bb8-b20c-78b292e67e41",
             "2021-08-30 00:45:04",
-            "5dffd483-450a-52bc-9745-0f527c6a92b0",
+            "8b518b38-c31b-512f-aa42-d244331357bb",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:45:04",
-            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
+            "55678fe7-8a8e-5bb8-b20c-78b292e67e41",
             "2021-08-30 00:45:05",
-            "b1e4f871-7fd5-50c4-99a1-276c749b605e",
+            "2fc9e89d-53c9-58dd-b2fa-1aa3b1abf22e",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
             "2021-08-30 00:45:05",
-            "3f90f4c5-1749-56f7-a7d2-57c0f6953fdc",
+            "55678fe7-8a8e-5bb8-b20c-78b292e67e41",
             "2021-08-30 00:45:06",
-            "e07b47c7-14c2-562f-a526-3d6c33cf1031",
+            "3829c717-45b1-5d0f-a6eb-ab7911937436",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:45:06"
         ]
@@ -1567,9 +1567,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "10186f07-52fd-5767-ba41-04f701cf968e",
+            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
-            "7129326a-695c-5688-bdc2-411fce7b8183",
+            "6cef1bb4-b0fe-5f75-bf97-1e347e6a9dc0",
             "2021-08-30 00:45:07",
             "2021-08-30 00:45:07"
         ]
@@ -1577,9 +1577,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "15e9a7e1-af31-5def-9873-5612a993eac7",
+            "89ee3fbd-41aa-51be-a9f0-5c91701323e8",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
-            "fd222377-e1a7-5ef8-8c8e-c82ff1180162",
+            "c9297597-6e24-5d50-a579-0d3c2a750df0",
             "2021-08-30 00:45:08",
             "2021-08-30 00:45:08"
         ]
@@ -1597,11 +1597,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "e7127f7c-9ee5-3bb7-8265-b185f93e7a87",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
             "0789e4fb-c13b-4c68-ba5b-32812c9d852c",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2021-01-10 00:00:00",
             "2021-12-31 00:00:00",
@@ -1621,13 +1621,13 @@
         "bindings": [
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
             "2021-08-30 00:45:14",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "-14.00",
             "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
-            "20ed1ab4-7b2a-5746-8ead-c8e7b0803ca5",
+            "b26b7e98-dfca-5934-aaed-dd425d385263",
             "494.00",
             "321.00",
-            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
             "494.00",
             "6fcd09b0-9c61-30a2-82e1-29b8a37a120e",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1635,13 +1635,13 @@
             "2021-08-30 00:45:14",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
             "2021-08-30 00:45:15",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "-7.00",
             "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
-            "74bf7d8c-fb53-571a-b1fb-3f84cc0752cb",
+            "9426ad29-9fa9-596a-904d-07f452ce7ffe",
             "494.00",
             "401.00",
-            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
             "494.00",
             "6fcd09b0-9c61-30a2-82e1-29b8a37a120e",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1649,13 +1649,13 @@
             "2021-08-30 00:45:15",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
             "2021-08-30 00:45:16",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "-14.00",
             "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
-            "0a24756f-2458-50d8-ae83-ae9b8e083425",
+            "27940bd7-af74-55d6-b72c-53201960cb1e",
             "494.00",
             "321.00",
-            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
             "494.00",
             "6fcd09b0-9c61-30a2-82e1-29b8a37a120e",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1663,13 +1663,13 @@
             "2021-08-30 00:45:16",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca",
             "2021-08-30 00:45:17",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "-7.00",
             "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
-            "dba74d27-48f8-5885-9c49-c9d54259072e",
+            "bc9d8e0d-968a-5100-9016-f3c75d573a43",
             "494.00",
             "401.00",
-            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
             "494.00",
             "6fcd09b0-9c61-30a2-82e1-29b8a37a120e",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -1699,7 +1699,7 @@
             "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
             "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
             "dfd98205-b947-34cc-a568-0fab853376af",
-            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
+            "f6903885-f20a-5715-a716-1a2ab0e20836",
             "2021-08-30 00:45:34",
             "2021-08-30 00:45:34"
         ]
@@ -1707,14 +1707,14 @@
     {
         "query": "insert into `asset_warranty_service_levels` (`asset_warranty_id`, `created_at`, `id`, `service_level_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
+            "f6903885-f20a-5715-a716-1a2ab0e20836",
             "2021-08-30 00:45:35",
-            "55678fe7-8a8e-5bb8-b20c-78b292e67e41",
+            "3a2bca79-9278-5a4c-a3f9-82f4441450af",
             "93dff777-6006-5616-bdb5-a56ec97248bb",
             "2021-08-30 00:45:35",
-            "ae2549eb-a060-5ca8-94bb-515f24e48e34",
+            "f6903885-f20a-5715-a716-1a2ab0e20836",
             "2021-08-30 00:45:36",
-            "8b518b38-c31b-512f-aa42-d244331357bb",
+            "a1ba7ca0-91b7-5582-9c1b-360e235be5cf",
             "17b119b9-4e2f-59be-982f-ae4da47cddf7",
             "2021-08-30 00:45:36"
         ]
@@ -1734,7 +1734,7 @@
             null,
             null,
             "HPE 96W Smart Storage Battery 145mm Cbl",
-            "2fc9e89d-53c9-58dd-b2fa-1aa3b1abf22e",
+            "16ff51a3-aaf3-50b6-ab38-bd518ec7b909",
             "2021-08-30 00:45:37",
             "2021-08-30 00:45:37"
         ]
@@ -1744,12 +1744,12 @@
         "bindings": [
             "f5ea76d0-7b8a-46f6-a195-58f25dff39cd",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "2fc9e89d-53c9-58dd-b2fa-1aa3b1abf22e",
+            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "16ff51a3-aaf3-50b6-ab38-bd518ec7b909",
             "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
             "33a7c56b-be08-4bf1-ae13-0b2b76b64adb",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "2021-09-04 19:20:42",
             null,
             "70",
@@ -1769,7 +1769,7 @@
             "+16786250536",
             null,
             true,
-            "3829c717-45b1-5d0f-a6eb-ab7911937436",
+            "d1c83f46-8b81-5cc6-ad0d-7b606786b17d",
             "2021-08-30 00:45:41",
             "2021-08-30 00:45:41"
         ]
@@ -1777,19 +1777,19 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "3829c717-45b1-5d0f-a6eb-ab7911937436",
+            "d1c83f46-8b81-5cc6-ad0d-7b606786b17d",
             "2021-08-30 00:45:42",
-            "6cef1bb4-b0fe-5f75-bf97-1e347e6a9dc0",
+            "14417ecf-512d-55cd-b893-0c8e5ee5b1a3",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:45:42",
-            "3829c717-45b1-5d0f-a6eb-ab7911937436",
+            "d1c83f46-8b81-5cc6-ad0d-7b606786b17d",
             "2021-08-30 00:45:43",
-            "c9297597-6e24-5d50-a579-0d3c2a750df0",
+            "3dd0e021-6d6e-53e1-9770-e336d29f3c79",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
             "2021-08-30 00:45:43",
-            "3829c717-45b1-5d0f-a6eb-ab7911937436",
+            "d1c83f46-8b81-5cc6-ad0d-7b606786b17d",
             "2021-08-30 00:45:44",
-            "b26b7e98-dfca-5934-aaed-dd425d385263",
+            "bf26cdb3-bfc8-5430-aba2-e4e5c9840ac1",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:45:44"
         ]
@@ -1797,9 +1797,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
             "f5ea76d0-7b8a-46f6-a195-58f25dff39cd",
-            "9426ad29-9fa9-596a-904d-07f452ce7ffe",
+            "a013b1ec-7bab-5bf9-ae39-204516282cb4",
             "2021-08-30 00:45:45",
             "2021-08-30 00:45:45"
         ]
@@ -1807,9 +1807,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "12b10fd3-c129-5d96-81ab-3c38f9fef780",
+            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
             "f5ea76d0-7b8a-46f6-a195-58f25dff39cd",
-            "27940bd7-af74-55d6-b72c-53201960cb1e",
+            "1eb848f3-4727-567e-9c3d-8f2b42c89181",
             "2021-08-30 00:45:46",
             "2021-08-30 00:45:46"
         ]
@@ -1827,11 +1827,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "b908ca96-9067-3ece-8765-9d4008a31b8b",
-            "6e24fd8b-dca7-5f81-9978-1dc2d9f45933",
+            "e797383d-5a2d-5808-be40-15b341b50104",
             "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
             "33a7c56b-be08-4bf1-ae13-0b2b76b64adb",
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2023-05-01 00:00:00",
             "2025-04-30 00:00:00",
@@ -1850,16 +1850,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f5ea76d0-7b8a-46f6-a195-58f25dff39cd",
-            "2fc9e89d-53c9-58dd-b2fa-1aa3b1abf22e",
+            "16ff51a3-aaf3-50b6-ab38-bd518ec7b909",
             null,
-            "df6640b6-1d58-54ab-ba3e-96ddcd76f626",
+            "bea45afc-bc07-5d36-9bae-1e80692e4e05",
             "0.00",
             "0.00",
             "0.00",
             "0.00",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "bc9d8e0d-968a-5100-9016-f3c75d573a43",
+            "1ab74417-65fb-516d-893c-3d2fc06a8d7e",
             "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
             "2021-08-30 00:45:52",
             "2021-08-30 00:45:52"
@@ -1887,7 +1887,7 @@
             "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
             "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
             "6ec8d152-02ec-35a2-a70c-0ffe0c914a0d",
-            "f6903885-f20a-5715-a716-1a2ab0e20836",
+            "a4cd6632-285b-5786-889b-6e89a6c5962d",
             "2021-08-30 00:46:03",
             "2021-08-30 00:46:03"
         ]
@@ -1896,8 +1896,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "f6903885-f20a-5715-a716-1a2ab0e20836",
-            "3a2bca79-9278-5a4c-a3f9-82f4441450af",
+            "a4cd6632-285b-5786-889b-6e89a6c5962d",
+            "cff30e9d-dc37-5f71-aaa9-ca1d38a352ed",
             "2021-08-30 00:46:04",
             "2021-08-30 00:46:04"
         ]
@@ -1917,7 +1917,7 @@
             null,
             null,
             "HP 3PAR 7400 Replication Ste Drive E-LTU",
-            "a1ba7ca0-91b7-5582-9c1b-360e235be5cf",
+            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
             "2021-08-30 00:46:05",
             "2021-08-30 00:46:05"
         ]
@@ -1927,12 +1927,12 @@
         "bindings": [
             "bc0520fb-2cca-41a8-8594-e9c257a7d5e9",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "bcb44a6f-9356-537d-94f6-a442e455026f",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "a1ba7ca0-91b7-5582-9c1b-360e235be5cf",
+            "b0091168-5b93-5712-9f6b-df3cc52aa720",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "acb9a460-41b5-4434-bdfe-4543f46fd372",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
             "2021-09-20 18:30:18",
             null,
             "70",
@@ -1952,7 +1952,7 @@
             "+15209291794",
             null,
             true,
-            "16ff51a3-aaf3-50b6-ab38-bd518ec7b909",
+            "a73f24b6-afd2-586a-a516-d8517fb5242b",
             "2021-08-30 00:46:09",
             "2021-08-30 00:46:09"
         ]
@@ -1960,14 +1960,14 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "16ff51a3-aaf3-50b6-ab38-bd518ec7b909",
+            "a73f24b6-afd2-586a-a516-d8517fb5242b",
             "2021-08-30 00:46:10",
-            "d1c83f46-8b81-5cc6-ad0d-7b606786b17d",
+            "972f0800-451a-54eb-8757-88ce81c3f17d",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:46:10",
-            "16ff51a3-aaf3-50b6-ab38-bd518ec7b909",
+            "a73f24b6-afd2-586a-a516-d8517fb5242b",
             "2021-08-30 00:46:11",
-            "14417ecf-512d-55cd-b893-0c8e5ee5b1a3",
+            "56103c74-83cd-5460-8648-0cccfd30a175",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:46:11"
         ]
@@ -1981,7 +1981,7 @@
             null,
             null,
             null,
-            "3dd0e021-6d6e-53e1-9770-e336d29f3c79",
+            "06b2f264-8e2f-5fef-a019-ca0ab541192d",
             "2021-08-30 00:46:12",
             "2021-08-30 00:46:12"
         ]
@@ -1990,8 +1990,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
-            "3dd0e021-6d6e-53e1-9770-e336d29f3c79",
-            "bf26cdb3-bfc8-5430-aba2-e4e5c9840ac1",
+            "06b2f264-8e2f-5fef-a019-ca0ab541192d",
+            "4508bff6-0518-5cc0-8404-dd1f013b5d7b",
             "2021-08-30 00:46:13",
             "2021-08-30 00:46:13"
         ]
@@ -1999,9 +1999,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "10186f07-52fd-5767-ba41-04f701cf968e",
+            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
             "bc0520fb-2cca-41a8-8594-e9c257a7d5e9",
-            "a013b1ec-7bab-5bf9-ae39-204516282cb4",
+            "9025c437-43a3-5c1f-b52a-a9bab8db5196",
             "2021-08-30 00:46:14",
             "2021-08-30 00:46:14"
         ]
@@ -2009,9 +2009,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "15e9a7e1-af31-5def-9873-5612a993eac7",
+            "89ee3fbd-41aa-51be-a9f0-5c91701323e8",
             "bc0520fb-2cca-41a8-8594-e9c257a7d5e9",
-            "1eb848f3-4727-567e-9c3d-8f2b42c89181",
+            "04f1ef3a-c5b5-5f22-a812-9a3fecd255f6",
             "2021-08-30 00:46:15",
             "2021-08-30 00:46:15"
         ]
@@ -2029,11 +2029,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "b03bbbb4-41bf-3ff4-9caa-2b3cf5d4efc8",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "acb9a460-41b5-4434-bdfe-4543f46fd372",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2018-04-01 00:00:00",
             "2019-03-31 00:00:00",
@@ -2052,16 +2052,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "bc0520fb-2cca-41a8-8594-e9c257a7d5e9",
-            "a1ba7ca0-91b7-5582-9c1b-360e235be5cf",
+            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
             null,
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             null,
             null,
             "-75.00",
             null,
             "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
             "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "1ab74417-65fb-516d-893c-3d2fc06a8d7e",
+            "cf8b3391-3968-5177-9819-dacf3508b9b1",
             "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
             "2021-08-30 00:46:21",
             "2021-08-30 00:46:21"
@@ -2089,7 +2089,7 @@
             "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
             "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
             "1f36820c-166c-3163-85a6-04b6fff22c9f",
-            "a4cd6632-285b-5786-889b-6e89a6c5962d",
+            "0ca85d17-91b7-52b9-9ad6-252781365399",
             "2021-08-30 00:46:32",
             "2021-08-30 00:46:32"
         ]
@@ -2098,8 +2098,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "a4cd6632-285b-5786-889b-6e89a6c5962d",
-            "cff30e9d-dc37-5f71-aaa9-ca1d38a352ed",
+            "0ca85d17-91b7-52b9-9ad6-252781365399",
+            "b46a312e-dbd9-5610-b30d-8d2cd1c8fef0",
             "2021-08-30 00:46:33",
             "2021-08-30 00:46:33"
         ]
@@ -2119,7 +2119,7 @@
             null,
             null,
             "HP 16GB 2Rx4 PC3-12800R-11 Kit",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "2021-08-30 00:46:34",
             "2021-08-30 00:46:34"
         ]
@@ -2129,12 +2129,12 @@
         "bindings": [
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "7a15f0e1-f7b6-50f8-9608-ae01e711aa83",
-            "2ac3075f-6825-5e10-9996-2062c8d5bae6",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "aa4f785c-e6b5-5fd5-b623-24ef2fc00133",
+            "467f1d82-1002-5cf8-9a96-cb60bdddbc8d",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "cb0e210f-96e7-4524-ac54-0ed36a2579d6",
             "aa010e95-b628-4fd5-9d09-a687cbf63e58",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
             "2021-09-05 05:02:59",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "130",
@@ -2154,7 +2154,7 @@
             "+14808302887",
             null,
             true,
-            "a73f24b6-afd2-586a-a516-d8517fb5242b",
+            "3fc9ae37-327f-51bf-8c74-c00553e80a56",
             "2021-08-30 00:46:38",
             "2021-08-30 00:46:38"
         ]
@@ -2162,14 +2162,14 @@
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
-            "a73f24b6-afd2-586a-a516-d8517fb5242b",
+            "3fc9ae37-327f-51bf-8c74-c00553e80a56",
             "2021-08-30 00:46:39",
-            "972f0800-451a-54eb-8757-88ce81c3f17d",
+            "21b3daa1-60c9-56a1-8168-8442cde3b6ae",
             "ba1a06c8-3817-5e62-81ab-cdf3baed1a7a",
             "2021-08-30 00:46:39",
-            "a73f24b6-afd2-586a-a516-d8517fb5242b",
+            "3fc9ae37-327f-51bf-8c74-c00553e80a56",
             "2021-08-30 00:46:40",
-            "56103c74-83cd-5460-8648-0cccfd30a175",
+            "514f5444-ed81-5764-a99e-b240ae4c44d6",
             "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "2021-08-30 00:46:40"
         ]
@@ -2183,7 +2183,7 @@
             "+12723222268",
             null,
             true,
-            "06b2f264-8e2f-5fef-a019-ca0ab541192d",
+            "3ef49fdc-1924-53ab-9f29-01a56ae6460a",
             "2021-08-30 00:46:41",
             "2021-08-30 00:46:41"
         ]
@@ -2192,8 +2192,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
-            "06b2f264-8e2f-5fef-a019-ca0ab541192d",
-            "4508bff6-0518-5cc0-8404-dd1f013b5d7b",
+            "3ef49fdc-1924-53ab-9f29-01a56ae6460a",
+            "aaefb2cc-4fd5-516c-9add-7cc33f3e5d87",
             "2021-08-30 00:46:42",
             "2021-08-30 00:46:42"
         ]
@@ -2201,9 +2201,9 @@
     {
         "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "df0a1949-8410-5c4a-86d7-8897ffe79e1b",
+            "c20bbd15-edb7-5252-ada6-accefeec8f1d",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
-            "9025c437-43a3-5c1f-b52a-a9bab8db5196",
+            "5049f688-a31b-5950-b17c-3f8fe2c192a2",
             "2021-08-30 00:46:43",
             "2021-08-30 00:46:43"
         ]
@@ -2211,9 +2211,9 @@
     {
         "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "12b10fd3-c129-5d96-81ab-3c38f9fef780",
+            "4e959b37-a539-5ce2-8e1a-9bf12d296112",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
-            "04f1ef3a-c5b5-5f22-a812-9a3fecd255f6",
+            "13378322-6a00-5a77-9e57-7a84b3ac3f72",
             "2021-08-30 00:46:44",
             "2021-08-30 00:46:44"
         ]
@@ -2235,11 +2235,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "81cfbd0d-23af-34f5-ba32-6be67ad6c586",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "7dcf9a93-00d0-4504-934e-c344320dcaa5",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2018-06-01 00:00:00",
             "2019-05-31 00:00:00",
@@ -2259,13 +2259,13 @@
         "bindings": [
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:46:50",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "cf8b3391-3968-5177-9819-dacf3508b9b1",
+            "8aa06fc2-3232-5ebc-a82e-b463aab72859",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2273,13 +2273,13 @@
             "2021-08-30 00:46:50",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:46:51",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "0ca85d17-91b7-52b9-9ad6-252781365399",
+            "09441910-8932-5e07-ba36-436232ab8965",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2287,13 +2287,13 @@
             "2021-08-30 00:46:51",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:46:52",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "b46a312e-dbd9-5610-b30d-8d2cd1c8fef0",
+            "a21248f6-f67b-59ca-8f3a-3197eacec940",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2301,13 +2301,13 @@
             "2021-08-30 00:46:52",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:46:53",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "1122c985-ec0b-40a8-a794-05a62f1dee7a",
+            "f8b5bdec-004c-56ce-88a4-b7f9b8e80a01",
+            "0.00",
+            "0.00",
             "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
-            "0.00",
-            "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2322,11 +2322,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "81cfbd0d-23af-34f5-ba32-6be67ad6c586",
-            "b3f7f2fa-1082-5415-9461-ac5b355e7390",
+            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "7dcf9a93-00d0-4504-934e-c344320dcaa5",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2018-06-01 00:00:00",
             "2019-05-31 00:00:00",
@@ -2345,16 +2345,16 @@
         "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "0.00",
             "0.00",
             "0.00",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "3fc9ae37-327f-51bf-8c74-c00553e80a56",
+            "b0f77caa-9a4b-5bc4-9615-88a606502c11",
             "632508e0-7f5c-4651-9094-ece89da275e8",
             "2021-08-30 00:46:59",
             "2021-08-30 00:46:59"
@@ -2367,11 +2367,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "81cfbd0d-23af-34f5-ba32-6be67ad6c586",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "7dcf9a93-00d0-4504-934e-c344320dcaa5",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2019-06-01 00:00:00",
             "2020-05-31 00:00:00",
@@ -2391,13 +2391,13 @@
         "bindings": [
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:05",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "21b3daa1-60c9-56a1-8168-8442cde3b6ae",
+            "46edad03-62fe-56f7-b921-d3d321511067",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2405,13 +2405,13 @@
             "2021-08-30 00:47:05",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:06",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "514f5444-ed81-5764-a99e-b240ae4c44d6",
+            "0a911dea-7d29-5450-8de6-c9eed7ccb0d9",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2419,13 +2419,13 @@
             "2021-08-30 00:47:06",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:07",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "3ef49fdc-1924-53ab-9f29-01a56ae6460a",
+            "4aee0682-2ef5-5e9d-8e1c-a1bf258ccd45",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2433,13 +2433,13 @@
             "2021-08-30 00:47:07",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:08",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "aaefb2cc-4fd5-516c-9add-7cc33f3e5d87",
+            "19f0e8ba-cfbc-54b4-94b0-799dafe2b413",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2447,13 +2447,13 @@
             "2021-08-30 00:47:08",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:09",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "5049f688-a31b-5950-b17c-3f8fe2c192a2",
+            "5ece4b7d-b7f1-5b1a-a66e-0a8053496868",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2461,13 +2461,13 @@
             "2021-08-30 00:47:09",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:10",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "13378322-6a00-5a77-9e57-7a84b3ac3f72",
+            "be12797b-2b7a-53f7-a0fb-9214b2cce018",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2475,13 +2475,13 @@
             "2021-08-30 00:47:10",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:11",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "8aa06fc2-3232-5ebc-a82e-b463aab72859",
+            "a8d94d86-b1d7-5322-95fb-d37d982742ba",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
@@ -2496,11 +2496,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "81cfbd0d-23af-34f5-ba32-6be67ad6c586",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
             "aa010e95-b628-4fd5-9d09-a687cbf63e58",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2020-06-01 00:00:00",
             "2021-05-31 00:00:00",
@@ -2520,13 +2520,13 @@
         "bindings": [
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:17",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "09441910-8932-5e07-ba36-436232ab8965",
+            "886083e8-e006-5067-a35c-5b02e1e10e06",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2534,13 +2534,13 @@
             "2021-08-30 00:47:17",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:18",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "a21248f6-f67b-59ca-8f3a-3197eacec940",
+            "58eddaad-0e74-573a-acbe-07791b3c575f",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2548,13 +2548,13 @@
             "2021-08-30 00:47:18",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:19",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "f8b5bdec-004c-56ce-88a4-b7f9b8e80a01",
+            "ddfd388d-9c11-5334-bccb-5d476e06862c",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2562,13 +2562,13 @@
             "2021-08-30 00:47:19",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:20",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "b0f77caa-9a4b-5bc4-9615-88a606502c11",
+            "fa1fb469-996d-5149-a111-2953055abb02",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2583,11 +2583,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "81cfbd0d-23af-34f5-ba32-6be67ad6c586",
-            "1271bdc3-433e-553f-9192-a6f4adabac2b",
+            "6e4719d1-1a34-58a7-84ea-ee8545b7ca32",
             "cb0e210f-96e7-4524-ac54-0ed36a2579d6",
             "aa010e95-b628-4fd5-9d09-a687cbf63e58",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
-            "5dadfe41-b2ec-5642-96a8-a00024a9b1b0",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
+            "964e79c1-3d9b-59bf-88fd-8bb118839c42",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2021-06-01 00:00:00",
             "2022-05-31 00:00:00",
@@ -2607,13 +2607,13 @@
         "bindings": [
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:26",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "46edad03-62fe-56f7-b921-d3d321511067",
+            "53f3a0ed-e8d2-5226-98b3-0590646f44a7",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2621,13 +2621,13 @@
             "2021-08-30 00:47:26",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501",
             "2021-08-30 00:47:27",
-            "fd97c2c3-1c39-54f8-b1e6-42407440d4ab",
+            "7dcc534f-18cc-5c99-8aca-7c7f58ceaef7",
             "0.00",
             "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "0a911dea-7d29-5450-8de6-c9eed7ccb0d9",
+            "8ca2ac08-864d-5d2e-8679-0c05eb2053a9",
             "0.00",
             "0.00",
-            "e0b9cc19-2751-5ef0-928f-0d686d44892c",
+            "5584e1ec-82f3-5f20-9ffa-3b9a5bdbf259",
             "0.00",
             "e7f91c15-d27e-38f8-bf5a-5aebadaeb960",
             "bb5cf030-282d-5742-abdb-557648ab4139",
@@ -2657,7 +2657,7 @@
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "1122c985-ec0b-40a8-a794-05a62f1dee7a",
             "70f39cbe-c9d8-38b8-9f33-6b3c9ddee4d9",
-            "4aee0682-2ef5-5e9d-8e1c-a1bf258ccd45",
+            "05b26fe5-2e53-5d38-9c87-2ed8d0b8e48c",
             "2021-08-30 00:48:14",
             "2021-08-30 00:48:14"
         ]
@@ -2666,8 +2666,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "4aee0682-2ef5-5e9d-8e1c-a1bf258ccd45",
-            "58eddaad-0e74-573a-acbe-07791b3c575f",
+            "05b26fe5-2e53-5d38-9c87-2ed8d0b8e48c",
+            "3ef145cb-4a8f-5fde-9eb8-370e1c7a0211",
             "2021-08-30 00:48:15",
             "2021-08-30 00:48:15"
         ]
@@ -2686,7 +2686,7 @@
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "632508e0-7f5c-4651-9094-ece89da275e8",
             "a4795887-ed79-341f-a369-f5681c39c78d",
-            "19f0e8ba-cfbc-54b4-94b0-799dafe2b413",
+            "37e7420f-ecf4-559c-8ee8-348797eb099c",
             "2021-08-30 00:48:16",
             "2021-08-30 00:48:16"
         ]
@@ -2695,8 +2695,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "19f0e8ba-cfbc-54b4-94b0-799dafe2b413",
-            "ddfd388d-9c11-5334-bccb-5d476e06862c",
+            "37e7420f-ecf4-559c-8ee8-348797eb099c",
+            "e5c7186f-f562-59b4-a3cc-449ddab8ba6a",
             "2021-08-30 00:48:17",
             "2021-08-30 00:48:17"
         ]
@@ -2715,7 +2715,7 @@
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
             "369515fe-87db-3747-b2bb-b0389b69cb55",
-            "5ece4b7d-b7f1-5b1a-a66e-0a8053496868",
+            "041f8714-0eb9-5b36-98df-e860530d20d6",
             "2021-08-30 00:48:18",
             "2021-08-30 00:48:18"
         ]
@@ -2724,8 +2724,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "863f844b-efde-5781-a57c-0d127a496cfe",
-            "5ece4b7d-b7f1-5b1a-a66e-0a8053496868",
-            "fa1fb469-996d-5149-a111-2953055abb02",
+            "041f8714-0eb9-5b36-98df-e860530d20d6",
+            "52dca676-c120-59b9-bc4f-6cf493f52961",
             "2021-08-30 00:48:19",
             "2021-08-30 00:48:19"
         ]
@@ -2744,7 +2744,7 @@
             "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
             "2f242f3a-2052-4894-bca6-b8821f8ef662",
             "369515fe-87db-3747-b2bb-b0389b69cb55",
-            "be12797b-2b7a-53f7-a0fb-9214b2cce018",
+            "cf6b7883-242b-5a0a-a765-efa4cfa7abd5",
             "2021-08-30 00:48:20",
             "2021-08-30 00:48:20"
         ]
@@ -2753,8 +2753,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "be12797b-2b7a-53f7-a0fb-9214b2cce018",
-            "53f3a0ed-e8d2-5226-98b3-0590646f44a7",
+            "cf6b7883-242b-5a0a-a765-efa4cfa7abd5",
+            "f3d07d6d-7cab-5b7f-82ef-c3d2f7e3cfaa",
             "2021-08-30 00:48:21",
             "2021-08-30 00:48:21"
         ]
@@ -2773,7 +2773,7 @@
             "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
             "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
             "1b8e6124-1eae-32b1-88a7-90e85c486b0f",
-            "a8d94d86-b1d7-5322-95fb-d37d982742ba",
+            "9127b71a-0660-569e-a298-77974be6fffd",
             "2021-08-30 00:48:22",
             "2021-08-30 00:48:22"
         ]
@@ -2782,8 +2782,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "a8d94d86-b1d7-5322-95fb-d37d982742ba",
-            "8ca2ac08-864d-5d2e-8679-0c05eb2053a9",
+            "9127b71a-0660-569e-a298-77974be6fffd",
+            "c70cfe57-2226-5acb-b2e2-80bddcbe0fe6",
             "2021-08-30 00:48:23",
             "2021-08-30 00:48:23"
         ]
@@ -2802,7 +2802,7 @@
             "cb0e210f-96e7-4524-ac54-0ed36a2579d6",
             "b1400cda-07e6-495c-9d18-772b2c38f47f",
             "4edac260-2e5a-3b65-9345-f820c67b1439",
-            "886083e8-e006-5067-a35c-5b02e1e10e06",
+            "b32e9602-1d57-5035-a2c1-6b2613b1937f",
             "2021-08-30 00:48:24",
             "2021-08-30 00:48:24"
         ]
@@ -2811,8 +2811,8 @@
         "query": "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "886083e8-e006-5067-a35c-5b02e1e10e06",
-            "05b26fe5-2e53-5d38-9c87-2ed8d0b8e48c",
+            "b32e9602-1d57-5035-a2c1-6b2613b1937f",
+            "f4c932e4-e84d-5bd9-b2df-6322bc73cd15",
             "2021-08-30 00:48:25",
             "2021-08-30 00:48:25"
         ]
@@ -3008,7 +3008,7 @@
             1,
             "2021-08-30 00:48:34",
             "6b2b3602-2751-486a-a488-3237f9656b2b",
-            "041f8714-0eb9-5b36-98df-e860530d20d6",
+            "85b0a895-e3d2-5b4d-8d8c-66a5fa557a28",
             0,
             "07ce3aa3-2481-4db4-91f8-d2878bf304d4",
             "2021-08-30 00:48:34"
@@ -3028,7 +3028,7 @@
             1,
             1,
             "2021-08-30 00:48:44",
-            "df727808-75c0-584b-906b-95ec63379b28"
+            "38720438-2184-5192-9eb5-e9b9a0c40f39"
         ]
     },
     {
@@ -3046,7 +3046,7 @@
             1,
             "2021-08-30 00:49:00",
             "8f8980f8-21a0-4fa7-b5ed-16d7b41c30e0",
-            "cf6b7883-242b-5a0a-a765-efa4cfa7abd5",
+            "f066a77f-c754-5331-a2be-27f048a7db78",
             0,
             "3f87404c-041b-4357-83f5-b0068e5f10a5",
             "2021-08-30 00:49:00"
@@ -3075,7 +3075,7 @@
             1,
             1,
             "2021-08-30 00:49:18",
-            "a19d0503-03e0-5db7-b8b4-647b21b66003"
+            "95932234-3f4f-5c82-9035-169eac674002"
         ]
     },
     {
@@ -3108,7 +3108,7 @@
             1,
             1,
             "2021-08-30 00:49:50",
-            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9"
+            "8855b835-826e-5678-9bc6-aba1fbea2227"
         ]
     },
     {
@@ -3141,7 +3141,7 @@
             1,
             1,
             "2021-08-30 00:50:22",
-            "beee4d66-7832-5010-a392-a5bf02d1fc00"
+            "2ac3075f-6825-5e10-9996-2062c8d5bae6"
         ]
     },
     {
@@ -3158,7 +3158,7 @@
             1,
             1,
             "2021-08-30 00:50:38",
-            "2b5cbd4b-4ac2-5beb-a551-a98aca365a0c"
+            "7cecb585-147f-5e46-8b47-44f0cf9b7c22"
         ]
     },
     {
@@ -3175,7 +3175,7 @@
             1,
             1,
             "2021-08-30 00:50:54",
-            "6404014b-9c05-50f7-ad88-7122bb40b650"
+            "745d2b50-fc3d-5c4a-aa04-899b30b4432b"
         ]
     },
     {
@@ -3184,7 +3184,7 @@
             1,
             1,
             "2021-08-30 00:51:02",
-            "1793b28f-df1d-56d6-bace-34f4087de570"
+            "9d73bfec-b980-542f-9a42-d6fa94defe32"
         ]
     },
     {
@@ -3289,7 +3289,7 @@
         "bindings": [
             1,
             "2021-08-30 00:51:10",
-            "2a984bf3-7c11-5532-b675-153b51263153"
+            "418460dc-3944-5efa-a041-232992c20a16"
         ]
     },
     {
@@ -3305,7 +3305,7 @@
         "bindings": [
             1,
             "2021-08-30 00:51:26",
-            "23e5f01f-fbae-5bec-beb9-7009943c0186"
+            "a7f78dfc-1f28-5281-8237-649e60f4e8f7"
         ]
     },
     {
@@ -3329,7 +3329,7 @@
         "bindings": [
             1,
             "2021-08-30 00:51:50",
-            "5cbd271b-9a45-5b72-a99f-ca0134a205a1"
+            "804c0246-5943-5528-8621-56e7a398e5b8"
         ]
     },
     {
@@ -3353,7 +3353,7 @@
         "bindings": [
             1,
             "2021-08-30 00:52:14",
-            "d3ab8454-a2f2-5420-adb9-1d81583d997c"
+            "3bd85ac8-96ce-58c7-a36f-d9c9ce8f7f8e"
         ]
     },
     {
@@ -3377,7 +3377,7 @@
         "bindings": [
             1,
             "2021-08-30 00:52:38",
-            "c6a80813-a05c-5a0d-aed1-d272b00e6b1b"
+            "b15d2f2b-47ef-5820-99ee-3067002a4a4b"
         ]
     },
     {
@@ -3393,7 +3393,7 @@
         "bindings": [
             1,
             "2021-08-30 00:52:54",
-            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+            "3a67ef93-5b75-5154-88df-109772c682b5"
         ]
     },
     {
@@ -3409,7 +3409,7 @@
         "bindings": [
             1,
             "2021-08-30 00:53:10",
-            "16fe10e0-913c-5704-b008-e16597d1f892"
+            "60180ac1-41ee-5bde-b27f-875d2bf737fc"
         ]
     },
     {
@@ -3423,151 +3423,139 @@
     {
         "query": "select `locations`.* from `locations` where `id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "305091d8-9610-5841-9743-85d05494e34c",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
         "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "305091d8-9610-5841-9743-85d05494e34c",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
         "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "305091d8-9610-5841-9743-85d05494e34c",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
         "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "305091d8-9610-5841-9743-85d05494e34c",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
         "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "305091d8-9610-5841-9743-85d05494e34c",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
         "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
             "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
             "305091d8-9610-5841-9743-85d05494e34c",
             "641788f5-c59b-509c-b4d6-e2f16252de7e",
             "68f017bd-ce77-53f8-a121-00bdf64da70c",
-            "72a064c6-c5c9-5788-be41-03f83d730504",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "86029556-8178-5562-a35b-d78c0a766e70",
             "8644c064-b7d3-5af8-acc1-2dc4e2d904df",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "a7987741-f4d3-5e55-a59a-839821444f39",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     },
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f"
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9"
         ]
     },
     {
@@ -3575,16 +3563,16 @@
         "bindings": [
             1,
             "2021-08-30 00:53:26",
-            "3ef145cb-4a8f-5fde-9eb8-370e1c7a0211",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f",
-            "c325b39c-d33e-44cd-b0d3-fefa921b9e71",
+            "66fdfafb-b983-5218-8e13-234575ec8eb2",
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9",
+            "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
             "2021-08-30 00:53:26"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f"
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9"
         ]
     },
     {
@@ -3592,7 +3580,7 @@
         "bindings": [
             1,
             "2021-08-30 00:53:28",
-            "ca5b562e-ecbf-58a2-bd6c-b1eb9297362c"
+            "6cd40e93-e903-5866-8744-178fbd474384"
         ]
     },
     {
@@ -3600,13 +3588,25 @@
         "bindings": [
             1,
             "2021-08-30 00:53:36",
-            "25020d14-20da-52e0-9a14-a68a8cc9d57f"
+            "0af5afa6-f2d2-505d-a4d2-4ec071538eb9"
         ]
     },
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "26b117ee-2996-504b-85e3-eab6a8679549"
+            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a"
         ]
     },
     {
@@ -3614,71 +3614,43 @@
         "bindings": [
             1,
             "2021-08-30 00:53:44",
-            "e5c7186f-f562-59b4-a3cc-449ddab8ba6a",
-            "26b117ee-2996-504b-85e3-eab6a8679549",
-            "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+            "62eb2a17-07b6-5d98-84d6-83be55ca9259",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "714aa057-1ea0-4666-b3be-4b69af99e997",
             "2021-08-30 00:53:44"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "26b117ee-2996-504b-85e3-eab6a8679549"
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a"
         ]
     },
     {
-        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:53:47",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a"
+        ]
+    },
+    {
+        "query": "insert into `location_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `location_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
             "2021-08-30 00:53:46",
-            "6c3075ae-6d3f-510a-9c07-704ec864af53"
+            "0b0cbbc9-eb17-4567-8582-574b51bb6fec",
+            "2eed2da1-09d9-564a-8b22-2341e0e8ae3e",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a",
+            "2021-08-30 00:53:46"
         ]
     },
     {
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:53:54",
-            "26b117ee-2996-504b-85e3-eab6a8679549"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059"
-        ]
-    },
-    {
-        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
-        "bindings": [
-            1,
-            "2021-08-30 00:54:02",
-            "52dca676-c120-59b9-bc4f-6cf493f52961",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059",
-            "cb0e210f-96e7-4524-ac54-0ed36a2579d6",
-            "2021-08-30 00:54:02"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059"
-        ]
-    },
-    {
-        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:54:04",
-            "d73f35c1-a10f-5d09-b4f7-cce73ed80cd2"
-        ]
-    },
-    {
-        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:54:12",
-            "29cfea6c-44a5-5561-a78e-7b50ef0b2059"
+            "2021-08-30 00:53:56",
+            "1a37f679-d73a-5ef6-b480-41fd0c8f839a"
         ]
     },
     {
@@ -3703,7 +3675,7 @@
         "query": "update `location_resellers` set `assets_count` = ?, `location_resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:54:20",
+            "2021-08-30 00:54:04",
             "22ffc3b0-41a4-559b-8269-aadd1baac9f2"
         ]
     },
@@ -3717,15 +3689,15 @@
         "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:54:28",
-            "d98c7a90-76e6-5ddb-a725-28e350e3cb61"
+            "2021-08-30 00:54:12",
+            "a13e2817-b15b-540f-8424-e34df6867b01"
         ]
     },
     {
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:54:36",
+            "2021-08-30 00:54:20",
             "641788f5-c59b-509c-b4d6-e2f16252de7e"
         ]
     },
@@ -3744,232 +3716,260 @@
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "72a064c6-c5c9-5788-be41-03f83d730504"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "72a064c6-c5c9-5788-be41-03f83d730504"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "8644c064-b7d3-5af8-acc1-2dc4e2d904df"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "8644c064-b7d3-5af8-acc1-2dc4e2d904df"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "86fcd9bd-dd13-58cc-8287-a185be804caa"
+            "729073e2-ef6c-510f-916a-4290892b4d34"
         ]
     },
     {
         "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
-            "2021-08-30 00:54:44",
-            "f3d07d6d-7cab-5b7f-82ef-c3d2f7e3cfaa",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa",
-            "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
-            "2021-08-30 00:54:44"
+            "2021-08-30 00:54:28",
+            "9eaa15c4-b463-56a1-b3af-d7a9c8278b78",
+            "729073e2-ef6c-510f-916a-4290892b4d34",
+            "c325b39c-d33e-44cd-b0d3-fefa921b9e71",
+            "2021-08-30 00:54:28"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "86fcd9bd-dd13-58cc-8287-a185be804caa"
+            "729073e2-ef6c-510f-916a-4290892b4d34"
         ]
     },
     {
         "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:30",
+            "451d80fa-ead3-5ebe-a22b-f9f5699d2dd5"
+        ]
+    },
+    {
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:38",
+            "729073e2-ef6c-510f-916a-4290892b4d34"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "86029556-8178-5562-a35b-d78c0a766e70"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "86029556-8178-5562-a35b-d78c0a766e70"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "8644c064-b7d3-5af8-acc1-2dc4e2d904df"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "8644c064-b7d3-5af8-acc1-2dc4e2d904df"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "8f518e3e-4280-5eb7-815c-f6363e07cad0"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "8f518e3e-4280-5eb7-815c-f6363e07cad0"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "94b1e84f-e114-5479-b6ea-45ddc6a0078a"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "94b1e84f-e114-5479-b6ea-45ddc6a0078a"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "97af097b-d955-53ab-aa10-9dee7cf231bc"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "97af097b-d955-53ab-aa10-9dee7cf231bc"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
             "2021-08-30 00:54:46",
-            "d8e2cae3-748d-52ba-af81-57e2f6a3cc2c"
+            "2c00b4ef-5f6d-59c0-ad4a-fdaf09dfb56f",
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d",
+            "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+            "2021-08-30 00:54:46"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:54:48",
+            "cfd57183-1c6c-5ca3-a812-2f69caf9b24c"
         ]
     },
     {
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:54:54",
-            "86fcd9bd-dd13-58cc-8287-a185be804caa"
+            "2021-08-30 00:54:56",
+            "bdaba9a1-acf4-5873-b253-901eb37bd76d"
         ]
     },
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "8f518e3e-4280-5eb7-815c-f6363e07cad0"
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "8f518e3e-4280-5eb7-815c-f6363e07cad0"
+            "be3a9e1c-bd8b-51ff-b157-81e94fad4cf5"
         ]
     },
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "94b1e84f-e114-5479-b6ea-45ddc6a0078a"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "94b1e84f-e114-5479-b6ea-45ddc6a0078a"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "97af097b-d955-53ab-aa10-9dee7cf231bc"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "97af097b-d955-53ab-aa10-9dee7cf231bc"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "a7987741-f4d3-5e55-a59a-839821444f39"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "a7987741-f4d3-5e55-a59a-839821444f39"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6"
+            "dfba6b5d-c998-523a-8532-32d442a4842c"
         ]
     },
     {
         "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
-        "bindings": [
-            1,
-            "2021-08-30 00:55:02",
-            "c70cfe57-2226-5acb-b2e2-80bddcbe0fe6",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6",
-            "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
-            "2021-08-30 00:55:02"
-        ]
-    },
-    {
-        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
-        "bindings": [
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6"
-        ]
-    },
-    {
-        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
             "2021-08-30 00:55:04",
-            "86d3a7af-1ef8-5b93-81e9-5da026e10172"
-        ]
-    },
-    {
-        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            1,
-            "2021-08-30 00:55:12",
-            "b40c29d6-28c1-5bd7-a903-0cc8c22440c6"
-        ]
-    },
-    {
-        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
-        "bindings": [
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592"
-        ]
-    },
-    {
-        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
-        "bindings": [
-            1,
-            "2021-08-30 00:55:20",
-            "f4c932e4-e84d-5bd9-b2df-6322bc73cd15",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592",
-            "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
-            "2021-08-30 00:55:20"
+            "31f2b410-2df4-518e-b21e-cfabc55a64b0",
+            "dfba6b5d-c998-523a-8532-32d442a4842c",
+            "cb0e210f-96e7-4524-ac54-0ed36a2579d6",
+            "2021-08-30 00:55:04"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592"
+            "dfba6b5d-c998-523a-8532-32d442a4842c"
         ]
     },
     {
         "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:55:22",
-            "7fd6b75b-ad37-547f-9678-c9f644213b83"
+            "2021-08-30 00:55:06",
+            "c9dcfc52-62ae-5685-81a8-eeac02462e03"
         ]
     },
     {
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:55:30",
-            "b5794c8c-25db-5ac0-883d-6d1f6cd79592"
+            "2021-08-30 00:55:14",
+            "dfba6b5d-c998-523a-8532-32d442a4842c"
         ]
     },
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
         ]
     },
     {
         "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
-            "2021-08-30 00:55:38",
-            "ed2c8da4-07de-5463-982f-e0a31a194ff2",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00",
-            "714aa057-1ea0-4666-b3be-4b69af99e997",
-            "2021-08-30 00:55:38"
+            "2021-08-30 00:55:22",
+            "7ceb467a-a214-55d8-94c9-10b1b30fc29a",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89",
+            "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
+            "2021-08-30 00:55:22"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
         ]
     },
     {
-        "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:55:41",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "2021-08-30 00:55:24",
+            "3f6343ea-713a-5ff9-b952-023edf50eac6"
         ]
     },
     {
-        "query": "insert into `location_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `location_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
+        "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:32",
+            "dfeb8b96-468f-55e8-ad97-8b1d619dda89"
+        ]
+    },
+    {
+        "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
+        "bindings": [
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
+        ]
+    },
+    {
+        "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
             "2021-08-30 00:55:40",
-            "0b0cbbc9-eb17-4567-8582-574b51bb6fec",
-            "85b0a895-e3d2-5b4d-8d8c-66a5fa557a28",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00",
+            "6f2cc884-ac69-5c13-875a-b1e47553152d",
+            "ef0621a3-9714-5872-bd49-4ab14b91906b",
+            "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
             "2021-08-30 00:55:40"
+        ]
+    },
+    {
+        "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
+        "bindings": [
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
+        ]
+    },
+    {
+        "query": "update `location_customers` set `assets_count` = ?, `location_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            1,
+            "2021-08-30 00:55:42",
+            "e1c8a96a-0b22-53af-a3a2-2c1f549102f4"
         ]
     },
     {
@@ -3977,7 +3977,7 @@
         "bindings": [
             1,
             "2021-08-30 00:55:50",
-            "e55e15a8-682f-51fa-a950-47ca14e6ae00"
+            "ef0621a3-9714-5872-bd49-4ab14b91906b"
         ]
     }
 ]

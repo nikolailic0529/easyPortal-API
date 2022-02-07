@@ -150,11 +150,11 @@
             "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
             "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
             "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
-            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "9166167a-70ae-5591-a284-bb6b14de83e8",
             "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
+            "e62950ed-417e-5384-9d3c-be30424ca8ec",
             "f14bc56f-717f-5132-94af-3eba66d9158e",
-            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1"
+            "f50b4a9f-54fb-5888-92f9-2288108f925d"
         ]
     },
     {
@@ -176,10 +176,10 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "1b99939b-c780-5e17-baf6-c040f864173f",
-            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
-            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
-            "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791"
+            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
+            "445e2b40-4e67-516a-a190-cf516597223c",
+            "9c9d3f46-1ace-5418-99b1-99afcc35060d",
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca"
         ]
     },
     {

@@ -40,7 +40,7 @@
         "bindings": [
             "EUR",
             "EUR",
-            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
+            "e62950ed-417e-5384-9d3c-be30424ca8ec",
             "2021-08-30 00:02:23",
             "2021-08-30 00:02:23"
         ]
@@ -60,7 +60,7 @@
         "bindings": [
             "EN",
             "EN",
-            "e62950ed-417e-5384-9d3c-be30424ca8ec",
+            "d87e7785-b72f-5336-91ac-f424f47bede6",
             "2021-08-30 00:02:24",
             "2021-08-30 00:02:24"
         ]
@@ -86,7 +86,7 @@
             "Document",
             "ACTIVE",
             "ACTIVE",
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
             "2021-08-30 00:02:28",
             "2021-08-30 00:02:28"
         ]
@@ -98,11 +98,11 @@
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             null,
             "df9a3196-e0f0-37ed-bdd2-57cf0e68d8b5",
-            "36723ca7-ed0b-54aa-8e22-eec5fa45ae24",
+            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
             "d3762413-69b4-4993-9713-f823102b98cc",
             "9964b0c8-8b88-4b48-9c13-cfcb5e33d0ab",
-            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
             "e62950ed-417e-5384-9d3c-be30424ca8ec",
+            "d87e7785-b72f-5336-91ac-f424f47bede6",
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "2020-11-15 00:00:00",
             "2023-11-24 00:00:00",
@@ -125,7 +125,7 @@
             "+2197908909897",
             null,
             false,
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "2021-08-30 00:02:31",
             "2021-08-30 00:02:31"
         ]
@@ -134,8 +134,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "dc107b85-353d-53ef-bfeb-46b656a50ebc",
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
             "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
             "2021-08-30 00:02:32",
             "2021-08-30 00:02:32"
         ]
@@ -144,8 +144,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
+            "1b99939b-c780-5e17-baf6-c040f864173f",
             "2021-08-30 00:02:33",
             "2021-08-30 00:02:33"
         ]
@@ -159,7 +159,7 @@
             null,
             null,
             null,
-            "1b99939b-c780-5e17-baf6-c040f864173f",
+            "9c9d3f46-1ace-5418-99b1-99afcc35060d",
             "2021-08-30 00:02:34",
             "2021-08-30 00:02:34"
         ]
@@ -168,8 +168,8 @@
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
-            "1b99939b-c780-5e17-baf6-c040f864173f",
             "9c9d3f46-1ace-5418-99b1-99afcc35060d",
+            "b17c906a-d184-5c69-ba1b-330d29815dc6",
             "2021-08-30 00:02:35",
             "2021-08-30 00:02:35"
         ]
@@ -177,9 +177,9 @@
     {
         "query": "insert into `document_statuses` (`status_id`, `document_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "d87e7785-b72f-5336-91ac-f424f47bede6",
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
-            "b17c906a-d184-5c69-ba1b-330d29815dc6",
+            "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791",
             "2021-08-30 00:02:36",
             "2021-08-30 00:02:36"
         ]
