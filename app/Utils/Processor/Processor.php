@@ -368,6 +368,7 @@ abstract class Processor {
             try {
                 return $this->restoreState($state);
             } catch (Throwable $exception) {
+                $this->resetState();
                 $this->report($exception);
             }
 
