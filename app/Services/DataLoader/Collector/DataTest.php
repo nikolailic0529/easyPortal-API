@@ -22,25 +22,46 @@ class DataTest extends TestCase {
      * @covers ::get
      */
     public function testCollect(): void {
-        $data  = new Data();
-        $uuidA = $this->faker->uuid;
-        $uuidB = $this->faker->uuid;
+        $data   = new Data();
+        $uuidA  = $this->faker->uuid;
+        $uuidB  = $this->faker->uuid;
+        $assetA = Asset::factory()->make(['id' => null]);
+        $assetB = Asset::factory()->make(['id' => $uuidA]);
 
-        $data->collect(Asset::factory()->make(['id' => null]));
-        $data->collect(Asset::factory()->make(['id' => $uuidA]));
+        $data->collect($assetA);
+        $data->collect($assetB);
         $data->collect(Customer::factory()->make(['id' => $uuidB]));
 
         $this->assertEquals([], $data->get(stdClass::class));
         $this->assertEquals([$uuidA => $uuidA], $data->get(Asset::class));
-        $this->assertEquals([$uuidB => $uuidB], $data->get(Customer::class));
+        $this->assertEquals(
+            [
+                $uuidB               => $uuidB,
+                $assetA->customer_id => $assetA->customer_id,
+                $assetB->customer_id => $assetB->customer_id,
+            ],
+            $data->get(Customer::class),
+        );
         $this->assertEquals(
             [
                 Distributor::class => [],
-                Reseller::class    => [],
-                Customer::class    => [$uuidB => $uuidB],
+                Reseller::class    => [
+                    $assetA->reseller_id => $assetA->reseller_id,
+                    $assetB->reseller_id => $assetB->reseller_id,
+                ],
+                Customer::class    => [
+                    $uuidB               => $uuidB,
+                    $assetA->customer_id => $assetA->customer_id,
+                    $assetB->customer_id => $assetB->customer_id,
+                ],
                 Document::class    => [],
-                Location::class    => [],
-                Asset::class       => [$uuidA => $uuidA],
+                Location::class    => [
+                    $assetA->location_id => $assetA->location_id,
+                    $assetB->location_id => $assetB->location_id,
+                ],
+                Asset::class       => [
+                    $uuidA => $uuidA,
+                ],
             ],
             $data->getData(),
         );

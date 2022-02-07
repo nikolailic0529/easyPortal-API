@@ -73,6 +73,11 @@ class Data {
             $this->add(Asset::class, $object->assetId ?? null);
         } elseif ($object instanceof SchemaCompanyKpis) {
             $this->add(Reseller::class, $object->resellerId ?? null);
+        } elseif ($object instanceof Asset) {
+            $this->add(Asset::class, $object->getKey());
+            $this->add(Reseller::class, $object->reseller_id);
+            $this->add(Customer::class, $object->customer_id);
+            $this->add(Location::class, $object->location_id);
         } elseif ($object instanceof Model) {
             $this->add($object::class, $object->getKey());
         } else {
