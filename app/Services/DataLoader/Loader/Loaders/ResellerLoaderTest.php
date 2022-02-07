@@ -104,9 +104,9 @@ class ResellerLoaderTest extends TestCase {
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
-            Customer::class      => 1,
-            Asset::class         => 0,
+            Reseller::class      => 4,
+            Customer::class      => 2,
+            Asset::class         => 1,
             AssetWarranty::class => 0,
             Document::class      => 0,
             DocumentEntry::class => 0,
@@ -125,15 +125,15 @@ class ResellerLoaderTest extends TestCase {
         $this->assertQueryLogEquals('~create-with-assets-cold.json', $queries);
         $this->assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 1,
-            Customer::class      => 1,
-            Asset::class         => 5,
-            AssetWarranty::class => 10,
-            Document::class      => 2,
-            DocumentEntry::class => 10,
+            Reseller::class      => 4,
+            Customer::class      => 2,
+            Asset::class         => 6,
+            AssetWarranty::class => 11,
+            Document::class      => 3,
+            DocumentEntry::class => 11,
         ]);
         $this->assertDispatchedEventsEquals(
-            '~create-with-assets-events.json',
+            '~create-with-assets-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -153,7 +153,7 @@ class ResellerLoaderTest extends TestCase {
 
         $this->assertQueryLogEquals('~create-with-assets-hot.json', $queries);
         $this->assertDispatchedEventsEquals(
-            '~create-with-assets-events.json',
+            '~create-with-assets-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

@@ -1,0 +1,307 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "b65fec21-d551-4e7a-add5-185694833c59"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "b65fec21-d551-4e7a-add5-185694833c59",
+                    "resellerId": "1d6adc3e-5f41-41f0-8b0e-888d497df18a",
+                    "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                    "serialNumber": "c550880b-411e-395d-a5c0-bc3b367d2b12",
+                    "productDescription": "HP 16GB 2Rx4 PC4-2133P-R Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "726719-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "31447-0405",
+                    "city": "Alexisbury",
+                    "address": "38120 Von Causeway",
+                    "address2": "",
+                    "country": "Guernsey",
+                    "latitude": "-31.494907",
+                    "longitude": "174.281791",
+                    "countryCode": "LY",
+                    "status": "ACTIVE",
+                    "updatedAt": "1643887791145",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H1K94AC",
+                            "warrantyEndDate": "2019-01-31",
+                            "documentNumber": "60d70fcd-703c-3ab9-9276-27d40afe327a",
+                            "document": {
+                                "id": "3759cf81-e913-4207-a9b2-fe1036473fd7",
+                                "type": "Quote renewal",
+                                "documentNumber": "60d70fcd-703c-3ab9-9276-27d40afe327a",
+                                "startDate": "2019-02-01",
+                                "endDate": "2020-01-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "83497110-7b14-3010-91a3-5ca707d1a684",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": null,
+                                "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-02-01",
+                            "endDate": "2020-01-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": null,
+                            "customer": {
+                                "id": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H1K94AC",
+                            "warrantyEndDate": "2019-01-31",
+                            "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                            "document": {
+                                "id": "e70b448e-6fc6-4c10-8aba-1b88cba576ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-01-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "83497110-7b14-3010-91a3-5ca707d1a684",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1d6adc3e-5f41-41f0-8b0e-888d497df18a",
+                                "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-07-15",
+                            "endDate": "2021-07-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
+                            },
+                            "customer": {
+                                "id": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H1K94AC",
+                            "warrantyEndDate": "2019-01-31",
+                            "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                            "document": {
+                                "id": "e70b448e-6fc6-4c10-8aba-1b88cba576ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-01-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "83497110-7b14-3010-91a3-5ca707d1a684",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1d6adc3e-5f41-41f0-8b0e-888d497df18a",
+                                "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-07-15",
+                            "endDate": "2021-07-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
+                            },
+                            "customer": {
+                                "id": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H1K94AC",
+                            "warrantyEndDate": "2019-01-31",
+                            "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                            "document": {
+                                "id": "e70b448e-6fc6-4c10-8aba-1b88cba576ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-01-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "83497110-7b14-3010-91a3-5ca707d1a684",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1d6adc3e-5f41-41f0-8b0e-888d497df18a",
+                                "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-07-15",
+                            "endDate": "2021-07-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
+                            },
+                            "customer": {
+                                "id": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H1K94AC",
+                            "warrantyEndDate": "2019-01-31",
+                            "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                            "document": {
+                                "id": "e70b448e-6fc6-4c10-8aba-1b88cba576ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-01-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "83497110-7b14-3010-91a3-5ca707d1a684",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1d6adc3e-5f41-41f0-8b0e-888d497df18a",
+                                "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-07-15",
+                            "endDate": "2021-07-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
+                            },
+                            "customer": {
+                                "id": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H1K94AC",
+                            "warrantyEndDate": "2019-01-31",
+                            "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                            "document": {
+                                "id": "e70b448e-6fc6-4c10-8aba-1b88cba576ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "e032bd01-40d1-3b4d-bff1-6e5c28afd442",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-01-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "83497110-7b14-3010-91a3-5ca707d1a684",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1d6adc3e-5f41-41f0-8b0e-888d497df18a",
+                                "customerId": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-07-15",
+                            "endDate": "2021-07-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
+                            },
+                            "customer": {
+                                "id": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+13175775470",
+                            "name": "Marlen Deckow",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+13175775470",
+                            "name": "Marlen Deckow",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

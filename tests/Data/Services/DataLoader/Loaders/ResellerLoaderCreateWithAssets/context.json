@@ -1,17 +1,21 @@
 {
-    "generated": "2022-02-03T11:46:58+00:00",
+    "generated": "2022-02-07T07:06:09+00:00",
     "distributors": [
         "143c456a-e894-4710-a1c2-745b9582ca47"
     ],
     "resellers": [
-        "6c7c9474-3b59-4601-af72-1cd0f441b515"
+        "21f48d0b-e7fa-43dc-8099-33ebe099cbbe",
+        "6c7c9474-3b59-4601-af72-1cd0f441b515",
+        "a9588040-4af4-4f73-b960-150b09ef370e",
+        "765eb750-64b9-493d-ab95-b1f902ddd795"
     ],
     "customers": [
+        "0173bb5b-bb26-4945-a127-9b7c035aeed4",
         "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
     ],
     "oems": "oem.csv",
     "types": [
-        "Quote New Business",
-        "Quote renewal"
+        "Quote renewal",
+        "Quote New Business"
     ]
 }

@@ -3,6 +3,7 @@
 namespace App\Utils\Console;
 
 use function is_bool;
+use function ltrim;
 
 /**
  * @see \App\Utils\Console\WithBooleanOptions
@@ -35,6 +36,8 @@ trait CommandOptions {
      * @return array<string,mixed>
      */
     protected function setBooleanOption(array $options, string $name, bool $value): array {
+        $name = ltrim($name, '-');
+
         if ($value) {
             $options["--{$name}"] = true;
         } else {
