@@ -22,8 +22,8 @@ abstract class Import extends Command {
      * @var string
      */
     protected $signature = '${command}
-        {--u|update : Update ${objects} if exists}
-        {--U|no-update : Do not update ${objects} if exists (default)}
+        {--u|update : Update ${objects} if exists (default)}
+        {--U|no-update : Do not update ${objects} if exists}
         {--offset= : start processing from given offset}
         {--from= : start processing from given datetime}
         {--limit= : max ${objects} to process}
@@ -55,7 +55,7 @@ abstract class Import extends Command {
         $from   = $this->option('from');
         $chunk  = $this->option('chunk');
         $limit  = $this->option('limit');
-        $update = $this->getBooleanOption('update', false);
+        $update = $this->getBooleanOption('update', true);
         $offset = $this->option('offset');
 
         if ($from || $chunk || $limit || $offset) {

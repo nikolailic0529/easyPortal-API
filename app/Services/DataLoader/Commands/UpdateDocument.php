@@ -20,8 +20,8 @@ class UpdateDocument extends Update {
      */
     protected $signature = 'ep:data-loader-update-document
         {id* : The ID of the document}
-        {--c|create : Create document if not exists}
-        {--C|no-create : Do not create document if not exists (default)}
+        {--c|create : Create document if not exists (default)}
+        {--C|no-create : Do not create document if not exists}
     ';
 
     /**
@@ -32,7 +32,7 @@ class UpdateDocument extends Update {
     protected $description = 'Update document(s) with given ID(s).';
 
     public function handle(ExceptionHandler $handler, Container $container): int {
-        $create = $this->getBooleanOption('create', false);
+        $create = $this->getBooleanOption('create', true);
         $ids    = array_unique((array) $this->argument('id'));
 
         return $this->process($handler, $container, $ids, $create);

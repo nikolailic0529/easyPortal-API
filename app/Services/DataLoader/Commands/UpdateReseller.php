@@ -20,8 +20,8 @@ class UpdateReseller extends Update {
      */
     protected $signature = 'ep:data-loader-update-reseller
         {id* : The ID of the reseller}
-        {--c|create : Create reseller if not exists}
-        {--C|no-create : Do not create reseller if not exists (default)}
+        {--c|create : Create reseller if not exists (default)}
+        {--C|no-create : Do not create reseller if not exists}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
         {--ad|assets-documents : Load assets documents (and warranties), required --a|assets (default)}
@@ -36,7 +36,7 @@ class UpdateReseller extends Update {
     protected $description = 'Update reseller(s) with given ID(s).';
 
     public function handle(ExceptionHandler $handler, Container $container): int {
-        $create = $this->getBooleanOption('create', false);
+        $create = $this->getBooleanOption('create', true);
         $ids    = array_unique((array) $this->argument('id'));
 
         return $this->process($handler, $container, $ids, $create);

@@ -103,24 +103,21 @@ abstract class Data {
         if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-distributor', [
-                    'id'       => $context[ClientDumpContext::DISTRIBUTORS],
-                    '--create' => true,
+                    'id' => $context[ClientDumpContext::DISTRIBUTORS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::RESELLERS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-reseller', [
-                    'id'       => $context[ClientDumpContext::RESELLERS],
-                    '--create' => true,
+                    'id' => $context[ClientDumpContext::RESELLERS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-customer', [
-                    'id'       => $context[ClientDumpContext::CUSTOMERS],
-                    '--create' => true,
+                    'id' => $context[ClientDumpContext::CUSTOMERS],
                 ]) === Command::SUCCESS;
         }
 

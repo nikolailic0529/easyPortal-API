@@ -20,8 +20,8 @@ class UpdateDistributor extends Update {
      */
     protected $signature = 'ep:data-loader-update-distributor
         {id* : The ID of the distributor}
-        {--c|create : Create distributor if not exists}
-        {--C|no-create : Do not create distributor if not exists (default)}
+        {--c|create : Create distributor if not exists (default)}
+        {--C|no-create : Do not create distributor if not exists}
     ';
 
     /**
@@ -32,7 +32,7 @@ class UpdateDistributor extends Update {
     protected $description = 'Update distributor(s) with given ID(s).';
 
     public function handle(ExceptionHandler $handler, Container $container): int {
-        $create = $this->getBooleanOption('create', false);
+        $create = $this->getBooleanOption('create', true);
         $ids    = array_unique((array) $this->argument('id'));
 
         return $this->process($handler, $container, $ids, $create);
