@@ -10,7 +10,7 @@ use Throwable;
 final class FailedToImportObject extends FailedToProcessObject implements GenericException {
     public function __construct(
         protected Importer $importer,
-        protected Type $object,
+        protected ?Type $object,
         Throwable $previous = null,
     ) {
         parent::__construct('Failed to import object.', $previous);
