@@ -6,12 +6,15 @@ use App\GraphQL\Service;
 use App\Services\Organization\CurrentOrganization;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Throwable;
 
 use function array_slice;
 use function count;
@@ -24,6 +27,7 @@ use function unserialize;
 
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
+        protected ExceptionHandler $exceptionHandler,
         protected Service $service,
         protected CurrentOrganization $organization,
     ) {
@@ -135,8 +139,22 @@ class Cached extends BaseDirective implements FieldMiddleware {
         $value  = $this->service->get($key, static function (mixed $value) use (&$cached): mixed {
             // Small trick to determine if the value exists in the cache or not.
             $cached = true;
-            $value  = unserialize($value);
 
+            // If `unserialize()` fail it is not critical and should not break
+            // the query.
+            try {
+                $value = unserialize($value);
+            } catch (Throwable) {
+                $cached = false;
+                $value  = null;
+            }
+
+            // CachedValue?
+            if ($value instanceof CachedValue) {
+                $value = $value->value;
+            }
+
+            // Return
             return $value;
         });
 
@@ -151,7 +169,11 @@ class Cached extends BaseDirective implements FieldMiddleware {
      * @return T
      */
     protected function setCachedValue(mixed $key, mixed $value): mixed {
-        $this->service->set($key, serialize($value));
+        try {
+            $this->service->set($key, serialize(new CachedValue(Date::now(), $value)));
+        } catch (Throwable $exception) {
+            $this->exceptionHandler->report($exception);
+        }
 
         return $value;
     }
