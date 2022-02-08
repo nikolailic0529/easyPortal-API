@@ -2,7 +2,6 @@
 
 namespace App\GraphQL;
 
-use App\Services\I18n\Locale;
 use App\Services\Service as BaseService;
 use Closure;
 use DateInterval;
@@ -12,13 +11,10 @@ use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
 use RuntimeException;
 
-use function array_merge;
-
 class Service extends BaseService {
     public function __construct(
         Config $config,
         Cache $cache,
-        protected Locale $locale,
     ) {
         parent::__construct($config, $cache);
     }
@@ -51,16 +47,6 @@ class Service extends BaseService {
         $slow      = $threshold === null || $threshold <= 0 || $time >= $threshold;
 
         return $slow;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getDefaultKey(): array {
-        return array_merge(parent::getDefaultKey(), [
-            // TODO [!] AppVersion,
-            $this->locale,
-        ]);
     }
 
     protected function getDefaultTtl(): DateInterval|int|null {

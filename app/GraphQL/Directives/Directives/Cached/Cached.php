@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Cached;
 
 use App\GraphQL\Service;
+use App\Services\I18n\Locale;
 use App\Services\Organization\CurrentOrganization;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -29,6 +30,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
         protected Service $service,
+        protected Locale $locale,
         protected CurrentOrganization $organization,
     ) {
         // empty
@@ -93,6 +95,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         // Root
         $cacheable = true;
         $key       = [
+            $this->locale,
             $this->organization,
         ];
 
