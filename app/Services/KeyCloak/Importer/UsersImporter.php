@@ -120,7 +120,7 @@ class UsersImporter extends Processor {
      */
     protected function finish(State $state): void {
         // Remove deleted users
-        if ($state->overall && $state->failed === 0) {
+        if ($state->overall && $state->failed === 0 && $state->started !== null) {
             $users = User::query()
                 ->where('type', '=', UserType::keycloak())
                 ->where(static function (Builder $builder) use ($state): void {
@@ -240,6 +240,7 @@ class UsersImporter extends Processor {
      */
     protected function defaultState(array $state): array {
         return parent::defaultState(array_merge($state, [
+            'started' => Date::now(),
             'overall' => $state['limit'] === null && $state['offset'] === null,
         ]));
     }
