@@ -26,6 +26,10 @@ class Update {
         $user           = $user->forceFill($input->getProperties());
         $previousRoleId = $user->getOriginal('role_id');
 
+        if ($user->isClean()) {
+            return true;
+        }
+
         if (!$user->save()) {
             return false;
         }
