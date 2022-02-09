@@ -48,7 +48,7 @@ class SignUpByInvite {
         }
 
         // Update KeyCloak user
-        $input        = SignUpByInviteInput::make($args['input']);
+        $input        = new SignUpByInviteInput($args['input']);
         $keyCloakUser = $this->client->getUserById($user->getKey());
 
         $this->client->updateUser($keyCloakUser->id, new KeyCloakUser([
