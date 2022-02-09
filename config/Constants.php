@@ -333,12 +333,25 @@ interface Constants {
     public const EP_CACHE_SERVICE_TTL = 'P6M';
 
     /**
-     * GraphQL TTL.
+     * GraphQL Cache TTL.
      */
     #[Setting('ep.cache.graphql.ttl')]
     #[Group('cache')]
     #[Type(Duration::class)]
     public const EP_CACHE_GRAPHQL_TTL = 'P2W';
+
+    /**
+     * GraphQL time interval inside which the value may become expired.
+     *
+     * The value will be marked as expired inside this time interval with some
+     * probability. Thus, some requests will update the value before real
+     * expiration, and it will exclude stepwise server load increase after
+     * expiration. The probability increases to the end.
+     */
+    #[Setting('ep.cache.graphql.ttl_expiration')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_TTL_EXPIRATION = 'P1D';
 
     /**
      * GraphQL lock timeout (seconds).
@@ -373,6 +386,29 @@ interface Constants {
     #[Setting('ep.cache.graphql.threshold')]
     #[Group('cache')]
     public const EP_CACHE_GRAPHQL_THRESHOLD = 2.0;
+
+    /**
+     * GraphQL minimal lifetime for cached values.
+     *
+     * Value can be "expired" only after this amount of time. The setting
+     * allows reducing the server/db load when the cache expires very often
+     * (eg while data importing).
+     */
+    #[Setting('ep.cache.graphql.lifetime')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LIFETIME = 'PT1H';
+
+    /**
+     * GraphQL time interval inside which the value may become expired.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_TTL_EXPIRATION
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LIFETIME
+     */
+    #[Setting('ep.cache.graphql.lifetime_expiration')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LIFETIME_EXPIRATION = 'PT1H';
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">

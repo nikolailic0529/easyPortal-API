@@ -6,12 +6,17 @@ use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\I18n\Locale;
 use Closure;
+use DateTimeInterface;
 use GraphQL\Type\Introspection;
+use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use Mockery;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -46,7 +51,7 @@ class ServiceTest extends TestCase {
             }
         };
 
-        $this->assertEquals([$locale], $service->getDefaultKey());
+        $this->assertEquals([], $service->getDefaultKey());
     }
 
     /**
@@ -92,6 +97,65 @@ class ServiceTest extends TestCase {
         $this
             ->get('/graphql-playground')
             ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::markCacheExpired
+     * @covers ::getCacheExpired
+     */
+    public function testCacheExpired(): void {
+        $cache   = $this->app->make(Cache::class);
+        $config  = $this->app->make(Config::class);
+        $service = new class($config, $cache) extends Service {
+            public function getCacheExpired(): ?DateTimeInterface {
+                return parent::getCacheExpired();
+            }
+        };
+
+        $this->assertNull($service->getCacheExpired());
+
+        $service->markCacheExpired();
+
+        $this->assertInstanceOf(DateTimeInterface::class, $service->getCacheExpired());
+    }
+
+    /**
+     * @covers ::isCacheExpired
+     *
+     * @dataProvider dataProviderIsCacheExpired
+     *
+     * @param array<string,mixed> $settings
+     */
+    public function testIsCacheExpired(
+        bool $expected,
+        string $now,
+        array $settings,
+        float $random,
+        string $created,
+        string $expired,
+        ?string $marker,
+    ): void {
+        $created = Date::make($created);
+        $expired = Date::make($expired);
+        $marker  = Date::make($marker);
+
+        $this->setSettings($settings);
+
+        Date::setTestNow($now);
+
+        $cache   = $this->app->make(Cache::class);
+        $config  = $this->app->make(Config::class);
+        $service = Mockery::mock(Service::class, [$config, $cache]);
+        $service->shouldAllowMockingProtectedMethods();
+        $service->makePartial();
+        $service
+            ->shouldReceive('getRandomNumber')
+            ->andReturn($random);
+        $service
+            ->shouldReceive('getCacheExpired')
+            ->andReturn($marker);
+
+        $this->assertEquals($expected, $service->isCacheExpired($created, $expired));
     }
     // </editor-fold>
 
@@ -192,6 +256,113 @@ class ServiceTest extends TestCase {
                 ],
             ]),
         ]))->getData();
+    }
+
+    /**
+     * @return array<string, array{bool,?string,array<string,mixed>,float,string,string,?string}>
+     */
+    public function dataProviderIsCacheExpired(): array {
+        return [
+            'ttl expired'               => [
+                true,
+                '2021-02-09T12:00:00+00:00',
+                [],
+                0,
+                '2021-02-08T12:00:00+00:00',
+                '2021-02-09T12:00:00+00:00',
+                null,
+            ],
+            'ttl expiring (hit)'        => [
+                true,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.ttl_expiration' => 'PT1H',
+                ],
+                0.25,
+                '2021-02-08T12:00:00+00:00',
+                '2021-02-09T12:30:00+00:00',
+                null,
+            ],
+            'ttl expiring (miss)'       => [
+                false,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.ttl_expiration' => 'PT1H',
+                ],
+                0.75,
+                '2021-02-08T12:00:00+00:00',
+                '2021-02-09T12:30:00+00:00',
+                null,
+            ],
+            'life too short'            => [
+                false,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.lifetime' => 'PT1H',
+                ],
+                1,
+                '2021-02-09T11:30:00+00:00',
+                '2021-02-10T00:00:00+00:00',
+                '2021-02-09T12:00:00+00:00',
+            ],
+            'no expire date'            => [
+                false,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.lifetime' => 'PT1M',
+                ],
+                1,
+                '2021-02-09T11:30:00+00:00',
+                '2021-02-10T00:00:00+00:00',
+                null,
+            ],
+            'created after expire date' => [
+                false,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.lifetime' => 'PT1M',
+                ],
+                1,
+                '2021-02-09T11:30:00+00:00',
+                '2021-02-10T00:00:00+00:00',
+                '2021-02-09T11:00:00+00:00',
+            ],
+            'lifetime expired'          => [
+                true,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.lifetime_expiration' => 'PT1H',
+                ],
+                0.25,
+                '2021-02-09T10:30:00+00:00',
+                '2021-02-10T00:00:00+00:00',
+                '2021-02-09T00:00:00+00:00',
+            ],
+            'lifetime expiring (hit)'   => [
+                true,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.lifetime'            => 'PT1H',
+                    'ep.cache.graphql.lifetime_expiration' => 'PT1H',
+                ],
+                0.25,
+                '2021-02-09T10:30:00+00:00',
+                '2021-02-12T00:00:00+00:00',
+                '2021-02-09T11:00:00+00:00',
+            ],
+            'lifetime expiring (miss)'  => [
+                false,
+                '2021-02-09T12:00:00+00:00',
+                [
+                    'ep.cache.graphql.lifetime'            => 'PT1H',
+                    'ep.cache.graphql.lifetime_expiration' => 'PT1H',
+                ],
+                0.75,
+                '2021-02-09T10:30:00+00:00',
+                '2021-02-12T00:00:00+00:00',
+                '2021-02-09T11:00:00+00:00',
+            ],
+        ];
     }
     // </editor-fold>
 }
