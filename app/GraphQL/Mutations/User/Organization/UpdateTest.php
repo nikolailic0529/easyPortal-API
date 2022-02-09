@@ -210,6 +210,50 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
+                'Empty properties'                          => [
+                    new GraphQLSuccess(
+                        'user',
+                        new JsonFragmentSchema('organization.update', self::class),
+                        new JsonFragment('organization.update', [
+                            'result'       => true,
+                            'organization' => [
+                                'organization_id' => 'c3aec6b9-5e9b-4c0b-b38f-31d5af303638',
+                                'role'            => null,
+                                'team'            => null,
+                                'enabled'         => false,
+                            ],
+                        ]),
+                    ),
+                    static function (MockInterface $mock): void {
+                        // empty
+                    },
+                    static function (): User {
+                        return User::factory()->create([
+                            'id' => '1c97ad0b-d36e-4564-91ba-676a4e741bad',
+                        ]);
+                    },
+                    static function (): Organization {
+                        $organization = Organization::factory()->create([
+                            'id' => 'c3aec6b9-5e9b-4c0b-b38f-31d5af303638',
+                        ]);
+
+                        OrganizationUser::factory()->create([
+                            'id'              => '6c904820-4fbb-409b-97e5-e4ea9e6d966b',
+                            'organization_id' => $organization,
+                            'user_id'         => '1c97ad0b-d36e-4564-91ba-676a4e741bad',
+                            'role_id'         => null,
+                            'team_id'         => null,
+                            'enabled'         => false,
+                        ]);
+
+                        return $organization;
+                    },
+                    static function (): array {
+                        return [
+                            // empty
+                        ];
+                    },
+                ],
                 'No unnecessary `removeUserFromGroup` call' => [
                     new GraphQLSuccess(
                         'user',

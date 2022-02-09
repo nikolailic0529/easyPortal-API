@@ -16,7 +16,7 @@ class Create {
      * @param array{input: array<mixed>} $args
      */
     public function __invoke(Organization $organization, array $args): Role|bool {
-        $input  = CreateInput::make($args['input']);
+        $input  = new CreateInput($args['input']);
         $role   = $this->create($organization);
         $result = $this->mutation->update($role, $input);
 

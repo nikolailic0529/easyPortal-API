@@ -34,7 +34,7 @@ class Invite {
      * @param array{input: array<mixed>} $args
      */
     public function __invoke(Organization $root, array $args): bool {
-        return $this->invite($root, InviteInput::make($args['input']));
+        return $this->invite($root, new InviteInput($args['input']));
     }
 
     protected function invite(Organization $organization, InviteInput $input): bool {

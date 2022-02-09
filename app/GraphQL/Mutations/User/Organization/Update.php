@@ -18,13 +18,17 @@ class Update {
      * @param array{input: array<mixed>} $args
      */
     public function __invoke(OrganizationUser $user, array $args): bool {
-        return $this->update($user, UpdateInput::make($args['input']));
+        return $this->update($user, new UpdateInput($args['input']));
     }
 
     public function update(OrganizationUser $user, UpdateInput $input): bool {
         // Model
         $user           = $user->forceFill($input->getProperties());
         $previousRoleId = $user->getOriginal('role_id');
+
+        if ($user->isClean()) {
+            return true;
+        }
 
         if (!$user->save()) {
             return false;
@@ -38,7 +42,7 @@ class Update {
             $result = $this->client->addUserToGroup($keycloakUser, $user->role_id);
         }
 
-        if ($previousRoleId) {
+        if ($previousRoleId && $previousRoleId !== $user->user_id) {
             try {
                 $this->client->removeUserFromGroup($keycloakUser, $previousRoleId);
             } catch (RequestFailed $exception) {

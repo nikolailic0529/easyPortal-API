@@ -26,7 +26,7 @@ class Update {
      * @param array{input: array<mixed>} $args
      */
     public function __invoke(Role $role, array $args): bool {
-        return $this->update($role, UpdateInput::make($args['input']));
+        return $this->update($role, new UpdateInput($args['input']));
     }
 
     public function update(Role $role, UpdateInput|CreateInput $input): bool {

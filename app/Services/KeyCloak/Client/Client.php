@@ -144,13 +144,15 @@ class Client {
     public function deleteGroup(KeyCloakGroup|Role $group): bool {
         // DELETE /{realm}/groups/{id}
         $id     = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
-        $result = true;
+        $result = false;
 
         try {
             $this->call("groups/{$id}", 'DELETE');
+
+            $result = true;
         } catch (RequestFailed $exception) {
             if ($exception->isHttpError(Response::HTTP_NOT_FOUND)) {
-                $result = false;
+                $result = true;
             } else {
                 throw $exception;
             }
