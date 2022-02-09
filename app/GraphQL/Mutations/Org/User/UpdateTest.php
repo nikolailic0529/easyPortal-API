@@ -222,7 +222,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'part of possible properties'                   => [
+                'Part of possible properties'                   => [
                     new GraphQLSuccess(
                         'org',
                         new JsonFragmentSchema('user.update', self::class),
@@ -380,7 +380,7 @@ class UpdateTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('getUserById')
-                            ->twice()
+                            ->once()
                             ->andReturn(new KeyCloakUser());
                         $mock
                             ->shouldReceive('updateUser')
@@ -405,6 +405,51 @@ class UpdateTest extends TestCase {
                     static function (self $test): array {
                         return [
                             'given_name' => $test->faker->firstName,
+                        ];
+                    },
+                ],
+                'Role should not be reset'                      => [
+                    new GraphQLSuccess(
+                        'org',
+                        new JsonFragmentSchema('user.update', self::class),
+                        new JsonFragment('user.update', [
+                            'result' => true,
+                            'user'   => [
+                                'given_name'  => 'Updated Given Name',
+                                'family_name' => 'Updated Family Name',
+                            ],
+                        ]),
+                    ),
+                    $settings,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new KeyCloakUser());
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturn(true);
+                    },
+                    static function (self $test, Organization $organization): User {
+                        $user = User::factory()->create();
+                        $role = Role::factory()->create();
+
+                        OrganizationUser::factory()->create([
+                            'organization_id' => $organization,
+                            'user_id'         => $user,
+                            'role_id'         => $role,
+                        ]);
+
+                        return $user;
+                    },
+                    static function (): array {
+                        return [
+                            'given_name'  => 'Updated Given Name',
+                            'family_name' => 'Updated Family Name',
+                            'homepage'    => 'dashboard',
+                            'timezone'    => 'Europe/London',
+                            'locale'      => 'en_GB',
                         ];
                     },
                 ],

@@ -42,7 +42,7 @@ class Update {
             $result = $this->client->addUserToGroup($keycloakUser, $user->role_id);
         }
 
-        if ($previousRoleId) {
+        if ($previousRoleId && $previousRoleId !== $user->user_id) {
             try {
                 $this->client->removeUserFromGroup($keycloakUser, $previousRoleId);
             } catch (RequestFailed $exception) {
