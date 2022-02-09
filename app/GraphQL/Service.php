@@ -21,6 +21,13 @@ class Service extends BaseService {
     protected const MARKER_EXPIRED = '_expired';
 
     public function lock(mixed $key, Closure $closure): mixed {
+        // Enabled?
+        $enabled = $this->config->get('ep.cache.graphql.lock_enabled') ?? true;
+
+        if (!$enabled) {
+            return $closure();
+        }
+
         // Possible?
         $store = $this->cache->getStore();
 
@@ -30,8 +37,8 @@ class Service extends BaseService {
 
         // Lock
         $key  = $this->getKey($key);
-        $time = ((int) $this->config->get('ep.cache.graphql.lock')) ?: 30;
-        $wait = ((int) $this->config->get('ep.cache.graphql.wait')) ?: ($time + 5);
+        $time = ((int) $this->config->get('ep.cache.graphql.lock_timeout')) ?: 30;
+        $wait = ((int) $this->config->get('ep.cache.graphql.lock_wait')) ?: ($time + 5);
         $lock = $store->lock($key, $time);
 
         try {

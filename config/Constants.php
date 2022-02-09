@@ -354,28 +354,36 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_TTL_EXPIRATION = 'P1D';
 
     /**
-     * GraphQL lock timeout (seconds).
+     * GraphQL locks enabled?
      *
-     * The `@cached` directive tries to reduce server load, so it executes the
-     * root queries only in one process/request, all other processes/requests
+     * The `@cached` directive tries to reduce server load, so it executes some
+     * queries only in one process/request, all other processes/requests
      * just wait.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
+     */
+    #[Setting('ep.cache.graphql.lock_enabled')]
+    #[Group('cache')]
+    public const EP_CACHE_GRAPHQL_LOCK_ENABLED = true;
+
+    /**
+     * GraphQL lock timeout (seconds).
      *
      * These settings determine lock timeout (how long the lock may exist) and a
      * wait timeout (how long another process/request will wait before starting
      * to execute the code by self).
      */
-    #[Setting('ep.cache.graphql.lock')]
+    #[Setting('ep.cache.graphql.lock_timeout')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_LOCK = 30;
+    public const EP_CACHE_GRAPHQL_LOCK_TIMEOUT = 30;
 
     /**
      * GraphQL wait timeout (seconds).
-     *
-     * Please see {@link \Config\Constants::EP_CACHE_GRAPHQL_LOCK}
      */
-    #[Setting('ep.cache.graphql.wait')]
+    #[Setting('ep.cache.graphql.lock_wait')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_WAIT = 35;
+    public const EP_CACHE_GRAPHQL_LOCK_WAIT = 35;
 
     /**
      * GraphQL threshold (seconds with fraction part).
@@ -402,8 +410,8 @@ interface Constants {
     /**
      * GraphQL time interval inside which the value may become expired.
      *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_TTL_EXPIRATION
      * @see \Config\Constants::EP_CACHE_GRAPHQL_LIFETIME
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_TTL_EXPIRATION
      */
     #[Setting('ep.cache.graphql.lifetime_expiration')]
     #[Group('cache')]

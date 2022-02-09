@@ -8,6 +8,9 @@ use App\Services\I18n\Locale;
 use Closure;
 use DateTimeInterface;
 use GraphQL\Type\Introspection;
+use Illuminate\Contracts\Cache\Lock;
+use Illuminate\Contracts\Cache\LockProvider;
+use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Support\Facades\Date;
@@ -16,6 +19,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use LogicException;
 use Mockery;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -156,6 +160,100 @@ class ServiceTest extends TestCase {
             ->andReturn($marker);
 
         $this->assertEquals($expected, $service->isCacheExpired($created, $expired));
+    }
+
+    /**
+     * @covers ::lock
+     */
+    public function testLockDisabled(): void {
+        $this->setSettings([
+            'ep.cache.graphql.lock_enabled' => false,
+        ]);
+
+        $cache    = Mockery::mock(Cache::class);
+        $config   = $this->app->make(Config::class);
+        $service  = new Service($config, $cache);
+        $callback = Mockery::spy(static function (): void {
+            // empty
+        });
+
+        $service->lock('test', Closure::fromCallable($callback));
+
+        $callback
+            ->shouldHaveBeenCalled()
+            ->once();
+    }
+
+    /**
+     * @covers ::lock
+     */
+    public function testLockNotSupported(): void {
+        $this->setSettings([
+            'ep.cache.graphql.lock_enabled' => true,
+        ]);
+
+        $cache    = Mockery::mock(Cache::class);
+        $config   = $this->app->make(Config::class);
+        $service  = new Service($config, $cache);
+        $callback = static function (): void {
+            // empty
+        };
+
+        $this->expectException(LogicException::class);
+
+        $service->lock('test', Closure::fromCallable($callback));
+    }
+
+    /**
+     * @covers ::lock
+     */
+    public function testLock(): void {
+        $lockTimeout = $this->faker->randomNumber();
+        $lockWait    = $this->faker->randomNumber();
+
+        $this->setSettings([
+            'ep.cache.graphql.lock_enabled' => true,
+            'ep.cache.graphql.lock_timeout' => $lockTimeout,
+            'ep.cache.graphql.lock_wait'    => $lockWait,
+        ]);
+
+        $callback = Mockery::spy(static function (): void {
+            // empty
+        });
+        $closure  = Closure::fromCallable($callback);
+
+        $lock = Mockery::mock(Lock::class);
+        $lock
+            ->shouldReceive('block')
+            ->with($lockWait, $closure)
+            ->once()
+            ->andThrow(new LockTimeoutException());
+        $lock
+            ->shouldReceive('forceRelease')
+            ->once()
+            ->andReturns();
+
+        $store = Mockery::mock(LockProvider::class);
+        $store
+            ->shouldReceive('lock')
+            ->with(Mockery::any(), $lockTimeout)
+            ->once()
+            ->andReturn($lock);
+
+        $cache = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('getStore')
+            ->once()
+            ->andReturn($store);
+
+        $config  = $this->app->make(Config::class);
+        $service = new Service($config, $cache);
+
+        $service->lock('test', $closure);
+
+        $callback
+            ->shouldHaveBeenCalled()
+            ->once();
     }
     // </editor-fold>
 
