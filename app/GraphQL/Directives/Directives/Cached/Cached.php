@@ -61,10 +61,10 @@ class Cached extends BaseDirective implements FieldMiddleware {
                 $resolver,
             ): mixed {
                 // Cached?
-                $key              = $this->getCacheKey($root, $args, $context, $resolveInfo);
-                [$cached, $value] = $this->getCachedValue($key);
+                $key                        = $this->getCacheKey($root, $args, $context, $resolveInfo);
+                [$cached, $expired, $value] = $this->getCachedValue($key);
 
-                if ($cached) {
+                if ($cached && !$expired) {
                     return $value;
                 }
 
@@ -135,11 +135,12 @@ class Cached extends BaseDirective implements FieldMiddleware {
     }
 
     /**
-     * @return array{bool,mixed}
+     * @return array{bool,bool,mixed}
      */
     protected function getCachedValue(mixed $key): array {
-        $cached = false;
-        $value  = $this->service->get($key, static function (mixed $value) use (&$cached): mixed {
+        $expired = false;
+        $cached  = false;
+        $value   = $this->service->get($key, function (mixed $value) use (&$cached, &$expired): mixed {
             // Small trick to determine if the value exists in the cache or not.
             $cached = true;
 
@@ -154,14 +155,15 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
             // CachedValue?
             if ($value instanceof CachedValue) {
-                $value = $value->value;
+                $expired = $this->service->isCacheExpired($value->created, $value->expired);
+                $value   = $value->value;
             }
 
             // Return
             return $value;
         });
 
-        return [$cached, $value];
+        return [$cached, $expired, $value];
     }
 
     /**
@@ -173,7 +175,11 @@ class Cached extends BaseDirective implements FieldMiddleware {
      */
     protected function setCachedValue(mixed $key, mixed $value): mixed {
         try {
-            $this->service->set($key, serialize(new CachedValue(Date::now(), $value)));
+            $created = Date::now();
+            $expired = Date::now()->add($this->service->getCacheTtl());
+            $cached  = new CachedValue($created, $expired, $value);
+
+            $this->service->set($key, serialize($cached));
         } catch (Throwable $exception) {
             $this->exceptionHandler->report($exception);
         }
@@ -218,9 +224,9 @@ class Cached extends BaseDirective implements FieldMiddleware {
             $key,
             function () use ($key, $resolver, $root, $args, $context, $resolveInfo): mixed {
                 // Value can be already resolved in another process/request
-                [$cached, $value] = $this->getCachedValue($key);
+                [$cached, $expired, $value] = $this->getCachedValue($key);
 
-                if (!$cached) {
+                if (!$cached || $expired) {
                     $value = $resolver($root, $args, $context, $resolveInfo);
                 }
 

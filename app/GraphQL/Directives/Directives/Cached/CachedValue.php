@@ -6,7 +6,8 @@ use DateTimeInterface;
 
 class CachedValue {
     public function __construct(
-        public DateTimeInterface $timestamp,
+        public DateTimeInterface $created,
+        public DateTimeInterface $expired,
         public mixed $value,
     ) {
         // empty

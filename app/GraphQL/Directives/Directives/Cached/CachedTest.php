@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Cached;
 
 use App\Models\Organization;
+use App\Services\I18n\Locale;
 use App\Services\Organization\CurrentOrganization;
 use App\Utils\Cache\CacheKey;
 use Closure;
@@ -72,15 +73,20 @@ class CachedTest extends TestCase {
     public function testGetCacheKey(
         Response $expected,
         Closure $organizationFactory,
+        string $locale,
         string $schema,
         string $graphql,
     ): void {
         $this->setOrganization($organizationFactory);
 
+        $this->app->setLocale($locale);
+
+        $locale    = $this->app->make(Locale::class);
         $provider  = $this->app->make(CurrentOrganization::class);
-        $directive = new class($provider) extends Cached implements FieldResolver {
+        $directive = new class($locale, $provider) extends Cached implements FieldResolver {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
+                protected Locale $locale,
                 protected CurrentOrganization $organization,
             ) {
                 // empty;
@@ -249,10 +255,11 @@ class CachedTest extends TestCase {
         return [
             'root (without args)'       => [
                 new GraphQLSuccess('root', null, json_encode(sprintf(
-                    '%s::root::@cached',
+                    'en_GB:%s::root::@cached',
                     $cacheKey,
                 ))),
                 $organization,
+                'en_GB',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
                     root: String @cached
@@ -266,7 +273,7 @@ class CachedTest extends TestCase {
             ],
             'root (with args)'          => [
                 new GraphQLSuccess('root', null, json_encode(sprintf(
-                    '%s::root:%s:@cached',
+                    'de_DE:%s::root:%s:@cached',
                     $cacheKey,
                     json_encode([
                         'param' => ['value'],
@@ -274,6 +281,7 @@ class CachedTest extends TestCase {
                     ]),
                 ))),
                 $organization,
+                'de_DE',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
                     root(param: [String!], where: RootQuery @searchBy): String @cached
@@ -293,13 +301,14 @@ class CachedTest extends TestCase {
                 new GraphQLSuccess('models', null, [
                     [
                         'value' => sprintf(
-                            '%s:%s:value::@cached',
+                            'en_GB:%s:%s:value::@cached',
                             $cacheKey,
                             $cacheKey,
                         ),
                     ],
                 ]),
                 $organization,
+                'en_GB',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
                     models(where: OrganizationsQuery @searchBy): [Organization!]! @all
@@ -325,7 +334,7 @@ class CachedTest extends TestCase {
             'aggregated (without root)' => [
                 new GraphQLSuccess('aggregated', null, [
                     'count' => sprintf(
-                        '%s::aggregated:%s:count::@cached',
+                        'en_GB:%s::aggregated:%s:count::@cached',
                         $cacheKey,
                         json_encode([
                             'where' => ['id' => ['notEqual' => '123']],
@@ -333,6 +342,7 @@ class CachedTest extends TestCase {
                     ),
                 ]),
                 $organization,
+                'en_GB',
                 /** @lang GraphQL */ <<<GRAPHQL
                 type Query {
                     aggregated(where: AggregatedQuery @searchBy): Aggregated
@@ -362,7 +372,7 @@ class CachedTest extends TestCase {
                     [
                         'aggregated' => [
                             'count' => sprintf(
-                                '%s:%s:aggregated:%s:count::@cached',
+                                'en_GB:%s:%s:aggregated:%s:count::@cached',
                                 $cacheKey,
                                 $cacheKey,
                                 json_encode([
@@ -373,6 +383,7 @@ class CachedTest extends TestCase {
                     ],
                 ]),
                 $organization,
+                'en_GB',
                 /** @lang GraphQL */ <<<GRAPHQL
                 type Query {
                     models: [Organization!]! @all
