@@ -232,7 +232,8 @@ class UpdateTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('getUserById')
-                            ->twice()
+                            ->atLeast()
+                            ->once()
                             ->andReturn(new KeyCloakUser());
                         $mock
                             ->shouldReceive('updateUser')
