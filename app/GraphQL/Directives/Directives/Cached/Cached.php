@@ -157,6 +157,8 @@ class Cached extends BaseDirective implements FieldMiddleware {
             if ($value instanceof CachedValue) {
                 $expired = $this->service->isCacheExpired($value->created, $value->expired);
                 $value   = $value->value;
+            } else {
+                $expired = true;
             }
 
             // Return

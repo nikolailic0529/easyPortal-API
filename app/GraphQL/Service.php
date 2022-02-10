@@ -130,8 +130,8 @@ class Service extends BaseService {
         }
 
         // Inside interval?
-        //  $timestamp                         $current               $expiration
-        // -|--------------------------------------|----------------------------|-
+        //  $timestamp                    $current                    $expiration
+        // -|---------------------------------|---------------------------------|-
         //  | rand(0, 1) < ($current - $timestamp) / ($expiration - $timestamp) |
         $timestamp  = $timestamp->getTimestamp();
         $current    = $current->getTimestamp() - $timestamp;
