@@ -191,7 +191,7 @@ interface Constants {
 
     /**
      * Types IDs related to quotes. Optional, if empty will use IDs which are
-     * not in {@link \Config\Constants::EP_CONTRACT_TYPES}.
+     * not in {@see \Config\Constants::EP_CONTRACT_TYPES}.
      *
      * If changed Assets must be recalculated.
      */
@@ -372,7 +372,10 @@ interface Constants {
      *
      * These settings determine lock timeout (how long the lock may exist) and a
      * wait timeout (how long another process/request will wait before starting
-     * to execute the code by self).
+     * to execute the code by self). Both values should not be bigger than a
+     * few minutes.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
      */
     #[Setting('ep.cache.graphql.lock_timeout')]
     #[Group('cache')]
@@ -380,6 +383,10 @@ interface Constants {
 
     /**
      * GraphQL wait timeout (seconds).
+     *
+     * Should be a bit bigger than lock timeout.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
      */
     #[Setting('ep.cache.graphql.lock_wait')]
     #[Group('cache')]
@@ -737,7 +744,7 @@ interface Constants {
     public const EP_DATA_LOADER_TIMEOUT = 5 * 60;
 
     /**
-     * GraphQL Endpoint (optional, if empty {@link \Config\Constants::EP_DATA_LOADER_URL} will be used).
+     * GraphQL Endpoint (optional, if empty {@see \Config\Constants::EP_DATA_LOADER_URL} will be used).
      */
     #[Setting('ep.data_loader.endpoint')]
     #[Group('data_loader')]
