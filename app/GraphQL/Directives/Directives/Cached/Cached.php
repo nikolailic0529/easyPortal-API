@@ -60,28 +60,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
             ) use (
                 $resolver,
             ): mixed {
-                // Cached?
-                $key                        = $this->getCacheKey($root, $args, $context, $resolveInfo);
-                [$cached, $expired, $value] = $this->getCachedValue($key);
-
-                if ($cached && !$expired) {
-                    return $value;
-                }
-
-                // Resolve value
-                if ($this->getResolveMode($root) === CachedMode::lock()) {
-                    // If we have cached value and lock exist (=another request
-                    // started to run the resolver already) we can just return
-                    // the cached value
-                    if (!$cached || !$this->service->isLocked($key)) {
-                        $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
-                    }
-                } else {
-                    $value = $this->resolve($key, $resolver, $root, $args, $context, $resolveInfo);
-                }
-
-                // Return
-                return $value;
+                return $this->resolve($resolver, $root, $args, $context, $resolveInfo);
             },
         );
 
@@ -198,6 +177,44 @@ class Cached extends BaseDirective implements FieldMiddleware {
      * @param array<mixed> $args
      */
     protected function resolve(
+        callable $resolver,
+        mixed $root,
+        array $args,
+        GraphQLContext $context,
+        ResolveInfo $resolveInfo,
+    ): mixed {
+        // Cached?
+        $key                        = $this->getCacheKey($root, $args, $context, $resolveInfo);
+        [$cached, $expired, $value] = $this->getCachedValue($key);
+
+        if ($cached && !$expired) {
+            return $value;
+        }
+
+        // Resolve value
+        if ($this->getResolveMode($root) === CachedMode::lock()) {
+            // If we have cached value and lock exist (=another request
+            // started to run the resolver already) we can just return
+            // the cached value
+            if (!$cached || !$this->resolveIsLocked($key)) {
+                $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
+            }
+        } else {
+            $value = $this->resolveWithThreshold($key, $resolver, $root, $args, $context, $resolveInfo);
+        }
+
+        // Return
+        return $value;
+    }
+
+    protected function resolveIsLocked(mixed $key): bool {
+        return $this->service->isLocked($key);
+    }
+
+    /**
+     * @param array<mixed> $args
+     */
+    protected function resolveWithThreshold(
         mixed $key,
         callable $resolver,
         mixed $root,
