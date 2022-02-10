@@ -70,7 +70,12 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
                 // Resolve value
                 if ($this->getResolveMode($root) === CachedMode::lock()) {
-                    $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
+                    // If we have cached value and lock exist (=another request
+                    // started to run the resolver already) we can just return
+                    // the cached value
+                    if (!$cached || !$this->service->isLocked($key)) {
+                        $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
+                    }
                 } else {
                     $value = $this->resolve($key, $resolver, $root, $args, $context, $resolveInfo);
                 }
