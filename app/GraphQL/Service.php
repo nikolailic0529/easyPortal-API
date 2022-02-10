@@ -20,26 +20,36 @@ class Service extends BaseService {
     protected const DEFAULT_TTL    = 'P1W';
     protected const MARKER_EXPIRED = '_expired';
 
-    public function lock(mixed $key, Closure $closure): mixed {
-        // Enabled?
-        $enabled = $this->config->get('ep.cache.graphql.lock_enabled') ?? true;
+    public function isLocked(mixed $key): bool {
+        // Possible?
+        $provider = $this->getLockProvider();
 
-        if (!$enabled) {
-            return $closure();
+        if (!$provider) {
+            return false;
         }
 
-        // Possible?
-        $store = $this->cache->getStore();
+        // Locked?
+        $key      = $this->getKey($key);
+        $lock     = $provider->lock($key);
+        $acquired = $lock->get(static fn(): bool => true);
+        $isLocked = $acquired === false;
 
-        if (!($store instanceof LockProvider)) {
-            throw new RuntimeException('Atomic Locks is not available.');
+        return $isLocked;
+    }
+
+    public function lock(mixed $key, Closure $closure): mixed {
+        // Possible?
+        $provider = $this->getLockProvider();
+
+        if (!$provider) {
+            return $closure();
         }
 
         // Lock
         $key  = $this->getKey($key);
         $time = ((int) $this->config->get('ep.cache.graphql.lock_timeout')) ?: 30;
         $wait = ((int) $this->config->get('ep.cache.graphql.lock_wait')) ?: ($time + 5);
-        $lock = $store->lock($key, $time);
+        $lock = $provider->lock($key, $time);
 
         try {
             return $lock->block($wait, $closure);
@@ -151,5 +161,24 @@ class Service extends BaseService {
 
     protected function getDefaultTtl(): ?DateInterval {
         return new DateInterval($this->config->get('ep.cache.graphql.ttl') ?: static::DEFAULT_TTL);
+    }
+
+    private function getLockProvider(): ?LockProvider {
+        // Enabled?
+        $enabled = $this->config->get('ep.cache.graphql.lock_enabled') ?? true;
+
+        if (!$enabled) {
+            return null;
+        }
+
+        // Supported?
+        $store = $this->cache->getStore();
+
+        if (!($store instanceof LockProvider)) {
+            throw new RuntimeException('Atomic Locks is not available.');
+        }
+
+        // Return
+        return $store;
     }
 }

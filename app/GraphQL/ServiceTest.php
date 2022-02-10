@@ -5,6 +5,7 @@ namespace App\GraphQL;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\I18n\Locale;
+use App\Utils\Cache\CacheKey;
 use Closure;
 use DateTimeInterface;
 use GraphQL\Type\Introspection;
@@ -254,6 +255,71 @@ class ServiceTest extends TestCase {
         $callback
             ->shouldHaveBeenCalled()
             ->once();
+    }
+
+    /**
+     * @covers ::isLocked
+     */
+    public function testIsLockedDisabled(): void {
+        $this->setSettings([
+            'ep.cache.graphql.lock_enabled' => false,
+        ]);
+
+        $cache   = Mockery::mock(Cache::class);
+        $config  = $this->app->make(Config::class);
+        $service = new Service($config, $cache);
+
+        $this->assertFalse($service->isLocked('test'));
+    }
+
+    /**
+     * @covers ::isLocked
+     */
+    public function testIsLockedNotSupported(): void {
+        $this->setSettings([
+            'ep.cache.graphql.lock_enabled' => true,
+        ]);
+
+        $cache   = Mockery::mock(Cache::class);
+        $config  = $this->app->make(Config::class);
+        $service = new Service($config, $cache);
+
+        $this->expectException(LogicException::class);
+
+        $service->isLocked('test');
+    }
+
+    /**
+     * @covers ::isLocked
+     */
+    public function testIsLocked(): void {
+        $this->setSettings([
+            'ep.cache.graphql.lock_enabled' => true,
+        ]);
+
+        $key     = 'test';
+        $service = $this->app->make(Service::class);
+
+        // No lock
+        $this->assertFalse($service->isLocked($key));
+
+        // Add Lock
+        $cache    = $this->app->make(Cache::class);
+        $store    = $cache->getStore();
+        $cacheKey = (string) new CacheKey(['app', Service::getServiceName($service), $key]);
+
+        $this->assertInstanceOf(LockProvider::class, $store);
+
+        $lock = $store->lock($cacheKey);
+
+        $lock->get();
+
+        $this->assertTrue($service->isLocked($key));
+
+        // Release
+        $lock->release();
+
+        $this->assertFalse($service->isLocked($key));
     }
     // </editor-fold>
 
