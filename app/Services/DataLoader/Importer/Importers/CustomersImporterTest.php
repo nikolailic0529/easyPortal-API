@@ -25,6 +25,10 @@ class CustomersImporterTest extends TestCase {
         // Generate
         $this->generateData(CustomersImporterData::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('4eeb8f32-88b5-4c36-8e1a-97db16eea2a0');
+
         // Pretest
         $this->assertModelsCount([
             Customer::class => 0,

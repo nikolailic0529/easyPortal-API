@@ -36,6 +36,10 @@ class CustomerLoaderTest extends TestCase {
         // Generate
         $this->generateData(CustomerLoaderCreateWithoutAssets::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('0b63533a-713b-4a6b-b49c-849612feb478');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 0,
@@ -103,6 +107,10 @@ class CustomerLoaderTest extends TestCase {
     public function testCreateWithAssets(): void {
         // Generate
         $this->generateData(CustomerLoaderCreateWithAssets::class);
+
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('95da4f51-001a-4f13-a12e-9723127ae0d0');
 
         // Pretest
         $this->assertModelsCount([

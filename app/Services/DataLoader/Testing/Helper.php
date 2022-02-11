@@ -491,6 +491,10 @@ trait Helper {
 
         // Restore
         $this->assertTrue($this->app->make(DataGenerator::class)->restore($data));
+
+        // Reset
+        $this->resetDateFactory();
+        $this->resetUuidFactory();
     }
     //</editor-fold>
 
@@ -500,8 +504,16 @@ trait Helper {
         Str::createUuidsUsing(new SequenceUuidFactory($seed));
     }
 
+    protected function resetUuidFactory(): void {
+        Str::createUuidsNormally();
+    }
+
     protected function overrideDateFactory(DateTimeInterface|string $now): void {
         Date::setTestNow(Closure::fromCallable(new SequenceDateFactory($now)));
+    }
+
+    protected function resetDateFactory(): void {
+        Date::setTestNow();
     }
     // </editor-fold>
 }
