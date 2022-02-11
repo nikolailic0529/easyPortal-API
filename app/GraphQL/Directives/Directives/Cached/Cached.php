@@ -26,6 +26,9 @@ use function serialize;
 use function sprintf;
 use function unserialize;
 
+/**
+ * @see /docs/Application-GraphQL-Cache-Settings.md
+ */
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
