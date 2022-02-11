@@ -5,14 +5,15 @@ namespace App\Services\KeyCloak;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\RolePermission;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission;
-use App\Services\Auth\Permissions\Markers\IsRoot;
+use App\Services\Auth\Permission as AuthPermission;
 use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\Auth\UserDisabled;
 use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData;
-use App\Services\Organization\RootOrganization;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -183,37 +184,9 @@ class UserProviderTest extends TestCase {
             $expected = $expected($clientId, $organization);
         }
 
-        $auth = Mockery::mock(Auth::class);
-        $auth
-            ->shouldReceive('getAvailablePermissions')
-            ->once()
-            ->andReturn([
-                new class('permission-a') extends Permission {
-                    // empty
-                },
-                new class('permission-b') extends Permission {
-                    // empty
-                },
-            ]);
-
-        $keycloak = Mockery::mock(KeyCloak::class);
-        $keycloak
-            ->shouldReceive('getClientId')
-            ->once()
-            ->andReturn($clientId);
-
         $provider = Mockery::mock(UserProvider::class);
         $provider->shouldAllowMockingProtectedMethods();
         $provider->makePartial();
-        $provider
-            ->shouldReceive('getAuth')
-            ->once()
-            ->andReturn($auth);
-        $provider
-            ->shouldReceive('getKeyCloak')
-            ->atLeast()
-            ->once()
-            ->andReturn($keycloak);
         $provider
             ->shouldReceive('getOrganization')
             ->once()
@@ -315,42 +288,104 @@ class UserProviderTest extends TestCase {
 
     /**
      * @covers ::getPermissions
-     *
-     * @dataProvider dataProviderGetPermissions
-     *
-     * @param array<string>     $expected
-     * @param array<\App\Services\Auth\Permission> $permissions
      */
-    public function testGetPermissions(array $expected, bool $organization, array $permissions, Closure $claims): void {
-        $auth = Mockery::mock(Auth::class);
-
-        if ($organization) {
-            $auth
-                ->shouldReceive('getAvailablePermissions')
-                ->once()
-                ->andReturn($permissions);
-        }
-
-        $clientId = $this->faker->word;
-        $keyCloak = Mockery::mock(KeyCloak::class);
-
-        if ($organization) {
-            $keyCloak
-                ->shouldReceive('getClientId')
-                ->once()
-                ->andReturn($clientId);
-        }
-
-        $org      = $organization ? new Organization() : null;
-        $root     = $this->app->make(RootOrganization::class);
+    public function testGetPermissionsNoOrganization(): void {
         $user     = User::factory()->create();
-        $claims   = $claims($this, $clientId);
-        $token    = $this->getToken($claims);
-        $provider = new class($keyCloak, $root, $auth) extends UserProvider {
+        $token    = $this->getToken();
+        $provider = new class() extends UserProvider {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
+                return parent::getPermissions($user, $token, $organization);
+            }
+        };
+
+        $this->assertEquals([], $provider->getPermissions($user, $token, null));
+    }
+
+    /**
+     * @covers ::getPermissions
+     */
+    public function testGetPermissionsNotMember(): void {
+        $org      = Organization::factory()->make();
+        $user     = User::factory()->create();
+        $token    = $this->getToken();
+        $provider = new class() extends UserProvider {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
+                return parent::getPermissions($user, $token, $organization);
+            }
+        };
+
+        $this->assertEquals([], $provider->getPermissions($user, $token, $org));
+    }
+
+    /**
+     * @covers ::getPermissions
+     */
+    public function testGetPermissions(): void {
+        $org         = Organization::factory()->create();
+        $user        = User::factory()->create();
+        $role        = Role::factory()->create();
+        $permissionA = Permission::factory()->create([
+            'key' => 'permission-a',
+        ]);
+        $permissionB = Permission::factory()->create([
+            'key' => 'permission-b',
+        ]);
+        $permissionC = Permission::factory()->create([
+            'key' => 'permission-c',
+        ]);
+
+        RolePermission::factory()->create([
+            'role_id'       => $role,
+            'permission_id' => $permissionA,
+        ]);
+        RolePermission::factory()->create([
+            'role_id'       => $role,
+            'permission_id' => $permissionB,
+        ]);
+        RolePermission::factory()->create([
+            'role_id'       => $role,
+            'permission_id' => $permissionC,
+        ]);
+
+        OrganizationUser::factory()->create([
+            'organization_id' => $org,
+            'user_id'         => $user,
+            'role_id'         => $role,
+            'enabled'         => true,
+        ]);
+
+        $auth = Mockery::mock(Auth::class);
+        $auth
+            ->shouldReceive('getAvailablePermissions')
+            ->once()
+            ->andReturn([
+                new class($permissionA->key) extends AuthPermission {
+                    // empty
+                },
+                new class($permissionB->key) extends AuthPermission {
+                    // empty
+                },
+            ]);
+        $token    = $this->getToken();
+        $provider = new class($auth) extends UserProvider {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected KeyCloak $keyCloak,
-                protected RootOrganization $rootOrganization,
                 protected Auth $auth,
             ) {
                 // empty
@@ -364,7 +399,10 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $this->assertEquals($expected, $provider->getPermissions($user, $token, $org));
+        $this->assertEqualsCanonicalizing(
+            [$permissionA->key, $permissionB->key],
+            $provider->getPermissions($user, $token, $org),
+        );
     }
     // </editor-fold>
 
@@ -677,10 +715,7 @@ class UserProviderTest extends TestCase {
                         'family_name'    => 'Test',
                         'phone'          => '12345678',
                         'phone_verified' => true,
-                        'permissions'    => [
-                            'permission-a',
-                            'permission-b',
-                        ],
+                        'permissions'    => [],
                         'organization'   => $organization,
                         'photo'          => 'https://example.com/photo.jpg',
                         'enabled'        => true,
@@ -696,15 +731,6 @@ class UserProviderTest extends TestCase {
                 static function (string $client, Organization $organization): array {
                     return [
                         'typ'                   => 'Bearer',
-                        'resource_access'       => [
-                            $client => [
-                                'roles' => [
-                                    'permission-a',
-                                    'permission-b',
-                                    'permission-c',
-                                ],
-                            ],
-                        ],
                         'scope'                 => 'openid profile email',
                         'email_verified'        => true,
                         'name'                  => 'Tesg Test',
@@ -911,50 +937,6 @@ class UserProviderTest extends TestCase {
                         ],
                     ];
                 },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    public function dataProviderGetPermissions(): array {
-        $a      = new class('permission-a') extends Permission implements IsRoot {
-            // empty,
-        };
-        $b      = new class('permission-b') extends Permission {
-            // empty,
-        };
-        $claims = static function (self $test, string $client): array {
-            return [
-                'typ'             => 'Bearer',
-                'resource_access' => [
-                    $client => [
-                        'roles' => [
-                            'permission-a',
-                            'permission-b',
-                        ],
-                    ],
-                ],
-            ];
-        };
-
-        return [
-            'no organization' => [
-                [
-                    // empty
-                ],
-                false,
-                [$a, $b],
-                $claims,
-            ],
-            'organization'    => [
-                [
-                    'permission-b',
-                ],
-                true,
-                [$b],
-                $claims,
             ],
         ];
     }

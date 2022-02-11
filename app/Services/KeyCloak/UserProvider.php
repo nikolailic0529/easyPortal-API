@@ -5,6 +5,7 @@ namespace App\Services\KeyCloak;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
+use App\Models\Permission;
 use App\Models\User;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Concerns\AvailablePermissions;
@@ -17,16 +18,12 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Support\Arr;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
-use function array_intersect;
 use function array_keys;
-use function array_unique;
-use function array_values;
 
 class UserProvider implements UserProviderContract {
     use AvailablePermissions;
@@ -34,7 +31,6 @@ class UserProvider implements UserProviderContract {
     public const    CREDENTIAL_ACCESS_TOKEN     = 'access_token';
     public const    CREDENTIAL_PASSWORD         = 'password';
     public const    CREDENTIAL_EMAIL            = 'email';
-    protected const CLAIM_RESOURCE_ACCESS       = 'resource_access';
     protected const CLAIM_RESELLER_ACCESS       = 'reseller_access';
     protected const CLAIM_EMAIL                 = 'email';
     protected const CLAIM_EMAIL_VERIFIED        = 'email_verified';
@@ -385,23 +381,42 @@ class UserProvider implements UserProviderContract {
      * @return array<string>
      */
     protected function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
-        // Organization is required
-        if (!$organization) {
-            return [];
-        }
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            function () use ($user, $organization): array {
+                // Organization is required
+                if (!$organization) {
+                    return [];
+                }
 
-        // Extract
-        $roles = $token->claims()->get(self::CLAIM_RESOURCE_ACCESS, []);
-        $roles = Arr::get($roles, "{$this->getKeyCloak()->getClientId()}.roles", []);
-        $roles = array_unique(array_values($roles));
+                // Member of Organization?
+                /** @var \App\Models\OrganizationUser|null $member */
+                $member = $user->organizations
+                    ->first(static function (OrganizationUser $user) use ($organization): bool {
+                        return $user->organization_id === $organization->getKey()
+                            && $user->enabled;
+                    });
+                $role   = $member?->role;
 
-        // Available
-        $permissions = $this->getAvailablePermissions($organization);
-        $roles       = array_intersect($roles, $permissions);
-        $roles       = array_values($roles);
+                if (!$role) {
+                    return [];
+                }
 
-        // Return
-        return $roles;
+                // Available permissions
+                $available   = $this->getAvailablePermissions($organization);
+                $permissions = $role->permissions
+                    ->map(static function (Permission $permission): string {
+                        return $permission->key;
+                    })
+                    ->intersect($available)
+                    ->unique()
+                    ->values()
+                    ->all();
+
+                // Return
+                return $permissions;
+            },
+        );
     }
 
     protected function updateLocalUser(User $user): User {
