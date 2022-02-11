@@ -296,6 +296,7 @@ abstract class Processor {
      * @param TState $state
      */
     protected function init(State $state): void {
+        $this->saveState($state);
         $this->notifyOnInit($state);
     }
 
