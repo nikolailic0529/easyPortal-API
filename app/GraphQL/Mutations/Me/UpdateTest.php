@@ -205,7 +205,17 @@ class UpdateTest extends TestCase {
                         new JsonFragment('update.result', true),
                     ),
                     $settings,
-                    $client,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->atLeast()
+                            ->once()
+                            ->andReturn(new KeyCloakUser());
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturn(true);
+                    },
                     $factory,
                     static function (self $test): array {
                         $properties = [
