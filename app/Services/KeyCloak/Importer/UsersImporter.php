@@ -178,7 +178,7 @@ class UsersImporter extends Processor {
             });
         $skipped       = clone $existing;
         $roles         = Role::query()
-            ->whereIn('organization_id', $organizations->keys())
+            ->whereNotNull('organization_id')
             ->whereIn(
                 (new Role())->getKeyName(),
                 array_diff($item->groups, $organizations->keys()->all()),

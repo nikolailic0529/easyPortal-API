@@ -181,6 +181,7 @@ class UsersImporterTest extends TestCase {
                     'organization_id' => $orgA,
                     'user_id'         => $user,
                     'role_id'         => null,
+                    'enabled'         => true,
                 ]);
 
                 OrganizationUser::factory()->create([
@@ -200,8 +201,8 @@ class UsersImporterTest extends TestCase {
             'emailVerified' => false,
             'enabled'       => true,
             'groups'        => [
-                $orgA->keycloak_group_id,
                 $roleA->getKey(),
+                $roleB->getKey(),
             ],
         ]);
 
