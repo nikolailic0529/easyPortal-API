@@ -466,6 +466,10 @@ class ProcessorTest extends TestCase {
             ->andReturnUsing(static function (mixed $key, Closure $factory): mixed {
                 return $factory(['invalid state']);
             });
+        $service
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturn(true);
 
         $actual = $this->app->make(ProcessorTest__Processor::class)
             ->setCacheKey($service, $key)
