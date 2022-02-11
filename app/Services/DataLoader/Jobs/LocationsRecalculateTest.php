@@ -28,8 +28,8 @@ class LocationsRecalculateTest extends TestCase {
      */
     public function testProcess(): void {
         // Setup
-        $this->overrideDateFactory();
-        $this->overrideUuidFactory();
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
+        $this->overrideUuidFactory('da788e31-1a09-4ba8-8dd3-016b3dc1db61');
 
         // Prepare
         $count     = $this->faker->randomNumber(3);

@@ -25,6 +25,10 @@ class DocumentsImporterTest extends TestCase {
         // Generate
         $this->generateData(DocumentsImporterData::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('4e3a662e-4953-4c8b-b463-9c2c812bbf46');
+
         // Pretest
         $this->assertModelsCount([
             Document::class => 0,

@@ -105,7 +105,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocumentObject(): void {
         // Mock
-        $this->overrideDateFactory();
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
 
         // Factory
@@ -1147,7 +1147,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testCreateFromDocument(): void {
         // Mock
-        $this->overrideDateFactory();
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
         $this->overrideAssetFinder();
 

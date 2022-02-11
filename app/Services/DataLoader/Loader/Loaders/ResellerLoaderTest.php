@@ -33,6 +33,10 @@ class ResellerLoaderTest extends TestCase {
         // Generate
         $this->generateData(ResellerLoaderCreateWithoutAssets::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('9032508d-8f14-46b5-a5a1-3aaad383e787');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 0,
@@ -100,6 +104,10 @@ class ResellerLoaderTest extends TestCase {
     public function testCreateWithAssets(): void {
         // Generate
         $this->generateData(ResellerLoaderCreateWithAssets::class);
+
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('b6545003-2b27-4a62-9309-fdf6af8949d8');
 
         // Pretest
         $this->assertModelsCount([

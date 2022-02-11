@@ -50,7 +50,7 @@ class ProcessorJobTest extends TestCase {
             ->andReturn(null);
         $service
             ->shouldReceive('set')
-            ->once()
+            ->twice()
             ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
                 return $value;
             });
@@ -116,7 +116,7 @@ class ProcessorJobTest extends TestCase {
             ->andReturn(null);
         $service
             ->shouldReceive('set')
-            ->once()
+            ->twice()
             ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
                 return $value;
             });

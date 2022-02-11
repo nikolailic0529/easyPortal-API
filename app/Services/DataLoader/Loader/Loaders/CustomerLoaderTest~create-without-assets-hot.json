@@ -30,7 +30,7 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "567c81f4-bea4-55bd-8406-1c0d3d58da68"
+            "0701bffb-7dd8-5c19-8f2f-431ce387ae2d"
         ]
     },
     {
@@ -57,8 +57,8 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",
+            "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "8615 berge drive",
             "50226-9676"
         ]
@@ -66,13 +66,13 @@
     {
         "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`customer_location_id` = ? and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "67c78e00-746e-5875-a467-385289e61788"
+            "5e500e66-a38e-5b91-8809-bbeeafa3ce40"
         ]
     },
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "5ce84092-2672-567d-9178-fa3fa96560e8"
+            "d1f188be-5af5-5ef1-aac0-3fe0fe00f0de"
         ]
     },
     {
@@ -90,14 +90,14 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2"
+            "5be6c2ad-c211-5e7c-ad6e-c2715cf59541"
         ]
     },
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:00:56",
-            "2021-08-30 00:00:59",
+            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:38",
             "a0df13a5-c42c-4269-ae57-71085acb5319"
         ]
     },
@@ -170,7 +170,7 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             0,
-            "2021-08-30 00:01:15",
+            "2022-02-02 00:00:54",
             "d1a2f39f-bf78-43a1-acb1-99641fccc7bc"
         ]
     },
@@ -178,7 +178,7 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:01:23",
+            "2022-02-02 00:01:02",
             "d1a2f39f-bf78-43a1-acb1-99641fccc7bc"
         ]
     },
@@ -222,49 +222,49 @@
     {
         "query": "select `locations`.* from `locations` where `id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_id`, count(*) as count from `assets` where `location_id` in (?) and `assets`.`deleted_at` is null group by `location_id`",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_id`, `reseller_id`, count(*) as count from `assets` where `location_id` in (?) and (`reseller_id` is null or `assets`.`reseller_id` in (select distinct `resellers`.`id` from `resellers` where `resellers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `reseller_id`",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_id`, `customer_id`, count(*) as count from `assets` where `location_id` in (?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `location_id`, `customer_id`",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_id`, `reseller_id` from `reseller_locations` where `location_id` in (?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_id`, `customer_id` from `customer_locations` where `location_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_resellers`.* from `location_resellers` where `location_resellers`.`location_id` = ? and `location_resellers`.`location_id` is not null and `location_resellers`.`deleted_at` is null",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     },
     {
         "query": "select `location_customers`.* from `location_customers` where `location_customers`.`location_id` = ? and `location_customers`.`location_id` is not null and `location_customers`.`deleted_at` is null",
         "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
+            "d4432598-2707-5345-af35-faf81dcb43a7"
         ]
     }
 ]

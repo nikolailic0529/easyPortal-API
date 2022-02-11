@@ -32,6 +32,10 @@ class DistributorLoaderTest extends TestCase {
         // Generate
         $this->generateData(DistributorLoaderCreate::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('d3f06a69-43c9-497e-b033-f0928f757126');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 0,

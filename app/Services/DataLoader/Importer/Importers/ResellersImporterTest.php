@@ -25,6 +25,10 @@ class ResellersImporterTest extends TestCase {
         // Generate
         $this->generateData(ResellersImporterData::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('604c0739-1396-414a-9ff4-6f473cd42f33');
+
         // Pretest
         $this->assertModelsCount([
             Reseller::class => 0,

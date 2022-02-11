@@ -31,6 +31,10 @@ class AssetsImporterTest extends TestCase {
         // Generate
         $this->generateData(AssetsImporterData::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('e0ac0c24-f549-4f73-ade3-861ba506c693');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 3,

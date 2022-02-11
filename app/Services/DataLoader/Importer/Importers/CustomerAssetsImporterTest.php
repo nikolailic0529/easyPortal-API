@@ -32,6 +32,10 @@ class CustomerAssetsImporterTest extends TestCase {
         // Generate
         $this->generateData(CustomerAssetsImporterDataWithDocuments::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('7e129f96-9a60-4157-a7e8-e629b6d1f5f4');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 1,
@@ -103,6 +107,10 @@ class CustomerAssetsImporterTest extends TestCase {
     public function testImportWithoutDocuments(): void {
         // Generate
         $this->generateData(CustomerAssetsImporterDataWithoutDocuments::class);
+
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('38442267-c7fa-4c7a-a7c8-527ed19cba59');
 
         // Pretest
         $this->assertModelsCount([

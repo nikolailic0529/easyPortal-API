@@ -66,7 +66,7 @@ class DistributorFactoryTest extends TestCase {
      */
     public function testCreateFromCompany(): void {
         // Mock
-        $this->overrideDateFactory();
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
 
         // Prepare
         $factory = $this->app->make(DistributorFactory::class);

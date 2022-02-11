@@ -11,8 +11,8 @@ class SequenceDateFactory {
     protected DateTimeInterface $now;
     protected DateInterval      $interval;
 
-    public function __construct() {
-        $this->now      = Date::make('2021-08-30T00:00:00.000+00:00')->toMutable();
+    public function __construct(DateTimeInterface|string $now) {
+        $this->now      = Date::make($now)->toMutable();
         $this->interval = new DateInterval('PT1S');
     }
 

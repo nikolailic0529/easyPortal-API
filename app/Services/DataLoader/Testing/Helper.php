@@ -482,8 +482,8 @@ trait Helper {
         $this->assertTrue($this->app->make(DataGenerator::class)->generate($data));
 
         // Setup
-        $this->overrideDateFactory();
-        $this->overrideUuidFactory();
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
+        $this->overrideUuidFactory('fbce8f60-847f-4ecb-9ba7-898bbda41dd2');
 
         $this->override(Client::class, function () use ($data): Client {
             return $this->app->make(FakeClient::class)->setData($data);
@@ -491,17 +491,29 @@ trait Helper {
 
         // Restore
         $this->assertTrue($this->app->make(DataGenerator::class)->restore($data));
+
+        // Reset
+        $this->resetDateFactory();
+        $this->resetUuidFactory();
     }
     //</editor-fold>
 
     // <editor-fold desc="Others">
     // =========================================================================
-    protected function overrideUuidFactory(): void {
-        Str::createUuidsUsing(new SequenceUuidFactory());
+    protected function overrideUuidFactory(string $seed): void {
+        Str::createUuidsUsing(new SequenceUuidFactory($seed));
     }
 
-    protected function overrideDateFactory(): void {
-        Date::setTestNow(Closure::fromCallable(new SequenceDateFactory()));
+    protected function resetUuidFactory(): void {
+        Str::createUuidsNormally();
+    }
+
+    protected function overrideDateFactory(DateTimeInterface|string $now): void {
+        Date::setTestNow(Closure::fromCallable(new SequenceDateFactory($now)));
+    }
+
+    protected function resetDateFactory(): void {
+        Date::setTestNow();
     }
     // </editor-fold>
 }

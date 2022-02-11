@@ -104,7 +104,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAsset(): void {
         // Mock
-        $this->overrideDateFactory();
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
 
         // Prepare

@@ -36,6 +36,10 @@ class AssetLoaderTest extends TestCase {
         // Generate
         $this->generateData(AssetLoaderCreateWithoutDocuments::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('d9de1374-a2c9-42c3-b00f-cdcf486180b1');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 0,
@@ -101,6 +105,10 @@ class AssetLoaderTest extends TestCase {
     public function testCreateWithDocuments(): void {
         // Generate
         $this->generateData(AssetLoaderCreateWithDocuments::class);
+
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('8cab7372-67cf-41c8-8aa4-3e25a3b293a2');
 
         // Pretest
         $this->assertModelsCount([

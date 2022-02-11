@@ -32,6 +32,10 @@ class DocumentLoaderTest extends TestCase {
         // Generate
         $this->generateData(DocumentLoaderCreate::class);
 
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('ae9b555a-9328-497a-bd3f-ce0e3ec15081');
+
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 1,
