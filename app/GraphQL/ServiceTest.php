@@ -214,8 +214,8 @@ class ServiceTest extends TestCase {
 
         $this->setSettings([
             'ep.cache.graphql.lock_enabled' => true,
-            'ep.cache.graphql.lock_timeout' => $lockTimeout,
-            'ep.cache.graphql.lock_wait'    => $lockWait,
+            'ep.cache.graphql.lock_timeout' => "PT{$lockTimeout}S",
+            'ep.cache.graphql.lock_wait'    => "PT{$lockWait}S",
         ]);
 
         $callback = Mockery::spy(static function (): void {

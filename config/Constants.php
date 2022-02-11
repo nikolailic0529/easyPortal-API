@@ -368,7 +368,7 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_LOCK_ENABLED = true;
 
     /**
-     * GraphQL lock timeout (seconds).
+     * GraphQL lock timeout.
      *
      * These settings determine lock timeout (how long the lock may exist) and a
      * wait timeout (how long another process/request will wait before starting
@@ -379,10 +379,11 @@ interface Constants {
      */
     #[Setting('ep.cache.graphql.lock_timeout')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_LOCK_TIMEOUT = 30;
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LOCK_TIMEOUT = 'PT30S';
 
     /**
-     * GraphQL wait timeout (seconds).
+     * GraphQL wait timeout.
      *
      * Should be a bit bigger than lock timeout.
      *
@@ -390,7 +391,8 @@ interface Constants {
      */
     #[Setting('ep.cache.graphql.lock_wait')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_LOCK_WAIT = 35;
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LOCK_WAIT = 'PT35S';
 
     /**
      * GraphQL threshold (seconds with fraction part).

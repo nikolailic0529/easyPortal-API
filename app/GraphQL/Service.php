@@ -3,6 +3,7 @@
 namespace App\GraphQL;
 
 use App\Services\Service as BaseService;
+use Carbon\CarbonInterval;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
@@ -47,12 +48,12 @@ class Service extends BaseService {
 
         // Lock
         $key  = $this->getKey($key);
-        $time = ((int) $this->config->get('ep.cache.graphql.lock_timeout')) ?: 30;
-        $wait = ((int) $this->config->get('ep.cache.graphql.lock_wait')) ?: ($time + 5);
-        $lock = $provider->lock($key, $time);
+        $time = new CarbonInterval($this->config->get('ep.cache.graphql.lock_timeout') ?: 'PT30S');
+        $wait = new CarbonInterval($this->config->get('ep.cache.graphql.lock_wait') ?: 'PT35S');
+        $lock = $provider->lock($key, (int) $time->totalSeconds);
 
         try {
-            return $lock->block($wait, $closure);
+            return $lock->block((int) $wait->totalSeconds, $closure);
         } catch (LockTimeoutException) {
             return $closure();
         } finally {
