@@ -10,8 +10,8 @@ class CachedMode extends Enum {
      * use Atomic Locks to reduce server load. The mode is designed for
      * heavy/long queries.
      *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_WAIT
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
      */
     public static function lock(): static {
         return static::make(__FUNCTION__);

@@ -95,7 +95,7 @@ abstract class Service {
         return [];
     }
 
-    protected function getDefaultTtl(): DateInterval|int|null {
+    protected function getDefaultTtl(): ?DateInterval {
         return new DateInterval($this->config->get('ep.cache.service.ttl') ?: 'P6M');
     }
 

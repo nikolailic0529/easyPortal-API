@@ -7,6 +7,7 @@ use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation as Relati
 use App\GraphQL\Extensions\Lighthouse\DirectiveLocator;
 use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
 use App\GraphQL\Extensions\Lighthouse\Directives\ValidatorDirective;
+use App\GraphQL\Listeners\CacheExpiredListener;
 use App\GraphQL\Providers\ValidationRulesProvider;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -45,6 +46,7 @@ class Provider extends ServiceProvider {
             LighthouseDirectiveLocator $locator,
             ErrorFormatter $formatter,
         ): void {
+            $dispatcher->subscribe(CacheExpiredListener::class);
             $dispatcher->subscribe($locator);
             $dispatcher->listen(
                 ManipulateResult::class,

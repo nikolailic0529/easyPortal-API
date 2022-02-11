@@ -191,7 +191,7 @@ interface Constants {
 
     /**
      * Types IDs related to quotes. Optional, if empty will use IDs which are
-     * not in {@link \Config\Constants::EP_CONTRACT_TYPES}.
+     * not in {@see \Config\Constants::EP_CONTRACT_TYPES}.
      *
      * If changed Assets must be recalculated.
      */
@@ -333,7 +333,7 @@ interface Constants {
     public const EP_CACHE_SERVICE_TTL = 'P6M';
 
     /**
-     * GraphQL TTL.
+     * GraphQL Cache TTL.
      */
     #[Setting('ep.cache.graphql.ttl')]
     #[Group('cache')]
@@ -341,28 +341,58 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_TTL = 'P2W';
 
     /**
-     * GraphQL lock timeout (seconds).
+     * GraphQL time interval inside which the value may become expired.
      *
-     * The `@cached` directive tries to reduce server load, so it executes the
-     * root queries only in one process/request, all other processes/requests
+     * The value will be marked as expired inside this time interval with some
+     * probability. Thus, some requests will update the value before real
+     * expiration, and it will exclude stepwise server load increase after
+     * expiration. The probability increases to the end.
+     */
+    #[Setting('ep.cache.graphql.ttl_expiration')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_TTL_EXPIRATION = 'P1D';
+
+    /**
+     * GraphQL locks enabled?
+     *
+     * The `@cached` directive tries to reduce server load, so it executes some
+     * queries only in one process/request, all other processes/requests
      * just wait.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
+     */
+    #[Setting('ep.cache.graphql.lock_enabled')]
+    #[Group('cache')]
+    public const EP_CACHE_GRAPHQL_LOCK_ENABLED = true;
+
+    /**
+     * GraphQL lock timeout.
      *
      * These settings determine lock timeout (how long the lock may exist) and a
      * wait timeout (how long another process/request will wait before starting
-     * to execute the code by self).
+     * to execute the code by self). Both values should not be bigger than a
+     * few minutes.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
      */
-    #[Setting('ep.cache.graphql.lock')]
+    #[Setting('ep.cache.graphql.lock_timeout')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_LOCK = 30;
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LOCK_TIMEOUT = 'PT30S';
 
     /**
-     * GraphQL wait timeout (seconds).
+     * GraphQL wait timeout.
      *
-     * Please see {@link \Config\Constants::EP_CACHE_GRAPHQL_LOCK}
+     * Should be a bit bigger than lock timeout.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
      */
-    #[Setting('ep.cache.graphql.wait')]
+    #[Setting('ep.cache.graphql.lock_wait')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_WAIT = 35;
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LOCK_WAIT = 'PT35S';
 
     /**
      * GraphQL threshold (seconds with fraction part).
@@ -373,6 +403,29 @@ interface Constants {
     #[Setting('ep.cache.graphql.threshold')]
     #[Group('cache')]
     public const EP_CACHE_GRAPHQL_THRESHOLD = 2.0;
+
+    /**
+     * GraphQL minimal lifetime for cached values.
+     *
+     * Value can be "expired" only after this amount of time. The setting
+     * allows reducing the server/db load when the cache expires very often
+     * (eg while data importing).
+     */
+    #[Setting('ep.cache.graphql.lifetime')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LIFETIME = 'PT1H';
+
+    /**
+     * GraphQL time interval inside which the value may become expired.
+     *
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_LIFETIME
+     * @see \Config\Constants::EP_CACHE_GRAPHQL_TTL_EXPIRATION
+     */
+    #[Setting('ep.cache.graphql.lifetime_expiration')]
+    #[Group('cache')]
+    #[Type(Duration::class)]
+    public const EP_CACHE_GRAPHQL_LIFETIME_EXPIRATION = 'PT1H';
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">
@@ -693,7 +746,7 @@ interface Constants {
     public const EP_DATA_LOADER_TIMEOUT = 5 * 60;
 
     /**
-     * GraphQL Endpoint (optional, if empty {@link \Config\Constants::EP_DATA_LOADER_URL} will be used).
+     * GraphQL Endpoint (optional, if empty {@see \Config\Constants::EP_DATA_LOADER_URL} will be used).
      */
     #[Setting('ep.data_loader.endpoint')]
     #[Group('data_loader')]
