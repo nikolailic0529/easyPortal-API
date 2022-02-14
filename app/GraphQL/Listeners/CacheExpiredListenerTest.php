@@ -3,7 +3,6 @@
 namespace App\GraphQL\Listeners;
 
 use App\GraphQL\Cache;
-use App\GraphQL\Service;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
 use Illuminate\Contracts\Events\Dispatcher;

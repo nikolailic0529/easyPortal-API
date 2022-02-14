@@ -34,9 +34,9 @@ abstract class Service {
 
     public function __construct(
         protected Config $config,
-        CacheFactory $cache,
+        CacheFactory $factory,
     ) {
-        $this->cache = $cache->store($this->config->get('ep.cache.service.store') ?: null);
+        $this->cache = $factory->store($this->config->get('ep.cache.service.store') ?: null);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Services\Tokens;
 
 use Exception;
+use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Contracts\Cache\Repository;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessTokenInterface;
@@ -44,6 +45,12 @@ class OAuth2TokenTest extends TestCase {
             ->once()
             ->andReturn(true);
 
+        $factory = Mockery::mock(Factory::class);
+        $factory
+            ->shouldReceive('store')
+            ->once()
+            ->andReturn($cache);
+
         $provider = Mockery::mock(AbstractProvider::class);
         $provider
             ->shouldReceive('getAccessToken')
@@ -67,7 +74,7 @@ class OAuth2TokenTest extends TestCase {
             ->atLeast()
             ->once()
             ->andReturn($this->app->make(Service::class, [
-                'cache' => $cache,
+                'factory' => $factory,
             ]));
 
         $this->assertEquals($token->getToken(), $service->getAccessToken());
@@ -88,6 +95,12 @@ class OAuth2TokenTest extends TestCase {
             ->once()
             ->andReturn(null);
 
+        $factory = Mockery::mock(Factory::class);
+        $factory
+            ->shouldReceive('store')
+            ->once()
+            ->andReturn($cache);
+
         $service = Mockery::mock(OAuth2Token::class);
         $service->shouldAllowMockingProtectedMethods();
         $service->makePartial();
@@ -96,7 +109,7 @@ class OAuth2TokenTest extends TestCase {
             ->atLeast()
             ->once()
             ->andReturn($this->app->make(Service::class, [
-                'cache' => $cache,
+                'factory' => $factory,
             ]));
         $service
             ->shouldReceive('getToken')
