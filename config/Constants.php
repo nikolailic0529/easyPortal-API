@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\CacheStores;
 use App\Queues;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
@@ -324,6 +325,14 @@ interface Constants {
 
     // <editor-fold desc="EP_CACHE">
     // =========================================================================
+    /**
+     * Services data store (jobs progress, etc).
+     */
+    #[Setting('ep.cache.service.store')]
+    #[Group('cache')]
+    #[Internal]
+    public const EP_CACHE_SERVICE_STORE = CacheStores::STATE;
+
     /**
      * Services data TTL (jobs progress, etc).
      */
