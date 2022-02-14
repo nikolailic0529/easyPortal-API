@@ -92,16 +92,8 @@ abstract class Service {
     protected function getKey(mixed $key): string {
         return (string) new CacheKey(array_merge(
             ['app', static::getServiceName($this)],
-            $this->getDefaultKey(),
             is_array($key) ? $key : [$key],
         ));
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    protected function getDefaultKey(): array {
-        return [];
     }
 
     protected function getDefaultTtl(): ?DateInterval {

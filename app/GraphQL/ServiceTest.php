@@ -36,30 +36,6 @@ class ServiceTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::getDefaultKey
-     */
-    public function testGetDefaultKey(): void {
-        $locale  = $this->app->get(Locale::class);
-        $service = new class($locale) extends Service {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Locale $locale,
-            ) {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getDefaultKey(): array {
-                return parent::getDefaultKey();
-            }
-        };
-
-        $this->assertEquals([], $service->getDefaultKey());
-    }
-
-    /**
      * @covers ::isSlowQuery
      *
      * @dataProvider dataProviderIsSlowQuery
