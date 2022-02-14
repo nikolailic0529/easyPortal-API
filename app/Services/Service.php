@@ -50,7 +50,7 @@ abstract class Service {
      * @return T
      */
     public function get(mixed $key, Closure $factory = null): mixed {
-        $value = $this->cache->get($this->getKey($key));
+        $value = $this->cache->get($this->getCacheKey($key));
 
         if ($value !== null) {
             $value = json_decode($value, true, flags: JSON_THROW_ON_ERROR);
@@ -70,7 +70,7 @@ abstract class Service {
      * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
      */
     public function set(mixed $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
-        $this->cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
+        $this->cache->set($this->getCacheKey($key), json_encode($value), $this->getDefaultTtl());
 
         return $value;
     }
@@ -79,17 +79,17 @@ abstract class Service {
      * Deletes the state value.
      */
     public function delete(mixed $key): bool {
-        return $this->cache->delete($this->getKey($key));
+        return $this->cache->delete($this->getCacheKey($key));
     }
 
     /**
      * Checks if the state value exists.
      */
     public function has(mixed $key): bool {
-        return $this->cache->has($this->getKey($key));
+        return $this->cache->has($this->getCacheKey($key));
     }
 
-    protected function getKey(mixed $key): string {
+    public function getCacheKey(mixed $key): string {
         return (string) new CacheKey(array_merge(
             ['app', static::getServiceName($this)],
             is_array($key) ? $key : [$key],

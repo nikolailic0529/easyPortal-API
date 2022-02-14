@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Listeners;
 
+use App\GraphQL\Cache;
 use App\GraphQL\Service;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
@@ -33,9 +34,9 @@ class CacheExpiredListenerTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvoke(): void {
-        $this->override(Service::class, static function (MockInterface $mock): void {
+        $this->override(Cache::class, static function (MockInterface $mock): void {
             $mock
-                ->shouldReceive('markCacheExpired')
+                ->shouldReceive('markExpired')
                 ->once()
                 ->andReturnSelf();
         });

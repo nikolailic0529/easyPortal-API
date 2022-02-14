@@ -342,6 +342,14 @@ interface Constants {
     public const EP_CACHE_SERVICE_TTL = 'P6M';
 
     /**
+     * GraphQL Cache store.
+     */
+    #[Setting('ep.cache.graphql.store')]
+    #[Group('cache')]
+    #[Internal]
+    public const EP_CACHE_GRAPHQL_STORE = CacheStores::PERMANENT;
+
+    /**
      * GraphQL Cache TTL.
      */
     #[Setting('ep.cache.graphql.ttl')]

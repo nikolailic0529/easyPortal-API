@@ -45,5 +45,6 @@
         <server name="EP_LOG_EMAIL_ENABLED" value="false"/>
         <server name="EP_LOG_SENTRY_ENABLED" value="false"/>
         <server name="EP_CACHE_SERVICE_STORE" value="null"/>
+        <server name="EP_CACHE_GRAPHQL_STORE" value="null"/>
     </php>
 </phpunit>

@@ -34,41 +34,46 @@ return [
 
     'stores'  => [
         // Only for testing
-        'array'            => [
+        'array'                => [
             'driver'    => 'array',
             'serialize' => false,
         ],
 
         // Stores
-        'redis'            => [
+        'redis'                => [
             'driver'          => 'redis',
             'connection'      => 'cache',
             'lock_connection' => 'default',
         ],
-        CacheStores::STATE => [
+        CacheStores::STATE     => [
             'driver'          => 'redis',
             'connection'      => 'default',
             'lock_connection' => 'default',
         ],
+        CacheStores::PERMANENT => [
+            'driver'          => 'redis',
+            'connection'      => 'permanent',
+            'lock_connection' => 'default',
+        ],
 
         // Not used (for example)
-        'apc'              => [
+        'apc'                  => [
             'driver' => 'apc',
         ],
 
-        'database'         => [
+        'database'             => [
             'driver'          => 'database',
             'table'           => 'cache',
             'connection'      => null,
             'lock_connection' => null,
         ],
 
-        'file'             => [
+        'file'                 => [
             'driver' => 'file',
             'path'   => storage_path('framework/cache/data'),
         ],
 
-        'memcached'        => [
+        'memcached'            => [
             'driver'        => 'memcached',
             'persistent_id' => env('MEMCACHED_PERSISTENT_ID'),
             'sasl'          => [
@@ -87,7 +92,7 @@ return [
             ],
         ],
 
-        'dynamodb'         => [
+        'dynamodb'             => [
             'driver'   => 'dynamodb',
             'key'      => env('AWS_ACCESS_KEY_ID'),
             'secret'   => env('AWS_SECRET_ACCESS_KEY'),

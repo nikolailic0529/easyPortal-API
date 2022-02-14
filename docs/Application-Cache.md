@@ -32,4 +32,15 @@ The connection is used only for [Queued Jobs](https://laravel.com/docs/9.x/queue
 | Cache store   | `null` (= default)        |
 | Reset command | `php artisan cache:clear` |
 
-The connection is used as the default for the cache and may be used for any other data. The data must be reset between application updates (this is required to avoid any possible breakage after update eg when `unserialize` will fail because of class deleted/moved).
+The connection is used as the default for the cache and may be used for any other data. The data must be reset between application updates (this is required to avoid any possible breakage after update eg when `unserialize` will fail because of class deleted/moved). It is absolutely safe to remove all data.
+
+
+## `permanent`
+
+| Property      | Value                               |
+|---------------|-------------------------------------|
+| Setting       | `REDIS_PERMANENT_DB = 3`            |
+| Cache store   | `permanent`                         |
+| Reset command | `php artisan cache:clear permanent` |
+
+This connection is used for data that may lead to performance degradation when gone and for this reason in most cases they should persist between application updates (or gracefully updated after). But it is still absolutely safe to remove all data.

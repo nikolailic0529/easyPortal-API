@@ -3,5 +3,6 @@
 namespace App;
 
 interface CacheStores {
-    public const STATE = 'state';
+    public const STATE     = 'state';
+    public const PERMANENT = 'permanent';
 }
