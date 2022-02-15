@@ -6,9 +6,6 @@ use Composer\InstalledVersions;
 use Illuminate\Config\Repository;
 use Illuminate\Contracts\Foundation\Application as MainApp;
 
-use function file_get_contents;
-use function json_decode;
-
 class Application {
     public function __construct(
         protected MainApp $app,
@@ -22,8 +19,7 @@ class Application {
      */
     public function __invoke(): array {
         $name     = $this->config->get('app.name');
-        $package  = json_decode(file_get_contents($this->app->basePath('composer.json')), true)['name'];
-        $version  = InstalledVersions::getVersion($package);
+        $version  = InstalledVersions::getRootPackage()['version'] ?? null;
         $response = [
             'name'    => $name,
             'version' => $version,
