@@ -2,6 +2,8 @@
 
 namespace App\GraphQL;
 
+use App\Services\I18n\Locale;
+use App\Services\Organization\CurrentOrganization;
 use Carbon\CarbonInterval;
 use Closure;
 use DateInterval;
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Date;
 use RuntimeException;
 use Throwable;
 
+use function array_merge;
+use function is_array;
 use function max;
 use function min;
 use function mt_getrandmax;
@@ -31,6 +35,8 @@ class Cache {
         protected ExceptionHandler $exceptionHandler,
         protected ConfigContract $config,
         protected Service $service,
+        protected CurrentOrganization $organization,
+        protected Locale $locale,
         CacheFactory $cache,
     ) {
         $this->cache = $this->getStore($cache);
@@ -113,7 +119,13 @@ class Cache {
     }
 
     protected function getKey(mixed $key): string {
-        return $this->service->getCacheKey($key);
+        return $this->service->getCacheKey(array_merge(
+            [
+                $this->locale,
+                $this->organization,
+            ],
+            is_array($key) ? $key : [$key],
+        ));
     }
 
     public function getTtl(): DateInterval {

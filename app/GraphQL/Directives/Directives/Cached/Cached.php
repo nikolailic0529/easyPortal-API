@@ -3,8 +3,6 @@
 namespace App\GraphQL\Directives\Directives\Cached;
 
 use App\GraphQL\Cache;
-use App\Services\I18n\Locale;
-use App\Services\Organization\CurrentOrganization;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Model;
@@ -27,8 +25,6 @@ use function sprintf;
  */
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
-        protected CurrentOrganization $organization,
-        protected Locale $locale,
         protected Cache $cache,
     ) {
         // empty
@@ -76,10 +72,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
     ): mixed {
         // Root
         $cacheable = true;
-        $key       = [
-            $this->locale,
-            $this->organization,
-        ];
+        $key       = [];
 
         if ($root instanceof Model) {
             $key[] = $root;

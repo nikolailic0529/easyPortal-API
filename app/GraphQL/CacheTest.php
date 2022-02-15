@@ -2,6 +2,8 @@
 
 namespace App\GraphQL;
 
+use App\Services\I18n\Locale;
+use App\Services\Organization\CurrentOrganization;
 use App\Utils\Cache\CacheKey;
 use Closure;
 use DateTimeInterface;
@@ -42,11 +44,13 @@ class CacheTest extends TestCase {
      * @covers ::markExpired
      */
     public function testGetExpired(): void {
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $config  = $this->app->make(ConfigContract::class);
-        $service = $this->app->make(Service::class);
-        $factory = $this->app->make(CacheFactory::class);
-        $cache   = new class($handler, $config, $service, $factory) extends Cache {
+        $handler      = Mockery::mock(ExceptionHandler::class);
+        $config       = $this->app->make(ConfigContract::class);
+        $service      = $this->app->make(Service::class);
+        $organization = $this->app->make(CurrentOrganization::class);
+        $locale       = $this->app->make(Locale::class);
+        $factory      = $this->app->make(CacheFactory::class);
+        $cache        = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
             public function getExpired(): ?DateTimeInterface {
                 return parent::getExpired();
             }
@@ -83,11 +87,13 @@ class CacheTest extends TestCase {
 
         Date::setTestNow($now);
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $config  = $this->app->make(ConfigContract::class);
-        $service = $this->app->make(Service::class);
-        $factory = $this->app->make(CacheFactory::class);
-        $cache   = Mockery::mock(Cache::class, [$handler, $config, $service, $factory]);
+        $handler      = Mockery::mock(ExceptionHandler::class);
+        $config       = $this->app->make(ConfigContract::class);
+        $service      = $this->app->make(Service::class);
+        $factory      = $this->app->make(CacheFactory::class);
+        $organization = Mockery::mock(CurrentOrganization::class);
+        $locale       = Mockery::mock(Locale::class);
+        $cache        = Mockery::mock(Cache::class, [$handler, $config, $service, $organization, $locale, $factory]);
         $cache->shouldAllowMockingProtectedMethods();
         $cache->makePartial();
         $cache
@@ -128,10 +134,12 @@ class CacheTest extends TestCase {
             'ep.cache.graphql.lock_enabled' => true,
         ]);
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $config  = $this->app->make(ConfigContract::class);
-        $service = $this->app->make(Service::class);
-        $factory = Mockery::mock(CacheFactory::class);
+        $handler      = Mockery::mock(ExceptionHandler::class);
+        $config       = $this->app->make(ConfigContract::class);
+        $service      = $this->app->make(Service::class);
+        $organization = Mockery::mock(CurrentOrganization::class);
+        $locale       = Mockery::mock(Locale::class);
+        $factory      = Mockery::mock(CacheFactory::class);
         $factory
             ->shouldReceive('store')
             ->once()
@@ -139,7 +147,7 @@ class CacheTest extends TestCase {
                 Mockery::mock(CacheContract::class),
             );
 
-        $cache    = new class($handler, $config, $service, $factory) extends Cache {
+        $cache    = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
             // empty
         };
         $callback = static function (): void {
@@ -202,10 +210,12 @@ class CacheTest extends TestCase {
             ->once()
             ->andReturn($cacheStore);
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $service = $this->app->make(Service::class);
-        $config  = $this->app->make(ConfigContract::class);
-        $cache   = new Cache($handler, $config, $service, $cacheFactory);
+        $handler      = Mockery::mock(ExceptionHandler::class);
+        $service      = $this->app->make(Service::class);
+        $config       = $this->app->make(ConfigContract::class);
+        $organization = $this->app->make(CurrentOrganization::class);
+        $locale       = $this->app->make(Locale::class);
+        $cache        = new Cache($handler, $config, $service, $organization, $locale, $cacheFactory);
 
         $cache->lock('test', $closure);
 
@@ -235,10 +245,12 @@ class CacheTest extends TestCase {
             'ep.cache.graphql.lock_enabled' => true,
         ]);
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $config  = $this->app->make(ConfigContract::class);
-        $service = $this->app->make(Service::class);
-        $factory = Mockery::mock(CacheFactory::class);
+        $handler      = Mockery::mock(ExceptionHandler::class);
+        $config       = $this->app->make(ConfigContract::class);
+        $service      = $this->app->make(Service::class);
+        $organization = Mockery::mock(CurrentOrganization::class);
+        $locale       = Mockery::mock(Locale::class);
+        $factory      = Mockery::mock(CacheFactory::class);
         $factory
             ->shouldReceive('store')
             ->once()
@@ -246,7 +258,7 @@ class CacheTest extends TestCase {
                 Mockery::mock(CacheContract::class),
             );
 
-        $cache = new class($handler, $config, $service, $factory) extends Cache {
+        $cache = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
             // empty
         };
 
@@ -271,7 +283,13 @@ class CacheTest extends TestCase {
 
         // Add Lock
         $store    = $this->app->make(CacheContract::class)->getStore();
-        $cacheKey = (string) new CacheKey(['app', Service::getServiceName($cache), $key]);
+        $cacheKey = (string) new CacheKey([
+            'app',
+            Service::getServiceName($cache),
+            $this->app->make(Locale::class),
+            $this->app->make(CurrentOrganization::class),
+            $key,
+        ]);
 
         $this->assertInstanceOf(LockProvider::class, $store);
 
