@@ -4,10 +4,10 @@
 
 0. Backup!
 1. `sudo supervisorctl stop ep-api:*` (where `ep-api:` the group name from supervisor config)
-2. Update application files. The recommended way is using `git checkout` and then remove `bootstrap/cache/*.php` (needed because in some situations these files can lead to a "Class 'XXX' not found" error and the app will be broken). If it is not possible then
+2. Update application files (just for example; there are a few other ways how it can be done)
     * `storage` - must not be touched
     * `graphql` - must be removed (or app will fail)
-    * Remove `bootstrap/cache/*.php`
+    * Remove `bootstrap/cache/*.php` (needed because in some situations these files can lead to a "Class 'XXX' not found" error and the app will be broken)
     * All other directories (except `vendor`) and files is recommended to remove
     * Copy new files
 3. `composer install`
