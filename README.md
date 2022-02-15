@@ -3,7 +3,7 @@
 ## Requirements
 
 | Package    | Version                                          |
-| ---------- |--------------------------------------------------|
+|------------|--------------------------------------------------|
 | PHP        | 8.0+                                             |
 | MySQL      | 8.0+                                             |
 | Redis      | [phpredis](https://github.com/phpredis/phpredis) |
@@ -24,6 +24,7 @@
 
 ### Application
 
+* [Upgrade](./docs/Upgrade.md)
 * [Settings](./docs/Application-Settings.md)
 * [Translation](./docs/Application-Translation.md)
 * [Cache](./docs/Application-Cache.md)
