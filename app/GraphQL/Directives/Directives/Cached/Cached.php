@@ -2,12 +2,9 @@
 
 namespace App\GraphQL\Directives\Directives\Cached;
 
-use App\GraphQL\Service;
-use App\Services\I18n\Locale;
-use App\Services\Organization\CurrentOrganization;
+use App\GraphQL\Cache;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -15,26 +12,20 @@ use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Throwable;
 
 use function array_slice;
 use function count;
 use function implode;
 use function mb_strtolower;
 use function microtime;
-use function serialize;
 use function sprintf;
-use function unserialize;
 
 /**
  * @see /docs/Application-GraphQL-Cache-Settings.md
  */
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
-        protected ExceptionHandler $exceptionHandler,
-        protected Service $service,
-        protected Locale $locale,
-        protected CurrentOrganization $organization,
+        protected Cache $cache,
     ) {
         // empty
     }
@@ -81,10 +72,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
     ): mixed {
         // Root
         $cacheable = true;
-        $key       = [
-            $this->locale,
-            $this->organization,
-        ];
+        $key       = [];
 
         if ($root instanceof Model) {
             $key[] = $root;
@@ -127,30 +115,18 @@ class Cached extends BaseDirective implements FieldMiddleware {
     protected function getCachedValue(mixed $key): array {
         $expired = false;
         $cached  = false;
-        $value   = $this->service->get($key, function (mixed $value) use (&$cached, &$expired): mixed {
-            // Small trick to determine if the value exists in the cache or not.
-            $cached = true;
+        $value   = $this->cache->get($key);
 
-            // If `unserialize()` fail it is not critical and should not break
-            // the query.
-            try {
-                $value = unserialize($value);
-            } catch (Throwable) {
-                $cached = false;
-                $value  = null;
-            }
-
-            // CachedValue?
-            if ($value instanceof CachedValue) {
-                $expired = $this->service->isCacheExpired($value->created, $value->expired);
-                $value   = $value->value;
-            } else {
-                $expired = true;
-            }
-
-            // Return
-            return $value;
-        });
+        if ($value instanceof CachedValue) {
+            $expired = $this->cache->isExpired($value->created, $value->expired);
+            $cached  = true;
+            $value   = $value->value;
+        } elseif ($value !== null) {
+            $expired = true;
+            $cached  = true;
+        } else {
+            // empty
+        }
 
         return [$cached, $expired, $value];
     }
@@ -163,15 +139,11 @@ class Cached extends BaseDirective implements FieldMiddleware {
      * @return T
      */
     protected function setCachedValue(mixed $key, mixed $value): mixed {
-        try {
-            $created = Date::now();
-            $expired = Date::now()->add($this->service->getCacheTtl());
-            $cached  = new CachedValue($created, $expired, $value);
+        $created = Date::now();
+        $expired = Date::now()->add($this->cache->getTtl());
+        $cached  = new CachedValue($created, $expired, $value);
 
-            $this->service->set($key, serialize($cached));
-        } catch (Throwable $exception) {
-            $this->exceptionHandler->report($exception);
-        }
+        $this->cache->set($key, $cached);
 
         return $value;
     }
@@ -211,7 +183,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
     }
 
     protected function resolveIsLocked(mixed $key): bool {
-        return $this->service->isLocked($key);
+        return $this->cache->isLocked($key);
     }
 
     /**
@@ -229,7 +201,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         $value = $resolver($root, $args, $context, $resolveInfo);
         $time  = microtime(true) - $begin;
 
-        if ($this->service->isSlowQuery($time)) {
+        if ($this->cache->isSlowQuery($time)) {
             $value = $this->setCachedValue($key, $value);
         }
 
@@ -247,7 +219,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
     ): mixed {
-        return $this->setCachedValue($key, $this->service->lock(
+        return $this->setCachedValue($key, $this->cache->lock(
             $key,
             function () use ($key, $resolver, $root, $args, $context, $resolveInfo): mixed {
                 // Value can be already resolved in another process/request

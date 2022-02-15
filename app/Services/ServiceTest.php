@@ -10,6 +10,7 @@ use App\Utils\Cache\CacheKeyInvalidValue;
 use Closure;
 use DateInterval;
 use Exception;
+use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
@@ -71,9 +72,29 @@ class ServiceTest extends TestCase {
      * @covers ::set
      */
     public function testSet(): void {
-        $config  = Mockery::mock(Config::class);
-        $cache   = Mockery::mock(Cache::class);
-        $service = new class($config, $cache) extends Service implements JsonSerializable {
+        $store  = $this->faker->word;
+        $config = Mockery::mock(Config::class);
+        $config
+            ->shouldReceive('get')
+            ->with('ep.cache.service.store')
+            ->once()
+            ->andReturn($store);
+        $config
+            ->shouldReceive('get')
+            ->with('ep.cache.service.ttl')
+            ->times(2)
+            ->andReturn('P1M');
+
+        $cache = Mockery::mock(Cache::class);
+
+        $factory = Mockery::mock(CacheFactory::class);
+        $factory
+            ->shouldReceive('store')
+            ->with($store)
+            ->once()
+            ->andReturn($cache);
+
+        $service = new class($config, $factory) extends Service implements JsonSerializable {
             /**
              * @return array<mixed>
              */
@@ -84,12 +105,6 @@ class ServiceTest extends TestCase {
             }
         };
         $name    = Service::getServiceName($service);
-
-        $config
-            ->shouldReceive('get')
-            ->with('ep.cache.service.ttl')
-            ->times(2)
-            ->andReturn('P1M');
 
         $cache
             ->shouldReceive('set')
@@ -188,7 +203,7 @@ class ServiceTest extends TestCase {
     }
 
     /**
-     * @covers ::getKey
+     * @covers ::getCacheKey
      *
      * @dataProvider dataProviderGetKey
      *
@@ -199,10 +214,6 @@ class ServiceTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty;
-            }
-
-            public function getKey(mixed $key): string {
-                return parent::getKey($key);
             }
         };
 
@@ -215,7 +226,7 @@ class ServiceTest extends TestCase {
             $expected = str_replace('${service}', $name, $expected);
         }
 
-        $this->assertEquals($expected, $service->getKey($key));
+        $this->assertEquals($expected, $service->getCacheKey($key));
     }
     // </editor-fold>
 

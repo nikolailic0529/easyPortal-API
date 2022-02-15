@@ -1670,10 +1670,10 @@
     {
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
+            "6d7fd925-dc04-42e9-bb63-178792d471d2",
             "c8468eeb-76d9-47b1-b156-d4586f777681",
             "cba34fe2-26ba-4432-95b8-e433797c0c67",
-            "6d7fd925-dc04-42e9-bb63-178792d471d2"
+            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079"
         ]
     },
     {
@@ -2482,10 +2482,10 @@
     {
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
+            "6d7fd925-dc04-42e9-bb63-178792d471d2",
             "c8468eeb-76d9-47b1-b156-d4586f777681",
             "cba34fe2-26ba-4432-95b8-e433797c0c67",
-            "6d7fd925-dc04-42e9-bb63-178792d471d2"
+            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079"
         ]
     },
     {
@@ -4274,10 +4274,10 @@
     {
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
+            "6d7fd925-dc04-42e9-bb63-178792d471d2",
             "c8468eeb-76d9-47b1-b156-d4586f777681",
             "cba34fe2-26ba-4432-95b8-e433797c0c67",
-            "6d7fd925-dc04-42e9-bb63-178792d471d2"
+            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079"
         ]
     },
     {

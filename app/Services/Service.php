@@ -6,6 +6,7 @@ use App\GraphQL\Service as GraphQLService;
 use App\Utils\Cache\CacheKey;
 use Closure;
 use DateInterval;
+use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
 use JsonSerializable;
@@ -29,16 +30,18 @@ use const JSON_THROW_ON_ERROR;
  * standardizes keys across all services.
  */
 abstract class Service {
+    protected Cache $cache;
+
     public function __construct(
         protected Config $config,
-        protected Cache $cache,
+        CacheFactory $factory,
     ) {
-        // empty
+        $this->cache = $factory->store($this->config->get('ep.cache.service.store') ?: null);
     }
 
     /**
-     * Returns the cached value for the key and passes it into `$factory` if key
-     * exists.
+     * Returns the cached state value for the key and passes it into `$factory`
+     * if key exists.
      *
      * @template T
      *
@@ -47,7 +50,7 @@ abstract class Service {
      * @return T
      */
     public function get(mixed $key, Closure $factory = null): mixed {
-        $value = $this->cache->get($this->getKey($key));
+        $value = $this->cache->get($this->getCacheKey($key));
 
         if ($value !== null) {
             $value = json_decode($value, true, flags: JSON_THROW_ON_ERROR);
@@ -61,38 +64,36 @@ abstract class Service {
     }
 
     /**
-     * Sets the value for the key. The method also sets the TTL to automatically
-     * remove old unused keys from the cache.
+     * Sets the state value for the key. The method also sets the TTL to
+     * automatically remove old unused keys from the cache.
      *
      * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
      */
     public function set(mixed $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
-        $this->cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
+        $this->cache->set($this->getCacheKey($key), json_encode($value), $this->getDefaultTtl());
 
         return $value;
     }
 
+    /**
+     * Deletes the state value.
+     */
     public function delete(mixed $key): bool {
-        return $this->cache->delete($this->getKey($key));
-    }
-
-    public function has(mixed $key): bool {
-        return $this->cache->has($this->getKey($key));
-    }
-
-    protected function getKey(mixed $key): string {
-        return (string) new CacheKey(array_merge(
-            ['app', static::getServiceName($this)],
-            $this->getDefaultKey(),
-            is_array($key) ? $key : [$key],
-        ));
+        return $this->cache->delete($this->getCacheKey($key));
     }
 
     /**
-     * @return array<mixed>
+     * Checks if the state value exists.
      */
-    protected function getDefaultKey(): array {
-        return [];
+    public function has(mixed $key): bool {
+        return $this->cache->has($this->getCacheKey($key));
+    }
+
+    public function getCacheKey(mixed $key): string {
+        return (string) new CacheKey(array_merge(
+            ['app', static::getServiceName($this)],
+            is_array($key) ? $key : [$key],
+        ));
     }
 
     protected function getDefaultTtl(): ?DateInterval {
