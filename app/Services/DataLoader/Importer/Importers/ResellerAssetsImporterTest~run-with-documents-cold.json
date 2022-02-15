@@ -5154,9 +5154,9 @@
     {
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
             "c8468eeb-76d9-47b1-b156-d4586f777681",
-            "cba34fe2-26ba-4432-95b8-e433797c0c67"
+            "cba34fe2-26ba-4432-95b8-e433797c0c67",
+            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079"
         ]
     },
     {
@@ -5179,17 +5179,17 @@
     {
         "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            14,
+            4,
             "2022-02-02 00:22:22",
-            "69fdc6d1-900f-5cfa-abbe-a2384ed2af8c"
+            "1365e8bd-7cfd-5ecd-9412-ca4b71cba85a"
         ]
     },
     {
         "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            4,
+            14,
             "2022-02-02 00:22:30",
-            "1365e8bd-7cfd-5ecd-9412-ca4b71cba85a"
+            "69fdc6d1-900f-5cfa-abbe-a2384ed2af8c"
         ]
     },
     {
@@ -7268,9 +7268,9 @@
     {
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
             "c8468eeb-76d9-47b1-b156-d4586f777681",
-            "cba34fe2-26ba-4432-95b8-e433797c0c67"
+            "cba34fe2-26ba-4432-95b8-e433797c0c67",
+            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079"
         ]
     },
     {
@@ -12426,10 +12426,10 @@
     {
         "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?, ?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
+            "6d7fd925-dc04-42e9-bb63-178792d471d2",
             "c8468eeb-76d9-47b1-b156-d4586f777681",
             "cba34fe2-26ba-4432-95b8-e433797c0c67",
-            "6d7fd925-dc04-42e9-bb63-178792d471d2"
+            "e69b8dee-804a-47a8-a9f9-0bcde5a5e079"
         ]
     },
     {
@@ -12443,16 +12443,8 @@
     {
         "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            34,
-            "2022-02-02 00:57:29",
-            "69fdc6d1-900f-5cfa-abbe-a2384ed2af8c"
-        ]
-    },
-    {
-        "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
             7,
-            "2022-02-02 00:57:37",
+            "2022-02-02 00:57:29",
             "1365e8bd-7cfd-5ecd-9412-ca4b71cba85a"
         ]
     },
@@ -12460,8 +12452,16 @@
         "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             8,
-            "2022-02-02 00:57:45",
+            "2022-02-02 00:57:37",
             "1178ec18-a141-512c-956d-f0bc7647eafc"
+        ]
+    },
+    {
+        "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            34,
+            "2022-02-02 00:57:45",
+            "69fdc6d1-900f-5cfa-abbe-a2384ed2af8c"
         ]
     },
     {
