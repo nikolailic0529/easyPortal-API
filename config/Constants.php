@@ -164,6 +164,15 @@ interface Constants {
     // <editor-fold desc="EP">
     // =========================================================================
     /**
+     * Path to the cached `version.php` file.
+     */
+    #[Setting('ep.version.cache')]
+    #[Group('ep')]
+    #[Internal]
+    #[Type(StringType::class)]
+    public const EP_VERSION_CACHE = null;
+
+    /**
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
     #[Setting('ep.image.max_size')]
