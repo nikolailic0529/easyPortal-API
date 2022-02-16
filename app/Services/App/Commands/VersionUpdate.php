@@ -69,6 +69,8 @@ class VersionUpdate extends Command {
 
         if ($result !== self::SUCCESS) {
             $this->error('Failed.');
+
+            return $result;
         }
 
         // Dispatch
