@@ -8,6 +8,7 @@ use App\Services\Maintenance\Utils\Composer;
 use App\Services\Maintenance\Utils\SemanticVersion;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 use function ltrim;
 use function sprintf;
@@ -65,7 +66,15 @@ class VersionUpdate extends Command {
         $this->line(sprintf('Updating version to `%s`...', $version));
         $this->newLine();
 
-        $result = $composer->setVersion((string) $version);
+        $result = $composer->setVersion((string) $version, function (string $stderr): void {
+            $output = $this->getOutput()->getOutput();
+
+            if ($output instanceof ConsoleOutputInterface) {
+                $output->getErrorOutput()->writeln($stderr);
+            } else {
+                $this->error($stderr);
+            }
+        });
 
         if ($result !== self::SUCCESS) {
             $this->error('Failed.');

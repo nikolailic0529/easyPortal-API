@@ -2,14 +2,23 @@
 
 namespace App\Services\Maintenance\Utils;
 
+use Closure;
 use Illuminate\Support\Composer as IlluminateComposer;
 
 use function array_merge;
 
 class Composer extends IlluminateComposer {
-    public function setVersion(string $version): int {
+    /**
+     * @param \Closure(string $stderr): void|null $onFail
+     */
+    public function setVersion(string $version, Closure $onFail = null): int {
         $command = array_merge($this->findComposer(), ['config', 'version', $version]);
-        $result  = $this->getProcess($command)->run();
+        $process = $this->getProcess($command);
+        $result  = $process->run();
+
+        if (!$process->isSuccessful() && $onFail !== null) {
+            $onFail($process->getErrorOutput());
+        }
 
         return $result;
     }
