@@ -11,7 +11,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 use function ltrim;
 use function sprintf;
-use function str_starts_with;
+use function substr;
 use function trim;
 
 class VersionUpdate extends Command {
@@ -22,7 +22,8 @@ class VersionUpdate extends Command {
      */
     protected $signature = 'ep:app-version-update
         {version  : version number (should be valid Semantic Version string; if empty only the build will be updated)}
-        {--build= : build number (optional, will be added into version)}';
+        {--commit= : commit sha (optional, will be added as metadata)}
+        {--build= : build number (optional, will be added as metadata)}';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -34,23 +35,30 @@ class VersionUpdate extends Command {
         DESC;
 
     public function __invoke(Dispatcher $dispatcher, Service $service, Composer $composer): int {
-        // Current version
-        //
-        // Composer may use the branch as a version (`dev-*`), but I'm not sure
-        // how to handle it ... so it is ignored.
+        // Version
         $current = $service->getVersion();
-        $prefix  = 'dev-';
+        $version = ltrim(trim((string) $this->argument('version')), 'v.');
+        $version = new SemanticVersion(($version ?: $current) ?? '0.0.0');
+        $commit  = $this->option('commit');
+        $build   = $this->option('build');
+        $meta    = null;
 
-        if (!$current || str_starts_with($current, $prefix)) {
-            $current = '0.0.0';
+        if ($commit !== null) {
+            $commit = substr($commit, 0, 7);
         }
 
-        // Determine version
-        $version = ltrim(trim((string) $this->argument('version')), 'v.');
-        $version = new SemanticVersion($version ?: (string) $current);
+        if ($commit !== null && $build !== null) {
+            $meta = "{$commit}.{$build}";
+        } elseif ($commit !== null) {
+            $meta = $commit;
+        } elseif ($build !== null) {
+            $meta = $build;
+        } else {
+            // empty
+        }
 
-        if ($this->hasOption('build')) {
-            $version = $version->setMetadata($this->option('build'));
+        if ($meta) {
+            $version = $version->setMetadata($meta);
         }
 
         // Update

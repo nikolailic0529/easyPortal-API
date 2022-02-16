@@ -62,7 +62,7 @@ class VersionUpdateTest extends TestCase {
         Event::assertDispatched(
             VersionUpdated::class,
             static function (VersionUpdated $event) use ($expected, $current): bool {
-                if (!$current || str_starts_with($current, 'dev-')) {
+                if ($current !== null && str_starts_with($current, 'dev-')) {
                     $current = '0.0.0';
                 }
 
@@ -94,13 +94,6 @@ class VersionUpdateTest extends TestCase {
                     'version' => '',
                 ],
             ],
-            'no version and no build but current version is branch'  => [
-                '0.0.0',
-                'dev-main',
-                [
-                    'version' => '',
-                ],
-            ],
             'no version and no build but current version is unknown' => [
                 '0.0.0',
                 null,
@@ -122,6 +115,23 @@ class VersionUpdateTest extends TestCase {
                 [
                     'version' => '1.2.3',
                     '--build' => '123',
+                ],
+            ],
+            'valid version, commit and build'                        => [
+                '1.2.3+21f1813.123',
+                '1.1.1',
+                [
+                    'version'  => '1.2.3',
+                    '--build'  => '123',
+                    '--commit' => '21f1813ebe182ff414c9ecc110ea7a148b0e938a',
+                ],
+            ],
+            'valid version and commit'                               => [
+                '1.2.3+21f1813',
+                '1.1.1',
+                [
+                    'version'  => '1.2.3',
+                    '--commit' => '21f1813ebe182ff414c9ecc110ea7a148b0e938a',
                 ],
             ],
         ];
