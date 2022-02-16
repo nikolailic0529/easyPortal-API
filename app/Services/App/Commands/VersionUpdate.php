@@ -5,7 +5,7 @@ namespace App\Services\App\Commands;
 use App\Services\App\Events\VersionUpdated;
 use App\Services\App\Service;
 use App\Services\App\Utils\Composer;
-use App\Utils\SemanticVersion;
+use App\Services\App\Utils\SemanticVersion;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 

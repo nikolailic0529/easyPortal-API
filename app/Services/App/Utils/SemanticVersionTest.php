@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils;
+namespace App\Services\App\Utils;
 
 use Closure;
 use Exception;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\SemanticVersion
+ * @coversDefaultClass \App\Services\App\Utils\SemanticVersion
  */
 class SemanticVersionTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -20,7 +20,9 @@ class SemanticVersionTest extends TestCase {
      *
      * @dataProvider dataProviderConstruct
      *
-     * @param \Closure(static, \App\Utils\SemanticVersion):\App\Utils\SemanticVersion|null $factory
+     * @param \Closure(
+     *      static, \App\Services\App\Utils\SemanticVersion
+     *      ):\App\Services\App\Utils\SemanticVersion|null $factory
      */
     public function testConstruct(string|Exception $expected, string $version, ?Closure $factory): void {
         if ($expected instanceof Exception) {
