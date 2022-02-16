@@ -4,16 +4,16 @@ namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\ApplicationInfo;
 use App\Services\Maintenance\Events\VersionUpdated;
-use App\Services\Maintenance\Utils\Composer;
 use App\Services\Maintenance\Utils\SemanticVersion;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Illuminate\Filesystem\Filesystem;
 
 use function ltrim;
 use function sprintf;
 use function substr;
 use function trim;
+use function var_export;
 
 class VersionUpdate extends Command {
     /**
@@ -35,7 +35,7 @@ class VersionUpdate extends Command {
         Updates application version in `composer.json` (should be called before `composer install`).
         DESC;
 
-    public function __invoke(Dispatcher $dispatcher, ApplicationInfo $info, Composer $composer): int {
+    public function __invoke(Dispatcher $dispatcher, Filesystem $filesystem, ApplicationInfo $info): int {
         // Version
         $current = $info->getVersion();
         $version = ltrim(trim((string) $this->argument('version')), 'v.');
@@ -63,23 +63,17 @@ class VersionUpdate extends Command {
         }
 
         // Update
-        $this->line(sprintf('Updating version to `%s`...', $version));
+        $path   = $info->getCachedVersionPath();
+        $data   = var_export((string) $version, true);
+        $result = $filesystem->put($path, /** @lang PHP */ "<?php return {$data};");
+
+        $this->line(sprintf('Updating Version to `%s`...', $version));
         $this->newLine();
 
-        $result = $composer->setVersion((string) $version, function (string $stderr): void {
-            $output = $this->getOutput()->getOutput();
-
-            if ($output instanceof ConsoleOutputInterface) {
-                $output->getErrorOutput()->writeln($stderr);
-            } else {
-                $this->error($stderr);
-            }
-        });
-
-        if ($result !== self::SUCCESS) {
+        if (!$result) {
             $this->error('Failed.');
 
-            return $result;
+            return self::FAILURE;
         }
 
         // Dispatch

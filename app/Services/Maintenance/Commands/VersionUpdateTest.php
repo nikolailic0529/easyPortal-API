@@ -4,11 +4,11 @@ namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\ApplicationInfo;
 use App\Services\Maintenance\Events\VersionUpdated;
-use App\Services\Maintenance\Utils\Composer;
 use App\Utils\Console\CommandOptions;
 use Exception;
-use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Event;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -35,14 +35,19 @@ class VersionUpdateTest extends TestCase {
         if ($expected instanceof Exception) {
             $this->expectExceptionObject($expected);
         } else {
-            $this->override(Composer::class, static function (MockInterface $mock): void {
+            $this->override(Filesystem::class, static function (MockInterface $mock): void {
                 $mock
-                    ->shouldReceive('setVersion')
+                    ->shouldReceive('put')
+                    ->with('path/to/version.php', Mockery::any())
                     ->once()
-                    ->andReturn(Command::SUCCESS);
+                    ->andReturn(true);
             });
 
             $this->override(ApplicationInfo::class, static function (MockInterface $mock) use ($current): void {
+                $mock
+                    ->shouldReceive('getCachedVersionPath')
+                    ->once()
+                    ->andReturn('path/to/version.php');
                 $mock
                     ->shouldReceive('getVersion')
                     ->once()
@@ -54,7 +59,7 @@ class VersionUpdateTest extends TestCase {
 
         $this
             ->artisan('ep:maintenance-version-update', $this->getOptions($arguments))
-            ->expectsOutput(sprintf('Updating version to `%s`...', $expected))
+            ->expectsOutput(sprintf('Updating Version to `%s`...', $expected))
             ->expectsOutput('Done.')
             ->assertSuccessful();
 

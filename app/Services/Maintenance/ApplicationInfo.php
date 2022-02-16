@@ -3,11 +3,30 @@
 namespace App\Services\Maintenance;
 
 use Composer\InstalledVersions;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Filesystem\Filesystem;
 
 use function str_starts_with;
 
 class ApplicationInfo {
+    public function __construct(
+        protected Application $app,
+        protected Repository $config,
+        protected Filesystem $filesystem,
+    ) {
+        // empty
+    }
+
     public function getVersion(): ?string {
+        // Cached version?
+        $path = $this->getCachedVersionPath();
+
+        if ($this->filesystem->exists($path)) {
+            return require $path;
+        }
+
+        // Try to find package version through Composer
         $package = InstalledVersions::getRootPackage();
         $version = $package['pretty_version'] ?? null;
 
@@ -18,5 +37,10 @@ class ApplicationInfo {
         }
 
         return $version;
+    }
+
+    public function getCachedVersionPath(): string {
+        return $this->config->get('ep.version.cache')
+            ?: $this->app->bootstrapPath('cache/ep-version.php');
     }
 }
