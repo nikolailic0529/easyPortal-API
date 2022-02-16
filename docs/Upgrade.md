@@ -4,21 +4,22 @@
 
 0. Backup!
 1. `sudo supervisorctl stop ep-api:*` (where `ep-api:` the group name from supervisor config)
-2. Update application files (just for example; there are a few other ways how it can be done)
+2. `php artisan ep:app-version-update "$TAG_NAME" --commit="$GIT_COMMIT" --build="$BUILD_NUMBER"`
+3. Update application files (just for example; there are a few other ways how it can be done)
     * `storage` - must not be touched
     * `graphql` - must be removed (or app will fail)
     * Remove `bootstrap/cache/*.php` (needed because in some situations these files can lead to a "Class 'XXX' not found" error and the app will be broken)
     * All other directories (except `vendor`) and files is recommended to remove
     * Copy new files
-3. `composer install`
-4. `composer dump-autoload --optimize`
-5. `php artisan optimize:clear`
-6. `php artisan cache:clear`
-7. `php artisan lighthouse:clear-cache`
-8. `php artisan config:cache`
-9. `php artisan route:cache`
-10. `php artisan event:cache`
-11. `php artisan optimize` (just for the case, because it in Laravel 8/9 it is equivalent of `config:cache` + `route:cache`)
-12. `php artisan migrate`
-13. `php artisan storage:link`
-14. `sudo supervisorctl restart ep-api:*` (where `ep-api:` the group name from supervisor config)
+4. `composer install`
+5. `composer dump-autoload --optimize`
+6. `php artisan optimize:clear`
+7. `php artisan cache:clear`
+8. `php artisan lighthouse:clear-cache`
+9. `php artisan config:cache`
+10. `php artisan route:cache`
+11. `php artisan event:cache`
+12. `php artisan optimize` (just for the case, because it in Laravel 8/9 it is equivalent of `config:cache` + `route:cache`)
+13. `php artisan migrate`
+14. `php artisan storage:link`
+15. `sudo supervisorctl restart ep-api:*` (where `ep-api:` the group name from supervisor config)
