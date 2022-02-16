@@ -106,7 +106,7 @@ class SemanticVersion implements Stringable {
     }
 
     public function setPreRelease(?string $preRelease): static {
-        if (!preg_match(self::REGEXP_PRERELEASE, $preRelease)) {
+        if ($preRelease !== null && !preg_match(self::REGEXP_PRERELEASE, $preRelease)) {
             throw new InvalidArgumentException(sprintf(
                 'The `%s` is not a valid pre-release.',
                 $preRelease,
@@ -123,7 +123,7 @@ class SemanticVersion implements Stringable {
     }
 
     public function setMetadata(?string $metadata): static {
-        if (!preg_match(self::REGEXP_METADATA, $metadata)) {
+        if ($metadata !== null && !preg_match(self::REGEXP_METADATA, $metadata)) {
             throw new InvalidArgumentException(sprintf(
                 'The `%s` is not a valid metadata.',
                 $metadata,
