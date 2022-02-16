@@ -3,8 +3,10 @@
 namespace App\GraphQL\Listeners;
 
 use App\GraphQL\Cache;
+use App\Services\App\Events\VersionUpdated;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
+use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -14,10 +16,16 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Search\Listeners\DataImportedListener
  */
 class CacheExpiredListenerTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::subscribe
+     *
+     * @dataProvider dataProviderSubscribe
+     *
+     * @param \Closure(self): object $eventFactory
      */
-    public function testSubscribe(): void {
+    public function testSubscribe(Closure $eventFactory): void {
         $this->override(CacheExpiredListener::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('__invoke')
@@ -26,7 +34,7 @@ class CacheExpiredListenerTest extends TestCase {
         });
 
         $this->app->make(Dispatcher::class)
-            ->dispatch(new DataImported(new Data()));
+            ->dispatch($eventFactory($this));
     }
 
     /**
@@ -44,4 +52,26 @@ class CacheExpiredListenerTest extends TestCase {
 
         $listener();
     }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<string,array<\Closure():object>>
+     */
+    public function dataProviderSubscribe(): array {
+        return [
+            DataImported::class   => [
+                static function (): object {
+                    return new DataImported(new Data());
+                },
+            ],
+            VersionUpdated::class => [
+                static function (): object {
+                    return new VersionUpdated('1.0.0', null);
+                },
+            ],
+        ];
+    }
+    // </editor-fold>
 }
