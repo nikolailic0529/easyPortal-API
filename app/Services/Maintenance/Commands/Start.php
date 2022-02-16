@@ -18,7 +18,7 @@ class Start extends Command {
      *
      * @var string
      */
-    protected $signature = 'ep:data-maintenance-start
+    protected $signature = 'ep:maintenance-start
         {--duration=1 hour : maintenance duration}
         {--message= : message}
         {--wait : wait until maintenance is really started (default)}
