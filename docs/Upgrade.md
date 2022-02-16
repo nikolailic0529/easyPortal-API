@@ -4,7 +4,7 @@
 
 0. Backup!
 1. `sudo supervisorctl stop ep-api:*` (where `ep-api:` the group name from supervisor config)
-2. `php artisan ep:app-version-update "$TAG_NAME" --commit="$GIT_COMMIT" --build="$BUILD_NUMBER"`
+2. `php artisan ep:maintenance-version-update "$TAG_NAME" --commit="$GIT_COMMIT" --build="$BUILD_NUMBER"`
 3. Update application files (just for example; there are a few other ways how it can be done)
     * `storage` - must not be touched
     * `graphql` - must be removed (or app will fail)

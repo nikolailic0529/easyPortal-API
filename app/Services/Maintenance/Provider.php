@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\App;
+namespace App\Services\Maintenance;
 
-use App\Services\App\Commands\VersionUpdate;
+use App\Services\Maintenance\Commands\VersionUpdate;
 use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 

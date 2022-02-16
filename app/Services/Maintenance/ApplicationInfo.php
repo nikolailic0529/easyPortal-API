@@ -1,13 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\App;
+namespace App\Services\Maintenance;
 
-use App\Services\Service as BaseService;
 use Composer\InstalledVersions;
 
 use function str_starts_with;
 
-class Service extends BaseService {
+class ApplicationInfo {
     public function getVersion(): ?string {
         $package = InstalledVersions::getRootPackage();
         $version = $package['pretty_version'] ?? null;

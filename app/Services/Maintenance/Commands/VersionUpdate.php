@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\App\Commands;
+namespace App\Services\Maintenance\Commands;
 
-use App\Services\App\Events\VersionUpdated;
-use App\Services\App\Service;
-use App\Services\App\Utils\Composer;
-use App\Services\App\Utils\SemanticVersion;
+use App\Services\Maintenance\ApplicationInfo;
+use App\Services\Maintenance\Events\VersionUpdated;
+use App\Services\Maintenance\Utils\Composer;
+use App\Services\Maintenance\Utils\SemanticVersion;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -20,7 +20,7 @@ class VersionUpdate extends Command {
      *
      * @var string
      */
-    protected $signature = 'ep:app-version-update
+    protected $signature = 'ep:maintenance-version-update
         {version  : version number (should be valid Semantic Version string; if empty only the build will be updated)}
         {--commit= : commit sha (optional, will be added as metadata)}
         {--build= : build number (optional, will be added as metadata)}';
@@ -34,9 +34,9 @@ class VersionUpdate extends Command {
         Updates application version in `composer.json` (should be called before `composer install`).
         DESC;
 
-    public function __invoke(Dispatcher $dispatcher, Service $service, Composer $composer): int {
+    public function __invoke(Dispatcher $dispatcher, ApplicationInfo $info, Composer $composer): int {
         // Version
-        $current = $service->getVersion();
+        $current = $info->getVersion();
         $version = ltrim(trim((string) $this->argument('version')), 'v.');
         $version = new SemanticVersion(($version ?: $current) ?? '0.0.0');
         $commit  = $this->option('commit') ?: null;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\App\Utils;
+namespace App\Services\Maintenance\Utils;
 
 use InvalidArgumentException;
 use Stringable;

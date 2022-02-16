@@ -3,9 +3,9 @@
 namespace App\GraphQL\Listeners;
 
 use App\GraphQL\Cache;
-use App\Services\App\Events\VersionUpdated;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
+use App\Services\Maintenance\Events\VersionUpdated;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery\MockInterface;
