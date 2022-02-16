@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\App\Events;
+namespace App\Services\Maintenance\Events;
 
 class VersionUpdated {
     public function __construct(

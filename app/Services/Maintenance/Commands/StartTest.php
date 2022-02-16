@@ -29,7 +29,7 @@ class StartTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-start', [
+            ->artisan('ep:maintenance-start', [
                 '--duration' => '2 hours',
                 '--message'  => 'message',
                 '--no-wait'  => true,
@@ -58,7 +58,7 @@ class StartTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-start', [
+            ->artisan('ep:maintenance-start', [
                 '--duration' => '2 hours',
                 '--message'  => 'message',
             ])
@@ -78,7 +78,7 @@ class StartTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-start')
+            ->artisan('ep:maintenance-start')
             ->assertFailed()
             ->expectsOutput('Failed.');
     }

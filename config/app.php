@@ -172,7 +172,7 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Services\App\Provider::class,
+        App\Services\Maintenance\Provider::class,
         App\Services\Auth\Provider::class,
         App\Services\Logger\Provider::class,
         App\Services\View\Provider::class,

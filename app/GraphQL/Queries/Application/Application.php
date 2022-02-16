@@ -2,13 +2,13 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\App\Service;
+use App\Services\Maintenance\ApplicationInfo;
 use Illuminate\Config\Repository;
 
 class Application {
     public function __construct(
         protected Repository $config,
-        protected Service $service,
+        protected ApplicationInfo $info,
     ) {
         // empty
     }
@@ -18,7 +18,7 @@ class Application {
      */
     public function __invoke(): array {
         $name     = $this->config->get('app.name');
-        $version  = $this->service->getVersion();
+        $version  = $this->info->getVersion();
         $response = [
             'name'    => $name,
             'version' => $version,

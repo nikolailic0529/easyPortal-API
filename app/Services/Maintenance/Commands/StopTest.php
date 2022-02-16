@@ -25,7 +25,7 @@ class StopTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-stop')
+            ->artisan('ep:maintenance-stop')
             ->assertSuccessful()
             ->expectsOutput('Done.');
     }
@@ -47,7 +47,7 @@ class StopTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-stop', [
+            ->artisan('ep:maintenance-stop', [
                 '--wait' => true,
             ])
             ->assertSuccessful()
@@ -70,7 +70,7 @@ class StopTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-stop', [
+            ->artisan('ep:maintenance-stop', [
                 '--force' => true,
             ])
             ->assertSuccessful()
@@ -93,7 +93,7 @@ class StopTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-stop', [
+            ->artisan('ep:maintenance-stop', [
                 '--force' => true,
                 '--wait'  => true,
             ])
@@ -117,7 +117,7 @@ class StopTest extends TestCase {
         });
 
         $this
-            ->artisan('ep:data-maintenance-stop', [
+            ->artisan('ep:maintenance-stop', [
                 '--wait'  => true,
             ])
             ->assertFailed()

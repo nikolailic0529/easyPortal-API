@@ -16,7 +16,7 @@ class Stop extends Command {
      *
      * @var string
      */
-    protected $signature = 'ep:data-maintenance-stop
+    protected $signature = 'ep:maintenance-stop
         {--wait : wait until maintenance is really stopped}
         {--no-wait : do not wait (default)}
         {--wait-timeout=60 : wait timeout (seconds)}

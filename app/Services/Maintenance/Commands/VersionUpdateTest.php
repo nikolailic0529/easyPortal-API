@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\App\Commands;
+namespace App\Services\Maintenance\Commands;
 
-use App\Services\App\Events\VersionUpdated;
-use App\Services\App\Service;
-use App\Services\App\Utils\Composer;
+use App\Services\Maintenance\ApplicationInfo;
+use App\Services\Maintenance\Events\VersionUpdated;
+use App\Services\Maintenance\Utils\Composer;
 use App\Utils\Console\CommandOptions;
 use Exception;
 use Illuminate\Console\Command;
@@ -17,7 +17,7 @@ use function str_starts_with;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\App\Commands\VersionUpdate
+ * @coversDefaultClass \App\Services\Maintenance\Commands\VersionUpdate
  */
 class VersionUpdateTest extends TestCase {
     use CommandOptions;
@@ -42,7 +42,7 @@ class VersionUpdateTest extends TestCase {
                     ->andReturn(Command::SUCCESS);
             });
 
-            $this->override(Service::class, static function (MockInterface $mock) use ($current): void {
+            $this->override(ApplicationInfo::class, static function (MockInterface $mock) use ($current): void {
                 $mock
                     ->shouldReceive('getVersion')
                     ->once()
@@ -53,7 +53,7 @@ class VersionUpdateTest extends TestCase {
         Event::fake(VersionUpdated::class);
 
         $this
-            ->artisan('ep:app-version-update', $this->getOptions($arguments))
+            ->artisan('ep:maintenance-version-update', $this->getOptions($arguments))
             ->expectsOutput(sprintf('Updating version to `%s`...', $expected))
             ->expectsOutput('Done.')
             ->assertSuccessful();

@@ -4,8 +4,8 @@ namespace App\GraphQL\Listeners;
 
 use App\Events\Subscriber;
 use App\GraphQL\Cache;
-use App\Services\App\Events\VersionUpdated;
 use App\Services\DataLoader\Events\DataImported;
+use App\Services\Maintenance\Events\VersionUpdated;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class CacheExpiredListener implements Subscriber {
