@@ -134,6 +134,15 @@ class VersionUpdateTest extends TestCase {
                     '--commit' => '21f1813ebe182ff414c9ecc110ea7a148b0e938a',
                 ],
             ],
+            'empty build and commit'                                 => [
+                '1.2.3',
+                '1.1.1',
+                [
+                    'version'  => '1.2.3',
+                    '--build'  => '',
+                    '--commit' => '',
+                ],
+            ],
         ];
     }
     //</editor-fold>

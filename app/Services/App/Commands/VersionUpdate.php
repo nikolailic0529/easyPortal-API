@@ -39,8 +39,8 @@ class VersionUpdate extends Command {
         $current = $service->getVersion();
         $version = ltrim(trim((string) $this->argument('version')), 'v.');
         $version = new SemanticVersion(($version ?: $current) ?? '0.0.0');
-        $commit  = $this->option('commit');
-        $build   = $this->option('build');
+        $commit  = $this->option('commit') ?: null;
+        $build   = $this->option('build') ?: null;
         $meta    = null;
 
         if ($commit !== null) {
@@ -69,6 +69,8 @@ class VersionUpdate extends Command {
 
         if ($result !== self::SUCCESS) {
             $this->error('Failed.');
+
+            return $result;
         }
 
         // Dispatch
