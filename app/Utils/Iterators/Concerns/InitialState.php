@@ -5,7 +5,9 @@ namespace App\Utils\Iterators\Concerns;
 use App\Utils\Iterators\ObjectIterator;
 
 /**
- * @mixin \App\Utils\Iterators\ObjectIterator
+ * @template T
+ *
+ * @mixin \App\Utils\Iterators\ObjectIterator<T>
  */
 trait InitialState {
     private ?ObjectIterator $initial = null;

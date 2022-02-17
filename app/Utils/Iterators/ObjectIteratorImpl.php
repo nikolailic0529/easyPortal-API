@@ -19,7 +19,9 @@ use function reset;
  * @template V
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
+ *
+ * @uses \App\Utils\Iterators\Concerns\Subjects<T>
+ * @uses \App\Utils\Iterators\Concerns\InitialState<T>
  * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {

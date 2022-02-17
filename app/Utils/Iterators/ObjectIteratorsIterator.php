@@ -19,7 +19,9 @@ use function sprintf;
  * @template T
  *
  * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
+ *
+ * @uses \App\Utils\Iterators\Concerns\InitialState<T>
+ * @uses \App\Utils\Iterators\Concerns\Subjects<T>
  */
 class ObjectIteratorsIterator implements ObjectIterator {
     use InitialState;

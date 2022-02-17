@@ -14,7 +14,8 @@ use Iterator;
  *
  * @implements \App\Utils\Iterators\ObjectIterator<V>
  *
- * @uses     \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+ * @uses \App\Utils\Iterators\Concerns\InitialState<T>
+ * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 class ObjectIteratorIterator implements ObjectIterator {
     use ChunkConverter;
