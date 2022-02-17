@@ -22,6 +22,21 @@ use Throwable;
 use function min;
 
 /**
+ * The Processor is specially designed to process a huge amount of items and
+ * provides a way to concentrate on implementation without worries about all
+ * other stuff.
+ *
+ * Behind the scenes, it uses `ObjectIterator` to get items divided into chunks,
+ * calls events for each chunk (that, for example, allows us to implement Eager
+ * Loading and alleviate the "N + 1" problem), and finally calls `process()`
+ * to process the item.
+ *
+ * In addition, it can also save (and restore of course) the internal state
+ * after each chunk that is especially useful for queued jobs to continue
+ * processing after error/timeout/stop signal/etc.
+ *
+ * @see \App\Utils\Iterators\ObjectIterator
+ *
  * @template TItem
  * @template TChunkData
  * @template TState of \App\Utils\Processor\State
