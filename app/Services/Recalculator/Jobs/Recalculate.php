@@ -1,10 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\Recalculator\Jobs;
 
 use App\Models\Asset;
 use App\Queues;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Queue\Job;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
@@ -31,7 +32,7 @@ abstract class Recalculate extends Job implements Initializable {
      */
     public function getQueueConfig(): array {
         return [
-                'queue' => Queues::DATA_LOADER_RECALCULATE,
+                'queue' => Queues::RECALCULATOR,
             ] + parent::getQueueConfig();
     }
 

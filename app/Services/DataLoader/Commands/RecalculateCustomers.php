@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Jobs\CustomersRecalculate;
+use App\Services\Recalculator\Jobs\CustomersRecalculate;
 use Illuminate\Contracts\Config\Repository;
 
 class RecalculateCustomers extends Recalculate {

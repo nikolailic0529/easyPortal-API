@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Jobs\Recalculate as RecalculateJob;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Recalculator\Jobs\Recalculate as RecalculateJob;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;

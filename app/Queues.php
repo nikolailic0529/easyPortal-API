@@ -18,6 +18,8 @@ interface Queues {
 
     /**
      * Recalculate queue for Data Loader
+     *
+     * @deprecated
      */
     public const DATA_LOADER_RECALCULATE = 'data-loader-recalculate';
 
@@ -35,4 +37,9 @@ interface Queues {
      * Default queue for Notificator.
      */
     public const NOTIFICATOR = 'notificator';
+
+    /**
+     * Recalculate queue for Recalculator.
+     */
+    public const RECALCULATOR = 'recalculator';
 }

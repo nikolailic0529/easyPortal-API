@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Jobs\LocationsRecalculate;
+use App\Services\Recalculator\Jobs\LocationsRecalculate;
 use Illuminate\Contracts\Config\Repository;
 
 class RecalculateLocations extends Recalculate {

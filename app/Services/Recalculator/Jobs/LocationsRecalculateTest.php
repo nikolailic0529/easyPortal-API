@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\Recalculator\Jobs;
 
 use App\Models\Asset;
 use App\Models\Customer;
@@ -17,7 +17,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\LocationsRecalculate
+ * @coversDefaultClass \App\Services\Recalculator\Jobs\LocationsRecalculate
  */
 class LocationsRecalculateTest extends TestCase {
     use WithQueryLogs;

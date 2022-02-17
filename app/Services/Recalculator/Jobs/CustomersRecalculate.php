@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\Recalculator\Jobs;
 
 use App\Models\Customer;
 use App\Utils\Eloquent\Model;
@@ -8,11 +8,11 @@ use App\Utils\Eloquent\Model;
 use function count;
 
 /**
- * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Customer>
+ * @extends \App\Services\Recalculator\Jobs\Recalculate<\App\Models\Customer>
  */
 class CustomersRecalculate extends Recalculate {
     public function displayName(): string {
-        return 'ep-data-loader-customers-recalculate';
+        return 'ep-recalculator-customers-recalculate';
     }
 
     public function getModel(): Model {

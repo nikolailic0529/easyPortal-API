@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\Recalculator\Jobs;
 
 use App\Models\CustomerLocation;
 use App\Models\Location;
@@ -18,11 +18,11 @@ use function count;
 use const SORT_REGULAR;
 
 /**
- * @extends \App\Services\DataLoader\Jobs\Recalculate<\App\Models\Location>
+ * @extends \App\Services\Recalculator\Jobs\Recalculate<\App\Models\Location>
  */
 class LocationsRecalculate extends Recalculate {
     public function displayName(): string {
-        return 'ep-data-loader-locations-recalculate';
+        return 'ep-recalculator-locations-recalculate';
     }
 
     public function getModel(): Model {

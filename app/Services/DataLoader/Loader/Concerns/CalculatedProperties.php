@@ -4,12 +4,12 @@ namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\FailedToUpdateCalculatedProperties;
-use App\Services\DataLoader\Jobs\CustomersRecalculate;
-use App\Services\DataLoader\Jobs\LocationsRecalculate;
-use App\Services\DataLoader\Jobs\ResellersRecalculate;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
+use App\Services\Recalculator\Jobs\CustomersRecalculate;
+use App\Services\Recalculator\Jobs\LocationsRecalculate;
+use App\Services\Recalculator\Jobs\ResellersRecalculate;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use Throwable;

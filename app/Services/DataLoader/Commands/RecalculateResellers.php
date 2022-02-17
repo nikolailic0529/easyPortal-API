@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Jobs\ResellersRecalculate;
+use App\Services\Recalculator\Jobs\ResellersRecalculate;
 use Illuminate\Contracts\Config\Repository;
 
 class RecalculateResellers extends Recalculate {
