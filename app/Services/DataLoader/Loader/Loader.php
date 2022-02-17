@@ -118,10 +118,6 @@ abstract class Loader implements Isolated {
         try {
             $model = $this->process($object);
         } finally {
-            if ($this instanceof LoaderRecalculable) {
-                $this->recalculate();
-            }
-
             $this->getDispatcher()->dispatch(
                 new DataImported($data),
             );

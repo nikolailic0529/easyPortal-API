@@ -9,21 +9,15 @@ use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factory\Factories\AssetFactory;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Loader\Concerns\WithCalculatedProperties;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderRecalculable;
-use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
-use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class AssetLoader extends Loader implements LoaderRecalculable {
-    use WithCalculatedProperties;
+class AssetLoader extends Loader {
     use WithWarrantyCheck;
 
     protected bool $withDocuments = false;
@@ -77,16 +71,5 @@ class AssetLoader extends Loader implements LoaderRecalculable {
 
     protected function getModelNotFoundException(string $id): Exception {
         return new AssetNotFound($id);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getResolversToRecalculate(): array {
-        return [
-            ResellerResolver::class,
-            CustomerResolver::class,
-            LocationResolver::class,
-        ];
     }
 }

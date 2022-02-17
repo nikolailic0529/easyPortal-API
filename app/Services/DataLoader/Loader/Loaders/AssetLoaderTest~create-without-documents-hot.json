@@ -92,46 +92,9 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:39",
-            "2022-02-02 00:01:01",
+            "2022-02-02 00:00:31",
+            "2022-02-02 00:00:53",
             "dd3fd852-c29a-4f34-ac20-21b6f7079777"
-        ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where `id` in (?) and `customers`.`deleted_at` is null",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
-        ]
-    },
-    {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`deleted_at` is null and `customer_statuses`.`customer_id` in (?) and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
-        ]
-    },
-    {
-        "query": "select `customer_id`, count(*) as count from `assets` where `customer_id` in (?) and `assets`.`deleted_at` is null group by `customer_id`",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
-        ]
-    },
-    {
-        "query": "select `customer_id`, `location_id`, count(*) as count from `assets` where `customer_id` in (?) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `customer_id`, `location_id`",
-        "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
         ]
     }
 ]

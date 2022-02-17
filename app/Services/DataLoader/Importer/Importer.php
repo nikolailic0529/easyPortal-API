@@ -9,7 +9,6 @@ use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Processor\Processor;
@@ -122,10 +121,6 @@ abstract class Importer extends Processor {
         $this->loader    = $this->makeLoader($state);
 
         // Configure
-        if ($this->loader instanceof LoaderRecalculable) {
-            $this->loader->setRecalculate(false);
-        }
-
         $this->collector->subscribe($data);
 
         // Parent
@@ -136,11 +131,6 @@ abstract class Importer extends Processor {
      * @inheritDoc
      */
     protected function chunkProcessed(State $state, array $items, mixed $data): void {
-        // Update calculated properties
-        if ($this->loader instanceof LoaderRecalculable && ($state->created || $state->updated || $state->failed)) {
-            $this->loader->recalculate(true);
-        }
-
         // Reset container
         $this->getContainer()->forgetInstances();
 

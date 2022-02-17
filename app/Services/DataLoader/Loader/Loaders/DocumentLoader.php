@@ -8,19 +8,14 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Loader\Concerns\WithCalculatedProperties;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderRecalculable;
-use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class DocumentLoader extends Loader implements LoaderRecalculable {
-    use WithCalculatedProperties;
-
+class DocumentLoader extends Loader {
     public function __construct(
         Container $container,
         ExceptionHandler $exceptionHandler,
@@ -49,14 +44,5 @@ class DocumentLoader extends Loader implements LoaderRecalculable {
 
     protected function getModelNotFoundException(string $id): Exception {
         return new DocumentNotFound($id);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getResolversToRecalculate(): array {
-        return [
-            ResellerResolver::class,
-        ];
     }
 }
