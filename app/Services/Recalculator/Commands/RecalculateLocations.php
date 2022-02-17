@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Commands;
+namespace App\Services\Recalculator\Commands;
 
 use App\Services\Recalculator\Jobs\LocationsRecalculate;
 use Illuminate\Contracts\Config\Repository;
@@ -11,7 +11,7 @@ class RecalculateLocations extends Recalculate {
      */
     protected function getReplacements(): array {
         return [
-            '${command}' => 'ep:data-loader-recalculate-locations',
+            '${command}' => 'ep:recalculator-recalculate-locations',
             '${objects}' => 'locations',
         ];
     }

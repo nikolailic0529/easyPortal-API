@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Commands;
+namespace App\Services\Recalculator\Commands;
 
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Recalculator\Jobs\Recalculate as RecalculateJob;
