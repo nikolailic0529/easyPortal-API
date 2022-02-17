@@ -8,10 +8,13 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Settings\Storage;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\GlobalScopes\State;
+use Closure;
+use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
 use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
@@ -19,6 +22,8 @@ use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\GraphQL\ASTBuilderPersistent;
+use Tests\Helpers\SequenceDateFactory;
+use Tests\Helpers\SequenceUuidFactory;
 
 use function array_shift;
 
@@ -140,5 +145,21 @@ abstract class TestCase extends BaseTestCase {
         }
 
         $this->assertEquals($expected, $actual);
+    }
+
+    protected function overrideUuidFactory(string $seed): void {
+        Str::createUuidsUsing(new SequenceUuidFactory($seed));
+    }
+
+    protected function resetUuidFactory(): void {
+        Str::createUuidsNormally();
+    }
+
+    protected function overrideDateFactory(DateTimeInterface|string $now): void {
+        Date::setTestNow(Closure::fromCallable(new SequenceDateFactory($now)));
+    }
+
+    protected function resetDateFactory(): void {
+        Date::setTestNow();
     }
 }
