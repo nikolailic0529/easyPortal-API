@@ -101,7 +101,7 @@ class LocationsRecalculateTest extends TestCase {
         // Test
         $queries = $this->getQueryLog();
         $job     = $this->app->make(LocationsRecalculate::class)
-            ->setModels(new Collection([$locationA, $locationB, $locationC]));
+            ->init(new Collection([$locationA, $locationB, $locationC]));
 
         $job();
 

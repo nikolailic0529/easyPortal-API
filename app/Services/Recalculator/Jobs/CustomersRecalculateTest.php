@@ -87,7 +87,7 @@ class CustomersRecalculateTest extends TestCase {
         // Test
         $queries = $this->getQueryLog();
         $job     = $this->app->make(CustomersRecalculate::class)
-            ->setModels(new Collection([$customerA, $customerB]));
+            ->init(new Collection([$customerA, $customerB]));
 
         $job();
 

@@ -32,7 +32,7 @@ class DataImportedListener implements Subscriber {
 
             if ($job && $ids) {
                 $this->container->make($job)
-                    ->setModels(array_values($ids))
+                    ->init(array_values($ids))
                     ->dispatch();
             }
         }

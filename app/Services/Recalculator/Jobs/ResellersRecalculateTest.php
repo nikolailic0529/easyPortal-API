@@ -189,7 +189,7 @@ class ResellersRecalculateTest extends TestCase {
         // Test
         $queries = $this->getQueryLog();
         $job     = $this->app->make(ResellersRecalculate::class)
-            ->setModels(new Collection([$resellerA, $resellerB, $resellerC]));
+            ->init(new Collection([$resellerA, $resellerB, $resellerC]));
 
         $job();
 

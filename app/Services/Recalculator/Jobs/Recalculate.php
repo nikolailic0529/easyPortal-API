@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
+use function is_string;
 use function sprintf;
 
 /**
@@ -44,27 +45,37 @@ abstract class Recalculate extends Job implements Initializable {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model> $models
+     * @param array<string>|array<T>|\Illuminate\Support\Collection<string>|\Illuminate\Support\Collection<T> $models
+     *
+     * @return $this<T>
      */
-    public function setModels(Collection $models): static {
-        // Valid?
+    public function init(array|Collection $models): static {
+        // Empty?
+        $models = new Collection($models);
+
         if ($models->isEmpty()) {
-            throw new InvalidArgumentException('The `$models` cannot be empty.');
+            throw new InvalidArgumentException('The `$keys` cannot be empty.');
         }
 
+        // Valid?
         $expected = $this->getModel();
         $actual   = $models->first();
 
-        if (!($actual instanceof $expected)) {
+        if (!is_string($actual) && !($actual instanceof $expected)) {
             throw new InvalidArgumentException(sprintf(
-                'The `$models` must contain `%s` models, but it is contain `%s`.',
+                'The `$keys` must contain `%s` models, but it is contain `%s`.',
                 $expected::class,
                 $actual::class,
             ));
         }
 
+        // Extract
+        if (!is_string($actual)) {
+            $models = $models->map(new GetKey());
+        }
+
         // Initialize
-        $this->keys = (new Collection($models))->map(new GetKey())->unique()->sort()->values()->all();
+        $this->keys = $models->unique()->sort()->values()->all();
 
         $this->initialized();
 

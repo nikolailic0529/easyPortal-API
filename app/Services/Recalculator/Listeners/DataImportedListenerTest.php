@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
+use function array_values;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\Recalculator\Listeners\DataImportedListener
@@ -46,7 +48,7 @@ class DataImportedListenerTest extends TestCase {
 
         Queue::assertPushed(CustomersRecalculate::class, 1);
         Queue::assertPushed(static function (CustomersRecalculate $job) use ($data): bool {
-            self::assertEquals($job->getKeys(), $data->get(Customer::class));
+            self::assertEquals($job->getKeys(), array_values($data->get(Customer::class)));
 
             return true;
         });

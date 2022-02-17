@@ -66,7 +66,7 @@ abstract class Recalculate extends Command {
                 $progress->display();
 
                 $query->chunkById($chunk, static function (Collection $items) use ($job, $progress): void {
-                    (clone $job)->setModels($items)->run();
+                    (clone $job)->init($items)->run();
 
                     $progress->advance(count($items));
                 });
