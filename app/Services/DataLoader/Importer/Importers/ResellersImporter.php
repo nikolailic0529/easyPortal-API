@@ -6,8 +6,6 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
@@ -51,10 +49,6 @@ class ResellersImporter extends Importer {
 
     protected function getIterator(State $state): ObjectIterator {
         return $this->getClient()->getResellers($state->from);
-    }
-
-    protected function makeLoader(State $state): Loader {
-        return $this->getContainer()->make(ResellerLoader::class);
     }
 
     protected function makeFactory(State $state): Factory {
