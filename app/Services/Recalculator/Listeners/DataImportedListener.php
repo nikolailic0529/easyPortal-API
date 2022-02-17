@@ -8,8 +8,6 @@ use App\Services\Recalculator\Service;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 
-use function array_values;
-
 class DataImportedListener implements Subscriber {
     public function __construct(
         protected Container $container,
@@ -32,7 +30,7 @@ class DataImportedListener implements Subscriber {
 
             if ($job && $ids) {
                 $this->container->make($job)
-                    ->init(array_values($ids))
+                    ->init($ids)
                     ->dispatch();
             }
         }
