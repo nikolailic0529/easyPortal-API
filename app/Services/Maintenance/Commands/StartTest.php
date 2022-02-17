@@ -20,9 +20,10 @@ class StartTest extends TestCase {
         $this->override(Maintenance::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('start')
-                ->withArgs(static function (DateTimeInterface $end, ?string $message): bool {
+                ->withArgs(static function (DateTimeInterface $end, ?string $message, bool $force): bool {
                     return Date::make($end)->diffInHours(Date::now()->subMinute()) === 2
-                        && $message === 'message';
+                        && $message === 'message'
+                        && $force === false;
                 })
                 ->once()
                 ->andReturn(true);
@@ -61,6 +62,32 @@ class StartTest extends TestCase {
             ->artisan('ep:maintenance-start', [
                 '--duration' => '2 hours',
                 '--message'  => 'message',
+            ])
+            ->assertSuccessful()
+            ->expectsOutput('Done.');
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleSuccessForce(): void {
+        $this->override(Maintenance::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('start')
+                ->withArgs(static function (DateTimeInterface $end, ?string $message, bool $force): bool {
+                    return Date::make($end)->diffInHours(Date::now()->subMinute()) === 2
+                        && $message === 'message'
+                        && $force === true;
+                })
+                ->once()
+                ->andReturn(true);
+        });
+
+        $this
+            ->artisan('ep:maintenance-start', [
+                '--duration' => '2 hours',
+                '--message'  => 'message',
+                '--force'    => true,
             ])
             ->assertSuccessful()
             ->expectsOutput('Done.');
