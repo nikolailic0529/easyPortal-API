@@ -41,13 +41,20 @@ class Maintenance {
         return (bool) $this->getSettings()?->enabled;
     }
 
-    public function start(DateTimeInterface $end, string $message = null): bool {
+    public function start(DateTimeInterface $end, string $message = null, bool $force = false): bool {
         if ($this->isEnabled()) {
             return true;
         }
 
-        return $this->schedule(Date::now(), $end, $message)
-            && $this->app->make(StartCronJob::class)->dispatch();
+        $result = $this->schedule(Date::now(), $end, $message);
+
+        if ($force) {
+            $result = $result && $this->enable();
+        } else {
+            $result = $result && $this->app->make(StartCronJob::class)->dispatch();
+        }
+
+        return $result;
     }
 
     public function stop(bool $force = false): bool {

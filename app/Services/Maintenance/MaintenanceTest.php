@@ -235,7 +235,7 @@ class MaintenanceTest extends TestCase {
     }
 
     /**
-     * @covers ::stop
+     * @covers ::start
      */
     public function testStart(): void {
         $maintenance = Mockery::mock(Maintenance::class, [
@@ -263,7 +263,39 @@ class MaintenanceTest extends TestCase {
     }
 
     /**
-     * @covers ::stop
+     * @covers ::start
+     */
+    public function testStartForce(): void {
+        $maintenance = Mockery::mock(Maintenance::class, [
+            $this->app,
+            $this->app->make(Repository::class),
+            $this->app->make(SettingsService::class),
+            $this->app->make(QueueableConfigurator::class),
+            $this->app->make(Storage::class),
+        ]);
+        $maintenance->makePartial();
+        $maintenance
+            ->shouldReceive('isEnabled')
+            ->once()
+            ->andReturn(false);
+        $maintenance
+            ->shouldReceive('schedule')
+            ->once()
+            ->andReturn(true);
+        $maintenance
+            ->shouldReceive('enable')
+            ->once()
+            ->andReturn(true);
+
+        Queue::fake();
+
+        $this->assertTrue($maintenance->start(Date::now(), null, true));
+
+        Queue::assertNothingPushed();
+    }
+
+    /**
+     * @covers ::start
      */
     public function testStartIfEnabled(): void {
         $maintenance = Mockery::mock(Maintenance::class);

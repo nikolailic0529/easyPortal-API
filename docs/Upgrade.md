@@ -17,9 +17,9 @@
 7. `php artisan cache:clear`
 8. `php artisan lighthouse:clear-cache`
 9. `php artisan config:cache`
-10. `php artisan route:cache`
-11. `php artisan event:cache`
-12. `php artisan optimize` (just for the case, because it in Laravel 8/9 it is equivalent of `config:cache` + `route:cache`)
+10. `php artisan event:cache`
+11. `php artisan optimize` (just for the case, because it in Laravel 8/9 it is equivalent of `config:cache` + `route:cache`)
+12. `php artisan route:clear` (required because when Laravel run from subdirectory and routes cached the root route `/` will not work; if Laravel run from the root it probably can be omitted)
 13. `php artisan migrate`
 14. `php artisan storage:link`
 15. `php artisan ep:maintenance-version-update "$TAG_NAME" --commit="$GIT_COMMIT" --build="$BUILD_NUMBER"`

@@ -23,7 +23,8 @@ class Start extends Command {
         {--message= : message}
         {--wait : wait until maintenance is really started (default)}
         {--no-wait : do not wait}
-        {--wait-timeout=60 : wait timeout (seconds)}';
+        {--wait-timeout=60 : wait timeout (seconds)}
+        {--force : force start}';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -37,10 +38,11 @@ class Start extends Command {
         $duration = CarbonInterval::make($this->option('duration'));
         $message  = $this->option('message');
         $end      = Date::now()->add($duration);
-        $result   = $maintenance->start($end, $message);
+        $force    = $this->getBooleanOption('force', false);
+        $result   = $maintenance->start($end, $message, $force);
 
         // Wait?
-        if ($result) {
+        if ($result && !$force) {
             $wait    = $this->getBooleanOption('wait', true);
             $timeout = (int) $this->option('wait-timeout');
 
