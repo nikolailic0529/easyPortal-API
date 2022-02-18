@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Core\Observer\Subject;
 /**
  * @template T
  *
- * @mixin \App\Utils\Iterators\ObjectIterator<T>
+ * @mixin \App\Utils\Iterators\Contracts\ObjectIterator<T>
  */
 trait Subjects {
     private Subject $onInitSubject;

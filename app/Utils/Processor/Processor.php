@@ -10,7 +10,7 @@ use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -35,7 +35,8 @@ use function min;
  * after each chunk that is especially useful for queued jobs to continue
  * processing after error/timeout/stop signal/etc.
  *
- * @see \App\Utils\Iterators\ObjectIterator
+ * @see \App\Utils\Iterators\Contracts\ObjectIterator
+ * @see \App\Services\Queue\Concerns\ProcessorJob
  *
  * @template TItem
  * @template TChunkData
@@ -214,7 +215,7 @@ abstract class Processor {
     /**
      * @param TState $state
      *
-     * @return \App\Utils\Iterators\ObjectIterator<TItem>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<TItem>
      */
     abstract protected function getIterator(State $state): ObjectIterator;
 

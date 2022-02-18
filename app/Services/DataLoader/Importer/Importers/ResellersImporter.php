@@ -10,7 +10,7 @@ use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 

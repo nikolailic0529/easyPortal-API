@@ -7,7 +7,7 @@ use App\Services\Queue\Job;
 use App\Services\Queue\Pinger;
 use App\Services\Queue\Progress;
 use App\Services\Service;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;

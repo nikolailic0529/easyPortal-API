@@ -8,7 +8,7 @@ use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 class DistributorsImporter extends Importer {

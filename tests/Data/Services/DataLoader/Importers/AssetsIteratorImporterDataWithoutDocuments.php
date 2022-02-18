@@ -5,11 +5,9 @@ namespace Tests\Data\Services\DataLoader\Importers;
 use App\Models\Asset;
 use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
-
 use Illuminate\Contracts\Debug\ExceptionHandler;
-
 use Mockery;
 
 use function array_fill_keys;
@@ -50,7 +48,7 @@ class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Models\Asset|string>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Models\Asset|string>
      */
     public static function getIterator(): ObjectIterator {
         $assets = static::ASSETS;

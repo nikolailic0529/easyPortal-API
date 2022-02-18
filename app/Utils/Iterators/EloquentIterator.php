@@ -3,6 +3,7 @@
 namespace App\Utils\Iterators;
 
 use App\Utils\Iterators\Concerns\ChunkSize;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Exception;
 use Generator;
@@ -12,7 +13,7 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 /**
  * @template T of \Illuminate\Database\Eloquent\Model
  *
- * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
  */
 class EloquentIterator implements ObjectIterator {
     /**

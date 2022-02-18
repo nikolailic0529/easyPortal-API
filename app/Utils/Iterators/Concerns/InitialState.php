@@ -2,12 +2,12 @@
 
 namespace App\Utils\Iterators\Concerns;
 
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 
 /**
  * @template T
  *
- * @mixin \App\Utils\Iterators\ObjectIterator<T>
+ * @mixin \App\Utils\Iterators\Contracts\ObjectIterator<T>
  */
 trait InitialState {
     private ?ObjectIterator $initial = null;

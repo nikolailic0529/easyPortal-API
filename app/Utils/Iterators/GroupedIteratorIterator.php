@@ -2,6 +2,7 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Iterator;
 
@@ -10,11 +11,11 @@ use function count;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\ObjectIterator<array<T>>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<array<T>>
  */
 class GroupedIteratorIterator implements ObjectIterator {
     /**
-     * @param \App\Utils\Iterators\ObjectIterator<T> $iterator
+     * @param \App\Utils\Iterators\Contracts\ObjectIterator<T> $iterator
      */
     public function __construct(
         private ObjectIterator $iterator,

@@ -3,8 +3,8 @@
 namespace App\Utils\Processor;
 
 use App\Utils\Eloquent\ModelHelper;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\EloquentIterator;
-use App\Utils\Iterators\ObjectIterator;
 use Illuminate\Database\Eloquent\Builder;
 
 use function array_filter;

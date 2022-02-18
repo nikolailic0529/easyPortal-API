@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 use function array_merge;

@@ -5,6 +5,7 @@ namespace App\Utils\Iterators;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Generator;
 use InvalidArgumentException;
 
@@ -18,7 +19,7 @@ use function sprintf;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
  *
  * @uses \App\Utils\Iterators\Concerns\InitialState<T>
  * @uses \App\Utils\Iterators\Concerns\Subjects<T>
@@ -34,7 +35,7 @@ class ObjectIteratorsIterator implements ObjectIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\Utils\Iterators\ObjectIterator> $iterators
+     * @param array<string,\App\Utils\Iterators\Contracts\ObjectIterator> $iterators
      */
     public function __construct(
         protected array $iterators,

@@ -19,7 +19,7 @@ use App\Services\KeyCloak\Client\Types\Group as KeyCloakGroup;
 use App\Services\KeyCloak\Client\Types\Role as KeyCloakRole;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -446,7 +446,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\KeyCloak\Client\Types\User>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\KeyCloak\Client\Types\User>
      */
     public function getUsersIterator(): ObjectIterator {
         return new OffsetBasedObjectIterator(

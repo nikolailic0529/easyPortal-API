@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -221,7 +221,7 @@ class ExportController extends Controller {
     /**
      * @param array<string,mixed> $parameters
      *
-     * @return \App\Utils\Iterators\ObjectIterator<array<string,mixed>>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
         $chunk           = $this->getChunkSize();

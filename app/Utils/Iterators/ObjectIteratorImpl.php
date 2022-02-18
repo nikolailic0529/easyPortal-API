@@ -6,6 +6,7 @@ use App\Utils\Iterators\Concerns\ChunkConverter;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Exceptions\InfiniteLoopDetected;
 use Closure;
 use EmptyIterator;
@@ -20,7 +21,7 @@ use function reset;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\ObjectIterator<T>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
  *
  * @uses     \App\Utils\Iterators\Concerns\Subjects<T>
  * @uses     \App\Utils\Iterators\Concerns\InitialState<T>
