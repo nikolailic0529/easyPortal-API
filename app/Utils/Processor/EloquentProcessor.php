@@ -2,6 +2,8 @@
 
 namespace App\Utils\Processor;
 
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\EloquentIterator;
@@ -61,7 +63,9 @@ abstract class EloquentProcessor extends Processor {
     // <editor-fold desc="Processor">
     // =========================================================================
     protected function getTotal(State $state): ?int {
-        return $this->getBuilder($state)->count();
+        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($state): int {
+            return $this->getBuilder($state)->count();
+        });
     }
 
     protected function getIterator(State $state): ObjectIterator {
