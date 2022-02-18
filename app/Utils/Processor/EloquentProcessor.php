@@ -74,7 +74,7 @@ abstract class EloquentProcessor extends Processor {
      * @return \Illuminate\Database\Eloquent\Builder<TItem>
      */
     protected function getBuilder(State $state): Builder {
-        $class  = $this->getModelClass();
+        $class  = $this->getModel();
         $query  = $class::query();
         $model  = $query->getModel();
         $helper = new ModelHelper($model);
@@ -97,7 +97,7 @@ abstract class EloquentProcessor extends Processor {
     /**
      * @return class-string<TItem>
      */
-    abstract protected function getModelClass(): string;
+    abstract protected function getModel(): string;
     // </editor-fold>
 
     // <editor-fold desc="State">

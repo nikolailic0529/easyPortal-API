@@ -25,7 +25,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getModelClass')
+            ->shouldReceive('getModel')
             ->once()
             ->andReturn($builder->getModel()::class);
 
@@ -48,7 +48,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getModelClass')
+            ->shouldReceive('getModel')
             ->once()
             ->andReturn($builder->getModel()::class);
 
@@ -66,7 +66,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getModelClass')
+            ->shouldReceive('getModel')
             ->once()
             ->andReturn($builder->getModel()::class);
 
@@ -89,7 +89,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getModelClass')
+            ->shouldReceive('getModel')
             ->once()
             ->andReturn($builder->getModel()::class);
 
@@ -112,7 +112,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getModelClass')
+            ->shouldReceive('getModel')
             ->once()
             ->andReturn($builder->getModel()::class);
 
@@ -135,7 +135,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getModelClass')
+            ->shouldReceive('getModel')
             ->once()
             ->andReturn($builder->getModel()::class);
 
