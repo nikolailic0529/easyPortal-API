@@ -3,6 +3,7 @@
 namespace App\Utils\Iterators;
 
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Tests\TestCase;
 
@@ -21,7 +22,10 @@ class GroupedIteratorIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $iterator = new GroupedIteratorIterator(
-            new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
+            new ObjectsIterator(
+                Mockery::mock(ExceptionHandler::class),
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            ),
         );
 
         $this->assertEquals([[1, 2, 3, 4], [5, 6]], iterator_to_array(
@@ -40,7 +44,10 @@ class GroupedIteratorIteratorTest extends TestCase {
      */
     public function testGetIteratorEmpty(): void {
         $this->assertEquals([], iterator_to_array(
-            new GroupedIteratorIterator(new ObjectsIterator([])),
+            new GroupedIteratorIterator(new ObjectsIterator(
+                Mockery::mock(ExceptionHandler::class),
+                [],
+            )),
         ));
     }
 
@@ -65,7 +72,10 @@ class GroupedIteratorIteratorTest extends TestCase {
         });
 
         $iterator = (new GroupedIteratorIterator(
-            new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
+            new ObjectsIterator(
+                Mockery::mock(ExceptionHandler::class),
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            ),
         ))
             ->onInit(Closure::fromCallable($init))
             ->onFinish(Closure::fromCallable($finish))

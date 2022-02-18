@@ -6,6 +6,11 @@ use Closure;
 use IteratorAggregate;
 
 /**
+ * The ObjectIterator is specially designed to process a huge amount of items
+ * from different sources. It supports iteration restoration from the specified
+ * offset, provides chunks support, and should implement error handling to avoid
+ * stopping iteration if one item failed.
+ *
  * @template T
  *
  * @extends \IteratorAggregate<T>

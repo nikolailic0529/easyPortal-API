@@ -8,7 +8,9 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\I18n\Formatter;
 use App\Utils\Iterators\ObjectsIterator;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Str;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -45,6 +47,7 @@ class CountAssetsTest extends TestCase {
                 ->with($reseller->getKey())
                 ->once()
                 ->andReturn(new ObjectsIterator(
+                    Mockery::mock(ExceptionHandler::class),
                     $assets,
                     static function (array $item): ViewAsset {
                         return ViewAsset::make($item);

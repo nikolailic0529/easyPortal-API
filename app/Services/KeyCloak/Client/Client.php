@@ -23,6 +23,7 @@ use App\Utils\Iterators\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\RequestException;
@@ -37,12 +38,20 @@ use function rtrim;
 
 class Client {
     public function __construct(
+        protected ExceptionHandler $exceptionHandler,
         protected Factory $client,
         protected Repository $config,
         protected Token $token,
     ) {
         // empty
     }
+
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Groups">
     // =========================================================================
@@ -440,9 +449,12 @@ class Client {
      * @return \App\Utils\Iterators\ObjectIterator<\App\Services\KeyCloak\Client\Types\User>
      */
     public function getUsersIterator(): ObjectIterator {
-        return new OffsetBasedObjectIterator(function (array $variables): array {
-            return $this->getUsers($variables['limit'], $variables['offset']);
-        });
+        return new OffsetBasedObjectIterator(
+            $this->getExceptionHandler(),
+            function (array $variables): array {
+                return $this->getUsers($variables['limit'], $variables['offset']);
+            },
+        );
     }
 
     public function removeUserFromGroup(User|string $user, string $groupId): bool {

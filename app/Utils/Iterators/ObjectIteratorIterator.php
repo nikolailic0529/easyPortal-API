@@ -6,6 +6,7 @@ use App\Utils\Iterators\Concerns\ChunkConverter;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Subjects;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Iterator;
 
 /**
@@ -27,10 +28,15 @@ class ObjectIteratorIterator implements ObjectIterator {
      * @param \Closure(V $item): T                   $converter
      */
     public function __construct(
+        protected ExceptionHandler $exceptionHandler,
         protected ObjectIterator $iterator,
         protected Closure $converter,
     ) {
         // empty
+    }
+
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     protected function getConverter(): ?Closure {
