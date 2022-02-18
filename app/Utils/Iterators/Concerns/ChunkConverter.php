@@ -2,6 +2,7 @@
 
 namespace App\Utils\Iterators\Concerns;
 
+use App\Utils\Iterators\Contracts\IteratorFatalError;
 use App\Utils\Iterators\Exceptions\BrokenIteratorDetected;
 use Closure;
 use Exception;
@@ -32,6 +33,8 @@ trait ChunkConverter {
                 if ($item !== null) {
                     $converted[$key] = $item;
                 }
+            } catch (IteratorFatalError $exception) {
+                throw $exception;
             } catch (Throwable $exception) {
                 if (!($exception instanceof Exception)) {
                     $errors++;
