@@ -5,7 +5,7 @@ namespace App\Utils\Cache;
 use App\Models\Organization;
 use App\Services\I18n\Locale;
 use App\Services\Organization\OrganizationProvider;
-use App\Services\Queue\NamedJob;
+use App\Services\Queue\Contracts\NamedJob;
 use ArrayIterator;
 use Exception;
 use Illuminate\Contracts\Queue\QueueableEntity;

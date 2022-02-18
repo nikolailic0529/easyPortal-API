@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Services\Queue\Contracts\Progressable;
+use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\CronJob;
-use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
-use App\Services\Queue\Stoppable;
 use App\Services\Settings\Settings as SettingsService;
 use App\Utils\Description;
 use Illuminate\Contracts\Foundation\Application;

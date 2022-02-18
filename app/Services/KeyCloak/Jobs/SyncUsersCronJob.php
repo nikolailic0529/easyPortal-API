@@ -4,8 +4,8 @@ namespace App\Services\KeyCloak\Jobs;
 
 use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\Concerns\ProcessorJob;
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
-use App\Services\Queue\Progressable;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Queue;
+namespace App\Services\Queue\Contracts;
 
 use App\Utils\Cache\CacheKeyable;
 

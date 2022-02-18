@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
 use App\Services\Queue\JobState;
 use App\Services\Queue\Progress;
-use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;

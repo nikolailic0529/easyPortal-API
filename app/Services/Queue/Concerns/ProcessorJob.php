@@ -18,7 +18,7 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
  * @mixin \App\Services\Queue\Job
  * @mixin \App\Services\Queue\CronJob
  *
- * @implements \App\Services\Queue\Progressable
+ * @implements \App\Services\Queue\Contracts\Progressable
  */
 trait ProcessorJob {
     /**

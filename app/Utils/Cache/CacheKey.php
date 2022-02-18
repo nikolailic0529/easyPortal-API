@@ -4,7 +4,7 @@ namespace App\Utils\Cache;
 
 use App\Services\I18n\Locale;
 use App\Services\Organization\OrganizationProvider;
-use App\Services\Queue\NamedJob;
+use App\Services\Queue\Contracts\NamedJob;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
