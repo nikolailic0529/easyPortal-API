@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Services\DataLoader\Events\DataImported;
+use App\Services\Recalculator\Events\ModelsRecalculated;
 use Illuminate\Support\Collection;
 use LogicException;
 
@@ -37,10 +38,17 @@ trait WithEvents {
     }
 
     private function cleanupEvent(object $event): mixed {
+        // todo(tests): Probably will be good to add some generic interface for
+        //      all app's events and for events that can be dumped/compared.
         $data = null;
 
         if ($event instanceof DataImported) {
             $data = $event->getData()->getData();
+        } elseif ($event instanceof ModelsRecalculated) {
+            $data = [
+                'model' => $event->getModel(),
+                'keys'  => $event->getKeys(),
+            ];
         } else {
             throw new LogicException('Not yet supported.');
         }
