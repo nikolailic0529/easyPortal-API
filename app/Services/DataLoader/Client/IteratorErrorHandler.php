@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Exceptions\FailedToProcessChunkItem;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -31,10 +30,6 @@ trait IteratorErrorHandler {
      * @param V $item
      */
     protected function report(Throwable $exception, mixed $item): void {
-        if ($exception instanceof GraphQLRequestFailed) {
-            throw $exception;
-        }
-
         parent::report(new FailedToProcessChunkItem($this->query, $item, $exception), $item);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importer;
 
-use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Exceptions\FailedToProcessItem;
 use App\Utils\Iterators\ObjectIteratorIterator;
 use Throwable;
@@ -18,10 +17,6 @@ class IteratorIterator extends ObjectIteratorIterator {
      * @param V $item
      */
     protected function report(Throwable $exception, mixed $item): void {
-        if ($exception instanceof GraphQLRequestFailed) {
-            throw $exception;
-        }
-
         parent::report(new FailedToProcessItem($item, $exception), $item);
     }
 }
