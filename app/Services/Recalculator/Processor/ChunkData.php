@@ -8,6 +8,7 @@ use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Utils\Eloquent\Callbacks\GetKey;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -23,17 +24,17 @@ class ChunkData {
     /**
      * @var array<string>
      */
-    protected array $keys;
+    private array $keys;
 
     /**
      * @var array<string, array<string, int>>
      */
-    protected array $assetsCount;
+    private array $assetsCount;
 
     /**
      * @var array<string, array<string, array<string, int>>>
      */
-    protected array $assetsCountFor;
+    private array $assetsCountFor;
 
     /**
      * @param \Illuminate\Support\Collection<TModel>|array<TModel> $items
@@ -58,7 +59,10 @@ class ChunkData {
     }
 
     public function getResellerAssetsCountFor(Reseller $reseller, Location $location): int {
-        return $this->getAssetsCountFor('reseller_id', 'location_id')[$reseller->getKey()][$location->getKey()] ?? 0;
+        $assets = $this->getAssetsCountFor('reseller_id', 'location_id', 'location');
+        $count  = $assets[$reseller->getKey()][$location->getKey()] ?? 0;
+
+        return $count;
     }
 
     public function getCustomerAssetsCount(Customer $customer): int {
@@ -66,7 +70,10 @@ class ChunkData {
     }
 
     public function getCustomerAssetsCountFor(Customer $customer, CustomerLocation $location): int {
-        return $this->getAssetsCountFor('customer_id', 'location_id')[$customer->getKey()][$location->location_id] ?? 0;
+        $assets = $this->getAssetsCountFor('customer_id', 'location_id', 'location');
+        $count  = $assets[$customer->getKey()][$location->location_id] ?? 0;
+
+        return $count;
     }
 
     public function getLocationAssetsCount(Location $location): int {
@@ -105,13 +112,18 @@ class ChunkData {
     /**
      * @return array<string, array<string, array<string, int>>>
      */
-    protected function getAssetsCountFor(string $owner, string $group): array {
+    protected function getAssetsCountFor(string $owner, string $group, string $relation): array {
         if (!isset($this->assetsCountFor[$owner][$group])) {
             // Calculate
             $data   = [];
             $keys   = $this->getKeys();
             $result = Asset::query()
                 ->select([$owner, $group, DB::raw('count(*) as count')])
+                ->where(static function (Builder $builder) use ($group, $relation): void {
+                    $builder
+                        ->orWhereNull($group)
+                        ->orWhereHasIn($relation);
+                })
                 ->whereIn($owner, $keys)
                 ->groupBy($owner, $group)
                 ->toBase()
