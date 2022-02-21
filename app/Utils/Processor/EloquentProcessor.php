@@ -24,27 +24,29 @@ use function array_unique;
  */
 abstract class EloquentProcessor extends Processor {
     /**
-     * @var array<string>
+     * @var array<string>|null
      */
-    private array $keys        = [];
-    private bool  $withTrashed = false;
+    private ?array $keys        = null;
+    private bool   $withTrashed = false;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @return array<string>
+     * @return array<string>|null
      */
-    public function getKeys(): array {
+    public function getKeys(): ?array {
         return $this->keys;
     }
 
     /**
-     * @param array<string> $keys
+     * @param array<string>|null $keys
      *
      * @return $this<TItem, TChunkData, TState>
      */
-    public function setKeys(array $keys): static {
-        $this->keys = array_unique(array_filter($keys));
+    public function setKeys(?array $keys): static {
+        $this->keys = $keys !== null
+            ? array_unique(array_filter($keys))
+            : null;
 
         return $this;
     }
@@ -83,7 +85,7 @@ abstract class EloquentProcessor extends Processor {
         $model  = $query->getModel();
         $helper = new ModelHelper($model);
 
-        if ($state->keys) {
+        if ($state->keys !== null) {
             $query = $query->whereIn($model->getKeyName(), $state->keys);
         }
 

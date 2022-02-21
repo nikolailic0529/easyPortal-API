@@ -4,8 +4,8 @@ namespace App\Utils\Processor;
 
 class EloquentState extends State {
     /**
-     * @var array<string>
+     * @var array<string>|null
      */
-    public array $keys        = [];
-    public bool  $withTrashed = false;
+    public ?array $keys        = null;
+    public bool   $withTrashed = false;
 }
