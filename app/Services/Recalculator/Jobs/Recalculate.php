@@ -2,27 +2,29 @@
 
 namespace App\Services\Recalculator\Jobs;
 
-use App\Models\Asset;
 use App\Queues;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;
 use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Eloquent\Model;
-use App\Utils\Eloquent\SmartSave\BatchSave;
-use Illuminate\Database\Eloquent\Builder;
+use App\Utils\Processor\Processor;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
 use function is_string;
-use function sprintf;
 
 /**
- * @template T of \App\Utils\Eloquent\Model
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ *
+ * @uses     \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
  */
 abstract class Recalculate extends Job implements Initializable {
+    use ProcessorJob {
+        getProcessor as private createProcessor;
+    }
+
     /**
      * @var array<string>
      */
@@ -45,9 +47,12 @@ abstract class Recalculate extends Job implements Initializable {
     }
 
     /**
-     * @param array<string>|array<T>|\Illuminate\Support\Collection<string>|\Illuminate\Support\Collection<T> $models
+     * @param array<string>
+     *     |array<TModel>
+     *     |\Illuminate\Support\Collection<string>
+     *     |\Illuminate\Support\Collection<TModel> $models
      *
-     * @return $this<T>
+     * @return $this<TModel>
      */
     public function init(array|Collection $models): static {
         // Empty?
@@ -57,20 +62,8 @@ abstract class Recalculate extends Job implements Initializable {
             throw new InvalidArgumentException('The `$keys` cannot be empty.');
         }
 
-        // Valid?
-        $expected = $this->getModel();
-        $actual   = $models->first();
-
-        if (!is_string($actual) && !($actual instanceof $expected)) {
-            throw new InvalidArgumentException(sprintf(
-                'The `$keys` must contain `%s` models, but it is contain `%s`.',
-                $expected::class,
-                $actual::class,
-            ));
-        }
-
         // Extract
-        if (!is_string($actual)) {
+        if (!is_string($models->first())) {
             $models = $models->map(new GetKey());
         }
 
@@ -83,130 +76,9 @@ abstract class Recalculate extends Job implements Initializable {
         return $this;
     }
 
-    /**
-     * @return T
-     */
-    abstract public function getModel(): Model;
-
-    abstract protected function process(): void;
-
-    public function __invoke(): void {
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): void {
-            BatchSave::enable(function (): void {
-                $this->process();
-            });
-        });
-    }
-
-    /**
-     * @param array<string> $keys
-     *
-     * @return array<string,int>
-     */
-    protected function calculateAssetsFor(string $property, array $keys): array {
-        $data   = [];
-        $result = Asset::query()
-            ->select([$property, DB::raw('count(*) as count')])
-            ->whereIn($property, $keys)
-            ->groupBy($property)
-            ->toBase()
-            ->get();
-
-        foreach ($result as $row) {
-            /** @var \stdClass $row */
-            $data[$row->{$property}] = (int) $row->count;
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param array<string> $keys
-     *
-     * @return array<string,array<string, int>>
-     */
-    protected function calculateAssetsByLocationFor(string $property, array $keys): array {
-        $data   = [];
-        $result = Asset::query()
-            ->select([$property, 'location_id', DB::raw('count(*) as count')])
-            ->whereIn($property, $keys)
-            ->where(static function (Builder $builder): void {
-                $builder
-                    ->orWhereNull('location_id')
-                    ->orWhereHasIn('location');
-            })
-            ->groupBy($property, 'location_id')
-            ->toBase()
-            ->get();
-
-        foreach ($result as $row) {
-            /** @var \stdClass $row */
-            $i = (string) $row->{$property};
-            $l = (string) $row->location_id;
-
-            $data[$i][$l] = (int) $row->count + ($data[$i][$l] ?? 0);
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param array<string> $keys
-     *
-     * @return array<string,array<string, int>>
-     */
-    protected function calculateAssetsByCustomerFor(string $property, array $keys): array {
-        $data   = [];
-        $result = Asset::query()
-            ->select([$property, 'customer_id', DB::raw('count(*) as count')])
-            ->whereIn($property, $keys)
-            ->where(static function (Builder $builder): void {
-                $builder
-                    ->orWhereNull('customer_id')
-                    ->orWhereHasIn('customer');
-            })
-            ->groupBy($property, 'customer_id')
-            ->toBase()
-            ->get();
-
-        foreach ($result as $row) {
-            /** @var \stdClass $row */
-            $i = (string) $row->{$property};
-            $c = (string) $row->customer_id;
-
-            $data[$i][$c] = (int) $row->count + ($data[$i][$c] ?? 0);
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param array<string> $keys
-     *
-     * @return array<string,array<string, int>>
-     */
-    protected function calculateAssetsByResellerFor(string $property, array $keys): array {
-        $data   = [];
-        $result = Asset::query()
-            ->select([$property, 'reseller_id', DB::raw('count(*) as count')])
-            ->whereIn($property, $keys)
-            ->where(static function (Builder $builder): void {
-                $builder
-                    ->orWhereNull('reseller_id')
-                    ->orWhereHasIn('reseller');
-            })
-            ->groupBy($property, 'reseller_id')
-            ->toBase()
-            ->get();
-
-        foreach ($result as $row) {
-            /** @var \stdClass $row */
-            $i = (string) $row->{$property};
-            $r = (string) $row->reseller_id;
-
-            $data[$i][$r] = (int) $row->count + ($data[$i][$r] ?? 0);
-        }
-
-        return $data;
+    protected function getProcessor(Container $container, QueueableConfig $config): Processor {
+        return $this
+            ->createProcessor($container, $config)
+            ->setKeys($this->getKeys());
     }
 }
