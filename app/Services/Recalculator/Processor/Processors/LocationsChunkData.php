@@ -2,10 +2,8 @@
 
 namespace App\Services\Recalculator\Processor\Processors;
 
-use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Location;
-use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Services\Recalculator\Processor\ChunkData;
 
@@ -23,6 +21,10 @@ class LocationsChunkData extends ChunkData {
      */
     private array $customers;
 
+    public function getLocationAssetsCount(Location $location): int {
+        return $this->getAssetsCount('location_id')[$location->getKey()] ?? 0;
+    }
+
     /**
      * @return array<string,array<string>>
      */
@@ -39,10 +41,9 @@ class LocationsChunkData extends ChunkData {
 
             foreach ($result as $row) {
                 /** @var \stdClass $row */
-                $l = (string) $row->location_id;
-                $r = (string) $row->reseller_id;
-
-                $data[$l][] = $r;
+                $locationId          = (string) $row->location_id;
+                $resellerId          = (string) $row->reseller_id;
+                $data[$locationId][] = $resellerId;
             }
 
             // Save
@@ -55,7 +56,7 @@ class LocationsChunkData extends ChunkData {
     /**
      * @return array<string, int>
      */
-    public function getLocationResellersAssets(Location $location): array {
+    public function getLocationAssetsByReseller(Location $location): array {
         return $this->getAssetsCountFor('location_id', 'reseller_id', 'reseller')[$location->getKey()] ?? [];
     }
 
@@ -75,10 +76,9 @@ class LocationsChunkData extends ChunkData {
 
             foreach ($result as $row) {
                 /** @var \stdClass $row */
-                $l = (string) $row->location_id;
-                $c = (string) $row->customer_id;
-
-                $data[$l][] = $c;
+                $locationId          = (string) $row->location_id;
+                $customerId          = (string) $row->customer_id;
+                $data[$locationId][] = $customerId;
             }
 
             // Save
@@ -91,7 +91,7 @@ class LocationsChunkData extends ChunkData {
     /**
      * @return array<string, int>
      */
-    public function getLocationCustomersAssets(Location $location): array {
+    public function getLocationAssetsByCustomer(Location $location): array {
         return $this->getAssetsCountFor('location_id', 'customer_id', 'customer')[$location->getKey()] ?? [];
     }
 }

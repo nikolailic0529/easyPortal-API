@@ -38,15 +38,16 @@ class LocationsProcessor extends Processor {
     /**
      * @param \App\Utils\Processor\EloquentState                                 $state
      * @param \App\Services\Recalculator\Processor\Processors\LocationsChunkData $data
-     * @param \App\Models\Customer                                               $item
+     * @param \App\Models\Location                                               $item
      */
     protected function process(State $state, mixed $data, mixed $item): void {
         // Prepare
-        $locationResellers        = $data->getLocationResellers($item);
-        $locationCustomers        = $data->getLocationCustomers($item);
-        $locationAssetsByReseller = $data->getLocationResellersAssets($item);
-        $locationAssetsByCustomer = $data->getLocationCustomersAssets($item);
-        $locationAssetsByLocation = $data->getLocationAssetsCount($item);
+        $location                 = $item;
+        $locationAssets           = $data->getLocationAssetsCount($location);
+        $locationResellers        = $data->getLocationResellers($location);
+        $locationCustomers        = $data->getLocationCustomers($location);
+        $locationAssetsByReseller = $data->getLocationAssetsByReseller($location);
+        $locationAssetsByCustomer = $data->getLocationAssetsByCustomer($location);
 
         // Resellers
         $resellers = [];
@@ -60,8 +61,8 @@ class LocationsProcessor extends Processor {
             $resellers[$id]->assets_count = $locationAssetsByReseller[$id] ?? 0;
         }
 
-        $item->resellersPivots = $resellers;
-        $item->save();
+        $location->resellersPivots = $resellers;
+        $location->save();
 
         // Customers
         $customers = [];
@@ -75,12 +76,12 @@ class LocationsProcessor extends Processor {
             $customers[$id]->assets_count = $locationAssetsByCustomer[$id] ?? 0;
         }
 
-        $item->customersPivots = $customers;
-        $item->save();
+        $location->customersPivots = $customers;
+        $location->save();
 
         // Countable
-        $item->customers_count = count($customers);
-        $item->assets_count    = $locationAssetsByLocation;
-        $item->save();
+        $location->customers_count = count($customers);
+        $location->assets_count    = $locationAssets;
+        $location->save();
     }
 }

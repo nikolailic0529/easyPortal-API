@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 use function array_filter;
 use function array_keys;
-use function array_merge;
-use function array_reduce;
 
 /**
  * @extends \App\Services\Recalculator\Processor\ChunkData<\App\Models\Reseller>
@@ -33,6 +31,10 @@ class ResellersChunkData extends ChunkData {
      * @var array<string,array<string>>
      */
     private array $customerLocations;
+
+    public function getResellerAssetsCount(Reseller $reseller): int {
+        return $this->getAssetsCount('reseller_id')[$reseller->getKey()] ?? 0;
+    }
 
     /**
      * @return array<string, int>
@@ -75,10 +77,9 @@ class ResellersChunkData extends ChunkData {
 
             foreach ($result as $row) {
                 /** @var \stdClass $row */
-                $r = (string) $row->reseller_id;
-                $l = (string) $row->location_id;
-
-                $data[$r][$l] = (int) $row->count + ($data[$r][$l] ?? 0);
+                $resellerId                     = (string) $row->reseller_id;
+                $locationId                     = (string) $row->location_id;
+                $data[$resellerId][$locationId] = (int) $row->count + ($data[$resellerId][$locationId] ?? 0);
             }
 
             // Save
@@ -110,10 +111,9 @@ class ResellersChunkData extends ChunkData {
 
             foreach ($result as $row) {
                 /** @var \stdClass $row */
-                $r = (string) $row->reseller_id;
-                $c = (string) $row->customer_id;
-
-                $data[$r][$c] = (int) $row->count + ($data[$r][$c] ?? 0);
+                $resellerId                     = (string) $row->reseller_id;
+                $customerId                     = (string) $row->customer_id;
+                $data[$resellerId][$customerId] = (int) $row->count + ($data[$resellerId][$customerId] ?? 0);
             }
 
             // Save
@@ -140,10 +140,9 @@ class ResellersChunkData extends ChunkData {
 
             foreach ($result as $row) {
                 /** @var \stdClass $row */
-                $c = (string) $row->customer_id;
-                $l = (string) $row->location_id;
-
-                $data[$c][] = $l;
+                $customerId          = (string) $row->customer_id;
+                $locationId          = (string) $row->location_id;
+                $data[$customerId][] = $locationId;
             }
 
             // Save
