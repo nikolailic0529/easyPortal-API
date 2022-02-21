@@ -7,7 +7,7 @@ use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\GraphQL\ModelConverter;
 use App\Services\Search\GraphQL\ScoutColumnResolver;
 use App\Services\Search\Jobs\UpdateIndexJob;
-use App\Services\Search\Listeners\DataImportedListener;
+use App\Services\Search\Listeners\IndexExpiredListener;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -64,7 +64,7 @@ class Provider extends ServiceProvider {
 
     protected function registerListeners(): void {
         $this->booting(static function (Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(DataImportedListener::class);
+            $dispatcher->subscribe(IndexExpiredListener::class);
         });
     }
 }

@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Listeners\DataImportedListener
+ * @coversDefaultClass \App\Services\Search\Listeners\IndexExpiredListener
  */
 class CacheExpiredListenerTest extends TestCase {
     // <editor-fold desc="Tests">

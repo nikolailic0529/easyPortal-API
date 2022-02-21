@@ -11,7 +11,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 use function array_values;
 
-class DataImportedListener implements Subscriber {
+class IndexExpiredListener implements Subscriber {
     public function __construct(
         protected Container $container,
         protected Service $service,

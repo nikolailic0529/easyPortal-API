@@ -16,14 +16,14 @@ use function array_values;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Listeners\DataImportedListener
+ * @coversDefaultClass \App\Services\Search\Listeners\IndexExpiredListener
  */
-class DataImportedListenerTest extends TestCase {
+class IndexExpiredListenerTest extends TestCase {
     /**
      * @covers ::subscribe
      */
     public function testSubscribe(): void {
-        $this->override(DataImportedListener::class, static function (MockInterface $mock): void {
+        $this->override(IndexExpiredListener::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('__invoke')
                 ->once()
@@ -42,7 +42,7 @@ class DataImportedListenerTest extends TestCase {
             ->collect(Asset::factory()->make())
             ->collect(Customer::factory()->make());
         $event    = new DataImported($data);
-        $listener = $this->app->make(DataImportedListener::class);
+        $listener = $this->app->make(IndexExpiredListener::class);
 
         Queue::fake();
 
