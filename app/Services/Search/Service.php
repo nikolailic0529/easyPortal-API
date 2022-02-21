@@ -25,6 +25,13 @@ class Service extends BaseService {
     ];
 
     /**
+     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     */
+    public function isSearchableModel(string $model): bool {
+        return isset(static::$searchable[$model]);
+    }
+
+    /**
      * @return array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
      */
     public function getSearchableModels(): array {
