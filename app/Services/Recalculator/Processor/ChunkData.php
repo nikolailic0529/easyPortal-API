@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -58,9 +59,9 @@ class ChunkData {
         return $this->getAssetsCount('reseller_id')[$reseller->getKey()] ?? 0;
     }
 
-    public function getResellerAssetsCountFor(Reseller $reseller, Location $location): int {
+    public function getResellerAssetsCountFor(Reseller $reseller, ResellerLocation $location): int {
         $assets = $this->getAssetsCountFor('reseller_id', 'location_id', 'location');
-        $count  = $assets[$reseller->getKey()][$location->getKey()] ?? 0;
+        $count  = $assets[$reseller->getKey()][$location->location_id] ?? 0;
 
         return $count;
     }

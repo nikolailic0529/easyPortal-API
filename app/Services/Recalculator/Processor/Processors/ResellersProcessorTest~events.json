@@ -1,0 +1,10 @@
+[
+    {
+        "model": "App\\Models\\Reseller",
+        "keys": [
+            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
+            "93dff777-6006-5616-bdb5-a56ec97248bb",
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
+        ]
+    }
+]
