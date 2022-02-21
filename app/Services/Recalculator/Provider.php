@@ -2,9 +2,9 @@
 
 namespace App\Services\Recalculator;
 
-use App\Services\Recalculator\Commands\RecalculateCustomers;
-use App\Services\Recalculator\Commands\RecalculateLocations;
-use App\Services\Recalculator\Commands\RecalculateResellers;
+use App\Services\Recalculator\Commands\CustomersRecalculate;
+use App\Services\Recalculator\Commands\LocationsRecalculate;
+use App\Services\Recalculator\Commands\ResellersRecalculate;
 use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator;
 use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator;
 use App\Services\Recalculator\Jobs\Cron\ResellersRecalculator;
@@ -32,9 +32,9 @@ class Provider extends ServiceProvider {
 
     public function boot(): void {
         $this->bootCommands(
-            RecalculateCustomers::class,
-            RecalculateLocations::class,
-            RecalculateResellers::class,
+            ResellersRecalculate::class,
+            CustomersRecalculate::class,
+            LocationsRecalculate::class,
         );
         $this->bootSchedule([
             ResellersRecalculator::class,
