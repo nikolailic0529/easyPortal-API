@@ -21,6 +21,9 @@ use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
+use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator as RecalculatorCustomersRecalculator;
+use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator as RecalculatorLocationsRecalculator;
+use App\Services\Recalculator\Jobs\Cron\ResellersRecalculator as RecalculatorResellersRecalculator;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -1575,6 +1578,63 @@ interface Constants {
     #[Service(MaintenanceNotifyCronJob::class, 'queue')]
     #[Group('maintenance')]
     public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR">
+    // =========================================================================
+    // <editor-fold desc="EP_RECALCULATOR_RESELLERS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorResellersRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_RESELLERS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorResellersRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_RESELLERS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_CUSTOMERS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorCustomersRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_CUSTOMERS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorCustomersRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_CUSTOMERS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_LOCATIONS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorLocationsRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_LOCATIONS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorLocationsRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_LOCATIONS_RECALCULATOR_CRON = '0 0 1 * *';
     // </editor-fold>
     // </editor-fold>
 }

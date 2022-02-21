@@ -16,6 +16,8 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 use function is_string;
 
 /**
+ * Recalculates properties of given models.
+ *
  * @template TModel of \Illuminate\Database\Eloquent\Model
  *
  * @uses     \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
