@@ -14,8 +14,8 @@ use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
 use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
-use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
+use App\Services\KeyCloak\Jobs\Cron\PermissionsSynchronizer;
+use App\Services\KeyCloak\Jobs\Cron\UsersSynchronizer;
 use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
@@ -616,62 +616,62 @@ interface Constants {
     #[Type(StringType::class)]
     public const EP_KEYCLOAK_ORG_ADMIN_GROUP = null;
 
-    // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
+    // <editor-fold desc="EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(SyncPermissionsCronJob::class, 'enabled')]
+    #[Service(PermissionsSynchronizer::class, 'enabled')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_ENABLED = true;
+    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(SyncPermissionsCronJob::class, 'cron')]
+    #[Service(PermissionsSynchronizer::class, 'cron')]
     #[Group('keycloak')]
     #[Type(CronExpression::class)]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_CRON = '0 0 * * *';
+    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(SyncPermissionsCronJob::class, 'queue')]
+    #[Service(PermissionsSynchronizer::class, 'queue')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK;
+    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
     // </editor-fold>
 
-    // <editor-fold desc="EP_KEYCLOAK_SYNC_USERS">
+    // <editor-fold desc="EP_KEYCLOAK_USERS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(SyncUsersCronJob::class, 'enabled')]
+    #[Service(UsersSynchronizer::class, 'enabled')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_USERS_ENABLED = true;
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(SyncUsersCronJob::class, 'cron')]
+    #[Service(UsersSynchronizer::class, 'cron')]
     #[Group('keycloak')]
     #[Type(CronExpression::class)]
-    public const EP_KEYCLOAK_SYNC_USERS_CRON = '0 0 * * *';
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(SyncUsersCronJob::class, 'queue')]
+    #[Service(UsersSynchronizer::class, 'queue')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_USERS_QUEUE = Queues::KEYCLOAK;
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
 
     /**
      * Chunk size.
      */
-    #[Service(SyncUsersCronJob::class, 'settings.chunk')]
+    #[Service(UsersSynchronizer::class, 'settings.chunk')]
     #[Group('keycloak')]
     #[Type(IntType::class)]
-    public const EP_KEYCLOAK_SYNC_USERS_CHUNK = 100;
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_CHUNK = 100;
     // </editor-fold>
 
     // </editor-fold>

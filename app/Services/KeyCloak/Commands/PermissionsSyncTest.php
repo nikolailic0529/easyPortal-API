@@ -18,9 +18,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\KeyCloak\Commands\SyncPermissions
+ * @coversDefaultClass \App\Services\KeyCloak\Commands\PermissionsSync
  */
-class SyncPermissionsTest extends TestCase {
+class PermissionsSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -89,7 +89,7 @@ class SyncPermissionsTest extends TestCase {
             'key' => 'permission-c',
         ]);
 
-        $this->artisan(SyncPermissions::class);
+        $this->artisan(PermissionsSync::class);
 
         $actual   = $this->getPermissions();
         $expected = [
@@ -143,7 +143,7 @@ class SyncPermissionsTest extends TestCase {
             'deleted_at' => Date::now(),
         ]);
 
-        $this->artisan(SyncPermissions::class);
+        $this->artisan(PermissionsSync::class);
 
         $actual   = $this->getPermissions();
         $expected = [
@@ -216,7 +216,7 @@ class SyncPermissionsTest extends TestCase {
             'key' => 'permission-b',
         ]);
 
-        $this->artisan(SyncPermissions::class);
+        $this->artisan(PermissionsSync::class);
 
         $role     = RoleModel::query()
             ->withoutGlobalScope(OwnedByOrganizationScope::class)

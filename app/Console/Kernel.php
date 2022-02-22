@@ -26,10 +26,6 @@ use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
 use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\KeyCloak\Commands\SyncPermissions;
-use App\Services\KeyCloak\Commands\SyncUsers;
-use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
-use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Commands\RebuildIndex as SearchRebuildIndex;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
@@ -65,8 +61,6 @@ class Kernel extends ConsoleKernel {
         UpdateAsset::class,
         CountAssets::class,
         AnalyzeAssets::class,
-        SyncPermissions::class,
-        SyncUsers::class,
         SearchRebuildIndex::class,
 
         // Dev
@@ -90,11 +84,9 @@ class Kernel extends ConsoleKernel {
         DocumentsUpdaterCronJob::class,
         AssetsImporterCronJob::class,
         AssetsUpdaterCronJob::class,
-        SyncPermissionsCronJob::class,
         SearchAssetsUpdaterCronJob::class,
         SearchCustomersUpdaterCronJob::class,
         SearchDocumentsUpdaterCronJob::class,
-        SyncUsersCronJob::class,
     ];
 
     /**

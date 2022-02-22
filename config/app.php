@@ -187,6 +187,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Services\Search\Provider::class,
         App\Services\Recalculator\Provider::class,
+        App\Services\KeyCloak\Provider::class,
     ],
 
     /*

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak\Jobs;
+namespace App\Services\KeyCloak\Jobs\Cron;
 
 use Illuminate\Contracts\Console\Kernel;
 use Mockery;
@@ -8,26 +8,26 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\KeyCloak\Jobs\SyncPermissionsCronJob
+ * @coversDefaultClass \App\Services\KeyCloak\Jobs\Cron\PermissionsSynchronizer
  */
-class SyncPermissionsCronJobTest extends TestCase {
+class PermissionsSynchronizerTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(SyncPermissionsCronJob::class);
+        $this->assertCronableRegistered(PermissionsSynchronizer::class);
     }
 
     /**
      * @covers ::handle
      */
     public function testHandle(): void {
-        $job    = $this->app->make(SyncPermissionsCronJob::class);
+        $job    = $this->app->make(PermissionsSynchronizer::class);
         $kernel = Mockery::mock(Kernel::class);
 
         $kernel
             ->shouldReceive('call')
-            ->with('ep:keycloak-sync-permissions')
+            ->with('ep:keycloak-permissions-sync')
             ->once();
 
         $job($kernel);
