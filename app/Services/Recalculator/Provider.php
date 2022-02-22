@@ -36,10 +36,10 @@ class Provider extends ServiceProvider {
             CustomersRecalculate::class,
             LocationsRecalculate::class,
         );
-        $this->bootSchedule([
+        $this->bootSchedule(
             ResellersRecalculator::class,
             CustomersRecalculator::class,
             LocationsRecalculator::class,
-        ]);
+        );
     }
 }

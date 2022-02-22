@@ -13,9 +13,9 @@ use App\Utils\Iterators\Concerns\Offset;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Laravel\Telescope\Telescope;
-use LastDragon_ru\LaraASP\Core\Observer\Subject;
+use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 use LogicException;
 use Throwable;
 
@@ -53,27 +53,27 @@ abstract class Processor {
     private bool     $running  = false;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
      */
-    private Subject $onInit;
+    private Dispatcher $onInit;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
      */
-    private Subject $onChange;
+    private Dispatcher $onChange;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
      */
-    private Subject $onFinish;
+    private Dispatcher $onFinish;
 
     public function __construct(
         private ExceptionHandler $exceptionHandler,
-        private Dispatcher $dispatcher,
+        private EventDispatcher $dispatcher,
     ) {
-        $this->onInit   = new Subject();
-        $this->onChange = new Subject();
-        $this->onFinish = new Subject();
+        $this->onInit   = new Dispatcher();
+        $this->onChange = new Dispatcher();
+        $this->onFinish = new Dispatcher();
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -82,7 +82,7 @@ abstract class Processor {
         return $this->exceptionHandler;
     }
 
-    protected function getDispatcher(): Dispatcher {
+    protected function getDispatcher(): EventDispatcher {
         return $this->dispatcher;
     }
 

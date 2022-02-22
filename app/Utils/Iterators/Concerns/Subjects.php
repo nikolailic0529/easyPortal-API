@@ -3,7 +3,7 @@
 namespace App\Utils\Iterators\Concerns;
 
 use Closure;
-use LastDragon_ru\LaraASP\Core\Observer\Subject;
+use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 
 /**
  * @template T
@@ -11,79 +11,86 @@ use LastDragon_ru\LaraASP\Core\Observer\Subject;
  * @mixin \App\Utils\Iterators\Contracts\ObjectIterator<T>
  */
 trait Subjects {
-    private Subject $onInitSubject;
-    private Subject $onFinishSubject;
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<void>
+     */
+    private Dispatcher $onInitDispatcher;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<void>
      */
-    private Subject $onBeforeChunkSubject;
+    private Dispatcher $onFinishDispatcher;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
      */
-    private Subject $onAfterChunkSubject;
+    private Dispatcher $onBeforeChunkDispatcher;
+
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
+     */
+    private Dispatcher $onAfterChunkDispatcher;
 
     public function __clone(): void {
-        if (isset($this->onInitSubject)) {
-            $this->onInitSubject = clone $this->onInitSubject;
+        if (isset($this->onInitDispatcher)) {
+            $this->onInitDispatcher = clone $this->onInitDispatcher;
         }
 
-        if (isset($this->onFinishSubject)) {
-            $this->onFinishSubject = clone $this->onFinishSubject;
+        if (isset($this->onFinishDispatcher)) {
+            $this->onFinishDispatcher = clone $this->onFinishDispatcher;
         }
 
-        if (isset($this->onBeforeChunkSubject)) {
-            $this->onBeforeChunkSubject = clone $this->onBeforeChunkSubject;
+        if (isset($this->onBeforeChunkDispatcher)) {
+            $this->onBeforeChunkDispatcher = clone $this->onBeforeChunkDispatcher;
         }
 
-        if (isset($this->onAfterChunkSubject)) {
-            $this->onAfterChunkSubject = clone $this->onAfterChunkSubject;
+        if (isset($this->onAfterChunkDispatcher)) {
+            $this->onAfterChunkDispatcher = clone $this->onAfterChunkDispatcher;
         }
     }
 
     public function onInit(?Closure $closure): static {
         if ($closure) {
-            $this->getOnInitSubject()->attach($closure);
+            $this->getOnInitDispatcher()->attach($closure);
         } else {
-            $this->getOnInitSubject()->reset();
+            $this->getOnInitDispatcher()->reset();
         }
 
         return $this;
     }
 
     protected function initialized(): void {
-        $this->getOnInitSubject()->notify();
+        $this->getOnInitDispatcher()->notify();
     }
 
-    private function getOnInitSubject(): Subject {
-        if (!isset($this->onInitSubject)) {
-            $this->onInitSubject = new Subject();
+    private function getOnInitDispatcher(): Dispatcher {
+        if (!isset($this->onInitDispatcher)) {
+            $this->onInitDispatcher = new Dispatcher();
         }
 
-        return $this->onInitSubject;
+        return $this->onInitDispatcher;
     }
 
     public function onFinish(?Closure $closure): static {
         if ($closure) {
-            $this->getOnFinishSubject()->attach($closure);
+            $this->getOnFinishDispatcher()->attach($closure);
         } else {
-            $this->getOnFinishSubject()->reset();
+            $this->getOnFinishDispatcher()->reset();
         }
 
         return $this;
     }
 
     protected function finished(): void {
-        $this->getOnFinishSubject()->notify();
+        $this->getOnFinishDispatcher()->notify();
     }
 
-    private function getOnFinishSubject(): Subject {
-        if (!isset($this->onFinishSubject)) {
-            $this->onFinishSubject = new Subject();
+    private function getOnFinishDispatcher(): Dispatcher {
+        if (!isset($this->onFinishDispatcher)) {
+            $this->onFinishDispatcher = new Dispatcher();
         }
 
-        return $this->onFinishSubject;
+        return $this->onFinishDispatcher;
     }
 
     /**
@@ -95,9 +102,9 @@ trait Subjects {
      */
     public function onBeforeChunk(?Closure $closure): static {
         if ($closure) {
-            $this->getOnBeforeChunkSubject()->attach($closure);
+            $this->getOnBeforeChunkDispatcher()->attach($closure);
         } else {
-            $this->getOnBeforeChunkSubject()->reset();
+            $this->getOnBeforeChunkDispatcher()->reset();
         }
 
         return $this;
@@ -108,19 +115,19 @@ trait Subjects {
      */
     protected function chunkLoaded(array $items): void {
         if ($items) {
-            $this->getOnBeforeChunkSubject()->notify($items);
+            $this->getOnBeforeChunkDispatcher()->notify($items);
         }
     }
 
     /**
-     * @return \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     * @return \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
      */
-    private function getOnBeforeChunkSubject(): Subject {
-        if (!isset($this->onBeforeChunkSubject)) {
-            $this->onBeforeChunkSubject = new Subject();
+    private function getOnBeforeChunkDispatcher(): Dispatcher {
+        if (!isset($this->onBeforeChunkDispatcher)) {
+            $this->onBeforeChunkDispatcher = new Dispatcher();
         }
 
-        return $this->onBeforeChunkSubject;
+        return $this->onBeforeChunkDispatcher;
     }
 
     /**
@@ -132,9 +139,9 @@ trait Subjects {
      */
     public function onAfterChunk(?Closure $closure): static {
         if ($closure) {
-            $this->getOnAfterChunkSubject()->attach($closure);
+            $this->getOnAfterChunkDispatcher()->attach($closure);
         } else {
-            $this->getOnAfterChunkSubject()->reset();
+            $this->getOnAfterChunkDispatcher()->reset();
         }
 
         return $this;
@@ -145,20 +152,20 @@ trait Subjects {
      */
     protected function chunkProcessed(array $items): bool {
         if ($items) {
-            $this->getOnAfterChunkSubject()->notify($items);
+            $this->getOnAfterChunkDispatcher()->notify($items);
         }
 
         return true;
     }
 
     /**
-     * @return \LastDragon_ru\LaraASP\Core\Observer\Subject<array<T>>
+     * @return \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
      */
-    private function getOnAfterChunkSubject(): Subject {
-        if (!isset($this->onAfterChunkSubject)) {
-            $this->onAfterChunkSubject = new Subject();
+    private function getOnAfterChunkDispatcher(): Dispatcher {
+        if (!isset($this->onAfterChunkDispatcher)) {
+            $this->onAfterChunkDispatcher = new Dispatcher();
         }
 
-        return $this->onAfterChunkSubject;
+        return $this->onAfterChunkDispatcher;
     }
 }

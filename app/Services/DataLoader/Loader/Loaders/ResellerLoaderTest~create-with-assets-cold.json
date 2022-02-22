@@ -16,10 +16,10 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_type` = ? and `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`deleted_at` is null",
         "bindings": [
-            "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "Reseller"
+            "Reseller",
+            "6c7c9474-3b59-4601-af72-1cd0f441b515"
         ]
     },
     {
@@ -114,7 +114,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "a38d080e-0a99-51ba-b25e-05a0f175e183"
+            "e8a86988-bac9-5bcb-8947-374b5a44de6a"
         ]
     },
     {
@@ -262,7 +262,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "a38d080e-0a99-51ba-b25e-05a0f175e183",
+            "e8a86988-bac9-5bcb-8947-374b5a44de6a",
             "2021-10-01 00:16:33",
             "d3138db9-8219-3fc0-ab80-4c641bf8b571",
             "130",
@@ -417,7 +417,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "1ef72848-3761-5f9e-b5aa-2f745833994c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -462,7 +462,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -592,7 +592,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "a38d080e-0a99-51ba-b25e-05a0f175e183",
+            "e8a86988-bac9-5bcb-8947-374b5a44de6a",
             "2021-12-10 09:53:07",
             "9a210907-8bf1-3e9c-8e83-c3eda652060f",
             "130",
@@ -837,7 +837,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "a38d080e-0a99-51ba-b25e-05a0f175e183",
+            "e8a86988-bac9-5bcb-8947-374b5a44de6a",
             "2021-10-01 00:16:35",
             "d23ba064-b451-35b2-91bd-1e64b70084c8",
             "130",
@@ -1082,7 +1082,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "a38d080e-0a99-51ba-b25e-05a0f175e183",
+            "e8a86988-bac9-5bcb-8947-374b5a44de6a",
             "2021-10-01 00:16:36",
             "15289d99-6173-36f2-8541-3412124ace5f",
             "130",
@@ -1320,7 +1320,7 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "8bc07e89-51b5-5f40-80f3-667e7e3085ce",
+            "a38d080e-0a99-51ba-b25e-05a0f175e183",
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
             "211 bechtelar village",
             "56011"
@@ -1330,7 +1330,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
-            "8bc07e89-51b5-5f40-80f3-667e7e3085ce",
+            "a38d080e-0a99-51ba-b25e-05a0f175e183",
             "56011",
             "",
             "211 Bechtelar Village",
@@ -1847,7 +1847,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "4ae114f6-f2f3-3999-b195-3df3197f8273",
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c",
             "21f48d0b-e7fa-43dc-8099-33ebe099cbbe",
             "0173bb5b-bb26-4945-a127-9b7c035aeed4",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
