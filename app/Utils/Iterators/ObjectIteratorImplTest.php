@@ -2,9 +2,13 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Exceptions\InfiniteLoopDetected;
 use Exception;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Mockery;
 use stdClass;
 use Tests\TestCase;
+use Throwable;
 
 /**
  * @internal
@@ -96,9 +100,20 @@ class ObjectIteratorImplTest extends TestCase {
      * @covers ::chunkPrepare
      */
     public function testChunkPrepareInfiniteLoopDetection(): void {
-        $iterator = new class() extends ObjectIteratorImpl {
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $handler
+            ->shouldReceive('report')
+            ->once()
+            ->withArgs(static function (Throwable $exception): bool {
+                return $exception instanceof InfiniteLoopDetected;
+            })
+            ->andReturns();
+
+        $iterator = new class($handler) extends ObjectIteratorImpl {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected ExceptionHandler $exceptionHandler,
+            ) {
                 $this->converter = null;
             }
 

@@ -16,15 +16,13 @@ use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\ImporterChunkData;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -110,10 +108,6 @@ class AssetsImporter extends Importer {
         return $state->withDocuments
             ? $this->getClient()->getAssetsWithDocuments($state->from)
             : $this->getClient()->getAssets($state->from);
-    }
-
-    protected function makeLoader(State $state): Loader {
-        return $this->getContainer()->make(AssetLoader::class)->setWithDocuments($state->withDocuments);
     }
 
     protected function makeFactory(State $state): Factory {

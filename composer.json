@@ -54,6 +54,7 @@
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.9",
     "brianium/paratest": "^6.3",
+    "composer/composer": "^2.2",
     "facade/ignition": "^2.5",
     "fakerphp/faker": "^1.9.1",
     "itsgoingd/clockwork": "^5.0",

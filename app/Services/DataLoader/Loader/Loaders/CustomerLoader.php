@@ -9,7 +9,6 @@ use App\Services\DataLoader\Importer\Importers\CustomerAssetsImporter;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -22,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
  *
  * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
  */
-class CustomerLoader extends Loader implements LoaderRecalculable {
+class CustomerLoader extends Loader {
     use WithWarrantyCheck;
     use WithAssets;
 

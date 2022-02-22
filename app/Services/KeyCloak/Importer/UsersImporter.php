@@ -13,7 +13,7 @@ use App\Services\KeyCloak\Exceptions\FailedToImport;
 use App\Services\KeyCloak\Exceptions\FailedToImportObject;
 use App\Services\KeyCloak\Exceptions\FailedToImportUserConflictType;
 use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Config\Repository;

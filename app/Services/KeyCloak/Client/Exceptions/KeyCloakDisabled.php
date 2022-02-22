@@ -2,11 +2,12 @@
 
 namespace App\Services\KeyCloak\Client\Exceptions;
 
+use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
 use function __;
 
-class KeyCloakDisabled extends ClientException {
+class KeyCloakDisabled extends ClientException implements IteratorFatalError {
     public function __construct(Throwable $previous = null) {
         parent::__construct('Keycloak client disabled', $previous);
     }

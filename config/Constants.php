@@ -14,13 +14,16 @@ use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
 use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
-use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
+use App\Services\KeyCloak\Jobs\Cron\PermissionsSynchronizer;
+use App\Services\KeyCloak\Jobs\Cron\UsersSynchronizer;
 use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
+use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator as RecalculatorCustomersRecalculator;
+use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator as RecalculatorLocationsRecalculator;
+use App\Services\Recalculator\Jobs\Cron\ResellersRecalculator as RecalculatorResellersRecalculator;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
@@ -613,62 +616,62 @@ interface Constants {
     #[Type(StringType::class)]
     public const EP_KEYCLOAK_ORG_ADMIN_GROUP = null;
 
-    // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
+    // <editor-fold desc="EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(SyncPermissionsCronJob::class, 'enabled')]
+    #[Service(PermissionsSynchronizer::class, 'enabled')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_ENABLED = true;
+    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(SyncPermissionsCronJob::class, 'cron')]
+    #[Service(PermissionsSynchronizer::class, 'cron')]
     #[Group('keycloak')]
     #[Type(CronExpression::class)]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_CRON = '0 0 * * *';
+    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(SyncPermissionsCronJob::class, 'queue')]
+    #[Service(PermissionsSynchronizer::class, 'queue')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK;
+    public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
     // </editor-fold>
 
-    // <editor-fold desc="EP_KEYCLOAK_SYNC_USERS">
+    // <editor-fold desc="EP_KEYCLOAK_USERS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(SyncUsersCronJob::class, 'enabled')]
+    #[Service(UsersSynchronizer::class, 'enabled')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_USERS_ENABLED = true;
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_ENABLED = true;
 
     /**
      * Cron expression.
      */
-    #[Service(SyncUsersCronJob::class, 'cron')]
+    #[Service(UsersSynchronizer::class, 'cron')]
     #[Group('keycloak')]
     #[Type(CronExpression::class)]
-    public const EP_KEYCLOAK_SYNC_USERS_CRON = '0 0 * * *';
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(SyncUsersCronJob::class, 'queue')]
+    #[Service(UsersSynchronizer::class, 'queue')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_USERS_QUEUE = Queues::KEYCLOAK;
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
 
     /**
      * Chunk size.
      */
-    #[Service(SyncUsersCronJob::class, 'settings.chunk')]
+    #[Service(UsersSynchronizer::class, 'settings.chunk')]
     #[Group('keycloak')]
     #[Type(IntType::class)]
-    public const EP_KEYCLOAK_SYNC_USERS_CHUNK = 100;
+    public const EP_KEYCLOAK_USERS_SYNCHRONIZER_CHUNK = 100;
     // </editor-fold>
 
     // </editor-fold>
@@ -1517,7 +1520,7 @@ interface Constants {
     #[Service(MaintenanceStartCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_START_CRON = null;
+    public const EP_MAINTENANCE_START_CRON = '0 0 1 1 *';
 
     /**
      * Queue name.
@@ -1542,7 +1545,7 @@ interface Constants {
     #[Service(MaintenanceCompleteCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_COMPLETE_CRON = null;
+    public const EP_MAINTENANCE_COMPLETE_CRON = '0 0 1 1 *';
 
     /**
      * Queue name.
@@ -1567,7 +1570,7 @@ interface Constants {
     #[Service(MaintenanceNotifyCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_NOTIFY_CRON = null;
+    public const EP_MAINTENANCE_NOTIFY_CRON = '0 0 1 1 *';
 
     /**
      * Queue name.
@@ -1575,6 +1578,63 @@ interface Constants {
     #[Service(MaintenanceNotifyCronJob::class, 'queue')]
     #[Group('maintenance')]
     public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR">
+    // =========================================================================
+    // <editor-fold desc="EP_RECALCULATOR_RESELLERS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorResellersRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_RESELLERS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorResellersRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_RESELLERS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_CUSTOMERS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorCustomersRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_CUSTOMERS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorCustomersRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_CUSTOMERS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_LOCATIONS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorLocationsRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_LOCATIONS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorLocationsRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_LOCATIONS_RECALCULATOR_CRON = '0 0 1 * *';
     // </editor-fold>
     // </editor-fold>
 }

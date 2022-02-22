@@ -4,6 +4,7 @@ namespace App\GraphQL\Directives\Directives\Paginated;
 
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
 use LogicException;
@@ -19,6 +20,7 @@ use function sprintf;
 abstract class PaginatedRelation extends Base {
     public function __construct(
         Container $container,
+        protected Repository $config,
         protected DirectiveLocator $directives,
     ) {
         parent::__construct($container);
@@ -73,7 +75,7 @@ abstract class PaginatedRelation extends Base {
      */
     public function getBuilderArguments(): array {
         $directive = $this->directives->associatedOfType($this->definitionNode, RelationDirective::class)->first();
-        $relation  = (new class() extends RelationDirective {
+        $relation  = (new class($this->config) extends RelationDirective {
             public static function definition(): string {
                 return '';
             }

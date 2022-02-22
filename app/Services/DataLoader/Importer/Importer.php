@@ -8,8 +8,6 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Processor\Processor;
@@ -31,7 +29,6 @@ use function array_merge;
 abstract class Importer extends Processor {
     private ?DateTimeInterface $from   = null;
     private bool               $update = true;
-    private Loader             $loader;
     private Factory            $factory;
     private Resolver           $resolver;
     private Collector          $collector;
@@ -119,13 +116,8 @@ abstract class Importer extends Processor {
         $this->collector = $this->getContainer()->make(Collector::class);
         $this->resolver  = $this->makeResolver($state);
         $this->factory   = $this->makeFactory($state);
-        $this->loader    = $this->makeLoader($state);
 
         // Configure
-        if ($this->loader instanceof LoaderRecalculable) {
-            $this->loader->setRecalculate(false);
-        }
-
         $this->collector->subscribe($data);
 
         // Parent
@@ -136,11 +128,6 @@ abstract class Importer extends Processor {
      * @inheritDoc
      */
     protected function chunkProcessed(State $state, array $items, mixed $data): void {
-        // Update calculated properties
-        if ($this->loader instanceof LoaderRecalculable && ($state->created || $state->updated || $state->failed)) {
-            $this->loader->recalculate(true);
-        }
-
         // Reset container
         $this->getContainer()->forgetInstances();
 
@@ -148,7 +135,6 @@ abstract class Importer extends Processor {
         unset($this->collector);
         unset($this->resolver);
         unset($this->factory);
-        unset($this->loader);
 
         // Parent
         parent::chunkProcessed($state, $items, $data);
@@ -185,11 +171,6 @@ abstract class Importer extends Processor {
     // <editor-fold desc="Abstract">
     // =========================================================================
     abstract protected function register(): void;
-
-    /**
-     * @param TState $state
-     */
-    abstract protected function makeLoader(State $state): Loader;
 
     /**
      * @param TState $state

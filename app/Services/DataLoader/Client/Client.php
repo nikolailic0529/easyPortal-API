@@ -18,7 +18,7 @@ use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Data\ClientDump;
 use App\Services\DataLoader\Testing\Data\ClientDumpFile;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -69,7 +69,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getDistributors(
         DateTimeInterface $from = null,
@@ -126,7 +126,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getResellers(
         DateTimeInterface $from = null,
@@ -183,7 +183,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getCustomers(
         DateTimeInterface $from = null,
@@ -275,7 +275,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByCustomerId(
         string $id,
@@ -304,7 +304,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByCustomerIdWithDocuments(
         string $id,
@@ -334,7 +334,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByResellerId(
         string $id,
@@ -363,7 +363,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByResellerIdWithDocuments(
         string $id,
@@ -393,7 +393,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssets(
         DateTimeInterface $from = null,
@@ -420,7 +420,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
@@ -461,7 +461,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\Document>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Document>
      */
     public function getDocuments(
         DateTimeInterface $from = null,

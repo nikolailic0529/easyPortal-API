@@ -9,14 +9,12 @@ use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -60,10 +58,6 @@ class CustomersImporter extends Importer {
 
     protected function getIterator(State $state): ObjectIterator {
         return $this->getClient()->getCustomers($state->from);
-    }
-
-    protected function makeLoader(State $state): Loader {
-        return $this->getContainer()->make(CustomerLoader::class);
     }
 
     protected function makeFactory(State $state): Factory {

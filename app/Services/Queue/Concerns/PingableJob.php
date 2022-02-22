@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\InteractsWithQueue;
 
 /**
- * General implementation of {@link \App\Services\Queue\Stoppable} Job.
+ * General implementation of {@link \App\Services\Queue\Contracts\Stoppable} Job.
  *
  * @mixin \LastDragon_ru\LaraASP\Queue\Queueables\Job
  */

@@ -29,24 +29,16 @@ use App\Services\DataLoader\Testing\Finders\OemFinder;
 use App\Services\DataLoader\Testing\Finders\ResellerFinder;
 use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder;
-use Closure;
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
-use Tests\Helpers\SequenceDateFactory;
-use Tests\Helpers\SequenceUuidFactory;
 
 use function array_map;
 use function array_unique;
 use function array_values;
-use function in_array;
 use function is_null;
 use function reset;
-use function str_ends_with;
 
 /**
  * @mixin \Tests\TestCase
@@ -241,33 +233,6 @@ trait Helper {
         }
 
         return $contacts;
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>
-     *     |\Illuminate\Database\Eloquent\Model $model
-     * @param array<string> $attributes
-     *
-     * @return array<string, mixed>
-     */
-    protected function getModelCountableProperties(Collection|Model $model, array $attributes = []): array {
-        $properties = [];
-
-        if ($model instanceof Collection) {
-            $properties = $model
-                ->map(function (Model $model) use ($attributes): array {
-                    return $this->getModelCountableProperties($model, $attributes);
-                })
-                ->all();
-        } else {
-            foreach ($model->getAttributes() as $attribute => $value) {
-                if (str_ends_with($attribute, '_count') || in_array($attribute, $attributes, true)) {
-                    $properties[$attribute] = $value;
-                }
-            }
-        }
-
-        return $properties;
     }
     // </editor-fold>
 
@@ -497,23 +462,4 @@ trait Helper {
         $this->resetUuidFactory();
     }
     //</editor-fold>
-
-    // <editor-fold desc="Others">
-    // =========================================================================
-    protected function overrideUuidFactory(string $seed): void {
-        Str::createUuidsUsing(new SequenceUuidFactory($seed));
-    }
-
-    protected function resetUuidFactory(): void {
-        Str::createUuidsNormally();
-    }
-
-    protected function overrideDateFactory(DateTimeInterface|string $now): void {
-        Date::setTestNow(Closure::fromCallable(new SequenceDateFactory($now)));
-    }
-
-    protected function resetDateFactory(): void {
-        Date::setTestNow();
-    }
-    // </editor-fold>
 }

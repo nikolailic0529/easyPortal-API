@@ -12,9 +12,6 @@ use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
-use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
-use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\EloquentIterator;
 use DateTimeInterface;
@@ -29,8 +26,6 @@ use Illuminate\Support\Facades\Date;
  * @mixin \App\Services\DataLoader\Loader\Loader
  */
 trait WithAssets {
-    use WithCalculatedProperties;
-
     protected bool $withAssets          = false;
     protected bool $withAssetsDocuments = false;
 
@@ -120,18 +115,4 @@ trait WithAssets {
     protected function getCustomersFactory(): CustomerFactory {
         return $this->customerFactory;
     }
-
-    // <editor-fold desc="WithCalculatedProperties">
-    // =========================================================================
-    /**
-     * @inheritDoc
-     */
-    protected function getResolversToRecalculate(): array {
-        return [
-            ResellerResolver::class,
-            CustomerResolver::class,
-            LocationResolver::class,
-        ];
-    }
-    // </editor-fold>
 }

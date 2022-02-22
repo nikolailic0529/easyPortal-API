@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Models\Asset;
 use App\Services\DataLoader\Importer\IteratorIterator;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use LogicException;
 
@@ -13,14 +13,14 @@ use function is_object;
 
 class AssetsIteratorImporter extends AssetsImporter {
     /**
-     * @var \App\Utils\Iterators\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @var \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     private ObjectIterator $iterator;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @param \App\Utils\Iterators\ObjectIterator<string|\App\Models\Asset> $iterator
+     * @param \App\Utils\Iterators\Contracts\ObjectIterator<string|\App\Models\Asset> $iterator
      */
     public function setIterator(ObjectIterator $iterator): static {
         $this->iterator = new IteratorIterator(

@@ -3,6 +3,7 @@
 namespace App\Utils\Iterators;
 
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use Mockery;
 use Tests\TestCase;
@@ -31,7 +32,10 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
 
             return $data;
         });
-        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
+        $iterator = (new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            Closure::fromCallable($executor),
+        ))
             ->setChunkSize(5)
             ->onInit(Closure::fromCallable($onInit))
             ->onFinish(Closure::fromCallable($onFinish));
@@ -65,7 +69,10 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
+        $iterator      = (new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            Closure::fromCallable($executor),
+        ))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset(5)
@@ -94,7 +101,10 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         });
 
         $expected = $data;
-        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
+        $iterator = (new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            Closure::fromCallable($executor),
+        ))
             ->setChunkSize(2)
             ->setLimit(10);
         $actual   = iterator_to_array($iterator);
@@ -116,7 +126,10 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         });
 
         $expected = [1, 2];
-        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))
+        $iterator = (new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            Closure::fromCallable($executor),
+        ))
             ->setChunkSize(50)
             ->setLimit(2);
         $actual   = iterator_to_array($iterator);
@@ -135,7 +148,10 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         });
 
         $expected = [];
-        $iterator = (new OneChunkOffsetBasedObjectIterator(Closure::fromCallable($executor)))->setLimit(0);
+        $iterator = (new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            Closure::fromCallable($executor),
+        ))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -147,7 +163,8 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
      * @covers ::setOffset
      */
     public function testSetOffset(): void {
-        $iterator = new OneChunkOffsetBasedObjectIterator(static function (): array {
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $iterator = new OneChunkOffsetBasedObjectIterator($handler, static function (): array {
             return [];
         });
 
@@ -160,7 +177,8 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
     public function testSetOffsetInvalidType(): void {
         $this->expectException(InvalidArgumentException::class);
 
-        $iterator = new OneChunkOffsetBasedObjectIterator(static function (): array {
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $iterator = new OneChunkOffsetBasedObjectIterator($handler, static function (): array {
             return [];
         });
 

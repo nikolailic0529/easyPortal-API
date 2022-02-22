@@ -11,6 +11,7 @@ use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -274,6 +275,7 @@ class ClientTest extends TestCase {
             ->andReturn($this->faker->uuid);
 
         $client = Mockery::mock(Client::class, [
+            Mockery::mock(ExceptionHandler::class),
             Mockery::mock(Factory::class),
             $config,
             Mockery::mock(Token::class),

@@ -2,6 +2,7 @@
 
 namespace App\Services\Queue\Concerns;
 
+use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Progress;
 use App\Services\Service;
@@ -18,7 +19,7 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
  * @mixin \App\Services\Queue\Job
  * @mixin \App\Services\Queue\CronJob
  *
- * @implements \App\Services\Queue\Progressable
+ * @implements \App\Services\Queue\Contracts\Progressable
  */
 trait ProcessorJob {
     /**
@@ -81,8 +82,16 @@ trait ProcessorJob {
         $service   = $this->getService($container);
         $processor = $this
             ->makeProcessor($container, $config)
-            ->setCacheKey($service, $this)
             ->setChunkSize($chunk);
+
+        if ($this instanceof CronJob) {
+            $processor = $processor->setCacheKey($service, $this);
+        } else {
+            $processor = $processor->setCacheKey($service, [
+                $this,
+                $this->getJob()->getJobId(),
+            ]);
+        }
 
         return $processor;
     }

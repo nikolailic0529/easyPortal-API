@@ -5,7 +5,10 @@ use GraphQL\Error\DebugFlag;
 use GraphQL\Validator\Rules\DisableIntrospection;
 use GraphQL\Validator\Rules\QueryComplexity;
 use GraphQL\Validator\Rules\QueryDepth;
+use Nuwave\Lighthouse\Execution\AuthenticationErrorHandler;
+use Nuwave\Lighthouse\Execution\AuthorizationErrorHandler;
 use Nuwave\Lighthouse\Execution\ExtensionErrorHandler;
+use Nuwave\Lighthouse\Execution\ValidationErrorHandler;
 use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
 use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
 use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
@@ -91,7 +94,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | A large part of schema generation consists of parsing and AST manipulation.
-    | This operation is very expensive, so it is highly recommended to enable
+    | This operation is very expensive, so it is highly recommended enabling
     | caching of the final schema to optimize performance of large schemas.
     |
     */
@@ -100,7 +103,7 @@ return [
         /*
          * Setting to true enables schema caching.
          */
-        'enable'  => env('LIGHTHOUSE_CACHE_ENABLE', env('APP_ENV') !== 'local'),
+        'enable'  => env('LIGHTHOUSE_CACHE_ENABLE', 'local' !== env('APP_ENV')),
 
         /*
          * Allowed values:
@@ -110,16 +113,16 @@ return [
         'version' => env('LIGHTHOUSE_CACHE_VERSION', 2),
 
         /*
-         * The name of the cache item for the schema cache.
-         * Only relevant if version is set to 1.
-         */
-        'key'     => env('LIGHTHOUSE_CACHE_KEY', 'lighthouse-schema'),
-
-        /*
          * Allows using a specific cache store, uses the app's default if set to null.
          * Only relevant if version is set to 1.
          */
         'store'   => env('LIGHTHOUSE_CACHE_STORE', null),
+
+        /*
+         * The name of the cache item for the schema cache.
+         * Only relevant if version is set to 1.
+         */
+        'key'     => env('LIGHTHOUSE_CACHE_KEY', 'lighthouse-schema'),
 
         /*
          * Duration in seconds the schema should remain cached, null means forever.
@@ -276,6 +279,9 @@ return [
     */
 
     'error_handlers'                     => [
+        AuthenticationErrorHandler::class,
+        AuthorizationErrorHandler::class,
+        ValidationErrorHandler::class,
         ExtensionErrorHandler::class,
         ErrorReporter::class,
     ],
@@ -310,18 +316,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Batched Queries
-    |--------------------------------------------------------------------------
-    |
-    | GraphQL query batching means sending multiple queries to the server in one request,
-    | You may set this flag to either process or deny batched queries.
-    |
-    */
-
-    'batched_queries'                    => true,
-
-    /*
-    |--------------------------------------------------------------------------
     | Persisted Queries
     |--------------------------------------------------------------------------
     |
@@ -338,7 +332,7 @@ return [
     | Transactional Mutations
     |--------------------------------------------------------------------------
     |
-    | If set to true, mutations such as @create or @update will be
+    | If set to true, built-in directives that mutate models will be
     | wrapped in a transaction to ensure atomicity.
     |
     */
@@ -372,6 +366,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Shortcut Foreign Key Selection
+    |--------------------------------------------------------------------------
+    |
+    | If set to true, Lighthouse will shortcut queries where the client selects only the
+    | foreign key pointing to a related model. Only works if the related model's primary
+    | key field is called exactly `id` for every type in your schema.
+    |
+    */
+
+    'shortcut_foreign_key_selection'     => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Non-Null Pagination Results
     |--------------------------------------------------------------------------
     |
@@ -379,7 +386,7 @@ return [
     | as non-nullable. This is generally more convenient for clients, but will
     | cause validation errors to bubble further up in the result.
     |
-    | This setting will be removed and always true in v6.
+    | This setting will be removed and always behave as if it were true in v6.
     |
     */
 

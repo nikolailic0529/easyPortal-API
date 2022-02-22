@@ -16,7 +16,7 @@
             "2b2074ab-3cd2-46fb-9e50-666c4dce97ff": "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
         },
         "App\\Models\\Location": {
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5": "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c": "f5fee4c5-dd46-513a-b99f-61fe2650691c"
         },
         "App\\Models\\Asset": {
             "91aed8cc-43a7-435e-8e91-0994e828db59": "91aed8cc-43a7-435e-8e91-0994e828db59",
@@ -34,7 +34,7 @@
         },
         "App\\Models\\Document": [],
         "App\\Models\\Location": {
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5": "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c": "f5fee4c5-dd46-513a-b99f-61fe2650691c"
         },
         "App\\Models\\Asset": []
     }

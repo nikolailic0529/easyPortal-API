@@ -6,6 +6,9 @@ use App\Services\Logger\Models\Enums\Action;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
+use App\Services\Queue\Contracts\NamedJob;
+use App\Services\Queue\Contracts\Progressable;
+use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\Tags\Stop;
 use AppendIterator;
 use DateInterval;
@@ -50,7 +53,7 @@ class Queue {
      * Registers the stop request for the job. Please note that the method
      * doesn't stop the job, it just set the flag for the job.
      *
-     * Only jobs that implement {@link \App\Services\Queue\Stoppable} can be
+     * Only jobs that implement {@link \App\Services\Queue\Contracts\Stoppable} can be
      * stopped.
      */
     public function stop(Job $job, string $id = null): bool {

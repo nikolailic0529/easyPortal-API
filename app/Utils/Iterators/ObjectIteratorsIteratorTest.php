@@ -4,6 +4,7 @@ namespace App\Utils\Iterators;
 
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Generator;
 use InvalidArgumentException;
 use Mockery;

@@ -4,7 +4,7 @@ namespace App\Utils\Processor;
 
 use App\Services\Service;
 use App\Utils\Cache\CacheKeyable;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Closure;
@@ -58,11 +58,14 @@ class ProcessorTest extends TestCase {
      */
     public function testStop(): void {
         $processor = Mockery::mock(Processor::class);
-        $iterator  = new OneChunkOffsetBasedObjectIterator(static function () use ($processor): array {
-            $processor->stop();
+        $iterator  = new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            static function () use ($processor): array {
+                $processor->stop();
 
-            return [];
-        });
+                return [];
+            },
+        );
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -154,6 +157,7 @@ class ProcessorTest extends TestCase {
         $exception = new Exception();
 
         $iterator = Mockery::mock(ObjectsIterator::class, [
+            Mockery::mock(ExceptionHandler::class),
             [$a, $b],
         ]);
         $iterator->shouldAllowMockingProtectedMethods();

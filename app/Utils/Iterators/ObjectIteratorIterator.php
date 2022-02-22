@@ -5,16 +5,19 @@ namespace App\Utils\Iterators;
 use App\Utils\Iterators\Concerns\ChunkConverter;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Iterator;
 
 /**
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\ObjectIterator<V>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<V>
  *
- * @uses     \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+ * @uses \App\Utils\Iterators\Concerns\InitialState<T>
+ * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 class ObjectIteratorIterator implements ObjectIterator {
     use ChunkConverter;
@@ -22,14 +25,19 @@ class ObjectIteratorIterator implements ObjectIterator {
     use Subjects;
 
     /**
-     * @param \App\Utils\Iterators\ObjectIterator<V> $iterator
+     * @param \App\Utils\Iterators\Contracts\ObjectIterator<V> $iterator
      * @param \Closure(V $item): T                   $converter
      */
     public function __construct(
+        protected ExceptionHandler $exceptionHandler,
         protected ObjectIterator $iterator,
         protected Closure $converter,
     ) {
         // empty
+    }
+
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     protected function getConverter(): ?Closure {

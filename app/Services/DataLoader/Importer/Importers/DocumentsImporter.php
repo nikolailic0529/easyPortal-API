@@ -17,14 +17,12 @@ use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\ImporterChunkData;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -74,10 +72,6 @@ class DocumentsImporter extends Importer {
 
     protected function getIterator(State $state): ObjectIterator {
         return $this->getClient()->getDocuments($state->from);
-    }
-
-    protected function makeLoader(State $state): Loader {
-        return $this->getContainer()->make(DocumentLoader::class);
     }
 
     protected function makeFactory(State $state): Factory {

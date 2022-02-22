@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Mutations\Application;
 
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\ServiceNotFound;
-use App\Services\Queue\Progressable;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;

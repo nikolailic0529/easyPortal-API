@@ -6,11 +6,9 @@ use App\Models\Distributor;
 use App\Services\DataLoader\Factory\Factories\DistributorFactory;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 class DistributorsImporter extends Importer {
@@ -33,10 +31,6 @@ class DistributorsImporter extends Importer {
 
     protected function getIterator(State $state): ObjectIterator {
         return $this->getClient()->getDistributors($state->from);
-    }
-
-    protected function makeLoader(State $state): Loader {
-        return $this->getContainer()->make(DistributorLoader::class);
     }
 
     protected function makeFactory(State $state): Factory {

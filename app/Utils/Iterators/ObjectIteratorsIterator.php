@@ -5,6 +5,7 @@ namespace App\Utils\Iterators;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Generator;
 use InvalidArgumentException;
 
@@ -18,8 +19,10 @@ use function sprintf;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ *
+ * @uses \App\Utils\Iterators\Concerns\InitialState<T>
+ * @uses \App\Utils\Iterators\Concerns\Subjects<T>
  */
 class ObjectIteratorsIterator implements ObjectIterator {
     use InitialState;
@@ -32,7 +35,7 @@ class ObjectIteratorsIterator implements ObjectIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\Utils\Iterators\ObjectIterator> $iterators
+     * @param array<string,\App\Utils\Iterators\Contracts\ObjectIterator> $iterators
      */
     public function __construct(
         protected array $iterators,
@@ -111,8 +114,8 @@ class ObjectIteratorsIterator implements ObjectIterator {
         $index     = $this->getIndex();
         $limit     = $this->getLimit();
         $chunk     = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
-        $after     = $this->getOnAfterChunkSubject()->getObservers();
-        $before    = $this->getOnBeforeChunkSubject()->getObservers();
+        $after     = $this->getOnAfterChunkDispatcher()->getObservers();
+        $before    = $this->getOnBeforeChunkDispatcher()->getObservers();
         $iterating = false;
 
         try {

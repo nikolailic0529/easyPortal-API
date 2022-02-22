@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Exceptions\FailedToProcessChunkItem;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -20,27 +19,17 @@ trait IteratorErrorHandler {
      * @param \Closure(mixed $item): T                 $converter
      */
     public function __construct(
-        protected ExceptionHandler $handler,
+        ExceptionHandler $handler,
         protected Query $query,
         ?Closure $converter = null,
     ) {
-        parent::__construct(Closure::fromCallable($this->query), $converter);
+        parent::__construct($handler, Closure::fromCallable($this->query), $converter);
     }
 
     /**
-     * @param T $item
-     *
-     * @return V
+     * @param V $item
      */
-    protected function chunkConvertItem(mixed $item): mixed {
-        try {
-            return parent::chunkConvertItem($item);
-        } catch (GraphQLRequestFailed $exception) {
-            throw $exception;
-        } catch (Throwable $exception) {
-            $this->handler->report(new FailedToProcessChunkItem($this->query, $item, $exception));
-        }
-
-        return null;
+    protected function report(Throwable $exception, mixed $item): void {
+        parent::report(new FailedToProcessChunkItem($this->query, $item, $exception), $item);
     }
 }

@@ -2,18 +2,20 @@
 
 namespace App\Services\Queue\Concerns;
 
+use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Job;
 use App\Services\Queue\Pinger;
 use App\Services\Queue\Progress;
 use App\Services\Service;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Queue\Job as JobContract;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\Contracts\ConfigurableQueueable;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -65,7 +67,7 @@ class ProcessorJobTest extends TestCase {
             ->twice()
             ->andReturns();
 
-        $job = new class($service, $processor) extends Job {
+        $job = new class($service, $processor) extends CronJob {
             use ProcessorJob;
 
             public function __construct(
@@ -95,6 +97,14 @@ class ProcessorJobTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeStopped(): void {
+        $queueJob = Mockery::mock(JobContract::class);
+        $queueJob
+            ->shouldReceive('getJobId')
+            ->once()
+            ->andReturn(
+                $this->faker->uuid,
+            );
+
         $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
             $this->app->make(ExceptionHandler::class),
             $this->app->make(Dispatcher::class),
@@ -163,7 +173,9 @@ class ProcessorJobTest extends TestCase {
             ],
         ]);
 
-        $job->handle($this->app, $pinger);
+        $job
+            ->setJob($queueJob)
+            ->handle($this->app, $pinger);
     }
 
     /**
@@ -229,7 +241,10 @@ abstract class ProcessorJobTest__Processor extends Processor {
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator([1, 2, 3, 4, 5]);
+        return new ObjectsIterator(
+            Mockery::mock(ExceptionHandler::class),
+            [1, 2, 3, 4, 5],
+        );
     }
 
     /**

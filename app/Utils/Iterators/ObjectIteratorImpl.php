@@ -6,8 +6,11 @@ use App\Utils\Iterators\Concerns\ChunkConverter;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Properties;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Exceptions\InfiniteLoopDetected;
 use Closure;
 use EmptyIterator;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Iterator;
 
 use function end;
@@ -18,9 +21,11 @@ use function reset;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\ObjectIterator<T>
- * @uses \App\Utils\Iterators\ObjectIteratorSubjects<T>
- * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+ * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ *
+ * @uses     \App\Utils\Iterators\Concerns\Subjects<T>
+ * @uses     \App\Utils\Iterators\Concerns\InitialState<T>
+ * @uses     \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
     use Subjects;
@@ -38,10 +43,15 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
      * @param \Closure(V $item): T|null            $converter
      */
     public function __construct(
+        protected ExceptionHandler $exceptionHandler,
         protected ?Closure $executor,
         protected ?Closure $converter = null,
     ) {
         // empty
+    }
+
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     protected function getConverter(): ?Closure {
@@ -117,8 +127,16 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     protected function chunkPrepare(array $items): array {
         // Infinite loop?
         $current        = [end($items), reset($items)];
-        $items          = $this->previous && $current === $this->previous ? [] : $items;
+        $previous       = $this->previous;
         $this->previous = $current;
+
+        if ($previous && $current === $previous) {
+            $this->getExceptionHandler()->report(
+                new InfiniteLoopDetected($this::class),
+            );
+
+            $items = [];
+        }
 
         // Convert
         return $this->chunkConvert($items);

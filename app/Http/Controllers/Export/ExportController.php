@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -16,6 +16,7 @@ use GraphQL\Server\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
@@ -61,6 +62,7 @@ class ExportController extends Controller {
         protected GraphQL $graphQL,
         protected CreatesContext $context,
         protected Helper $helper,
+        protected ExceptionHandler $exceptionHandler,
     ) {
         // empty
     }
@@ -221,7 +223,7 @@ class ExportController extends Controller {
     /**
      * @param array<string,mixed> $parameters
      *
-     * @return \App\Utils\Iterators\ObjectIterator<array<string,mixed>>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
         $chunk           = $this->getChunkSize();
@@ -231,8 +233,8 @@ class ExportController extends Controller {
         };
         $variables       = $parameters['variables'] ?? [];
         $iterator        = array_key_exists('offset', $variables) && array_key_exists('limit', $variables)
-            ? new OffsetBasedObjectIterator($executor)
-            : new OneChunkOffsetBasedObjectIterator($executor);
+            ? new OffsetBasedObjectIterator($this->exceptionHandler, $executor)
+            : new OneChunkOffsetBasedObjectIterator($this->exceptionHandler, $executor);
         $recording       = null;
         $paginationLimit = null;
 

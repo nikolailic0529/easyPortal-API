@@ -13,6 +13,7 @@ use App\Services\KeyCloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Processor\State;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Mockery;
@@ -83,6 +84,12 @@ class UsersImporterTest extends TestCase {
         $this->override(Client::class, static function (MockInterface $mock) use ($keycloakUser): void {
             $mock->shouldAllowMockingProtectedMethods();
             $mock->makePartial();
+            $mock
+                ->shouldReceive('getExceptionHandler')
+                ->once()
+                ->andReturn(
+                    Mockery::mock(ExceptionHandler::class),
+                );
             $mock
                 ->shouldReceive('call')
                 ->never();
@@ -209,6 +216,12 @@ class UsersImporterTest extends TestCase {
         $this->override(Client::class, static function (MockInterface $mock) use ($keycloakUser): void {
             $mock->shouldAllowMockingProtectedMethods();
             $mock->makePartial();
+            $mock
+                ->shouldReceive('getExceptionHandler')
+                ->once()
+                ->andReturn(
+                    Mockery::mock(ExceptionHandler::class),
+                );
             $mock
                 ->shouldReceive('call')
                 ->never();

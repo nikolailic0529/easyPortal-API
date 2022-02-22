@@ -117,73 +117,75 @@ class SearchRequestFactoryTest extends TestCase {
             ->buildSearchRequest()
             ->toArray();
         $expected = [
-            'query'         => [
-                'bool' => [
-                    'should' => [
-                        [
-                            'bool' => [
-                                'must'   => [
-                                    [
-                                        'wildcard' => [
-                                            Configuration::getPropertyName('a') => [
-                                                'value'            => '*a[b]c*',
-                                                'case_insensitive' => true,
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                                'filter' => [
-                                    [
-                                        'term' => [
-                                            '_index' => 'a',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        [
-                            'bool' => [
-                                'must'   => [
-                                    [
-                                        'wildcard' => [
-                                            Configuration::getPropertyName('a') => [
-                                                'value'            => '*a[b]c*',
-                                                'case_insensitive' => true,
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                                'filter' => [
-                                    [
-                                        'term' => [
-                                            'scope' => 'test',
-                                        ],
-                                    ],
-                                    [
-                                        'term' => [
-                                            '_index' => 'b',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                    'filter' => [
-                        [
+            'body' => [
+                'query'         => [
+                    'bool' => [
+                        'should' => [
                             [
-                                'term' => [
-                                    'test' => 'value',
+                                'bool' => [
+                                    'must'   => [
+                                        [
+                                            'wildcard' => [
+                                                Configuration::getPropertyName('a') => [
+                                                    'value'            => '*a[b]c*',
+                                                    'case_insensitive' => true,
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    'filter' => [
+                                        [
+                                            'term' => [
+                                                '_index' => 'a',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            [
+                                'bool' => [
+                                    'must'   => [
+                                        [
+                                            'wildcard' => [
+                                                Configuration::getPropertyName('a') => [
+                                                    'value'            => '*a[b]c*',
+                                                    'case_insensitive' => true,
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                    'filter' => [
+                                        [
+                                            'term' => [
+                                                'scope' => 'test',
+                                            ],
+                                        ],
+                                        [
+                                            'term' => [
+                                                '_index' => 'b',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'filter' => [
+                            [
+                                [
+                                    'term' => [
+                                        'test' => 'value',
+                                    ],
                                 ],
                             ],
                         ],
                     ],
                 ],
-            ],
-            'from'          => 40,
-            'size'          => 10,
-            'indices_boost' => [
-                [
-                    'a' => 2.0,
+                'from'          => 40,
+                'size'          => 10,
+                'indices_boost' => [
+                    [
+                        'a' => 2.0,
+                    ],
                 ],
             ],
         ];
@@ -227,25 +229,27 @@ class SearchRequestFactoryTest extends TestCase {
             ->buildSearchRequest()
             ->toArray();
         $expected = [
-            'query' => [
-                'bool' => [
-                    'should' => [
-                        [
-                            'bool' => [
-                                'must'   => [
-                                    [
-                                        'wildcard' => [
-                                            Configuration::getPropertyName('a') => [
-                                                'value'            => '*a[b]c*',
-                                                'case_insensitive' => true,
+            'body' => [
+                'query' => [
+                    'bool' => [
+                        'should' => [
+                            [
+                                'bool' => [
+                                    'must'   => [
+                                        [
+                                            'wildcard' => [
+                                                Configuration::getPropertyName('a') => [
+                                                    'value'            => '*a[b]c*',
+                                                    'case_insensitive' => true,
+                                                ],
                                             ],
                                         ],
                                     ],
-                                ],
-                                'filter' => [
-                                    [
-                                        'term' => [
-                                            '_index' => 'a',
+                                    'filter' => [
+                                        [
+                                            'term' => [
+                                                '_index' => 'a',
+                                            ],
                                         ],
                                     ],
                                 ],
@@ -253,9 +257,9 @@ class SearchRequestFactoryTest extends TestCase {
                         ],
                     ],
                 ],
+                'from'  => 45,
+                'size'  => 123,
             ],
-            'from'  => 45,
-            'size'  => 123,
         ];
 
         $this->assertEquals($expected, $actual);
@@ -357,12 +361,14 @@ class SearchRequestFactoryTest extends TestCase {
         return [
             'where'                 => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must'   => $must,
-                            'filter' => [
-                                [
-                                    'term' => ['where' => '123'],
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must'   => $must,
+                                'filter' => [
+                                    [
+                                        'term' => ['where' => '123'],
+                                    ],
                                 ],
                             ],
                         ],
@@ -374,15 +380,17 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereIn'               => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must'   => $must,
-                            'filter' => [
-                                [
-                                    'terms' => ['whereIn' => ['a', 'b', 'c']],
-                                ],
-                                [
-                                    'terms' => ['whereIn2' => ['1', '2', '3']],
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must'   => $must,
+                                'filter' => [
+                                    [
+                                        'terms' => ['whereIn' => ['a', 'b', 'c']],
+                                    ],
+                                    [
+                                        'terms' => ['whereIn2' => ['1', '2', '3']],
+                                    ],
                                 ],
                             ],
                         ],
@@ -395,15 +403,17 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereNot'              => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must'   => $must,
-                            'filter' => [
-                                [
-                                    'bool' => [
-                                        'must_not' => [
-                                            [
-                                                'term' => ['whereNot' => '123'],
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must'   => $must,
+                                'filter' => [
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                [
+                                                    'term' => ['whereNot' => '123'],
+                                                ],
                                             ],
                                         ],
                                     ],
@@ -418,18 +428,20 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'where + whereNot'      => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must'   => $must,
-                            'filter' => [
-                                [
-                                    'term' => ['where' => '123'],
-                                ],
-                                [
-                                    'bool' => [
-                                        'must_not' => [
-                                            [
-                                                'term' => ['whereNot' => '123'],
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must'   => $must,
+                                'filter' => [
+                                    [
+                                        'term' => ['where' => '123'],
+                                    ],
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                [
+                                                    'term' => ['whereNot' => '123'],
+                                                ],
                                             ],
                                         ],
                                     ],
@@ -445,18 +457,20 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereNotIn'            => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must'   => $must,
-                            'filter' => [
-                                [
-                                    'bool' => [
-                                        'must_not' => [
-                                            [
-                                                'terms' => ['whereNotIn' => ['a', 'b', 'c']],
-                                            ],
-                                            [
-                                                'terms' => ['whereNotIn2' => ['1', '2', '3']],
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must'   => $must,
+                                'filter' => [
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                [
+                                                    'terms' => ['whereNotIn' => ['a', 'b', 'c']],
+                                                ],
+                                                [
+                                                    'terms' => ['whereNotIn2' => ['1', '2', '3']],
+                                                ],
                                             ],
                                         ],
                                     ],
@@ -472,18 +486,20 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'whereNot + whereNotIn' => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must'   => $must,
-                            'filter' => [
-                                [
-                                    'bool' => [
-                                        'must_not' => [
-                                            [
-                                                'term' => ['whereNot' => '123'],
-                                            ],
-                                            [
-                                                'terms' => ['whereNotIn' => ['a', 'b', 'c']],
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must'   => $must,
+                                'filter' => [
+                                    [
+                                        'bool' => [
+                                            'must_not' => [
+                                                [
+                                                    'term' => ['whereNot' => '123'],
+                                                ],
+                                                [
+                                                    'terms' => ['whereNotIn' => ['a', 'b', 'c']],
+                                                ],
                                             ],
                                         ],
                                     ],
@@ -499,22 +515,24 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'order'                 => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must' => $must,
-                        ],
-                    ],
-                    'sort'  => [
-                        [
-                            Configuration::getPropertyName('key.a') => [
-                                'order'         => 'asc',
-                                'unmapped_type' => 'keyword',
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must' => $must,
                             ],
                         ],
-                        [
-                            Configuration::getPropertyName('key.b.keyword') => [
-                                'order'         => 'desc',
-                                'unmapped_type' => 'keyword',
+                        'sort'  => [
+                            [
+                                Configuration::getPropertyName('key.a') => [
+                                    'order'         => 'asc',
+                                    'unmapped_type' => 'keyword',
+                                ],
+                            ],
+                            [
+                                Configuration::getPropertyName('key.b.keyword') => [
+                                    'order'         => 'desc',
+                                    'unmapped_type' => 'keyword',
+                                ],
                             ],
                         ],
                     ],
@@ -534,13 +552,15 @@ class SearchRequestFactoryTest extends TestCase {
             ],
             'offset'                => [
                 [
-                    'query' => [
-                        'bool' => [
-                            'must' => $must,
+                    'body' => [
+                        'query' => [
+                            'bool' => [
+                                'must' => $must,
+                            ],
                         ],
+                        'from'  => 45,
+                        'size'  => 123,
                     ],
-                    'from'  => 45,
-                    'size'  => 123,
                 ],
                 static function (Builder $builder): void {
                     $builder->take(123);

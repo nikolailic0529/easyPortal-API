@@ -2,9 +2,9 @@
 
 namespace App\Services\Search\Jobs;
 
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Progress;
-use App\Services\Queue\Progressable;
 use App\Services\Search\Service;
 use App\Services\Search\Status;
 use App\Services\Search\Updater;

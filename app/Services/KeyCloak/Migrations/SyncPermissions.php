@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak\Migrations;
 
-use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
+use App\Services\KeyCloak\Jobs\Cron\PermissionsSynchronizer;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
 class SyncPermissions extends RawDataMigration {
@@ -15,6 +15,6 @@ class SyncPermissions extends RawDataMigration {
     }
 
     private function sync(): void {
-        $this->getContainer()->make(SyncPermissionsCronJob::class)->dispatch();
+        $this->getContainer()->make(PermissionsSynchronizer::class)->dispatch();
     }
 }

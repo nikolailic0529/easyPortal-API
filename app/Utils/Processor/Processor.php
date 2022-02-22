@@ -10,18 +10,34 @@ use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
-use App\Utils\Iterators\ObjectIterator;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Laravel\Telescope\Telescope;
-use LastDragon_ru\LaraASP\Core\Observer\Subject;
+use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 use LogicException;
 use Throwable;
 
 use function min;
 
 /**
+ * The Processor is specially designed to process a huge amount of items and
+ * provides a way to concentrate on implementation without worries about all
+ * other stuff.
+ *
+ * Behind the scenes, it uses `ObjectIterator` to get items divided into chunks,
+ * calls events for each chunk (that, for example, allows us to implement Eager
+ * Loading and alleviate the "N + 1" problem), and finally calls `process()`
+ * to process the item.
+ *
+ * In addition, it can also save (and restore of course) the internal state
+ * after each chunk that is especially useful for queued jobs to continue
+ * processing after error/timeout/stop signal/etc.
+ *
+ * @see \App\Utils\Iterators\Contracts\ObjectIterator
+ * @see \App\Services\Queue\Concerns\ProcessorJob
+ *
  * @template TItem
  * @template TChunkData
  * @template TState of \App\Utils\Processor\State
@@ -37,27 +53,27 @@ abstract class Processor {
     private bool     $running  = false;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
      */
-    private Subject $onInit;
+    private Dispatcher $onInit;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
      */
-    private Subject $onChange;
+    private Dispatcher $onChange;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Subject<TState>
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
      */
-    private Subject $onFinish;
+    private Dispatcher $onFinish;
 
     public function __construct(
         private ExceptionHandler $exceptionHandler,
-        private Dispatcher $dispatcher,
+        private EventDispatcher $dispatcher,
     ) {
-        $this->onInit   = new Subject();
-        $this->onChange = new Subject();
-        $this->onFinish = new Subject();
+        $this->onInit   = new Dispatcher();
+        $this->onChange = new Dispatcher();
+        $this->onFinish = new Dispatcher();
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -66,7 +82,7 @@ abstract class Processor {
         return $this->exceptionHandler;
     }
 
-    protected function getDispatcher(): Dispatcher {
+    protected function getDispatcher(): EventDispatcher {
         return $this->dispatcher;
     }
 
@@ -199,7 +215,7 @@ abstract class Processor {
     /**
      * @param TState $state
      *
-     * @return \App\Utils\Iterators\ObjectIterator<TItem>
+     * @return \App\Utils\Iterators\Contracts\ObjectIterator<TItem>
      */
     abstract protected function getIterator(State $state): ObjectIterator;
 

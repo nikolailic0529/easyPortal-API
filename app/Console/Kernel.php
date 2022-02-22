@@ -11,9 +11,6 @@ use App\Services\DataLoader\Commands\ImportDistributors;
 use App\Services\DataLoader\Commands\ImportDocuments;
 use App\Services\DataLoader\Commands\ImportOems;
 use App\Services\DataLoader\Commands\ImportResellers;
-use App\Services\DataLoader\Commands\RecalculateCustomers;
-use App\Services\DataLoader\Commands\RecalculateLocations;
-use App\Services\DataLoader\Commands\RecalculateResellers;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
@@ -29,15 +26,6 @@ use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
 use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\KeyCloak\Commands\SyncPermissions;
-use App\Services\KeyCloak\Commands\SyncUsers;
-use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
-use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
-use App\Services\Maintenance\Commands\Start as MaintenanceStart;
-use App\Services\Maintenance\Commands\Stop as MaintenanceStop;
-use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
-use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
-use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Commands\RebuildIndex as SearchRebuildIndex;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
@@ -73,13 +61,6 @@ class Kernel extends ConsoleKernel {
         UpdateAsset::class,
         CountAssets::class,
         AnalyzeAssets::class,
-        SyncPermissions::class,
-        SyncUsers::class,
-        RecalculateResellers::class,
-        RecalculateCustomers::class,
-        RecalculateLocations::class,
-        MaintenanceStart::class,
-        MaintenanceStop::class,
         SearchRebuildIndex::class,
 
         // Dev
@@ -103,14 +84,9 @@ class Kernel extends ConsoleKernel {
         DocumentsUpdaterCronJob::class,
         AssetsImporterCronJob::class,
         AssetsUpdaterCronJob::class,
-        SyncPermissionsCronJob::class,
         SearchAssetsUpdaterCronJob::class,
         SearchCustomersUpdaterCronJob::class,
         SearchDocumentsUpdaterCronJob::class,
-        SyncUsersCronJob::class,
-        MaintenanceStartCronJob::class,
-        MaintenanceCompleteCronJob::class,
-        MaintenanceNotifyCronJob::class,
     ];
 
     /**

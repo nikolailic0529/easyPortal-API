@@ -3,6 +3,7 @@
 namespace App\Utils\Iterators;
 
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Tests\TestCase;
 
@@ -20,6 +21,7 @@ class ObjectsIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $iterator = new ObjectsIterator(
+            Mockery::mock(ExceptionHandler::class),
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             static function (int $item): int {
                 return $item * 10;
@@ -56,6 +58,7 @@ class ObjectsIteratorTest extends TestCase {
         });
 
         $iterator = (new ObjectsIterator(
+            Mockery::mock(ExceptionHandler::class),
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             static function (int $item): int {
                 return $item * 10;

@@ -8,7 +8,6 @@ use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\ResellerAssetsImporter;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderRecalculable;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -21,7 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
  *
  * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
  */
-class ResellerLoader extends Loader implements LoaderRecalculable {
+class ResellerLoader extends Loader {
     use WithAssets;
 
     // <editor-fold desc="API">

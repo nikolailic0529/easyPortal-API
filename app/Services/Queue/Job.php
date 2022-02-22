@@ -3,6 +3,8 @@
 namespace App\Services\Queue;
 
 use App\Services\Queue\Concerns\PingableJob;
+use App\Services\Queue\Contracts\NamedJob;
+use App\Services\Queue\Contracts\Stoppable;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job as LaraASPJob;
 
 /**
