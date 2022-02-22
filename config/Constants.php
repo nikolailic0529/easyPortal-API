@@ -1520,7 +1520,7 @@ interface Constants {
     #[Service(MaintenanceStartCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_START_CRON = null;
+    public const EP_MAINTENANCE_START_CRON = '0 0 1 1 *';
 
     /**
      * Queue name.
@@ -1545,7 +1545,7 @@ interface Constants {
     #[Service(MaintenanceCompleteCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_COMPLETE_CRON = null;
+    public const EP_MAINTENANCE_COMPLETE_CRON = '0 0 1 1 *';
 
     /**
      * Queue name.
@@ -1570,7 +1570,7 @@ interface Constants {
     #[Service(MaintenanceNotifyCronJob::class, 'cron')]
     #[Group('maintenance')]
     #[Type(CronExpression::class)]
-    public const EP_MAINTENANCE_NOTIFY_CRON = null;
+    public const EP_MAINTENANCE_NOTIFY_CRON = '0 0 1 1 *';
 
     /**
      * Queue name.
