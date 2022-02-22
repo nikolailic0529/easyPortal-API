@@ -373,6 +373,9 @@ class ProcessorCommand__EloquentProcessor extends EloquentProcessor {
         throw new Exception('should not be called');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function prefetch(State $state, array $items): mixed {
         throw new Exception('should not be called');
     }
