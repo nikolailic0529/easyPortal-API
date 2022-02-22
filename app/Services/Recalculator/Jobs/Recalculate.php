@@ -4,6 +4,7 @@ namespace App\Services\Recalculator\Jobs;
 
 use App\Queues;
 use App\Services\Queue\Concerns\ProcessorJob;
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\Job;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Processor\Processor;
@@ -22,7 +23,7 @@ use function is_string;
  *
  * @uses     \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
  */
-abstract class Recalculate extends Job implements Initializable {
+abstract class Recalculate extends Job implements Initializable, Progressable {
     use ProcessorJob {
         getProcessor as private createProcessor;
     }
