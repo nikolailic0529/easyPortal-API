@@ -172,7 +172,7 @@ class AssetLoaderTest extends TestCase {
     public function testCreateWithWarrantyCheck(): void {
         $this->override(Client::class, static function (MockInterface $mock): void {
             $mock
-                ->shouldReceive('triggerCoverageStatusCheck')
+                ->shouldReceive('runAssetWarrantyCheck')
                 ->once()
                 ->andReturn(false);
             $mock

@@ -3,6 +3,8 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
+use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 
 trait WithWarrantyCheck {
     private bool $withWarrantyCheck = false;
@@ -18,11 +20,19 @@ trait WithWarrantyCheck {
     }
 
     protected function runCustomerWarrantyCheck(string $id): bool {
-        return $this->getClient()->runCustomerWarrantyCheck($id);
+        if (!$this->getClient()->runCustomerWarrantyCheck($id)) {
+            throw new CustomerWarrantyCheckFailed($id);
+        }
+
+        return true;
     }
 
     protected function runAssetWarrantyCheck(string $id): bool {
-        return $this->getClient()->runAssetWarrantyCheck($id);
+        if (!$this->getClient()->runAssetWarrantyCheck($id)) {
+            throw new AssetWarrantyCheckFailed($id);
+        }
+
+        return true;
     }
 
     abstract protected function getClient(): Client;

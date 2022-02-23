@@ -295,20 +295,15 @@ type AssetMutations {
   
   @require <me(["assets-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: AssetSyncInput!): AssetSyncPayload
+  sync: AssetSyncPayload
 }
 
 input AssetStatusesQuery {
   assets: AssetsQuery
 }
 
-input AssetSyncInput {
-  id: [ID!]!
-}
-
-type AssetSyncPayload {
+type AssetSyncPayload implements Payload {
   result: Boolean!
-  failed: [ID!]!
 }
 
 input AssetTypesQuery {
@@ -681,20 +676,16 @@ type ContractMutations {
   
   @require <me(["contracts-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: ContractSyncInput!): ContractSyncPayload
+  sync: ContractSyncPayload
 }
 
 input ContractStatusesQuery {
   contracts: DocumentsQuery
 }
 
-input ContractSyncInput {
-  id: [ID!]!
-}
-
-type ContractSyncPayload {
+type ContractSyncPayload implements Payload {
   result: Boolean!
-  failed: [ID!]!
+  assets: Boolean!
 }
 
 input ContractTypesQuery {
@@ -866,20 +857,16 @@ type CustomerMutations {
   
   @require <me(["customers-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: CustomerSyncInput!): CustomerSyncPayload
+  sync: CustomerSyncPayload
 }
 
 input CustomerStatusesQuery {
   customers: CustomersQuery
 }
 
-input CustomerSyncInput {
-  id: [ID!]!
-}
-
-type CustomerSyncPayload {
+type CustomerSyncPayload implements Payload {
   result: Boolean!
-  failed: [ID!]!
+  warranty: Boolean!
 }
 
 input CustomerTypesQuery {
@@ -1610,7 +1597,13 @@ type Mutation {
   @require <root> Authenticated user must be a root.
   """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
-  asset: AssetMutations
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  asset(id: ID): AssetMutations
   auth: AuthMutations
 
   """
@@ -1633,8 +1626,20 @@ type Mutation {
   @require <guest> Current visitor must be a guest.
   """
   signIn(input: SignInInput): SignInPayload
-  contract: ContractMutations
-  customer: CustomerMutations
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contract(id: ID): ContractMutations
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customer(id: ID): CustomerMutations
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1699,7 +1704,13 @@ type Mutation {
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   organization(id: ID): OrganizationMutations
-  quote: QuoteMutations
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quote(id: ID): QuoteMutations
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -2568,7 +2579,7 @@ type QuoteMutations {
   
   @require <me(["quotes-sync"])> User must be authenticated and have any of these permissions.
   """
-  sync(input: QuoteSyncInput!): QuoteSyncPayload
+  sync: QuoteSyncPayload
 }
 
 type QuoteRequest {
@@ -2610,13 +2621,9 @@ input QuoteStatusesQuery {
   quotes: DocumentsQuery
 }
 
-input QuoteSyncInput {
-  id: [ID!]!
-}
-
 type QuoteSyncPayload {
   result: Boolean!
-  failed: [ID!]!
+  assets: Boolean!
 }
 
 input QuoteTypesQuery {
