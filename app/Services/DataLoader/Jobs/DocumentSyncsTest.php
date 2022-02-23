@@ -78,7 +78,7 @@ class DocumentSyncsTest extends TestCase {
     /**
      * @covers ::__invoke
      */
-    public function testInvokeFailed(): void {
+    public function testInvokeSyncAssetsFailed(): void {
         $document  = Document::factory()->hasEntries(2)->make();
         $exception = new Exception();
 
@@ -86,16 +86,16 @@ class DocumentSyncsTest extends TestCase {
             $mock
                 ->shouldReceive('report')
                 ->with($exception)
-                ->twice()
+                ->once()
                 ->andReturns();
         });
 
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($exception): void {
+        $this->override(Kernel::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('call')
                 ->with(UpdateDocument::class, Mockery::any())
                 ->once()
-                ->andThrow($exception);
+                ->andReturn(Command::SUCCESS);
         });
 
         $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($exception): void {
@@ -117,7 +117,7 @@ class DocumentSyncsTest extends TestCase {
         $job      = $this->app->make(DocumentSync::class)->init($document);
         $actual   = $this->app->call($job);
         $expected = [
-            'result' => false,
+            'result' => true,
             'assets' => false,
         ];
 
