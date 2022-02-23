@@ -55,10 +55,13 @@ class AssetSyncTest extends TestCase {
                 ->andReturn(true);
         });
 
-        $job    = $this->app->make(AssetSync::class)->init($asset);
-        $actual = $this->app->call($job);
+        $job      = $this->app->make(AssetSync::class)->init($asset);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result' => true,
+        ];
 
-        $this->assertTrue($actual);
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -96,10 +99,13 @@ class AssetSyncTest extends TestCase {
                 ->andReturnSelf();
         });
 
-        $job    = $this->app->make(AssetSync::class)->init($asset);
-        $actual = $this->app->call($job);
+        $job      = $this->app->make(AssetSync::class)->init($asset);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result' => false,
+        ];
 
-        $this->assertFalse($actual);
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 }

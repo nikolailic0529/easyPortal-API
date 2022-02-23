@@ -13,7 +13,10 @@ class Sync {
         // empty
     }
 
-    public function __invoke(Asset $asset): bool {
+    /**
+     * @return array{result: bool}
+     */
+    public function __invoke(Asset $asset): array {
         $job    = $this->container->make(AssetSync::class)->init($asset);
         $result = $this->container->call($job);
 

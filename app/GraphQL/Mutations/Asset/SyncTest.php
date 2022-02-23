@@ -117,7 +117,9 @@ class SyncTest extends TestCase {
                             $mock
                                 ->shouldReceive('__invoke')
                                 ->once()
-                                ->andReturn(true);
+                                ->andReturn([
+                                    'result' => true,
+                                ]);
                         });
 
                         return $asset->getKey();

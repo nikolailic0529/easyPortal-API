@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Jobs;
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Commands\UpdateCustomer;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -24,10 +26,15 @@ class CustomerSync extends Sync {
      * @return array{result: bool, warranty: bool}
      */
     public function __invoke(ExceptionHandler $handler, Kernel $kernel, Client $client): array {
-        return [
-            'warranty' => $this->checkWarranty($handler, $client),
-            'result'   => $this->syncProperties($handler, $kernel),
-        ];
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            function () use ($handler, $kernel, $client): array {
+                return [
+                    'warranty' => $this->checkWarranty($handler, $client),
+                    'result'   => $this->syncProperties($handler, $kernel),
+                ];
+            },
+        );
     }
 
     protected function checkWarranty(ExceptionHandler $handler, Client $client): bool {
