@@ -123,5 +123,31 @@ class DocumentSyncsTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeSyncPropertiesFailed(): void {
+        $document = Document::factory()->make();
+        $job      = Mockery::mock(DocumentSync::class);
+        $job->shouldAllowMockingProtectedMethods();
+        $job->makePartial();
+        $job
+            ->shouldReceive('syncProperties')
+            ->once()
+            ->andReturn(false);
+        $job
+            ->shouldReceive('syncAssets')
+            ->never();
+
+        $job      = $job->init($document);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result' => false,
+            'assets' => false,
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
     // </editor-fold>
 }

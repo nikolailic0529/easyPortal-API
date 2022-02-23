@@ -31,9 +31,12 @@ class DocumentSync extends Sync {
         return GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             function () use ($handler, $kernel, $importer): array {
+                $result = $this->syncProperties($handler, $kernel);
+                $assets = $result && $this->syncAssets($handler, $importer);
+
                 return [
-                    'result' => $this->syncProperties($handler, $kernel),
-                    'assets' => $this->syncAssets($handler, $importer),
+                    'result' => $result,
+                    'assets' => $assets,
                 ];
             },
         );
