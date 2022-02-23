@@ -9,6 +9,8 @@ use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
+use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
+use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
@@ -226,6 +228,17 @@ class Client {
         );
     }
 
+    public function runCustomerWarrantyCheck(string $id): bool {
+        $input  = new TriggerCoverageStatusCheck(['customerId' => $id]);
+        $result = $this->triggerCoverageStatusCheck($input);
+
+        if (!$result) {
+            throw new CustomerWarrantyCheckFailed($id);
+        }
+
+        return $result;
+    }
+
     public function getAssetsCount(): int {
         return (int) $this->call(
             'data.getCentralAssetDbStatistics.assetsAmount',
@@ -272,6 +285,17 @@ class Client {
             ],
             $this->getAssetRetriever(),
         );
+    }
+
+    public function runAssetWarrantyCheck(string $id): bool {
+        $input  = new TriggerCoverageStatusCheck(['assetId' => $id]);
+        $result = $this->triggerCoverageStatusCheck($input);
+
+        if (!$result) {
+            throw new AssetWarrantyCheckFailed($id);
+        }
+
+        return $result;
     }
 
     /**
@@ -583,7 +607,7 @@ class Client {
         );
     }
 
-    public function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
+    protected function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
         return (bool) $this->normalizer->boolean($this->call(
             'data.triggerCoverageStatusCheck',
             /** @lang GraphQL */ <<<'GRAPHQL'
