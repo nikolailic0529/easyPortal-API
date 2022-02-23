@@ -11,12 +11,7 @@ abstract class Sync extends Job implements ShouldBeUnique, Initializable {
     use CommandOptions;
     use CommandResult;
 
-    protected string $objectId;
-    /**
-     * @deprecated
-     * @var array<string,scalar>
-     */
-    protected array $arguments = [];
+    private string $objectId;
 
     protected function getObjectId(): string {
         return $this->objectId;
@@ -28,18 +23,7 @@ abstract class Sync extends Job implements ShouldBeUnique, Initializable {
         return $this;
     }
 
-    /**
-     * @deprecated
-     * @return array<string,scalar>
-     */
-    public function getArguments(): array {
-        return $this->arguments;
-    }
-
     public function uniqueId(): string {
-        return json_encode([
-            'objectId'  => $this->objectId,
-            'arguments' => $this->arguments,
-        ]);
+        return $this->getObjectId();
     }
 }

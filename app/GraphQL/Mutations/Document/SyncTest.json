@@ -1,20 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "additionalProperties": false,
-    "required": [
-        "result",
-        "failed"
-    ],
-    "properties": {
-        "result": {
-            "type": "boolean"
+    "allOf": [
+        {
+            "$ref": "../../Types/Payload.json"
         },
-        "failed": {
-            "type": "array",
-            "items": {
-                "$ref": "../../types.json#/definitions/ID"
+        {
+            "type": "object",
+            "required": [
+                "assets"
+            ],
+            "properties": {
+                "assets": {
+                    "type": "boolean"
+                }
             }
         }
-    }
+    ]
 }

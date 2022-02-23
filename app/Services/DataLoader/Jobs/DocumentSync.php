@@ -2,34 +2,71 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Document;
 use App\Services\DataLoader\Commands\UpdateDocument;
+use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Iterators\EloquentIterator;
+use App\Utils\Iterators\ObjectsIterator;
+use Exception;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
-/**
- * Syncs Document.
- *
- * @see \App\Services\DataLoader\Commands\UpdateDocument
- */
 class DocumentSync extends Sync {
     public function displayName(): string {
         return 'ep-data-loader-document-sync';
     }
 
-
-    public function init(string $id): static {
-        $this->objectId  = $id;
-        $this->arguments = [];
-
-        $this->initialized();
-
-        return $this;
+    public function init(Document $document): static {
+        return $this
+            ->setObjectId($document->getKey())
+            ->initialized();
     }
 
-    public function __invoke(Kernel $kernel): void {
-        $this->checkCommandResult(
-            $kernel->call(UpdateDocument::class, [
-                'id' => $this->objectId,
-            ]),
+    /**
+     * @return array{result: bool, assets: bool}
+     */
+    public function __invoke(ExceptionHandler $handler, Kernel $kernel, AssetsIteratorImporter $importer): array {
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            function () use ($handler, $kernel, $importer): array {
+                return [
+                    'result' => $this->syncProperties($handler, $kernel),
+                    'assets' => $this->syncAssets($handler, $importer),
+                ];
+            },
         );
+    }
+
+    protected function syncProperties(ExceptionHandler $handler, Kernel $kernel): bool {
+        try {
+            return $this->isCommandSuccessful($kernel->call(UpdateDocument::class, $this->getOptions([
+                'interaction' => false,
+                'id'          => $this->getObjectId(),
+            ])));
+        } catch (Exception $exception) {
+            $handler->report($exception);
+        }
+
+        return false;
+    }
+
+    protected function syncAssets(ExceptionHandler $handler, AssetsIteratorImporter $importer): bool {
+        try {
+            $document = Document::query()->whereKey($this->getObjectId())->first();
+            $iterator = $document
+                ? new EloquentIterator($document->assets()->getQuery()->getChunkedIterator())
+                : new ObjectsIterator($handler, []);
+
+            return $importer
+                ->setIterator($iterator)
+                ->setWithDocuments(false)
+                ->start();
+        } catch (Exception $exception) {
+            $handler->report($exception);
+        }
+
+        return false;
     }
 }

@@ -2,12 +2,20 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Document;
 use App\Services\DataLoader\Commands\UpdateDocument;
-use App\Utils\Console\CommandFailed;
+use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Utils\Eloquent\Callbacks\GetKey;
+use App\Utils\Iterators\ObjectsIterator;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
+
+use function iterator_to_array;
 
 /**
  * @internal
@@ -18,58 +26,102 @@ class DocumentSyncsTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
-     *
-     * @dataProvider dataProviderInvoke
-     *
-     * @param array<mixed> $expected
      */
-    public function testInvoke(array $expected, string $documentId): void {
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($expected): void {
+    public function testInvoke(): void {
+        $document = Document::factory()->hasEntries(2)->make();
+
+        $this->override(ExceptionHandler::class);
+
+        $this->override(Kernel::class, static function (MockInterface $mock) use ($document): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateDocument::class, $expected)
+                ->with(UpdateDocument::class, [
+                    '--no-interaction' => true,
+                    'id'               => $document->getKey(),
+                ])
                 ->once()
                 ->andReturn(Command::SUCCESS);
         });
 
-        $this->app->make(DocumentSync::class)
-            ->init($documentId)
-            ->run();
+        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($document): void {
+            $mock
+                ->shouldReceive('setIterator')
+                ->withArgs(static function (ObjectsIterator $iterator) use ($document): bool {
+                    $actual   = iterator_to_array($iterator);
+                    $expected = $document->assets->map(new GetKey())->all();
+
+                    return $expected === $actual;
+                })
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(false)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
+        });
+
+        $job      = $this->app->make(DocumentSync::class)->init($document);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result' => true,
+            'assets' => true,
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
      * @covers ::__invoke
      */
     public function testInvokeFailed(): void {
-        $this->expectException(CommandFailed::class);
+        $document  = Document::factory()->hasEntries(2)->make();
+        $exception = new Exception();
 
-        $this->override(Kernel::class, static function (MockInterface $mock): void {
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock) use ($exception): void {
             $mock
-                ->shouldReceive('call')
-                ->once()
-                ->andReturn(Command::FAILURE);
+                ->shouldReceive('report')
+                ->with($exception)
+                ->twice()
+                ->andReturns();
         });
 
-        $this->app->make(DocumentSync::class)
-            ->init($this->faker->uuid)
-            ->run();
-    }
-    // </editor-fold>
+        $this->override(Kernel::class, static function (MockInterface $mock) use ($exception): void {
+            $mock
+                ->shouldReceive('call')
+                ->with(UpdateDocument::class, Mockery::any())
+                ->once()
+                ->andThrow($exception);
+        });
 
-    // <editor-fold desc="DataProviders">
-    // =========================================================================
-    /**
-     * @return array<string,array{string,?bool}>
-     */
-    public function dataProviderInvoke(): array {
-        return [
-            'document only' => [
-                [
-                    'id' => 'd3f06a69-43c9-497e-b033-f0928f757126',
-                ],
-                'd3f06a69-43c9-497e-b033-f0928f757126',
-            ],
+        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($exception): void {
+            $mock
+                ->shouldReceive('setIterator')
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(false)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andThrow($exception);
+        });
+
+        $job      = $this->app->make(DocumentSync::class)->init($document);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result' => false,
+            'assets' => false,
         ];
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 }

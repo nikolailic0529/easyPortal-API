@@ -1,6 +1,13 @@
 extend type Mutation {
-  contract: ContractMutations
-  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+  contract(id: ID @eq): ContractMutations
+  @organization
+  @me
+  @builder(
+    method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
+  )
+  @mutation(
+    model: "App\\Models\\Document"
+  )
 }
 
 type ContractMutations
