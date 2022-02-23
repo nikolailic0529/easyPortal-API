@@ -2,12 +2,9 @@
 
 namespace App\GraphQL\Mutations\Customer;
 
+use App\Models\Customer;
 use App\Services\DataLoader\Jobs\CustomerSync;
 use Illuminate\Contracts\Container\Container;
-use Throwable;
-
-use function array_unique;
-use function count;
 
 class Sync {
     public function __construct(
@@ -17,33 +14,12 @@ class Sync {
     }
 
     /**
-     * @param array{input: array{id: array<string>}} $args
-     *
-     * @return array{result: bool}
+     * @return array{result: bool, warranty: bool}
      */
-    public function __invoke(mixed $root, array $args): array {
-        $ids    = array_unique($args['input']['id']);
-        $failed = [];
+    public function __invoke(Customer $customer): array {
+        $job    = $this->container->make(CustomerSync::class)->init($customer);
+        $result = $this->container->call($job);
 
-        foreach ($ids as $id) {
-            try {
-                $this->container
-                    ->make(CustomerSync::class)
-                    ->init(
-                        id             : $id,
-                        warrantyCheck  : true,
-                        assets         : true,
-                        assetsDocuments: true,
-                    )
-                    ->run();
-            } catch (Throwable) {
-                $failed[] = $id;
-            }
-        }
-
-        return [
-            'result' => count($failed) === 0,
-            'failed' => $failed,
-        ];
+        return $result;
     }
 }

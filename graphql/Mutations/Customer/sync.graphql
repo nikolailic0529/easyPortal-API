@@ -1,17 +1,13 @@
 extend type CustomerMutations {
-  sync(
-    input: CustomerSyncInput!
-  ): CustomerSyncPayload
+  sync: CustomerSyncPayload
   @organization
   @me(permissions: ["customers-sync"])
-  @field(resolver: "App\\GraphQL\\Mutations\\Customer\\Sync")
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\Customer\\Sync"
+  )
 }
 
-input CustomerSyncInput {
-  id: [ID!]! @rules(apply:["required","App\\Rules\\CustomerId"])
-}
-
-type CustomerSyncPayload {
+type CustomerSyncPayload implements Payload {
   result: Boolean!
-  failed: [ID!]!
+  warranty: Boolean!
 }

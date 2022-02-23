@@ -2,10 +2,14 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Customer;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Commands\UpdateCustomer;
-use App\Utils\Console\CommandFailed;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -18,127 +22,82 @@ class CustomerSyncTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
-     *
-     * @dataProvider dataProviderInvoke
-     *
-     * @param array<mixed> $expected
      */
-    public function testInvoke(
-        array $expected,
-        string $customerId,
-        ?bool $warrantyCheck,
-        ?bool $withAssets,
-        ?bool $withAssetsDocuments,
-    ): void {
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($expected): void {
+    public function testInvoke(): void {
+        $customer = Customer::factory()->make();
+
+        $this->override(ExceptionHandler::class);
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($customer): void {
+            $mock
+                ->shouldReceive('runCustomerWarrantyCheck')
+                ->with($customer->getKey())
+                ->once()
+                ->andReturn(true);
+        });
+
+        $this->override(Kernel::class, static function (MockInterface $mock) use ($customer): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateCustomer::class, $expected)
+                ->with(UpdateCustomer::class, [
+                    '--no-interaction'   => true,
+                    'id'                 => $customer->getKey(),
+                    '--assets'           => true,
+                    '--assets-documents' => true,
+                ])
                 ->once()
                 ->andReturn(Command::SUCCESS);
         });
 
-        $this->app->make(CustomerSync::class)
-            ->init(
-                id             : $customerId,
-                warrantyCheck  : $warrantyCheck,
-                assets         : $withAssets,
-                assetsDocuments: $withAssetsDocuments,
-            )
-            ->run();
+        $job      = $this->app->make(CustomerSync::class)->init($customer);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result'   => true,
+            'warranty' => true,
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
      * @covers ::__invoke
      */
     public function testInvokeFailed(): void {
-        $this->expectException(CommandFailed::class);
+        $customer  = Customer::factory()->make();
+        $exception = new Exception();
 
-        $this->override(Kernel::class, static function (MockInterface $mock): void {
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock) use ($exception): void {
             $mock
-                ->shouldReceive('call')
-                ->once()
-                ->andReturn(Command::FAILURE);
+                ->shouldReceive('report')
+                ->with($exception)
+                ->twice()
+                ->andReturns();
         });
 
-        $this->app->make(CustomerSync::class)
-            ->init(
-                id: $this->faker->uuid,
-            )
-            ->run();
-    }
-    // </editor-fold>
+        $this->override(Client::class, static function (MockInterface $mock) use ($customer, $exception): void {
+            $mock
+                ->shouldReceive('runCustomerWarrantyCheck')
+                ->with($customer->getKey())
+                ->once()
+                ->andThrow($exception);
+        });
 
-    // <editor-fold desc="DataProviders">
-    // =========================================================================
-    /**
-     * @return array<string,array{string,?bool,?bool}>
-     */
-    public function dataProviderInvoke(): array {
-        return [
-            'customer only'                              => [
-                [
-                    'id' => '48c485a3-f0ed-44e5-9bc4-7ea28fba98ae',
-                ],
-                '48c485a3-f0ed-44e5-9bc4-7ea28fba98ae',
-                null,
-                null,
-                null,
-            ],
-            'customer with assets and documents'         => [
-                [
-                    'id'                 => 'd43cb8ab-fae5-4d04-8407-15d979145deb',
-                    '--assets'           => true,
-                    '--assets-documents' => true,
-                ],
-                'd43cb8ab-fae5-4d04-8407-15d979145deb',
-                null,
-                true,
-                true,
-            ],
-            'customer without assets and documents'      => [
-                [
-                    'id'                    => 'a2ff9b08-0404-4bde-a400-288d6ce4a1c8',
-                    '--no-assets'           => true,
-                    '--no-assets-documents' => true,
-                ],
-                'a2ff9b08-0404-4bde-a400-288d6ce4a1c8',
-                null,
-                false,
-                false,
-            ],
-            'customer with assets and without documents' => [
-                [
-                    'id'                    => '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
-                    '--assets'              => true,
-                    '--no-assets-documents' => true,
-                ],
-                '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
-                null,
-                true,
-                false,
-            ],
-            'customer with warranty check'               => [
-                [
-                    'id'               => 'af894f73-a0c5-488c-9221-31b1705351bb',
-                    '--warranty-check' => true,
-                ],
-                'af894f73-a0c5-488c-9221-31b1705351bb',
-                true,
-                null,
-                null,
-            ],
-            'customer without warranty check'            => [
-                [
-                    'id'                  => 'af894f73-a0c5-488c-9221-31b1705351bb',
-                    '--no-warranty-check' => true,
-                ],
-                'af894f73-a0c5-488c-9221-31b1705351bb',
-                false,
-                null,
-                null,
-            ],
+        $this->override(Kernel::class, static function (MockInterface $mock) use ($exception): void {
+            $mock
+                ->shouldReceive('call')
+                ->with(UpdateCustomer::class, Mockery::any())
+                ->once()
+                ->andThrow($exception);
+        });
+
+        $job      = $this->app->make(CustomerSync::class)->init($customer);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result'   => false,
+            'warranty' => false,
         ];
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 }
