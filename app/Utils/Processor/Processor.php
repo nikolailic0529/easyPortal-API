@@ -112,7 +112,7 @@ abstract class Processor {
 
     // <editor-fold desc="Process">
     // =========================================================================
-    public function start(): void {
+    public function start(): bool {
         $this->running = true;
         $this->stopped = false;
         $state         = $this->getState() ?? $this->getDefaultState();
@@ -124,6 +124,8 @@ abstract class Processor {
         } finally {
             $this->running = false;
         }
+
+        return $state->failed === 0;
     }
 
     public function stop(): void {

@@ -50,7 +50,7 @@ class ProcessorTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $processor->start();
+        $this->assertTrue($processor->start());
     }
 
     /**
