@@ -4,13 +4,11 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Document;
 use App\Services\DataLoader\Commands\UpdateDocument;
-use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Iterators\EloquentIterator;
-use App\Utils\Iterators\ObjectsIterator;
 use Exception;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class DocumentSync extends Sync {
@@ -27,12 +25,12 @@ class DocumentSync extends Sync {
     /**
      * @return array{result: bool, assets: bool}
      */
-    public function __invoke(ExceptionHandler $handler, Kernel $kernel, AssetsIteratorImporter $importer): array {
+    public function __invoke(ExceptionHandler $handler, Container $container, Kernel $kernel): array {
         return GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            function () use ($handler, $kernel, $importer): array {
+            function () use ($container, $handler, $kernel): array {
                 $result = $this->syncProperties($handler, $kernel);
-                $assets = $result && $this->syncAssets($handler, $importer);
+                $assets = $result && $this->syncAssets($handler, $container);
 
                 return [
                     'result' => $result,
@@ -55,21 +53,24 @@ class DocumentSync extends Sync {
         return false;
     }
 
-    protected function syncAssets(ExceptionHandler $handler, AssetsIteratorImporter $importer): bool {
-        try {
-            $document = Document::query()->whereKey($this->getObjectId())->first();
-            $iterator = $document
-                ? new EloquentIterator($document->assets()->getQuery()->getChunkedIterator())
-                : new ObjectsIterator($handler, []);
+    protected function syncAssets(ExceptionHandler $handler, Container $container): bool {
+        // todo(DataLoader): Seems would be good to use Batches?
 
-            return $importer
-                ->setIterator($iterator)
-                ->setWithDocuments(false)
-                ->start();
+        try {
+            $result   = true;
+            $document = Document::query()->whereKey($this->getObjectId())->first();
+            $assets   = $document ? $document->assets : [];
+
+            foreach ($assets as $asset) {
+                $job    = $container->make(AssetSync::class)->init($asset);
+                $result = ($container->call($job)['result'] ?? false) && $result;
+            }
         } catch (Exception $exception) {
             $handler->report($exception);
+
+            $result = false;
         }
 
-        return false;
+        return $result;
     }
 }
