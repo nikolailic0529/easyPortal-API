@@ -99,5 +99,44 @@ class CustomerSyncTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testInvokeWarrantyFailed(): void {
+        $customer = Customer::factory()->make();
+
+        $this->override(ExceptionHandler::class);
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($customer): void {
+            $mock
+                ->shouldReceive('runCustomerWarrantyCheck')
+                ->with($customer->getKey())
+                ->once()
+                ->andReturn(false);
+        });
+
+        $this->override(Kernel::class, static function (MockInterface $mock) use ($customer): void {
+            $mock
+                ->shouldReceive('call')
+                ->with(UpdateCustomer::class, [
+                    '--no-interaction'   => true,
+                    'id'                 => $customer->getKey(),
+                    '--no-assets'        => true,
+                    '--assets-documents' => true,
+                ])
+                ->once()
+                ->andReturn(Command::SUCCESS);
+        });
+
+        $job      = $this->app->make(CustomerSync::class)->init($customer);
+        $actual   = $this->app->call($job);
+        $expected = [
+            'result'   => true,
+            'warranty' => false,
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
     // </editor-fold>
 }

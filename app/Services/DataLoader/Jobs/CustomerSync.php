@@ -29,9 +29,12 @@ class CustomerSync extends Sync {
         return GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             function () use ($handler, $kernel, $client): array {
+                $warranty = $this->checkWarranty($handler, $client);
+                $result   = $this->syncProperties($handler, $kernel, $warranty);
+
                 return [
-                    'warranty' => $this->checkWarranty($handler, $client),
-                    'result'   => $this->syncProperties($handler, $kernel),
+                    'warranty' => $warranty,
+                    'result'   => $result,
                 ];
             },
         );
@@ -47,12 +50,12 @@ class CustomerSync extends Sync {
         return false;
     }
 
-    protected function syncProperties(ExceptionHandler $handler, Kernel $kernel): bool {
+    protected function syncProperties(ExceptionHandler $handler, Kernel $kernel, bool $assets): bool {
         try {
             return $this->isCommandSuccessful($kernel->call(UpdateCustomer::class, $this->getOptions([
                 'interaction'      => false,
                 'id'               => $this->getObjectId(),
-                'assets'           => true,
+                'assets'           => $assets,
                 'assets-documents' => true,
             ])));
         } catch (Exception $exception) {
