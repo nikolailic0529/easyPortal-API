@@ -2,12 +2,16 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Commands\UpdateAsset;
-use App\Utils\Console\CommandFailed;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Console\Kernel;
+use App\Models\Asset;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Utils\Iterators\ObjectsIterator;
+use Exception;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery\MockInterface;
 use Tests\TestCase;
+
+use function iterator_to_array;
 
 /**
  * @internal
@@ -18,102 +22,84 @@ class AssetSyncTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
-     *
-     * @dataProvider dataProviderInvoke
-     *
-     * @param array<mixed> $expected
      */
-    public function testInvoke(array $expected, string $assetId, ?bool $warrantyCheck, ?bool $withDocuments): void {
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($expected): void {
+    public function testInvoke(): void {
+        $asset = Asset::factory()->make();
+
+        $this->override(ExceptionHandler::class);
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($asset): void {
             $mock
-                ->shouldReceive('call')
-                ->with(UpdateAsset::class, $expected)
+                ->shouldReceive('runAssetWarrantyCheck')
+                ->with($asset->getKey())
                 ->once()
-                ->andReturn(Command::SUCCESS);
+                ->andReturn(true);
         });
 
-        $this->app->make(AssetSync::class)
-            ->init(
-                id           : $assetId,
-                warrantyCheck: $warrantyCheck,
-                documents    : $withDocuments,
-            )
-            ->run();
+        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($asset): void {
+            $mock
+                ->shouldReceive('setIterator')
+                ->withArgs(static function (ObjectsIterator $iterator) use ($asset): bool {
+                    return [$asset->getKey()] === iterator_to_array($iterator);
+                })
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
+        });
+
+        $job    = $this->app->make(AssetSync::class)->init($asset);
+        $actual = $this->app->call($job);
+
+        $this->assertTrue($actual);
     }
 
     /**
      * @covers ::__invoke
      */
     public function testInvokeFailed(): void {
-        $this->expectException(CommandFailed::class);
+        $asset     = Asset::factory()->make();
+        $exception = new Exception();
 
-        $this->override(Kernel::class, static function (MockInterface $mock): void {
+        $this->override(ExceptionHandler::class, static function (MockInterface $mock) use ($exception): void {
             $mock
-                ->shouldReceive('call')
+                ->shouldReceive('report')
+                ->with($exception)
                 ->once()
-                ->andReturn(Command::FAILURE);
+                ->andReturns();
         });
 
-        $this->app->make(AssetSync::class)
-            ->init(
-                id: $this->faker->uuid,
-            )
-            ->run();
-    }
-    // </editor-fold>
+        $this->override(Client::class, static function (MockInterface $mock) use ($asset, $exception): void {
+            $mock
+                ->shouldReceive('runAssetWarrantyCheck')
+                ->with($asset->getKey())
+                ->once()
+                ->andThrow($exception);
+        });
 
-    // <editor-fold desc="DataProviders">
-    // =========================================================================
-    /**
-     * @return array<string,array{string,?bool}>
-     */
-    public function dataProviderInvoke(): array {
-        return [
-            'asset only'                   => [
-                [
-                    'id' => '1cc137a2-61e5-4069-a407-f0e1f32dc634',
-                ],
-                '1cc137a2-61e5-4069-a407-f0e1f32dc634',
-                null,
-                null,
-            ],
-            'asset with documents'         => [
-                [
-                    'id'          => '21a50911-912b-4543-b721-51c7398e8384',
-                    '--documents' => true,
-                ],
-                '21a50911-912b-4543-b721-51c7398e8384',
-                null,
-                true,
-            ],
-            'asset without documents'      => [
-                [
-                    'id'             => '21a50911-912b-4543-b721-51c7398e8384',
-                    '--no-documents' => true,
-                ],
-                '21a50911-912b-4543-b721-51c7398e8384',
-                null,
-                false,
-            ],
-            'asset with warranty check'    => [
-                [
-                    'id'               => '29c0298a-14c8-4ca4-b7da-ef7ff71d19ae',
-                    '--warranty-check' => true,
-                ],
-                '29c0298a-14c8-4ca4-b7da-ef7ff71d19ae',
-                true,
-                null,
-            ],
-            'asset without warranty check' => [
-                [
-                    'id'                  => '29c0298a-14c8-4ca4-b7da-ef7ff71d19ae',
-                    '--no-warranty-check' => true,
-                ],
-                '29c0298a-14c8-4ca4-b7da-ef7ff71d19ae',
-                false,
-                null,
-            ],
-        ];
+        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('setIterator')
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+        });
+
+        $job    = $this->app->make(AssetSync::class)->init($asset);
+        $actual = $this->app->call($job);
+
+        $this->assertFalse($actual);
     }
     // </editor-fold>
 }

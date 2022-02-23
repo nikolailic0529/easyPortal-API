@@ -1,17 +1,12 @@
 extend type AssetMutations {
-  sync(
-    input: AssetSyncInput!
-  ): AssetSyncPayload
+  sync: AssetSyncPayload
   @organization
   @me(permissions: ["assets-sync"])
-  @field(resolver: "App\\GraphQL\\Mutations\\Asset\\Sync")
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\Asset\\Sync"
+  )
 }
 
-input AssetSyncInput {
-  id: [ID!]! @rules(apply:["required","App\\Rules\\AssetId"])
-}
-
-type AssetSyncPayload {
+type AssetSyncPayload implements Payload {
   result: Boolean!
-  failed: [ID!]!
 }
