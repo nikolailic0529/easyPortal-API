@@ -1,17 +1,13 @@
 extend type ContractMutations {
-  sync(
-    input: ContractSyncInput!
-  ): ContractSyncPayload
+  sync: ContractSyncPayload
   @organization
   @me(permissions: ["contracts-sync"])
-  @field(resolver: "App\\GraphQL\\Mutations\\Document\\Sync")
+  @mutationMutate(
+    resolver: "App\\GraphQL\\Mutations\\Document\\Sync"
+  )
 }
 
-input ContractSyncInput {
-  id: [ID!]! @rules(apply:["required","App\\Rules\\ContractId"])
-}
-
-type ContractSyncPayload {
+type ContractSyncPayload implements Payload {
   result: Boolean!
-  failed: [ID!]!
+  assets: Boolean!
 }

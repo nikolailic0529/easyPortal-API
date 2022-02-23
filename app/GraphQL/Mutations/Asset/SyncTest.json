@@ -1,20 +1,4 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "additionalProperties": false,
-    "required": [
-        "result",
-        "failed"
-    ],
-    "properties": {
-        "result": {
-            "type": "boolean"
-        },
-        "failed": {
-            "type": "array",
-            "items": {
-                "$ref": "../../types.json#/definitions/ID"
-            }
-        }
-    }
+    "$ref": "../../Types/Payload.json"
 }

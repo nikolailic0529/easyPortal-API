@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Loader\Concerns;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
-use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
 
 trait WithWarrantyCheck {
     private bool $withWarrantyCheck = false;
@@ -21,25 +20,19 @@ trait WithWarrantyCheck {
     }
 
     protected function runCustomerWarrantyCheck(string $id): bool {
-        $input  = new TriggerCoverageStatusCheck(['customerId' => $id]);
-        $result = $this->getClient()->triggerCoverageStatusCheck($input);
-
-        if (!$result) {
+        if (!$this->getClient()->runCustomerWarrantyCheck($id)) {
             throw new CustomerWarrantyCheckFailed($id);
         }
 
-        return $result;
+        return true;
     }
 
     protected function runAssetWarrantyCheck(string $id): bool {
-        $input  = new TriggerCoverageStatusCheck(['assetId' => $id]);
-        $result = $this->getClient()->triggerCoverageStatusCheck($input);
-
-        if (!$result) {
+        if (!$this->getClient()->runAssetWarrantyCheck($id)) {
             throw new AssetWarrantyCheckFailed($id);
         }
 
-        return $result;
+        return true;
     }
 
     abstract protected function getClient(): Client;

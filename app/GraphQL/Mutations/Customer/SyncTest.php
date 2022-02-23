@@ -2,16 +2,17 @@
 
 namespace App\GraphQL\Mutations\Customer;
 
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;
 use App\Services\DataLoader\Jobs\CustomerSync;
 use Closure;
-use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -19,9 +20,7 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
-
-use function __;
-use function count;
+use Throwable;
 
 /**
  * @internal
@@ -35,13 +34,12 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<mixed> $input
+     * @param \Closure(): string $prepare
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        array $input = [],
         Closure $prepare = null,
     ): void {
         $organization = $this->setOrganization($organizationFactory);
@@ -49,65 +47,37 @@ class SyncTest extends TestCase {
         $id           = $this->faker->uuid;
 
         if ($prepare) {
-            $prepare($this, $organization, $user, $input);
-        } else {
-            // Lighthouse performs validation BEFORE permission check :(
-            //
-            // https://github.com/nuwave/lighthouse/issues/1780
-            //
-            // Following code required to "fix" it
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->create());
-            }
-
+            $id = $prepare($this, $organization, $user);
+        } elseif ($organization) {
             $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid,
+                'id' => $organization->getKey(),
             ]);
             $customer = Customer::factory()->create([
                 'id' => $id,
             ]);
 
             $reseller->customers()->attach($customer);
+        } else {
+            // empty
         }
-
-        Queue::fake();
 
         $this
             ->graphQL(
             /** @lang GraphQL */
                 '
-                mutation sync($input: CustomerSyncInput!) {
-                    customer {
-                        sync(input: $input) {
+                mutation sync($id: ID!) {
+                    customer(id: $id) {
+                        sync {
                             result
-                            failed
+                            warranty
                         }
                     }
                 }',
                 [
-                    'input' => $input ?: ['id' => $id],
+                    'id' => $id,
                 ],
             )
             ->assertThat($expected);
-
-        if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(CustomerSync::class, count($input['id'] ?? []));
-
-            foreach ((array) ($input['id'] ?? []) as $customerId) {
-                Queue::assertPushed(CustomerSync::class, static function (CustomerSync $job) use ($customerId): bool {
-                    $arguments = [
-                        'assets'           => true,
-                        'assets-documents' => true,
-                        'warranty-check'   => true,
-                    ];
-                    $pushed    = $job->getObjectId() === $customerId && $job->getArguments() === $arguments;
-
-                    return $pushed;
-                });
-            }
-        } else {
-            Queue::assertNothingPushed();
-        }
     }
     // </editor-fold>
 
@@ -117,20 +87,6 @@ class SyncTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $factory = static function (TestCase $test, Organization $organization, User $user, array $input): void {
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-
-            foreach ((array) $input['id'] as $id) {
-                $customer = Customer::factory()->create([
-                    'id' => $id,
-                ]);
-
-                $reseller->customers()->attach($customer);
-            }
-        };
-
         return (new CompositeDataProvider(
             new OrganizationDataProvider('customer'),
             new  OrganizationUserDataProvider('customer', [
@@ -142,27 +98,48 @@ class SyncTest extends TestCase {
                         'customer',
                         new JsonFragmentSchema('sync', self::class),
                         new JsonFragment('sync', [
-                            'result' => true,
-                            'failed' => [],
+                            'result'   => true,
+                            'warranty' => true,
                         ]),
                     ),
-                    [
-                        'id' => [
-                            '981edfa2-2139-42f6-bc7a-f7ff66df52ad',
-                            'd840dfdb-7c9a-4324-8470-12ec91199834',
-                        ],
-                    ],
-                    $factory,
+                    static function (TestCase $test, Organization $organization, User $user): string {
+                        $reseller = Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+                        $customer = Customer::factory()->create();
+
+                        $reseller->customers()->attach($customer);
+
+                        $test->override(
+                            CustomerSync::class,
+                            static function (MockInterface $mock) use ($customer): void {
+                                $mock->makePartial();
+                                $mock
+                                    ->shouldReceive('init')
+                                    ->withArgs(static function (Customer $actual) use ($customer): bool {
+                                        return $customer->getKey() === $actual->getKey();
+                                    })
+                                    ->once()
+                                    ->andReturnSelf();
+                                $mock
+                                    ->shouldReceive('__invoke')
+                                    ->once()
+                                    ->andReturn([
+                                        'result'   => true,
+                                        'warranty' => true,
+                                    ]);
+                            },
+                        );
+
+                        return $customer->getKey();
+                    },
                 ],
                 'invalid customer' => [
-                    new GraphQLError('customer', static function (): array {
-                        return [__('errors.validation_failed')];
+                    new GraphQLError('customer', static function (): Throwable {
+                        return new ObjectNotFound((new Customer())->getMorphClass());
                     }),
-                    [
-                        'id' => 'd2ff874e-5c60-4016-a6d0-f0b970b38b17',
-                    ],
-                    static function (): void {
-                        // empty
+                    static function (self $test): string {
+                        return $test->faker->uuid;
                     },
                 ],
             ]),

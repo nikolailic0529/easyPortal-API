@@ -2,41 +2,57 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Commands\UpdateAsset;
-use Illuminate\Contracts\Console\Kernel;
+use App\Models\Asset;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Iterators\ObjectsIterator;
+use Exception;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
-use function array_merge;
-
-/**
- * Syncs Asset.
- *
- * @see \App\Services\DataLoader\Commands\UpdateAsset
- */
 class AssetSync extends Sync {
     public function displayName(): string {
         return 'ep-data-loader-asset-sync';
     }
 
-    public function init(string $id, bool $warrantyCheck = null, bool $documents = null): static {
-        $this->objectId  = $id;
-        $this->arguments = [
-            'warranty-check' => $warrantyCheck,
-            'documents'      => $documents,
-        ];
-
-        $this->initialized();
-
-        return $this;
+    public function init(Asset $asset): static {
+        return $this
+            ->setObjectId($asset->getKey())
+            ->initialized();
     }
 
-    public function __invoke(Kernel $kernel): void {
-        $this->checkCommandResult(
-            $kernel->call(UpdateAsset::class, $this->getOptions(array_merge(
-                $this->getArguments(),
-                [
-                    'id' => $this->objectId,
-                ],
-            ))),
+    /**
+     * @return array{result: bool}
+     */
+    public function __invoke(ExceptionHandler $handler, Client $client, AssetsIteratorImporter $importer): array {
+        return GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            function () use ($handler, $client, $importer): array {
+                return [
+                    'result' => $this->syncProperties($handler, $client, $importer),
+                ];
+            },
         );
+    }
+
+    protected function syncProperties(
+        ExceptionHandler $handler,
+        Client $client,
+        AssetsIteratorImporter $importer,
+    ): bool {
+        try {
+            $iterator = new ObjectsIterator($handler, [$this->getObjectId()]);
+            $importer = $importer
+                ->setIterator($iterator)
+                ->setWithDocuments(true);
+
+            return $client->runAssetWarrantyCheck($this->getObjectId())
+                && $importer->start();
+        } catch (Exception $exception) {
+            $handler->report($exception);
+        }
+
+        return false;
     }
 }

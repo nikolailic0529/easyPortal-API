@@ -1,6 +1,10 @@
 extend type Mutation {
-  asset: AssetMutations
-  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+  asset(id: ID @eq): AssetMutations
+  @organization
+  @me
+  @mutation(
+    model: "App\\Models\\Asset"
+  )
 }
 
 type AssetMutations

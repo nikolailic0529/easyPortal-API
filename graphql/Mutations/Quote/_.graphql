@@ -1,6 +1,13 @@
 extend type Mutation {
-  quote: QuoteMutations
-  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+  quote(id: ID @eq): QuoteMutations
+  @organization
+  @me
+  @builder(
+    method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
+  )
+  @mutation(
+    model: "App\\Models\\Document"
+  )
 }
 
 type QuoteMutations

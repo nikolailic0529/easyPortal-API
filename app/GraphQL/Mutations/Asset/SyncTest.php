@@ -2,16 +2,16 @@
 
 namespace App\GraphQL\Mutations\Asset;
 
+use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\User;
 use App\Services\DataLoader\Jobs\AssetSync;
 use Closure;
-use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -19,9 +19,7 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
-
-use function __;
-use function count;
+use Throwable;
 
 /**
  * @internal
@@ -35,13 +33,12 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<mixed> $input
+     * @param \Closure(): string $prepare
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        array $input = [],
         Closure $prepare = null,
     ): void {
         $organization = $this->setOrganization($organizationFactory);
@@ -49,64 +46,34 @@ class SyncTest extends TestCase {
         $id           = $this->faker->uuid;
 
         if ($prepare) {
-            $prepare($this, $organization, $user, $input);
-        } else {
-            // Lighthouse performs validation BEFORE permission check :(
-            //
-            // https://github.com/nuwave/lighthouse/issues/1780
-            //
-            // Following code required to "fix" it
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->create());
-            }
-
-            $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid,
-            ]);
-
+            $id = $prepare($this, $organization, $user);
+        } elseif ($organization) {
             Asset::factory()->create([
                 'id'          => $id,
-                'reseller_id' => $reseller,
+                'reseller_id' => Reseller::factory()->create([
+                    'id' => $organization->getKey(),
+                ]),
             ]);
+        } else {
+            // empty
         }
-
-        Queue::fake();
 
         $this
             ->graphQL(
             /** @lang GraphQL */
                 '
-                mutation sync($input: AssetSyncInput!) {
-                    asset {
-                        sync(input: $input) {
+                mutation sync($id: ID!) {
+                    asset(id: $id) {
+                        sync {
                             result
-                            failed
                         }
                     }
                 }',
                 [
-                    'input' => $input ?: ['id' => $id],
+                    'id' => $id,
                 ],
             )
             ->assertThat($expected);
-
-        if ($expected instanceof GraphQLSuccess) {
-            Queue::assertPushed(AssetSync::class, count($input['id'] ?? []));
-
-            foreach ((array) ($input['id'] ?? []) as $assetId) {
-                Queue::assertPushed(AssetSync::class, static function (AssetSync $job) use ($assetId): bool {
-                    $arguments = [
-                        'warranty-check' => true,
-                        'documents'      => true,
-                    ];
-                    $pushed    = $job->getObjectId() === $assetId && $job->getArguments() === $arguments;
-
-                    return $pushed;
-                });
-            }
-        } else {
-            Queue::assertNothingPushed();
-        }
     }
     // </editor-fold>
 
@@ -116,19 +83,6 @@ class SyncTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $factory = static function (TestCase $test, Organization $organization, User $user, array $input): void {
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-
-            foreach ((array) $input['id'] as $id) {
-                Asset::factory()->create([
-                    'id'          => $id,
-                    'reseller_id' => $reseller,
-                ]);
-            }
-        };
-
         return (new CompositeDataProvider(
             new OrganizationDataProvider('asset'),
             new OrganizationUserDataProvider('asset', [
@@ -141,26 +95,42 @@ class SyncTest extends TestCase {
                         new JsonFragmentSchema('sync', self::class),
                         new JsonFragment('sync', [
                             'result' => true,
-                            'failed' => [],
                         ]),
                     ),
-                    [
-                        'id' => [
-                            '90398f16-036f-4e6b-af90-06e19614c57c',
-                            '2181735f-42b6-41bf-a069-47a88883b239',
-                        ],
-                    ],
-                    $factory,
+                    static function (self $test, Organization $organization): string {
+                        $reseller = Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+                        $asset    = Asset::factory()->create([
+                            'reseller_id' => $reseller,
+                        ]);
+
+                        $test->override(AssetSync::class, static function (MockInterface $mock) use ($asset): void {
+                            $mock->makePartial();
+                            $mock
+                                ->shouldReceive('init')
+                                ->withArgs(static function (Asset $actual) use ($asset): bool {
+                                    return $asset->getKey() === $actual->getKey();
+                                })
+                                ->once()
+                                ->andReturnSelf();
+                            $mock
+                                ->shouldReceive('__invoke')
+                                ->once()
+                                ->andReturn([
+                                    'result' => true,
+                                ]);
+                        });
+
+                        return $asset->getKey();
+                    },
                 ],
                 'invalid asset' => [
-                    new GraphQLError('asset', static function (): array {
-                        return [__('errors.validation_failed')];
+                    new GraphQLError('asset', static function (): Throwable {
+                        return new ObjectNotFound((new Asset())->getMorphClass());
                     }),
-                    [
-                        'id' => '05bb78da-8a67-4ed4-a1a5-db80a75d66e9',
-                    ],
-                    static function (): void {
-                        // empty
+                    static function (self $test): string {
+                        return $test->faker->uuid;
                     },
                 ],
             ]),

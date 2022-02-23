@@ -176,7 +176,7 @@ class CustomerLoaderTest extends TestCase {
     public function testCreateWithWarrantyCheck(): void {
         $this->override(Client::class, static function (MockInterface $mock): void {
             $mock
-                ->shouldReceive('triggerCoverageStatusCheck')
+                ->shouldReceive('runCustomerWarrantyCheck')
                 ->once()
                 ->andReturn(false);
             $mock

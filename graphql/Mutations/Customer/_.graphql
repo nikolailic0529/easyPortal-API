@@ -1,6 +1,10 @@
 extend type Mutation {
-  customer: CustomerMutations
-  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+  customer(id: ID @eq): CustomerMutations
+  @organization
+  @me
+  @mutation(
+    model: "App\\Models\\Customer"
+  )
 }
 
 type CustomerMutations

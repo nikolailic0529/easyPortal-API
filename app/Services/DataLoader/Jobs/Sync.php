@@ -7,33 +7,23 @@ use App\Utils\Console\CommandResult;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
-use function json_encode;
-
 abstract class Sync extends Job implements ShouldBeUnique, Initializable {
     use CommandOptions;
     use CommandResult;
 
-    protected string $objectId;
-    /**
-     * @var array<string,scalar>
-     */
-    protected array $arguments;
+    private string $objectId;
 
-    public function getObjectId(): string {
+    protected function getObjectId(): string {
         return $this->objectId;
     }
 
-    /**
-     * @return array<string,scalar>
-     */
-    public function getArguments(): array {
-        return $this->arguments;
+    protected function setObjectId(string $objectId): static {
+        $this->objectId = $objectId;
+
+        return $this;
     }
 
     public function uniqueId(): string {
-        return json_encode([
-            'objectId'  => $this->objectId,
-            'arguments' => $this->arguments,
-        ]);
+        return $this->getObjectId();
     }
 }
