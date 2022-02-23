@@ -2,33 +2,34 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Models\Asset;
 use App\Models\Document;
 use App\Services\DataLoader\Commands\UpdateDocument;
-use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
-use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Iterators\ObjectsIterator;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Support\Collection;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-use function iterator_to_array;
+use function count;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Jobs\DocumentSync
  */
-class DocumentSyncsTest extends TestCase {
+class DocumentSyncTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::__invoke
      */
     public function testInvoke(): void {
-        $document = Document::factory()->hasEntries(2)->make();
+        $document = Document::factory()->hasEntries(2)->create();
 
         $this->override(ExceptionHandler::class);
 
@@ -43,26 +44,31 @@ class DocumentSyncsTest extends TestCase {
                 ->andReturn(Command::SUCCESS);
         });
 
-        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($document): void {
-            $mock
-                ->shouldReceive('setIterator')
-                ->withArgs(static function (ObjectsIterator $iterator) use ($document): bool {
-                    $actual   = iterator_to_array($iterator);
-                    $expected = $document->assets->map(new GetKey())->all();
+        $this->override(AssetSync::class, static function (MockInterface $mock) use ($document): void {
+            $assets = GlobalScopes::callWithoutGlobalScope(
+                OwnedByOrganizationScope::class,
+                static function () use ($document): Collection {
+                    return $document->assets;
+                },
+            );
 
-                    return $expected === $actual;
-                })
-                ->once()
-                ->andReturnSelf();
+            $mock->makePartial();
             $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(false)
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('start')
-                ->once()
-                ->andReturn(true);
+                ->shouldReceive('__invoke')
+                ->times(count($assets))
+                ->andReturn([
+                    'result' => true,
+                ]);
+
+            foreach ($assets as $asset) {
+                $mock
+                    ->shouldReceive('init')
+                    ->withArgs(static function (Asset $actual) use ($asset): bool {
+                        return $asset->getKey() === $actual->getKey();
+                    })
+                    ->once()
+                    ->andReturnSelf();
+            }
         });
 
         $job      = $this->app->make(DocumentSync::class)->init($document);
@@ -79,7 +85,7 @@ class DocumentSyncsTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeSyncAssetsFailed(): void {
-        $document  = Document::factory()->hasEntries(2)->make();
+        $document  = Document::factory()->hasEntries(1)->create();
         $exception = new Exception();
 
         $this->override(ExceptionHandler::class, static function (MockInterface $mock) use ($exception): void {
@@ -98,18 +104,10 @@ class DocumentSyncsTest extends TestCase {
                 ->andReturn(Command::SUCCESS);
         });
 
-        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($exception): void {
+        $this->override(AssetSync::class, static function (MockInterface $mock) use ($exception): void {
+            $mock->makePartial();
             $mock
-                ->shouldReceive('setIterator')
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(false)
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('start')
+                ->shouldReceive('__invoke')
                 ->once()
                 ->andThrow($exception);
         });
