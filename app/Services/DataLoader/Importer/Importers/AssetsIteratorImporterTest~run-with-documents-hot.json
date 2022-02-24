@@ -608,7 +608,7 @@
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:16:36",
-            "2022-02-02 00:17:05",
+            "2022-02-02 00:17:09",
             "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5"
         ]
     },
@@ -622,7 +622,7 @@
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:16:31",
-            "2022-02-02 00:17:55",
+            "2022-02-02 00:17:59",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca"
         ]
     },
@@ -654,8 +654,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:18:21",
-            "2022-02-02 00:18:32",
+            "2022-02-02 00:18:25",
+            "2022-02-02 00:18:36",
             "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6"
         ]
     },
@@ -668,8 +668,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:18:16",
-            "2022-02-02 00:19:04",
+            "2022-02-02 00:18:20",
+            "2022-02-02 00:19:08",
             "f5ea76d0-7b8a-46f6-a195-58f25dff39cd"
         ]
     },
@@ -701,8 +701,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:19:30",
-            "2022-02-02 00:19:41",
+            "2022-02-02 00:19:34",
+            "2022-02-02 00:19:45",
             "0b1618bc-c668-41e4-8eda-c594f20a0ae1"
         ]
     },
@@ -715,8 +715,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:19:25",
-            "2022-02-02 00:20:13",
+            "2022-02-02 00:19:29",
+            "2022-02-02 00:20:17",
             "bc0520fb-2cca-41a8-8594-e9c257a7d5e9"
         ]
     },
@@ -760,40 +760,40 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:20:39",
-            "2022-02-02 00:21:08",
+            "2022-02-02 00:20:43",
+            "2022-02-02 00:21:12",
             "1122c985-ec0b-40a8-a794-05a62f1dee7a"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:21:52",
-            "2022-02-02 00:22:03",
+            "2022-02-02 00:21:56",
+            "2022-02-02 00:22:07",
             "632508e0-7f5c-4651-9094-ece89da275e8"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:22:35",
-            "2022-02-02 00:23:22",
+            "2022-02-02 00:22:39",
+            "2022-02-02 00:23:30",
             "2f242f3a-2052-4894-bca6-b8821f8ef662"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:24:18",
-            "2022-02-02 00:24:47",
+            "2022-02-02 00:24:26",
+            "2022-02-02 00:24:55",
             "efdbd056-ca96-4fea-a3d1-96aadb5405ad"
         ]
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:25:31",
-            "2022-02-02 00:25:48",
+            "2022-02-02 00:25:39",
+            "2022-02-02 00:25:56",
             "b1400cda-07e6-495c-9d18-772b2c38f47f"
         ]
     },
@@ -806,8 +806,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:20:34",
-            "2022-02-02 00:27:01",
+            "2022-02-02 00:20:38",
+            "2022-02-02 00:27:09",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501"
         ]
     }

@@ -380,6 +380,8 @@ class DocumentFactory extends ModelFactory {
 
     protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
         return $a->asset_id <=> $b->asset_id
+            ?: $a->start <=> $b->start
+            ?: $a->end <=> $b->end
             ?: $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
             ?: $a->list_price <=> $b->list_price
@@ -387,8 +389,6 @@ class DocumentFactory extends ModelFactory {
             ?: $a->renewal <=> $b->renewal
             ?: $a->service_group_id <=> $b->service_group_id
             ?: $a->service_level_id <=> $b->service_level_id
-            ?: $a->start <=> $b->start
-            ?: $a->end <=> $b->end
             ?: 0;
     }
     // </editor-fold>
