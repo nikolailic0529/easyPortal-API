@@ -1296,7 +1296,6 @@ class DocumentFactoryTest extends TestCase {
         $expected = [
             'select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null',
             'select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null',
-            'select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1',
             'update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?',
         ];
 

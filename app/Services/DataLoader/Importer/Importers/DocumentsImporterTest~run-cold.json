@@ -166,12 +166,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ca679a5a-e064-5881-ac64-1aa6f228118a"
-        ]
-    },
-    {
         "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
         "bindings": []
     },
@@ -500,12 +494,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "0018323f-0a5d-4e19-90ec-2c3351d49919"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "61dbd6cc-d578-5aff-b299-1ab80e8d4850"
         ]
     },
     {
@@ -992,30 +980,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "57848dbe-5723-5c0a-ad52-8c3749abaa22"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "55ebf89a-7fc2-5be2-bd19-1ddbd9618a95"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "55ebf89a-7fc2-5be2-bd19-1ddbd9618a95"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "57848dbe-5723-5c0a-ad52-8c3749abaa22"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00194785-9fba-4865-8106-7a833082c1cc",
@@ -1298,210 +1262,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "0019fa4b-fc0e-44f5-8280-c0e271761b20"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "97c8c221-4ffb-5c8c-a606-1d4089d44390"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1652ebe5-5254-569d-8268-90c01c4e0714"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ff1ece35-4399-5713-89db-fb06ef46804b"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "03490483-b689-574c-bd9b-8821e818c1fa"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "c61cb593-a56b-5c4f-88d9-a1b211eb95dc"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "cdf97570-854e-5c1b-a815-0293e4ae2112"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d84730b0-bb4f-5f05-b395-e101dd28d61b"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6560de12-f784-5007-9301-df15327c84d3"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bb98a69e-0a64-5b2d-a24c-84e3b4cb5d3b"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "519a77b1-caa3-59ba-8907-5c80dfd6f10d"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "7cb933d1-2a23-5c6e-a6a8-f71037b7f018"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "2ac9950a-31a6-5819-bec2-8cc45c53db50"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8e03a7d0-0559-5226-8901-5c5b2849e46d"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "af0dd35d-e848-548c-bbeb-983ab222acf0"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1a87c23d-ddbd-51f6-a1f2-b9a592bd39a5"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "2e5c6cd0-e978-55f8-bedd-94e46b48ff49"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bb75743a-3203-5071-8b49-cedcdc6a205a"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e6297b1b-d8fd-560e-8373-b8d78d1e5894"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "570f9073-2acb-5edc-93c9-c36f08552a73"
         ]
     },
     {
@@ -2235,66 +1995,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "90563c01-b117-5b8c-bf04-5c0cf851d65b"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "096f8143-14de-5983-8607-f844e80e15ef"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "90563c01-b117-5b8c-bf04-5c0cf851d65b"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9d5d0ef6-6e94-5d03-9250-e32bc69e4eb2"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9d5d0ef6-6e94-5d03-9250-e32bc69e4eb2"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5de64960-5d99-53dc-bef8-fe282acb1785"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e175b9b1-7f4e-55be-bd6e-dab575aa9e8a"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bd299671-da7a-5d43-ac21-64ea4825ec59"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e175b9b1-7f4e-55be-bd6e-dab575aa9e8a"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "096f8143-14de-5983-8607-f844e80e15ef"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001b00bd-d1c1-434c-859f-936098b00929",
@@ -2581,12 +2281,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "68b3946f-2bb5-5b88-96a8-8c49d4bec01b"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001b09e8-64ce-4999-814b-f3b351560ef4",
@@ -2745,12 +2439,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5e4002cd-0604-56e0-91ac-1f3abc9efae8"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001c691c-abe3-410a-b855-3eff1c10ab52",
@@ -2874,12 +2562,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "001cc22e-7985-4304-aa60-fd9713a048a3"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0ef7faa6-919d-5f78-8d6c-e07b2611deae"
         ]
     },
     {
@@ -3034,66 +2716,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "001cdeac-3333-42f9-8480-f3ba90e99f64"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8f17c6d6-e850-55d1-bae7-28cf99365fe6"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "91490784-0ea4-5f59-8cc6-ed96f44297bf"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5f41c6ae-ae9c-5c6a-947f-c65dd7a193c8"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "71cc41f5-b822-55d8-a7e6-2eda18f6644e"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f76b39d8-20d8-5881-8132-6ad29e046b77"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "453accb5-7da6-5849-8f76-9074645e54a3"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "91490784-0ea4-5f59-8cc6-ed96f44297bf"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1a87c23d-ddbd-51f6-a1f2-b9a592bd39a5"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e3536d75-78ef-5c98-ac4d-0a2189973585"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e4973fa2-6633-5d5c-908b-c9bfd343d326"
         ]
     },
     {
@@ -3447,132 +3069,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "001e471a-fae0-449a-b86f-9855403e3790"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "41b93e6c-6de3-5359-8ded-49f94bee1f42"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "792bfefd-795a-5af6-a40b-346807847666"
         ]
     },
     {
@@ -5730,12 +5226,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b5d04fe1-65c1-5120-ba2a-fd5085bc8af5"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001f544e-dfe0-4e95-bceb-6813426327ec",
@@ -5942,12 +5432,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "0021111b-1928-4dd2-a4e9-43f1d5933638"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "66fb4f61-78a8-595f-a4dd-37cd9d9778f8"
         ]
     },
     {
@@ -6419,12 +5903,6 @@
         ]
     },
     {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f701a8f7-d9de-5835-8999-f7ca20b3261a"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00212383-9f95-487b-95c8-c2969f2570f7",
@@ -6538,12 +6016,6 @@
         "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "00215b43-2566-4479-9a29-db2d6876801a"
-        ]
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0641c706-bd91-56a4-9aff-5c2e29ad9a31"
         ]
     },
     {

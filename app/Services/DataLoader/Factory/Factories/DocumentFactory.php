@@ -530,7 +530,7 @@ class DocumentFactory extends ModelFactory {
         $entry                = new DocumentEntryModel();
         $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
-        $entry->product       = $asset->product;
+        $entry->product_id    = $asset->product_id;
         $entry->serial_number = $asset->serial_number;
         $entry->start         = $normalizer->datetime($documentEntry->startDate);
         $entry->end           = $normalizer->datetime($documentEntry->endDate);
