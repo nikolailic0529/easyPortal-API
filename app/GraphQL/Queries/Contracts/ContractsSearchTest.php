@@ -210,6 +210,8 @@ class ContractsSearchTest extends TestCase {
                                 name
                                 description
                             }
+                            start
+                            end
                         }
                         language {
                             id
@@ -453,6 +455,8 @@ class ContractsSearchTest extends TestCase {
                                                 'sku'              => 'SKU#123',
                                                 'description'      => 'description',
                                             ],
+                                            'start'            => '2021-01-01',
+                                            'end'              => '2024-01-01',
                                         ],
                                     ],
                                     'language'       => [
@@ -622,6 +626,8 @@ class ContractsSearchTest extends TestCase {
                                     'list_price'       => 67.12,
                                     'discount'         => null,
                                     'renewal'          => 24.20,
+                                    'start'            => '2021-01-01',
+                                    'end'              => '2024-01-01',
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',

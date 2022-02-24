@@ -964,7 +964,9 @@
                 "renewal",
                 "serial_number",
                 "product_id",
-                "product"
+                "product",
+                "start",
+                "end"
             ],
             "properties": {
                 "id": {
@@ -1081,6 +1083,28 @@
                     "oneOf": [
                         {
                             "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "start": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "end": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
                         },
                         {
                             "type": "null"
