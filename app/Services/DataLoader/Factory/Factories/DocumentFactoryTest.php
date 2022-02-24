@@ -33,6 +33,7 @@ use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -169,6 +170,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('HA151AC', $e->serviceLevel->sku);
         $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
+        $this->assertEquals('1614470400000', $this->getDatetime($e->start));
+        $this->assertNull($this->getDatetime($e->end));
 
         $this->flushQueryLog();
 
@@ -350,6 +353,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => $a->discount,
                     'listPrice'             => $a->list_price,
                     'estimatedValueRenewal' => $a->renewal,
+                    'startDate'             => null,
+                    'endDate'               => null,
                     'document'              => [
                         'vendorSpecificFields' => [
                             'vendor' => $document->oem->key,
@@ -364,6 +369,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => $b->discount,
                     'listPrice'             => $b->list_price,
                     'estimatedValueRenewal' => $b->renewal,
+                    'startDate'             => null,
+                    'endDate'               => null,
                     'document'              => [
                         'vendorSpecificFields' => [
                             'vendor' => $document->oem->key,
@@ -378,6 +385,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => null,
                     'listPrice'             => null,
                     'estimatedValueRenewal' => null,
+                    'startDate'             => null,
+                    'endDate'               => null,
                     'document'              => [
                         'vendorSpecificFields' => [
                             'vendor' => $document->oem->key,
@@ -473,6 +482,8 @@ class DocumentFactoryTest extends TestCase {
         $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $start          = Date::make($this->faker->dateTime)->startOfDay();
+        $end            = Date::make($this->faker->dateTime)->startOfDay();
         $assetDocument  = new ViewAssetDocument([
             'supportPackage'        => " {$supportPackage} ",
             'skuNumber'             => " {$skuNumber} ",
@@ -481,6 +492,8 @@ class DocumentFactoryTest extends TestCase {
             'listPrice'             => " {$listPrice} ",
             'estimatedValueRenewal' => " {$renewal} ",
             'currencyCode'          => " {$currencyCode} ",
+            'startDate'             => $start->format('Y-m-d'),
+            'endDate'               => $end->format('Y-m-d'),
             'document'              => [
                 'vendorSpecificFields' => [
                     'vendor' => $document->oem->key,
@@ -536,6 +549,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($listPrice, $entry->list_price);
         $this->assertEquals($discount, $entry->discount);
         $this->assertEquals($renewal, $entry->renewal);
+        $this->assertEquals($start, $entry->start);
+        $this->assertEquals($end, $entry->end);
     }
 
     /**
@@ -553,6 +568,8 @@ class DocumentFactoryTest extends TestCase {
             'listPrice'             => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'estimatedValueRenewal' => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'currencyCode'          => $this->faker->currencyCode,
+            'startDate'             => null,
+            'endDate'               => null,
         ]);
         $document      = DocumentModel::factory()->make();
         $factory       = new class(
@@ -620,6 +637,8 @@ class DocumentFactoryTest extends TestCase {
         $a->discount         = $b->discount;
         $a->renewal          = $b->renewal;
         $a->service_level_id = $b->service_level_id;
+        $a->start            = $b->start;
+        $a->end              = $b->end;
 
         $this->assertEquals(0, $factory->compareDocumentEntries($a, $b));
     }
@@ -787,6 +806,8 @@ class DocumentFactoryTest extends TestCase {
         $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $start          = Date::make($this->faker->dateTime)->startOfDay();
+        $end            = Date::make($this->faker->dateTime)->startOfDay();
         $documentEntry  = new DocumentEntry([
             'assetId'               => " {$asset->getKey()} ",
             'supportPackage'        => " {$supportPackage} ",
@@ -796,6 +817,8 @@ class DocumentFactoryTest extends TestCase {
             'listPrice'             => " {$listPrice} ",
             'estimatedValueRenewal' => " {$renewal} ",
             'currencyCode'          => " {$currencyCode} ",
+            'startDate'             => $start->format('Y-m-d'),
+            'endDate'               => $end->format('Y-m-d'),
         ]);
         $factory        = new class(
             $this->app->make(Normalizer::class),
@@ -844,6 +867,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($listPrice, $entry->list_price);
         $this->assertEquals($discount, $entry->discount);
         $this->assertEquals($renewal, $entry->renewal);
+        $this->assertEquals($start, $entry->start);
+        $this->assertEquals($end, $entry->end);
     }
 
     /**
@@ -868,6 +893,8 @@ class DocumentFactoryTest extends TestCase {
             'listPrice'             => " {$listPrice} ",
             'estimatedValueRenewal' => " {$renewal} ",
             'currencyCode'          => " {$currencyCode} ",
+            'startDate'             => null,
+            'endDate'               => null,
         ]);
         $factory       = new class(
             $this->app->make(Normalizer::class),
@@ -1035,6 +1062,8 @@ class DocumentFactoryTest extends TestCase {
             'product_id'       => $assetA->product_id,
             'service_group_id' => $serviceGroup,
             'service_level_id' => $serviceLevel,
+            'start'            => null,
+            'end'              => null,
         ];
         [$a, $b]      = DocumentEntryModel::factory()->count(4)->create($properties);
         $object       = new Document([
@@ -1052,6 +1081,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => $a->discount,
                     'listPrice'             => $a->list_price,
                     'estimatedValueRenewal' => $a->renewal,
+                    'startDate'             => null,
+                    'endDate'               => null,
                 ],
                 [
                     'assetId'               => $b->asset_id,
@@ -1062,6 +1093,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => $b->discount,
                     'listPrice'             => $b->list_price,
                     'estimatedValueRenewal' => $b->renewal,
+                    'startDate'             => null,
+                    'endDate'               => null,
                 ],
                 [
                     'assetId'               => $assetB->getKey(),
@@ -1072,6 +1105,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => null,
                     'listPrice'             => null,
                     'estimatedValueRenewal' => null,
+                    'startDate'             => null,
+                    'endDate'               => null,
                 ],
             ],
         ]);
@@ -1208,6 +1243,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('HA151AC', $e->serviceLevel->sku);
         $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
+        $this->assertNull($this->getDatetime($e->end));
+        $this->assertEquals('1614470400000', $this->getDatetime($e->start));
 
         $this->flushQueryLog();
 

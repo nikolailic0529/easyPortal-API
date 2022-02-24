@@ -365,6 +365,8 @@ class DocumentFactory extends ModelFactory {
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
+        $entry->start         = $normalizer->datetime($assetDocument->startDate);
+        $entry->end           = $normalizer->datetime($assetDocument->endDate);
         $entry->currency      = $this->currency($assetDocument->currencyCode);
         $entry->net_price     = $normalizer->number($assetDocument->netPrice);
         $entry->list_price    = $normalizer->number($assetDocument->listPrice);
@@ -385,6 +387,8 @@ class DocumentFactory extends ModelFactory {
             ?: $a->renewal <=> $b->renewal
             ?: $a->service_group_id <=> $b->service_group_id
             ?: $a->service_level_id <=> $b->service_level_id
+            ?: $a->start <=> $b->start
+            ?: $a->end <=> $b->end
             ?: 0;
     }
     // </editor-fold>
@@ -528,6 +532,8 @@ class DocumentFactory extends ModelFactory {
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
+        $entry->start         = $normalizer->datetime($documentEntry->startDate);
+        $entry->end           = $normalizer->datetime($documentEntry->endDate);
         $entry->currency      = $this->currency($documentEntry->currencyCode);
         $entry->net_price     = $normalizer->number($documentEntry->netPrice);
         $entry->list_price    = $normalizer->number($documentEntry->listPrice);

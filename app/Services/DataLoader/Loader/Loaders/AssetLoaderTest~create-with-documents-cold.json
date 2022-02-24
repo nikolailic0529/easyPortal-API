@@ -443,16 +443,18 @@
             "2022-02-02 00:00:43",
             8,
             1,
-            "2022-02-02 00:00:44",
-            "2022-02-02 00:00:44"
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "971.00",
             null,
@@ -462,16 +464,18 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "e818e33f-5ea6-5db5-ab3e-93357130ef69",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:45",
-            "2022-02-02 00:00:45"
+            "2022-02-02 00:01:01",
+            "2022-02-02 00:01:01"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             null,
             null,
@@ -481,16 +485,18 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "0ca740b5-49f9-513c-843a-054c1367fa58",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:46",
-            "2022-02-02 00:00:46"
+            "2022-02-02 00:01:02",
+            "2022-02-02 00:01:02"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "51.00",
             "84.00",
@@ -500,16 +506,18 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "ba4fa2b8-2235-5c59-8ebc-8b6fa94c896e",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:47",
-            "2022-02-02 00:00:47"
+            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:03"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "44.00",
             "84.00",
@@ -519,16 +527,18 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "e1113941-3788-5c05-a098-3b3a226d005f",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:48",
-            "2022-02-02 00:00:48"
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "68.00",
             "84.00",
@@ -538,16 +548,18 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "c0cf3520-a685-5c2e-af46-20d1c76bdb91",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:49",
-            "2022-02-02 00:00:49"
+            "2022-02-02 00:01:05",
+            "2022-02-02 00:01:05"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "842.00",
             null,
@@ -557,16 +569,18 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "453ea227-62c7-5d39-8b18-6feca14f0d4c",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:50",
-            "2022-02-02 00:00:50"
+            "2022-02-02 00:01:06",
+            "2022-02-02 00:01:06"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "61.00",
             "84.00",
@@ -576,16 +590,18 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "0c24673f-bd68-52e3-aa87-c30ff910fac5",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:51",
-            "2022-02-02 00:00:51"
+            "2022-02-02 00:01:07",
+            "2022-02-02 00:01:07"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2018-06-13 00:00:00",
+            "2019-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             null,
             null,
@@ -595,8 +611,8 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "392b8db9-554a-58fa-94b7-7998a8f46401",
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "2022-02-02 00:00:52",
-            "2022-02-02 00:00:52"
+            "2022-02-02 00:01:08",
+            "2022-02-02 00:01:08"
         ]
     },
     {
@@ -618,19 +634,21 @@
             "dfa9342e-7408-3ab9-97a0-40ab59960d58",
             "2021-07-15 12:51:38",
             0,
-            "2022-02-02 00:00:56",
+            "2022-02-02 00:01:12",
             2,
             1,
-            "2022-02-02 00:00:57",
-            "2022-02-02 00:00:57"
+            "2022-02-02 00:01:17",
+            "2022-02-02 00:01:17"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2019-06-13 00:00:00",
+            "2020-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "854.00",
             null,
@@ -640,16 +658,18 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "d4115ee9-e36a-5d2c-9143-9cb7c84f68ff",
             "d78edac9-1f57-4e6d-b804-dd30636b1c49",
-            "2022-02-02 00:00:58",
-            "2022-02-02 00:00:58"
+            "2022-02-02 00:01:18",
+            "2022-02-02 00:01:18"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2019-06-13 00:00:00",
+            "2020-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "44.00",
             "84.00",
@@ -659,8 +679,8 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "3c491b6c-c288-5d26-92ef-3017914e8758",
             "d78edac9-1f57-4e6d-b804-dd30636b1c49",
-            "2022-02-02 00:00:59",
-            "2022-02-02 00:00:59"
+            "2022-02-02 00:01:19",
+            "2022-02-02 00:01:19"
         ]
     },
     {
@@ -682,19 +702,21 @@
             "6409db34-faea-3fc6-b668-66c47d9663bd",
             "2021-07-15 12:51:38",
             0,
-            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:23",
             4,
             1,
-            "2022-02-02 00:01:04",
-            "2022-02-02 00:01:04"
+            "2022-02-02 00:01:32",
+            "2022-02-02 00:01:32"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2020-06-13 00:00:00",
+            "2021-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "44.00",
             "84.00",
@@ -704,16 +726,18 @@
             "229361f9-056d-5218-a3b0-dcbb4c313111",
             "2515f7be-751c-59d4-9bf6-0f6c8b14f976",
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
-            "2022-02-02 00:01:05",
-            "2022-02-02 00:01:05"
+            "2022-02-02 00:01:33",
+            "2022-02-02 00:01:33"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2020-06-13 00:00:00",
+            "2021-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "854.00",
             null,
@@ -723,16 +747,18 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "a083b041-2f4b-5a69-bff1-48e2fc4e8b4f",
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
-            "2022-02-02 00:01:06",
-            "2022-02-02 00:01:06"
+            "2022-02-02 00:01:34",
+            "2022-02-02 00:01:34"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2020-06-13 00:00:00",
+            "2021-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "44.00",
             "84.00",
@@ -742,16 +768,18 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "267355f9-ece4-56eb-a3ee-0faa1c701e6e",
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
-            "2022-02-02 00:01:07",
-            "2022-02-02 00:01:07"
+            "2022-02-02 00:01:35",
+            "2022-02-02 00:01:35"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2020-06-13 00:00:00",
+            "2021-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "481.00",
             "912.00",
@@ -761,8 +789,8 @@
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
             "921bfcc1-425d-5d62-aa55-d873b77fe4d0",
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
-            "2022-02-02 00:01:08",
-            "2022-02-02 00:01:08"
+            "2022-02-02 00:01:36",
+            "2022-02-02 00:01:36"
         ]
     },
     {
@@ -784,19 +812,21 @@
             "9530dd8a-32ee-3e02-b45f-0274aa255bfa",
             "2021-07-15 12:51:38",
             0,
-            "2022-02-02 00:01:12",
+            "2022-02-02 00:01:40",
             2,
             1,
-            "2022-02-02 00:01:13",
-            "2022-02-02 00:01:13"
+            "2022-02-02 00:01:45",
+            "2022-02-02 00:01:45"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2021-06-13 00:00:00",
+            "2022-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "506.00",
             "960.00",
@@ -806,16 +836,18 @@
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
             "345dff1a-fad7-594e-bc07-7fbcff6d8f91",
             "31c1944e-642e-4418-b97e-0a989de47cb9",
-            "2022-02-02 00:01:14",
-            "2022-02-02 00:01:14"
+            "2022-02-02 00:01:46",
+            "2022-02-02 00:01:46"
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `start`, `end`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03781b72-05b6-4722-879f-635b5fddde1d",
             "ef0a47d0-fa15-5524-896b-069dca005757",
             "6d92ac7d-13e4-302c-ab2a-eadadc0324a3",
+            "2021-06-13 00:00:00",
+            "2022-06-12 00:00:00",
             "7f046a64-3fb3-5a88-bbeb-ac2543845535",
             "44.00",
             "84.00",
@@ -825,8 +857,8 @@
             "229361f9-056d-5218-a3b0-dcbb4c313111",
             "7d7e94cf-8a78-5ef9-9ac2-4e77c07374a3",
             "31c1944e-642e-4418-b97e-0a989de47cb9",
-            "2022-02-02 00:01:15",
-            "2022-02-02 00:01:15"
+            "2022-02-02 00:01:47",
+            "2022-02-02 00:01:47"
         ]
     },
     {
@@ -844,8 +876,8 @@
             "06d30f36-55a6-4a33-95f2-33637b4d0681",
             "c47738c6-0219-3fd5-b96b-fba03be2ff82",
             "7ef73e6c-08eb-5678-b7e1-e4bd456d6939",
-            "2022-02-02 00:01:56",
-            "2022-02-02 00:01:56"
+            "2022-02-02 00:02:28",
+            "2022-02-02 00:02:28"
         ]
     },
     {
@@ -854,8 +886,8 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "7ef73e6c-08eb-5678-b7e1-e4bd456d6939",
             "b4cb6e3a-7b5f-5b6a-b79e-c163a217cba2",
-            "2022-02-02 00:01:57",
-            "2022-02-02 00:01:57"
+            "2022-02-02 00:02:29",
+            "2022-02-02 00:02:29"
         ]
     },
     {
@@ -864,8 +896,8 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "7ef73e6c-08eb-5678-b7e1-e4bd456d6939",
             "f65bac1f-f156-5d3b-9bd0-500ef53cc845",
-            "2022-02-02 00:01:58",
-            "2022-02-02 00:01:58"
+            "2022-02-02 00:02:30",
+            "2022-02-02 00:02:30"
         ]
     },
     {
@@ -883,8 +915,8 @@
             "d78edac9-1f57-4e6d-b804-dd30636b1c49",
             "dfa9342e-7408-3ab9-97a0-40ab59960d58",
             "ddde8d80-f99c-5358-98e7-1594c1386ccd",
-            "2022-02-02 00:01:59",
-            "2022-02-02 00:01:59"
+            "2022-02-02 00:02:31",
+            "2022-02-02 00:02:31"
         ]
     },
     {
@@ -893,8 +925,8 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "ddde8d80-f99c-5358-98e7-1594c1386ccd",
             "b566481b-b496-5f51-9b9c-60056a0bcd58",
-            "2022-02-02 00:02:00",
-            "2022-02-02 00:02:00"
+            "2022-02-02 00:02:32",
+            "2022-02-02 00:02:32"
         ]
     },
     {
@@ -903,8 +935,8 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "ddde8d80-f99c-5358-98e7-1594c1386ccd",
             "962d42a3-6f79-5526-957c-7d5cefb05915",
-            "2022-02-02 00:02:01",
-            "2022-02-02 00:02:01"
+            "2022-02-02 00:02:33",
+            "2022-02-02 00:02:33"
         ]
     },
     {
@@ -922,8 +954,8 @@
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
             "6409db34-faea-3fc6-b668-66c47d9663bd",
             "f8ab99c0-88e6-5212-99af-0369d5c2606c",
-            "2022-02-02 00:02:02",
-            "2022-02-02 00:02:02"
+            "2022-02-02 00:02:34",
+            "2022-02-02 00:02:34"
         ]
     },
     {
@@ -932,8 +964,8 @@
             "229361f9-056d-5218-a3b0-dcbb4c313111",
             "f8ab99c0-88e6-5212-99af-0369d5c2606c",
             "00685df1-36ec-557f-a330-756890742372",
-            "2022-02-02 00:02:03",
-            "2022-02-02 00:02:03"
+            "2022-02-02 00:02:35",
+            "2022-02-02 00:02:35"
         ]
     },
     {
@@ -942,8 +974,8 @@
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
             "f8ab99c0-88e6-5212-99af-0369d5c2606c",
             "16d785ae-476c-5790-b5ed-55bc3bc505cd",
-            "2022-02-02 00:02:04",
-            "2022-02-02 00:02:04"
+            "2022-02-02 00:02:36",
+            "2022-02-02 00:02:36"
         ]
     },
     {
@@ -961,8 +993,8 @@
             "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
             "6409db34-faea-3fc6-b668-66c47d9663bd",
             "7569f501-b65e-5325-b439-8ac79d6102bc",
-            "2022-02-02 00:02:05",
-            "2022-02-02 00:02:05"
+            "2022-02-02 00:02:37",
+            "2022-02-02 00:02:37"
         ]
     },
     {
@@ -971,8 +1003,8 @@
             "c6c09316-c0bc-5fdd-9dda-b4a153151ccc",
             "7569f501-b65e-5325-b439-8ac79d6102bc",
             "75cfd9d5-2f02-5c8f-aa34-01e24ad98a80",
-            "2022-02-02 00:02:06",
-            "2022-02-02 00:02:06"
+            "2022-02-02 00:02:38",
+            "2022-02-02 00:02:38"
         ]
     },
     {
@@ -981,8 +1013,8 @@
             "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
             "7569f501-b65e-5325-b439-8ac79d6102bc",
             "84ae4601-9c8a-5c99-b617-a357375b607d",
-            "2022-02-02 00:02:07",
-            "2022-02-02 00:02:07"
+            "2022-02-02 00:02:39",
+            "2022-02-02 00:02:39"
         ]
     },
     {
@@ -1000,8 +1032,8 @@
             "31c1944e-642e-4418-b97e-0a989de47cb9",
             "9530dd8a-32ee-3e02-b45f-0274aa255bfa",
             "18359b94-a4e4-57ff-993f-ef087c697a85",
-            "2022-02-02 00:02:08",
-            "2022-02-02 00:02:08"
+            "2022-02-02 00:02:40",
+            "2022-02-02 00:02:40"
         ]
     },
     {
@@ -1010,8 +1042,8 @@
             "7d701e09-dde4-544a-a04f-19093ff23b2b",
             "18359b94-a4e4-57ff-993f-ef087c697a85",
             "c58bf557-419c-5805-9245-52bc075f0833",
-            "2022-02-02 00:02:09",
-            "2022-02-02 00:02:09"
+            "2022-02-02 00:02:41",
+            "2022-02-02 00:02:41"
         ]
     },
     {
@@ -1020,8 +1052,8 @@
             "229361f9-056d-5218-a3b0-dcbb4c313111",
             "18359b94-a4e4-57ff-993f-ef087c697a85",
             "c3569035-193e-56fd-9130-26712db85224",
-            "2022-02-02 00:02:10",
-            "2022-02-02 00:02:10"
+            "2022-02-02 00:02:42",
+            "2022-02-02 00:02:42"
         ]
     }
 ]
