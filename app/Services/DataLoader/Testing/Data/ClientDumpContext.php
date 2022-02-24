@@ -26,6 +26,7 @@ class ClientDumpContext {
     public const DISTRIBUTORS = 'distributors';
     public const RESELLERS    = 'resellers';
     public const CUSTOMERS    = 'customers';
+    public const ASSETS       = 'assets';
     public const TYPES        = 'types';
     public const OEMS         = 'oems';
 
@@ -46,6 +47,7 @@ class ClientDumpContext {
         $distributors = [];
         $resellers    = [];
         $customers    = [];
+        $assets       = [];
         $types        = [];
         $oems         = [];
         $oem          = null;
@@ -56,6 +58,7 @@ class ClientDumpContext {
                 $resellers[] = $object->reseller->id ?? null;
                 $customers[] = $object->customerId ?? null;
                 $customers[] = $object->customer->id ?? null;
+                $assets[]    = $object->id ?? null;
                 $oem         = $object->vendor ?? null;
                 $oems[]      = [
                     $oem,
@@ -106,8 +109,9 @@ class ClientDumpContext {
             static::DISTRIBUTORS => static fn() => $distributors,
             static::RESELLERS    => static fn() => $resellers,
             static::CUSTOMERS    => static fn() => $customers,
-            static::OEMS         => fn() => $this->getOemsCsv($oems, $path),
+            static::ASSETS       => static fn() => $assets,
             static::TYPES        => static fn() => $types,
+            static::OEMS         => fn() => $this->getOemsCsv($oems, $path),
         ];
 
         foreach ($context as $key => $value) {

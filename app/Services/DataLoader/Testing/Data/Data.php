@@ -121,6 +121,14 @@ abstract class Data {
                 ]) === Command::SUCCESS;
         }
 
+        if ($context[ClientDumpContext::ASSETS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-asset', [
+                    'id'             => $context[ClientDumpContext::ASSETS],
+                    '--no-documents' => true,
+                ]) === Command::SUCCESS;
+        }
+
         if ($context[ClientDumpContext::TYPES] ?? null) {
             $owner = (new DocumentModel())->getMorphClass();
 
