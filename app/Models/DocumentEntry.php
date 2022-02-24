@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                   $service_level_id
  * @property string                        $product_id
  * @property string|null                   $serial_number
+ * @property \Carbon\CarbonImmutable|null  $start
+ * @property \Carbon\CarbonImmutable|null  $end
  * @property string|null                   $currency_id
  * @property string|null                   $net_price
  * @property string|null                   $list_price
@@ -55,6 +57,8 @@ class DocumentEntry extends Model {
         'list_price' => 'decimal:2',
         'discount'   => 'decimal:2',
         'renewal'    => 'decimal:2',
+        'start'      => 'date',
+        'end'        => 'date',
     ] + parent::CASTS;
 
     /**
