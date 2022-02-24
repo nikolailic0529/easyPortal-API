@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "f2a020bc-0b1f-4b6d-9f8b-f9a1ffa5fb91",
-                    "name": "Johns-Runte",
+                    "name": "Streich LLC",
                     "updatedAt": "1638480176399",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -17,7 +17,7 @@
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Everardo Russel",
+                            "name": "Roy Ebert",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -29,7 +29,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Everardo Russel",
+                            "name": "Roy Ebert",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "08308-1579",
-                            "address": "36634 Devin Manor",
-                            "city": "Dachville",
+                            "zip": "28772-1688",
+                            "address": "5407 Marvin Harbors",
+                            "city": "East Modestaburgh",
                             "locationType": null,
                             "country": "Bahrain",
-                            "latitude": "-64.361064",
-                            "longitude": "-108.005026",
+                            "latitude": "57.121295",
+                            "longitude": "-139.909393",
                             "countryCode": "HN"
                         }
                     ],

@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "dfabd06b-c840-4738-823e-c944310e5f77",
-                    "name": "Von PLC",
+                    "name": "McDermott, Upton and Schaden",
                     "updatedAt": "1639133400895",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "41542-7735",
-                            "address": "377 Ferry Street Apt. 124",
-                            "city": "East Kaycee",
+                            "zip": "93274",
+                            "address": "78187 Heaney Road Apt. 436",
+                            "city": "East Clovis",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-18.113991",
-                            "longitude": "-13.549727",
+                            "latitude": "-12.20642",
+                            "longitude": "57.641512",
                             "countryCode": "HN"
                         }
                     ],

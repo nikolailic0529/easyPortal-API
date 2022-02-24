@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "ac2e9801-ea93-4eef-a1c9-8cc31c8be2ba",
-                    "name": "Schaefer, Grimes and Huels",
+                    "name": "D'Amore-Denesik",
                     "updatedAt": "1640175037700",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "92132",
-                            "address": "958 Glenda Street Suite 492",
-                            "city": "Oberbrunnerburgh",
+                            "zip": "20507",
+                            "address": "461 Kemmer Pike Suite 896",
+                            "city": "East Garfield",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-4.869057",
-                            "longitude": "-45.854341",
+                            "latitude": "36.028707",
+                            "longitude": "-96.993114",
                             "countryCode": "HN"
                         }
                     ],

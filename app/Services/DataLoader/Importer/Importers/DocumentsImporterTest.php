@@ -2,7 +2,12 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
+use App\Models\Asset;
+use App\Models\Customer;
+use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
+use App\Models\Reseller;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
@@ -31,7 +36,12 @@ class DocumentsImporterTest extends TestCase {
 
         // Pretest
         $this->assertModelsCount([
-            Document::class => 0,
+            Distributor::class   => 2,
+            Reseller::class      => 39,
+            Customer::class      => 16,
+            Asset::class         => 88,
+            Document::class      => 0,
+            DocumentEntry::class => 0,
         ]);
 
         // Test (cold)
@@ -41,6 +51,7 @@ class DocumentsImporterTest extends TestCase {
         $this->app->make(DocumentsImporter::class)
             ->setUpdate(true)
             ->setLimit(DocumentsImporterData::LIMIT)
+            ->setOffset(DocumentsImporterData::OFFSET)
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
@@ -64,6 +75,7 @@ class DocumentsImporterTest extends TestCase {
         $this->app->make(DocumentsImporter::class)
             ->setUpdate(true)
             ->setLimit(DocumentsImporterData::LIMIT)
+            ->setOffset(DocumentsImporterData::OFFSET)
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 

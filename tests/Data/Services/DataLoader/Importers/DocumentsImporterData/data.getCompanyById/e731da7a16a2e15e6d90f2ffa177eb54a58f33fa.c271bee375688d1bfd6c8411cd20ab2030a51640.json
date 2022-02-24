@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "5e5811c0-3f62-4bed-a72b-54955ab0eb28",
-                    "name": "Von PLC",
-                    "updatedAt": "1640173727381",
+                    "name": "McDermott, Upton and Schaden",
+                    "updatedAt": "1644307518515",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "21215-8834",
-                            "address": "1486 Hudson Ville Apt. 250",
-                            "city": "Adolphustown",
+                            "zip": "61052-6047",
+                            "address": "689 Stanton Gateway",
+                            "city": "Port Davonte",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-67.844189",
-                            "longitude": "110.384364",
+                            "latitude": "-8.672583",
+                            "longitude": "-139.716779",
                             "countryCode": "HN"
                         }
                     ],
@@ -42,7 +42,7 @@
                         "activeContracts": 4,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,

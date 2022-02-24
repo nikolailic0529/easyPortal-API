@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "cd296e3f-5677-4f25-a127-0414dadc5121",
-                    "name": "Homenick Inc",
+                    "name": "Abernathy-Haley",
                     "updatedAt": "1638477385383",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+4007929396600",
-                            "name": "Tre Kihn DVM",
+                            "phoneNumber": "+18154562641",
+                            "name": "Jana Trantow",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+4007929396600",
-                            "name": "Tre Kihn DVM",
+                            "phoneNumber": "+18154562641",
+                            "name": "Jana Trantow",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+4007929396600",
-                            "name": "Tre Kihn DVM",
+                            "phoneNumber": "+18154562641",
+                            "name": "Jana Trantow",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,12 +42,12 @@
                     "locations": [
                         {
                             "zip": "92044",
-                            "address": "21265 Stanley Lane",
+                            "address": "4687 Eichmann Summit Suite 390",
                             "city": "Mossieshire",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "-69.729522",
-                            "longitude": "104.096238",
+                            "latitude": "35.107795",
+                            "longitude": "167.194683",
                             "countryCode": "KP"
                         }
                     ],

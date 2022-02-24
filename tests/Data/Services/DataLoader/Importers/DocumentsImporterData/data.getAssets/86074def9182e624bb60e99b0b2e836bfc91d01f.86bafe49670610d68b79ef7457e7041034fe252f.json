@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "31aa8b64-4d59-489e-98bd-ea094c8c1c63"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "31aa8b64-4d59-489e-98bd-ea094c8c1c63",
+                    "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                    "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                    "serialNumber": null,
+                    "productDescription": "HPE NS 2x16Gb FC 2p FIO Adptr Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "Q8B90B",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "24109-9236",
+                    "city": "East Adolphus",
+                    "address": "53095 Corene Extensions Suite 814",
+                    "address2": "",
+                    "country": "Ethiopia",
+                    "latitude": "34.421568",
+                    "longitude": "121.360374",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630826769068",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

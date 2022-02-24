@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "c1c5a133-c373-4212-a836-adfb33fa314c",
-                    "name": "Wuckert Inc",
+                    "name": "Koelpin, Graham and Emmerich",
                     "updatedAt": "1638473484991",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "84213",
+                            "zip": "43047",
                             "address": "8662 Deanna Stravenue",
-                            "city": "West Harry",
+                            "city": "Jaymetown",
                             "locationType": null,
                             "country": "Greece",
-                            "latitude": "-40.62915",
-                            "longitude": "57.269217",
+                            "latitude": "-65.722335",
+                            "longitude": "29.71367",
                             "countryCode": "PK"
                         }
                     ],

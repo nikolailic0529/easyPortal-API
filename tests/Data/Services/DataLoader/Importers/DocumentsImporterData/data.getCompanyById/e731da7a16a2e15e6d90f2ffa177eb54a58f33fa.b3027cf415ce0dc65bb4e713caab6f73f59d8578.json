@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "9191f7db-5f05-4c4a-9bd7-704fc3208d4e",
-                    "name": "Fadel, Kuvalis and Kilback",
+                    "name": "Lang, Bashirian and Reichel",
                     "updatedAt": "1640174202050",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "25533",
-                            "address": "4079 Jolie Falls",
+                            "zip": "34181",
+                            "address": "2264 Kenyatta View",
                             "city": "East Tanya",
                             "locationType": "HEADQUARTER",
                             "country": "Ethiopia",
-                            "latitude": "37.907782",
-                            "longitude": "-11.013226",
+                            "latitude": "22.701743",
+                            "longitude": "153.609418",
                             "countryCode": "KP"
                         }
                     ],

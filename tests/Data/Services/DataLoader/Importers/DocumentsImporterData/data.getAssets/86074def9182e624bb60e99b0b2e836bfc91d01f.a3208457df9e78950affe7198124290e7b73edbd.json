@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "3e603bc9-e7b4-4ea5-a477-2e58f17430b4"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "3e603bc9-e7b4-4ea5-a477-2e58f17430b4",
+                    "resellerId": "9d926695-6d2b-404e-9d6d-31bcaf44e7d2",
+                    "customerId": "57275aee-01e3-4490-b6ef-4cacfce38c44",
+                    "serialNumber": "42900b73-bd3a-35fa-a09a-5ec9a80edb3c",
+                    "productDescription": "HPE IMC Std SW Plat w/50-node E-LTU",
+                    "assetTag": "Logiciel",
+                    "assetType": "Logiciel",
+                    "vendor": "HPE",
+                    "sku": "JG747AAE",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "",
+                    "city": "",
+                    "address": "8662 Deanna Stravenue",
+                    "address2": "",
+                    "country": "Greece",
+                    "latitude": "-39.047299",
+                    "longitude": "-143.936062",
+                    "countryCode": "PK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630837222095",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17859726197",
+                            "name": "Miss Annie Carter",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17859726197",
+                            "name": "Lysanne O'Keefe Sr.",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17859726197",
+                            "name": "Miss Annie Carter",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

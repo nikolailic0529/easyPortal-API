@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
-                    "name": "Fadel, Kuvalis and Kilback",
+                    "name": "Lang, Bashirian and Reichel",
                     "updatedAt": "1639138022179",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+7022584918209",
-                            "name": "Efren Schowalter",
+                            "phoneNumber": "+16622995493",
+                            "name": "Jaylan Collins II",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+7022584918209",
-                            "name": "Efren Schowalter",
+                            "phoneNumber": "+16622995493",
+                            "name": "Jaylan Collins II",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "25533",
-                            "address": "4079 Jolie Falls",
+                            "zip": "34181",
+                            "address": "2264 Kenyatta View",
                             "city": "East Tanya",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "37.907782",
-                            "longitude": "-11.013226",
+                            "latitude": "22.701743",
+                            "longitude": "153.609418",
                             "countryCode": "KP"
                         }
                     ],

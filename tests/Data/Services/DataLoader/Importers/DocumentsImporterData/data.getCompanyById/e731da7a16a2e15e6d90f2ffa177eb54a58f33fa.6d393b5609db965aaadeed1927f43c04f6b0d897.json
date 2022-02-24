@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
-                    "name": "Zemlak Group",
+                    "name": "Kuhlman-Mills",
                     "updatedAt": "1640174119389",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "20610-1576",
-                            "address": "946 Batz Trafficway Apt. 569",
-                            "city": "South Wainomouth",
+                            "zip": "96279",
+                            "address": "9416 Zella Burg",
+                            "city": "Alberthaberg",
                             "locationType": "HEADQUARTER",
                             "country": "Ethiopia",
-                            "latitude": "-34.077565",
-                            "longitude": "-148.504515",
+                            "latitude": "-8.665411",
+                            "longitude": "-45.936253",
                             "countryCode": "KP"
                         }
                     ],

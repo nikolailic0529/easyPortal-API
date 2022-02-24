@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "599801e0-0acb-436b-b24b-522cfc1f1c2e",
-                    "name": "Dickens, Gusikowski and Leannon",
+                    "name": "Wuckert-Koss",
                     "updatedAt": "1639140642488",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+5206336245660",
-                            "name": "Tara Carter",
+                            "phoneNumber": "+18018533797",
+                            "name": "Ara Pfeffer",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+5206336245660",
-                            "name": "Tara Carter",
+                            "phoneNumber": "+18018533797",
+                            "name": "Ara Pfeffer",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82717",
-                            "address": "5159 Hoeger Lights",
-                            "city": "Dachville",
+                            "zip": "75366",
+                            "address": "543 Schaden Views",
+                            "city": "East Modestaburgh",
                             "locationType": null,
                             "country": "Bahrain",
-                            "latitude": "-42.542751",
-                            "longitude": "-170.362975",
+                            "latitude": "-57.970412",
+                            "longitude": "-58.819214",
                             "countryCode": "HN"
                         }
                     ],

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "1a26a1f9-0b62-45cf-95b6-4f1ffdef903d",
-                    "name": "Schaefer, Grimes and Huels",
-                    "updatedAt": "1640173165339",
+                    "name": "D'Amore-Denesik",
+                    "updatedAt": "1644306045286",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "44671-2415",
-                            "address": "251 Stevie Junctions Apt. 147",
-                            "city": "South Jaceyfurt",
+                            "zip": "22343-8339",
+                            "address": "6733 Goodwin Radial",
+                            "city": "Gabeville",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-89.883255",
-                            "longitude": "136.945407",
+                            "latitude": "81.640767",
+                            "longitude": "111.653434",
                             "countryCode": "HN"
                         }
                     ],
@@ -43,11 +43,11 @@
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": 0,
                         "expiringContracts": 0,
-                        "activeQuotes": 2,
+                        "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
-                        "expiringQuotes": 2,
-                        "expiredQuotes": 6,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 8,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

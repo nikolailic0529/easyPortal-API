@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "160844a4-8584-41e8-838b-35bc016887fa",
-                    "name": "Kling, Zieme and Beier",
-                    "updatedAt": "1640173138011",
+                    "name": "Jacobson, Erdman and Kub",
+                    "updatedAt": "1644305996149",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,11 +24,11 @@
                         {
                             "zip": "",
                             "address": "8662 Deanna Stravenue",
-                            "city": "West Misaelmouth",
+                            "city": "Brianbury",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-28.05472",
-                            "longitude": "-65.872176",
+                            "latitude": "34.869062",
+                            "longitude": "-108.023333",
                             "countryCode": "HN"
                         }
                     ],

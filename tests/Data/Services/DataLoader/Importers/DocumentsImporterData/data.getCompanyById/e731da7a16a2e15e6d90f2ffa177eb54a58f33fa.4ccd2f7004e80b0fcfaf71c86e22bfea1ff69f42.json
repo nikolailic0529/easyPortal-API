@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "4068883c-e551-4e4d-9c94-89e117bd26ea",
-                    "name": "Hoeger-Hirthe",
-                    "updatedAt": "1640173445164",
+                    "name": "Schmitt, Ledner and Bartoletti",
+                    "updatedAt": "1644306527195",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "94882-2635",
-                            "address": "2798 Jaylen Inlet Apt. 813",
-                            "city": "Sydneyborough",
+                            "zip": "00321-9145",
+                            "address": "153 Jerde Square",
+                            "city": "East Vernfort",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-10.671407",
-                            "longitude": "-22.153303",
+                            "latitude": "1.214841",
+                            "longitude": "-131.971158",
                             "countryCode": "HN"
                         }
                     ],
