@@ -7,7 +7,6 @@ use App\Models\AssetWarranty;
 use App\Models\Coverage;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
-use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -41,7 +40,6 @@ use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
@@ -101,7 +99,6 @@ class AssetFactory extends ModelFactory {
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
-        protected ContactResolver $contactResolver,
         protected StatusResolver $statusResolver,
         protected CoverageResolver $coverageResolver,
         protected TagResolver $tagResolver,
@@ -137,10 +134,6 @@ class AssetFactory extends ModelFactory {
 
     protected function getContactsFactory(): ContactFactory {
         return $this->contactFactory;
-    }
-
-    protected function getContactsResolver(): ContactResolver {
-        return $this->contactResolver;
     }
 
     public function getDocumentResolver(): ?DocumentResolver {
@@ -252,7 +245,6 @@ class AssetFactory extends ModelFactory {
             // Warranties
             if ($created) {
                 $model->setRelation('warranties', new EloquentCollection());
-                $model->setRelation('documentEntries', new EloquentCollection());
             }
 
             if (isset($asset->coverageStatusCheck)) {
@@ -272,17 +264,9 @@ class AssetFactory extends ModelFactory {
             // Documents
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 try {
-                    // Prefetch documents
+                    // Prefetch
                     $this->getDocumentResolver()->prefetch(
                         (new ImporterChunkData([$asset]))->get(Document::class),
-                        function (Collection $documents): void {
-                            $documents->loadMissing('entries');
-                            $documents->loadMissing('contacts.types');
-
-                            $this->getContactsResolver()->put(
-                                $documents->pluck('contacts')->flatten(),
-                            );
-                        },
                     );
 
                     if (!$created) {
@@ -290,16 +274,7 @@ class AssetFactory extends ModelFactory {
                     }
 
                     // Update
-                    $documents              = $this->assetDocuments($model, $asset);
-                    $model->warranties      = $this->assetDocumentsWarranties($model, $asset);
-                    $model->documentEntries = $documents
-                        ->map(static function (DocumentModel $document): Collection {
-                            return $document->entries;
-                        })
-                        ->flatten()
-                        ->filter(static function (DocumentEntryModel $entry) use ($model): bool {
-                            return $model->getKey() === $entry->asset_id;
-                        });
+                    $model->warranties = $this->assetDocumentsWarranties($model, $asset);
                 } finally {
                     // Save
                     $model->save();
@@ -307,7 +282,6 @@ class AssetFactory extends ModelFactory {
                     // Cleanup
                     $this->getDocumentResolver()->reset();
 
-                    unset($model->documentEntries);
                     unset($model->warranties);
                 }
             }
@@ -400,7 +374,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\App\Models\Document>
+     * @return \Illuminate\Support\Collection<\App\Services\DataLoader\Schema\ViewAssetDocument>
      */
     protected function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
         // Asset.assetDocument is not a document but an array of entries where
@@ -417,39 +391,18 @@ class AssetFactory extends ModelFactory {
             })
             ->each(function (Collection $entries) use ($model): void {
                 $this->getExceptionHandler()->report(
-                    new FailedToProcessViewAssetDocumentNoDocument($model, $entries->first(), $entries),
+                    new FailedToProcessViewAssetDocumentNoDocument($model, $entries->first()),
                 );
             });
 
-        // Create documents
+        // Return
         return (new Collection($asset->assetDocument))
             ->filter(static function (ViewAssetDocument $document): bool {
-                return isset($document->document->id);
+                return isset($document->documentNumber);
             })
             ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
                 return $a->startDate <=> $b->startDate
                     ?: $a->endDate <=> $b->endDate;
-            })
-            ->groupBy(static function (ViewAssetDocument $document): string {
-                return $document->document->id;
-            })
-            ->map(function (Collection $entries) use ($model): ?DocumentModel {
-                try {
-                    return $this->getDocumentFactory()->create(new AssetDocumentObject([
-                        'asset'    => $model,
-                        'document' => $entries->first(),
-                        'entries'  => $entries->all(),
-                    ]));
-                } catch (Throwable $exception) {
-                    $this->getExceptionHandler()->report(
-                        new FailedToProcessAssetViewDocument($model, $entries->first()->document, $exception),
-                    );
-                }
-
-                return null;
-            })
-            ->filter(static function (?DocumentModel $document): bool {
-                return (bool) $document;
             });
     }
 
@@ -489,14 +442,7 @@ class AssetFactory extends ModelFactory {
                     $warranty->end?->startOfDay(),
                 ]);
             });
-        $documents     = (new Collection($asset->assetDocument))
-            ->filter(static function (ViewAssetDocument $document): bool {
-                return isset($document->documentNumber);
-            })
-            ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
-                return $a->startDate <=> $b->startDate
-                    ?: $a->endDate <=> $b->endDate;
-            });
+        $documents     = $this->assetDocuments($model, $asset);
 
         // Warranties
         $normalizer = $this->getNormalizer();
@@ -572,11 +518,17 @@ class AssetFactory extends ModelFactory {
     protected function assetDocumentDocument(AssetModel $model, ViewAssetDocument $assetDocument): ?DocumentModel {
         $document = null;
 
-        if (isset($assetDocument->document)) {
-            $document = $this->getDocumentFactory()->find(new AssetDocumentObject([
-                'asset'    => $model,
-                'document' => $assetDocument,
-            ]));
+        if (isset($assetDocument->document->id)) {
+            try {
+                $document = $this->getDocumentFactory()->create(new AssetDocumentObject([
+                    'asset'    => $model,
+                    'document' => $assetDocument,
+                ]));
+            } catch (Throwable $exception) {
+                $this->getExceptionHandler()->report(
+                    new FailedToProcessAssetViewDocument($model, $assetDocument->document, $exception),
+                );
+            }
         }
 
         return $document;

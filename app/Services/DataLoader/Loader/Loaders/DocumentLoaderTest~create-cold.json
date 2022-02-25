@@ -87,8 +87,8 @@
             "ACTIVE",
             "ACTIVE",
             "20c76148-4ae4-592b-8452-6b7416d9f67a",
-            "2022-02-02 00:00:06",
-            "2022-02-02 00:00:06"
+            "2022-02-02 00:00:07",
+            "2022-02-02 00:00:07"
         ]
     },
     {
@@ -199,7 +199,7 @@
         ]
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `statuses_count`, `synced_at`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `statuses_count`, `entries_count`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c63823c9-ccae-493b-92ca-5cb2a696da69",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -217,8 +217,8 @@
             "d41d53c2-6574-31b5-a54f-68f4b8f81b5f",
             "2021-07-15 12:51:38",
             2,
+            "2022-02-02 00:00:06",
             1,
-            "2022-02-02 00:00:07",
             0,
             0,
             "2022-02-02 00:00:08",

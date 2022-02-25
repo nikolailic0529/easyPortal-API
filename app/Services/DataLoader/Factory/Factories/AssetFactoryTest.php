@@ -46,8 +46,6 @@ use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
 use function array_column;
-use function array_map;
-use function array_unique;
 use function count;
 
 /**
@@ -163,8 +161,10 @@ class AssetFactoryTest extends TestCase {
         );
 
         // Documents
-        $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(2, DocumentEntryModel::query()->count());
+        $this->assertModelsCount([
+            Document::class           => 1,
+            DocumentEntryModel::class => 0,
+        ]);
 
         // Warranties
         $this->assertEquals(
@@ -239,11 +239,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($extended->start);
         $this->assertNotNull($extended->end);
 
-        // Entries related to other assets should not be updated
-        DocumentEntryModel::factory()->create([
-            'document_id' => Document::query()->first(),
-        ]);
-
         $this->flushQueryLog();
 
         // Asset should be updated
@@ -291,19 +286,10 @@ class AssetFactoryTest extends TestCase {
         );
 
         // Documents
-        $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(2, DocumentEntryModel::query()->count());
-
-        $document = Document::query()->first();
-
-        $this->assertEquals(
-            $asset->assetDocument[0]?->document?->id,
-            $document->getKey(),
-        );
-        $this->assertEquals(
-            $asset->assetDocument[0]?->endDate,
-            $this->getDatetime($document->end),
-        );
+        $this->assertModelsCount([
+            Document::class           => 1,
+            DocumentEntryModel::class => 0,
+        ]);
 
         $this->flushQueryLog();
 
@@ -430,50 +416,31 @@ class AssetFactoryTest extends TestCase {
         Event::fake(ErrorReport::class);
 
         // Prepare
-        $model     = Asset::factory()->make();
-        $asset     = new ViewAsset([
+        $model   = Asset::factory()->make();
+        $asset   = new ViewAsset([
             'assetDocument' => [
                 [
-                    'document'  => ['id' => 'a'],
-                    'startDate' => '09/07/2020',
-                    'endDate'   => '09/07/2021',
+                    'documentNumber' => 'a',
+                    'document'       => ['id' => 'a'],
+                    'startDate'      => '09/07/2020',
+                    'endDate'        => '09/07/2021',
                 ],
                 [
-                    'document'  => ['id' => 'a'],
-                    'startDate' => '09/01/2020',
-                    'endDate'   => '09/07/2021',
+                    'documentNumber' => 'b',
+                    'document'       => ['id' => 'b'],
+                    'startDate'      => '09/01/2020',
+                    'endDate'        => '09/07/2021',
                 ],
                 [
-                    'document'  => ['id' => 'b'],
+                    'document'  => ['id' => 'c'],
                     'startDate' => '09/01/2020',
                     'endDate'   => '09/07/2021',
                 ],
             ],
         ]);
-        $documents = Mockery::mock(DocumentFactory::class);
-        $documents
-            ->shouldReceive('create')
-            ->with(Mockery::on(static function (AssetDocumentObject $object) use ($model): bool {
-                $ids = array_unique(array_map(static function (ViewAssetDocument $d): string {
-                    return $d->document->id;
-                }, $object->entries));
-
-                return $object->asset === $model
-                    && $object->document instanceof ViewAssetDocument
-                    && $object->document->startDate === '09/01/2020'
-                    && count($ids) === 1;
-            }))
-            ->twice()
-            ->andReturnUsing(static function (Type $type): ?Document {
-                return $type instanceof AssetDocumentObject && $type->document->document->id === 'a'
-                    ? new Document()
-                    : null;
-            });
-        $factory = new class($documents) extends AssetFactory {
+        $factory = new class() extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected ?DocumentFactory $documentFactory,
-            ) {
+            public function __construct() {
                 // empty
             }
 
@@ -482,25 +449,21 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertCount(1, $factory->assetDocuments($model, $asset));
+        $this->assertCount(2, $factory->assetDocuments($model, $asset));
 
         Event::assertNotDispatched(ErrorReport::class);
     }
 
     /**
-     * @covers ::assetDocuments
+     * @covers ::assetDocumentDocument
      */
-    public function testAssetDocumentsNoDocumentId(): void {
+    public function testAssetDocumentDocumentNoDocumentId(): void {
         // Prepare
         $model   = Asset::factory()->make();
-        $asset   = new ViewAsset([
-            'assetDocument' => [
-                [
-                    'documentNumber' => '12345678',
-                    'startDate'      => '09/07/2020',
-                    'endDate'        => '09/07/2021',
-                ],
-            ],
+        $asset   = new ViewAssetDocument([
+            'documentNumber' => '12345678',
+            'startDate'      => '09/07/2020',
+            'endDate'        => '09/07/2021',
         ]);
         $handler = $this->app->make(ExceptionHandler::class);
         $factory = new class($handler) extends AssetFactory {
@@ -511,39 +474,35 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(Asset $model, ViewAsset $asset): Collection {
-                return parent::assetDocuments($model, $asset);
+            public function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
+                return parent::assetDocumentDocument($model, $assetDocument);
             }
         };
 
         // Test
-        $this->assertCount(0, $factory->assetDocuments($model, $asset));
+        $this->assertNull($factory->assetDocumentDocument($model, $asset));
     }
 
     /**
-     * @covers ::assetDocuments
+     * @covers ::assetDocumentDocument
      */
-    public function testAssetDocumentsFailedCreateDocument(): void {
+    public function testAssetDocumentDocumentFailedCreateDocument(): void {
         // Fake
         Event::fake(ErrorReport::class);
 
         // Prepare
         $model     = Asset::factory()->make();
-        $asset     = new ViewAsset([
-            'assetDocument' => [
-                [
-                    'document'  => ['id' => 'a'],
-                    'startDate' => '09/07/2020',
-                    'endDate'   => '09/07/2021',
-                ],
-            ],
+        $asset     = new ViewAssetDocument([
+            'document'  => ['id' => 'a'],
+            'startDate' => '09/07/2020',
+            'endDate'   => '09/07/2021',
         ]);
         $handler   = $this->app->make(ExceptionHandler::class);
         $documents = Mockery::mock(DocumentFactory::class);
         $documents
             ->shouldReceive('create')
             ->once()
-            ->andReturnUsing(function (Type $type): ?Document {
+            ->andReturnUsing(function (): ?Document {
                 throw new ResellerNotFound($this->faker->uuid);
             });
         $factory = new class($handler, $documents) extends AssetFactory {
@@ -555,13 +514,13 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(Asset $model, ViewAsset $asset): Collection {
-                return parent::assetDocuments($model, $asset);
+            public function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
+                return parent::assetDocumentDocument($model, $assetDocument);
             }
         };
 
         // Test
-        $this->assertCount(0, $factory->assetDocuments($model, $asset));
+        $this->assertNull($factory->assetDocumentDocument($model, $asset));
 
         Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
             return $event->getError() instanceof FailedToProcessAssetViewDocument
@@ -889,7 +848,7 @@ class AssetFactoryTest extends TestCase {
         ]);
         $documents     = Mockery::mock(DocumentFactory::class);
         $documents
-            ->shouldReceive('find')
+            ->shouldReceive('create')
             ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
                 return $object instanceof AssetDocumentObject
                     && $object->document === $assetDocument

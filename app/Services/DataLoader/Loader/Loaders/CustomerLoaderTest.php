@@ -141,7 +141,7 @@ class CustomerLoaderTest extends TestCase {
             Asset::class         => 3,
             AssetWarranty::class => 12,
             Document::class      => 5,
-            DocumentEntry::class => 16,
+            DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
             '~create-with-assets-cold-events.json',

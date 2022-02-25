@@ -9,9 +9,4 @@ use App\Services\DataLoader\Schema\ViewAssetDocument;
 class AssetDocumentObject extends Type {
     public Asset             $asset;
     public ViewAssetDocument $document;
-
-    /**
-     * @var array<\App\Services\DataLoader\Schema\ViewAssetDocument>
-     */
-    public array $entries;
 }
