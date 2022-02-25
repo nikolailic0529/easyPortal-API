@@ -26,22 +26,26 @@ trait ChunkConverter {
         $converted = [];
         $errors    = 0;
 
-        foreach ($items as $key => $item) {
-            try {
-                $item = $this->chunkConvertItem($item);
+        if ($this->getConverter()) {
+            foreach ($items as $key => $item) {
+                try {
+                    $item = $this->chunkConvertItem($item);
 
-                if ($item !== null) {
-                    $converted[$key] = $item;
-                }
-            } catch (IteratorFatalError $exception) {
-                throw $exception;
-            } catch (Throwable $exception) {
-                if (!($exception instanceof Exception)) {
-                    $errors++;
-                }
+                    if ($item !== null) {
+                        $converted[$key] = $item;
+                    }
+                } catch (IteratorFatalError $exception) {
+                    throw $exception;
+                } catch (Throwable $exception) {
+                    if (!($exception instanceof Exception)) {
+                        $errors++;
+                    }
 
-                $this->report($exception, $item);
+                    $this->report($exception, $item);
+                }
             }
+        } else {
+            $converted = $items;
         }
 
         // Broken?
