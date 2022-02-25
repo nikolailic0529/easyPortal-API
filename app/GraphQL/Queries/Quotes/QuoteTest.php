@@ -205,6 +205,8 @@ class QuoteTest extends TestCase {
                             asset {
                                 id
                             }
+                            start
+                            end
                         }
                         language {
                             id
@@ -485,6 +487,8 @@ class QuoteTest extends TestCase {
                                     'asset'            => [
                                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     ],
+                                    'start'            => '2021-01-01',
+                                    'end'              => '2024-01-01',
                                 ],
                             ],
                             'language'       => [
@@ -645,6 +649,8 @@ class QuoteTest extends TestCase {
                                     'list_price'       => null,
                                     'discount'         => -8,
                                     'renewal'          => 24.20,
+                                    'start'            => '2021-01-01',
+                                    'end'              => '2024-01-01',
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',

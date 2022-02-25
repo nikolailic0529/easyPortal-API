@@ -210,6 +210,8 @@ class DocumentsTest extends TestCase {
                             asset {
                                 id
                             }
+                            start
+                            end
                         }
                         language {
                             id
@@ -385,6 +387,8 @@ class DocumentsTest extends TestCase {
                     'list_price'       => 67.00,
                     'discount'         => -8,
                     'renewal'          => 24.20,
+                    'start'            => '2021-01-01',
+                    'end'              => '2024-01-01',
                 ])
                 ->create([
                     'id'             => '323feb6f-dff3-4eb7-a2d6-b064139be2dd',
@@ -428,6 +432,8 @@ class DocumentsTest extends TestCase {
                     'list_price'       => 67.00,
                     'discount'         => -8,
                     'renewal'          => 24.20,
+                    'start'            => '2021-01-01',
+                    'end'              => '2024-01-01',
                 ])
                 ->create([
                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -582,6 +588,8 @@ class DocumentsTest extends TestCase {
                     'asset'            => [
                         'id' => '8da0cf0e-2d59-4ab7-b5e5-6d3681e98429',
                     ],
+                    'start'            => '2021-01-01',
+                    'end'              => '2024-01-01',
                 ],
             ],
             'language'       => [
@@ -739,6 +747,8 @@ class DocumentsTest extends TestCase {
                     'asset'            => [
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                     ],
+                    'start'            => '2021-01-01',
+                    'end'              => '2024-01-01',
                 ],
             ],
             'language'       => [

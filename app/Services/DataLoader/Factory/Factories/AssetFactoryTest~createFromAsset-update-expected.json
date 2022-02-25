@@ -16,6 +16,7 @@
     "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
     "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
     "update `documents` set `end` = ?, `assets_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+    "update `document_entries` set `asset_id` = ?, `product_id` = ?, `serial_number` = ?, `start` = ?, `end` = ?, `currency_id` = ?, `net_price` = ?, `list_price` = ?, `discount` = ?, `renewal` = ?, `service_group_id` = ?, `service_level_id` = ?, `id` = ?, `document_id` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `deleted_at` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
     "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
     "update `assets` set `reseller_id` = ?, `location_id` = ?, `changed_at` = ?, `data_quality` = ?, `contacts_count` = ?, `synced_at` = ?, `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",

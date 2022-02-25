@@ -1043,6 +1043,8 @@ input DocumentEntriesQuery {
   discount: Float
   renewal: Float
   serial_number: String
+  start: Date
+  end: Date
   product_id: ID!
   product: ProductsQuery
   service_group_id: ID
@@ -1058,6 +1060,8 @@ type DocumentEntry {
   discount: Float
   renewal: Float
   serial_number: String
+  start: Date
+  end: Date
   product_id: ID!
   product: Product!
   service_group_id: ID
@@ -3980,6 +3984,12 @@ input SearchByConditionDocumentEntriesQuery {
   serial_number: SearchByScalarStringOrNull
 
   """Property condition."""
+  start: SearchByScalarDateOrNull
+
+  """Property condition."""
+  end: SearchByScalarDateOrNull
+
+  """Property condition."""
   product_id: SearchByScalarID
 
   """Property condition."""
@@ -5664,6 +5674,12 @@ input SortByClauseDocumentEntriesQuery {
 
   """Property clause."""
   serial_number: SortByDirection
+
+  """Property clause."""
+  start: SortByDirection
+
+  """Property clause."""
+  end: SortByDirection
 
   """Property clause."""
   product_id: SortByDirection

@@ -365,6 +365,8 @@ class DocumentFactory extends ModelFactory {
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
+        $entry->start         = $normalizer->datetime($assetDocument->startDate);
+        $entry->end           = $normalizer->datetime($assetDocument->endDate);
         $entry->currency      = $this->currency($assetDocument->currencyCode);
         $entry->net_price     = $normalizer->number($assetDocument->netPrice);
         $entry->list_price    = $normalizer->number($assetDocument->listPrice);
@@ -378,6 +380,8 @@ class DocumentFactory extends ModelFactory {
 
     protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
         return $a->asset_id <=> $b->asset_id
+            ?: $a->start <=> $b->start
+            ?: $a->end <=> $b->end
             ?: $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
             ?: $a->list_price <=> $b->list_price
@@ -528,6 +532,8 @@ class DocumentFactory extends ModelFactory {
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
+        $entry->start         = $normalizer->datetime($documentEntry->startDate);
+        $entry->end           = $normalizer->datetime($documentEntry->endDate);
         $entry->currency      = $this->currency($documentEntry->currencyCode);
         $entry->net_price     = $normalizer->number($documentEntry->netPrice);
         $entry->list_price    = $normalizer->number($documentEntry->listPrice);
