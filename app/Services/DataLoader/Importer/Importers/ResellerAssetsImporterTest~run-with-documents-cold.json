@@ -59,6 +59,19 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "8bccc851-7494-4570-bc03-37e0d2616b36",
+            "364bf572-76a7-4a0a-8fe6-0d5f725593c6",
+            "ebb0f4bf-38da-4af9-8aeb-15efd9b0491f",
+            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43",
+            "2b62e02b-38ee-4d20-b901-3d7cd6dc5d92",
+            "986f48f1-ec62-4dc1-b61f-8e7e81bc60a3",
+            "3a7a78c9-b9bc-45c4-a6df-6ae93a7c5ccf",
+            "c10afa18-4851-4ab1-b180-23405570976d"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -271,12 +284,6 @@
             "2022-02-02 00:00:16",
             "aaa94df4-275f-5b3c-bdd4-d1bc1367bb89",
             "2022-02-02 00:00:16"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -514,12 +521,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -639,12 +640,6 @@
             "2022-02-02 00:01:15",
             "a4c1af89-9779-5329-bb99-97ef09e741ef",
             "2022-02-02 00:01:15"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -869,12 +864,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "364bf572-76a7-4a0a-8fe6-0d5f725593c6"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "364bf572-76a7-4a0a-8fe6-0d5f725593c6",
@@ -1047,14 +1036,6 @@
             "c1bc9919-3a40-5e7e-b513-0ee90476d896",
             "2022-02-02 00:02:13",
             "2022-02-02 00:02:13"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "ebb0f4bf-38da-4af9-8aeb-15efd9b0491f",
-            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43",
-            "364bf572-76a7-4a0a-8fe6-0d5f725593c6"
         ]
     },
     {
@@ -1350,12 +1331,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -1504,13 +1479,6 @@
             "eaa2f32b-ce2d-5efb-b2c3-69840ea11f4a",
             "2022-02-02 00:03:39",
             "2022-02-02 00:03:39"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "2b62e02b-38ee-4d20-b901-3d7cd6dc5d92",
-            "986f48f1-ec62-4dc1-b61f-8e7e81bc60a3"
         ]
     },
     {
@@ -1730,13 +1698,6 @@
             "fd662f86-aa52-53ac-a7bd-1b105cd44c18",
             "2022-02-02 00:04:21",
             "2022-02-02 00:04:21"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "3a7a78c9-b9bc-45c4-a6df-6ae93a7c5ccf",
-            "c10afa18-4851-4ab1-b180-23405570976d"
         ]
     },
     {
@@ -1964,12 +1925,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -2112,12 +2067,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -2206,6 +2155,13 @@
         "bindings": [
             "76657ada-28d9-5d39-8709-2e525e4082c7",
             "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43",
+            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -2305,12 +2261,6 @@
             "2022-02-02 00:05:55",
             "6f8ade48-2838-5d8e-8132-d026d4c234fe",
             "2022-02-02 00:05:55"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43"
         ]
     },
     {
@@ -2436,12 +2386,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -2564,12 +2508,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -2689,12 +2627,6 @@
             "2022-02-02 00:07:08",
             "09bd600e-d265-5d9f-8001-cae4e866b2a4",
             "2022-02-02 00:07:08"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -2840,12 +2772,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -2985,12 +2911,6 @@
             "2022-02-02 00:08:00",
             "f7e7f6c1-ef0e-5a22-a672-0c5ef8c70823",
             "2022-02-02 00:08:00"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -3136,12 +3056,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -3275,12 +3189,6 @@
             "2022-02-02 00:08:51",
             "270cd199-51e1-5535-ab51-02515150236b",
             "2022-02-02 00:08:51"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43"
         ]
     },
     {
@@ -3423,12 +3331,6 @@
             "2022-02-02 00:09:15",
             "109fd720-b555-5e2e-a5eb-2ddec718d0c9",
             "2022-02-02 00:09:15"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -3643,12 +3545,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "2020-05-05 00:00:00",
@@ -3726,6 +3622,12 @@
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
             "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -3831,12 +3733,6 @@
             "2022-02-02 00:10:16",
             "35ad4242-ef7c-50b7-b197-aa08a1d2bf76",
             "2022-02-02 00:10:16"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -3967,12 +3863,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -4092,12 +3982,6 @@
             "2022-02-02 00:11:09",
             "c43e8c60-db35-500f-aba8-d73943f178e2",
             "2022-02-02 00:11:09"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -4223,12 +4107,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -4351,12 +4229,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -4471,12 +4343,6 @@
             "2022-02-02 00:12:23",
             "f8b87af1-4563-5943-bfb6-4c84559cf65b",
             "2022-02-02 00:12:23"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -4622,12 +4488,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -4747,12 +4607,6 @@
             "2022-02-02 00:13:14",
             "4ef729e2-4aa8-52f1-8b01-926c4ff2b1f2",
             "2022-02-02 00:13:14"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -4878,12 +4732,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -5006,12 +4854,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -5111,6 +4953,19 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43",
+            "8bccc851-7494-4570-bc03-37e0d2616b36",
+            "ef132d8b-5820-410c-b8ce-9f3d917e009d",
+            "36c08ad4-3132-41c9-a85f-5a9e0306fd72",
+            "d4526466-0b66-424a-97d6-a1d7bc47e075",
+            "5a8b39a6-dd04-407c-8527-d89d03274b70",
+            "acb6b8d1-0273-4000-8c51-faf803ba997c",
+            "c10afa18-4851-4ab1-b180-23405570976d"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "832d8fe4-361b-4e69-b71b-828c743611e0",
@@ -5207,12 +5062,6 @@
             "2022-02-02 00:14:29",
             "61bb8f14-392b-5edd-b990-72ae10301e70",
             "2022-02-02 00:14:29"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43"
         ]
     },
     {
@@ -5335,12 +5184,6 @@
             "2022-02-02 00:14:52",
             "644632e3-8c47-559d-b79a-7a716257d83c",
             "2022-02-02 00:14:52"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -5497,13 +5340,6 @@
             "4175b366-dc22-5104-ab33-0c2ac61d3f7f",
             "2022-02-02 00:15:20",
             "2022-02-02 00:15:20"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "ef132d8b-5820-410c-b8ce-9f3d917e009d",
-            "36c08ad4-3132-41c9-a85f-5a9e0306fd72"
         ]
     },
     {
@@ -5742,14 +5578,6 @@
             "e3b43d41-df85-5919-af21-7b7bcc62ea78",
             "2022-02-02 00:16:03",
             "2022-02-02 00:16:03"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d4526466-0b66-424a-97d6-a1d7bc47e075",
-            "5a8b39a6-dd04-407c-8527-d89d03274b70",
-            "acb6b8d1-0273-4000-8c51-faf803ba997c"
         ]
     },
     {
@@ -6054,12 +5882,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -6182,12 +6004,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -6307,12 +6123,6 @@
             "2022-02-02 00:17:55",
             "4c164f1b-08f5-5913-bf20-8b490e9928e2",
             "2022-02-02 00:17:55"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -6452,12 +6262,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d1b1ce17-8308-4a7e-a21f-1aa415b82f43"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
@@ -6572,12 +6376,6 @@
             "2022-02-02 00:18:42",
             "ea7e5384-34b2-5efe-8a0a-587288d1efe8",
             "2022-02-02 00:18:42"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "c10afa18-4851-4ab1-b180-23405570976d"
         ]
     },
     {
@@ -6703,12 +6501,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -6803,6 +6595,20 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "8bccc851-7494-4570-bc03-37e0d2616b36",
+            "9528f6c5-7e75-4297-bbb4-a79e6446fc5b",
+            "f5aac654-757f-410c-92ca-27caf8585982",
+            "c10afa18-4851-4ab1-b180-23405570976d",
+            "a4f482fc-aa49-45af-ae3d-54f361cad911",
+            "1771c35a-9e97-4a13-9905-3de477a074cc",
+            "77188f5f-71df-43a8-a813-4c5ec1e4a95e",
+            "58715c9e-80b8-4825-98e1-fe3c546a9318",
+            "364bf572-76a7-4a0a-8fe6-0d5f725593c6"
+        ]
+    },
+    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c8d93cf1-afa4-4a2c-b308-f86e5f4361f4",
@@ -6885,12 +6691,6 @@
             "2022-02-02 00:19:30",
             "a00c6d93-2b9a-5bf5-8832-c61cf6ef1c90",
             "2022-02-02 00:19:30"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -7042,13 +6842,6 @@
             "572e468b-632f-53b1-82f1-ce7b23722067",
             "2022-02-02 00:19:55",
             "2022-02-02 00:19:55"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "9528f6c5-7e75-4297-bbb4-a79e6446fc5b",
-            "f5aac654-757f-410c-92ca-27caf8585982"
         ]
     },
     {
@@ -7276,12 +7069,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -7396,12 +7183,6 @@
             "2022-02-02 00:21:02",
             "47167fb8-f6b0-5400-8676-06d053f0a9e3",
             "2022-02-02 00:21:02"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "c10afa18-4851-4ab1-b180-23405570976d"
         ]
     },
     {
@@ -7533,13 +7314,6 @@
             "af90a9cc-b08f-5f09-afd3-a08a25cb0da3",
             "2022-02-02 00:21:24",
             "2022-02-02 00:21:24"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "a4f482fc-aa49-45af-ae3d-54f361cad911",
-            "1771c35a-9e97-4a13-9905-3de477a074cc"
         ]
     },
     {
@@ -7752,12 +7526,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2025-05-04 00:00:00",
@@ -7877,12 +7645,6 @@
             "2022-02-02 00:22:32",
             "d24e0ee0-13f5-55df-bcde-09cf1d0ced13",
             "2022-02-02 00:22:32"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {
@@ -8034,13 +7796,6 @@
             "1dfb0ddd-56fc-5034-b600-8aa98989e7c4",
             "2022-02-02 00:22:57",
             "2022-02-02 00:22:57"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "77188f5f-71df-43a8-a813-4c5ec1e4a95e",
-            "58715c9e-80b8-4825-98e1-fe3c546a9318"
         ]
     },
     {
@@ -8267,12 +8022,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "364bf572-76a7-4a0a-8fe6-0d5f725593c6"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
@@ -8392,12 +8141,6 @@
             "2022-02-02 00:24:03",
             "9f8626c4-3fa4-5939-aea7-c1c5391a8c4b",
             "2022-02-02 00:24:03"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8bccc851-7494-4570-bc03-37e0d2616b36"
         ]
     },
     {

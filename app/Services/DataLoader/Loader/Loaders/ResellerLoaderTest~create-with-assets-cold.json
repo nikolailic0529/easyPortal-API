@@ -118,6 +118,13 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "eafb9a14-491f-421a-a762-d4496ea47d4d",
+            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -349,13 +356,6 @@
             "2022-02-02 00:00:38",
             "4f4abd6f-2e9c-5278-8816-18186136a170",
             "2022-02-02 00:00:38"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
         ]
     },
     {
@@ -640,13 +640,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "eafb9a14-491f-421a-a762-d4496ea47d4d"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
@@ -812,13 +805,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "eafb9a14-491f-421a-a762-d4496ea47d4d",
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
@@ -981,13 +967,6 @@
             "2022-02-02 00:02:12",
             "6a8e790d-7bec-5360-8f9e-a63ec2e06a8e",
             "2022-02-02 00:02:12"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "eafb9a14-491f-421a-a762-d4496ea47d4d"
         ]
     },
     {
@@ -1182,13 +1161,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
-            "eafb9a14-491f-421a-a762-d4496ea47d4d"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
@@ -1330,6 +1302,12 @@
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
             "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "78f7b882-1ef4-44d5-8a97-810e6c924314"
         ]
     },
     {
@@ -1478,12 +1456,6 @@
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "98c557c4-68bd-4272-8420-1972789c10da"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "78f7b882-1ef4-44d5-8a97-810e6c924314"
         ]
     },
     {

@@ -6,7 +6,6 @@ use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Coverage;
 use App\Models\Document;
-use App\Models\Document as DocumentModel;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -37,12 +36,10 @@ use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
-use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -102,7 +99,6 @@ class AssetFactory extends ModelFactory {
         protected StatusResolver $statusResolver,
         protected CoverageResolver $coverageResolver,
         protected TagResolver $tagResolver,
-        protected DocumentResolver $documentResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
         protected ?ResellerFinder $resellerFinder = null,
@@ -134,10 +130,6 @@ class AssetFactory extends ModelFactory {
 
     protected function getContactsFactory(): ContactFactory {
         return $this->contactFactory;
-    }
-
-    public function getDocumentResolver(): ?DocumentResolver {
-        return $this->documentResolver;
     }
 
     public function getDocumentFactory(): ?DocumentFactory {
@@ -265,10 +257,6 @@ class AssetFactory extends ModelFactory {
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 try {
                     // Prefetch
-                    $this->getDocumentResolver()->prefetch(
-                        (new ImporterChunkData([$asset]))->get(Document::class),
-                    );
-
                     if (!$created) {
                         $model->loadMissing('warranties.serviceLevels');
                     }
@@ -280,8 +268,6 @@ class AssetFactory extends ModelFactory {
                     $model->save();
 
                     // Cleanup
-                    $this->getDocumentResolver()->reset();
-
                     unset($model->warranties);
                 }
             }
@@ -515,7 +501,7 @@ class AssetFactory extends ModelFactory {
         return array_values($warranties);
     }
 
-    protected function assetDocumentDocument(AssetModel $model, ViewAssetDocument $assetDocument): ?DocumentModel {
+    protected function assetDocumentDocument(AssetModel $model, ViewAssetDocument $assetDocument): ?Document {
         $document = null;
 
         if (isset($assetDocument->document->id)) {

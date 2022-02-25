@@ -106,6 +106,26 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "cd6a2bca-5a78-4b93-b135-49c7999149fd",
+            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
+            "916cb400-7119-4088-a641-f8e96eba49f9",
+            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922",
+            "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
+            "8feec411-b709-44d9-b585-6c7a4ee50790",
+            "3cf865d5-3810-4dce-80eb-5a962403c8e7",
+            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
+            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
+            "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
+            "b1400cda-07e6-495c-9d18-772b2c38f47f",
+            "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
+            "2f242f3a-2052-4894-bca6-b8821f8ef662",
+            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
+            "632508e0-7f5c-4651-9094-ece89da275e8"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -287,12 +307,6 @@
             "3a9fc444-5aa7-51cc-978b-d3548295cc52",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "cd6a2bca-5a78-4b93-b135-49c7999149fd"
         ]
     },
     {
@@ -553,13 +567,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
-            "916cb400-7119-4088-a641-f8e96eba49f9"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "916cb400-7119-4088-a641-f8e96eba49f9",
@@ -712,12 +719,6 @@
             "2022-02-02 00:01:15",
             "2022-02-02 00:01:16",
             "2022-02-02 00:01:16"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922"
         ]
     },
     {
@@ -937,12 +938,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d8b81381-5c12-4eb1-9b11-3f3f901e842a"
-        ]
-    },
-    {
         "query": "select `currencies`.* from `currencies` where (`code` = ?) and `currencies`.`deleted_at` is null limit 1",
         "bindings": [
             "chf"
@@ -1050,12 +1045,6 @@
             "2022-02-02 00:02:18",
             "2022-02-02 00:02:19",
             "2022-02-02 00:02:19"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8feec411-b709-44d9-b585-6c7a4ee50790"
         ]
     },
     {
@@ -1248,12 +1237,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "3cf865d5-3810-4dce-80eb-5a962403c8e7"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "3cf865d5-3810-4dce-80eb-5a962403c8e7",
@@ -1407,12 +1390,6 @@
             "4793737d-682b-5172-b43d-d02d4d0f0baf",
             "2022-02-02 00:03:14",
             "2022-02-02 00:03:14"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5"
         ]
     },
     {
@@ -1574,12 +1551,6 @@
             "3bc46004-de49-5632-a723-b86b80b27d99",
             "2022-02-02 00:03:48",
             "2022-02-02 00:03:48"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6"
         ]
     },
     {
@@ -1758,12 +1729,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "0b1618bc-c668-41e4-8eda-c594f20a0ae1"
-        ]
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
@@ -1936,16 +1901,6 @@
             "35c44cd6-0191-5246-9b59-cf3ab93ede3a",
             "2022-02-02 00:04:44",
             "2022-02-02 00:04:44"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "632508e0-7f5c-4651-9094-ece89da275e8"
         ]
     },
     {

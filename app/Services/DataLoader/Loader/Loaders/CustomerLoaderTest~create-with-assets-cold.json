@@ -174,6 +174,14 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -386,14 +394,6 @@
             "cce3dce7-5601-58d1-9117-68e5bc64ea03",
             "2022-02-02 00:00:37",
             "2022-02-02 00:00:37"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
-            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
-            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
         ]
     },
     {
@@ -760,14 +760,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8f199ee1-20e7-40ff-a544-967f8ce4564d",
-            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
-            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
-        ]
-    },
-    {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
@@ -999,6 +991,13 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "3759cf81-e913-4207-a9b2-fe1036473fd7",
+            "e70b448e-6fc6-4c10-8aba-1b88cba576ba"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -1099,13 +1098,6 @@
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "b65fec21-d551-4e7a-add5-185694833c59"
-        ]
-    },
-    {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "3759cf81-e913-4207-a9b2-fe1036473fd7",
-            "e70b448e-6fc6-4c10-8aba-1b88cba576ba"
         ]
     },
     {

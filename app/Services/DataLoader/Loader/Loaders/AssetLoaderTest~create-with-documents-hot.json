@@ -129,15 +129,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "06d30f36-55a6-4a33-95f2-33637b4d0681",
-            "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
-            "d78edac9-1f57-4e6d-b804-dd30636b1c49",
-            "31c1944e-642e-4418-b97e-0a989de47cb9"
-        ]
-    },
-    {
         "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
         "bindings": [
             "0ca740b5-49f9-513c-843a-054c1367fa58",
@@ -152,12 +143,36 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "06d30f36-55a6-4a33-95f2-33637b4d0681"
+        ]
+    },
+    {
         "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
         "bindings": []
     },
     {
         "query": "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
         "bindings": []
+    },
+    {
+        "query": "select `documents`.* from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "d78edac9-1f57-4e6d-b804-dd30636b1c49"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "4a1c9f7c-4baa-4e95-b893-5023ef90c337"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+        "bindings": [
+            "31c1944e-642e-4418-b97e-0a989de47cb9"
+        ]
     },
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
