@@ -4,6 +4,7 @@ namespace App\Utils\Iterators;
 
 use App\Utils\Iterators\Concerns\ChunkConverter;
 use App\Utils\Iterators\Concerns\InitialState;
+use App\Utils\Iterators\Concerns\PropertiesProxy;
 use App\Utils\Iterators\Concerns\Subjects;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
@@ -18,24 +19,28 @@ use Iterator;
  *
  * @uses \App\Utils\Iterators\Concerns\InitialState<T>
  * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+ * @uses \App\Utils\Iterators\Concerns\PropertiesProxy<T,V>
  */
 class ObjectIteratorIterator implements ObjectIterator {
+    use PropertiesProxy;
     use ChunkConverter;
     use InitialState;
     use Subjects;
 
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<V> $iterator
-     * @param \Closure(V $item): T                   $converter
+     * @param \App\Utils\Iterators\Contracts\ObjectIterator<V> $internalIterator
+     * @param \Closure(V $item): T                             $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
-        protected ObjectIterator $iterator,
+        protected ObjectIterator $internalIterator,
         protected Closure $converter,
     ) {
         // empty
     }
 
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
     protected function getExceptionHandler(): ExceptionHandler {
         return $this->exceptionHandler;
     }
@@ -44,6 +49,13 @@ class ObjectIteratorIterator implements ObjectIterator {
         return $this->converter;
     }
 
+    protected function getInternalIterator(): ObjectIterator {
+        return $this->internalIterator;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="IteratorAggregate">
+    // =========================================================================
     /**
      * @return \Iterator<T>
      */
@@ -51,81 +63,22 @@ class ObjectIteratorIterator implements ObjectIterator {
         try {
             $this->init();
 
-            $chunk    = [];
-            $iterator = (clone $this->iterator)
-                ->onBeforeChunk(function (array $items) use (&$chunk): void {
-                    $chunk = $this->chunkConvert($items);
+            $iterator = clone $this->getInternalIterator();
+            $iterator = (new GroupedIteratorIterator($iterator))
+                ->setChunkSize($this->getChunkSize());
 
-                    $this->chunkLoaded($chunk);
-                })
-                ->onAfterChunk(function () use (&$chunk): void {
-                    $this->chunkProcessed($chunk);
+            foreach ($iterator as $chunk) {
+                $chunk = $this->chunkConvert($chunk);
 
-                    $chunk = null;
-                });
+                $this->chunkLoaded($chunk);
 
-            foreach ($iterator as $key => $item) {
-                if (isset($chunk[$key])) {
-                    yield $key => $chunk[$key];
-                }
+                yield from $chunk;
+
+                $this->chunkProcessed($chunk);
             }
         } finally {
             $this->finish();
         }
-    }
-
-    // <editor-fold desc="Proxy">
-    // =========================================================================
-    public function getIndex(): int {
-        return $this->iterator->getIndex();
-    }
-
-    /**
-     * @return $this<T,V>
-     */
-    public function setIndex(int $index): static {
-        $this->iterator->setIndex($index);
-
-        return $this;
-    }
-
-    public function getLimit(): ?int {
-        return $this->iterator->getLimit();
-    }
-
-    /**
-     * @return $this<T,V>
-     */
-    public function setLimit(?int $limit): static {
-        $this->iterator->setLimit($limit);
-
-        return $this;
-    }
-
-    public function getChunkSize(): int {
-        return $this->iterator->getChunkSize();
-    }
-
-    /**
-     * @return $this<T,V>
-     */
-    public function setChunkSize(?int $chunk): static {
-        $this->iterator->setChunkSize($chunk);
-
-        return $this;
-    }
-
-    public function getOffset(): string|int|null {
-        return $this->iterator->getOffset();
-    }
-
-    /**
-     * @return $this<T,V>
-     */
-    public function setOffset(int|string|null $offset): static {
-        $this->iterator->setOffset($offset);
-
-        return $this;
     }
     // </editor-fold>
 }
