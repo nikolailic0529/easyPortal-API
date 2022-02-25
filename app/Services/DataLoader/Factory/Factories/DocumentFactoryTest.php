@@ -353,8 +353,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => $a->discount,
                     'listPrice'             => $a->list_price,
                     'estimatedValueRenewal' => $a->renewal,
-                    'startDate'             => null,
-                    'endDate'               => null,
+                    'startDate'             => $a->start?->format('Y-m-d'),
+                    'endDate'               => $a->end?->format('Y-m-d'),
                     'document'              => [
                         'vendorSpecificFields' => [
                             'vendor' => $document->oem->key,
@@ -369,8 +369,8 @@ class DocumentFactoryTest extends TestCase {
                     'discount'              => $b->discount,
                     'listPrice'             => $b->list_price,
                     'estimatedValueRenewal' => $b->renewal,
-                    'startDate'             => null,
-                    'endDate'               => null,
+                    'startDate'             => $b->start?->format('Y-m-d'),
+                    'endDate'               => $b->start?->format('Y-m-d'),
                     'document'              => [
                         'vendorSpecificFields' => [
                             'vendor' => $document->oem->key,
