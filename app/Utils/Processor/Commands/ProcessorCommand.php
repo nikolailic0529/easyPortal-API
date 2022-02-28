@@ -20,10 +20,14 @@ use function strtr;
 abstract class ProcessorCommand extends Command {
     public function __construct() {
         $replacements      = $this->getReplacements();
-        $this->signature   = strtr($this->signature ?? $this->getDefaultCommandSignature(), $replacements);
-        $this->description = Str::ucfirst(
-            strtr($this->description ?? $this->getDefaultCommandDescription(), $replacements),
+        $this->signature   = strtr(
+            $this->signature ?? implode("\n", $this->getDefaultCommandSignature()),
+            $replacements,
         );
+        $this->description = Str::ucfirst(strtr(
+            $this->description ?? $this->getDefaultCommandDescription(),
+            $replacements,
+        ));
 
         parent::__construct();
     }
@@ -97,7 +101,10 @@ abstract class ProcessorCommand extends Command {
         return (new ReflectionClass($this))->getShortName();
     }
 
-    private function getDefaultCommandSignature(): string {
+    /**
+     * @return array<string>
+     */
+    private function getDefaultCommandSignature(): array {
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
@@ -110,7 +117,7 @@ abstract class ProcessorCommand extends Command {
             $signature[] = '{id?* : process only these ${objects} (if empty all ${objects} will be processed)}';
         }
 
-        return implode("\n", $signature);
+        return $signature;
     }
 
     private function getDefaultCommandDescription(): string {
