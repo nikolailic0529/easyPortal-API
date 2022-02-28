@@ -5,13 +5,13 @@ namespace App\Services\DataLoader\Commands;
 use App\Services\DataLoader\Importer\Importers\OemsImporter;
 use Illuminate\Console\Command;
 
-class ImportOems extends Command {
+class OemsImport extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-import-oems
+    protected $signature = 'ep:data-loader-oems-import
         {file : The path to excel file with data}
     ';
 

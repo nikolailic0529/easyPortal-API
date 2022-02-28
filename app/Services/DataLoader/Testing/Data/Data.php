@@ -95,7 +95,7 @@ abstract class Data {
 
         if ($context[ClientDumpContext::OEMS] ?? null) {
             $result = $result
-                && $this->kernel->call('ep:data-loader-import-oems', [
+                && $this->kernel->call('ep:data-loader-oems-import', [
                     'file' => "{$path}/{$context[ClientDumpContext::OEMS]}",
                 ]) === Command::SUCCESS;
         }

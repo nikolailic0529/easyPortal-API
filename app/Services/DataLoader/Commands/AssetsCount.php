@@ -17,13 +17,13 @@ use function max;
 use function mb_strtolower;
 use function str_pad;
 
-class CountAssets extends Command {
+class AssetsCount extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-count-assets
+    protected $signature = 'ep:data-loader-assets-count
         {--r|reseller= : Reseller ID (required)}
         {--c|coverage= : Coverage ID/Key (required)}
     ';

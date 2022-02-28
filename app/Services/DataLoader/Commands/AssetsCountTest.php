@@ -21,9 +21,9 @@ use function str_pad;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\CountAssets
+ * @coversDefaultClass \App\Services\DataLoader\Commands\AssetsCount
  */
-class CountAssetsTest extends TestCase {
+class AssetsCountTest extends TestCase {
     /**
      * @covers ::__invoke
      */
@@ -61,7 +61,7 @@ class CountAssetsTest extends TestCase {
         $expectedCovered = str_pad(Str::title($coverage->name), $length).': '.$formatter->integer(1);
 
         $this
-            ->artisan('ep:data-loader-count-assets', [
+            ->artisan('ep:data-loader-assets-count', [
                 '--reseller' => $reseller->getKey(),
                 '--coverage' => $coverage->key,
             ])

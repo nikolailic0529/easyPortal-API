@@ -31,13 +31,13 @@ use function str_pad;
 
 use const STR_PAD_LEFT;
 
-class AnalyzeAssets extends Command {
+class AssetsAnalyze extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-analyze-assets
+    protected $signature = 'ep:data-loader-assets-analyze
         {--continue : continue from last analyzed asset}
         {--reset : reset all existing statuses}
         {--chunk= : chunk size}';

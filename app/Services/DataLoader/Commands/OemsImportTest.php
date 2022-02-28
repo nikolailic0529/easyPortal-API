@@ -9,14 +9,14 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\ImportOems
+ * @coversDefaultClass \App\Services\DataLoader\Commands\OemsImport
  */
-class ImportOemsTest extends TestCase {
+class OemsImportTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertArrayHasKey('ep:data-loader-import-oems', $this->app->make(Kernel::class)->all());
+        $this->assertArrayHasKey('ep:data-loader-oems-import', $this->app->make(Kernel::class)->all());
     }
 
     /**
@@ -33,7 +33,7 @@ class ImportOemsTest extends TestCase {
                 ->andReturn();
         });
 
-        $this->app->make(Kernel::class)->call('ep:data-loader-import-oems', [
+        $this->app->make(Kernel::class)->call('ep:data-loader-oems-import', [
             'file' => $file,
         ]);
     }
