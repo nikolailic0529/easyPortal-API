@@ -65,6 +65,12 @@ abstract class ProcessorCommand extends Command {
         ]));
 
         // Process
+        $sync = function (State $state) use ($formatter, $progress): void {
+            $this->updateProgressBar($formatter, $progress, $state);
+
+            $progress->setProgress($state->processed);
+        };
+
         $processor
             ->setChunkSize($chunk)
             ->setOffset($offset)
@@ -77,16 +83,14 @@ abstract class ProcessorCommand extends Command {
                 $this->updateProgressBar($formatter, $progress, $state);
                 $progress->display();
             })
-            ->onChange(function (State $state) use ($formatter, $progress): void {
-                $this->updateProgressBar($formatter, $progress, $state);
-
-                $progress->setProgress($state->processed);
-            })
             ->onFinish(function (State $state) use ($formatter, $progress): void {
                 $this->updateProgressBar($formatter, $progress, $state);
 
                 $progress->finish();
             })
+            ->onChange($sync)
+            ->onReport($sync)
+            ->onProcess($sync)
             ->start();
 
         // Done

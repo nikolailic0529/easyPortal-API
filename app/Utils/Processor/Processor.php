@@ -67,13 +67,25 @@ abstract class Processor {
      */
     private Dispatcher $onFinish;
 
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     */
+    private Dispatcher $onProcess;
+
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     */
+    private Dispatcher $onReport;
+
     public function __construct(
         private ExceptionHandler $exceptionHandler,
         private EventDispatcher $dispatcher,
     ) {
-        $this->onInit   = new Dispatcher();
-        $this->onChange = new Dispatcher();
-        $this->onFinish = new Dispatcher();
+        $this->onInit    = new Dispatcher();
+        $this->onChange  = new Dispatcher();
+        $this->onFinish  = new Dispatcher();
+        $this->onReport  = new Dispatcher();
+        $this->onProcess = new Dispatcher();
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -185,10 +197,13 @@ abstract class Processor {
                 $this->process($state, $data, $item);
 
                 $state->success++;
+
+                $this->notifyOnProcess($state);
             } catch (Throwable $exception) {
                 $state->failed++;
 
                 $this->report($exception, $item);
+                $this->notifyOnReport($state);
             } finally {
                 $state->processed++;
 
@@ -298,6 +313,50 @@ abstract class Processor {
      */
     protected function notifyOnFinish(State $state): void {
         $this->onFinish->notify(clone $state);
+    }
+
+    /**
+     * @param \Closure(TState, array<TItem>)|null $closure
+     *
+     * @return $this<TItem, TChunkData, TState>
+     */
+    public function onProcess(?Closure $closure): static {
+        if ($closure) {
+            $this->onProcess->attach($closure);
+        } else {
+            $this->onProcess->reset();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function notifyOnProcess(State $state): void {
+        $this->onProcess->notify(clone $state);
+    }
+
+    /**
+     * @param \Closure(TState, array<TItem>)|null $closure
+     *
+     * @return $this<TItem, TChunkData, TState>
+     */
+    public function onReport(?Closure $closure): static {
+        if ($closure) {
+            $this->onReport->attach($closure);
+        } else {
+            $this->onReport->reset();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function notifyOnReport(State $state): void {
+        $this->onReport->notify(clone $state);
     }
 
     /**

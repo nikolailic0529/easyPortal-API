@@ -85,6 +85,14 @@ class ProcessorCommandTest extends TestCase {
             ->once()
             ->andReturnSelf();
         $processor
+            ->shouldReceive('onReport')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onProcess')
+            ->once()
+            ->andReturnSelf();
+        $processor
             ->shouldReceive('start')
             ->once()
             ->andReturns();
@@ -186,6 +194,14 @@ class ProcessorCommandTest extends TestCase {
             ->andReturnSelf();
         $processor
             ->shouldReceive('onFinish')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onReport')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onProcess')
             ->once()
             ->andReturnSelf();
         $processor
