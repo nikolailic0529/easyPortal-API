@@ -139,8 +139,8 @@ class CustomerLoaderTest extends TestCase {
             Reseller::class      => 6,
             Customer::class      => 2,
             Asset::class         => 3,
-            AssetWarranty::class => 12,
-            Document::class      => 5,
+            AssetWarranty::class => 10,
+            Document::class      => 3,
             DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
