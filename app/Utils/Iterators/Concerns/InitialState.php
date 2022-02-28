@@ -19,6 +19,8 @@ trait InitialState {
     }
 
     protected function finish(): void {
+        $this->finished();
+
         if ($this->initial) {
             $this->setIndex($this->initial->getIndex());
             $this->setLimit($this->initial->getLimit());
@@ -26,8 +28,6 @@ trait InitialState {
         }
 
         $this->initial = null;
-
-        $this->finished();
     }
 
     abstract protected function initialized(): void;
