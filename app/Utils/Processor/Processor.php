@@ -168,6 +168,10 @@ abstract class Processor {
                 $this->chunkProcessed($state, $items, $data);
 
                 $data = null;
+            })
+            ->onFinish(static function () use ($state, &$iterator): void {
+                $state->index  = $iterator->getIndex();
+                $state->offset = $iterator->getOffset();
             });
 
         $this->init($state);
