@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils\Iterators;
+namespace App\Utils\Iterators\Eloquent;
 
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Contracts\ObjectIterator;

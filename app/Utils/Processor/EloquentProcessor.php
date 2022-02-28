@@ -4,8 +4,8 @@ namespace App\Utils\Processor;
 
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Iterators\Eloquent\ModelsIterator;
-use App\Utils\Iterators\EloquentIterator;
 use Illuminate\Database\Eloquent\Builder;
 
 use function array_filter;
