@@ -2,16 +2,16 @@
 
 namespace App\Utils\Processor;
 
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Eloquent\ModelsIterator;
 use App\Utils\Iterators\EloquentIterator;
 use Illuminate\Database\Eloquent\Builder;
 
 use function array_filter;
 use function array_merge;
 use function array_unique;
+use function count;
 
 /**
  * The Processor for Eloquent Models.
@@ -65,15 +65,20 @@ abstract class EloquentProcessor extends Processor {
     // <editor-fold desc="Processor">
     // =========================================================================
     protected function getTotal(State $state): ?int {
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($state): int {
-            return $this->getBuilder($state)->count();
+        return $this->call(function () use ($state): int {
+            return $state->keys === null
+                ? $this->getBuilder($state)->count()
+                : count($state->keys);
         });
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new EloquentIterator(
-            $this->getBuilder($state)->getChangeSafeIterator(),
-        );
+        $builder  = $this->getBuilder($state);
+        $iterator = $state->keys === null
+            ? new EloquentIterator($builder->getChangeSafeIterator())
+            : new ModelsIterator($this->getExceptionHandler(), $builder, $state->keys);
+
+        return $iterator;
     }
 
     /**
@@ -82,12 +87,7 @@ abstract class EloquentProcessor extends Processor {
     protected function getBuilder(State $state): Builder {
         $class  = $this->getModel();
         $query  = $class::query();
-        $model  = $query->getModel();
-        $helper = new ModelHelper($model);
-
-        if ($state->keys !== null) {
-            $query = $query->whereIn($model->getKeyName(), $state->keys);
-        }
+        $helper = new ModelHelper($query->getModel());
 
         if ($helper->isSoftDeletable()) {
             if ($state->withTrashed) {

@@ -2,12 +2,18 @@
 
 namespace App\Utils\Processor;
 
+use App\Utils\Iterators\Eloquent\ModelsIterator;
+use App\Utils\Iterators\EloquentIterator;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
+
+use function array_fill;
 
 /**
  * @internal
@@ -38,11 +44,6 @@ class EloquentProcessorTest extends TestCase {
     public function testGetBuilderWithKeys(): void {
         $keys    = [$this->faker->uuid, $this->faker->uuid];
         $builder = $this->getBuilderMock();
-        $builder
-            ->shouldReceive('whereIn')
-            ->with($builder->getModel()->getKeyName(), $keys)
-            ->once()
-            ->andReturnSelf();
 
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
@@ -140,6 +141,92 @@ class EloquentProcessorTest extends TestCase {
             ->andReturn($builder->getModel()::class);
 
         $this->assertSame($builder, $processor->getBuilder(new EloquentState()));
+    }
+
+    /**
+     * @covers ::getTotal
+     */
+    public function testGetTotal(): void {
+        $count   = $this->faker->randomDigit();
+        $state   = new EloquentState();
+        $builder = Mockery::mock(Builder::class);
+        $builder
+            ->shouldReceive('count')
+            ->once()
+            ->andReturn($count);
+
+        $processor = Mockery::mock(EloquentProcessor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getBuilder')
+            ->with($state)
+            ->once()
+            ->andReturn($builder);
+
+        $this->assertEquals($count, $processor->getTotal($state));
+    }
+
+    /**
+     * @covers ::getTotal
+     */
+    public function testGetTotalWithKeys(): void {
+        $keys      = array_fill(0, $this->faker->randomDigit(), $this->faker->uuid);
+        $state     = new EloquentState(['keys' => $keys]);
+        $processor = Mockery::mock(EloquentProcessor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+
+        $this->assertEquals(count($keys), $processor->getTotal($state));
+    }
+
+    /**
+     * @covers ::getIterator
+     */
+    public function testGetIterator(): void {
+        $state   = new EloquentState();
+        $builder = Mockery::mock(Builder::class);
+        $builder
+            ->shouldReceive('getChangeSafeIterator')
+            ->once()
+            ->andReturn(
+                Mockery::mock(Iterator::class),
+            );
+
+        $processor = Mockery::mock(EloquentProcessor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getBuilder')
+            ->with($state)
+            ->once()
+            ->andReturn($builder);
+
+        $this->assertInstanceOf(EloquentIterator::class, $processor->getIterator($state));
+    }
+
+    /**
+     * @covers ::getIterator
+     */
+    public function testGetIteratorWithKeys(): void {
+        $state     = new EloquentState(['keys' => [$this->faker->uuid]]);
+        $builder   = Mockery::mock(Builder::class);
+        $processor = Mockery::mock(EloquentProcessor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getExceptionHandler')
+            ->once()
+            ->andReturn(
+                Mockery::mock(ExceptionHandler::class),
+            );
+        $processor
+            ->shouldReceive('getBuilder')
+            ->with($state)
+            ->once()
+            ->andReturn($builder);
+
+        $this->assertInstanceOf(ModelsIterator::class, $processor->getIterator($state));
     }
     // </editor-fold>
 

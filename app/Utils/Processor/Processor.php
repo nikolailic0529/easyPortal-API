@@ -144,26 +144,8 @@ abstract class Processor {
      * @param TState $state
      */
     protected function prepare(State $state): void {
-        // Organization scope should be disabled because we want to process
-        // all objects.
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($state): void {
-            // Indexing should be disabled to avoid a lot of queued jobs and
-            // speed up processing.
-
-            SearchService::callWithoutIndexing(function () use ($state): void {
-                // Telescope should be disabled because it stored all data in memory
-                // and will dump it only after the job/command/request is finished.
-                // For long-running jobs, this will lead to huge memory usage
-
-                Telescope::withoutRecording(function () use ($state): void {
-                    // Processor can create a lot of objects, so will be good to
-                    // group multiple inserts into one.
-
-                    BatchSave::enable(function () use ($state): void {
-                        $this->run($state);
-                    });
-                });
-            });
+        $this->call(function () use ($state): void {
+            $this->run($state);
         });
     }
 
@@ -449,6 +431,47 @@ abstract class Processor {
      */
     protected function restoreState(array $state): State {
         return State::make($state);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @template T
+     *
+     * @param \Closure(): T $callback
+     *
+     * @return T
+     */
+    protected function call(Closure $callback): mixed {
+        $result = null;
+
+        // Organization scope should be disabled because we want to process
+        // all objects.
+        GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use (&$result, $callback): void {
+                // Indexing should be disabled to avoid a lot of queued jobs and
+                // speed up processing.
+
+                SearchService::callWithoutIndexing(static function () use (&$result, $callback): void {
+                    // Telescope should be disabled because it stored all data in memory
+                    // and will dump it only after the job/command/request is finished.
+                    // For long-running jobs, this will lead to huge memory usage
+
+                    Telescope::withoutRecording(static function () use (&$result, $callback): void {
+                        // Processor can create a lot of objects, so will be good to
+                        // group multiple inserts into one.
+
+                        BatchSave::enable(static function () use (&$result, $callback): void {
+                            $result = $callback();
+                        });
+                    });
+                });
+            },
+        );
+
+        return $result;
     }
     // </editor-fold>
 }
