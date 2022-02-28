@@ -154,24 +154,28 @@ abstract class Processor {
      */
     protected function run(State $state): void {
         $data     = null;
+        $sync     = static function () use (&$iterator, $state): void {
+            $state->index  = $iterator->getIndex();
+            $state->offset = $iterator->getOffset();
+        };
         $iterator = $this->getIterator($state)
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
+            ->onInit($sync)
+            ->onFinish($sync)
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
                 $data = $this->prefetch($state, $items);
 
                 $this->chunkLoaded($state, $items, $data);
             })
-            ->onAfterChunk(function (array $items) use ($state, &$data): void {
+            ->onAfterChunk(function (array $items) use ($sync, $state, &$data): void {
+                $sync();
+
                 $this->chunkProcessed($state, $items, $data);
 
                 $data = null;
-            })
-            ->onFinish(static function () use ($state, &$iterator): void {
-                $state->index  = $iterator->getIndex();
-                $state->offset = $iterator->getOffset();
             });
 
         $this->init($state);
@@ -186,9 +190,9 @@ abstract class Processor {
 
                 $this->report($exception, $item);
             } finally {
-                $state->index  = $iterator->getIndex();
-                $state->offset = $iterator->getOffset();
                 $state->processed++;
+
+                $sync();
             }
         }
 
