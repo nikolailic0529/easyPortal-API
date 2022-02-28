@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Date;
 
 use function array_merge;
 
-abstract class Import extends ProcessorCommand {
+abstract class ObjectsImport extends ProcessorCommand {
     use WithBooleanOptions;
 
     /**
