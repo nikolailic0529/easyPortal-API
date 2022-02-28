@@ -1,13 +1,6 @@
 [
     {
-        "query": "select count(*) as aggregate from `customers` where `id` in (?, ?) and `customers`.`deleted_at` is null",
-        "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
-        ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where `id` in (?, ?) and `customers`.`deleted_at` is null order by `customers`.`id` asc limit 250 offset 0",
+        "query": "select `customers`.* from `customers` where `customers`.`deleted_at` is null and `id` in (?, ?)",
         "bindings": [
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
@@ -73,14 +66,6 @@
             1,
             2,
             "2021-08-30 00:02:21",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
-        ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where `id` in (?, ?) and `customers`.`deleted_at` is null and `customers`.`id` > ? order by `customers`.`id` asc limit 250 offset 0",
-        "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
         ]
     }

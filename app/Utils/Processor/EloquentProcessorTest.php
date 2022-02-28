@@ -14,6 +14,7 @@ use Mockery\MockInterface;
 use Tests\TestCase;
 
 use function array_fill;
+use function count;
 
 /**
  * @internal

@@ -1,14 +1,6 @@
 [
     {
-        "query": "select count(*) as aggregate from `resellers` where `id` in (?, ?, ?) and `resellers`.`deleted_at` is null",
-        "bindings": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7"
-        ]
-    },
-    {
-        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?) and `resellers`.`deleted_at` is null order by `resellers`.`id` asc limit 250 offset 0",
+        "query": "select `resellers`.* from `resellers` where `resellers`.`deleted_at` is null and `id` in (?, ?, ?)",
         "bindings": [
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "93dff777-6006-5616-bdb5-a56ec97248bb",
@@ -199,15 +191,6 @@
             0,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:04:37"
-        ]
-    },
-    {
-        "query": "select `resellers`.* from `resellers` where `id` in (?, ?, ?) and `resellers`.`deleted_at` is null and `resellers`.`id` > ? order by `resellers`.`id` asc limit 250 offset 0",
-        "bindings": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     }
 ]
