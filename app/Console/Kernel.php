@@ -5,12 +5,12 @@ namespace App\Console;
 use App\Dev\IdeHelper\ModelsCommand;
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\CountAssets;
-use App\Services\DataLoader\Commands\ImportAssets;
-use App\Services\DataLoader\Commands\ImportCustomers;
-use App\Services\DataLoader\Commands\ImportDistributors;
-use App\Services\DataLoader\Commands\ImportDocuments;
+use App\Services\DataLoader\Commands\AssetsImport;
+use App\Services\DataLoader\Commands\CustomersImport;
+use App\Services\DataLoader\Commands\DistributorsImport;
+use App\Services\DataLoader\Commands\DocumentsImport;
 use App\Services\DataLoader\Commands\ImportOems;
-use App\Services\DataLoader\Commands\ImportResellers;
+use App\Services\DataLoader\Commands\ResellersImport;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
@@ -48,11 +48,11 @@ class Kernel extends ConsoleKernel {
      */
     protected $commands = [
         // App
-        ImportDistributors::class,
-        ImportResellers::class,
-        ImportCustomers::class,
-        ImportDocuments::class,
-        ImportAssets::class,
+        DistributorsImport::class,
+        ResellersImport::class,
+        CustomersImport::class,
+        DocumentsImport::class,
+        AssetsImport::class,
         ImportOems::class,
         UpdateDistributor::class,
         UpdateReseller::class,
