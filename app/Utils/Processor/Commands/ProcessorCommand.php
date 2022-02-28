@@ -2,6 +2,7 @@
 
 namespace App\Utils\Processor\Commands;
 
+use App\Services\I18n\Formatter;
 use App\Services\Service;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\Processor;
@@ -11,11 +12,17 @@ use LogicException;
 use ReflectionClass;
 use ReflectionNamedType;
 use Str;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 use function array_unique;
+use function floor;
 use function implode;
 use function is_a;
+use function max;
+use function memory_get_usage;
+use function sprintf;
 use function strtr;
+use function time;
 
 abstract class ProcessorCommand extends Command {
     public function __construct() {
@@ -32,7 +39,7 @@ abstract class ProcessorCommand extends Command {
         parent::__construct();
     }
 
-    protected function process(Processor $processor): int {
+    protected function process(Formatter $formatter, Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
         $offset   = $this->option('offset');
@@ -45,22 +52,41 @@ abstract class ProcessorCommand extends Command {
             $processor = $processor->setKeys($keys);
         }
 
+        // Style
+        // [▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   3%
+        // ! 999:99:99 T: 115 000 000 P:   5 000 000 S:   5 000 000 F:         123
+        // ~ 000:25:15 M:  143.05 MiB O:      e706aa47-4c00-4ffa-a1ac-bb10f4ada3b6
+        $progress->setBarWidth(64 - 3);
+        $progress->setFormat(implode("\n", [
+            '[%bar%] %progress:6.6s%%',
+            '! %time-elapsed:9.9s% T: %state-total:11.11s% P: %state-processed:11.11s% S: <info>%state-success:11.11s%</info> F: <comment>%state-failed:11.11s%</comment>', // @phpcs:ignore Generic.Files.LineLength.TooLong
+            '~ %time-remaining:9.9s% M: %usage-memory:11.11s% O: %state-offset:41s%',
+        ]));
+
         // Process
         $processor
             ->setChunkSize($chunk)
             ->setOffset($offset)
             ->setLimit($limit)
-            ->onInit(static function (State $state) use ($progress): void {
-                if ($state->total) {
-                    $progress->setMaxSteps($state->total);
+            ->onInit(function (State $state) use ($formatter, $progress): void {
+                if ($state->total !== null) {
+                    $progress->setMaxSteps(max($state->total, $state->processed));
                 }
+
+                $this->updateProgressBar($formatter, $progress, $state);
+                $progress->display();
             })
-            ->onChange(static function (State $state) use ($progress): void {
+            ->onChange(function (State $state) use ($formatter, $progress): void {
+                $this->updateProgressBar($formatter, $progress, $state);
+
                 $progress->setProgress($state->processed);
             })
-            ->start();
+            ->onFinish(function (State $state) use ($formatter, $progress): void {
+                $this->updateProgressBar($formatter, $progress, $state);
 
-        $progress->finish();
+                $progress->finish();
+            })
+            ->start();
 
         // Done
         $this->newLine(2);
@@ -146,5 +172,79 @@ abstract class ProcessorCommand extends Command {
         }
 
         return $processor;
+    }
+
+    private function updateProgressBar(Formatter $formatter, ProgressBar $progress, State $state): void {
+        $progress->setMessage(
+            $progress->getMaxSteps()
+                ? $formatter->decimal($progress->getProgressPercent() * 100, 2)
+                : '???.??',
+            'progress',
+        );
+        $progress->setMessage(
+            $this->duration(time() - $progress->getStartTime()),
+            'time-elapsed',
+        );
+        $progress->setMessage(
+            $progress->getMaxSteps()
+                ? $this->duration($progress->getRemaining())
+                : '???:??:??',
+            'time-remaining',
+        );
+        $progress->setMessage(
+            $formatter->filesize(memory_get_usage(true)),
+            'usage-memory',
+        );
+        $progress->setMessage(
+            $state->total
+                ? $formatter->integer($state->total)
+                : '',
+            'state-total',
+        );
+        $progress->setMessage(
+            $formatter->integer($state->processed),
+            'state-processed',
+        );
+        $progress->setMessage(
+            $formatter->integer($state->success),
+            'state-success',
+        );
+        $progress->setMessage(
+            $formatter->integer($state->failed),
+            'state-failed',
+        );
+        $progress->setMessage(
+            (string) $state->offset,
+            'state-offset',
+        );
+    }
+
+    private function duration(int|float $duration): string {
+        $parts = [
+            'hours'   => 0,
+            'minutes' => 0,
+            'seconds' => 0,
+        ];
+        $units = [
+            'hours'   => 60 * 60,
+            'minutes' => 60,
+            'seconds' => 1,
+        ];
+
+        foreach ($units as $unit => $factor) {
+            $parts[$unit] = (int) floor($duration / $factor);
+            $duration     = $duration - $parts[$unit] * $factor;
+        }
+
+        if ($parts['hours'] > 999) {
+            $parts['hours'] = 999;
+        }
+
+        return sprintf(
+            '%1$03.3s:%2$02s:%3$02s',
+            $parts['hours'],
+            $parts['minutes'],
+            $parts['seconds'],
+        );
     }
 }
