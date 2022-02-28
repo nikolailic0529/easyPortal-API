@@ -3,9 +3,10 @@
 namespace App\Utils\Iterators\Eloquent;
 
 use App\Utils\Iterators\Concerns\ChunkSize;
+use App\Utils\Iterators\Concerns\InitialState;
+use App\Utils\Iterators\Concerns\Subjects;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
-use Exception;
 use Generator;
 use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
@@ -16,6 +17,9 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
  * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
  */
 class EloquentIterator implements ObjectIterator {
+    use Subjects;
+    use InitialState;
+
     /**
      * @param \LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator<T> $iterator
      */
@@ -26,7 +30,13 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function getIterator(): Generator {
-        return $this->iterator->getIterator();
+        try {
+            $this->init();
+
+            yield from $this->iterator->getIterator();
+        } finally {
+            $this->finish();
+        }
     }
 
     public function getIndex(): int {
@@ -44,7 +54,7 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function setLimit(?int $limit): static {
-        $this->iterator->setIndex($limit ?? 0);
+        $this->iterator->setLimit($limit ?? 0);
 
         return $this;
     }
@@ -81,14 +91,6 @@ class EloquentIterator implements ObjectIterator {
         return $this;
     }
 
-    public function onInit(?Closure $closure): static {
-        throw new Exception('Not implemented');
-    }
-
-    public function onFinish(?Closure $closure): static {
-        throw new Exception('Not implemented');
-    }
-
     /**
      * @param \Closure(array<T>):void|null $closure
      *
@@ -98,5 +100,9 @@ class EloquentIterator implements ObjectIterator {
         return static function (Collection $items) use ($closure): void {
             $closure($items->all());
         };
+    }
+
+    public function __clone(): void {
+        $this->iterator = clone $this->iterator;
     }
 }
