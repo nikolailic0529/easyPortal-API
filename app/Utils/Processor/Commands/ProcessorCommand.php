@@ -14,6 +14,7 @@ use ReflectionNamedType;
 use Str;
 use Symfony\Component\Console\Helper\ProgressBar;
 
+use function array_merge;
 use function array_unique;
 use function floor;
 use function implode;
@@ -28,7 +29,7 @@ abstract class ProcessorCommand extends Command {
     public function __construct() {
         $replacements      = $this->getReplacements();
         $this->signature   = strtr(
-            $this->signature ?? implode("\n", $this->getDefaultCommandSignature()),
+            $this->signature ?? $this->getDefaultCommandSignature(),
             $replacements,
         );
         $this->description = Str::ucfirst(strtr(
@@ -100,7 +101,7 @@ abstract class ProcessorCommand extends Command {
      * @return array<string,string>
      */
     protected function getReplacements(): array {
-        $service = Str::lower($this->getReplacementsServiceName());
+        $service = Str::snake($this->getReplacementsServiceName(), '-');
         $command = Str::snake($this->getReplacementsCommandName(), '-');
         $objects = Str::before($command, '-');
         $action  = Str::after($command, '-');
@@ -130,7 +131,11 @@ abstract class ProcessorCommand extends Command {
     /**
      * @return array<string>
      */
-    private function getDefaultCommandSignature(): array {
+    protected function getCommandOptions(): array {
+        return [];
+    }
+
+    private function getDefaultCommandSignature(): string {
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
@@ -143,7 +148,7 @@ abstract class ProcessorCommand extends Command {
             $signature[] = '{id?* : process only these ${objects} (if empty all ${objects} will be processed)}';
         }
 
-        return $signature;
+        return implode("\n", array_merge($signature, $this->getCommandOptions()));
     }
 
     private function getDefaultCommandDescription(): string {

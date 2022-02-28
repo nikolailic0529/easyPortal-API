@@ -2,6 +2,7 @@
 
 namespace App\Services\KeyCloak\Jobs\Cron;
 
+use App\Services\KeyCloak\Commands\UsersSync;
 use App\Services\Queue\CronJob;
 use Illuminate\Contracts\Console\Kernel;
 
@@ -14,6 +15,6 @@ class PermissionsSynchronizer extends CronJob {
     }
 
     public function __invoke(Kernel $artisan): void {
-        $artisan->call('ep:keycloak-permissions-sync');
+        $artisan->call(UsersSync::class);
     }
 }
