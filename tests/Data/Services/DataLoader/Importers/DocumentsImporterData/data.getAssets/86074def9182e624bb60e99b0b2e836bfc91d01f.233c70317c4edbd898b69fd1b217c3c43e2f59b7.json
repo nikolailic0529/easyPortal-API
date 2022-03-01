@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "933c36aa-fbc6-4f74-ab3f-075e2ed366a9"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "933c36aa-fbc6-4f74-ab3f-075e2ed366a9",
+                    "resellerId": "714aa057-1ea0-4666-b3be-4b69af99e997",
+                    "customerId": "0ba6ac9a-abc7-436c-a985-7e862502c1f1",
+                    "serialNumber": "2e29e4e1-de82-32fa-95c5-a23a9af16d6e",
+                    "productDescription": "HP DL380p Gen8 25-SFF CTO Server",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "665554-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "05642",
+                    "city": "Rosalindport",
+                    "address": "709 Gusikowski Pike",
+                    "address2": "",
+                    "country": "Bahrain",
+                    "latitude": "-69.379947",
+                    "longitude": "-141.067485",
+                    "countryCode": "HN",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630820528526",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Leanna Kautzer DVM",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

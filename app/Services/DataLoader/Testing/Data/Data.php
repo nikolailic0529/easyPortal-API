@@ -95,7 +95,7 @@ abstract class Data {
 
         if ($context[ClientDumpContext::OEMS] ?? null) {
             $result = $result
-                && $this->kernel->call('ep:data-loader-import-oems', [
+                && $this->kernel->call('ep:data-loader-oems-import', [
                     'file' => "{$path}/{$context[ClientDumpContext::OEMS]}",
                 ]) === Command::SUCCESS;
         }
@@ -118,6 +118,14 @@ abstract class Data {
             $result = $result
                 && $this->kernel->call('ep:data-loader-update-customer', [
                     'id' => $context[ClientDumpContext::CUSTOMERS],
+                ]) === Command::SUCCESS;
+        }
+
+        if ($context[ClientDumpContext::ASSETS] ?? null) {
+            $result = $result
+                && $this->kernel->call('ep:data-loader-update-asset', [
+                    'id'             => $context[ClientDumpContext::ASSETS],
+                    '--no-documents' => true,
                 ]) === Command::SUCCESS;
         }
 

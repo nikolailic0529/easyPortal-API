@@ -32,22 +32,22 @@
     {
         "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
         "bindings": [
+            "00a2dac8-f974-5e30-8852-b78b9beab383",
             "0ffbe81a-4d4a-5300-b737-186054976a6c",
-            "1033b54f-7670-5680-9f65-3bf2fec7dc6e",
             "10e8403d-ac81-5869-a7e3-5d652e91b32b",
-            "1267ebae-1725-59ed-9101-fcb6d127d9eb",
-            "377f26d6-af90-58c4-b6f6-aa64dbd78375",
-            "3c026542-d391-53ec-9347-9259b3273f0e",
-            "3c1739ce-c961-5c2d-89ad-075a529abcf7",
-            "456a628f-017b-58f3-8773-cd1ee5be9ed4",
-            "50e49187-ef54-545a-8459-78057a562697",
-            "63535aaf-56d7-59ba-93a5-55dd0c5dc9d6",
-            "6d54f1f0-2928-582e-a60e-8cbb50f3deb4",
-            "9cc982bd-43fd-55bd-b9c3-6bd850494c87",
-            "9e1005ae-5a36-5909-8e2d-dab2b617376c",
-            "b4fccd4c-af69-50ec-a8fd-1ed63cf0f496",
-            "ddf43566-04c5-5583-ae52-c8d896bd7898",
-            "e2e55482-65d0-524d-881f-61c4f7cddf6f"
+            "1108f529-6acb-5ef2-b76c-06c5bb24cf54",
+            "1d1b883c-b811-5f3c-ab87-aa50afad81e9",
+            "20cd5cbd-ad74-5354-bda4-c688e39cee1b",
+            "3bc8c58c-e4a6-5d39-b8f8-d7eeedf30b5c",
+            "48b67d6b-68f2-560a-ae5f-b272568571ce",
+            "5b2e6db9-fe43-5f48-ae49-b2de648e1baf",
+            "6987de7c-dade-50ee-a9de-7f1f358dc862",
+            "79d540cc-c86f-52a3-83ba-d6a2287289ea",
+            "80aa4e1c-c94c-5c89-ae37-7ba19749cf4e",
+            "9fa2f3c1-5511-5eb4-92b5-19998a92f69d",
+            "ab17ffcc-a2c5-5ef4-b2e0-f6a965282572",
+            "f2ad4757-1fae-5cdf-94f5-bf376c43debd",
+            "f713bcdb-2403-5fa5-8eed-6471b19e5dab"
         ]
     },
     {
@@ -87,29 +87,29 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "02d1d0a1-e864-572b-ac0d-e4e50abecb98",
-            "2221f06d-4a12-5b5e-8a8c-c3802da7edb0",
-            "37433aa8-3c22-5eeb-9551-d239d05d3578",
-            "38d38cf8-5a4d-521c-ace3-d9416945d34b",
-            "3ae023d1-b8f5-57f8-a1b7-bfaf06529170",
+            "15cc9317-288d-5cd1-ad0e-774cad37862b",
+            "34a7da9a-bc4f-54fd-9dcd-2a128111703d",
+            "3c026542-d391-53ec-9347-9259b3273f0e",
+            "3f223392-c0b3-59dd-a58b-7fa4bfdcde3e",
+            "47ba8bed-fefb-57e4-88d7-2ca95e11215b",
+            "4de5dec1-3390-5936-9db3-b710e1442eeb",
             "5805230b-b911-5b0c-ab1b-670e88304dc4",
-            "64bd44f1-abaa-525f-9c17-f62d626ff056",
-            "6987de7c-dade-50ee-a9de-7f1f358dc862",
-            "7a554a55-0f04-5738-b6da-38be367f590e",
-            "ebb56938-034d-5fe6-8d76-98ccb7e06281",
-            "efc82177-cc97-5f29-bede-5bff52e767fa"
+            "c7654ff6-d0f2-5e27-b408-d0ab0a493045",
+            "e3decd0a-d1fa-5a75-b3f7-e0021b930229",
+            "f2b5d886-242c-5ef0-a74a-7ca761ef8781",
+            "fd327754-6595-5fa2-ac32-3a4bf8ee8881"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "13d2e443-29ed-5827-b495-6fa0a4cf9b1d",
-            "1d1b883c-b811-5f3c-ab87-aa50afad81e9",
             "3a65b677-1810-5082-83db-1e61ac261471",
             "52203cd7-e388-5554-9b80-1b6b4389f4c4",
             "5856c64a-8184-51e0-b8cf-a43594f15a19",
             "6e16c4db-d53e-5fc0-b2b5-d79003a0d67f",
             "9d8fa75f-fc79-5b8f-b8ca-747238a720f4",
+            "af4f181a-3319-533e-a703-33b073f011d7",
             "f2985f7f-bbf8-5b74-abb7-83a1ca2555a4"
         ]
     },
@@ -226,6 +226,26 @@
         ]
     },
     {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "cd6a2bca-5a78-4b93-b135-49c7999149fd",
+            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
+            "916cb400-7119-4088-a641-f8e96eba49f9",
+            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922",
+            "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
+            "8feec411-b709-44d9-b585-6c7a4ee50790",
+            "3cf865d5-3810-4dce-80eb-5a962403c8e7",
+            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
+            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
+            "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
+            "b1400cda-07e6-495c-9d18-772b2c38f47f",
+            "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
+            "2f242f3a-2052-4894-bca6-b8821f8ef662",
+            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
+            "632508e0-7f5c-4651-9094-ece89da275e8"
+        ]
+    },
+    {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
     },
@@ -264,37 +284,6 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "cd6a2bca-5a78-4b93-b135-49c7999149fd"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "cd6a2bca-5a78-4b93-b135-49c7999149fd"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "cd6a2bca-5a78-4b93-b135-49c7999149fd",
-            "Document"
-        ]
-    },
-    {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `languages`.* from `languages` where `languages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
         "bindings": []
     },
@@ -303,24 +292,10 @@
         "bindings": []
     },
     {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:07:53",
-            "2022-02-02 00:08:04",
-            "cd6a2bca-5a78-4b93-b135-49c7999149fd"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "6bad01f8-09bb-4809-bc5c-e154917dc505"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:07:48",
-            "2022-02-02 00:08:39",
+            "2022-02-02 00:06:09",
+            "2022-02-02 00:06:17",
             "6bad01f8-09bb-4809-bc5c-e154917dc505"
         ]
     },
@@ -331,54 +306,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
-            "916cb400-7119-4088-a641-f8e96eba49f9"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?, ?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "916cb400-7119-4088-a641-f8e96eba49f9",
-            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "916cb400-7119-4088-a641-f8e96eba49f9",
-            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:09:09",
-            "2022-02-02 00:09:20",
-            "916cb400-7119-4088-a641-f8e96eba49f9"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:09:52",
-            "2022-02-02 00:10:03",
-            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:09:04",
-            "2022-02-02 00:10:37",
+            "2022-02-02 00:06:42",
+            "2022-02-02 00:06:49",
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4"
         ]
     },
@@ -389,43 +320,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:11:07",
-            "2022-02-02 00:11:18",
-            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "e39b8f88-3f4e-4eb5-9a9d-265574dc380d"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:11:02",
-            "2022-02-02 00:11:50",
+            "2022-02-02 00:07:14",
+            "2022-02-02 00:07:19",
             "e39b8f88-3f4e-4eb5-9a9d-265574dc380d"
         ]
     },
@@ -436,43 +334,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "d8b81381-5c12-4eb1-9b11-3f3f901e842a"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "d8b81381-5c12-4eb1-9b11-3f3f901e842a"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:12:30",
-            "2022-02-02 00:12:53",
-            "d8b81381-5c12-4eb1-9b11-3f3f901e842a"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "b294de4a-bba9-4894-a300-510fcccfbca2"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:12:07",
-            "2022-02-02 00:13:44",
+            "2022-02-02 00:07:36",
+            "2022-02-02 00:08:10",
             "b294de4a-bba9-4894-a300-510fcccfbca2"
         ]
     },
@@ -483,50 +348,17 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "8feec411-b709-44d9-b585-6c7a4ee50790"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "8feec411-b709-44d9-b585-6c7a4ee50790"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "8feec411-b709-44d9-b585-6c7a4ee50790",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:14:22",
-            "2022-02-02 00:14:33",
-            "8feec411-b709-44d9-b585-6c7a4ee50790"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "afe848a4-01a0-4a4b-ad0b-e29506d8a8f6"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:14:17",
-            "2022-02-02 00:15:05",
+            "2022-02-02 00:08:43",
+            "2022-02-02 00:08:48",
             "afe848a4-01a0-4a4b-ad0b-e29506d8a8f6"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "bfeef820-815f-5a5a-aec4-53793f274c9f",
+            "bc7a9e24-1db3-5df0-bc18-0b8a97ab6d3a",
             "c79fd8d7-6fe9-5b2f-af8a-ccd145f4a572",
             "406 hubert groves",
             "29454-0368"
@@ -539,43 +371,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "3cf865d5-3810-4dce-80eb-5a962403c8e7"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "3cf865d5-3810-4dce-80eb-5a962403c8e7"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "3cf865d5-3810-4dce-80eb-5a962403c8e7",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:15:27",
-            "2022-02-02 00:15:38",
-            "3cf865d5-3810-4dce-80eb-5a962403c8e7"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "7dcc2021-9081-4213-8e0c-a6c8d50ffa2d"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:15:22",
-            "2022-02-02 00:16:10",
+            "2022-02-02 00:09:05",
+            "2022-02-02 00:09:10",
             "7dcc2021-9081-4213-8e0c-a6c8d50ffa2d"
         ]
     },
@@ -586,43 +385,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:16:36",
-            "2022-02-02 00:17:09",
-            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:16:31",
-            "2022-02-02 00:17:59",
+            "2022-02-02 00:09:31",
+            "2022-02-02 00:09:42",
             "5f7d2467-43ef-4ffe-9bad-a6566b8c9bca"
         ]
     },
@@ -633,43 +399,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:18:25",
-            "2022-02-02 00:18:36",
-            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "f5ea76d0-7b8a-46f6-a195-58f25dff39cd"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:18:20",
-            "2022-02-02 00:19:08",
+            "2022-02-02 00:10:03",
+            "2022-02-02 00:10:08",
             "f5ea76d0-7b8a-46f6-a195-58f25dff39cd"
         ]
     },
@@ -680,43 +413,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "0b1618bc-c668-41e4-8eda-c594f20a0ae1"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "0b1618bc-c668-41e4-8eda-c594f20a0ae1"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:19:34",
-            "2022-02-02 00:19:45",
-            "0b1618bc-c668-41e4-8eda-c594f20a0ae1"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "bc0520fb-2cca-41a8-8594-e9c257a7d5e9"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:19:29",
-            "2022-02-02 00:20:17",
+            "2022-02-02 00:10:29",
+            "2022-02-02 00:10:34",
             "bc0520fb-2cca-41a8-8594-e9c257a7d5e9"
         ]
     },
@@ -727,87 +427,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
-        "bindings": [
-            "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "632508e0-7f5c-4651-9094-ece89da275e8"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?, ?, ?, ?, ?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "632508e0-7f5c-4651-9094-ece89da275e8",
-            "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "efdbd056-ca96-4fea-a3d1-96aadb5405ad"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "632508e0-7f5c-4651-9094-ece89da275e8",
-            "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "Document"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:20:43",
-            "2022-02-02 00:21:12",
-            "1122c985-ec0b-40a8-a794-05a62f1dee7a"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:21:56",
-            "2022-02-02 00:22:07",
-            "632508e0-7f5c-4651-9094-ece89da275e8"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:22:39",
-            "2022-02-02 00:23:30",
-            "2f242f3a-2052-4894-bca6-b8821f8ef662"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:24:26",
-            "2022-02-02 00:24:55",
-            "efdbd056-ca96-4fea-a3d1-96aadb5405ad"
-        ]
-    },
-    {
-        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            "2022-02-02 00:25:39",
-            "2022-02-02 00:25:56",
-            "b1400cda-07e6-495c-9d18-772b2c38f47f"
-        ]
-    },
-    {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "a7a10ec5-c22d-44d2-9bbc-10de9bb04501"
-        ]
-    },
-    {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:20:38",
-            "2022-02-02 00:27:09",
+            "2022-02-02 00:10:55",
+            "2022-02-02 00:11:37",
             "a7a10ec5-c22d-44d2-9bbc-10de9bb04501"
         ]
     }

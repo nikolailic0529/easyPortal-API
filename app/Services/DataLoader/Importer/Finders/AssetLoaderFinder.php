@@ -9,6 +9,9 @@ use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 
 class AssetLoaderFinder extends Finder implements AssetFinder {
     public function find(string $key): ?Asset {
-        return $this->container->make(AssetLoader::class)->create($key);
+        return $this->container->make(AssetLoader::class)
+            ->setWithWarrantyCheck(false)
+            ->setWithDocuments(false)
+            ->create($key);
     }
 }

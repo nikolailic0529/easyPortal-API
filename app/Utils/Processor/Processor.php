@@ -67,13 +67,25 @@ abstract class Processor {
      */
     private Dispatcher $onFinish;
 
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     */
+    private Dispatcher $onProcess;
+
+    /**
+     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     */
+    private Dispatcher $onReport;
+
     public function __construct(
         private ExceptionHandler $exceptionHandler,
         private EventDispatcher $dispatcher,
     ) {
-        $this->onInit   = new Dispatcher();
-        $this->onChange = new Dispatcher();
-        $this->onFinish = new Dispatcher();
+        $this->onInit    = new Dispatcher();
+        $this->onChange  = new Dispatcher();
+        $this->onFinish  = new Dispatcher();
+        $this->onReport  = new Dispatcher();
+        $this->onProcess = new Dispatcher();
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -144,26 +156,8 @@ abstract class Processor {
      * @param TState $state
      */
     protected function prepare(State $state): void {
-        // Organization scope should be disabled because we want to process
-        // all objects.
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($state): void {
-            // Indexing should be disabled to avoid a lot of queued jobs and
-            // speed up processing.
-
-            SearchService::callWithoutIndexing(function () use ($state): void {
-                // Telescope should be disabled because it stored all data in memory
-                // and will dump it only after the job/command/request is finished.
-                // For long-running jobs, this will lead to huge memory usage
-
-                Telescope::withoutRecording(function () use ($state): void {
-                    // Processor can create a lot of objects, so will be good to
-                    // group multiple inserts into one.
-
-                    BatchSave::enable(function () use ($state): void {
-                        $this->run($state);
-                    });
-                });
-            });
+        $this->call(function () use ($state): void {
+            $this->run($state);
         });
     }
 
@@ -172,17 +166,25 @@ abstract class Processor {
      */
     protected function run(State $state): void {
         $data     = null;
+        $sync     = static function () use (&$iterator, $state): void {
+            $state->index  = $iterator->getIndex();
+            $state->offset = $iterator->getOffset();
+        };
         $iterator = $this->getIterator($state)
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
+            ->onInit($sync)
+            ->onFinish($sync)
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
                 $data = $this->prefetch($state, $items);
 
                 $this->chunkLoaded($state, $items, $data);
             })
-            ->onAfterChunk(function (array $items) use ($state, &$data): void {
+            ->onAfterChunk(function (array $items) use ($sync, $state, &$data): void {
+                $sync();
+
                 $this->chunkProcessed($state, $items, $data);
 
                 $data = null;
@@ -195,14 +197,17 @@ abstract class Processor {
                 $this->process($state, $data, $item);
 
                 $state->success++;
+
+                $this->notifyOnProcess($state);
             } catch (Throwable $exception) {
                 $state->failed++;
 
                 $this->report($exception, $item);
+                $this->notifyOnReport($state);
             } finally {
-                $state->index  = $iterator->getIndex();
-                $state->offset = $iterator->getOffset();
                 $state->processed++;
+
+                $sync();
             }
         }
 
@@ -308,6 +313,50 @@ abstract class Processor {
      */
     protected function notifyOnFinish(State $state): void {
         $this->onFinish->notify(clone $state);
+    }
+
+    /**
+     * @param \Closure(TState, array<TItem>)|null $closure
+     *
+     * @return $this<TItem, TChunkData, TState>
+     */
+    public function onProcess(?Closure $closure): static {
+        if ($closure) {
+            $this->onProcess->attach($closure);
+        } else {
+            $this->onProcess->reset();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function notifyOnProcess(State $state): void {
+        $this->onProcess->notify(clone $state);
+    }
+
+    /**
+     * @param \Closure(TState, array<TItem>)|null $closure
+     *
+     * @return $this<TItem, TChunkData, TState>
+     */
+    public function onReport(?Closure $closure): static {
+        if ($closure) {
+            $this->onReport->attach($closure);
+        } else {
+            $this->onReport->reset();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function notifyOnReport(State $state): void {
+        $this->onReport->notify(clone $state);
     }
 
     /**
@@ -449,6 +498,47 @@ abstract class Processor {
      */
     protected function restoreState(array $state): State {
         return State::make($state);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @template T
+     *
+     * @param \Closure(): T $callback
+     *
+     * @return T
+     */
+    protected function call(Closure $callback): mixed {
+        $result = null;
+
+        // Organization scope should be disabled because we want to process
+        // all objects.
+        GlobalScopes::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use (&$result, $callback): void {
+                // Indexing should be disabled to avoid a lot of queued jobs and
+                // speed up processing.
+
+                SearchService::callWithoutIndexing(static function () use (&$result, $callback): void {
+                    // Telescope should be disabled because it stored all data in memory
+                    // and will dump it only after the job/command/request is finished.
+                    // For long-running jobs, this will lead to huge memory usage
+
+                    Telescope::withoutRecording(static function () use (&$result, $callback): void {
+                        // Processor can create a lot of objects, so will be good to
+                        // group multiple inserts into one.
+
+                        BatchSave::enable(static function () use (&$result, $callback): void {
+                            $result = $callback();
+                        });
+                    });
+                });
+            },
+        );
+
+        return $result;
     }
     // </editor-fold>
 }

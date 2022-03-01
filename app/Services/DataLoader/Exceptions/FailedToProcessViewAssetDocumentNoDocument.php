@@ -4,20 +4,14 @@ namespace App\Services\DataLoader\Exceptions;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
-use Illuminate\Support\Collection;
 use Throwable;
 
-use function count;
 use function sprintf;
 
 class FailedToProcessViewAssetDocumentNoDocument extends FailedToProcessObject {
-    /**
-     * @param \Illuminate\Support\Collection<\App\Services\DataLoader\Schema\ViewAssetDocument> $entries
-     */
     public function __construct(
         protected Asset $asset,
         protected ViewAssetDocument $document,
-        protected Collection $entries,
         Throwable $previous = null,
     ) {
         parent::__construct(sprintf(
@@ -27,7 +21,6 @@ class FailedToProcessViewAssetDocumentNoDocument extends FailedToProcessObject {
 
         $this->setContext([
             'documentNumber' => $this->document->documentNumber,
-            'entries'        => count($this->entries),
         ]);
     }
 }

@@ -874,7 +874,7 @@ interface Constants {
     #[Service(ResellersUpdaterCronJob::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_CRON = '0 0 * * *';
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_CRON = '15 0 * * *';
 
     /**
      * Queue name.
@@ -980,7 +980,7 @@ interface Constants {
     #[Service(CustomersUpdaterCronJob::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CRON = '0 0 * * *';
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CRON = '30 0 * * *';
 
     /**
      * Queue name.
@@ -1084,7 +1084,7 @@ interface Constants {
     #[Service(AssetsUpdaterCronJob::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_CRON = '0 0 * * *';
+    public const EP_DATA_LOADER_ASSETS_UPDATER_CRON = '0 1 * * *';
 
     /**
      * Queue name.
@@ -1274,7 +1274,7 @@ interface Constants {
     #[Service(DocumentsImporterCronJob::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK = 500;
+    public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK = 100;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_UPDATER">
@@ -1292,7 +1292,7 @@ interface Constants {
     #[Service(DocumentsUpdaterCronJob::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CRON = '0 0 * * *';
+    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CRON = '0 2 * * *';
 
     /**
      * Queue name.

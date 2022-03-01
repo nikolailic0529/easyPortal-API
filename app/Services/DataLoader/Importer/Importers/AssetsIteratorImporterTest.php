@@ -67,7 +67,7 @@ class AssetsIteratorImporterTest extends TestCase {
             Asset::class         => 10,
             AssetWarranty::class => 16,
             Document::class      => 15,
-            DocumentEntry::class => 33,
+            DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
             '~run-with-documents-events.json',

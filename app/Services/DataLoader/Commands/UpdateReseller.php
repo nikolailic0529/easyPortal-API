@@ -24,7 +24,7 @@ class UpdateReseller extends Update {
         {--C|no-create : Do not create reseller if not exists}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
-        {--ad|assets-documents : Load assets documents (and warranties), required --a|assets (default)}
+        {--ad|assets-documents : Load assets documents to calculate extended warranties, required --a|assets (default)}
         {--AD|no-assets-documents : Skip assets documents}
     ';
 

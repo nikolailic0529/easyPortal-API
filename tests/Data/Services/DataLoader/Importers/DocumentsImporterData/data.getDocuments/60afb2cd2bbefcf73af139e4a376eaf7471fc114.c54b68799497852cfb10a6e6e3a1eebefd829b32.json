@@ -1,0 +1,767 @@
+{
+    "selector": "data.getDocuments",
+    "graphql": "query getDocuments($limit: Int, $lastId: String, $from: String) {\n    getDocuments(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": "0019fa4b-fc0e-44f5-8280-c0e271761b20",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getDocuments": [
+                {
+                    "id": "001b00bd-d1c1-434c-859f-936098b00929",
+                    "type": "Quote New Business",
+                    "documentNumber": "7eeb24d6-aaa5-3cc8-af5d-3371b1c49f12",
+                    "startDate": "2020-04-02",
+                    "endDate": "2023-04-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                    "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "31aa8b64-4d59-489e-98bd-ea094c8c1c63",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-39",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "1f922653-91ed-41da-ae96-1be3c6c7ac0c",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-169",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "60880f7a-a288-4999-b497-9ea8eb317360",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-45",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "734d0010-d269-4c9b-8248-eadc907af598",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-81",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "c69c639a-e121-4d3b-bec5-39cdfbf65418",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-94",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "6ab9b540-a353-438a-b4fa-fa638aa0b541",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": "2020-04-13",
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-133",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "6ab9b540-a353-438a-b4fa-fa638aa0b541",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": "2020-04-13",
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-154",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "c22337b7-ad2b-4b7e-9b8b-691635790242",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-221",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "0e751c99-90a1-40bb-a565-de1430d8dacb",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": "2020-04-13",
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-95",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "0e751c99-90a1-40bb-a565-de1430d8dacb",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": "2020-04-13",
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-110",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "a8d70d35-0ee3-4d19-b763-bdbe9fd9e825",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-256",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "0275f527-64c9-48c4-8b49-3516bb550484",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-147",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "001b09e8-64ce-4999-814b-f3b351560ef4",
+                    "type": "Contract renewal",
+                    "documentNumber": "69953575-994d-321c-9edb-f79a0f757424",
+                    "startDate": "2020-05-15",
+                    "endDate": "2020-06-14",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": null,
+                    "customerId": "599801e0-0acb-436b-b24b-522cfc1f1c2e",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "7a5e2ab2-593f-3970-86fa-721828133aa9",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+18018533797",
+                            "name": "Ara Pfeffer",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18018533797",
+                            "name": "Ara Pfeffer",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18018533797",
+                            "name": "Ara Pfeffer",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "4d03ed97-e839-4487-805d-c6215b5b585f",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H7J35AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-05-15",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "50",
+                            "discount": "-2",
+                            "listPrice": "67",
+                            "estimatedValueRenewal": "67",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4d03ed97-e839-4487-805d-c6215b5b585f",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H7J35AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-05-15",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "50",
+                            "discount": "-2",
+                            "listPrice": "67",
+                            "estimatedValueRenewal": "67",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4d03ed97-e839-4487-805d-c6215b5b585f",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J35AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-05-15",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "967",
+                            "discount": "-45",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4d03ed97-e839-4487-805d-c6215b5b585f",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J35AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-05-15",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "967",
+                            "discount": "-45",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "001c691c-abe3-410a-b855-3eff1c10ab52",
+                    "type": "Quote renewal",
+                    "documentNumber": "2307fdf9-c910-364b-b44d-89fa5b82722a",
+                    "startDate": "2020-03-01",
+                    "endDate": "2021-02-28",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "993.6",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "customerId": "6030b200-8206-4f12-89bd-93768534486b",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "f72e664f-30bc-3bdb-bfb6-9a7140cb0876",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+19384554318",
+                            "name": "Misty Hamill",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19384554318",
+                            "name": "Misty Hamill",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+19384554318",
+                            "name": "Misty Hamill",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "2ebb2413-2ccc-485e-9767-cb8cac4e9a28",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "Telefonische SW Unterstützung",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-03-01",
+                            "endDate": "2021-02-28",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "496",
+                            "discount": "-9",
+                            "listPrice": "612",
+                            "estimatedValueRenewal": "612",
+                            "productLineDescription": "K3 - HP Technology Softwa"
+                        },
+                        {
+                            "assetId": "2ebb2413-2ccc-485e-9767-cb8cac4e9a28",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates SVC",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-03-01",
+                            "endDate": "2021-02-28",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "496",
+                            "discount": "-9",
+                            "listPrice": "612",
+                            "estimatedValueRenewal": "612",
+                            "productLineDescription": "K3 - HP Technology Softwa"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "001cc22e-7985-4304-aa60-fd9713a048a3",
+                    "type": "Quote New Business",
+                    "documentNumber": "afbb6008-f9d4-39cd-af0c-ccb3885a9ec1",
+                    "startDate": "2020-01-01",
+                    "endDate": "2020-01-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "506.76",
+                    "languageCode": "EN",
+                    "updatedAt": "1626346020118",
+                    "resellerId": "9d926695-6d2b-404e-9d6d-31bcaf44e7d2",
+                    "customerId": "57275aee-01e3-4490-b6ef-4cacfce38c44",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "34ea7b1a-e785-3a45-a335-de957f4f3033",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+17859726197",
+                            "name": "Miss Annie Carter",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17859726197",
+                            "name": "Lysanne O'Keefe Sr.",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17859726197",
+                            "name": "Miss Annie Carter",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "3e603bc9-e7b4-4ea5-a477-2e58f17430b4",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "Support logiciel",
+                            "supportPackage": "H1L06AC",
+                            "supportPackageDescription": "HPE Partner-Branded NBD Support SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-01-01",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "236",
+                            "discount": "-4",
+                            "listPrice": "288",
+                            "estimatedValueRenewal": "288",
+                            "productLineDescription": "L7 - Aruba DataCenter Swi"
+                        },
+                        {
+                            "assetId": "3e603bc9-e7b4-4ea5-a477-2e58f17430b4",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "Mise à jour des logiciels",
+                            "supportPackage": "H1L06AC",
+                            "supportPackageDescription": "HPE Partner-Branded NBD Support SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-01-01",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "108",
+                            "discount": "-1",
+                            "listPrice": "132",
+                            "estimatedValueRenewal": "132",
+                            "productLineDescription": "L7 - Aruba DataCenter Swi"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "001cdeac-3333-42f9-8480-f3ba90e99f64",
+                    "type": "Contract renewal",
+                    "documentNumber": "cb883c04-7cdf-3dfc-b341-6076d270ba8e",
+                    "startDate": "2021-01-01",
+                    "endDate": "2021-12-31",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": "689.88",
+                    "languageCode": "EN",
+                    "updatedAt": "1643189051884",
+                    "resellerId": "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
+                    "customerId": "8f4f286a-59b6-464e-9634-63a25298db57",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "4a423dac-c17f-3a0b-a275-e58b9b75f8a9",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+14789889683",
+                            "name": "Sarai Rutherford",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14789889683",
+                            "name": "Sarai Rutherford",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14789889683",
+                            "name": "Sarai Rutherford",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "76518a80-576c-49aa-b54d-09e34b58dc2e",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4077cb59-4793-4481-8c04-a6b9975c324b",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "9fe37166-040c-468c-8be0-d43c6cf3c8c6",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "56",
+                            "discount": "-5",
+                            "listPrice": "120",
+                            "estimatedValueRenewal": "120",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "9fe37166-040c-468c-8be0-d43c6cf3c8c6",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "633",
+                            "discount": "-60",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4326ab26-3a2e-422a-b166-fd79f5775f82",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "1132b294-a3e6-466c-804c-3f354594ec70",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "5d099f9d-acce-48a1-bc41-c05466016c8d",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "cf633c5b-c3d2-4be7-a885-d4e887b69f1e",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4657988b-68bc-4ffb-abd9-c2e8f69e05fa",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "R8 - Non 3PAR & Non Prime"
+                        },
+                        {
+                            "assetId": "a48c9bd6-f8ad-43f0-bbee-f331a4c577af",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "a64548ae-3b0c-43dd-97d8-bb6885f45ff1",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J33AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD wDMR SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2021-01-01",
+                            "endDate": "2021-12-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}

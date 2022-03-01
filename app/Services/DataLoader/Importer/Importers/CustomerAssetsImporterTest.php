@@ -67,7 +67,7 @@ class CustomerAssetsImporterTest extends TestCase {
             Asset::class         => CustomerAssetsImporterDataWithDocuments::LIMIT,
             AssetWarranty::class => 56,
             Document::class      => 4,
-            DocumentEntry::class => 58,
+            DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
             '~run-with-documents-events.json',

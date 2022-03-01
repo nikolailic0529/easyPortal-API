@@ -58,7 +58,6 @@ use function count;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
  * @property \App\Models\Customer|null                                                $customer
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry>      $documentEntries
  * @property \App\Models\Location|null                                                $location
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
@@ -157,11 +156,6 @@ class Asset extends Model {
     }
 
     #[CascadeDelete(false)]
-    public function documentEntries(): HasMany {
-        return $this->hasMany(DocumentEntry::class);
-    }
-
-    #[CascadeDelete(false)]
     protected function documents(): HasManyThrough {
         return $this->hasManyThrough(
             Document::class,
@@ -191,13 +185,6 @@ class Asset extends Model {
                 /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
                 return $builder->queryQuotes();
             });
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\App\Models\DocumentEntry>|array<\App\Models\DocumentEntry> $entries
-     */
-    public function setDocumentEntriesAttribute(Collection|array $entries): void {
-        $this->syncHasMany('documentEntries', $entries);
     }
 
     protected function getTagsPivot(): Pivot {

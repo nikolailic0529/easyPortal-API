@@ -13,7 +13,7 @@ use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
 use App\Utils\Eloquent\Model;
-use App\Utils\Iterators\EloquentIterator;
+use App\Utils\Iterators\Eloquent\EloquentIterator;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;

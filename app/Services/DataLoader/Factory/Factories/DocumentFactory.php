@@ -13,7 +13,6 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
@@ -59,7 +58,6 @@ use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -68,7 +66,6 @@ use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
-use function array_merge;
 use function implode;
 use function sprintf;
 
@@ -241,13 +238,19 @@ class DocumentFactory extends ModelFactory {
 
     // <editor-fold desc="AssetDocumentObject">
     // =========================================================================
+    /**
+     * Create Document without entries.
+     *
+     * We are not creating entries here because they may be outdated. In this
+     * case we will have race conditions with {@see createFromDocument()}.
+     * Also, there is no way to delete outdated entries.
+     */
     protected function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
         // Document exists?
         if (!isset($object->document->document->id)) {
             throw new FailedToProcessViewAssetDocumentNoDocument(
                 $object->asset,
                 $object->document,
-                new Collection($object->entries),
             );
         }
 
@@ -256,14 +259,12 @@ class DocumentFactory extends ModelFactory {
         $factory = $this->factory(function (DocumentModel $model) use (&$created, $object): DocumentModel {
             // Update
             $created    = !$model->exists;
-            $normalizer = $this->getNormalizer();
             $document   = $object->document->document;
-            $changedAt  = $normalizer->datetime($document->updatedAt);
+            $normalizer = $this->getNormalizer();
 
             // The asset may contain outdated documents so to prevent conflicts
-            // we should update properties only if the document is new or
-            // freshest.
-            if ($created || $model->changed_at <= $changedAt) {
+            // we should not update existing documents.
+            if ($created) {
                 $model->id          = $normalizer->uuid($document->id);
                 $model->oem         = $this->documentOem($document);
                 $model->oemGroup    = $this->documentOemGroup($document);
@@ -278,13 +279,10 @@ class DocumentFactory extends ModelFactory {
                 $model->end         = $normalizer->datetime($document->endDate);
                 $model->price       = $normalizer->number($document->totalNetPrice);
                 $model->number      = $normalizer->string($document->documentNumber);
-                $model->changed_at  = $changedAt;
+                $model->changed_at  = $normalizer->datetime($document->updatedAt);
                 $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
                 $model->synced_at   = Date::now();
             }
-
-            // Entries should be updated always because they related to the Asset
-            $model->entries = $this->assetDocumentObjectEntries($model, $object);
 
             // We cannot save document if assets doesn't exist
             if ($object->asset->exists) {
@@ -308,74 +306,6 @@ class DocumentFactory extends ModelFactory {
 
         // Return
         return $model;
-    }
-
-    /**
-     * @return array<\App\Models\DocumentEntry>
-     */
-    protected function assetDocumentObjectEntries(DocumentModel $model, AssetDocumentObject $document): array {
-        // AssetDocumentObject contains entries only for related Asset thus we
-        // must not touch other entries.
-
-        // Separate asset's entries
-        $all      = [];
-        $existing = [];
-        $assetId  = $document->asset->getKey();
-
-        if ($model->exists) {
-            foreach ($model->entries as $entry) {
-                /** @var \App\Models\DocumentEntry $entry */
-                if ($entry->asset_id === $assetId) {
-                    $existing[] = $entry;
-                } else {
-                    $all[] = $entry;
-                }
-            }
-        }
-
-        // Update entries:
-        $entries = $this->entries(
-            new Collection($existing),
-            $document->entries,
-            function (ViewAssetDocument $entry) use ($model, $document): ?DocumentEntryModel {
-                try {
-                    return $this->assetDocumentEntry($document->asset, $model, $entry);
-                } catch (Throwable $exception) {
-                    $this->getExceptionHandler()->report(
-                        new FailedToProcessViewAssetDocument($document->asset, $entry, $exception),
-                    );
-                }
-
-                return null;
-            },
-        );
-        $all     = array_merge($all, $entries);
-
-        // Return
-        return $all;
-    }
-
-    protected function assetDocumentEntry(
-        AssetModel $asset,
-        DocumentModel $document,
-        ViewAssetDocument $assetDocument,
-    ): DocumentEntryModel {
-        $entry                = new DocumentEntryModel();
-        $normalizer           = $this->getNormalizer();
-        $entry->asset         = $asset;
-        $entry->product       = $asset->product;
-        $entry->serial_number = $asset->serial_number;
-        $entry->start         = $normalizer->datetime($assetDocument->startDate);
-        $entry->end           = $normalizer->datetime($assetDocument->endDate);
-        $entry->currency      = $this->currency($assetDocument->currencyCode);
-        $entry->net_price     = $normalizer->number($assetDocument->netPrice);
-        $entry->list_price    = $normalizer->number($assetDocument->listPrice);
-        $entry->discount      = $normalizer->number($assetDocument->discount);
-        $entry->renewal       = $normalizer->number($assetDocument->estimatedValueRenewal);
-        $entry->serviceGroup  = $this->assetDocumentServiceGroup($asset, $assetDocument);
-        $entry->serviceLevel  = $this->assetDocumentServiceLevel($asset, $assetDocument);
-
-        return $entry;
     }
 
     protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
@@ -419,8 +349,8 @@ class DocumentFactory extends ModelFactory {
             $model->number      = $normalizer->string($document->documentNumber);
             $model->changed_at  = $normalizer->datetime($document->updatedAt);
             $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->statuses    = $this->documentStatuses($model, $document);
             $model->synced_at   = Date::now();
+            $model->statuses    = $this->documentStatuses($model, $document);
 
             // Entries & Warranties
             if (isset($document->documentEntries)) {
@@ -530,7 +460,7 @@ class DocumentFactory extends ModelFactory {
         $entry                = new DocumentEntryModel();
         $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
-        $entry->product       = $asset->product;
+        $entry->product_id    = $asset->product_id;
         $entry->serial_number = $asset->serial_number;
         $entry->start         = $normalizer->datetime($documentEntry->startDate);
         $entry->end           = $normalizer->datetime($documentEntry->endDate);

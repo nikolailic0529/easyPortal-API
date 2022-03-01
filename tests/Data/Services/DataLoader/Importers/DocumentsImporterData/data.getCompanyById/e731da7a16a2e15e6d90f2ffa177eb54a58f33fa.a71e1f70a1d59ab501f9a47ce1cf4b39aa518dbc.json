@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "a36b83d1-a49b-45be-adb7-3c5defb55234",
-                    "name": "Rodriguez PLC",
+                    "name": "Altenwerth, Weimann and Wuckert",
                     "updatedAt": "1640174979417",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82084-1715",
-                            "address": "8070 Juwan Cape Apt. 785",
-                            "city": "Muellerview",
+                            "zip": "50711-9417",
+                            "address": "350 Hodkiewicz Rapids Suite 060",
+                            "city": "Pearlchester",
                             "locationType": "HEADQUARTER",
                             "country": "Greece",
-                            "latitude": "-68.121493",
-                            "longitude": "174.843778",
+                            "latitude": "86.239305",
+                            "longitude": "56.237216",
                             "countryCode": "PK"
                         }
                     ],

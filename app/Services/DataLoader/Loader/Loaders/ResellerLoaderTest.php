@@ -136,9 +136,9 @@ class ResellerLoaderTest extends TestCase {
             Reseller::class      => 4,
             Customer::class      => 2,
             Asset::class         => 6,
-            AssetWarranty::class => 11,
-            Document::class      => 3,
-            DocumentEntry::class => 11,
+            AssetWarranty::class => 10,
+            Document::class      => 2,
+            DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
             '~create-with-assets-cold-events.json',

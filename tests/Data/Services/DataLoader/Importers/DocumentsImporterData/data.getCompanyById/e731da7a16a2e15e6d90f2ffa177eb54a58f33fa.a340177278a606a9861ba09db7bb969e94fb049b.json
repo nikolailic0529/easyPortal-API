@@ -10,7 +10,7 @@
                 {
                     "id": "39fd53c8-7789-49e0-aea5-a36127106f27",
                     "name": "Schulist-Mann",
-                    "updatedAt": "1640173390764",
+                    "updatedAt": "1644306436718",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "99254-9328",
-                            "address": "899 Rylan Shores Suite 895",
-                            "city": "Zulaufview",
+                            "zip": "59473",
+                            "address": "96899 Purdy Lakes",
+                            "city": "Lake Kayleighfurt",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-45.572626",
-                            "longitude": "152.790739",
+                            "latitude": "-61.950703",
+                            "longitude": "36.253737",
                             "countryCode": "HN"
                         }
                     ],

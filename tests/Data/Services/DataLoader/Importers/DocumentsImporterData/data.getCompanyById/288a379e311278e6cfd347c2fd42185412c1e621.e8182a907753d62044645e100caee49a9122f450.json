@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d674d244-8a3c-4357-8b62-3bc908495789",
-                    "name": "Borer-Gusikowski",
+                    "name": "Denesik LLC",
                     "updatedAt": "1638477892518",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+9039622940855",
-                            "name": "Cordelia Rempel",
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+9039622940855",
-                            "name": "Cordelia Rempel",
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+9039622940855",
-                            "name": "Cordelia Rempel",
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "53992",
-                            "address": "369 Breitenberg Streets Suite 902",
-                            "city": "VonRuedenbury",
+                            "zip": "24109-9236",
+                            "address": "53095 Corene Extensions Suite 814",
+                            "city": "East Adolphus",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "-87.402363",
-                            "longitude": "90.799148",
+                            "latitude": "34.421568",
+                            "longitude": "121.360374",
                             "countryCode": "KP"
                         }
                     ],

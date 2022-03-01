@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "6030b200-8206-4f12-89bd-93768534486b",
-                    "name": "Heaney Group",
+                    "name": "Hartmann-Trantow",
                     "updatedAt": "1639140979361",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+4214446361060",
-                            "name": "Angeline Pfannerstill",
+                            "phoneNumber": "+19384554318",
+                            "name": "Misty Hamill",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+4214446361060",
-                            "name": "Angeline Pfannerstill",
+                            "phoneNumber": "+19384554318",
+                            "name": "Misty Hamill",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+4214446361060",
-                            "name": "Angeline Pfannerstill",
+                            "phoneNumber": "+19384554318",
+                            "name": "Misty Hamill",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "60474-2769",
-                            "address": "81348 Towne Lane Suite 156",
+                            "zip": "63912",
+                            "address": "1379 Caleb Field",
                             "city": "Gusikowskihaven",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "19.709472",
-                            "longitude": "-75.638509",
+                            "latitude": "26.982374",
+                            "longitude": "-81.798753",
                             "countryCode": "KP"
                         }
                     ],

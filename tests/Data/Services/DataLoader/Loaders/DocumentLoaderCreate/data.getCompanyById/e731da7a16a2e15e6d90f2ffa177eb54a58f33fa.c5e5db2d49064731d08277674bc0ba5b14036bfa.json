@@ -10,7 +10,7 @@
                 {
                     "id": "5c31b37f-d2b3-43df-82eb-63061b28007f",
                     "name": "Veum Ltd",
-                    "updatedAt": "1640173712269",
+                    "updatedAt": "1644307490280",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,7 +46,7 @@
                         "activeQuotes": 4,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 33,
                         "expiredContracts": 3,
                         "orderedQuotes": null,

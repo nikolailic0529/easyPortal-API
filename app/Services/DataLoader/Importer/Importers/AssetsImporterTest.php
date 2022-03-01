@@ -61,10 +61,10 @@ class AssetsImporterTest extends TestCase {
             Asset::class         => AssetsImporterData::LIMIT,
             AssetWarranty::class => 108,
             Document::class      => 65,
-            DocumentEntry::class => 157,
+            DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
-            '~run-events.json',
+            '~run-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -84,7 +84,7 @@ class AssetsImporterTest extends TestCase {
 
         $this->assertQueryLogEquals('~run-hot.json', $queries);
         $this->assertDispatchedEventsEquals(
-            '~run-events.json',
+            '~run-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

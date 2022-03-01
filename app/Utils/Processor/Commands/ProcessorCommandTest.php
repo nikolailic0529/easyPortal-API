@@ -2,6 +2,7 @@
 
 namespace App\Utils\Processor\Commands;
 
+use App\Services\I18n\Formatter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\Processor;
@@ -54,6 +55,7 @@ class ProcessorCommandTest extends TestCase {
         $offset    = $this->faker->uuid;
         $buffer    = new BufferedOutput();
         $progress  = new ProgressBar($buffer);
+        $formatter = Mockery::mock(Formatter::class);
         $processor = Mockery::mock(Processor::class);
         $processor
             ->shouldReceive('setLimit')
@@ -76,6 +78,18 @@ class ProcessorCommandTest extends TestCase {
             ->andReturnSelf();
         $processor
             ->shouldReceive('onChange')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onFinish')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onReport')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onProcess')
             ->once()
             ->andReturnSelf();
         $processor
@@ -116,12 +130,12 @@ class ProcessorCommandTest extends TestCase {
             ->andReturns();
 
         $command = new class() extends ProcessorCommand {
-            public function __invoke(Processor $processor): int {
-                return $this->process($processor);
+            public function __invoke(Formatter $formatter, Processor $processor): int {
+                return $this->process($formatter, $processor);
             }
 
-            protected function process(Processor $processor): int {
-                return parent::process($processor);
+            protected function process(Formatter $formatter, Processor $processor): int {
+                return parent::process($formatter, $processor);
             }
 
             protected function getReplacementsServiceName(): string {
@@ -133,7 +147,7 @@ class ProcessorCommandTest extends TestCase {
         $command->setOutput($output);
 
         $expected = Command::SUCCESS;
-        $actual   = $command($processor);
+        $actual   = $command($formatter, $processor);
 
         $this->assertEquals($expected, $actual);
     }
@@ -148,6 +162,7 @@ class ProcessorCommandTest extends TestCase {
         $offset    = $this->faker->uuid;
         $buffer    = new BufferedOutput();
         $progress  = new ProgressBar($buffer);
+        $formatter = Mockery::mock(Formatter::class);
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor
             ->shouldReceive('setKeys')
@@ -175,6 +190,18 @@ class ProcessorCommandTest extends TestCase {
             ->andReturnSelf();
         $processor
             ->shouldReceive('onChange')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onFinish')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onReport')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('onProcess')
             ->once()
             ->andReturnSelf();
         $processor
@@ -220,12 +247,12 @@ class ProcessorCommandTest extends TestCase {
             ->andReturns();
 
         $command = new class() extends ProcessorCommand {
-            public function __invoke(Processor $processor): int {
-                return $this->process($processor);
+            public function __invoke(Formatter $formatter, Processor $processor): int {
+                return $this->process($formatter, $processor);
             }
 
-            protected function process(Processor $processor): int {
-                return parent::process($processor);
+            protected function process(Formatter $formatter, Processor $processor): int {
+                return parent::process($formatter, $processor);
             }
 
             protected function getReplacementsServiceName(): string {
@@ -237,7 +264,7 @@ class ProcessorCommandTest extends TestCase {
         $command->setOutput($output);
 
         $expected = Command::SUCCESS;
-        $actual   = $command($processor);
+        $actual   = $command($formatter, $processor);
 
         $this->assertEquals($expected, $actual);
     }

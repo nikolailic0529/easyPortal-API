@@ -2,6 +2,7 @@
 
 namespace App\Services\KeyCloak\Jobs\Cron;
 
+use App\Services\KeyCloak\Commands\UsersSync;
 use Illuminate\Contracts\Console\Kernel;
 use Mockery;
 use Tests\TestCase;
@@ -27,7 +28,7 @@ class PermissionsSynchronizerTest extends TestCase {
 
         $kernel
             ->shouldReceive('call')
-            ->with('ep:keycloak-permissions-sync')
+            ->with(UsersSync::class)
             ->once();
 
         $job($kernel);

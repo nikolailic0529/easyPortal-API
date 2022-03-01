@@ -9,21 +9,21 @@
             "getCompanyById": [
                 {
                     "id": "1ee197db-748a-45cb-a6a2-8e66abe0ef47",
-                    "name": "Larson, Greenholt and Krajcik",
+                    "name": "Bashirian-Jakubowski",
                     "updatedAt": "1643191442229",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19385180972",
-                            "name": "Terrill Wuckert",
+                            "phoneNumber": "+13169318717",
+                            "name": "Monte Frami",
                             "mail": null,
                             "type": "Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Christopher Koepp Jr.",
+                            "name": "Prof. Santos Bernhard DVM",
                             "mail": null,
                             "type": "Contact Person"
                         }
@@ -35,23 +35,23 @@
                     ],
                     "locations": [
                         {
-                            "zip": "07755",
-                            "address": "1214 Gorczany Street Apt. 241",
-                            "city": "Port Marian",
+                            "zip": "12470",
+                            "address": "56609 Estell Light Apt. 557",
+                            "city": "Port Jerrytown",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "-66.611917",
-                            "longitude": "40.212759",
+                            "latitude": "-36.30852",
+                            "longitude": "51.512732",
                             "countryCode": "KP"
                         },
                         {
-                            "zip": "07755",
-                            "address": "1214 Gorczany Street Apt. 241",
-                            "city": "Port Marian",
+                            "zip": "12470",
+                            "address": "56609 Estell Light Apt. 557",
+                            "city": "Port Jerrytown",
                             "locationType": null,
                             "country": "Ethiopia",
-                            "latitude": "-66.611917",
-                            "longitude": "40.212759",
+                            "latitude": "-36.30852",
+                            "longitude": "51.512732",
                             "countryCode": "KP"
                         }
                     ],

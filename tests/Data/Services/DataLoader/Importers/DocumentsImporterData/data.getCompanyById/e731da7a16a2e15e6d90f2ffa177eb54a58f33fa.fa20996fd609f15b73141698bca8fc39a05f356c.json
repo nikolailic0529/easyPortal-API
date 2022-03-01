@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "e00b56af-14c0-4dc0-b2c3-6a7f568c4899",
-                    "name": "Heidenreich-Klocko",
+                    "name": "Reichel Ltd",
                     "updatedAt": "1639133404427",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "92132",
-                            "address": "958 Glenda Street Suite 492",
-                            "city": "Oberbrunnerburgh",
+                            "zip": "20507",
+                            "address": "461 Kemmer Pike Suite 896",
+                            "city": "East Garfield",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-4.869057",
-                            "longitude": "-45.854341",
+                            "latitude": "36.028707",
+                            "longitude": "-96.993114",
                             "countryCode": "HN"
                         }
                     ],

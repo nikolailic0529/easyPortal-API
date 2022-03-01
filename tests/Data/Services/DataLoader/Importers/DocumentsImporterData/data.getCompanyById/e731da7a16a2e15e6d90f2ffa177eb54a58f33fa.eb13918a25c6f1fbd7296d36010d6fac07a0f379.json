@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d",
-                    "name": "Wintheiser Group",
+                    "name": "Schowalter Ltd",
                     "updatedAt": "1639133488851",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -22,13 +22,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "35231-7427",
-                            "address": "42126 Americo Centers Apt. 194",
-                            "city": "Dachville",
+                            "zip": "24059-5044",
+                            "address": "8493 Joanie Spur Apt. 024",
+                            "city": "East Modestaburgh",
                             "locationType": "HEADQUARTER",
                             "country": "Bahrain",
-                            "latitude": "-31.643789",
-                            "longitude": "-5.295204",
+                            "latitude": "-66.490293",
+                            "longitude": "-87.413635",
                             "countryCode": "HN"
                         }
                     ],

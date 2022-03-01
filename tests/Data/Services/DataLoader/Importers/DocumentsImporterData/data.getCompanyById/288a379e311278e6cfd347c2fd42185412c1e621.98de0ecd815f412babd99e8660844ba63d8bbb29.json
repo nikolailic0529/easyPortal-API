@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "b126338b-539c-4aba-936d-f02cd30bde5e",
-                    "name": "Heaney, Dickinson and Reichel",
+                    "name": "Haley-Ferry",
                     "updatedAt": "1638471998509",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+3275568773393",
-                            "name": "Karolann Ledner",
+                            "phoneNumber": "+14845271127",
+                            "name": "Linnea Boehm",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+3275568773393",
-                            "name": "Karolann Ledner",
+                            "phoneNumber": "+14845271127",
+                            "name": "Linnea Boehm",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "67946",
-                            "address": "8788 Hollis Corners",
+                            "zip": "99348",
+                            "address": "24963 Mae Burgs Suite 536",
                             "city": "North Bradmouth",
                             "locationType": null,
                             "country": "Bahrain",
-                            "latitude": "-84.690104",
-                            "longitude": "106.150849",
+                            "latitude": "73.477984",
+                            "longitude": "-155.448787",
                             "countryCode": "HN"
                         }
                     ],

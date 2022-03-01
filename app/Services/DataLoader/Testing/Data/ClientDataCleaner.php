@@ -11,6 +11,7 @@ use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\CoverageStatusCheck;
 use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\DocumentVendorSpecificField;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -140,6 +141,8 @@ class ClientDataCleaner {
             $object->mainHeadingText     = $this->map($object->mainHeadingText, $this->text);
             $object->underlineText       = $this->map($object->underlineText, $this->text);
             $object->logoUrl             = $this->map($object->logoUrl, $this->imageUrl);
+        } elseif ($object instanceof DocumentEntry) {
+            // empty
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {

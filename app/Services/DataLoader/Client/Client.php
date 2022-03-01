@@ -1152,6 +1152,24 @@ class Client {
                 type
                 mail
             }
+
+            documentEntries {
+                assetId
+                skuNumber
+                skuDescription
+                startDate
+                endDate
+                warrantyEndDate
+                productLineDescription
+                supportPackage
+                supportPackageDescription
+                languageCode
+                currencyCode
+                netPrice
+                discount
+                listPrice
+                estimatedValueRenewal
+            }
             GRAPHQL;
     }
 

@@ -29,7 +29,7 @@ class ImportOems {
         }
 
         return [
-            'result' => $this->artisan->call('ep:data-loader-import-oems', [
+            'result' => $this->artisan->call('ep:data-loader-oems-import', [
                 'file' => $file->getPathname(),
             ]) === Command::SUCCESS,
         ];

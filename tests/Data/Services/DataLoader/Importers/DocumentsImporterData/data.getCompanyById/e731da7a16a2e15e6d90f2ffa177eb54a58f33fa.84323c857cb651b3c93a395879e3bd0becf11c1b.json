@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "c138dbb1-3056-4c40-85c6-017c085d400e",
-                    "name": "VonRueden, Grant and Gorczany",
+                    "name": "Powlowski-Daugherty",
                     "updatedAt": "1638473454271",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+5752021258518",
-                            "name": "Ned Schmeler",
+                            "phoneNumber": "+17439494020",
+                            "name": "Saige Hagenes",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+5752021258518",
-                            "name": "Ned Schmeler",
+                            "phoneNumber": "+17439494020",
+                            "name": "Saige Hagenes",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+5752021258518",
-                            "name": "Ned Schmeler",
+                            "phoneNumber": "+17439494020",
+                            "name": "Saige Hagenes",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "21215-8834",
-                            "address": "1486 Hudson Ville Apt. 250",
-                            "city": "Adolphustown",
+                            "zip": "61052-6047",
+                            "address": "689 Stanton Gateway",
+                            "city": "Port Davonte",
                             "locationType": null,
                             "country": "Bahrain",
-                            "latitude": "-67.844189",
-                            "longitude": "110.384364",
+                            "latitude": "-8.672583",
+                            "longitude": "-139.716779",
                             "countryCode": "HN"
                         }
                     ],

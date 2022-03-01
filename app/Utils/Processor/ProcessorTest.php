@@ -220,6 +220,14 @@ class ProcessorTest extends TestCase {
             ->shouldReceive('getOnChangeEvent')
             ->once()
             ->andReturnNull();
+        $processor
+            ->shouldReceive('notifyOnReport')
+            ->once()
+            ->andReturns();
+        $processor
+            ->shouldReceive('notifyOnProcess')
+            ->once()
+            ->andReturns();
 
         $finish   = null;
         $onInit   = Mockery::spy(static function (): void {
@@ -241,7 +249,8 @@ class ProcessorTest extends TestCase {
 
         $this->assertEquals(
             new State([
-                'index'     => 1,
+                'offset'    => 2,
+                'index'     => 2,
                 'limit'     => $state->limit,
                 'failed'    => 1,
                 'success'   => 1,

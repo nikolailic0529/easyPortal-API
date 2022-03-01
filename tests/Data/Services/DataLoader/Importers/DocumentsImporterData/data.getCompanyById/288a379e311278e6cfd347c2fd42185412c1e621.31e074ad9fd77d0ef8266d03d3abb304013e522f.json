@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3175bd91-7a17-48d1-ba9c-94fc11162c26",
-                    "name": "Schroeder, Batz and Cruickshank",
+                    "name": "Bins, Oberbrunner and Lehner",
                     "updatedAt": "1639137352148",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+4611944837640",
-                            "name": "Garett Brakus",
+                            "phoneNumber": "+17544096292",
+                            "name": "Maggie Rohan",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+4611944837640",
-                            "name": "Garett Brakus",
+                            "phoneNumber": "+17544096292",
+                            "name": "Maggie Rohan",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+4611944837640",
-                            "name": "Garett Brakus",
+                            "phoneNumber": "+17544096292",
+                            "name": "Maggie Rohan",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -41,13 +41,13 @@
                     ],
                     "locations": [
                         {
-                            "zip": "67467-2852",
-                            "address": "87779 Marquardt Island Suite 577",
-                            "city": "Luettgenberg",
+                            "zip": "13532-7586",
+                            "address": "656 O'Conner Loop Suite 464",
+                            "city": "Lake Claude",
                             "locationType": null,
                             "country": "Bahrain",
-                            "latitude": "55.023348",
-                            "longitude": "-54.354175",
+                            "latitude": "-18.209743",
+                            "longitude": "70.785519",
                             "countryCode": "HN"
                         }
                     ],

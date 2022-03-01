@@ -138,7 +138,7 @@ class AssetLoaderTest extends TestCase {
             Asset::class         => 1,
             AssetWarranty::class => 9,
             Document::class      => 4,
-            DocumentEntry::class => 16,
+            DocumentEntry::class => 0,
         ]);
         $this->assertDispatchedEventsEquals(
             '~create-with-documents-events.json',

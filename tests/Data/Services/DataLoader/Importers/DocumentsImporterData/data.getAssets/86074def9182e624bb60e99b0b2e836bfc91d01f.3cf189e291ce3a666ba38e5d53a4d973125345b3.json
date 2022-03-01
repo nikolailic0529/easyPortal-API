@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "192ad377-f698-4551-9f92-e76cc61311b6"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "192ad377-f698-4551-9f92-e76cc61311b6",
+                    "resellerId": "72d3b860-3667-408a-8ead-6056e10b2481",
+                    "customerId": "3175bd91-7a17-48d1-ba9c-94fc11162c26",
+                    "serialNumber": "bdac5885-ef25-3f0b-9bff-034fa9fca982",
+                    "productDescription": "HP 16GB 2Rx4 PC4-2133P-R Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "726719-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "13532-7586",
+                    "city": "Lake Claude",
+                    "address": "656 O'Conner Loop Suite 464",
+                    "address2": "",
+                    "country": "Bahrain",
+                    "latitude": "-18.209743",
+                    "longitude": "70.785519",
+                    "countryCode": "HN",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630792217466",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17544096292",
+                            "name": "Maggie Rohan",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17544096292",
+                            "name": "Maggie Rohan",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17544096292",
+                            "name": "Maggie Rohan",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}
