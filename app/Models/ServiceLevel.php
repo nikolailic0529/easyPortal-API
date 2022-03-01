@@ -8,7 +8,9 @@ use App\Models\Relations\HasServiceGroup;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Service Level.
@@ -51,6 +53,8 @@ class ServiceLevel extends Model implements Translatable {
         $this->setServiceGroupAttributeNullable($group);
     }
 
+    // <editor-fold desc="Translatable">
+    // =========================================================================
     protected function getTranslatableKey(): ?string {
         return "{$this->serviceGroup->getTranslatableKey()}/{$this->sku}";
     }
@@ -61,4 +65,11 @@ class ServiceLevel extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name', 'description'];
     }
+
+    public function scopeTranslations(Builder $builder): Builder {
+        return $builder->with('serviceGroup', static function (BelongsTo $relation): void {
+            $relation->translations();
+        });
+    }
+    // </editor-fold>
 }

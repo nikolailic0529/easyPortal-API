@@ -8,6 +8,7 @@ use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -48,6 +49,8 @@ class ServiceGroup extends Model implements Translatable {
         return $this->hasMany(ServiceLevel::class);
     }
 
+    // <editor-fold desc="Translatable">
+    // =========================================================================
     public function getTranslatableKey(): ?string {
         return "{$this->oem->getTranslatableKey()}/{$this->sku}";
     }
@@ -58,4 +61,9 @@ class ServiceGroup extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name'];
     }
+
+    public function scopeTranslations(Builder $builder): Builder {
+        return $builder->with('oem');
+    }
+    // </editor-fold>
 }
