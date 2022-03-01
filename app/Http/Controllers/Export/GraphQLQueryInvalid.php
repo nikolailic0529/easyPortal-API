@@ -22,6 +22,6 @@ class GraphQLQueryInvalid extends ExportException {
     }
 
     public function getErrorMessage(): string {
-        return __('export.errors.graphql_query_invalid');
+        return __('http.controllers.export.graphql_query_invalid');
     }
 }

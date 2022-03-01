@@ -14,6 +14,6 @@ class DataLoaderDisabled extends ClientException implements TranslatedException,
     }
 
     public function getErrorMessage(): string {
-        return __('dataloader.client.disabled');
+        return __('data-loader.client.disabled');
     }
 }

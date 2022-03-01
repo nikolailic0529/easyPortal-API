@@ -19,7 +19,7 @@ class HeadersUnknownFunction extends ExportException {
     }
 
     public function getErrorMessage(): string {
-        return __('export.errors.headers_unknown_function', [
+        return __('http.controllers.export.headers_unknown_function', [
             'function' => $this->function,
         ]);
     }

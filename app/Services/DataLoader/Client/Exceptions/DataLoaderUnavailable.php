@@ -18,6 +18,6 @@ class DataLoaderUnavailable extends ClientException implements
     }
 
     public function getErrorMessage(): string {
-        return __('dataloader.client.unavailable');
+        return __('data-loader.client.unavailable');
     }
 }

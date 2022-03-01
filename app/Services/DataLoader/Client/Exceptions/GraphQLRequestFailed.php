@@ -33,6 +33,6 @@ class GraphQLRequestFailed extends ClientException implements
     }
 
     public function getErrorMessage(): string {
-        return __('dataloader.client.request_failed');
+        return __('data-loader.client.request_failed');
     }
 }
