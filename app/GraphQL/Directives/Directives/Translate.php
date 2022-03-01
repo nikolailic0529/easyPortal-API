@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives;
 
-use App\GraphQL\Contracts\Translatable;
+use App\Services\I18n\Contracts\Translatable;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Factories\FieldFactory;
@@ -17,7 +17,7 @@ abstract class Translate extends BaseDirective implements FieldResolver {
             """
             Translates Model/Object property.
 
-            Model/Object must implements App\\GraphQL\\Contracts\\Translatable.
+            Model/Object must implements App\\Services\\I18n\\Contracts\\Translatable.
             """
             directive @translate on FIELD_DEFINITION
             GRAPHQL;

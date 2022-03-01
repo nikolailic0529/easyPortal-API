@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils\Eloquent\Concerns;
+namespace App\Services\I18n\Eloquent;
 
 use function __;
 use function in_array;
 
 /**
- * @see \App\GraphQL\Contracts\Translatable
+ * @see \App\Services\I18n\Contracts\Translatable
  * @see \App\GraphQL\Directives\Directives\Translate
  *
  * @mixin \App\Utils\Eloquent\Model

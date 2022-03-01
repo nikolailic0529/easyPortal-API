@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\GraphQL\Contracts\Translatable;
 use App\Models\Relations\HasDocumentEntries;
 use App\Models\Relations\HasOem;
 use App\Models\Relations\HasServiceGroup;
-use App\Utils\Eloquent\Concerns\TranslateProperties;
+use App\Services\I18n\Contracts\Translatable;
+use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
