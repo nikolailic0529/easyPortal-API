@@ -2,8 +2,11 @@
 
 namespace App\Services\I18n\Eloquent;
 
+use Illuminate\Database\Eloquent\Builder;
+
 use function __;
 use function in_array;
+use function reset;
 
 /**
  * @see \App\Services\I18n\Contracts\Translatable
@@ -15,7 +18,7 @@ trait TranslateProperties {
     public function getTranslatedProperty(string $property): string {
         // Can be translated?
         if (!in_array($property, $this->getTranslatableProperties(), true)) {
-            return $this[$property];
+            return $this->getAttribute($property);
         }
 
         // Translate
@@ -32,11 +35,27 @@ trait TranslateProperties {
         }
 
         if (!$value) {
-            $value = $this[$property];
+            $value = $this->getAttribute($property);
         }
 
         // Return
         return $value;
+    }
+
+    /**
+     * @return array<string,string>
+     */
+    public function getDefaultTranslations(): array {
+        $properties   = $this->getTranslatableProperties();
+        $translations = [];
+
+        foreach ($properties as $property) {
+            $keys               = $this->getTranslatedPropertyKeys($property);
+            $key                = reset($keys);
+            $translations[$key] = $this->getAttribute($property);
+        }
+
+        return $translations;
     }
 
     /**
@@ -66,5 +85,12 @@ trait TranslateProperties {
 
     protected function getTranslatableKey(): ?string {
         return null;
+    }
+
+    /**
+     * Special scope for {@see getDefaultTranslations()}
+     */
+    public function scopeTranslations(Builder $builder): Builder {
+        return $builder;
     }
 }
