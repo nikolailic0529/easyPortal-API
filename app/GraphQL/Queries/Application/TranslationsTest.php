@@ -2,10 +2,13 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Services\I18n\Translation\TranslationDefaults;
+use App\Services\I18n\Translation\TranslationLoader;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -44,6 +47,52 @@ class TranslationsTest extends TestCase {
             }
             ')
             ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::getTranslations
+     */
+    public function testGetTranslations(): void {
+        $locale = $this->faker->locale;
+        $loader = Mockery::mock(TranslationLoader::class);
+        $loader
+            ->shouldReceive('getTranslations')
+            ->with($locale)
+            ->once()
+            ->andReturn([
+                'a' => 'actual-a',
+                'b' => 'actual-b',
+            ]);
+        $defaults = Mockery::mock(TranslationDefaults::class);
+        $defaults
+            ->shouldReceive('getTranslations')
+            ->with($locale)
+            ->once()
+            ->andReturn([
+                'a' => 'default-a',
+                'c' => 'default-c',
+            ]);
+
+        $actual   = (new Translations($loader, $defaults))->getTranslations($locale);
+        $expected = [
+            [
+                'key'     => 'a',
+                'value'   => 'actual-a',
+                'default' => 'default-a',
+            ],
+            [
+                'key'     => 'b',
+                'value'   => 'actual-b',
+                'default' => null,
+            ],
+            [
+                'key'     => 'c',
+                'value'   => 'default-c',
+                'default' => 'default-c',
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 

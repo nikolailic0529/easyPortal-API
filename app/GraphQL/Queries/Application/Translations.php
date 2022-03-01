@@ -4,11 +4,9 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\I18n\Translation\TranslationDefaults;
 use App\Services\I18n\Translation\TranslationLoader;
-use Illuminate\Contracts\Foundation\Application;
 
 class Translations {
     public function __construct(
-        protected Application $app,
         protected TranslationLoader $translations,
         protected TranslationDefaults $defaults,
     ) {
@@ -38,6 +36,16 @@ class Translations {
                 'key'     => $key,
                 'value'   => $value,
                 'default' => $default[$key] ?? null,
+            ];
+
+            unset($default[$key]);
+        }
+
+        foreach ($default as $key => $value) {
+            $output[] = [
+                'key'     => $key,
+                'value'   => $value,
+                'default' => $value,
             ];
         }
 
