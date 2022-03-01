@@ -19,7 +19,7 @@ trait WithCoverage {
             $model       = new Coverage();
             $normalizer  = $this->getNormalizer();
             $model->key  = $normalizer->string($coverage);
-            $model->name = $normalizer->string($coverage);
+            $model->name = $normalizer->name($coverage);
 
             $model->save();
 

@@ -22,7 +22,7 @@ trait WithStatus {
                 $normalizer         = $this->getNormalizer();
                 $model->object_type = $owner->getMorphClass();
                 $model->key         = $normalizer->string($status);
-                $model->name        = $normalizer->string($status);
+                $model->name        = $normalizer->name($status);
 
                 $model->save();
 

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
@@ -154,8 +155,8 @@ class NormalizerTest extends TestCase {
      * @covers ::text
      */
     public function testText(): void {
-        $color      = Mockery::mock(TextNormalizer::class);
-        $normalizer = new class($color) extends Normalizer {
+        $text       = Mockery::mock(TextNormalizer::class);
+        $normalizer = new class($text) extends Normalizer {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected TextNormalizer $text,
@@ -164,8 +165,27 @@ class NormalizerTest extends TestCase {
             }
         };
 
-        $color->shouldReceive('normalize')->once()->andReturns();
+        $text->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->text('value');
+    }
+
+    /**
+     * @covers ::name
+     */
+    public function testName(): void {
+        $name       = Mockery::mock(NameNormalizer::class);
+        $normalizer = new class($name) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected NameNormalizer $name,
+            ) {
+                // empty
+            }
+        };
+
+        $name->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->name('value');
     }
 }
