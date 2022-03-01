@@ -64,6 +64,9 @@ abstract class ProcessorCommand extends Command {
             '~ %time-remaining:9.9s% M: %usage-memory:11.11s% O: %state-offset:41s%',
         ]));
 
+        $this->describeProgressBar($formatter, $progress);
+        $progress->start();
+
         // Process
         $sync = function (State $state) use ($formatter, $progress): void {
             $this->updateProgressBar($formatter, $progress, $state);
@@ -207,7 +210,7 @@ abstract class ProcessorCommand extends Command {
         $progress->setMessage(
             $state->total
                 ? $formatter->integer($state->total)
-                : '',
+                : '?',
             'state-total',
         );
         $progress->setMessage(
@@ -223,9 +226,21 @@ abstract class ProcessorCommand extends Command {
             'state-failed',
         );
         $progress->setMessage(
-            (string) $state->offset,
+            (string) ($state->offset ?? '?'),
             'state-offset',
         );
+    }
+
+    private function describeProgressBar(Formatter $formatter, ProgressBar $progress): void {
+        $progress->setMessage('???.??', 'progress',);
+        $progress->setMessage('elapsed', 'time-elapsed',);
+        $progress->setMessage('remaining', 'time-remaining',);
+        $progress->setMessage('memory', 'usage-memory',);
+        $progress->setMessage('total', 'state-total',);
+        $progress->setMessage('processed', 'state-processed',);
+        $progress->setMessage('success', 'state-success',);
+        $progress->setMessage('failed', 'state-failed',);
+        $progress->setMessage('offset', 'state-offset',);
     }
 
     private function duration(int|float $duration): string {
