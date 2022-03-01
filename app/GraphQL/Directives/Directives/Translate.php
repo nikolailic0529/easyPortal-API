@@ -5,6 +5,7 @@ namespace App\GraphQL\Directives\Directives;
 use App\GraphQL\Contracts\Translatable;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
+use Nuwave\Lighthouse\Schema\Factories\FieldFactory;
 use Nuwave\Lighthouse\Schema\RootType;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
@@ -29,7 +30,7 @@ abstract class Translate extends BaseDirective implements FieldResolver {
         }
 
         // Set Resolver
-        $default  = $fieldValue->useDefaultResolver()->getResolver();
+        $default  = FieldFactory::defaultResolver($fieldValue);
         $resolver = static function (
             mixed $root,
             array $args,
