@@ -78,6 +78,13 @@ class TranslateTest extends TestCase {
                     public function getTranslatedProperty(string $property): string {
                         return 'translated';
                     }
+
+                    /**
+                     * @inheritDoc
+                     */
+                    public function getDefaultTranslations(): array {
+                        return [];
+                    }
                 },
             ],
         ];

@@ -265,23 +265,25 @@ class DocumentFactory extends ModelFactory {
             // The asset may contain outdated documents so to prevent conflicts
             // we should not update existing documents.
             if ($created) {
-                $model->id          = $normalizer->uuid($document->id);
-                $model->oem         = $this->documentOem($document);
-                $model->oemGroup    = $this->documentOemGroup($document);
-                $model->oem_said    = $normalizer->string($document->vendorSpecificFields->said ?? null);
-                $model->type        = $this->documentType($document);
-                $model->reseller    = $this->reseller($document);
-                $model->customer    = $this->customer($document);
-                $model->currency    = $this->currency($document->currencyCode);
-                $model->language    = $this->language($document->languageCode);
-                $model->distributor = $this->distributor($document);
-                $model->start       = $normalizer->datetime($document->startDate);
-                $model->end         = $normalizer->datetime($document->endDate);
-                $model->price       = $normalizer->number($document->totalNetPrice);
-                $model->number      = $normalizer->string($document->documentNumber);
-                $model->changed_at  = $normalizer->datetime($document->updatedAt);
-                $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
-                $model->synced_at   = Date::now();
+                $model->id            = $normalizer->uuid($document->id);
+                $model->oem           = $this->documentOem($document);
+                $model->oemGroup      = $this->documentOemGroup($document);
+                $model->oem_said      = $normalizer->string($document->vendorSpecificFields->said ?? null);
+                $model->type          = $this->documentType($document);
+                $model->reseller      = $this->reseller($document);
+                $model->customer      = $this->customer($document);
+                $model->currency      = $this->currency($document->currencyCode);
+                $model->language      = $this->language($document->languageCode);
+                $model->distributor   = $this->distributor($document);
+                $model->start         = $normalizer->datetime($document->startDate);
+                $model->end           = $normalizer->datetime($document->endDate);
+                $model->price         = $normalizer->number($document->totalNetPrice);
+                $model->number        = $normalizer->string($document->documentNumber);
+                $model->changed_at    = $normalizer->datetime($document->updatedAt);
+                $model->contacts      = $this->objectContacts($model, (array) $document->contactPersons);
+                $model->synced_at     = Date::now();
+                $model->assets_count  = 0;
+                $model->entries_count = 0;
             }
 
             // We cannot save document if assets doesn't exist
