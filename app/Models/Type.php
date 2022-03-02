@@ -58,7 +58,7 @@ class Type extends PolymorphicModel implements Translatable {
     protected $table = 'types';
 
     protected function getTranslatableKey(): ?string {
-        return $this->key;
+        return "{$this->object_type}/{$this->key}";
     }
 
     /**

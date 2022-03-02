@@ -45,7 +45,7 @@ class Status extends Model implements Translatable {
     protected $table = 'statuses';
 
     protected function getTranslatableKey(): ?string {
-        return $this->key;
+        return "{$this->object_type}/{$this->key}";
     }
 
     /**
