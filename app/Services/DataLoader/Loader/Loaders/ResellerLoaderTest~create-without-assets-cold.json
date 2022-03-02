@@ -134,15 +134,16 @@
         "bindings": []
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "7fd91fab-3309-5c6f-afca-f635f213fb13",
             "julianside"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Julianside",
             "Julianside",
             "7fd91fab-3309-5c6f-afca-f635f213fb13",
             "f05d35d8-6edc-5c65-a347-f66a691b36e3",

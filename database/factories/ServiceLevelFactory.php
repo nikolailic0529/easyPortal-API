@@ -36,6 +36,7 @@ class ServiceLevelFactory extends Factory {
             'service_group_id' => static function (): ServiceGroup {
                 return ServiceGroup::factory()->create();
             },
+            'key'              => $this->faker->uuid,
             'sku'              => $this->faker->uuid,
             'name'             => $this->faker->sentence,
             'description'      => $this->faker->text,

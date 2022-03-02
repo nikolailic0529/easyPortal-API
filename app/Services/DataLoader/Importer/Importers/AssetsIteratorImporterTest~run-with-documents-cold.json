@@ -1112,15 +1112,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "c79fd8d7-6fe9-5b2f-af8a-ccd145f4a572",
             "west georgiannashire"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "West Georgiannashire",
             "West Georgiannashire",
             "c79fd8d7-6fe9-5b2f-af8a-ccd145f4a572",
             "bc7a9e24-1db3-5df0-bc18-0b8a97ab6d3a",

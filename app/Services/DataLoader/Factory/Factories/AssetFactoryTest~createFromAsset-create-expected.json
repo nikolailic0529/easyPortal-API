@@ -21,8 +21,8 @@
     "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
     "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-    "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
-    "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+    "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+    "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
     "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
     "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
@@ -64,9 +64,9 @@
     "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
-    "insert into `service_groups` (`id`, `oem_id`, `sku`, `name`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?)",
+    "insert into `service_groups` (`id`, `oem_id`, `key`, `sku`, `name`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
     "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
-    "insert into `service_levels` (`id`, `oem_id`, `service_group_id`, `sku`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into `service_levels` (`id`, `oem_id`, `service_group_id`, `key`, `sku`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)"
 ]

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property string                                                              $id
  * @property string                                                              $oem_id
+ * @property string                                                              $key
  * @property string                                                              $sku
  * @property string                                                              $name
  * @property \Carbon\CarbonImmutable                                             $created_at
@@ -52,7 +53,7 @@ class ServiceGroup extends Model implements Translatable {
     // <editor-fold desc="Translatable">
     // =========================================================================
     public function getTranslatableKey(): ?string {
-        return "{$this->oem->getTranslatableKey()}/{$this->sku}";
+        return $this->key;
     }
 
     /**

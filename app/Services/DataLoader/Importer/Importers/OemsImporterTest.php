@@ -66,11 +66,14 @@ class OemsImporterTest extends TestCase {
             'name' => 'should be updated',
         ]);
         $group = ServiceGroup::factory()->create([
+            'key'    => 'ABC/GA',
             'sku'    => 'GA',
             'name'   => 'should be updated',
             'oem_id' => $oem,
         ]);
+
         ServiceLevel::factory()->create([
+            'key'              => 'ABC/GA/LA',
             'sku'              => 'LA',
             'name'             => 'should be updated',
             'oem_id'           => $oem,
@@ -100,21 +103,25 @@ class OemsImporterTest extends TestCase {
             ->get()
             ->keyBy('id');
         $groupAA = [
+            'key'  => 'ABC/GA',
             'sku'  => 'GA',
             'name' => 'Group A',
             'oem'  => $oemA,
         ];
         $groupAB = [
+            'key'  => 'ABC/GB',
             'sku'  => 'GB',
             'name' => 'Group B',
             'oem'  => $oemA,
         ];
         $groupAC = [
+            'key'  => 'ABC/GC',
             'sku'  => 'GC',
             'name' => 'Group C',
             'oem'  => $oemA,
         ];
         $groupBA = [
+            'key'  => 'CBA/GA',
             'sku'  => 'GA',
             'name' => 'Group A',
             'oem'  => $oemB,
@@ -138,6 +145,7 @@ class OemsImporterTest extends TestCase {
         $this->assertEqualsCanonicalizing(
             [
                 [
+                    'key'          => "{$groupAA['key']}/LA",
                     'sku'          => 'LA',
                     'name'         => 'Level LA',
                     'description'  => "Level LA Description\nline of text",
@@ -145,6 +153,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAA,
                 ],
                 [
+                    'key'          => "{$groupAB['key']}/LB",
                     'sku'          => 'LB',
                     'name'         => 'Level LB',
                     'description'  => "Level LB Description\nline of text",
@@ -152,6 +161,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAB,
                 ],
                 [
+                    'key'          => "{$groupAC['key']}/LC",
                     'sku'          => 'LC',
                     'name'         => 'Level LC',
                     'description'  => "Level LC Description\nline of text",
@@ -159,6 +169,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAC,
                 ],
                 [
+                    'key'          => "{$groupAC['key']}/LD",
                     'sku'          => 'LD',
                     'name'         => 'Level LD',
                     'description'  => "Level LD Description\nline of text",
@@ -166,6 +177,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAC,
                 ],
                 [
+                    'key'          => "{$groupBA['key']}/LA",
                     'sku'          => 'LA',
                     'name'         => 'Level LA',
                     'description'  => "Level LA Description\nline of text",

@@ -8699,15 +8699,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "2c63ab78-3ec1-59c5-91ee-fcd6bcdfe36a",
             "wehnerport"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Wehnerport",
             "Wehnerport",
             "2c63ab78-3ec1-59c5-91ee-fcd6bcdfe36a",
             "b86d0b36-f506-5e5f-81e6-9133a775f896",

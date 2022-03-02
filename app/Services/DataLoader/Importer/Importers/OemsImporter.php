@@ -290,10 +290,12 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         // Create
         $created = false;
         $factory = static function (ServiceGroup $group) use (&$created, $oem, $parsed): ServiceGroup {
-            $created     = !$group->exists;
-            $group->oem  = $oem;
-            $group->sku  = $parsed->serviceGroup->sku;
-            $group->name = $parsed->serviceGroup->name;
+            $sku          = $parsed->serviceGroup->sku;
+            $created      = !$group->exists;
+            $group->key ??= "{$oem->getTranslatableKey()}/{$sku}";
+            $group->oem   = $oem;
+            $group->sku   = $sku;
+            $group->name  = $parsed->serviceGroup->name;
 
             $group->save();
 
@@ -320,9 +322,11 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         // Create
         $created = false;
         $factory = static function (ServiceLevel $level) use (&$created, $oem, $group, $parsed): ServiceLevel {
+            $sku                 = $parsed->serviceLevel->sku;
             $created             = !$level->exists;
+            $level->key        ??= "{$group->getTranslatableKey()}/{$sku}";
             $level->oem          = $oem;
-            $level->sku          = $parsed->serviceLevel->sku;
+            $level->sku          = $sku;
             $level->name         = $parsed->serviceLevel->name;
             $level->description  = $parsed->serviceLevel->description;
             $level->serviceGroup = $group;

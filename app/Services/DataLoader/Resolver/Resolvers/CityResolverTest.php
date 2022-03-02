@@ -29,15 +29,15 @@ class CityResolverTest extends TestCase {
 
         City::factory()->create([
             'country_id' => $countryA,
-            'name'       => 'a',
+            'key'        => 'a',
         ]);
         City::factory()->create([
             'country_id' => $countryA,
-            'name'       => 'b',
+            'key'        => 'b',
         ]);
         City::factory()->create([
             'country_id' => $countryA,
-            'name'       => 'c',
+            'key'        => 'c',
         ]);
 
         // Run
@@ -49,7 +49,7 @@ class CityResolverTest extends TestCase {
         // Basic
         $this->assertNotNull($actual);
         $this->assertFalse($actual->wasRecentlyCreated);
-        $this->assertEquals('a', $actual->name);
+        $this->assertEquals('a', $actual->key);
         $this->assertEquals($countryA, $actual->country);
 
         $this->flushQueryLog();
@@ -74,7 +74,7 @@ class CityResolverTest extends TestCase {
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($countryB): City {
             return City::factory()->make([
-                'name'       => 'unKnown',
+                'key'        => 'unKnown',
                 'country_id' => $countryB,
             ]);
         });
@@ -83,7 +83,7 @@ class CityResolverTest extends TestCase {
         $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->name);
+        $this->assertEquals('unKnown', $created->key);
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
@@ -98,7 +98,7 @@ class CityResolverTest extends TestCase {
         ]);
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($countryA, $c->name)?->getKey());
+        $this->assertEquals($c->getKey(), $provider->get($countryA, $c->key)?->getKey());
         $this->assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
     }

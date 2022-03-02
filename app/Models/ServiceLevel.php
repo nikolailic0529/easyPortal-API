@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                                                              $id
  * @property string                                                              $oem_id
  * @property string                                                              $service_group_id
+ * @property string                                                              $key
  * @property string                                                              $sku
  * @property string                                                              $name
  * @property string                                                              $description
@@ -56,7 +57,7 @@ class ServiceLevel extends Model implements Translatable {
     // <editor-fold desc="Translatable">
     // =========================================================================
     protected function getTranslatableKey(): ?string {
-        return "{$this->serviceGroup->getTranslatableKey()}/{$this->sku}";
+        return $this->key;
     }
 
     /**

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property string                                                              $id
  * @property string                                                              $country_id
+ * @property string                                                              $key
  * @property string                                                              $name
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
