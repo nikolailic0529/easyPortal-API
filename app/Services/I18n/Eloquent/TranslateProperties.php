@@ -73,7 +73,7 @@ trait TranslateProperties {
         ];
 
         foreach ($keys as $key) {
-            if ($key) {
+            if ($key !== null) {
                 $strings[] = "models.{$model}.{$key}.{$property}";
             }
         }
