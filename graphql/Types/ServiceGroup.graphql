@@ -2,5 +2,5 @@ type ServiceGroup {
   id: ID!
   oem_id: ID!
   sku: String!
-  name: String!
+  name: String! @translate
 }

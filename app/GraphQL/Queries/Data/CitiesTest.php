@@ -5,7 +5,6 @@ namespace App\GraphQL\Queries\Data;
 use App\Models\City;
 use App\Models\Country;
 use Closure;
-use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -31,7 +30,6 @@ class CitiesTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $localeFactory = null,
         Closure $countryFactory = null,
     ): void {
         // Prepare
@@ -41,10 +39,6 @@ class CitiesTest extends TestCase {
 
         if ($countryFactory) {
             $countryId = $countryFactory($this)->getKey();
-        }
-
-        if ($localeFactory) {
-            $this->app->setLocale($localeFactory($this));
         }
 
         // Flush
@@ -88,28 +82,8 @@ class CitiesTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess('cities', self::class, [
                         [
-                            'id'         => '6f19ef5f-5963-437e-a798-29296db08d59',
-                            'name'       => 'Translated (locale)',
-                            'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'country'    => [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'country name',
-                                'code' => 'c1',
-                            ],
-                        ],
-                        [
-                            'id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'name'       => 'Translated (fallback)',
-                            'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'country'    => [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'country name',
-                                'code' => 'c1',
-                            ],
-                        ],
-                        [
                             'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'name'       => 'No translation',
+                            'name'       => 'City',
                             'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'country'    => [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
@@ -118,23 +92,7 @@ class CitiesTest extends TestCase {
                             ],
                         ],
                     ]),
-                    static function (TestCase $test): string {
-                        $translator = $test->app()->make(Translator::class);
-                        $fallback   = $translator->getFallback();
-                        $locale     = $test->app()->getLocale();
-                        $model      = (new City())->getMorphClass();
-
-                        $translator->addLines([
-                            "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
-                        ], $locale);
-
-                        $translator->addLines([
-                            "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
-                        ], $fallback);
-
-                        return $locale;
-                    },
-                    static function (TestCase $test): Country {
+                    static function (): Country {
                         $country = Country::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name' => 'country name',
@@ -143,17 +101,7 @@ class CitiesTest extends TestCase {
 
                         City::factory()->create([
                             'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'name'       => 'No translation',
-                            'country_id' => $country->getKey(),
-                        ]);
-                        City::factory()->create([
-                            'id'         => '6f19ef5f-5963-437e-a798-29296db08d59',
-                            'name'       => 'translated',
-                            'country_id' => $country->getKey(),
-                        ]);
-                        City::factory()->create([
-                            'id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'name'       => 'translated-fallback',
+                            'name'       => 'City',
                             'country_id' => $country->getKey(),
                         ]);
                         City::factory()->create([
