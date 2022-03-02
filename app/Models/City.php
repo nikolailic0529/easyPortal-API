@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Models\Relations\HasAssetsThroughLocations;
 use App\Models\Relations\HasCustomersThroughLocations;
-use App\Services\I18n\Contracts\Translatable;
-use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,9 +28,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City query()
  * @mixin \Eloquent
  */
-class City extends Model implements Translatable {
+class City extends Model {
     use HasFactory;
-    use TranslateProperties;
     use HasAssetsThroughLocations;
     use HasCustomersThroughLocations;
 
@@ -50,12 +47,5 @@ class City extends Model implements Translatable {
 
     public function setCountryAttribute(Country $country): void {
         $this->country()->associate($country);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getTranslatableProperties(): array {
-        return ['name'];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Services\I18n;
 
-use App\Models\City;
 use App\Models\Country;
 use App\Models\Coverage;
 use App\Models\Currency;
@@ -21,7 +20,6 @@ class Service extends BaseService {
      * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\I18n\Contracts\Translatable>>
      */
     protected static array $translatable = [
-        City::class,
         Country::class,
         Coverage::class,
         Currency::class,
