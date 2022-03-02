@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Org\Role;
 
 use App\Models\Role;
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 
 class Delete {
     public function __construct(

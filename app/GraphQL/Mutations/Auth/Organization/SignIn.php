@@ -3,11 +3,11 @@
 namespace App\GraphQL\Mutations\Auth\Organization;
 
 use App\Models\Organization;
-use App\Services\KeyCloak\KeyCloak;
+use App\Services\Keycloak\Keycloak;
 
 class SignIn {
     public function __construct(
-        protected KeyCloak $keycloak,
+        protected Keycloak $keycloak,
     ) {
         // empty
     }

@@ -5,8 +5,8 @@ namespace App\GraphQL\Mutations\Me;
 use App\GraphQL\Mutations\Auth\ResetPassword;
 use App\Models\Enums\UserType;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\UserProvider;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\UserProvider;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory;
 

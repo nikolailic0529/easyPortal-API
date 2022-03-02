@@ -99,7 +99,7 @@ class OrganizationUpdaterTest extends TestCase {
     /**
      * @covers ::handle
      */
-    public function testHandleKeyCloakPropertiesCannotBeReset(): void {
+    public function testHandleKeycloakPropertiesCannotBeReset(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([

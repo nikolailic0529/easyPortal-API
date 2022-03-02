@@ -7,9 +7,9 @@ use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\Credential;
-use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\Credential;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -47,11 +47,11 @@ class SignUpByInvite {
             return $this->getResult($organization, false);
         }
 
-        // Update KeyCloak user
+        // Update Keycloak user
         $input        = new SignUpByInviteInput($args['input']);
         $keyCloakUser = $this->client->getUserById($user->getKey());
 
-        $this->client->updateUser($keyCloakUser->id, new KeyCloakUser([
+        $this->client->updateUser($keyCloakUser->id, new KeycloakUser([
             'firstName'     => $input->given_name,
             'lastName'      => $input->family_name,
             'emailVerified' => true,

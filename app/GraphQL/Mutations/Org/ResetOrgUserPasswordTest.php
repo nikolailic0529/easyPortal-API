@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\Group;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\Group;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

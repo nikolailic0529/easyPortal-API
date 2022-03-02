@@ -9,8 +9,8 @@ use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
@@ -166,7 +166,7 @@ class UpdateTest extends TestCase {
             $mock
                 ->shouldReceive('getUserById')
                 ->twice()
-                ->andReturn(new KeyCloakUser());
+                ->andReturn(new KeycloakUser());
             $mock
                 ->shouldReceive('updateUser')
                 ->once()
@@ -234,7 +234,7 @@ class UpdateTest extends TestCase {
                             ->shouldReceive('getUserById')
                             ->atLeast()
                             ->once()
-                            ->andReturn(new KeyCloakUser());
+                            ->andReturn(new KeycloakUser());
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()
@@ -382,7 +382,7 @@ class UpdateTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser());
+                            ->andReturn(new KeycloakUser());
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()
@@ -426,7 +426,7 @@ class UpdateTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser());
+                            ->andReturn(new KeycloakUser());
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()

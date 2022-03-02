@@ -4,12 +4,12 @@ namespace App\GraphQL\Mutations\Auth\Organization;
 
 use App\GraphQL\Queries\Me;
 use App\Models\Organization;
-use App\Services\KeyCloak\Exceptions\Auth\StateMismatch;
-use App\Services\KeyCloak\KeyCloak;
+use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
+use App\Services\Keycloak\Keycloak;
 
 class Authorize {
     public function __construct(
-        protected KeyCloak $keycloak,
+        protected Keycloak $keycloak,
         protected Me $query,
     ) {
         // empty

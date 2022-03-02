@@ -3,8 +3,8 @@
 namespace App\GraphQL\Mutations\User\Organization;
 
 use App\Models\OrganizationUser;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\RequestFailed;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Exceptions\RequestFailed;
 use Symfony\Component\HttpFoundation\Response;
 
 class Update {
@@ -34,7 +34,7 @@ class Update {
             return false;
         }
 
-        // KeyCloak
+        // Keycloak
         $keycloakUser = $this->client->getUserById($user->user_id);
         $result       = true;
 

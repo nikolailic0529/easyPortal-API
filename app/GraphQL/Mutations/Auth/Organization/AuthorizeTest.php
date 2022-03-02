@@ -5,8 +5,8 @@ namespace App\GraphQL\Mutations\Auth\Organization;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\KeyCloak\Exceptions\Auth\StateMismatch;
-use App\Services\KeyCloak\KeyCloak;
+use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
+use App\Services\Keycloak\Keycloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -58,7 +58,7 @@ class AuthorizeTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $this->override(
-                KeyCloak::class,
+                Keycloak::class,
                 static function (MockInterface $mock) use ($me, $code, $state): void {
                     $mock
                         ->shouldReceive('authorize')

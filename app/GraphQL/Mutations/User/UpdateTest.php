@@ -6,8 +6,8 @@ use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
@@ -131,7 +131,7 @@ class UpdateTest extends TestCase {
             $mock
                 ->shouldReceive('getUserById')
                 ->once()
-                ->andReturn(new KeyCloakUser());
+                ->andReturn(new KeycloakUser());
             $mock
                 ->shouldReceive('updateUser')
                 ->once()

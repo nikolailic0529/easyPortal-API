@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 
 use function array_filter;

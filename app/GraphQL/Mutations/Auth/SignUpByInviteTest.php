@@ -7,8 +7,8 @@ use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;
@@ -120,7 +120,7 @@ class SignUpByInviteTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturns(new KeyCloakUser([
+                            ->andReturns(new KeycloakUser([
                                 'id' => '75f9834e-ae5d-4e15-be98-ca121e7a5404',
                             ]));
                     },

@@ -56,8 +56,8 @@ use App\Models\Team;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\UserSearch;
-use App\Services\KeyCloak\KeyCloak;
-use App\Services\KeyCloak\UserProvider;
+use App\Services\Keycloak\Keycloak;
+use App\Services\Keycloak\UserProvider;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\AuthManager;
@@ -83,11 +83,11 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher): void {
         $this->bootMorphMap();
-        $this->bootKeyCloak();
+        $this->bootKeycloak();
     }
 
-    protected function bootKeyCloak(): void {
-        $this->app->singleton(KeyCloak::class);
+    protected function bootKeycloak(): void {
+        $this->app->singleton(Keycloak::class);
         $this->app->make(AuthManager::class)->provider(
             UserProvider::class,
             static function (Application $app) {

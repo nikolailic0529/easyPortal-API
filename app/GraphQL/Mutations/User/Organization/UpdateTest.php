@@ -9,8 +9,8 @@ use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -155,7 +155,7 @@ class UpdateTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser());
+                            ->andReturn(new KeycloakUser());
                         $mock
                             ->shouldReceive('addUserToGroup')
                             ->once()
@@ -264,7 +264,7 @@ class UpdateTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser());
+                            ->andReturn(new KeycloakUser());
                         $mock
                             ->shouldReceive('addUserToGroup')
                             ->once()
@@ -425,7 +425,7 @@ class UpdateTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser());
+                            ->andReturn(new KeycloakUser());
                     },
                     static function (self $test, Organization $organization, User $user): User {
                         $user->type = UserType::local();

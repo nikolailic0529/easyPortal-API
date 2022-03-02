@@ -4,7 +4,7 @@ use App\Exceptions\Configurator;
 use App\Exceptions\Handlers\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
-use App\Services\KeyCloak\Service as KeyCloakService;
+use App\Services\Keycloak\Service as KeycloakService;
 use App\Services\Settings\Settings;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\NullHandler;
@@ -128,7 +128,7 @@ return [
     'channels' => array_merge(
         $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAIL_RECIPIENTS')),
         $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAIL_RECIPIENTS')),
-        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS')),
+        $serviceChannel(KeycloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS')),
         $channels,
         [
             'stack'      => [

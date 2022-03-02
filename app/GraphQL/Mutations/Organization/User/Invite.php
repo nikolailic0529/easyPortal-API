@@ -11,7 +11,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Notifications\OrganizationUserInvitation;
 use App\Services\Auth\Auth;
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -80,7 +80,7 @@ class Invite {
             }
         }
 
-        // Create KeyCloak User
+        // Create Keycloak User
         $keyCloakUser = null;
 
         if ($user->exists) {
@@ -92,7 +92,7 @@ class Invite {
         }
 
         if (!$keyCloakUser->enabled) {
-            throw new InviteImpossibleKeyCloakUserDisabled($keyCloakUser);
+            throw new InviteImpossibleKeycloakUserDisabled($keyCloakUser);
         }
 
         // Save
