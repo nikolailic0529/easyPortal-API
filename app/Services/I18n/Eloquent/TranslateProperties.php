@@ -2,8 +2,6 @@
 
 namespace App\Services\I18n\Eloquent;
 
-use Illuminate\Database\Eloquent\Builder;
-
 use function __;
 use function in_array;
 use function reset;
@@ -85,12 +83,5 @@ trait TranslateProperties {
 
     protected function getTranslatableKey(): ?string {
         return null;
-    }
-
-    /**
-     * Special scope for {@see getDefaultTranslations()}
-     */
-    public function scopeTranslations(Builder $builder): Builder {
-        return $builder;
     }
 }

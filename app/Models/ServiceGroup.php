@@ -62,9 +62,5 @@ class ServiceGroup extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name'];
     }
-
-    public function scopeTranslations(Builder $builder): Builder {
-        return $builder->with('oem');
-    }
     // </editor-fold>
 }

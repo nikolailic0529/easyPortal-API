@@ -69,6 +69,6 @@ class TranslationDefaults extends TranslationLoader {
      * @return \Illuminate\Support\Collection<int,\App\Services\I18n\Contracts\Translatable>
      */
     protected function getModels(string $model): Collection {
-        return $model::query()->translations()->get();
+        return $model::query()->get();
     }
 }
