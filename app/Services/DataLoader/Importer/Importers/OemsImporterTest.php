@@ -80,6 +80,14 @@ class OemsImporterTest extends TestCase {
             'service_group_id' => $group,
         ]);
 
+        // Add Transactions
+        $storage->save([
+            'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+            'models.ServiceLevel.unknown.description'   => 'Unknown Description',
+            'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA Name',
+            'models.ServiceLevel.ABC/GA/LA.description' => 'Level LA Description',
+        ]);
+
         // Run
         $this->app->make(OemsImporter::class)->import($this->getTestData()->file('.xlsx'));
 
@@ -192,6 +200,8 @@ class OemsImporterTest extends TestCase {
         $translations = $storage->load();
 
         $this->assertEquals([
+            'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+            'models.ServiceLevel.unknown.description'   => 'Unknown Description',
             'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA French',
             'models.ServiceLevel.ABC/GA/LA.description' => "Level LA Description French\nline of text",
             'models.ServiceLevel.ABC/GB/LB.name'        => 'Level LB French',
