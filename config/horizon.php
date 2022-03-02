@@ -195,7 +195,7 @@ return [
                     60 * 15,
                 ],
             ],
-            'KeyCloak'     => [
+            'Keycloak'     => [
                 'connection'   => 'redis',
                 'queue'        => [Queues::KEYCLOAK],
                 'balance'      => 'auto',

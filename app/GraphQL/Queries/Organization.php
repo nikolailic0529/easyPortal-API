@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Organization as OrganizationModel;
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Config\Repository;

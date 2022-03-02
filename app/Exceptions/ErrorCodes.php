@@ -26,23 +26,23 @@ use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoader
 use App\Services\Filesystem\Exceptions\StorageFileCorrupted as FilesystemStorageFileCorrupted;
 use App\Services\Filesystem\Exceptions\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
 use App\Services\Filesystem\Exceptions\StorageFileSaveFailed as FilesystemStorageFileSaveFailed;
-use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid as KeyCloakInvalidSettingClientUuid;
-use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled as KeyCloakKeyCloakDisabled;
-use App\Services\KeyCloak\Client\Exceptions\KeyCloakUnavailable as KeyCloakKeyCloakUnavailable;
-use App\Services\KeyCloak\Client\Exceptions\RealmGroupUnknown as KeyCloakRealmGroupUnknown;
-use App\Services\KeyCloak\Client\Exceptions\RealmRoleAlreadyExists as KeyCloakRealmRoleAlreadyExistsAlias;
-use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists as KeyCloakRealmUserAlreadyExists;
-use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound as KeyCloakRealmUserNotFound;
-use App\Services\KeyCloak\Client\Exceptions\RequestFailed as KeyCloakRequestFailed;
-use App\Services\KeyCloak\Client\Exceptions\ServerError as KeyCloakServerError;
-use App\Services\KeyCloak\Exceptions\Auth\AnotherUserExists as KeyCloakAnotherUserExists;
-use App\Services\KeyCloak\Exceptions\Auth\AuthorizationFailed as KeyCloakAuthorizationFailed;
-use App\Services\KeyCloak\Exceptions\Auth\InvalidCredentials as KeyCloakInvalidCredentials;
-use App\Services\KeyCloak\Exceptions\Auth\InvalidIdentity as KeyCloakInvalidIdentity;
-use App\Services\KeyCloak\Exceptions\Auth\StateMismatch as KeyCloakStateMismatch;
-use App\Services\KeyCloak\Exceptions\Auth\UnknownScope as KeyCloakUnknownScope;
-use App\Services\KeyCloak\Exceptions\Auth\UserDisabled as KeyCloakUserDisabled;
-use App\Services\KeyCloak\Exceptions\Auth\UserInsufficientData as KeyCloakUserInsufficientData;
+use App\Services\Keycloak\Client\Exceptions\InvalidSettingClientUuid as KeyCloakInvalidSettingClientUuid;
+use App\Services\Keycloak\Client\Exceptions\KeyCloakDisabled as KeyCloakKeyCloakDisabled;
+use App\Services\Keycloak\Client\Exceptions\KeyCloakUnavailable as KeyCloakKeyCloakUnavailable;
+use App\Services\Keycloak\Client\Exceptions\RealmGroupUnknown as KeyCloakRealmGroupUnknown;
+use App\Services\Keycloak\Client\Exceptions\RealmRoleAlreadyExists as KeyCloakRealmRoleAlreadyExistsAlias;
+use App\Services\Keycloak\Client\Exceptions\RealmUserAlreadyExists as KeyCloakRealmUserAlreadyExists;
+use App\Services\Keycloak\Client\Exceptions\RealmUserNotFound as KeyCloakRealmUserNotFound;
+use App\Services\Keycloak\Client\Exceptions\RequestFailed as KeyCloakRequestFailed;
+use App\Services\Keycloak\Client\Exceptions\ServerError as KeyCloakServerError;
+use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists as KeyCloakAnotherUserExists;
+use App\Services\Keycloak\Exceptions\Auth\AuthorizationFailed as KeyCloakAuthorizationFailed;
+use App\Services\Keycloak\Exceptions\Auth\InvalidCredentials as KeyCloakInvalidCredentials;
+use App\Services\Keycloak\Exceptions\Auth\InvalidIdentity as KeyCloakInvalidIdentity;
+use App\Services\Keycloak\Exceptions\Auth\StateMismatch as KeyCloakStateMismatch;
+use App\Services\Keycloak\Exceptions\Auth\UnknownScope as KeyCloakUnknownScope;
+use App\Services\Keycloak\Exceptions\Auth\UserDisabled as KeyCloakUserDisabled;
+use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData as KeyCloakUserInsufficientData;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
 use App\Services\Settings\Exceptions\FailedToLoadSettings as SettingsFailedToLoadSettings;
@@ -87,7 +87,7 @@ class ErrorCodes {
         SettingsFailedToLoadSettings::class                        => 'Settings001',
         SettingsFailedToSaveSettings::class                        => 'Settings002',
 
-        // KeyCloak
+        // Keycloak
         KeyCloakAuthorizationFailed::class                         => 'KeyCloak001',
         KeyCloakStateMismatch::class                               => 'KeyCloak002',
         KeyCloakInvalidIdentity::class                             => 'KeyCloak003',

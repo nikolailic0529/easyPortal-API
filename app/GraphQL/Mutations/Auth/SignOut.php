@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Services\KeyCloak\KeyCloak;
+use App\Services\Keycloak\KeyCloak;
 
 class SignOut {
     public function __construct(

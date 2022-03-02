@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Auth\Organization;
 
 use App\Models\Organization;
-use App\Services\KeyCloak\KeyCloak;
+use App\Services\Keycloak\KeyCloak;
 
 class SignIn {
     public function __construct(

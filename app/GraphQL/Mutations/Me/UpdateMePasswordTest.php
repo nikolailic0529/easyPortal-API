@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Me;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\Models\Enums\UserType;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 use Closure;
 use Illuminate\Auth\Events\PasswordReset as PasswordResetEvent;
 use Illuminate\Contracts\Hashing\Hasher;

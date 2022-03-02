@@ -14,8 +14,8 @@ use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
 use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\KeyCloak\Jobs\Cron\PermissionsSynchronizer;
-use App\Services\KeyCloak\Jobs\Cron\UsersSynchronizer;
+use App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer;
+use App\Services\Keycloak\Jobs\Cron\UsersSynchronizer;
 use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
@@ -608,7 +608,7 @@ interface Constants {
     public const EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS = [];
 
     /**
-     * OrgAdmin Role UUID. You should sync KeyCloak permissions via command or
+     * OrgAdmin Role UUID. You should sync Keycloak permissions via command or
      * job after the setting changed.
      */
     #[Setting('ep.keycloak.org_admin_group')]

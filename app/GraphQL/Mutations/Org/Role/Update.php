@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Org\Role;
 
 use App\Models\Permission;
 use App\Models\Role;
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
@@ -89,7 +89,7 @@ class Update {
     }
 
     protected function sync(Role $role): bool {
-        // Ensure that Role exists on KeyCloak
+        // Ensure that Role exists on Keycloak
         $group = $this->client->createGroup($role);
 
         if (!$role->exists) {

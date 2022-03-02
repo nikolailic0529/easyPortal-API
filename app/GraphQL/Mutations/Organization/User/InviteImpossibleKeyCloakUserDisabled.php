@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Organization\User;
 
 use App\GraphQL\GraphQLException;
-use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Types\User as KeyCloakUser;
 use Throwable;
 
 use function __;

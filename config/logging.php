@@ -4,7 +4,7 @@ use App\Exceptions\Configurator;
 use App\Exceptions\Handlers\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
-use App\Services\KeyCloak\Service as KeyCloakService;
+use App\Services\Keycloak\Service as KeyCloakService;
 use App\Services\Settings\Settings;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\NullHandler;

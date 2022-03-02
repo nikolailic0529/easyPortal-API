@@ -4,8 +4,8 @@ namespace App\GraphQL\Mutations\User;
 
 use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
+use App\Services\Keycloak\Client\Client;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Illuminate\Http\UploadedFile;
 
 class Update {

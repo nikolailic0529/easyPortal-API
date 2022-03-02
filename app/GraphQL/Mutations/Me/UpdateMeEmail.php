@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Me;
 
 use App\Models\Enums\UserType;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
+use App\Services\Keycloak\Client\Client;
 use Illuminate\Auth\AuthManager;
 
 class UpdateMeEmail {

@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Auth\Organization;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
-use App\Services\KeyCloak\KeyCloak;
+use App\Services\Keycloak\KeyCloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
