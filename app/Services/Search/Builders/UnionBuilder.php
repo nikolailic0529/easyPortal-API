@@ -9,7 +9,7 @@ class UnionBuilder extends Builder {
     /**
      * @var array<
      *      class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,
-     *      array{scopes:array<\App\Services\Search\Scope>,boost:float|null}
+     *      array{scopes:array<\App\Services\Search\Contracts\Scope>,boost:float|null}
      *      > $models
      */
     protected array $models = [];
@@ -26,7 +26,7 @@ class UnionBuilder extends Builder {
 
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<\App\Services\Search\Scope>                                                          $scopes
+     * @param array<\App\Services\Search\Contracts\Scope>                                                $scopes
      */
     public function addModel(string $model, array $scopes, float $boost = null): static {
         $this->models[$model] = [
@@ -41,7 +41,7 @@ class UnionBuilder extends Builder {
     /**
      * @return array<
      *      class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,
-     *      array{scopes:array<\App\Services\Search\Scope>,boost:float|null}
+     *      array{scopes:array<\App\Services\Search\Contracts\Scope>,boost:float|null}
      *      > $models
      */
     public function getModels(): array {

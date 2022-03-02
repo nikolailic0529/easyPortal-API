@@ -3,8 +3,8 @@
 namespace App\Models\Scopes;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Properties\Uuid;
-use App\Services\Search\ScopeWithMetadata;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;

@@ -2,6 +2,7 @@
 
 namespace App\Services\Search;
 
+use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;

@@ -3,6 +3,7 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
@@ -401,7 +402,7 @@ class ConfigurationTest extends TestCase {
     /**
      * @param array<mixed> $metadata
      *
-     * @return \Illuminate\Database\Eloquent\Scope&\App\Services\Search\ScopeWithMetadata
+     * @return \Illuminate\Database\Eloquent\Scope&\App\Services\Search\Contracts\ScopeWithMetadata
      */
     protected function getScope(array $metadata): Scope {
         $scope = new class() implements Scope, ScopeWithMetadata {

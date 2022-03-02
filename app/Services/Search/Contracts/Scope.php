@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Contracts;
 
 use App\Services\Search\Builders\Builder;
 use Illuminate\Database\Eloquent\Model;
