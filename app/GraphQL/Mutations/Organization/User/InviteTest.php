@@ -11,7 +11,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Notifications\OrganizationUserInvitation;
 use App\Services\Keycloak\Client\Client;
-use App\Services\Keycloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
@@ -188,7 +188,7 @@ class InviteTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
-                            ->andReturn(new KeyCloakUser([
+                            ->andReturn(new KeycloakUser([
                                 'id'      => 'e7dbdf00-dcca-4263-8cf4-af9e36038f66',
                                 'enabled' => true,
                             ]));
@@ -230,7 +230,7 @@ class InviteTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
-                            ->andReturn(new KeyCloakUser([
+                            ->andReturn(new KeycloakUser([
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));
@@ -260,7 +260,7 @@ class InviteTest extends TestCase {
                         $mock
                             ->shouldReceive('createUser')
                             ->once()
-                            ->andReturn(new KeyCloakUser([
+                            ->andReturn(new KeycloakUser([
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));
@@ -278,7 +278,7 @@ class InviteTest extends TestCase {
                     new GraphQLError(
                         'organization',
                         static function (): Throwable {
-                            return new InviteImpossibleKeyCloakUserDisabled(new KeyCloakUser([
+                            return new InviteImpossibleKeyCloakUserDisabled(new KeycloakUser([
                                 'id' => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                             ]));
                         },
@@ -287,7 +287,7 @@ class InviteTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
-                            ->andReturn(new KeyCloakUser([
+                            ->andReturn(new KeycloakUser([
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => false,
                             ]));
@@ -309,7 +309,7 @@ class InviteTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser([
+                            ->andReturn(new KeycloakUser([
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));
@@ -365,7 +365,7 @@ class InviteTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new KeyCloakUser([
+                            ->andReturn(new KeycloakUser([
                                 'id'      => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                                 'enabled' => true,
                             ]));

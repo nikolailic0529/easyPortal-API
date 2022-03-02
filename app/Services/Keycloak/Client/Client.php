@@ -14,11 +14,10 @@ use App\Services\Keycloak\Client\Exceptions\RealmUserAlreadyExists;
 use App\Services\Keycloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\Keycloak\Client\Exceptions\RequestFailed;
 use App\Services\Keycloak\Client\Exceptions\ServerError;
-use App\Services\Keycloak\Client\Types\Credential as KeyCloakCredential;
-use App\Services\Keycloak\Client\Types\Group as KeyCloakGroup;
-use App\Services\Keycloak\Client\Types\Role as KeyCloakRole;
-use App\Services\Keycloak\Client\Types\User;
-use App\Services\Keycloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Types\Credential as KeycloakCredential;
+use App\Services\Keycloak\Client\Types\Group as KeycloakGroup;
+use App\Services\Keycloak\Client\Types\Role as KeycloakRole;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Exception;
@@ -55,7 +54,7 @@ class Client {
 
     // <editor-fold desc="Groups">
     // =========================================================================
-    public function getGroup(Organization|Role|string $object): ?KeyCloakGroup {
+    public function getGroup(Organization|Role|string $object): ?KeycloakGroup {
         // GET /{realm}/groups/{id}
         $id = null;
 
@@ -75,12 +74,12 @@ class Client {
 
         $endpoint = "groups/{$id}";
         $result   = $this->call($endpoint);
-        $result   = new KeyCloakGroup($result);
+        $result   = new KeycloakGroup($result);
 
         return $result;
     }
 
-    public function createGroup(Role $role): KeyCloakGroup {
+    public function createGroup(Role $role): KeycloakGroup {
         // POST /{realm}/groups/{id}/children
 
         // Organization?
@@ -122,13 +121,13 @@ class Client {
         try {
             $name     = $groupByName ? $groupByName->name : $role->name;
             $endpoint = "groups/{$organization->keycloak_group_id}/children";
-            $input    = new KeyCloakGroup([
+            $input    = new KeycloakGroup([
                 'name' => $name,
             ]);
             $result   = $this->call($endpoint, 'POST', [
                 'json' => $input->toArray(),
             ]);
-            $group    = new KeyCloakGroup($result);
+            $group    = new KeycloakGroup($result);
         } catch (RequestFailed $exception) {
             if ($exception->isHttpError(Response::HTTP_CONFLICT)) {
                 throw new RealmRoleAlreadyExists($name, $exception);
@@ -140,19 +139,19 @@ class Client {
         return $group;
     }
 
-    public function updateGroup(KeyCloakGroup|Role $group, string $name): bool {
+    public function updateGroup(KeycloakGroup|Role $group, string $name): bool {
         // PUT /{realm}/groups/{id}
-        $id    = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
-        $input = new KeyCloakGroup(['name' => $name]);
+        $id    = $group instanceof KeycloakGroup ? $group->id : $group->getKey();
+        $input = new KeycloakGroup(['name' => $name]);
 
         $this->call("groups/{$id}", 'PUT', ['json' => $input->toArray()]);
 
         return true;
     }
 
-    public function deleteGroup(KeyCloakGroup|Role $group): bool {
+    public function deleteGroup(KeycloakGroup|Role $group): bool {
         // DELETE /{realm}/groups/{id}
-        $id     = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $id     = $group instanceof KeycloakGroup ? $group->id : $group->getKey();
         $result = false;
 
         try {
@@ -175,11 +174,11 @@ class Client {
     /**
      * @return array<\App\Services\Keycloak\Client\Types\Role>
      */
-    public function getGroupRoles(KeyCloakGroup|Role $group): array {
+    public function getGroupRoles(KeycloakGroup|Role $group): array {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
-        $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $id       = $group instanceof KeycloakGroup ? $group->id : $group->getKey();
         $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
-        $roles    = KeyCloakRole::make($this->call($endpoint));
+        $roles    = KeycloakRole::make($this->call($endpoint));
 
         return $roles;
     }
@@ -187,9 +186,9 @@ class Client {
     /**
      * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
      */
-    public function createGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
+    public function createGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
-        $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $id       = $group instanceof KeycloakGroup ? $group->id : $group->getKey();
         $roles    = $this->toRoles($roles)->toArray();
         $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
 
@@ -201,8 +200,8 @@ class Client {
     /**
      * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
      */
-    public function updateGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
-        $keyBy    = static function (KeyCloakRole $role): string {
+    public function updateGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
+        $keyBy    = static function (KeycloakRole $role): string {
             return $role->id;
         };
         $roles    = $this->toRoles($roles)->keyBy($keyBy);
@@ -224,9 +223,9 @@ class Client {
     /**
      * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
      */
-    public function deleteGroupRoles(KeyCloakGroup|Role $group, array $roles): bool {
+    public function deleteGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
-        $id       = $group instanceof KeyCloakGroup ? $group->id : $group->getKey();
+        $id       = $group instanceof KeycloakGroup ? $group->id : $group->getKey();
         $roles    = $this->toRoles($roles)->toArray();
         $endpoint = "groups/{$id}/role-mappings/{$this->getClientUrl()}";
 
@@ -245,20 +244,20 @@ class Client {
     public function getRoles(): array {
         // GET /{realm}/clients/{id}/roles
         $endpoint = "{$this->getClientUrl()}/roles";
-        $result   = KeyCloakRole::make($this->call($endpoint));
+        $result   = KeycloakRole::make($this->call($endpoint));
 
         return $result;
     }
 
-    public function getRole(string $name): KeyCloakRole {
+    public function getRole(string $name): KeycloakRole {
         // GET /{realm}/clients/{id}/roles/{role-name}
         $endpoint = "{$this->getClientUrl()}/roles/{$name}";
         $result   = $this->call($endpoint, 'GET');
 
-        return new KeyCloakRole($result);
+        return new KeycloakRole($result);
     }
 
-    public function createRole(KeyCloakRole $role): KeyCloakRole {
+    public function createRole(KeycloakRole $role): KeycloakRole {
         // POST /{realm}/clients/{id}/roles
         $endpoint = "{$this->getClientUrl()}/roles";
         $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
@@ -266,7 +265,7 @@ class Client {
         return $this->getRole($role->name);
     }
 
-    public function updateRole(string $name, KeyCloakRole $role): void {
+    public function updateRole(string $name, KeycloakRole $role): void {
         // PUT /{realm}/clients/{id}/roles/{role-name}
         $endpoint = "{$this->getClientUrl()}/roles/{$name}";
         $this->call($endpoint, 'PUT', [
@@ -283,7 +282,7 @@ class Client {
 
     // <editor-fold desc="Users">
     // =========================================================================
-    public function createUser(string $email, Role $role): KeyCloakUser {
+    public function createUser(string $email, Role $role): KeycloakUser {
         // POST /{realm}/users
         $endpoint = 'users';
 
@@ -294,7 +293,7 @@ class Client {
             throw new RealmGroupUnknown();
         }
 
-        $input = new KeyCloakUser([
+        $input = new KeycloakUser([
             'email'         => $email,
             'groups'        => [$group->path],
             'enabled'       => true,
@@ -316,7 +315,7 @@ class Client {
         return $this->getUserByEmail($email);
     }
 
-    public function getUserById(string $id): KeyCloakUser {
+    public function getUserById(string $id): KeycloakUser {
         // GET /{realm}/users/{id}
 
         try {
@@ -329,10 +328,10 @@ class Client {
             throw $exception;
         }
 
-        return new KeyCloakUser($result);
+        return new KeycloakUser($result);
     }
 
-    public function updateUser(string $id, KeyCloakUser $user): bool {
+    public function updateUser(string $id, KeycloakUser $user): bool {
         // PUT /{realm}/users/{id}
         $endpoint = "users/{$id}";
 
@@ -341,7 +340,7 @@ class Client {
         return true;
     }
 
-    public function getUserByEmail(string $email): ?KeyCloakUser {
+    public function getUserByEmail(string $email): ?KeycloakUser {
         // GET /{realm}/users?email={email}
         $endpoint = "users?email={$email}";
         $users    = $this->call($endpoint);
@@ -350,7 +349,7 @@ class Client {
             return null;
         }
 
-        return new KeyCloakUser($users[0]);
+        return new KeycloakUser($users[0]);
     }
 
     public function requestResetPassword(string $id): void {
@@ -376,13 +375,13 @@ class Client {
         }
 
         return array_map(static function ($group) {
-            return new KeyCloakGroup($group);
+            return new KeycloakGroup($group);
         }, $groups);
     }
 
-    public function addUserToGroup(User|string $user, string $groupId): bool {
+    public function addUserToGroup(KeycloakUser|string $user, string $groupId): bool {
         // PUT /{realm}/users/{id}/groups/{groupId}
-        $userId   = $user instanceof User ? $user->id : $user;
+        $userId   = $user instanceof KeycloakUser ? $user->id : $user;
         $endpoint = "users/{$userId}/groups/{$groupId}";
 
         $this->call($endpoint, 'PUT');
@@ -394,7 +393,7 @@ class Client {
         // PUT /{realm}/users/{id}/reset-password
         $endpoint = "users/{$id}/reset-password";
         // Create new credentials
-        $credential = new KeyCloakCredential([
+        $credential = new KeycloakCredential([
             'type'      => 'password',
             'temporary' => false,
             'value'     => $password,
@@ -431,7 +430,7 @@ class Client {
 
         $result = $this->call($endpoint, 'GET', [], $baseUrl);
         $result = array_map(static function ($item) {
-            return new KeyCloakUser($item);
+            return new KeycloakUser($item);
         }, $result);
 
         return $result;
@@ -457,9 +456,9 @@ class Client {
         );
     }
 
-    public function removeUserFromGroup(User|string $user, string $groupId): bool {
+    public function removeUserFromGroup(KeycloakUser|string $user, string $groupId): bool {
         // DELETE /{realm}/users/{id}/groups/{groupId}
-        $userId   = $user instanceof User ? $user->id : $user;
+        $userId   = $user instanceof KeycloakUser ? $user->id : $user;
         $endpoint = "users/{$userId}/groups/{$groupId}";
 
         $this->call($endpoint, 'DELETE');
@@ -544,9 +543,9 @@ class Client {
      */
     protected function toRoles(array $roles): Collection {
         return (new Collection($roles))
-            ->map(static function (KeyCloakRole|Permission $role): KeyCloakRole {
+            ->map(static function (KeycloakRole|Permission $role): KeycloakRole {
                 if ($role instanceof Permission) {
-                    $role = new KeyCloakRole([
+                    $role = new KeycloakRole([
                         'id'   => $role->getKey(),
                         'name' => $role->key,
                     ]);

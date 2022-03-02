@@ -3,14 +3,14 @@
 namespace App\GraphQL\Mutations\Organization\User;
 
 use App\GraphQL\GraphQLException;
-use App\Services\Keycloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Throwable;
 
 use function __;
 use function sprintf;
 
 class InviteImpossibleKeyCloakUserDisabled extends GraphQLException {
-    public function __construct(KeyCloakUser $user, Throwable $previous = null) {
+    public function __construct(KeycloakUser $user, Throwable $previous = null) {
         parent::__construct(sprintf(
             'Impossible to invite the user `%s` because it is disabled.',
             $user->id,
