@@ -42,7 +42,7 @@ Description for jobs.
 
 ### `notifications.<service>.<notification>.<string>`
 
-Default translations for Notification. 
+Default translations for Notification.
 
 The `<string>` can be:
 
@@ -54,7 +54,12 @@ The `<string>` can be:
 - `salutation`
 
 Available replacements:
+
 - `:appName`
 - `:userName`
 - `:userGivenName`
 - `:userFamilyName`
+
+### `graphql.directives.@mutation.object.<object>`
+
+Object name for `@mutation`.

@@ -27,7 +27,7 @@ class ObjectNotFound extends MutationException {
 
     protected function getObjectName(): string {
         $object     = $this->object ?: 'Object';
-        $string     = "model.{$object}";
+        $string     = "graphql.directives.@mutation.object.{$object}";
         $translated = __($string);
 
         return $string !== $translated
