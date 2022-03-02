@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Processor;
 
 use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
@@ -32,9 +32,9 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Updater
+ * @coversDefaultClass \App\Services\Search\Processor\Processor
  */
-class UpdaterTest extends TestCase {
+class ProcessorTest extends TestCase {
     use WithSearch;
 
     // <editor-fold desc="Tests">
@@ -70,7 +70,7 @@ class UpdaterTest extends TestCase {
         ]);
 
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
         $updater
@@ -186,7 +186,7 @@ class UpdaterTest extends TestCase {
         ]);
 
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
         $updater
@@ -237,7 +237,7 @@ class UpdaterTest extends TestCase {
         $builder->setQuery($query);
         $builder->setModel($model);
 
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
         $updater
@@ -279,7 +279,7 @@ class UpdaterTest extends TestCase {
         $this->setSettings($settings);
 
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
 
@@ -319,7 +319,7 @@ class UpdaterTest extends TestCase {
         $this->setSettings($settings);
 
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
 
@@ -347,7 +347,7 @@ class UpdaterTest extends TestCase {
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
         $updater
@@ -372,7 +372,7 @@ class UpdaterTest extends TestCase {
      */
     public function testSwitchIndex(): void {
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
         $updater
@@ -413,7 +413,7 @@ class UpdaterTest extends TestCase {
      */
     public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
         // Mock
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
         $updater

@@ -4,9 +4,9 @@ namespace App\Services\Search\Jobs;
 
 use App\Services\Queue\Progress;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Processor\Processor;
+use App\Services\Search\Processor\Status;
 use App\Services\Search\Service;
-use App\Services\Search\Status;
-use App\Services\Search\Updater;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -40,7 +40,7 @@ class UpdateIndexCronJobTest extends TestCase {
         };
 
         $service = Mockery::mock(Service::class);
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater
             ->shouldReceive('onInit')
             ->withArgs(function (?Closure $closure) use ($status): bool {

@@ -3,8 +3,8 @@
 namespace App\Services\Search\Jobs;
 
 use App\Models\Asset;
+use App\Services\Search\Processor\Processor;
 use App\Services\Search\Service;
-use App\Services\Search\Updater;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
 use Mockery;
@@ -21,7 +21,7 @@ class UpdateIndexJobTest extends TestCase {
     public function testInvoke(): void {
         $asset   = (new Asset())->forceFill(['id' => $this->faker->uuid]);
         $service = $this->app->make(Service::class);
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater
             ->shouldReceive('isIndexActual')
             ->once()
@@ -48,7 +48,7 @@ class UpdateIndexJobTest extends TestCase {
      */
     public function testInvokeIndexOutdated(): void {
         $service = $this->app->make(Service::class);
-        $updater = Mockery::mock(Updater::class);
+        $updater = Mockery::mock(Processor::class);
         $updater
             ->shouldReceive('isIndexActual')
             ->once()

@@ -5,9 +5,9 @@ namespace App\Services\Search\Jobs;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Progress;
+use App\Services\Search\Processor\Processor;
+use App\Services\Search\Processor\Status;
 use App\Services\Search\Service;
-use App\Services\Search\Status;
-use App\Services\Search\Updater;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -25,7 +25,7 @@ abstract class UpdateIndexCronJob extends CronJob implements Progressable {
     protected function process(
         QueueableConfigurator $configurator,
         Service $service,
-        Updater $updater,
+        Processor $updater,
         string $model,
     ): void {
         $config   = $configurator->config($this);

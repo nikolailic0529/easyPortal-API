@@ -9,10 +9,10 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Jobs\UpdateIndexJob;
+use App\Services\Search\Processor\Processor;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
-use App\Services\Search\Updater;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -228,7 +228,7 @@ class SearchableTest extends TestCase {
             }
         };
 
-        $this->override(Updater::class, static function (MockInterface $updater) use ($model, $chunk): void {
+        $this->override(Processor::class, static function (MockInterface $updater) use ($model, $chunk): void {
             $updater
                 ->shouldReceive('update')
                 ->with($model::class, null, null, $chunk)

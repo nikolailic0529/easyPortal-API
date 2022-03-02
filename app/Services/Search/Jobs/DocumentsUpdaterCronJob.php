@@ -3,8 +3,8 @@
 namespace App\Services\Search\Jobs;
 
 use App\Models\Document;
+use App\Services\Search\Processor\Processor;
 use App\Services\Search\Service;
-use App\Services\Search\Updater;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
@@ -18,7 +18,7 @@ class DocumentsUpdaterCronJob extends UpdateIndexCronJob {
     public function __invoke(
         QueueableConfigurator $configurator,
         Service $service,
-        Updater $updater,
+        Processor $updater,
     ): void {
         $this->process($configurator, $service, $updater, Document::class);
     }

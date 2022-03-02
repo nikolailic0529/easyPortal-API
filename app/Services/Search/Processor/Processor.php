@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Processor;
 
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Exceptions\FailedToIndex;
@@ -23,7 +23,7 @@ use function array_filter;
 use function array_keys;
 use function array_values;
 
-class Updater {
+class Processor {
     protected ?Closure $onInit   = null;
     protected ?Closure $onChange = null;
     protected ?Closure $onFinish = null;

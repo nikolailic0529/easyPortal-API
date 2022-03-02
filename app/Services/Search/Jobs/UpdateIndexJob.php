@@ -3,8 +3,8 @@
 namespace App\Services\Search\Jobs;
 
 use App\Services\Queue\Job;
+use App\Services\Search\Processor\Processor;
 use App\Services\Search\Service;
-use App\Services\Search\Updater;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
@@ -73,7 +73,7 @@ class UpdateIndexJob extends Job {
         return $this;
     }
 
-    public function __invoke(Container $container, Service $service, Updater $updater): void {
+    public function __invoke(Container $container, Service $service, Processor $updater): void {
         // Is there something that should be updated?
         if (!$this->model) {
             return;

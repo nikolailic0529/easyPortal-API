@@ -4,10 +4,10 @@ namespace App\Services\Search\Eloquent;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
+use App\Services\Search\Processor\Processor;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
-use App\Services\Search\Updater;
 use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
@@ -131,7 +131,7 @@ trait Searchable {
     }
 
     public static function makeAllSearchable(int $chunk = null): void {
-        app(Updater::class)->update(static::class, chunk: $chunk);
+        app(Processor::class)->update(static::class, chunk: $chunk);
     }
 
     public function makeAllSearchableUsing(Builder $query): Builder {
