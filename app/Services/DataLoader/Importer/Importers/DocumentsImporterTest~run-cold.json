@@ -141,7 +141,7 @@
         "bindings": [
             "Document",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "5d0ada54-c8e5-5f68-a218-2d53a57e591e",
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
@@ -472,7 +472,7 @@
         "bindings": [
             "Document",
             "EXPIRED",
-            "EXPIRED",
+            "Expired",
             "d98236c2-bcdd-5dad-a674-17845804b0a9",
             "2022-02-02 00:00:55",
             "2022-02-02 00:00:55"

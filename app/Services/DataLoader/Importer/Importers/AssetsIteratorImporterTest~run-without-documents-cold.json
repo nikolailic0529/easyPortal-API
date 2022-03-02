@@ -135,7 +135,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "1be664b3-7d1e-5566-aef6-dab451c34cbb",
             "2022-02-02 00:00:02",
             "2022-02-02 00:00:02"
@@ -206,7 +206,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EXPOSED",
-            "EXPOSED",
+            "Exposed",
             "1db168b6-b7e8-5e82-a196-dee92cf5a0b0",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
@@ -350,7 +350,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ARCHIVED",
-            "ARCHIVED",
+            "Archived",
             "a78a2f78-78c6-5ce8-8213-920427508462",
             "2022-02-02 00:00:19",
             "2022-02-02 00:00:19"
@@ -708,7 +708,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "COVERED",
-            "COVERED",
+            "Covered",
             "b54024ec-3f84-5bb4-b658-d1733d90333f",
             "2022-02-02 00:00:53",
             "2022-02-02 00:00:53"
@@ -724,7 +724,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ON_CONTRACT",
-            "ON_CONTRACT",
+            "On Contract",
             "ca5cce39-c94b-554a-b813-c679781282c0",
             "2022-02-02 00:00:54",
             "2022-02-02 00:00:54"
@@ -1094,7 +1094,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "CONFLICT",
-            "CONFLICT",
+            "Conflict",
             "1de1fc7e-c11d-5e2b-a539-b0a73bd0bd08",
             "2022-02-02 00:01:33",
             "2022-02-02 00:01:33"
@@ -1148,7 +1148,7 @@
         "bindings": [
             "AssetWarranty",
             "FactoryWarranty",
-            "FactoryWarranty",
+            "Factorywarranty",
             "73d3b360-ed4d-54b0-a24a-f2d9f9c3104e",
             "2022-02-02 00:01:42",
             "2022-02-02 00:01:42"

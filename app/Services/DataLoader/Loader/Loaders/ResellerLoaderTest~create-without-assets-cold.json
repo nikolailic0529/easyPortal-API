@@ -21,7 +21,7 @@
         "bindings": [
             "Reseller",
             "CUSTOMER",
-            "CUSTOMER",
+            "Customer",
             "31b78dce-3209-5ef8-946b-1e136f3ce019",
             "2022-02-02 00:00:01",
             "2022-02-02 00:00:01"
@@ -43,7 +43,7 @@
         "bindings": [
             "Reseller",
             "INACTIVE",
-            "INACTIVE",
+            "Inactive",
             "ee3effef-c083-571d-a34e-845632d433f6",
             "2022-02-02 00:00:03",
             "2022-02-02 00:00:03"

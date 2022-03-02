@@ -47,7 +47,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "02cd2699-0b2e-504f-aef0-d22c2c6bcbec",
             "2022-02-02 00:00:02",
             "2022-02-02 00:00:02"
@@ -139,7 +139,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ARCHIVED",
-            "ARCHIVED",
+            "Archived",
             "975115df-8fcd-59a9-9f8d-59f7cdc40e4c",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
@@ -193,7 +193,7 @@
         "bindings": [
             "AssetWarranty",
             "FixedSupportService",
-            "FixedSupportService",
+            "Fixedsupportservice",
             "79b7fb2a-6eea-5e8d-9d4a-f9d5026f5c64",
             "2022-02-02 00:00:15",
             "2022-02-02 00:00:15"
@@ -211,7 +211,7 @@
         "bindings": [
             "AssetWarranty",
             "FactoryWarranty",
-            "FactoryWarranty",
+            "Factorywarranty",
             "75d0c3bf-b069-551e-9eee-a694ad06703d",
             "2022-02-02 00:00:20",
             "2022-02-02 00:00:20"

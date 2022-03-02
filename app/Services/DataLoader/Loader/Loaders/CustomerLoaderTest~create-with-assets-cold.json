@@ -223,7 +223,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "7067b2ee-3c52-584c-b400-012f45de601f",
             "2022-02-02 00:00:23",
             "2022-02-02 00:00:23"
@@ -294,7 +294,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EXPOSED",
-            "EXPOSED",
+            "Exposed",
             "80314907-365f-5bb1-8eee-dece7330396c",
             "2022-02-02 00:00:27",
             "2022-02-02 00:00:27"

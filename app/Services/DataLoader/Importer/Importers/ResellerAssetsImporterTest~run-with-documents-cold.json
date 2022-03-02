@@ -113,7 +113,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "930d3530-064a-56b5-9f52-146e27f23938",
             "2022-02-02 00:00:02",
             "2022-02-02 00:00:02"
@@ -184,7 +184,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "COVERED",
-            "COVERED",
+            "Covered",
             "c97040b5-477e-5900-817a-893fe568cab5",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
@@ -200,7 +200,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ON_CONTRACT",
-            "ON_CONTRACT",
+            "On Contract",
             "c19b4052-c8fd-553a-ada5-13321667f9af",
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
@@ -431,7 +431,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ON_WARRANTY",
-            "ON_WARRANTY",
+            "On Warranty",
             "26f62cf2-ba07-5409-8762-cb89a8cd87ee",
             "2022-02-02 00:00:40",
             "2022-02-02 00:00:40"
@@ -744,7 +744,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EOSL",
-            "EOSL",
+            "Eosl",
             "c9ec38f0-fa01-5530-bb5c-f263c0f47b48",
             "2022-02-02 00:01:34",
             "2022-02-02 00:01:34"
@@ -760,7 +760,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ARCHIVED",
-            "ARCHIVED",
+            "Archived",
             "912c872d-3f86-55b3-acc8-6a999c314b6d",
             "2022-02-02 00:01:35",
             "2022-02-02 00:01:35"
@@ -3434,7 +3434,7 @@
         "bindings": [
             "AssetWarranty",
             "FactoryWarranty",
-            "FactoryWarranty",
+            "Factorywarranty",
             "df07fbe1-fcb8-5981-9575-6ed1b987a97c",
             "2022-02-02 00:09:39",
             "2022-02-02 00:09:39"

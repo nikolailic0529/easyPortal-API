@@ -43,7 +43,7 @@
         "bindings": [
             "Customer",
             "CUSTOMER",
-            "CUSTOMER",
+            "Customer",
             "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "2022-02-02 00:00:01",
             "2022-02-02 00:00:01"
@@ -221,7 +221,7 @@
         "bindings": [
             "Customer",
             "INACTIVE",
-            "INACTIVE",
+            "Inactive",
             "d8406377-5425-5d3a-ad86-eda54c1715ed",
             "2022-02-02 00:00:14",
             "2022-02-02 00:00:14"
@@ -3075,7 +3075,7 @@
         "bindings": [
             "Customer",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "f9944491-7bdd-5115-ad55-dc0a9c414b5f",
             "2022-02-02 00:03:41",
             "2022-02-02 00:03:41"

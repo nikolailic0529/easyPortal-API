@@ -108,7 +108,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "05171de1-a241-59d0-83c9-dbd8eb442e00",
             "2022-02-02 00:00:02",
             "2022-02-02 00:00:02"
@@ -179,7 +179,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "COVERED",
-            "COVERED",
+            "Covered",
             "71bad29a-cfcf-54eb-92bd-efb55119699c",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
@@ -195,7 +195,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ON_WARRANTY",
-            "ON_WARRANTY",
+            "On Warranty",
             "e7d2670b-f31c-5d80-a663-a3fbd5d166f8",
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
@@ -211,7 +211,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ON_CONTRACT",
-            "ON_CONTRACT",
+            "On Contract",
             "56de383a-420b-5302-915c-f2b2425b6023",
             "2022-02-02 00:00:08",
             "2022-02-02 00:00:08"
@@ -1234,7 +1234,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EXPOSED",
-            "EXPOSED",
+            "Exposed",
             "dc642d19-f527-5385-80be-1032be72e463",
             "2022-02-02 00:03:14",
             "2022-02-02 00:03:14"

@@ -166,7 +166,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "5297eb43-98a7-5979-8b8d-aca88d5e71b2",
             "2022-02-02 00:00:23",
             "2022-02-02 00:00:23"
@@ -237,7 +237,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EXPOSED",
-            "EXPOSED",
+            "Exposed",
             "6716429f-fe86-55a7-a6b7-c4b8bbd50d95",
             "2022-02-02 00:00:27",
             "2022-02-02 00:00:27"
@@ -253,7 +253,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EOSL",
-            "EOSL",
+            "Eosl",
             "053c9432-56a0-57e4-9d6b-64d83525b826",
             "2022-02-02 00:00:28",
             "2022-02-02 00:00:28"
@@ -538,7 +538,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ARCHIVED",
-            "ARCHIVED",
+            "Archived",
             "c95df996-6045-5c2d-8f53-e49c471d2aa4",
             "2022-02-02 00:01:08",
             "2022-02-02 00:01:08"
