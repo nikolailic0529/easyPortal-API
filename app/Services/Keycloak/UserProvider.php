@@ -151,7 +151,6 @@ class UserProvider implements UserProviderContract {
     ];
 
     public function __construct(
-        protected Keycloak $keycloak,
         protected Jwt $jwt,
         protected Hasher $hasher,
         protected RootOrganization $rootOrganization,
@@ -162,10 +161,6 @@ class UserProvider implements UserProviderContract {
 
     // <editor-fold desc="Getters">
     // =========================================================================
-    protected function getKeycloak(): Keycloak {
-        return $this->keycloak;
-    }
-
     protected function getJwt(): Jwt {
         return $this->jwt;
     }
