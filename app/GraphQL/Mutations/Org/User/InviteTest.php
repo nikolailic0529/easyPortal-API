@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org\User;
 
-use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeyCloakUserDisabled;
+use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeycloakUserDisabled;
 use App\Models\Enums\UserType;
 use App\Models\Invitation;
 use App\Models\Organization;
@@ -256,7 +256,7 @@ class InviteTest extends TestCase {
                     new GraphQLError(
                         'org',
                         static function (): Throwable {
-                            return new InviteImpossibleKeyCloakUserDisabled(new KeycloakUser([
+                            return new InviteImpossibleKeycloakUserDisabled(new KeycloakUser([
                                 'id' => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                             ]));
                         },

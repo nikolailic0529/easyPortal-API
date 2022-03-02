@@ -83,10 +83,10 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher): void {
         $this->bootMorphMap();
-        $this->bootKeyCloak();
+        $this->bootKeycloak();
     }
 
-    protected function bootKeyCloak(): void {
+    protected function bootKeycloak(): void {
         $this->app->singleton(Keycloak::class);
         $this->app->make(AuthManager::class)->provider(
             UserProvider::class,

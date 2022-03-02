@@ -8,7 +8,7 @@ use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Keycloak\Client\Client;
-use App\Services\Keycloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -39,7 +39,7 @@ class UsersImporterTest extends TestCase {
             'id'              => 'c0200a6c-1b8a-4365-9f1b-32d753194337',
             'organization_id' => $organization->getKey(),
         ]);
-        $keycloakUser = new KeyCloakUser([
+        $keycloakUser = new KeycloakUser([
             'id'            => 'c0200a6c-1b8a-4365-9f1b-32d753194335',
             'email'         => 'test@example.com',
             'firstName'     => 'first',
@@ -200,7 +200,7 @@ class UsersImporterTest extends TestCase {
             },
         );
 
-        $keycloakUser = new KeyCloakUser([
+        $keycloakUser = new KeycloakUser([
             'id'            => $user->getKey(),
             'email'         => 'test@example.com',
             'firstName'     => 'first',
@@ -296,7 +296,7 @@ class UsersImporterTest extends TestCase {
      */
     public function testGetUserNormal(): void {
         $user = User::factory()->make();
-        $item = new KeyCloakUser(['id' => $user->getKey()]);
+        $item = new KeycloakUser(['id' => $user->getKey()]);
         $data = Mockery::mock(UsersImporterChunkData::class);
         $data
             ->shouldReceive('getUserById')
@@ -310,7 +310,7 @@ class UsersImporterTest extends TestCase {
                 // empty
             }
 
-            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+            public function getUser(UsersImporterChunkData $data, KeycloakUser $item): User {
                 return parent::getUser($data, $item);
             }
         };
@@ -324,7 +324,7 @@ class UsersImporterTest extends TestCase {
      * @covers ::getUser
      */
     public function testGetUserNoUser(): void {
-        $item = new KeyCloakUser(['id' => $this->faker->uuid]);
+        $item = new KeycloakUser(['id' => $this->faker->uuid]);
         $data = Mockery::mock(UsersImporterChunkData::class);
         $data
             ->shouldReceive('getUserById')
@@ -338,7 +338,7 @@ class UsersImporterTest extends TestCase {
                 // empty
             }
 
-            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+            public function getUser(UsersImporterChunkData $data, KeycloakUser $item): User {
                 return parent::getUser($data, $item);
             }
         };
@@ -355,7 +355,7 @@ class UsersImporterTest extends TestCase {
      */
     public function testGetUserTrashed(): void {
         $user = User::factory()->make(['deleted_at' => Date::now()]);
-        $item = new KeyCloakUser(['id' => $user->getKey()]);
+        $item = new KeycloakUser(['id' => $user->getKey()]);
         $data = Mockery::mock(UsersImporterChunkData::class);
         $data
             ->shouldReceive('getUserById')
@@ -369,7 +369,7 @@ class UsersImporterTest extends TestCase {
                 // empty
             }
 
-            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+            public function getUser(UsersImporterChunkData $data, KeycloakUser $item): User {
                 return parent::getUser($data, $item);
             }
         };
@@ -385,7 +385,7 @@ class UsersImporterTest extends TestCase {
      */
     public function testGetUserInvalidType(): void {
         $user = User::factory()->make(['type' => UserType::local()]);
-        $item = new KeyCloakUser(['id' => $user->getKey()]);
+        $item = new KeycloakUser(['id' => $user->getKey()]);
         $data = Mockery::mock(UsersImporterChunkData::class);
         $data
             ->shouldReceive('getUserById')
@@ -399,7 +399,7 @@ class UsersImporterTest extends TestCase {
                 // empty
             }
 
-            public function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+            public function getUser(UsersImporterChunkData $data, KeycloakUser $item): User {
                 return parent::getUser($data, $item);
             }
         };
@@ -417,7 +417,7 @@ class UsersImporterTest extends TestCase {
     public function testProcess(): void {
         $state = new UsersImporterState();
         $user  = User::factory()->make();
-        $item  = new KeyCloakUser([
+        $item  = new KeycloakUser([
             'id'            => $user->getKey(),
             'email'         => $this->faker->email,
             'firstName'     => $this->faker->firstName,
@@ -459,7 +459,7 @@ class UsersImporterTest extends TestCase {
                 parent::process($state, $data, $item);
             }
 
-            protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
+            protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
                 return new Collection();
             }
         };
@@ -495,7 +495,7 @@ class UsersImporterTest extends TestCase {
         $state   = new UsersImporterState();
         $another = User::factory()->make();
         $user    = User::factory()->make();
-        $item    = new KeyCloakUser([
+        $item    = new KeycloakUser([
             'id'            => $user->getKey(),
             'email'         => $another->email,
             'firstName'     => $this->faker->firstName,
@@ -526,7 +526,7 @@ class UsersImporterTest extends TestCase {
                 parent::process($state, $data, $item);
             }
 
-            protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
+            protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
                 return new Collection();
             }
         };

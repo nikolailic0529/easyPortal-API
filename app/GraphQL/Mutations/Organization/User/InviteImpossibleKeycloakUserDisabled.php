@@ -9,7 +9,7 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class InviteImpossibleKeyCloakUserDisabled extends GraphQLException {
+class InviteImpossibleKeycloakUserDisabled extends GraphQLException {
     public function __construct(KeycloakUser $user, Throwable $previous = null) {
         parent::__construct(sprintf(
             'Impossible to invite the user `%s` because it is disabled.',

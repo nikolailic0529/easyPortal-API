@@ -278,7 +278,7 @@ class InviteTest extends TestCase {
                     new GraphQLError(
                         'organization',
                         static function (): Throwable {
-                            return new InviteImpossibleKeyCloakUserDisabled(new KeycloakUser([
+                            return new InviteImpossibleKeycloakUserDisabled(new KeycloakUser([
                                 'id' => '3b7180cb-bbcf-43bd-bcc2-c00509f1c222',
                             ]));
                         },

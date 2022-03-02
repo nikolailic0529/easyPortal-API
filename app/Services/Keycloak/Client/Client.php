@@ -6,8 +6,8 @@ use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\Keycloak\Client\Exceptions\InvalidSettingClientUuid;
-use App\Services\Keycloak\Client\Exceptions\KeyCloakDisabled;
-use App\Services\Keycloak\Client\Exceptions\KeyCloakUnavailable;
+use App\Services\Keycloak\Client\Exceptions\KeycloakDisabled;
+use App\Services\Keycloak\Client\Exceptions\KeycloakUnavailable;
 use App\Services\Keycloak\Client\Exceptions\RealmGroupUnknown;
 use App\Services\Keycloak\Client\Exceptions\RealmRoleAlreadyExists;
 use App\Services\Keycloak\Client\Exceptions\RealmUserAlreadyExists;
@@ -488,7 +488,7 @@ class Client {
     protected function call(string $endpoint, string $method = 'GET', array $data = [], string $baseUrl = null): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
-            throw new KeyCloakDisabled();
+            throw new KeycloakDisabled();
         }
 
         // Prepare
@@ -510,7 +510,7 @@ class Client {
         try {
             $json = $request->send($method, $endpoint, $data)->throw()->json();
         } catch (ConnectionException $exception) {
-            throw new KeyCloakUnavailable($exception);
+            throw new KeycloakUnavailable($exception);
         } catch (Exception $exception) {
             if ($exception instanceof RequestException && $exception->getCode() >= 500 && $exception->getCode() < 600) {
                 throw new ServerError("{$baseUrl}/{$endpoint}", $method, $data, $exception);

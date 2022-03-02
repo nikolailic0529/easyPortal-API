@@ -971,7 +971,7 @@ class Client {
             GRAPHQL;
     }
 
-    protected function getCompanyKeyCloakGraphQL(): string {
+    protected function getCompanyKeycloakGraphQL(): string {
         return <<<'GRAPHQL'
             keycloakName
             keycloakGroupId
@@ -985,7 +985,7 @@ class Client {
             {$this->getCompanyContactPersonsGraphQL()}
             {$this->getCompanyLocationsGraphQL()}
             {$this->getCompanyKpisGraphQL()}
-            {$this->getCompanyKeyCloakGraphQL()}
+            {$this->getCompanyKeycloakGraphQL()}
             {$this->getCompanyBrandingDataGraphQL()}
             GRAPHQL;
     }

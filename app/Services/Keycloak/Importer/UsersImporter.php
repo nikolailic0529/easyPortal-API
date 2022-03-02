@@ -8,7 +8,7 @@ use App\Models\OrganizationUser;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Keycloak\Client\Client;
-use App\Services\Keycloak\Client\Types\User as KeyCloakUser;
+use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImport;
 use App\Services\Keycloak\Exceptions\FailedToImportObject;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
@@ -142,7 +142,7 @@ class UsersImporter extends Processor {
         parent::finish($state);
     }
 
-    protected function getUser(UsersImporterChunkData $data, KeyCloakUser $item): User {
+    protected function getUser(UsersImporterChunkData $data, KeycloakUser $item): User {
         $user = $data->getUserById($item->id);
 
         if (!$user) {
@@ -165,7 +165,7 @@ class UsersImporter extends Processor {
     /**
      * @return \Illuminate\Support\Collection<\App\Models\OrganizationUser>
      */
-    protected function getUserOrganizations(User $user, KeyCloakUser $item): Collection {
+    protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
         // Organizations & Roles
         // (some groups refers to the organization some to roles)
         $organizations = Organization::query()

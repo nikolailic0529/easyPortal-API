@@ -8,7 +8,7 @@ use Throwable;
 
 use function __;
 
-class KeyCloakUnavailable extends ClientException implements ExternalException, IteratorFatalError {
+class KeycloakUnavailable extends ClientException implements ExternalException, IteratorFatalError {
     public function __construct(Throwable $previous = null) {
         parent::__construct('Keycloak unavailable.', $previous);
     }

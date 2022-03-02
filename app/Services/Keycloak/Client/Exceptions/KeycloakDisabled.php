@@ -7,7 +7,7 @@ use Throwable;
 
 use function __;
 
-class KeyCloakDisabled extends ClientException implements IteratorFatalError {
+class KeycloakDisabled extends ClientException implements IteratorFatalError {
     public function __construct(Throwable $previous = null) {
         parent::__construct('Keycloak client disabled', $previous);
     }

@@ -92,7 +92,7 @@ class Invite {
         }
 
         if (!$keyCloakUser->enabled) {
-            throw new InviteImpossibleKeyCloakUserDisabled($keyCloakUser);
+            throw new InviteImpossibleKeycloakUserDisabled($keyCloakUser);
         }
 
         // Save
