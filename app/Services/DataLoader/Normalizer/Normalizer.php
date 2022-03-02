@@ -6,6 +6,7 @@ use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
@@ -21,6 +22,7 @@ class Normalizer implements Singleton {
         protected BoolNormalizer $boolean,
         protected ColorNormalizer $color,
         protected TextNormalizer $text,
+        protected NameNormalizer $name,
     ) {
         // empty
     }
@@ -55,5 +57,9 @@ class Normalizer implements Singleton {
 
     public function color(mixed $value): ?string {
         return $this->color->normalize($value);
+    }
+
+    public function name(mixed $value): ?string {
+        return $this->name->normalize($value);
     }
 }

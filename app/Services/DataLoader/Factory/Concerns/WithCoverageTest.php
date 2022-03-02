@@ -66,7 +66,7 @@ class WithCoverageTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('new', $created->key);
-        $this->assertEquals('new', $created->name);
+        $this->assertEquals('New', $created->name);
         $this->assertCount(2, $this->getQueryLog());
     }
 }

@@ -92,7 +92,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "2c9d6591-1acb-5f4e-95b1-6532f4314e98",
             "2022-02-02 00:00:02",
             "2022-02-02 00:00:02"
@@ -163,7 +163,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ARCHIVED",
-            "ARCHIVED",
+            "Archived",
             "6a9fa25f-4ab3-5b72-b587-c463297e109c",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"

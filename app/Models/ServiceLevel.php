@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\GraphQL\Contracts\Translatable;
 use App\Models\Relations\HasDocumentEntries;
 use App\Models\Relations\HasOem;
 use App\Models\Relations\HasServiceGroup;
-use App\Utils\Eloquent\Concerns\TranslateProperties;
+use App\Services\I18n\Contracts\Translatable;
+use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                              $id
  * @property string                                                              $oem_id
  * @property string                                                              $service_group_id
+ * @property string                                                              $key
  * @property string                                                              $sku
  * @property string                                                              $name
  * @property string                                                              $description
@@ -51,8 +52,10 @@ class ServiceLevel extends Model implements Translatable {
         $this->setServiceGroupAttributeNullable($group);
     }
 
+    // <editor-fold desc="Translatable">
+    // =========================================================================
     protected function getTranslatableKey(): ?string {
-        return "{$this->serviceGroup->getTranslatableKey()}/{$this->sku}";
+        return $this->key;
     }
 
     /**
@@ -61,4 +64,5 @@ class ServiceLevel extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name', 'description'];
     }
+    // </editor-fold>
 }

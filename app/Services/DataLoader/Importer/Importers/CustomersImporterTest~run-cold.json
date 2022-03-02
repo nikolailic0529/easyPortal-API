@@ -43,7 +43,7 @@
         "bindings": [
             "Customer",
             "CUSTOMER",
-            "CUSTOMER",
+            "Customer",
             "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "2022-02-02 00:00:01",
             "2022-02-02 00:00:01"
@@ -82,15 +82,16 @@
         "bindings": []
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "port valentinatown"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Port Valentinatown",
             "Port Valentinatown",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "06a547fa-eb86-55b8-975d-fae497f2c7ca",
@@ -221,7 +222,7 @@
         "bindings": [
             "Customer",
             "INACTIVE",
-            "INACTIVE",
+            "Inactive",
             "d8406377-5425-5d3a-ad86-eda54c1715ed",
             "2022-02-02 00:00:14",
             "2022-02-02 00:00:14"
@@ -234,15 +235,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "maximuston"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Maximuston",
             "Maximuston",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "a2106d42-a195-5b90-842d-6ed6653ee245",
@@ -479,15 +481,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "new jeffery"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "New Jeffery",
             "New Jeffery",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "16de77c9-f3ee-5eda-8f37-c18c8f73cde7",
@@ -703,15 +706,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "port ally"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Port Ally",
             "Port Ally",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "ebc04ae9-3252-5955-aea3-00839a141e6c",
@@ -908,15 +912,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "port justina"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Port Justina",
             "Port Justina",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "f79a63f9-ac8a-59dd-9e4f-6533ef71e097",
@@ -1014,15 +1019,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "declanville"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Declanville",
             "Declanville",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "817c9765-7705-5773-8caa-3b950caccc1b",
@@ -1485,15 +1491,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "new casper"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "New Casper",
             "New Casper",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "8f465d0e-2b48-5b68-b99f-1418dba42411",
@@ -1663,15 +1670,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "lake malloryview"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Lake Malloryview",
             "Lake Malloryview",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "7318665a-8509-5fc0-9ceb-c24eeaaebd47",
@@ -1868,15 +1876,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "hanechester"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Hanechester",
             "Hanechester",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "eae3bcd2-a185-59e7-ae4f-bf5b07184edc",
@@ -2106,15 +2115,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "bernhardberg"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Bernhardberg",
             "Bernhardberg",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "6fd2f114-cc30-55b8-867c-e9a20ade1a05",
@@ -2311,15 +2321,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "patiencemouth"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Patiencemouth",
             "Patiencemouth",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "6edb4148-576d-523d-997f-ad07aa6c7aba",
@@ -2655,15 +2666,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "jacobsberg"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Jacobsberg",
             "Jacobsberg",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "a4a76c5c-83a6-5cee-9601-28bc7de8e4f8",
@@ -2940,15 +2952,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "d'amoremouth"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "D'Amoremouth",
             "D'Amoremouth",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "af68ddb0-2f7a-5faa-a34d-e52b77de22c1",
@@ -3075,7 +3088,7 @@
         "bindings": [
             "Customer",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "f9944491-7bdd-5115-ad55-dc0a9c414b5f",
             "2022-02-02 00:03:41",
             "2022-02-02 00:03:41"
@@ -3276,15 +3289,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "lake shanaview"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Lake Shanaview",
             "Lake Shanaview",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "e312ffd4-40de-5982-8b8f-b91ad6092772",
@@ -3406,15 +3420,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "north liana"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "North Liana",
             "North Liana",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "116438a9-2d68-553a-abff-cb06cda9ffc2",
@@ -3512,15 +3527,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "mcdermottborough"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "McDermottborough",
             "McDermottborough",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "a78ff328-cfe5-5058-9279-f4acf98ba7c9",
@@ -3757,15 +3773,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "north rickyview"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "North Rickyview",
             "North Rickyview",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "31505b97-5700-5fe9-b3c6-00269cc7f6f8",
@@ -4172,15 +4189,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "new andrew"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "New Andrew",
             "New Andrew",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "01b7c598-f5f6-5dd4-8e6a-536d53b59f29",
@@ -4377,15 +4395,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "haleighfort"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Haleighfort",
             "Haleighfort",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "d7e24d11-cbbf-5a8e-826c-e5b9e0ae2f70",
@@ -5155,15 +5174,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "north sigurdfurt"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "North Sigurdfurt",
             "North Sigurdfurt",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "e1e6e527-352c-5448-8566-964400bf40f9",
@@ -5261,15 +5281,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "lake natalia"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Lake Natalia",
             "Lake Natalia",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "23082249-7bef-57a1-961b-94f74d27aec8",
@@ -5391,15 +5412,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "hamillland"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Hamillland",
             "Hamillland",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "ed847652-f3b3-5b09-9a52-a78264ffc651",
@@ -5615,15 +5637,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
             "south orphafort"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "South Orphafort",
             "South Orphafort",
             "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
             "49c72fe8-e6c8-59f3-8cb4-fe213d2e88e6",
@@ -5839,15 +5862,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "clementineside"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Clementineside",
             "Clementineside",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "56252753-3320-5bd1-8c4a-dea035701193",
@@ -6242,15 +6266,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "hartmannberg"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Hartmannberg",
             "Hartmannberg",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "1c4d420e-a137-5422-aff6-bc2a17403178",
@@ -6579,15 +6604,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "port maggie"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Port Maggie",
             "Port Maggie",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "23eaeabd-e194-5d84-9a1a-b4b762b18f70",
@@ -6739,15 +6765,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "travisbury"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Travisbury",
             "Travisbury",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "c05e69dd-8ca1-5993-b1f5-d6053e9af031",
@@ -7023,15 +7050,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "south breanna"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "South Breanna",
             "South Breanna",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "d1b94c4b-3205-5235-91d2-709a2ba07c9e",
@@ -7668,15 +7696,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "anthonyburgh"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Anthonyburgh",
             "Anthonyburgh",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "968ddf3a-0723-5ee0-9637-f751635e7612",
@@ -8359,15 +8388,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "mrazport"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Mrazport",
             "Mrazport",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "1ad5ebd5-0977-50bd-b339-a3b2c98f73f8",
@@ -8489,15 +8519,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "nikitamouth"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Nikitamouth",
             "Nikitamouth",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "cbc93adb-46ad-51c3-a5da-2460de51d6b9",
@@ -8830,15 +8861,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "west tedshire"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "West Tedshire",
             "West Tedshire",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "c295f667-9735-5b07-a57f-340e4ba0ac2e",
@@ -9054,15 +9086,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "east wilburn"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "East Wilburn",
             "East Wilburn",
             "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
             "6d7ab07a-8528-5a88-9796-b8bd100f3e91",
@@ -9254,15 +9287,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "new ewellmouth"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "New Ewellmouth",
             "New Ewellmouth",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "214ede05-8639-5c4c-8506-3ad5628f9938",
@@ -9459,15 +9493,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "alberthashire"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Alberthashire",
             "Alberthashire",
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
             "ed73c027-ba86-571b-9651-c451d5009061",
@@ -9841,15 +9876,16 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "lilymouth"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Lilymouth",
             "Lilymouth",
             "aeb75086-198f-5ff5-8100-06bf37105c09",
             "cd617fc6-1ded-5424-85c5-ff3cc678f839",

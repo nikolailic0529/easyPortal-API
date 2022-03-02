@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives;
 
-use App\GraphQL\Contracts\Translatable;
+use App\Services\I18n\Contracts\Translatable;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use stdClass;
 use Tests\GraphQL\GraphQLSuccess;
@@ -77,6 +77,13 @@ class TranslateTest extends TestCase {
 
                     public function getTranslatedProperty(string $property): string {
                         return 'translated';
+                    }
+
+                    /**
+                     * @inheritDoc
+                     */
+                    public function getDefaultTranslations(): array {
+                        return [];
                     }
                 },
             ],

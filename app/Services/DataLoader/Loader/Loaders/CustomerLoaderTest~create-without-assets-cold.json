@@ -21,7 +21,7 @@
         "bindings": [
             "Customer",
             "CUSTOMER",
-            "CUSTOMER",
+            "Customer",
             "f350c0e2-d7d5-5d95-8c8c-f277dc7740e7",
             "2022-02-02 00:00:01",
             "2022-02-02 00:00:01"
@@ -43,7 +43,7 @@
         "bindings": [
             "Customer",
             "INACTIVE",
-            "INACTIVE",
+            "Inactive",
             "eff80036-c3b7-5820-9ee7-5ed602a3fa8c",
             "2022-02-02 00:00:03",
             "2022-02-02 00:00:03"
@@ -64,15 +64,16 @@
         "bindings": []
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "lake walterland"
         ]
     },
     {
-        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
+            "Lake Walterland",
             "Lake Walterland",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
             "2103bfd2-ec0b-5bd7-96c0-109c7728abc9",

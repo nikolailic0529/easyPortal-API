@@ -147,6 +147,7 @@ class LocationFactory extends ModelFactory {
             $this->factory(function () use ($country, $name): City {
                 $city          = new City();
                 $normalizer    = $this->getNormalizer();
+                $city->key     = $normalizer->string($name);
                 $city->name    = $normalizer->string($name);
                 $city->country = $country;
 

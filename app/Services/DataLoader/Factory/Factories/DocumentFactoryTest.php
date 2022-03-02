@@ -391,11 +391,11 @@ class DocumentFactoryTest extends TestCase {
         $expected = [
             'a' => [
                 'key'  => 'a',
-                'name' => 'a',
+                'name' => 'A',
             ],
             'b' => [
                 'key'  => 'b',
-                'name' => 'b',
+                'name' => 'B',
             ],
         ];
 

@@ -66,15 +66,26 @@ class OemsImporterTest extends TestCase {
             'name' => 'should be updated',
         ]);
         $group = ServiceGroup::factory()->create([
+            'key'    => 'ABC/GA',
             'sku'    => 'GA',
             'name'   => 'should be updated',
             'oem_id' => $oem,
         ]);
+
         ServiceLevel::factory()->create([
+            'key'              => 'ABC/GA/LA',
             'sku'              => 'LA',
             'name'             => 'should be updated',
             'oem_id'           => $oem,
             'service_group_id' => $group,
+        ]);
+
+        // Add Transactions
+        $storage->save([
+            'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+            'models.ServiceLevel.unknown.description'   => 'Unknown Description',
+            'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA Name',
+            'models.ServiceLevel.ABC/GA/LA.description' => 'Level LA Description',
         ]);
 
         // Run
@@ -100,21 +111,25 @@ class OemsImporterTest extends TestCase {
             ->get()
             ->keyBy('id');
         $groupAA = [
+            'key'  => 'ABC/GA',
             'sku'  => 'GA',
             'name' => 'Group A',
             'oem'  => $oemA,
         ];
         $groupAB = [
+            'key'  => 'ABC/GB',
             'sku'  => 'GB',
             'name' => 'Group B',
             'oem'  => $oemA,
         ];
         $groupAC = [
+            'key'  => 'ABC/GC',
             'sku'  => 'GC',
             'name' => 'Group C',
             'oem'  => $oemA,
         ];
         $groupBA = [
+            'key'  => 'CBA/GA',
             'sku'  => 'GA',
             'name' => 'Group A',
             'oem'  => $oemB,
@@ -138,6 +153,7 @@ class OemsImporterTest extends TestCase {
         $this->assertEqualsCanonicalizing(
             [
                 [
+                    'key'          => "{$groupAA['key']}/LA",
                     'sku'          => 'LA',
                     'name'         => 'Level LA',
                     'description'  => "Level LA Description\nline of text",
@@ -145,6 +161,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAA,
                 ],
                 [
+                    'key'          => "{$groupAB['key']}/LB",
                     'sku'          => 'LB',
                     'name'         => 'Level LB',
                     'description'  => "Level LB Description\nline of text",
@@ -152,6 +169,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAB,
                 ],
                 [
+                    'key'          => "{$groupAC['key']}/LC",
                     'sku'          => 'LC',
                     'name'         => 'Level LC',
                     'description'  => "Level LC Description\nline of text",
@@ -159,6 +177,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAC,
                 ],
                 [
+                    'key'          => "{$groupAC['key']}/LD",
                     'sku'          => 'LD',
                     'name'         => 'Level LD',
                     'description'  => "Level LD Description\nline of text",
@@ -166,6 +185,7 @@ class OemsImporterTest extends TestCase {
                     'serviceGroup' => $groupAC,
                 ],
                 [
+                    'key'          => "{$groupBA['key']}/LA",
                     'sku'          => 'LA',
                     'name'         => 'Level LA',
                     'description'  => "Level LA Description\nline of text",
@@ -180,6 +200,8 @@ class OemsImporterTest extends TestCase {
         $translations = $storage->load();
 
         $this->assertEquals([
+            'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+            'models.ServiceLevel.unknown.description'   => 'Unknown Description',
             'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA French',
             'models.ServiceLevel.ABC/GA/LA.description' => "Level LA Description French\nline of text",
             'models.ServiceLevel.ABC/GB/LB.name'        => 'Level LB French',

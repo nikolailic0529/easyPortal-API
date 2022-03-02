@@ -1,12 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Utils\Eloquent\Concerns;
+namespace App\Services\I18n\Eloquent;
 
 use function __;
 use function in_array;
+use function reset;
 
 /**
- * @see \App\GraphQL\Contracts\Translatable
+ * @see \App\Services\I18n\Contracts\Translatable
  * @see \App\GraphQL\Directives\Directives\Translate
  *
  * @mixin \App\Utils\Eloquent\Model
@@ -15,7 +16,7 @@ trait TranslateProperties {
     public function getTranslatedProperty(string $property): string {
         // Can be translated?
         if (!in_array($property, $this->getTranslatableProperties(), true)) {
-            return $this[$property];
+            return $this->getAttribute($property);
         }
 
         // Translate
@@ -32,11 +33,27 @@ trait TranslateProperties {
         }
 
         if (!$value) {
-            $value = $this[$property];
+            $value = $this->getAttribute($property);
         }
 
         // Return
         return $value;
+    }
+
+    /**
+     * @return array<string,string>
+     */
+    public function getDefaultTranslations(): array {
+        $properties   = $this->getTranslatableProperties();
+        $translations = [];
+
+        foreach ($properties as $property) {
+            $keys               = $this->getTranslatedPropertyKeys($property);
+            $key                = reset($keys);
+            $translations[$key] = $this->getAttribute($property);
+        }
+
+        return $translations;
     }
 
     /**

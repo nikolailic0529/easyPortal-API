@@ -62,12 +62,12 @@ class WithStatusTest extends TestCase {
         $this->flushQueryLog();
 
         // If not - it should be created
-        $created = $factory->status($customer, ' New  Status ');
+        $created = $factory->status($customer, ' New  status ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals('New Status', $created->key);
+        $this->assertEquals('New status', $created->key);
         $this->assertEquals('New Status', $created->name);
         $this->assertCount(2, $this->getQueryLog());
     }

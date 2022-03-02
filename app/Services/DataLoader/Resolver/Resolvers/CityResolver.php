@@ -16,8 +16,8 @@ use Illuminate\Support\Collection;
  * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\City>
  */
 class CityResolver extends Resolver implements SingletonPersistent {
-    public function get(Country $country, string $name, Closure $factory = null): ?City {
-        return $this->resolve($this->getUniqueKey($country, $name), $factory);
+    public function get(Country $country, string $key, Closure $factory = null): ?City {
+        return $this->resolve($this->getUniqueKey($country, $key), $factory);
     }
 
     protected function getPreloadedItems(): Collection {
@@ -30,17 +30,17 @@ class CityResolver extends Resolver implements SingletonPersistent {
 
     public function getKey(Model $model): Key {
         return $model instanceof City
-            ? $this->getCacheKey($this->getUniqueKey($model->country_id, $model->name))
+            ? $this->getCacheKey($this->getUniqueKey($model->country_id, $model->key))
             : parent::getKey($model);
     }
 
     /**
-     * @return array{country_id: string, name: string}
+     * @return array{country_id: string, key: string}
      */
-    protected function getUniqueKey(Country|string $country, string $name): array {
+    protected function getUniqueKey(Country|string $country, string $key): array {
         return [
             'country_id' => $country instanceof Model ? $country->getKey() : $country,
-            'name'       => $name,
+            'key'        => $key,
         ];
     }
 }

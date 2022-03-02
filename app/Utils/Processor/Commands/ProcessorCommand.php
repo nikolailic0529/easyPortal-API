@@ -232,15 +232,15 @@ abstract class ProcessorCommand extends Command {
     }
 
     private function describeProgressBar(Formatter $formatter, ProgressBar $progress): void {
-        $progress->setMessage('???.??', 'progress',);
-        $progress->setMessage('elapsed', 'time-elapsed',);
-        $progress->setMessage('remaining', 'time-remaining',);
-        $progress->setMessage('memory', 'usage-memory',);
-        $progress->setMessage('total', 'state-total',);
-        $progress->setMessage('processed', 'state-processed',);
-        $progress->setMessage('success', 'state-success',);
-        $progress->setMessage('failed', 'state-failed',);
-        $progress->setMessage('offset', 'state-offset',);
+        $progress->setMessage('???.??', 'progress');
+        $progress->setMessage('elapsed', 'time-elapsed');
+        $progress->setMessage('remaining', 'time-remaining');
+        $progress->setMessage('memory', 'usage-memory');
+        $progress->setMessage('total', 'state-total');
+        $progress->setMessage('processed', 'state-processed');
+        $progress->setMessage('success', 'state-success');
+        $progress->setMessage('failed', 'state-failed');
+        $progress->setMessage('offset', 'state-offset');
     }
 
     private function duration(int|float $duration): string {

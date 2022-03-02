@@ -366,7 +366,7 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($city, $factory->city($country, $city->name));
+        $this->assertEquals($city, $factory->city($country, $city->key));
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
@@ -377,6 +377,7 @@ class LocationFactoryTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($country->getKey(), $created->country_id);
+        $this->assertEquals('City Name', $created->key);
         $this->assertEquals('City Name', $created->name);
         $this->assertCount(2, $this->getQueryLog());
     }

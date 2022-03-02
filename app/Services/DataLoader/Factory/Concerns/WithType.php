@@ -21,7 +21,7 @@ trait WithType {
             $normalizer         = $this->getNormalizer();
             $model->object_type = $owner->getMorphClass();
             $model->key         = $normalizer->string($type);
-            $model->name        = $normalizer->string($type);
+            $model->name        = $normalizer->name($type);
 
             $model->save();
 

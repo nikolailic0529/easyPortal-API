@@ -166,7 +166,7 @@
         "bindings": [
             "Asset",
             "ACTIVE",
-            "ACTIVE",
+            "Active",
             "5297eb43-98a7-5979-8b8d-aca88d5e71b2",
             "2022-02-02 00:00:23",
             "2022-02-02 00:00:23"
@@ -237,7 +237,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EXPOSED",
-            "EXPOSED",
+            "Exposed",
             "6716429f-fe86-55a7-a6b7-c4b8bbd50d95",
             "2022-02-02 00:00:27",
             "2022-02-02 00:00:27"
@@ -253,7 +253,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "EOSL",
-            "EOSL",
+            "Eosl",
             "053c9432-56a0-57e4-9d6b-64d83525b826",
             "2022-02-02 00:00:28",
             "2022-02-02 00:00:28"
@@ -403,7 +403,7 @@
         "bindings": []
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "eafb9a14-491f-421a-a762-d4496ea47d4d",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -422,6 +422,8 @@
             "2021-07-15 12:51:38",
             0,
             "2022-02-02 00:00:44",
+            0,
+            0,
             "2022-02-02 00:00:45",
             "2022-02-02 00:00:45"
         ]
@@ -435,7 +437,7 @@
         "bindings": []
     },
     {
-        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -454,6 +456,8 @@
             "2021-07-15 12:51:38",
             0,
             "2022-02-02 00:00:51",
+            0,
+            0,
             "2022-02-02 00:00:52",
             "2022-02-02 00:00:52"
         ]
@@ -534,7 +538,7 @@
         "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "ARCHIVED",
-            "ARCHIVED",
+            "Archived",
             "c95df996-6045-5c2d-8f53-e49c471d2aa4",
             "2022-02-02 00:01:08",
             "2022-02-02 00:01:08"

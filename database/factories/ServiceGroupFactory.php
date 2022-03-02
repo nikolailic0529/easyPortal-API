@@ -32,6 +32,7 @@ class ServiceGroupFactory extends Factory {
             'oem_id'     => static function (): Oem {
                 return Oem::factory()->create();
             },
+            'key'        => $this->faker->uuid,
             'sku'        => $this->faker->uuid,
             'name'       => $this->faker->sentence,
             'created_at' => Date::now(),
