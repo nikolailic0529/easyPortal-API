@@ -20,27 +20,27 @@ HTTP's errors with uncommon "status code".
 Any exception with "message".
 
 
-## `settings.groups.<group>`
+### `settings.groups.<group>`
 
 Setting group name.
 
 
-## `settings.descriptions.<setting>`
+### `settings.descriptions.<setting>`
 
 Description for setting.
 
 
-## `settings.services.<service>`
+### `settings.services.<service>`
 
 Description for service.
 
 
-## `settings.jobs.<service>`
+### `settings.jobs.<service>`
 
 Description for jobs.
 
 
-## `notifications.<service>.<notification>.<string>`
+### `notifications.<service>.<notification>.<string>`
 
 Default translations for Notification. 
 
