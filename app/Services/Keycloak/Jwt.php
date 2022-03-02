@@ -54,7 +54,7 @@ class Jwt {
 
     public function __construct(
         protected Repository $config,
-        protected KeyCloak $keycloak,
+        protected Keycloak $keycloak,
     ) {
         // empty
     }

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Services\Keycloak\KeyCloak;
+use App\Services\Keycloak\Keycloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -37,7 +37,7 @@ class SignOutTest extends TestCase {
 
         // Mock
         if ($keyCloakFactory) {
-            $this->override(KeyCloak::class, $keyCloakFactory);
+            $this->override(Keycloak::class, $keyCloakFactory);
         }
 
         // Test

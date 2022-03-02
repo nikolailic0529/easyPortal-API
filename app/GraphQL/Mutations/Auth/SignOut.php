@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Services\Keycloak\KeyCloak;
+use App\Services\Keycloak\Keycloak;
 
 class SignOut {
     public function __construct(
-        protected KeyCloak $keycloak,
+        protected Keycloak $keycloak,
     ) {
         // empty
     }

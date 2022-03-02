@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Auth\Organization;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Organization;
-use App\Services\Keycloak\KeyCloak;
+use App\Services\Keycloak\Keycloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -54,7 +54,7 @@ class SignInTest extends TestCase {
         // Mock
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->override(KeyCloak::class, static function (MockInterface $mock): void {
+            $this->override(Keycloak::class, static function (MockInterface $mock): void {
                 $mock
                     ->shouldReceive('getAuthorizationUrl')
                     ->once()

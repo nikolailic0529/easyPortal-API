@@ -5,11 +5,11 @@ namespace App\GraphQL\Mutations\Auth\Organization;
 use App\GraphQL\Queries\Me;
 use App\Models\Organization;
 use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
-use App\Services\Keycloak\KeyCloak;
+use App\Services\Keycloak\Keycloak;
 
 class Authorize {
     public function __construct(
-        protected KeyCloak $keycloak,
+        protected Keycloak $keycloak,
         protected Me $query,
     ) {
         // empty

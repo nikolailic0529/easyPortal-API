@@ -23,7 +23,7 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 
 use function strtr;
 
-class KeyCloak {
+class Keycloak {
     protected const STATE = 'keycloak.state';
     protected const TOKEN = 'keycloak.token';
 
