@@ -36,7 +36,7 @@ class LocationsProcessor extends Processor {
     }
 
     /**
-     * @param \App\Utils\Processor\EloquentState                                 $state
+     * @param \App\Utils\Processor\EloquentState<\App\Models\Location>           $state
      * @param \App\Services\Recalculator\Processor\Processors\LocationsChunkData $data
      * @param \App\Models\Location                                               $item
      */

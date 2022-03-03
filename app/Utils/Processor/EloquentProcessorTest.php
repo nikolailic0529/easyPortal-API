@@ -31,12 +31,10 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn($builder->getModel()::class);
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState()));
+        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+            'model' => $builder->getModel()::class,
+        ])));
     }
 
     /**
@@ -49,13 +47,10 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn($builder->getModel()::class);
 
         $this->assertSame($builder, $processor->getBuilder(new EloquentState([
-            'keys' => $keys,
+            'model' => $builder->getModel()::class,
+            'keys'  => $keys,
         ])));
     }
 
@@ -67,12 +62,9 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn($builder->getModel()::class);
 
         $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+            'model'       => $builder->getModel()::class,
             'withTrashed' => true,
         ])));
     }
@@ -90,12 +82,9 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn($builder->getModel()::class);
 
         $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+            'model'       => $builder->getModel()::class,
             'withTrashed' => true,
         ])));
     }
@@ -113,12 +102,9 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn($builder->getModel()::class);
 
         $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+            'model'       => $builder->getModel()::class,
             'withTrashed' => false,
         ])));
     }
@@ -136,12 +122,10 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn($builder->getModel()::class);
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState()));
+        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+            'model' => $builder->getModel()::class,
+        ])));
     }
 
     /**

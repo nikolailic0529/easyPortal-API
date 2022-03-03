@@ -28,7 +28,7 @@ class CustomersProcessor extends Processor {
     }
 
     /**
-     * @param \App\Utils\Processor\EloquentState                                 $state
+     * @param \App\Utils\Processor\EloquentState<\App\Models\Customer>           $state
      * @param \App\Services\Recalculator\Processor\Processors\CustomersChunkData $data
      * @param \App\Models\Customer                                               $item
      */

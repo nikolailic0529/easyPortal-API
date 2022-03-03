@@ -2,7 +2,15 @@
 
 namespace App\Utils\Processor;
 
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ */
 class EloquentState extends State {
+    /**
+     * @var class-string<TModel>
+     */
+    public string $model;
+
     /**
      * @var array<string>|null
      */
