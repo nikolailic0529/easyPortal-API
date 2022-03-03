@@ -15,12 +15,10 @@ use Elasticsearch\Client;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
@@ -169,7 +167,7 @@ class ProcessorTest extends TestCase {
                 return $model::query();
             });
 
-        $model::$builder = Mockery::mock(EloquentBuilder::class);
+        $model::$builder = Mockery::mock(Builder::class);
         $model::$builder->makePartial();
         $model::$builder
             ->shouldReceive('newModelInstance')
@@ -202,10 +200,10 @@ class ProcessorTest extends TestCase {
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-        $updater
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
             ->shouldReceive('getClient')
             ->once()
             ->andReturn($this->app->make(Client::class));
@@ -216,7 +214,7 @@ class ProcessorTest extends TestCase {
         }
 
         // Run
-        $updater->createIndex(new State([
+        $processor->createIndex(new State([
             'model' => $model,
         ]));
 
@@ -229,10 +227,10 @@ class ProcessorTest extends TestCase {
      */
     public function testSwitchIndex(): void {
         // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-        $updater
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
             ->shouldReceive('getClient')
             ->once()
             ->andReturn($this->app->make(Client::class));
@@ -246,7 +244,7 @@ class ProcessorTest extends TestCase {
         $this->createSearchIndex($index, $model->searchableAs());
 
         // Run
-        $updater->switchIndex(new State([
+        $processor->switchIndex(new State([
             'model' => $model::class,
         ]));
 
@@ -272,10 +270,10 @@ class ProcessorTest extends TestCase {
      */
     public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
         // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-        $updater
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
             ->shouldReceive('getClient')
             ->once()
             ->andReturn($this->app->make(Client::class));
@@ -286,7 +284,7 @@ class ProcessorTest extends TestCase {
         }
 
         // Test
-        $this->assertEquals($expected, $updater->isIndexActual(new State([
+        $this->assertEquals($expected, $processor->isIndexActual(new State([
             'model' => $model,
         ])));
     }
