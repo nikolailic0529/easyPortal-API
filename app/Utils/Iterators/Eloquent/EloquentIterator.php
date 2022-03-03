@@ -18,6 +18,7 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
  */
 class EloquentIterator implements ObjectIterator {
     use Subjects;
+    use ChunkSize;
     use InitialState;
 
     /**
@@ -54,7 +55,7 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function setLimit(?int $limit): static {
-        $this->iterator->setLimit($limit ?? 0);
+        $this->iterator->setLimit($limit);
 
         return $this;
     }
@@ -64,7 +65,7 @@ class EloquentIterator implements ObjectIterator {
     }
 
     public function setChunkSize(?int $chunk): static {
-        $this->iterator->setChunkSize($chunk ?? ChunkSize::getDefaultChunkSize());
+        $this->iterator->setChunkSize($chunk ?? $this->getDefaultChunkSize());
 
         return $this;
     }

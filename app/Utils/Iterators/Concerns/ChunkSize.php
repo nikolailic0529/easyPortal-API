@@ -6,7 +6,7 @@ trait ChunkSize {
     private ?int $chunkSize = null;
 
     public function getChunkSize(): int {
-        return $this->chunkSize ?? static::getDefaultChunkSize();
+        return $this->chunkSize ?? $this->getDefaultChunkSize();
     }
 
     public function setChunkSize(?int $chunk): static {
@@ -15,7 +15,7 @@ trait ChunkSize {
         return $this;
     }
 
-    public static function getDefaultChunkSize(): int {
+    public function getDefaultChunkSize(): int {
         return 250;
     }
 }
