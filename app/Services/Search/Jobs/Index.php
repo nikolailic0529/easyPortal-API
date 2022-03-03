@@ -9,6 +9,7 @@ use App\Services\Search\Processor\Processor;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
@@ -22,9 +23,9 @@ class Index extends Job implements Initializable, Progressable {
     use ProcessorJob;
 
     /**
-     * @var class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>|null
+     * @var class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>
      */
-    private ?string $model;
+    private string $model;
 
     /**
      * @var array<string|int>
@@ -40,12 +41,15 @@ class Index extends Job implements Initializable, Progressable {
         parent::__construct();
 
         if ($models !== null) {
+            $keys  = $models->map(new GetKey())->all();
             $model = $models->first();
+            $model = $model ? $model::class : null;
 
-            $this->init(
-                $model ? $model::class : null,
-                $models->map(new GetKey())->all(),
-            );
+            if ($model) {
+                $this->init($model, $keys);
+            } else {
+                throw new InvalidArgumentException('Model is unknown.');
+            }
         }
     }
 
@@ -54,9 +58,9 @@ class Index extends Job implements Initializable, Progressable {
     }
 
     /**
-     * @return class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>|null
+     * @return class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>
      */
-    public function getModel(): ?string {
+    public function getModel(): string {
         return $this->model;
     }
 
@@ -68,12 +72,12 @@ class Index extends Job implements Initializable, Progressable {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>|null $model
-     * @param array<string|int>                                                                               $keys
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param array<string|int>                                                                          $keys
      *
      * @return $this
      */
-    public function init(?string $model, array $keys): static {
+    public function init(string $model, array $keys): static {
         $this->model = $model;
         $this->keys  = $keys;
 
