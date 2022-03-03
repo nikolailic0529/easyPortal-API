@@ -35,6 +35,11 @@ use function min;
  * after each chunk that is especially useful for queued jobs to continue
  * processing after error/timeout/stop signal/etc.
  *
+ * Please note that while processing only `State` properties should be used. So
+ * if you need to pass some settings into {@see Processor::process()} you need
+ * extend the {@see \App\Utils\Processor\State} class with
+ * {@see Processor::restoreState()} and {@see Processor::defaultState()}.
+ *
  * @see \App\Utils\Iterators\Contracts\ObjectIterator
  * @see \App\Services\Queue\Concerns\ProcessorJob
  *
@@ -227,9 +232,9 @@ abstract class Processor {
     abstract protected function getIterator(State $state): ObjectIterator;
 
     /**
-     * @param TState          $state
-     * @param TChunkData|null $data
-     * @param TItem           $item
+     * @param TState     $state
+     * @param TChunkData $data
+     * @param TItem      $item
      */
     abstract protected function process(State $state, mixed $data, mixed $item): void;
 
@@ -242,7 +247,7 @@ abstract class Processor {
      * @param TState       $state
      * @param array<TItem> $items
      *
-     * @return TChunkData|null
+     * @return TChunkData
      */
     abstract protected function prefetch(State $state, array $items): mixed;
     //</editor-fold>
@@ -376,18 +381,18 @@ abstract class Processor {
     }
 
     /**
-     * @param TState          $state
-     * @param array<TItem>    $items
-     * @param TChunkData|null $data
+     * @param TState       $state
+     * @param array<TItem> $items
+     * @param TChunkData   $data
      */
     protected function chunkLoaded(State $state, array $items, mixed $data): void {
         // empty
     }
 
     /**
-     * @param TState          $state
-     * @param array<TItem>    $items
-     * @param TChunkData|null $data
+     * @param TState       $state
+     * @param array<TItem> $items
+     * @param TChunkData   $data
      */
     protected function chunkProcessed(State $state, array $items, mixed $data): void {
         // Update state
@@ -404,9 +409,9 @@ abstract class Processor {
     }
 
     /**
-     * @param TState          $state
-     * @param array<TItem>    $items
-     * @param TChunkData|null $data
+     * @param TState       $state
+     * @param array<TItem> $items
+     * @param TChunkData   $data
      */
     protected function dispatchOnChange(State $state, array $items, mixed $data): void {
         $event = $this->getOnChangeEvent($state, $items, $data);
@@ -417,9 +422,9 @@ abstract class Processor {
     }
 
     /**
-     * @param TState          $state
-     * @param array<TItem>    $items
-     * @param TChunkData|null $data
+     * @param TState       $state
+     * @param array<TItem> $items
+     * @param TChunkData   $data
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
         return null;

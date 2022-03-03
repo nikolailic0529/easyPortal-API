@@ -26,8 +26,7 @@ abstract class EloquentProcessor extends Processor {
     /**
      * @var array<string>|null
      */
-    private ?array $keys        = null;
-    private bool   $withTrashed = false;
+    private ?array $keys = null;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
@@ -52,13 +51,7 @@ abstract class EloquentProcessor extends Processor {
     }
 
     public function isWithTrashed(): bool {
-        return $this->withTrashed;
-    }
-
-    public function setWithTrashed(bool $withTrashed): static {
-        $this->withTrashed = $withTrashed;
-
-        return $this;
+        return false;
     }
     // </editor-fold>
 

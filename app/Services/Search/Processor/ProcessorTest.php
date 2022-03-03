@@ -6,23 +6,26 @@ use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Property;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Database\Factories\AssetFactory;
-use DateTimeInterface;
 use Elasticsearch\Client;
+use Exception;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Laravel\Scout\Events\ModelsImported;
-use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
+use LogicException;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithSearch;
@@ -40,23 +43,21 @@ class ProcessorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::update
+     * @covers ::process
+     * @covers ::getOnChangeEvent
      *
      * @dataProvider dataProviderModels
      *
-     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
-     * @param array<string|int>|null                                                                     $ids
+     * @param array<string|int>|null                                                                     $keys
      */
     public function testUpdate(
         Closure $expected,
         array $settings,
         string $model,
-        Closure $from = null,
-        string $continue = null,
-        array $ids = null,
+        array $keys = null,
+        bool $rebuild = false,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -69,83 +70,70 @@ class ProcessorTest extends TestCase {
             ModelsImported::class,
         ]);
 
-        // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-        $updater
-            ->shouldReceive('getConfig')
-            ->atLeast()
-            ->once()
-            ->andReturn($this->app->make(Repository::class));
-        $updater
-            ->shouldReceive('getClient')
-            ->atLeast()
-            ->once()
-            ->andReturn($this->app->make(Client::class));
-        $updater
-            ->shouldReceive('getDispatcher')
-            ->atLeast()
-            ->once()
-            ->andReturn($this->app->make(Dispatcher::class));
-
         // Prepare
         $expected    = $expected($this);
         $chunk       = 1;
-        $from        = $from ? $from($this) : null;
-        $changes     = (int) ceil(count($expected) / $chunk);
+        $changes     = $expected instanceof Collection
+            ? (int) ceil(count($expected) / $chunk)
+            : 0;
         $previous    = null;
-        $spyOnInit   = Mockery::spy(function (Status $status) use ($expected, $from, $continue): void {
-            $this->assertEquals(count($expected), $status->total);
-            $this->assertEquals($continue, $status->continue);
-            $this->assertEquals($from, $status->from);
-
+        $spyOnInit   = Mockery::spy(function (State $state) use ($expected): void {
+            $this->assertEquals(count($expected), $state->total);
             $this->assertFalse($this->app->get(Repository::class)->get('scout.queue'));
         });
-        $spyOnChange = Mockery::spy(function (Collection $items, Status $status) use (&$previous, $chunk): void {
-            $this->assertLessThanOrEqual($chunk, count($items));
-            $this->assertEquals($previous?->processed + $chunk, $status->processed);
+        $spyOnChange = Mockery::spy(function (State $state) use (&$previous, $chunk): void {
+            $this->assertEquals($previous?->processed + $chunk, $state->processed);
 
-            $previous = $status;
+            $previous = $state;
         });
-        $spyOnFinish = Mockery::spy(function (Status $status) use ($expected): void {
-            $this->assertEquals(count($expected), $status->processed);
+        $spyOnFinish = Mockery::spy(function (State $state) use ($expected): void {
+            $this->assertEquals(count($expected), $state->processed);
         });
+
+        // Error?
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject($expected);
+        }
 
         // Call
-        $updater
+        $this->app->make(Processor::class)
             ->onInit(Closure::fromCallable($spyOnInit))
             ->onChange(Closure::fromCallable($spyOnChange))
             ->onFinish(Closure::fromCallable($spyOnFinish))
-            ->update(
-                $model,
-                $from,
-                $continue,
-                $chunk,
-                $ids,
-            );
+            ->setRebuild($rebuild)
+            ->setKeys($keys)
+            ->setModel($model)
+            ->setChunkSize($chunk)
+            ->start();
 
         // Test
         $expected = $expected
             ->filter(static function (Model $model): bool {
                 return $model->shouldBeSearchable();
-            })
-            ->values();
+            });
 
         if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
             $expected = $expected
                 ->filter(static function (Model $model): bool {
                     return !$model->trashed();
-                })
-                ->values();
+                });
         }
 
-        $this->assertEquals($expected, GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($model): Collection {
-                return $model::search()->withTrashed()->get()->toBase();
-            },
-        ));
+        $this->assertEquals(
+            $expected->map(new GetKey())->sort()->values(),
+            GlobalScopes::callWithoutGlobalScope(
+                OwnedByOrganizationScope::class,
+                static function () use ($model): Collection {
+                    return $model::search()
+                        ->withTrashed()
+                        ->get()
+                        ->map(new GetKey())
+                        ->sort()
+                        ->values()
+                        ->toBase();
+                },
+            ),
+        );
 
         $spyOnInit
             ->shouldHaveBeenCalled()
@@ -161,179 +149,46 @@ class ProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::getIterator
-     *
-     * @dataProvider dataProviderModels
-     *
-     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                       $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
-     * @param array<string|int>|null                                                                     $ids
+     * @covers ::getBuilder
      */
-    public function testGetIterator(
-        Closure $expected,
-        array $settings,
-        string $model,
-        Closure $from = null,
-        string $continue = null,
-        array $ids = null,
-    ): void {
-        // Settings
-        $this->setSettings($settings);
-        $this->setSettings([
-            'scout.chunk.searchable' => 1,
-        ]);
-
+    public function testGetBuilderEagerLoading(): void {
         // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-        $updater
-            ->shouldReceive('getConfig')
-            ->once()
-            ->andReturn($this->app->make(Repository::class));
+        $model    = new class() extends Model {
+            public static Builder $builder;
 
-        // Prepare
-        $expected = $expected($this);
-        $from     = $from ? $from($this) : null;
-        $actual   = GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $continue, $ids): Collection {
-                return (new Collection($updater->getIterator($model, $from, null, $continue, $ids)))
-                    ->map(static function (Model $model): Model {
-                        return $model->withoutRelations();
-                    });
-            },
-        );
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getIterator
-     */
-    public function testGetIteratorEagerLoading(): void {
-        // Mock
-        $query = Mockery::mock(QueryBuilder::class)->makePartial();
-        $model = Mockery::mock(Model::class);
-        $model->makePartial();
-        $model
+            public static function query(): Builder {
+                return self::$builder;
+            }
+        };
+        $instance = Mockery::mock(Model::class);
+        $instance->makePartial();
+        $instance
             ->shouldReceive('makeAllSearchableUsing')
             ->once()
-            ->andReturns();
+            ->andReturnUsing(static function () use ($model): Builder {
+                return $model::query();
+            });
 
-        $builder = Mockery::mock(EloquentBuilder::class);
-        $builder->makePartial();
-        $builder
+        $model::$builder = Mockery::mock(EloquentBuilder::class);
+        $model::$builder->makePartial();
+        $model::$builder
             ->shouldReceive('newModelInstance')
             ->once()
-            ->andReturn($model);
-        $builder
+            ->andReturn($instance);
+        $model::$builder
             ->shouldReceive('getModel')
             ->once()
-            ->andReturns($model);
+            ->andReturn($instance);
 
-        $builder->setQuery($query);
-        $builder->setModel($model);
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
 
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-        $updater
-            ->shouldReceive('getConfig')
-            ->once()
-            ->andReturn($this->app->make(Repository::class));
-        $updater
-            ->shouldReceive('getBuilder')
-            ->once()
-            ->andReturn($builder);
-
-        // Test
-        $this->assertInstanceOf(
-            ChunkedChangeSafeIterator::class,
-            $updater->getIterator(Model::class, null, null, null, null),
-        );
-    }
-
-    /**
-     * @covers ::getBuilder
-     *
-     * @dataProvider dataProviderModels
-     *
-     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                       $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
-     * @param array<string|int>|null                                                                     $ids
-     */
-    public function testGetBuilder(
-        Closure $expected,
-        array $settings,
-        string $model,
-        Closure $from = null,
-        string $continue = null,
-        array $ids = null,
-    ): void {
-        // Settings
-        $this->setSettings($settings);
-
-        // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-
-        // Prepare
-        $expected = $expected($this);
-        $from     = $from ? $from($this) : null;
-        $actual   = GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $ids): Collection {
-                return $updater->getBuilder($model, $from, $ids)->get()->toBase();
-            },
-        );
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers ::getTotal
-     *
-     * @dataProvider dataProviderModels
-     *
-     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                       $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
-     * @param array<string|int>|null                                                                     $ids
-     */
-    public function testGetTotal(
-        Closure $expected,
-        array $settings,
-        string $model,
-        Closure $from = null,
-        string $continue = null,
-        array $ids = null,
-    ): void {
-        // Settings
-        $this->setSettings($settings);
-
-        // Mock
-        $updater = Mockery::mock(Processor::class);
-        $updater->shouldAllowMockingProtectedMethods();
-        $updater->makePartial();
-
-        // Prepare
-        $expected = count($expected($this));
-        $from     = $from ? $from($this) : null;
-        $actual   = GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $ids): int {
-                return $updater->getTotal($model, $from, $ids);
-            },
-        );
-
-        $this->assertEquals($expected, $actual);
+        $processor
+            ->setModel($model::class)
+            ->getBuilder(new State([
+                'model' => $processor->getModel(),
+            ]));
     }
 
     /**
@@ -361,7 +216,9 @@ class ProcessorTest extends TestCase {
         }
 
         // Run
-        $updater->createIndex($model);
+        $updater->createIndex(new State([
+            'model' => $model,
+        ]));
 
         // Test
         $this->assertSearchIndexes($expected);
@@ -389,7 +246,9 @@ class ProcessorTest extends TestCase {
         $this->createSearchIndex($index, $model->searchableAs());
 
         // Run
-        $updater->switchIndex($model::class);
+        $updater->switchIndex(new State([
+            'model' => $model::class,
+        ]));
 
         // Test
         $this->assertSearchIndexes([
@@ -427,7 +286,169 @@ class ProcessorTest extends TestCase {
         }
 
         // Test
-        $this->assertEquals($expected, $updater->isIndexActual($model));
+        $this->assertEquals($expected, $updater->isIndexActual(new State([
+            'model' => $model,
+        ])));
+    }
+
+    /**
+     * @covers ::init
+     */
+    public function testInit(): void {
+        $name      = $this->faker->word;
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('notifyOnInit')
+            ->twice()
+            ->andReturns();
+        $processor
+            ->shouldReceive('createIndex')
+            ->once()
+            ->andReturn($name);
+
+        // Update
+        $state = new State(['rebuild' => false]);
+
+        $processor->init($state);
+
+        $this->assertNull($state->name);
+
+        // Rebuild
+        $state = new State(['rebuild' => true]);
+
+        $processor->init($state);
+
+        $this->assertEquals($name, $state->name);
+    }
+
+    /**
+     * @covers ::finish
+     */
+    public function testFinish(): void {
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('notifyOnFinish')
+            ->twice()
+            ->andReturns();
+        $processor
+            ->shouldReceive('switchIndex')
+            ->once()
+            ->andReturns();
+
+        $processor->finish(new State(['rebuild' => false]));
+        $processor->finish(new State(['rebuild' => true]));
+    }
+
+    /**
+     * @covers ::process
+     *
+     * @dataProvider dataProviderProcess
+     *
+     * @param array<string, mixed> $settings
+     */
+    public function testProcess(
+        bool $expected,
+        array $settings,
+        bool $modelSearchable,
+        bool $modelSoftDeletes,
+        ?bool $modelTrashed,
+    ): void {
+        // Settings
+        $this->setSettings($settings);
+
+        // Mock
+        $as    = $this->faker->word;
+        $index = $this->faker->randomElement([null, $this->faker->word]);
+        $model = $modelSoftDeletes
+            ? Mockery::mock(ProcessorTest__ModelSoftDeletes::class)
+            : Mockery::mock(Model::class);
+        $model
+            ->shouldReceive('shouldBeSearchable')
+            ->once()
+            ->andReturn($modelSearchable);
+        $model
+            ->shouldReceive('searchableAs')
+            ->once()
+            ->andReturn($as);
+        $model
+            ->shouldReceive('setSearchableAs')
+            ->with($index)
+            ->once()
+            ->andReturnSelf();
+        $model
+            ->shouldReceive('setSearchableAs')
+            ->with($as)
+            ->once()
+            ->andReturnSelf();
+
+        if ($modelSoftDeletes && $modelTrashed !== null) {
+            $model
+                ->shouldReceive('trashed')
+                ->once()
+                ->andReturn($modelTrashed);
+        }
+
+        if ($expected) {
+            $model
+                ->shouldReceive('searchable')
+                ->once()
+                ->andReturns();
+        } else {
+            $model
+                ->shouldReceive('unsearchable')
+                ->once()
+                ->andReturns();
+        }
+
+        // Test
+        $state     = new State(['name' => $index]);
+        $config    = $this->app->make(Repository::class);
+        $processor = new class($config) extends Processor {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Repository $config,
+            ) {
+                // empty
+            }
+
+            protected function getConfig(): Repository {
+                return $this->config;
+            }
+
+            public function process(ProcessorState $state, mixed $data, mixed $item): void {
+                parent::process($state, $data, $item);
+            }
+        };
+
+        $processor->process($state, null, $model);
+    }
+
+    /**
+     * @covers ::defaultState
+     */
+    public function testDefaultState(): void {
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getModel')
+            ->once()
+            ->andReturn(Model::class);
+
+        $this->assertEquals(
+            [
+                'model'       => Model::class,
+                'keys'        => null,
+                'withTrashed' => true,
+                'rebuild'     => true,
+                'name'        => null,
+            ],
+            $processor->setRebuild(true)->defaultState([]),
+        );
     }
     // </editor-fold>
 
@@ -541,36 +562,14 @@ class ProcessorTest extends TestCase {
      */
     public function dataProviderModels(): array {
         return [
-            'models with `from` and `continue`'                 => [
-                static function (TestCase $test): Collection {
-                    // Old
-                    Asset::factory()->create([
-                        'id'         => '3a25b90c-9022-4eea-a3f5-be5285152794',
-                        'updated_at' => Date::now()->subDay(),
-                    ]);
-
-                    // < continue
-                    Asset::factory()->create([
-                        'id'         => '3ea13c8b-b024-44c7-94ec-3877f5785152',
-                        'updated_at' => Date::now()->subDay(),
-                    ]);
-
-                    // Soft Deleted
+            'all'                 => [
+                static function (): Collection {
+                    // Models
                     $a = Asset::factory()->create([
-                        'id'         => '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
-                        'updated_at' => Date::now()->addDay(),
                         'deleted_at' => Date::now(),
                     ]);
-
-                    // Actual
-                    $b = Asset::factory()->create([
-                        'id'         => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-                    $c = Asset::factory()->create([
-                        'id'         => 'c7810bc4-911e-4639-96ca-ba44344fcd6c',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
+                    $b = Asset::factory()->create();
+                    $c = Asset::factory()->create();
 
                     // Return
                     return new Collection([$a, $b, $c]);
@@ -579,98 +578,31 @@ class ProcessorTest extends TestCase {
                     // empty
                 ],
                 Asset::class,
-                static function (TestCase $test): DateTimeInterface {
-                    return Date::now();
-                },
-                '3ea13c8b-b024-44c7-94ec-3877f5785152',
                 null,
+                true,
             ],
-            'models without `from` and `continue`'              => [
-                static function (TestCase $test): Collection {
-                    // Old
+            'all + softDelete'    => [
+                static function (): Collection {
+                    // Models
                     $a = Asset::factory()->create([
-                        'id'         => '3a25b90c-9022-4eea-a3f5-be5285152794',
-                        'updated_at' => Date::now()->subDay(),
-                    ]);
-
-                    // < continue
-                    $b = Asset::factory()->create([
-                        'id'         => '3ea13c8b-b024-44c7-94ec-3877f5785152',
-                        'updated_at' => Date::now()->subDay(),
-                    ]);
-
-                    // Soft Deleted
-                    $c = Asset::factory()->create([
-                        'id'         => '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
-                        'updated_at' => Date::now()->addDay(),
                         'deleted_at' => Date::now(),
                     ]);
-
-                    // Actual
-                    $d = Asset::factory()->create([
-                        'id'         => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-                    $e = Asset::factory()->create([
-                        'id'         => 'c7810bc4-911e-4639-96ca-ba44344fcd6c',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
+                    $b = Asset::factory()->create();
+                    $c = Asset::factory()->create();
 
                     // Return
-                    return new Collection([$a, $b, $c, $d, $e]);
-                },
-                [
-                    // empty
-                ],
-                Asset::class,
-                null,
-                null,
-                null,
-            ],
-            'models without `from` and `continue` + softDelete' => [
-                static function (TestCase $test): Collection {
-                    // Old
-                    $a = Asset::factory()->create([
-                        'id'         => '3a25b90c-9022-4eea-a3f5-be5285152794',
-                        'updated_at' => Date::now()->subDay(),
-                    ]);
-
-                    // < continue
-                    $b = Asset::factory()->create([
-                        'id'         => '3ea13c8b-b024-44c7-94ec-3877f5785152',
-                        'updated_at' => Date::now()->subDay(),
-                    ]);
-
-                    // Soft Deleted
-                    $c = Asset::factory()->create([
-                        'id'         => '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
-                        'updated_at' => Date::now()->addDay(),
-                        'deleted_at' => Date::now(),
-                    ]);
-
-                    // Actual
-                    $d = Asset::factory()->create([
-                        'id'         => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-                    $e = Asset::factory()->create([
-                        'id'         => 'c7810bc4-911e-4639-96ca-ba44344fcd6c',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-
-                    // Return
-                    return new Collection([$a, $b, $c, $d, $e]);
+                    return new Collection([$a, $b, $c]);
                 },
                 [
                     'scout.soft_delete' => true,
                 ],
                 Asset::class,
                 null,
-                null,
-                null,
+                true,
             ],
-            'models with `ids`'                                 => [
-                static function (TestCase $test): Collection {
+            'keys'                => [
+                static function (): Collection {
+                    // Models
                     $a = Asset::factory()->create([
                         'id' => '3a25b90c-9022-4eea-a3f5-be5285152794',
                     ]);
@@ -689,16 +621,29 @@ class ProcessorTest extends TestCase {
                     // empty
                 ],
                 Asset::class,
-                null,
-                null,
                 [
                     '3a25b90c-9022-4eea-a3f5-be5285152794',
                     '3ea13c8b-b024-44c7-94ec-3877f5785152',
                 ],
+                false,
             ],
-            'unsearchable models'                               => [
-                static function (TestCase $test): Collection {
-                    $a = UpdaterTest_UnsearchableAsset::factory()->create([
+            'rebuild with keys'   => [
+                static function (): Exception {
+                    return new LogicException('Rebuild is not possible because keys are specified.');
+                },
+                [
+                    // empty
+                ],
+                Asset::class,
+                [
+                    'afe6f959-afa4-4b2e-8a77-aa8549ed144e',
+                ],
+                true,
+            ],
+            'unsearchable models' => [
+                static function (): Collection {
+                    // Models
+                    $a = ProcessorTest_UnsearchableAsset::factory()->create([
                         'id' => '3a25b90c-9022-4eea-a3f5-be5285152794',
                     ]);
 
@@ -708,10 +653,9 @@ class ProcessorTest extends TestCase {
                 [
                     // empty
                 ],
-                UpdaterTest_UnsearchableAsset::class,
+                ProcessorTest_UnsearchableAsset::class,
                 null,
-                null,
-                null,
+                true,
             ],
         ];
     }
@@ -782,6 +726,51 @@ class ProcessorTest extends TestCase {
             ],
         ];
     }
+
+    /**
+     * @return array<string, array{bool, array<string,mixed>, bool, bool, ?bool}>
+     */
+    public function dataProviderProcess(): array {
+        return [
+            'searchable'                             => [
+                true,
+                [],
+                true,
+                false,
+                false,
+            ],
+            'unsearchable'                           => [
+                false,
+                [],
+                false,
+                false,
+                false,
+            ],
+            'searchable + SoftDeletes + not trashed' => [
+                true,
+                [],
+                true,
+                true,
+                false,
+            ],
+            'searchable + SoftDeletes + trashed'     => [
+                false,
+                [],
+                true,
+                true,
+                true,
+            ],
+            'searchable + SoftDeletes + indexed'     => [
+                true,
+                [
+                    'scout.soft_delete' => true,
+                ],
+                true,
+                true,
+                null,
+            ],
+        ];
+    }
     // </editor-fold>
 }
 
@@ -792,7 +781,7 @@ class ProcessorTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class UpdaterTest_UnsearchableAsset extends Asset {
+class ProcessorTest_UnsearchableAsset extends Asset {
     /**
      * @param array<string,mixed> $attributes
      */
@@ -800,7 +789,7 @@ class UpdaterTest_UnsearchableAsset extends Asset {
         parent::__construct($attributes);
 
         Relation::morphMap([
-            'UpdaterTest_UnsearchableAsset' => $this::class,
+            'ProcessorTest_UnsearchableAsset' => $this::class,
         ]);
     }
 
@@ -809,7 +798,7 @@ class UpdaterTest_UnsearchableAsset extends Asset {
     }
 
     protected static function newFactory(): Factory {
-        return new UpdaterTest_UnsearchableAssetFactory();
+        return new ProcessorTest_UnsearchableAssetFactory();
     }
 }
 
@@ -817,7 +806,7 @@ class UpdaterTest_UnsearchableAsset extends Asset {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class UpdaterTest_UnsearchableAssetFactory extends AssetFactory {
+class ProcessorTest_UnsearchableAssetFactory extends AssetFactory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -825,6 +814,16 @@ class UpdaterTest_UnsearchableAssetFactory extends AssetFactory {
      *
      * @var string
      */
-    protected $model = UpdaterTest_UnsearchableAsset::class;
+    protected $model = ProcessorTest_UnsearchableAsset::class;
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @see          https://github.com/mockery/mockery/issues/1022
+ */
+abstract class ProcessorTest__ModelSoftDeletes extends Model {
+    use SoftDeletes;
 }
 // @phpcs:enable

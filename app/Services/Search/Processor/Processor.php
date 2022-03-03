@@ -2,12 +2,12 @@
 
 namespace App\Services\Search\Processor;
 
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Search\Configuration;
 use App\Services\Search\Exceptions\FailedToIndex;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\ModelHelper;
+use App\Utils\Processor\EloquentProcessor;
+use App\Utils\Processor\State as ProcessorState;
 use Closure;
-use DateTimeInterface;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -15,205 +15,186 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Laravel\Scout\Events\ModelsImported;
-use Laravel\Telescope\Telescope;
-use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
+use LogicException;
 use Throwable;
 
 use function array_filter;
 use function array_keys;
+use function array_merge;
 use function array_values;
 
-class Processor {
-    protected ?Closure $onInit   = null;
-    protected ?Closure $onChange = null;
-    protected ?Closure $onFinish = null;
+/**
+ * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
+ * @template TState of \App\Services\Search\Processor\State<TItem>
+ *
+ * @extends \App\Utils\Processor\EloquentProcessor<TItem, null, TState>
+ */
+class Processor extends EloquentProcessor {
+    /**
+     * @var class-string<TItem>
+     */
+    private string $model;
+    private bool   $rebuild;
 
     public function __construct(
-        protected Repository $config,
-        protected Dispatcher $dispatcher,
-        protected Client $client,
-        protected ExceptionHandler $exceptionHandler,
+        ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
+        private Repository $config,
+        private Client $client,
     ) {
-        // empty
+        parent::__construct($exceptionHandler, $dispatcher);
     }
 
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
     protected function getConfig(): Repository {
         return $this->config;
-    }
-
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
     }
 
     protected function getClient(): Client {
         return $this->client;
     }
 
-    protected function getExceptionHandler(): ExceptionHandler {
-        return $this->exceptionHandler;
-    }
-
-    public function onInit(?Closure $closure): static {
-        $this->onInit = $closure;
-
-        return $this;
-    }
-
-    public function onChange(?Closure $closure): static {
-        $this->onChange = $closure;
-
-        return $this;
-    }
-
-    public function onFinish(?Closure $closure): static {
-        $this->onFinish = $closure;
-
-        return $this;
+    public function getModel(): string {
+        return $this->model;
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string|int>|null                                                                     $ids
+     * @param class-string<TItem> $model
      */
-    public function update(
-        string $model,
-        DateTimeInterface $from = null,
-        string|int $continue = null,
-        int $chunk = null,
-        array $ids = null,
-    ): void {
-        $this->call(function () use ($model, $from, $continue, $chunk, $ids): void {
-            $index    = $this->createIndex($model);
-            $status   = new Status($from, $continue, $this->getTotal($model, $from, $ids));
-            $iterator = $this
-                ->getIterator($model, $from, $chunk, $continue, $ids)
-                ->onBeforeChunk(function (Collection $items) use ($status): void {
-                    $this->onBeforeChunk($items, $status);
-                })
-                ->onAfterChunk(function (Collection $items) use (&$iterator, $status): void {
-                    $this->onAfterChunk($items, $status, $iterator->getOffset());
-                });
+    public function setModel(string $model): static {
+        $this->model = $model;
 
-            $this->onBeforeImport($status);
-
-            foreach ($iterator as $item) {
-                /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $item */
-                try {
-                    $isTrashed                   = $item->trashed();
-                    $isUnsearchable              = !$item->shouldBeSearchable();
-                    $isSoftDeletableModel        = (new ModelHelper($item))->isSoftDeletable();
-                    $isSoftDeletableIndexed      = (bool) $this->getConfig()->get('scout.soft_delete', false);
-                    $isSoftDeletableUnsearchable = $isSoftDeletableModel && !$isSoftDeletableIndexed && $isTrashed;
-
-                    if ($isUnsearchable || $isSoftDeletableUnsearchable) {
-                        $item->setSearchableAs($index)->unsearchable();
-                    } else {
-                        $item->setSearchableAs($index)->searchable();
-                    }
-                } catch (Throwable $exception) {
-                    $this->getExceptionHandler()->report(
-                        new FailedToIndex($item, $exception),
-                    );
-                } finally {
-                    $status->processed++;
-                }
-            }
-
-            $this->switchIndex($model);
-            $this->onAfterImport($status);
-        });
+        return $this;
     }
 
-    private function call(Closure $closure): void {
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($closure): void {
-            $this->callWithoutScoutQueue(static function () use ($closure): void {
-                // Telescope should be disabled because it stored all data in memory
-                // and will dump it only after the job/command/request is finished.
-                // For long-running jobs, this will lead to huge memory usage
-
-                Telescope::withoutRecording($closure);
-            });
-        });
+    public function isRebuild(): bool {
+        return $this->rebuild;
     }
 
-    private function callWithoutScoutQueue(Closure $closure): mixed {
-        $key      = 'scout.queue';
-        $config   = $this->getConfig();
-        $previous = $config->get($key);
+    public function setRebuild(bool $rebuild): static {
+        $this->rebuild = $rebuild;
 
+        $this->setKeys(null);
+
+        return $this;
+    }
+
+    public function isWithTrashed(): bool {
+        return true;
+    }
+
+    public function getDefaultChunkSize(): int {
+        return (int) $this->getConfig()->get('scout.chunk.searchable')
+            ?: parent::getDefaultChunkSize();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Processor">
+    // =========================================================================
+    protected function init(ProcessorState $state): void {
+        if ($state->rebuild) {
+            $state->name = $this->createIndex($state);
+        }
+
+        parent::init($state);
+    }
+
+    protected function finish(ProcessorState $state): void {
+        if ($state->rebuild) {
+            $this->switchIndex($state);
+        }
+
+        parent::finish($state);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function prefetch(ProcessorState $state, array $items): mixed {
+        return null;
+    }
+
+    /**
+     * @param \App\Services\Search\Processor\State<TItem>                                  $state
+     * @param \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $item
+     */
+    protected function process(ProcessorState $state, mixed $data, mixed $item): void {
         try {
-            $config->set($key, false);
+            $as                          = $item->searchableAs();
+            $item                        = $item->setSearchableAs($state->name);
+            $isUnsearchable              = !$item->shouldBeSearchable();
+            $isSoftDeletableModel        = (new ModelHelper($item))->isSoftDeletable();
+            $isSoftDeletableIndexed      = (bool) $this->getConfig()->get('scout.soft_delete', false);
+            $isSoftDeletableUnsearchable = !$isSoftDeletableIndexed && $isSoftDeletableModel && $item->trashed();
 
-            return $closure();
+            if ($isUnsearchable || $isSoftDeletableUnsearchable) {
+                $item->unsearchable();
+            } else {
+                $item->searchable();
+            }
         } finally {
-            $config->set($key, $previous);
+            $item->setSearchableAs($as);
         }
     }
 
-    /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
-     * @param array<string|int>|null                            $ids
-     */
-    protected function getIterator(
-        string $model,
-        ?DateTimeInterface $from,
-        ?int $chunk,
-        int|string|null $continue,
-        array|null $ids,
-    ): ChunkedChangeSafeIterator {
-        $chunk    = $chunk ?? $this->getConfig()->get('scout.chunk.searchable') ?? null;
-        $iterator = $this->getBuilder($model, $from, $ids)
-            ->when(true, static function (Builder $builder): void {
-                $builder->newModelInstance()->makeAllSearchableUsing($builder);
-            })
-            ->getChangeSafeIterator()
-            ->setLimit(null);
-
-        if ($chunk) {
-            $iterator->setChunkSize($chunk);
-        }
-
-        if ($continue) {
-            $iterator->setOffset($continue);
-        }
-
-        return $iterator;
+    protected function report(Throwable $exception, mixed $item = null): void {
+        $this->getExceptionHandler()->report(
+            new FailedToIndex($this, $item, $exception),
+        );
     }
 
-    /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
-     * @param array<string|int>|null                            $ids
-     */
-    protected function getBuilder(string $model, DateTimeInterface $from = null, array $ids = null): Builder {
-        $trashed = (new ModelHelper($model))->isSoftDeletable();
-        $builder = $model::query()
-            ->when($ids, static function (Builder $builder) use ($ids): void {
-                $builder->whereIn($builder->getModel()->getKeyName(), $ids);
-            })
-            ->when($from, static function (Builder $builder) use ($from): void {
-                $builder->where($builder->getModel()->getUpdatedAtColumn(), '>=', $from);
-            })
-            ->when($trashed, static function (Builder $builder): void {
-                $builder->withTrashed();
-            });
+    protected function getBuilder(ProcessorState $state): Builder {
+        $builder = parent::getBuilder($state);
+        $builder = $builder->newModelInstance()->makeAllSearchableUsing($builder);
 
         return $builder;
     }
+    //</editor-fold>
 
+    // <editor-fold desc="Events">
+    // =========================================================================
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
-     * @param array<string|int>|null                            $ids
+     * @inheritDoc
      */
-    protected function getTotal(string $model, DateTimeInterface $from = null, array $ids = null): ?int {
-        return $this->getBuilder($model, $from, $ids)->count();
+    protected function getOnChangeEvent(ProcessorState $state, array $items, mixed $data): ?object {
+        // Also needed for `scout:import`
+        return new ModelsImported(new Collection($items));
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new State($state);
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @inheritDoc
      */
-    public function isIndexActual(string $model): bool {
+    protected function defaultState(array $state): array {
+        if ($this->isRebuild() && $this->getKeys() !== null) {
+            throw new LogicException('Rebuild is not possible because keys are specified.');
+        }
+
+        return array_merge(parent::defaultState($state), [
+            'rebuild' => $this->isRebuild(),
+            'name'    => null,
+        ]);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Index">
+    // =========================================================================
+    /**
+     * todo(!): Not needed?
+     */
+    public function isIndexActual(State $state): bool {
         $client = $this->getClient()->indices();
-        $config = (new $model())->getSearchConfiguration();
+        $config = $this->getSearchConfiguration($state);
         $alias  = $config->getIndexAlias();
         $index  = $config->getIndexName();
 
@@ -221,12 +202,9 @@ class Processor {
             && $client->existsAlias(['name' => $alias, 'index' => $index]);
     }
 
-    /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     */
-    protected function createIndex(string $model): string {
+    protected function createIndex(State $state): string {
         $client = $this->getClient()->indices();
-        $config = (new $model())->getSearchConfiguration();
+        $config = $this->getSearchConfiguration($state);
         $alias  = $config->getIndexAlias();
         $index  = $config->getIndexName();
 
@@ -256,13 +234,10 @@ class Processor {
         return $index;
     }
 
-    /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     */
-    protected function switchIndex(string $model): void {
+    protected function switchIndex(State $state): void {
         // Prepare
         $client  = $this->getClient()->indices();
-        $config  = (new $model())->getSearchConfiguration();
+        $config  = $this->getSearchConfiguration($state);
         $alias   = $config->getIndexAlias();
         $index   = $config->getIndexName();
         $indexes = array_keys($client->getAlias());
@@ -295,33 +270,44 @@ class Processor {
         ]);
     }
 
-    protected function onBeforeChunk(Collection $items, Status $status): void {
-        // Empty
+    /**
+     * @param TState $state
+     */
+    protected function getSearchConfiguration(State $state): Configuration {
+        $model  = $state->model;
+        $config = (new $model())->getSearchConfiguration();
+
+        return $config;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    protected function call(Closure $callback): mixed {
+        return $this->callWithoutScoutQueue(function () use ($callback): mixed {
+            return parent::call($callback);
+        });
     }
 
-    protected function onAfterChunk(Collection $items, Status $status, string|int|null $continue): void {
-        // Event (needed for scout:import)
-        $this->getDispatcher()->dispatch(new ModelsImported($items));
+    /**
+     * @template T
+     *
+     * @param \Closure(): T $callback
+     *
+     * @return T
+     */
+    private function callWithoutScoutQueue(Closure $closure): mixed {
+        $key      = 'scout.queue';
+        $config   = $this->getConfig();
+        $previous = $config->get($key);
 
-        // Update status
-        $status->continue = $continue;
-        $status->chunk++;
+        try {
+            $config->set($key, false);
 
-        // Call callback
-        if ($this->onChange) {
-            ($this->onChange)($items, clone $status);
+            return $closure();
+        } finally {
+            $config->set($key, $previous);
         }
     }
-
-    protected function onBeforeImport(Status $status): void {
-        if ($this->onInit) {
-            ($this->onInit)(clone $status);
-        }
-    }
-
-    protected function onAfterImport(Status $status): void {
-        if ($this->onFinish) {
-            ($this->onFinish)(clone $status);
-        }
-    }
+    // </editor-fold>
 }
