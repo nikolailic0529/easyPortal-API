@@ -28,9 +28,9 @@ use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Search\Commands\RebuildIndex as SearchRebuildIndex;
-use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
-use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
-use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
+use App\Services\Search\Jobs\Cron\AssetsIndexer as SearchAssetsUpdaterCronJob;
+use App\Services\Search\Jobs\Cron\CustomersIndexer as SearchCustomersUpdaterCronJob;
+use App\Services\Search\Jobs\Cron\DocumentsIndexer as SearchDocumentsUpdaterCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 

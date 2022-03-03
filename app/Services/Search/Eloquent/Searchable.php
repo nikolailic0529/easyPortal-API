@@ -131,7 +131,11 @@ trait Searchable {
     }
 
     public static function makeAllSearchable(int $chunk = null): void {
-        app(Processor::class)->update(static::class, chunk: $chunk);
+        app(Processor::class)
+            ->setModel(static::class)
+            ->setRebuild(true)
+            ->setChunkSize($chunk)
+            ->start();
     }
 
     public function makeAllSearchableUsing(Builder $query): Builder {

@@ -8,7 +8,7 @@ use App\Models\ServiceLevel;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\ScopeWithMetadata;
-use App\Services\Search\Jobs\UpdateIndexJob;
+use App\Services\Search\Jobs\Index;
 use App\Services\Search\Processor\Processor;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
@@ -228,11 +228,26 @@ class SearchableTest extends TestCase {
             }
         };
 
-        $this->override(Processor::class, static function (MockInterface $updater) use ($model, $chunk): void {
-            $updater
-                ->shouldReceive('update')
-                ->with($model::class, null, null, $chunk)
-                ->once();
+        $this->override(Processor::class, static function (MockInterface $processor) use ($model, $chunk): void {
+            $processor
+                ->shouldReceive('setModel')
+                ->with($model::class)
+                ->once()
+                ->andReturnSelf();
+            $processor
+                ->shouldReceive('setRebuild')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $processor
+                ->shouldReceive('setChunkSize')
+                ->with($chunk)
+                ->once()
+                ->andReturnSelf();
+            $processor
+                ->shouldReceive('start')
+                ->once()
+                ->andReturns();
         });
 
         $model->makeAllSearchable($chunk);
@@ -372,7 +387,7 @@ class SearchableTest extends TestCase {
 
         $model->queueMakeSearchable(new Collection([$model]));
 
-        Queue::assertPushed(UpdateIndexJob::class);
+        Queue::assertPushed(Index::class);
     }
 
     /**
@@ -403,7 +418,7 @@ class SearchableTest extends TestCase {
 
         $model->queueRemoveFromSearch(new Collection([$model]));
 
-        Queue::assertPushed(UpdateIndexJob::class);
+        Queue::assertPushed(Index::class);
     }
 
     /**

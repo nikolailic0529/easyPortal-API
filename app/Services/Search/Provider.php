@@ -6,7 +6,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\GraphQL\ModelConverter;
 use App\Services\Search\GraphQL\ScoutColumnResolver;
-use App\Services\Search\Jobs\UpdateIndexJob;
+use App\Services\Search\Jobs\Index;
 use App\Services\Search\Listeners\IndexExpiredListener;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Contracts\Container\Container;
@@ -30,8 +30,8 @@ class Provider extends ServiceProvider {
     }
 
     protected function registerJobs(): void {
-        Scout::$makeSearchableJob   = UpdateIndexJob::class;
-        Scout::$removeFromSearchJob = UpdateIndexJob::class;
+        Scout::$makeSearchableJob   = Index::class;
+        Scout::$removeFromSearchJob = Index::class;
     }
 
     protected function registerBindings(): void {

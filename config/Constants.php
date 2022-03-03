@@ -24,9 +24,9 @@ use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator as RecalculatorCustomersRecalculator;
 use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator as RecalculatorLocationsRecalculator;
 use App\Services\Recalculator\Jobs\Cron\ResellersRecalculator as RecalculatorResellersRecalculator;
-use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
-use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
-use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
+use App\Services\Search\Jobs\Cron\AssetsIndexer as SearchAssetsIndexer;
+use App\Services\Search\Jobs\Cron\CustomersIndexer as SearchCustomersIndexer;
+use App\Services\Search\Jobs\Cron\DocumentsIndexer as SearchDocumentsIndexer;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
@@ -1340,14 +1340,14 @@ interface Constants {
     /**
      * Enabled? Probably should be disabled. The job runs automatically if needed.
      */
-    #[Service(SearchCustomersUpdaterCronJob::class, 'enabled')]
+    #[Service(SearchCustomersIndexer::class, 'enabled')]
     #[Group('search')]
     public const EP_SEARCH_CUSTOMERS_UPDATER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(SearchCustomersUpdaterCronJob::class, 'cron')]
+    #[Service(SearchCustomersIndexer::class, 'cron')]
     #[Group('search')]
     #[Type(CronExpression::class)]
     public const EP_SEARCH_CUSTOMERS_UPDATER_CRON = '0 0 1 * *';
@@ -1355,14 +1355,14 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(SearchCustomersUpdaterCronJob::class, 'queue')]
+    #[Service(SearchCustomersIndexer::class, 'queue')]
     #[Group('search')]
     public const EP_SEARCH_CUSTOMERS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(SearchCustomersUpdaterCronJob::class, 'timeout')]
+    #[Service(SearchCustomersIndexer::class, 'timeout')]
     #[Group('search')]
     #[Type(IntType::class)]
     public const EP_SEARCH_CUSTOMERS_UPDATER_TIMEOUT = 6 * 60 * 60;
@@ -1373,14 +1373,14 @@ interface Constants {
     /**
      * Enabled? Probably should be disabled. The job runs automatically if needed.
      */
-    #[Service(SearchDocumentsUpdaterCronJob::class, 'enabled')]
+    #[Service(SearchDocumentsIndexer::class, 'enabled')]
     #[Group('search')]
     public const EP_SEARCH_DOCUMENTS_UPDATER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(SearchDocumentsUpdaterCronJob::class, 'cron')]
+    #[Service(SearchDocumentsIndexer::class, 'cron')]
     #[Group('search')]
     #[Type(CronExpression::class)]
     public const EP_SEARCH_DOCUMENTS_UPDATER_CRON = '0 0 1 * *';
@@ -1388,14 +1388,14 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(SearchDocumentsUpdaterCronJob::class, 'queue')]
+    #[Service(SearchDocumentsIndexer::class, 'queue')]
     #[Group('search')]
     public const EP_SEARCH_DOCUMENTS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(SearchDocumentsUpdaterCronJob::class, 'timeout')]
+    #[Service(SearchDocumentsIndexer::class, 'timeout')]
     #[Group('search')]
     #[Type(IntType::class)]
     public const EP_SEARCH_DOCUMENTS_UPDATER_TIMEOUT = 24 * 60 * 60;
@@ -1406,14 +1406,14 @@ interface Constants {
     /**
      * Enabled? Probably should be disabled. The job runs automatically if needed.
      */
-    #[Service(SearchAssetsUpdaterCronJob::class, 'enabled')]
+    #[Service(SearchAssetsIndexer::class, 'enabled')]
     #[Group('search')]
     public const EP_SEARCH_ASSETS_UPDATER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(SearchAssetsUpdaterCronJob::class, 'cron')]
+    #[Service(SearchAssetsIndexer::class, 'cron')]
     #[Group('search')]
     #[Type(CronExpression::class)]
     public const EP_SEARCH_ASSETS_UPDATER_CRON = '0 0 1 * *';
@@ -1421,14 +1421,14 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(SearchAssetsUpdaterCronJob::class, 'queue')]
+    #[Service(SearchAssetsIndexer::class, 'queue')]
     #[Group('search')]
     public const EP_SEARCH_ASSETS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(SearchAssetsUpdaterCronJob::class, 'timeout')]
+    #[Service(SearchAssetsIndexer::class, 'timeout')]
     #[Group('search')]
     #[Type(IntType::class)]
     public const EP_SEARCH_ASSETS_UPDATER_TIMEOUT = 24 * 60 * 60;

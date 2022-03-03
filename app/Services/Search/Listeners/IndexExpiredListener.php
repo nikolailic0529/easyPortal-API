@@ -5,7 +5,7 @@ namespace App\Services\Search\Listeners;
 use App\Events\Subscriber;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Events\ModelsRecalculated;
-use App\Services\Search\Jobs\UpdateIndexJob;
+use App\Services\Search\Jobs\Index;
 use App\Services\Search\Service;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -49,8 +49,8 @@ class IndexExpiredListener implements Subscriber {
         $keys = array_values($keys);
 
         if ($keys) {
-            $this->container->make(UpdateIndexJob::class)
-                ->setModels($model, $keys)
+            $this->container->make(Index::class)
+                ->init($model, $keys)
                 ->dispatch();
         }
     }
