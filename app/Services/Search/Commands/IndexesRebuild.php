@@ -56,11 +56,9 @@ class IndexesRebuild extends ProcessorCommand {
             $this->output->writeln("Processing `<info>{$model}</info>`:");
 
             try {
-                $processor = $container->make(Processor::class)->setModel($model)->setRebuild(true);
-                $job       = $service->getSearchableModelJob($model);
-
-                if ($job) {
-                    $result += $this->process($formatter, $processor);
+                if ($service->isSearchableModel($model)) {
+                    $processor = $container->make(Processor::class)->setModel($model)->setRebuild(true);
+                    $result   += $this->process($formatter, $processor);
                 } else {
                     $this->warn('    not searchable');
 

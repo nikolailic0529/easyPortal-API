@@ -40,7 +40,7 @@ class Index extends Job implements Initializable, Progressable {
     public function __construct(?Collection $models = null) {
         parent::__construct();
 
-        if ($models !== null) {
+        if ($models !== null && !$models->isEmpty()) {
             $keys  = $models->map(new GetKey())->all();
             $model = $models->first();
             $model = $model ? $model::class : null;

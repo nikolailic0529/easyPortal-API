@@ -39,7 +39,7 @@ class Service extends BaseService {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
      *
      * @return class-string<\App\Services\Search\Jobs\Cron\Indexer>|null
      */
