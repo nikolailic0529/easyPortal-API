@@ -11,7 +11,7 @@ use Throwable;
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model
  * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData
- * @template TState of \App\Utils\Processor\EloquentState
+ * @template TState of \App\Utils\Processor\EloquentState<TItem>
  *
  * @extends \App\Utils\Processor\EloquentProcessor<TItem, TChunkData, TState>
  */
@@ -26,6 +26,6 @@ abstract class Processor extends EloquentProcessor {
      * @inheritDoc
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
-        return new ModelsRecalculated($this->getModel(), $data->getKeys());
+        return new ModelsRecalculated($state->model, $data->getKeys());
     }
 }

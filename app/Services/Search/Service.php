@@ -5,9 +5,10 @@ namespace App\Services\Search;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Services\Search\Jobs\AssetsUpdaterCronJob;
-use App\Services\Search\Jobs\CustomersUpdaterCronJob;
-use App\Services\Search\Jobs\DocumentsUpdaterCronJob;
+use App\Queues;
+use App\Services\Search\Jobs\Cron\AssetsIndexer;
+use App\Services\Search\Jobs\Cron\CustomersIndexer;
+use App\Services\Search\Jobs\Cron\DocumentsIndexer;
 use App\Services\Service as BaseService;
 use Closure;
 use Illuminate\Support\Collection;
@@ -16,12 +17,12 @@ use function array_keys;
 
 class Service extends BaseService {
     /**
-     * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,\App\Services\Search\Jobs\UpdateIndexCronJob>
+     * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,\App\Services\Search\Jobs\Cron\Indexer>
      */
     protected static array $searchable = [
-        Customer::class => CustomersUpdaterCronJob::class,
-        Document::class => DocumentsUpdaterCronJob::class,
-        Asset::class    => AssetsUpdaterCronJob::class,
+        Customer::class => CustomersIndexer::class,
+        Document::class => DocumentsIndexer::class,
+        Asset::class    => AssetsIndexer::class,
     ];
 
     /**
@@ -39,9 +40,9 @@ class Service extends BaseService {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
      *
-     * @return class-string<\App\Services\Search\Jobs\UpdateIndexCronJob>|null
+     * @return class-string<\App\Services\Search\Jobs\Cron\Indexer>|null
      */
     public function getSearchableModelJob(string $model): ?string {
         return static::$searchable[$model] ?? null;
@@ -73,5 +74,9 @@ class Service extends BaseService {
                 }
             }
         }
+    }
+
+    public static function getDefaultQueue(): string {
+        return Queues::SEARCH;
     }
 }

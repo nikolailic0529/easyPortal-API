@@ -3,7 +3,7 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Eloquent\Searchable as SearchSearchable;
-use App\Services\Search\Jobs\UpdateIndexCronJob;
+use App\Services\Search\Jobs\Cron\Indexer;
 use Closure;
 use Mockery;
 use ReflectionClass;
@@ -38,7 +38,7 @@ class ServiceTest extends TestCase {
         $actual   = $service->getSearchableModels();
         $missed   = array_diff($expected, $actual);
         $invalid  = array_filter($actual, static function (string $model) use ($service): bool {
-            return !is_a($service->getSearchableModelJob($model), UpdateIndexCronJob::class, true);
+            return !is_a($service->getSearchableModelJob($model), Indexer::class, true);
         });
 
         $this->assertEmpty(

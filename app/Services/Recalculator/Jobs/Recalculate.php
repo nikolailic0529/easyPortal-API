@@ -2,7 +2,6 @@
 
 namespace App\Services\Recalculator\Jobs;
 
-use App\Queues;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\Job;
@@ -32,15 +31,6 @@ abstract class Recalculate extends Job implements Initializable, Progressable {
      * @var array<string>
      */
     protected array $keys;
-
-    /**
-     * @return array<mixed>
-     */
-    public function getQueueConfig(): array {
-        return [
-                'queue' => Queues::RECALCULATOR,
-            ] + parent::getQueueConfig();
-    }
 
     /**
      * @return array<string>

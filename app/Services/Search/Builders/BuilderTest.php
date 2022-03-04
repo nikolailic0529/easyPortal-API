@@ -4,8 +4,8 @@ namespace App\Services\Search\Builders;
 
 use App\Models\Customer;
 use App\Services\Search\Configuration;
-use App\Services\Search\Scope;
-use App\Services\Search\Scope as SearchScope;
+use App\Services\Search\Contracts\Scope;
+use App\Services\Search\Contracts\Scope as SearchScope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;

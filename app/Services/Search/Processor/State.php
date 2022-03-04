@@ -1,0 +1,15 @@
+<?php declare(strict_types = 1);
+
+namespace App\Services\Search\Processor;
+
+use App\Utils\Processor\EloquentState;
+
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ *
+ * @extends \App\Utils\Processor\EloquentState<TModel>
+ */
+class State extends EloquentState {
+    public bool $rebuild = false;
+    public ?string $name = null;
+}

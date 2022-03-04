@@ -3,7 +3,7 @@
 namespace App\Services\Search\Builders;
 
 use App\Services\Search\Configuration;
-use App\Services\Search\Scope;
+use App\Services\Search\Contracts\Scope;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -54,7 +54,7 @@ class Builder extends ScoutBuilder {
     }
 
     /**
-     * @param \App\Services\Search\Scope|class-string<\App\Services\Search\Scope> $scope
+     * @param \App\Services\Search\Contracts\Scope|class-string<\App\Services\Search\Contracts\Scope> $scope
      */
     public function applyScope(Scope|string $scope): static {
         if (is_string($scope)) {

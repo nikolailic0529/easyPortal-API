@@ -18,7 +18,7 @@ use function count;
  *
  * @template TItem of \Illuminate\Database\Eloquent\Model
  * @template TChunkData
- * @template TState of \App\Utils\Processor\EloquentState
+ * @template TState of \App\Utils\Processor\EloquentState<TItem>
  *
  * @extends \App\Utils\Processor\Processor<TItem, TChunkData, TState>
  */
@@ -26,8 +26,7 @@ abstract class EloquentProcessor extends Processor {
     /**
      * @var array<string>|null
      */
-    private ?array $keys        = null;
-    private bool   $withTrashed = false;
+    private ?array $keys = null;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
@@ -52,13 +51,7 @@ abstract class EloquentProcessor extends Processor {
     }
 
     public function isWithTrashed(): bool {
-        return $this->withTrashed;
-    }
-
-    public function setWithTrashed(bool $withTrashed): static {
-        $this->withTrashed = $withTrashed;
-
-        return $this;
+        return false;
     }
     // </editor-fold>
 
@@ -82,10 +75,12 @@ abstract class EloquentProcessor extends Processor {
     }
 
     /**
+     * @param TState $state
+     *
      * @return \Illuminate\Database\Eloquent\Builder<TItem>
      */
     protected function getBuilder(State $state): Builder {
-        $class  = $this->getModel();
+        $class  = $state->model;
         $query  = $class::query();
         $helper = new ModelHelper($query->getModel());
 
@@ -120,6 +115,7 @@ abstract class EloquentProcessor extends Processor {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
+            'model'       => $this->getModel(),
             'keys'        => $this->getKeys(),
             'withTrashed' => $this->isWithTrashed(),
         ]);

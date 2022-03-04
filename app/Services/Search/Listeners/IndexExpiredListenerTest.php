@@ -7,7 +7,7 @@ use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Events\ModelsRecalculated;
-use App\Services\Search\Jobs\UpdateIndexJob;
+use App\Services\Search\Jobs\Index;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Queue;
@@ -56,9 +56,9 @@ class IndexExpiredListenerTest extends TestCase {
 
         $listener($event);
 
-        Queue::assertPushed(UpdateIndexJob::class, 2);
-        Queue::assertPushed(static function (UpdateIndexJob $job) use ($data): bool {
-            self::assertEquals($job->getIds(), array_values($data->get($job->getModel())));
+        Queue::assertPushed(Index::class, 2);
+        Queue::assertPushed(static function (Index $job) use ($data): bool {
+            self::assertEquals($job->getKeys(), array_values($data->get($job->getModel())));
 
             return true;
         });
@@ -78,9 +78,9 @@ class IndexExpiredListenerTest extends TestCase {
 
         $listener($event);
 
-        Queue::assertPushed(UpdateIndexJob::class, 1);
-        Queue::assertPushed(static function (UpdateIndexJob $job) use ($event): bool {
-            self::assertEquals($job->getIds(), $event->getKeys());
+        Queue::assertPushed(Index::class, 1);
+        Queue::assertPushed(static function (Index $job) use ($event): bool {
+            self::assertEquals($job->getKeys(), $event->getKeys());
 
             return true;
         });

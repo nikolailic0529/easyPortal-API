@@ -2,7 +2,6 @@
 
 namespace App\Services\Recalculator\Jobs\Cron;
 
-use App\Queues;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
@@ -14,13 +13,4 @@ use App\Services\Queue\CronJob;
  */
 abstract class Recalculator extends CronJob implements Progressable {
     use ProcessorJob;
-
-    /**
-     * @return array<mixed>
-     */
-    public function getQueueConfig(): array {
-        return [
-                'queue' => Queues::RECALCULATOR,
-            ] + parent::getQueueConfig();
-    }
 }

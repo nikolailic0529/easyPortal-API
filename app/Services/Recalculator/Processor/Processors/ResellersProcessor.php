@@ -36,7 +36,7 @@ class ResellersProcessor extends Processor {
     }
 
     /**
-     * @param \App\Utils\Processor\EloquentState                                 $state
+     * @param \App\Utils\Processor\EloquentState<\App\Models\Reseller>           $state
      * @param \App\Services\Recalculator\Processor\Processors\ResellersChunkData $data
      * @param \App\Models\Reseller                                               $item
      */

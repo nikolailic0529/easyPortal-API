@@ -16,8 +16,8 @@ abstract class ObjectsImport extends ProcessorCommand {
     /**
      * @inheritDoc
      */
-    protected function getCommandOptions(): array {
-        return array_merge(parent::getCommandOptions(), [
+    protected function getCommandSignature(array $signature): array {
+        return array_merge(parent::getCommandSignature($signature), [
             '{--u|update : Update ${objects} if exists (default)}',
             '{--U|no-update : Do not update ${objects} if exists}',
             '{--from= : start processing from given datetime}',

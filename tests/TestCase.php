@@ -10,7 +10,9 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\GlobalScopes\State;
 use Closure;
 use DateTimeInterface;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,11 +23,16 @@ use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Tests\GraphQL\ASTBuilderPersistent;
 use Tests\Helpers\SequenceDateFactory;
 use Tests\Helpers\SequenceUuidFactory;
 
 use function array_shift;
+use function file_put_contents;
+use function pathinfo;
+
+use const PATHINFO_EXTENSION;
 
 abstract class TestCase extends BaseTestCase {
     use CreatesApplication;
@@ -145,6 +152,22 @@ abstract class TestCase extends BaseTestCase {
         }
 
         $this->assertEquals($expected, $actual);
+    }
+
+    protected function assertCommandDescription(string $command, string $expected = '.txt'): void {
+        $buffer = new BufferedOutput();
+        $kernel = $this->app->make(Kernel::class);
+        $format = pathinfo($expected, PATHINFO_EXTENSION);
+        $result = $kernel->call('help', ['command_name' => $command, '--format' => $format], $buffer);
+        $actual = $buffer->fetch();
+        $data   = $this->getTestData();
+
+        if ($data->content($expected) === '') {
+            $this->assertNotFalse(file_put_contents($data->path($expected), $actual));
+        }
+
+        $this->assertEquals(Command::SUCCESS, $result);
+        $this->assertEquals($data->content($expected), $actual);
     }
 
     protected function overrideUuidFactory(string $seed): void {
