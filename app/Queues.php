@@ -42,4 +42,9 @@ interface Queues {
      * Recalculate queue for Recalculator.
      */
     public const RECALCULATOR = 'recalculator';
+
+    /**
+     * Recalculate queue for Queue.
+     */
+    public const QUEUE = 'queue';
 }
