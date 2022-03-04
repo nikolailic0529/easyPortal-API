@@ -5,6 +5,7 @@ namespace App\Services\Recalculator;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Reseller;
+use App\Queues;
 use App\Services\Recalculator\Jobs\CustomersRecalculate;
 use App\Services\Recalculator\Jobs\LocationsRecalculate;
 use App\Services\Recalculator\Jobs\ResellersRecalculate;
@@ -36,5 +37,9 @@ class Service extends BaseService {
      */
     public function getRecalculableModelJob(string $model): ?string {
         return static::$recalculable[$model] ?? null;
+    }
+
+    public static function getDefaultQueue(): string {
+        return Queues::RECALCULATOR;
     }
 }

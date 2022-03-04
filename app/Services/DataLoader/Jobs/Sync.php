@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Services\Queue\Job;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Console\CommandResult;
 use Illuminate\Contracts\Queue\ShouldBeUnique;

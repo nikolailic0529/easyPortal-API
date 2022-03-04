@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\GraphQL\Service as GraphQLService;
+use App\Queues;
 use App\Utils\Cache\CacheKey;
 use Closure;
 use DateInterval;
@@ -135,5 +136,9 @@ abstract class Service {
             : null;
 
         return $name;
+    }
+
+    public static function getDefaultQueue(): string {
+        return Queues::DEFAULT;
     }
 }

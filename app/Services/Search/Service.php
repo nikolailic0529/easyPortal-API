@@ -5,6 +5,7 @@ namespace App\Services\Search;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Queues;
 use App\Services\Search\Jobs\Cron\AssetsIndexer;
 use App\Services\Search\Jobs\Cron\CustomersIndexer;
 use App\Services\Search\Jobs\Cron\DocumentsIndexer;
@@ -73,5 +74,9 @@ class Service extends BaseService {
                 }
             }
         }
+    }
+
+    public static function getDefaultQueue(): string {
+        return Queues::SEARCH;
     }
 }
