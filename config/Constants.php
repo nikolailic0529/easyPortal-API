@@ -1459,7 +1459,7 @@ interface Constants {
      */
     #[Service(QueueSnapshotCronJob::class, 'queue')]
     #[Group('jobs')]
-    public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::DEFAULT;
+    public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::QUEUE;
     // </editor-fold>
     // </editor-fold>
 
