@@ -73,19 +73,19 @@ class TranslationsTest extends TestCase {
                 'c' => 'default-c',
             ]);
 
-        $actual   = (new Translations($loader, $defaults))->getTranslations($locale);
+        $actual   = (new Translations($this->app, $loader, $defaults))->getTranslations($locale);
         $expected = [
-            [
+            'a' => [
                 'key'     => 'a',
                 'value'   => 'actual-a',
                 'default' => 'default-a',
             ],
-            [
+            'b' => [
                 'key'     => 'b',
                 'value'   => 'actual-b',
                 'default' => null,
             ],
-            [
+            'c' => [
                 'key'     => 'c',
                 'value'   => 'default-c',
                 'default' => 'default-c',

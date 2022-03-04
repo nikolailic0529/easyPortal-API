@@ -4,9 +4,11 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\I18n\Translation\TranslationDefaults;
 use App\Services\I18n\Translation\TranslationLoader;
+use Illuminate\Contracts\Foundation\Application;
 
 class Translations {
     public function __construct(
+        protected Application $app,
         protected TranslationLoader $translations,
         protected TranslationDefaults $defaults,
     ) {
@@ -14,13 +16,20 @@ class Translations {
     }
 
     /**
-     * @param null                 $_
-     * @param array<string, mixed> $args
+     * @param array{locale: string} $args
      *
      * @return array<string, array{key: string, value: string, default: string|null}>
      */
-    public function __invoke($_, array $args): array {
-        return $this->getTranslations($args['locale']);
+    public function __invoke(mixed $root, array $args): array {
+        $locale       = $args['locale'];
+        $default      = $this->app->getLocale();
+        $translations = $this->getTranslations($locale);
+
+        if ($locale !== $default) {
+            $translations += $this->getTranslations($default);
+        }
+
+        return $translations;
     }
 
     /**
@@ -32,21 +41,21 @@ class Translations {
         $output       = [];
 
         foreach ($translations as $key => $value) {
-            $output[] = [
+            $output[$key] = [
                 'key'     => $key,
                 'value'   => $value,
                 'default' => $default[$key] ?? null,
             ];
-
-            unset($default[$key]);
         }
 
         foreach ($default as $key => $value) {
-            $output[] = [
-                'key'     => $key,
-                'value'   => $value,
-                'default' => $value,
-            ];
+            if (!isset($output[$key])) {
+                $output[$key] = [
+                    'key'     => $key,
+                    'value'   => $value,
+                    'default' => $value,
+                ];
+            }
         }
 
         return $output;
