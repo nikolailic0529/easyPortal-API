@@ -75,8 +75,6 @@ class Processor extends EloquentProcessor {
     public function setRebuild(bool $rebuild): static {
         $this->rebuild = $rebuild;
 
-        $this->setKeys(null);
-
         return $this;
     }
 

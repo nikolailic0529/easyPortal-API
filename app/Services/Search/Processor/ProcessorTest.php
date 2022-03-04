@@ -429,23 +429,21 @@ class ProcessorTest extends TestCase {
      * @covers ::defaultState
      */
     public function testDefaultState(): void {
+        $keys      = [$this->faker->uuid, $this->faker->uuid];
+        $model     = Model::class;
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
-        $processor
-            ->shouldReceive('getModel')
-            ->once()
-            ->andReturn(Model::class);
 
         $this->assertEquals(
             [
-                'model'       => Model::class,
-                'keys'        => null,
+                'model'       => $model,
+                'keys'        => $keys,
                 'withTrashed' => true,
-                'rebuild'     => true,
+                'rebuild'     => false,
                 'name'        => null,
             ],
-            $processor->setRebuild(true)->defaultState([]),
+            $processor->setModel($model)->setKeys($keys)->setRebuild(false)->defaultState([]),
         );
     }
     // </editor-fold>

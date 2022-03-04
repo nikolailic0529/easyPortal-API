@@ -90,6 +90,7 @@ class Index extends Job implements Initializable, Progressable {
         return $container
             ->make(Processor::class)
             ->setModel($this->getModel())
+            ->setKeys($this->getKeys())
             ->setRebuild(false);
     }
 }
