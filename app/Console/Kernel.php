@@ -27,7 +27,7 @@ use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
-use App\Services\Search\Commands\RebuildIndex as SearchRebuildIndex;
+use App\Services\Search\Commands\IndexesRebuild as SearchRebuildIndex;
 use App\Services\Search\Jobs\Cron\AssetsIndexer as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\Cron\CustomersIndexer as SearchCustomersUpdaterCronJob;
 use App\Services\Search\Jobs\Cron\DocumentsIndexer as SearchDocumentsUpdaterCronJob;
