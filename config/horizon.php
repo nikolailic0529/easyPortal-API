@@ -218,7 +218,6 @@ return [
             'Recalculator' => [
                 'connection'   => 'redis',
                 'queue'        => [
-                    Queues::DATA_LOADER_RECALCULATE,
                     Queues::RECALCULATOR,
                 ],
                 'balance'      => 'auto',
