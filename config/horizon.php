@@ -218,7 +218,6 @@ return [
             'Recalculator' => [
                 'connection'   => 'redis',
                 'queue'        => [
-                    Queues::DATA_LOADER_RECALCULATE,
                     Queues::RECALCULATOR,
                 ],
                 'balance'      => 'auto',
@@ -233,6 +232,16 @@ return [
                 'queue'        => [Queues::NOTIFICATOR],
                 'balance'      => 'auto',
                 'maxProcesses' => 4,
+                'timeout'      => 60,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
+            'Queue'        => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::QUEUE],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
                 'timeout'      => 60,
                 'memory'       => 256,
                 'tries'        => 1,

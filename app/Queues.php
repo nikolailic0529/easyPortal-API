@@ -17,13 +17,6 @@ interface Queues {
     public const DATA_LOADER = 'data-loader';
 
     /**
-     * Recalculate queue for Data Loader
-     *
-     * @deprecated
-     */
-    public const DATA_LOADER_RECALCULATE = 'data-loader-recalculate';
-
-    /**
      * Default queue for Data Loader Update jobs.
      */
     public const KEYCLOAK = 'keycloak';
@@ -42,4 +35,9 @@ interface Queues {
      * Recalculate queue for Recalculator.
      */
     public const RECALCULATOR = 'recalculator';
+
+    /**
+     * Recalculate queue for Queue.
+     */
+    public const QUEUE = 'queue';
 }
