@@ -58,11 +58,16 @@ class Maintenance {
     }
 
     public function stop(bool $force = false): bool {
-        if ($force || !$this->isJobScheduled(CompleteCronJob::class)) {
-            return (bool) $this->app->make(CompleteCronJob::class)->dispatch();
+        $result = false;
+
+        if ($force) {
+            $result = $this->disable();
+        } else {
+            $result = $this->isJobScheduled(CompleteCronJob::class)
+                || (bool) $this->app->make(CompleteCronJob::class)->dispatch();
         }
 
-        return true;
+        return $result;
     }
 
     public function schedule(DateTimeInterface $start, DateTimeInterface $end, string $message = null): bool {

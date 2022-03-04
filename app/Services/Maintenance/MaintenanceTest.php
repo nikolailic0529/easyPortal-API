@@ -226,12 +226,16 @@ class MaintenanceTest extends TestCase {
         $maintenance
             ->shouldReceive('isJobScheduled')
             ->never();
+        $maintenance
+            ->shouldReceive('disable')
+            ->once()
+            ->andReturn(true);
 
         Queue::fake();
 
         $this->assertTrue($maintenance->stop(true));
 
-        Queue::assertPushed(CompleteCronJob::class);
+        Queue::assertNothingPushed();
     }
 
     /**
