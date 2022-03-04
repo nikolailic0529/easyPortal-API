@@ -201,17 +201,17 @@ abstract class Processor {
             try {
                 $this->process($state, $data, $item);
 
+                $state->processed++;
                 $state->success++;
 
                 $this->notifyOnProcess($state);
             } catch (Throwable $exception) {
+                $state->processed++;
                 $state->failed++;
 
                 $this->report($exception, $item);
                 $this->notifyOnReport($state);
             } finally {
-                $state->processed++;
-
                 $sync();
             }
         }
