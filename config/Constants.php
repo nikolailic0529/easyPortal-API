@@ -638,6 +638,7 @@ interface Constants {
      */
     #[Service(PermissionsSynchronizer::class, 'queue')]
     #[Group('keycloak')]
+    #[Internal]
     public const EP_KEYCLOAK_PERMISSIONS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
     // </editor-fold>
 
@@ -663,6 +664,7 @@ interface Constants {
      */
     #[Service(UsersSynchronizer::class, 'queue')]
     #[Group('keycloak')]
+    #[Internal]
     public const EP_KEYCLOAK_USERS_SYNCHRONIZER_QUEUE = Queues::KEYCLOAK;
 
     /**
@@ -685,6 +687,7 @@ interface Constants {
      */
     #[Job(ConfigUpdate::class, 'queue')]
     #[Group('ep')]
+    #[Internal]
     public const EP_SETTINGS_CONFIG_UPDATE_QUEUE = Queues::DEFAULT;
     // </editor-fold>
     // </editor-fold>
@@ -832,6 +835,7 @@ interface Constants {
      */
     #[Service(ResellersImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -881,6 +885,7 @@ interface Constants {
      */
     #[Service(ResellersUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -938,6 +943,7 @@ interface Constants {
      */
     #[Service(CustomersImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -987,6 +993,7 @@ interface Constants {
      */
     #[Service(CustomersUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1044,6 +1051,7 @@ interface Constants {
      */
     #[Service(AssetsImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1091,6 +1099,7 @@ interface Constants {
      */
     #[Service(AssetsUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_ASSETS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1146,6 +1155,7 @@ interface Constants {
      */
     #[Service(DistributorsImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1195,6 +1205,7 @@ interface Constants {
      */
     #[Service(DistributorsUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1252,6 +1263,7 @@ interface Constants {
      */
     #[Service(DocumentsImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1299,6 +1311,7 @@ interface Constants {
      */
     #[Service(DocumentsUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
+    #[Internal]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
@@ -1357,6 +1370,7 @@ interface Constants {
      */
     #[Service(SearchCustomersIndexer::class, 'queue')]
     #[Group('search')]
+    #[Internal]
     public const EP_SEARCH_CUSTOMERS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
@@ -1390,6 +1404,7 @@ interface Constants {
      */
     #[Service(SearchDocumentsIndexer::class, 'queue')]
     #[Group('search')]
+    #[Internal]
     public const EP_SEARCH_DOCUMENTS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
@@ -1423,6 +1438,7 @@ interface Constants {
      */
     #[Service(SearchAssetsIndexer::class, 'queue')]
     #[Group('search')]
+    #[Internal]
     public const EP_SEARCH_ASSETS_UPDATER_QUEUE = Queues::SEARCH;
 
     /**
@@ -1459,7 +1475,8 @@ interface Constants {
      */
     #[Service(QueueSnapshotCronJob::class, 'queue')]
     #[Group('jobs')]
-    public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::DEFAULT;
+    #[Internal]
+    public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::QUEUE;
     // </editor-fold>
     // </editor-fold>
 
@@ -1527,6 +1544,7 @@ interface Constants {
      */
     #[Service(MaintenanceStartCronJob::class, 'queue')]
     #[Group('maintenance')]
+    #[Internal]
     public const EP_MAINTENANCE_START_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
@@ -1552,6 +1570,7 @@ interface Constants {
      */
     #[Service(MaintenanceCompleteCronJob::class, 'queue')]
     #[Group('maintenance')]
+    #[Internal]
     public const EP_MAINTENANCE_COMPLETE_QUEUE = Queues::DEFAULT;
     // </editor-fold>
 
@@ -1577,6 +1596,7 @@ interface Constants {
      */
     #[Service(MaintenanceNotifyCronJob::class, 'queue')]
     #[Group('maintenance')]
+    #[Internal]
     public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
     // </editor-fold>
     // </editor-fold>
