@@ -204,7 +204,7 @@ class UserTest extends TestCase {
                                 'status'          => [
                                     'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
                                     'key'  => 'active',
-                                    'name' => 'active',
+                                    'name' => 'Active',
                                 ],
                             ],
                         ],
@@ -387,7 +387,7 @@ class UserTest extends TestCase {
                                 'status'          => [
                                     'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
                                     'key'  => 'active',
-                                    'name' => 'active',
+                                    'name' => 'Active',
                                 ],
                             ],
                         ],
@@ -464,9 +464,10 @@ class UserTest extends TestCase {
         return [
             'disabled'                               => [
                 (new Status())->forceFill([
-                    'id'   => '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
-                    'key'  => 'inactive',
-                    'name' => 'inactive',
+                    'id'          => '347e5072-9cd8-42a7-a1be-47f329a9e3eb',
+                    'key'         => 'inactive',
+                    'name'        => 'Inactive',
+                    'object_type' => 'User',
                 ]),
                 static function (): OrganizationUser {
                     return OrganizationUser::factory()->make([
@@ -476,9 +477,10 @@ class UserTest extends TestCase {
             ],
             'enabled + not invited'                  => [
                 (new Status())->forceFill([
-                    'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
-                    'key'  => 'active',
-                    'name' => 'active',
+                    'id'          => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
+                    'key'         => 'active',
+                    'name'        => 'Active',
+                    'object_type' => 'User',
                 ]),
                 static function (): OrganizationUser {
                     return OrganizationUser::factory()->make([
@@ -488,9 +490,10 @@ class UserTest extends TestCase {
             ],
             'enabled + invited + no invitation'      => [
                 (new Status())->forceFill([
-                    'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
-                    'key'  => 'expired',
-                    'name' => 'expired',
+                    'id'          => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                    'key'         => 'expired',
+                    'name'        => 'Expired',
+                    'object_type' => 'User',
                 ]),
                 static function (): OrganizationUser {
                     return OrganizationUser::factory()->make([
@@ -501,9 +504,10 @@ class UserTest extends TestCase {
             ],
             'enabled + invited + invitation'         => [
                 (new Status())->forceFill([
-                    'id'   => '849deaf1-1ff4-4cd4-9c03-a1c4d9ba0402',
-                    'key'  => 'invited',
-                    'name' => 'invited',
+                    'id'          => '849deaf1-1ff4-4cd4-9c03-a1c4d9ba0402',
+                    'key'         => 'invited',
+                    'name'        => 'Invited',
+                    'object_type' => 'User',
                 ]),
                 static function (): OrganizationUser {
                     $invitation = Invitation::factory()->create([
@@ -520,9 +524,10 @@ class UserTest extends TestCase {
             ],
             'enabled + invited + expired invitation' => [
                 (new Status())->forceFill([
-                    'id'   => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
-                    'key'  => 'expired',
-                    'name' => 'expired',
+                    'id'          => 'c4136a8c-7cc4-4e30-8712-e47565a5e167',
+                    'key'         => 'expired',
+                    'name'        => 'Expired',
+                    'object_type' => 'User',
                 ]),
                 static function (): OrganizationUser {
                     $invitation = Invitation::factory()->create([
