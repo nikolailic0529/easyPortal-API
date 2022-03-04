@@ -14,7 +14,6 @@ use ReflectionNamedType;
 use Str;
 use Symfony\Component\Console\Helper\ProgressBar;
 
-use function array_merge;
 use function array_unique;
 use function floor;
 use function implode;
@@ -43,12 +42,18 @@ abstract class ProcessorCommand extends Command {
     protected function process(Formatter $formatter, Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
-        $offset   = $this->option('offset');
-        $chunk    = ((int) $this->option('chunk')) ?: null;
-        $limit    = ((int) $this->option('limit')) ?: null;
+        $offset   = $this->hasOption('offset')
+            ? ($this->option('offset') ?: null)
+            : null;
+        $chunk    = $this->hasOption('chunk')
+            ? (((int) $this->option('chunk')) ?: null)
+            : null;
+        $limit    = $this->hasOption('limit')
+            ? (((int) $this->option('limit')) ?: null)
+            : null;
 
         // Keys?
-        if ($processor instanceof EloquentProcessor) {
+        if ($processor instanceof EloquentProcessor && $this->hasArgument('id')) {
             $keys      = array_unique((array) $this->argument('id')) ?: null;
             $processor = $processor->setKeys($keys);
         }
@@ -136,10 +141,12 @@ abstract class ProcessorCommand extends Command {
     }
 
     /**
+     * @param array<string> $signature
+     *
      * @return array<string>
      */
-    protected function getCommandOptions(): array {
-        return [];
+    protected function getCommandSignature(array $signature): array {
+        return $signature;
     }
 
     private function getDefaultCommandSignature(): string {
@@ -155,7 +162,7 @@ abstract class ProcessorCommand extends Command {
             $signature[] = '{id?* : process only these ${objects} (if empty all ${objects} will be processed)}';
         }
 
-        return implode("\n", array_merge($signature, $this->getCommandOptions()));
+        return implode("\n", $this->getCommandSignature($signature));
     }
 
     private function getDefaultCommandDescription(): string {
@@ -165,7 +172,7 @@ abstract class ProcessorCommand extends Command {
     /**
      * @return class-string<\App\Utils\Processor\Processor>
      */
-    private function getProcessorClass(): string {
+    protected function getProcessorClass(): string {
         $class     = new ReflectionClass($this);
         $method    = $class->getMethod('__invoke');
         $processor = null;
