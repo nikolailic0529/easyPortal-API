@@ -99,15 +99,30 @@ class ProcessorCommandTest extends TestCase {
 
         $input = Mockery::mock(InputInterface::class);
         $input
+            ->shouldReceive('hasOption')
+            ->with('offset')
+            ->once()
+            ->andReturn(true);
+        $input
             ->shouldReceive('getOption')
             ->with('offset')
             ->once()
             ->andReturn($offset);
         $input
+            ->shouldReceive('hasOption')
+            ->with('chunk')
+            ->once()
+            ->andReturn(true);
+        $input
             ->shouldReceive('getOption')
             ->with('chunk')
             ->once()
             ->andReturn($chunk);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('limit')
+            ->once()
+            ->andReturn(true);
         $input
             ->shouldReceive('getOption')
             ->with('limit')
@@ -211,20 +226,40 @@ class ProcessorCommandTest extends TestCase {
 
         $input = Mockery::mock(InputInterface::class);
         $input
+            ->shouldReceive('hasArgument')
+            ->with('id')
+            ->once()
+            ->andReturn(true);
+        $input
             ->shouldReceive('getArgument')
             ->with('id')
             ->once()
             ->andReturn($keys);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('offset')
+            ->once()
+            ->andReturn(true);
         $input
             ->shouldReceive('getOption')
             ->with('offset')
             ->once()
             ->andReturn($offset);
         $input
+            ->shouldReceive('hasOption')
+            ->with('chunk')
+            ->once()
+            ->andReturn(true);
+        $input
             ->shouldReceive('getOption')
             ->with('chunk')
             ->once()
             ->andReturn($chunk);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('limit')
+            ->once()
+            ->andReturn(true);
         $input
             ->shouldReceive('getOption')
             ->with('limit')
