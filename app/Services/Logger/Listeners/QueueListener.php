@@ -93,22 +93,35 @@ class QueueListener extends Listener {
     }
 
     protected function dispatched(JobContract $job): void {
-        $object = new QueueObject($job);
+        $object    = new QueueObject($job);
+        $category  = $this->getCategory();
+        $countable = [
+            "{$category}.total.dispatched"                => 1,
+            "{$category}.dispatched.{$object->getType()}" => 1,
+        ];
 
-        $this->logger->event(
-            $this->getCategory(),
-            (string) Action::queueJobDispatched(),
-            Status::success(),
-            $object,
-            $this->getContext($job),
-            [
-                "{$this->getCategory()}.total.dispatched"                => 1,
-                "{$this->getCategory()}.dispatched.{$object->getType()}" => 1,
-            ],
-        );
+        if ($object->isCronable()) {
+            $this->logger->event(
+                $category,
+                (string) Action::queueJobDispatched(),
+                Status::success(),
+                $object,
+                $this->getContext($job),
+                $countable,
+            );
+        } else {
+            $this->logger->count($countable);
+        }
     }
 
     protected function started(JobProcessing $event): void {
+        // Cronable?
+        $object = new QueueObject($event->job);
+
+        if (!$object->isCronable()) {
+            return;
+        }
+
         // There is no special event for timeouted jobs - they are just killed
         // and then will be restarted (if not failed).
         //
@@ -121,13 +134,21 @@ class QueueListener extends Listener {
             $this->logger->start(
                 $this->getCategory(),
                 (string) Action::queueJobRun(),
-                new QueueObject($event->job),
+                $object,
                 $this->getContext($event->job),
             ),
         ];
     }
 
     protected function success(JobProcessed $event): void {
+        // Cronable?
+        $object = new QueueObject($event->job);
+
+        if (!$object->isCronable()) {
+            return;
+        }
+
+        // Log
         [$id, $transaction] = last($this->stack);
 
         if ($id === $event->job->uuid() && $transaction) {
@@ -140,10 +161,19 @@ class QueueListener extends Listener {
             }
         }
 
+        // Zombies
         $this->killZombies($event->job);
     }
 
     protected function failed(JobExceptionOccurred|JobFailed $event): void {
+        // Cronable?
+        $object = new QueueObject($event->job);
+
+        if (!$object->isCronable()) {
+            return;
+        }
+
+        // Log
         [$id, $transaction] = last($this->stack);
 
         if ($id === $event->job->uuid() && $transaction) {
@@ -154,6 +184,7 @@ class QueueListener extends Listener {
             ]);
         }
 
+        // Zombies
         $this->killZombies($event->job);
     }
 
@@ -162,9 +193,20 @@ class QueueListener extends Listener {
     }
 
     protected function deleted(JobDeleted $event): void {
-        if ($event->job instanceof JobContract) {
-            $this->killZombies($event->job);
+        // Job?
+        if (!($event->job instanceof JobContract)) {
+            return;
         }
+
+        // Cronable?
+        $object = new QueueObject($event->job);
+
+        if (!$object->isCronable()) {
+            return;
+        }
+
+        // Kill
+        $this->killZombies($event->job);
     }
 
     /**
