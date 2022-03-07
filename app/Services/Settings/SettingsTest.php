@@ -23,7 +23,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Mockery;
+use ReflectionClass;
 use ReflectionClassConstant;
+use Tests\Helpers\ClassMap;
 use Tests\TestCase;
 
 use function array_map;
@@ -287,6 +289,26 @@ class SettingsTest extends TestCase {
         };
 
         $this->assertEquals([SettingsTest_Service::class], $service->getServices());
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testGetServicesRegistration(): void {
+        $actual   = $this->app->make(Settings::class)->getServices();
+        $expected = ClassMap::get()
+            ->filter(static function (ReflectionClass $class): bool {
+                return $class->isSubclassOf(CronJob::class)
+                    && !$class->isTrait()
+                    && !$class->isAbstract();
+            })
+            ->map(static function (ReflectionClass $class): string {
+                return $class->getName();
+            })
+            ->values()
+            ->all();
+
+        $this->assertEqualsCanonicalizing($expected, $actual);
     }
 
     /**
