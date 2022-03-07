@@ -25,13 +25,15 @@ class DataImportedListener implements Subscriber {
         $data   = $event->getData();
 
         foreach ($models as $model) {
-            $job = $this->service->getRecalculableModelJob($model);
-            $ids = $data->get($model);
+            $job  = $this->service->getRecalculableModelJob($model);
+            $keys = $data->get($model);
 
-            if ($job && $ids) {
-                $this->container->make($job)
-                    ->init($ids)
-                    ->dispatch();
+            if ($job && $keys) {
+                foreach ($keys as $key) {
+                    $this->container->make($job)
+                        ->init($key)
+                        ->dispatch();
+                }
             }
         }
     }

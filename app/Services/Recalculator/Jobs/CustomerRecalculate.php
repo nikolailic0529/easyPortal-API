@@ -10,9 +10,9 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * @extends \App\Services\Recalculator\Jobs\Recalculate<\App\Models\Customer>
  */
-class CustomersRecalculate extends Recalculate {
+class CustomerRecalculate extends Recalculate {
     public function displayName(): string {
-        return 'ep-recalculator-customers-recalculate';
+        return 'ep-recalculator-customer-recalculate';
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
