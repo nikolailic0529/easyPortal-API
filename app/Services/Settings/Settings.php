@@ -116,11 +116,12 @@ class Settings {
 
         foreach ($settings as $setting) {
             if ($setting->isJob()) {
-                $jobs[] = $setting->getJob();
+                $job        = $setting->getJob();
+                $jobs[$job] = $job;
             }
         }
 
-        return $jobs;
+        return array_values($jobs);
     }
 
     /**
@@ -132,11 +133,12 @@ class Settings {
 
         foreach ($settings as $setting) {
             if ($setting->isService()) {
-                $services[] = $setting->getService();
+                $service            = $setting->getService();
+                $services[$service] = $service;
             }
         }
 
-        return $services;
+        return array_values($services);
     }
 
     /**
