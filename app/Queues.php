@@ -32,17 +32,17 @@ interface Queues {
     public const NOTIFICATOR = 'notificator';
 
     /**
-     * Recalculate queue for Recalculator.
+     * Default queue for Recalculator.
      */
     public const RECALCULATOR = 'recalculator';
 
     /**
-     * Recalculate queue for Queue.
+     * Default queue for Queue.
      */
     public const QUEUE = 'queue';
 
     /**
-     * Recalculate queue for Settings.
+     * Default queue for Settings.
      */
     public const SETTINGS = 'settings';
 }

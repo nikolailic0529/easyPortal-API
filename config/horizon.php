@@ -174,7 +174,9 @@ return [
         env('APP_ENV', 'production') => [
             'Default'      => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::DEFAULT],
+                'queue'        => [
+                    Queues::DEFAULT,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'timeout'      => 60 * 60,
@@ -184,7 +186,9 @@ return [
             ],
             'DataLoader'   => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::DATA_LOADER],
+                'queue'        => [
+                    Queues::DATA_LOADER,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'timeout'      => 60 * 60,
@@ -197,7 +201,9 @@ return [
             ],
             'Keycloak'     => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::KEYCLOAK],
+                'queue'        => [
+                    Queues::KEYCLOAK,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'timeout'      => 60 * 60,
@@ -207,7 +213,9 @@ return [
             ],
             'Search'       => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::SEARCH],
+                'queue'        => [
+                    Queues::SEARCH,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 3,
                 'timeout'      => 60 * 60,
@@ -229,7 +237,9 @@ return [
             ],
             'Notificator'  => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::NOTIFICATOR],
+                'queue'        => [
+                    Queues::NOTIFICATOR,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 4,
                 'timeout'      => 60,
@@ -239,7 +249,9 @@ return [
             ],
             'Queue'        => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::QUEUE],
+                'queue'        => [
+                    Queues::QUEUE,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'timeout'      => 60,
@@ -249,7 +261,9 @@ return [
             ],
             'Settings'     => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::SETTINGS],
+                'queue'        => [
+                    Queues::SETTINGS,
+                ],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'timeout'      => 120,
