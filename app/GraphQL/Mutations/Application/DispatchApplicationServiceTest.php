@@ -11,6 +11,7 @@ use App\Services\Settings\Storage;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -47,6 +48,7 @@ class DispatchApplicationServiceTest extends TestCase {
         $service = new class(
             $this->app,
             $this->app->make(Repository::class),
+            $this->app->make(Dispatcher::class),
             $this->app->make(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {

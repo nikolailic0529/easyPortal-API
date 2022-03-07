@@ -3,9 +3,11 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Environment\Environment;
+use App\Services\Settings\Events\SettingsUpdated;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use ReflectionClass;
@@ -39,6 +41,7 @@ class Settings {
     public function __construct(
         protected Application $app,
         protected Repository $config,
+        protected Dispatcher $dispatcher,
         protected Storage $storage,
         protected Environment $environment,
     ) {
@@ -97,6 +100,7 @@ class Settings {
             $this->saveSettings($updated);
 
             $this->app->make(ConfigUpdate::class)->dispatch();
+            $this->dispatcher->dispatch(new SettingsUpdated());
         }
 
         // Return

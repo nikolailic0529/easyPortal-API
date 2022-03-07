@@ -12,11 +12,16 @@ use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Environment\EnvironmentRepository;
+use App\Services\Settings\Events\SettingsUpdated;
+use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Queue;
 use Mockery;
 use ReflectionClassConstant;
 use Tests\TestCase;
@@ -44,6 +49,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
+            Mockery::mock(Dispatcher::class),
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
@@ -77,6 +83,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
+            Mockery::mock(Dispatcher::class),
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
@@ -114,9 +121,13 @@ class SettingsTest extends TestCase {
      * @covers ::setEditableSettings
      */
     public function testSetEditableSettings(): void {
+        Queue::fake();
+        Event::fake();
+
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
+            $this->app->make(Dispatcher::class),
             Mockery::mock(Storage::class),
             Mockery::mock(Environment::class),
         ) extends Settings {
@@ -159,6 +170,9 @@ class SettingsTest extends TestCase {
             ->all();
 
         $this->assertEquals($expected, $actual);
+
+        Queue::assertPushed(ConfigUpdate::class);
+        Event::assertDispatched(SettingsUpdated::class);
     }
 
     /**
@@ -177,6 +191,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
+            Mockery::mock(Dispatcher::class),
             $storage,
             Mockery::mock(Environment::class),
         ) extends Settings {
@@ -250,6 +265,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
+            Mockery::mock(Dispatcher::class),
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
@@ -280,6 +296,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
+            Mockery::mock(Dispatcher::class),
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
@@ -310,6 +327,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             $this->app->make(Repository::class),
+            Mockery::mock(Dispatcher::class),
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
@@ -419,6 +437,7 @@ class SettingsTest extends TestCase {
         $service  = new Settings(
             Mockery::mock(Application::class),
             Mockery::mock(Repository::class),
+            Mockery::mock(Dispatcher::class),
             Mockery::mock(Storage::class),
             $env,
         );
@@ -490,8 +509,10 @@ class SettingsTest extends TestCase {
      * @covers ::getValue
      */
     public function testGetValue(): void {
-        $app     = Mockery::mock(Application::class);
-        $config  = Mockery::mock(Repository::class);
+        $app        = Mockery::mock(Application::class);
+        $config     = Mockery::mock(Repository::class);
+        $dispatcher = Mockery::mock(Dispatcher::class);
+
         $storage = Mockery::mock(Storage::class);
         $storage->makePartial();
         $storage
@@ -533,7 +554,7 @@ class SettingsTest extends TestCase {
             },
             'C',
         ));
-        $settings = Mockery::mock(Settings::class, [$app, $config, $storage, $environment]);
+        $settings = Mockery::mock(Settings::class, [$app, $config, $dispatcher, $storage, $environment]);
         $settings->shouldAllowMockingProtectedMethods();
         $settings->makePartial();
         $settings

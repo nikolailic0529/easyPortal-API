@@ -6,8 +6,10 @@ use App\GraphQL\Cache;
 use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
+use App\Services\I18n\Events\TranslationsUpdated;
 use App\Services\Maintenance\Events\VersionUpdated;
 use App\Services\Recalculator\Events\ModelsRecalculated;
+use App\Services\Settings\Events\SettingsUpdated;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery\MockInterface;
@@ -63,21 +65,31 @@ class CacheExpiredListenerTest extends TestCase {
      */
     public function dataProviderSubscribe(): array {
         return [
-            DataImported::class       => [
+            DataImported::class        => [
                 static function (): object {
                     return new DataImported(new Data());
                 },
             ],
-            VersionUpdated::class     => [
+            VersionUpdated::class      => [
                 static function (): object {
                     return new VersionUpdated('1.0.0', null);
                 },
             ],
-            ModelsRecalculated::class => [
+            ModelsRecalculated::class  => [
                 static function (self $test): object {
                     return new ModelsRecalculated(Customer::class, [
                         $test->faker->uuid,
                     ]);
+                },
+            ],
+            SettingsUpdated::class     => [
+                static function (): object {
+                    return new SettingsUpdated();
+                },
+            ],
+            TranslationsUpdated::class => [
+                static function (): object {
+                    return new TranslationsUpdated();
                 },
             ],
         ];

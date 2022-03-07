@@ -148,6 +148,10 @@ class Cached extends BaseDirective implements FieldMiddleware {
         return $value;
     }
 
+    protected function deleteCachedValue(mixed $key): bool {
+        return $this->cache->delete($key);
+    }
+
     /**
      * @param array<mixed> $args
      */
@@ -175,7 +179,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
                 $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
             }
         } else {
-            $value = $this->resolveWithThreshold($key, $resolver, $root, $args, $context, $resolveInfo);
+            $value = $this->resolveWithThreshold($key, $resolver, $root, $args, $context, $resolveInfo, $expired);
         }
 
         // Return
@@ -196,6 +200,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
+        bool $expired,
     ): mixed {
         $begin = microtime(true);
         $value = $resolver($root, $args, $context, $resolveInfo);
@@ -203,6 +208,10 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
         if ($this->cache->isSlowQuery($time)) {
             $value = $this->setCachedValue($key, $value);
+        } elseif ($expired) {
+            $this->deleteCachedValue($key);
+        } else {
+            // empty
         }
 
         return $value;

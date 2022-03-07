@@ -8,7 +8,6 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -54,18 +53,6 @@ class DeleteApplicationTranslationsTest extends TestCase {
             $storage = new AppTranslations($disk, $locale);
 
             $storage->save($content);
-
-            $mutation = Mockery::mock(DeleteApplicationTranslations::class);
-            $mutation->makePartial();
-            $mutation->shouldAllowMockingProtectedMethods();
-            $mutation
-                ->shouldReceive('getStorage')
-                ->once()
-                ->andReturn($storage);
-
-            $this->app->bind(DeleteApplicationTranslations::class, static function () use ($mutation) {
-                return $mutation;
-            });
         }
 
         // Test

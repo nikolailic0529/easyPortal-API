@@ -180,7 +180,7 @@ class UsersTest extends TestCase {
                                             'status'          => [
                                                 'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
                                                 'key'  => 'active',
-                                                'name' => 'active',
+                                                'name' => 'Active',
                                             ],
                                         ],
                                     ],
@@ -317,7 +317,7 @@ class UsersTest extends TestCase {
                                         'status'          => [
                                             'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
                                             'key'  => 'active',
-                                            'name' => 'active',
+                                            'name' => 'Active',
                                         ],
                                     ],
                                 ],
@@ -371,7 +371,7 @@ class UsersTest extends TestCase {
                                         'status'          => [
                                             'id'   => 'f482da3b-f3e9-4af3-b2ab-8e4153fa8eb1',
                                             'key'  => 'active',
-                                            'name' => 'active',
+                                            'name' => 'Active',
                                         ],
                                     ],
                                 ],
