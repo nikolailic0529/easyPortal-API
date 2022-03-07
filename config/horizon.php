@@ -247,6 +247,16 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
+            'Settings'     => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::SETTINGS],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
+                'timeout'      => 120,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
         ],
     ],
 ];

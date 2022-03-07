@@ -688,7 +688,7 @@ interface Constants {
     #[Job(ConfigUpdate::class, 'queue')]
     #[Group('ep')]
     #[Internal]
-    public const EP_SETTINGS_CONFIG_UPDATE_QUEUE = Queues::DEFAULT;
+    public const EP_SETTINGS_CONFIG_UPDATE_QUEUE = Queues::SETTINGS;
     // </editor-fold>
     // </editor-fold>
 

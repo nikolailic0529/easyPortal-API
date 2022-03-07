@@ -40,4 +40,9 @@ interface Queues {
      * Recalculate queue for Queue.
      */
     public const QUEUE = 'queue';
+
+    /**
+     * Recalculate queue for Settings.
+     */
+    public const SETTINGS = 'settings';
 }
