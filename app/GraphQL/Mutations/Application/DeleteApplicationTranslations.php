@@ -2,14 +2,11 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\I18n\Storages\AppTranslations;
-
-use function array_unique;
+use App\Services\I18n\Translation\Translations;
 
 class DeleteApplicationTranslations {
     public function __construct(
-        protected AppDisk $disk,
+        protected Translations $translations,
     ) {
         // empty
     }
@@ -21,31 +18,14 @@ class DeleteApplicationTranslations {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $keys         = $args['input']['keys'];
-        $locale       = $args['input']['locale'];
-        $storage      = $this->getStorage($locale);
-        $translations = $storage->load();
-        $deleted      = [];
+        $keys    = $args['input']['keys'];
+        $locale  = $args['input']['locale'];
+        $deleted = [];
+        $result  = $this->translations->delete($locale, $keys, $deleted);
 
-        // Update
-        foreach ($keys as $key) {
-            if (isset($translations[$key])) {
-                $deleted[] = $key;
-
-                unset($translations[$key]);
-            }
-        }
-
-        // Save
-        $storage->save($translations);
-
-        // Return
         return [
-            'deleted' => array_unique($deleted),
+            'result'  => $result,
+            'deleted' => $deleted,
         ];
-    }
-
-    protected function getStorage(string $locale): AppTranslations {
-        return new AppTranslations($this->disk, $locale);
     }
 }

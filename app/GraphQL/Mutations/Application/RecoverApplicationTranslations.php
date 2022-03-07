@@ -2,29 +2,23 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\I18n\Storages\AppTranslations;
+use App\Services\I18n\Translation\Translations;
 
 class RecoverApplicationTranslations {
     public function __construct(
-        protected AppDisk $disk,
+        protected Translations $translations,
     ) {
         // empty
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array{result: bool}
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
-            'result' => $this->getStorage($args['input']['locale'])->delete(true),
+            'result' => $this->translations->reset($args['input']['locale']),
         ];
-    }
-
-    protected function getStorage(string $locale): AppTranslations {
-        return new AppTranslations($this->disk, $locale);
     }
 }

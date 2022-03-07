@@ -62,10 +62,6 @@ class UpdateApplicationTranslationsTest extends TestCase {
             $storage = new AppTranslations($disk, 'en');
 
             $storage->save($customTranslations);
-
-            $this->override(AppDisk::class, static function () use ($disk): AppDisk {
-                return $disk;
-            });
         }
 
         // Test

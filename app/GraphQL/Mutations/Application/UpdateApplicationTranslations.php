@@ -2,15 +2,17 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use App\GraphQL\Queries\Application\Translations;
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\I18n\Storages\AppTranslations;
+use App\GraphQL\Queries\Application\Translations as TranslationsQuery;
+use App\Services\I18n\Translation\Translations;
 use Illuminate\Support\Collection;
+
+use function array_fill_keys;
+use function array_intersect_key;
 
 class UpdateApplicationTranslations {
     public function __construct(
-        protected AppDisk $disk,
-        protected Translations $query,
+        protected Translations $translations,
+        protected TranslationsQuery $query,
     ) {
         // empty
     }
@@ -21,20 +23,24 @@ class UpdateApplicationTranslations {
      * @return  array<string, mixed>
      */
     public function __invoke(mixed $root, array $args): array {
-        $inputTranslations = $args['input']['translations'];
-        $locale            = $args['input']['locale'];
-        $storage           = $this->getStorage($locale);
-        $translations      = $storage->load();
-        $updated           = [];
+        // Prepare
+        $translations = $args['input']['translations'];
+        $locale       = $args['input']['locale'];
+        $strings      = [];
+        $original     = [];
 
-        // Update
-        foreach ($inputTranslations as $translation) {
-            $translations[$translation['key']] = $translation['value'];
-            $updated[$translation['key']]      = $translation;
+        foreach ($translations as $translation) {
+            $strings[$translation['key']]  = $translation['value'];
+            $original[$translation['key']] = $translation;
         }
 
         // Save
-        $storage->save($translations);
+        $updated = [];
+        $result  = $this->translations->update($locale, $strings, $updated);
+
+        if ($result) {
+            $updated = array_intersect_key($original, array_fill_keys($updated, null));
+        }
 
         // Add default
         $updated = (new Collection($this->query->getTranslations($locale)))
@@ -49,11 +55,8 @@ class UpdateApplicationTranslations {
 
         // Return
         return [
+            'result'  => $result,
             'updated' => $updated,
         ];
-    }
-
-    protected function getStorage(string $locale): AppTranslations {
-        return new AppTranslations($this->disk, $locale);
     }
 }

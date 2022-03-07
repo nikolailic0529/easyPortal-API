@@ -12,8 +12,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\I18n\Storages\AppTranslations;
+use App\Services\I18n\Translation\Translations;
 use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Cell;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -49,7 +48,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         protected OemResolver $oemResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
-        protected AppDisk $disc,
+        protected Translations $translations,
     ) {
         // empty
     }
@@ -114,8 +113,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         };
 
         foreach ($parsed->serviceLevel->translations ?? [] as $locale => $properties) {
-            $storage      = new AppTranslations($this->disc, $locale);
-            $translations = $storage->load();
+            $translations = [];
 
             foreach ($helper->getTranslatableProperties() as $property) {
                 if (isset($properties[$property]) && $properties[$property]) {
@@ -123,7 +121,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
                 }
             }
 
-            $storage->save($translations);
+            $this->translations->update($locale, $translations);
         }
     }
 
@@ -290,12 +288,12 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         // Create
         $created = false;
         $factory = static function (ServiceGroup $group) use (&$created, $oem, $parsed): ServiceGroup {
-            $sku          = $parsed->serviceGroup->sku;
-            $created      = !$group->exists;
-            $group->key ??= "{$oem->getTranslatableKey()}/{$sku}";
-            $group->oem   = $oem;
-            $group->sku   = $sku;
-            $group->name  = $parsed->serviceGroup->name;
+            $sku         = $parsed->serviceGroup->sku;
+            $created     = !$group->exists;
+            $group->key  ??= "{$oem->getTranslatableKey()}/{$sku}";
+            $group->oem  = $oem;
+            $group->sku  = $sku;
+            $group->name = $parsed->serviceGroup->name;
 
             $group->save();
 
@@ -324,7 +322,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         $factory = static function (ServiceLevel $level) use (&$created, $oem, $group, $parsed): ServiceLevel {
             $sku                 = $parsed->serviceLevel->sku;
             $created             = !$level->exists;
-            $level->key        ??= "{$group->getTranslatableKey()}/{$sku}";
+            $level->key          ??= "{$group->getTranslatableKey()}/{$sku}";
             $level->oem          = $oem;
             $level->sku          = $sku;
             $level->name         = $parsed->serviceLevel->name;
