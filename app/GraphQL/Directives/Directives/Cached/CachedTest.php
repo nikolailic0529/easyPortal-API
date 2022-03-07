@@ -241,6 +241,7 @@ class CachedTest extends TestCase {
                 $args,
                 $context,
                 $resolve,
+                false,
             )
             ->andReturn($value);
 
@@ -330,6 +331,7 @@ class CachedTest extends TestCase {
                 $args,
                 $context,
                 $resolve,
+                true,
             )
             ->andReturn($value);
 
