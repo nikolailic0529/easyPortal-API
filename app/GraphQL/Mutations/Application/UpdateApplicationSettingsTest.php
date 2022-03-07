@@ -13,6 +13,7 @@ use App\Services\Settings\Storage;
 use App\Services\Settings\Types\StringType;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -53,6 +54,7 @@ class UpdateApplicationSettingsTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
+                $this->app->make(Dispatcher::class),
                 $this->app->make(Storage::class),
                 $this->app->make(Environment::class),
                 $store::class,
@@ -60,11 +62,12 @@ class UpdateApplicationSettingsTest extends TestCase {
                 public function __construct(
                     Application $app,
                     Repository $config,
+                    Dispatcher $dispatcher,
                     Storage $storage,
                     Environment $environment,
                     protected string $store,
                 ) {
-                    parent::__construct($app, $config, $storage, $environment);
+                    parent::__construct($app, $config, $dispatcher, $storage, $environment);
                 }
 
                 protected function getStore(): string {

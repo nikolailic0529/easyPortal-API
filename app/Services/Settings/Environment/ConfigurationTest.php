@@ -6,6 +6,7 @@ use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Setting;
 use App\Services\Settings\Storage;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
 use ReflectionClassConstant;
@@ -20,8 +21,10 @@ class ConfigurationTest extends TestCase {
      * @covers ::getConfiguration
      */
     public function testGetConfiguration(): void {
-        $app     = Mockery::mock(Application::class);
-        $config  = Mockery::mock(Repository::class);
+        $app        = Mockery::mock(Application::class);
+        $config     = Mockery::mock(Repository::class);
+        $dispatcher = Mockery::mock(Dispatcher::class);
+
         $storage = Mockery::mock(Storage::class);
         $storage->makePartial();
         $storage
@@ -56,7 +59,7 @@ class ConfigurationTest extends TestCase {
             },
             'B',
         ));
-        $configuration = Mockery::mock(Configuration::class, [$app, $config, $storage, $environment]);
+        $configuration = Mockery::mock(Configuration::class, [$app, $config, $dispatcher, $storage, $environment]);
         $configuration->shouldAllowMockingProtectedMethods();
         $configuration->makePartial();
         $configuration

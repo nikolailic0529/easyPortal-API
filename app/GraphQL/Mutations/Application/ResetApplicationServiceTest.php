@@ -11,6 +11,7 @@ use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -49,6 +50,7 @@ class ResetApplicationServiceTest extends TestCase {
             return new class(
                 $this->app,
                 $this->app->make(Repository::class),
+                $this->app->make(Dispatcher::class),
                 $this->app->make(Storage::class),
                 $this->app->make(Environment::class),
             ) extends Settings {
