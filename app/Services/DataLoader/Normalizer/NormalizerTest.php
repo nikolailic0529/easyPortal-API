@@ -5,10 +5,13 @@ namespace App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\IntNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use Mockery;
 use Tests\TestCase;
@@ -76,14 +79,14 @@ class NormalizerTest extends TestCase {
     }
 
     /**
-     * @covers ::number
+     * @covers ::decimal
      */
-    public function testNumber(): void {
-        $number     = Mockery::mock(NumberNormalizer::class);
+    public function testDecimal(): void {
+        $number     = Mockery::mock(DecimalNormalizer::class);
         $normalizer = new class($number) extends Normalizer {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected NumberNormalizer $number,
+                protected DecimalNormalizer $decimal,
             ) {
                 // empty
             }
@@ -91,7 +94,7 @@ class NormalizerTest extends TestCase {
 
         $number->shouldReceive('normalize')->once()->andReturns();
 
-        $normalizer->number('value');
+        $normalizer->decimal('value');
     }
 
     /**
@@ -187,5 +190,62 @@ class NormalizerTest extends TestCase {
         $name->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->name('value');
+    }
+
+    /**
+     * @covers ::int
+     */
+    public function testInt(): void {
+        $int        = Mockery::mock(IntNormalizer::class);
+        $normalizer = new class($int) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected IntNormalizer $int,
+            ) {
+                // empty
+            }
+        };
+
+        $int->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->int('value');
+    }
+
+    /**
+     * @covers ::float
+     */
+    public function testFloat(): void {
+        $float      = Mockery::mock(FloatNormalizer::class);
+        $normalizer = new class($float) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected FloatNormalizer $float,
+            ) {
+                // empty
+            }
+        };
+
+        $float->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->float('value');
+    }
+
+    /**
+     * @covers ::unsigned
+     */
+    public function testUnsigned(): void {
+        $unsigned   = Mockery::mock(UnsignedNormalizer::class);
+        $normalizer = new class($unsigned) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected UnsignedNormalizer $unsigned,
+            ) {
+                // empty
+            }
+        };
+
+        $unsigned->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->unsigned(null);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services\Recalculator\Processor;
 
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Exceptions\FailedToRecalculateModel;
+use App\Services\Recalculator\Exceptions\RecalculateError;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
 use Throwable;
@@ -18,7 +19,9 @@ use Throwable;
 abstract class Processor extends EloquentProcessor {
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
-            new FailedToRecalculateModel($this, $item, $exception),
+            $item
+                ? new FailedToRecalculateModel($this, $item, $exception)
+                : new RecalculateError($this, $exception),
         );
     }
 

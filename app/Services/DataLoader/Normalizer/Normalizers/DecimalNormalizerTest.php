@@ -6,9 +6,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizers\NumberNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer
  */
-class NumberNormalizerTest extends TestCase {
+class DecimalNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -17,7 +17,7 @@ class NumberNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        $this->assertEquals($expected, (new NumberNormalizer())->normalize($value));
+        $this->assertEquals($expected, $this->app->make(DecimalNormalizer::class)->normalize($value));
     }
     // </editor-fold>
 

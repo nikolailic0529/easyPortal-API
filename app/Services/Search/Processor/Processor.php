@@ -4,6 +4,7 @@ namespace App\Services\Search\Processor;
 
 use App\Services\Search\Configuration;
 use App\Services\Search\Exceptions\FailedToIndex;
+use App\Services\Search\Exceptions\IndexError;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State as ProcessorState;
@@ -138,7 +139,9 @@ class Processor extends EloquentProcessor {
 
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
-            new FailedToIndex($this, $item, $exception),
+            $item
+                ? new FailedToIndex($this, $item, $exception)
+                : new IndexError($this, $exception),
         );
     }
 
