@@ -82,16 +82,19 @@ class WithKpiTest extends TestCase {
         ]);
         $owner    = Customer::factory()->make()->setRelation('kpi', $kpi);
         $kpis     = new CompanyKpis([
-            'totalAssets' => -23,
+            'totalAssets'                     => -123,
+            'serviceRevenueTotalAmountChange' => -123,
         ]);
         $actual   = $factory->kpi($owner, $kpis);
         $expected = [
-            'assets_total' => 0,
+            'assets_total'                        => 0,
+            'service_revenue_total_amount_change' => -123.00,
         ];
 
         $this->assertSame($kpi, $actual);
         $this->assertEquals($expected, [
-            'assets_total' => $actual->assets_total,
+            'assets_total'                        => $actual->assets_total,
+            'service_revenue_total_amount_change' => $actual->service_revenue_total_amount_change,
         ]);
     }
 }

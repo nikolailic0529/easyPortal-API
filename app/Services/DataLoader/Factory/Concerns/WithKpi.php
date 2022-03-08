@@ -97,9 +97,9 @@ trait WithKpi {
             $kpi->service_revenue_total_amount        = (float) $normalizer->unsigned($normalizer->float(
                 $kpis->serviceRevenueTotalAmount ?? null,
             ));
-            $kpi->service_revenue_total_amount_change = (float) $normalizer->unsigned($normalizer->float(
+            $kpi->service_revenue_total_amount_change = (float) $normalizer->float(
                 $kpis->serviceRevenueTotalAmountChange ?? null,
-            ));
+            );
 
             $kpi->save();
         }
