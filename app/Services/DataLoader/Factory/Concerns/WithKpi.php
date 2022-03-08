@@ -26,6 +26,7 @@ trait WithKpi {
         if ($kpis) {
             $normalizer = $this->getNormalizer();
             $kpi        = ($owner->exists || $owner->relationLoaded('kpi') ? $owner->kpi : null) ?: new Kpi();
+            $exists     = $kpi->exists;
 
             try {
                 $kpi->assets_total                        = (int) $normalizer->unsigned($normalizer->int(
@@ -70,9 +71,9 @@ trait WithKpi {
                 $kpi->quotes_active                       = (int) $normalizer->unsigned($normalizer->int(
                     $kpis->activeQuotes ?? null,
                 ));
-                $kpi->quotes_active_amount                = (float) $normalizer->unsigned($normalizer->float(
+                $kpi->quotes_active_amount                = (float) $normalizer->float(
                     $kpis->activeQuotesTotalAmount ?? null,
-                ));
+                );
                 $kpi->quotes_active_new                   = (int) $normalizer->unsigned($normalizer->int(
                     $kpis->newActiveQuotes ?? null,
                 ));
@@ -113,7 +114,7 @@ trait WithKpi {
                     new FailedToProcessCompanyKpis($owner, $kpis, $exception),
                 );
 
-                if (!$kpi->exists) {
+                if (!$exists) {
                     $kpi = null;
                 }
             }
