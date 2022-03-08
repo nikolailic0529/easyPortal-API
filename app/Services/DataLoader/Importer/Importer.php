@@ -7,6 +7,7 @@ use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
+use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
@@ -79,7 +80,9 @@ abstract class Importer extends Processor {
     // =========================================================================
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
-            new FailedToImportObject($this, $item, $exception),
+            $item
+                ? new FailedToImportObject($this, $item, $exception)
+                : new ImportError($this, $exception),
         );
     }
 

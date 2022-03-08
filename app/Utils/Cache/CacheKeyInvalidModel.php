@@ -16,7 +16,8 @@ class CacheKeyInvalidModel extends ApplicationException {
         ), $previous);
 
         $this->setContext([
-            'model' => $model,
+            'key'    => $model->getKey(),
+            'exists' => $model->exists,
         ]);
     }
 }
