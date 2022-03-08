@@ -71,9 +71,9 @@ trait WithKpi {
                 $kpi->quotes_active                       = (int) $normalizer->unsigned($normalizer->int(
                     $kpis->activeQuotes ?? null,
                 ));
-                $kpi->quotes_active_amount                = (float) $normalizer->float(
+                $kpi->quotes_active_amount                = (float) $normalizer->unsigned($normalizer->float(
                     $kpis->activeQuotesTotalAmount ?? null,
-                );
+                ));
                 $kpi->quotes_active_new                   = (int) $normalizer->unsigned($normalizer->int(
                     $kpis->newActiveQuotes ?? null,
                 ));
