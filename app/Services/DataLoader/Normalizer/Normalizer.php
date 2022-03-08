@@ -6,10 +6,13 @@ use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Normalizer\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\DateTimeNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\DecimalNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\FloatNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\IntNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\NameNormalizer;
-use App\Services\DataLoader\Normalizer\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
+use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
 use DateTimeInterface;
 
@@ -18,11 +21,14 @@ class Normalizer implements Singleton {
         protected UuidNormalizer $uuid,
         protected StringNormalizer $string,
         protected DateTimeNormalizer $datetime,
-        protected NumberNormalizer $number,
+        protected DecimalNormalizer $decimal,
         protected BoolNormalizer $boolean,
         protected ColorNormalizer $color,
         protected TextNormalizer $text,
         protected NameNormalizer $name,
+        protected IntNormalizer $int,
+        protected FloatNormalizer $float,
+        protected UnsignedNormalizer $unsigned,
     ) {
         // empty
     }
@@ -43,8 +49,8 @@ class Normalizer implements Singleton {
         return $this->datetime->normalize($value);
     }
 
-    public function number(mixed $value): ?string {
-        return $this->number->normalize($value);
+    public function decimal(mixed $value): ?string {
+        return $this->decimal->normalize($value);
     }
 
     public function boolean(mixed $value): ?bool {
@@ -61,5 +67,24 @@ class Normalizer implements Singleton {
 
     public function name(mixed $value): ?string {
         return $this->name->normalize($value);
+    }
+
+    public function int(mixed $value): ?int {
+        return $this->int->normalize($value);
+    }
+
+    public function float(mixed $value): ?float {
+        return $this->float->normalize($value);
+    }
+
+    /**
+     * @template T of float|int|null
+     *
+     * @param T $value
+     *
+     * @return T
+     */
+    public function unsigned(mixed $value): mixed {
+        return $this->unsigned->normalize($value);
     }
 }

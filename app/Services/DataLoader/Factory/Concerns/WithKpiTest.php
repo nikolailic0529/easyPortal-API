@@ -71,6 +71,29 @@ class WithKpiTest extends TestCase {
             'assets_total' => $actual->assets_total,
         ]);
     }
+
+    /**
+     * @covers ::kpi
+     */
+    public function testKpiNegative(): void {
+        $factory  = new WithKpiTest_Factory($this->app->make(Normalizer::class));
+        $kpi      = Kpi::factory()->create([
+            'assets_total' => 123,
+        ]);
+        $owner    = Customer::factory()->make()->setRelation('kpi', $kpi);
+        $kpis     = new CompanyKpis([
+            'totalAssets' => -23,
+        ]);
+        $actual   = $factory->kpi($owner, $kpis);
+        $expected = [
+            'assets_total' => 0,
+        ];
+
+        $this->assertSame($kpi, $actual);
+        $this->assertEquals($expected, [
+            'assets_total' => $actual->assets_total,
+        ]);
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses

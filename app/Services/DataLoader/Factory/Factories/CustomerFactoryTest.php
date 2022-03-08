@@ -125,107 +125,107 @@ class CustomerFactoryTest extends TestCase {
             $this->getModelContacts($customer),
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->totalAssets),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->totalAssets)),
             $customer->kpi->assets_total,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeAssets),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssets)),
             $customer->kpi->assets_active,
         );
         $this->assertEquals(
-            (float) $normalizer->number($company->companyKpis->activeAssetsPercentage),
+            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeAssetsPercentage)),
             $customer->kpi->assets_active_percent,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeCustomers),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeCustomers)),
             $customer->kpi->customers_active,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->newActiveCustomers),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveCustomers)),
             $customer->kpi->customers_active_new,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeContracts),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeContracts)),
             $customer->kpi->contracts_active,
         );
         $this->assertEquals(
-            (float) $normalizer->number($company->companyKpis->activeContractTotalAmount),
+            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeContractTotalAmount)),
             $customer->kpi->contracts_active_amount,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->newActiveContracts),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveContracts)),
             $customer->kpi->contracts_active_new,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->expiringContracts),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringContracts)),
             $customer->kpi->contracts_expiring,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeQuotes)),
             $customer->kpi->quotes_active,
         );
         $this->assertEquals(
-            (float) $normalizer->number($company->companyKpis->activeQuotesTotalAmount),
+            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeQuotesTotalAmount)),
             $customer->kpi->quotes_active_amount,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->newActiveQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveQuotes)),
             $customer->kpi->quotes_active_new,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->expiringQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringQuotes)),
             $customer->kpi->quotes_expiring,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->expiredQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredQuotes)),
             $customer->kpi->quotes_expired,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->expiredContracts),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredContracts)),
             $customer->kpi->contracts_expired,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->orderedQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->orderedQuotes)),
             $customer->kpi->quotes_ordered,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->acceptedQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->acceptedQuotes)),
             $customer->kpi->quotes_accepted,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->requestedQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->requestedQuotes)),
             $customer->kpi->quotes_requested,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->receivedQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->receivedQuotes)),
             $customer->kpi->quotes_received,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->rejectedQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->rejectedQuotes)),
             $customer->kpi->quotes_rejected,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->awaitingQuotes),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->awaitingQuotes)),
             $customer->kpi->quotes_awaiting,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeAssetsOnContract),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnContract)),
             $customer->kpi->assets_active_on_contract,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeAssetsOnWarranty),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnWarranty)),
             $customer->kpi->assets_active_on_warranty,
         );
         $this->assertEquals(
-            (int) $normalizer->number($company->companyKpis->activeExposedAssets),
+            (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeExposedAssets)),
             $customer->kpi->assets_active_exposed,
         );
         $this->assertEquals(
-            (float) $normalizer->number($company->companyKpis->serviceRevenueTotalAmount),
+            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmount)),
             $customer->kpi->service_revenue_total_amount,
         );
         $this->assertEquals(
-            (float) $normalizer->number($company->companyKpis->serviceRevenueTotalAmountChange),
+            (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmountChange)),
             $customer->kpi->service_revenue_total_amount_change,
         );
 

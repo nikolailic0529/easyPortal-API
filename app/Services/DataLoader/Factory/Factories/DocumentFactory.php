@@ -277,7 +277,7 @@ class DocumentFactory extends ModelFactory {
                 $model->distributor   = $this->distributor($document);
                 $model->start         = $normalizer->datetime($document->startDate);
                 $model->end           = $normalizer->datetime($document->endDate);
-                $model->price         = $normalizer->number($document->totalNetPrice);
+                $model->price         = $normalizer->decimal($document->totalNetPrice);
                 $model->number        = $normalizer->string($document->documentNumber);
                 $model->changed_at    = $normalizer->datetime($document->updatedAt);
                 $model->contacts      = $this->objectContacts($model, (array) $document->contactPersons);
@@ -347,7 +347,7 @@ class DocumentFactory extends ModelFactory {
             $model->distributor = $this->distributor($document);
             $model->start       = $normalizer->datetime($document->startDate);
             $model->end         = $normalizer->datetime($document->endDate);
-            $model->price       = $normalizer->number($document->totalNetPrice);
+            $model->price       = $normalizer->decimal($document->totalNetPrice);
             $model->number      = $normalizer->string($document->documentNumber);
             $model->changed_at  = $normalizer->datetime($document->updatedAt);
             $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
@@ -467,10 +467,10 @@ class DocumentFactory extends ModelFactory {
         $entry->start         = $normalizer->datetime($documentEntry->startDate);
         $entry->end           = $normalizer->datetime($documentEntry->endDate);
         $entry->currency      = $this->currency($documentEntry->currencyCode);
-        $entry->net_price     = $normalizer->number($documentEntry->netPrice);
-        $entry->list_price    = $normalizer->number($documentEntry->listPrice);
-        $entry->discount      = $normalizer->number($documentEntry->discount);
-        $entry->renewal       = $normalizer->number($documentEntry->estimatedValueRenewal);
+        $entry->net_price     = $normalizer->decimal($documentEntry->netPrice);
+        $entry->list_price    = $normalizer->decimal($documentEntry->listPrice);
+        $entry->discount      = $normalizer->decimal($documentEntry->discount);
+        $entry->renewal       = $normalizer->decimal($documentEntry->estimatedValueRenewal);
         $entry->serviceGroup  = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel  = $this->documentEntryServiceLevel($model, $documentEntry);
 
