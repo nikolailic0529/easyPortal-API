@@ -3,7 +3,6 @@
 namespace App\Services\Search\Jobs;
 
 use App\Services\Queue\Concerns\ProcessorJob;
-use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\Job;
 use App\Services\Search\Processor\Processor;
 use App\Utils\Eloquent\Callbacks\GetKey;
@@ -19,7 +18,7 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  * @see \Laravel\Scout\Jobs\MakeSearchable
  * @see \Laravel\Scout\Jobs\RemoveFromSearch
  */
-class Index extends Job implements Initializable, Progressable {
+class Index extends Job implements Initializable {
     use ProcessorJob;
 
     /**

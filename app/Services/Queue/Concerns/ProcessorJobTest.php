@@ -2,6 +2,7 @@
 
 namespace App\Services\Queue\Concerns;
 
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Job;
@@ -15,7 +16,6 @@ use App\Utils\Processor\State;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Queue\Job as JobContract;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\Contracts\ConfigurableQueueable;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -67,7 +67,7 @@ class ProcessorJobTest extends TestCase {
             ->twice()
             ->andReturns();
 
-        $job = new class($service, $processor) extends CronJob {
+        $job = new class($service, $processor) extends CronJob implements Progressable {
             use ProcessorJob;
 
             public function __construct(
@@ -97,14 +97,6 @@ class ProcessorJobTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeStopped(): void {
-        $queueJob = Mockery::mock(JobContract::class);
-        $queueJob
-            ->shouldReceive('getJobId')
-            ->once()
-            ->andReturn(
-                $this->faker->uuid,
-            );
-
         $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
             $this->app->make(ExceptionHandler::class),
             $this->app->make(Dispatcher::class),
@@ -120,21 +112,7 @@ class ProcessorJobTest extends TestCase {
             ->twice();
 
         $service = Mockery::mock(Service::class);
-        $service
-            ->shouldReceive('get')
-            ->once()
-            ->andReturn(null);
-        $service
-            ->shouldReceive('set')
-            ->twice()
-            ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
-                return $value;
-            });
-        $service
-            ->shouldReceive('delete')
-            ->never();
-
-        $pinger = Mockery::mock(Pinger::class);
+        $pinger  = Mockery::mock(Pinger::class);
         $pinger
             ->shouldReceive('ping')
             ->once()
@@ -173,9 +151,7 @@ class ProcessorJobTest extends TestCase {
             ],
         ]);
 
-        $job
-            ->setJob($queueJob)
-            ->handle($this->app, $pinger);
+        $job->handle($this->app, $pinger);
     }
 
     /**
@@ -259,7 +235,7 @@ abstract class ProcessorJobTest__Processor extends Processor {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @see https://github.com/mockery/mockery/issues/1022
+ * @see          https://github.com/mockery/mockery/issues/1022
  */
 abstract class ProcessorJobTest__ProcessorJob implements ConfigurableQueueable {
     use ProcessorJob;

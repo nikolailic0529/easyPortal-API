@@ -39,13 +39,13 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "bfed16ba-537b-5382-a8c3-eaef6c3e8897"
+            "1365e8bd-7cfd-5ecd-9412-ca4b71cba85a"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "1365e8bd-7cfd-5ecd-9412-ca4b71cba85a"
+            "f0fc2834-0b25-511c-95f7-2cf190ba3074"
         ]
     },
     {
@@ -72,7 +72,7 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "5215e1c3-ee16-5ce6-ab85-68c40722df2a",
             "e61ed796-d98b-525d-a422-6ae25969cb43",
             "138 gianni ports suite 628",
             "73779"
@@ -81,13 +81,13 @@
     {
         "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`customer_location_id` = ? and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
         "bindings": [
-            "1ef72848-3761-5f9e-b5aa-2f745833994c"
+            "f4510e55-457f-5cef-b3b5-6febd400acdf"
         ]
     },
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "5215e1c3-ee16-5ce6-ab85-68c40722df2a"
+            "ce2dbe99-a500-5027-b814-5e976350fcb9"
         ]
     },
     {
@@ -105,7 +105,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4"
+            "bfed16ba-537b-5382-a8c3-eaef6c3e8897"
         ]
     },
     {
@@ -117,7 +117,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
         "bindings": [
-            "f4510e55-457f-5cef-b3b5-6febd400acdf"
+            "271890ae-435b-595c-8e00-d23495b5bbbd"
         ]
     },
     {
@@ -185,7 +185,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "f5fee4c5-dd46-513a-b99f-61fe2650691c"
+            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4"
         ]
     },
     {
@@ -236,7 +236,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "f5fee4c5-dd46-513a-b99f-61fe2650691c"
+            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4"
         ]
     },
     {

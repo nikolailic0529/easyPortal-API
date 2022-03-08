@@ -205,6 +205,7 @@ abstract class Processor {
                 $state->success++;
 
                 $this->notifyOnProcess($state);
+                $this->dispatchOnProcess($item);
             } catch (Throwable $exception) {
                 $state->processed++;
                 $state->failed++;
@@ -427,6 +428,24 @@ abstract class Processor {
      * @param TChunkData   $data
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
+        return null;
+    }
+
+    /**
+     * @param TItem $item
+     */
+    protected function dispatchOnProcess(mixed $item): void {
+        $event = $this->getOnProcessEvent($item);
+
+        if ($event) {
+            $this->getDispatcher()->dispatch($event);
+        }
+    }
+
+    /**
+     * @param TItem $item
+     */
+    protected function getOnProcessEvent(mixed $item): ?object {
         return null;
     }
     // </editor-fold>

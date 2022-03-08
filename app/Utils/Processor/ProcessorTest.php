@@ -226,6 +226,12 @@ class ProcessorTest extends TestCase {
             ->andReturns();
         $processor
             ->shouldReceive('notifyOnProcess')
+            ->with($state)
+            ->once()
+            ->andReturns();
+        $processor
+            ->shouldReceive('dispatchOnProcess')
+            ->with($a)
             ->once()
             ->andReturns();
 

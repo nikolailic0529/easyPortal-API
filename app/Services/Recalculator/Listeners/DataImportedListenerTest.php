@@ -5,13 +5,13 @@ namespace App\Services\Recalculator\Listeners;
 use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\Recalculator\Jobs\CustomersRecalculate;
+use App\Services\Recalculator\Jobs\CustomerRecalculate;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
-use function array_values;
+use function count;
 
 /**
  * @internal
@@ -38,7 +38,8 @@ class DataImportedListenerTest extends TestCase {
      */
     public function testInvoke(): void {
         $data     = (new Data())
-            ->collect(Customer::factory()->make());
+            ->collect(Customer::factory()->count(2)->make());
+        $keys     = $data->get(Customer::class);
         $event    = new DataImported($data);
         $listener = $this->app->make(DataImportedListener::class);
 
@@ -46,11 +47,12 @@ class DataImportedListenerTest extends TestCase {
 
         $listener($event);
 
-        Queue::assertPushed(CustomersRecalculate::class, 1);
-        Queue::assertPushed(static function (CustomersRecalculate $job) use ($data): bool {
-            self::assertEquals($job->getKeys(), array_values($data->get(Customer::class)));
+        Queue::assertPushed(CustomerRecalculate::class, count($keys));
 
-            return true;
-        });
+        foreach ($keys as $key) {
+            Queue::assertPushed(static function (CustomerRecalculate $job) use ($key): bool {
+                return $job->getModelKey() === $key;
+            });
+        }
     }
 }

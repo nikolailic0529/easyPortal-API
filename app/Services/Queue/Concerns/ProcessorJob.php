@@ -2,6 +2,7 @@
 
 namespace App\Services\Queue\Concerns;
 
+use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Progress;
@@ -84,13 +85,15 @@ trait ProcessorJob {
             ->makeProcessor($container, $config)
             ->setChunkSize($chunk);
 
-        if ($this instanceof CronJob) {
-            $processor = $processor->setCacheKey($service, $this);
-        } else {
-            $processor = $processor->setCacheKey($service, [
-                $this,
-                $this->getJob()->getJobId(),
-            ]);
+        if ($this instanceof Progressable) {
+            if ($this instanceof CronJob) {
+                $processor = $processor->setCacheKey($service, $this);
+            } else {
+                $processor = $processor->setCacheKey($service, [
+                    $this,
+                    $this->getJob()->getJobId(),
+                ]);
+            }
         }
 
         return $processor;

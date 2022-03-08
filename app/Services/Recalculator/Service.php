@@ -6,9 +6,9 @@ use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Queues;
-use App\Services\Recalculator\Jobs\CustomersRecalculate;
-use App\Services\Recalculator\Jobs\LocationsRecalculate;
-use App\Services\Recalculator\Jobs\ResellersRecalculate;
+use App\Services\Recalculator\Jobs\CustomerRecalculate;
+use App\Services\Recalculator\Jobs\LocationRecalculate;
+use App\Services\Recalculator\Jobs\ResellerRecalculate;
 use App\Services\Service as BaseService;
 
 use function array_keys;
@@ -18,9 +18,9 @@ class Service extends BaseService {
      * @var array<class-string<\Illuminate\Database\Eloquent\Model>,class-string<\App\Services\Recalculator\Jobs\Recalculate>>
      */
     protected static array $recalculable = [
-        Reseller::class => ResellersRecalculate::class,
-        Customer::class => CustomersRecalculate::class,
-        Location::class => LocationsRecalculate::class,
+        Reseller::class => ResellerRecalculate::class,
+        Customer::class => CustomerRecalculate::class,
+        Location::class => LocationRecalculate::class,
     ];
 
     /**
