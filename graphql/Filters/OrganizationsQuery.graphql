@@ -1,10 +1,10 @@
 input OrganizationsQuery {
-  id: ID!
-  name: String!
-  website_url: Url
-  email: Email
-  statuses: StatusesQuery
-  contacts: ContactsQuery
-  locations: ResellerLocationsQuery
-  headquarter: ResellerLocationsQuery
+    id: ID!
+    name: String!
+    website_url: Url
+    email: Email
+    statuses: StatusesQuery
+    contacts: ContactsQuery
+    locations: ResellerLocationsQuery
+    headquarter: ResellerLocationsQuery
 }

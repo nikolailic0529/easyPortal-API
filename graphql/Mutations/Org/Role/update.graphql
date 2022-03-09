@@ -1,20 +1,20 @@
 extend type OrgRoleMutations {
-  update(
-    input: OrgRoleUpdateInput!
-  ): OrgRoleUpdatePayload
-  @organization
-  @me(permissions: ["org-administer"])
-  @mutationMutate(
-    resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Update"
-  )
+    update(
+        input: OrgRoleUpdateInput!
+    ): OrgRoleUpdatePayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Update"
+    )
 }
 
 input OrgRoleUpdateInput {
-  name: String @isRequired
-  permissions: [ID!] @isOrgPermissionId
+    name: String @isRequired
+    permissions: [ID!] @isOrgPermissionId
 }
 
 type OrgRoleUpdatePayload implements Payload {
-  result: Boolean!
-  role: Role!
+    result: Boolean!
+    role: Role!
 }

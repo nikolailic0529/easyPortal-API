@@ -3,67 +3,67 @@
 #import */*/*/*.graphql
 
 type Query {
-  # General
-  # ============================================================================
-  "Authenticated user or `null` otherwise."
-  me: Me
+    # General
+    # ============================================================================
+    "Authenticated user or `null` otherwise."
+    me: Me
 
-  "Current organization."
-  org: Organization
+    "Current organization."
+    org: Organization
 
-  "Application information."
-  application: Application!
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Application")
+    "Application information."
+    application: Application!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Application")
 
-  "Client data (settings, translations, etc)."
-  client: Client
-  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    "Client data (settings, translations, etc)."
+    client: Client
+    @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
 
-  # Search
-  # ============================================================================
-  search(
-    search: SearchString!
-    @search
-    @builder(method: "App\\GraphQL\\Queries\\Search")
-  ): [SearchResult!]!
-  @organization
-  @me(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
-  @paginated(
-    builder: "App\\GraphQL\\Queries\\Search@builder"
-  )
+    # Search
+    # ============================================================================
+    search(
+        search: SearchString!
+        @search
+        @builder(method: "App\\GraphQL\\Queries\\Search")
+    ): [SearchResult!]!
+    @organization
+    @me(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
+    @paginated(
+        builder: "App\\GraphQL\\Queries\\Search@builder"
+    )
 
-  # Map
-  # ============================================================================
-  map(
-    "Zoom level (1-12)."
-    level: Int! @rules(apply: ["App\\Rules\\MapLevel"])
+    # Map
+    # ============================================================================
+    map(
+        "Zoom level (1-12)."
+        level: Int! @rules(apply: ["App\\Rules\\MapLevel"])
 
-    "Only points inside these boundaries will be returned."
-    boundaries: [Geohash!]
+        "Only points inside these boundaries will be returned."
+        boundaries: [Geohash!]
 
-    "Additional filters for the points."
-    locations: MapQuery @searchBy
+        "Additional filters for the points."
+        locations: MapQuery @searchBy
 
-    "Assets filters."
-    assets:  AssetsQuery @searchBy
-  ): [Map!]!
-  @organization
-  @me(permissions: ["customers-view"])
-  @field(resolver: "App\\GraphQL\\Queries\\Map")
-  @cached(mode: Threshold)
+        "Assets filters."
+        assets:  AssetsQuery @searchBy
+    ): [Map!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @field(resolver: "App\\GraphQL\\Queries\\Map")
+    @cached(mode: Threshold)
 
-  # Organization
-  # ============================================================================
-  permissions: [Permission!]!
-  @organization
-  @me(permissions: ["administer", "org-administer"])
-  @field(
-    resolver: "App\\GraphQL\\Queries\\Permissions"
-  )
+    # Organization
+    # ============================================================================
+    permissions: [Permission!]!
+    @organization
+    @me(permissions: ["administer", "org-administer"])
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Permissions"
+    )
 
-  "List of all possible teams."
-  teams: [Team!]!
-  @organization
-  @me(permissions: ["administer", "org-administer"])
-  @all
+    "List of all possible teams."
+    teams: [Team!]!
+    @organization
+    @me(permissions: ["administer", "org-administer"])
+    @all
 }

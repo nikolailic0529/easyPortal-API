@@ -1,6 +1,6 @@
 type File {
-  id: ID!
-  name: String!
-  url: Url!
-  size: Int!
+    id: ID!
+    name: String!
+    url: Url!
+    size: Int!
 }

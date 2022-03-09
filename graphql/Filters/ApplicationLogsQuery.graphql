@@ -1,11 +1,11 @@
 input ApplicationLogsQuery {
-  id: ID!
-  category: String!
-  action: String!
-  status: String
-  object_type: String
-  object_id: ID
-  duration: Float
-  created_at: DateTime!
-  finished_at: DateTime
+    id: ID!
+    category: String!
+    action: String!
+    status: String
+    object_type: String
+    object_id: ID
+    duration: Float
+    created_at: DateTime!
+    finished_at: DateTime
 }

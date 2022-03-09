@@ -1,35 +1,35 @@
 extend type Mutation {
-  updateOrg(
-    input: UpdateOrgInput!
-  ): UpdateOrgPayload
-  @organization
-  @me(permissions: ["org-administer"])
-  @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrg")
+    updateOrg(
+        input: UpdateOrgInput!
+    ): UpdateOrgPayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrg")
 }
 
 input UpdateOrgInput @validator {
-  locale: String
-  currency_id: ID
-  website_url: Url
-  email: Email
-  analytics_code: String
-  branding: UpdateOrgBranding
-  timezone: String
+    locale: String
+    currency_id: ID
+    website_url: Url
+    email: Email
+    analytics_code: String
+    branding: UpdateOrgBranding
+    timezone: String
 }
 
 input UpdateOrgBranding {
-  dark_theme: Boolean
-  main_color: Color
-  secondary_color: Color
-  logo_url: Upload
-  favicon_url: Upload
-  welcome_image_url: Upload
-  welcome_heading: String
-  welcome_underline: String
-  dashboard_image_url: Upload
+    dark_theme: Boolean
+    main_color: Color
+    secondary_color: Color
+    logo_url: Upload
+    favicon_url: Upload
+    welcome_image_url: Upload
+    welcome_heading: String
+    welcome_underline: String
+    dashboard_image_url: Upload
 }
 
 type UpdateOrgPayload {
-  result: Boolean!
-  organization: Organization!
+    result: Boolean!
+    organization: Organization!
 }

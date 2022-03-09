@@ -1,10 +1,10 @@
 extend type OrgMutations {
-  user(id: ID @eq): OrgUserMutations
-  @organization
-  @me(permissions: ["org-administer"])
-  @mutation(
-    relation: "users"
-  )
+    user(id: ID @eq): OrgUserMutations
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutation(
+        relation: "users"
+    )
 }
 
 type OrgUserMutations

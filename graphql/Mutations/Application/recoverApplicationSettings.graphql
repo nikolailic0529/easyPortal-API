@@ -1,13 +1,13 @@
 extend type Mutation {
-  """
-  Force delete all custom settings, may be useful to restore the corrupted file.
-  """
-  recoverApplicationSettings: recoverApplicationSettingsPayload
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationSettings")
+    """
+    Force delete all custom settings, may be useful to restore the corrupted file.
+    """
+    recoverApplicationSettings: recoverApplicationSettingsPayload
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationSettings")
 }
 
 type recoverApplicationSettingsPayload {
-  result: Boolean!
+    result: Boolean!
 }

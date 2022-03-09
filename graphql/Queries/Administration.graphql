@@ -1,50 +1,50 @@
 extend type Query {
-  "List of all organizations."
-  organizations(
-    where: OrganizationsQuery @searchBy
-    order: OrganizationsSort @sortBy
-  ): [Organization!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @paginated
+    "List of all organizations."
+    organizations(
+        where: OrganizationsQuery @searchBy
+        order: OrganizationsSort @sortBy
+    ): [Organization!]!
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @paginated
 
-  "Organization."
-  organization(id: ID! @eq): Organization
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @find
+    "Organization."
+    organization(id: ID! @eq): Organization
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @find
 
-  "List of all organizations audits."
-  audits(
-    where: AuditsQuery @searchBy
-    order: AuditsSort @sortBy
-  ): [Audit!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @paginated(
-    model: "App\\Models\\Audits\\Audit"
-  )
+    "List of all organizations audits."
+    audits(
+        where: AuditsQuery @searchBy
+        order: AuditsSort @sortBy
+    ): [Audit!]!
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @paginated(
+        model: "App\\Models\\Audits\\Audit"
+    )
 
-  "List of all users."
-  users(
-    where: UsersQuery @searchBy
-    order: UsersSort @sortBy
-  ): [User!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
-  @paginated
+    "List of all users."
+    users(
+        where: UsersQuery @searchBy
+        order: UsersSort @sortBy
+    ): [User!]!
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
+    @paginated
 
-  user(id: ID! @eq): User
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
-  @find
+    user(id: ID! @eq): User
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
+    @find
 
-  "List of all shared roles."
-  roles: [Role!]!
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @builder(method: "App\\GraphQL\\Queries\\Administration\\Roles")
-  @all
+    "List of all shared roles."
+    roles: [Role!]!
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @builder(method: "App\\GraphQL\\Queries\\Administration\\Roles")
+    @all
 }

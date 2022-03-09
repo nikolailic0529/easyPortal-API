@@ -1,14 +1,14 @@
 input AssetWarrantiesQuery {
-  id: ID!
-  start: Date
-  end: Date
-  asset: AssetsQuery
-  customer_id: ID
-  customer: CustomersQuery
-  document_id: ID
-  document: DocumentsQuery
-  reseller_id: ID
-  reseller: ResellersQuery
-  service_group_id: ID
-  serviceLevels: ServiceLevelsQuery
+    id: ID!
+    start: Date
+    end: Date
+    asset: AssetsQuery
+    customer_id: ID
+    customer: CustomersQuery
+    document_id: ID
+    document: DocumentsQuery
+    reseller_id: ID
+    reseller: ResellersQuery
+    service_group_id: ID
+    serviceLevels: ServiceLevelsQuery
 }

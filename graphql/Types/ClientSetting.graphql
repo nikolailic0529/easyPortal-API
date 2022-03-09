@@ -1,9 +1,9 @@
 type ClientSetting {
-  name: String!
+    name: String!
 
-  """
-  Value of the setting. For array it will contain comma-separated values, for
-  Boolean: "true" or "false", also can be "null" that means null.
-  """
-  value: String!
+    """
+    Value of the setting. For array it will contain comma-separated values, for
+    Boolean: "true" or "false", also can be "null" that means null.
+    """
+    value: String!
 }

@@ -1,5 +1,5 @@
 type ApplicationTranslation {
-  key: String!
-  value: String!
-  default: String
+    key: String!
+    value: String!
+    default: String
 }

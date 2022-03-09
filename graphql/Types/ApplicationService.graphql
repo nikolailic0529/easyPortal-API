@@ -1,34 +1,34 @@
 type ApplicationService {
-  name: String!
-  enabled: Boolean!
+    name: String!
+    enabled: Boolean!
 
-  """
-  Cron expression that determines when service should run if enabled.
-  """
-  cron: String
+    """
+    Cron expression that determines when service should run if enabled.
+    """
+    cron: String
 
-  """
-  Queue name
-  """
-  queue: String!
+    """
+    Queue name
+    """
+    queue: String!
 
-  """
-  Settings related to this service.
-  """
-  settings: [String!]!
+    """
+    Settings related to this service.
+    """
+    settings: [String!]!
 
-  description: String
+    description: String
 
-  state: ApplicationJobState
+    state: ApplicationJobState
 
-  """
-  Indicates that Service can be stopped.
-  """
-  stoppable: Boolean!
+    """
+    Indicates that Service can be stopped.
+    """
+    stoppable: Boolean!
 
-  """
-  Indicates that Service have a progress.
-  """
-  progressable: Boolean!
-  progress: ApplicationJobProgress
+    """
+    Indicates that Service have a progress.
+    """
+    progressable: Boolean!
+    progress: ApplicationJobProgress
 }

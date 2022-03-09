@@ -1,7 +1,7 @@
 input CitiesQuery {
-  id: ID!
-  name: String!
-  country_id: ID!
-  assets: AssetsQuery
-  customers: CustomersQuery
+    id: ID!
+    name: String!
+    country_id: ID!
+    assets: AssetsQuery
+    customers: CustomersQuery
 }

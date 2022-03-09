@@ -1,47 +1,47 @@
 type Organization {
-  id: ID!
-  name: String!
-  root: Boolean!
-  @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
+    id: ID!
+    name: String!
+    root: Boolean!
+    @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
 
-  locale: String
-  website_url: Url
-  email: Email
-  currency_id: ID
-  currency: Currency @belongsTo
-  analytics_code: String
-  timezone: String
+    locale: String
+    website_url: Url
+    email: Email
+    currency_id: ID
+    currency: Currency @belongsTo
+    analytics_code: String
+    timezone: String
 
-  branding: OrganizationBranding!
-  @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
+    branding: OrganizationBranding!
+    @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
-  kpi: Kpi @hasOne
+    kpi: Kpi @hasOne
 
-  statuses: [Status!]! @belongsToMany
-  locations: [ResellerLocation!]!
-  contacts: [Contact!]!
-  headquarter: ResellerLocation
+    statuses: [Status!]! @belongsToMany
+    locations: [ResellerLocation!]!
+    contacts: [Contact!]!
+    headquarter: ResellerLocation
 
-  users(
-    where: UsersQuery @searchBy
-    order: UsersSort @sortBy
-  ): [User!]!
-  @me(permissions: ["administer", "org-administer"])
-  @hasMany
-  @paginatedRelation
+    users(
+        where: UsersQuery @searchBy
+        order: UsersSort @sortBy
+    ): [User!]!
+    @me(permissions: ["administer", "org-administer"])
+    @hasMany
+    @paginatedRelation
 
-  keycloak_scope: String
-  @me(permissions: ["administer"])
+    keycloak_scope: String
+    @me(permissions: ["administer"])
 
-  roles: [Role!]! @hasMany
-  @me(permissions: ["administer", "org-administer"])
+    roles: [Role!]! @hasMany
+    @me(permissions: ["administer", "org-administer"])
 
-  audits(
-    where: AuditsQuery @searchBy
-    order: AuditsSort @sortBy
-  ): [Audit!]!
-  @me(permissions: ["administer", "org-administer"])
-  @paginated(
-    builder: "App\\GraphQL\\Queries\\Organization@audits"
-  )
+    audits(
+        where: AuditsQuery @searchBy
+        order: AuditsSort @sortBy
+    ): [Audit!]!
+    @me(permissions: ["administer", "org-administer"])
+    @paginated(
+        builder: "App\\GraphQL\\Queries\\Organization@audits"
+    )
 }

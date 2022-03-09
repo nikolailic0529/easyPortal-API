@@ -1,9 +1,9 @@
 type Contact {
-  id: ID!
-  name: String
-  email: Email
-  phone_number: PhoneNumber
-  "Indicates that phone_number in E.164 format"
-  phone_valid: Boolean
-  types: [Type]! @belongsToMany
+    id: ID!
+    name: String
+    email: Email
+    phone_number: PhoneNumber
+    "Indicates that phone_number in E.164 format"
+    phone_valid: Boolean
+    types: [Type]! @belongsToMany
 }

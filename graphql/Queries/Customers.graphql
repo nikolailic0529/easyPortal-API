@@ -1,42 +1,42 @@
 extend type Query {
-  "List of all possible customer statuses."
-  customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
-  @organization
-  @me(permissions: ["customers-view"])
-  @all(
-    builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
-  )
-  @cached
+    "List of all possible customer statuses."
+    customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @all(
+        builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
+    )
+    @cached
 
-  "List of all possible customer types."
-  customerTypes(where: CustomerTypesQuery @searchBy): [Type!]!
-  @organization
-  @me(permissions: ["customers-view"])
-  @all(
-    builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
-  )
-  @cached
+    "List of all possible customer types."
+    customerTypes(where: CustomerTypesQuery @searchBy): [Type!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @all(
+        builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
+    )
+    @cached
 
-  "List of Customers."
-  customers (
-    where: CustomersQuery @searchBy
-    order: CustomersSort @sortBy
-  ): [Customer!]!
-  @organization
-  @me(permissions: ["customers-view"])
-  @paginated
+    "List of Customers."
+    customers (
+        where: CustomersQuery @searchBy
+        order: CustomersSort @sortBy
+    ): [Customer!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @paginated
 
-  customersSearch(
-    search: SearchString! @search
-    order: CustomersSearchSort @sortBy
-  ): [Customer!]!
-  @organization
-  @me(permissions: ["customers-view"])
-  @paginated
+    customersSearch(
+        search: SearchString! @search
+        order: CustomersSearchSort @sortBy
+    ): [Customer!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @paginated
 
-  "Customer."
-  customer(id: ID! @eq): Customer
-  @organization
-  @me(permissions: ["customers-view"])
-  @find
+    "Customer."
+    customer(id: ID! @eq): Customer
+    @organization
+    @me(permissions: ["customers-view"])
+    @find
 }

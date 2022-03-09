@@ -1,16 +1,16 @@
 extend type Mutation {
-  updateClientSettings(
-    input: [UpdateClientSettingsInput!]!
-  ): UpdateClientSettingsPayload
-  @organization(root: true)
-  @root
+    updateClientSettings(
+        input: [UpdateClientSettingsInput!]!
+    ): UpdateClientSettingsPayload
+    @organization(root: true)
+    @root
 }
 
 input UpdateClientSettingsInput {
-  name: String!
-  value: String!
+    name: String!
+    value: String!
 }
 
 type UpdateClientSettingsPayload {
-  updated: [ClientSetting!]!
+    updated: [ClientSetting!]!
 }

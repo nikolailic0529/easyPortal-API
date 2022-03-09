@@ -1,10 +1,10 @@
 extend type Mutation {
-  me: MeMutations
-  @organization
-  @me
-  @mutation(
-    resolver: "App\\GraphQL\\Queries\\Me"
-  )
+    me: MeMutations
+    @organization
+    @me
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Me"
+    )
 }
 
 type MeMutations

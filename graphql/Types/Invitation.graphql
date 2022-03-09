@@ -1,11 +1,11 @@
 type Invitation {
-  id: ID!
-  organization_id: ID!
-  role_id: ID!
-  role: Role @belongsTo
-  team_id: ID
-  team: Team @belongsTo
-  email: Email!
-  used_at: DateTime
-  expired_at: DateTime!
+    id: ID!
+    organization_id: ID!
+    role_id: ID!
+    role: Role @belongsTo
+    team_id: ID
+    team: Team @belongsTo
+    email: Email!
+    used_at: DateTime
+    expired_at: DateTime!
 }

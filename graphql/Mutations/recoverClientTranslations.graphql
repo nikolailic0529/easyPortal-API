@@ -1,19 +1,19 @@
 extend type Mutation {
-  """
-  Force delete all client translations for a given locale, may be useful to
-  restore the corrupted file.
-  """
-  recoverClientTranslations(
-    input: RecoverClientTranslationsInput!
-  ): RecoverClientTranslationsPayload
-  @organization(root: true)
-  @root
+    """
+    Force delete all client translations for a given locale, may be useful to
+    restore the corrupted file.
+    """
+    recoverClientTranslations(
+        input: RecoverClientTranslationsInput!
+    ): RecoverClientTranslationsPayload
+    @organization(root: true)
+    @root
 }
 
 input RecoverClientTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
 }
 
 type RecoverClientTranslationsPayload {
-  result: Boolean!
+    result: Boolean!
 }

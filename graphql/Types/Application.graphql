@@ -1,48 +1,48 @@
 type Application {
-  name: String!
-  version: String!
+    name: String!
+    version: String!
 
-  maintenance: ApplicationMaintenance
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Maintenance")
+    maintenance: ApplicationMaintenance
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Maintenance")
 
-  locale: String!
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
+    locale: String!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
 
-  settings: [ApplicationSetting!]!
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
+    settings: [ApplicationSetting!]!
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
 
-  settingGroups: [ApplicationSettingGroup!]!
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
+    settingGroups: [ApplicationSettingGroup!]!
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
 
-  services: [ApplicationService!]!
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
+    services: [ApplicationService!]!
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
 
-  jobs: [ApplicationJob!]!
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
+    jobs: [ApplicationJob!]!
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
 
-  translations (
-    locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  ): [ApplicationTranslation!]!
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
+    translations (
+        locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    ): [ApplicationTranslation!]!
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
 
-  logs(
-    where: ApplicationLogsQuery @searchBy
-    order: ApplicationLogsSort @sortBy
-  ): [ApplicationLog!]!
-  @organization(root: true)
-  @root
-  @paginated(
-    model: "App\\Services\\Logger\\Models\\Log"
-    builder: "App\\GraphQL\\Queries\\Application\\Logs"
-  )
+    logs(
+        where: ApplicationLogsQuery @searchBy
+        order: ApplicationLogsSort @sortBy
+    ): [ApplicationLog!]!
+    @organization(root: true)
+    @root
+    @paginated(
+        model: "App\\Services\\Logger\\Models\\Log"
+        builder: "App\\GraphQL\\Queries\\Application\\Logs"
+    )
 }

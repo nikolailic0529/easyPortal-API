@@ -1,29 +1,29 @@
 type User {
-  id: ID!
-  given_name: String
-  family_name: String
-  email: Email!
-  email_verified: Boolean!
-  enabled: Boolean!
-  title: String
-  academic_title: String
-  office_phone: PhoneNumber
-  mobile_phone: PhoneNumber
-  contact_email: Email
-  job_title: String
-  company: String
-  phone: PhoneNumber
-  photo: Url
-  locale: String
-  timezone: String
+    id: ID!
+    given_name: String
+    family_name: String
+    email: Email!
+    email_verified: Boolean!
+    enabled: Boolean!
+    title: String
+    academic_title: String
+    office_phone: PhoneNumber
+    mobile_phone: PhoneNumber
+    contact_email: Email
+    job_title: String
+    company: String
+    phone: PhoneNumber
+    photo: Url
+    locale: String
+    timezone: String
 
-  invitations: [Invitation!]!
-  @organization
-  @me(permissions: ["administer", "org-administer"])
-  @hasMany
+    invitations: [Invitation!]!
+    @organization
+    @me(permissions: ["administer", "org-administer"])
+    @hasMany
 
-  organizations: [UserOrganization!]!
-  @organization
-  @me(permissions: ["administer", "org-administer"])
-  @hasMany
+    organizations: [UserOrganization!]!
+    @organization
+    @me(permissions: ["administer", "org-administer"])
+    @hasMany
 }

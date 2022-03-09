@@ -1,16 +1,16 @@
 extend type Mutation {
-  updateClientTranslations(
-    input: UpdateClientTranslationsInput!
-  ): UpdateClientTranslationsPayload
-  @organization(root: true)
-  @root
+    updateClientTranslations(
+        input: UpdateClientTranslationsInput!
+    ): UpdateClientTranslationsPayload
+    @organization(root: true)
+    @root
 }
 
 input UpdateClientTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [TranslationInput!]!
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    translations: [TranslationInput!]!
 }
 
 type UpdateClientTranslationsPayload {
-  updated: [ClientTranslation!]!
+    updated: [ClientTranslation!]!
 }

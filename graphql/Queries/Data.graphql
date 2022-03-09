@@ -1,102 +1,102 @@
 extend type Query {
-  # These endpoints available for anyone
+    # These endpoints available for anyone
 
-  "List of all OEMs"
-  oems(where: OemsQuery @searchBy): [Oem!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all OEMs"
+    oems(where: OemsQuery @searchBy): [Oem!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all currencies."
-  currencies(where: CurrenciesQuery @searchBy): [Currency!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all currencies."
+    currencies(where: CurrenciesQuery @searchBy): [Currency!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all languages."
-  languages(where: LanguagesQuery @searchBy): [Language!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all languages."
+    languages(where: LanguagesQuery @searchBy): [Language!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all countries."
-  countries(where: CountriesQuery @searchBy): [Country!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all countries."
+    countries(where: CountriesQuery @searchBy): [Country!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all cities."
-  cities(
-    where: CitiesQuery @searchBy
-  ): [City!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all cities."
+    cities(
+        where: CitiesQuery @searchBy
+    ): [City!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all possible location types."
-  locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
-  @organization
-  @me
-  @all(
-    builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
-  )
-  @cached
+    "List of all possible location types."
+    locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
+    @organization
+    @me
+    @all(
+        builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
+    )
+    @cached
 
-  "List of all possible contact types."
-  contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
-  @organization
-  @me
-  @all(
-    builder: "App\\GraphQL\\Queries\\Data\\ContactTypes"
-  )
-  @cached
+    "List of all possible contact types."
+    contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
+    @organization
+    @me
+    @all(
+        builder: "App\\GraphQL\\Queries\\Data\\ContactTypes"
+    )
+    @cached
 
-  "List of all possible tags."
-  tags (
-    where: TagsQuery @searchBy
-    order: _ @sortBy
-  ): [Tag!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all possible tags."
+    tags (
+        where: TagsQuery @searchBy
+        order: _ @sortBy
+    ): [Tag!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all Service Groups."
-  serviceGroups(
-    where: ServiceGroupsQuery @searchBy
-  ): [ServiceGroup!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all Service Groups."
+    serviceGroups(
+        where: ServiceGroupsQuery @searchBy
+    ): [ServiceGroup!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all Service Levels."
-  serviceLevels(
-    where: ServiceLevelsQuery @searchBy
-  ): [ServiceLevel!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all Service Levels."
+    serviceLevels(
+        where: ServiceLevelsQuery @searchBy
+    ): [ServiceLevel!]!
+    @organization
+    @me
+    @all
+    @cached
 
-  "List of all Timezones"
-  timezones: [String!]!
-  @organization
-  @me
-  @field(
-    resolver: "App\\GraphQL\\Queries\\Data\\Timezones"
-  )
-  @cached
+    "List of all Timezones"
+    timezones: [String!]!
+    @organization
+    @me
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Data\\Timezones"
+    )
+    @cached
 
-  "List of all possible quote request durations."
-  quoteRequestDurations: [QuoteRequestDuration!]!
-  @organization
-  @me
-  @all
-  @cached
+    "List of all possible quote request durations."
+    quoteRequestDurations: [QuoteRequestDuration!]!
+    @organization
+    @me
+    @all
+    @cached
 }

@@ -1,11 +1,11 @@
 type UserOrganization {
-  organization_id: ID!
-  organization: Organization!
-  role: Role
-  team: Team
-  enabled: Boolean!
-  status: Status!
-  @field(
-    resolver: "App\\GraphQL\\Queries\\Administration\\User@status"
-  )
+    organization_id: ID!
+    organization: Organization!
+    role: Role
+    team: Team
+    enabled: Boolean!
+    status: Status!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\User@status"
+    )
 }

@@ -1,15 +1,15 @@
 extend type Mutation {
-  importOems(
-    input: ImportOemsInput!
-  ): ImportOemsPayload
-  @organization(root: true)
-  @root
+    importOems(
+        input: ImportOemsInput!
+    ): ImportOemsPayload
+    @organization(root: true)
+    @root
 }
 
 input ImportOemsInput {
-  file: Upload! @rules(apply: ["App\\Rules\\Spreadsheet"])
+    file: Upload! @rules(apply: ["App\\Rules\\Spreadsheet"])
 }
 
 type ImportOemsPayload {
-  result: Boolean!
+    result: Boolean!
 }

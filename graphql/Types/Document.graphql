@@ -1,46 +1,46 @@
 type Document {
-  id: ID!
-  oem_id: ID!
-  type_id: ID!
-  customer_id: ID
-  number: String!
-  start: Date
-  end: Date
-  price: Float
-  currency_id: ID
-  currency: Currency @belongsTo
-  customer: Customer @belongsTo
-  oem: Oem! @belongsTo
-  oem_said: String
-  oemGroup: OemGroup @belongsTo
-  reseller_id: ID
-  reseller: Reseller @belongsTo
-  type: Type! @belongsTo
-  statuses: [Status!]! @belongsToMany
-  statuses_count: Int!
-  is_contract: Boolean!
-  is_quote: Boolean!
-  entries(
-    where: DocumentEntriesQuery @searchBy
-  ): [DocumentEntry!]! @hasMany
-  entries_count: Int!
-  language_id: ID
-  language: Language @belongsTo
-  contacts (
-    where: ContactsQuery @searchBy
-    order: ContactsSort @sortBy
-  ): [Contact!]! @morphMany
-  contacts_count: Int!
-  distributor_id: ID
-  distributor: Distributor @belongsTo
-  assets_count: Int
-  notes (
-    where: NotesQuery @searchBy
-    order: NotesSort @sortBy
-  ): [Note!]!
-  @hasMany
-  @paginatedRelation
+    id: ID!
+    oem_id: ID!
+    type_id: ID!
+    customer_id: ID
+    number: String!
+    start: Date
+    end: Date
+    price: Float
+    currency_id: ID
+    currency: Currency @belongsTo
+    customer: Customer @belongsTo
+    oem: Oem! @belongsTo
+    oem_said: String
+    oemGroup: OemGroup @belongsTo
+    reseller_id: ID
+    reseller: Reseller @belongsTo
+    type: Type! @belongsTo
+    statuses: [Status!]! @belongsToMany
+    statuses_count: Int!
+    is_contract: Boolean!
+    is_quote: Boolean!
+    entries(
+        where: DocumentEntriesQuery @searchBy
+    ): [DocumentEntry!]! @hasMany
+    entries_count: Int!
+    language_id: ID
+    language: Language @belongsTo
+    contacts (
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]! @morphMany
+    contacts_count: Int!
+    distributor_id: ID
+    distributor: Distributor @belongsTo
+    assets_count: Int
+    notes (
+        where: NotesQuery @searchBy
+        order: NotesSort @sortBy
+    ): [Note!]!
+    @hasMany
+    @paginatedRelation
 
-  changed_at: DateTime
-  synced_at: DateTime!
+    changed_at: DateTime
+    synced_at: DateTime!
 }

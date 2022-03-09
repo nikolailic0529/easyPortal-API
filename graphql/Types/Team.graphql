@@ -1,4 +1,4 @@
 type Team {
-  id: ID!
-  name: String!
+    id: ID!
+    name: String!
 }

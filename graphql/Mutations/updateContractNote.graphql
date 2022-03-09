@@ -1,23 +1,23 @@
 extend type Mutation {
-  updateContractNote(
-    input: UpdateContractNoteInput!
-  ): UpdateContractNotePayload
-  @organization
-  @me(permissions: ["contracts-view", "customers-view"])
+    updateContractNote(
+        input: UpdateContractNoteInput!
+    ): UpdateContractNotePayload
+    @organization
+    @me(permissions: ["contracts-view", "customers-view"])
 }
 
 input UpdateContractNoteInput @validator {
-  id: ID!
-  note: HtmlString
-  pinned: Boolean
-  files: [UpdateContractNoteFile!]
+    id: ID!
+    note: HtmlString
+    pinned: Boolean
+    files: [UpdateContractNoteFile!]
 }
 
 input UpdateContractNoteFile {
-   id: ID
-   content: Upload
+    id: ID
+    content: Upload
 }
 
 type UpdateContractNotePayload {
-  updated: Note!
+    updated: Note!
 }

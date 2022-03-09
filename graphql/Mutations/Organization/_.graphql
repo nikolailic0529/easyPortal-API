@@ -1,10 +1,10 @@
 extend type Mutation {
-  organization(id: ID @eq): OrganizationMutations
-  @organization(root: true)
-  @me(permissions: ["administer"])
-  @mutation(
-    model: "App\\Models\\Organization"
-  )
+    organization(id: ID @eq): OrganizationMutations
+    @organization(root: true)
+    @me(permissions: ["administer"])
+    @mutation(
+        model: "App\\Models\\Organization"
+    )
 }
 
 type OrganizationMutations

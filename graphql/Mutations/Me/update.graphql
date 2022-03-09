@@ -1,31 +1,31 @@
 extend type MeMutations {
-  update(
-    input: MeUpdateInput!
-  ): MeUpdatePayload
-  @organization
-  @me
-  @mutationMutate(
-    resolver: "App\\GraphQL\\Mutations\\Me\\Update"
-  )
+    update(
+        input: MeUpdateInput!
+    ): MeUpdatePayload
+    @organization
+    @me
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Me\\Update"
+    )
 }
 
 input MeUpdateInput {
-  given_name: String @isRequired
-  family_name: String @isRequired
-  title: String
-  academic_title: String
-  office_phone: PhoneNumber
-  mobile_phone: PhoneNumber
-  contact_email: Email @isNullable @isEmail
-  job_title: String
-  photo: Upload @isNullable @isImage
-  homepage: String
-  locale: String @isNullable @isLocale
-  timezone: String @isNullable @isTimezone
-  team_id: ID @isNullable @isTeamId
+    given_name: String @isRequired
+    family_name: String @isRequired
+    title: String
+    academic_title: String
+    office_phone: PhoneNumber
+    mobile_phone: PhoneNumber
+    contact_email: Email @isNullable @isEmail
+    job_title: String
+    photo: Upload @isNullable @isImage
+    homepage: String
+    locale: String @isNullable @isLocale
+    timezone: String @isNullable @isTimezone
+    team_id: ID @isNullable @isTeamId
 }
 
 type MeUpdatePayload implements Payload {
-  result: Boolean!
-  me: Me!
+    result: Boolean!
+    me: Me!
 }

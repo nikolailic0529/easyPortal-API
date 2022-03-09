@@ -1,10 +1,10 @@
 type Note {
-  id: ID!
-  pinned: Boolean!
-  note: HtmlString!
-  created_at: DateTime!
-  updated_at: DateTime!
-  user_id: ID!
-  user: User! @belongsTo
-  files: [File!]! @morphMany
+    id: ID!
+    pinned: Boolean!
+    note: HtmlString!
+    created_at: DateTime!
+    updated_at: DateTime!
+    user_id: ID!
+    user: User! @belongsTo
+    files: [File!]! @morphMany
 }

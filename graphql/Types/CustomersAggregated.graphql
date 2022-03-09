@@ -1,5 +1,5 @@
 type CustomersAggregated {
-  assets: Int!
-  @field(resolver: "App\\GraphQL\\Queries\\Customers\\CustomersAggregated@assets")
-  @cached
+    assets: Int!
+    @field(resolver: "App\\GraphQL\\Queries\\Customers\\CustomersAggregated@assets")
+    @cached
 }

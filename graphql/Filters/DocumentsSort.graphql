@@ -1,6 +1,6 @@
 input DocumentsSort {
-  id: ID!
-  start: Date!
-  end: Date!
-  price: Float
+    id: ID!
+    start: Date!
+    end: Date!
+    price: Float
 }

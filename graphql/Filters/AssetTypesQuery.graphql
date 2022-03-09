@@ -1,3 +1,3 @@
 input AssetTypesQuery {
-  assets: AssetsQuery
+    assets: AssetsQuery
 }

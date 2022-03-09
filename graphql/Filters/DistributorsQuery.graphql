@@ -1,4 +1,4 @@
 input DistributorsQuery {
-  id: ID!
-  name: String!
+    id: ID!
+    name: String!
 }

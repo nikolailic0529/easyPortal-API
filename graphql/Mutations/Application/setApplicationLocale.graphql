@@ -1,14 +1,14 @@
 extend type Mutation {
-  setApplicationLocale(
-    input: SetApplicationLocaleInput!
-  ): SetApplicationLocalePayload
-  @field(resolver: "App\\GraphQL\\Mutations\\Application\\SetApplicationLocale")
+    setApplicationLocale(
+        input: SetApplicationLocaleInput!
+    ): SetApplicationLocalePayload
+    @field(resolver: "App\\GraphQL\\Mutations\\Application\\SetApplicationLocale")
 }
 
 input SetApplicationLocaleInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
 }
 
 type SetApplicationLocalePayload {
-  result: Boolean!
+    result: Boolean!
 }

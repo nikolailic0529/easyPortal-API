@@ -1,36 +1,36 @@
 type Query {
-  query(
-    where: CustomerSearch @searchBy
-    order: _ @sortBy
-    test: ID
-  ): [Customer!]! @me @paginated
+    query(
+        where: CustomerSearch @searchBy
+        order: _ @sortBy
+        test: ID
+    ): [Customer!]! @me @paginated
 
-  data: [Asset!]! @paginated
+    data: [Asset!]! @paginated
 
-  type: [Type!]! @paginated
+    type: [Type!]! @paginated
 }
 
 type Customer {
-  id: ID!
+    id: ID!
 }
 
 type Asset {
-  id: ID!
+    id: ID!
 }
 
 type Type {
-  id: ID!
+    id: ID!
 }
 
 type AssetsAggregated {
-  types: [String!]!
+    types: [String!]!
 }
 
 "Description"
 type TypesAggregated {
-  assets: [ID!]!
+    assets: [ID!]!
 }
 
 input CustomerSearch {
-  id: ID!
+    id: ID!
 }

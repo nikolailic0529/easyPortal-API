@@ -1,50 +1,50 @@
 type Customer {
-  id: ID!
-  name: String!
-  type: Type! @belongsTo
-  type_id: ID!
-  statuses: [Status!]! @belongsToMany
-  contacts_count: Int!
-  contacts (
-    where: ContactsQuery @searchBy
-    order: ContactsSort @sortBy
-  ): [Contact!]! @morphMany
+    id: ID!
+    name: String!
+    type: Type! @belongsTo
+    type_id: ID!
+    statuses: [Status!]! @belongsToMany
+    contacts_count: Int!
+    contacts (
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]! @morphMany
 
-  locations: [CustomerLocation!]! @hasMany
-  headquarter: CustomerLocation @hasOne
+    locations: [CustomerLocation!]! @hasMany
+    headquarter: CustomerLocation @hasOne
 
-  changed_at: DateTime
-  synced_at: DateTime!
+    changed_at: DateTime
+    synced_at: DateTime!
 
-  assets_count: Int! @orgProperty
-  locations_count: Int! @orgProperty
+    assets_count: Int! @orgProperty
+    locations_count: Int! @orgProperty
 
-  kpi: Kpi @orgRelation
+    kpi: Kpi @orgRelation
 
-  # Contracts
-  contracts (
-    where: DocumentsQuery @searchBy
-    order: DocumentsSort @sortBy
-  ): [Document!]!
-  @me(permissions: ["contracts-view", "customers-view"])
-  @hasMany
-  @paginatedRelation
+    # Contracts
+    contracts (
+        where: DocumentsQuery @searchBy
+        order: DocumentsSort @sortBy
+    ): [Document!]!
+    @me(permissions: ["contracts-view", "customers-view"])
+    @hasMany
+    @paginatedRelation
 
-  # Quotes
-  quotes (
-    where: DocumentsQuery @searchBy
-    order: DocumentsSort @sortBy
-  ): [Document!]!
-  @me(permissions: ["quotes-view", "customers-view"])
-  @hasMany
-  @paginatedRelation
+    # Quotes
+    quotes (
+        where: DocumentsQuery @searchBy
+        order: DocumentsSort @sortBy
+    ): [Document!]!
+    @me(permissions: ["quotes-view", "customers-view"])
+    @hasMany
+    @paginatedRelation
 
-  # Assets
-  assets(
-    where: AssetsQuery @searchBy
-    order: AssetsSort @sortBy
-  ): [Asset!]!
-  @me(permissions: ["assets-view", "customers-view"])
-  @hasMany
-  @paginatedRelation
+    # Assets
+    assets(
+        where: AssetsQuery @searchBy
+        order: AssetsSort @sortBy
+    ): [Asset!]!
+    @me(permissions: ["assets-view", "customers-view"])
+    @hasMany
+    @paginatedRelation
 }

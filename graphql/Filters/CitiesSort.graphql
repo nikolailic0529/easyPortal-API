@@ -1,5 +1,5 @@
 input CitiesSort {
-  id: ID!
-  name: String!
-  country: CountriesSort
+    id: ID!
+    name: String!
+    country: CountriesSort
 }

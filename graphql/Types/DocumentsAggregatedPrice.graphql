@@ -1,6 +1,6 @@
 type DocumentsAggregatedPrice {
-  count: Int!
-  amount: Float!
-  currency_id: ID
-  currency: Currency
+    count: Int!
+    amount: Float!
+    currency_id: ID
+    currency: Currency
 }

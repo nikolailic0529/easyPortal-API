@@ -1,6 +1,6 @@
 type ApplicationMaintenance {
-  enabled: Boolean!
-  message: String
-  start: DateTime
-  end: DateTime
+    enabled: Boolean!
+    message: String
+    start: DateTime
+    end: DateTime
 }

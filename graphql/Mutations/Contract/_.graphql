@@ -1,13 +1,13 @@
 extend type Mutation {
-  contract(id: ID @eq): ContractMutations
-  @organization
-  @me
-  @builder(
-    method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
-  )
-  @mutation(
-    model: "App\\Models\\Document"
-  )
+    contract(id: ID @eq): ContractMutations
+    @organization
+    @me
+    @builder(
+        method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
+    )
+    @mutation(
+        model: "App\\Models\\Document"
+    )
 }
 
 type ContractMutations

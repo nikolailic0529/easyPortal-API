@@ -1,5 +1,5 @@
 input MeSearchSort {
-  key: String!
-  name: String!
-  created_at: DateTime!
+    key: String!
+    name: String!
+    created_at: DateTime!
 }

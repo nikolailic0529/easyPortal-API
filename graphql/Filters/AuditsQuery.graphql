@@ -1,12 +1,12 @@
 input AuditsQuery {
-  id: ID!
-  user_id: String!
-  organization_id: ID!
-  action: String!
-  object_id: String!
-  object_type: String!
-  created_at: DateTime!
-  updated_at: DateTime!
-  user: UsersQuery
-  organization: OrganizationsQuery
+    id: ID!
+    user_id: String!
+    organization_id: ID!
+    action: String!
+    object_id: String!
+    object_type: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    user: UsersQuery
+    organization: OrganizationsQuery
 }

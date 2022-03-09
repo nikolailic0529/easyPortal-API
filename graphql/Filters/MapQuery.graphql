@@ -1,8 +1,8 @@
 input MapQuery {
-  postcode: String!
-  state: String!
-  country_id: ID!
-  country: CountriesQuery
-  city_id: ID!
-  city: CitiesQuery
+    postcode: String!
+    state: String!
+    country_id: ID!
+    country: CountriesQuery
+    city_id: ID!
+    city: CitiesQuery
 }

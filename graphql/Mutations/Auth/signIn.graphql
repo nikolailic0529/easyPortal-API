@@ -1,18 +1,18 @@
 extend type Mutation {
-  "Sign In for local users."
-  signIn(
-    input: SignInInput
-  ): SignInPayload
-  @throttle(name: "auth")
-  @guest
-  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
+    "Sign In for local users."
+    signIn(
+        input: SignInInput
+    ): SignInPayload
+    @throttle(name: "auth")
+    @guest
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
 }
 
 input SignInInput {
-  email: Email!
-  password: String!
+    email: Email!
+    password: String!
 }
 
 type SignInPayload {
-  me: Me
+    me: Me
 }

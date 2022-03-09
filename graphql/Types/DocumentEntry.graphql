@@ -1,21 +1,21 @@
 type DocumentEntry {
-  id: ID!
-  document_id: ID!
-  net_price: Float
-  list_price: Float
-  discount: Float
-  renewal: Float
-  serial_number: String
-  start: Date
-  end: Date
-  product_id: ID!
-  product: Product! @belongsTo
-  service_group_id: ID
-  serviceGroup: ServiceGroup @belongsTo
-  service_level_id: ID
-  serviceLevel: ServiceLevel @belongsTo
-  currency_id: ID
-  currency: Currency @belongsTo
-  asset_id: ID!
-  asset: Asset @belongsTo
+    id: ID!
+    document_id: ID!
+    net_price: Float
+    list_price: Float
+    discount: Float
+    renewal: Float
+    serial_number: String
+    start: Date
+    end: Date
+    product_id: ID!
+    product: Product! @belongsTo
+    service_group_id: ID
+    serviceGroup: ServiceGroup @belongsTo
+    service_level_id: ID
+    serviceLevel: ServiceLevel @belongsTo
+    currency_id: ID
+    currency: Currency @belongsTo
+    asset_id: ID!
+    asset: Asset @belongsTo
 }

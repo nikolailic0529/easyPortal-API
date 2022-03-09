@@ -1,18 +1,18 @@
 extend type Mutation {
-  createQuoteNote(
-    input: CreateQuoteNoteInput!
-  ): CreateQuoteNotePayload
-  @organization
-  @me(permissions: ["quotes-view", "customers-view"])
+    createQuoteNote(
+        input: CreateQuoteNoteInput!
+    ): CreateQuoteNotePayload
+    @organization
+    @me(permissions: ["quotes-view", "customers-view"])
 }
 
 input CreateQuoteNoteInput @validator {
-  note: HtmlString!
-  quote_id: String!
-  files: [Upload!]
-  pinned: Boolean
+    note: HtmlString!
+    quote_id: String!
+    files: [Upload!]
+    pinned: Boolean
 }
 
 type CreateQuoteNotePayload {
-  created: Note!
+    created: Note!
 }

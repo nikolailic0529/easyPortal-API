@@ -1,17 +1,17 @@
 extend type Mutation {
-  updateApplicationTranslations(
-    input: UpdateApplicationTranslationsInput!
-  ): UpdateApplicationTranslationsPayload
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationTranslations")
+    updateApplicationTranslations(
+        input: UpdateApplicationTranslationsInput!
+    ): UpdateApplicationTranslationsPayload
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationTranslations")
 }
 
 input UpdateApplicationTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [TranslationInput!]!
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    translations: [TranslationInput!]!
 }
 
 type UpdateApplicationTranslationsPayload {
-  updated: [ApplicationTranslation!]!
+    updated: [ApplicationTranslation!]!
 }

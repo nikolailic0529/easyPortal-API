@@ -1,7 +1,7 @@
 input UsersQuery {
-  id: ID!
-  email: Email!
-  given_name: String!
-  family_name: String!
-  enabled: Boolean!
+    id: ID!
+    email: Email!
+    given_name: String!
+    family_name: String!
+    enabled: Boolean!
 }

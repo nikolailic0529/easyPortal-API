@@ -1,16 +1,16 @@
 type Query {
-  value: Test! @guest @mock
+    value: Test! @guest @mock
 }
 
 """
 Description.
 """
 type Test @guest {
-  one: String!
+    one: String!
 
-  two: String! @guest
+    two: String! @guest
 }
 
 extend type Test @guest {
-  extension: String!
+    extension: String!
 }

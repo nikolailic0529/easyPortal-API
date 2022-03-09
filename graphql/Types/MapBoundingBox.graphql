@@ -1,6 +1,6 @@
 type MapBoundingBox {
-  southLatitude: Float!
-  northLatitude: Float!
-  westLongitude: Float!
-  eastLongitude: Float!
+    southLatitude: Float!
+    northLatitude: Float!
+    westLongitude: Float!
+    eastLongitude: Float!
 }
