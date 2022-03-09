@@ -19,7 +19,7 @@ class SchemaTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     public function testSchema(): void {
-        $this->assertGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
+        $this->assertDefaultGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
     }
 
     /**

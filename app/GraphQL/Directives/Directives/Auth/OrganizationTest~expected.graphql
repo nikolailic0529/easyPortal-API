@@ -1,28 +1,17 @@
-enum CachedMode {
-  """
-  In this mode all queries will be cached in addition the resolver will
-  use Atomic Locks to reduce server load. The mode is designed for
-  heavy/long queries.
-  """
-  Lock
-
-  """
-  In this mode, the query will be cached only if the execution time is
-  greater than the threshold.
-  """
-  Threshold
-}
-
 type Query {
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  value: String!
+    """
+    @require <organization(root)> Authenticated user must be a member of the root organization.
+    """
+    root: Test!
+    @organization(root: true)
+    @mock
 
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  """
-  root: String!
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+    """
+    value: String!
+    @organization
+    @mock
 }
 
 """
@@ -30,29 +19,61 @@ Description.
 
 @require <organization> Authenticated user must be a member of the current organization.
 """
-type Test {
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  one: String!
+type Test
+@organization
+{
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+    """
+    extension: String!
+    @organization
 
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  two: String!
+    """
+    @require <organization(root)> Authenticated user must be a member of the root organization.
+    """
+    extensionRoot: String!
+    @organization(root: true)
 
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  """
-  root: String!
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+    """
+    one: String!
+    @organization
 
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  extension: String!
+    """
+    @require <organization(root)> Authenticated user must be a member of the root organization.
+    """
+    root: String!
+    @organization(root: true)
 
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  """
-  extensionRoot: String!
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+    """
+    two: String!
+    @organization
 }
+
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+)
+on
+    | FIELD_DEFINITION
+
+"""
+Authenticated user must be a member of the current organization.
+"""
+directive @organization(
+    """
+    Authenticated user must be a member of the root organization.
+    """
+    root: Boolean! = false
+)
+on
+    | FIELD_DEFINITION
+    | OBJECT

@@ -19,7 +19,9 @@ class Manipulator extends AstManipulator {
         return parent::getNodeName($node);
     }
 
-    public function getNodeTypeName(Type|FieldDefinition|Node|InputObjectField|string $node): string {
+    public function getNodeTypeName(
+        Node|Type|InputObjectField|FieldDefinition|TypeDefinitionNode|string $node,
+    ): string {
         return parent::getNodeTypeName($node);
     }
 

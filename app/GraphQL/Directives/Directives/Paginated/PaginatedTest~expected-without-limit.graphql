@@ -1,105 +1,364 @@
-type Asset {
-  id: ID!
-}
-
-"""Aggregated data for type Asset."""
-type AssetsAggregated {
-  types: [String!]!
-  count: Int!
-}
-
 enum CachedMode {
-  """
-  In this mode all queries will be cached in addition the resolver will
-  use Atomic Locks to reduce server load. The mode is designed for
-  heavy/long queries.
-  """
-  Lock
+    """
+    In this mode all queries will be cached in addition the resolver will
+    use Atomic Locks to reduce server load. The mode is designed for
+    heavy/long queries.
+    """
+    Lock
 
-  """
-  In this mode, the query will be cached only if the execution time is
-  greater than the threshold.
-  """
-  Threshold
+    """
+    In this mode, the query will be cached only if the execution time is
+    greater than the threshold.
+    """
+    Threshold
 }
 
-type Customer {
-  id: ID!
+"""
+Sort direction.
+"""
+enum SortByDirection {
+    asc
+    desc
 }
 
-input CustomerSearch {
-  id: ID!
-}
+"""
+Input for the `messages` argument of `@rules`.
+"""
+input RulesMessage {
+    """
+    Message to display if the rule fails, e.g. `"Must be a valid email"`.
+    """
+    message: String!
 
-"""Aggregated data for type Customer."""
-type CustomersAggregated {
-  count: Int!
-}
-
-type Query {
-  """@require <me> User must be authenticated."""
-  query(where: SearchByConditionCustomerSearch, order: [SortByClauseCustomer!], test: ID, limit: Int!, offset: Int! = 0): [Customer!]!
-  data(limit: Int!, offset: Int! = 0): [Asset!]!
-  type(limit: Int!, offset: Int! = 0): [Type!]!
-
-  """@require <me> User must be authenticated."""
-  queryAggregated(where: SearchByConditionCustomerSearch): CustomersAggregated
-  dataAggregated: AssetsAggregated
-  typeAggregated: TypesAggregated
+    """
+    Name of the rule, e.g. `"email"`.
+    """
+    rule: String!
 }
 
 """
 Available conditions for input CustomerSearch (only one property allowed at a time).
 """
 input SearchByConditionCustomerSearch {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionCustomerSearch!]
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionCustomerSearch!]
 
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionCustomerSearch!]
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionCustomerSearch!]
 
-  """Not."""
-  not: SearchByConditionCustomerSearch
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
 
-  """Property condition."""
-  id: SearchByScalarID
+    """
+    Not.
+    """
+    not: SearchByConditionCustomerSearch
 }
 
 """
 Available operators for scalar ID! (only one operator allowed at a time).
 """
 input SearchByScalarID {
-  """Equal (`=`)."""
-  equal: ID
+    """
+    Equal (`=`).
+    """
+    equal: ID
 
-  """Not Equal (`!=`)."""
-  notEqual: ID
+    """
+    Within a set of values.
+    """
+    in: [ID!]
 
-  """Within a set of values."""
-  in: [ID!]
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: ID
 
-  """Outside a set of values."""
-  notIn: [ID!]
+    """
+    Outside a set of values.
+    """
+    notIn: [ID!]
 }
 
-"""Sort clause for type Customer (only one property allowed at a time)."""
+"""
+Sort clause for type Customer (only one property allowed at a time).
+"""
 input SortByClauseCustomer {
-  """Property clause."""
-  id: SortByDirection
+    """
+    Property clause.
+    """
+    id: SortByDirection
 }
 
-"""Sort direction."""
-enum SortByDirection {
-  asc
-  desc
+type Asset {
+    id: ID!
+}
+
+"""
+Aggregated data for type Asset.
+"""
+type AssetsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached
+
+    types: [String!]!
+}
+
+type Customer {
+    id: ID!
+}
+
+"""
+Aggregated data for type Customer.
+"""
+type CustomersAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached
+}
+
+type Query {
+    data(
+        limit: Int!
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(apply: ["min:0"])
+        @paginatedOffset
+    ): [Asset!]!
+    @paginated
+
+    dataAggregated: AssetsAggregated
+    @aggregated(model: "App\\Models\\Asset")
+
+    """
+    @require <me> User must be authenticated.
+    """
+    query(
+        limit: Int!
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(apply: ["min:0"])
+        @paginatedOffset
+
+        order: [SortByClauseCustomer!]
+        @sortBy
+
+        test: ID
+
+        where: SearchByConditionCustomerSearch
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+            ]
+        )
+    ): [Customer!]!
+    @me
+    @paginated
+
+    """
+    @require <me> User must be authenticated.
+    """
+    queryAggregated(
+        where: SearchByConditionCustomerSearch
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+            ]
+        )
+    ): CustomersAggregated
+    @me
+    @aggregated(model: "App\\Models\\Customer")
+
+    type(
+        limit: Int!
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(apply: ["min:0"])
+        @paginatedOffset
+    ): [Type!]!
+    @paginated
+
+    typeAggregated: TypesAggregated
+    @aggregated(model: "App\\Models\\Type")
 }
 
 type Type {
-  id: ID!
+    id: ID!
 }
 
-"""Description"""
+"""
+Description
+"""
 type TypesAggregated {
-  assets: [ID!]!
-  count: Int!
+    assets: [ID!]!
+
+    count: Int!
+    @aggregatedCount
+    @cached
 }
+
+"""
+Gets the current builder and passed it to children. At least one argument required.
+"""
+directive @aggregated(
+    """
+    Point to a function that provides a Query Builder instance.
+    This replaces the use of a model.
+    """
+    builder: String
+
+    """
+    Specify the class name of the model to use.
+    This is only needed when the default model detection does not work.
+    """
+    model: String
+
+    """
+    Specify the relation name to use.
+    """
+    relation: String
+)
+on
+    | FIELD_DEFINITION
+
+"""
+Returns `count(*)`.
+"""
+directive @aggregatedCount
+on
+    | FIELD_DEFINITION
+
+"""
+Cache the resolved value of a field.
+"""
+directive @cached(mode: CachedMode)
+on
+    | FIELD_DEFINITION
+
+"""
+User must be authenticated.
+"""
+directive @me(
+    """
+    User must be authenticated and have any of these permissions.
+    """
+    permissions: [String!]
+)
+repeatable on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Adds offset-based pagination for the field.
+"""
+directive @paginated(
+    """
+    Point to a function that provides a Query Builder instance.
+    This replaces the use of a model.
+    """
+    builder: String
+
+    """
+    Specify the class name of the model to use.
+    This is only needed when the default model detection does not work.
+    """
+    model: String
+)
+on
+    | FIELD_DEFINITION
+
+"""
+Adds limit clause to the builder.
+"""
+directive @paginatedLimit
+on
+    | ARGUMENT_DEFINITION
+
+"""
+Adds offset clause to the builder.
+"""
+directive @paginatedOffset
+on
+    | ARGUMENT_DEFINITION
+
+"""
+Validate an argument using [Laravel validation](https://laravel.com/docs/validation).
+"""
+directive @rules(
+    """
+    Specify the validation rules to apply to the field.
+    This can either be a reference to [Laravel's built-in validation rules](https://laravel.com/docs/validation#available-validation-rules),
+    or the fully qualified class name of a custom validation rule.
+
+    Rules that mutate the incoming arguments, such as `exclude_if`, are not supported
+    by Lighthouse. Use ArgTransformerDirectives or FieldMiddlewareDirectives instead.
+    """
+    apply: [String!]!
+
+    """
+    Specify a custom attribute name to use in your validation message.
+    """
+    attribute: String
+
+    """
+    Specify the messages to return if the validators fail.
+    """
+    messages: [RulesMessage!]
+)
+repeatable on
+    | ARGUMENT_DEFINITION
+    | INPUT_FIELD_DEFINITION
+
+"""
+Convert Input into Search Conditions.
+"""
+directive @searchBy
+on
+    | ARGUMENT_DEFINITION
+
+"""
+Convert Input into Sort Clause.
+"""
+directive @sortBy
+on
+    | ARGUMENT_DEFINITION
