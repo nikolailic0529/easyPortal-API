@@ -6277,40 +6277,40 @@ type AuthMutations {
     Application use standard OAuth 2.0 Authorization Code Grant.
 
     1. Call `signIn` mutation
-        ```graphql
-        mutation {
-          auth {
-            organization(id) {
-              signIn {
-                url
-              }
-            }
-          }
-        }
-        ```
+    ```graphql
+    mutation {
+    auth {
+    organization(id) {
+    signIn {
+    url
+    }
+    }
+    }
+    }
+    ```
     2. Redirect the User to `url`
     3. After successful Sign In the User will come back and Client should call
-        `authorize` mutation with `code` and `state` to finish the authorization:
+    `authorize` mutation with `code` and `state` to finish the authorization:
 
-        ```graphql
-          mutation {
-            auth {
-              organization(id) {
-                authorize(input: {code: "...", state: "..."}) {
-                  result
-                  me {
-                    enabled
-                  }
-                }
-              }
-            }
-          }
-        ```
+    ```graphql
+    mutation {
+    auth {
+    organization(id) {
+    authorize(input: {code: "...", state: "..."}) {
+    result
+    me {
+    enabled
+    }
+    }
+    }
+    }
+    }
+    ```
     4. Check result:
-        - `result = false` -> something wrong, please try to repeat step (1)
-        - `me.enabled = false` -> user disabled or doesn't have access to the
-          Organization. In this case, the Client should allow the User to
-          Sign Out (so the User may repeat auth process if it want).
+    - `result = false` -> something wrong, please try to repeat step (1)
+    - `me.enabled = false` -> user disabled or doesn't have access to the
+    Organization. In this case, the Client should allow the User to
+    Sign Out (so the User may repeat auth process if it want).
 
     @require <guest> Current visitor must be a guest.
     """
@@ -6334,9 +6334,9 @@ type AuthMutations {
     Completes Sign Up.
 
     1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
-       User to the `url` if `true`.
+    User to the `url` if `true`.
     2. If `false` you should provide addition details (`input`) to complete Sign Up
-       process.
+    process.
 
     See also:
     * `mutation { organization(id) { user { invite } }`
