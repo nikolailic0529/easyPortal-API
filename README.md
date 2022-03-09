@@ -28,7 +28,7 @@
 * [Settings](./docs/Application-Settings.md)
 * [Translation](./docs/Application-Translation.md)
 * [Cache](./docs/Application-Cache.md)
-* [GraphQL Cache Settings](./docs/Application-GraphQL-Cache-Settings.md)
+* [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
 
 ### Development
 
