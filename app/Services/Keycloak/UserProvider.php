@@ -49,7 +49,7 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_LOCALE                = 'locale';
 
     /**
-     * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
+     * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null,map:callable}>
      */
     protected array $map = [
         self::CLAIM_EMAIL                 => [
@@ -141,12 +141,7 @@ class UserProvider implements UserProviderContract {
             'required' => false,
             'default'  => null,
             'if'       => null,
-            'map'      => [
-                'de' => 'de_DE',
-                'en' => 'en_GB',
-                'fr' => 'fr_FR',
-                'it' => 'it_IT',
-            ],
+            'map'      => [Map::class, 'getAppLocale'],
         ],
     ];
 
@@ -321,8 +316,8 @@ class UserProvider implements UserProviderContract {
                 $missed[] = $claim;
             } elseif ($property['if'] === null || $claims->has($property['if'])) {
                 $value                             = $claims->get($claim, $property['default']);
-                $properties[$property['property']] = isset($property['map'])
-                    ? ($property['map'][$value] ?? null)
+                $properties[$property['property']] = $value !== null && isset($property['map'])
+                    ? $property['map']($value)
                     : $value;
             } else {
                 $properties[$property['property']] = null;
