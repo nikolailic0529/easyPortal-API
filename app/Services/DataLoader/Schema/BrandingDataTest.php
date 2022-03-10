@@ -6,6 +6,7 @@ use Tests\TestCase;
 
 use function array_keys;
 use function json_encode;
+use function reset;
 
 /**
  * @internal
@@ -21,6 +22,10 @@ class BrandingDataTest extends TestCase {
         $properties = BrandingData::getPropertiesNames();
 
         $this->assertEqualsCanonicalizing(array_keys($json), $properties);
+        $this->assertCount(1, $actual->mainHeadingText);
+        $this->assertInstanceOf(TranslationText::class, reset($actual->mainHeadingText));
+        $this->assertCount(1, $actual->underlineText);
+        $this->assertInstanceOf(TranslationText::class, reset($actual->underlineText));
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),

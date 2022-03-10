@@ -66,8 +66,8 @@ type BrandingData {
   resellerAnalyticsCode: String
   brandingMode: String
   mainImageOnTheRight: String
-  mainHeadingText: String
-  underlineText: String
+  mainHeadingText: [TranslationText]
+  underlineText: [TranslationText]
   logoUrl: String
 }
 
@@ -114,8 +114,8 @@ input CompanyBrandingData {
   resellerAnalyticsCode: String
   brandingMode: String
   mainImageOnTheRight: String
-  mainHeadingText: String
-  underlineText: String
+  mainHeadingText: [InputTranslationText]
+  underlineText: [InputTranslationText]
 }
 
 type CompanyContactPerson {
@@ -278,6 +278,7 @@ type DocumentVendorSpecificField {
   groupDescription: String
   totalNetPrice: String
   said: String
+  status: String
 }
 
 input InputContactPerson {
@@ -293,6 +294,11 @@ input InputLocation {
   city: String
   country: String
   locationType: String
+}
+
+input InputTranslationText {
+  language_code: String
+  text: String
 }
 
 input KeyValuePair {
@@ -345,6 +351,11 @@ type SourceDocument {
   id: String
   timestamp: String
   source: String
+}
+
+type TranslationText {
+  language_code: String
+  text: String
 }
 
 input TriggerCoverageStatusCheck {

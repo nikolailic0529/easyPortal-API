@@ -539,10 +539,6 @@ class Client {
     // <editor-fold desc="Mutations">
     // =========================================================================
     public function updateBrandingData(CompanyBrandingData $input): bool {
-        // fixme: This is hotfix for https://thefas.atlassian.net/browse/EAP-624 and should be removed after fix.
-        unset($input->mainHeadingText);
-        unset($input->underlineText);
-
         return (bool) $this->call(
             'data.updateBrandingData',
             /** @lang GraphQL */ <<<'GRAPHQL'
@@ -967,6 +963,14 @@ class Client {
                 secondaryColor
                 secondaryColorDefault
                 useDefaultFavIcon
+                mainHeadingText {
+                    language_code
+                    text
+                }
+                underlineText {
+                    language_code
+                    text
+                }
             }
             GRAPHQL;
     }

@@ -14,6 +14,14 @@ class CompanyBrandingData extends Input {
     public ?string $resellerAnalyticsCode;
     public ?string $brandingMode;
     public ?string $mainImageOnTheRight;
-    public ?string $mainHeadingText;
-    public ?string $underlineText;
+
+    /**
+     * @var array<\App\Services\DataLoader\Schema\InputTranslationText>|null
+     */
+    public ?array $mainHeadingText;
+
+    /**
+     * @var array<\App\Services\DataLoader\Schema\InputTranslationText>|null
+     */
+    public ?array $underlineText;
 }
