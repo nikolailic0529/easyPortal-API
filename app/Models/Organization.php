@@ -7,6 +7,7 @@ use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasLocations;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
+use App\Services\I18n\Eloquent\Translations;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -43,8 +44,8 @@ use Illuminate\Support\Collection;
  * @property string|null                                                                 $branding_default_logo_url
  * @property string|null                                                                 $branding_default_favicon_url
  * @property string|null                                                                 $branding_welcome_image_url
- * @property string|null                                                                 $branding_welcome_heading
- * @property string|null                                                                 $branding_welcome_underline
+ * @property \App\Services\I18n\Eloquent\Translations|null                               $branding_welcome_heading
+ * @property \App\Services\I18n\Eloquent\Translations|null                               $branding_welcome_underline
  * @property string|null                                                                 $branding_dashboard_image_url
  * @property \Carbon\CarbonImmutable                                                     $created_at
  * @property \Carbon\CarbonImmutable                                                     $updated_at
@@ -78,7 +79,9 @@ class Organization extends Model implements
     }
 
     protected const CASTS = [
-        'branding_dark_theme' => 'bool',
+        'branding_dark_theme'        => 'bool',
+        'branding_welcome_heading'   => Translations::class,
+        'branding_welcome_underline' => Translations::class,
     ] + parent::CASTS;
 
     /**
