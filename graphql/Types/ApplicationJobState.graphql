@@ -1,7 +1,7 @@
 type ApplicationJobState {
-  id: ID!
-  running: Boolean!
-  stopped: Boolean!
-  pending_at: DateTime
-  running_at: DateTime
+    id: ID!
+    running: Boolean!
+    stopped: Boolean!
+    pending_at: DateTime
+    running_at: DateTime
 }

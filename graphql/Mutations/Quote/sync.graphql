@@ -1,13 +1,13 @@
 extend type QuoteMutations {
-  sync: QuoteSyncPayload
-  @organization
-  @me(permissions: ["quotes-sync"])
-  @mutationMutate(
-    resolver: "App\\GraphQL\\Mutations\\Document\\Sync"
-  )
+    sync: QuoteSyncPayload
+    @organization
+    @me(permissions: ["quotes-sync"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\Sync"
+    )
 }
 
 type QuoteSyncPayload {
-  result: Boolean!
-  assets: Boolean!
+    result: Boolean!
+    assets: Boolean!
 }

@@ -1,5 +1,5 @@
 type Country {
-  id: ID!
-  name: String! @translate
-  code: String!
+    id: ID!
+    name: String! @translate
+    code: String!
 }

@@ -1,4 +1,4 @@
 type UserTeam {
-  team: Team!
-  organization: Organization!
+    team: Team!
+    organization: Organization!
 }

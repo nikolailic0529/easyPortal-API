@@ -1,21 +1,21 @@
 extend type Mutation {
-  requestQuoteChange(
-    input: RequestQuoteChangeInput!
-  ): RequestQuoteChangePayload
-  @organization
-  @me(permissions: ["requests-quote-change"])
+    requestQuoteChange(
+        input: RequestQuoteChangeInput!
+    ): RequestQuoteChangePayload
+    @organization
+    @me(permissions: ["requests-quote-change"])
 }
 
 input RequestQuoteChangeInput {
-  quote_id: ID! @rules(apply:["required","App\\Rules\\QuoteId"])
-  subject: String! @rules(apply:["required"])
-  message: HtmlString! @rules(apply:["required"])
-  from: Email! @rules(apply:["email"])
-  cc: [Email!] @rules(apply:["email"])
-  bcc: [Email!] @rules(apply:["email"])
-  files: [Upload!]
+    quote_id: ID! @rules(apply:["required","App\\Rules\\QuoteId"])
+    subject: String! @rules(apply:["required"])
+    message: HtmlString! @rules(apply:["required"])
+    from: Email! @rules(apply:["email"])
+    cc: [Email!] @rules(apply:["email"])
+    bcc: [Email!] @rules(apply:["email"])
+    files: [Upload!]
 }
 
 type RequestQuoteChangePayload {
-  created: ChangeRequest!
+    created: ChangeRequest!
 }

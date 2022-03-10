@@ -1,8 +1,8 @@
 extend type Mutation {
-  auth: AuthMutations
-  @mutation(
-    resolver: "App\\GraphQL\\Resolvers\\NullResolver"
-  )
+    auth: AuthMutations
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
 }
 
 type AuthMutations

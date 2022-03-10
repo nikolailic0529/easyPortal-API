@@ -1,16 +1,16 @@
 extend type Mutation {
-  deleteClientTranslations(
-    input: DeleteClientTranslationsInput!
-  ): DeleteClientTranslationsPayload
-  @organization(root: true)
-  @root
+    deleteClientTranslations(
+        input: DeleteClientTranslationsInput!
+    ): DeleteClientTranslationsPayload
+    @organization(root: true)
+    @root
 }
 
 input DeleteClientTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  keys: [String!]!
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    keys: [String!]!
 }
 
 type DeleteClientTranslationsPayload {
-  deleted: [String!]!
+    deleted: [String!]!
 }

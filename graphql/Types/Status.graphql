@@ -1,5 +1,5 @@
 type Status {
-  id: ID!
-  key: String!
-  name: String! @translate
+    id: ID!
+    key: String!
+    name: String! @translate
 }

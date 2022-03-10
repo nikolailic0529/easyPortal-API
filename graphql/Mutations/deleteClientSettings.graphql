@@ -1,15 +1,15 @@
 extend type Mutation {
-  deleteClientSettings(
-    input: DeleteClientSettingsInput!
-  ): DeleteClientSettingsPayload
-  @organization(root: true)
-  @root
+    deleteClientSettings(
+        input: DeleteClientSettingsInput!
+    ): DeleteClientSettingsPayload
+    @organization(root: true)
+    @root
 }
 
 input DeleteClientSettingsInput {
-  names: [String!]!
+    names: [String!]!
 }
 
 type DeleteClientSettingsPayload {
-  deleted: [String!]!
+    deleted: [String!]!
 }

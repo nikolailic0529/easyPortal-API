@@ -1,13 +1,13 @@
 extend type CustomerMutations {
-  sync: CustomerSyncPayload
-  @organization
-  @me(permissions: ["customers-sync"])
-  @mutationMutate(
-    resolver: "App\\GraphQL\\Mutations\\Customer\\Sync"
-  )
+    sync: CustomerSyncPayload
+    @organization
+    @me(permissions: ["customers-sync"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Customer\\Sync"
+    )
 }
 
 type CustomerSyncPayload implements Payload {
-  result: Boolean!
-  warranty: Boolean!
+    result: Boolean!
+    warranty: Boolean!
 }

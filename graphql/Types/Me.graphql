@@ -1,38 +1,38 @@
 type Me {
-  id: ID!
-  email: Email!
-  given_name: String!
-  family_name: String!
-  locale: String
-  timezone: String
-  homepage: String
-  photo: Url
-  title: String
-  academic_title: String
-  office_phone: PhoneNumber
-  mobile_phone: PhoneNumber
-  contact_email: Email
-  job_title: String
-  company: String
-  phone: PhoneNumber
+    id: ID!
+    email: Email!
+    given_name: String!
+    family_name: String!
+    locale: String
+    timezone: String
+    homepage: String
+    photo: Url
+    title: String
+    academic_title: String
+    office_phone: PhoneNumber
+    mobile_phone: PhoneNumber
+    contact_email: Email
+    job_title: String
+    company: String
+    phone: PhoneNumber
 
-  permissions: [String!]
+    permissions: [String!]
 
-  team: Team
-  @field(resolver: "App\\GraphQL\\Queries\\Me@team")
+    team: Team
+    @field(resolver: "App\\GraphQL\\Queries\\Me@team")
 
-  root: Boolean!
-  @field(resolver: "App\\GraphQL\\Queries\\Me@root")
+    root: Boolean!
+    @field(resolver: "App\\GraphQL\\Queries\\Me@root")
 
-  enabled: Boolean!
-  @field(resolver: "App\\GraphQL\\Queries\\Me@enabled")
+    enabled: Boolean!
+    @field(resolver: "App\\GraphQL\\Queries\\Me@enabled")
 
-  previous_sign_in: DateTime
-  @field(resolver: "App\\GraphQL\\Queries\\Me@previousSignIn")
+    previous_sign_in: DateTime
+    @field(resolver: "App\\GraphQL\\Queries\\Me@previousSignIn")
 
-  searches (
-    where: MeSearchQuery @searchBy
-    order: MeSearchSort @sortBy
-  ): [MeSearch!]!
-  @hasMany
+    searches (
+        where: MeSearchQuery @searchBy
+        order: MeSearchSort @sortBy
+    ): [MeSearch!]!
+    @hasMany
 }

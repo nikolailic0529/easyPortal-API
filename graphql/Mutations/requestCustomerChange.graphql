@@ -1,21 +1,21 @@
 extend type Mutation {
-  requestCustomerChange(
-    input: RequestCustomerChangeInput!
-  ): RequestCustomerChangePayload
-  @organization
-  @me(permissions: ["requests-customer-change"])
+    requestCustomerChange(
+        input: RequestCustomerChangeInput!
+    ): RequestCustomerChangePayload
+    @organization
+    @me(permissions: ["requests-customer-change"])
 }
 
 input RequestCustomerChangeInput {
-  customer_id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
-  subject: String! @rules(apply:["required"])
-  message: HtmlString! @rules(apply:["required"])
-  from: Email! @rules(apply:["email"])
-  cc: [Email!] @rules(apply:["email"])
-  bcc: [Email!] @rules(apply:["email"])
-  files: [Upload!]
+    customer_id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
+    subject: String! @rules(apply:["required"])
+    message: HtmlString! @rules(apply:["required"])
+    from: Email! @rules(apply:["email"])
+    cc: [Email!] @rules(apply:["email"])
+    bcc: [Email!] @rules(apply:["email"])
+    files: [Upload!]
 }
 
 type RequestCustomerChangePayload {
-  created: ChangeRequest!
+    created: ChangeRequest!
 }

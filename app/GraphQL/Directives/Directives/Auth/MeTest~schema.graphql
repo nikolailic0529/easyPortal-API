@@ -1,35 +1,35 @@
 type Query {
-  value: String! @me @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    value: String! @me @mock
 
-  valueWithPermissions: String!
-  @me(
-    permissions: ["a", "b", "c"]
-  )
-  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    valueWithPermissions: Test!
+    @me(
+        permissions: ["a", "b", "c"]
+    )
+    @mock
 }
 
 """
 Description.
 """
 type Test @me {
-  one: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    one: String!
 
-  two: String! @me @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    two: String! @me
 }
 
 extend type Test @me {
-  extension: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    extension: TestPermissions!
 }
 
 """
 Description with permissions.
 """
 type TestPermissions @me(permissions: ["a", "b", "c"]) {
-  one: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    one: String!
 
-  two: String! @me(permissions: ["a", "b"]) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    two: String! @me(permissions: ["a", "b"])
 }
 
 extend type TestPermissions @me(permissions: ["a", "b", "c"]) {
-  extension: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    extension: String!
 }

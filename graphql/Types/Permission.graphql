@@ -1,6 +1,6 @@
 type Permission {
-  id: ID!
-  key: String!
-  name: String! @translate
-  description: String! @translate
+    id: ID!
+    key: String!
+    name: String! @translate
+    description: String! @translate
 }

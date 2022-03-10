@@ -1,15 +1,15 @@
 extend type Mutation {
-  deleteContractNote(
-    input: DeleteContractNoteInput!
-  ): DeleteContractNotePayload
-  @organization
-  @me(permissions: ["contracts-view", "customers-view", "org-administer"])
+    deleteContractNote(
+        input: DeleteContractNoteInput!
+    ): DeleteContractNotePayload
+    @organization
+    @me(permissions: ["contracts-view", "customers-view", "org-administer"])
 }
 
 input DeleteContractNoteInput {
-  id: ID!
+    id: ID!
 }
 
 type DeleteContractNotePayload {
-  deleted: Boolean!
+    deleted: Boolean!
 }

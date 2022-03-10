@@ -1,9 +1,9 @@
 input AssetsSort {
-  id: ID!
-  product: ProductsSort!
-  serial_number: String
-  warranty_end: Date
-  location: LocationsSort!
-  customer: CustomersSort!
-  status: StatusSort!
+    id: ID!
+    product: ProductsSort!
+    serial_number: String
+    warranty_end: Date
+    location: LocationsSort!
+    customer: CustomersSort!
+    status: StatusSort!
 }

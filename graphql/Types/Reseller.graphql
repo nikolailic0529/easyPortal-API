@@ -1,9 +1,9 @@
 type Reseller {
-  id: ID!
-  name: String!
-  assets_count: Int!
-  customers_count: Int!
-  locations_count: Int!
-  locations: [ResellerLocation!]! @hasMany
-  headquarter: ResellerLocation @hasOne
+    id: ID!
+    name: String!
+    assets_count: Int!
+    customers_count: Int!
+    locations_count: Int!
+    locations: [ResellerLocation!]! @hasMany
+    headquarter: ResellerLocation @hasOne
 }

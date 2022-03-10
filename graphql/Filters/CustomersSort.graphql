@@ -1,8 +1,8 @@
 input CustomersSort {
-  name: String!
-  locations_count: Int! @orgProperty
-  contacts_count: Int!
-  assets_count: Int! @orgProperty
-  type: TypesSort!
-  headquarter: CustomerLocationsSort!
+    name: String!
+    locations_count: Int! @orgProperty
+    contacts_count: Int!
+    assets_count: Int! @orgProperty
+    type: TypesSort!
+    headquarter: CustomerLocationsSort!
 }

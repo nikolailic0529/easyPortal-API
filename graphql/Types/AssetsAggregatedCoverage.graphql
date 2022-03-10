@@ -1,5 +1,5 @@
 type AssetsAggregatedCoverage {
-  count: Int!
-  coverage_id: ID!
-  coverage: Type!
+    count: Int!
+    coverage_id: ID!
+    coverage: Type!
 }

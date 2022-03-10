@@ -1,9 +1,9 @@
 type AssetsAggregated {
-  types: [AssetsAggregatedType!]!
-  @field(resolver: "App\\GraphQL\\Queries\\Assets\\AssetsAggregated@types")
-  @cached
+    types: [AssetsAggregatedType!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Assets\\AssetsAggregated@types")
+    @cached
 
-  coverages: [AssetsAggregatedCoverage!]!
-  @field(resolver: "App\\GraphQL\\Queries\\Assets\\AssetsAggregated@coverages")
-  @cached
+    coverages: [AssetsAggregatedCoverage!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Assets\\AssetsAggregated@coverages")
+    @cached
 }

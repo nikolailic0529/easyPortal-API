@@ -1,21 +1,10 @@
-enum CachedMode {
-  """
-  In this mode all queries will be cached in addition the resolver will
-  use Atomic Locks to reduce server load. The mode is designed for
-  heavy/long queries.
-  """
-  Lock
-
-  """
-  In this mode, the query will be cached only if the execution time is
-  greater than the threshold.
-  """
-  Threshold
-}
-
 type Query {
-  """@require <guest> Current visitor must be a guest."""
-  value: String!
+    """
+    @require <guest> Current visitor must be a guest.
+    """
+    value: Test!
+    @guest
+    @mock
 }
 
 """
@@ -23,13 +12,44 @@ Description.
 
 @require <guest> Current visitor must be a guest.
 """
-type Test {
-  """@require <guest> Current visitor must be a guest."""
-  one: String!
+type Test
+@guest
+{
+    """
+    @require <guest> Current visitor must be a guest.
+    """
+    extension: String!
+    @guest
 
-  """@require <guest> Current visitor must be a guest."""
-  two: String!
+    """
+    @require <guest> Current visitor must be a guest.
+    """
+    one: String!
+    @guest
 
-  """@require <guest> Current visitor must be a guest."""
-  extension: String!
+    """
+    @require <guest> Current visitor must be a guest.
+    """
+    two: String!
+    @guest
 }
+
+"""
+Current visitor must be a guest.
+"""
+directive @guest
+on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+)
+on
+    | FIELD_DEFINITION

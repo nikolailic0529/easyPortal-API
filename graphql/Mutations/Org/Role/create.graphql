@@ -1,20 +1,20 @@
 extend type OrgRoleMutations {
-  create(
-    input: OrgRoleCreateInput!
-  ): OrgRoleCreatePayload
-  @organization
-  @me(permissions: ["org-administer"])
-  @mutationCreate(
-    resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Create"
-  )
+    create(
+        input: OrgRoleCreateInput!
+    ): OrgRoleCreatePayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Create"
+    )
 }
 
 input OrgRoleCreateInput {
-  name: String! @isRequired
-  permissions: [ID!]! @isOrgPermissionId
+    name: String! @isRequired
+    permissions: [ID!]! @isOrgPermissionId
 }
 
 type OrgRoleCreatePayload implements Payload {
-  result: Boolean!
-  role: Role!
+    result: Boolean!
+    role: Role!
 }

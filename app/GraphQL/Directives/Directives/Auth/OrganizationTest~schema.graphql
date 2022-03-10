@@ -1,22 +1,22 @@
 type Query {
-  value: String! @organization @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    value: String! @organization @mock
 
-  root: String! @organization(root: true) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    root: Test! @organization(root: true) @mock
 }
 
 """
 Description.
 """
 type Test @organization {
-  one: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    one: String!
 
-  two: String! @organization @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    two: String! @organization
 
-  root: String! @organization(root: true) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    root: String! @organization(root: true)
 }
 
 extend type Test @organization {
-  extension: String! @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    extension: String!
 
-  extensionRoot: String! @organization(root: true) @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    extensionRoot: String! @organization(root: true)
 }

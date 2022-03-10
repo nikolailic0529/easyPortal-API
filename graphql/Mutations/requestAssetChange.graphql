@@ -1,21 +1,21 @@
 extend type Mutation {
-  requestAssetChange(
-    input: RequestAssetChangeInput!
-  ): RequestAssetChangePayload
-  @organization
-  @me(permissions: ["requests-asset-change"])
+    requestAssetChange(
+        input: RequestAssetChangeInput!
+    ): RequestAssetChangePayload
+    @organization
+    @me(permissions: ["requests-asset-change"])
 }
 
 input RequestAssetChangeInput {
-  asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
-  subject: String! @rules(apply:["required"])
-  message: HtmlString! @rules(apply:["required"])
-  from: Email! @rules(apply:["email"])
-  cc: [Email!] @rules(apply:["email"])
-  bcc: [Email!] @rules(apply:["email"])
-  files: [Upload!]
+    asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
+    subject: String! @rules(apply:["required"])
+    message: HtmlString! @rules(apply:["required"])
+    from: Email! @rules(apply:["email"])
+    cc: [Email!] @rules(apply:["email"])
+    bcc: [Email!] @rules(apply:["email"])
+    files: [Upload!]
 }
 
 type RequestAssetChangePayload {
-  created: ChangeRequest!
+    created: ChangeRequest!
 }

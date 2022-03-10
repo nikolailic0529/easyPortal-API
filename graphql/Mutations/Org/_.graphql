@@ -1,10 +1,10 @@
 extend type Mutation {
-  org: OrgMutations
-  @organization
-  @me(permissions: ["org-administer"])
-  @mutation(
-    resolver: "App\\GraphQL\\Queries\\Org"
-  )
+    org: OrgMutations
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Org"
+    )
 }
 
 type OrgMutations

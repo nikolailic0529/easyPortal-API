@@ -1,4 +1,4 @@
 type ApplicationJobProgress {
-  total: Int
-  value: Int!
+    total: Int
+    value: Int!
 }

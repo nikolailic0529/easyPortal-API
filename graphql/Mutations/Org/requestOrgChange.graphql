@@ -1,21 +1,21 @@
 extend type Mutation {
-  requestOrgChange(
-    input: RequestOrgChangeInput!
-  ): RequestOrgChangePayload
-  @organization
-  @me(permissions: ["org-administer"])
-  @field(resolver: "App\\GraphQL\\Mutations\\Org\\RequestOrgChange")
+    requestOrgChange(
+        input: RequestOrgChangeInput!
+    ): RequestOrgChangePayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @field(resolver: "App\\GraphQL\\Mutations\\Org\\RequestOrgChange")
 }
 
 input RequestOrgChangeInput {
-  subject: String! @rules(apply:["required"])
-  message: HtmlString! @rules(apply:["required"])
-  from: Email! @rules(apply:["email"])
-  cc: [Email!] @rules(apply:["email"])
-  bcc: [Email!] @rules(apply:["email"])
-  files: [Upload!]
+    subject: String! @rules(apply:["required"])
+    message: HtmlString! @rules(apply:["required"])
+    from: Email! @rules(apply:["email"])
+    cc: [Email!] @rules(apply:["email"])
+    bcc: [Email!] @rules(apply:["email"])
+    files: [Upload!]
 }
 
 type RequestOrgChangePayload {
-  created: ChangeRequest!
+    created: ChangeRequest!
 }

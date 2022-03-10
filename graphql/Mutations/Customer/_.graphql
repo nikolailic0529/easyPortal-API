@@ -1,10 +1,10 @@
 extend type Mutation {
-  customer(id: ID @eq): CustomerMutations
-  @organization
-  @me
-  @mutation(
-    model: "App\\Models\\Customer"
-  )
+    customer(id: ID @eq): CustomerMutations
+    @organization
+    @me
+    @mutation(
+        model: "App\\Models\\Customer"
+    )
 }
 
 type CustomerMutations

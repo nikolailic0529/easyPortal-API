@@ -1,12 +1,12 @@
 extend type OrgRoleMutations {
-  delete: OrgRoleDeletePayload
-  @organization
-  @me(permissions: ["org-administer"])
-  @mutationMutate(
-    resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Delete"
-  )
+    delete: OrgRoleDeletePayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Delete"
+    )
 }
 
 type OrgRoleDeletePayload implements Payload {
-  result: Boolean!
+    result: Boolean!
 }

@@ -1,4 +1,4 @@
 input OemsQuery {
-  assets: AssetsQuery
-  documents: DocumentsQuery
+    assets: AssetsQuery
+    documents: DocumentsQuery
 }

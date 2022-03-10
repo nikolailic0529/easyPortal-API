@@ -1,5 +1,5 @@
 type Role {
-  id: ID!
-  name: String!
-  permissions: [Permission!]! @belongsToMany
+    id: ID!
+    name: String!
+    permissions: [Permission!]! @belongsToMany
 }

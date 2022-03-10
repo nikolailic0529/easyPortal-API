@@ -1,14 +1,14 @@
 input CustomersQuery {
-  id: ID!
-  name: String!
-  type_id: ID!
-  statuses: StatusesQuery!
-  statuses_count: Int!
-  locations: CustomerLocationsQuery
-  headquarter: CustomerLocationsQuery
-  contacts_count: Int!
-  contacts: ContactsQuery
-  assets: AssetsQuery
-  contracts: DocumentsQuery
-  quotes: DocumentsQuery
+    id: ID!
+    name: String!
+    type_id: ID!
+    statuses: StatusesQuery!
+    statuses_count: Int!
+    locations: CustomerLocationsQuery
+    headquarter: CustomerLocationsQuery
+    contacts_count: Int!
+    contacts: ContactsQuery
+    assets: AssetsQuery
+    contracts: DocumentsQuery
+    quotes: DocumentsQuery
 }

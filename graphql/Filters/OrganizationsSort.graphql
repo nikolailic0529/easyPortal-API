@@ -1,6 +1,6 @@
 input OrganizationsSort {
-  name: String!
-  website_url: Url
-  email: Email
-  kpi: KpiSort!
+    name: String!
+    website_url: Url
+    email: Email
+    kpi: KpiSort!
 }

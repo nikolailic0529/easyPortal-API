@@ -1,10 +1,10 @@
 extend type Mutation {
-  asset(id: ID @eq): AssetMutations
-  @organization
-  @me
-  @mutation(
-    model: "App\\Models\\Asset"
-  )
+    asset(id: ID @eq): AssetMutations
+    @organization
+    @me
+    @mutation(
+        model: "App\\Models\\Asset"
+    )
 }
 
 type AssetMutations

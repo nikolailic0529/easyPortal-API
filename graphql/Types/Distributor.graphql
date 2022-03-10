@@ -1,4 +1,4 @@
 type Distributor {
-  id: ID!
-  name: String!
+    id: ID!
+    name: String!
 }

@@ -1,6 +1,6 @@
 input NotesQuery {
-  note: HtmlString!
-  pinned: Boolean!
-  user_id: ID!
-  user: UsersQuery
+    note: HtmlString!
+    pinned: Boolean!
+    user_id: ID!
+    user: UsersQuery
 }

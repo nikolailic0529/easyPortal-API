@@ -1,15 +1,15 @@
 type ApplicationJob {
-  name: String!
+    name: String!
 
-  """
-  Settings related to this job.
-  """
-  settings: [String!]!
+    """
+    Settings related to this job.
+    """
+    settings: [String!]!
 
-  """
-  Queue name
-  """
-  queue: String!
+    """
+    Queue name
+    """
+    queue: String!
 
-  description: String
+    description: String
 }

@@ -1,27 +1,27 @@
 extend type Mutation {
-  """
-  Dispatch/Run application service.
-  """
-  dispatchApplicationService(
-    input: DispatchApplicationServiceInput!
-  ): DispatchApplicationServicePayload
-  @organization(root: true)
-  @root
-  @field(resolver: "App\\GraphQL\\Mutations\\Application\\DispatchApplicationService")
+    """
+    Dispatch/Run application service.
+    """
+    dispatchApplicationService(
+        input: DispatchApplicationServiceInput!
+    ): DispatchApplicationServicePayload
+    @organization(root: true)
+    @root
+    @field(resolver: "App\\GraphQL\\Mutations\\Application\\DispatchApplicationService")
 }
 
 input DispatchApplicationServiceInput {
-  """
-  Name of the service.
-  """
-  name: String!
+    """
+    Name of the service.
+    """
+    name: String!
 
-  """
-  If true the service will be executed right now.
-  """
-  immediately: Boolean! = false
+    """
+    If true the service will be executed right now.
+    """
+    immediately: Boolean! = false
 }
 
 type DispatchApplicationServicePayload {
-  result: Boolean!
+    result: Boolean!
 }

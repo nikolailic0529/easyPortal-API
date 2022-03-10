@@ -1,5 +1,5 @@
 type OemGroup {
-  id: ID!
-  key: String!
-  name: String!
+    id: ID!
+    key: String!
+    name: String!
 }

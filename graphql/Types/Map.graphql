@@ -1,8 +1,8 @@
 type Map {
-  latitude: Float!
-  longitude: Float!
-  boundingBox: MapBoundingBox!
-  locations_ids: [ID!]!
-  customers_ids: [ID!]!
-  customers_count: Int!
+    latitude: Float!
+    longitude: Float!
+    boundingBox: MapBoundingBox!
+    locations_ids: [ID!]!
+    customers_ids: [ID!]!
+    customers_count: Int!
 }

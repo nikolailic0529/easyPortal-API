@@ -1,10 +1,10 @@
 type ApplicationSettingGroup {
-  """
-  Group name.
-  """
-  name: String!
-  """
-  Settings related to this group.
-  """
-  settings: [String!]!
+    """
+    Group name.
+    """
+    name: String!
+    """
+    Settings related to this group.
+    """
+    settings: [String!]!
 }
