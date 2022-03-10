@@ -23,12 +23,12 @@ use const JSON_THROW_ON_ERROR;
 /**
  * @implements \ArrayAccess<string, string>
  */
-class Translations implements Castable, Arrayable, ArrayAccess, IteratorAggregate, JsonSerializable {
+class TranslatedString implements Castable, Arrayable, ArrayAccess, IteratorAggregate, JsonSerializable {
     /**
-     * @param array<string,string> $strings
+     * @param array<string,string> $translations
      */
     public function __construct(
-        protected array $strings = [],
+        protected array $translations = [],
     ) {
         // empty
     }
@@ -36,13 +36,13 @@ class Translations implements Castable, Arrayable, ArrayAccess, IteratorAggregat
     // <editor-fold desc="IteratorAggregate">
     // =========================================================================
     /**
-     * @return \Generator<string, array{key: string, string: string}>
+     * @return \Generator<string, array{locale: string, text: string}>
      */
     public function getIterator(): Generator {
-        foreach ($this->strings as $locale => $string) {
+        foreach ($this->translations as $locale => $text) {
             yield $locale => [
                 'locale' => $locale,
-                'string' => $string,
+                'text'   => $text,
             ];
         }
     }
@@ -54,7 +54,7 @@ class Translations implements Castable, Arrayable, ArrayAccess, IteratorAggregat
      * @return array<string,string>
      */
     public function toArray(): array {
-        return $this->strings;
+        return $this->translations;
     }
     // </editor-fold>
 
@@ -78,16 +78,16 @@ class Translations implements Castable, Arrayable, ArrayAccess, IteratorAggregat
             /**
              * @inheritDoc
              */
-            public function get($model, string $key, mixed $value, array $attributes): ?Translations {
-                if ($value === null || $value instanceof Translations) {
+            public function get($model, string $key, mixed $value, array $attributes): ?TranslatedString {
+                if ($value === null || $value instanceof TranslatedString) {
                     // no action required
                 } elseif (is_string($value)) {
-                    $value = new Translations(json_decode($value, true, flags: JSON_THROW_ON_ERROR));
+                    $value = new TranslatedString(json_decode($value, true, flags: JSON_THROW_ON_ERROR));
                 } else {
                     throw new InvalidArgumentException(sprintf(
                         'Type `%s` cannot be converted into `%s` instance.',
                         gettype($value),
-                        Translations::class,
+                        TranslatedString::class,
                     ));
                 }
 
@@ -98,10 +98,10 @@ class Translations implements Castable, Arrayable, ArrayAccess, IteratorAggregat
              * @inheritDoc
              */
             public function set($model, string $key, $value, array $attributes): mixed {
-                if ($value !== null && !($value instanceof Translations)) {
+                if ($value !== null && !($value instanceof TranslatedString)) {
                     throw new InvalidArgumentException(sprintf(
                         'The `$value` should be instance of `%s`.',
-                        Translations::class,
+                        TranslatedString::class,
                     ));
                 }
 
@@ -126,19 +126,19 @@ class Translations implements Castable, Arrayable, ArrayAccess, IteratorAggregat
     // <editor-fold desc="ArrayAccess">
     // =========================================================================
     public function offsetExists(mixed $offset): bool {
-        return isset($this->strings[$offset]);
+        return isset($this->translations[$offset]);
     }
 
     public function offsetGet(mixed $offset): string {
-        return $this->strings[$offset];
+        return $this->translations[$offset];
     }
 
     public function offsetSet(mixed $offset, mixed $value): void {
-        $this->strings[$offset] = $value;
+        $this->translations[$offset] = $value;
     }
 
     public function offsetUnset(mixed $offset): void {
-        unset($this->strings[$offset]);
+        unset($this->translations[$offset]);
     }
     // </editor-fold>
 }

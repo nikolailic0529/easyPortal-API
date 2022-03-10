@@ -10,9 +10,9 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Eloquent\Translations
+ * @coversDefaultClass \App\Services\I18n\Eloquent\TranslatedString
  */
-class TranslationsTest extends TestCase {
+class TranslatedStringTest extends TestCase {
     /**
      * @covers ::toArray
      * @covers ::offsetGet
@@ -21,7 +21,7 @@ class TranslationsTest extends TestCase {
      * @covers ::offsetExists
      */
     public function testToArray(): void {
-        $translations = new Translations([
+        $translations = new TranslatedString([
             'locale_a' => 'a',
             'locale_b' => 'b',
         ]);
@@ -49,14 +49,14 @@ class TranslationsTest extends TestCase {
             [
                 'locale_a' => [
                     'locale' => 'locale_a',
-                    'string' => 'a',
+                    'text'   => 'a',
                 ],
                 'locale_b' => [
                     'locale' => 'locale_b',
-                    'string' => 'b',
+                    'text'   => 'b',
                 ],
             ],
-            iterator_to_array(new Translations([
+            iterator_to_array(new TranslatedString([
                 'locale_a' => 'a',
                 'locale_b' => 'b',
             ])),
@@ -67,7 +67,7 @@ class TranslationsTest extends TestCase {
      * @covers ::castUsing
      */
     public function testCastUsing(): void {
-        $caster = Translations::castUsing([]);
+        $caster = TranslatedString::castUsing([]);
         $model  = new class() extends Model {
             // empty
         };
@@ -83,7 +83,7 @@ class TranslationsTest extends TestCase {
         ]);
         $translations = $caster->get($model, 'key', $value, []);
 
-        $this->assertInstanceOf(Translations::class, $translations);
+        $this->assertInstanceOf(TranslatedString::class, $translations);
         $this->assertEquals(
             [
                 'locale_a' => 'a',
@@ -93,7 +93,7 @@ class TranslationsTest extends TestCase {
         );
 
         // Set
-        $value        = new Translations([
+        $value        = new TranslatedString([
             'locale_b' => 'b',
             'locale_a' => 'a',
         ]);
@@ -106,6 +106,18 @@ class TranslationsTest extends TestCase {
                     'locale_a' => 'a',
                     'locale_b' => 'b',
                 ]),
+            ],
+            $translations,
+        );
+
+        // Set empty
+        $value        = new TranslatedString([]);
+        $translations = $caster->set($model, 'key', $value, []);
+
+        $this->assertIsArray($translations);
+        $this->assertEquals(
+            [
+                'key' => null,
             ],
             $translations,
         );
