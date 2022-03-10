@@ -1,0 +1,14 @@
+preset: conventionalcommits
+branches:
+  - name: main
+    prerelease: false
+  - name: staging
+    prerelease: rc
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - - "@semantic-release/github"
+    - successComment: false
+      releasedLabels: false
+      failComment: false
+      failTitle: false

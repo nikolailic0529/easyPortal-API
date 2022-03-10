@@ -1,4 +1,8 @@
-# Application GraphQL Cache Settings
+# Application GraphQL Cache
+
+| [Cache store](./Application-Cache.md) | `permanent` |
+|---------------------------------------|-------------|
+
 
 ## Overview
 

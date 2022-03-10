@@ -28,10 +28,11 @@
 * [Settings](./docs/Application-Settings.md)
 * [Translation](./docs/Application-Translation.md)
 * [Cache](./docs/Application-Cache.md)
-* [GraphQL Cache Settings](./docs/Application-GraphQL-Cache-Settings.md)
+* [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
+* [Data Loader](./docs/DataLoader.md)
 
 ### Development
 
 * [Coding Standards](./docs/Coding-Standards.md)
 * [API Interaction](./docs/API-Interaction.md)
-* [Data Loader](./docs/DataLoader.md)
+* [Commits & Versioning](./docs/Commits-Versioning.md)

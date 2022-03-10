@@ -1,0 +1,26 @@
+diff --git a/node_modules/semantic-release/lib/get-last-release.js b/node_modules/semantic-release/lib/get-last-release.js
+old mode 100644
+new mode 100755
+index 110fd85..8c8ac74
+--- a/node_modules/semantic-release/lib/get-last-release.js
++++ b/node_modules/semantic-release/lib/get-last-release.js
+@@ -1,4 +1,4 @@
+-const {isUndefined} = require('lodash');
++const {isUndefined, flatMap} = require('lodash');
+ const semver = require('semver');
+ const {makeTag, isSameChannel} = require('./utils');
+
+@@ -26,8 +26,11 @@ const {makeTag, isSameChannel} = require('./utils');
+  *
+  * @return {LastRelease} The last tagged release or empty object if none is found.
+  */
+-module.exports = ({branch, options: {tagFormat}}, {before} = {}) => {
+-  const [{version, gitTag, channels} = {}] = branch.tags
++module.exports = ({branch, options: {tagFormat}, branches}, {before} = {}) => {
++  const [{version, gitTag, channels} = {}] = [
++      ...branch.tags,
++      ...flatMap(branches.filter(branch => branch.type === 'release'), branch => branch.tags),
++  ]
+     .filter(
+       (tag) =>
+         ((branch.type === 'prerelease' && tag.channels.some((channel) => isSameChannel(branch.channel, channel))) ||

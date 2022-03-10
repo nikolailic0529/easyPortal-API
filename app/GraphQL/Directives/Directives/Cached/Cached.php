@@ -21,7 +21,7 @@ use function microtime;
 use function sprintf;
 
 /**
- * @see /docs/Application-GraphQL-Cache-Settings.md
+ * @see /docs/Application-GraphQL-Cache.md
  */
 class Cached extends BaseDirective implements FieldMiddleware {
     public function __construct(
