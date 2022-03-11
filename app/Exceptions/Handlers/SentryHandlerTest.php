@@ -2,10 +2,12 @@
 
 namespace App\Exceptions\Handlers;
 
+use App\Services\Maintenance\ApplicationInfo;
 use Exception;
-use PHPUnit\Framework\TestCase;
+use Mockery\MockInterface;
 use Sentry\Breadcrumb;
 use Sentry\ExceptionDataBag;
+use Tests\TestCase;
 
 use function reset;
 
@@ -66,5 +68,30 @@ class SentryHandlerTest extends TestCase {
         $actual  = $handler::getContextBreadcrumbs($context);
 
         $this->assertInstanceOf(Breadcrumb::class, reset($actual));
+    }
+
+    /**
+     * @covers ::getRelease
+     */
+    public function testGetRelease(): void {
+        $this->override(ApplicationInfo::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('getName')
+                ->once()
+                ->andReturn('package');
+            $mock
+                ->shouldReceive('getVersion')
+                ->once()
+                ->andReturn('1.2.3');
+        });
+
+        $handler = new class() extends SentryHandler {
+            public static function getRelease(): string {
+                return parent::getRelease();
+            }
+        };
+
+        $this->assertEquals('package@1.2.3', $handler::getRelease());
+        $this->assertEquals('package@1.2.3', $handler::getRelease()); // should be cached
     }
 }

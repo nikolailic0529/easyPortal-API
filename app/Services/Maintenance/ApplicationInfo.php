@@ -7,6 +7,8 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 
+use function end;
+use function explode;
 use function str_starts_with;
 
 class ApplicationInfo {
@@ -16,6 +18,17 @@ class ApplicationInfo {
         protected Filesystem $filesystem,
     ) {
         // empty
+    }
+
+    public function getName(): string {
+        $parts = explode('/', $this->getPackage());
+        $name  = end($parts);
+
+        return $name;
+    }
+
+    public function getPackage(): string {
+        return InstalledVersions::getRootPackage()['name'] ?? 'easyportal-api';
     }
 
     public function getVersion(): ?string {

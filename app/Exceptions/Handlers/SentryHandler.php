@@ -2,6 +2,7 @@
 
 namespace App\Exceptions\Handlers;
 
+use App\Services\Maintenance\ApplicationInfo;
 use ReflectionClass;
 use Sentry\Breadcrumb;
 use Sentry\Event;
@@ -14,6 +15,7 @@ use Sentry\Serializer\RepresentationSerializer;
 use Sentry\StacktraceBuilder;
 use Throwable;
 
+use function app;
 use function array_is_list;
 use function array_merge;
 use function is_a;
@@ -21,6 +23,8 @@ use function is_array;
 use function strtolower;
 
 class SentryHandler {
+    protected static string $release;
+
     public static function beforeSend(Event $event, ?EventHint $hint): Event {
         // Prepare
         $key   = 'log_context';
@@ -59,6 +63,9 @@ class SentryHandler {
 
         // Update
         $event->setExtra($extra);
+
+        // Release
+        $event->setRelease(static::getRelease());
 
         // Return
         return $event;
@@ -142,5 +149,16 @@ class SentryHandler {
             default:
                 return Breadcrumb::LEVEL_INFO;
         }
+    }
+
+    protected static function getRelease(): string {
+        if (!isset(static::$release)) {
+            $info            = app()->make(ApplicationInfo::class);
+            $package         = $info->getName();
+            $version         = $info->getVersion();
+            static::$release = "{$package}@{$version}";
+        }
+
+        return static::$release;
     }
 }
