@@ -1364,15 +1364,29 @@
                     ]
                 },
                 "welcome_heading": {
-                    "type": [
-                        "string",
-                        "null"
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "./Types/TranslatedString.json"
+                            }
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "welcome_underline": {
-                    "type": [
-                        "string",
-                        "null"
+                    "oneOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "./Types/TranslatedString.json"
+                            }
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 },
                 "dashboard_image_url": {

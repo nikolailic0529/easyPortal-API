@@ -8257,9 +8257,9 @@ type OrganizationBranding {
     logo_url: Url
     main_color: Color
     secondary_color: Color
-    welcome_heading: String
+    welcome_heading: [TranslatedString!]
     welcome_image_url: Url
-    welcome_underline: String
+    welcome_underline: [TranslatedString!]
 }
 
 type OrganizationMutations {
@@ -10560,6 +10560,11 @@ type Tag {
 type Team {
     id: ID!
     name: String!
+}
+
+type TranslatedString {
+    locale: String!
+    text: String!
 }
 
 type Type {

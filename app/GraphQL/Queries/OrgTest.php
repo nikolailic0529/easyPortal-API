@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Organization as ModelsOrganization;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
+use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -102,8 +103,14 @@ class OrgTest extends TestCase {
                     default_logo_url
                     default_favicon_url
                     welcome_image_url
-                    welcome_heading
-                    welcome_underline
+                    welcome_heading {
+                        locale
+                        text
+                    }
+                    welcome_underline {
+                        locale
+                        text
+                    }
                     dashboard_image_url
                 }
                 statuses {
@@ -211,8 +218,12 @@ class OrgTest extends TestCase {
                                     'branding_default_favicon_url'     => 'https://www.example.com/favicon-default.png',
                                     'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
                                     'branding_dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
-                                    'branding_welcome_heading'         => 'heading',
-                                    'branding_welcome_underline'       => 'underline',
+                                    'branding_welcome_heading'         => new TranslatedString([
+                                        'en_GB' => 'heading',
+                                    ]),
+                                    'branding_welcome_underline'       => new TranslatedString([
+                                        'en_GB' => 'underline',
+                                    ]),
                                     'timezone'                         => 'Europe/London',
                                     'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
                                 ]);
@@ -296,8 +307,18 @@ class OrgTest extends TestCase {
                                 'default_favicon_url'     => 'https://www.example.com/favicon-default.png',
                                 'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
                                 'dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
-                                'welcome_heading'         => 'heading',
-                                'welcome_underline'       => 'underline',
+                                'welcome_heading'         => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'heading',
+                                    ],
+                                ],
+                                'welcome_underline'       => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'underline',
+                                    ],
+                                ],
                             ],
                             'statuses'       => [
                                 [
