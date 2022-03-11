@@ -5,14 +5,17 @@ namespace App\GraphQL\Mutations\Org;
 use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
+use App\Services\DataLoader\Schema\InputTranslationText;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\Filesystem\ModelDiskFactory;
-use App\Services\Organization\CurrentOrganization;
+use App\Services\I18n\Eloquent\TranslatedString;
+use App\Services\Keycloak\Map;
 use Illuminate\Http\UploadedFile;
 
-class UpdateOrg {
+use function array_values;
+
+class Update {
     public function __construct(
-        protected CurrentOrganization $organization,
         protected Client $client,
         protected ModelDiskFactory $disks,
     ) {
@@ -20,31 +23,24 @@ class UpdateOrg {
     }
 
     /**
-     * @param null                 $_
-     * @param array<string, mixed> $args
-     *
-     * @return  array<string, mixed>
+     * @param array{input: array<string, mixed>} $args
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(Organization $org, array $args): bool {
         // Prepare
-        $organization = $this->organization->get();
-        $mutation     = new CompanyBrandingData([
-            'id' => $organization->getKey(),
+        $input = new CompanyBrandingData([
+            'id' => $org->getKey(),
         ]);
 
         // Update properties
-        $this->updateProperties($organization, $mutation, $args['input']);
+        $this->updateProperties($org, $input, $args['input']);
 
         // Update Cosmos
-        if ($mutation->count() > 1 && $organization->reseller) {
-            $this->client->updateBrandingData($mutation);
+        if ($input->count() > 1 && $org->reseller) {
+            $this->client->updateBrandingData($input);
         }
 
         // Return
-        return [
-            'result'       => $organization->save(),
-            'organization' => $organization,
-        ];
+        return $org->save();
     }
 
     /**
@@ -116,12 +112,12 @@ class UpdateOrg {
                     }
                     break;
                 case 'welcome_heading':
-                    $organization->branding_welcome_heading = $value;
-                    $branding->mainHeadingText              = $value;
+                    $organization->branding_welcome_heading = $this->getTranslatedString($value);
+                    $branding->mainHeadingText              = $this->getTranslationText($value);
                     break;
                 case 'welcome_underline':
-                    $organization->branding_welcome_underline = $value;
-                    $branding->underlineText                  = $value;
+                    $organization->branding_welcome_underline = $this->getTranslatedString($value);
+                    $branding->underlineText                  = $this->getTranslationText($value);
                     break;
                 case 'welcome_image_url':
                     if ($organization->reseller) {
@@ -154,5 +150,53 @@ class UpdateOrg {
         }
 
         return $url;
+    }
+
+    /**
+     * @param array<array{locale:string,text:string}>|null $translations
+     */
+    protected function getTranslatedString(?array $translations): ?TranslatedString {
+        $string = null;
+
+        if ($translations) {
+            $string = new TranslatedString();
+
+            foreach ($translations as $translation) {
+                $string[$translation['locale']] = $translation['text'];
+            }
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array<array{locale:string,text:string}>|null $translations
+     *
+     * @return array<\App\Services\DataLoader\Schema\InputTranslationText>|null
+     */
+    protected function getTranslationText(?array $translations): ?array {
+        $texts = null;
+
+        if ($translations) {
+            $texts = [];
+
+            foreach ($translations as $translation) {
+                $appLocale      = $translation['locale'];
+                $keycloakLocale = Map::getKeycloakLocale($appLocale);
+
+                $texts[$appLocale]      = new InputTranslationText([
+                    'language_code' => $appLocale,
+                    'text'          => $translation['text'],
+                ]);
+                $texts[$keycloakLocale] = new InputTranslationText([
+                    'language_code' => $keycloakLocale,
+                    'text'          => $translation['text'],
+                ]);
+            }
+
+            $texts = array_values($texts);
+        }
+
+        return $texts;
     }
 }

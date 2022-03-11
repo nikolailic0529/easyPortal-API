@@ -5,6 +5,8 @@ namespace App\GraphQL\Mutations\Org;
 use App\Models\Currency;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Schema\InputTranslationText;
+use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -13,18 +15,18 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLValidationError;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
-use function __;
 use function array_key_exists;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\UpdateOrg
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\Update
  */
-class UpdateOrgTest extends TestCase {
+class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -90,116 +92,127 @@ class UpdateOrgTest extends TestCase {
             }
         }
 
+
         $query = /** @lang GraphQL */
-            'mutation updateOrg($input: UpdateOrgInput!){
-            updateOrg(input: $input){
-              result
-              organization {
-                  id
-                  name
-                  email
-                  root
-                  locale
-                  website_url
-                  analytics_code
-                  timezone
-                  currency_id
-                  currency {
-                    id
-                    name
-                    code
-                  }
-                  locations {
-                    location_id
-                    location {
-                      id
-                      state
-                      postcode
-                      line_one
-                      line_two
-                      latitude
-                      longitude
+            <<<'GRAPHQL'
+            mutation mutate($input: OrgUpdateInput!) {
+                org {
+                    update(input: $input){
+                        result
+                        org {
+                            id
+                            name
+                            email
+                            root
+                            locale
+                            website_url
+                            analytics_code
+                            timezone
+                            currency_id
+                            currency {
+                                id
+                                name
+                                code
+                            }
+                            locations {
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
+                            }
+                            branding {
+                                dark_theme
+                                main_color
+                                secondary_color
+                                logo_url
+                                favicon_url
+                                default_main_color
+                                default_secondary_color
+                                default_logo_url
+                                default_favicon_url
+                                welcome_image_url
+                                dashboard_image_url
+                                welcome_heading {
+                                    locale
+                                    text
+                                }
+                                welcome_underline {
+                                    locale
+                                    text
+                                }
+                            }
+                            statuses {
+                                id
+                                key
+                                name
+                            }
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
+                            headquarter {
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
+                            }
+                            kpi {
+                                assets_total
+                                assets_active
+                                assets_active_percent
+                                assets_active_on_contract
+                                assets_active_on_warranty
+                                assets_active_exposed
+                                customers_active
+                                customers_active_new
+                                contracts_active
+                                contracts_active_amount
+                                contracts_active_new
+                                contracts_expiring
+                                contracts_expired
+                                quotes_active
+                                quotes_active_amount
+                                quotes_active_new
+                                quotes_expiring
+                                quotes_expired
+                                quotes_ordered
+                                quotes_accepted
+                                quotes_requested
+                                quotes_received
+                                quotes_rejected
+                                quotes_awaiting
+                                service_revenue_total_amount
+                                service_revenue_total_amount_change
+                            }
+                        }
                     }
-                    types {
-                      id
-                      name
-                    }
-                  }
-                  branding {
-                    dark_theme
-                    main_color
-                    secondary_color
-                    logo_url
-                    favicon_url
-                    default_main_color
-                    default_secondary_color
-                    default_logo_url
-                    default_favicon_url
-                    welcome_image_url
-                    welcome_heading
-                    welcome_underline
-                    dashboard_image_url
-                  }
-                  statuses {
-                      id
-                      key
-                      name
-                  }
-                  contacts {
-                    name
-                    email
-                    phone_valid
-                  }
-                  headquarter {
-                    location_id
-                    location {
-                      id
-                      state
-                      postcode
-                      line_one
-                      line_two
-                      latitude
-                      longitude
-                    }
-                    types {
-                      id
-                      name
-                    }
-                  }
-                  kpi {
-                    assets_total
-                    assets_active
-                    assets_active_percent
-                    assets_active_on_contract
-                    assets_active_on_warranty
-                    assets_active_exposed
-                    customers_active
-                    customers_active_new
-                    contracts_active
-                    contracts_active_amount
-                    contracts_active_new
-                    contracts_expiring
-                    contracts_expired
-                    quotes_active
-                    quotes_active_amount
-                    quotes_active_new
-                    quotes_expiring
-                    quotes_expired
-                    quotes_ordered
-                    quotes_accepted
-                    quotes_requested
-                    quotes_received
-                    quotes_rejected
-                    quotes_awaiting
-                    service_revenue_total_amount
-                    service_revenue_total_amount_change
-                  }
-              }
+                }
             }
-          }';
+            GRAPHQL;
 
         $operations = [
-            'operationName' => 'updateOrg',
+            'operationName' => 'mutate',
             'query'         => $query,
             'variables'     => ['input' => $input],
         ];
@@ -223,17 +236,17 @@ class UpdateOrgTest extends TestCase {
                     ->once()
                     ->andReturn($new_logo_url);
 
-                $new_favicon_url = $hasFavicon ? 'https://example.com/favicon.png' : null;
+                $newFaviconUrl = $hasFavicon ? 'https://example.com/favicon.png' : null;
                 $client
                     ->shouldReceive('updateCompanyFavicon')
                     ->once()
-                    ->andReturn($new_favicon_url);
+                    ->andReturn($newFaviconUrl);
 
-                $new_welcome_url = $hasWelcome ? 'https://example.com/imageOnTheRight.png' : null;
+                $newWelcomeUrl = $hasWelcome ? 'https://example.com/imageOnTheRight.png' : null;
                 $client
                     ->shouldReceive('updateCompanyMainImageOnTheRight')
                     ->once()
-                    ->andReturn($new_welcome_url);
+                    ->andReturn($newWelcomeUrl);
             } else {
                 $client
                     ->shouldNotReceive('updateCompanyLogo')
@@ -279,6 +292,85 @@ class UpdateOrgTest extends TestCase {
             }
         }
     }
+
+    /**
+     * @covers ::getTranslationText
+     */
+    public function testGetTranslationText(): void {
+        $update = new class() extends Update {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getTranslationText(?array $translations): ?array {
+                return parent::getTranslationText($translations);
+            }
+        };
+
+        $this->assertEquals(
+            [
+                new InputTranslationText([
+                    'language_code' => 'en_GB',
+                    'text'          => 'a',
+                ]),
+                new InputTranslationText([
+                    'language_code' => 'en',
+                    'text'          => 'a',
+                ]),
+                new InputTranslationText([
+                    'language_code' => 'unknown',
+                    'text'          => 'b',
+                ]),
+            ],
+            $update->getTranslationText([
+                [
+                    'locale' => 'en_GB',
+                    'text'   => 'a',
+                ],
+                [
+                    'locale' => 'unknown',
+                    'text'   => 'b',
+                ],
+            ]),
+        );
+    }
+
+    /**
+     * @covers ::getTranslatedString
+     */
+    public function testGetTranslatedString(): void {
+        $update = new class() extends Update {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function getTranslatedString(?array $translations): ?TranslatedString {
+                return parent::getTranslatedString($translations);
+            }
+        };
+
+        $this->assertEquals(
+            new TranslatedString([
+                'en_GB'   => 'a',
+                'unknown' => 'b',
+            ]),
+            $update->getTranslatedString([
+                [
+                    'locale' => 'en_GB',
+                    'text'   => 'a',
+                ],
+                [
+                    'locale' => 'unknown',
+                    'text'   => 'b',
+                ],
+            ]),
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -288,13 +380,13 @@ class UpdateOrgTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('updateOrg', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
-            new OrganizationUserDataProvider('updateOrg', [
+            new OrganizationDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
+            new OrganizationUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'                               => [
-                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -316,17 +408,25 @@ class UpdateOrgTest extends TestCase {
                                 'logo_url'            => UploadedFile::fake()->create('branding_logo.jpg', 20),
                                 'favicon_url'         => UploadedFile::fake()->create('branding_favicon.jpg', 100),
                                 'welcome_image_url'   => UploadedFile::fake()->create('branding_welcome.jpg', 100),
-                                'welcome_heading'     => 'heading',
-                                'welcome_underline'   => 'underline',
                                 'dashboard_image_url' => UploadedFile::fake()->create('branding_dashboard.jpg', 100),
+                                'welcome_heading'     => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'heading',
+                                    ],
+                                ],
+                                'welcome_underline'   => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'underline',
+                                    ],
+                                ],
                             ],
                         ];
                     },
                 ],
                 'invalid request/Invalid color'    => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (): array {
                         return [
@@ -337,9 +437,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid locale'   => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (): array {
                         return [
@@ -348,9 +446,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid currency' => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (): array {
                         return [
@@ -359,9 +455,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/deleted currency' => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create([
@@ -375,9 +469,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid format'   => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [
                         'ep.image.max_size' => 2000,
                         'ep.image.formats'  => ['png'],
@@ -392,9 +484,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid size'     => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [
                         'ep.image.max_size' => 2000,
                         'ep.image.formats'  => ['png'],
@@ -410,9 +500,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid url'      => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (TestCase $test): array {
                         return [
@@ -421,9 +509,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid email'    => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (TestCase $test): array {
                         return [
@@ -432,9 +518,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid timezone' => [
-                    new GraphQLError('updateOrg', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     [],
                     static function (TestCase $test): array {
                         return [
@@ -443,7 +527,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'nullable branding'                => [
-                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -473,7 +557,7 @@ class UpdateOrgTest extends TestCase {
                     },
                 ],
                 'no reseller organization'         => [
-                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -492,14 +576,24 @@ class UpdateOrgTest extends TestCase {
                                 'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 20),
                                 'favicon_url'       => UploadedFile::fake()->create('branding_favicon.jpg', 100),
                                 'welcome_image_url' => UploadedFile::fake()->create('branding_welcome.jpg', 100),
-                                'welcome_heading'   => 'heading',
-                                'welcome_underline' => 'underline',
+                                'welcome_heading'   => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'heading',
+                                    ],
+                                ],
+                                'welcome_underline' => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'underline',
+                                    ],
+                                ],
                             ],
                         ];
                     },
                 ],
                 'no reseller organization/null'    => [
-                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -518,8 +612,18 @@ class UpdateOrgTest extends TestCase {
                                 'logo_url'          => null,
                                 'favicon_url'       => null,
                                 'welcome_image_url' => null,
-                                'welcome_heading'   => 'heading',
-                                'welcome_underline' => 'underline',
+                                'welcome_heading'   => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'heading',
+                                    ],
+                                ],
+                                'welcome_underline' => [
+                                    [
+                                        'locale' => 'en_GB',
+                                        'text'   => 'underline',
+                                    ],
+                                ],
                             ],
                         ];
                     },

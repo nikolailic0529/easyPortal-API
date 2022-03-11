@@ -3,10 +3,10 @@
 namespace App\GraphQL\Directives\Rules;
 
 use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
-use App\Rules\Locale;
+use App\Rules\CurrencyId;
 
-class IsLocaleDirective extends CustomRule {
+class IsCurrencyIdDirective extends CustomRule {
     protected function getRuleClass(): string {
-        return Locale::class;
+        return CurrencyId::class;
     }
 }

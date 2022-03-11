@@ -295,6 +295,66 @@ input OrgRoleUpdateInput {
     @isOrgPermissionId
 }
 
+input OrgUpdateBrandingInput {
+    dark_theme: Boolean
+    @isNullable
+
+    dashboard_image_url: Upload
+    @isNullable
+    @isImage
+
+    favicon_url: Upload
+    @isNullable
+    @isImage
+
+    logo_url: Upload
+    @isNullable
+    @isImage
+
+    main_color: Color
+    @isNullable
+    @isColor
+
+    secondary_color: Color
+    @isNullable
+    @isColor
+
+    welcome_heading: [TranslatedStringInput!]
+
+    welcome_image_url: Upload
+    @isNullable
+    @isImage
+
+    welcome_underline: [TranslatedStringInput!]
+}
+
+input OrgUpdateInput {
+    analytics_code: String
+    @isNullable
+
+    branding: OrgUpdateBrandingInput
+
+    currency_id: ID
+    @isNullable
+    @isCurrencyId
+
+    email: Email
+    @isNullable
+    @isEmail
+
+    locale: String
+    @isNullable
+    @isLocale
+
+    timezone: String
+    @isNullable
+    @isTimezone
+
+    website_url: Url
+    @isNullable
+    @isUrl
+}
+
 input OrgUserInviteInput {
     email: Email!
     @isEmail
@@ -5458,6 +5518,11 @@ input StopApplicationServiceInput {
     name: String!
 }
 
+input TranslatedStringInput {
+    locale: String!
+    text: String!
+}
+
 input TranslationInput {
     key: String!
     value: String!
@@ -5514,30 +5579,6 @@ input UpdateMeEmailInput
 input UpdateMePasswordInput {
     current_password: String
     password: String!
-}
-
-input UpdateOrgBranding {
-    dark_theme: Boolean
-    dashboard_image_url: Upload
-    favicon_url: Upload
-    logo_url: Upload
-    main_color: Color
-    secondary_color: Color
-    welcome_heading: String
-    welcome_image_url: Upload
-    welcome_underline: String
-}
-
-input UpdateOrgInput
-@validator(class: "App\\GraphQL\\Validators\\UpdateOrgInputValidator")
-{
-    analytics_code: String
-    branding: UpdateOrgBranding
-    currency_id: ID
-    email: Email
-    locale: String
-    timezone: String
-    website_url: Url
 }
 
 input UpdateQuoteNoteFile {
@@ -7841,16 +7882,6 @@ type Mutation {
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
-    @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-    """
-    updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
-    @organization
-    @me(permissions: ["org-administer"])
-    @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrg")
-
-    """
-    @require <organization> Authenticated user must be a member of the current organization.
-
     @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
@@ -7930,6 +7961,18 @@ type OrgMutations {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
+    update(input: OrgUpdateInput!): OrgUpdatePayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Update"
+    )
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+    """
     user(
         id: ID
         @eq
@@ -7998,6 +8041,14 @@ implements
 {
     result: Boolean!
     role: Role!
+}
+
+type OrgUpdatePayload
+implements
+    & Payload
+{
+    org: Organization!
+    result: Boolean!
 }
 
 type OrgUserInvitePayload
@@ -10603,11 +10654,6 @@ type UpdateMePasswordPayload {
     result: Boolean!
 }
 
-type UpdateOrgPayload {
-    organization: Organization!
-    result: Boolean!
-}
-
 type UpdateQuoteNotePayload {
     updated: Note!
 }
@@ -11020,6 +11066,14 @@ directive @hasOne(
 on
     | FIELD_DEFINITION
 
+directive @isColor
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isCurrencyId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isEmail
 on
     | INPUT_FIELD_DEFINITION
@@ -11065,6 +11119,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isTimezone
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isUrl
 on
     | INPUT_FIELD_DEFINITION
 
