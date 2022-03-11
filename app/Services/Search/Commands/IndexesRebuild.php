@@ -65,6 +65,7 @@ class IndexesRebuild extends ProcessorCommand {
                     $result += 1;
                 }
             } catch (Throwable $exception) {
+                $this->newLine();
                 $this->error("    {$exception->getMessage()}");
                 $handler->report($exception);
 
