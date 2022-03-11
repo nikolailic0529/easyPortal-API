@@ -30,7 +30,7 @@
                     "longitude": "-126.955059",
                     "countryCode": "MG",
                     "status": "ACTIVE",
-                    "updatedAt": "1639406047139",
+                    "updatedAt": "1645639433898",
                     "assetCoverage": [
                         "ARCHIVED",
                         "CONFLICT"
@@ -101,13 +101,13 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1639406047139",
+                        "coverageStatusUpdatedAt": "1645639433898",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-06-01",
                                 "coverageEndDate": "2022-05-31",
                                 "type": "Contract",
-                                "status": "Active",
+                                "status": "Expiring",
                                 "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
                                 "serviceSku": null
                             },
@@ -143,7 +143,7 @@
                     "longitude": "90.420993",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1637852895594",
+                    "updatedAt": "1645639110903",
                     "assetCoverage": [
                         "COVERED",
                         "ON_CONTRACT"
@@ -212,7 +212,7 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1637852895578",
+                        "coverageStatusUpdatedAt": "1645639110903",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2018-06-26",
@@ -1417,7 +1417,7 @@
                     "longitude": "173.481252",
                     "countryCode": "LB",
                     "status": "ACTIVE",
-                    "updatedAt": "1637852895813",
+                    "updatedAt": "1645639473759",
                     "assetCoverage": [
                         "EXPOSED"
                     ],
@@ -1524,7 +1524,7 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "EXPOSED",
-                        "coverageStatusUpdatedAt": "1637852895813",
+                        "coverageStatusUpdatedAt": "1645639473759",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2018-07-25",

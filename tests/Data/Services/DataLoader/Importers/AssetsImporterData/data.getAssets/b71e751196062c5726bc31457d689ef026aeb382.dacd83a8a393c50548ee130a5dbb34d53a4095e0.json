@@ -185,9 +185,9 @@
                     "longitude": "125.039187",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630740258271",
+                    "updatedAt": "1643885502484",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "70",
                     "assetDocument": [
@@ -1478,12 +1478,12 @@
                     "longitude": "-145.457266",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1643186445456",
+                    "updatedAt": "1646308553053",
                     "assetCoverage": [
                         "COVERED",
                         "ON_WARRANTY",
                         "ON_CONTRACT",
-                        "EXPIRES_IN_90_DAYS"
+                        "EXPIRES_IN_30_DAYS"
                     ],
                     "dataQualityScore": "70",
                     "assetDocument": [

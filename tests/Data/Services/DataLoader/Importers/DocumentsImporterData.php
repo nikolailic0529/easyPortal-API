@@ -13,7 +13,7 @@ class DocumentsImporterData extends AssetsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-import-documents', [
+            $result  = $this->kernel->call('ep:data-loader-documents-import', [
                 '--limit'  => static::LIMIT,
                 '--chunk'  => static::CHUNK,
                 '--offset' => static::OFFSET,
