@@ -13,6 +13,9 @@ use App\Services\Search\Jobs\Cron\DocumentsIndexer;
 use App\Services\Search\Jobs\Index;
 use App\Services\Search\Listeners\IndexExpiredListener;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +27,7 @@ use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
+use Psr\Log\LoggerInterface;
 
 class Provider extends ServiceProvider {
     use ProviderWithCommands;
@@ -38,6 +42,14 @@ class Provider extends ServiceProvider {
         $this->registerBindings();
         $this->registerListeners();
         $this->registerGraphqlTypes();
+
+        // fixme: Logs for https://github.com/fakharanwar/easyPortal-API/issues/672
+        $this->app->singleton(Client::class, static function (Container $container) {
+            $config           = $container->make(Repository::class)->get('elastic.client');
+            $config['logger'] = $container->make(LoggerInterface::class);
+
+            return ClientBuilder::fromConfig($config);
+        });
     }
 
     protected function registerJobs(): void {
