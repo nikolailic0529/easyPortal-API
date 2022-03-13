@@ -1,5 +1,5 @@
 {
-    "generated": "2022-02-04T10:16:41+00:00",
+    "generated": "2022-03-10T14:47:23+00:00",
     "distributors": [
         "143c456a-e894-4710-a1c2-745b9582ca47",
         "eb1cb37a-48ab-43da-a01e-220220f8654a"
@@ -39,11 +39,11 @@
         "33a7c56b-be08-4bf1-ae13-0b2b76b64adb",
         "bab2f644-f964-4ecd-95a9-77a3818b646e"
     ],
-    "oems": "oem.csv",
     "types": [
         "Quote renewal",
         "Quote New Business",
         "Delivery contract",
         "Contract renewal"
-    ]
+    ],
+    "oems": "oem.csv"
 }

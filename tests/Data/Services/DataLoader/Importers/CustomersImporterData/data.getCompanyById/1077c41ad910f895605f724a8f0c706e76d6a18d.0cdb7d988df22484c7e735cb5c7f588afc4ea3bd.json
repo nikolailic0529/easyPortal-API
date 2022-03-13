@@ -1,0 +1,106 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "params": {
+        "id": "7b3063d8-09c3-4594-9af4-41fce6c4111d"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "7b3063d8-09c3-4594-9af4-41fce6c4111d",
+                    "name": "Nicolas Group",
+                    "updatedAt": "1646897525922",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14753135894",
+                            "name": "Anya Lind",
+                            "mail": "walter94@mckenzie.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19205528661",
+                            "name": "Chase Keeling",
+                            "mail": "pouros.fabian@osinski.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19897127720",
+                            "name": "Christopher Rodriguez",
+                            "mail": "srohan@rau.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17348382953",
+                            "name": "Carmela Pouros",
+                            "mail": "weissnat.maxie@reynolds.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19596773062",
+                            "name": "Janae Metz",
+                            "mail": "burley95@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19596773062",
+                            "name": "Janae Metz",
+                            "mail": "loyce21@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "17600-8611",
+                            "address": "23876 Ebert Key",
+                            "city": "Schustermouth",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "-46.905305",
+                            "longitude": "64.314802",
+                            "countryCode": "AG"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 12,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 3,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 6,
+                        "activeQuotesTotalAmount": 5527.08,
+                        "newActiveQuotes": 2,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

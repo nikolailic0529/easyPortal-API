@@ -258,7 +258,7 @@
             "5ad10b74-a4b2-579c-8ed8-308efc19e919",
             "2022-02-02 00:00:11",
             "290babbb-c5a1-513e-83ea-97d7b73f788a",
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "2022-02-02 00:00:11",
             "5ad10b74-a4b2-579c-8ed8-308efc19e919",
             "2022-02-02 00:00:12",
@@ -423,7 +423,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "6fdd588c-1c79-5257-9e80-d4a3af608166",
             "439e3121-1f55-5ab3-9ec3-93d1ccfcfae1",
             "2022-02-02 00:00:26",
@@ -537,7 +537,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "e595ee35-ef2b-5a6b-87dc-ec67e6cbc685",
             "e84731e7-3b76-5a45-86ac-4d2262f6cdfc",
             "2022-02-02 00:00:37",
@@ -651,7 +651,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "6a8395b5-c826-5297-817f-632f9fc1bc66",
             "4d3d3614-92c6-51f8-a242-a6a5c821bb3d",
             "2022-02-02 00:00:48",
@@ -776,7 +776,7 @@
             "da783bf7-2e8a-5add-94cb-7448cdec2a88",
             "2022-02-02 00:00:59",
             "e3e0756d-15a0-5e48-ab8c-cc7e743d4920",
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "2022-02-02 00:00:59",
             "da783bf7-2e8a-5add-94cb-7448cdec2a88",
             "2022-02-02 00:01:00",
@@ -967,7 +967,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "e6f11027-6cd0-5b2f-9465-4dbbdccdb0e0",
             "ae528a16-e6db-5b8e-aad2-61b57f2d49d6",
             "2022-02-02 00:01:20",
@@ -1220,7 +1220,7 @@
             "bf762ad2-1734-5350-88cd-fa98cde9f6e4",
             "2022-02-02 00:01:51",
             "ab52eea8-2aba-58e6-a20c-0e9d7a20df4e",
-            "1178ec18-a141-512c-956d-f0bc7647eafc",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
             "2022-02-02 00:01:51",
             "bf762ad2-1734-5350-88cd-fa98cde9f6e4",
             "2022-02-02 00:01:52",
@@ -1318,7 +1318,7 @@
             "5088b77e-50d7-4360-96d5-ab84ae9e8558",
             "c1adb773-0304-4cb0-b9e4-0a05ce3795d7",
             null,
-            "2022-01-24 09:14:38",
+            "2022-02-04 09:49:37",
             "8cdf3a44-5e6c-3e22-b489-ad95fbe0e5c9",
             "80",
             0,

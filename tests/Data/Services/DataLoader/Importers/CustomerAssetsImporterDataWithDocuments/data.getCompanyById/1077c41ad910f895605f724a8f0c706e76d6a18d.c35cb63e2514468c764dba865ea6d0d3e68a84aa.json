@@ -1,0 +1,69 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "params": {
+        "id": "561b9925-3781-46d7-a734-78efad4f5ae6"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "561b9925-3781-46d7-a734-78efad4f5ae6",
+                    "name": "Daugherty PLC",
+                    "updatedAt": "1646896980438",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "80525-2075",
+                            "address": "454 Zackery Ridge Apt. 223",
+                            "city": "Macejkovicmouth",
+                            "locationType": "HEADQUARTER",
+                            "country": "Jamaica",
+                            "latitude": "-29.458532",
+                            "longitude": "-73.138408",
+                            "countryCode": "DK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 39626,
+                        "activeAssets": 14758,
+                        "activeAssetsPercentage": 37.24322414576288,
+                        "activeCustomers": 819,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 243,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 32,
+                        "activeQuotes": 163,
+                        "activeQuotesTotalAmount": 17946.489999999998,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 44,
+                        "expiredQuotes": 937,
+                        "expiredContracts": 198,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

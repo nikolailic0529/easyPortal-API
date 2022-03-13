@@ -1,0 +1,37 @@
+extend type OrgMutations {
+    update(
+        input: OrgUpdateInput!
+    ): OrgUpdatePayload
+    @organization
+    @me(permissions: ["org-administer"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Update"
+    )
+}
+
+input OrgUpdateInput {
+    locale: String @isNullable @isLocale
+    currency_id: ID @isNullable @isCurrencyId
+    website_url: Url @isNullable @isUrl
+    email: Email @isNullable @isEmail
+    analytics_code: String @isNullable
+    timezone: String @isNullable @isTimezone
+    branding: OrgUpdateBrandingInput
+}
+
+input OrgUpdateBrandingInput {
+    dark_theme: Boolean @isNullable
+    main_color: Color @isNullable @isColor
+    secondary_color: Color @isNullable @isColor
+    logo_url: Upload @isNullable @isImage
+    favicon_url: Upload @isNullable @isImage
+    welcome_image_url: Upload @isNullable @isImage
+    dashboard_image_url: Upload @isNullable @isImage
+    welcome_heading: [TranslatedStringInput!]
+    welcome_underline: [TranslatedStringInput!]
+}
+
+type OrgUpdatePayload implements Payload {
+    result: Boolean!
+    org: Organization!
+}

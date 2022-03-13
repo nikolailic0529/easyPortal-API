@@ -207,13 +207,31 @@ class OrganizationUpdaterTest extends TestCase {
                 'favIconUrl'            => " {$this->faker->url} ",
                 'logoUrl'               => " {$this->faker->url} ",
                 'mainColor'             => " {$this->faker->hexColor} ",
-                'mainHeadingText'       => " {$this->faker->sentence} ",
                 'mainImageOnTheRight'   => " {$this->faker->url} ",
                 'secondaryColor'        => " {$this->faker->hexColor} ",
                 'secondaryColorDefault' => " {$this->faker->hexColor} ",
-                'underlineText'         => " {$this->faker->text} ",
                 'useDefaultFavIcon'     => " {$this->faker->url} ",
                 'resellerAnalyticsCode' => " {$this->faker->word} ",
+                'mainHeadingText'       => [
+                    [
+                        'language_code' => ' en ',
+                        'text'          => " {$this->faker->sentence} ",
+                    ],
+                    [
+                        'language_code' => ' unknown ',
+                        'text'          => " {$this->faker->sentence} ",
+                    ],
+                ],
+                'underlineText'         => [
+                    [
+                        'language_code' => ' en ',
+                        'text'          => " {$this->faker->text} ",
+                    ],
+                    [
+                        'language_code' => ' unknown ',
+                        'text'          => " {$this->faker->text} ",
+                    ],
+                ],
             ],
         ]);
         $event    = new ResellerUpdated($reseller, $company);
@@ -250,10 +268,6 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_main_color,
         );
         $this->assertEquals(
-            $normalizer->string($branding->mainHeadingText),
-            $organization->branding_welcome_heading,
-        );
-        $this->assertEquals(
             $normalizer->string($branding->mainImageOnTheRight),
             $organization->branding_welcome_image_url,
         );
@@ -266,16 +280,26 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_default_secondary_color,
         );
         $this->assertEquals(
-            $normalizer->string($branding->underlineText),
-            $organization->branding_welcome_underline,
-        );
-        $this->assertEquals(
             $normalizer->string($branding->useDefaultFavIcon),
             $organization->branding_default_favicon_url,
         );
         $this->assertEquals(
             $normalizer->string($branding->resellerAnalyticsCode),
             $organization->analytics_code,
+        );
+        $this->assertEquals(
+            [
+                'en_GB'   => $normalizer->string($branding->mainHeadingText[0]->text ?? null),
+                'unknown' => $normalizer->string($branding->mainHeadingText[1]->text ?? null),
+            ],
+            $organization->branding_welcome_heading->toArray(),
+        );
+        $this->assertEquals(
+            [
+                'en_GB'   => $normalizer->string($branding->underlineText[0]->text ?? null),
+                'unknown' => $normalizer->string($branding->underlineText[1]->text ?? null),
+            ],
+            $organization->branding_welcome_underline->toArray(),
         );
 
         // Without branding

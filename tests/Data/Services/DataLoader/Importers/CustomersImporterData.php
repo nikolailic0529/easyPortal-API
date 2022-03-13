@@ -12,7 +12,7 @@ class CustomersImporterData extends Data {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-import-customers', [
+            $result  = $this->kernel->call('ep:data-loader-customers-import', [
                 '--limit' => static::LIMIT,
                 '--chunk' => static::CHUNK,
             ]);

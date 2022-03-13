@@ -9,7 +9,7 @@ type OrganizationBranding {
     default_logo_url: Url
     default_favicon_url: Url
     welcome_image_url: Url
-    welcome_heading: String
-    welcome_underline: String
+    welcome_heading: [TranslatedString!]
+    welcome_underline: [TranslatedString!]
     dashboard_image_url: Url
 }

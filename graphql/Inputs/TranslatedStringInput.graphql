@@ -1,0 +1,4 @@
+input TranslatedStringInput {
+    locale: String!
+    text: String!
+}

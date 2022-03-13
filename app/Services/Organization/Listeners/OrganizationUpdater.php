@@ -6,6 +6,8 @@ use App\Events\Subscriber;
 use App\Models\Organization;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\I18n\Eloquent\TranslatedString;
+use App\Services\Keycloak\Map;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -95,11 +97,31 @@ class OrganizationUpdater implements Subscriber {
             $organization->branding_default_logo_url        = $normalizer->string($branding->defaultLogoUrl);
             $organization->branding_default_favicon_url     = $normalizer->string($branding->useDefaultFavIcon);
             $organization->branding_welcome_image_url       = $normalizer->string($branding->mainImageOnTheRight);
-            $organization->branding_welcome_heading         = $normalizer->string($branding->mainHeadingText);
-            $organization->branding_welcome_underline       = $normalizer->string($branding->underlineText);
+            $organization->branding_welcome_heading         = $this->getTranslatedString($branding->mainHeadingText);
+            $organization->branding_welcome_underline       = $this->getTranslatedString($branding->underlineText);
         }
 
         // Save
         $organization->save();
+    }
+
+    /**
+     * @param array<\App\Services\DataLoader\Schema\TranslationText>|null $translations
+     */
+    protected function getTranslatedString(?array $translations): ?TranslatedString {
+        $string = null;
+
+        if ($translations) {
+            $string = new TranslatedString();
+
+            foreach ($translations as $translation) {
+                $text               = $this->normalizer->string($translation->text);
+                $locale             = $this->normalizer->string($translation->language_code);
+                $appLocale          = Map::getAppLocale($locale) ?? $locale;
+                $string[$appLocale] = $text;
+            }
+        }
+
+        return $string;
     }
 }

@@ -14,6 +14,7 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\DocumentVendorSpecificField;
 use App\Services\DataLoader\Schema\Location;
+use App\Services\DataLoader\Schema\TranslationText;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewCompany;
@@ -138,9 +139,9 @@ class ClientDataCleaner {
             $object->favIconUrl          = $this->map($object->favIconUrl, $this->imageUrl);
             $object->useDefaultFavIcon   = $this->map($object->useDefaultFavIcon, $this->imageUrl);
             $object->mainImageOnTheRight = $this->map($object->mainImageOnTheRight, $this->imageUrl);
-            $object->mainHeadingText     = $this->map($object->mainHeadingText, $this->text);
-            $object->underlineText       = $this->map($object->underlineText, $this->text);
             $object->logoUrl             = $this->map($object->logoUrl, $this->imageUrl);
+        } elseif ($object instanceof TranslationText) {
+            $object->text = $this->map($object->text, $this->text);
         } elseif ($object instanceof DocumentEntry) {
             // empty
         } elseif ($object instanceof CompanyKpis) {

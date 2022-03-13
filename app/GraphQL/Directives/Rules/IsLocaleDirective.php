@@ -3,10 +3,10 @@
 namespace App\GraphQL\Directives\Rules;
 
 use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
-use App\Rules\Locale as LocaleRule;
+use App\Rules\Locale;
 
 class IsLocaleDirective extends CustomRule {
     protected function getRuleClass(): string {
-        return LocaleRule::class;
+        return Locale::class;
     }
 }

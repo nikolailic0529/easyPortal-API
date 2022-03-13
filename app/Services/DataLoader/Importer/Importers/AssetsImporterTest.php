@@ -38,7 +38,7 @@ class AssetsImporterTest extends TestCase {
         // Pretest
         $this->assertModelsCount([
             Distributor::class   => 3,
-            Reseller::class      => 141,
+            Reseller::class      => 142,
             Customer::class      => 51,
             Asset::class         => 0,
             AssetWarranty::class => 0,

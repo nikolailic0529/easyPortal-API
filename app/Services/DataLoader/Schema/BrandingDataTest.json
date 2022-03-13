@@ -5,11 +5,21 @@
     "favIconUrl": null,
     "logoUrl": "https://example.com/logo.png",
     "mainColor": null,
-    "mainHeadingText": null,
+    "mainHeadingText": [
+        {
+            "language_code": "en_GB",
+            "text": "text"
+        }
+    ],
     "mainImageOnTheRight": null,
     "resellerAnalyticsCode": null,
     "secondaryColor": null,
     "secondaryColorDefault": null,
-    "underlineText": null,
+    "underlineText": [
+        {
+            "language_code": "en_GB",
+            "text": "text"
+        }
+    ],
     "useDefaultFavIcon": null
 }

@@ -13,7 +13,15 @@ class BrandingData extends Type {
     public ?string $resellerAnalyticsCode;
     public ?string $brandingMode;
     public ?string $mainImageOnTheRight;
-    public ?string $mainHeadingText = null;
-    public ?string $underlineText   = null;
     public ?string $logoUrl;
+
+    /**
+     * @var array<\App\Services\DataLoader\Schema\TranslationText>|null
+     */
+    public ?array $mainHeadingText = null;
+
+    /**
+     * @var array<\App\Services\DataLoader\Schema\TranslationText>|null
+     */
+    public ?array $underlineText = null;
 }
