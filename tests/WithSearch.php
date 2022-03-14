@@ -22,7 +22,7 @@ trait WithSearch {
      */
     public function initWithSearch(): void {
         $this->afterApplicationCreated(function (): void {
-            // Right now only ElasticSearch is supported.
+            // Right now only Elasticsearch is supported.
             $token  = ParallelTesting::token();
             $prefix = $token ? "testing_{$token}_" : 'testing_';
 

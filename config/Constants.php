@@ -457,6 +457,53 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_LIFETIME_EXPIRATION = 'PT1H';
     // </editor-fold>
 
+    // <editor-fold desc="EP_SEARCH">
+    // =========================================================================
+    /**
+     * Elasticsearch url.
+     */
+    #[Setting]
+    #[Group('search')]
+    public const EP_SEARCH_URL = 'http://localhost:9200';
+
+    /**
+     * Elasticsearch username.
+     */
+    #[Setting]
+    #[Group('search')]
+    #[Type(StringType::class)]
+    public const EP_SEARCH_USERNAME = null;
+
+    /**
+     * Elasticsearch password.
+     */
+    #[Setting]
+    #[Secret]
+    #[Group('search')]
+    #[Type(StringType::class)]
+    public const EP_SEARCH_PASSWORD = null;
+
+    /**
+     * Minimum severity that should be logged.
+     */
+    #[Setting]
+    #[Group('search')]
+    #[Type(LogLevel::class)]
+    public const EP_SEARCH_LOG_LEVEL = PsrLogLevel::ERROR;
+
+    /**
+     * Email addresses that will receive errors (overwrites default setting).
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('search')]
+    #[Type(Email::class)]
+    public const EP_SEARCH_LOG_EMAIL_RECIPIENTS = [];
+    // </editor-fold>
+
     // <editor-fold desc="EP_AUTH">
     // =========================================================================
     /**
