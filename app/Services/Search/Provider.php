@@ -18,6 +18,7 @@ use Elasticsearch\ClientBuilder;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Log\LogManager;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Scout;
@@ -28,6 +29,8 @@ use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 use Psr\Log\LoggerInterface;
+
+use function is_string;
 
 class Provider extends ServiceProvider {
     use ProviderWithCommands;
@@ -42,14 +45,7 @@ class Provider extends ServiceProvider {
         $this->registerBindings();
         $this->registerListeners();
         $this->registerGraphqlTypes();
-
-        // fixme: Logs for https://github.com/fakharanwar/easyPortal-API/issues/672
-        $this->app->singleton(Client::class, static function (Container $container) {
-            $config           = $container->make(Repository::class)->get('elastic.client');
-            $config['logger'] = $container->make(LoggerInterface::class);
-
-            return ClientBuilder::fromConfig($config);
-        });
+        $this->registerElasticClient();
     }
 
     protected function registerJobs(): void {
@@ -88,6 +84,29 @@ class Provider extends ServiceProvider {
     protected function registerListeners(): void {
         $this->booting(static function (Dispatcher $dispatcher): void {
             $dispatcher->subscribe(IndexExpiredListener::class);
+        });
+    }
+
+    protected function registerElasticClient(): void {
+        $this->app->singleton(Client::class, static function (Container $container) {
+            $config = $container->make(Repository::class)->get('elastic.client');
+            $logger = $config['logger'] ?? null;
+
+            if (is_string($logger)) {
+                $logger = $container->make(LogManager::class)->channel($logger);
+            } elseif ($logger === true) {
+                $logger = $container->make(LoggerInterface::class);
+            } else {
+                $logger = null;
+            }
+
+            if ($logger instanceof LoggerInterface) {
+                $config['logger'] = $logger;
+            } else {
+                unset($config['logger']);
+            }
+
+            return ClientBuilder::fromConfig($config);
         });
     }
     // </editor-fold>
