@@ -230,6 +230,7 @@
     "settings.groups.maintenance": "Maintenance",
     "settings.groups.log": "Logs",
     "settings.groups.sentry": "Sentry (sentry.io)",
+    "settings.groups.search": "Search",
     "settings.errors.failed_to_load_settings": "Impossible to load custom settings.",
     "settings.errors.failed_to_save_settings": "Impossible to save custom settings.",
     "http.controllers.export.graphql_query_invalid": "GraphQL query is invalid.",

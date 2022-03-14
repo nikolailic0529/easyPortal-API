@@ -457,6 +457,29 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_LIFETIME_EXPIRATION = 'PT1H';
     // </editor-fold>
 
+    // <editor-fold desc="EP_SEARCH">
+    // =========================================================================
+    /**
+     * Minimum severity that should be logged.
+     */
+    #[Setting]
+    #[Group('search')]
+    #[Type(LogLevel::class)]
+    public const EP_SEARCH_LOG_LEVEL = PsrLogLevel::WARNING;
+
+    /**
+     * Email addresses that will receive errors (overwrites default setting).
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('search')]
+    #[Type(Email::class)]
+    public const EP_SEARCH_LOG_EMAIL_RECIPIENTS = [];
+    // </editor-fold>
+
     // <editor-fold desc="EP_AUTH">
     // =========================================================================
     /**

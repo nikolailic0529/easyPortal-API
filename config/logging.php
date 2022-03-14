@@ -5,6 +5,7 @@ use App\Exceptions\Handlers\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Services\Keycloak\Service as KeycloakService;
+use App\Services\Search\Service as SearchService;
 use App\Services\Settings\Settings;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\NullHandler;
@@ -12,18 +13,25 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
 // Default Settings
-$tap   = [Configurator::class];
-$days  = 365;
-$level = env('LOG_LEVEL', 'debug');
+$tap      = [Configurator::class];
+$days     = 365;
+$logLevel = env('LOG_LEVEL', 'debug');
 
 // Helpers
-$mailChannel = static function (string $channel = null, string $recipients = null) use ($tap, $level): ?array {
+$mailChannel = static function (
+    string $channel = null,
+    string $recipients = null,
+    string $level = null,
+) use (
+    $tap,
+    $logLevel
+): ?array {
     return env('EP_LOG_EMAIL_ENABLED') ? [
         'name'      => $channel,
         'driver'    => 'monolog',
         'handler'   => MailableHandler::class,
         'formatter' => HtmlFormatter::class,
-        'level'     => env('EP_LOG_EMAIL_LEVEL') ?: $level,
+        'level'     => $level ?: env('EP_LOG_EMAIL_LEVEL') ?: $logLevel,
         'with'      => [
             'channel'    => $channel,
             'recipients' => explode(
@@ -35,11 +43,11 @@ $mailChannel = static function (string $channel = null, string $recipients = nul
     ] : null;
 };
 
-$sentryChannel = static function (string $channel = null) use ($tap, $level): ?array {
+$sentryChannel = static function (string $channel = null, string $level = null) use ($tap, $logLevel): ?array {
     return env('EP_LOG_SENTRY_ENABLED') ? [
         'name'   => $channel,
         'driver' => 'sentry',
-        'level'  => env('EP_LOG_SENTRY_LEVEL') ?: $level,
+        'level'  => $level ?: env('EP_LOG_SENTRY_LEVEL') ?: $logLevel,
         'tap'    => $tap,
     ] : null;
 };
@@ -47,10 +55,11 @@ $sentryChannel = static function (string $channel = null) use ($tap, $level): ?a
 $serviceChannel = static function (
     string $service,
     string $recipients,
+    string $level = null,
 ) use (
     $tap,
     $days,
-    $level,
+    $logLevel,
     $mailChannel,
     $sentryChannel,
 ): array {
@@ -62,12 +71,12 @@ $serviceChannel = static function (
         "{$service}@daily"  => [
             'driver' => 'daily',
             'path'   => storage_path("logs/{$base}/EAP-{$base}.log"),
-            'level'  => $level,
+            'level'  => $level ?: $logLevel,
             'days'   => $days,
             'tap'    => $tap,
         ],
-        "{$service}@mail"   => $mailChannel($name, $recipients),
-        "{$service}@sentry" => $sentryChannel($name),
+        "{$service}@mail"   => $mailChannel($name, $recipients, $level),
+        "{$service}@sentry" => $sentryChannel($name, $level),
     ]);
 
     return array_merge(
@@ -87,7 +96,7 @@ $channels = array_filter([
     'daily'  => [
         'driver' => 'daily',
         'path'   => storage_path('logs/laravel.log'),
-        'level'  => $level,
+        'level'  => $logLevel,
         'days'   => $days,
         'tap'    => $tap,
     ],
@@ -129,6 +138,11 @@ return [
         $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAIL_RECIPIENTS')),
         $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAIL_RECIPIENTS')),
         $serviceChannel(KeycloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS')),
+        $serviceChannel(
+            SearchService::class,
+            (string) env('EP_SEARCH_LOG_EMAIL_RECIPIENTS'),
+            env('EP_SEARCH_LOG_LEVEL'),
+        ),
         $channels,
         [
             'stack'      => [
@@ -140,7 +154,7 @@ return [
             'single'     => [
                 'driver' => 'single',
                 'path'   => storage_path('logs/laravel.log'),
-                'level'  => $level,
+                'level'  => $logLevel,
                 'tap'    => $tap,
             ],
 
@@ -156,7 +170,7 @@ return [
 
             'papertrail' => [
                 'driver'       => 'monolog',
-                'level'        => $level,
+                'level'        => $logLevel,
                 'handler'      => SyslogUdpHandler::class,
                 'handler_with' => [
                     'host' => env('PAPERTRAIL_URL'),
@@ -177,13 +191,13 @@ return [
 
             'syslog'     => [
                 'driver' => 'syslog',
-                'level'  => $level,
+                'level'  => $logLevel,
                 'tap'    => $tap,
             ],
 
             'errorlog'   => [
                 'driver' => 'errorlog',
-                'level'  => $level,
+                'level'  => $logLevel,
                 'tap'    => $tap,
             ],
 
