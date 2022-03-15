@@ -10,6 +10,7 @@ use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Closure;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Routing\Exceptions\StreamedResponseException;
 use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\PdfContentType;
@@ -172,11 +173,15 @@ class ExportControllerTest extends TestCase {
 
         // Errors
         if ($expected instanceof BadRequest) {
-            $this->expectException(GraphQLQueryInvalid::class);
+            $this->expectExceptionObject(new StreamedResponseException(
+                new GraphQLQueryInvalid([]),
+            ));
         }
 
         if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
-            $this->expectException(AuthorizationException::class);
+            $this->expectExceptionObject(new StreamedResponseException(
+                new AuthorizationException('Unauthorized.'),
+            ));
         }
 
         // Execute
@@ -240,11 +245,15 @@ class ExportControllerTest extends TestCase {
 
         // Errors
         if ($expected instanceof BadRequest) {
-            $this->expectException(GraphQLQueryInvalid::class);
+            $this->expectExceptionObject(new StreamedResponseException(
+                new GraphQLQueryInvalid([]),
+            ));
         }
 
         if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
-            $this->expectException(AuthorizationException::class);
+            $this->expectExceptionObject(new StreamedResponseException(
+                new AuthorizationException('Unauthorized.'),
+            ));
         }
 
         // Execute
