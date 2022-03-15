@@ -97,6 +97,7 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     protected function bootMorphMap(): void {
+        Relation::requireMorphMap(true);
         Relation::morphMap([
             'Asset'                     => Asset::class,
             'AssetCoverage'             => AssetCoverage::class,
