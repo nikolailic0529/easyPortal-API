@@ -1,493 +1,537 @@
-type Asset {
-  id: ID
-  productDescription: String
-  serialNumber: String
-  assetDocument: [AssetDocument]
-  zip: String
-  sourceDocument: [SourceDocument]
-  eolDate: String
-  address: String
-  eosDate: String
-  lifecycleStatus: String
-  city: String
-  address2: String
-  assetTag: String
-  assetType: String
-  resellerId: String
-  vendor: String
-  serialNumberIsGenerated: String
-  sku: String
-  vendorSpecificField: [VendorSpecificField]
-  customerId: String
-  customer: Company
-  reseller: Company
-  updatedAt: String
-  latitude: String
-  longitude: String
-  country: String
-  countryCode: String
-  dataQualityScore: String
-  latestContactPersons: [CompanyContactPerson]
-  status: String
-  assetCoverage: String
-}
-
-type AssetDocument {
-  skuNumber: String
-  endDate: String
-  productLineDescription: String
-  supportPackage: String
-  documentNumber: String
-  skuDescription: String
-  warrantyEndDate: String
-  supportPackageDescription: String
-  equipmentNumber: String
-  startDate: String
-  document: Document
-  languageCode: String
-  currencyCode: String
-  netPrice: String
-  discount: String
-  listPrice: String
-  distributor: Company
-  customer: Company
-  reseller: Company
-  estimatedValueRenewal: String
-}
-
-type BrandingData {
-  mainColor: String
-  secondaryColor: String
-  defaultMainColor: String
-  secondaryColorDefault: String
-  defaultLogoUrl: String
-  favIconUrl: String
-  useDefaultFavIcon: String
-  resellerAnalyticsCode: String
-  brandingMode: String
-  mainImageOnTheRight: String
-  mainHeadingText: [TranslationText]
-  underlineText: [TranslationText]
-  logoUrl: String
-}
-
-type CentralAssetDbStatistics {
-  assetsAmount: Int
-  documentsAmount: Int
-  documentsContractAmount: Int
-  documentsQuoteAmount: Int
-  companiesAmount: Int
-  companiesResellerAmount: Int
-  companiesCustomerAmount: Int
-  companiesDistributorAmount: Int
-}
-
-type Company {
-  id: ID
-  companyContactPersons: [CompanyContactPerson]
-  vendorSpecificField: [VendorSpecificField]
-  companyTypes: [CompanyType]
-  name: String
-  locations: [Location]
-  aliases: [String]
-  assets: [Asset]
-  documents: [Document]
-  updatedAt: String
-  brandingData: BrandingData
-  keycloakGroupId: String
-  keycloakName: String
-  keycloakClientScopeName: String
-  companyKpis: CompanyKpis
-  companyResellerKpis: [CompanyKpis]
-  status: [String]
-}
-
 input CompanyBrandingData {
-  id: String
-  mainColor: String
-  secondaryColor: String
-  defaultMainColor: String
-  secondaryColorDefault: String
-  defaultLogoUrl: String
-  favIconUrl: String
-  useDefaultFavIcon: String
-  resellerAnalyticsCode: String
-  brandingMode: String
-  mainImageOnTheRight: String
-  mainHeadingText: [InputTranslationText]
-  underlineText: [InputTranslationText]
-}
-
-type CompanyContactPerson {
-  phoneNumber: String
-  vendor: String
-  name: String
-  type: String
-  mail: String
-}
-
-type CompanyKpis {
-  resellerId: String
-  totalAssets: Int
-  activeAssets: Int
-  activeAssetsPercentage: Float
-  activeCustomers: Int
-  newActiveCustomers: Int
-  activeContracts: Int
-  activeContractTotalAmount: Float
-  newActiveContracts: Int
-  expiringContracts: Int
-  activeQuotes: Int
-  activeQuotesTotalAmount: Float
-  newActiveQuotes: Int
-  expiringQuotes: Int
-  generatedAt: String
-  expiredQuotes: Int
-  expiredContracts: Int
-  orderedQuotes: Int
-  acceptedQuotes: Int
-  requestedQuotes: Int
-  receivedQuotes: Int
-  rejectedQuotes: Int
-  awaitingQuotes: Int
-  activeAssetsOnContract: Int
-  activeAssetsOnWarranty: Int
-  activeExposedAssets: Int
-  serviceRevenueTotalAmount: Float
-  serviceRevenueTotalAmountChange: Float
-}
-
-type CompanyType {
-  vendorSpecificId: String
-  vendor: String
-  type: String
-  status: String
-  source: String
-}
-
-type CoverageEntry {
-  coverageStartDate: String
-  coverageEndDate: String
-  type: String
-  description: String
-  status: String
-  serviceSku: String
-}
-
-type CoverageStatusCheck {
-  coverageStatus: String
-  coverageStatusUpdatedAt: String
-  coverageEntries: [CoverageEntry]
+    brandingMode: String
+    defaultLogoUrl: String
+    defaultMainColor: String
+    favIconUrl: String
+    id: String
+    mainColor: String
+    mainHeadingText: [InputTranslationText]
+    mainImageOnTheRight: String
+    resellerAnalyticsCode: String
+    secondaryColor: String
+    secondaryColorDefault: String
+    underlineText: [InputTranslationText]
+    useDefaultFavIcon: String
 }
 
 input DefaultImportSchema {
-  vendor: String
-  customerNumber: String
-  documentNumber: String
-  documentType: String
-  documentDate: String
-  productSku: String!
-  productDescription: String
-  serialNumber: String!
-  equipmentNumber: String
-  serviceGroupSku: String
-  serviceGroupDescription: String
-  serviceProductNumber: String
-  serviceProductDescription: String
-  serviceLevelDetailDescription: String
-  warrantyEndDate: String
-  supportLifeEndDate: String
-  productType: String
-  customerName: String!
-  customerLocations: [InputLocation]
-  customerContactPersons: [InputContactPerson]
-  supportStartDate: String
-  supportEndDate: String
-  coverageStartDate: String
-  coverageEndDate: String
-  supportPackage: String
-  supportPackageDescription: String
-  productLineCodeDescription: String
-  listPrice: String
-  discount: String
-  netPrice: String
-  totalNetPrice: String
-  currencyCode: String
-  languageCode: String
-  resellerNumber: String
-  resellerName: String!
-  resellerZip: String
-  resellerCity: String
-  resellerAddress: String
-  resellerCountry: String
-  distributorNumber: String
-  distributorName: String!
-  distributorZip: String
-  distributorCity: String
-  distributorAddress: String
-  distributorCountry: String
-  id: String
-}
-
-type Document {
-  id: ID
-  resellerId: String
-  documentEntries: [DocumentEntry]
-  endDate: String
-  vendorSpecificFields: DocumentVendorSpecificField
-  customerId: String
-  documentNumber: String
-  type: String
-  startDate: String
-  sourceDocuments: [SourceDocument]
-  sourceDocument: [SourceDocument]
-  updatedAt: String
-  languageCode: String
-  totalNetPrice: String
-  currencyCode: String
-  distributorId: String
-  customer: Company
-  reseller: Company
-  distributor: Company
-  contactPersons: [CompanyContactPerson]
-  status: [String]
-}
-
-type DocumentEntry {
-  assetId: String
-  asset: Asset
-  startDate: String
-  endDate: String
-  productLineDescription: String
-  supportPackage: String
-  supportPackageDescription: String
-  languageCode: String
-  currencyCode: String
-  netPrice: String
-  discount: String
-  listPrice: String
-  skuNumber: String
-  skuDescription: String
-  warrantyEndDate: String
-  estimatedValueRenewal: String
-}
-
-type DocumentVendorSpecificField {
-  vendor: String
-  groupId: String
-  groupDescription: String
-  totalNetPrice: String
-  said: String
-  status: String
+    coverageEndDate: String
+    coverageStartDate: String
+    currencyCode: String
+    customerContactPersons: [InputContactPerson]
+    customerLocations: [InputLocation]
+    customerName: String!
+    customerNumber: String
+    discount: String
+    distributorAddress: String
+    distributorCity: String
+    distributorCountry: String
+    distributorName: String!
+    distributorNumber: String
+    distributorZip: String
+    documentDate: String
+    documentNumber: String
+    documentType: String
+    equipmentNumber: String
+    id: String
+    languageCode: String
+    listPrice: String
+    netPrice: String
+    productDescription: String
+    productLineCodeDescription: String
+    productSku: String!
+    productType: String
+    resellerAddress: String
+    resellerCity: String
+    resellerCountry: String
+    resellerName: String!
+    resellerNumber: String
+    resellerZip: String
+    serialNumber: String!
+    serviceGroupDescription: String
+    serviceGroupSku: String
+    serviceLevelDetailDescription: String
+    serviceProductDescription: String
+    serviceProductNumber: String
+    supportEndDate: String
+    supportLifeEndDate: String
+    supportPackage: String
+    supportPackageDescription: String
+    supportStartDate: String
+    totalNetPrice: String
+    vendor: String
+    warrantyEndDate: String
 }
 
 input InputContactPerson {
-  name: String
-  type: String
-  phoneNumber: String
-  mail: String
+    mail: String
+    name: String
+    phoneNumber: String
+    type: String
 }
 
 input InputLocation {
-  zip: String
-  address: String
-  city: String
-  country: String
-  locationType: String
+    address: String
+    city: String
+    country: String
+    locationType: String
+    zip: String
 }
 
 input InputTranslationText {
-  language_code: String
-  text: String
+    language_code: String
+    text: String
 }
 
 input KeyValuePair {
-  key: String!
-  value: String!
-}
-
-type Location {
-  zip: String
-  address: String
-  city: String
-  locationType: String
-  country: String
-  latitude: String
-  longitude: String
-  countryCode: String
-}
-
-type Mutation {
-  addDefaultImportSchema(input: DefaultImportSchema): Boolean
-  updateBrandingData(input: CompanyBrandingData): Boolean
-  updateCompanyLogo(input: UpdateCompanyFile): String
-  updateCompanyFavicon(input: UpdateCompanyFile): String
-  updateCompanyMainImageOnTheRight(input: UpdateCompanyFile): String
-  uploadInvoice(input: UploadInvoice): String
-  triggerCoverageStatusCheck(input: TriggerCoverageStatusCheck): String
-}
-
-type Query {
-  getAssetsBySerialNumber(serialNumber: String): ViewAsset
-  getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int, fromTimestamp: String, lastId: String): [ViewAsset]!
-  getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int, fromTimestamp: String, lastId: String): [ViewAsset]!
-  getAssetsByDistributorId(distributorId: String!, limit: Int, offset: Int, fromTimestamp: String, lastId: String): [ViewAsset]!
-  getAssetsByVendor(vendor: String!, limit: Int, offset: Int, fromTimestamp: String, lastId: String): [ViewAsset]!
-  getDocumentsByCustomer(customerId: String!, type: String, limit: Int, offset: Int): [Document]!
-  getAssets(args: [KeyValuePair], limit: Int, offset: Int, lastId: String, fromTimestamp: String): [ViewAsset]!
-  getAssetsWithoutReseller(args: [KeyValuePair], limit: Int, offset: Int, lastId: String, fromTimestamp: String): [ViewAsset]!
-  getCompanyById(id: String): [Company]!
-  assets(limit: Int, offset: Int): [ViewAsset]!
-  getResellers(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
-  getCustomers(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
-  getDistributors(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
-  getDocumentTypes: [String]!
-  getDocuments(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Document]!
-  getDocumentById(id: String!): Document
-  getCentralAssetDbStatistics: CentralAssetDbStatistics
-}
-
-type SourceDocument {
-  id: String
-  timestamp: String
-  source: String
-}
-
-type TranslationText {
-  language_code: String
-  text: String
+    key: String!
+    value: String!
 }
 
 input TriggerCoverageStatusCheck {
-  assetId: String
-  customerId: String
-  type: String
+    assetId: String
+    customerId: String
+    type: String
 }
 
 input UpdateCompanyFile {
-  companyId: String!
-  file: Upload
+    companyId: String!
+    file: Upload
+}
+
+input UploadInvoice {
+    contractEndDate: String
+    contractGroup: String
+    contractStartDate: String
+    customerAddress: String
+    customerCity: String
+    customerCountry: String
+    customerName: String
+    customerZip: String
+    endCustomer: String
+    invoice: Upload!
+    invoiceCity: String
+    invoiceDate: String
+    invoiceEndDate: String
+    invoiceNumber: String!
+    invoiceStartDate: String
+    orderNumber: String
+    renewalContactEmailAddress: String
+    renewalContactPhoneNumber: String
+    resellerAddress: String
+    resellerCity: String
+    resellerCountry: String
+    resellerName: String
+    resellerZip: String
+    salesPersonName: String
 }
 
 scalar Upload
 
-input UploadInvoice {
-  invoiceNumber: String!
-  invoiceDate: String
-  invoiceCity: String
-  customerName: String
-  customerAddress: String
-  customerZip: String
-  customerCity: String
-  customerCountry: String
-  salesPersonName: String
-  renewalContactPhoneNumber: String
-  renewalContactEmailAddress: String
-  resellerName: String
-  resellerAddress: String
-  resellerZip: String
-  resellerCity: String
-  resellerCountry: String
-  orderNumber: String
-  contractGroup: String
-  contractStartDate: String
-  contractEndDate: String
-  endCustomer: String
-  invoiceStartDate: String
-  invoiceEndDate: String
-  invoice: Upload!
+type Asset {
+    address: String
+    address2: String
+    assetCoverage: String
+    assetDocument: [AssetDocument]
+    assetTag: String
+    assetType: String
+    city: String
+    country: String
+    countryCode: String
+    customer: Company
+    customerId: String
+    dataQualityScore: String
+    eolDate: String
+    eosDate: String
+    id: ID
+    latestContactPersons: [CompanyContactPerson]
+    latitude: String
+    lifecycleStatus: String
+    longitude: String
+    productDescription: String
+    reseller: Company
+    resellerId: String
+    serialNumber: String
+    serialNumberIsGenerated: String
+    sku: String
+    sourceDocument: [SourceDocument]
+    status: String
+    updatedAt: String
+    vendor: String
+    vendorSpecificField: [VendorSpecificField]
+    zip: String
+}
+
+type AssetDocument {
+    currencyCode: String
+    customer: Company
+    discount: String
+    distributor: Company
+    document: Document
+    documentNumber: String
+    endDate: String
+    equipmentNumber: String
+    estimatedValueRenewal: String
+    languageCode: String
+    listPrice: String
+    netPrice: String
+    productLineDescription: String
+    reseller: Company
+    skuDescription: String
+    skuNumber: String
+    startDate: String
+    supportPackage: String
+    supportPackageDescription: String
+    warrantyEndDate: String
+}
+
+type BrandingData {
+    brandingMode: String
+    defaultLogoUrl: String
+    defaultMainColor: String
+    favIconUrl: String
+    logoUrl: String
+    mainColor: String
+    mainHeadingText: [TranslationText]
+    mainImageOnTheRight: String
+    resellerAnalyticsCode: String
+    secondaryColor: String
+    secondaryColorDefault: String
+    underlineText: [TranslationText]
+    useDefaultFavIcon: String
+}
+
+type CentralAssetDbStatistics {
+    assetsAmount: Int
+    companiesAmount: Int
+    companiesCustomerAmount: Int
+    companiesDistributorAmount: Int
+    companiesResellerAmount: Int
+    documentsAmount: Int
+    documentsContractAmount: Int
+    documentsQuoteAmount: Int
+}
+
+type Company {
+    aliases: [String]
+    assets: [Asset]
+    brandingData: BrandingData
+    companyContactPersons: [CompanyContactPerson]
+    companyKpis: CompanyKpis
+    companyResellerKpis: [CompanyKpis]
+    companyTypes: [CompanyType]
+    documents: [Document]
+    id: ID
+    keycloakClientScopeName: String
+    keycloakGroupId: String
+    keycloakName: String
+    locations: [Location]
+    name: String
+    status: [String]
+    updatedAt: String
+    vendorSpecificField: [VendorSpecificField]
+}
+
+type CompanyContactPerson {
+    mail: String
+    name: String
+    phoneNumber: String
+    type: String
+    vendor: String
+}
+
+type CompanyKpis {
+    acceptedQuotes: Int
+    activeAssets: Int
+    activeAssetsOnContract: Int
+    activeAssetsOnWarranty: Int
+    activeAssetsPercentage: Float
+    activeContractTotalAmount: Float
+    activeContracts: Int
+    activeCustomers: Int
+    activeExposedAssets: Int
+    activeQuotes: Int
+    activeQuotesTotalAmount: Float
+    awaitingQuotes: Int
+    expiredContracts: Int
+    expiredQuotes: Int
+    expiringContracts: Int
+    expiringQuotes: Int
+    generatedAt: String
+    newActiveContracts: Int
+    newActiveCustomers: Int
+    newActiveQuotes: Int
+    orderedQuotes: Int
+    receivedQuotes: Int
+    rejectedQuotes: Int
+    requestedQuotes: Int
+    resellerId: String
+    serviceRevenueTotalAmount: Float
+    serviceRevenueTotalAmountChange: Float
+    totalAssets: Int
+}
+
+type CompanyType {
+    source: String
+    status: String
+    type: String
+    vendor: String
+    vendorSpecificId: String
+}
+
+type CoverageEntry {
+    coverageEndDate: String
+    coverageStartDate: String
+    description: String
+    serviceSku: String
+    status: String
+    type: String
+}
+
+type CoverageStatusCheck {
+    coverageEntries: [CoverageEntry]
+    coverageStatus: String
+    coverageStatusUpdatedAt: String
+}
+
+type Document {
+    contactPersons: [CompanyContactPerson]
+    currencyCode: String
+    customer: Company
+    customerId: String
+    distributor: Company
+    distributorId: String
+    documentEntries: [DocumentEntry]
+    documentNumber: String
+    endDate: String
+    id: ID
+    languageCode: String
+    reseller: Company
+    resellerId: String
+    sourceDocument: [SourceDocument]
+    sourceDocuments: [SourceDocument]
+    startDate: String
+    status: [String]
+    totalNetPrice: String
+    type: String
+    updatedAt: String
+    vendorSpecificFields: DocumentVendorSpecificField
+}
+
+type DocumentEntry {
+    asset: Asset
+    assetId: String
+    currencyCode: String
+    discount: String
+    endDate: String
+    estimatedValueRenewal: String
+    languageCode: String
+    listPrice: String
+    netPrice: String
+    productLineDescription: String
+    skuDescription: String
+    skuNumber: String
+    startDate: String
+    supportPackage: String
+    supportPackageDescription: String
+    warrantyEndDate: String
+}
+
+type DocumentVendorSpecificField {
+    groupDescription: String
+    groupId: String
+    said: String
+    status: String
+    totalNetPrice: String
+    vendor: String
+}
+
+type Location {
+    address: String
+    city: String
+    country: String
+    countryCode: String
+    latitude: String
+    locationType: String
+    longitude: String
+    zip: String
+}
+
+type Mutation {
+    addDefaultImportSchema(input: DefaultImportSchema): Boolean
+    triggerCoverageStatusCheck(input: TriggerCoverageStatusCheck): String
+    updateBrandingData(input: CompanyBrandingData): Boolean
+    updateCompanyFavicon(input: UpdateCompanyFile): String
+    updateCompanyLogo(input: UpdateCompanyFile): String
+    updateCompanyMainImageOnTheRight(input: UpdateCompanyFile): String
+    uploadInvoice(input: UploadInvoice): String
+}
+
+type Query {
+    assets(limit: Int, offset: Int): [ViewAsset]!
+
+    getAssets(
+        args: [KeyValuePair]
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [ViewAsset]!
+
+    getAssetsByCustomerId(
+        customerId: String!
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [ViewAsset]!
+
+    getAssetsByDistributorId(
+        distributorId: String!
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [ViewAsset]!
+
+    getAssetsByResellerId(
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+        resellerId: String!
+    ): [ViewAsset]!
+
+    getAssetsBySerialNumber(serialNumber: String): ViewAsset
+
+    getAssetsByVendor(
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+        vendor: String!
+    ): [ViewAsset]!
+
+    getAssetsWithoutReseller(
+        args: [KeyValuePair]
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [ViewAsset]!
+
+    getCentralAssetDbStatistics: CentralAssetDbStatistics
+    getCompanyById(id: String): [Company]!
+    getCustomers(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Company]!
+    getDistributors(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Company]!
+    getDocumentById(id: String!): Document
+    getDocumentTypes: [String]!
+    getDocuments(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Document]!
+    getDocumentsByCustomer(customerId: String!, limit: Int, offset: Int, type: String): [Document]!
+    getResellers(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Company]!
+}
+
+type SourceDocument {
+    id: String
+    source: String
+    timestamp: String
+}
+
+type TranslationText {
+    language_code: String
+    text: String
 }
 
 type VendorSpecificField {
-  vendor: String
-  groupID: String
-  said: String
+    groupID: String
+    said: String
+    vendor: String
 }
 
 type ViewAsset {
-  id: ID
-  productDescription: String
-  serialNumber: String
-  assetDocument: [ViewAssetDocument]
-  zip: String
-  sourceDocument: [SourceDocument]
-  eolDate: String
-  address: String
-  eosDate: String
-  lifecycleStatus: String
-  city: String
-  address2: String
-  assetTag: String
-  assetType: String
-  resellerId: String
-  vendor: String
-  serialNumberIsGenerated: String
-  sku: String
-  vendorSpecificField: [VendorSpecificField]
-  customerId: String
-  customer: ViewCompany
-  reseller: ViewCompany
-  updatedAt: String
-  latitude: String
-  longitude: String
-  country: String
-  countryCode: String
-  dataQualityScore: String
-  latestContactPersons: [CompanyContactPerson]
-  status: String
-  assetCoverage: [String]
-  coverageStatusCheck: CoverageStatusCheck
+    address: String
+    address2: String
+    assetCoverage: [String]
+    assetDocument: [ViewAssetDocument]
+    assetTag: String
+    assetType: String
+    city: String
+    country: String
+    countryCode: String
+    coverageStatusCheck: CoverageStatusCheck
+    customer: ViewCompany
+    customerId: String
+    dataQualityScore: String
+    eolDate: String
+    eosDate: String
+    id: ID
+    latestContactPersons: [CompanyContactPerson]
+    latitude: String
+    lifecycleStatus: String
+    longitude: String
+    productDescription: String
+    reseller: ViewCompany
+    resellerId: String
+    serialNumber: String
+    serialNumberIsGenerated: String
+    sku: String
+    sourceDocument: [SourceDocument]
+    status: String
+    updatedAt: String
+    vendor: String
+    vendorSpecificField: [VendorSpecificField]
+    zip: String
 }
 
 type ViewAssetDocument {
-  skuNumber: String
-  endDate: String
-  productLineDescription: String
-  supportPackage: String
-  documentNumber: String
-  skuDescription: String
-  warrantyEndDate: String
-  supportPackageDescription: String
-  equipmentNumber: String
-  startDate: String
-  document: ViewDocument
-  languageCode: String
-  currencyCode: String
-  netPrice: String
-  discount: String
-  listPrice: String
-  distributor: ViewCompany
-  customer: ViewCompany
-  reseller: ViewCompany
-  estimatedValueRenewal: String
+    currencyCode: String
+    customer: ViewCompany
+    discount: String
+    distributor: ViewCompany
+    document: ViewDocument
+    documentNumber: String
+    endDate: String
+    equipmentNumber: String
+    estimatedValueRenewal: String
+    languageCode: String
+    listPrice: String
+    netPrice: String
+    productLineDescription: String
+    reseller: ViewCompany
+    skuDescription: String
+    skuNumber: String
+    startDate: String
+    supportPackage: String
+    supportPackageDescription: String
+    warrantyEndDate: String
 }
 
 type ViewCompany {
-  id: ID
-  companyContactPersons: [CompanyContactPerson]
-  companyTypes: [CompanyType]
-  name: String
-  locations: [Location]
-  updatedAt: String
+    companyContactPersons: [CompanyContactPerson]
+    companyTypes: [CompanyType]
+    id: ID
+    locations: [Location]
+    name: String
+    updatedAt: String
 }
 
 type ViewDocument {
-  id: ID
-  resellerId: String
-  endDate: String
-  vendorSpecificFields: DocumentVendorSpecificField
-  customerId: String
-  documentNumber: String
-  type: String
-  startDate: String
-  sourceDocument: [SourceDocument]
-  updatedAt: String
-  languageCode: String
-  totalNetPrice: String
-  currencyCode: String
-  distributorId: String
-  customer: ViewCompany
-  reseller: ViewCompany
-  distributor: ViewCompany
-  contactPersons: [CompanyContactPerson]
+    contactPersons: [CompanyContactPerson]
+    currencyCode: String
+    customer: ViewCompany
+    customerId: String
+    distributor: ViewCompany
+    distributorId: String
+    documentNumber: String
+    endDate: String
+    id: ID
+    languageCode: String
+    reseller: ViewCompany
+    resellerId: String
+    sourceDocument: [SourceDocument]
+    startDate: String
+    totalNetPrice: String
+    type: String
+    updatedAt: String
+    vendorSpecificFields: DocumentVendorSpecificField
 }

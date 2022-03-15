@@ -6,12 +6,15 @@ use App\Services\DataLoader\Schema\Schema;
 use GraphQL\Utils\BuildClientSchema;
 use GraphQL\Utils\SchemaPrinter;
 use Tests\TestCase;
+use Tests\WithGraphQLSchema;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Client\Client
  */
 class ClientTest extends TestCase {
+    use WithGraphQLSchema;
+
     /**
      * @group integration
      *
@@ -22,10 +25,10 @@ class ClientTest extends TestCase {
 
         if ($client->isEnabled()) {
             $into     = $client->getIntrospection();
-            $actual   = SchemaPrinter::doPrint(BuildClientSchema::build($into));
+            $actual   = BuildClientSchema::build($into);
             $expected = $this->getTestData(Schema::class)->content('.graphql');
 
-            $this->assertEquals($expected, $actual);
+            $this->assertGraphQLSchemaEquals($expected, $actual);
         } else {
             $this->markTestSkipped('DataLoader is disabled.');
         }
