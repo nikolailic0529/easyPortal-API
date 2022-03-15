@@ -299,7 +299,9 @@ class MeTest extends TestCase {
      */
     public function dataProviderGetGateArguments(): array {
         $model = new class() extends Model {
-            // empty
+            public function getMorphClass(): string {
+                return 'Model';
+            }
         };
 
         return [
@@ -326,7 +328,7 @@ class MeTest extends TestCase {
                 },
             ],
             BuilderContext::class.' (no model)' => [
-                [$model::class],
+                [$model->getMorphClass()],
                 static function () use ($model): Context {
                     return new class(null, null, $model->newQuery()) extends BuilderContext {
                         // empty
