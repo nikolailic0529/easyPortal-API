@@ -2,20 +2,25 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Utils\JsonObject\JsonObjectArray;
+
 class ViewCompany extends Type {
     public string  $id;
     public string  $name;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
+     * @var array<CompanyContactPerson>
      */
+    #[JsonObjectArray(CompanyContactPerson::class)]
     public array $companyContactPersons;
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyType>
+     * @var array<CompanyType>
      */
+    #[JsonObjectArray(CompanyType::class)]
     public array $companyTypes;
     /**
-     * @var array<\App\Services\DataLoader\Schema\Location>
+     * @var array<Location>
      */
+    #[JsonObjectArray(Location::class)]
     public array $locations;
 }

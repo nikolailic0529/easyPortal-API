@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Utils\JsonObject\JsonObjectArray;
+
 class ViewDocument extends Type implements TypeWithId {
     public string                      $id;
     public string                      $type;
@@ -14,8 +16,9 @@ class ViewDocument extends Type implements TypeWithId {
     public ?string                     $updatedAt;
     public DocumentVendorSpecificField $vendorSpecificFields;
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
+     * @var array<CompanyContactPerson>
      */
+    #[JsonObjectArray(CompanyContactPerson::class)]
     public ?array $contactPersons;
 
     public ?string $resellerId;

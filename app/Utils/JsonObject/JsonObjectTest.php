@@ -295,8 +295,9 @@ class JsonObjectTest_Parent extends JsonObject {
     public array $array;
 
     /**
-     * @var array<\App\Utils\JsonObject\JsonObjectTest_Child>
+     * @var array<JsonObjectTest_Child>
      */
+    #[JsonObjectArray(JsonObjectTest_Child::class)]
     public array $children;
 
     /**
@@ -317,7 +318,8 @@ class JsonObjectTest_Child extends JsonObject {
     public ?DateTimeInterface $d;
 
     /**
-     * @var array<int, \App\Utils\JsonObject\JsonObjectTest_Child>
+     * @var array<int, JsonObjectTest_Child>
      */
+    #[JsonObjectArray(JsonObjectTest_Child::class)]
     public array|null $children;
 }

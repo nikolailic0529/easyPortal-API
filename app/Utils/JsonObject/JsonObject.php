@@ -5,9 +5,12 @@ namespace App\Utils\JsonObject;
 use Countable;
 use DateTimeInterface;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use JsonSerializable;
+use LogicException;
+use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionObject;
@@ -15,11 +18,15 @@ use ReflectionObject;
 use function array_is_list;
 use function array_map;
 use function count;
+use function explode;
+use function in_array;
 use function is_a;
 use function is_array;
 use function is_object;
 use function preg_match;
+use function reset;
 use function sprintf;
+use function str_starts_with;
 
 /**
  * Convert JSON into an object, but be careful - this class doesn't worry about
@@ -196,15 +203,36 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                 $factory = null;
 
                 if ($class === 'array') {
+                    // We need to know the type of array items, but there is no
+                    // robust way to determine it :( It can be a short class
+                    // name and in this case we need to parse `use` statements
+                    // and find required class, but this is difficult, moreover
+                    // I cannot find any robust package for this. So we are
+                    // using the custom attribute and additional checks to
+                    // ensure that it is using the same type as in phpdoc.
+                    //
                     // @var array<Class>
                     // @var array<key, Class>
-                    $regexp  = '/@var array\<(?:[^,]+,\s*)?(?P<class>[^>]+)\>/ui';
-                    $comment = $property->getDocComment();
-                    $matches = [];
+                    $attributes = $property->getAttributes(JsonObjectArray::class);
+                    $attribute  = reset($attributes);
+                    $isArray    = true;
+                    $matches    = [];
+                    $comment    = $property->getDocComment();
+                    $regexp     = '/@var array\<(?:[^,]+,\s*)?(?P<type>[^>]+)\>/ui';
+                    $class      = $attribute instanceof ReflectionAttribute
+                        ? $attribute->newInstance()->getType()
+                        : null;
 
                     if (preg_match($regexp, $comment, $matches)) {
-                        $class   = $matches['class'];
-                        $isArray = true;
+                        $type    = $matches['type'];
+                        $scalars = ['int', 'float', 'string', 'bool', 'mixed'];
+                        $invalid = $class
+                            ? Arr::last(explode('\\', $class)) !== $type
+                            : (!in_array($type, $scalars, true) && !str_starts_with($type, 'array<'));
+
+                        if ($invalid) {
+                            throw new LogicException('Impossible to determine type of array items.');
+                        }
                     }
                 }
 

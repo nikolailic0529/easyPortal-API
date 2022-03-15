@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Utils\JsonObject\JsonObjectArray;
+
 class BrandingData extends Type {
     public ?string $mainColor;
     public ?string $secondaryColor;
@@ -16,12 +18,14 @@ class BrandingData extends Type {
     public ?string $logoUrl;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\TranslationText>|null
+     * @var array<TranslationText>|null
      */
+    #[JsonObjectArray(TranslationText::class)]
     public ?array $mainHeadingText = null;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\TranslationText>|null
+     * @var array<TranslationText>|null
      */
+    #[JsonObjectArray(TranslationText::class)]
     public ?array $underlineText = null;
 }
