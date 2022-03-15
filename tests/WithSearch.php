@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Utils\Eloquent\Model;
 use Elasticsearch\Client;
+use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\ParallelTesting;
@@ -38,7 +39,7 @@ trait WithSearch {
 
             try {
                 $client->info();
-            } catch (Throwable) {
+            } catch (Exception) {
                 $this->markTestSkipped('Elastic Search is not installed/configured.');
             }
 
