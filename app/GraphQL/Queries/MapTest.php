@@ -74,10 +74,10 @@ class MapTest extends TestCase {
                         customers_ids
                         locations_ids
                         boundingBox {
-                          southLatitude
-                          northLatitude
-                          westLongitude
-                          eastLongitude
+                            southLatitude
+                            northLatitude
+                            westLongitude
+                            eastLongitude
                         }
                     }
                 }

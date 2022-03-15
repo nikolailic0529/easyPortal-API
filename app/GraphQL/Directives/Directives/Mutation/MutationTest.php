@@ -35,19 +35,19 @@ class MutationTest extends TestCase {
             type Mutation {
                 model: ModelMutations!
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
 
             type ModelMutations {
                 mutate: String
                 @mutationCall(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
 
                 mutation: ModelMutations
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
             GRAPHQL,
@@ -97,7 +97,7 @@ class MutationTest extends TestCase {
             type Mutation {
                 model: String!
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
             GRAPHQL,
@@ -123,14 +123,14 @@ class MutationTest extends TestCase {
             type Mutation {
                 model: ModelMutations!
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
 
             type ModelMutations {
                 mutate: String
                 @mutationCall(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
 
                 mutation: String

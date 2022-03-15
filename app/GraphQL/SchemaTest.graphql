@@ -6318,35 +6318,34 @@ type AuthMutations {
     Application use standard OAuth 2.0 Authorization Code Grant.
 
     1. Call `signIn` mutation
-    ```graphql
-    mutation {
-    auth {
-    organization(id) {
-    signIn {
-    url
-    }
-    }
-    }
-    }
-    ```
+        ```graphql
+        mutation {
+            auth {
+                organization(id) {
+                    signIn {
+                        url
+                    }
+                }
+            }
+        }
+        ```
     2. Redirect the User to `url`
     3. After successful Sign In the User will come back and Client should call
     `authorize` mutation with `code` and `state` to finish the authorization:
-
-    ```graphql
-    mutation {
-    auth {
-    organization(id) {
-    authorize(input: {code: "...", state: "..."}) {
-    result
-    me {
-    enabled
-    }
-    }
-    }
-    }
-    }
-    ```
+        ```graphql
+        mutation {
+            auth {
+                organization(id) {
+                    authorize(input: {code: "...", state: "..."}) {
+                        result
+                        me {
+                            enabled
+                        }
+                    }
+                }
+            }
+        }
+        ```
     4. Check result:
     - `result = false` -> something wrong, please try to repeat step (1)
     - `me.enabled = false` -> user disabled or doesn't have access to the
