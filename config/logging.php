@@ -117,7 +117,20 @@ return [
     |
     */
 
-    'default'  => env('LOG_CHANNEL', 'stack'),
+    'default'      => env('LOG_CHANNEL', 'stack'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Deprecations Log Channel
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the log channel that should be used to log warnings
+    | regarding deprecated PHP and library features. This allows you to get
+    | your application ready for upcoming major versions of dependencies.
+    |
+    */
+
+    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
 
     /*
     |--------------------------------------------------------------------------
@@ -134,7 +147,7 @@ return [
     |
     */
 
-    'channels' => array_merge(
+    'channels'     => array_merge(
         $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAIL_RECIPIENTS')),
         $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAIL_RECIPIENTS')),
         $serviceChannel(KeycloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAIL_RECIPIENTS')),
@@ -146,9 +159,10 @@ return [
         $channels,
         [
             'stack'      => [
-                'driver'   => 'stack',
-                'channels' => array_keys($channels),
-                'tap'      => $tap,
+                'driver'            => 'stack',
+                'channels'          => array_keys($channels),
+                'tap'               => $tap,
+                'ignore_exceptions' => false,
             ],
 
             'single'     => [
@@ -171,16 +185,18 @@ return [
             'papertrail' => [
                 'driver'       => 'monolog',
                 'level'        => $logLevel,
-                'handler'      => SyslogUdpHandler::class,
+                'handler'      => env('LOG_PAPERTRAIL_HANDLER', SyslogUdpHandler::class),
                 'handler_with' => [
-                    'host' => env('PAPERTRAIL_URL'),
-                    'port' => env('PAPERTRAIL_PORT'),
+                    'host'             => env('PAPERTRAIL_URL'),
+                    'port'             => env('PAPERTRAIL_PORT'),
+                    'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
                 ],
                 'tap'          => $tap,
             ],
 
             'stderr'     => [
                 'driver'    => 'monolog',
+                'level'     => $logLevel,
                 'handler'   => StreamHandler::class,
                 'formatter' => env('LOG_STDERR_FORMATTER'),
                 'with'      => [
@@ -208,8 +224,7 @@ return [
 
             // Emergency
             'emergency'  => [
-                'driver' => 'single',
-                'path'   => storage_path('logs/laravel.log'),
+                'path' => storage_path('logs/laravel.log'),
             ],
         ],
     ),

@@ -50,9 +50,22 @@ class Handler extends ExceptionHandler {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<string>
+     * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [];
+
+    /**
+     * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<int, string>
+     */
+    protected $dontFlash = [
+        'current_password',
+        'password',
+        'password_confirmation',
+    ];
 
     /**
      * Register the exception handling callbacks for the application.

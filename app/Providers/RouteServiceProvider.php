@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
 use function base_path;
-use function optional;
 
 class RouteServiceProvider extends ServiceProvider {
     /**
@@ -52,7 +51,7 @@ class RouteServiceProvider extends ServiceProvider {
      */
     protected function configureRateLimiting(): void {
         RateLimiter::for('api', static function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
         // Used for SignIn and Reset Password.

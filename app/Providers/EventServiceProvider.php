@@ -12,7 +12,7 @@ class EventServiceProvider extends ServiceProvider {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<array<string>>
+     * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
         // empty
@@ -35,5 +35,12 @@ class EventServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         // empty
+    }
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     */
+    public function shouldDiscoverEvents(): bool {
+        return false;
     }
 }

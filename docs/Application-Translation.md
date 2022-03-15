@@ -2,7 +2,7 @@
 
 ## Default files
 
-All files located in [`resources/lang`](../resources/lang) directory.
+All files located in [`lang`](../lang) directory.
 
 
 ## Addition strings
