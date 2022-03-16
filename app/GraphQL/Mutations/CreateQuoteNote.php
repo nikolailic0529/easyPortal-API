@@ -6,6 +6,7 @@ use App\Models\Note;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\UploadedFile;
 
 class CreateQuoteNote {
     public function __construct(
@@ -34,7 +35,7 @@ class CreateQuoteNote {
     }
 
     /**
-     * @param array<\Illuminate\Http\UploadedFile> $files
+     * @param array<UploadedFile> $files
      */
     public function createNote(string $documentId, string $content, bool $pinned = false, array $files = []): Note {
         // Create

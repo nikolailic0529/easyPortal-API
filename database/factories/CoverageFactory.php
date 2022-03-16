@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Coverage;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Coverage create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Coverage make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Coverage create($attributes = [], ?Model $parent = null)
+ * @method Coverage make($attributes = [], ?Model $parent = null)
  */
 class CoverageFactory extends Factory {
     /**

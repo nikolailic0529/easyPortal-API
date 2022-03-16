@@ -15,6 +15,10 @@ use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Database\Factories\UserFactory;
+use Eloquent;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -22,6 +26,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Translation\HasLocalePreference;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,7 +40,7 @@ use LogicException;
  * User.
  *
  * @property string                            $id
- * @property \App\Models\Enums\UserType        $type
+ * @property UserType                          $type
  * @property string|null                       $organization_id
  * @property string                            $given_name
  * @property string                            $family_name
@@ -57,19 +62,19 @@ use LogicException;
  * @property string|null                       $mobile_phone
  * @property string|null                       $job_title
  * @property string|null                       $company
- * @property \Carbon\CarbonInterface|null      $synced_at
- * @property \Carbon\CarbonImmutable           $created_at
- * @property \Carbon\CarbonImmutable           $updated_at
- * @property \Carbon\CarbonImmutable|null      $deleted_at
+ * @property CarbonInterface|null              $synced_at
+ * @property CarbonImmutable                   $created_at
+ * @property CarbonImmutable                   $updated_at
+ * @property CarbonImmutable|null              $deleted_at
  * @property-read Collection<int, Invitation>  $invitations
- * @property \App\Models\Organization|null     $organization
+ * @property Organization|null                 $organization
  * @property Collection<int, OrganizationUser> $organizations
  * @property-read Collection<int, UserSearch>  $searches
- * @method static \Database\Factories\UserFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
- * @mixin \Eloquent
+ * @method static UserFactory factory(...$parameters)
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User query()
+ * @mixin Eloquent
  */
 class User extends Model implements
     AuthenticatableContract,

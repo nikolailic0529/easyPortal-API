@@ -218,7 +218,7 @@ class EloquentProcessorTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @return \Mockery\MockInterface&\Illuminate\Database\Eloquent\Builder
+     * @return MockInterface&Builder
      */
     protected function getBuilderMock(): MockInterface {
         $model = new class() extends Model {
@@ -241,7 +241,7 @@ class EloquentProcessorTest extends TestCase {
     }
 
     /**
-     * @return \Mockery\MockInterface&\Illuminate\Database\Eloquent\Builder
+     * @return MockInterface&Builder
      */
     protected function getBuilderMockSoftDeletes(): MockInterface {
         $model = new class() extends Model {

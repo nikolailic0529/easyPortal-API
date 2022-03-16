@@ -6,6 +6,10 @@ use App\Models\Relations\HasAssetsThroughLocations;
 use App\Models\Relations\HasCustomersThroughLocations;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\CityFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,17 +21,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                        $country_id
  * @property string                        $key
  * @property string                        $name
- * @property \Carbon\CarbonImmutable       $created_at
- * @property \Carbon\CarbonImmutable       $updated_at
- * @property \Carbon\CarbonImmutable|null  $deleted_at
+ * @property CarbonImmutable               $created_at
+ * @property CarbonImmutable               $updated_at
+ * @property CarbonImmutable|null          $deleted_at
  * @property-read Collection<int,Asset>    $assets
- * @property \App\Models\Country           $country
+ * @property Country                       $country
  * @property-read Collection<int,Customer> $customers
- * @method static \Database\Factories\CityFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City query()
- * @mixin \Eloquent
+ * @method static CityFactory factory(...$parameters)
+ * @method static Builder|City newModelQuery()
+ * @method static Builder|City newQuery()
+ * @method static Builder|City query()
+ * @mixin Eloquent
  */
 class City extends Model {
     use HasFactory;

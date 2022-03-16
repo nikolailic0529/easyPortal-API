@@ -174,7 +174,7 @@ abstract class AuthDirective extends BaseDirective implements
         $definition = null;
 
         foreach ($directive->arguments as $node) {
-            /** @var \GraphQL\Language\AST\InputValueDefinitionNode $node */
+            /** @var InputValueDefinitionNode $node */
             if ($node->name->value === $argument) {
                 $definition = $node;
                 break;

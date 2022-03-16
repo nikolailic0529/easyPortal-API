@@ -12,6 +12,10 @@ use App\Models\Relations\HasType;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\ResellerFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,24 +31,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int                               $assets_count
  * @property int                               $contacts_count
  * @property int                               $statuses_count
- * @property \Carbon\CarbonImmutable|null      $changed_at
- * @property \Carbon\CarbonImmutable           $synced_at
- * @property \Carbon\CarbonImmutable           $created_at
- * @property \Carbon\CarbonImmutable           $updated_at
- * @property \Carbon\CarbonImmutable|null      $deleted_at
+ * @property CarbonImmutable|null              $changed_at
+ * @property CarbonImmutable                   $synced_at
+ * @property CarbonImmutable                   $created_at
+ * @property CarbonImmutable                   $updated_at
+ * @property CarbonImmutable|null              $deleted_at
  * @property-read Collection<int, Asset>       $assets
  * @property Collection<int, Contact>          $contacts
  * @property-read Collection<int, Customer>    $customers
  * @property-read ResellerLocation|null        $headquarter
- * @property \App\Models\Kpi|null              $kpi
+ * @property Kpi|null                          $kpi
  * @property Collection<int, ResellerLocation> $locations
  * @property Collection<int, Status>           $statuses
- * @property \App\Models\Type                  $type
- * @method static \Database\Factories\ResellerFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller query()
- * @mixin \Eloquent
+ * @property Type                              $type
+ * @method static ResellerFactory factory(...$parameters)
+ * @method static Builder|Reseller newModelQuery()
+ * @method static Builder|Reseller newQuery()
+ * @method static Builder|Reseller query()
+ * @mixin Eloquent
  *
  * @uses \App\Models\Relations\HasCustomers<\App\Models\ResellerCustomer>
  */

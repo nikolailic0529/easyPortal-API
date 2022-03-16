@@ -10,7 +10,7 @@ use function is_array;
 
 class RecursiveJsonObjectIterator extends ArrayIterator implements RecursiveIterator {
     /**
-     * @param \App\Utils\JsonObject\JsonObject|array<\App\Utils\JsonObject\JsonObject>|array<string, mixed> $object
+     * @param JsonObject|array<JsonObject>|array<string, mixed> $object
      */
     public function __construct(JsonObject|array $object) {
         parent::__construct(is_array($object) ? $object : $object->getProperties());

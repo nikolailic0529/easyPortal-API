@@ -50,7 +50,7 @@ abstract class Relation extends BaseDirective implements FieldResolver {
                     return null;
                 }
 
-                /** @var \Nuwave\Lighthouse\Execution\BatchLoader\RelationBatchLoader $batchLoader */
+                /** @var RelationBatchLoader $batchLoader */
                 $batchLoader = BatchLoaderRegistry::instance(
                     array_merge(
                         $this->qualifyPath($args, $resolveInfo),

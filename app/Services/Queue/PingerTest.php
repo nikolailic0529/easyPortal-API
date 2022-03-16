@@ -26,7 +26,7 @@ class PingerTest extends TestCase {
      *
      * @dataProvider dataProviderJobClass
      *
-     * @param class-string<\App\Services\Queue\CronJob|\App\Services\Queue\Job> $class
+     * @param class-string<CronJob|Job> $class
      */
     public function testPing(string $class): void {
         $pinger = Mockery::mock(Pinger::class);
@@ -47,7 +47,7 @@ class PingerTest extends TestCase {
      *
      * @dataProvider dataProviderJobClass
      *
-     * @param class-string<\App\Services\Queue\CronJob|\App\Services\Queue\Job> $class
+     * @param class-string<CronJob|Job> $class
      */
     public function testStop(string $class): void {
         // Fake
@@ -99,7 +99,7 @@ class PingerTest extends TestCase {
      *
      * @dataProvider dataProviderJobClass
      *
-     * @param class-string<\App\Services\Queue\CronJob|\App\Services\Queue\Job> $class
+     * @param class-string<CronJob|Job> $class
      */
     public function testProlong(string $class): void {
         $now       = Date::now()->timestamp;
@@ -159,7 +159,7 @@ class PingerTest extends TestCase {
      *
      * @dataProvider dataProviderJobClass
      *
-     * @param class-string<\App\Services\Queue\CronJob|\App\Services\Queue\Job> $class
+     * @param class-string<CronJob|Job> $class
      */
     public function testProlongNotRedisJob(string $class): void {
         $queueJob = Mockery::mock(QueueJob::class);

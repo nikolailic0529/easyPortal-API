@@ -58,27 +58,27 @@ abstract class Processor {
     private bool     $running  = false;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     * @var Dispatcher<TState>
      */
     private Dispatcher $onInit;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     * @var Dispatcher<TState>
      */
     private Dispatcher $onChange;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     * @var Dispatcher<TState>
      */
     private Dispatcher $onFinish;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     * @var Dispatcher<TState>
      */
     private Dispatcher $onProcess;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<TState>
+     * @var Dispatcher<TState>
      */
     private Dispatcher $onReport;
 
@@ -228,7 +228,7 @@ abstract class Processor {
     /**
      * @param TState $state
      *
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<TItem>
+     * @return ObjectIterator<TItem>
      */
     abstract protected function getIterator(State $state): ObjectIterator;
 

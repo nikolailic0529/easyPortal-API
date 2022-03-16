@@ -163,7 +163,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param \App\Services\DataLoader\Cache\Key|array<\App\Services\DataLoader\Cache\Key> $keys
+     * @param Key|array<Key> $keys
      */
     protected function putNull(Key|array $keys): static {
         $cache = $this->getCache();
@@ -194,7 +194,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return array<\App\Services\DataLoader\Cache\KeyRetriever>
+     * @return array<KeyRetriever>
      */
     protected function getKeyRetrievers(): array {
         return [
@@ -212,7 +212,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder<TModel>|null
+     * @return Builder<TModel>|null
      */
     protected function getFindQuery(): ?Builder {
         return null;

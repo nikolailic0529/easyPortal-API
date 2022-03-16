@@ -3,6 +3,7 @@
 namespace Tests\Helpers;
 
 use Composer\Autoload\ClassMapGenerator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 
@@ -32,7 +33,7 @@ class ClassMap {
     }
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Model>
+     * @return array<Model>
      */
     protected static function load(): array {
         self::$classes = [];

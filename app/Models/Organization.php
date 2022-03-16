@@ -10,7 +10,11 @@ use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\OrganizationFactory;
+use Eloquent;
 use Illuminate\Contracts\Translation\HasLocalePreference;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,48 +29,48 @@ use Illuminate\Support\Collection as BaseCollection;
 /**
  * Organization.
  *
- * @property string                                            $id
- * @property string                                            $name
- * @property string|null                                       $keycloak_scope
- * @property string|null                                       $keycloak_group_id
- * @property string|null                                       $locale
- * @property string|null                                       $currency_id
- * @property string|null                                       $website_url
- * @property string|null                                       $email
- * @property string|null                                       $timezone
- * @property string|null                                       $analytics_code
- * @property bool|null                                         $branding_dark_theme
- * @property string|null                                       $branding_main_color
- * @property string|null                                       $branding_secondary_color
- * @property string|null                                       $branding_logo_url
- * @property string|null                                       $branding_favicon_url
- * @property string|null                                       $branding_default_main_color
- * @property string|null                                       $branding_default_secondary_color
- * @property string|null                                       $branding_default_logo_url
- * @property string|null                                       $branding_default_favicon_url
- * @property string|null                                       $branding_welcome_image_url
- * @property \App\Services\I18n\Eloquent\TranslatedString|null $branding_welcome_heading
- * @property \App\Services\I18n\Eloquent\TranslatedString|null $branding_welcome_underline
- * @property string|null                                       $branding_dashboard_image_url
- * @property \Carbon\CarbonImmutable                           $created_at
- * @property \Carbon\CarbonImmutable                           $updated_at
- * @property \Carbon\CarbonImmutable|null                      $deleted_at
- * @property-read Collection<int, Audit>                       $audits
- * @property-read Collection<int, Contact>                     $contacts
- * @property \App\Models\Currency|null                         $currency
- * @property-read ResellerLocation|null                        $headquarter
- * @property-read \App\Models\Kpi|null                         $kpi
- * @property-read Collection<int, ResellerLocation>            $locations
- * @property Collection<int, OrganizationUser>                 $organizationUsers
- * @property-read \App\Models\Reseller|null                    $reseller
- * @property-read Collection<int, Role>                        $roles
- * @property-read Collection<int, Status>                      $statuses
- * @property-read Collection<int, User>                        $users
- * @method static \Database\Factories\OrganizationFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization query()
- * @mixin \Eloquent
+ * @property string                                 $id
+ * @property string                                 $name
+ * @property string|null                            $keycloak_scope
+ * @property string|null                            $keycloak_group_id
+ * @property string|null                            $locale
+ * @property string|null                            $currency_id
+ * @property string|null                            $website_url
+ * @property string|null                            $email
+ * @property string|null                            $timezone
+ * @property string|null                            $analytics_code
+ * @property bool|null                              $branding_dark_theme
+ * @property string|null                            $branding_main_color
+ * @property string|null                            $branding_secondary_color
+ * @property string|null                            $branding_logo_url
+ * @property string|null                            $branding_favicon_url
+ * @property string|null                            $branding_default_main_color
+ * @property string|null                            $branding_default_secondary_color
+ * @property string|null                            $branding_default_logo_url
+ * @property string|null                            $branding_default_favicon_url
+ * @property string|null                            $branding_welcome_image_url
+ * @property TranslatedString|null                  $branding_welcome_heading
+ * @property TranslatedString|null                  $branding_welcome_underline
+ * @property string|null                            $branding_dashboard_image_url
+ * @property CarbonImmutable                        $created_at
+ * @property CarbonImmutable                        $updated_at
+ * @property CarbonImmutable|null                   $deleted_at
+ * @property-read Collection<int, Audit>            $audits
+ * @property-read Collection<int, Contact>          $contacts
+ * @property Currency|null                          $currency
+ * @property-read ResellerLocation|null             $headquarter
+ * @property-read Kpi|null                          $kpi
+ * @property-read Collection<int, ResellerLocation> $locations
+ * @property Collection<int, OrganizationUser>      $organizationUsers
+ * @property-read Reseller|null                     $reseller
+ * @property-read Collection<int, Role>             $roles
+ * @property-read Collection<int, Status>           $statuses
+ * @property-read Collection<int, User>             $users
+ * @method static OrganizationFactory factory(...$parameters)
+ * @method static Builder|Organization newModelQuery()
+ * @method static Builder|Organization newQuery()
+ * @method static Builder|Organization query()
+ * @mixin Eloquent
  */
 class Organization extends Model implements
     HasLocalePreference,

@@ -2,8 +2,10 @@
 
 namespace App\Services\Audit\Concerns;
 
+use App\Utils\Eloquent\Model;
+
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 interface Auditable {
     // empty

@@ -21,7 +21,7 @@ use function sprintf;
 use const JSON_THROW_ON_ERROR;
 
 /**
- * @implements \ArrayAccess<string, string>
+ * @implements ArrayAccess<string, string>
  */
 class TranslatedString implements Castable, Arrayable, ArrayAccess, IteratorAggregate, JsonSerializable {
     /**
@@ -36,7 +36,7 @@ class TranslatedString implements Castable, Arrayable, ArrayAccess, IteratorAggr
     // <editor-fold desc="IteratorAggregate">
     // =========================================================================
     /**
-     * @return \Generator<string, array{locale: string, text: string}>
+     * @return Generator<string, array{locale: string, text: string}>
      */
     public function getIterator(): Generator {
         foreach ($this->translations as $locale => $text) {

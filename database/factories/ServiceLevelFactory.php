@@ -5,12 +5,13 @@ namespace Database\Factories;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\ServiceLevel create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\ServiceLevel make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method ServiceLevel create($attributes = [], ?Model $parent = null)
+ * @method ServiceLevel make($attributes = [], ?Model $parent = null)
  */
 class ServiceLevelFactory extends Factory {
     /**

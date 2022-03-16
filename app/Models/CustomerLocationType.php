@@ -3,20 +3,23 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * CustomerLocationType.
  *
- * @property string                       $id
- * @property string                       $customer_location_id
- * @property string                       $type_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerLocationType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerLocationType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerLocationType query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $customer_location_id
+ * @property string               $type_id
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static Builder|CustomerLocationType newModelQuery()
+ * @method static Builder|CustomerLocationType newQuery()
+ * @method static Builder|CustomerLocationType query()
+ * @mixin Eloquent
  */
 class CustomerLocationType extends Pivot {
     /**

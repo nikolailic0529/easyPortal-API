@@ -2,10 +2,12 @@
 
 namespace App\Services\Recalculator\Events;
 
+use Illuminate\Database\Eloquent\Model;
+
 class ModelsRecalculated {
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
-     * @param array<string>                                     $keys
+     * @param class-string<Model> $model
+     * @param array<string>       $keys
      */
     public function __construct(
         private string $model,
@@ -15,7 +17,7 @@ class ModelsRecalculated {
     }
 
     /**
-     * @return class-string<\Illuminate\Database\Eloquent\Model>
+     * @return class-string<Model>
      */
     public function getModel(): string {
         return $this->model;

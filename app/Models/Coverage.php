@@ -6,6 +6,10 @@ use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\CoverageFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,18 +17,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * Coverage.
  *
- * @property string                       $id
- * @property string                       $key
- * @property string                       $name
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read Collection<int, Asset>  $assets
- * @method static \Database\Factories\CoverageFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Coverage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Coverage newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Coverage query()
- * @mixin \Eloquent
+ * @property string                      $id
+ * @property string                      $key
+ * @property string                      $name
+ * @property CarbonImmutable             $created_at
+ * @property CarbonImmutable             $updated_at
+ * @property CarbonImmutable|null        $deleted_at
+ * @property-read Collection<int, Asset> $assets
+ * @method static CoverageFactory factory(...$parameters)
+ * @method static Builder|Coverage newModelQuery()
+ * @method static Builder|Coverage newQuery()
+ * @method static Builder|Coverage query()
+ * @mixin Eloquent
  */
 class Coverage extends Model implements Translatable {
     use HasFactory;

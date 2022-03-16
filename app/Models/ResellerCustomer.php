@@ -5,26 +5,30 @@ namespace App\Models;
 use App\Models\Relations\HasKpi;
 use App\Utils\Eloquent\Pivot;
 use App\Utils\Eloquent\SmartSave\Upsertable;
+use Carbon\CarbonImmutable;
+use Database\Factories\ResellerCustomerFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * ResellerCustomer.
  *
- * @property string                       $id
- * @property string                       $reseller_id
- * @property string                       $customer_id
- * @property string|null                  $kpi_id
- * @property int                          $assets_count
- * @property int                          $locations_count
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Kpi|null         $kpi
- * @method static \Database\Factories\ResellerCustomerFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $reseller_id
+ * @property string               $customer_id
+ * @property string|null          $kpi_id
+ * @property int                  $assets_count
+ * @property int                  $locations_count
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Kpi|null             $kpi
+ * @method static ResellerCustomerFactory factory(...$parameters)
+ * @method static Builder|ResellerCustomer newModelQuery()
+ * @method static Builder|ResellerCustomer newQuery()
+ * @method static Builder|ResellerCustomer query()
+ * @mixin Eloquent
  */
 class ResellerCustomer extends Pivot implements Upsertable {
     use HasFactory;

@@ -5,10 +5,11 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\UserSearch;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method \App\Models\UserSearch create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\UserSearch make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method UserSearch create($attributes = [], ?Model $parent = null)
+ * @method UserSearch make($attributes = [], ?Model $parent = null)
  */
 class UserSearchFactory extends Factory {
     /**

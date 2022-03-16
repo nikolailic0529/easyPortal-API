@@ -358,7 +358,7 @@ class ConfigurationTest extends TestCase {
      * @param array<mixed> $metadata
      * @param array<mixed> $properties
      *
-     * @return \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
+     * @return Model&Searchable
      */
     protected function getModel(array $metadata = [], array $properties = []): Model {
         $model = new class() extends Model {
@@ -402,7 +402,7 @@ class ConfigurationTest extends TestCase {
     /**
      * @param array<mixed> $metadata
      *
-     * @return \Illuminate\Database\Eloquent\Scope&\App\Services\Search\Contracts\ScopeWithMetadata
+     * @return Scope&ScopeWithMetadata
      */
     protected function getScope(array $metadata): Scope {
         $scope = new class() implements Scope, ScopeWithMetadata {

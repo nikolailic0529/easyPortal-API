@@ -19,7 +19,7 @@ use function sprintf;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ * @implements ObjectIterator<T>
  *
  * @uses \App\Utils\Iterators\Concerns\InitialState<T>
  * @uses \App\Utils\Iterators\Concerns\Subjects<T>
@@ -35,7 +35,7 @@ class ObjectIteratorsIterator implements ObjectIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\Utils\Iterators\Contracts\ObjectIterator> $iterators
+     * @param array<string,ObjectIterator> $iterators
      */
     public function __construct(
         protected array $iterators,

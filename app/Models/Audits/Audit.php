@@ -6,28 +6,32 @@ use App\Models\Organization;
 use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use Carbon\CarbonImmutable;
+use Database\Factories\Audits\AuditFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Audit.
  *
- * @property string                             $id
- * @property string                             $action
- * @property string|null                        $user_id
- * @property string|null                        $organization_id
- * @property string                             $object_id
- * @property string                             $object_type
- * @property array|null                         $context
- * @property \Carbon\CarbonImmutable            $created_at
- * @property \Carbon\CarbonImmutable            $updated_at
- * @property-read \App\Models\Organization|null $organization
- * @property-read \App\Models\User|null         $user
- * @method static \Database\Factories\Audits\AuditFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audits\Audit newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audits\Audit newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audits\Audit query()
- * @mixin \Eloquent
+ * @property string                 $id
+ * @property string                 $action
+ * @property string|null            $user_id
+ * @property string|null            $organization_id
+ * @property string                 $object_id
+ * @property string                 $object_type
+ * @property array|null             $context
+ * @property CarbonImmutable        $created_at
+ * @property CarbonImmutable        $updated_at
+ * @property-read Organization|null $organization
+ * @property-read User|null         $user
+ * @method static AuditFactory factory(...$parameters)
+ * @method static Builder|Audit newModelQuery()
+ * @method static Builder|Audit newQuery()
+ * @method static Builder|Audit query()
+ * @mixin Eloquent
  */
 class Audit extends Model {
     use HasFactory;

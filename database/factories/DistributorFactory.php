@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Distributor;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Distributor create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Distributor make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Distributor create($attributes = [], ?Model $parent = null)
+ * @method Distributor make($attributes = [], ?Model $parent = null)
  */
 class DistributorFactory extends Factory {
     /**

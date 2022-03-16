@@ -5,6 +5,7 @@ namespace App\Rules;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTimeInterface;
 use Exception;
+use GraphQL\Error\Error;
 use Tests\TestCase;
 
 /**
@@ -78,7 +79,7 @@ class DateTimeTest extends TestCase {
     }
 
     /**
-     * @return array<string, array{string|\GraphQL\Error\Error, string|null, string}>
+     * @return array<string, array{string|Error, string|null, string}>
      */
     public function dataProviderParse(): array {
         return [

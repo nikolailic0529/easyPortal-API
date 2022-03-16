@@ -104,7 +104,7 @@ class UpdateTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            /** @var \App\Models\User $updated */
+            /** @var User $updated */
             $updated    = OrganizationUser::query()
                 ->where('user_id', '=', $input['userId'])
                 ->where('organization_id', '=', $input['organizationId'])

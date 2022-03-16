@@ -28,7 +28,7 @@ class Settings {
     }
 
     /**
-     * @param array<\App\Services\Settings\Setting> $settings
+     * @param array<Setting> $settings
      *
      * @return array<mixed>
      */

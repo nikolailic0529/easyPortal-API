@@ -152,7 +152,7 @@ class LastIdBasedIteratorTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @return array<int,\App\Services\DataLoader\Schema\Type>
+     * @return array<int,Type>
      */
     protected function getData(): array {
         return array_map(static function (int $id): Type {
@@ -163,7 +163,7 @@ class LastIdBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @param array<int,\App\Services\DataLoader\Schema\Type> $data
+     * @param array<int,Type> $data
      */
     protected function getRetriever(array $data): Closure {
         return static function (array $params = []) use ($data) {

@@ -400,7 +400,7 @@ class UserProvider implements UserProviderContract {
                 }
 
                 // Member of Organization?
-                /** @var \App\Models\OrganizationUser|null $member */
+                /** @var OrganizationUser|null $member */
                 $member = $user->organizations
                     ->first(static function (OrganizationUser $user) use ($organization): bool {
                         return $user->organization_id === $organization->getKey()

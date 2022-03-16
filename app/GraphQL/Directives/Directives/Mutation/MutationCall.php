@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException as LaravelValidationException;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
+use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 use Nuwave\Lighthouse\Execution\Arguments\ListType;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
@@ -160,7 +161,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @param array<\Nuwave\Lighthouse\Execution\Arguments\Argument> $arguments
+     * @param array<Argument> $arguments
      *
      * @return array<Rule>
      */

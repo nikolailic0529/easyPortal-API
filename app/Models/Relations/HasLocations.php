@@ -18,7 +18,7 @@ use function count;
  *
  * @property int $locations_count
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasLocations {
     use SyncHasMany;

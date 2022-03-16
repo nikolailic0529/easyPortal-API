@@ -10,7 +10,7 @@ use Throwable;
  * @template T of \App\Utils\Eloquent\Model|string
  * @template V of \App\Services\DataLoader\Schema\Type
  *
- * @extends \App\Utils\Iterators\ObjectIteratorIterator<T,V>
+ * @extends ObjectIteratorIterator<T,V>
  */
 class IteratorIterator extends ObjectIteratorIterator {
     /**

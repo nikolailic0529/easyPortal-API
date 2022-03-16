@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\City>
+ * @extends Resolver<City>
  */
 class CityResolver extends Resolver implements SingletonPersistent {
     public function get(Country $country, string $key, Closure $factory = null): ?City {

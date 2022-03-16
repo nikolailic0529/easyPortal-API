@@ -39,7 +39,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
     use Importable;
 
     /**
-     * @var array<\App\Services\DataLoader\Importer\Importers\OemsImporter\HeaderCell>
+     * @var array<HeaderCell>
      */
     protected array $header = [];
 

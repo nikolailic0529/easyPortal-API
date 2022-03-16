@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\OneChunkOffsetBasedObjectIterator<T, V>
+ * @implements OneChunkOffsetBasedObjectIterator<T, V>
  */
 class ObjectsIterator extends OneChunkOffsetBasedObjectIterator {
     /**

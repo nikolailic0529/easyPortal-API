@@ -17,6 +17,10 @@ use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\CustomerFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -31,26 +35,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int                              $locations_count
  * @property int                              $contacts_count
  * @property int                              $statuses_count
- * @property \Carbon\CarbonImmutable|null     $changed_at
- * @property \Carbon\CarbonImmutable          $synced_at
- * @property \Carbon\CarbonImmutable          $created_at
- * @property \Carbon\CarbonImmutable          $updated_at
- * @property \Carbon\CarbonImmutable|null     $deleted_at
+ * @property CarbonImmutable|null             $changed_at
+ * @property CarbonImmutable                  $synced_at
+ * @property CarbonImmutable                  $created_at
+ * @property CarbonImmutable                  $updated_at
+ * @property CarbonImmutable|null             $deleted_at
  * @property-read Collection<int, Asset>      $assets
  * @property Collection<int, Contact>         $contacts
  * @property-read Collection<int, Document>   $contracts
  * @property-read CustomerLocation|null       $headquarter
- * @property \App\Models\Kpi|null             $kpi
+ * @property Kpi|null                         $kpi
  * @property Collection<int,CustomerLocation> $locations
  * @property-read Collection<int, Document>   $quotes
  * @property-read Collection<int, Reseller>   $resellers
  * @property Collection<int, Status>          $statuses
- * @property \App\Models\Type                 $type
- * @method static \Database\Factories\CustomerFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
- * @mixin \Eloquent
+ * @property Type                             $type
+ * @method static CustomerFactory factory(...$parameters)
+ * @method static Builder|Customer newModelQuery()
+ * @method static Builder|Customer newQuery()
+ * @method static Builder|Customer query()
+ * @mixin Eloquent
  *
  * @uses \App\Models\Relations\HasResellers<\App\Models\ResellerCustomer>
  */

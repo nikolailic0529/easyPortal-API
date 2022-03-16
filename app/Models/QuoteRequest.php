@@ -11,6 +11,10 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\QuoteRequestFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,22 +33,22 @@ use Illuminate\Support\Collection as BaseCollection;
  * @property string|null                        $customer_name
  * @property string                             $type_id
  * @property string                             $message
- * @property \Carbon\CarbonImmutable            $created_at
- * @property \Carbon\CarbonImmutable            $updated_at
- * @property \Carbon\CarbonImmutable|null       $deleted_at
- * @property \App\Models\Oem                    $oem
- * @property \App\Models\Organization           $organization
- * @property \App\Models\Customer|null          $customer
- * @property \App\Models\Contact                $contact
- * @property \App\Models\Type                   $type
+ * @property CarbonImmutable                    $created_at
+ * @property CarbonImmutable                    $updated_at
+ * @property CarbonImmutable|null               $deleted_at
+ * @property Oem                                $oem
+ * @property Organization                       $organization
+ * @property Customer|null                      $customer
+ * @property Contact                            $contact
+ * @property Type                               $type
  * @property Collection<int, Status>            $statuses
  * @property Collection<int, File>              $files
  * @property Collection<int, QuoteRequestAsset> $assets
- * @method static \Database\Factories\QuoteRequestFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest query()
- * @mixin \Eloquent
+ * @method static QuoteRequestFactory factory(...$parameters)
+ * @method static Builder|QuoteRequest newModelQuery()
+ * @method static Builder|QuoteRequest newQuery()
+ * @method static Builder|QuoteRequest query()
+ * @mixin Eloquent
  */
 class QuoteRequest extends Model implements Auditable {
     use HasFactory;

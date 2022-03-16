@@ -10,7 +10,7 @@ use Closure;
 use Illuminate\Contracts\Config\Repository;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithOrganization {
     protected function setOrganization(Organization|Closure|null $organization): ?Organization {

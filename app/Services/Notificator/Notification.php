@@ -15,6 +15,7 @@ use Illuminate\Notifications\Action;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as IlluminateNotification;
 use ReflectionClass;
+use Stringable;
 
 use function __;
 use function trim;
@@ -138,8 +139,8 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param Closure(string, array<string,scalar|\Stringable>): ?string $translate
-     * @param array<string,scalar|\Stringable>                           $replacements
+     * @param Closure(string, array<string,scalar|Stringable>): ?string $translate
+     * @param array<string,scalar|Stringable>                           $replacements
      */
     protected function getMailAction(
         User $notifiable,
@@ -152,9 +153,9 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param Closure(string, array<string,scalar|\Stringable>): ?string $translate
+     * @param Closure(string, array<string,scalar|Stringable>): ?string $translate
      *
-     * @return array<string,scalar|\Stringable>
+     * @return array<string,scalar|Stringable>
      */
     protected function getMailReplacements(
         User $notifiable,

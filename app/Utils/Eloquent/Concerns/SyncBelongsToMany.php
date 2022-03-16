@@ -200,7 +200,7 @@ trait SyncBelongsToMany {
     }
 
     private function getBelongsToMany(string $relation): BelongsToMany {
-        /** @var \Illuminate\Database\Eloquent\Relations\BelongsToMany $belongsToMany */
+        /** @var BelongsToMany $belongsToMany */
         $belongsToMany = (new ModelHelper($this))->getRelation($relation);
 
         if (!($belongsToMany instanceof BelongsToMany)) {

@@ -48,7 +48,7 @@ class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Models\Asset|string>
+     * @return ObjectIterator<Asset|string>
      */
     public static function getIterator(): ObjectIterator {
         $assets = static::ASSETS;

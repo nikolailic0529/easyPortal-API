@@ -50,7 +50,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\AssetFactory
+ * @coversDefaultClass AssetFactory
  */
 class AssetFactoryTest extends TestCase {
     use WithoutOrganizationScope;
@@ -116,7 +116,7 @@ class AssetFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Test
-        /** @var \App\Services\DataLoader\Factory\Factories\AssetFactory $factory */
+        /** @var AssetFactory $factory */
         $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $created  = $factory->create($asset);
         $actual   = array_column($this->getQueryLog(), 'query');
@@ -228,7 +228,7 @@ class AssetFactoryTest extends TestCase {
                 ->all(),
         );
 
-        /** @var \App\Models\AssetWarranty $extended */
+        /** @var AssetWarranty $extended */
         $extended = $created->warranties->first(static function (AssetWarranty $warranty): bool {
             return $warranty->document_number !== null && $warranty->type_id === null;
         });
@@ -242,7 +242,7 @@ class AssetFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Asset should be updated
-        /** @var \App\Services\DataLoader\Factory\Factories\AssetFactory $factory */
+        /** @var AssetFactory $factory */
         $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json     = $this->getTestData()->json('~asset-changed.json');
         $asset    = new ViewAsset($json);
@@ -294,7 +294,7 @@ class AssetFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // No changes
-        /** @var \App\Services\DataLoader\Factory\Factories\AssetFactory $factory */
+        /** @var AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = new ViewAsset($json);
@@ -780,7 +780,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertCount(5, $warranties);
 
         // Existing warranty should be updated
-        /** @var \App\Models\AssetWarranty $a */
+        /** @var AssetWarranty $a */
         $a = $warranties->first(static function (AssetWarranty $warranty) use ($documentA, $date): bool {
             return $warranty->document_id === $documentA->getKey()
                 && $date->startOfDay()->equalTo($warranty->start);
@@ -802,7 +802,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($as);
 
         // Document null
-        /** @var \App\Models\AssetWarranty $b */
+        /** @var AssetWarranty $b */
         $b = $warranties->first(static function (AssetWarranty $warranty) use ($documentA): bool {
             return $warranty->document_id === null
                 && $warranty->document_number === $documentA->number;
@@ -812,7 +812,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($b->serviceGroup->sku, $supportPackage);
 
         // No service
-        /** @var \App\Models\AssetWarranty $c */
+        /** @var AssetWarranty $c */
         $c = $warranties->first(static function (AssetWarranty $warranty) use ($documentB): bool {
             return $warranty->document_id === $documentB->getKey();
         });
@@ -827,7 +827,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(0, $c->serviceLevels->count());
 
         // Existing warranty should be updated
-        /** @var \App\Models\AssetWarranty $d */
+        /** @var AssetWarranty $d */
         $d = $warranties->first(static function (AssetWarranty $w) use ($warranty): bool {
             return $w->getKey() === $warranty->getKey();
         });

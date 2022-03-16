@@ -7,7 +7,7 @@ use WeakMap;
 
 class Collector implements Singleton {
     /**
-     * @var \WeakMap<\App\Services\DataLoader\Collector\Data,\App\Services\DataLoader\Collector\Data>
+     * @var WeakMap<Data,Data>
      */
     private WeakMap $subscribers;
 
@@ -17,7 +17,7 @@ class Collector implements Singleton {
 
     public function collect(mixed $object): void {
         foreach ($this->subscribers as $subscriber) {
-            /** @var \App\Services\DataLoader\Collector\Data $subscriber */
+            /** @var Data $subscriber */
             $subscriber->collect($object);
         }
     }

@@ -69,7 +69,7 @@ class GeohashTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{\Exception|string,mixed}>
+     * @return array<string,array{Exception|string,mixed}>
      */
     public function dataProviderSerialize(): array {
         $tools = new Geotools();
@@ -99,7 +99,7 @@ class GeohashTest extends TestCase {
     }
 
     /**
-     * @return array<string,array{\Exception|\League\Geotools\Geohash\Geohash,mixed}>
+     * @return array<string,array{Exception|GeotoolsGeohash,mixed}>
      */
     public function dataProviderParseValue(): array {
         $tools = new Geotools();
@@ -129,7 +129,7 @@ class GeohashTest extends TestCase {
     }
 
     /**
-     * @return array<string,array{\Exception|\League\Geotools\Geohash\Geohash,\GraphQL\Language\AST\Node}>
+     * @return array<string,array{Exception|GeotoolsGeohash,Node}>
      */
     public function dataProvideParseLiteral(): array {
         $tools = new Geotools();

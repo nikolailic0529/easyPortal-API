@@ -8,6 +8,10 @@ use App\Models\Relations\HasCustomersThroughLocations;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\CountryFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,17 +21,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                        $id
  * @property string                        $code
  * @property string                        $name
- * @property \Carbon\CarbonImmutable       $created_at
- * @property \Carbon\CarbonImmutable       $updated_at
- * @property \Carbon\CarbonImmutable|null  $deleted_at
+ * @property CarbonImmutable               $created_at
+ * @property CarbonImmutable               $updated_at
+ * @property CarbonImmutable|null          $deleted_at
  * @property-read Collection<int,Asset>    $assets
  * @property-read Collection<int,City>     $cities
  * @property-read Collection<int,Customer> $customers
- * @method static \Database\Factories\CountryFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country query()
- * @mixin \Eloquent
+ * @method static CountryFactory factory(...$parameters)
+ * @method static Builder|Country newModelQuery()
+ * @method static Builder|Country newQuery()
+ * @method static Builder|Country query()
+ * @mixin Eloquent
  */
 class Country extends Model implements Translatable {
     use HasFactory;

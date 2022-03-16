@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Loader\Concerns;
 
+use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
@@ -12,6 +13,7 @@ use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use DateTimeInterface;
@@ -23,7 +25,7 @@ use Illuminate\Support\Facades\Date;
 /**
  * @template TOwner of \App\Utils\Eloquent\Model
  *
- * @mixin \App\Services\DataLoader\Loader\Loader
+ * @mixin Loader
  */
 trait WithAssets {
     protected bool $withAssets          = false;
@@ -104,7 +106,7 @@ trait WithAssets {
     /**
      * @param TOwner $owner
      *
-     * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>
+     * @return Builder<Asset>
      */
     abstract protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder;
 

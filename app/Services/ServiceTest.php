@@ -233,7 +233,7 @@ class ServiceTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{\Exception|string,array<mixed>}>
+     * @return array<string,array{Exception|string,array<mixed>}>
      */
     public function dataProviderGetKey(): array {
         return [

@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Oem;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Oem create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Oem make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Oem create($attributes = [], ?Model $parent = null)
+ * @method Oem make($attributes = [], ?Model $parent = null)
  */
 class OemFactory extends Factory {
     /**

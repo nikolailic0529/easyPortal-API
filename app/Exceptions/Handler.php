@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<int, class-string<\Throwable>>
+     * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [];
 

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Services\Search\Eloquent\Searchable;
 use App\Utils\Eloquent\Model;
 use Elasticsearch\Client;
 use Exception;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\ParallelTesting;
 use function str_starts_with;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithSearch {
     // <editor-fold desc="SetUp">
@@ -68,7 +69,7 @@ trait WithSearch {
      */
     protected function makeSearchable(Collection|Model $models): Collection|Model {
         if ($models instanceof Model) {
-            /** @var \App\Services\Search\Eloquent\Searchable $models */
+            /** @var Searchable $models */
             $config   = $models->getSearchConfiguration();
             $index    = $config->getIndexName();
             $alias    = $config->getIndexAlias();

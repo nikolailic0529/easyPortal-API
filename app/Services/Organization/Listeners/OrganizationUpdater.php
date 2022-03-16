@@ -6,6 +6,7 @@ use App\Events\Subscriber;
 use App\Models\Organization;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Schema\TranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
 use App\Services\Keycloak\Map;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -106,7 +107,7 @@ class OrganizationUpdater implements Subscriber {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\TranslationText>|null $translations
+     * @param array<TranslationText>|null $translations
      */
     protected function getTranslatedString(?array $translations): ?TranslatedString {
         $string = null;

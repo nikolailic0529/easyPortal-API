@@ -123,7 +123,7 @@ class UserTest extends TestCase {
      *
      * @dataProvider dataProviderStatus
      *
-     * @param Closure(self): \App\Models\OrganizationUser $organizationUserFactory
+     * @param Closure(self): OrganizationUser $organizationUserFactory
      */
     public function testStatus(Status $expected, Closure $organizationUserFactory): void {
         $user   = $organizationUserFactory($this);

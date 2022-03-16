@@ -4,13 +4,14 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Schema\DocumentEntry;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithAsset {
     abstract protected function getNormalizer(): Normalizer;

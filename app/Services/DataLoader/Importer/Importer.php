@@ -25,7 +25,7 @@ use function array_merge;
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\ImporterState
  *
- * @extends \App\Utils\Processor\Processor<TItem, TChunkData, TState>
+ * @extends Processor<TItem, TChunkData, TState>
  */
 abstract class Importer extends Processor {
     private ?DateTimeInterface $from   = null;

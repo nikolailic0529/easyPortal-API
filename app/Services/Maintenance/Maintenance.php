@@ -12,6 +12,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\CronableConfig;
+use LastDragon_ru\LaraASP\Queue\Contracts\Cronable;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 class Maintenance {
@@ -137,7 +138,7 @@ class Maintenance {
     }
 
     /**
-     * @param class-string<\LastDragon_ru\LaraASP\Queue\Contracts\Cronable> $job
+     * @param class-string<Cronable> $job
      */
     protected function isJobScheduled(string $job): bool {
         // Enabled?

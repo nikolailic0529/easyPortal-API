@@ -10,6 +10,7 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Status;
+use App\Models\Tag;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
@@ -564,7 +565,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\Tag>
+     * @return array<Tag>
      */
     protected function assetTags(ViewAsset $asset): array {
         $name = $this->getNormalizer()->string($asset->assetTag);
@@ -577,7 +578,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\Coverage>
+     * @return array<Coverage>
      */
     protected function assetCoverages(ViewAsset $asset): array {
         return (new Collection($asset->assetCoverage ?? []))

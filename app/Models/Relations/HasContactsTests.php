@@ -5,16 +5,17 @@ namespace App\Models\Relations;
 use App\Models\Contact;
 use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Tests\TestCase;
 
 /**
  * @internal
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait HasContactsTests {
     use WithQueryLog;
 
     /**
-     * @return \App\Utils\Eloquent\Model&\App\Models\Relations\HasContacts
+     * @return Model&HasContacts
      */
     abstract protected function getModel(): Model;
 
@@ -22,7 +23,7 @@ trait HasContactsTests {
      * @covers ::setContactsAttribute
      */
     public function testSetContactsAttribute(): void {
-        /** @var \App\Utils\Eloquent\Model&\App\Models\Relations\HasContacts $model */
+        /** @var Model&HasContacts $model */
         $model   = $this->getModel()->factory()->create([
             'contacts_count' => 2,
         ]);

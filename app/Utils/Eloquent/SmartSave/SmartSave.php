@@ -2,11 +2,12 @@
 
 namespace App\Utils\Eloquent\SmartSave;
 
+use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait SmartSave {
     /**

@@ -5,12 +5,13 @@ namespace Database\Factories;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\OrganizationUser create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\OrganizationUser make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method OrganizationUser create($attributes = [], ?Model $parent = null)
+ * @method OrganizationUser make($attributes = [], ?Model $parent = null)
  */
 class OrganizationUserFactory extends Factory {
     /**

@@ -172,7 +172,7 @@ class Update {
     /**
      * @param array<array{locale:string,text:string}>|null $translations
      *
-     * @return array<\App\Services\DataLoader\Schema\InputTranslationText>|null
+     * @return array<InputTranslationText>|null
      */
     protected function getTranslationText(?array $translations): ?array {
         $texts = null;

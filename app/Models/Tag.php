@@ -4,6 +4,10 @@ namespace App\Models;
 
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\TagFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,17 +15,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * Tag.
  *
- * @property string                       $id
- * @property string|null                  $name
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read Collection<int, Asset>  $assets
- * @method static \Database\Factories\TagFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag query()
- * @mixin \Eloquent
+ * @property string                      $id
+ * @property string|null                 $name
+ * @property CarbonImmutable             $created_at
+ * @property CarbonImmutable             $updated_at
+ * @property CarbonImmutable|null        $deleted_at
+ * @property-read Collection<int, Asset> $assets
+ * @method static TagFactory factory(...$parameters)
+ * @method static Builder|Tag newModelQuery()
+ * @method static Builder|Tag newQuery()
+ * @method static Builder|Tag query()
+ * @mixin Eloquent
  */
 class Tag extends Model {
     use HasFactory;

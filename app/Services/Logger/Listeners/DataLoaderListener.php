@@ -14,7 +14,7 @@ use function array_pop;
 
 class DataLoaderListener extends Listener {
     /**
-     * @var array<\App\Services\Logger\Listeners\DataLoaderRequest>
+     * @var array<DataLoaderRequest>
      */
     protected array $stack = [];
 

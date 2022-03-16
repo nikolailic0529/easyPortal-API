@@ -14,6 +14,7 @@ use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
@@ -125,7 +126,7 @@ class CustomerFactory extends CompanyFactory {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyKpis> $kpis
+     * @param array<CompanyKpis> $kpis
      *
      * @return Collection<int, ResellerCustomer>
      */

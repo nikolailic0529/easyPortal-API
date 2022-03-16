@@ -6,6 +6,7 @@ use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,7 +17,7 @@ use Illuminate\Support\Collection;
  *
  * @property Collection<string,TPivot> $resellersPivots
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasResellers {
     use OwnedByReseller;

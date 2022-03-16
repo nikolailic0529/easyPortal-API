@@ -25,6 +25,10 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\DocumentFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -47,8 +51,8 @@ use function count;
  * @property string|null                    $reseller_id
  * @property string|null                    $distributor_id
  * @property string                         $number
- * @property \Carbon\CarbonImmutable|null   $start
- * @property \Carbon\CarbonImmutable|null   $end
+ * @property CarbonImmutable|null           $start
+ * @property CarbonImmutable|null           $end
  * @property string|null                    $price
  * @property string|null                    $currency_id
  * @property string|null                    $language_id
@@ -56,34 +60,34 @@ use function count;
  * @property int                            $entries_count
  * @property int                            $contacts_count
  * @property int                            $statuses_count
- * @property \Carbon\CarbonImmutable|null   $changed_at
- * @property \Carbon\CarbonImmutable        $synced_at
- * @property \Carbon\CarbonImmutable        $created_at
- * @property \Carbon\CarbonImmutable        $updated_at
- * @property \Carbon\CarbonImmutable|null   $deleted_at
+ * @property CarbonImmutable|null           $changed_at
+ * @property CarbonImmutable                $synced_at
+ * @property CarbonImmutable                $created_at
+ * @property CarbonImmutable                $updated_at
+ * @property CarbonImmutable|null           $deleted_at
  * @property Collection<int, Contact>       $contacts
- * @property \App\Models\Currency|null      $currency
- * @property \App\Models\Customer|null      $customer
- * @property \App\Models\Distributor|null   $distributor
+ * @property Currency|null                  $currency
+ * @property Customer|null                  $customer
+ * @property Distributor|null               $distributor
  * @property-read bool                      $is_contract
  * @property-read bool                      $is_quote
  * @property-read Collection<int, Asset>    $assets
  * @property Collection<int, DocumentEntry> $entries
- * @property \App\Models\Language|null      $language
+ * @property Language|null                  $language
  * @property-read Collection<int, Note>     $notes
- * @property \App\Models\Oem                $oem
- * @property \App\Models\OemGroup|null      $oemGroup
- * @property \App\Models\Reseller|null      $reseller
+ * @property Oem                            $oem
+ * @property OemGroup|null                  $oemGroup
+ * @property Reseller|null                  $reseller
  * @property Collection<int, Status>        $statuses
- * @property \App\Models\Type               $type
- * @method static \Database\Factories\DocumentFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryContracts()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryDocuments()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryQuotes()
- * @mixin \Eloquent
+ * @property Type                           $type
+ * @method static DocumentFactory factory(...$parameters)
+ * @method static Builder|Document newModelQuery()
+ * @method static Builder|Document newQuery()
+ * @method static Builder|Document query()
+ * @method static Builder|Document queryContracts()
+ * @method static Builder|Document queryDocuments()
+ * @method static Builder|Document queryQuotes()
+ * @mixin Eloquent
  */
 class Document extends Model {
     use HasFactory;

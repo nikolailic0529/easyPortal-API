@@ -35,7 +35,7 @@ class ModelConverterTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<\GraphQL\Type\Definition\Type> $types
+     * @param array<Type> $types
      */
     protected function getGraphQL(array $types): string {
         $schema = array_map(static function (Type $type): string {

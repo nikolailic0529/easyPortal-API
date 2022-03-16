@@ -2,8 +2,10 @@
 
 namespace App\Services\Organization\Eloquent;
 
+use App\Utils\Eloquent\Model;
+
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait OwnedByReseller {
     use OwnedByOrganization;

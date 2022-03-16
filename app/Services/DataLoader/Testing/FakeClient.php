@@ -3,25 +3,26 @@
 namespace App\Services\DataLoader\Testing;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Testing\Data\Data;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 
 class FakeClient extends Client {
     use WithTestData;
 
     /**
-     * @var class-string<\App\Services\DataLoader\Testing\Data\Data>
+     * @var class-string<Data>
      */
     private string $data;
 
     /**
-     * @return class-string<\App\Services\DataLoader\Testing\Data\Data>
+     * @return class-string<Data>
      */
     public function getData(): string {
         return $this->data;
     }
 
     /**
-     * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $data
+     * @param class-string<Data> $data
      */
     public function setData(string $data): static {
         $this->data = $data;

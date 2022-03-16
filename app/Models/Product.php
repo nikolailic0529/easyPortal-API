@@ -4,26 +4,30 @@ namespace App\Models;
 
 use App\Models\Relations\HasOem;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\ProductFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Product.
  *
- * @property string                       $id
- * @property string                       $oem_id
- * @property string                       $sku
- * @property string                       $name
- * @property \Carbon\CarbonImmutable|null $eol
- * @property \Carbon\CarbonImmutable|null $eos
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Oem              $oem
- * @method static \Database\Factories\ProductFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $oem_id
+ * @property string               $sku
+ * @property string               $name
+ * @property CarbonImmutable|null $eol
+ * @property CarbonImmutable|null $eos
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Oem                  $oem
+ * @method static ProductFactory factory(...$parameters)
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
+ * @mixin Eloquent
  */
 class Product extends Model {
     use HasFactory;

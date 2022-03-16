@@ -2,6 +2,8 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
@@ -147,7 +149,7 @@ class Setting {
     }
 
     /**
-     * @return class-string<\App\Services\Queue\Job>|null
+     * @return class-string<Job>|null
      */
     public function getJob(): ?string {
         return $this->isJob() && $this->definition instanceof JobAttribute
@@ -160,7 +162,7 @@ class Setting {
     }
 
     /**
-     * @return class-string<\App\Services\Queue\CronJob>|null
+     * @return class-string<CronJob>|null
      */
     public function getService(): ?string {
         return $this->isService() && $this->definition instanceof ServiceAttribute
@@ -186,7 +188,7 @@ class Setting {
      *
      * @param class-string<T> ...$attributes
      *
-     * @return \ReflectionAttribute<T>|null
+     * @return ReflectionAttribute<T>|null
      */
     protected function getAttribute(string ...$attributes): ?ReflectionAttribute {
         $result = null;

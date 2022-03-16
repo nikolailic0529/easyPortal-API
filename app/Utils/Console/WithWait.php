@@ -3,12 +3,13 @@
 namespace App\Utils\Console;
 
 use Closure;
+use Illuminate\Console\Command;
 
 use function sleep;
 use function time;
 
 /**
- * @mixin \Illuminate\Console\Command
+ * @mixin Command
  */
 trait WithWait {
     /**

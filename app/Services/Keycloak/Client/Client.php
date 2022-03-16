@@ -184,7 +184,7 @@ class Client {
     }
 
     /**
-     * @param array<KeycloakRole|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      */
     public function createGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -198,7 +198,7 @@ class Client {
     }
 
     /**
-     * @param array<KeycloakRole|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      */
     public function updateGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         $keyBy    = static function (KeycloakRole $role): string {
@@ -221,7 +221,7 @@ class Client {
     }
 
     /**
-     * @param array<KeycloakRole|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      */
     public function deleteGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -359,7 +359,7 @@ class Client {
     }
 
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\Group>
+     * @return array<KeycloakGroup>
      */
     public function getUserGroups(string $id): array {
         // GET /{realm}/users/{id}/groups
@@ -419,7 +419,7 @@ class Client {
     }
 
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\User>
+     * @return array<KeycloakUser>
      */
     public function getUsers(int $limit, int $offset): array {
         $keycloak = rtrim($this->config->get('ep.keycloak.url'), '/');
@@ -445,7 +445,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\Keycloak\Client\Types\User>
+     * @return ObjectIterator<KeycloakUser>
      */
     public function getUsersIterator(): ObjectIterator {
         return new OffsetBasedObjectIterator(
@@ -537,7 +537,7 @@ class Client {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<KeycloakRole|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      *
      * @return Collection<int, KeycloakRole>
      */

@@ -14,7 +14,7 @@ use Throwable;
  * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData
  * @template TState of \App\Utils\Processor\EloquentState<TItem>
  *
- * @extends \App\Utils\Processor\EloquentProcessor<TItem, TChunkData, TState>
+ * @extends EloquentProcessor<TItem, TChunkData, TState>
  */
 abstract class Processor extends EloquentProcessor {
     protected function report(Throwable $exception, mixed $item = null): void {

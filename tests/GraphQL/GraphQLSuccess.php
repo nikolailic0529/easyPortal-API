@@ -15,7 +15,7 @@ class GraphQLSuccess extends GraphQLResponse {
     protected JsonFragment|null $content;
 
     /**
-     * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
+     * @param JsonFragmentSchema|class-string|null $schema
      */
     public function __construct(
         string $root,

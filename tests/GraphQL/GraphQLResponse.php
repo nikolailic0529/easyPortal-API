@@ -8,6 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Bodies\JsonBody;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\JsonContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
+use PHPUnit\Framework\Constraint\Constraint;
 
 use function array_filter;
 use function array_merge;
@@ -17,7 +18,7 @@ abstract class GraphQLResponse extends Response {
     protected JsonFragmentSchema|string|null $schema;
 
     /**
-     * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
+     * @param JsonFragmentSchema|class-string|null $schema
      */
     public function __construct(string $root, JsonFragmentSchema|string|null $schema) {
         $this->schema = $this->getJsonFragmentSchema("data.{$root}", $schema);
@@ -54,7 +55,7 @@ abstract class GraphQLResponse extends Response {
     }
 
     /**
-     * @return array<\PHPUnit\Framework\Constraint\Constraint>
+     * @return array<Constraint>
      */
     protected function getSchemaConstraints(): array {
         return [
@@ -63,14 +64,14 @@ abstract class GraphQLResponse extends Response {
     }
 
     /**
-     * @return class-string<\Tests\GraphQL\GraphQLResponse>
+     * @return class-string<GraphQLResponse>
      */
     protected function getResponseClass(): string {
         return $this::class;
     }
 
     /**
-     * @return array<\PHPUnit\Framework\Constraint\Constraint>
+     * @return array<Constraint>
      */
     abstract protected function getResponseConstraints(): array;
 }

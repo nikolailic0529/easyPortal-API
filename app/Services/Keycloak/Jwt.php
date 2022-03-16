@@ -38,7 +38,7 @@ class Jwt {
     protected Configuration $configuration;
 
     /**
-     * @var array<class-string<\Lcobucci\JWT\Signer>>
+     * @var array<class-string<Signer>>
      */
     protected array $signers = [
         'HS256' => HS256::class,

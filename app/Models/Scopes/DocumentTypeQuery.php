@@ -3,6 +3,7 @@
 namespace App\Models\Scopes;
 
 use App\Models\Type;
+use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -11,7 +12,7 @@ use function app;
 /**
  * @see \App\Models\Scopes\DocumentType
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait DocumentTypeQuery {
     public function scopeQueryContracts(Builder $builder): Builder {

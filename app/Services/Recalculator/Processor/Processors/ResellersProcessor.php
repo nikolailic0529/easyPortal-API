@@ -4,7 +4,9 @@ namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
+use App\Models\ResellerLocation;
 use App\Services\Recalculator\Processor\Processor;
+use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,7 +20,7 @@ use function count;
 use const SORT_REGULAR;
 
 /**
- * @extends \App\Services\Recalculator\Processor\Processor<\App\Models\Reseller,\App\Services\Recalculator\Processor\Processors\ResellersChunkData>
+ * @extends Processor<Reseller,ResellersChunkData>
  */
 class ResellersProcessor extends Processor {
     protected function getModel(): string {
@@ -36,9 +38,9 @@ class ResellersProcessor extends Processor {
     }
 
     /**
-     * @param \App\Utils\Processor\EloquentState<\App\Models\Reseller>           $state
-     * @param \App\Services\Recalculator\Processor\Processors\ResellersChunkData $data
-     * @param \App\Models\Reseller                                               $item
+     * @param EloquentState<Reseller> $state
+     * @param ResellersChunkData      $data
+     * @param Reseller                $item
      */
     protected function process(State $state, mixed $data, mixed $item): void {
         // Prepare
@@ -65,7 +67,7 @@ class ResellersProcessor extends Processor {
 
         // Locations
         foreach ($reseller->locations as $location) {
-            /** @var \App\Models\ResellerLocation $location */
+            /** @var ResellerLocation $location */
             $location->customers_count = $resellerCustomersByLocation[$location->location_id] ?? 0;
             $location->assets_count    = $resellerAssetsByLocation[$location->location_id] ?? 0;
             $location->save();
@@ -94,7 +96,7 @@ class ResellersProcessor extends Processor {
         }
 
         foreach ($existing as $id => $customer) {
-            /** @var \App\Models\ResellerCustomer $customer */
+            /** @var ResellerCustomer $customer */
             if ($customer->kpi_id !== null) {
                 $customers[$id]                  = $customer;
                 $customers[$id]->assets_count    = 0;

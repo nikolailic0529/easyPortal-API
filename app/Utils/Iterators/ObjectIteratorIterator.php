@@ -15,7 +15,7 @@ use Iterator;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<V>
+ * @implements ObjectIterator<V>
  *
  * @uses \App\Utils\Iterators\Concerns\InitialState<T>
  * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
@@ -28,8 +28,8 @@ class ObjectIteratorIterator implements ObjectIterator {
     use Subjects;
 
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<V> $internalIterator
-     * @param Closure(V): T                                    $converter
+     * @param ObjectIterator<V> $internalIterator
+     * @param Closure(V): T     $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
@@ -57,7 +57,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     // <editor-fold desc="IteratorAggregate">
     // =========================================================================
     /**
-     * @return \Iterator<T>
+     * @return Iterator<T>
      */
     public function getIterator(): Iterator {
         try {

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Config\Repository;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithSettings {
     /**

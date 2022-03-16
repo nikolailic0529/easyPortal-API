@@ -36,7 +36,7 @@ class DataGenerator {
     }
 
     /**
-     * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $class
+     * @param class-string<Data> $class
      */
     public function generate(string $class): bool {
         // Exists?
@@ -108,7 +108,7 @@ class DataGenerator {
     }
 
     /**
-     * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $class
+     * @param class-string<Data> $class
      */
     public function restore(string $class): bool {
         $data        = $this->app->make($class);

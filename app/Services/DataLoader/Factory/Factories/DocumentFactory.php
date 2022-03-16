@@ -422,7 +422,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\Status>
+     * @return array<Status>
      */
     protected function documentStatuses(DocumentModel $model, Document $document): array {
         return (new Collection($document->status ?? []))
@@ -437,7 +437,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\DocumentEntry>
+     * @return array<DocumentEntryModel>
      */
     protected function documentEntries(DocumentModel $model, Document $document): array {
         return $this->entries(

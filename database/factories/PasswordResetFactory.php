@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\PasswordReset;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\PasswordReset create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\PasswordReset make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method PasswordReset create($attributes = [], ?Model $parent = null)
+ * @method PasswordReset make($attributes = [], ?Model $parent = null)
  */
 class PasswordResetFactory extends Factory {
     /**

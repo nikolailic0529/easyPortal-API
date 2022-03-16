@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -12,8 +13,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 use function array_keys;
 
 /**
- * @method \App\Models\ChangeRequest create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\ChangeRequest make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method ChangeRequest create($attributes = [], ?Model $parent = null)
+ * @method ChangeRequest make($attributes = [], ?Model $parent = null)
  */
 class ChangeRequestFactory extends Factory {
     /**

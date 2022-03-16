@@ -15,7 +15,7 @@ class GraphQLValidationError extends GraphQLError {
     }
 
     /**
-     * @return class-string<\Tests\GraphQL\GraphQLResponse>
+     * @return class-string<GraphQLResponse>
      */
     protected function getResponseClass(): string {
         return GraphQLError::class;

@@ -3,6 +3,7 @@
 namespace Database\Factories\Audits;
 
 use App\Models\Audits\Audit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -10,8 +11,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 use function array_keys;
 
 /**
- * @method \App\Models\Audits\Audit create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Audits\Audit make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Audit create($attributes = [], ?Model $parent = null)
+ * @method Audit make($attributes = [], ?Model $parent = null)
  */
 class AuditFactory extends Factory {
     /**

@@ -844,7 +844,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertCount($created->contacts_count, $created->contacts);
         $this->assertCount($created->statuses_count, $created->statuses);
 
-        /** @var \App\Models\DocumentEntry $e */
+        /** @var DocumentEntryModel $e */
         $e = $created->entries->first(static function (DocumentEntryModel $entry): bool {
             return $entry->renewal === '145.00';
         });
@@ -892,7 +892,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertCount(0, $changed->statuses);
         $this->assertCount(0, $changed->refresh()->statuses);
 
-        /** @var \App\Models\DocumentEntry $e */
+        /** @var DocumentEntryModel $e */
         $e = $changed->entries->first(static function (DocumentEntryModel $entry): bool {
             return is_null($entry->renewal);
         });

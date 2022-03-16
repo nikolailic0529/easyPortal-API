@@ -73,7 +73,7 @@ class DateTest extends TestCase {
     }
 
     /**
-     * @return array<string, array{string|\Exception, string}>
+     * @return array<string, array{string|Exception, string}>
      */
     public function dataProviderParse(): array {
         return [

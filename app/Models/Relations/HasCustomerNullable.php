@@ -5,10 +5,11 @@ namespace App\Models\Relations;
 use App\Models\Customer;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasCustomerNullable {
     #[CascadeDelete(false)]

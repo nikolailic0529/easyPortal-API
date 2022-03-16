@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Team;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Team create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Team make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Team create($attributes = [], ?Model $parent = null)
+ * @method Team make($attributes = [], ?Model $parent = null)
  */
 class TeamFactory extends Factory {
     /**

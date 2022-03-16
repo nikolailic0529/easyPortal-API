@@ -6,16 +6,17 @@ use Closure;
 use LogicException;
 use Mockery;
 use Mockery\Exception\InvalidCountException;
+use Mockery\MockInterface;
 use OutOfBoundsException;
 
 use function sprintf;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait Override {
     /**
-     * @var array<class-string,\Mockery\MockInterface>
+     * @var array<class-string,MockInterface>
      */
     private array $overrides = [];
 
@@ -37,10 +38,10 @@ trait Override {
     /**
      * @template T
      *
-     * @param class-string<T>                                            $class
-     * @param null|Closure(T|\Mockery\MockInterface, \Tests\TestCase): T $factory
+     * @param class-string<T>                            $class
+     * @param null|Closure(T|MockInterface, TestCase): T $factory
      *
-     * @return T|\Mockery\MockInterface
+     * @return T|MockInterface
      */
     protected function override(string $class, Closure $factory = null): mixed {
         // Overridden?

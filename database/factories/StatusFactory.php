@@ -3,10 +3,11 @@
 namespace Database\Factories;
 
 use App\Models\Status;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method \App\Models\Status create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Status make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Status create($attributes = [], ?Model $parent = null)
+ * @method Status make($attributes = [], ?Model $parent = null)
  */
 class StatusFactory extends TypeFactory {
     /**

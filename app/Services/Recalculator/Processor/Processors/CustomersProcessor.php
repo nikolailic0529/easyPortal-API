@@ -4,13 +4,14 @@ namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\Customer;
 use App\Services\Recalculator\Processor\Processor;
+use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 use function count;
 
 /**
- * @extends \App\Services\Recalculator\Processor\Processor<\App\Models\Customer,\App\Services\Recalculator\Processor\Processors\CustomersChunkData>
+ * @extends Processor<Customer,CustomersChunkData>
  */
 class CustomersProcessor extends Processor {
     protected function getModel(): string {
@@ -28,9 +29,9 @@ class CustomersProcessor extends Processor {
     }
 
     /**
-     * @param \App\Utils\Processor\EloquentState<\App\Models\Customer>           $state
-     * @param \App\Services\Recalculator\Processor\Processors\CustomersChunkData $data
-     * @param \App\Models\Customer                                               $item
+     * @param EloquentState<Customer> $state
+     * @param CustomersChunkData      $data
+     * @param Customer                $item
      */
     protected function process(State $state, mixed $data, mixed $item): void {
         $item->locations_count = count($item->locations);

@@ -21,7 +21,7 @@ use function reset;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ * @implements ObjectIterator<T>
  *
  * @uses     \App\Utils\Iterators\Concerns\Subjects<T>
  * @uses     \App\Utils\Iterators\Concerns\InitialState<T>
@@ -59,7 +59,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     }
 
     /**
-     * @return \Iterator<T>
+     * @return Iterator<T>
      */
     public function getIterator(): Iterator {
         // Prepare

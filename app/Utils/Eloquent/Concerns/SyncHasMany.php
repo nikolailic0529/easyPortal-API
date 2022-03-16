@@ -23,7 +23,7 @@ trait SyncHasMany {
      */
     protected function syncHasMany(string $relation, Collection|array $objects): void {
         // Prepare
-        /** @var \Illuminate\Database\Eloquent\Relations\HasMany $hasMany */
+        /** @var HasMany $hasMany */
         $hasMany = $this->{$relation}();
 
         if (!($hasMany instanceof HasMany)) {
@@ -40,7 +40,7 @@ trait SyncHasMany {
 
         if (!$existing->isEmpty()) {
             foreach ($children as $key => $child) {
-                /** @var \Illuminate\Database\Eloquent\Model $child */
+                /** @var Model $child */
                 $object = $existing->get($key);
 
                 if ($object instanceof Model) {

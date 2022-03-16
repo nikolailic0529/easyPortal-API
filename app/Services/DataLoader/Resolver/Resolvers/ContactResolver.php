@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Contact>
+ * @extends Resolver<Contact>
  */
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {

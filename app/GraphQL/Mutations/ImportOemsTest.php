@@ -30,7 +30,7 @@ class ImportOemsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param Closure(): \Illuminate\Http\UploadedFile $fileFactory
+     * @param Closure(): UploadedFile $fileFactory
      */
     public function testInvoke(
         Response|array $expected,

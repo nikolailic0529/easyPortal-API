@@ -4,12 +4,13 @@ namespace Database\Factories;
 
 use App\Models\Reseller;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Reseller create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Reseller make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Reseller create($attributes = [], ?Model $parent = null)
+ * @method Reseller make($attributes = [], ?Model $parent = null)
  */
 class ResellerFactory extends Factory {
     /**

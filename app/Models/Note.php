@@ -9,30 +9,34 @@ use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\NoteFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Note.
  *
- * @property string                       $id
- * @property string                       $note
- * @property string                       $document_id
- * @property string                       $organization_id
- * @property string                       $user_id
- * @property bool                         $pinned
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\User             $user
- * @property \App\Models\Document         $document
- * @property Collection<int, File>        $files
- * @property \App\Models\Organization     $organization
- * @method static \Database\Factories\NoteFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note query()
- * @mixin \Eloquent
+ * @property string                $id
+ * @property string                $note
+ * @property string                $document_id
+ * @property string                $organization_id
+ * @property string                $user_id
+ * @property bool                  $pinned
+ * @property CarbonImmutable       $created_at
+ * @property CarbonImmutable       $updated_at
+ * @property CarbonImmutable|null  $deleted_at
+ * @property User                  $user
+ * @property Document              $document
+ * @property Collection<int, File> $files
+ * @property Organization          $organization
+ * @method static NoteFactory factory(...$parameters)
+ * @method static Builder|Note newModelQuery()
+ * @method static Builder|Note newQuery()
+ * @method static Builder|Note query()
+ * @mixin Eloquent
  */
 class Note extends Model {
     use HasFactory;

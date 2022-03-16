@@ -3,9 +3,10 @@
 namespace App\Models\Relations;
 
 use App\Models\Type;
+use App\Utils\Eloquent\Model;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasType {
     use HasTypeNullable {

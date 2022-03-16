@@ -79,7 +79,7 @@ class DateTimeTest extends TestCase {
     }
 
     /**
-     * @return array<string, array{string|\GraphQL\Error\Error, string|null, string}>
+     * @return array<string, array{string|Error, string|null, string}>
      */
     public function dataProviderParse(): array {
         return [

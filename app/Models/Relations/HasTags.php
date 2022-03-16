@@ -5,12 +5,13 @@ namespace App\Models\Relations;
 use App\Models\Tag;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasTags {
     use SyncBelongsToMany;

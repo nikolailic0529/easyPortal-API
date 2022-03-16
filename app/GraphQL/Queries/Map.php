@@ -169,7 +169,7 @@ class Map {
     }
 
     /**
-     * @param array<\League\Geotools\Geohash\Geohash> $geohashes
+     * @param array<Geohash> $geohashes
      */
     protected function getBoundaries(array $geohashes): ?BoundingBoxInterface {
         $boundaries = null;

@@ -297,12 +297,12 @@ class CustomersTest extends TestCase {
                                 'service_revenue_total_amount_change' => 26.0,
                             ]);
 
-                            /** @var \App\Models\Reseller $reseller */
+                            /** @var Reseller $reseller */
                             $reseller = Reseller::factory()->create([
                                 'id' => $organization,
                             ]);
 
-                            /** @var \App\Models\Location $location */
+                            /** @var Location $location */
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
@@ -315,7 +315,7 @@ class CustomersTest extends TestCase {
 
                             $location->resellers()->attach($reseller);
 
-                            /** @var \App\Models\Customer $customer */
+                            /** @var Customer $customer */
                             $customer    = Customer::factory()
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',

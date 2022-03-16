@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\QuoteRequestDuration;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\QuoteRequestDuration
- *  create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\QuoteRequestDuration make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method QuoteRequestDuration create($attributes = [], ?Model $parent = null)
+ * @method QuoteRequestDuration make($attributes = [], ?Model $parent = null)
  */
 class QuoteRequestDurationFactory extends Factory {
     /**

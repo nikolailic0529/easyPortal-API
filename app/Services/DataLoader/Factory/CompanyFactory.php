@@ -65,7 +65,7 @@ abstract class CompanyFactory extends ModelFactory {
     // <editor-fold desc="Company">
     // =========================================================================
     /**
-     * @return array<\App\Models\Status>
+     * @return array<Status>
      */
     protected function companyStatuses(Model $owner, Company $company): array {
         return (new Collection($company->status ?? []))
@@ -80,7 +80,7 @@ abstract class CompanyFactory extends ModelFactory {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyType> $types
+     * @param array<CompanyType> $types
      */
     protected function companyType(Model $owner, array $types): Type {
         $type  = null;

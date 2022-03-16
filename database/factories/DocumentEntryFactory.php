@@ -7,14 +7,15 @@ use App\Models\Currency;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 use function number_format;
 
 /**
- * @method \App\Models\DocumentEntry create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\DocumentEntry make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method DocumentEntry create($attributes = [], ?Model $parent = null)
+ * @method DocumentEntry make($attributes = [], ?Model $parent = null)
  */
 class DocumentEntryFactory extends Factory {
     /**

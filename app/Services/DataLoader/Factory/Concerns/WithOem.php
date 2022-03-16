@@ -4,12 +4,13 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Oem;
 use App\Services\DataLoader\Exceptions\OemNotFound;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithOem {
     abstract protected function getNormalizer(): Normalizer;

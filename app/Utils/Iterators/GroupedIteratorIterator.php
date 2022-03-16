@@ -12,14 +12,14 @@ use function count;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<array<T>>
+ * @implements ObjectIterator<array<T>>
  * @uses \App\Utils\Iterators\Concerns\PropertiesProxy<T,T>
  */
 class GroupedIteratorIterator implements ObjectIterator {
     use PropertiesProxy;
 
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<T> $internalIterator
+     * @param ObjectIterator<T> $internalIterator
      */
     public function __construct(
         private ObjectIterator $internalIterator,

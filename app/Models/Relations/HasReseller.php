@@ -3,9 +3,10 @@
 namespace App\Models\Relations;
 
 use App\Models\Reseller;
+use App\Utils\Eloquent\Model;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasReseller {
     use HasResellerNullable {

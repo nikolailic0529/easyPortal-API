@@ -43,7 +43,7 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
     public function resolveField(FieldValue $fieldValue): FieldValue {
         $fieldValue->setResolver(
             function (Model $parent, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) {
-                /** @var \Nuwave\Lighthouse\Execution\BatchLoader\RelationBatchLoader $batchLoader */
+                /** @var RelationBatchLoader $batchLoader */
                 $batchLoader = BatchLoaderRegistry::instance(
                     array_merge(
                         $this->qualifyPath($args, $resolveInfo),

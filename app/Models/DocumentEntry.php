@@ -9,39 +9,43 @@ use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\DocumentEntryFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Document Entry.
  *
- * @property string                        $id
- * @property string                        $document_id
- * @property string                        $asset_id
- * @property string|null                   $service_group_id
- * @property string|null                   $service_level_id
- * @property string                        $product_id
- * @property string|null                   $serial_number
- * @property \Carbon\CarbonImmutable|null  $start
- * @property \Carbon\CarbonImmutable|null  $end
- * @property string|null                   $currency_id
- * @property string|null                   $net_price
- * @property string|null                   $list_price
- * @property string|null                   $discount
- * @property string|null                   $renewal
- * @property \Carbon\CarbonImmutable       $created_at
- * @property \Carbon\CarbonImmutable       $updated_at
- * @property \Carbon\CarbonImmutable|null  $deleted_at
- * @property \App\Models\Asset             $asset
- * @property \App\Models\Currency|null     $currency
- * @property \App\Models\Document          $document
- * @property \App\Models\Product           $product
- * @property \App\Models\ServiceGroup|null $serviceGroup
- * @property \App\Models\ServiceLevel|null $serviceLevel
- * @method static \Database\Factories\DocumentEntryFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $document_id
+ * @property string               $asset_id
+ * @property string|null          $service_group_id
+ * @property string|null          $service_level_id
+ * @property string               $product_id
+ * @property string|null          $serial_number
+ * @property CarbonImmutable|null $start
+ * @property CarbonImmutable|null $end
+ * @property string|null          $currency_id
+ * @property string|null          $net_price
+ * @property string|null          $list_price
+ * @property string|null          $discount
+ * @property string|null          $renewal
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Asset                $asset
+ * @property Currency|null        $currency
+ * @property Document             $document
+ * @property Product              $product
+ * @property ServiceGroup|null    $serviceGroup
+ * @property ServiceLevel|null    $serviceLevel
+ * @method static DocumentEntryFactory factory(...$parameters)
+ * @method static Builder|DocumentEntry newModelQuery()
+ * @method static Builder|DocumentEntry newQuery()
+ * @method static Builder|DocumentEntry query()
+ * @mixin Eloquent
  */
 class DocumentEntry extends Model {
     use HasFactory;

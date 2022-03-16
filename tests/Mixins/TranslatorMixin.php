@@ -3,6 +3,7 @@
 namespace Tests\Mixins;
 
 use Closure;
+use Illuminate\Translation\Translator;
 
 class TranslatorMixin {
     public function replaceLines(): Closure {
@@ -13,7 +14,7 @@ class TranslatorMixin {
          */
         return function (array $lines, $locale): void {
             foreach ($lines as $key => $value) {
-                /** @var \Illuminate\Translation\Translator $this */
+                /** @var Translator $this */
                 $this->loaded['*']['*'][$locale][$key] = $value;
             }
         };

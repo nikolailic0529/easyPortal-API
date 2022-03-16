@@ -91,8 +91,8 @@ class LoaderTest extends TestCase {
      *
      * @dataProvider dataProviderHandleBuilder
      *
-     * @param \Exception|class-string<\Exception>|array{query: string, bindings: array<mixed>}|null $expectedQuery
-     * @param array<string>|null                                                                    $parents
+     * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>}|null $expectedQuery
+     * @param array<string>|null                                                                  $parents
      */
     public function testGetQuery(
         Exception|string|array|null $expectedQuery,

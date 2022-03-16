@@ -2,6 +2,9 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
+use App\Models\Contact;
+use App\Models\Location;
+use App\Models\Type;
 use App\Utils\Eloquent\Model;
 use Closure;
 use SplObjectStorage;
@@ -28,7 +31,7 @@ trait Polymorphic {
      */
     private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): array {
         // First, we should convert type into the internal model and determine its types.
-        /** @var \SplObjectStorage<\App\Models\Contact|\App\Models\Location, array<\App\Models\Type>> $models */
+        /** @var SplObjectStorage<Contact|Location, array<Type>> $models */
         $models = new SplObjectStorage();
 
         foreach ($objects as $object) {

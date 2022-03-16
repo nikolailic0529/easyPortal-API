@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 /**
  * @template T of \Illuminate\Database\Eloquent\Model
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ * @implements ObjectIterator<T>
  */
 class EloquentIterator implements ObjectIterator {
     use Subjects;
@@ -22,7 +22,7 @@ class EloquentIterator implements ObjectIterator {
     use InitialState;
 
     /**
-     * @param \LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator<T> $iterator
+     * @param LaraASPIterator<T> $iterator
      */
     public function __construct(
         protected LaraASPIterator $iterator,

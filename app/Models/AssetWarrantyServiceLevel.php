@@ -3,20 +3,23 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Asset Warranty Product (pivot)
  *
- * @property string                       $id
- * @property string                       $asset_warranty_id
- * @property string                       $service_level_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyServiceLevel newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyServiceLevel newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyServiceLevel query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $asset_warranty_id
+ * @property string               $service_level_id
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static Builder|AssetWarrantyServiceLevel newModelQuery()
+ * @method static Builder|AssetWarrantyServiceLevel newQuery()
+ * @method static Builder|AssetWarrantyServiceLevel query()
+ * @mixin Eloquent
  */
 class AssetWarrantyServiceLevel extends Pivot {
     /**

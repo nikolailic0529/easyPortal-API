@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Location>
+ * @extends Resolver<Location>
  */
 class LocationResolver extends Resolver {
     public function get(

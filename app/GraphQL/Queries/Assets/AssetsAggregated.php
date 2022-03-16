@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Expression;
 use InvalidArgumentException;
+use stdClass;
 
 use function sprintf;
 
@@ -46,7 +47,7 @@ class AssetsAggregated {
         $aggregated = [];
 
         foreach ($types as $type) {
-            /** @var \stdClass $result */
+            /** @var stdClass $result */
             $result       = $results->get($type->getKey());
             $aggregated[] = [
                 'count'   => (int) $result->count,
@@ -99,7 +100,7 @@ class AssetsAggregated {
         $aggregated = [];
 
         foreach ($results as $result) {
-            /** @var \App\Models\Coverage $result */
+            /** @var Coverage $result */
             $aggregated[] = [
                 'count'       => $result->assets_count,
                 'coverage_id' => $result->getKey(),

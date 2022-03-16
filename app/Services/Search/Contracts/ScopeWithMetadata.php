@@ -2,13 +2,14 @@
 
 namespace App\Services\Search\Contracts;
 
+use App\Services\Search\Properties\Property;
 use Illuminate\Database\Eloquent\Model;
 
 interface ScopeWithMetadata extends Scope {
     /**
      * Returns properties that must be added to the index as metadata.
      *
-     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
+     * @return array<string,Property|array<string,Property|array<string,Property|array<string,Property>>>>
      */
     public function getSearchMetadata(Model $model): array;
 }

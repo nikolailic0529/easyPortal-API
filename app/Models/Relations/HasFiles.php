@@ -17,7 +17,7 @@ trait HasFiles {
     }
 
     /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\File> $files
+     * @param Collection<int,File>|array<File> $files
      */
     public function setFilesAttribute(Collection|array $files): void {
         $this->syncMorphMany('files', $files);

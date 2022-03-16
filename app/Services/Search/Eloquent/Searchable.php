@@ -64,7 +64,7 @@ trait Searchable {
      *          ],
      *      ]
      *
-     * @return array<string,\App\Services\Search\Properties\Property>
+     * @return array<string,Property>
      */
     abstract protected static function getSearchProperties(): array;
 
@@ -73,7 +73,7 @@ trait Searchable {
      *
      * @see getSearchProperties()
      *
-     * @return array<string,\App\Services\Search\Properties\Property>
+     * @return array<string,Property>
      */
     protected static function getSearchMetadata(): array {
         return [];
@@ -178,7 +178,7 @@ trait Searchable {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<string, \App\Services\Search\Properties\Property> $properties
+     * @param array<string, Property> $properties
      *
      * @return array<string, mixed>
      */

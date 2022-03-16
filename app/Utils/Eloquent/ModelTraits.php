@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
- * @mixin \App\Utils\Eloquent\Pivot
+ * @mixin Model
+ * @mixin Pivot
  */
 trait ModelTraits {
     use SmartSave;

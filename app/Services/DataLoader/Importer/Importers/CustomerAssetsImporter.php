@@ -12,7 +12,7 @@ use function array_merge;
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\Importers\CustomerAssetsImporterState
  *
- * @extends \App\Services\DataLoader\Importer\Importers\AssetsImporter<TItem, TChunkData, TState>
+ * @extends AssetsImporter<TItem, TChunkData, TState>
  */
 class CustomerAssetsImporter extends AssetsImporter {
     private string $customerId;
@@ -33,7 +33,7 @@ class CustomerAssetsImporter extends AssetsImporter {
     // <editor-fold desc="Importer">
     // =========================================================================
     /**
-     * @param \App\Services\DataLoader\Importer\Importers\CustomerAssetsImporterState $state
+     * @param CustomerAssetsImporterState $state
      */
     protected function getIterator(State $state): ObjectIterator {
         return $state->withDocuments

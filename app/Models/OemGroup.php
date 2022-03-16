@@ -4,24 +4,28 @@ namespace App\Models;
 
 use App\Models\Relations\HasOem;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\OemGroupFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Oem Group.
  *
- * @property string                       $id
- * @property string                       $oem_id
- * @property string                       $key
- * @property string                       $name
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Oem              $oem
- * @method static \Database\Factories\OemGroupFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OemGroup newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OemGroup newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OemGroup query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $oem_id
+ * @property string               $key
+ * @property string               $name
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Oem                  $oem
+ * @method static OemGroupFactory factory(...$parameters)
+ * @method static Builder|OemGroup newModelQuery()
+ * @method static Builder|OemGroup newQuery()
+ * @method static Builder|OemGroup query()
+ * @mixin Eloquent
  */
 class OemGroup extends Model {
     use HasFactory;

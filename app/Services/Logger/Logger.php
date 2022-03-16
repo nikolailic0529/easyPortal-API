@@ -26,7 +26,7 @@ class Logger {
     protected int     $index  = 0;
 
     /**
-     * @var array<\App\Services\Logger\Action>
+     * @var array<Action>
      */
     protected array $stack = [];
 
@@ -140,7 +140,7 @@ class Logger {
         }
 
         // Update
-        /** @var array<\App\Services\Logger\Action> $actions */
+        /** @var array<Action> $actions */
         $actions = [...$this->stack, $this->action];
         $dump    = $this->config->get('ep.logger.dump');
         $dump    = $dump ? Date::now()->sub($dump) : null;

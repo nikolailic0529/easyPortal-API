@@ -40,7 +40,7 @@ class SemanticVersionTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{string|\Exception, string}>
+     * @return array<string, array{string|Exception, string}>
      */
     public function dataProviderConstruct(): array {
         return [

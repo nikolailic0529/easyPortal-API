@@ -6,9 +6,9 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property string                    $object_type
- * @property string                    $object_id
- * @property \App\Utils\Eloquent\Model $object
+ * @property string $object_type
+ * @property string $object_id
+ * @property Model  $object
  */
 abstract class PolymorphicModel extends Model {
     #[CascadeDelete(false)]

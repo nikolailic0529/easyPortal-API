@@ -2,10 +2,12 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
+use App\Utils\Eloquent\Model;
+
 use function str_starts_with;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HideGeneratedAttributes {
     /**

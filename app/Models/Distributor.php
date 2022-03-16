@@ -3,23 +3,27 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\DistributorFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Distributor.
  *
- * @property string                       $id
- * @property string                       $name
- * @property \Carbon\CarbonImmutable|null $changed_at
- * @property \Carbon\CarbonImmutable      $synced_at
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Database\Factories\DistributorFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $name
+ * @property CarbonImmutable|null $changed_at
+ * @property CarbonImmutable      $synced_at
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static DistributorFactory factory(...$parameters)
+ * @method static Builder|Distributor newModelQuery()
+ * @method static Builder|Distributor newQuery()
+ * @method static Builder|Distributor query()
+ * @mixin Eloquent
  */
 class Distributor extends Model {
     use HasFactory;

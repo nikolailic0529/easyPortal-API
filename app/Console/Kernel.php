@@ -29,6 +29,7 @@ use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
+use LastDragon_ru\LaraASP\Queue\Contracts\Cronable;
 
 use function base_path;
 
@@ -65,7 +66,7 @@ class Kernel extends ConsoleKernel {
     /**
      * The application's command schedule.
      *
-     * @var array<class-string<\LastDragon_ru\LaraASP\Queue\Contracts\Cronable>>
+     * @var array<class-string<Cronable>>
      */
     protected array $schedule = [
         QueueSnapshotCronJob::class,

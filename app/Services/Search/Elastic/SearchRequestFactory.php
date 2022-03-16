@@ -4,11 +4,13 @@ namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Value;
 use ElasticAdapter\Search\SearchRequest;
 use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactory;
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
 use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
@@ -57,7 +59,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
 
         foreach ($builder->getModels() as $model => $settings) {
             // Builder
-            /** @var \App\Services\Search\Builders\Builder $modelBuilder */
+            /** @var SearchBuilder $modelBuilder */
             $modelBuilder = $model::search($builder->query);
 
             foreach ($settings['scopes'] as $scope) {
@@ -137,7 +139,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
      * @inheritDoc
      */
     protected function makeQuery(ScoutBuilder $builder): array {
-        /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+        /** @var Model&Searchable $model */
         $model  = $builder->model;
         $query  = parent::makeQuery($builder);
         $string = trim((string) $builder->query);
@@ -286,7 +288,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
     protected function makeSort(ScoutBuilder $builder): ?array {
         $sort = (new Collection(parent::makeSort($builder)))
             ->map(static function (array $clause) use ($builder): array {
-                /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+                /** @var Model&Searchable $model */
                 $model    = $builder->model;
                 $name     = key($clause);
                 $property = $model->getSearchConfiguration()->getProperty($name);

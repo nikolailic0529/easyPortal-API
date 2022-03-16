@@ -7,7 +7,7 @@ use App\Utils\Processor\EloquentState;
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
  *
- * @extends \App\Utils\Processor\EloquentState<TModel>
+ * @extends EloquentState<TModel>
  */
 class State extends EloquentState {
     public bool $rebuild = false;

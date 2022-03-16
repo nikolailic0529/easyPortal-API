@@ -27,7 +27,7 @@ class CascadeProcessor {
     }
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Relations\Relation>
+     * @return array<Relation>
      */
     protected function getRelations(Model $model): array {
         $helper    = new ModelHelper($model);
@@ -88,7 +88,7 @@ class CascadeProcessor {
     }
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Model>
+     * @return array<Model>
      */
     protected function getRelatedObjects(Model $model, string $name, Relation $relation): array {
         $value  = $model->getRelationValue($name);

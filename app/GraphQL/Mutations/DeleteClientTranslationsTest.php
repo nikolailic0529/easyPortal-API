@@ -28,12 +28,9 @@ class DeleteClientTranslationsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param \LastDragon_ru\LaraASP\Testing\Constraints\Response\Response|array{
-     *      response:\LastDragon_ru\LaraASP\Testing\Constraints\Response\Response,
-     *      content:array<mixed>
-     *      } $expected
-     * @param array<mixed>  $content
-     * @param array<string> $keys
+     * @param Response|array{response:Response,content:array<mixed>} $expected
+     * @param array<mixed>                                           $content
+     * @param array<string>                                          $keys
      */
     public function testInvoke(
         Response|array $expected,

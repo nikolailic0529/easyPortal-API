@@ -19,6 +19,8 @@ use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
+use Database\Factories\AssetFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,27 +56,27 @@ use function count;
  * @property CarbonImmutable                     $created_at
  * @property CarbonImmutable                     $updated_at
  * @property CarbonImmutable|null                $deleted_at
- * @property-read \App\Models\ChangeRequest|null $changeRequest
+ * @property-read ChangeRequest|null             $changeRequest
  * @property Collection<int, Contact>            $contacts
  * @property-read Collection<int, Document>      $contracts
  * @property-read Collection<int, AssetWarranty> $contractWarranties
  * @property Collection<int, Coverage>           $coverages
- * @property \App\Models\Customer|null           $customer
- * @property \App\Models\Location|null           $location
- * @property \App\Models\Oem                     $oem
- * @property \App\Models\Product                 $product
+ * @property Customer|null                       $customer
+ * @property Location|null                       $location
+ * @property Oem                                 $oem
+ * @property Product                             $product
  * @property-read Collection<int, Document>      $quotes
- * @property \App\Models\Reseller|null           $reseller
- * @property \App\Models\Status|null             $status
+ * @property Reseller|null                       $reseller
+ * @property Status|null                         $status
  * @property Collection<int, Tag>                $tags
- * @property \App\Models\Type|null               $type
+ * @property Type|null                           $type
  * @property Collection<int, AssetWarranty>      $warranties
- * @property \App\Models\QuoteRequest|null       $quoteRequest
- * @method static \Database\Factories\AssetFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
- * @mixin \Eloquent
+ * @property QuoteRequest|null                   $quoteRequest
+ * @method static AssetFactory factory(...$parameters)
+ * @method static Builder|Asset newModelQuery()
+ * @method static Builder|Asset newQuery()
+ * @method static Builder|Asset query()
+ * @mixin Eloquent
  */
 class Asset extends Model {
     use Searchable;
@@ -150,7 +152,7 @@ class Asset extends Model {
             });
             $builder->orWhere(static function (Builder $builder): void {
                 $builder->whereHasIn('document', static function (Builder $builder): void {
-                    /** @var \Illuminate\Database\Eloquent\Builder|Document $builder */
+                    /** @var Builder|Document $builder */
                     $builder->queryContracts();
                 });
             });
@@ -174,7 +176,7 @@ class Asset extends Model {
         return $this
             ->documents()
             ->where(static function (Builder $builder) {
-                /** @var \Illuminate\Database\Eloquent\Builder|Document $builder */
+                /** @var Builder|Document $builder */
                 return $builder->queryContracts();
             });
     }
@@ -184,7 +186,7 @@ class Asset extends Model {
         return $this
             ->documents()
             ->where(static function (Builder $builder) {
-                /** @var \Illuminate\Database\Eloquent\Builder|Document $builder */
+                /** @var Builder|Document $builder */
                 return $builder->queryQuotes();
             });
     }

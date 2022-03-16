@@ -5,6 +5,7 @@ namespace Tests\GraphQL;
 use JsonSerializable;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesFragment;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
+use PHPUnit\Framework\Constraint\Constraint;
 use SplFileInfo;
 use stdClass;
 
@@ -15,7 +16,7 @@ class GraphQLPaginated extends GraphQLSuccess {
     protected JsonFragment|null $paginator = null;
 
     /**
-     * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
+     * @param JsonFragmentSchema|class-string|null $schema
      */
     public function __construct(
         string $root,
@@ -40,7 +41,7 @@ class GraphQLPaginated extends GraphQLSuccess {
     }
 
     /**
-     * @return array<\PHPUnit\Framework\Constraint\Constraint>
+     * @return array<Constraint>
      */
     protected function getResponseConstraints(): array {
         return [

@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Services\Service;
 use Exception;
+use Stringable;
 use Throwable;
 
 use function __;
@@ -60,7 +61,7 @@ abstract class ApplicationException extends Exception {
     }
 
     /**
-     * @param array<string, scalar|\Stringable> $replacements
+     * @param array<string, scalar|Stringable> $replacements
      */
     protected function translate(?Exception $service, string $message, array $replacements = []): string {
         if ($service) {

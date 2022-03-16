@@ -170,7 +170,7 @@ abstract class ProcessorCommand extends Command {
     }
 
     /**
-     * @return class-string<\App\Utils\Processor\Processor>
+     * @return class-string<Processor>
      */
     protected function getProcessorClass(): string {
         $class     = new ReflectionClass($this);

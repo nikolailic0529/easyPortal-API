@@ -7,6 +7,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Log\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\FormattableHandlerInterface;
+use Monolog\Logger as MonologLogger;
 
 /**
  * @see https://laravel.com/docs/8.x/logging#customizing-monolog-for-channels
@@ -19,7 +20,7 @@ class Configurator {
     }
 
     /**
-     * @param \Illuminate\Log\Logger&\Monolog\Logger $logger
+     * @param Logger&MonologLogger $logger
      */
     public function __invoke(Logger $logger): void {
         // Fix formatters settings

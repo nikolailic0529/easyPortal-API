@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\Note;
 use App\Services\Filesystem\ModelDiskFactory;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Http\UploadedFile;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 use function is_null;
@@ -37,8 +38,8 @@ class UpdateContractNote {
     }
 
     /**
-     * @param array<string> $permissions
-     * @param array<array{id: string}|array{content: \Illuminate\Http\UploadedFile}> $attached
+     * @param array<string>                                         $permissions
+     * @param array<array{id: string}|array{content: UploadedFile}> $attached
      */
     public function updateNote(
         string $noteId,

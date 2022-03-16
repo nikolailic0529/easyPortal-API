@@ -3,20 +3,23 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * CustomerStatus.
  *
- * @property string                       $id
- * @property string                       $customer_id
- * @property string                       $status_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerStatus newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerStatus newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerStatus query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $customer_id
+ * @property string               $status_id
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static Builder|CustomerStatus newModelQuery()
+ * @method static Builder|CustomerStatus newQuery()
+ * @method static Builder|CustomerStatus query()
+ * @mixin Eloquent
  */
 class CustomerStatus extends Pivot {
     /**

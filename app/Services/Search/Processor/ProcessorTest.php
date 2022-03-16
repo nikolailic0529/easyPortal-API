@@ -46,9 +46,9 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param array<string, mixed>                                                                       $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string|int>|null                                                                     $keys
+     * @param array<string, mixed>           $settings
+     * @param class-string<Model&Searchable> $model
+     * @param array<string|int>|null         $keys
      */
     public function testUpdate(
         Closure $expected,
@@ -194,9 +194,9 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderCreateIndex
      *
-     * @param array<mixed>                                                                     $expected
-     * @param class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string, string|null>                                                       $indexes
+     * @param array<mixed>                                       $expected
+     * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
+     * @param array<string, string|null>                         $indexes
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock
@@ -265,8 +265,8 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderIsIndexActual
      *
-     * @param class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string, string|null>                                                       $indexes
+     * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
+     * @param array<string, string|null>                         $indexes
      */
     public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
         // Mock

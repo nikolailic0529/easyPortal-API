@@ -2,7 +2,9 @@
 
 namespace App\Services\Search\Migrations;
 
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Service;
+use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
 class IndexesRebuild extends RawDataMigration {
@@ -21,7 +23,7 @@ class IndexesRebuild extends RawDataMigration {
     }
 
     /**
-     * @return array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
+     * @return array<class-string<Model&Searchable>>
      */
     protected function getSearchableModels(): array {
         $service = $this->getContainer()->make(Service::class);

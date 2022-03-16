@@ -3,12 +3,13 @@
 namespace Database\Factories\Logs;
 
 use App\Models\Logs\AnalyzeAsset;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Logs\AnalyzeAsset create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Logs\AnalyzeAsset make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method AnalyzeAsset create($attributes = [], ?Model $parent = null)
+ * @method AnalyzeAsset make($attributes = [], ?Model $parent = null)
  */
 class AnalyzeAssetFactory extends Factory {
     /**

@@ -28,7 +28,7 @@ class ModelDisk extends Disk {
     public const QUOTE_REQUESTS  = 'Model/QuoteRequest';
 
     /**
-     * @var array<class-string<\App\Utils\Eloquent\Model>,string>
+     * @var array<class-string<Model>,string>
      */
     protected array $map = [
         Organization::class  => self::ORGANIZATIONS,
@@ -102,9 +102,9 @@ class ModelDisk extends Disk {
     }
 
     /**
-     * @param array<\Illuminate\Http\UploadedFile> $uploads
+     * @param array<UploadedFile> $uploads
      *
-     * @return array<\App\Models\File>
+     * @return array<File>
      */
     public function storeToFiles(array $uploads): array {
         $files = [];

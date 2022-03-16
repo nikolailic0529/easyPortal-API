@@ -3,20 +3,23 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Asset Coverage.
  *
- * @property string                       $id
- * @property string                       $asset_id
- * @property string                       $coverage_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetCoverage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetCoverage newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetCoverage query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $asset_id
+ * @property string               $coverage_id
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static Builder|AssetCoverage newModelQuery()
+ * @method static Builder|AssetCoverage newQuery()
+ * @method static Builder|AssetCoverage query()
+ * @mixin Eloquent
  */
 class AssetCoverage extends Pivot {
     /**

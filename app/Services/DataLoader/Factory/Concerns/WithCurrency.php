@@ -3,11 +3,12 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Currency;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithCurrency {
     abstract protected function getNormalizer(): Normalizer;

@@ -51,7 +51,7 @@ class CacheKeyTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{\Exception|string,array<object|string>|object|string}>
+     * @return array<string,array{Exception|string,array<object|string>|object|string}>
      */
     public function dataProviderToString(): array {
         $tools = new Geotools();

@@ -14,6 +14,10 @@ use App\Services\Organization\Eloquent\OwnedByShared;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\AssetWarrantyFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,34 +26,34 @@ use Illuminate\Support\Collection as BaseCollection;
 /**
  * Asset Warranty.
  *
- * @property string                        $id
- * @property string                        $asset_id
- * @property string|null                   $type_id
- * @property string|null                   $status_id
- * @property string|null                   $reseller_id
- * @property string|null                   $customer_id
- * @property string|null                   $document_id
- * @property string|null                   $document_number
- * @property string|null                   $service_group_id
- * @property \Carbon\CarbonImmutable|null  $start
- * @property \Carbon\CarbonImmutable|null  $end
- * @property \Carbon\CarbonImmutable       $created_at
- * @property \Carbon\CarbonImmutable       $updated_at
- * @property \Carbon\CarbonImmutable|null  $deleted_at
- * @property string|null                   $description
- * @property \App\Models\Asset             $asset
- * @property \App\Models\Customer|null     $customer
- * @property \App\Models\Document|null     $document
- * @property \App\Models\Reseller|null     $reseller
- * @property \App\Models\ServiceGroup|null $serviceGroup
- * @property Collection<int,ServiceLevel>  $serviceLevels
- * @property \App\Models\Status|null       $status
- * @property \App\Models\Type|null         $type
- * @method static \Database\Factories\AssetWarrantyFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty query()
- * @mixin \Eloquent
+ * @property string                       $id
+ * @property string                       $asset_id
+ * @property string|null                  $type_id
+ * @property string|null                  $status_id
+ * @property string|null                  $reseller_id
+ * @property string|null                  $customer_id
+ * @property string|null                  $document_id
+ * @property string|null                  $document_number
+ * @property string|null                  $service_group_id
+ * @property CarbonImmutable|null         $start
+ * @property CarbonImmutable|null         $end
+ * @property CarbonImmutable              $created_at
+ * @property CarbonImmutable              $updated_at
+ * @property CarbonImmutable|null         $deleted_at
+ * @property string|null                  $description
+ * @property Asset                        $asset
+ * @property Customer|null                $customer
+ * @property Document|null                $document
+ * @property Reseller|null                $reseller
+ * @property ServiceGroup|null            $serviceGroup
+ * @property Collection<int,ServiceLevel> $serviceLevels
+ * @property Status|null                  $status
+ * @property Type|null                    $type
+ * @method static AssetWarrantyFactory factory(...$parameters)
+ * @method static Builder|AssetWarranty newModelQuery()
+ * @method static Builder|AssetWarranty newQuery()
+ * @method static Builder|AssetWarranty query()
+ * @mixin Eloquent
  */
 class AssetWarranty extends Model implements OwnedByShared {
     use OwnedByReseller;

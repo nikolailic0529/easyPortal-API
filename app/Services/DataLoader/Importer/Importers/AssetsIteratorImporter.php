@@ -13,14 +13,14 @@ use function is_object;
 
 class AssetsIteratorImporter extends AssetsImporter {
     /**
-     * @var \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @var ObjectIterator<ViewAsset>
      */
     private ObjectIterator $iterator;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<string|\App\Models\Asset> $iterator
+     * @param ObjectIterator<string|Asset> $iterator
      */
     public function setIterator(ObjectIterator $iterator): static {
         $this->iterator = new IteratorIterator(

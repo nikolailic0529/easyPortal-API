@@ -4,12 +4,13 @@ namespace App\Services\Recalculator\Testing;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Tests\TestCase;
 
 use function in_array;
 use function str_ends_with;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait Helper {
     /**

@@ -70,7 +70,7 @@ class Audit implements Subscriber {
         $dispatcher->listen(PasswordReset::class, [$this::class, 'passwordReset']);
         $dispatcher->listen(QueryExported::class, [$this::class, 'queryExported']);
         // Subscribe for model events
-        /** @var array<string,\App\Services\Audit\Enums\Action> $events */
+        /** @var array<string,Action> $events */
         $events = [
             'eloquent.created',
             'eloquent.updated',

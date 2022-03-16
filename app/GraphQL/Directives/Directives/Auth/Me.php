@@ -120,7 +120,7 @@ abstract class Me extends AuthDirective {
     }
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Model|class-string<\Illuminate\Database\Eloquent\Model>>
+     * @return array<Model|class-string<Model>>
      */
     protected function getGateArguments(mixed $root): array {
         $model = null;

@@ -8,6 +8,10 @@ use App\Models\Relations\HasResellers;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\LocationFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,19 +31,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null                    $geohash
  * @property int                            $customers_count
  * @property int                            $assets_count
- * @property \Carbon\CarbonImmutable        $created_at
- * @property \Carbon\CarbonImmutable        $updated_at
- * @property \Carbon\CarbonImmutable|null   $deleted_at
+ * @property CarbonImmutable                $created_at
+ * @property CarbonImmutable                $updated_at
+ * @property CarbonImmutable|null           $deleted_at
  * @property-read Collection<int, Asset>    $assets
- * @property \App\Models\City               $city
- * @property \App\Models\Country            $country
+ * @property City                           $city
+ * @property Country                        $country
  * @property-read Collection<int, Customer> $customers
  * @property-read Collection<int, Reseller> $resellers
- * @method static \Database\Factories\LocationFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location query()
- * @mixin \Eloquent
+ * @method static LocationFactory factory(...$parameters)
+ * @method static Builder|Location newModelQuery()
+ * @method static Builder|Location newQuery()
+ * @method static Builder|Location query()
+ * @mixin Eloquent
  *
  * @uses \App\Models\Relations\HasCustomers<\App\Models\LocationCustomer>
  * @uses \App\Models\Relations\HasResellers<\App\Models\LocationReseller>

@@ -2,6 +2,7 @@
 
 namespace App\Services\Settings\Attributes;
 
+use App\Services\Queue\CronJob;
 use Attribute;
 
 /**
@@ -10,7 +11,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
 class Service extends Setting {
     /**
-     * @param class-string<\App\Services\Queue\CronJob> $class
+     * @param class-string<CronJob> $class
      */
     public function __construct(
         protected string $class,

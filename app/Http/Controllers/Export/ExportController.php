@@ -124,7 +124,7 @@ class ExportController extends Controller {
     /**
      * @param Closure(array<string>): void $headersCallback
      *
-     * @return \Iterator<array<mixed>>
+     * @return Iterator<array<mixed>>
      */
     protected function getRowsIterator(ExportRequest $request, string $format, Closure $headersCallback): Iterator {
         // Prepare request
@@ -223,7 +223,7 @@ class ExportController extends Controller {
     /**
      * @param array<string,mixed> $parameters
      *
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<array<string,mixed>>
+     * @return ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
         $chunk           = $this->getChunkSize();

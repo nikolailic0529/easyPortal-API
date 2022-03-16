@@ -35,7 +35,7 @@ use function array_merge;
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\Importers\AssetsImporterState
  *
- * @extends \App\Services\DataLoader\Importer\Importer<TItem, TChunkData, TState>
+ * @extends Importer<TItem, TChunkData, TState>
  */
 class AssetsImporter extends Importer {
     private bool $withDocuments = true;

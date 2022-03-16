@@ -47,7 +47,7 @@ class PropertyTest extends TestCase {
      *
      * @dataProvider dataProviderHandleBuilder
      *
-     * @param \Exception|class-string<\Exception>|array{query: string, bindings: array<mixed>} $expected
+     * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>} $expected
      */
     public function testHandleBuilder(
         Exception|string|array $expected,

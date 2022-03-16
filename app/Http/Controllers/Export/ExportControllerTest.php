@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Export;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Box\Spout\Reader\XLSX\Sheet;
 use Closure;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -279,7 +281,7 @@ class ExportControllerTest extends TestCase {
                     $xlsx->open($file->getPathname());
 
                     foreach ($xlsx->getSheetIterator() as $sheet) {
-                        /** @var \Box\Spout\Reader\XLSX\Sheet $sheet */
+                        /** @var Sheet $sheet */
                         foreach ($sheet->getRowIterator() as $row) {
                             $sheets[$sheet->getIndex()] = ($sheets[$sheet->getIndex()] ?? 0) + 1;
                         }
@@ -342,7 +344,7 @@ class ExportControllerTest extends TestCase {
      * @param array<string, mixed> $data
      * @param array<string, mixed> $settings
      *
-     * @return array{?\App\Models\Organization,?\App\Models\User,array<string,mixed>,?int}
+     * @return array{?Organization,?User,array<string,mixed>,?int}
      */
     protected function prepare(
         Closure $organizationFactory,

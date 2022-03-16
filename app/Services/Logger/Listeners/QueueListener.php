@@ -30,7 +30,7 @@ class QueueListener extends Listener {
     protected array $stack = [];
 
     /**
-     * @var \WeakMap<\Illuminate\Contracts\Queue\Job>
+     * @var WeakMap<JobContract>
      */
     protected WeakMap $stopped;
 

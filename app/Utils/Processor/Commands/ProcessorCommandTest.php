@@ -35,7 +35,7 @@ class ProcessorCommandTest extends TestCase {
      *
      * @dataProvider dataProviderConstruct
      *
-     * @param class-string<\Illuminate\Console\Command> $command
+     * @param class-string<Command> $command
      */
     public function testConstruct(string $expected, string $command): void {
         $buffer  = new BufferedOutput();
@@ -308,7 +308,7 @@ class ProcessorCommandTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array{string, class-string<\Illuminate\Console\Command>}>
+     * @return array<string, array{string, class-string<Command>}>
      */
     public function dataProviderConstruct(): array {
         return [

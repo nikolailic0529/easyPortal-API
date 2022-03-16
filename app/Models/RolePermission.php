@@ -3,22 +3,26 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\RolePermissionFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Role Permission (pivot)
  *
- * @property string                       $id
- * @property string                       $role_id
- * @property string                       $permission_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Database\Factories\RolePermissionFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $role_id
+ * @property string               $permission_id
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static RolePermissionFactory factory(...$parameters)
+ * @method static Builder|RolePermission newModelQuery()
+ * @method static Builder|RolePermission newQuery()
+ * @method static Builder|RolePermission query()
+ * @mixin Eloquent
  */
 class RolePermission extends Pivot {
     use HasFactory;

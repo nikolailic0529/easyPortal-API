@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\ModelProperty;
@@ -75,7 +76,7 @@ class Loader implements ModelsLoader {
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {
         // Has scope?
-        /** @var Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model */
+        /** @var Model&OwnedByOrganization $model */
         $model = $builder->getModel();
         $scope = OwnedByOrganizationScope::class;
 

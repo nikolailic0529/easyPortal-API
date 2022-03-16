@@ -3,12 +3,13 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Type;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Utils\Eloquent\Model;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithType {
     abstract protected function getNormalizer(): Normalizer;

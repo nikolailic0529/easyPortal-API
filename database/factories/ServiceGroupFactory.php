@@ -4,12 +4,13 @@ namespace Database\Factories;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\ServiceGroup create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\ServiceGroup make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method ServiceGroup create($attributes = [], ?Model $parent = null)
+ * @method ServiceGroup make($attributes = [], ?Model $parent = null)
  */
 class ServiceGroupFactory extends Factory {
     /**

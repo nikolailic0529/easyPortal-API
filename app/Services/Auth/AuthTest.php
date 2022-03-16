@@ -89,8 +89,8 @@ class AuthTest extends TestCase {
      *
      * @dataProvider dataProviderGetAvailablePermissions
      *
-     * @param array<\App\Services\Auth\Permission> $expected
-     * @param array<\App\Services\Auth\Permission> $permissions
+     * @param array<Permission> $expected
+     * @param array<Permission> $permissions
      */
     public function testGetAvailablePermissions(array $expected, array $permissions, bool $isRootOrganization): void {
         $rootOrganization = Mockery::mock(RootOrganization::class);

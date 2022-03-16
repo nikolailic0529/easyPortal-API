@@ -4,6 +4,7 @@ namespace App\Services\I18n\Translation;
 
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Service;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class TranslationDefaults extends TranslationLoader {
@@ -65,7 +66,7 @@ class TranslationDefaults extends TranslationLoader {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&Translatable> $model
+     * @param class-string<Model&Translatable> $model
      *
      * @return Collection<int,Translatable>
      */

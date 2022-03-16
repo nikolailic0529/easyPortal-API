@@ -16,12 +16,12 @@ class Cache {
      */
     protected array $items;
     /**
-     * @var array<\App\Services\DataLoader\Cache\KeyRetriever>
+     * @var array<KeyRetriever>
      */
     protected array $retrievers;
 
     /**
-     * @param array<\App\Services\DataLoader\Cache\KeyRetriever> $retrievers
+     * @param array<KeyRetriever> $retrievers
      */
     public function __construct(array $retrievers) {
         $this->retrievers = $retrievers;
@@ -88,7 +88,7 @@ class Cache {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Cache\Key> $keys
+     * @param array<Key> $keys
      */
     public function putNulls(array $keys): static {
         foreach ($keys as $key) {

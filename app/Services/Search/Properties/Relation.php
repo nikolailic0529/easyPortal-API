@@ -6,7 +6,7 @@ use InvalidArgumentException;
 
 class Relation extends Property {
     /**
-     * @param array<string,\App\Services\Search\Properties\Property|array<mixed>> $properties
+     * @param array<string,Property|array<mixed>> $properties
      */
     public function __construct(
         string $name,
@@ -20,7 +20,7 @@ class Relation extends Property {
     }
 
     /**
-     * @return array<string,\App\Services\Search\Properties\Property|array<mixed>>
+     * @return array<string,Property|array<mixed>>
      */
     public function getProperties(): array {
         return $this->properties;

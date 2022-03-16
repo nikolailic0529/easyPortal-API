@@ -9,7 +9,7 @@ use function app;
 /**
  * Cascading SoftDeletes.
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 trait CascadeDeletes {
     protected static function bootCascadeDeletes(): void {

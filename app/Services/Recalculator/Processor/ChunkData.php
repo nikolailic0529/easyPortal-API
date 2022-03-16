@@ -7,6 +7,7 @@ use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
@@ -57,7 +58,7 @@ class ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $ownerId        = $row->{$owner};
                 $data[$ownerId] = (int) $row->count;
             }
@@ -90,7 +91,7 @@ class ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $ownerId                  = (string) $row->{$owner};
                 $groupId                  = (string) $row->{$group};
                 $data[$ownerId][$groupId] = (int) $row->count + ($data[$ownerId][$groupId] ?? 0);

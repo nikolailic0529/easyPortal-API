@@ -13,7 +13,7 @@ use IteratorAggregate;
  *
  * @template T
  *
- * @extends \IteratorAggregate<T>
+ * @extends IteratorAggregate<T>
  */
 interface ObjectIterator extends IteratorAggregate {
     public function getIndex(): int;

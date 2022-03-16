@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\File;
 use App\Models\Organization;
 use App\Rules\ContractId;
 use App\Rules\QuoteId;
@@ -43,7 +44,7 @@ class RequestChange extends Mailable {
         }
 
         foreach ($this->request->files as $file) {
-            /** @var \App\Models\File $file */
+            /** @var File $file */
             $mail = $mail->attachFromStorageDisk($file->disk, $file->path, $file->name);
         }
 

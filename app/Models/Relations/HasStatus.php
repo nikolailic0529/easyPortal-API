@@ -3,9 +3,10 @@
 namespace App\Models\Relations;
 
 use App\Models\Status;
+use App\Utils\Eloquent\Model;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasStatus {
     use HasStatusNullable {

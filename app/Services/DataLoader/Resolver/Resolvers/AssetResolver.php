@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Asset>
+ * @extends Resolver<Asset>
  */
 class AssetResolver extends Resolver {
     public function get(string|int $id, Closure $factory = null): ?Asset {

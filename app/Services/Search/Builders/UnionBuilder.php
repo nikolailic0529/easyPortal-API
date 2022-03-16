@@ -2,8 +2,11 @@
 
 namespace App\Services\Search\Builders;
 
+use App\Services\Search\Contracts\Scope;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Eloquent\Model;
 
 class UnionBuilder extends Builder {
     /**
@@ -25,8 +28,8 @@ class UnionBuilder extends Builder {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<\App\Services\Search\Contracts\Scope>                                                $scopes
+     * @param class-string<Model&Searchable> $model
+     * @param array<Scope>                   $scopes
      */
     public function addModel(string $model, array $scopes, float $boost = null): static {
         $this->models[$model] = [
