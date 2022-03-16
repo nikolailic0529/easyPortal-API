@@ -146,9 +146,9 @@ class UsersImporter extends Processor {
         $user = $data->getUserById($item->id);
 
         if (!$user) {
-            $user                        = new User();
-            $user->type                  = UserType::keycloak();
-            $user->{$user->getKeyName()} = $item->id;
+            $user       = new User();
+            $user->id   = $item->id;
+            $user->type = UserType::keycloak();
         }
 
         if ($user->type !== UserType::keycloak()) {

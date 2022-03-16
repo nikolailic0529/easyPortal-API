@@ -33,8 +33,9 @@ trait Children {
         // queries anyway. So we are trying to re-use removed entries to
         // reduce the number of queries.
         $existing = $existing->sort(new KeysComparator());
-        $created  = new Collection();
-        $actual   = new ($existing::class)();
+        /** @var Collection<int, M> $created */
+        $created = new Collection();
+        $actual  = new ($existing::class)();
 
         foreach ($children as $child) {
             $child = $factory($child);
@@ -71,9 +72,9 @@ trait Children {
                 $created = $created->sort(new KeysComparator());
 
                 while (!$created->isEmpty() && !$reusable->isEmpty()) {
-                    $child                         = $created->shift();
-                    $child->exists                 = true;
-                    $child->{$child->getKeyName()} = $reusable->shift()->getKey();
+                    $child         = $created->shift();
+                    $child->id     = $reusable->shift()->getKey();
+                    $child->exists = true;
                 }
             }
         }

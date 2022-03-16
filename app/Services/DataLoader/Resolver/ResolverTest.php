@@ -54,7 +54,7 @@ class ResolverTest extends TestCase {
                 return new class($key) extends Model {
                     /** @noinspection PhpMissingParentConstructorInspection */
                     public function __construct(string $key) {
-                        $this->{$this->getKeyName()} = $key;
+                        $this->setAttribute($this->getKeyName(), $key);
                     }
                 };
             },
@@ -67,7 +67,7 @@ class ResolverTest extends TestCase {
             public function __construct(string $key) {
                 parent::__construct();
 
-                $this->{$this->getKeyName()} = $key;
+                $this->setAttribute($this->getKeyName(), $key);
             }
         };
 
@@ -180,7 +180,7 @@ class ResolverTest extends TestCase {
         $model      = new class($keys['a']) extends Model {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(string $uuid = null) {
-                $this->{$this->getKeyName()} = $uuid;
+                $this->setAttribute($this->getKeyName(), $uuid);
             }
         };
         $items      = new EloquentCollection([$model]);

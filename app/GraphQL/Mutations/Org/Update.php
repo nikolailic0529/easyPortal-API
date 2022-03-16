@@ -61,7 +61,7 @@ class Update {
                     $this->updateBranding($organization, $branding, $value);
                     break;
                 default:
-                    $organization->{$property} = $value;
+                    $organization->setAttribute($property, $value);
                     break;
             }
         }
@@ -135,7 +135,7 @@ class Update {
                     $organization->branding_dashboard_image_url = $this->store($organization, $value);
                     break;
                 default:
-                    $organization->{$property} = $value;
+                    $organization->setAttribute($property, $value);
                     break;
             }
         }

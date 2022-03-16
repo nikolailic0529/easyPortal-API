@@ -145,7 +145,7 @@ class CompanyFactoryTest extends TestCase {
                 // empty
             };
 
-            $owner->{$owner->getKeyName()} = $id;
+            $owner->setAttribute($owner->getKeyName(), $id);
 
             return $owner;
         };

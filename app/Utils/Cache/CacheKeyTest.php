@@ -268,14 +268,16 @@ class CacheKeyTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @property string $id
  */
 class CacheKeyTest_Model extends Model {
     public function __construct(string|int $key = null, bool $exists = true) {
         parent::__construct([]);
 
-        $this->{$this->getKeyName()} = $key;
-        $this->exists                = $exists;
-        $this->keyType               = is_string($key) ? 'string' : 'int';
+        $this->id      = $key;
+        $this->exists  = $exists;
+        $this->keyType = is_string($key) ? 'string' : 'int';
     }
 
     public function getMorphClass(): string {

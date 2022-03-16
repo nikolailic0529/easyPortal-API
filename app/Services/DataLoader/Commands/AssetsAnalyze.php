@@ -150,8 +150,8 @@ class AssetsAnalyze extends Command {
             $analyze = $analyzeResolver->get($id);
 
             if (!$analyze) {
-                $analyze                           = new AnalyzeAsset();
-                $analyze->{$analyze->getKeyName()} = $id;
+                $analyze     = new AnalyzeAsset();
+                $analyze->id = $id;
             }
 
             // Asset

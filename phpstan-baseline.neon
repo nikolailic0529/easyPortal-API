@@ -17,3 +17,12 @@ parameters:
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Model(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Builder(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\[^\\\\]+(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
+
+        # Sometimes it is needed...
+        # https://github.com/phpstan/phpstan/issues/3296
+        -
+            message: "#^Variable property access on .+?\\.$#"
+            paths:
+                - app/GraphQL/Directives/Directives/Paginated/Manipulator.php
+                - app/GraphQL/Resolvers/JsonResolver.php
+                - app/Utils/JsonObject/JsonObject.php

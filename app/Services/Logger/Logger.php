@@ -150,6 +150,7 @@ class Logger {
             $statistics = $log->statistics ?? new Statistics();
 
             foreach ($countable as $property => $value) {
+                /** @phpstan-ignore-next-line object specially designed for this */
                 $statistics->{$property} = $statistics->{$property} + $value;
             }
 

@@ -244,8 +244,8 @@ class CacheTest extends TestCase {
             public function __construct(string $key, string $property) {
                 parent::__construct();
 
-                $this->{$this->getKeyName()} = $key;
-                $this->property              = $property;
+                $this->setAttribute($this->getKeyName(), $key);
+                $this->setAttribute('property', $property);
             }
         };
     }

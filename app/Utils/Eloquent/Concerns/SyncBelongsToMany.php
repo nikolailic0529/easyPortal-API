@@ -8,6 +8,7 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Pivot as EloquentPivot;
 use Illuminate\Support\Arr;
@@ -42,7 +43,7 @@ trait SyncBelongsToMany {
         $objects       = new EloquentCollection();
 
         foreach ($children as $child) {
-            /** @var \Illuminate\Database\Eloquent\Model $child */
+            /** @var EloquentModel $child */
             if ($existing->has($child->getKey())) {
                 $child = $existing->get($child->getKey());
 
@@ -61,13 +62,15 @@ trait SyncBelongsToMany {
             $this->onSave(static function () use ($belongsToMany, $children, $existing): void {
                 // Sync
                 $model    = $belongsToMany->getPivotClass();
-                $parent   = $belongsToMany->getParent()->{$belongsToMany->getParentKeyName()};
+                $parent   = $belongsToMany->getParent()->getAttribute($belongsToMany->getParentKeyName());
                 $accessor = $belongsToMany->getPivotAccessor();
 
                 foreach ($children as $object) {
-                    $pivot                                             = new $model();
-                    $pivot->{$belongsToMany->getRelatedPivotKeyName()} = $object->getKey();
-                    $pivot->{$belongsToMany->getForeignPivotKeyName()} = $parent;
+                    /** @var EloquentPivot $pivot */
+                    $pivot = new $model();
+
+                    $pivot->setAttribute($belongsToMany->getRelatedPivotKeyName(), $object->getKey());
+                    $pivot->setAttribute($belongsToMany->getForeignPivotKeyName(), $parent);
 
                     $pivot->save();
 
@@ -75,9 +78,13 @@ trait SyncBelongsToMany {
                 }
 
                 // Delete unused
-                /** @var \Illuminate\Database\Eloquent\Model $object */
                 foreach ($existing as $object) {
-                    $object->{$accessor}?->delete();
+                    /** @var EloquentModel $object */
+                    $pivot = $object->getAttribute($accessor);
+
+                    if ($pivot instanceof EloquentModel) {
+                        $pivot->delete();
+                    }
                 }
             });
         }
@@ -150,7 +157,7 @@ trait SyncBelongsToMany {
                 ? $this->syncManyGetExisting($this, $relationPivots)
                 : $wrapper->getCurrentlyAttachedPivots();
             $existing = $existing->keyBy(static function (Pivot $pivot) use ($belongsToMany): string {
-                return $pivot->{$belongsToMany->getRelatedPivotKeyName()};
+                return $pivot->getAttribute($belongsToMany->getRelatedPivotKeyName());
             });
         }
 

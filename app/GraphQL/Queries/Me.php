@@ -52,8 +52,8 @@ class Me {
         if ($user instanceof User) {
             $me = $user;
         } elseif ($user) {
-            $me                      = new User();
-            $me->{$me->getKeyName()} = $user->getAuthIdentifier();
+            $me     = new User();
+            $me->id = $user->getAuthIdentifier();
         } else {
             $me = null;
         }

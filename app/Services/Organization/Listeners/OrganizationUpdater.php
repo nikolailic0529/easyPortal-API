@@ -69,8 +69,8 @@ class OrganizationUpdater implements Subscriber {
                 $organization->restore();
             }
         } else {
-            $organization                                = new Organization();
-            $organization->{$organization->getKeyName()} = $reseller->getKey();
+            $organization     = new Organization();
+            $organization->id = $reseller->getKey();
         }
 
         // Update

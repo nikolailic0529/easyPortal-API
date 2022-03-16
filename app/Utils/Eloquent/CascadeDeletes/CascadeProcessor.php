@@ -105,7 +105,7 @@ class CascadeProcessor {
         if ($values && $this->isBelongsToMany($model, $name, $relation)) {
             $accessor = $relation->getPivotAccessor();
             $values   = array_filter(array_map(static function (Model $model) use ($accessor): ?Model {
-                return $model->{$accessor};
+                return $model->getAttribute($accessor);
             }, $values));
         }
 

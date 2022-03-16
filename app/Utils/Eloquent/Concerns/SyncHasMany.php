@@ -4,6 +4,7 @@ namespace App\Utils\Eloquent\Concerns;
 
 use App\Utils\Eloquent\Callbacks\GetUniqueKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
+use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,7 +25,7 @@ trait SyncHasMany {
     protected function syncHasMany(string $relation, Collection|array $objects): void {
         // Prepare
         /** @var HasMany $hasMany */
-        $hasMany = $this->{$relation}();
+        $hasMany = (new ModelHelper($this))->getRelation($relation);
 
         if (!($hasMany instanceof HasMany)) {
             throw new InvalidArgumentException(sprintf(

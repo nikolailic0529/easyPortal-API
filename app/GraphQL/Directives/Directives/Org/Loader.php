@@ -65,8 +65,8 @@ class Loader implements ModelsLoader {
         $property = $this->getProperty();
 
         foreach ($parents as $parent) {
-            /** @var \App\Services\Logger\Models\Model $parent */
-            $parent->setAttribute($property, $values->get($parent->getKey())->{$property} ?? null);
+            /** @var Model $parent */
+            $parent->setAttribute($property, $values->get($parent->getKey())?->getAttribute($property));
         }
     }
 

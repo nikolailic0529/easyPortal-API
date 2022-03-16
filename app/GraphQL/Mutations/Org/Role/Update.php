@@ -93,7 +93,7 @@ class Update {
         $group = $this->client->createGroup($role);
 
         if (!$role->exists) {
-            $role->{$role->getKeyName()} = $group->id;
+            $role->id = $group->id;
         }
 
         // Save
