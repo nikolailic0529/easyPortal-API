@@ -51,7 +51,7 @@ class Service extends BaseService {
     /**
      * @template T
      *
-     * @param \Closure(): T $closure
+     * @param Closure(): T $closure
      *
      * @return T
      */

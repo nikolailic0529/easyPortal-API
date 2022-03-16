@@ -81,7 +81,7 @@ trait ChunkConverter {
     }
 
     /**
-     * @return \Closure(V $item): T|null
+     * @return Closure(V): T|null
      */
     abstract protected function getConverter(): ?Closure;
 

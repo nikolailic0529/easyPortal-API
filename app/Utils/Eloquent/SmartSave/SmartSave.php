@@ -10,10 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
  */
 trait SmartSave {
     /**
-     * @var array<\Closure>
+     * @var array<Closure(): void>
      */
     private array $onSaveCallbacks = [];
 
+    /**
+     * @param Closure(): void $callback
+     */
     protected function onSave(Closure $callback): void {
         $this->onSaveCallbacks[] = $callback;
     }

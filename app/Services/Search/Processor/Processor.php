@@ -293,7 +293,7 @@ class Processor extends EloquentProcessor {
     /**
      * @template T
      *
-     * @param \Closure(): T $callback
+     * @param Closure(): T $callback
      *
      * @return T
      */

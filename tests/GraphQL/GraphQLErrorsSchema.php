@@ -14,7 +14,7 @@ use function is_callable;
 
 class GraphQLErrorsSchema implements JsonSerializable {
     /**
-     * @param array<string>|\Throwable|\Closure():(array<string>|\Exception|null) $errors
+     * @param array<string>|\Throwable|Closure():(array<string>|\Exception|null) $errors
      */
     public function __construct(
         protected Closure|Throwable|array $errors,

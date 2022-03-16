@@ -20,7 +20,7 @@ class State {
      * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
      */
     public static function isEnabled(string $scope): bool {
-        return ! self::isDisabled($scope);
+        return !self::isDisabled($scope);
     }
 
     /**
@@ -34,7 +34,7 @@ class State {
      * @template T
      *
      * @param array<class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope>> $scopes
-     * @param \Closure():T $closure
+     * @param Closure():T                                                            $closure
      *
      * @return T
      */

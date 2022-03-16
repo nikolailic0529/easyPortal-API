@@ -29,7 +29,7 @@ class ObjectIteratorIterator implements ObjectIterator {
 
     /**
      * @param \App\Utils\Iterators\Contracts\ObjectIterator<V> $internalIterator
-     * @param \Closure(V $item): T                             $converter
+     * @param Closure(V): T                                    $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,

@@ -36,7 +36,7 @@ class AggregatedTest extends TestCase {
      *
      * @dataProvider dataProviderResolveField
      *
-     * @param \Closure(): array<string, mixed> $arguments
+     * @param Closure(): array<string, mixed> $arguments
      */
     public function testResolveField(Constraint $expected, Closure $root, Closure $arguments, bool $called): void {
         $arguments = (new Collection($arguments()))

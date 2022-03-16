@@ -38,7 +38,7 @@ class SyncTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed> $settings
-     * @param \Closure(): string  $prepare
+     * @param Closure(): string   $prepare
      */
     public function testInvoke(
         Response $expected,

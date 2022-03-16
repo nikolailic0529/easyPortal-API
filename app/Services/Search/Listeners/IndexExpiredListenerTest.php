@@ -28,7 +28,7 @@ class IndexExpiredListenerTest extends TestCase {
      *
      * @dataProvider dataProviderSubscribe
      *
-     * @param \Closure(self): object $eventFactory
+     * @param Closure(self): object $eventFactory
      */
     public function testSubscribe(Closure $eventFactory): void {
         $this->override(IndexExpiredListener::class, static function (MockInterface $mock): void {
@@ -90,7 +90,7 @@ class IndexExpiredListenerTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array<\Closure():object>>
+     * @return array<string,array<Closure():object>>
      */
     public function dataProviderSubscribe(): array {
         return [

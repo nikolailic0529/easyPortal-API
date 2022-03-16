@@ -6,14 +6,13 @@ use Closure;
 use Illuminate\Translation\Translator;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithTranslations {
     /**
-     * @param \Closure(\Tests\TestCase $test,string $locale, string $fallback):array<string,array<string,string>>
-     *      |array<string,array<string,string>>
-     *      |null
-     *      $translations
+     * @param Closure(TestCase, string, string):array<string,array<string,string>>
+     *     |array<string,array<string,string>>
+     *     |null $translations
      */
     public function setTranslations(Closure|array|null $translations): void {
         /**

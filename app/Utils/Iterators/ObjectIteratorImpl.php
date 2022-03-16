@@ -39,8 +39,8 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     private array $previous = [];
 
     /**
-     * @param \Closure(array $variables): array<V> $executor
-     * @param \Closure(V $item): T|null            $converter
+     * @param Closure(array): array<V> $executor
+     * @param Closure(V): T|null       $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,

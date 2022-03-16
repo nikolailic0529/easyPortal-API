@@ -8,7 +8,6 @@ use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\ParallelTesting;
-use Throwable;
 
 use function str_starts_with;
 

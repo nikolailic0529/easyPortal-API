@@ -122,7 +122,7 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param \Closure(array<string>): void $headersCallback
+     * @param Closure(array<string>): void $headersCallback
      *
      * @return \Iterator<array<mixed>>
      */

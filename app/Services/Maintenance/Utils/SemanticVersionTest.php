@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Maintenance\Utils\SemanticVersion
+ * @coversDefaultClass SemanticVersion
  */
 class SemanticVersionTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -20,9 +20,7 @@ class SemanticVersionTest extends TestCase {
      *
      * @dataProvider dataProviderConstruct
      *
-     * @param \Closure(
-     *      static, \App\Services\Maintenance\Utils\SemanticVersion
-     *      ):\App\Services\Maintenance\Utils\SemanticVersion|null $factory
+     * @param Closure(static, SemanticVersion):SemanticVersion|null $factory
      */
     public function testConstruct(string|Exception $expected, string $version, ?Closure $factory): void {
         if ($expected instanceof Exception) {

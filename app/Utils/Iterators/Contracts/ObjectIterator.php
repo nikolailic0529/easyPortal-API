@@ -35,7 +35,7 @@ interface ObjectIterator extends IteratorAggregate {
     /**
      * Sets the closure that will be called before iteration.
      *
-     * @param \Closure(): void|null $closure `null` removes all observers
+     * @param Closure(): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */
@@ -44,7 +44,7 @@ interface ObjectIterator extends IteratorAggregate {
     /**
      * Sets the closure that will be called after iteration.
      *
-     * @param \Closure(): void|null $closure `null` removes all observers
+     * @param Closure(): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */
@@ -53,7 +53,7 @@ interface ObjectIterator extends IteratorAggregate {
     /**
      * Sets the closure that will be called after received each non-empty chunk.
      *
-     * @param \Closure(array<T>): void|null $closure `null` removes all observers
+     * @param Closure(array<T>): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */
@@ -62,7 +62,7 @@ interface ObjectIterator extends IteratorAggregate {
     /**
      * Sets the closure that will be called after non-empty chunk processed.
      *
-     * @param \Closure(array<T>): void|null $closure `null` removes all observers
+     * @param Closure(array<T>): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */

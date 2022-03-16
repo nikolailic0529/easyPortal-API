@@ -13,11 +13,11 @@ trait Children {
      * @template M of \App\Utils\Eloquent\Model
      * @template C of \Illuminate\Support\Collection<int, M>
      *
-     * @param C                      $existing
-     * @param array<T>               $children
-     * @param \Closure(T): ?M        $factory
-     * @param \Closure(M, M): int    $compare
-     * @param \Closure(M): bool|null $reusable
+     * @param C                     $existing
+     * @param array<T>              $children
+     * @param Closure(T): ?M        $factory
+     * @param Closure(M, M): int    $compare
+     * @param Closure(M): bool|null $reusable
      *
      * @return C
      */

@@ -38,7 +38,7 @@ class WithLocationsTest extends TestCase {
      *
      * @dataProvider dataProviderCompanyLocations
      *
-     * @param \Closure(static): \App\Models\Reseller|\App\Models\Customer
+     * @param Closure(static): \App\Models\Reseller|\App\Models\Customer
      */
     public function testCompanyLocations(Closure $companyFactory): void {
         // Prepare
@@ -221,7 +221,7 @@ class WithLocationsTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array<\Closure(): \App\Models\Reseller|\App\Models\Customer>>
+     * @return array<string, array<Closure(): \App\Models\Reseller|\App\Models\Customer>>
      */
     public function dataProviderCompanyLocations(): array {
         return [

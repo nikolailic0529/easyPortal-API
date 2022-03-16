@@ -76,7 +76,7 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param \Closure(string, array<string>): ?string $translate
+     * @param Closure(string, array<string>): ?string $translate
      */
     protected function getMailMessage(
         User $notifiable,
@@ -138,8 +138,8 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param \Closure(string, array<string,scalar|\Stringable>): ?string $translate
-     * @param array<string,scalar|\Stringable>                            $replacements
+     * @param Closure(string, array<string,scalar|\Stringable>): ?string $translate
+     * @param array<string,scalar|\Stringable>                           $replacements
      */
     protected function getMailAction(
         User $notifiable,
@@ -152,7 +152,7 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param \Closure(string, array<string,scalar|\Stringable>): ?string $translate
+     * @param Closure(string, array<string,scalar|\Stringable>): ?string $translate
      *
      * @return array<string,scalar|\Stringable>
      */

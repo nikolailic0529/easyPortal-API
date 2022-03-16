@@ -9,7 +9,7 @@ class GlobalScopes {
      * @template T
      *
      * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
-     * @param \Closure():T $closure
+     * @param Closure():T                                                     $closure
      *
      * @return T
      */
@@ -21,7 +21,7 @@ class GlobalScopes {
      * @template T
      *
      * @param array<class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope>> $scopes
-     * @param \Closure():T $closure
+     * @param Closure():T                                                            $closure
      *
      * @return T
      */

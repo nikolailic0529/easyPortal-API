@@ -519,7 +519,7 @@ class DocumentFactory extends ModelFactory {
      *
      * @param Collection<int, M> $existing
      * @param array<T>           $entries
-     * @param \Closure(T): ?M    $factory
+     * @param Closure(T): ?M     $factory
      *
      * @return array<M>
      */

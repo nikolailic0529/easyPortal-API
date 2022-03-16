@@ -96,7 +96,7 @@ trait Subjects {
     /**
      * Sets the closure that will be called after received each non-empty chunk.
      *
-     * @param \Closure(array<T>): void|null $closure `null` removes all observers
+     * @param Closure(array<T>): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */
@@ -133,7 +133,7 @@ trait Subjects {
     /**
      * Sets the closure that will be called after non-empty chunk processed.
      *
-     * @param \Closure(array<T>): void|null $closure `null` removes all observers
+     * @param Closure(array<T>): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */

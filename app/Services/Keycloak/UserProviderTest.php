@@ -262,8 +262,8 @@ class UserProviderTest extends TestCase {
      *
      * @dataProvider dataProviderGetOrganization
      *
-     * @param \Closure(): array<mixed>              $claimsFactory
-     * @param \Closure(): ?\App\Models\Organization $organizationFactory
+     * @param Closure(): array<mixed>              $claimsFactory
+     * @param Closure(): ?\App\Models\Organization $organizationFactory
      */
     public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $organizationFactory): void {
         $org      = Organization::factory()->create([

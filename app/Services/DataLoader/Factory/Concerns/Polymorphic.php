@@ -19,10 +19,10 @@ trait Polymorphic {
      * @template T of \App\Utils\Eloquent\Model
      * @template R of \App\Models\Contact|\App\Models\Location
      *
-     * @param T                                                     $owner
-     * @param array<\App\Services\DataLoader\Schema\Type>           $objects
-     * @param \Closure(): \App\Services\DataLoader\Schema\Type      $getType
-     * @param \Closure(T, \App\Services\DataLoader\Schema\Type): ?R $factory
+     * @param T                                                    $owner
+     * @param array<\App\Services\DataLoader\Schema\Type>          $objects
+     * @param Closure(): \App\Services\DataLoader\Schema\Type      $getType
+     * @param Closure(T, \App\Services\DataLoader\Schema\Type): ?R $factory
      *
      * @return array<R>
      */

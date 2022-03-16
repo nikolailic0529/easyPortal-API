@@ -16,7 +16,7 @@ use Throwable;
 trait IteratorErrorHandler {
     /**
      * @param \App\Services\DataLoader\Client\Query<V> $query
-     * @param \Closure(mixed $item): T                 $converter
+     * @param Closure(mixed): T                        $converter
      */
     public function __construct(
         ExceptionHandler $handler,

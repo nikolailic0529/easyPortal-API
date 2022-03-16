@@ -630,8 +630,8 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed> $params
-     * @param \Closure(array<mixed>):T $reriever
+     * @param array<mixed>            $params
+     * @param Closure(array<mixed>):T $reriever
      *
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<T>
      */
@@ -652,8 +652,8 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed> $params
-     * @param \Closure(array<mixed>):T $reriever
+     * @param array<mixed>            $params
+     * @param Closure(array<mixed>):T $reriever
      *
      * @return \App\Services\DataLoader\Client\LastIdBasedIterator<T>
      */
@@ -674,8 +674,8 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed> $params
-     * @param \Closure(array<mixed>): T $retriever
+     * @param array<mixed>             $params
+     * @param Closure(array<mixed>): T $retriever
      *
      * @return T|null
      */
@@ -874,7 +874,7 @@ class Client {
     // <editor-fold desc="Retrievers">
     // =========================================================================
     /**
-     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Company
+     * @return Closure(array<mixed>): \App\Services\DataLoader\Schema\Company
      */
     protected function getCompanyRetriever(): Closure {
         return static function (array $data): Company {
@@ -883,7 +883,7 @@ class Client {
     }
 
     /**
-     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\ViewAsset
+     * @return Closure(array<mixed>): \App\Services\DataLoader\Schema\ViewAsset
      */
     protected function getAssetRetriever(): Closure {
         return static function (array $data): ViewAsset {
@@ -892,7 +892,7 @@ class Client {
     }
 
     /**
-     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Document
+     * @return Closure(array<mixed>): \App\Services\DataLoader\Schema\Document
      */
     protected function getDocumentRetriever(): Closure {
         return static function (array $data): Document {

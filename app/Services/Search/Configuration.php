@@ -104,8 +104,8 @@ class Configuration {
     }
 
     /**
-     * @param \Closure(string,?\App\Services\Search\Properties\Property): ?string $keyer
-     * @param \Closure(\App\Services\Search\Properties\Value): bool|null          $filter
+     * @param Closure(string,?\App\Services\Search\Properties\Property): ?string $keyer
+     * @param Closure(\App\Services\Search\Properties\Value): bool|null          $filter
      *
      * @return array<string,\App\Services\Search\Properties\Value>
      */
@@ -121,9 +121,9 @@ class Configuration {
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property> $properties
-     * @param \Closure(string,\App\Services\Search\Properties\Property): string $keyer
-     * @param \Closure(\App\Services\Search\Properties\Value): bool|null        $filter
+     * @param array<string,\App\Services\Search\Properties\Property>           $properties
+     * @param Closure(string,\App\Services\Search\Properties\Property): string $keyer
+     * @param Closure(\App\Services\Search\Properties\Value): bool|null        $filter
      *
      * @return array<string,\App\Services\Search\Properties\Value>
      */

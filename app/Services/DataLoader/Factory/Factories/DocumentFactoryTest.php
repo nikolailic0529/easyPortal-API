@@ -296,7 +296,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @template     T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
      *
-     * @param \Closure(): T $documentFactory
+     * @param Closure(): T $documentFactory
      */
     public function testDocumentOemGroup(Closure $documentFactory): void {
         $oem      = Oem::factory()->make();
@@ -330,7 +330,7 @@ class DocumentFactoryTest extends TestCase {
      *
      * @template     T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
      *
-     * @param \Closure(): T $documentFactory
+     * @param Closure(): T $documentFactory
      */
     public function testDocumentType(Closure $documentFactory): void {
         $document = $documentFactory($this);

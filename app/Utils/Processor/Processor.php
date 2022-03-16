@@ -256,7 +256,7 @@ abstract class Processor {
     // <editor-fold desc="Events">
     // =========================================================================
     /**
-     * @param \Closure(TState)|null $closure
+     * @param Closure(TState): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -278,7 +278,7 @@ abstract class Processor {
     }
 
     /**
-     * @param \Closure(TState, array<TItem>)|null $closure
+     * @param Closure(TState, array<TItem>): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -300,7 +300,7 @@ abstract class Processor {
     }
 
     /**
-     * @param \Closure(TState)|null $closure
+     * @param Closure(TState): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -322,7 +322,7 @@ abstract class Processor {
     }
 
     /**
-     * @param \Closure(TState, array<TItem>)|null $closure
+     * @param Closure(TState, array<TItem>): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -344,7 +344,7 @@ abstract class Processor {
     }
 
     /**
-     * @param \Closure(TState, array<TItem>)|null $closure
+     * @param Closure(TState, array<TItem>): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -530,7 +530,7 @@ abstract class Processor {
     /**
      * @template T
      *
-     * @param \Closure(): T $callback
+     * @param Closure(): T $callback
      *
      * @return T
      */

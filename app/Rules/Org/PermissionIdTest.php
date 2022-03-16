@@ -40,7 +40,7 @@ class PermissionIdTest extends TestCase {
      * @dataProvider dataProviderPasses
      *
      * @param array<\App\Services\Auth\Permission> $permissions
-     * @param \Closure(): \App\Models\Permission   $permissionFactory
+     * @param Closure(): \App\Models\Permission    $permissionFactory
      */
     public function testPasses(
         bool $expected,

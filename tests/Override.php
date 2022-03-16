@@ -37,8 +37,8 @@ trait Override {
     /**
      * @template T
      *
-     * @param class-string<T> $class
-     * @param null|\Closure(T|\Mockery\MockInterface, \Tests\TestCase): T $factory
+     * @param class-string<T>                                            $class
+     * @param null|Closure(T|\Mockery\MockInterface, \Tests\TestCase): T $factory
      *
      * @return T|\Mockery\MockInterface
      */

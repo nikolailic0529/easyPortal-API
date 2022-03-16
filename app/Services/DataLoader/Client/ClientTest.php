@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Schema\Schema;
 use GraphQL\Utils\BuildClientSchema;
-use GraphQL\Utils\SchemaPrinter;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 

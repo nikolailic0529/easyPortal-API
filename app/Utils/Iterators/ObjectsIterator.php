@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
 class ObjectsIterator extends OneChunkOffsetBasedObjectIterator {
     /**
      * @param Collection<array-key, T>|array<T> $items
-     * @param \Closure(T):V|null                $converter
+     * @param Closure(T):V|null                 $converter
      */
     public function __construct(
         ExceptionHandler $exceptionHandler,

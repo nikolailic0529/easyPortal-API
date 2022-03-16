@@ -46,7 +46,7 @@ abstract class Service {
      *
      * @template T
      *
-     * @param    (\Closure(mixed):T)|null $factory
+     * @param Closure(mixed): T|null $factory
      *
      * @return T
      */

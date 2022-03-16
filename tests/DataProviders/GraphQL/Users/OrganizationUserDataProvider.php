@@ -20,8 +20,8 @@ use Tests\TestCase;
  */
 class OrganizationUserDataProvider extends ArrayDataProvider {
     /**
-     * @param array<string>                     $permissions
-     * @param \Closure(\App\Models\User ): void $callback
+     * @param array<string>                   $permissions
+     * @param Closure(\App\Models\User): void $callback
      */
     public function __construct(string $root, array $permissions = [], Closure $callback = null) {
         $factory = User::factory();
