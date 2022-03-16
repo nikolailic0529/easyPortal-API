@@ -76,6 +76,7 @@ class Keycloak {
         try {
             $result = $this->auth->guard()->attempt([
                 UserProvider::CREDENTIAL_ACCESS_TOKEN => $token->getToken(),
+                UserProvider::CREDENTIAL_ORGANIZATION => $organization,
             ]);
 
             if ($result) {

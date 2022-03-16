@@ -18,17 +18,21 @@ use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Database\Eloquent\Builder;
+use InvalidArgumentException;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
 use function array_keys;
+use function sprintf;
 
 class UserProvider implements UserProviderContract {
     use AvailablePermissions;
 
     public const    CREDENTIAL_ACCESS_TOKEN     = 'access_token';
+    public const    CREDENTIAL_ORGANIZATION     = 'organization';
     public const    CREDENTIAL_PASSWORD         = 'password';
     public const    CREDENTIAL_EMAIL            = 'email';
     protected const CLAIM_RESELLER_ACCESS       = 'reseller_access';
@@ -206,17 +210,26 @@ class UserProvider implements UserProviderContract {
         $token = $this->getToken($credentials);
 
         if ($token instanceof UnencryptedToken) {
-            $id   = $token->claims()->get(RegisteredClaims::SUBJECT);
-            $user = User::query()->whereKey($id)->first();
+            $id           = $token->claims()->get(RegisteredClaims::SUBJECT);
+            $user         = User::query()->whereKey($id)->first();
+            $organization = $credentials[self::CREDENTIAL_ORGANIZATION] ?? null;
+
+            if ($organization && !($organization instanceof Organization)) {
+                throw new InvalidArgumentException(sprintf(
+                    'The `%s` must be `null` or instance of `%s`.',
+                    self::CREDENTIAL_ORGANIZATION,
+                    Organization::class,
+                ));
+            }
 
             if ($user && $user->type !== UserType::keycloak()) {
                 throw new AnotherUserExists($user);
             }
 
             if ($user) {
-                $user = $this->updateTokenUser($user, $token);
+                $user = $this->updateTokenUser($user, $token, $organization);
             } else {
-                $user = $this->createTokenUser($id, $token);
+                $user = $this->createTokenUser($id, $token, $organization);
             }
         } elseif (isset($credentials[self::CREDENTIAL_EMAIL])) {
             $user = User::query()
@@ -279,9 +292,9 @@ class UserProvider implements UserProviderContract {
         return $token;
     }
 
-    protected function updateTokenUser(User $user, UnencryptedToken $token): User {
+    protected function updateTokenUser(User $user, UnencryptedToken $token, ?Organization $organization): User {
         // Update properties
-        foreach ($this->getProperties($user, $token) as $property => $value) {
+        foreach ($this->getProperties($user, $token, $organization) as $property => $value) {
             $user->{$property} = $value;
         }
 
@@ -292,20 +305,20 @@ class UserProvider implements UserProviderContract {
         return $user;
     }
 
-    protected function createTokenUser(string $id, UnencryptedToken $token): ?User {
+    protected function createTokenUser(string $id, UnencryptedToken $token, ?Organization $organization): ?User {
         // Create
         $user                        = new User();
         $user->{$user->getKeyName()} = $id;
         $user->type                  = UserType::keycloak();
 
         // Update
-        return $this->updateTokenUser($user, $token);
+        return $this->updateTokenUser($user, $token, $organization);
     }
 
     /**
      * @return array<string, mixed>
      */
-    protected function getProperties(User $user, UnencryptedToken $token): array {
+    protected function getProperties(User $user, UnencryptedToken $token, ?Organization $organization): array {
         // Properties
         $claims     = $token->claims();
         $missed     = [];
@@ -325,7 +338,7 @@ class UserProvider implements UserProviderContract {
         }
 
         // Organization
-        $organization               = $this->getOrganization($user, $token);
+        $organization               = $this->getOrganization($user, $token, $organization);
         $properties['organization'] = $organization;
 
         // Permissions
@@ -340,14 +353,21 @@ class UserProvider implements UserProviderContract {
         return $properties;
     }
 
-    protected function getOrganization(User $user, UnencryptedToken $token): ?Organization {
+    protected function getOrganization(
+        User $user,
+        UnencryptedToken $token,
+        ?Organization $organization,
+    ): ?Organization {
         return GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($user, $token): ?Organization {
+            static function () use ($user, $token, $organization): ?Organization {
                 $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
                 $organizations = array_filter(array_keys(array_filter($organizations)));
                 $organization  = Organization::query()
                     ->whereIn('keycloak_scope', $organizations)
+                    ->when($organization, static function (Builder $builder, Organization $organization): Builder {
+                        return $builder->whereKey($organization->getKey());
+                    })
                     ->first();
                 $isMember      = false;
 
