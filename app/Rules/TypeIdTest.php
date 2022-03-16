@@ -26,7 +26,7 @@ class TypeIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(TypeId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(TypeId::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class TypeIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $typeFactory): void {
         $typeId = $typeFactory();
-        $this->assertEquals($expected, $this->app->make(TypeId::class)->passes('test', $typeId));
+        self::assertEquals($expected, $this->app->make(TypeId::class)->passes('test', $typeId));
     }
     // </editor-fold>
 

@@ -29,7 +29,7 @@ class UserNotMeTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(UserNotMe::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(UserNotMe::class)->message(), 'Translated');
     }
 
     /**
@@ -39,7 +39,7 @@ class UserNotMeTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $userFactory, string $value): void {
         $this->setUser($userFactory);
-        $this->assertEquals($expected, $this->app->make(UserNotMe::class)->passes('test', $value));
+        self::assertEquals($expected, $this->app->make(UserNotMe::class)->passes('test', $value));
     }
 
     /**
@@ -54,7 +54,7 @@ class UserNotMeTest extends TestCase {
 
         $rule->setMutationContext($context);
 
-        $this->assertEquals($expected, $rule->passes('test', $this->faker->word));
+        self::assertEquals($expected, $rule->passes('test', $this->faker->word));
     }
     // </editor-fold>
 

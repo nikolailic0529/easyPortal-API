@@ -56,7 +56,7 @@ class SearchRequestFactoryTest extends TestCase {
 
         $model::$searchProperties = (array) $prepare($builder) ?: ['a' => new Text('a', true)];
 
-        $this->assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
+        self::assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
 
     /**
@@ -190,7 +190,7 @@ class SearchRequestFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -262,7 +262,7 @@ class SearchRequestFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -306,14 +306,14 @@ class SearchRequestFactoryTest extends TestCase {
         $model::$properties = $properties;
         $actual             = $factory->makeQuery($builder);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
      * @covers ::escapeQueryString
      */
     public function testEscapeQueryString(): void {
-        $this->assertEquals(
+        self::assertEquals(
             '\\"te\\-xt \\(with\\)\\! \\{special\\} \\* \\&& \\/characters\\?\\\\\\"',
             (new class() extends SearchRequestFactory {
                 public function __construct() {
@@ -331,7 +331,7 @@ class SearchRequestFactoryTest extends TestCase {
      * @covers ::escapeWildcardString
      */
     public function testEscapeWildcardString(): void {
-        $this->assertEquals(
+        self::assertEquals(
             'text with \\* and \\? and \\ characters.',
             (new class() extends SearchRequestFactory {
                 public function __construct() {

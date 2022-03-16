@@ -66,13 +66,13 @@ class DocumentFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         if (!$expected) {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->find($type);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -92,8 +92,8 @@ class DocumentFactoryTest extends TestCase {
                 ->with($type)
                 ->andReturns();
         } else {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->create($type);
@@ -129,28 +129,28 @@ class DocumentFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($created);
-        $this->assertEquals($asset->customerId, $created->customer_id);
-        $this->assertEquals($asset->resellerId, $created->reseller_id);
-        $this->assertEquals($object->document->document->distributorId, $created->distributor_id);
-        $this->assertEquals('0056523287', $created->number);
-        $this->assertEquals('1292.16', $created->price);
-        $this->assertNull($this->getDatetime($created->start));
-        $this->assertEquals('1614470400000', $this->getDatetime($created->end));
-        $this->assertNull($this->getDatetime($created->changed_at));
-        $this->assertEquals('HPE', $created->oem->key);
-        $this->assertEquals('MultiNational Quote', $created->type->key);
-        $this->assertEquals('CUR', $created->currency->code);
-        $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('HPE', $created->oem->key);
-        $this->assertEquals('1234 4678 9012', $created->oem_said);
-        $this->assertEquals('abc-de', $created->oemGroup->key);
-        $this->assertEquals(0, $created->assets_count);
-        $this->assertEquals(0, $created->entries_count);
-        $this->assertEquals(1, $created->contacts_count);
-        $this->assertCount(0, $created->entries);
-        $this->assertCount(1, $created->contacts);
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($created);
+        self::assertEquals($asset->customerId, $created->customer_id);
+        self::assertEquals($asset->resellerId, $created->reseller_id);
+        self::assertEquals($object->document->document->distributorId, $created->distributor_id);
+        self::assertEquals('0056523287', $created->number);
+        self::assertEquals('1292.16', $created->price);
+        self::assertNull($this->getDatetime($created->start));
+        self::assertEquals('1614470400000', $this->getDatetime($created->end));
+        self::assertNull($this->getDatetime($created->changed_at));
+        self::assertEquals('HPE', $created->oem->key);
+        self::assertEquals('MultiNational Quote', $created->type->key);
+        self::assertEquals('CUR', $created->currency->code);
+        self::assertEquals('fr', $created->language->code);
+        self::assertEquals('HPE', $created->oem->key);
+        self::assertEquals('1234 4678 9012', $created->oem_said);
+        self::assertEquals('abc-de', $created->oemGroup->key);
+        self::assertEquals(0, $created->assets_count);
+        self::assertEquals(0, $created->entries_count);
+        self::assertEquals(1, $created->contacts_count);
+        self::assertCount(0, $created->entries);
+        self::assertCount(1, $created->contacts);
 
         $this->flushQueryLog();
 
@@ -165,7 +165,7 @@ class DocumentFactoryTest extends TestCase {
 
         $factory->createFromAssetDocumentObject($object);
 
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $this->getQueryLog());
 
         $this->flushQueryLog();
     }
@@ -189,7 +189,7 @@ class DocumentFactoryTest extends TestCase {
             'document' => reset($asset->assetDocument),
         ]);
 
-        $this->expectExceptionObject(new FailedToProcessViewAssetDocumentNoDocument(
+        self::expectExceptionObject(new FailedToProcessViewAssetDocumentNoDocument(
             $object->asset,
             $object->document,
         ));
@@ -220,9 +220,9 @@ class DocumentFactoryTest extends TestCase {
         ]);
         $created = $factory->createFromAssetDocumentObject($object);
 
-        $this->assertNotNull($created);
-        $this->assertNull($created->reseller_id);
-        $this->assertNull($created->customer_id);
+        self::assertNotNull($created);
+        self::assertNull($created->reseller_id);
+        self::assertNull($created->customer_id);
     }
 
     /**
@@ -244,7 +244,7 @@ class DocumentFactoryTest extends TestCase {
         };
 
         // Test
-        $this->assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
+        self::assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
 
         // Make same
         $a->asset_id         = $b->asset_id;
@@ -257,7 +257,7 @@ class DocumentFactoryTest extends TestCase {
         $a->start            = $b->start;
         $a->end              = $b->end;
 
-        $this->assertEquals(0, $factory->compareDocumentEntries($a, $b));
+        self::assertEquals(0, $factory->compareDocumentEntries($a, $b));
     }
 
     /**
@@ -285,8 +285,8 @@ class DocumentFactoryTest extends TestCase {
         // Test
         $created = $factory->createFromAssetDocumentObject($object);
 
-        $this->assertNotNull($created);
-        $this->assertCount(0, $created->contacts);
+        self::assertNotNull($created);
+        self::assertCount(0, $created->contacts);
     }
 
     /**
@@ -378,10 +378,10 @@ class DocumentFactoryTest extends TestCase {
         };
 
         // Null
-        $this->assertEmpty($factory->documentStatuses($owner, new Document(['status' => null])));
+        self::assertEmpty($factory->documentStatuses($owner, new Document(['status' => null])));
 
         // Empty
-        $this->assertEmpty($factory->documentStatuses($owner, new Document(['status' => ['', null]])));
+        self::assertEmpty($factory->documentStatuses($owner, new Document(['status' => ['', null]])));
 
         // Not empty
         $document = new Document([
@@ -399,8 +399,8 @@ class DocumentFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertCount(2, $statuses);
-        $this->assertEquals($expected, $this->statuses($statuses));
+        self::assertCount(2, $statuses);
+        self::assertEquals($expected, $this->statuses($statuses));
     }
 
     /**
@@ -469,22 +469,22 @@ class DocumentFactoryTest extends TestCase {
 
         $entry = $factory->documentEntry($document, $documentEntry);
 
-        $this->assertInstanceOf(DocumentEntryModel::class, $entry);
-        $this->assertEquals($asset->getKey(), $entry->asset_id);
-        $this->assertNull($entry->document_id);
-        $this->assertEquals($asset->serial_number, $entry->serial_number);
-        $this->assertEquals($asset->product, $entry->product);
-        $this->assertNotNull($entry->service_level_id);
-        $this->assertEquals($document->oem_id, $entry->serviceLevel->oem_id);
-        $this->assertEquals($supportPackage, $entry->serviceGroup->sku);
-        $this->assertEquals($skuNumber, $entry->serviceLevel->sku);
-        $this->assertEquals($currencyCode, $entry->currency->code);
-        $this->assertEquals($netPrice, $entry->net_price);
-        $this->assertEquals($listPrice, $entry->list_price);
-        $this->assertEquals($discount, $entry->discount);
-        $this->assertEquals($renewal, $entry->renewal);
-        $this->assertEquals($start, $entry->start);
-        $this->assertEquals($end, $entry->end);
+        self::assertInstanceOf(DocumentEntryModel::class, $entry);
+        self::assertEquals($asset->getKey(), $entry->asset_id);
+        self::assertNull($entry->document_id);
+        self::assertEquals($asset->serial_number, $entry->serial_number);
+        self::assertEquals($asset->product, $entry->product);
+        self::assertNotNull($entry->service_level_id);
+        self::assertEquals($document->oem_id, $entry->serviceLevel->oem_id);
+        self::assertEquals($supportPackage, $entry->serviceGroup->sku);
+        self::assertEquals($skuNumber, $entry->serviceLevel->sku);
+        self::assertEquals($currencyCode, $entry->currency->code);
+        self::assertEquals($netPrice, $entry->net_price);
+        self::assertEquals($listPrice, $entry->list_price);
+        self::assertEquals($discount, $entry->discount);
+        self::assertEquals($renewal, $entry->renewal);
+        self::assertEquals($start, $entry->start);
+        self::assertEquals($end, $entry->end);
     }
 
     /**
@@ -537,16 +537,16 @@ class DocumentFactoryTest extends TestCase {
 
         $entry = $factory->documentEntry($document, $documentEntry);
 
-        $this->assertInstanceOf(DocumentEntryModel::class, $entry);
-        $this->assertEquals($asset->getKey(), $entry->asset_id);
-        $this->assertNull($entry->document_id);
-        $this->assertEquals($asset->serial_number, $entry->serial_number);
-        $this->assertEquals($asset->product, $entry->product);
-        $this->assertEquals($currencyCode, $entry->currency->code);
-        $this->assertEquals($netPrice, $entry->net_price);
-        $this->assertEquals($listPrice, $entry->list_price);
-        $this->assertEquals($discount, $entry->discount);
-        $this->assertEquals($renewal, $entry->renewal);
+        self::assertInstanceOf(DocumentEntryModel::class, $entry);
+        self::assertEquals($asset->getKey(), $entry->asset_id);
+        self::assertNull($entry->document_id);
+        self::assertEquals($asset->serial_number, $entry->serial_number);
+        self::assertEquals($asset->product, $entry->product);
+        self::assertEquals($currencyCode, $entry->currency->code);
+        self::assertEquals($netPrice, $entry->net_price);
+        self::assertEquals($listPrice, $entry->list_price);
+        self::assertEquals($discount, $entry->discount);
+        self::assertEquals($renewal, $entry->renewal);
     }
 
     /**
@@ -568,7 +568,7 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn($asset);
 
-        $this->assertSame($asset, $factory->documentEntryAsset($model, $entry));
+        self::assertSame($asset, $factory->documentEntryAsset($model, $entry));
     }
 
     /**
@@ -589,7 +589,7 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $this->expectExceptionObject(new FailedToProcessDocumentEntryNoAsset($model, $entry));
+        self::expectExceptionObject(new FailedToProcessDocumentEntryNoAsset($model, $entry));
 
         $factory->documentEntryAsset($model, $entry);
     }
@@ -617,7 +617,7 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn($group);
 
-        $this->assertSame($group, $factory->documentEntryServiceGroup($model, $entry));
+        self::assertSame($group, $factory->documentEntryServiceGroup($model, $entry));
     }
 
     /**
@@ -650,7 +650,7 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn($level);
 
-        $this->assertSame($level, $factory->documentEntryServiceLevel($model, $entry));
+        self::assertSame($level, $factory->documentEntryServiceLevel($model, $entry));
     }
 
     /**
@@ -783,14 +783,14 @@ class DocumentFactoryTest extends TestCase {
             ->sort()
             ->values();
 
-        $this->assertCount(3, $actual);
-        $this->assertCount(3, $existing);
-        $this->assertEquals($expected, $existing);
-        $this->assertNotNull($created);
-        $this->assertNull($created->list_price);
-        $this->assertNull($created->net_price);
-        $this->assertNull($created->discount);
-        $this->assertNull($created->renewal);
+        self::assertCount(3, $actual);
+        self::assertCount(3, $existing);
+        self::assertEquals($expected, $existing);
+        self::assertNotNull($created);
+        self::assertNull($created->list_price);
+        self::assertNull($created->net_price);
+        self::assertNull($created->discount);
+        self::assertNull($created->renewal);
     }
 
     /**
@@ -817,50 +817,50 @@ class DocumentFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-full-queries.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($created);
-        $this->assertEquals($object->customerId, $created->customer_id);
-        $this->assertEquals($object->resellerId, $created->reseller_id);
-        $this->assertEquals($object->distributorId, $created->distributor_id);
-        $this->assertEquals($object->documentNumber, $created->number);
-        $this->assertCount(1, $created->statuses);
-        $this->assertEquals($this->getStatuses($object), $this->getModelStatuses($created));
-        $this->assertEquals('1292.16', $created->price);
-        $this->assertNull($this->getDatetime($created->start));
-        $this->assertEquals('1614470400000', $this->getDatetime($created->end));
-        $this->assertNull($this->getDatetime($created->changed_at));
-        $this->assertEquals('HPE', $created->oem->key);
-        $this->assertEquals('MultiNational Quote', $created->type->key);
-        $this->assertEquals('CUR', $created->currency->code);
-        $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('HPE', $created->oem->key);
-        $this->assertEquals('1234 4678 9012', $created->oem_said);
-        $this->assertEquals('abc-de', $created->oemGroup->key);
-        $this->assertEquals(1, $created->assets_count);
-        $this->assertEquals(6, $created->entries_count);
-        $this->assertEquals(1, $created->contacts_count);
-        $this->assertEquals(1, $created->statuses_count);
-        $this->assertCount($created->entries_count, $created->entries);
-        $this->assertCount($created->contacts_count, $created->contacts);
-        $this->assertCount($created->statuses_count, $created->statuses);
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($created);
+        self::assertEquals($object->customerId, $created->customer_id);
+        self::assertEquals($object->resellerId, $created->reseller_id);
+        self::assertEquals($object->distributorId, $created->distributor_id);
+        self::assertEquals($object->documentNumber, $created->number);
+        self::assertCount(1, $created->statuses);
+        self::assertEquals($this->getStatuses($object), $this->getModelStatuses($created));
+        self::assertEquals('1292.16', $created->price);
+        self::assertNull($this->getDatetime($created->start));
+        self::assertEquals('1614470400000', $this->getDatetime($created->end));
+        self::assertNull($this->getDatetime($created->changed_at));
+        self::assertEquals('HPE', $created->oem->key);
+        self::assertEquals('MultiNational Quote', $created->type->key);
+        self::assertEquals('CUR', $created->currency->code);
+        self::assertEquals('fr', $created->language->code);
+        self::assertEquals('HPE', $created->oem->key);
+        self::assertEquals('1234 4678 9012', $created->oem_said);
+        self::assertEquals('abc-de', $created->oemGroup->key);
+        self::assertEquals(1, $created->assets_count);
+        self::assertEquals(6, $created->entries_count);
+        self::assertEquals(1, $created->contacts_count);
+        self::assertEquals(1, $created->statuses_count);
+        self::assertCount($created->entries_count, $created->entries);
+        self::assertCount($created->contacts_count, $created->contacts);
+        self::assertCount($created->statuses_count, $created->statuses);
 
         /** @var DocumentEntryModel $e */
         $e = $created->entries->first(static function (DocumentEntryModel $entry): bool {
             return $entry->renewal === '145.00';
         });
 
-        $this->assertNotNull($e);
-        $this->assertEquals('23.40', $e->net_price);
-        $this->assertEquals('48.00', $e->list_price);
-        $this->assertEquals('-2.05', $e->discount);
-        $this->assertEquals($created->getKey(), $e->document_id);
-        $this->assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->asset_id);
-        $this->assertEquals('H7J34AC', $e->serviceGroup->sku);
-        $this->assertEquals('HA151AC', $e->serviceLevel->sku);
-        $this->assertEquals('HPE', $e->serviceLevel->oem->key);
-        $this->assertEquals('145.00', $e->renewal);
-        $this->assertNull($this->getDatetime($e->end));
-        $this->assertEquals('1614470400000', $this->getDatetime($e->start));
+        self::assertNotNull($e);
+        self::assertEquals('23.40', $e->net_price);
+        self::assertEquals('48.00', $e->list_price);
+        self::assertEquals('-2.05', $e->discount);
+        self::assertEquals($created->getKey(), $e->document_id);
+        self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->asset_id);
+        self::assertEquals('H7J34AC', $e->serviceGroup->sku);
+        self::assertEquals('HA151AC', $e->serviceLevel->sku);
+        self::assertEquals('HPE', $e->serviceLevel->oem->key);
+        self::assertEquals('145.00', $e->renewal);
+        self::assertNull($this->getDatetime($e->end));
+        self::assertEquals('1614470400000', $this->getDatetime($e->start));
 
         $this->flushQueryLog();
 
@@ -872,36 +872,36 @@ class DocumentFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-changed-queries.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($changed);
-        $this->assertNull($changed->distributor_id);
-        $this->assertEquals('3292.16', $changed->price);
-        $this->assertEquals('1625642660000', $this->getDatetime($changed->changed_at));
-        $this->assertEquals('EUR', $changed->currency->code);
-        $this->assertEquals('en', $changed->language->code);
-        $this->assertNull($changed->oem_said);
-        $this->assertNull($changed->oemGroup);
-        $this->assertCount(0, $changed->statuses);
-        $this->assertCount(0, $changed->contacts);
-        $this->assertEquals(0, $changed->contacts_count);
-        $this->assertEquals(2, $changed->entries_count);
-        $this->assertEquals(1, $changed->assets_count);
-        $this->assertEquals(0, $changed->statuses_count);
-        $this->assertCount(2, $changed->entries);
-        $this->assertCount(2, $changed->refresh()->entries);
-        $this->assertCount(0, $changed->statuses);
-        $this->assertCount(0, $changed->refresh()->statuses);
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($changed);
+        self::assertNull($changed->distributor_id);
+        self::assertEquals('3292.16', $changed->price);
+        self::assertEquals('1625642660000', $this->getDatetime($changed->changed_at));
+        self::assertEquals('EUR', $changed->currency->code);
+        self::assertEquals('en', $changed->language->code);
+        self::assertNull($changed->oem_said);
+        self::assertNull($changed->oemGroup);
+        self::assertCount(0, $changed->statuses);
+        self::assertCount(0, $changed->contacts);
+        self::assertEquals(0, $changed->contacts_count);
+        self::assertEquals(2, $changed->entries_count);
+        self::assertEquals(1, $changed->assets_count);
+        self::assertEquals(0, $changed->statuses_count);
+        self::assertCount(2, $changed->entries);
+        self::assertCount(2, $changed->refresh()->entries);
+        self::assertCount(0, $changed->statuses);
+        self::assertCount(0, $changed->refresh()->statuses);
 
         /** @var DocumentEntryModel $e */
         $e = $changed->entries->first(static function (DocumentEntryModel $entry): bool {
             return is_null($entry->renewal);
         });
 
-        $this->assertNotNull($e);
-        $this->assertNull($e->net_price);
-        $this->assertNull($e->list_price);
-        $this->assertNull($e->discount);
-        $this->assertNull($e->renewal);
+        self::assertNotNull($e);
+        self::assertNull($e->net_price);
+        self::assertNull($e->list_price);
+        self::assertNull($e->discount);
+        self::assertNull($e->renewal);
 
         $this->flushQueryLog();
 
@@ -916,7 +916,7 @@ class DocumentFactoryTest extends TestCase {
         ];
 
         $factory->createFromDocument($object);
-        $this->assertEquals($expected, array_column($this->getQueryLog(), 'query'));
+        self::assertEquals($expected, array_column($this->getQueryLog(), 'query'));
 
         $this->flushQueryLog();
     }

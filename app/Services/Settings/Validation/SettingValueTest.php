@@ -28,7 +28,7 @@ class SettingValueTest extends TestCase {
         $setting   = new Setting(new ReflectionClassConstant($class, $name));
         $rule      = new SettingValue($validator, $setting);
 
-        $this->assertEquals($expected, $rule->passes('test', $value));
+        self::assertEquals($expected, $rule->passes('test', $value));
     }
 
     /**
@@ -47,8 +47,8 @@ class SettingValueTest extends TestCase {
         $setting   = new Setting(new ReflectionClassConstant(SettingValueTest_Constants::class, 'VALUE'));
         $rule      = new SettingValue($validator, $setting);
 
-        $this->assertFalse($rule->passes('test', 'invalid'));
-        $this->assertEquals('The VALUE is invalid: The selected value is invalid.', $rule->message());
+        self::assertFalse($rule->passes('test', 'invalid'));
+        self::assertEquals('The VALUE is invalid: The selected value is invalid.', $rule->message());
     }
     // </editor-fold>
 

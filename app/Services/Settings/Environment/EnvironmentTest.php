@@ -29,9 +29,9 @@ class EnvironmentTest extends TestCase {
             ->times(3)
             ->andReturn($repository);
 
-        $this->assertNull($env->get('TEST'));
-        $this->assertNull($env->get('UNKNOWN'));
-        $this->assertEquals(123, $env->get('TEST2'));
+        self::assertNull($env->get('TEST'));
+        self::assertNull($env->get('UNKNOWN'));
+        self::assertEquals(123, $env->get('TEST2'));
     }
 
     /**
@@ -47,8 +47,8 @@ class EnvironmentTest extends TestCase {
             ->twice()
             ->andReturn($repository);
 
-        $this->assertTrue($env->has('TEST'));
-        $this->assertFalse($env->has('UNKNOWN'));
+        self::assertTrue($env->has('TEST'));
+        self::assertFalse($env->has('UNKNOWN'));
     }
 
     /**
@@ -63,7 +63,7 @@ class EnvironmentTest extends TestCase {
             }
         };
 
-        $this->assertSame(Env::getRepository(), $environment->getRepository());
+        self::assertSame(Env::getRepository(), $environment->getRepository());
     }
 
     /**
@@ -83,7 +83,7 @@ class EnvironmentTest extends TestCase {
             }
         };
 
-        $this->assertSame(Env::getRepository(), $environment->getRepository());
+        self::assertSame(Env::getRepository(), $environment->getRepository());
     }
 
     /**
@@ -109,8 +109,8 @@ class EnvironmentTest extends TestCase {
         };
         $repository  = $environment->getRepository();
 
-        $this->assertNotSame(Env::getRepository(), $repository);
-        $this->assertTrue($environment->has('TEST'));
-        $this->assertEquals('value', $environment->get('TEST'));
+        self::assertNotSame(Env::getRepository(), $repository);
+        self::assertTrue($environment->has('TEST'));
+        self::assertEquals('value', $environment->get('TEST'));
     }
 }

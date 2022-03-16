@@ -175,7 +175,7 @@ class ProcessorJobTest extends TestCase {
             ->once()
             ->andReturn($processor);
 
-        $this->assertEquals(
+        self::assertEquals(
             new Progress($total, $processed),
             ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
@@ -198,7 +198,7 @@ class ProcessorJobTest extends TestCase {
             ->once()
             ->andReturn($processor);
 
-        $this->assertTrue(
+        self::assertTrue(
             ($job->getResetProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
     }

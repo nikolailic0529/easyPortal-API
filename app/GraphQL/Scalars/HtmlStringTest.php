@@ -21,7 +21,7 @@ class HtmlStringTest extends TestCase {
         $scalar = new HtmlString();
         $actual = $scalar->serialize($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -30,13 +30,13 @@ class HtmlStringTest extends TestCase {
      */
     public function testParseValue(string|Exception $expected, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $scalar = new HtmlString();
         $actual = $scalar->parseValue($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -45,14 +45,14 @@ class HtmlStringTest extends TestCase {
      */
     public function testParseLiteral(string|Exception $expected, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $node   = new StringValueNode(['value' => $value]);
         $scalar = new HtmlString();
         $actual = $scalar->parseLiteral($node);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

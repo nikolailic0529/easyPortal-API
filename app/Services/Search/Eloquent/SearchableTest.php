@@ -54,7 +54,7 @@ class SearchableTest extends TestCase {
             }
         };
 
-        $this->assertTrue($model->searchIndexShouldBeUpdated());
+        self::assertTrue($model->searchIndexShouldBeUpdated());
 
         // Relations should be ignored
         $model = new class() extends Model {
@@ -72,7 +72,7 @@ class SearchableTest extends TestCase {
             }
         };
 
-        $this->assertFalse($model->searchIndexShouldBeUpdated());
+        self::assertFalse($model->searchIndexShouldBeUpdated());
     }
 
     /**
@@ -178,7 +178,7 @@ class SearchableTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -304,10 +304,10 @@ class SearchableTest extends TestCase {
         };
 
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
-        $this->assertEquals($expected, $model->toSearchableValue($value));
+        self::assertEquals($expected, $model->toSearchableValue($value));
     }
 
     /**
@@ -355,8 +355,8 @@ class SearchableTest extends TestCase {
 
         $model->queueMakeSearchable(new Collection([$a, $b]));
 
-        $this->assertCount(1, $model->models);
-        $this->assertSame($a, $model->models->first());
+        self::assertCount(1, $model->models);
+        self::assertSame($a, $model->models->first());
     }
 
     /**
@@ -444,12 +444,12 @@ class SearchableTest extends TestCase {
         // No properties
         $model::$searchProperties = [];
 
-        $this->assertFalse($model->shouldBeSearchable());
+        self::assertFalse($model->shouldBeSearchable());
 
         // Properties
         $model::$searchProperties = ['a' => new Text('a')];
 
-        $this->assertTrue($model->shouldBeSearchable());
+        self::assertTrue($model->shouldBeSearchable());
     }
 
     /**
@@ -475,8 +475,8 @@ class SearchableTest extends TestCase {
         };
         $config = $model->getSearchConfiguration();
 
-        $this->assertInstanceOf(Configuration::class, $config);
-        $this->assertEquals(
+        self::assertInstanceOf(Configuration::class, $config);
+        self::assertEquals(
             [
                 Configuration::getMetadataName() => [
                     'm' => new Text('m'),
@@ -506,8 +506,8 @@ class SearchableTest extends TestCase {
             }
         };
 
-        $this->assertEquals('test', $model->setSearchableAs('test')->searchableAs());
-        $this->assertEquals(
+        self::assertEquals('test', $model->setSearchableAs('test')->searchableAs());
+        self::assertEquals(
             $model->scoutSearchableAs(),
             $model->setSearchableAs(null)->searchableAs(),
         );
@@ -519,15 +519,15 @@ class SearchableTest extends TestCase {
     public function testIsSearchSyncingEnabled(): void {
         $model = Mockery::mock(Model::class, Searchable::class)::class;
 
-        $this->assertTrue($model::isSearchSyncingEnabled());
+        self::assertTrue($model::isSearchSyncingEnabled());
 
         $model::disableSearchSyncing();
 
-        $this->assertFalse($model::isSearchSyncingEnabled());
+        self::assertFalse($model::isSearchSyncingEnabled());
 
         $model::enableSearchSyncing();
 
-        $this->assertTrue($model::isSearchSyncingEnabled());
+        self::assertTrue($model::isSearchSyncingEnabled());
     }
     //</editor-fold>
 

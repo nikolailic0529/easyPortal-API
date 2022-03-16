@@ -13,6 +13,6 @@ class AssetsIndexerTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(AssetsIndexer::class);
+        self::assertCronableRegistered(AssetsIndexer::class);
     }
 }

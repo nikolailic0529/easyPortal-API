@@ -43,7 +43,7 @@ class ProcessorCommandTest extends TestCase {
 
         (new DescriptorHelper())->describe($buffer, $command);
 
-        $this->assertEquals($expected, $buffer->fetch());
+        self::assertEquals($expected, $buffer->fetch());
     }
 
     /**
@@ -164,7 +164,7 @@ class ProcessorCommandTest extends TestCase {
         $expected = Command::SUCCESS;
         $actual   = $command($formatter, $processor);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -301,7 +301,7 @@ class ProcessorCommandTest extends TestCase {
         $expected = Command::SUCCESS;
         $actual   = $command($formatter, $processor);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

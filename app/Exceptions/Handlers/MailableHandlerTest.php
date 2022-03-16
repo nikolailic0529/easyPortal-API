@@ -31,7 +31,7 @@ class MailableHandlerTest extends TestCase {
             }
         };
 
-        $this->assertEquals($expected, $handler->getRecipientLevel($recipient));
+        self::assertEquals($expected, $handler->getRecipientLevel($recipient));
     }
 
     /**
@@ -62,7 +62,7 @@ class MailableHandlerTest extends TestCase {
             return ['level' => $level];
         }, $records);
 
-        $this->assertEquals($expected, $handler->setRecipients($recipients)->getRecordsRecipients($records));
+        self::assertEquals($expected, $handler->setRecipients($recipients)->getRecordsRecipients($records));
     }
     // </editor-fold>
 

@@ -196,7 +196,7 @@ class CachedTest extends TestCase {
             )
             ->andReturn($value);
 
-        $this->assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();
@@ -245,7 +245,7 @@ class CachedTest extends TestCase {
             )
             ->andReturn($value);
 
-        $this->assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();
@@ -286,7 +286,7 @@ class CachedTest extends TestCase {
             ->shouldReceive('resolveWithThreshold')
             ->never();
 
-        $this->assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();
@@ -335,7 +335,7 @@ class CachedTest extends TestCase {
             )
             ->andReturn($value);
 
-        $this->assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();
@@ -387,7 +387,7 @@ class CachedTest extends TestCase {
             )
             ->andReturn($value);
 
-        $this->assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();
@@ -430,7 +430,7 @@ class CachedTest extends TestCase {
             ->shouldReceive('resolveWithLock')
             ->never();
 
-        $this->assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();

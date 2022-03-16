@@ -159,8 +159,8 @@ trait Searchable {
     public function getSearchConfiguration(): Configuration {
         return app()->make(Configuration::class, [
             'model'      => $this,
-            'metadata'   => $this->getSearchMetadata(),
-            'properties' => $this->getSearchProperties(),
+            'metadata'   => static::getSearchMetadata(),
+            'properties' => static::getSearchProperties(),
         ]);
     }
 

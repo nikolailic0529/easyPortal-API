@@ -38,17 +38,17 @@ class TagResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertFalse($actual->wasRecentlyCreated);
-        $this->assertEquals('a', $actual->name);
+        self::assertNotNull($actual);
+        self::assertFalse($actual->wasRecentlyCreated);
+        self::assertEquals('a', $actual->name);
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get(' a ', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($actual, $provider->get(' a ', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get('name', static function (): Tag {
+        self::assertNotSame($actual, $provider->get('name', static function (): Tag {
             return Tag::factory()->make();
         }));
 
@@ -64,22 +64,22 @@ class TagResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('unKnown', $created->name);
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get(' unknown ', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get(' unknown ', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // Created object should be found
         $c = Tag::factory()->create();
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($c->name)?->getKey());
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($c->getKey(), $provider->get($c->name)?->getKey());
+        self::assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
     }
 }

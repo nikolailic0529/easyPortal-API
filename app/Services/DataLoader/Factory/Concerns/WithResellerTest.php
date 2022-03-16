@@ -44,7 +44,7 @@ class WithResellerTest extends TestCase {
         $factory = new WithResellerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $reseller);
 
-        $this->assertEquals($reseller, $factory->reseller($object));
+        self::assertEquals($reseller, $factory->reseller($object));
     }
 
     /**
@@ -76,7 +76,7 @@ class WithResellerTest extends TestCase {
         $factory = new WithResellerTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $reseller);
 
-        $this->assertEquals($reseller, $factory->reseller($object));
+        self::assertEquals($reseller, $factory->reseller($object));
     }
 
     /**
@@ -97,9 +97,9 @@ class WithResellerTest extends TestCase {
         $factory = new WithResellerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $reseller);
 
-        $this->expectException(ResellerNotFound::class);
+        self::expectException(ResellerNotFound::class);
 
-        $this->assertEquals($reseller, $factory->reseller($object));
+        self::assertEquals($reseller, $factory->reseller($object));
     }
 
     /**
@@ -115,7 +115,7 @@ class WithResellerTest extends TestCase {
 
         $factory = new WithResellerTestObject($normalizer, $resolver);
 
-        $this->assertNull($factory->reseller($object));
+        self::assertNull($factory->reseller($object));
     }
     //</editor-fold>
 

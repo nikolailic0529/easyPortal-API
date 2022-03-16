@@ -50,7 +50,7 @@ class Permissions {
      */
     public function get(): array {
         if (!isset($this->permissions)) {
-            $this->permissions = $this->default();
+            $this->permissions = static::default();
         }
 
         return $this->permissions;

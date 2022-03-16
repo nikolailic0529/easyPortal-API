@@ -45,10 +45,10 @@ class ResolverTest extends TestCase {
         };
 
         // Cache is empty, so resolve should return null and store it in cache
-        $this->assertNull($provider->resolve($key));
+        self::assertNull($provider->resolve($key));
 
         // The second call with factory must call factory
-        $this->assertNotNull($provider->resolve(
+        self::assertNotNull($provider->resolve(
             $key,
             static function () use ($key): ?Model {
                 return new class($key) extends Model {
@@ -59,7 +59,7 @@ class ResolverTest extends TestCase {
                 };
             },
         ));
-        $this->assertNotNull($provider->resolve($key));
+        self::assertNotNull($provider->resolve($key));
 
         // If resolver(s) passed it will be used to create model
         $uuid  = $this->faker->uuid;
@@ -71,14 +71,14 @@ class ResolverTest extends TestCase {
             }
         };
 
-        $this->assertSame($value, $provider->resolve(
+        self::assertSame($value, $provider->resolve(
             $uuid,
             static function () use ($value) {
                 return $value;
             },
         ));
 
-        $this->assertSame($value, $provider->resolve($uuid, static function (): void {
+        self::assertSame($value, $provider->resolve($uuid, static function (): void {
             throw new Exception();
         }));
     }
@@ -117,8 +117,8 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $this->assertNull($resolver->resolve('abc', null, false));
-        $this->assertNull($resolver->resolve('abc', null, true));
+        self::assertNull($resolver->resolve('abc', null, false));
+        self::assertNull($resolver->resolve('abc', null, true));
     }
 
     /**
@@ -147,9 +147,9 @@ class ResolverTest extends TestCase {
             // empty
         }
 
-        $this->assertNotNull($exception);
-        $this->assertInstanceOf(FactorySearchModeException::class, $exception);
-        $this->assertTrue($provider->getCache()->has(
+        self::assertNotNull($exception);
+        self::assertInstanceOf(FactorySearchModeException::class, $exception);
+        self::assertTrue($provider->getCache()->has(
             new Key($normalizer, [$key]),
         ));
     }
@@ -220,7 +220,7 @@ class ResolverTest extends TestCase {
             });
 
         $callback = Mockery::spy(function (EloquentCollection $collection) use ($items): void {
-            $this->assertEquals($items, $collection);
+            self::assertEquals($items, $collection);
         });
 
         $resolver->prefetch($keys, Closure::fromCallable($callback));
@@ -230,12 +230,12 @@ class ResolverTest extends TestCase {
         $keyA = new Key($normalizer, [$keys['a']]);
         $keyB = new Key($normalizer, [$keys['b']]);
 
-        $this->assertTrue($cache->hasByRetriever('key', $keyA));
-        $this->assertFalse($cache->hasNull($keyA));
-        $this->assertFalse($cache->hasByRetriever('key', $keyB));
-        $this->assertTrue($cache->hasNull($keyB));
-        $this->assertFalse($cache->hasByRetriever('key', $keyB));
-        $this->assertTrue($cache->hasNull($keyB));
+        self::assertTrue($cache->hasByRetriever('key', $keyA));
+        self::assertFalse($cache->hasNull($keyA));
+        self::assertFalse($cache->hasByRetriever('key', $keyB));
+        self::assertTrue($cache->hasNull($keyB));
+        self::assertFalse($cache->hasByRetriever('key', $keyB));
+        self::assertTrue($cache->hasNull($keyB));
     }
 
     /**
@@ -250,7 +250,7 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturnNull();
 
-        $this->expectExceptionObject(
+        self::expectExceptionObject(
             new LogicException('Prefetch cannot be used with Resolver without the find query.'),
         );
 
@@ -277,7 +277,7 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturn($cache);
 
-        $this->assertSame($items, $resolver->getResolved());
+        self::assertSame($items, $resolver->getResolved());
     }
 
     /**

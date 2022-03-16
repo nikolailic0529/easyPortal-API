@@ -51,7 +51,7 @@ class WithOemTest extends TestCase {
             }
         };
 
-        $this->assertEquals($oem, $factory->oem($oem->key));
+        self::assertEquals($oem, $factory->oem($oem->key));
     }
 
     /**
@@ -91,7 +91,7 @@ class WithOemTest extends TestCase {
             }
         };
 
-        $this->assertEquals($oem, $factory->oem(" {$oem->key} "));
+        self::assertEquals($oem, $factory->oem(" {$oem->key} "));
     }
 
     /**
@@ -128,8 +128,8 @@ class WithOemTest extends TestCase {
             }
         };
 
-        $this->expectException(OemNotFound::class);
+        self::expectException(OemNotFound::class);
 
-        $this->assertEquals($oem, $factory->oem($oem->key));
+        self::assertEquals($oem, $factory->oem($oem->key));
     }
 }

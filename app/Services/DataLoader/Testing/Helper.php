@@ -456,7 +456,7 @@ trait Helper {
      */
     protected function generateData(string $data): void {
         // Generate
-        $this->assertTrue($this->app->make(DataGenerator::class)->generate($data));
+        self::assertTrue($this->app->make(DataGenerator::class)->generate($data));
 
         // Setup
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -467,7 +467,7 @@ trait Helper {
         });
 
         // Restore
-        $this->assertTrue($this->app->make(DataGenerator::class)->restore($data));
+        self::assertTrue($this->app->make(DataGenerator::class)->restore($data));
 
         // Reset
         $this->resetDateFactory();

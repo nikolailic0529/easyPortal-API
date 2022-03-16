@@ -19,7 +19,7 @@ class SchemaTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     public function testSchema(): void {
-        $this->assertDefaultGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
+        self::assertDefaultGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
     }
 
     /**
@@ -47,7 +47,7 @@ class SchemaTest extends TestCase {
             $replacement = "Directive {$directive} is forbidden.";
         }
 
-        $this->assertEquals([], $usages, $replacement);
+        self::assertEquals([], $usages, $replacement);
     }
     // </editor-fold>
 

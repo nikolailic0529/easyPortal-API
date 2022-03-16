@@ -43,7 +43,7 @@ class WithCustomerTest extends TestCase {
         $factory = new WithCustomerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $customer);
 
-        $this->assertEquals($customer, $factory->customer($object));
+        self::assertEquals($customer, $factory->customer($object));
     }
 
     /**
@@ -75,7 +75,7 @@ class WithCustomerTest extends TestCase {
         $factory = new WithCustomerTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $customer);
 
-        $this->assertEquals($customer, $factory->customer($object));
+        self::assertEquals($customer, $factory->customer($object));
     }
 
     /**
@@ -96,9 +96,9 @@ class WithCustomerTest extends TestCase {
         $factory = new WithCustomerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $customer);
 
-        $this->expectException(CustomerNotFound::class);
+        self::expectException(CustomerNotFound::class);
 
-        $this->assertEquals($customer, $factory->customer($object));
+        self::assertEquals($customer, $factory->customer($object));
     }
 
     /**
@@ -114,7 +114,7 @@ class WithCustomerTest extends TestCase {
 
         $factory = new WithCustomerTestObject($normalizer, $resolver);
 
-        $this->assertNull($factory->customer($object));
+        self::assertNull($factory->customer($object));
     }
     //</editor-fold>
 

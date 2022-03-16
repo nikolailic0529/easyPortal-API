@@ -47,29 +47,29 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertFalse($actual->wasRecentlyCreated);
-        $this->assertEquals('a', $actual->sku);
-        $this->assertEquals($a->name, $actual->name);
-        $this->assertEquals($oemA, $actual->oem);
+        self::assertNotNull($actual);
+        self::assertFalse($actual->wasRecentlyCreated);
+        self::assertEquals('a', $actual->sku);
+        self::assertEquals($a->name, $actual->name);
+        self::assertEquals($oemA, $actual->oem);
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($oemA, 'a', $factory));
-        $this->assertSame($actual, $provider->get($oemA, ' a ', $factory));
-        $this->assertSame($actual, $provider->get($oemA, 'A', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($actual, $provider->get($oemA, 'a', $factory));
+        self::assertSame($actual, $provider->get($oemA, ' a ', $factory));
+        self::assertSame($actual, $provider->get($oemA, 'A', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($oemB, 'a', static function (): Product {
+        self::assertNotSame($actual, $provider->get($oemB, 'a', static function (): Product {
             return Product::factory()->make();
         }));
 
         $this->flushQueryLog();
 
         // Product should be found in DB
-        $this->assertNotNull($provider->get($oemA, 'c', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($provider->get($oemA, 'c', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -84,15 +84,15 @@ class ProductResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->sku);
-        $this->assertEquals($oemB->getKey(), $created->oem_id);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('unKnown', $created->sku);
+        self::assertEquals($oemB->getKey(), $created->oem_id);
+        self::assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($oemB, ' unknown ', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get($oemB, ' unknown ', $factory));
+        self::assertCount(0, $this->getQueryLog());
     }
 }

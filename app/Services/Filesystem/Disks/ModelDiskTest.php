@@ -95,16 +95,16 @@ class ModelDiskTest extends TestCase {
 
         $actual = $disk->storeToFile($upload);
 
-        $this->assertInstanceOf(File::class, $actual);
-        $this->assertTrue($actual->exists);
-        $this->assertEquals($id, $actual->object_id);
-        $this->assertEquals('abc', $actual->object_type);
-        $this->assertEquals($upload->getClientOriginalName(), $actual->name);
-        $this->assertEquals($upload->getSize(), $actual->size);
-        $this->assertEquals($upload->getMimeType(), $actual->type);
-        $this->assertEquals('disk', $actual->disk);
-        $this->assertEquals('path/to/file.txt', $actual->path);
-        $this->assertEquals(hash_file('sha256', $upload->getPathname()), $actual->hash);
+        self::assertInstanceOf(File::class, $actual);
+        self::assertTrue($actual->exists);
+        self::assertEquals($id, $actual->object_id);
+        self::assertEquals('abc', $actual->object_type);
+        self::assertEquals($upload->getClientOriginalName(), $actual->name);
+        self::assertEquals($upload->getSize(), $actual->size);
+        self::assertEquals($upload->getMimeType(), $actual->type);
+        self::assertEquals('disk', $actual->disk);
+        self::assertEquals('path/to/file.txt', $actual->path);
+        self::assertEquals(hash_file('sha256', $upload->getPathname()), $actual->hash);
     }
 
     /**
@@ -126,7 +126,7 @@ class ModelDiskTest extends TestCase {
             ->once()
             ->andReturn(new File());
 
-        $this->assertCount(2, $disk->storeToFiles([$a, $b]));
+        self::assertCount(2, $disk->storeToFiles([$a, $b]));
     }
 
     /**
@@ -149,7 +149,7 @@ class ModelDiskTest extends TestCase {
             ->once()
             ->andReturn($fs);
 
-        $this->assertSame($response, $disk->download($path));
+        self::assertSame($response, $disk->download($path));
     }
 
     /**
@@ -176,7 +176,7 @@ class ModelDiskTest extends TestCase {
             ->once()
             ->andReturn($fs);
 
-        $this->assertSame($response, $disk->download($file));
+        self::assertSame($response, $disk->download($file));
     }
 
     /**
@@ -199,7 +199,7 @@ class ModelDiskTest extends TestCase {
             ->shouldReceive('filesystem')
             ->never();
 
-        $this->expectExceptionObject(new LogicException(sprintf(
+        self::expectExceptionObject(new LogicException(sprintf(
             'File should be from `%s` disk, but it is from `%s` disk.',
             'another',
             $file->disk,

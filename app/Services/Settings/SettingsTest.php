@@ -41,7 +41,7 @@ class SettingsTest extends TestCase {
      * @covers \Config\Constants
      */
     public function testConstants(): void {
-        $this->assertIsArray($this->app->make(Settings::class)->getEditableSettings());
+        self::assertIsArray($this->app->make(Settings::class)->getEditableSettings());
     }
 
     /**
@@ -75,7 +75,7 @@ class SettingsTest extends TestCase {
             return $setting->getName();
         }, $service->getEditableSettings());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -116,7 +116,7 @@ class SettingsTest extends TestCase {
             return $setting->getName();
         }, $service->getSettings());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -171,7 +171,7 @@ class SettingsTest extends TestCase {
             })
             ->all();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         Queue::assertPushed(ConfigUpdate::class);
         Event::assertDispatched(SettingsUpdated::class);
@@ -224,11 +224,11 @@ class SettingsTest extends TestCase {
             return new Value($setting, null);
         }, $settings);
 
-        $this->assertTrue($storage->save([
+        self::assertTrue($storage->save([
             'TEST' => 123,
         ]));
-        $this->assertTrue($service->saveSettings($settings));
-        $this->assertEquals(['A' => null], $storage->load());
+        self::assertTrue($service->saveSettings($settings));
+        self::assertEquals(['A' => null], $storage->load());
     }
 
     /**
@@ -257,7 +257,7 @@ class SettingsTest extends TestCase {
             ->shouldReceive('isArray')
             ->andReturn($isArray);
 
-        $this->assertEquals($expected, $service->parseValue($setting, $value));
+        self::assertEquals($expected, $service->parseValue($setting, $value));
     }
 
     /**
@@ -288,7 +288,7 @@ class SettingsTest extends TestCase {
             }
         };
 
-        $this->assertEquals([SettingsTest_Service::class], $service->getServices());
+        self::assertEquals([SettingsTest_Service::class], $service->getServices());
     }
 
     /**
@@ -308,7 +308,7 @@ class SettingsTest extends TestCase {
             ->values()
             ->all();
 
-        $this->assertEqualsCanonicalizing($expected, $actual);
+        self::assertEqualsCanonicalizing($expected, $actual);
     }
 
     /**
@@ -339,7 +339,7 @@ class SettingsTest extends TestCase {
             }
         };
 
-        $this->assertEquals([SettingsTest_Job::class], $service->getJobs());
+        self::assertEquals([SettingsTest_Job::class], $service->getJobs());
     }
 
     /**
@@ -365,7 +365,7 @@ class SettingsTest extends TestCase {
             }
         };
 
-        $this->assertEquals(['publicSettingA' => 'null'], $service->getPublicSettings());
+        self::assertEquals(['publicSettingA' => 'null'], $service->getPublicSettings());
     }
 
     /**
@@ -403,7 +403,7 @@ class SettingsTest extends TestCase {
             ->shouldReceive('isSecret')
             ->andReturn($isSecret);
 
-        $this->assertEquals($expected, $service->serializeValue($setting, $value));
+        self::assertEquals($expected, $service->serializeValue($setting, $value));
     }
 
     /**
@@ -441,7 +441,7 @@ class SettingsTest extends TestCase {
             ->shouldReceive('isSecret')
             ->andReturn($isSecret);
 
-        $this->assertEquals($expected, $service->serializePublicValue($setting, $value));
+        self::assertEquals($expected, $service->serializePublicValue($setting, $value));
     }
 
     /**
@@ -474,8 +474,8 @@ class SettingsTest extends TestCase {
             ->once()
             ->andReturn('B');
 
-        $this->assertTrue($service->isReadonly($settingA));
-        $this->assertFalse($service->isReadonly($settingB));
+        self::assertTrue($service->isReadonly($settingA));
+        self::assertFalse($service->isReadonly($settingB));
     }
 
     /**
@@ -505,9 +505,9 @@ class SettingsTest extends TestCase {
             'test.setting' => 345,
         ]);
 
-        $this->assertEquals('123', $settings->getPublicValue($A));
-        $this->assertEquals('345', $settings->getPublicValue($B));
-        $this->assertEquals('abc', $settings->getPublicValue($C));
+        self::assertEquals('123', $settings->getPublicValue($A));
+        self::assertEquals('345', $settings->getPublicValue($B));
+        self::assertEquals('abc', $settings->getPublicValue($C));
     }
 
     /**
@@ -524,7 +524,7 @@ class SettingsTest extends TestCase {
         ));
         $settings = $this->app->make(Settings::class);
 
-        $this->assertEquals('123', $settings->getPublicDefaultValue($setting));
+        self::assertEquals('123', $settings->getPublicDefaultValue($setting));
     }
 
     /**
@@ -585,9 +585,9 @@ class SettingsTest extends TestCase {
             ->once()
             ->andReturn(false);
 
-        $this->assertEquals('A', $settings->getValue($settingA));
-        $this->assertEquals('123', $settings->getValue($settingB));
-        $this->assertEquals(321, $settings->getValue($settingC));
+        self::assertEquals('A', $settings->getValue($settingA));
+        self::assertEquals('123', $settings->getValue($settingB));
+        self::assertEquals(321, $settings->getValue($settingC));
     }
     // </editor-fold>
 

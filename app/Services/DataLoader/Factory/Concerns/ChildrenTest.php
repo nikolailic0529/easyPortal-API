@@ -88,7 +88,7 @@ class ChildrenTest extends TestCase {
             ]),
         ]);
 
-        $this->assertInstanceOf($existing::class, $actual);
-        $this->assertEquals($expected, $actual);
+        self::assertInstanceOf($existing::class, $actual);
+        self::assertEquals($expected, $actual);
     }
 }

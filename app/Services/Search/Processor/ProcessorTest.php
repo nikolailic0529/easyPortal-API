@@ -76,21 +76,21 @@ class ProcessorTest extends TestCase {
             : 0;
         $previous    = null;
         $spyOnInit   = Mockery::spy(function (State $state) use ($expected): void {
-            $this->assertEquals(count($expected), $state->total);
-            $this->assertFalse($this->app->get(Repository::class)->get('scout.queue'));
+            self::assertEquals(count($expected), $state->total);
+            self::assertFalse($this->app->get(Repository::class)->get('scout.queue'));
         });
         $spyOnChange = Mockery::spy(function (State $state) use (&$previous, $chunk): void {
-            $this->assertEquals($previous?->processed + $chunk, $state->processed);
+            self::assertEquals($previous?->processed + $chunk, $state->processed);
 
             $previous = $state;
         });
         $spyOnFinish = Mockery::spy(function (State $state) use ($expected): void {
-            $this->assertEquals(count($expected), $state->processed);
+            self::assertEquals(count($expected), $state->processed);
         });
 
         // Error?
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         // Call
@@ -117,7 +117,7 @@ class ProcessorTest extends TestCase {
                 });
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected->map(new GetKey())->sort()->values(),
             GlobalScopes::callWithoutGlobalScope(
                 OwnedByOrganizationScope::class,
@@ -219,7 +219,7 @@ class ProcessorTest extends TestCase {
         ]));
 
         // Test
-        $this->assertSearchIndexes($expected);
+        self::assertSearchIndexes($expected);
     }
 
     /**
@@ -249,7 +249,7 @@ class ProcessorTest extends TestCase {
         ]));
 
         // Test
-        $this->assertSearchIndexes([
+        self::assertSearchIndexes([
             $config->getIndexName() => [
                 'aliases' => [
                     $config->getIndexAlias() => [
@@ -284,7 +284,7 @@ class ProcessorTest extends TestCase {
         }
 
         // Test
-        $this->assertEquals($expected, $processor->isIndexActual(new State([
+        self::assertEquals($expected, $processor->isIndexActual(new State([
             'model' => $model,
         ])));
     }
@@ -311,14 +311,14 @@ class ProcessorTest extends TestCase {
 
         $processor->init($state);
 
-        $this->assertNull($state->name);
+        self::assertNull($state->name);
 
         // Rebuild
         $state = new State(['rebuild' => true]);
 
         $processor->init($state);
 
-        $this->assertEquals($name, $state->name);
+        self::assertEquals($name, $state->name);
     }
 
     /**
@@ -435,7 +435,7 @@ class ProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'model'       => $model,
                 'keys'        => $keys,

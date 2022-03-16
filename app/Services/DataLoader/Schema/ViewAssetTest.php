@@ -20,12 +20,12 @@ class ViewAssetTest extends TestCase {
         $actual     = new ViewAsset($json);
         $properties = ViewAsset::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertInstanceOf(ViewAssetDocument::class, $actual->assetDocument[0]);
-        $this->assertInstanceOf(ViewDocument::class, $actual->assetDocument[0]->document);
-        $this->assertInstanceOf(CoverageStatusCheck::class, $actual->coverageStatusCheck);
-        $this->assertInstanceOf(CoverageEntry::class, $actual->coverageStatusCheck->coverageEntries[0]);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertInstanceOf(ViewAssetDocument::class, $actual->assetDocument[0]);
+        self::assertInstanceOf(ViewDocument::class, $actual->assetDocument[0]->document);
+        self::assertInstanceOf(CoverageStatusCheck::class, $actual->coverageStatusCheck);
+        self::assertInstanceOf(CoverageEntry::class, $actual->coverageStatusCheck->coverageEntries[0]);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

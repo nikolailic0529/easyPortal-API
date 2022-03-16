@@ -17,7 +17,7 @@ class FloatNumberTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        $this->assertEquals($expected, (new FloatNumber())->passes('test', $value));
+        self::assertEquals($expected, (new FloatNumber())->passes('test', $value));
     }
 
     /**
@@ -32,7 +32,7 @@ class FloatNumberTest extends TestCase {
             ];
         });
 
-        $this->assertEquals('message validation.float', (new FloatNumber())->message());
+        self::assertEquals('message validation.float', (new FloatNumber())->message());
     }
     // </editor-fold>
 

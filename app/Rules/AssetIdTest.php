@@ -27,7 +27,7 @@ class AssetIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(AssetId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(AssetId::class)->message(), 'Translated');
     }
 
     /**
@@ -39,7 +39,7 @@ class AssetIdTest extends TestCase {
     public function testPasses(bool $expected, Closure $assetFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $assetId      = $assetFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(AssetId::class)->passes('test', $assetId));
+        self::assertEquals($expected, $this->app->make(AssetId::class)->passes('test', $assetId));
     }
     // </editor-fold>
 

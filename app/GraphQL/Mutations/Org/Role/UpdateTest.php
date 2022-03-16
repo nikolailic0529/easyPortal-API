@@ -105,11 +105,11 @@ class UpdateTest extends TestCase {
             $updated = $role->fresh();
 
             if (isset($data['name'])) {
-                $this->assertEquals($data['name'], $updated->name);
+                self::assertEquals($data['name'], $updated->name);
             }
 
             if (isset($data['permissions'])) {
-                $this->assertEquals(
+                self::assertEquals(
                     $updated->permissions->pluck((new Permission())->getKeyName())->all(),
                     $data['permissions'],
                 );

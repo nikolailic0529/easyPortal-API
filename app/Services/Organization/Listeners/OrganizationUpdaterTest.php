@@ -35,16 +35,16 @@ class OrganizationUpdaterTest extends TestCase {
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
-        $this->assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
+        self::assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
 
         $updater->handle($event);
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertEquals($reseller->name, $organization->name);
-        $this->assertEquals($company->keycloakName, $organization->keycloak_scope);
-        $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertNotNull($organization);
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
+        self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
     }
 
     /**
@@ -63,9 +63,9 @@ class OrganizationUpdaterTest extends TestCase {
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertNull($organization->keycloak_scope);
-        $this->assertNull($organization->keycloak_group_id);
+        self::assertNotNull($organization);
+        self::assertNull($organization->keycloak_scope);
+        self::assertNull($organization->keycloak_group_id);
     }
 
     /**
@@ -90,10 +90,10 @@ class OrganizationUpdaterTest extends TestCase {
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertEquals($reseller->name, $organization->name);
-        $this->assertEquals($company->keycloakName, $organization->keycloak_scope);
-        $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertNotNull($organization);
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
+        self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
     }
 
     /**
@@ -118,10 +118,10 @@ class OrganizationUpdaterTest extends TestCase {
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertEquals($reseller->name, $organization->name);
-        $this->assertEquals('anothertestreseller', $organization->keycloak_scope);
-        $this->assertEquals('anothertestgroup', $organization->keycloak_group_id);
+        self::assertNotNull($organization);
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals('anothertestreseller', $organization->keycloak_scope);
+        self::assertEquals('anothertestgroup', $organization->keycloak_group_id);
     }
 
     /**
@@ -151,11 +151,11 @@ class OrganizationUpdaterTest extends TestCase {
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertFalse($organization->trashed());
-        $this->assertEquals($reseller->name, $organization->name);
-        $this->assertEquals($company->keycloakName, $organization->keycloak_scope);
-        $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertNotNull($organization);
+        self::assertFalse($organization->trashed());
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
+        self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
     }
 
     /**
@@ -176,18 +176,18 @@ class OrganizationUpdaterTest extends TestCase {
             'keycloak_group_id' => $company->keycloakGroupId,
         ]);
 
-        $this->assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
+        self::assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
 
         $updater->handle($event);
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertEquals($reseller->name, $organization->name);
-        $this->assertEquals($company->keycloakName, $organization->keycloak_scope);
-        $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
-        $this->assertNull($scopeOrganization->fresh()->keycloak_scope);
-        $this->assertNull($groupOrganization->fresh()->keycloak_group_id);
+        self::assertNotNull($organization);
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
+        self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertNull($scopeOrganization->fresh()->keycloak_scope);
+        self::assertNull($groupOrganization->fresh()->keycloak_group_id);
     }
 
     /**
@@ -242,59 +242,59 @@ class OrganizationUpdaterTest extends TestCase {
         $normalizer   = $this->app->make(Normalizer::class);
         $branding     = $company->brandingData;
 
-        $this->assertNotNull($organization);
-        $this->assertEquals(
+        self::assertNotNull($organization);
+        self::assertEquals(
             $normalizer->boolean($branding->brandingMode),
             $organization->branding_dark_theme,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->string($branding->defaultLogoUrl),
             $organization->branding_default_logo_url,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->color($branding->defaultMainColor),
             $organization->branding_default_main_color,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->string($branding->favIconUrl),
             $organization->branding_favicon_url,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->string($branding->logoUrl),
             $organization->branding_logo_url,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->color($branding->mainColor),
             $organization->branding_main_color,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->string($branding->mainImageOnTheRight),
             $organization->branding_welcome_image_url,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->color($branding->secondaryColor),
             $organization->branding_secondary_color,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->color($branding->secondaryColorDefault),
             $organization->branding_default_secondary_color,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->string($branding->useDefaultFavIcon),
             $organization->branding_default_favicon_url,
         );
-        $this->assertEquals(
+        self::assertEquals(
             $normalizer->string($branding->resellerAnalyticsCode),
             $organization->analytics_code,
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'en_GB'   => $normalizer->string($branding->mainHeadingText[0]->text ?? null),
                 'unknown' => $normalizer->string($branding->mainHeadingText[1]->text ?? null),
             ],
             $organization->branding_welcome_heading->toArray(),
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'en_GB'   => $normalizer->string($branding->underlineText[0]->text ?? null),
                 'unknown' => $normalizer->string($branding->underlineText[1]->text ?? null),
@@ -310,19 +310,19 @@ class OrganizationUpdaterTest extends TestCase {
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
-        $this->assertNotNull($organization);
-        $this->assertNotNull($organization->branding_dark_theme);
-        $this->assertNotNull($organization->branding_default_logo_url);
-        $this->assertNull($organization->branding_default_main_color);
-        $this->assertNotNull($organization->branding_favicon_url);
-        $this->assertNotNull($organization->branding_logo_url);
-        $this->assertNotNull($organization->branding_main_color);
-        $this->assertNotNull($organization->branding_welcome_heading);
-        $this->assertNotNull($organization->branding_welcome_image_url);
-        $this->assertNotNull($organization->branding_secondary_color);
-        $this->assertNotNull($organization->branding_default_secondary_color);
-        $this->assertNotNull($organization->branding_welcome_underline);
-        $this->assertNotNull($organization->branding_default_favicon_url);
-        $this->assertNotNull($organization->analytics_code);
+        self::assertNotNull($organization);
+        self::assertNotNull($organization->branding_dark_theme);
+        self::assertNotNull($organization->branding_default_logo_url);
+        self::assertNull($organization->branding_default_main_color);
+        self::assertNotNull($organization->branding_favicon_url);
+        self::assertNotNull($organization->branding_logo_url);
+        self::assertNotNull($organization->branding_main_color);
+        self::assertNotNull($organization->branding_welcome_heading);
+        self::assertNotNull($organization->branding_welcome_image_url);
+        self::assertNotNull($organization->branding_secondary_color);
+        self::assertNotNull($organization->branding_default_secondary_color);
+        self::assertNotNull($organization->branding_welcome_underline);
+        self::assertNotNull($organization->branding_default_favicon_url);
+        self::assertNotNull($organization->analytics_code);
     }
 }

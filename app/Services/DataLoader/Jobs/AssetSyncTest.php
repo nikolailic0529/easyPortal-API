@@ -61,7 +61,7 @@ class AssetSyncTest extends TestCase {
             'result' => true,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -105,7 +105,7 @@ class AssetSyncTest extends TestCase {
             'result' => false,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 }

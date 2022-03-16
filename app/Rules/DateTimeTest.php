@@ -21,7 +21,7 @@ class DateTimeTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        $this->assertEquals($expected, (new DateTime())->passes('test', $value));
+        self::assertEquals($expected, (new DateTime())->passes('test', $value));
     }
 
     /**
@@ -36,7 +36,7 @@ class DateTimeTest extends TestCase {
             ];
         });
 
-        $this->assertEquals(
+        self::assertEquals(
             'message validation.date_format Y-m-d\TH:i:sP',
             (new DateTime())->message(),
         );
@@ -49,14 +49,14 @@ class DateTimeTest extends TestCase {
      */
     public function testParse(string|Exception $expected, ?string $tz, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $this->setSettings([
             'app.timezone' => $tz,
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             (new DateTime())->parse($value)?->format(DateTimeInterface::RFC3339_EXTENDED),
         );

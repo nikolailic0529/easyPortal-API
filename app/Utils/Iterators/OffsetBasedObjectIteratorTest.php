@@ -44,7 +44,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $expected = $data;
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $onInit->shouldHaveBeenCalled()->once();
         $onFinish->shouldHaveBeenCalled()->once();
@@ -79,7 +79,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $expected = [6, 7];
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $onBeforeChunk->shouldHaveBeenCalled();
         $onAfterChunk->shouldHaveBeenCalled();
@@ -92,7 +92,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     public function testIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEquals(2, $variables['limit']);
+            self::assertEquals(2, $variables['limit']);
 
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
@@ -106,7 +106,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             ->setLimit(10);
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor->shouldHaveBeenCalled()->times(5);
     }
@@ -117,7 +117,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     public function testIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
         $executor = Mockery::spy(function (array $variables = []) use ($data): array {
-            $this->assertEquals(2, $variables['limit']);
+            self::assertEquals(2, $variables['limit']);
 
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
@@ -131,7 +131,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             ->setLimit(2);
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor->shouldHaveBeenCalled()->times(1);
     }
@@ -152,7 +152,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             ->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor->shouldNotHaveBeenCalled();
     }
@@ -183,7 +183,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
         $expected = $data;
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor->shouldHaveBeenCalled()->times(2);
     }
@@ -197,14 +197,14 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             return [];
         });
 
-        $this->assertNotNull($iterator->setOffset('123'));
+        self::assertNotNull($iterator->setOffset('123'));
     }
 
     /**
      * @covers ::setOffset
      */
     public function testSetOffsetInvalidType(): void {
-        $this->expectException(InvalidArgumentException::class);
+        self::expectException(InvalidArgumentException::class);
 
         $handler  = Mockery::mock(ExceptionHandler::class);
         $iterator = new OffsetBasedObjectIterator($handler, static function (): array {

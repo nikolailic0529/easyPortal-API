@@ -14,7 +14,7 @@ trait HideGeneratedAttributes {
      * @inheritDoc
      */
     public function setRawAttributes(array $attributes, $sync = false): static {
-        return parent::setRawAttributes($this->removeGeneratedAttributes($attributes), $sync);
+        return parent::setRawAttributes(static::removeGeneratedAttributes($attributes), $sync);
     }
 
     /**

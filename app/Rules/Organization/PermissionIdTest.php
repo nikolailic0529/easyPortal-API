@@ -32,7 +32,7 @@ class PermissionIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(PermissionId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(PermissionId::class)->message(), 'Translated');
     }
 
     /**
@@ -65,7 +65,7 @@ class PermissionIdTest extends TestCase {
         $rule       = $this->app->make(PermissionId::class)->setMutationContext(new ResolverContext(null, $org));
         $actual     = $rule->passes('test', $permission->getKey());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

@@ -31,7 +31,7 @@ class OrganizationTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $this->assertGraphQLSchemaEquals(
+        self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
             $this->getTestData()->content('~schema.graphql'),
         );

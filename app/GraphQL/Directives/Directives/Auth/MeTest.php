@@ -56,7 +56,7 @@ class MeTest extends TestCase {
             },
         ]);
 
-        $this->assertGraphQLSchemaEquals(
+        self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
             $this->getTestData()->content('~schema.graphql'),
         );
@@ -149,7 +149,7 @@ class MeTest extends TestCase {
         $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode(['a', 'unknown']);
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'Unknown permissions: `%s`',
             implode('`, `', ['unknown']),
         )));
@@ -193,7 +193,7 @@ class MeTest extends TestCase {
             }
         };
 
-        $this->assertEquals($expected, $me->getGateArguments($root));
+        self::assertEquals($expected, $me->getGateArguments($root));
     }
     // </editor-fold>
 

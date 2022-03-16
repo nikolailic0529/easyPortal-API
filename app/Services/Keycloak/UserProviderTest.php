@@ -43,8 +43,8 @@ class UserProviderTest extends TestCase {
         $provider = $this->app->make(UserProvider::class);
         $user     = User::factory()->create();
 
-        $this->assertEquals($user, $provider->retrieveById($user->getKey()));
-        $this->assertNull($provider->retrieveById($this->faker->uuid));
+        self::assertEquals($user, $provider->retrieveById($user->getKey()));
+        self::assertNull($provider->retrieveById($this->faker->uuid));
     }
 
     /**
@@ -58,7 +58,7 @@ class UserProviderTest extends TestCase {
         Closure $credentialsFactory,
     ): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $prepare($this);
@@ -69,11 +69,11 @@ class UserProviderTest extends TestCase {
         $actual       = $provider->retrieveByCredentials($credentials);
 
         if ($expected) {
-            $this->assertNotNull($actual);
-            $this->assertEquals($expected, $actual->getKey());
-            $this->assertEquals($organization, $actual->getOrganization());
+            self::assertNotNull($actual);
+            self::assertEquals($expected, $actual->getKey());
+            self::assertEquals($organization, $actual->getOrganization());
         } else {
-            $this->assertNull($actual);
+            self::assertNull($actual);
         }
     }
 
@@ -89,7 +89,7 @@ class UserProviderTest extends TestCase {
         bool $shouldBeUpdated,
     ): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $prepare($this);
@@ -126,10 +126,10 @@ class UserProviderTest extends TestCase {
         $actual = $provider->retrieveByCredentials($credentials);
 
         if (!is_null($expected)) {
-            $this->assertNotNull($actual);
-            $this->assertEquals($expected, !$actual->exists);
+            self::assertNotNull($actual);
+            self::assertEquals($expected, !$actual->exists);
         } else {
-            $this->assertNull($actual);
+            self::assertNull($actual);
         }
     }
 
@@ -162,7 +162,7 @@ class UserProviderTest extends TestCase {
                 });
         }
 
-        $this->assertEquals($expected, $provider->validateCredentials($authenticatable, $credentials));
+        self::assertEquals($expected, $provider->validateCredentials($authenticatable, $credentials));
     }
 
     /**
@@ -173,7 +173,7 @@ class UserProviderTest extends TestCase {
     public function testGetProperties(Exception|Closure $expected, Closure $claims): void {
         // Error?
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         // Prepare
@@ -202,7 +202,7 @@ class UserProviderTest extends TestCase {
         // Test
         $actual = $provider->getProperties($user, $token, $org);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -244,17 +244,17 @@ class UserProviderTest extends TestCase {
 
         $provider->updateTokenUser($user, $token, null);
 
-        $this->assertEquals('123', $user->given_name);
-        $this->assertEquals('456', $user->family_name);
-        $this->assertEquals(['test_role_1', 'test_role_2'], $user->getPermissions());
-        $this->assertEquals($organization, $user->organization);
-        $this->assertEquals('https://example.com/photo.jpg', $user->photo);
-        $this->assertEquals('Mr', $user->title);
-        $this->assertEquals('Professor', $user->academic_title);
-        $this->assertEquals('+1-202-555-0197', $user->office_phone);
-        $this->assertEquals('+1-202-555-0147', $user->mobile_phone);
-        $this->assertEquals('test@gmail.com', $user->contact_email);
-        $this->assertEquals('Manger', $user->job_title);
+        self::assertEquals('123', $user->given_name);
+        self::assertEquals('456', $user->family_name);
+        self::assertEquals(['test_role_1', 'test_role_2'], $user->getPermissions());
+        self::assertEquals($organization, $user->organization);
+        self::assertEquals('https://example.com/photo.jpg', $user->photo);
+        self::assertEquals('Mr', $user->title);
+        self::assertEquals('Professor', $user->academic_title);
+        self::assertEquals('+1-202-555-0197', $user->office_phone);
+        self::assertEquals('+1-202-555-0147', $user->mobile_phone);
+        self::assertEquals('test@gmail.com', $user->contact_email);
+        self::assertEquals('Manger', $user->job_title);
     }
 
     /**
@@ -292,10 +292,10 @@ class UserProviderTest extends TestCase {
         $actual       = $provider->getOrganization($user, $token, $organization);
 
         if ($expected) {
-            $this->assertNotNull($actual);
-            $this->assertEquals($org->getKey(), $actual->getKey());
+            self::assertNotNull($actual);
+            self::assertEquals($org->getKey(), $actual->getKey());
         } else {
-            $this->assertNull($actual);
+            self::assertNull($actual);
         }
     }
 
@@ -319,7 +319,7 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $this->assertEquals([], $provider->getPermissions($user, $token, null));
+        self::assertEquals([], $provider->getPermissions($user, $token, null));
     }
 
     /**
@@ -343,7 +343,7 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $this->assertEquals([], $provider->getPermissions($user, $token, $org));
+        self::assertEquals([], $provider->getPermissions($user, $token, $org));
     }
 
     /**
@@ -412,7 +412,7 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $this->assertEqualsCanonicalizing(
+        self::assertEqualsCanonicalizing(
             [$permissionA->key, $permissionB->key],
             $provider->getPermissions($user, $token, $org),
         );

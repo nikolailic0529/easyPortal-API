@@ -28,7 +28,7 @@ class ModelConverterTest extends TestCase {
         $actual    = $this->getGraphQL($converter->toInputObjectTypes(ModelConverterTest_Model::class));
         $expected  = $this->getTestData()->content('.graphql');
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

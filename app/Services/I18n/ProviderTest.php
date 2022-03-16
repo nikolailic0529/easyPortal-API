@@ -14,7 +14,7 @@ class ProviderTest extends TestCase {
      * @covers ::registerLoader
      */
     public function testRegisterLoader(): void {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             TranslationLoader::class,
             $this->app->make('translator')->getLoader(),
         );

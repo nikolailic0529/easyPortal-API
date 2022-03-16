@@ -48,9 +48,9 @@ class TranslationsTest extends TestCase {
             'd' => 'dd',
         ];
 
-        $this->assertTrue($translations->update($locale, $strings, $updated));
-        $this->assertEquals(['a', 'c', 'd'], $updated);
-        $this->assertEquals(array_merge($initial, $strings), $storage->load());
+        self::assertTrue($translations->update($locale, $strings, $updated));
+        self::assertEquals(['a', 'c', 'd'], $updated);
+        self::assertEquals(array_merge($initial, $strings), $storage->load());
 
         Event::assertDispatched(TranslationsUpdated::class);
     }
@@ -86,8 +86,8 @@ class TranslationsTest extends TestCase {
         $locale  = $this->faker->locale;
         $updated = [];
 
-        $this->assertFalse($translations->update($locale, [], $updated));
-        $this->assertEquals([], $updated);
+        self::assertFalse($translations->update($locale, [], $updated));
+        self::assertEquals([], $updated);
 
         Event::assertNotDispatched(TranslationsUpdated::class);
     }
@@ -119,8 +119,8 @@ class TranslationsTest extends TestCase {
         $locale  = $this->faker->locale;
         $updated = [];
 
-        $this->assertTrue($translations->update($locale, [], $updated));
-        $this->assertEquals([], $updated);
+        self::assertTrue($translations->update($locale, [], $updated));
+        self::assertEquals([], $updated);
 
         Event::assertNotDispatched(TranslationsUpdated::class);
     }
@@ -150,9 +150,9 @@ class TranslationsTest extends TestCase {
 
         $deleted = [];
 
-        $this->assertTrue($translations->delete($locale, ['a', 'a', 'c', 'd'], $deleted));
-        $this->assertEquals(['a', 'c'], $deleted);
-        $this->assertEquals(['b' => 'b'], $storage->load());
+        self::assertTrue($translations->delete($locale, ['a', 'a', 'c', 'd'], $deleted));
+        self::assertEquals(['a', 'c'], $deleted);
+        self::assertEquals(['b' => 'b'], $storage->load());
 
         Event::assertDispatched(TranslationsUpdated::class);
     }
@@ -188,8 +188,8 @@ class TranslationsTest extends TestCase {
         $locale  = $this->faker->locale;
         $deleted = [];
 
-        $this->assertFalse($translations->delete($locale, [], $deleted));
-        $this->assertEquals([], $deleted);
+        self::assertFalse($translations->delete($locale, [], $deleted));
+        self::assertEquals([], $deleted);
 
         Event::assertNotDispatched(TranslationsUpdated::class);
     }
@@ -221,8 +221,8 @@ class TranslationsTest extends TestCase {
         $locale  = $this->faker->locale;
         $deleted = [];
 
-        $this->assertTrue($translations->delete($locale, [], $deleted));
-        $this->assertEquals([], $deleted);
+        self::assertTrue($translations->delete($locale, [], $deleted));
+        self::assertEquals([], $deleted);
 
         Event::assertNotDispatched(TranslationsUpdated::class);
     }
@@ -252,7 +252,7 @@ class TranslationsTest extends TestCase {
             ->once()
             ->andReturn($storage);
 
-        $this->assertTrue($translations->reset($locale));
+        self::assertTrue($translations->reset($locale));
 
         Event::assertDispatched(TranslationsUpdated::class);
     }
@@ -282,7 +282,7 @@ class TranslationsTest extends TestCase {
             ->once()
             ->andReturn($storage);
 
-        $this->assertFalse($translations->reset($locale));
+        self::assertFalse($translations->reset($locale));
 
         Event::assertNotDispatched(TranslationsUpdated::class);
     }

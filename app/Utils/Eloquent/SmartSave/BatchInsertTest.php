@@ -31,8 +31,8 @@ class BatchInsertTest extends TestCase {
 
         $insert->save();
 
-        $this->assertNull($insert->getModel());
-        $this->assertEmpty($insert->getInserts());
+        self::assertNull($insert->getModel());
+        self::assertEmpty($insert->getInserts());
     }
 
     /**
@@ -53,8 +53,8 @@ class BatchInsertTest extends TestCase {
 
         $insert->save();
 
-        $this->assertNull($insert->getModel());
-        $this->assertEmpty($insert->getInserts());
+        self::assertNull($insert->getModel());
+        self::assertEmpty($insert->getInserts());
     }
 
     /**
@@ -75,8 +75,8 @@ class BatchInsertTest extends TestCase {
 
         $insert->save();
 
-        $this->assertNull($insert->getModel());
-        $this->assertEmpty($insert->getInserts());
+        self::assertNull($insert->getModel());
+        self::assertEmpty($insert->getInserts());
     }
 
     /**
@@ -98,8 +98,8 @@ class BatchInsertTest extends TestCase {
 
         $insert->save();
 
-        $this->assertNull($insert->getModel());
-        $this->assertEmpty($insert->getInserts());
+        self::assertNull($insert->getModel());
+        self::assertEmpty($insert->getInserts());
     }
 
     /**

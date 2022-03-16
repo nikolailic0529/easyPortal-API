@@ -99,7 +99,7 @@ class JsonObjectTest extends TestCase {
             ],
         ]);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -115,7 +115,7 @@ class JsonObjectTest extends TestCase {
             'children' => [$child],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'i'        => 567,
                 'b'        => true,
@@ -138,7 +138,7 @@ class JsonObjectTest extends TestCase {
             'children' => [$child],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'i'        => 567,
                 'b'        => true,
@@ -161,7 +161,7 @@ class JsonObjectTest extends TestCase {
             'children' => [$child],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'i'        => 567,
                 'b'        => true,
@@ -183,13 +183,13 @@ class JsonObjectTest extends TestCase {
             // empty
         };
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
             $object::class,
             'unknown',
         )));
 
-        $this->assertNotNull($object->unknown);
+        self::assertNotNull($object->unknown);
     }
 
     /**
@@ -200,7 +200,7 @@ class JsonObjectTest extends TestCase {
             // empty
         };
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
             $object::class,
             'unknown',
@@ -217,8 +217,8 @@ class JsonObjectTest extends TestCase {
             public string $known = 'value';
         };
 
-        $this->assertTrue(isset($object->known));
-        $this->assertFalse(isset($object->unknown));
+        self::assertTrue(isset($object->known));
+        self::assertFalse(isset($object->unknown));
     }
 
     /**
@@ -232,8 +232,8 @@ class JsonObjectTest extends TestCase {
             public string $property;
         };
 
-        $this->assertTrue($empty->isEmpty());
-        $this->assertFalse($object->isEmpty());
+        self::assertTrue($empty->isEmpty());
+        self::assertFalse($object->isEmpty());
     }
 
     /**
@@ -247,22 +247,22 @@ class JsonObjectTest extends TestCase {
             public string $property;
         };
 
-        $this->assertEquals(0, count($empty));
-        $this->assertEquals(1, count($object));
+        self::assertEquals(0, count($empty));
+        self::assertEquals(1, count($object));
     }
 
     /**
      * @covers ::make
      */
     public function testMake(): void {
-        $this->assertNull(
+        self::assertNull(
             JsonObjectTest_Parent::make(null),
         );
-        $this->assertEquals(
+        self::assertEquals(
             new JsonObjectTest_Parent(['i' => 1]),
             JsonObjectTest_Parent::make(['i' => 1]),
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 new JsonObjectTest_Parent(['i' => 1]),
                 new JsonObjectTest_Parent(['i' => 2]),

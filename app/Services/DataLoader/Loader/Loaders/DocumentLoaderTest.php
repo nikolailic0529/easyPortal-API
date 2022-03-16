@@ -37,7 +37,7 @@ class DocumentLoaderTest extends TestCase {
         $this->overrideUuidFactory('ae9b555a-9328-497a-bd3f-ce0e3ec15081');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 4,
             Customer::class      => 1,
@@ -55,8 +55,8 @@ class DocumentLoaderTest extends TestCase {
 
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 
-        $this->assertQueryLogEquals('~create-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~create-cold.json', $queries);
+        self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 4,
             Customer::class      => 1,
@@ -65,7 +65,7 @@ class DocumentLoaderTest extends TestCase {
             Document::class      => 1,
             DocumentEntry::class => 0,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~create-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -82,8 +82,8 @@ class DocumentLoaderTest extends TestCase {
 
         $importer->create(DocumentLoaderCreate::DOCUMENT);
 
-        $this->assertQueryLogEquals('~create-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~create-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~create-events.json',
             $events->dispatched(DataImported::class),
         );

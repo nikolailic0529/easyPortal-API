@@ -32,7 +32,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+        self::assertSame($builder, $processor->getBuilder(new EloquentState([
             'model' => $builder->getModel()::class,
         ])));
     }
@@ -48,7 +48,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+        self::assertSame($builder, $processor->getBuilder(new EloquentState([
             'model' => $builder->getModel()::class,
             'keys'  => $keys,
         ])));
@@ -63,7 +63,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+        self::assertSame($builder, $processor->getBuilder(new EloquentState([
             'model'       => $builder->getModel()::class,
             'withTrashed' => true,
         ])));
@@ -83,7 +83,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+        self::assertSame($builder, $processor->getBuilder(new EloquentState([
             'model'       => $builder->getModel()::class,
             'withTrashed' => true,
         ])));
@@ -103,7 +103,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+        self::assertSame($builder, $processor->getBuilder(new EloquentState([
             'model'       => $builder->getModel()::class,
             'withTrashed' => false,
         ])));
@@ -123,7 +123,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertSame($builder, $processor->getBuilder(new EloquentState([
+        self::assertSame($builder, $processor->getBuilder(new EloquentState([
             'model' => $builder->getModel()::class,
         ])));
     }
@@ -149,7 +149,7 @@ class EloquentProcessorTest extends TestCase {
             ->once()
             ->andReturn($builder);
 
-        $this->assertEquals($count, $processor->getTotal($state));
+        self::assertEquals($count, $processor->getTotal($state));
     }
 
     /**
@@ -162,7 +162,7 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertEquals(count($keys), $processor->getTotal($state));
+        self::assertEquals(count($keys), $processor->getTotal($state));
     }
 
     /**
@@ -187,7 +187,7 @@ class EloquentProcessorTest extends TestCase {
             ->once()
             ->andReturn($builder);
 
-        $this->assertInstanceOf(EloquentIterator::class, $processor->getIterator($state));
+        self::assertInstanceOf(EloquentIterator::class, $processor->getIterator($state));
     }
 
     /**
@@ -211,7 +211,7 @@ class EloquentProcessorTest extends TestCase {
             ->once()
             ->andReturn($builder);
 
-        $this->assertInstanceOf(ModelsIterator::class, $processor->getIterator($state));
+        self::assertInstanceOf(ModelsIterator::class, $processor->getIterator($state));
     }
     // </editor-fold>
 

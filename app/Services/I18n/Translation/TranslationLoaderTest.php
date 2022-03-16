@@ -48,7 +48,7 @@ class TranslationLoaderTest extends TestCase {
                 "{$locale}.loadStorage" => 123,
             ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 "{$locale}.loadJsonPaths" => 123,
                 "{$locale}.loadStorage"   => 123,
@@ -67,7 +67,7 @@ class TranslationLoaderTest extends TestCase {
         $this->app->setLocale($locale);
         $this->app->setFallbackLocale($fallback);
 
-        $this->assertNotEquals($locale, $fallback);
+        self::assertNotEquals($locale, $fallback);
 
         $loader = Mockery::mock(TranslationLoader::class, [
             $this->app,
@@ -108,7 +108,7 @@ class TranslationLoaderTest extends TestCase {
                 "{$fallback}.loadStorage" => 123,
             ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 "{$locale}.loadJsonPaths"   => 123,
                 "{$fallback}.loadJsonPaths" => 123,
@@ -129,7 +129,7 @@ class TranslationLoaderTest extends TestCase {
         $this->app->setLocale($locale);
         $this->app->setFallbackLocale($fallback);
 
-        $this->assertNotEquals($locale, $fallback);
+        self::assertNotEquals($locale, $fallback);
 
         $loader = Mockery::mock(TranslationLoader::class, [
             $this->app,

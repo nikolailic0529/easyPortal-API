@@ -114,8 +114,8 @@ class UpdateClientSettingsTest extends TestCase {
             ->assertThat($expectedResponse);
 
         if ($expectedContent) {
-            $this->assertNotNull($expectedResponse);
-            $this->assertEquals($expectedContent, $storage->load());
+            self::assertNotNull($expectedResponse);
+            self::assertEquals($expectedContent, $storage->load());
         }
     }
     // </editor-fold>

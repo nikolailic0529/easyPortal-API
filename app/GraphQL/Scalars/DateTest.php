@@ -25,7 +25,7 @@ class DateTest extends TestCase {
         $scalar = new Date();
         $actual = $scalar->serialize($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -34,13 +34,13 @@ class DateTest extends TestCase {
      */
     public function testParseValue(string|Exception $expected, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $scalar = new Date();
         $actual = $scalar->parseValue($value);
 
-        $this->assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
+        self::assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
     }
 
     /**
@@ -49,14 +49,14 @@ class DateTest extends TestCase {
      */
     public function testParseLiteral(string|Exception $expected, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $node   = new StringValueNode(['value' => $value]);
         $scalar = new Date();
         $actual = $scalar->parseLiteral($node);
 
-        $this->assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
+        self::assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
     }
     // </editor-fold>
 

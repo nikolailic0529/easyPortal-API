@@ -36,17 +36,17 @@ class AssetResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertEquals($a->getKey(), $actual->getKey());
+        self::assertNotNull($actual);
+        self::assertEquals($a->getKey(), $actual->getKey());
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($a->getKey(), $factory));
-        $this->assertSame($actual, $provider->get(" {$a->getKey()} ", $factory));
+        self::assertSame($actual, $provider->get($a->getKey(), $factory));
+        self::assertSame($actual, $provider->get(" {$a->getKey()} ", $factory));
 
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($b->getKey(), $factory));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotSame($actual, $provider->get($b->getKey(), $factory));
+        self::assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
 
         // If value not found the new object should be created
@@ -67,14 +67,14 @@ class AssetResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals($uuid, $created->getKey());
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals($uuid, $created->getKey());
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($uuid, $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get($uuid, $factory));
+        self::assertCount(0, $this->getQueryLog());
     }
 }

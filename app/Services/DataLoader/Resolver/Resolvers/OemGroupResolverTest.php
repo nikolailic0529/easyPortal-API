@@ -49,22 +49,22 @@ class OemGroupResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertEquals('a', $actual->key);
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($actual);
+        self::assertEquals('a', $actual->key);
+        self::assertCount(0, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($model, 'a', 'A', $factory));
-        $this->assertSame($actual, $provider->get($model, ' a ', 'a ', $factory));
-        $this->assertSame($actual, $provider->get($model, 'A', ' a', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($actual, $provider->get($model, 'a', 'A', $factory));
+        self::assertSame($actual, $provider->get($model, ' a ', 'a ', $factory));
+        self::assertSame($actual, $provider->get($model, 'A', ' a', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // Product should be found in DB
-        $this->assertNotNull($provider->get($model, 'b', 'b', $factory));
-        $this->assertNotNull($provider->get($model, 'b', 'b', $factory));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($provider->get($model, 'b', 'b', $factory));
+        self::assertNotNull($provider->get($model, 'b', 'b', $factory));
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -80,16 +80,16 @@ class OemGroupResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->key);
-        $this->assertEquals('unKnown', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('unKnown', $created->key);
+        self::assertEquals('unKnown', $created->name);
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($model, 'unknoWn', 'uNknoWn', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get($model, 'unknoWn', 'uNknoWn', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // Created object should be found
         $c = OemGroup::factory()->create([
@@ -97,8 +97,8 @@ class OemGroupResolverTest extends TestCase {
         ]);
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($model, $c->key, $c->name)?->getKey());
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($c->getKey(), $provider->get($model, $c->key, $c->name)?->getKey());
+        self::assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
     }
 }

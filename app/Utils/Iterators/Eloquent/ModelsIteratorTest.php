@@ -42,9 +42,9 @@ class ModelsIteratorTest extends TestCase {
         $actual   = (clone $iterator);
         $actual   = (new Collection($actual))->map(new GetKey());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
-        $this->assertCount(1, $queries);
+        self::assertCount(1, $queries);
 
         $queries->flush();
 
@@ -54,9 +54,9 @@ class ModelsIteratorTest extends TestCase {
         $actual   = (clone $iterator)->setChunkSize(4);
         $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
-        $this->assertCount(3, $queries);
+        self::assertCount(3, $queries);
 
         $queries->flush();
 
@@ -66,9 +66,9 @@ class ModelsIteratorTest extends TestCase {
         $actual   = (clone $iterator)->setOffset(2)->setLimit(5)->setChunkSize(4);
         $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
-        $this->assertCount(2, $queries);
+        self::assertCount(2, $queries);
 
         $queries->flush();
     }

@@ -26,13 +26,13 @@ class GeohashTest extends TestCase {
      */
     public function testSerialize(Exception|string $expected, mixed $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $scalar = new Geohash();
         $actual = $scalar->serialize($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -41,13 +41,13 @@ class GeohashTest extends TestCase {
      */
     public function testParseValue(Exception|GeotoolsGeohash $expected, mixed $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $scalar = new Geohash();
         $actual = $scalar->parseValue($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -56,13 +56,13 @@ class GeohashTest extends TestCase {
      */
     public function testParseLiteral(Exception|GeotoolsGeohash $expected, Node $node): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $scalar = new Geohash();
         $actual = $scalar->parseLiteral($node);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

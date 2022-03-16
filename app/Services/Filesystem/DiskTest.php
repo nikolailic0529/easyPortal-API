@@ -27,8 +27,8 @@ class DiskTest extends TestCase {
      */
     public function testUrl(string|Exception $expected, array $config, string $path): void {
         if ($expected instanceof Exception) {
-            $this->expectException($expected::class);
-            $this->expectExceptionMessage($expected->getMessage());
+            self::expectException($expected::class);
+            self::expectExceptionMessage($expected->getMessage());
         }
 
         $name = $this->faker->uuid;
@@ -54,7 +54,7 @@ class DiskTest extends TestCase {
             "filesystems.disks.{$name}" => $config,
         ]);
 
-        $this->assertEquals($expected, $disk->url($path));
+        self::assertEquals($expected, $disk->url($path));
     }
 
     /**
@@ -87,7 +87,7 @@ class DiskTest extends TestCase {
             "filesystems.disks.{$name}" => $config,
         ]);
 
-        $this->assertEquals($expected, $disk->isPublic());
+        self::assertEquals($expected, $disk->isPublic());
     }
 
     /**
@@ -110,7 +110,7 @@ class DiskTest extends TestCase {
             ->once()
             ->andReturn($fs);
 
-        $this->assertSame($response, $disk->download($path));
+        self::assertSame($response, $disk->download($path));
     }
     //</editor-fold>
 

@@ -78,7 +78,7 @@ class PingerTest extends TestCase {
         $pinger->makePartial();
 
         // Test
-        $this->expectException(JobStopped::class);
+        self::expectException(JobStopped::class);
 
         try {
             $pinger->ping($job);

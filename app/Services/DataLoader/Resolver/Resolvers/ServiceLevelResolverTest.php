@@ -48,29 +48,29 @@ class ServiceLevelResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertFalse($actual->wasRecentlyCreated);
-        $this->assertEquals('a', $actual->sku);
-        $this->assertEquals($a->name, $actual->name);
-        $this->assertEquals($oemA, $actual->oem);
+        self::assertNotNull($actual);
+        self::assertFalse($actual->wasRecentlyCreated);
+        self::assertEquals('a', $actual->sku);
+        self::assertEquals($a->name, $actual->name);
+        self::assertEquals($oemA, $actual->oem);
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($oemA, $groupA, 'a', $factory));
-        $this->assertSame($actual, $provider->get($oemA, $groupA, ' a ', $factory));
-        $this->assertSame($actual, $provider->get($oemA, $groupA, 'A', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($actual, $provider->get($oemA, $groupA, 'a', $factory));
+        self::assertSame($actual, $provider->get($oemA, $groupA, ' a ', $factory));
+        self::assertSame($actual, $provider->get($oemA, $groupA, 'A', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($oemB, $groupA, 'a', static function (): ServiceLevel {
+        self::assertNotSame($actual, $provider->get($oemB, $groupA, 'a', static function (): ServiceLevel {
             return ServiceLevel::factory()->make();
         }));
 
         $this->flushQueryLog();
 
         // All value should be loaded, so get() should not perform any queries
-        $this->assertNotNull($provider->get($oemA, $groupA, $b->sku, $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($provider->get($oemA, $groupA, $b->sku, $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($oemB, $groupB): ServiceLevel {
@@ -84,16 +84,16 @@ class ServiceLevelResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->sku);
-        $this->assertEquals($oemB->getKey(), $created->oem_id);
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('unKnown', $created->sku);
+        self::assertEquals($oemB->getKey(), $created->oem_id);
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($oemB, $groupB, ' unknown ', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get($oemB, $groupB, ' unknown ', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // Created object should NOT be found
         $c = ServiceLevel::factory()->create([
@@ -102,8 +102,8 @@ class ServiceLevelResolverTest extends TestCase {
         ]);
 
         $this->flushQueryLog();
-        $this->assertNull($provider->get($oemB, $groupB, $c->sku));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNull($provider->get($oemB, $groupB, $c->sku));
+        self::assertCount(0, $this->getQueryLog());
         $this->flushQueryLog();
     }
 }

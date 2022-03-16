@@ -26,7 +26,7 @@ class NoteIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(NoteId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(NoteId::class)->message(), 'Translated');
     }
 
     /**
@@ -37,7 +37,7 @@ class NoteIdTest extends TestCase {
     public function testPasses(bool $expected, Closure $noteFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $note         = $noteFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(NoteId::class)->passes('test', $note));
+        self::assertEquals($expected, $this->app->make(NoteId::class)->passes('test', $note));
     }
     // </editor-fold>
 

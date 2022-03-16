@@ -26,7 +26,7 @@ class OemIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(OemId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(OemId::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class OemIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $oemFactory): void {
         $oemId = $oemFactory();
-        $this->assertEquals($expected, $this->app->make(OemId::class)->passes('test', $oemId));
+        self::assertEquals($expected, $this->app->make(OemId::class)->passes('test', $oemId));
     }
     // </editor-fold>
 

@@ -20,11 +20,11 @@ class DocumentTest extends TestCase {
         $actual     = new Document($json);
         $properties = Document::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
-        $this->assertInstanceOf(CompanyContactPerson::class, $actual->contactPersons[0]);
-        $this->assertInstanceOf(DocumentEntry::class, $actual->documentEntries[0]);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
+        self::assertInstanceOf(CompanyContactPerson::class, $actual->contactPersons[0]);
+        self::assertInstanceOf(DocumentEntry::class, $actual->documentEntries[0]);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

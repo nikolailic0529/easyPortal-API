@@ -26,7 +26,7 @@ class TeamIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(TeamId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(TeamId::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class TeamIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $teamFactory): void {
         $teamId = $teamFactory();
-        $this->assertEquals($expected, $this->app->make(TeamId::class)->passes('test', $teamId));
+        self::assertEquals($expected, $this->app->make(TeamId::class)->passes('test', $teamId));
     }
     // </editor-fold>
 

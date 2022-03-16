@@ -41,10 +41,10 @@ class CacheKeyTest extends TestCase {
      */
     public function testToString(Exception|string $expected, array $key): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
-        $this->assertEquals($expected, (string) new CacheKey($key));
+        self::assertEquals($expected, (string) new CacheKey($key));
     }
     // </editor-fold>
 

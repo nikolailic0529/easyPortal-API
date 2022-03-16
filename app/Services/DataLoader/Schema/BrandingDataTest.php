@@ -21,12 +21,12 @@ class BrandingDataTest extends TestCase {
         $actual     = new BrandingData($json);
         $properties = BrandingData::getPropertiesNames();
 
-        $this->assertEqualsCanonicalizing(array_keys($json), $properties);
-        $this->assertCount(1, $actual->mainHeadingText);
-        $this->assertInstanceOf(TranslationText::class, reset($actual->mainHeadingText));
-        $this->assertCount(1, $actual->underlineText);
-        $this->assertInstanceOf(TranslationText::class, reset($actual->underlineText));
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEqualsCanonicalizing(array_keys($json), $properties);
+        self::assertCount(1, $actual->mainHeadingText);
+        self::assertInstanceOf(TranslationText::class, reset($actual->mainHeadingText));
+        self::assertCount(1, $actual->underlineText);
+        self::assertInstanceOf(TranslationText::class, reset($actual->underlineText));
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

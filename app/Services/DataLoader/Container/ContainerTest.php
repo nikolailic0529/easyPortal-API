@@ -24,7 +24,7 @@ class ContainerTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveExternal(): void {
-        $this->assertNotNull($this->app->make(Container::class)->resolve('config'));
+        self::assertNotNull($this->app->make(Container::class)->resolve('config'));
     }
 
     /**
@@ -36,9 +36,9 @@ class ContainerTest extends TestCase {
         $b = $c->resolve(ContainerTest_Resolver::class);
         $s = $this->app->make(ContainerTest_Resolver::class);
 
-        $this->assertNotNull($a);
-        $this->assertSame($a, $b);
-        $this->assertNotSame($a, $s);
+        self::assertNotNull($a);
+        self::assertSame($a, $b);
+        self::assertNotSame($a, $s);
     }
 
     /**
@@ -50,10 +50,10 @@ class ContainerTest extends TestCase {
         $f = $c->resolve(ContainerTest_Factory::class);
         $s = $this->app->make(ContainerTest_Resolver::class);
 
-        $this->assertNotNull($a);
-        $this->assertNotNull($f);
-        $this->assertSame($a, $f->singleton);
-        $this->assertNotSame($s, $f->singleton);
+        self::assertNotNull($a);
+        self::assertNotNull($f);
+        self::assertSame($a, $f->singleton);
+        self::assertNotSame($s, $f->singleton);
     }
 
     /**
@@ -65,10 +65,10 @@ class ContainerTest extends TestCase {
         $l = $c->resolve(ContainerTest_Loader::class);
         $s = $this->app->make(ContainerTest_Resolver::class);
 
-        $this->assertNotNull($a);
-        $this->assertNotNull($l);
-        $this->assertSame($a, $l->singleton);
-        $this->assertNotSame($s, $l->singleton);
+        self::assertNotNull($a);
+        self::assertNotNull($l);
+        self::assertSame($a, $l->singleton);
+        self::assertNotSame($s, $l->singleton);
     }
 
     /**
@@ -80,10 +80,10 @@ class ContainerTest extends TestCase {
         $b = $c->resolve(ContainerTest_Singleton::class);
         $s = $this->app->make(ContainerTest_Singleton::class);
 
-        $this->assertNotNull($a);
-        $this->assertNotNull($b);
-        $this->assertSame($a, $b);
-        $this->assertNotSame($a, $s);
+        self::assertNotNull($a);
+        self::assertNotNull($b);
+        self::assertSame($a, $b);
+        self::assertNotSame($a, $s);
     }
 
     /**
@@ -95,18 +95,18 @@ class ContainerTest extends TestCase {
         $a = $c->resolve(Container::class);
         $b = $c->resolve(Container::class);
 
-        $this->assertNotNull($a);
-        $this->assertNotNull($b);
-        $this->assertSame($a, $b);
-        $this->assertSame($a, $c);
+        self::assertNotNull($a);
+        self::assertNotNull($b);
+        self::assertSame($a, $b);
+        self::assertSame($a, $c);
 
         // But only inside themself
         $d = $this->app->make(Container::class);
         $e = $d->resolve(Container::class);
 
-        $this->assertSame($d, $e);
-        $this->assertNotSame($d, $c);
-        $this->assertNotSame($e, $a);
+        self::assertSame($d, $e);
+        self::assertNotSame($d, $c);
+        self::assertNotSame($e, $a);
     }
 
     /**
@@ -117,15 +117,15 @@ class ContainerTest extends TestCase {
         $a = $c->resolve(ContainerTest_Singleton::class);
         $b = $c->resolve(ContainerTest_SingletonPersistent::class);
 
-        $this->assertNotNull($a);
-        $this->assertNotNull($b);
-        $this->assertSame($a, $c->resolve(ContainerTest_Singleton::class));
-        $this->assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
+        self::assertNotNull($a);
+        self::assertNotNull($b);
+        self::assertSame($a, $c->resolve(ContainerTest_Singleton::class));
+        self::assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
 
         $c->forgetInstances();
 
-        $this->assertNotSame($a, $c->resolve(ContainerTest_Singleton::class));
-        $this->assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
+        self::assertNotSame($a, $c->resolve(ContainerTest_Singleton::class));
+        self::assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
     }
 }
 

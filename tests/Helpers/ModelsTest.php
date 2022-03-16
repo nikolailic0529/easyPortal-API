@@ -13,6 +13,6 @@ class ModelsTest extends TestCase {
      * @covers ::get
      */
     public function testGet(): void {
-        $this->assertNotEmpty(Models::get());
+        self::assertNotEmpty(Models::get());
     }
 }

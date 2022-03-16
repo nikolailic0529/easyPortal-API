@@ -54,7 +54,7 @@ class WithProductTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists and not changed - no action required
-        $this->assertEquals(
+        self::assertEquals(
             $product->withoutRelations(),
             $factory->product(
                 $oem,
@@ -64,7 +64,7 @@ class WithProductTest extends TestCase {
                 "{$product->eos->getTimestamp()}000",
             )->withoutRelations(),
         );
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -80,11 +80,11 @@ class WithProductTest extends TestCase {
             $newEos,
         );
 
-        $this->assertEquals($product->name, $updated->name);
-        $this->assertEquals($newEol, $newEol);
-        $this->assertNull($updated->eos);
+        self::assertEquals($product->name, $updated->name);
+        self::assertEquals($newEol, $newEol);
+        self::assertNull($updated->eos);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -99,10 +99,10 @@ class WithProductTest extends TestCase {
             null,
         );
 
-        $this->assertNotNull($created);
-        $this->assertEquals($oem->getKey(), $created->oem_id);
-        $this->assertEquals($sku, $created->sku);
-        $this->assertEquals($name, $created->name);
+        self::assertNotNull($created);
+        self::assertEquals($oem->getKey(), $created->oem_id);
+        self::assertEquals($sku, $created->sku);
+        self::assertEquals($name, $created->name);
 
         $this->flushQueryLog();
     }

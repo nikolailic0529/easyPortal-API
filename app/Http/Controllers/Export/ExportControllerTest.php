@@ -67,7 +67,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getHeaders($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -77,7 +77,7 @@ class ExportControllerTest extends TestCase {
      */
     public function testGetHeaderValue(mixed $expected, string $header, mixed $item): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $controller = new class() extends ExportController {
@@ -95,7 +95,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getHeaderValue($header, $item);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -116,7 +116,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getValue($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -142,7 +142,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getItemValue($path, $value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -175,13 +175,13 @@ class ExportControllerTest extends TestCase {
 
         // Errors
         if ($expected instanceof BadRequest) {
-            $this->expectExceptionObject(new StreamedResponseException(
+            self::expectExceptionObject(new StreamedResponseException(
                 new GraphQLQueryInvalid([]),
             ));
         }
 
         if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
-            $this->expectExceptionObject(new StreamedResponseException(
+            self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
             ));
         }
@@ -205,7 +205,7 @@ class ExportControllerTest extends TestCase {
                     $content = trim((string) $response->getBody(), "\n");
                     $lines   = count(explode("\n", $content));
 
-                    $this->assertEquals($count + 1, $lines);
+                    self::assertEquals($count + 1, $lines);
 
                     return true;
                 },
@@ -247,13 +247,13 @@ class ExportControllerTest extends TestCase {
 
         // Errors
         if ($expected instanceof BadRequest) {
-            $this->expectExceptionObject(new StreamedResponseException(
+            self::expectExceptionObject(new StreamedResponseException(
                 new GraphQLQueryInvalid([]),
             ));
         }
 
         if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
-            $this->expectExceptionObject(new StreamedResponseException(
+            self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
             ));
         }
@@ -287,7 +287,7 @@ class ExportControllerTest extends TestCase {
                         }
                     }
 
-                    $this->assertEquals([0 => $count + 1], $sheets);
+                    self::assertEquals([0 => $count + 1], $sheets);
 
                     return true;
                 },

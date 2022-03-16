@@ -22,7 +22,7 @@ class ColorTest extends TestCase {
             ],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             'Translated (color)',
             $this->app->make(Color::class)->message(),
         );
@@ -34,7 +34,7 @@ class ColorTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, string $value): void {
-        $this->assertEquals($expected, $this->app->make(Color::class)->passes('test', $value));
+        self::assertEquals($expected, $this->app->make(Color::class)->passes('test', $value));
     }
     // </editor-fold>
 

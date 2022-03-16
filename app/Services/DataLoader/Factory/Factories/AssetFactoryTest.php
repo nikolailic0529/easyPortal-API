@@ -71,7 +71,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->find($asset);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -90,8 +90,8 @@ class AssetFactoryTest extends TestCase {
                 ->with($type)
                 ->andReturns();
         } else {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->create($type);
@@ -122,52 +122,52 @@ class AssetFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-create-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($asset->id, $created->getKey());
-        $this->assertEquals($asset->resellerId, $created->reseller_id);
-        $this->assertEquals($asset->serialNumber, $created->serial_number);
-        $this->assertEquals($asset->dataQualityScore, $created->data_quality);
-        $this->assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
-        $this->assertEquals($asset->vendor, $created->oem->key);
-        $this->assertEquals($asset->productDescription, $created->product->name);
-        $this->assertEquals($asset->sku, $created->product->sku);
-        $this->assertNull($created->product->eos);
-        $this->assertEquals($asset->eosDate, (string) $created->product->eos);
-        $this->assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
-        $this->assertEquals($asset->assetType, $created->type->key);
-        $this->assertEquals($asset->status, $created->status->key);
-        $this->assertEquals($asset->customerId, $created->customer->getKey());
-        $this->assertNotNull($created->warranty_end);
-        $this->assertEquals($created->warranties->pluck('end')->max(), $created->warranty_end);
-        $this->assertEquals(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals($asset->id, $created->getKey());
+        self::assertEquals($asset->resellerId, $created->reseller_id);
+        self::assertEquals($asset->serialNumber, $created->serial_number);
+        self::assertEquals($asset->dataQualityScore, $created->data_quality);
+        self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
+        self::assertEquals($asset->vendor, $created->oem->key);
+        self::assertEquals($asset->productDescription, $created->product->name);
+        self::assertEquals($asset->sku, $created->product->sku);
+        self::assertNull($created->product->eos);
+        self::assertEquals($asset->eosDate, (string) $created->product->eos);
+        self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
+        self::assertEquals($asset->assetType, $created->type->key);
+        self::assertEquals($asset->status, $created->status->key);
+        self::assertEquals($asset->customerId, $created->customer->getKey());
+        self::assertNotNull($created->warranty_end);
+        self::assertEquals($created->warranties->pluck('end')->max(), $created->warranty_end);
+        self::assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($created->location),
         );
-        $this->assertEquals(count($asset->assetCoverage), $created->coverages_count);
-        $this->assertEquals(
+        self::assertEquals(count($asset->assetCoverage), $created->coverages_count);
+        self::assertEquals(
             $this->getContacts($asset),
             $this->getModelContacts($created),
         );
-        $this->assertEquals(
+        self::assertEquals(
             $this->getAssetTags($asset),
             $this->getModelTags($created),
         );
-        $this->assertEquals(count($asset->assetCoverage), $created->coverages_count);
-        $this->assertEquals(
+        self::assertEquals(count($asset->assetCoverage), $created->coverages_count);
+        self::assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($created),
         );
 
         // Documents
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Document::class           => 1,
             DocumentEntryModel::class => 0,
         ]);
 
         // Warranties
-        $this->assertEquals(
+        self::assertEquals(
             [
                 // External
                 [
@@ -233,11 +233,11 @@ class AssetFactoryTest extends TestCase {
             return $warranty->document_number !== null && $warranty->type_id === null;
         });
 
-        $this->assertEquals($extended->asset_id, $created->getKey());
-        $this->assertNotNull($extended->document_id);
-        $this->assertEquals($created->customer_id, $extended->customer_id);
-        $this->assertNotNull($extended->start);
-        $this->assertNotNull($extended->end);
+        self::assertEquals($extended->asset_id, $created->getKey());
+        self::assertNotNull($extended->document_id);
+        self::assertEquals($created->customer_id, $extended->customer_id);
+        self::assertNotNull($extended->start);
+        self::assertNotNull($extended->end);
 
         $this->flushQueryLog();
 
@@ -250,43 +250,43 @@ class AssetFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-update-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($updated);
-        $this->assertSame($created, $updated);
-        $this->assertEquals($asset->id, $updated->getKey());
-        $this->assertNull($updated->reseller_id);
-        $this->assertEquals($asset->serialNumber, $updated->serial_number);
-        $this->assertEquals($asset->dataQualityScore, $updated->data_quality);
-        $this->assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
-        $this->assertEquals($asset->vendor, $updated->oem->key);
-        $this->assertEquals($created->product->name, $updated->product->name);
-        $this->assertEquals($asset->sku, $updated->product->sku);
-        $this->assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
-        $this->assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol));
-        $this->assertEquals($asset->assetType, $updated->type->key);
-        $this->assertEquals($asset->customerId, $updated->customer->getKey());
-        $this->assertNotNull($updated->warranty_end);
-        $this->assertEquals($updated->warranties->pluck('end')->max(), $updated->warranty_end);
-        $this->assertEquals(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($updated);
+        self::assertSame($created, $updated);
+        self::assertEquals($asset->id, $updated->getKey());
+        self::assertNull($updated->reseller_id);
+        self::assertEquals($asset->serialNumber, $updated->serial_number);
+        self::assertEquals($asset->dataQualityScore, $updated->data_quality);
+        self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($asset->vendor, $updated->oem->key);
+        self::assertEquals($created->product->name, $updated->product->name);
+        self::assertEquals($asset->sku, $updated->product->sku);
+        self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
+        self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol));
+        self::assertEquals($asset->assetType, $updated->type->key);
+        self::assertEquals($asset->customerId, $updated->customer->getKey());
+        self::assertNotNull($updated->warranty_end);
+        self::assertEquals($updated->warranties->pluck('end')->max(), $updated->warranty_end);
+        self::assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($updated->location),
         );
-        $this->assertEquals(
+        self::assertEquals(
             $this->getContacts($asset),
             $this->getModelContacts($updated),
         );
-        $this->assertEquals(
+        self::assertEquals(
             $this->getAssetTags($asset),
             $this->getModelTags($updated),
         );
-        $this->assertEquals(count($asset->assetCoverage), $updated->coverages_count);
-        $this->assertEquals(
+        self::assertEquals(count($asset->assetCoverage), $updated->coverages_count);
+        self::assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($updated),
         );
 
         // Documents
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Document::class           => 1,
             DocumentEntryModel::class => 0,
         ]);
@@ -304,7 +304,7 @@ class AssetFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-nochanges-expected.json');
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -323,26 +323,26 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($asset->id, $created->getKey());
-        $this->assertEquals($asset->serialNumber, $created->serial_number);
-        $this->assertEquals($asset->dataQualityScore, $created->data_quality);
-        $this->assertEquals($asset->vendor, $created->oem->key);
-        $this->assertEquals($asset->productDescription, $created->product->name);
-        $this->assertEquals($asset->sku, $created->product->sku);
-        $this->assertNull($created->product->eos);
-        $this->assertEquals($asset->eosDate, (string) $created->product->eos);
-        $this->assertEquals($asset->eolDate, (string) $created->product->eol);
-        $this->assertEquals($asset->assetType, $created->type->key);
-        $this->assertNull($created->customer_id);
-        $this->assertNull($created->location_id);
-        $this->assertEquals(
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals($asset->id, $created->getKey());
+        self::assertEquals($asset->serialNumber, $created->serial_number);
+        self::assertEquals($asset->dataQualityScore, $created->data_quality);
+        self::assertEquals($asset->vendor, $created->oem->key);
+        self::assertEquals($asset->productDescription, $created->product->name);
+        self::assertEquals($asset->sku, $created->product->sku);
+        self::assertNull($created->product->eos);
+        self::assertEquals($asset->eosDate, (string) $created->product->eos);
+        self::assertEquals($asset->eolDate, (string) $created->product->eol);
+        self::assertEquals($asset->assetType, $created->type->key);
+        self::assertNull($created->customer_id);
+        self::assertNull($created->location_id);
+        self::assertEquals(
             $this->getModelContacts($created),
             $this->getContacts($asset),
         );
-        $this->assertEquals(count($asset->assetCoverage), $created->coverages_count);
-        $this->assertEquals(
+        self::assertEquals(count($asset->assetCoverage), $created->coverages_count);
+        self::assertEquals(
             $this->getAssetCoverages($asset),
             $this->getModelCoverages($created),
         );
@@ -362,7 +362,7 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
 
         // Test
-        $this->expectException(CustomerNotFound::class);
+        self::expectException(CustomerNotFound::class);
 
         $factory->create($asset);
     }
@@ -384,7 +384,7 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
-        $this->assertNull($created->location);
+        self::assertNull($created->location);
     }
 
     /**
@@ -403,9 +403,9 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertNull($created->type);
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertNull($created->type);
     }
 
     /**
@@ -449,7 +449,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertCount(2, $factory->assetDocuments($model, $asset));
+        self::assertCount(2, $factory->assetDocuments($model, $asset));
 
         Event::assertNotDispatched(ErrorReport::class);
     }
@@ -480,7 +480,7 @@ class AssetFactoryTest extends TestCase {
         };
 
         // Test
-        $this->assertNull($factory->assetDocumentDocument($model, $asset));
+        self::assertNull($factory->assetDocumentDocument($model, $asset));
     }
 
     /**
@@ -520,7 +520,7 @@ class AssetFactoryTest extends TestCase {
         };
 
         // Test
-        $this->assertNull($factory->assetDocumentDocument($model, $asset));
+        self::assertNull($factory->assetDocumentDocument($model, $asset));
 
         Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
             return $event->getError() instanceof FailedToProcessAssetViewDocument
@@ -548,7 +548,7 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn([$b]);
 
-        $this->assertEquals([$b], $factory->assetDocumentsWarranties($model, $asset));
+        self::assertEquals([$b], $factory->assetDocumentsWarranties($model, $asset));
     }
 
     /**
@@ -771,13 +771,13 @@ class AssetFactoryTest extends TestCase {
         ]);
 
         // Pre-test
-        $this->assertEquals(1, $model->warranties()->count());
+        self::assertEquals(1, $model->warranties()->count());
 
         // Test
         $warranties = $factory->assetDocumentsWarrantiesExtended($model, $asset);
         $warranties = new Collection($warranties);
 
-        $this->assertCount(5, $warranties);
+        self::assertCount(5, $warranties);
 
         // Existing warranty should be updated
         /** @var AssetWarranty $a */
@@ -786,20 +786,20 @@ class AssetFactoryTest extends TestCase {
                 && $date->startOfDay()->equalTo($warranty->start);
         });
 
-        $this->assertNotNull($a);
-        $this->assertEquals($date->startOfDay(), $a->start);
-        $this->assertEquals($date->startOfDay(), $a->end);
-        $this->assertNull($a->reseller_id);
-        $this->assertNull($a->customer_id);
-        $this->assertEquals($documentA->getKey(), $a->document_id);
-        $this->assertEquals($model->getKey(), $a->asset_id);
-        $this->assertEquals(2, $a->serviceLevels->count());
+        self::assertNotNull($a);
+        self::assertEquals($date->startOfDay(), $a->start);
+        self::assertEquals($date->startOfDay(), $a->end);
+        self::assertNull($a->reseller_id);
+        self::assertNull($a->customer_id);
+        self::assertEquals($documentA->getKey(), $a->document_id);
+        self::assertEquals($model->getKey(), $a->asset_id);
+        self::assertEquals(2, $a->serviceLevels->count());
 
         $as = $a->serviceLevels->first(static function (ServiceLevel $level) use ($skuNumber): bool {
             return $level->sku === $skuNumber;
         });
 
-        $this->assertNotNull($as);
+        self::assertNotNull($as);
 
         // Document null
         /** @var AssetWarranty $b */
@@ -808,8 +808,8 @@ class AssetFactoryTest extends TestCase {
                 && $warranty->document_number === $documentA->number;
         });
 
-        $this->assertNotNull($b);
-        $this->assertEquals($b->serviceGroup->sku, $supportPackage);
+        self::assertNotNull($b);
+        self::assertEquals($b->serviceGroup->sku, $supportPackage);
 
         // No service
         /** @var AssetWarranty $c */
@@ -817,14 +817,14 @@ class AssetFactoryTest extends TestCase {
             return $warranty->document_id === $documentB->getKey();
         });
 
-        $this->assertNotNull($c);
-        $this->assertEquals($date->startOfDay(), $c->start);
-        $this->assertEquals($date->startOfDay(), $c->end);
-        $this->assertEquals($resellerB->getKey(), $c->reseller_id);
-        $this->assertEquals($customerB->getKey(), $c->customer_id);
-        $this->assertEquals($documentB->getKey(), $c->document_id);
-        $this->assertEquals($model->getKey(), $c->asset_id);
-        $this->assertEquals(0, $c->serviceLevels->count());
+        self::assertNotNull($c);
+        self::assertEquals($date->startOfDay(), $c->start);
+        self::assertEquals($date->startOfDay(), $c->end);
+        self::assertEquals($resellerB->getKey(), $c->reseller_id);
+        self::assertEquals($customerB->getKey(), $c->customer_id);
+        self::assertEquals($documentB->getKey(), $c->document_id);
+        self::assertEquals($model->getKey(), $c->asset_id);
+        self::assertEquals(0, $c->serviceLevels->count());
 
         // Existing warranty should be updated
         /** @var AssetWarranty $d */
@@ -832,7 +832,7 @@ class AssetFactoryTest extends TestCase {
             return $w->getKey() === $warranty->getKey();
         });
 
-        $this->assertNotNull($d);
+        self::assertNotNull($d);
     }
 
     /**
@@ -865,7 +865,7 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn($documents);
 
-        $this->assertSame($document, $factory->assetDocumentDocument($asset, $assetDocument));
+        self::assertSame($document, $factory->assetDocumentDocument($asset, $assetDocument));
     }
 
     /**
@@ -881,7 +881,7 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('getDocumentFactory')
             ->never();
 
-        $this->assertNull($factory->assetDocumentDocument($asset, $document));
+        self::assertNull($factory->assetDocumentDocument($asset, $document));
     }
 
     /**
@@ -933,7 +933,7 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('type')
             ->never();
 
-        $this->assertNull($factory->assetType($asset));
+        self::assertNull($factory->assetType($asset));
     }
 
     /**
@@ -998,7 +998,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertEquals($location, $factory->assetLocation($asset));
+        self::assertEquals($location, $factory->assetLocation($asset));
     }
 
     /**
@@ -1027,7 +1027,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertNull($factory->assetLocation($asset));
+        self::assertNull($factory->assetLocation($asset));
     }
 
     /**
@@ -1073,10 +1073,10 @@ class AssetFactoryTest extends TestCase {
         };
 
         // Null tag
-        $this->assertEmpty($factory->assetTags(new ViewAsset(['assetTag' => null])));
+        self::assertEmpty($factory->assetTags(new ViewAsset(['assetTag' => null])));
 
         // Empty
-        $this->assertEmpty($factory->assetTags(new ViewAsset(['assetTag' => ' '])));
+        self::assertEmpty($factory->assetTags(new ViewAsset(['assetTag' => ' '])));
 
         // Not empty
         $asset    = new ViewAsset(['assetTag' => 'tag']);
@@ -1087,8 +1087,8 @@ class AssetFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertCount(1, $tags);
-        $this->assertEquals($expected, $this->getAssetTags($asset));
+        self::assertCount(1, $tags);
+        self::assertEquals($expected, $this->getAssetTags($asset));
     }
 
     /**
@@ -1116,10 +1116,10 @@ class AssetFactoryTest extends TestCase {
         };
 
         // Null
-        $this->assertEmpty($factory->assetCoverages(new ViewAsset(['assetCoverage' => null])));
+        self::assertEmpty($factory->assetCoverages(new ViewAsset(['assetCoverage' => null])));
 
         // Empty
-        $this->assertEmpty($factory->assetCoverages(new ViewAsset(['assetCoverage' => ['', null]])));
+        self::assertEmpty($factory->assetCoverages(new ViewAsset(['assetCoverage' => ['', null]])));
 
         // Not empty
         $asset     = new ViewAsset([
@@ -1137,8 +1137,8 @@ class AssetFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertCount(2, $coverages);
-        $this->assertEquals($expected, $this->getCoverages($coverages));
+        self::assertCount(2, $coverages);
+        self::assertEquals($expected, $this->getCoverages($coverages));
     }
 
     /**
@@ -1170,8 +1170,8 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertEquals($isWarranty, $factory::isWarranty($warranty));
-        $this->assertEquals($isExtendedWarranty, $factory::isWarrantyExtended($warranty));
+        self::assertEquals($isWarranty, $factory::isWarranty($warranty));
+        self::assertEquals($isExtendedWarranty, $factory::isWarrantyExtended($warranty));
     }
 
     /**
@@ -1201,14 +1201,14 @@ class AssetFactoryTest extends TestCase {
         };
 
         // Test
-        $this->assertNotEquals(0, $factory::compareAssetWarranties($a, $b));
+        self::assertNotEquals(0, $factory::compareAssetWarranties($a, $b));
 
         // Make same
         $a->type_id = $b->type_id;
         $a->start   = $b->start->midDay();
         $a->end     = $b->end;
 
-        $this->assertEquals(0, $factory::compareAssetWarranties($a, $b));
+        self::assertEquals(0, $factory::compareAssetWarranties($a, $b));
     }
 
     /**
@@ -1262,7 +1262,7 @@ class AssetFactoryTest extends TestCase {
             'document_number'  => null,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -1297,7 +1297,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertNull($factory->assetWarranty($asset, $entry));
+        self::assertNull($factory->assetWarranty($asset, $entry));
     }
 
     /**
@@ -1423,7 +1423,7 @@ class AssetFactoryTest extends TestCase {
             ->map($map)
             ->values();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

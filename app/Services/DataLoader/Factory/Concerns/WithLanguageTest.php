@@ -55,21 +55,21 @@ class WithLanguageTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($language, $factory->language($language->code));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($language, $factory->language($language->code));
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->language('nw ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('nw', $created->code);
-        $this->assertEquals('nw', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals('nw', $created->code);
+        self::assertEquals('nw', $created->name);
+        self::assertCount(2, $this->getQueryLog());
 
         // If null - null should be returned
-        $this->assertNull($factory->language(null));
+        self::assertNull($factory->language(null));
     }
 }

@@ -82,7 +82,7 @@ class UpdateMeEmailTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess && $user->type === UserType::local()) {
-            $this->assertEquals($user->email, $email);
+            self::assertEquals($user->email, $email);
         }
     }
     // </editor-fold>

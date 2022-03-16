@@ -41,12 +41,12 @@ class ServiceTest extends TestCase {
             return !is_a($service->getSearchableModelJob($model), Indexer::class, true);
         });
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $missed,
             'Following models missed in $searchable:'.PHP_EOL.'- '.implode(PHP_EOL.'- ', $missed).PHP_EOL,
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $invalid,
             'Following models has invalid associated Job:'.PHP_EOL.'- '.implode(PHP_EOL.'- ', $invalid).PHP_EOL,
         );
@@ -59,14 +59,14 @@ class ServiceTest extends TestCase {
         $service = $this->app->make(Service::class);
         $model   = $this->faker->randomElement($service->getSearchableModels());
         $spy     = Mockery::spy(function () use ($model): void {
-            $this->assertFalse($model::isSearchSyncingEnabled());
+            self::assertFalse($model::isSearchSyncingEnabled());
         });
 
-        $this->assertTrue($model::isSearchSyncingEnabled());
+        self::assertTrue($model::isSearchSyncingEnabled());
 
         Service::callWithoutIndexing(Closure::fromCallable($spy));
 
-        $this->assertTrue($model::isSearchSyncingEnabled());
+        self::assertTrue($model::isSearchSyncingEnabled());
 
         $spy->shouldHaveBeenCalled();
     }

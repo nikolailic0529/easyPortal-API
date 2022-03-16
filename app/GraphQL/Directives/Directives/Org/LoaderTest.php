@@ -56,12 +56,12 @@ class LoaderTest extends TestCase {
 
         $loader->load($parents);
 
-        $this->assertNotEquals($countA, $countB);
-        $this->assertEquals($countA, $loader->extract($customerA));
-        $this->assertEquals($countB, $loader->extract($customerB));
-        $this->assertEquals(null, $loader->extract($customerC));
-        $this->assertEquals($countA, $customerA->assets_count);
-        $this->assertEquals($countB, $customerB->assets_count);
+        self::assertNotEquals($countA, $countB);
+        self::assertEquals($countA, $loader->extract($customerA));
+        self::assertEquals($countB, $loader->extract($customerB));
+        self::assertEquals(null, $loader->extract($customerC));
+        self::assertEquals($countA, $customerA->assets_count);
+        self::assertEquals($countB, $customerB->assets_count);
     }
 
     /**
@@ -82,8 +82,8 @@ class LoaderTest extends TestCase {
         $model[$loader->getMarker()]   = '1';
         $model[$loader->getProperty()] = 123;
 
-        $this->assertEquals(123, $loader->extract($model));
-        $this->assertEquals(null, $loader->extract(new LoaderTest_ModelWithoutScope()));
+        self::assertEquals(123, $loader->extract($model));
+        self::assertEquals(null, $loader->extract(new LoaderTest_ModelWithoutScope()));
     }
 
     /**
@@ -102,11 +102,11 @@ class LoaderTest extends TestCase {
         array $parents = null,
     ): void {
         if ($expectedQuery instanceof Exception) {
-            $this->expectExceptionObject($expectedQuery);
+            self::expectExceptionObject($expectedQuery);
         }
 
         if (is_string($expectedQuery)) {
-            $this->expectException($expectedQuery);
+            self::expectException($expectedQuery);
         }
 
         $this->setOrganization($organizationFactory);
@@ -126,12 +126,12 @@ class LoaderTest extends TestCase {
         $loader->getQuery($actualBuilder, $parents);
 
         if ($expectedQuery) {
-            $this->assertDatabaseQueryEquals($expectedQuery, $actualQuery);
+            self::assertDatabaseQueryEquals($expectedQuery, $actualQuery);
         } else {
-            $this->assertNull($actualQuery);
+            self::assertNull($actualQuery);
         }
 
-        $this->assertDatabaseQueryEquals($expectedBuilder, $actualBuilder);
+        self::assertDatabaseQueryEquals($expectedBuilder, $actualBuilder);
     }
     // </editor-fold>
 

@@ -26,8 +26,8 @@ class AppServiceProviderTest extends TestCase {
      */
     public function testRegister(): void {
         // All dates must be immutable
-        $this->assertInstanceOf(CarbonImmutable::class, Date::now());
-        $this->assertInstanceOf(DateTimeImmutable::class, Date::now());
+        self::assertInstanceOf(CarbonImmutable::class, Date::now());
+        self::assertInstanceOf(DateTimeImmutable::class, Date::now());
 
         // Serialization should use ISO 8601
         $model = new class() extends Model {
@@ -37,7 +37,7 @@ class AppServiceProviderTest extends TestCase {
         $model->id         = $this->faker->uuid;
         $model->updated_at = Date::make('2102-12-01T22:12:01.000+00:00');
 
-        $this->assertEquals([
+        self::assertEquals([
             'id'         => $model->getKey(),
             'updated_at' => '2102-12-01T22:12:01+00:00',
         ], $model->toArray());
@@ -56,8 +56,8 @@ class AppServiceProviderTest extends TestCase {
 
         ksort($expected);
 
-        $this->assertEquals($actual, $expected, 'Map is not actual.');
-        $this->assertEquals(
+        self::assertEquals($actual, $expected, 'Map is not actual.');
+        self::assertEquals(
             implode(PHP_EOL, array_keys($actual)),
             implode(PHP_EOL, array_keys($expected)),
             'Map is not sorted alphabetically.',

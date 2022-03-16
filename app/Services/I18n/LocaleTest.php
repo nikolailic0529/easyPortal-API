@@ -25,17 +25,17 @@ class LocaleTest extends TestCase {
         $locale = $this->app->make(Locale::class);
 
         $locale->set('en');
-        $this->assertEquals(
+        self::assertEquals(
             $translator->get('test.welcome'),
             $translator->get('test.welcome', [], 'en'),
         );
 
         $locale->set('fr');
-        $this->assertEquals(
+        self::assertEquals(
             $translator->get('test.welcome'),
             $translator->get('test.welcome', [], 'fr'),
         );
-        $this->assertNotEquals(
+        self::assertNotEquals(
             $translator->get('test.welcome'),
             $translator->get('test.welcome', [], 'en'),
         );
@@ -73,7 +73,7 @@ class LocaleTest extends TestCase {
         $this->app->setLocale('en_BB');
 
         // Check
-        $this->assertEquals($expected, $this->app->make(Locale::class)->get());
+        self::assertEquals($expected, $this->app->make(Locale::class)->get());
     }
     // </editor-fold>
 

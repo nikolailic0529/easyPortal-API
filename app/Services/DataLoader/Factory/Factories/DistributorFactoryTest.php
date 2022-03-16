@@ -34,7 +34,7 @@ class DistributorFactoryTest extends TestCase {
 
         $factory->find($company);
 
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $this->getQueryLog());
     }
 
     /**
@@ -53,8 +53,8 @@ class DistributorFactoryTest extends TestCase {
                 ->with($type)
                 ->andReturns();
         } else {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->create($type);
@@ -82,12 +82,12 @@ class DistributorFactoryTest extends TestCase {
         $actual      = array_column($this->getQueryLog(), 'query');
         $expected    = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($distributor);
-        $this->assertTrue($distributor->wasRecentlyCreated);
-        $this->assertEquals($company->id, $distributor->getKey());
-        $this->assertEquals($company->name, $distributor->name);
-        $this->assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($distributor);
+        self::assertTrue($distributor->wasRecentlyCreated);
+        self::assertEquals($company->id, $distributor->getKey());
+        self::assertEquals($company->name, $distributor->name);
+        self::assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
 
         $this->flushQueryLog();
 
@@ -98,12 +98,12 @@ class DistributorFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($updated);
-        $this->assertSame($distributor, $updated);
-        $this->assertEquals($company->id, $updated->getKey());
-        $this->assertEquals($company->name, $updated->name);
-        $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($updated);
+        self::assertSame($distributor, $updated);
+        self::assertEquals($company->id, $updated->getKey());
+        self::assertEquals($company->name, $updated->name);
+        self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
 
         $this->flushQueryLog();
 
@@ -113,7 +113,7 @@ class DistributorFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
     // </editor-fold>
 

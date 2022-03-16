@@ -50,20 +50,20 @@ class StatusResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertEquals('a', $actual->key);
+        self::assertNotNull($actual);
+        self::assertEquals('a', $actual->key);
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($model, 'a', $factory));
-        $this->assertSame($actual, $provider->get($model, ' a ', $factory));
-        $this->assertSame($actual, $provider->get($model, 'A', $factory));
+        self::assertSame($actual, $provider->get($model, 'a', $factory));
+        self::assertSame($actual, $provider->get($model, ' a ', $factory));
+        self::assertSame($actual, $provider->get($model, 'A', $factory));
 
         // All value should be loaded, so get() should not perform any queries
-        $this->assertNotNull($provider->get($model, 'b', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($provider->get($model, 'b', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotNull($provider->get($model, 'c', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($provider->get($model, 'c', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($model): Status {
@@ -77,16 +77,16 @@ class StatusResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->key);
-        $this->assertEquals('unKnown', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('unKnown', $created->key);
+        self::assertEquals('unKnown', $created->name);
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($model, 'unknoWn', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get($model, 'unknoWn', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // Created object should be found
         $c = Status::factory()->create([
@@ -94,8 +94,8 @@ class StatusResolverTest extends TestCase {
         ]);
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($model, $c->key)?->getKey());
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($c->getKey(), $provider->get($model, $c->key)?->getKey());
+        self::assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
     }
 }

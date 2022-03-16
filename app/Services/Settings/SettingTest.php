@@ -39,7 +39,7 @@ class SettingTest extends TestCase {
             'TEST',
         );
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'The `$constant` must have one of the following attributes `%s`.',
             implode('`, `', [
                 ServiceAttribute::class,
@@ -64,7 +64,7 @@ class SettingTest extends TestCase {
         );
         $setting = new Setting($const);
 
-        $this->assertEquals('config.path', $setting->getPath());
+        self::assertEquals('config.path', $setting->getPath());
     }
 
     /**
@@ -80,7 +80,7 @@ class SettingTest extends TestCase {
         );
         $setting = new Setting($const);
 
-        $this->assertNull($setting->getPath());
+        self::assertNull($setting->getPath());
     }
 
     /**
@@ -96,7 +96,7 @@ class SettingTest extends TestCase {
         );
         $setting = new Setting($const);
 
-        $this->assertEquals('TEST', $setting->getName());
+        self::assertEquals('TEST', $setting->getName());
     }
 
     /**
@@ -114,8 +114,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
         $b     = new Setting(new ReflectionClassConstant($class, 'SECRET'));
 
-        $this->assertFalse($a->isSecret());
-        $this->assertTrue($b->isSecret());
+        self::assertFalse($a->isSecret());
+        self::assertTrue($b->isSecret());
     }
 
     /**
@@ -132,8 +132,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
         $b     = new Setting(new ReflectionClassConstant($class, 'ARRAY'));
 
-        $this->assertFalse($a->isArray());
-        $this->assertTrue($b->isArray());
+        self::assertFalse($a->isArray());
+        self::assertTrue($b->isArray());
     }
 
     /**
@@ -151,8 +151,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
         $b     = new Setting(new ReflectionClassConstant($class, 'INTERNAL'));
 
-        $this->assertFalse($a->isInternal());
-        $this->assertTrue($b->isInternal());
+        self::assertFalse($a->isInternal());
+        self::assertTrue($b->isInternal());
     }
 
     /**
@@ -187,12 +187,12 @@ class SettingTest extends TestCase {
         $url     = new Setting(new ReflectionClassConstant($class, 'URL'));
         $array   = new Setting(new ReflectionClassConstant($class, 'ARRAY'));
 
-        $this->assertInstanceOf(StringType::class, $string->getType());
-        $this->assertInstanceOf(IntType::class, $integer->getType());
-        $this->assertInstanceOf(BooleanType::class, $boolean->getType());
-        $this->assertInstanceOf(FloatType::class, $float->getType());
-        $this->assertInstanceOf(Url::class, $url->getType());
-        $this->assertInstanceOf(StringType::class, $array->getType());
+        self::assertInstanceOf(StringType::class, $string->getType());
+        self::assertInstanceOf(IntType::class, $integer->getType());
+        self::assertInstanceOf(BooleanType::class, $boolean->getType());
+        self::assertInstanceOf(FloatType::class, $float->getType());
+        self::assertInstanceOf(Url::class, $url->getType());
+        self::assertInstanceOf(StringType::class, $array->getType());
     }
 
     /**
@@ -227,12 +227,12 @@ class SettingTest extends TestCase {
         $url     = new Setting(new ReflectionClassConstant($class, 'URL'));
         $array   = new Setting(new ReflectionClassConstant($class, 'ARRAY'));
 
-        $this->assertEquals('String', $string->getTypeName());
-        $this->assertEquals('Int', $integer->getTypeName());
-        $this->assertEquals('Boolean', $boolean->getTypeName());
-        $this->assertEquals('Float', $float->getTypeName());
-        $this->assertEquals('Url', $url->getTypeName());
-        $this->assertEquals('String', $array->getTypeName());
+        self::assertEquals('String', $string->getTypeName());
+        self::assertEquals('Int', $integer->getTypeName());
+        self::assertEquals('Boolean', $boolean->getTypeName());
+        self::assertEquals('Float', $float->getTypeName());
+        self::assertEquals('Url', $url->getTypeName());
+        self::assertEquals('String', $array->getTypeName());
     }
 
     /**
@@ -265,11 +265,11 @@ class SettingTest extends TestCase {
         $d     = new Setting(new ReflectionClassConstant($class, 'D'));
         $e     = new Setting(new ReflectionClassConstant($class, 'E'));
 
-        $this->assertEquals('test', $a->getDefaultValue());
-        $this->assertEquals('test', $b->getDefaultValue());
-        $this->assertEquals('test', $c->getDefaultValue());
-        $this->assertNull($d->getDefaultValue());
-        $this->assertEquals([1, 2, 3], $e->getDefaultValue());
+        self::assertEquals('test', $a->getDefaultValue());
+        self::assertEquals('test', $b->getDefaultValue());
+        self::assertEquals('test', $c->getDefaultValue());
+        self::assertNull($d->getDefaultValue());
+        self::assertEquals([1, 2, 3], $e->getDefaultValue());
     }
 
     /**
@@ -307,7 +307,7 @@ class SettingTest extends TestCase {
             ];
         });
 
-        $this->assertEquals(
+        self::assertEquals(
             <<<'DESC'
             Summary summary summary summary summary summary summary.
 
@@ -319,8 +319,8 @@ class SettingTest extends TestCase {
             DESC,
             $a->getDescription(),
         );
-        $this->assertEquals('translated', $b->getDescription());
-        $this->assertNull($c->getDescription());
+        self::assertEquals('translated', $b->getDescription());
+        self::assertNull($c->getDescription());
     }
 
     /**
@@ -351,9 +351,9 @@ class SettingTest extends TestCase {
             ];
         });
 
-        $this->assertEquals('translated', $a->getGroup());
-        $this->assertEquals('untranslated', $b->getGroup());
-        $this->assertNull($c->getGroup());
+        self::assertEquals('translated', $a->getGroup());
+        self::assertEquals('untranslated', $b->getGroup());
+        self::assertNull($c->getGroup());
     }
 
     /**
@@ -370,8 +370,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
         $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
-        $this->assertFalse($a->isService());
-        $this->assertTrue($b->isService());
+        self::assertFalse($a->isService());
+        self::assertTrue($b->isService());
     }
 
     /**
@@ -388,8 +388,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
         $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
-        $this->assertNull($a->getService());
-        $this->assertEquals(stdClass::class, $b->getService());
+        self::assertNull($a->getService());
+        self::assertEquals(stdClass::class, $b->getService());
     }
 
     /**
@@ -409,8 +409,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
         $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
-        $this->assertFalse($a->isJob());
-        $this->assertTrue($b->isJob());
+        self::assertFalse($a->isJob());
+        self::assertTrue($b->isJob());
     }
 
     /**
@@ -430,8 +430,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
         $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
-        $this->assertNull($a->getJob());
-        $this->assertEquals(stdClass::class, $b->getJob());
+        self::assertNull($a->getJob());
+        self::assertEquals(stdClass::class, $b->getJob());
     }
 
     /**
@@ -449,8 +449,8 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
         $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
-        $this->assertFalse($a->isPublic());
-        $this->assertTrue($b->isPublic());
+        self::assertFalse($a->isPublic());
+        self::assertTrue($b->isPublic());
     }
 
     /**
@@ -468,7 +468,7 @@ class SettingTest extends TestCase {
         $a     = new Setting(new ReflectionClassConstant($class, 'A'));
         $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
-        $this->assertNull($a->getPublicName());
-        $this->assertEquals('publicNameB', $b->getPublicName());
+        self::assertNull($a->getPublicName());
+        self::assertEquals('publicNameB', $b->getPublicName());
     }
 }

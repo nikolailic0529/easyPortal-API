@@ -25,9 +25,9 @@ class NoteTest extends TestCase {
 
         $note->delete();
 
-        $this->assertEquals(0, Note::query()->count());
-        $this->assertEquals(0, File::query()->count());
+        self::assertEquals(0, Note::query()->count());
+        self::assertEquals(0, File::query()->count());
         // it won't affect another relation
-        $this->assertTrue($user->fresh()->exists());
+        self::assertTrue($user->fresh()->exists());
     }
 }

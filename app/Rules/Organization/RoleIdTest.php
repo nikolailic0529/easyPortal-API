@@ -33,7 +33,7 @@ class RoleIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
     }
 
     /**
@@ -53,7 +53,7 @@ class RoleIdTest extends TestCase {
             $rule->setMutationContext($context);
         }
 
-        $this->assertEquals($expected, $rule->passes('test', $role?->getKey()));
+        self::assertEquals($expected, $rule->passes('test', $role?->getKey()));
     }
     // </editor-fold>
 

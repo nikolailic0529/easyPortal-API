@@ -21,10 +21,10 @@ class CoverageStatusCheckTest extends TestCase {
         $actual     = new CoverageStatusCheck($json);
         $properties = CoverageStatusCheck::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertCount(2, $actual->coverageEntries);
-        $this->assertInstanceOf(CoverageEntry::class, reset($actual->coverageEntries));
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertCount(2, $actual->coverageEntries);
+        self::assertInstanceOf(CoverageEntry::class, reset($actual->coverageEntries));
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

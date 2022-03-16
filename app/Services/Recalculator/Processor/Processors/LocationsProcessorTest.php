@@ -111,8 +111,8 @@ class LocationsProcessorTest extends TestCase {
             ->setKeys([$locationA->getKey(), $locationB->getKey(), $locationC->getKey()])
             ->start();
 
-        $this->assertQueryLogEquals('~queries.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~queries.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~events.json',
             $events->dispatched(ModelsRecalculated::class),
         );
@@ -149,19 +149,19 @@ class LocationsProcessorTest extends TestCase {
         ];
 
         // A
-        $this->assertEquals([
+        self::assertEquals([
             'customers_count' => 2,
             'assets_count'    => 2,
         ], $this->getModelCountableProperties($aLocation, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             [
                 'assets_count' => 2,
                 'reseller_id'  => $resellerA->getKey(),
             ],
         ], $this->getModelCountableProperties($aResellers, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             [
                 'assets_count' => 1,
                 'customer_id'  => $customerA->getKey(),
@@ -173,30 +173,30 @@ class LocationsProcessorTest extends TestCase {
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 
         // B
-        $this->assertEquals([
+        self::assertEquals([
             'customers_count' => 0,
             'assets_count'    => 1,
         ], $this->getModelCountableProperties($bLocation, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             // empty
         ], $this->getModelCountableProperties($bResellers, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             // empty
         ], $this->getModelCountableProperties($bCustomers, $attributes));
 
         // C
-        $this->assertEquals([
+        self::assertEquals([
             'customers_count' => 0,
             'assets_count'    => 0,
         ], $this->getModelCountableProperties($cLocation, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             // empty
         ], $this->getModelCountableProperties($cResellers, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             // empty
         ], $this->getModelCountableProperties($cCustomers, $attributes));
     }

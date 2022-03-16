@@ -31,7 +31,7 @@ class PaginatedRelationTest extends TestCase {
     public function testManipulateArgDefinition(string $expected, array $settings): void {
         $this->setSettings($settings);
 
-        $this->assertGraphQLSchemaEquals(
+        self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected($expected, '~schema.graphql'),
             $this->getTestData()->content('~schema.graphql'),
         );
@@ -41,7 +41,7 @@ class PaginatedRelationTest extends TestCase {
      * @covers ::manipulateArgDefinition
      */
     public function testManipulateArgDefinitionNoModel(): void {
-        $this->expectExceptionObject(new LogicException(
+        self::expectExceptionObject(new LogicException(
             '@paginatedRelation directive should be used with one of `@hasMany`, `@morphMany`, `@belongsToMany`.',
         ));
 

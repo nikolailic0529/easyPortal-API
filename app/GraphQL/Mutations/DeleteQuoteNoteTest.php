@@ -54,8 +54,8 @@ class DeleteQuoteNoteTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertEquals($exists, $note->exists());
-            $this->assertEquals(
+            self::assertEquals($exists, $note->exists());
+            self::assertEquals(
                 $exists,
                 File::query()
                     ->where('object_id', '=', $note->getKey())

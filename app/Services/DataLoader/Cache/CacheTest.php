@@ -26,10 +26,10 @@ class CacheTest extends TestCase {
         $item       = $this->faker->randomElement($items->all());
         $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertNull($cache->getByRetriever('key', new Key($normalizer, [$this::class])));
-        $this->assertSame($item, $cache->getByRetriever('key', new Key($normalizer, [$item->getKey()])));
-        $this->assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [$item->property])));
-        $this->assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [
+        self::assertNull($cache->getByRetriever('key', new Key($normalizer, [$this::class])));
+        self::assertSame($item, $cache->getByRetriever('key', new Key($normalizer, [$item->getKey()])));
+        self::assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [$item->property])));
+        self::assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [
             mb_strtoupper($item->property),
         ])));
     }
@@ -43,10 +43,10 @@ class CacheTest extends TestCase {
         $item       = $this->faker->randomElement($items->all());
         $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertFalse($cache->hasByRetriever('key', new Key($normalizer, [$this::class])));
-        $this->assertTrue($cache->hasByRetriever('key', new Key($normalizer, [$item->getKey()])));
-        $this->assertTrue($cache->hasByRetriever('property', new Key($normalizer, [$item->property])));
-        $this->assertTrue($cache->hasByRetriever('property', new Key($normalizer, [
+        self::assertFalse($cache->hasByRetriever('key', new Key($normalizer, [$this::class])));
+        self::assertTrue($cache->hasByRetriever('key', new Key($normalizer, [$item->getKey()])));
+        self::assertTrue($cache->hasByRetriever('property', new Key($normalizer, [$item->property])));
+        self::assertTrue($cache->hasByRetriever('property', new Key($normalizer, [
             mb_strtoupper($item->property),
         ])));
     }
@@ -60,10 +60,10 @@ class CacheTest extends TestCase {
         $item       = $this->faker->randomElement($items->all());
         $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertFalse($cache->has(new Key($normalizer, [$this::class])));
-        $this->assertTrue($cache->has(new Key($normalizer, [$item->getKey()])));
-        $this->assertTrue($cache->has(new Key($normalizer, [$item->property])));
-        $this->assertTrue($cache->has(new Key($normalizer, [
+        self::assertFalse($cache->has(new Key($normalizer, [$this::class])));
+        self::assertTrue($cache->has(new Key($normalizer, [$item->getKey()])));
+        self::assertTrue($cache->has(new Key($normalizer, [$item->property])));
+        self::assertTrue($cache->has(new Key($normalizer, [
             mb_strtoupper($item->property),
         ])));
     }
@@ -77,10 +77,10 @@ class CacheTest extends TestCase {
         $item       = $this->faker->randomElement($items->all());
         $normalizer = $this->app->make(Normalizer::class);
 
-        $this->assertNull($cache->get(new Key($normalizer, [$this::class])));
-        $this->assertSame($item, $cache->get(new Key($normalizer, [$item->getKey()])));
-        $this->assertSame($item, $cache->get(new Key($normalizer, [$item->property])));
-        $this->assertSame($item, $cache->get(new Key($normalizer, [
+        self::assertNull($cache->get(new Key($normalizer, [$this::class])));
+        self::assertSame($item, $cache->get(new Key($normalizer, [$item->getKey()])));
+        self::assertSame($item, $cache->get(new Key($normalizer, [$item->property])));
+        self::assertSame($item, $cache->get(new Key($normalizer, [
             mb_strtoupper($item->property),
         ])));
     }
@@ -96,17 +96,17 @@ class CacheTest extends TestCase {
         $itemKey     = new Key($normalizer, [$item->getKey()]);
         $propertyKey = new Key($normalizer, [$item->property]);
 
-        $this->assertSame($item, $cache->get($itemKey));
-        $this->assertTrue($cache->has($itemKey));
-        $this->assertSame($item, $cache->get($propertyKey));
-        $this->assertTrue($cache->has($propertyKey));
+        self::assertSame($item, $cache->get($itemKey));
+        self::assertTrue($cache->has($itemKey));
+        self::assertSame($item, $cache->get($propertyKey));
+        self::assertTrue($cache->has($propertyKey));
 
         $cache->putNull($itemKey);
 
-        $this->assertNull($cache->get($itemKey));
-        $this->assertTrue($cache->has($itemKey));
-        $this->assertSame($item, $cache->get($propertyKey));
-        $this->assertTrue($cache->has($propertyKey));
+        self::assertNull($cache->get($itemKey));
+        self::assertTrue($cache->has($itemKey));
+        self::assertSame($item, $cache->get($propertyKey));
+        self::assertTrue($cache->has($propertyKey));
     }
 
     /**
@@ -122,13 +122,13 @@ class CacheTest extends TestCase {
         $itemB      = $items->last();
         $keyB       = new Key($normalizer, [$itemB->getKey()]);
 
-        $this->assertFalse($cache->hasNull($keyA));
-        $this->assertFalse($cache->hasNull($keyB));
+        self::assertFalse($cache->hasNull($keyA));
+        self::assertFalse($cache->hasNull($keyB));
 
         $cache->putNulls([$keyA, $keyB]);
 
-        $this->assertTrue($cache->hasNull($keyA));
-        $this->assertTrue($cache->hasNull($keyB));
+        self::assertTrue($cache->hasNull($keyA));
+        self::assertTrue($cache->hasNull($keyB));
     }
 
     /**
@@ -142,13 +142,13 @@ class CacheTest extends TestCase {
         $itemKey     = new Key($normalizer, [$item->getKey()]);
         $propertyKey = new Key($normalizer, [$item->property]);
 
-        $this->assertFalse($cache->has($itemKey));
-        $this->assertFalse($cache->has($propertyKey));
+        self::assertFalse($cache->has($itemKey));
+        self::assertFalse($cache->has($propertyKey));
 
-        $this->assertSame($item, $cache->put($item));
+        self::assertSame($item, $cache->put($item));
 
-        $this->assertTrue($cache->has($itemKey));
-        $this->assertTrue($cache->has($propertyKey));
+        self::assertTrue($cache->has($itemKey));
+        self::assertTrue($cache->has($propertyKey));
     }
 
     /**
@@ -162,18 +162,18 @@ class CacheTest extends TestCase {
         $itemKey     = new Key($normalizer, [$item->getKey()]);
         $propertyKey = new Key($normalizer, [$item->property]);
 
-        $this->assertFalse($cache->has($itemKey));
-        $this->assertFalse($cache->has($propertyKey));
+        self::assertFalse($cache->has($itemKey));
+        self::assertFalse($cache->has($propertyKey));
 
         $cache->putNull($itemKey);
 
-        $this->assertNull($cache->get($itemKey));
-        $this->assertNull($cache->get($propertyKey));
+        self::assertNull($cache->get($itemKey));
+        self::assertNull($cache->get($propertyKey));
 
         $cache->put($item);
 
-        $this->assertSame($item, $cache->get($itemKey));
-        $this->assertSame($item, $cache->get($propertyKey));
+        self::assertSame($item, $cache->get($itemKey));
+        self::assertSame($item, $cache->get($propertyKey));
     }
 
     /**
@@ -188,14 +188,14 @@ class CacheTest extends TestCase {
         $itemB      = $this->item();
         $keyB       = new Key($normalizer, [$itemB->getKey()]);
 
-        $this->assertNotEquals($keyA, $keyB);
-        $this->assertFalse($cache->has($keyA));
-        $this->assertFalse($cache->has($keyB));
+        self::assertNotEquals($keyA, $keyB);
+        self::assertFalse($cache->has($keyA));
+        self::assertFalse($cache->has($keyB));
 
         $cache->putAll(new Collection([$itemA, $itemB]));
 
-        $this->assertTrue($cache->has($keyA));
-        $this->assertTrue($cache->has($keyB));
+        self::assertTrue($cache->has($keyA));
+        self::assertTrue($cache->has($keyB));
     }
 
     /**
@@ -212,13 +212,13 @@ class CacheTest extends TestCase {
 
         $cache->putAll(new Collection([$itemA, $itemB]));
 
-        $this->assertTrue($cache->has($keyA));
-        $this->assertTrue($cache->has($keyB));
+        self::assertTrue($cache->has($keyA));
+        self::assertTrue($cache->has($keyB));
 
         $cache->reset();
 
-        $this->assertFalse($cache->has($keyA));
-        $this->assertFalse($cache->has($keyB));
+        self::assertFalse($cache->has($keyA));
+        self::assertFalse($cache->has($keyB));
     }
 
     /**
@@ -233,7 +233,7 @@ class CacheTest extends TestCase {
 
         $cache->putNull($key);
 
-        $this->assertEquals($items, $cache->getAll());
+        self::assertEquals($items, $cache->getAll());
     }
     // </editor-fold>
 

@@ -56,19 +56,19 @@ class WithStatusTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($status, $factory->status($customer, $status->key));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($status, $factory->status($customer, $status->key));
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->status($customer, ' New  status ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals('New status', $created->key);
-        $this->assertEquals('New Status', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals($customer->getMorphClass(), $created->object_type);
+        self::assertEquals('New status', $created->key);
+        self::assertEquals('New Status', $created->name);
+        self::assertCount(2, $this->getQueryLog());
     }
 }

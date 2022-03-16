@@ -17,7 +17,7 @@ class UserTest extends TestCase {
      */
     public function testIsRoot(): void {
         foreach (UserType::getValues() as $type) {
-            $this->assertEquals($type === UserType::local(), User::factory()->make([
+            self::assertEquals($type === UserType::local(), User::factory()->make([
                 'type' => $type,
             ])->isRoot());
         }
@@ -67,7 +67,7 @@ class UserTest extends TestCase {
         ]);
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             User::class             => 2,
             UserSearch::class       => 1,
             Invitation::class       => 1,
@@ -81,7 +81,7 @@ class UserTest extends TestCase {
         $user->delete();
 
         // Test
-        $this->assertModelsCount([
+        self::assertModelsCount([
             User::class             => 1,
             UserSearch::class       => 1,
             Invitation::class       => 1,

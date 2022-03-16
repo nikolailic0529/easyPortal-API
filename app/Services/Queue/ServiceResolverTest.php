@@ -25,7 +25,7 @@ class ServiceResolverTest extends TestCase {
             ]);
         $resolver = new ServiceResolver($this->app, $settings, $this->app->make(Queue::class));
 
-        $this->assertInstanceOf(ServiceResolverTest_ServiceA::class, $resolver->get('service-a'));
+        self::assertInstanceOf(ServiceResolverTest_ServiceA::class, $resolver->get('service-a'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ServiceResolverTest extends TestCase {
             ->andReturn();
         $resolver = new ServiceResolver($this->app, $settings, $this->app->make(Queue::class));
 
-        $this->expectException(ServiceNotFound::class);
+        self::expectException(ServiceNotFound::class);
 
         $resolver->get('service-a');
     }

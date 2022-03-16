@@ -20,8 +20,8 @@ class CentralAssetDbStatisticsTest extends TestCase {
         $actual     = new CentralAssetDbStatistics($json);
         $properties = CentralAssetDbStatistics::getPropertiesNames();
 
-        $this->assertEqualsCanonicalizing(array_keys($json), $properties);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEqualsCanonicalizing(array_keys($json), $properties);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

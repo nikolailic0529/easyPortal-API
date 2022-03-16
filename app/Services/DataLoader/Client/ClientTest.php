@@ -27,9 +27,9 @@ class ClientTest extends TestCase {
             $actual   = BuildClientSchema::build($into);
             $expected = $this->getTestData(Schema::class)->content('.graphql');
 
-            $this->assertGraphQLSchemaEquals($expected, $actual);
+            self::assertGraphQLSchemaEquals($expected, $actual);
         } else {
-            $this->markTestSkipped('DataLoader is disabled.');
+            self::markTestSkipped('DataLoader is disabled.');
         }
     }
 }

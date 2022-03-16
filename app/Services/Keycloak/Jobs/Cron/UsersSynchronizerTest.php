@@ -13,6 +13,6 @@ class UsersSynchronizerTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(UsersSynchronizer::class);
+        self::assertCronableRegistered(UsersSynchronizer::class);
     }
 }

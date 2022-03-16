@@ -27,7 +27,7 @@ class UniqueUserEmailTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(UniqueUserEmail::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(UniqueUserEmail::class)->message(), 'Translated');
     }
 
     /**
@@ -37,7 +37,7 @@ class UniqueUserEmailTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $userFactory): void {
         $email = $userFactory();
-        $this->assertEquals($expected, $this->app->make(UniqueUserEmail::class)->passes('test', $email));
+        self::assertEquals($expected, $this->app->make(UniqueUserEmail::class)->passes('test', $email));
     }
     // </editor-fold>
 

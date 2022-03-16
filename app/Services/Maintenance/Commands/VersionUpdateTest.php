@@ -33,7 +33,7 @@ class VersionUpdateTest extends TestCase {
      */
     public function testInvoke(string|Exception $expected, ?string $current, array $arguments): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         } else {
             $this->override(Filesystem::class, static function (MockInterface $mock): void {
                 $mock

@@ -31,7 +31,7 @@ class CustomerRecalculateTest extends TestCase {
         $configurator = $this->app->make(QueueableConfigurator::class);
         $processor    = $job->getProcessor($this->app, $configurator->config($job));
 
-        $this->assertInstanceOf(CustomersProcessor::class, $processor);
-        $this->assertEquals([$key], $processor->getKeys());
+        self::assertInstanceOf(CustomersProcessor::class, $processor);
+        self::assertEquals([$key], $processor->getKeys());
     }
 }

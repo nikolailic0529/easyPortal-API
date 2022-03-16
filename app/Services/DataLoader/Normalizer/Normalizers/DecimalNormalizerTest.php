@@ -17,7 +17,7 @@ class DecimalNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        $this->assertEquals($expected, $this->app->make(DecimalNormalizer::class)->normalize($value));
+        self::assertEquals($expected, $this->app->make(DecimalNormalizer::class)->normalize($value));
     }
     // </editor-fold>
 

@@ -25,7 +25,7 @@ class DocumentTest extends TestCase {
 
         $document->delete();
 
-        $this->assertEquals(0, Document::query()->count());
-        $this->assertEquals(0, DocumentEntry::query()->count());
+        self::assertEquals(0, Document::query()->count());
+        self::assertEquals(0, DocumentEntry::query()->count());
     }
 }

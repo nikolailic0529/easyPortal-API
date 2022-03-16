@@ -13,6 +13,6 @@ class CustomersUpdaterCronJobTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(CustomersUpdaterCronJob::class);
+        self::assertCronableRegistered(CustomersUpdaterCronJob::class);
     }
 }

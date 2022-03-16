@@ -16,7 +16,7 @@ class OemsImportTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertArrayHasKey('ep:data-loader-oems-import', $this->app->make(Kernel::class)->all());
+        self::assertArrayHasKey('ep:data-loader-oems-import', $this->app->make(Kernel::class)->all());
     }
 
     /**

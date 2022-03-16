@@ -54,7 +54,7 @@ class ConfigurationTest extends TestCase {
         ]));
 
         // Test
-        $this->assertEquals(
+        self::assertEquals(
             ['meta', 'abc', 'oem', 'a.b'],
             $model->getSearchConfiguration()->getRelations(),
         );
@@ -91,7 +91,7 @@ class ConfigurationTest extends TestCase {
         ]));
 
         // Test
-        $this->assertEquals([
+        self::assertEquals([
             Configuration::getMetadataName() => [
                 'sku'  => new Text('abc.sku'),
                 'id'   => new Uuid('oem.id'),
@@ -130,7 +130,7 @@ class ConfigurationTest extends TestCase {
         $model->addGlobalScope($scope);
 
         // Test
-        $this->expectExceptionObject(new LogicException(sprintf(
+        self::expectExceptionObject(new LogicException(sprintf(
             'The `%s` trying to redefine `%s` in metadata.',
             $scope::class,
             'meta',
@@ -152,7 +152,7 @@ class ConfigurationTest extends TestCase {
         $configuration = new Configuration($this->getModel(), $metadata, $properties);
         $actual        = $configuration->getSearchable();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -175,15 +175,15 @@ class ConfigurationTest extends TestCase {
         );
         $configuration = $model->getSearchConfiguration();
 
-        $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
-        $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
-        $this->assertEquals('c', $configuration->getProperty(Configuration::getPropertyName('b.c'))?->getName());
-        $this->assertEquals('e', $configuration->getProperty(Configuration::getPropertyName('b.d.e'))?->getName());
-        $this->assertEquals('meta', $configuration->getProperty(Configuration::getMetadataName('meta'))?->getName());
-        $this->assertNull($configuration->getProperty('meta'));
-        $this->assertNull($configuration->getProperty('a'));
-        $this->assertNull($configuration->getProperty('b'));
-        $this->assertNull($configuration->getProperty('b.d'));
+        self::assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
+        self::assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
+        self::assertEquals('c', $configuration->getProperty(Configuration::getPropertyName('b.c'))?->getName());
+        self::assertEquals('e', $configuration->getProperty(Configuration::getPropertyName('b.d.e'))?->getName());
+        self::assertEquals('meta', $configuration->getProperty(Configuration::getMetadataName('meta'))?->getName());
+        self::assertNull($configuration->getProperty('meta'));
+        self::assertNull($configuration->getProperty('a'));
+        self::assertNull($configuration->getProperty('b'));
+        self::assertNull($configuration->getProperty('b.d'));
     }
 
     /**
@@ -218,9 +218,9 @@ class ConfigurationTest extends TestCase {
             ],
         );
 
-        $this->assertStringStartsWith('test@', $a->getIndexName());
-        $this->assertEquals($a->getIndexName(), $b->getIndexName());
-        $this->assertNotEquals($a->getIndexName(), $c->getIndexName());
+        self::assertStringStartsWith('test@', $a->getIndexName());
+        self::assertEquals($a->getIndexName(), $b->getIndexName());
+        self::assertNotEquals($a->getIndexName(), $c->getIndexName());
     }
 
     /**
@@ -230,8 +230,8 @@ class ConfigurationTest extends TestCase {
         $a = new Configuration($this->getModel()->setSearchableAs('should be ignored'), [], []);
         $b = new Configuration($this->getModel(), [], []);
 
-        $this->assertEquals('test', $a->getIndexAlias());
-        $this->assertEquals('test', $b->getIndexAlias());
+        self::assertEquals('test', $a->getIndexAlias());
+        self::assertEquals('test', $b->getIndexAlias());
     }
 
     /**
@@ -330,7 +330,7 @@ class ConfigurationTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -345,10 +345,10 @@ class ConfigurationTest extends TestCase {
             ->atLeast()
             ->once();
 
-        $this->assertTrue($config->isIndex('test@12345'));
-        $this->assertTrue($config->isIndex('test@'));
-        $this->assertFalse($config->isIndex('test'));
-        $this->assertFalse($config->isIndex('abc'));
+        self::assertTrue($config->isIndex('test@12345'));
+        self::assertTrue($config->isIndex('test@'));
+        self::assertFalse($config->isIndex('test'));
+        self::assertFalse($config->isIndex('abc'));
     }
     // </editor-fold>
 

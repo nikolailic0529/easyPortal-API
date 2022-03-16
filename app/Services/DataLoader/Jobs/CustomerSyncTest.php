@@ -56,7 +56,7 @@ class CustomerSyncTest extends TestCase {
             'warranty' => true,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -97,7 +97,7 @@ class CustomerSyncTest extends TestCase {
             'warranty' => false,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -136,7 +136,7 @@ class CustomerSyncTest extends TestCase {
             'warranty' => false,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 }

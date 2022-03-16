@@ -92,9 +92,9 @@ class TranslationDefaultsTest extends TestCase {
             'b' => 'translated-b',
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         // Another Locale
-        $this->assertEquals([], $default->loadModels('another'));
+        self::assertEquals([], $default->loadModels('another'));
     }
 }

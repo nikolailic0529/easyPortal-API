@@ -31,7 +31,7 @@ class LocationRecalculateTest extends TestCase {
         $configurator = $this->app->make(QueueableConfigurator::class);
         $processor    = $job->getProcessor($this->app, $configurator->config($job));
 
-        $this->assertInstanceOf(LocationsProcessor::class, $processor);
-        $this->assertEquals([$key], $processor->getKeys());
+        self::assertInstanceOf(LocationsProcessor::class, $processor);
+        self::assertEquals([$key], $processor->getKeys());
     }
 }

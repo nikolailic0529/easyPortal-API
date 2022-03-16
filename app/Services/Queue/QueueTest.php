@@ -101,7 +101,7 @@ class QueueTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -120,7 +120,7 @@ class QueueTest extends TestCase {
         $actual   = (new Queue($this->app, $config, $stopTag, $repository))->getStates([]);
         $expected = [];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -252,7 +252,7 @@ class QueueTest extends TestCase {
             ),
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -351,7 +351,7 @@ class QueueTest extends TestCase {
             ),
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -419,7 +419,7 @@ class QueueTest extends TestCase {
             ),
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -436,7 +436,7 @@ class QueueTest extends TestCase {
             ->once()
             ->andReturn([[$state]]);
 
-        $this->assertEquals([$state], $queue->getState($job));
+        self::assertEquals([$state], $queue->getState($job));
     }
 
     /**
@@ -457,8 +457,8 @@ class QueueTest extends TestCase {
 
         $queue = $this->app->make(Queue::class);
 
-        $this->assertEquals($job::class, $queue->getName($job));
-        $this->assertEquals($name, $queue->getName($named));
+        self::assertEquals($job::class, $queue->getName($job));
+        self::assertEquals($name, $queue->getName($named));
     }
 
     /**
@@ -477,8 +477,8 @@ class QueueTest extends TestCase {
 
         $queue = $this->app->make(Queue::class);
 
-        $this->assertNull($queue->getProgress($job));
-        $this->assertEquals($progress, $queue->getProgress($progressable));
+        self::assertNull($queue->getProgress($job));
+        self::assertEquals($progress, $queue->getProgress($progressable));
     }
 
     /**
@@ -501,9 +501,9 @@ class QueueTest extends TestCase {
             ->once()
             ->andReturn([]);
 
-        $this->assertFalse($queue->stop($job));
-        $this->assertTrue($queue->stop($stoppable));
-        $this->assertTrue($queue->stop($stoppable, $id));
+        self::assertFalse($queue->stop($job));
+        self::assertTrue($queue->stop($stoppable));
+        self::assertTrue($queue->stop($stoppable, $id));
     }
 
     /**
@@ -527,8 +527,8 @@ class QueueTest extends TestCase {
 
         $queue = new Queue($this->app, $config, $stopTag, Mockery::mock(JobRepository::class));
 
-        $this->assertTrue($queue->isStopped($jobA, $id));
-        $this->assertFalse($queue->isStopped($jobA, $this->faker->uuid));
-        $this->assertFalse($queue->isStopped($jobB, $id));
+        self::assertTrue($queue->isStopped($jobA, $id));
+        self::assertFalse($queue->isStopped($jobA, $this->faker->uuid));
+        self::assertFalse($queue->isStopped($jobB, $id));
     }
 }

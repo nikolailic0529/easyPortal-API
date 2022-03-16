@@ -13,6 +13,6 @@ class DocumentsIndexerTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(DocumentsIndexer::class);
+        self::assertCronableRegistered(DocumentsIndexer::class);
     }
 }

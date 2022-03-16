@@ -26,7 +26,7 @@ class WithKpiTest extends TestCase {
         $actual   = $factory->kpi($owner, $kpis);
         $expected = null;
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -43,10 +43,10 @@ class WithKpiTest extends TestCase {
             'assets_total' => (int) $kpis->totalAssets,
         ];
 
-        $this->assertEquals($expected, [
+        self::assertEquals($expected, [
             'assets_total' => $actual->assets_total,
         ]);
-        $this->assertTrue($actual->wasRecentlyCreated);
+        self::assertTrue($actual->wasRecentlyCreated);
     }
 
     /**
@@ -66,8 +66,8 @@ class WithKpiTest extends TestCase {
             'assets_total' => (int) $kpis->totalAssets,
         ];
 
-        $this->assertSame($kpi, $actual);
-        $this->assertEquals($expected, [
+        self::assertSame($kpi, $actual);
+        self::assertEquals($expected, [
             'assets_total' => $actual->assets_total,
         ]);
     }
@@ -91,8 +91,8 @@ class WithKpiTest extends TestCase {
             'service_revenue_total_amount_change' => -123.00,
         ];
 
-        $this->assertSame($kpi, $actual);
-        $this->assertEquals($expected, [
+        self::assertSame($kpi, $actual);
+        self::assertEquals($expected, [
             'assets_total'                        => $actual->assets_total,
             'service_revenue_total_amount_change' => $actual->service_revenue_total_amount_change,
         ]);

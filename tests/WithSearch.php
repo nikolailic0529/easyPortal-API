@@ -40,7 +40,7 @@ trait WithSearch {
             try {
                 $client->info();
             } catch (Exception) {
-                $this->markTestSkipped('Elastic Search is not installed/configured.');
+                self::markTestSkipped('Elastic Search is not installed/configured.');
             }
 
             // Remove all indexes
@@ -134,9 +134,9 @@ trait WithSearch {
                 ],
             ]);
 
-            $this->assertSearchIndexAlias($index, $alias);
+            self::assertSearchIndexAlias($index, $alias);
         } else {
-            $this->assertSearchIndexExists($index);
+            self::assertSearchIndexExists($index);
         }
     }
 
@@ -190,11 +190,11 @@ trait WithSearch {
         }
 
         // Compare
-        $this->assertEquals($expected, $actual, $message);
+        self::assertEquals($expected, $actual, $message);
     }
 
     protected function assertSearchIndexExists(string $expected, string $message = ''): void {
-        $this->assertTrue(
+        self::assertTrue(
             $this->app->make(Client::class)->indices()->exists([
                 'index' => $this->getSearchName($expected),
             ]),
@@ -207,7 +207,7 @@ trait WithSearch {
         string $expectedAlias,
         string $message = '',
     ): void {
-        $this->assertNotEmpty(
+        self::assertNotEmpty(
             $this->app->make(Client::class)->indices()->getAlias([
                 'name'  => $expectedAlias,
                 'index' => $expectedIndex,

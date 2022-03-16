@@ -18,7 +18,7 @@ class MapLevelTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        $this->assertEquals($expected, (new MapLevel())->passes('test', $value));
+        self::assertEquals($expected, (new MapLevel())->passes('test', $value));
     }
 
     /**
@@ -33,7 +33,7 @@ class MapLevelTest extends TestCase {
             ];
         });
 
-        $this->assertEquals('message validation.map_level', (new MapLevel())->message());
+        self::assertEquals('message validation.map_level', (new MapLevel())->message());
     }
     // </editor-fold>
 

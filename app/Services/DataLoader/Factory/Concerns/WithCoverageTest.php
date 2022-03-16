@@ -55,18 +55,18 @@ class WithCoverageTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($coverage, $factory->coverage($coverage->key));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($coverage, $factory->coverage($coverage->key));
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->coverage('new ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('new', $created->key);
-        $this->assertEquals('New', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals('new', $created->key);
+        self::assertEquals('New', $created->name);
+        self::assertCount(2, $this->getQueryLog());
     }
 }

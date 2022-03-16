@@ -35,7 +35,7 @@ class DocumentsImporterTest extends TestCase {
         $this->overrideUuidFactory('4e3a662e-4953-4c8b-b463-9c2c812bbf46');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class   => 2,
             Reseller::class      => 39,
             Customer::class      => 16,
@@ -55,11 +55,11 @@ class DocumentsImporterTest extends TestCase {
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
-        $this->assertQueryLogEquals('~run-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~run-cold.json', $queries);
+        self::assertModelsCount([
             Document::class => DocumentsImporterData::LIMIT,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~run-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -79,8 +79,8 @@ class DocumentsImporterTest extends TestCase {
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
-        $this->assertQueryLogEquals('~run-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~run-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~run-events.json',
             $events->dispatched(DataImported::class),
         );

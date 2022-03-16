@@ -21,14 +21,14 @@ class ViewCompanyTest extends TestCase {
         $actual     = new ViewCompany($json);
         $properties = ViewCompany::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertCount(2, $actual->companyContactPersons);
-        $this->assertInstanceOf(CompanyContactPerson::class, reset($actual->companyContactPersons));
-        $this->assertCount(1, $actual->companyTypes);
-        $this->assertInstanceOf(CompanyType::class, reset($actual->companyTypes));
-        $this->assertCount(1, $actual->locations);
-        $this->assertInstanceOf(Location::class, reset($actual->locations));
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertCount(2, $actual->companyContactPersons);
+        self::assertInstanceOf(CompanyContactPerson::class, reset($actual->companyContactPersons));
+        self::assertCount(1, $actual->companyTypes);
+        self::assertInstanceOf(CompanyType::class, reset($actual->companyTypes));
+        self::assertCount(1, $actual->locations);
+        self::assertInstanceOf(Location::class, reset($actual->locations));
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

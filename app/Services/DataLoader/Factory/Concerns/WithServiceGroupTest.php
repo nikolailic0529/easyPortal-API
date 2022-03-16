@@ -51,7 +51,7 @@ class WithServiceGroupTest extends TestCase {
             }
         };
 
-        $this->assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
+        self::assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
     }
 
     /**
@@ -91,7 +91,7 @@ class WithServiceGroupTest extends TestCase {
             }
         };
 
-        $this->assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
+        self::assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
     }
 
     /**
@@ -128,8 +128,8 @@ class WithServiceGroupTest extends TestCase {
             }
         };
 
-        $this->expectException(ServiceGroupNotFound::class);
+        self::expectException(ServiceGroupNotFound::class);
 
-        $this->assertEquals($group, $factory->serviceGroup($group->oem, $group->sku));
+        self::assertEquals($group, $factory->serviceGroup($group->oem, $group->sku));
     }
 }

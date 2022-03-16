@@ -42,9 +42,9 @@ class TokenRepositoryTest extends TestCase {
         $token   = $repository->create($user);
         $created = PasswordReset::query()->first();
 
-        $this->assertEquals($email, $created->email);
-        $this->assertTrue($hasher->check($token, $created->token));
-        $this->assertEquals(1, PasswordReset::query()->count());
+        self::assertEquals($email, $created->email);
+        self::assertTrue($hasher->check($token, $created->token));
+        self::assertEquals(1, PasswordReset::query()->count());
     }
 
     /**
@@ -71,14 +71,14 @@ class TokenRepositoryTest extends TestCase {
             ->andReturn($email);
 
         // No token
-        $this->assertFalse($repository->recentlyCreatedToken($user));
+        self::assertFalse($repository->recentlyCreatedToken($user));
 
         // Non expired
         $token = PasswordReset::factory()->create([
             'email' => $email,
         ]);
 
-        $this->assertTrue($repository->recentlyCreatedToken($user));
+        self::assertTrue($repository->recentlyCreatedToken($user));
 
         $token->delete();
 
@@ -88,7 +88,7 @@ class TokenRepositoryTest extends TestCase {
             'created_at' => Date::now()->subSeconds(2 * $throttle),
         ]);
 
-        $this->assertFalse($repository->recentlyCreatedToken($user));
+        self::assertFalse($repository->recentlyCreatedToken($user));
 
         $token->delete();
     }
@@ -116,11 +116,11 @@ class TokenRepositoryTest extends TestCase {
         ]);
 
         // Test
-        $this->assertEquals(2, PasswordReset::query()->count());
+        self::assertEquals(2, PasswordReset::query()->count());
 
         $repository->deleteExpired();
 
-        $this->assertEquals(1, PasswordReset::query()->count());
+        self::assertEquals(1, PasswordReset::query()->count());
     }
 
     /**
@@ -152,13 +152,13 @@ class TokenRepositoryTest extends TestCase {
         $repository->create($userB);
 
         // No records (for user)
-        $this->assertFalse($repository->exists($userA, 'abc'));
+        self::assertFalse($repository->exists($userA, 'abc'));
 
         // Exists
         $token = $repository->create($userA);
 
-        $this->assertFalse($repository->exists($userA, 'abc'));
-        $this->assertTrue($repository->exists($userA, $token));
+        self::assertFalse($repository->exists($userA, 'abc'));
+        self::assertTrue($repository->exists($userA, $token));
     }
 
     /**
@@ -184,10 +184,10 @@ class TokenRepositoryTest extends TestCase {
             'email' => $email,
         ]);
 
-        $this->assertEquals(2, PasswordReset::query()->count());
+        self::assertEquals(2, PasswordReset::query()->count());
 
         $repository->delete($user);
 
-        $this->assertEquals(0, PasswordReset::query()->count());
+        self::assertEquals(0, PasswordReset::query()->count());
     }
 }

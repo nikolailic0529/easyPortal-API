@@ -28,7 +28,7 @@ class QuoteIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(QuoteId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(QuoteId::class)->message(), 'Translated');
     }
 
     /**
@@ -41,7 +41,7 @@ class QuoteIdTest extends TestCase {
         $organization = $this->setOrganization(Organization::factory()->create());
         $quoteId      = $quoteFactory($this, $organization);
         $this->setSettings($settings);
-        $this->assertEquals($expected, $this->app->make(QuoteId::class)->passes('test', $quoteId));
+        self::assertEquals($expected, $this->app->make(QuoteId::class)->passes('test', $quoteId));
     }
     // </editor-fold>
 

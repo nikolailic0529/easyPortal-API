@@ -148,20 +148,20 @@ class UpdateQuoteNoteTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $updated = $response->json('data.updateQuoteNote.updated');
-            $this->assertIsArray($updated);
-            $this->assertNotNull($updated['id']);
-            $this->assertNotNull($updated['created_at']);
-            $this->assertNotNull($updated['updated_at']);
-            $this->assertEquals($user->getKey(), $updated['user_id']);
-            array_key_exists('note', $input) && $this->assertEquals($input['note'], $updated['note']);
+            self::assertIsArray($updated);
+            self::assertNotNull($updated['id']);
+            self::assertNotNull($updated['created_at']);
+            self::assertNotNull($updated['updated_at']);
+            self::assertEquals($user->getKey(), $updated['user_id']);
+            array_key_exists('note', $input) && self::assertEquals($input['note'], $updated['note']);
             array_key_exists('pinned', $input)
-                ? $this->assertEquals($input['pinned'], $updated['pinned'])
-                : $this->assertFalse($updated['pinned']);
+                ? self::assertEquals($input['pinned'], $updated['pinned'])
+                : self::assertFalse($updated['pinned']);
             // Files assertion
-            $this->assertCount(1, $updated['files']);
+            self::assertCount(1, $updated['files']);
             $uploadTest
-                ? $this->assertEquals('new.csv', $updated['files'][0]['name'])
-                : $this->assertEquals('keep.csv', $updated['files'][0]['name']);
+                ? self::assertEquals('new.csv', $updated['files'][0]['name'])
+                : self::assertEquals('keep.csv', $updated['files'][0]['name']);
         }
     }
     // </editor-fold>

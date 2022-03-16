@@ -67,7 +67,7 @@ class AggregatedTest extends TestCase {
             });
         } else {
             $this->mockResolverExpects(
-                $this->never(),
+                self::never(),
             );
         }
 

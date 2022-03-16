@@ -38,8 +38,8 @@ class MaintenanceTest extends TestCase {
         ]);
         $storage     = $this->app->make(Storage::class);
 
-        $this->assertTrue($storage->save($settings->toArray()));
-        $this->assertEquals($settings, $maintenance->getSettings());
+        self::assertTrue($storage->save($settings->toArray()));
+        self::assertEquals($settings, $maintenance->getSettings());
     }
 
     /**
@@ -58,7 +58,7 @@ class MaintenanceTest extends TestCase {
             'enabled' => true,
         ]);
 
-        $this->assertEquals($expected, $maintenance->getSettings());
+        self::assertEquals($expected, $maintenance->getSettings());
     }
 
     /**
@@ -71,8 +71,8 @@ class MaintenanceTest extends TestCase {
         ]);
         $storage     = $this->app->make(Storage::class);
 
-        $this->assertTrue($storage->save($settings->toArray()));
-        $this->assertEquals($settings->enabled, $maintenance->isEnabled());
+        self::assertTrue($storage->save($settings->toArray()));
+        self::assertEquals($settings->enabled, $maintenance->isEnabled());
     }
 
     /**
@@ -88,7 +88,7 @@ class MaintenanceTest extends TestCase {
 
         $maintenance = $this->app->make(Maintenance::class);
 
-        $this->assertTrue($maintenance->isEnabled());
+        self::assertTrue($maintenance->isEnabled());
     }
 
     /**
@@ -101,10 +101,10 @@ class MaintenanceTest extends TestCase {
         ]);
         $storage     = $this->app->make(Storage::class);
 
-        $this->assertTrue($storage->save($settings->toArray()));
-        $this->assertFalse($maintenance->isEnabled());
-        $this->assertTrue($maintenance->enable());
-        $this->assertTrue($maintenance->isEnabled());
+        self::assertTrue($storage->save($settings->toArray()));
+        self::assertFalse($maintenance->isEnabled());
+        self::assertTrue($maintenance->enable());
+        self::assertTrue($maintenance->isEnabled());
     }
 
     /**
@@ -115,10 +115,10 @@ class MaintenanceTest extends TestCase {
         $storage     = $this->app->make(Storage::class);
         $data        = ['enabled' => true];
 
-        $this->assertTrue($storage->save($data));
-        $this->assertEquals($data, $storage->load());
-        $this->assertTrue($maintenance->disable());
-        $this->assertEquals([], $storage->load());
+        self::assertTrue($storage->save($data));
+        self::assertEquals($data, $storage->load());
+        self::assertTrue($maintenance->disable());
+        self::assertEquals([], $storage->load());
     }
 
     /**
@@ -148,8 +148,8 @@ class MaintenanceTest extends TestCase {
         $maintenance = $this->app->make(Maintenance::class);
         $storage     = $this->app->make(Storage::class);
 
-        $this->assertTrue($maintenance->schedule($start, $end, $message));
-        $this->assertEquals([
+        self::assertTrue($maintenance->schedule($start, $end, $message));
+        self::assertEquals([
             'notified' => false,
             'enabled'  => false,
             'message'  => $message,
@@ -176,7 +176,7 @@ class MaintenanceTest extends TestCase {
 
         Queue::fake();
 
-        $this->assertTrue($maintenance->stop());
+        self::assertTrue($maintenance->stop());
 
         Queue::assertNothingPushed();
     }
@@ -205,7 +205,7 @@ class MaintenanceTest extends TestCase {
 
         Queue::fake();
 
-        $this->assertTrue($maintenance->stop());
+        self::assertTrue($maintenance->stop());
 
         Queue::assertPushed(CompleteCronJob::class);
     }
@@ -233,7 +233,7 @@ class MaintenanceTest extends TestCase {
 
         Queue::fake();
 
-        $this->assertTrue($maintenance->stop(true));
+        self::assertTrue($maintenance->stop(true));
 
         Queue::assertNothingPushed();
     }
@@ -261,7 +261,7 @@ class MaintenanceTest extends TestCase {
 
         Queue::fake();
 
-        $this->assertTrue($maintenance->start(Date::now()));
+        self::assertTrue($maintenance->start(Date::now()));
 
         Queue::assertPushed(StartCronJob::class);
     }
@@ -293,7 +293,7 @@ class MaintenanceTest extends TestCase {
 
         Queue::fake();
 
-        $this->assertTrue($maintenance->start(Date::now(), null, true));
+        self::assertTrue($maintenance->start(Date::now(), null, true));
 
         Queue::assertNothingPushed();
     }
@@ -312,7 +312,7 @@ class MaintenanceTest extends TestCase {
             ->shouldReceive('schedule')
             ->never();
 
-        $this->assertTrue($maintenance->start(Date::now()));
+        self::assertTrue($maintenance->start(Date::now()));
     }
 
     /**
@@ -346,7 +346,7 @@ class MaintenanceTest extends TestCase {
 
         $this->setQueueableConfig($job, $settings);
 
-        $this->assertEquals($expected, $maintenance->isJobScheduled($job::class));
+        self::assertEquals($expected, $maintenance->isJobScheduled($job::class));
     }
 
     /**
@@ -357,9 +357,9 @@ class MaintenanceTest extends TestCase {
         $settings    = new Settings();
         $storage     = $this->app->make(Storage::class);
 
-        $this->assertTrue($storage->save($settings->toArray()));
-        $this->assertTrue($maintenance->markAsNotified());
-        $this->assertTrue($maintenance->getSettings()->notified ?? null);
+        self::assertTrue($storage->save($settings->toArray()));
+        self::assertTrue($maintenance->markAsNotified());
+        self::assertTrue($maintenance->getSettings()->notified ?? null);
     }
 
     /**
@@ -368,8 +368,8 @@ class MaintenanceTest extends TestCase {
     public function testMarkAsNotifiedNoSettings(): void {
         $maintenance = $this->app->make(Maintenance::class);
 
-        $this->assertFalse($maintenance->markAsNotified());
-        $this->assertNull($maintenance->getSettings()->notified ?? null);
+        self::assertFalse($maintenance->markAsNotified());
+        self::assertNull($maintenance->getSettings()->notified ?? null);
     }
     // </editor-fold>
 

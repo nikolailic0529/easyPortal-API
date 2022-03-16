@@ -192,7 +192,7 @@ class AuditorTest extends TestCase {
         }
 
         $expected = $expectedFactory($this, $organization, $user);
-        $this->assertDatabaseHas((new Audit())->getTable(), $expected, Auditor::CONNECTION);
+        self::assertDatabaseHas((new Audit())->getTable(), $expected, Auditor::CONNECTION);
     }
 
     // <editor-fold desc="DataProviders">

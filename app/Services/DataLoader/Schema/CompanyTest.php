@@ -21,19 +21,19 @@ class CompanyTest extends TestCase {
         $actual     = new Company($json);
         $properties = Company::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertCount(2, $actual->companyContactPersons);
-        $this->assertInstanceOf(CompanyContactPerson::class, reset($actual->companyContactPersons));
-        $this->assertCount(1, $actual->companyTypes);
-        $this->assertInstanceOf(CompanyType::class, reset($actual->companyTypes));
-        $this->assertCount(1, $actual->locations);
-        $this->assertInstanceOf(Location::class, reset($actual->locations));
-        $this->assertCount(1, $actual->assets);
-        $this->assertInstanceOf(ViewAsset::class, reset($actual->assets));
-        $this->assertInstanceOf(BrandingData::class, $actual->brandingData);
-        $this->assertInstanceOf(CompanyKpis::class, $actual->companyKpis);
-        $this->assertInstanceOf(CompanyKpis::class, $actual->companyResellerKpis[0]);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertCount(2, $actual->companyContactPersons);
+        self::assertInstanceOf(CompanyContactPerson::class, reset($actual->companyContactPersons));
+        self::assertCount(1, $actual->companyTypes);
+        self::assertInstanceOf(CompanyType::class, reset($actual->companyTypes));
+        self::assertCount(1, $actual->locations);
+        self::assertInstanceOf(Location::class, reset($actual->locations));
+        self::assertCount(1, $actual->assets);
+        self::assertInstanceOf(ViewAsset::class, reset($actual->assets));
+        self::assertInstanceOf(BrandingData::class, $actual->brandingData);
+        self::assertInstanceOf(CompanyKpis::class, $actual->companyKpis);
+        self::assertInstanceOf(CompanyKpis::class, $actual->companyResellerKpis[0]);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

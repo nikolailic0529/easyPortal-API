@@ -51,8 +51,8 @@ class BuilderTest extends TestCase {
             'model' => $model,
         ]);
 
-        $this->assertEquals('*', $builder->query);
-        $this->assertEquals(['test' => 'value'], $builder->wheres);
+        self::assertEquals('*', $builder->query);
+        self::assertEquals(['test' => 'value'], $builder->wheres);
     }
 
     /**
@@ -66,8 +66,8 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->assertSame($builder, $builder->whereMetadata('test', 'value'));
-        $this->assertEquals([
+        self::assertSame($builder, $builder->whereMetadata('test', 'value'));
+        self::assertEquals([
             Configuration::getMetadataName('test') => 'value',
         ], $builder->wheres);
     }
@@ -83,8 +83,8 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->assertSame($builder, $builder->whereMetadataIn('test', ['a', 'b', 'c']));
-        $this->assertEquals([
+        self::assertSame($builder, $builder->whereMetadataIn('test', ['a', 'b', 'c']));
+        self::assertEquals([
             Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereIns);
     }
@@ -100,8 +100,8 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->assertSame($builder, $builder->whereMetadataNotIn('test', ['a', 'b', 'c']));
-        $this->assertEquals([
+        self::assertSame($builder, $builder->whereMetadataNotIn('test', ['a', 'b', 'c']));
+        self::assertEquals([
             Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
     }
@@ -117,8 +117,8 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->assertSame($builder, $builder->whereNotIn('test', ['a', 'b', 'c']));
-        $this->assertEquals([
+        self::assertSame($builder, $builder->whereNotIn('test', ['a', 'b', 'c']));
+        self::assertEquals([
             'test' => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
     }
@@ -134,8 +134,8 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->assertSame($builder, $builder->whereNot('test', 'value'));
-        $this->assertEquals([
+        self::assertSame($builder, $builder->whereNot('test', 'value'));
+        self::assertEquals([
             'test' => 'value',
         ], $builder->whereNots);
     }
@@ -151,8 +151,8 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->assertSame($builder, $builder->offset(123));
-        $this->assertEquals(123, $builder->offset);
+        self::assertSame($builder, $builder->offset(123));
+        self::assertEquals(123, $builder->offset);
     }
 
     /**
@@ -186,7 +186,7 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'The `%s` must be instance of `%s`, `%s` given.',
             '$scope',
             Scope::class,
@@ -202,6 +202,6 @@ class BuilderTest extends TestCase {
     public function testCount(): void {
         $models = $this->makeSearchable(Customer::factory()->count(3)->make());
 
-        $this->assertEquals(count($models), Customer::search('*')->count());
+        self::assertEquals(count($models), Customer::search('*')->count());
     }
 }

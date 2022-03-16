@@ -42,7 +42,7 @@ class ResellerFactoryTest extends TestCase {
 
         $factory->find($company);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -61,8 +61,8 @@ class ResellerFactoryTest extends TestCase {
                 ->with($type)
                 ->andReturns();
         } else {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->create($type);
@@ -94,129 +94,129 @@ class ResellerFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($reseller);
-        $this->assertTrue($reseller->wasRecentlyCreated);
-        $this->assertEquals($company->id, $reseller->getKey());
-        $this->assertEquals($company->name, $reseller->name);
-        $this->assertEquals($company->updatedAt, $this->getDatetime($reseller->changed_at));
-        $this->assertCount(2, $reseller->statuses);
-        $this->assertEquals(2, $reseller->statuses_count);
-        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($reseller));
-        $this->assertCount(2, $reseller->locations);
-        $this->assertEquals(2, $reseller->locations_count);
-        $this->assertEqualsCanonicalizing(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($reseller);
+        self::assertTrue($reseller->wasRecentlyCreated);
+        self::assertEquals($company->id, $reseller->getKey());
+        self::assertEquals($company->name, $reseller->name);
+        self::assertEquals($company->updatedAt, $this->getDatetime($reseller->changed_at));
+        self::assertCount(2, $reseller->statuses);
+        self::assertEquals(2, $reseller->statuses_count);
+        self::assertEquals($this->getStatuses($company), $this->getModelStatuses($reseller));
+        self::assertCount(2, $reseller->locations);
+        self::assertEquals(2, $reseller->locations_count);
+        self::assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
             $this->getCompanyModelLocations($reseller),
         );
-        $this->assertCount(4, $reseller->contacts);
-        $this->assertEquals(4, $reseller->contacts_count);
-        $this->assertEquals(
+        self::assertCount(4, $reseller->contacts);
+        self::assertEquals(4, $reseller->contacts_count);
+        self::assertEquals(
             $this->getContacts($company),
             $this->getModelContacts($reseller),
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->totalAssets)),
             $reseller->kpi->assets_total,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssets)),
             $reseller->kpi->assets_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeAssetsPercentage)),
             $reseller->kpi->assets_active_percent,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeCustomers)),
             $reseller->kpi->customers_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveCustomers)),
             $reseller->kpi->customers_active_new,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeContracts)),
             $reseller->kpi->contracts_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeContractTotalAmount)),
             $reseller->kpi->contracts_active_amount,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveContracts)),
             $reseller->kpi->contracts_active_new,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringContracts)),
             $reseller->kpi->contracts_expiring,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeQuotes)),
             $reseller->kpi->quotes_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeQuotesTotalAmount)),
             $reseller->kpi->quotes_active_amount,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveQuotes)),
             $reseller->kpi->quotes_active_new,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringQuotes)),
             $reseller->kpi->quotes_expiring,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredQuotes)),
             $reseller->kpi->quotes_expired,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredContracts)),
             $reseller->kpi->contracts_expired,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->orderedQuotes)),
             $reseller->kpi->quotes_ordered,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->acceptedQuotes)),
             $reseller->kpi->quotes_accepted,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->requestedQuotes)),
             $reseller->kpi->quotes_requested,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->receivedQuotes)),
             $reseller->kpi->quotes_received,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->rejectedQuotes)),
             $reseller->kpi->quotes_rejected,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->awaitingQuotes)),
             $reseller->kpi->quotes_awaiting,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnContract)),
             $reseller->kpi->assets_active_on_contract,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnWarranty)),
             $reseller->kpi->assets_active_on_warranty,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeExposedAssets)),
             $reseller->kpi->assets_active_exposed,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmount)),
             $reseller->kpi->service_revenue_total_amount,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmountChange)),
             $reseller->kpi->service_revenue_total_amount_change,
         );
@@ -230,26 +230,26 @@ class ResellerFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($updated);
-        $this->assertSame($reseller, $updated);
-        $this->assertEquals($company->id, $updated->getKey());
-        $this->assertEquals($company->name, $updated->name);
-        $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
-        $this->assertCount(1, $updated->statuses);
-        $this->assertEquals(1, $reseller->statuses_count);
-        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
-        $this->assertCount(1, $updated->locations);
-        $this->assertEqualsCanonicalizing(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($updated);
+        self::assertSame($reseller, $updated);
+        self::assertEquals($company->id, $updated->getKey());
+        self::assertEquals($company->name, $updated->name);
+        self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertCount(1, $updated->statuses);
+        self::assertEquals(1, $reseller->statuses_count);
+        self::assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
+        self::assertCount(1, $updated->locations);
+        self::assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
             $this->getCompanyModelLocations($updated),
         );
-        $this->assertCount(1, $updated->contacts);
-        $this->assertEquals(
+        self::assertCount(1, $updated->contacts);
+        self::assertEquals(
             $this->getContacts($company),
             $this->getModelContacts($updated),
         );
-        $this->assertNull($updated->kpi);
+        self::assertNull($updated->kpi);
 
         $this->flushQueryLog();
 
@@ -262,7 +262,7 @@ class ResellerFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -281,10 +281,10 @@ class ResellerFactoryTest extends TestCase {
         $company  = new Company($json);
         $reseller = $factory->create($company);
 
-        $this->assertNotNull($reseller);
-        $this->assertTrue($reseller->wasRecentlyCreated);
-        $this->assertEquals($company->id, $reseller->getKey());
-        $this->assertEquals($company->name, $reseller->name);
+        self::assertNotNull($reseller);
+        self::assertTrue($reseller->wasRecentlyCreated);
+        self::assertEquals($company->id, $reseller->getKey());
+        self::assertEquals($company->name, $reseller->name);
 
         // Events
         Event::assertDispatchedTimes(ResellerUpdated::class, 1);
@@ -304,7 +304,7 @@ class ResellerFactoryTest extends TestCase {
         $company = new Company($json);
 
         // Test
-        $this->assertNotNull($factory->create($company));
+        self::assertNotNull($factory->create($company));
 
         // Events
         Event::assertDispatchedTimes(ResellerUpdated::class, 1);

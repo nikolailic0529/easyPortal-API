@@ -21,7 +21,7 @@ class EloquentObjectTest extends TestCase {
         $model  = Status::factory()->create();
         $object = new EloquentObject($model);
 
-        $this->assertEquals([], $object->getChanges());
+        self::assertEquals([], $object->getChanges());
 
         $previousKey       = $model->key;
         $previousCreatedAt = $model->created_at;
@@ -34,7 +34,7 @@ class EloquentObjectTest extends TestCase {
         });
         $model->save();
 
-        $this->assertEquals([
+        self::assertEquals([
             'key'        => [
                 'value'    => $model->key,
                 'previous' => $previousKey,
@@ -53,7 +53,7 @@ class EloquentObjectTest extends TestCase {
         $model  = Status::factory()->make();
         $object = new EloquentObject($model);
 
-        $this->assertEquals([
+        self::assertEquals([
             'id'          => [
                 'value'    => $model->getKey(),
                 'previous' => null,
@@ -89,7 +89,7 @@ class EloquentObjectTest extends TestCase {
      * @covers ::isSoftDeletable
      */
     public function testIsSoftDeletable(): void {
-        $this->assertTrue((new EloquentObject(Mockery::mock(Model::class, SoftDeletes::class)))->isSoftDeletable());
-        $this->assertFalse((new EloquentObject(Mockery::mock(Model::class)))->isSoftDeletable());
+        self::assertTrue((new EloquentObject(Mockery::mock(Model::class, SoftDeletes::class)))->isSoftDeletable());
+        self::assertFalse((new EloquentObject(Mockery::mock(Model::class)))->isSoftDeletable());
     }
 }

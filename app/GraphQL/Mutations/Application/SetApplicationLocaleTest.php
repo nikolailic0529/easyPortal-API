@@ -36,7 +36,7 @@ class SetApplicationLocaleTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertEquals('en_BB', $this->app->getLocale());
+            self::assertEquals('en_BB', $this->app->getLocale());
         }
     }
     // </editor-fold>

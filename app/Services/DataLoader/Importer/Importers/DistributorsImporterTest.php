@@ -30,7 +30,7 @@ class DistributorsImporterTest extends TestCase {
         $this->overrideUuidFactory('e75e2c94-6aab-4170-9f40-992c401d0d68');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class => 0,
         ]);
 
@@ -44,11 +44,11 @@ class DistributorsImporterTest extends TestCase {
             ->setChunkSize(DistributorsImporterData::CHUNK)
             ->start();
 
-        $this->assertQueryLogEquals('~run-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~run-cold.json', $queries);
+        self::assertModelsCount([
             Distributor::class => 5,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~run-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -67,8 +67,8 @@ class DistributorsImporterTest extends TestCase {
             ->setChunkSize(DistributorsImporterData::CHUNK)
             ->start();
 
-        $this->assertQueryLogEquals('~run-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~run-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~run-events.json',
             $events->dispatched(DataImported::class),
         );

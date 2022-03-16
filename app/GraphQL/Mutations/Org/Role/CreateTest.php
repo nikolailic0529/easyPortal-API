@@ -89,9 +89,9 @@ class CreateTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $role = Role::with('permissions')->whereKey('fd421bad-069f-491c-ad5f-5841aa9a9dff')->first();
-            $this->assertNotNull($role);
-            $this->assertEquals($data['name'], $role->name);
-            $this->assertEquals(
+            self::assertNotNull($role);
+            self::assertEquals($data['name'], $role->name);
+            self::assertEquals(
                 $role->permissions->pluck((new Permission())->getKeyName())->all(),
                 $data['permissions'],
             );

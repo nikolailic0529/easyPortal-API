@@ -56,11 +56,11 @@ class PropertyTest extends TestCase {
         bool $organizationIsRoot = false,
     ): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         if (is_string($expected)) {
-            $this->expectException($expected);
+            self::expectException($expected);
         }
 
         if ($organizationIsRoot) {
@@ -78,7 +78,7 @@ class PropertyTest extends TestCase {
         $builderFactory = $directive->handleBuilder($builderFactory, null);
         $builderFactory = $directive->handleBuilder($builderFactory, null);
 
-        $this->assertDatabaseQueryEquals($expected, $builderFactory);
+        self::assertDatabaseQueryEquals($expected, $builderFactory);
     }
 
     /**

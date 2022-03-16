@@ -97,8 +97,8 @@ class CustomersProcessorTest extends TestCase {
             ->setKeys([$customerA->getKey(), $customerB->getKey()])
             ->start();
 
-        $this->assertQueryLogEquals('~queries.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~queries.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~events.json',
             $events->dispatched(ModelsRecalculated::class),
         );
@@ -128,14 +128,14 @@ class CustomersProcessorTest extends TestCase {
         ];
 
         // A
-        $this->assertEquals([
+        self::assertEquals([
             'locations_count' => 1,
             'contacts_count'  => 1,
             'statuses_count'  => 2,
             'assets_count'    => 3,
         ], $this->getModelCountableProperties($aCustomer, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             [
                 'assets_count' => 1,
                 'location_id'  => $locationA->getKey(),
@@ -143,14 +143,14 @@ class CustomersProcessorTest extends TestCase {
         ], $this->getModelCountableProperties($aLocations, $attributes));
 
         // B
-        $this->assertEquals([
+        self::assertEquals([
             'locations_count' => 0,
             'contacts_count'  => 0,
             'statuses_count'  => 0,
             'assets_count'    => 1,
         ], $this->getModelCountableProperties($bCustomer, $attributes));
 
-        $this->assertEquals([
+        self::assertEquals([
             // empty
         ], $this->getModelCountableProperties($bLocations, $attributes));
     }

@@ -53,7 +53,7 @@ class DeleteMeSearchTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertEquals($exists, $userSearch->exists());
+            self::assertEquals($exists, $userSearch->exists());
         }
     }
     // </editor-fold>

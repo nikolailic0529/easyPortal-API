@@ -132,7 +132,7 @@ class UpdateTest extends TestCase {
                 )),
             );
 
-            $this->assertEquals($expected, $actual);
+            self::assertEquals($expected, $actual);
         }
     }
     // </editor-fold>

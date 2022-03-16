@@ -59,12 +59,12 @@ class CreateMeSearchTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             $created = $response->json('data.createMeSearch.created');
 
-            $this->assertIsArray($created);
-            $this->assertNotNull($created['id']);
-            $this->assertNotNull($created['created_at']);
-            $this->assertEquals($data['key'], $created['key']);
-            $this->assertEquals($data['name'], $created['name']);
-            $this->assertEquals($data['conditions'], $created['conditions']);
+            self::assertIsArray($created);
+            self::assertNotNull($created['id']);
+            self::assertNotNull($created['created_at']);
+            self::assertEquals($data['key'], $created['key']);
+            self::assertEquals($data['name'], $created['name']);
+            self::assertEquals($data['conditions'], $created['conditions']);
         }
     }
     // </editor-fold>

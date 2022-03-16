@@ -13,6 +13,6 @@ class LocationsRecalculatorTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(LocationsRecalculator::class);
+        self::assertCronableRegistered(LocationsRecalculator::class);
     }
 }

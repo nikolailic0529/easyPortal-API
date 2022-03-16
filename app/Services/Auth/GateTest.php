@@ -49,7 +49,7 @@ class GateTest extends TestCase {
                 ->andReturn($permissions);
         }
 
-        $this->assertEquals($expected, $auth->hasPermission($user, $permission));
+        self::assertEquals($expected, $auth->hasPermission($user, $permission));
     }
 
     /**
@@ -99,7 +99,7 @@ class GateTest extends TestCase {
             });
         }
 
-        $this->assertEquals($expected, $gate->forUser($user)->allows($permission));
+        self::assertEquals($expected, $gate->forUser($user)->allows($permission));
     }
     // </editor-fold>
 

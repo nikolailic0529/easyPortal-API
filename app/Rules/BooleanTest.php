@@ -17,7 +17,7 @@ class BooleanTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        $this->assertEquals($expected, (new Boolean())->passes('test', $value));
+        self::assertEquals($expected, (new Boolean())->passes('test', $value));
     }
 
     /**
@@ -32,7 +32,7 @@ class BooleanTest extends TestCase {
             ];
         });
 
-        $this->assertEquals('message validation.boolean', (new Boolean())->message());
+        self::assertEquals('message validation.boolean', (new Boolean())->message());
     }
     // </editor-fold>
 

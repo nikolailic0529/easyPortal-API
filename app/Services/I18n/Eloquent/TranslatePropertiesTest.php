@@ -38,7 +38,7 @@ class TranslatePropertiesTest extends TestCase {
             ->once()
             ->andReturn('A');
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'models.A.key.a' => 'untranslated-a',
             ],
@@ -81,8 +81,8 @@ class TranslatePropertiesTest extends TestCase {
             ];
         });
 
-        $this->assertEquals('translated-a', $model->getTranslatedProperty('a'));
-        $this->assertEquals('untranslated-b', $model->getTranslatedProperty('b'));
+        self::assertEquals('translated-a', $model->getTranslatedProperty('a'));
+        self::assertEquals('untranslated-b', $model->getTranslatedProperty('b'));
     }
 }
 

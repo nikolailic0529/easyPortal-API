@@ -40,7 +40,7 @@ class ErrorCodesTest extends TestCase {
             ->sort()
             ->implode(PHP_EOL);
 
-        $this->assertEquals($expected, $actual, 'Map is not actual.');
+        self::assertEquals($expected, $actual, 'Map is not actual.');
     }
 
     /**
@@ -57,7 +57,7 @@ class ErrorCodesTest extends TestCase {
             }
         }
 
-        $this->assertEquals(count($unique), count($codes), sprintf(
+        self::assertEquals(count($unique), count($codes), sprintf(
             'Following codes used by more than one exception: `%s`.',
             implode('`, `', $invalid),
         ));

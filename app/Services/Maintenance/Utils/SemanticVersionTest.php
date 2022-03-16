@@ -24,7 +24,7 @@ class SemanticVersionTest extends TestCase {
      */
     public function testConstruct(string|Exception $expected, string $version, ?Closure $factory): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $actual = new SemanticVersion($version);
@@ -33,7 +33,7 @@ class SemanticVersionTest extends TestCase {
             $actual = $factory($this, $actual);
         }
 
-        $this->assertEquals($expected, (string) $actual);
+        self::assertEquals($expected, (string) $actual);
     }
     //</editor-fold>
 
