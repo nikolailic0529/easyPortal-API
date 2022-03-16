@@ -21,6 +21,7 @@ use Illuminate\Contracts\Session\Session;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
+use function implode;
 use function strtr;
 
 class Keycloak {
@@ -50,14 +51,14 @@ class Keycloak {
         ]);
         $state    = $provider->getState();
 
-        $this->session->put(self::STATE, $state);
+        $this->saveAuthorizationState($organization, $state);
 
         return $url;
     }
 
     public function authorize(Organization $organization, string $code, string $state): ?Authenticatable {
         // Is state valid?
-        if ($this->session->pull(self::STATE) !== $state) {
+        if ($this->getAuthorizationState($organization) !== $state) {
             throw new StateMismatch();
         }
 
@@ -235,6 +236,18 @@ class Keycloak {
             $this->config->get('ep.client.signout_uri'),
             $organization,
         );
+    }
+
+    protected function saveAuthorizationState(Organization $organization, string $state): void {
+        $this->session->put($this->getAuthorizationStateKey($organization), $state);
+    }
+
+    protected function getAuthorizationState(Organization $organization): mixed {
+        return $this->session->pull($this->getAuthorizationStateKey($organization));
+    }
+
+    protected function getAuthorizationStateKey(Organization $organization): string {
+        return implode(':', [self::STATE, $organization->getKey()]);
     }
     // </editor-fold>
 }
