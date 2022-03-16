@@ -20,7 +20,7 @@ class RelationLoader implements ModelsLoader {
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Collection<\Illuminate\Database\Eloquent\Model> $parents
+     * @param EloquentCollection<int, Model> $parents
      */
     public function load(EloquentCollection $parents): void {
         $this->propertyLoader->load($parents);

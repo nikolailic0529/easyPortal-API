@@ -11,34 +11,35 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 
 /**
  * QuoteRequest.
  *
- * @property string                                                                        $id
- * @property string                                                                        $oem_id
- * @property string                                                                        $organization_id
- * @property string                                                                        $user_id
- * @property string|null                                                                   $customer_id
- * @property string|null                                                                   $customer_name
- * @property string                                                                        $type_id
- * @property string                                                                        $message
- * @property \Carbon\CarbonImmutable                                                       $created_at
- * @property \Carbon\CarbonImmutable                                                       $updated_at
- * @property \Carbon\CarbonImmutable|null                                                  $deleted_at
- * @property \App\Models\Oem                                                               $oem
- * @property \App\Models\Organization                                                      $organization
- * @property \App\Models\Customer|null                                                     $customer
- * @property \App\Models\Contact                                                           $contact
- * @property \App\Models\Type                                                              $type
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>                  $statuses
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File>                    $files
- * @property \Illuminate\Database\Eloquent\Collection|array<\App\Models\QuoteRequestAsset> $assets
+ * @property string                             $id
+ * @property string                             $oem_id
+ * @property string                             $organization_id
+ * @property string                             $user_id
+ * @property string|null                        $customer_id
+ * @property string|null                        $customer_name
+ * @property string                             $type_id
+ * @property string                             $message
+ * @property \Carbon\CarbonImmutable            $created_at
+ * @property \Carbon\CarbonImmutable            $updated_at
+ * @property \Carbon\CarbonImmutable|null       $deleted_at
+ * @property \App\Models\Oem                    $oem
+ * @property \App\Models\Organization           $organization
+ * @property \App\Models\Customer|null          $customer
+ * @property \App\Models\Contact                $contact
+ * @property \App\Models\Type                   $type
+ * @property Collection<int, Status>            $statuses
+ * @property Collection<int, File>              $files
+ * @property Collection<int, QuoteRequestAsset> $assets
  * @method static \Database\Factories\QuoteRequestFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newQuery()
@@ -71,9 +72,9 @@ class QuoteRequest extends Model implements Auditable {
     }
 
     /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\QuoteRequestAsset> $assets
+     * @param BaseCollection|array<QuoteRequestAsset> $assets
      */
-    public function setAssetsAttribute(Collection|array $assets): void {
+    public function setAssetsAttribute(BaseCollection|array $assets): void {
         $this->syncHasMany('assets', $assets);
     }
 

@@ -12,7 +12,7 @@ class Cache {
     protected const NULL_RETRIEVER = self::class;
 
     /**
-     * @var array<\Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>>
+     * @var array<Collection<string, Model>>
      */
     protected array $items;
     /**
@@ -71,7 +71,7 @@ class Cache {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $models
+     * @param Collection<array-key, Model> $models
      */
     public function putAll(Collection $models): static {
         foreach ($models as $model) {
@@ -125,6 +125,9 @@ class Cache {
         return $this;
     }
 
+    /**
+     * @return Collection<string, Model>
+     */
     public function getAll(): Collection {
         $all = [];
 
@@ -134,7 +137,7 @@ class Cache {
             }
 
             foreach ($items as $item) {
-                /** @var \Illuminate\Database\Eloquent\Model $item */
+                /** @var Model $item */
                 $all[$item->getKey() ?: spl_object_hash($item)] = $item;
             }
         }

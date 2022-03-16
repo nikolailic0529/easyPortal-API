@@ -11,9 +11,9 @@ trait Children {
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
      * @template M of \App\Utils\Eloquent\Model
-     * @template C of \Illuminate\Support\Collection<M>
+     * @template C of \Illuminate\Support\Collection<int, M>
      *
-     * @param C                       $existing
+     * @param C                      $existing
      * @param array<T>               $children
      * @param \Closure(T): ?M        $factory
      * @param \Closure(M, M): int    $compare

@@ -27,7 +27,7 @@ trait HasTags {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Tag>|array<\App\Models\Tag> $tags
+     * @param Collection<int,Tag>|array<Tag> $tags
      */
     public function setTagsAttribute(Collection|array $tags): void {
         $this->syncBelongsToMany('tags', $tags);

@@ -4,18 +4,19 @@ namespace App\Models;
 
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Tag.
  *
- * @property string                                                           $id
- * @property string|null                                                      $name
- * @property \Carbon\CarbonImmutable                                          $created_at
- * @property \Carbon\CarbonImmutable                                          $updated_at
- * @property \Carbon\CarbonImmutable|null                                     $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
+ * @property string                       $id
+ * @property string|null                  $name
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property-read Collection<int, Asset>  $assets
  * @method static \Database\Factories\TagFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag newQuery()

@@ -11,6 +11,7 @@ use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\PolymorphicModel;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,20 +20,20 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 /**
  * Type.
  *
- * @property string                                                              $id
- * @property string                                                              $object_type
- * @property string                                                              $key
- * @property string                                                              $name
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $documents
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
+ * @property string                         $id
+ * @property string                         $object_type
+ * @property string                         $key
+ * @property string                         $name
+ * @property \Carbon\CarbonImmutable        $created_at
+ * @property \Carbon\CarbonImmutable        $updated_at
+ * @property \Carbon\CarbonImmutable|null   $deleted_at
+ * @property-read Collection<int, Asset>    $assets
+ * @property-read Collection<int, Contact>  $contacts
+ * @property Collection<int, Document>      $contracts
+ * @property-read Collection<int, Customer> $customers
+ * @property-read Collection<int, Document> $documents
+ * @property-read Collection<int, Location> $locations
+ * @property-read Collection<int, Document> $quotes
  * @method static \Database\Factories\TypeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
@@ -110,7 +111,7 @@ class Type extends PolymorphicModel implements Translatable {
         return $this
             ->hasMany(Document::class)
             ->where(static function (Builder $builder): Builder {
-                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                /** @var \Illuminate\Database\Eloquent\Builder|Document $builder */
                 return $builder->queryDocuments();
             });
     }

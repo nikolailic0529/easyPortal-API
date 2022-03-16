@@ -28,7 +28,7 @@ class ChunkData {
     private array $assetsCountFor;
 
     /**
-     * @param \Illuminate\Support\Collection<TModel>|array<TModel> $items
+     * @param Collection<int,TModel>|array<TModel> $items
      */
     public function __construct(Collection|array $items) {
         $this->keys = $items->map(new GetKey())->all();

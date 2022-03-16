@@ -6,18 +6,19 @@ use App\Models\Relations\HasDocuments;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Currency.
  *
- * @property string                                                              $id
- * @property string                                                              $code
- * @property string                                                              $name
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $documents
+ * @property string                         $id
+ * @property string                         $code
+ * @property string                         $name
+ * @property \Carbon\CarbonImmutable        $created_at
+ * @property \Carbon\CarbonImmutable        $updated_at
+ * @property \Carbon\CarbonImmutable|null   $deleted_at
+ * @property-read Collection<int, Document> $documents
  * @method static \Database\Factories\CurrencyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Currency newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Currency newQuery()

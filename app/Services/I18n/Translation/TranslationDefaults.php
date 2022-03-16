@@ -2,6 +2,7 @@
 
 namespace App\Services\I18n\Translation;
 
+use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Service;
 use Illuminate\Support\Collection;
 
@@ -55,7 +56,7 @@ class TranslationDefaults extends TranslationLoader {
 
         foreach ($models as $model) {
             foreach ($this->getModels($model) as $translatable) {
-                /** @var \App\Services\I18n\Contracts\Translatable $translatable */
+                /** @var Translatable $translatable */
                 $translations += $translatable->getDefaultTranslations();
             }
         }
@@ -64,9 +65,9 @@ class TranslationDefaults extends TranslationLoader {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\I18n\Contracts\Translatable> $model
+     * @param class-string<\Illuminate\Database\Eloquent\Model&Translatable> $model
      *
-     * @return \Illuminate\Support\Collection<int,\App\Services\I18n\Contracts\Translatable>
+     * @return Collection<int,Translatable>
      */
     protected function getModels(string $model): Collection {
         return $model::query()->get();

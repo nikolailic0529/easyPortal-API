@@ -18,12 +18,12 @@ class UsersImporterChunkData {
     private array $emails = [];
 
     /**
-     * @var \Illuminate\Support\Collection<string,\App\Models\User>
+     * @var Collection<string,User>
      */
     private Collection $usersById;
 
     /**
-     * @var \Illuminate\Support\Collection<string,\App\Models\User>
+     * @var Collection<string,User>
      */
     private Collection $usersByEmail;
 
@@ -47,7 +47,7 @@ class UsersImporterChunkData {
     /**
      * Returns existing Users (with trashed).
      *
-     * @return \Illuminate\Support\Collection<\App\Models\User>
+     * @return Collection<int, User>
      */
     public function getUsersById(): Collection {
         if (!isset($this->usersById)) {
@@ -73,7 +73,7 @@ class UsersImporterChunkData {
     /**
      * Returns existing Users (without trashed).
      *
-     * @return \Illuminate\Support\Collection<\App\Models\User>
+     * @return Collection<string, User>
      */
     public function getUsersByEmail(): Collection {
         if (!isset($this->usersByEmail)) {

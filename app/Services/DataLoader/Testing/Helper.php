@@ -3,10 +3,12 @@
 namespace App\Services\DataLoader\Testing;
 
 use App\Models\Asset;
+use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Document as DocumentModel;
 use App\Models\Location;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
@@ -112,7 +114,7 @@ trait Helper {
         $coverages = [];
 
         foreach ($model->coverages ?? [] as $coverage) {
-            /** @var \App\Models\Coverage $coverage */
+            /** @var Coverage $coverage */
 
             $coverages["{$coverage->key}"] = [
                 'key'  => $coverage->key,
@@ -124,7 +126,7 @@ trait Helper {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Coverage>|array<\App\Models\Coverage> $coverages
+     * @param Collection<int, Coverage>|array<Coverage> $coverages
      *
      * @return array{key: string, name: string}|null
      */
@@ -132,7 +134,7 @@ trait Helper {
         $result = null;
 
         foreach ($coverages as $coverage) {
-            /** @var \App\Models\Coverage $coverage */
+            /** @var Coverage $coverage */
 
             $result["{$coverage->key}"] = [
                 'key'  => $coverage->key,
@@ -151,7 +153,7 @@ trait Helper {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Status>|array<\App\Models\Status> $statuses
+     * @param Collection<int, Status>|array<Status> $statuses
      *
      * @return array{key: string, name: string}|null
      */
@@ -159,7 +161,7 @@ trait Helper {
         $result = null;
 
         foreach ($statuses as $status) {
-            /** @var \App\Models\Status $status */
+            /** @var Status $status */
 
             $result["{$status->key}"] = [
                 'key'  => $status->key,

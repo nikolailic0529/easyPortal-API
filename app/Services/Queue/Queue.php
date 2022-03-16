@@ -101,7 +101,7 @@ class Queue {
     }
 
     /**
-     * @param array<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
+     * @param array<Job> $jobs
      *
      * @return array<string,array<\App\Services\Queue\JobState>>
      */
@@ -164,7 +164,7 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
+     * @param Collection<string,Job> $jobs
      *
      * @return \Generator<\App\Services\Queue\JobState>
      */
@@ -195,7 +195,7 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
+     * @param Collection<int, Job> $jobs
      *
      * @return \Generator<\App\Services\Queue\JobState>
      */
@@ -248,9 +248,9 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<string> $names
+     * @param Collection<int, string> $names
      *
-     * @return \Illuminate\Support\Collection<\App\Services\Logger\Models\Log>
+     * @return Collection<int, Log>
      */
     private function getStatesFromLogsActive(Collection $names): Collection {
         $expire = $this->getStatesFromLogsExpire();
@@ -269,9 +269,9 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Services\Logger\Models\Log> $logs
+     * @param Collection<int, Log> $logs
      *
-     * @return \Illuminate\Support\Collection<\App\Services\Logger\Models\Log>
+     * @return Collection<int, Log>
      */
     private function getStatesFromLogsDispatched(Collection $logs): Collection {
         $collection = new Collection();

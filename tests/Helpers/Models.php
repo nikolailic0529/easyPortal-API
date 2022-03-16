@@ -15,7 +15,7 @@ use function config;
  */
 class Models {
     /**
-     * @return \Illuminate\Support\Collection<class-string<\Illuminate\Database\Eloquent\Model>,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
+     * @return Collection<class-string<Model>,ReflectionClass<Model>>
      */
     public static function get(): Collection {
         $ignored = array_fill_keys(config('ide-helper.ignored_models', []), true);

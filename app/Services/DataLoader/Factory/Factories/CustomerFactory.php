@@ -127,7 +127,7 @@ class CustomerFactory extends CompanyFactory {
     /**
      * @param array<\App\Services\DataLoader\Schema\CompanyKpis> $kpis
      *
-     * @return \Illuminate\Support\Collection<\App\Models\ResellerCustomer>
+     * @return Collection<int, ResellerCustomer>
      */
     protected function resellers(Customer $customer, array $kpis = null): Collection {
         $pivots   = new Collection();

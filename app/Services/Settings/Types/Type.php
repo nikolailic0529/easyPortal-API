@@ -2,6 +2,7 @@
 
 namespace App\Services\Settings\Types;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 
@@ -47,7 +48,7 @@ abstract class Type {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>|array<mixed>|null
+     * @return Collection<int, Model>|array<mixed>|null
      */
     public function getValues(): Collection|array|null {
         return null;

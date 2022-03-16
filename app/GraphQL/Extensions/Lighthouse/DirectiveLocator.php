@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Events\ManipulateAST;
 use Nuwave\Lighthouse\Events\StartExecution;
 use Nuwave\Lighthouse\Schema\DirectiveLocator as LighthouseDirectiveLocator;
+use Nuwave\Lighthouse\Support\Contracts\Directive;
 use WeakMap;
 
 /**
@@ -15,7 +16,7 @@ use WeakMap;
  */
 class DirectiveLocator extends LighthouseDirectiveLocator {
     /**
-     * @var \WeakMap<\GraphQL\Language\AST\Node,\Illuminate\Support\Collection<\Nuwave\Lighthouse\Support\Contracts\Directive>
+     * @var WeakMap<Node,Collection<int, Directive>>
      */
     private WeakMap $directives;
 

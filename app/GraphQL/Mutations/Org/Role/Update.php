@@ -80,7 +80,7 @@ class Update {
     /**
      * @param array<string> $permissions
      *
-     * @return \Illuminate\Support\Collection<\App\Models\Permission>
+     * @return Collection<int, Permission>
      */
     protected function getPermissions(array $permissions): Collection {
         return Permission::query()

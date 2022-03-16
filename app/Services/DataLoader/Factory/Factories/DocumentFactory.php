@@ -517,9 +517,9 @@ class DocumentFactory extends ModelFactory {
      * @template T of \App\Services\DataLoader\Schema\Type
      * @template M of \App\Models\DocumentEntry
      *
-     * @param \Illuminate\Support\Collection<M> $existing
-     * @param array<T>                          $entries
-     * @param \Closure(T): ?M                   $factory
+     * @param Collection<int, M> $existing
+     * @param array<T>           $entries
+     * @param \Closure(T): ?M    $factory
      *
      * @return array<M>
      */

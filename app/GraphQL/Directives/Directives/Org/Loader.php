@@ -39,7 +39,7 @@ class Loader implements ModelsLoader {
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Collection<\Illuminate\Database\Eloquent\Model> $parents
+     * @param EloquentCollection<int, Model> $parents
      */
     public function load(EloquentCollection $parents): void {
         // Root organization should always use original property
@@ -75,7 +75,7 @@ class Loader implements ModelsLoader {
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {
         // Has scope?
-        /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model */
+        /** @var Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model */
         $model = $builder->getModel();
         $scope = OwnedByOrganizationScope::class;
 

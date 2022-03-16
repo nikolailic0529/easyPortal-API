@@ -93,9 +93,9 @@ class EloquentIterator implements ObjectIterator {
     }
 
     /**
-     * @param \Closure(array<T>):void|null $closure
+     * @param Closure(array<T>) :void|null $closure
      *
-     * @return \Closure(\Illuminate\Support\Collection<T>):void|null
+     * @return Closure(Collection<int, T>) :void|null
      */
     protected function wrapClosure(?Closure $closure): ?Closure {
         return static function (Collection $items) use ($closure): void {

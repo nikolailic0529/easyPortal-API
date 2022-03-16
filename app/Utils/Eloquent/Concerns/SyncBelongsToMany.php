@@ -21,13 +21,13 @@ use function reset;
 use function sprintf;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait SyncBelongsToMany {
     use SyncMany;
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model>|array<\App\Utils\Eloquent\Model> $objects
+     * @param Collection<int, Model>|array<Model> $objects
      */
     protected function syncBelongsToMany(string $relation, Collection|array $objects): void {
         // Prepare
@@ -92,7 +92,7 @@ trait SyncBelongsToMany {
      * @see \Illuminate\Database\Eloquent\Relations\BelongsToMany::sync()
      * @see \App\Utils\Eloquent\SmartSave\Upsertable
      *
-     * @param array<string,\Illuminate\Support\Collection<string,\App\Utils\Eloquent\Pivot>> $pivots
+     * @param array<string, Collection<string, Pivot>> $pivots
      */
     protected function syncBelongsToManyPivots(string $relation, Collection|array $pivots): void {
         // Prepare
@@ -115,7 +115,7 @@ trait SyncBelongsToMany {
             }
 
             /**
-             * @return \Illuminate\Support\Collection<\App\Utils\Eloquent\Pivot>
+             * @return Collection<int, Pivot>
              */
             public function getCurrentlyAttachedPivots(): Collection {
                 return $this->belongsToMany->getCurrentlyAttachedPivots();
@@ -185,14 +185,14 @@ trait SyncBelongsToMany {
                 $parent = $belongsToMany->getParent()->getAttribute($belongsToMany->getParentKeyName());
 
                 foreach ($children as $pivot) {
-                    /** @var \App\Utils\Eloquent\Pivot $pivot */
+                    /** @var Pivot $pivot */
                     $pivot->setAttribute($key, $parent);
                     $pivot->save();
                 }
 
                 // Delete unused
                 foreach ($existing as $pivot) {
-                    /** @var \App\Utils\Eloquent\Pivot $pivot */
+                    /** @var Pivot $pivot */
                     $pivot->delete();
                 }
             });

@@ -20,6 +20,7 @@ use Nuwave\Lighthouse\Execution\Arguments\ListType;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
+use Nuwave\Lighthouse\Support\Contracts\Directive;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Support\Utils;
@@ -141,7 +142,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @return array<string, array<\Illuminate\Contracts\Validation\Rule>>
+     * @return array<string, array<Rule>>
      */
     protected function getRules(Context $context, ArgumentSet $set, string $prefix = null): array {
         $rules = [];
@@ -161,7 +162,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param array<\Nuwave\Lighthouse\Execution\Arguments\Argument> $arguments
      *
-     * @return array<\Illuminate\Contracts\Validation\Rule>
+     * @return array<Rule>
      */
     private function getRulesFromArguments(Context $context, ?string $prefix, array $arguments): array {
         $rules = [];
@@ -192,9 +193,9 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\Nuwave\Lighthouse\Support\Contracts\Directive> $directives
+     * @param Collection<int, Directive> $directives
      *
-     * @return array<string,\Illuminate\Contracts\Validation\Rule>
+     * @return array<string,Rule>
      */
     private function getRulesFromDirectives(Context $context, Collection $directives): array {
         return $directives

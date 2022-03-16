@@ -19,7 +19,7 @@ class Permissions {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\App\Models\Permission>
+     * @return Collection<int,Permission>
      */
     public function __invoke(): Collection {
         $organization = $this->organization->get();

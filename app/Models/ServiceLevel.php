@@ -8,24 +8,25 @@ use App\Models\Relations\HasServiceGroup;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Service Level.
  *
- * @property string                                                              $id
- * @property string                                                              $oem_id
- * @property string                                                              $service_group_id
- * @property string                                                              $key
- * @property string                                                              $sku
- * @property string                                                              $name
- * @property string                                                              $description
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
- * @property \App\Models\Oem                                                     $oem
- * @property \App\Models\ServiceGroup                                            $serviceGroup
+ * @property string                         $id
+ * @property string                         $oem_id
+ * @property string                         $service_group_id
+ * @property string                         $key
+ * @property string                         $sku
+ * @property string                         $name
+ * @property string                         $description
+ * @property \Carbon\CarbonImmutable        $created_at
+ * @property \Carbon\CarbonImmutable        $updated_at
+ * @property \Carbon\CarbonImmutable|null   $deleted_at
+ * @property Collection<int, DocumentEntry> $documentEntries
+ * @property \App\Models\Oem                $oem
+ * @property \App\Models\ServiceGroup       $serviceGroup
  * @method static \Database\Factories\ServiceLevelFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceLevel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceLevel newQuery()

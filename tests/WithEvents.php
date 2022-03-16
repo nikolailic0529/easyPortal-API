@@ -18,7 +18,7 @@ use const JSON_THROW_ON_ERROR;
 
 trait WithEvents {
     /**
-     * @param array<object>|\Illuminate\Support\Collection<object> $events
+     * @param array<object>|Collection<int, object> $events
      */
     protected function assertDispatchedEventsEquals(
         string $expected,

@@ -172,7 +172,7 @@ class Client {
     // <editor-fold desc="Roles">
     // -------------------------------------------------------------------------
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\Role>
+     * @return array<KeycloakRole>
      */
     public function getGroupRoles(KeycloakGroup|Role $group): array {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -184,7 +184,7 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|\App\Models\Permission> $roles
      */
     public function createGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -198,7 +198,7 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|\App\Models\Permission> $roles
      */
     public function updateGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         $keyBy    = static function (KeycloakRole $role): string {
@@ -221,7 +221,7 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|\App\Models\Permission> $roles
      */
     public function deleteGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -239,7 +239,7 @@ class Client {
     // <editor-fold desc="Roles">
     // =========================================================================
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\Role>
+     * @return array<KeycloakRole>
      */
     public function getRoles(): array {
         // GET /{realm}/clients/{id}/roles
@@ -537,9 +537,9 @@ class Client {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|\App\Models\Permission> $roles
      *
-     * @return \Illuminate\Support\Collection<\App\Services\Keycloak\Client\Types\Role>
+     * @return Collection<int, KeycloakRole>
      */
     protected function toRoles(array $roles): Collection {
         return (new Collection($roles))

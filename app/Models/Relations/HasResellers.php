@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
- * @property \Illuminate\Support\Collection<string,TPivot> $resellersPivots
+ * @property Collection<string,TPivot> $resellersPivots
  *
  * @mixin \App\Utils\Eloquent\Model
  */
@@ -52,7 +52,7 @@ trait HasResellers {
     }
 
     /**
-     * @param array<string,TPivot>|\Illuminate\Support\Collection<string,TPivot> $resellers
+     * @param array<string,TPivot>|Collection<string,TPivot> $resellers
      */
     public function setResellersPivotsAttribute(Collection|array $resellers): void {
         $this->syncBelongsToManyPivots('resellers', $resellers);

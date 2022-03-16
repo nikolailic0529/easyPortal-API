@@ -298,7 +298,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
+     * @return Collection<int, AssetWarranty>
      */
     protected function assetWarranties(AssetModel $model, ViewAsset $asset): Collection {
         // Some warranties generated from Documents, we must not touch them.
@@ -360,7 +360,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\App\Services\DataLoader\Schema\ViewAssetDocument>
+     * @return Collection<int, ViewAssetDocument>
      */
     protected function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
         // Asset.assetDocument is not a document but an array of entries where
@@ -393,7 +393,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\AssetWarranty>
+     * @return array<AssetWarranty>
      */
     protected function assetDocumentsWarranties(AssetModel $model, ViewAsset $asset): array {
         $warranties = array_merge(
@@ -407,7 +407,7 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\AssetWarranty>
+     * @return array<AssetWarranty>
      */
     protected function assetDocumentsWarrantiesExtended(AssetModel $model, ViewAsset $asset): array {
         // Prepare
@@ -469,7 +469,7 @@ class AssetFactory extends ModelFactory {
                 }
 
                 // Create/Update
-                /** @var \App\Models\AssetWarranty|null $warranty */
+                /** @var AssetWarranty|null $warranty */
                 $warranty                  = $existing->get($key) ?: new AssetWarranty();
                 $warranty->start           = $start;
                 $warranty->end             = $end;

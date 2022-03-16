@@ -13,9 +13,8 @@ use function str_ends_with;
  */
 trait Helper {
     /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>
-     *     |\Illuminate\Database\Eloquent\Model $model
-     * @param array<string> $attributes
+     * @param Collection<int, Model>|Model $model
+     * @param array<string>                $attributes
      *
      * @return array<string, mixed>
      */

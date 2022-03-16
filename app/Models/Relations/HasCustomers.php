@@ -15,6 +15,8 @@ use function count;
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
+ * @property Collection<string, TPivot> $customersPivots
+ *
  * @mixin \App\Utils\Eloquent\Model
  */
 trait HasCustomers {
@@ -43,7 +45,7 @@ trait HasCustomers {
     }
 
     /**
-     * @param array<string,TPivot>|\Illuminate\Support\Collection<string,TPivot> $customers
+     * @param array<string,TPivot>|Collection<string,TPivot> $customers
      */
     public function setCustomersPivotsAttribute(Collection|array $customers): void {
         $this->syncBelongsToManyPivots('customers', $customers);

@@ -8,34 +8,33 @@ use App\Models\Relations\HasResellers;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Location.
  *
- * @property string                                                              $id
- * @property string                                                              $country_id
- * @property string                                                              $city_id
- * @property string                                                              $postcode
- * @property string                                                              $state
- * @property string                                                              $line_one
- * @property string                                                              $line_two
- * @property mixed|null                                                          $latitude
- * @property mixed|null                                                          $longitude
- * @property string|null                                                         $geohash
- * @property int                                                                 $customers_count
- * @property int                                                                 $assets_count
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
- * @property \App\Models\City                                                    $city
- * @property \App\Models\Country                                                 $country
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
- * @property \Illuminate\Support\Collection<string,\App\Models\LocationCustomer> $customersPivots
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
- * @property \Illuminate\Support\Collection<string,\App\Models\LocationReseller> $resellersPivots
+ * @property string                         $id
+ * @property string                         $country_id
+ * @property string                         $city_id
+ * @property string                         $postcode
+ * @property string                         $state
+ * @property string                         $line_one
+ * @property string                         $line_two
+ * @property mixed|null                     $latitude
+ * @property mixed|null                     $longitude
+ * @property string|null                    $geohash
+ * @property int                            $customers_count
+ * @property int                            $assets_count
+ * @property \Carbon\CarbonImmutable        $created_at
+ * @property \Carbon\CarbonImmutable        $updated_at
+ * @property \Carbon\CarbonImmutable|null   $deleted_at
+ * @property-read Collection<int, Asset>    $assets
+ * @property \App\Models\City               $city
+ * @property \App\Models\Country            $country
+ * @property-read Collection<int, Customer> $customers
+ * @property-read Collection<int, Reseller> $resellers
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()

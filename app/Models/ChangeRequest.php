@@ -8,28 +8,29 @@ use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\PolymorphicModel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Change Request.
  *
- * @property string                                                     $id
- * @property string                                                     $organization_id
- * @property string                                                     $user_id
- * @property string                                                     $object_id
- * @property string                                                     $object_type
- * @property string                                                     $subject
- * @property string                                                     $from
- * @property array<string>                                              $to
- * @property array<string>|null                                         $cc
- * @property array<string>|null                                         $bcc
- * @property string                                                     $message
- * @property \Carbon\CarbonImmutable                                    $created_at
- * @property \Carbon\CarbonImmutable                                    $updated_at
- * @property \Carbon\CarbonImmutable|null                               $deleted_at
- * @property \App\Models\Organization                                   $organization
- * @property \App\Models\User                                           $user
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File> $files
+ * @property string                       $id
+ * @property string                       $organization_id
+ * @property string                       $user_id
+ * @property string                       $object_id
+ * @property string                       $object_type
+ * @property string                       $subject
+ * @property string                       $from
+ * @property array<string>                $to
+ * @property array<string>|null           $cc
+ * @property array<string>|null           $bcc
+ * @property string                       $message
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Organization     $organization
+ * @property \App\Models\User             $user
+ * @property Collection<int,File>         $files
  * @method static \Database\Factories\ChangeRequestFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest newQuery()

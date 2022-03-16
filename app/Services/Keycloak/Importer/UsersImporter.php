@@ -163,7 +163,7 @@ class UsersImporter extends Processor {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\App\Models\OrganizationUser>
+     * @return Collection<int, OrganizationUser>
      */
     protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
         // Organizations & Roles
