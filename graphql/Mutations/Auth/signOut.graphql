@@ -1,6 +1,5 @@
 extend type AuthMutations {
     signOut: AuthSignOutPayload
-    @me
     @mutationCall(
         resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
     )

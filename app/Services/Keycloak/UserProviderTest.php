@@ -18,13 +18,16 @@ use Closure;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Hashing\Hasher;
+use InvalidArgumentException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
 use Mockery;
+use stdClass;
 use Tests\TestCase;
 
 use function is_null;
+use function sprintf;
 
 /**
  * @internal
@@ -179,6 +182,9 @@ class UserProviderTest extends TestCase {
             'keycloak_scope' => $this->faker->word,
         ]);
         $claims       = $claims($clientId, $organization);
+        $token        = $this->getToken($claims);
+        $user         = new User();
+        $org          = Organization::factory()->make();
 
         if ($expected instanceof Closure) {
             $expected = $expected($clientId, $organization);
@@ -189,13 +195,12 @@ class UserProviderTest extends TestCase {
         $provider->makePartial();
         $provider
             ->shouldReceive('getOrganization')
+            ->with($user, $token, $org)
             ->once()
             ->andReturn($organization);
 
         // Test
-        $user   = new User();
-        $token  = $this->getToken($claims);
-        $actual = $provider->getProperties($user, $token);
+        $actual = $provider->getProperties($user, $token, $org);
 
         $this->assertEquals($expected, $actual);
     }
@@ -237,7 +242,7 @@ class UserProviderTest extends TestCase {
         // Test
         $user = User::factory()->make();
 
-        $provider->updateTokenUser($user, $token);
+        $provider->updateTokenUser($user, $token, null);
 
         $this->assertEquals('123', $user->given_name);
         $this->assertEquals('456', $user->family_name);
@@ -256,31 +261,39 @@ class UserProviderTest extends TestCase {
      * @covers ::getOrganization
      *
      * @dataProvider dataProviderGetOrganization
+     *
+     * @param \Closure(): array<mixed>              $claimsFactory
+     * @param \Closure(): ?\App\Models\Organization $organizationFactory
      */
-    public function testGetOrganization(bool $expected, Closure $claims): void {
-        $organization = Organization::factory()->create([
+    public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $organizationFactory): void {
+        $org      = Organization::factory()->create([
             'keycloak_scope' => $this->faker->word,
         ]);
-        $user         = User::factory()->create();
-        $clientId     = $this->faker->word;
-        $claims       = $claims($this, $clientId, $organization, $user);
-        $token        = $this->getToken($claims);
-        $provider     = new class() extends UserProvider {
+        $user     = User::factory()->create();
+        $clientId = $this->faker->word;
+        $claims   = $claimsFactory($this, $clientId, $org, $user);
+        $token    = $this->getToken($claims);
+        $provider = new class() extends UserProvider {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
             }
 
-            public function getOrganization(User $user, UnencryptedToken $token): ?Organization {
-                return parent::getOrganization($user, $token);
+            public function getOrganization(
+                User $user,
+                UnencryptedToken $token,
+                ?Organization $organization,
+            ): ?Organization {
+                return parent::getOrganization($user, $token, $organization);
             }
         };
 
-        $actual = $provider->getOrganization($user, $token);
+        $organization = $organizationFactory($this, $org);
+        $actual       = $provider->getOrganization($user, $token, $organization);
 
         if ($expected) {
             $this->assertNotNull($actual);
-            $this->assertEquals($organization->getKey(), $actual->getKey());
+            $this->assertEquals($org->getKey(), $actual->getKey());
         } else {
             $this->assertNull($actual);
         }
@@ -610,6 +623,23 @@ class UserProviderTest extends TestCase {
                 },
                 true,
             ],
+            'not Organization'                       => [
+                new InvalidArgumentException(sprintf(
+                    'The `%s` must be `null` or instance of `%s`.',
+                    UserProvider::CREDENTIAL_ORGANIZATION,
+                    Organization::class,
+                )),
+                static function (): void {
+                    // empty
+                },
+                static function (UserProviderTest $test) {
+                    return [
+                        UserProvider::CREDENTIAL_ORGANIZATION => new stdClass(),
+                        UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken([]),
+                    ];
+                },
+                false,
+            ],
         ];
     }
 
@@ -881,8 +911,23 @@ class UserProviderTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderGetOrganization(): array {
+        $success = static function (self $test, string $client, Organization $organization, User $user): array {
+            OrganizationUser::factory()->create([
+                'organization_id' => $organization,
+                'user_id'         => $user,
+            ]);
+
+            return [
+                'typ'             => 'Bearer',
+                'scope'           => 'openid profile email',
+                'reseller_access' => [
+                    $organization->keycloak_scope => true,
+                ],
+            ];
+        };
+
         return [
-            'organization not found'                                          => [
+            'organization not found'                                                                  => [
                 false,
                 static function (self $test, string $client, Organization $organization): array {
                     return [
@@ -891,8 +936,11 @@ class UserProviderTest extends TestCase {
                         'reseller_access' => [],
                     ];
                 },
+                static function (): ?Organization {
+                    return null;
+                },
             ],
-            'organization found but the user is not a member of it'           => [
+            'organization found but the user is not a member of it'                                   => [
                 false,
                 static function (self $test, string $client, Organization $organization): array {
                     return [
@@ -903,25 +951,32 @@ class UserProviderTest extends TestCase {
                         ],
                     ];
                 },
-            ],
-            'organization found and the user is a member of it'               => [
-                true,
-                static function (self $test, string $client, Organization $organization, User $user): array {
-                    OrganizationUser::factory()->create([
-                        'organization_id' => $organization,
-                        'user_id'         => $user,
-                    ]);
-
-                    return [
-                        'typ'             => 'Bearer',
-                        'scope'           => 'openid profile email',
-                        'reseller_access' => [
-                            $organization->keycloak_scope => true,
-                        ],
-                    ];
+                static function (): ?Organization {
+                    return null;
                 },
             ],
-            'organization found and the user is a member of it but no access' => [
+            'organization found and the user is a member of it'                                       => [
+                true,
+                $success,
+                static function (): ?Organization {
+                    return null;
+                },
+            ],
+            'organization found and the user is a member of it but current organization is match'     => [
+                true,
+                $success,
+                static function (self $test, Organization $organization): ?Organization {
+                    return $organization;
+                },
+            ],
+            'organization found and the user is a member of it but current organization is not match' => [
+                false,
+                $success,
+                static function (): ?Organization {
+                    return Organization::factory()->make();
+                },
+            ],
+            'organization found and the user is a member of it but no access'                         => [
                 false,
                 static function (self $test, string $client, Organization $organization, User $user): array {
                     OrganizationUser::factory()->create([
@@ -936,6 +991,9 @@ class UserProviderTest extends TestCase {
                             $organization->keycloak_scope => false,
                         ],
                     ];
+                },
+                static function (): ?Organization {
+                    return null;
                 },
             ],
         ];

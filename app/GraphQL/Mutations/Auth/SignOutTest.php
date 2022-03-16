@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -67,7 +67,7 @@ class SignOutTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider('auth'),
-            new UserDataProvider('auth'),
+            new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
