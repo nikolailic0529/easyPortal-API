@@ -60,7 +60,7 @@ class ChildrenTest extends TestCase {
             ]);
         };
         $compare              = static function (Model $a, Model $b): int {
-            return $a->key <=> $b->key;
+            return $a->getAttribute('key') <=> $b->getAttribute('key');
         };
         $isReusable           = static function (Model $model) use ($modelShouldBeIgnored): bool {
             return $model->getKey() !== $modelShouldBeIgnored->getKey();
@@ -76,10 +76,10 @@ class ChildrenTest extends TestCase {
         $actual   = $children->children($existing, $entries, $factory, $compare, $isReusable);
         $expected = new Collection([
             tap(clone $model, static function (Model $model) use ($modelShouldBeReused, $typeShouldBeCreated): void {
-                $model->id       = $modelShouldBeReused->getKey();
-                $model->key      = $typeShouldBeCreated->key;
-                $model->property = $typeShouldBeCreated->property;
-                $model->exists   = true;
+                $model->setAttribute('id', $modelShouldBeReused->getKey());
+                $model->setAttribute('key', $typeShouldBeCreated->key);
+                $model->setAttribute('property', $typeShouldBeCreated->property);
+                $model->exists = true;
             }),
             (clone $model)->forceFill([
                 'id'       => $modelShouldBeUpdated->getKey(),

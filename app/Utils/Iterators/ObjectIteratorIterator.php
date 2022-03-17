@@ -16,15 +16,26 @@ use Iterator;
  * @template V
  *
  * @implements ObjectIterator<V>
- *
- * @uses \App\Utils\Iterators\Concerns\InitialState<T>
- * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
- * @uses \App\Utils\Iterators\Concerns\PropertiesProxy<T,V>
  */
 class ObjectIteratorIterator implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<T,V>
+     */
     use PropertiesProxy;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+     */
     use ChunkConverter;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     */
     use InitialState;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     */
     use Subjects;
 
     /**

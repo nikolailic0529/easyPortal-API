@@ -55,8 +55,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Customer newQuery()
  * @method static Builder|Customer query()
  * @mixin Eloquent
- *
- * @uses \App\Models\Relations\HasResellers<\App\Models\ResellerCustomer>
  */
 class Customer extends Model {
     use Searchable;
@@ -64,13 +62,17 @@ class Customer extends Model {
     use HasType;
     use HasStatuses;
     use HasAssets;
-    use HasResellers;
     use HasLocations;
     use HasContacts;
     use HasContracts;
     use HasQuotes;
     use HasKpi;
     use SyncHasMany;
+
+    /**
+     * @phpstan-use \App\Models\Relations\HasResellers<\App\Models\ResellerCustomer>
+     */
+    use HasResellers;
 
     protected const CASTS = [
         'changed_at' => 'datetime',

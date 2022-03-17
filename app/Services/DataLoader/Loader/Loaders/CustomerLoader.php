@@ -18,11 +18,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @template TOwner of \App\Models\Customer
- *
- * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
  */
 class CustomerLoader extends Loader {
     use WithWarrantyCheck;
+
+    /**
+     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+     */
     use WithAssets;
 
     // <editor-fold desc="API">

@@ -119,7 +119,7 @@ class AuditorTest extends TestCase {
                 ->once()
                 ->with(Action::authSignedOut(), ['guard' => 'web']);
         });
-        Auth::logout($user);
+        Auth::logout();
     }
 
      /**

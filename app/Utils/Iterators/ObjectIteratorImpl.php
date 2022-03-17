@@ -22,15 +22,22 @@ use function reset;
  * @template V
  *
  * @implements ObjectIterator<T>
- *
- * @uses     \App\Utils\Iterators\Concerns\Subjects<T>
- * @uses     \App\Utils\Iterators\Concerns\InitialState<T>
- * @uses     \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     */
     use Subjects;
     use Properties;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     */
     use InitialState;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+     */
     use ChunkConverter;
 
     /**
@@ -39,8 +46,8 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     private array $previous = [];
 
     /**
-     * @param Closure(array): array<V> $executor
-     * @param Closure(V): T|null       $converter
+     * @param Closure(array<string,mixed>): array<V> $executor
+     * @param Closure(V): T|null                     $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
@@ -101,7 +108,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     /**
      * @param array<string,mixed> $variables
      *
-     * @return array<mixed>
+     * @return array<V>
      */
     protected function execute(array $variables): array {
         return ($this->executor)($variables);

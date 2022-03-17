@@ -13,9 +13,11 @@ use function count;
  * @template T
  *
  * @implements ObjectIterator<array<T>>
- * @uses \App\Utils\Iterators\Concerns\PropertiesProxy<T,T>
  */
 class GroupedIteratorIterator implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<T,T>
+     */
     use PropertiesProxy;
 
     /**

@@ -49,19 +49,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Reseller newQuery()
  * @method static Builder|Reseller query()
  * @mixin Eloquent
- *
- * @uses \App\Models\Relations\HasCustomers<\App\Models\ResellerCustomer>
  */
 class Reseller extends Model {
     use HasFactory;
     use HasAssets;
     use HasLocations;
-    use HasCustomers;
     use HasType;
     use HasStatuses;
     use HasContacts;
     use HasKpi;
     use SyncBelongsToMany;
+
+    /**
+     * @phpstan-use \App\Models\Relations\HasCustomers<\App\Models\ResellerCustomer>
+     */
+    use HasCustomers;
 
     protected const CASTS = [
         'changed_at' => 'datetime',

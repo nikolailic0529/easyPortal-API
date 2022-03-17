@@ -630,10 +630,10 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed>            $params
-     * @param Closure(array<mixed>):T $reriever
+     * @param array<mixed>             $params
+     * @param Closure(array<mixed>): T $retriever
      *
-     * @return OffsetBasedIterator<T>
+     * @return OffsetBasedIterator<T, array<mixed>>
      */
     public function getOffsetBasedIterator(
         string $selector,
@@ -652,10 +652,10 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed>            $params
-     * @param Closure(array<mixed>):T $reriever
+     * @param array<mixed>             $params
+     * @param Closure(array<mixed>): T $retriever
      *
-     * @return LastIdBasedIterator<T>
+     * @return LastIdBasedIterator<T, array<mixed>>
      */
     public function getLastIdBasedIterator(
         string $selector,

@@ -17,10 +17,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @template TOwner of \App\Models\Reseller
- *
- * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
  */
 class ResellerLoader extends Loader {
+    /**
+     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+     */
     use WithAssets;
 
     // <editor-fold desc="API">

@@ -237,6 +237,6 @@ abstract class ProcessorJobTest__Processor extends Processor {
  *
  * @see          https://github.com/mockery/mockery/issues/1022
  */
-abstract class ProcessorJobTest__ProcessorJob implements ConfigurableQueueable {
+abstract class ProcessorJobTest__ProcessorJob extends Job implements ConfigurableQueueable {
     use ProcessorJob;
 }

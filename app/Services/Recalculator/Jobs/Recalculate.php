@@ -15,10 +15,11 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  * Recalculates properties of given models.
  *
  * @template TModel of \Illuminate\Database\Eloquent\Model
- *
- * @uses     \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
  */
 abstract class Recalculate extends Job implements Initializable, ShouldBeUnique, ShouldBeUniqueUntilProcessing {
+    /**
+     * @phpstan-use \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
+     */
     use ProcessorJob {
         getProcessor as private createProcessor;
     }

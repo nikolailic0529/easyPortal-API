@@ -44,14 +44,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Location newQuery()
  * @method static Builder|Location query()
  * @mixin Eloquent
- *
- * @uses \App\Models\Relations\HasCustomers<\App\Models\LocationCustomer>
- * @uses \App\Models\Relations\HasResellers<\App\Models\LocationReseller>
  */
 class Location extends Model {
     use HasFactory;
     use HasAssets;
+
+    /**
+     * @phpstan-use \App\Models\Relations\HasResellers<\App\Models\LocationReseller>
+     */
     use HasResellers;
+
+    /**
+     * @phpstan-use \App\Models\Relations\HasCustomers<\App\Models\LocationCustomer>
+     */
     use HasCustomers;
 
     public const GEOHASH_LENGTH = 12;

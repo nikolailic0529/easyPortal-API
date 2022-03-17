@@ -121,9 +121,10 @@ class Processor extends EloquentProcessor {
      * @param Model&Searchable $item
      */
     protected function process(ProcessorState $state, mixed $data, mixed $item): void {
+        $as   = $item->searchableAs();
+        $item = $item->setSearchableAs($state->name);
+
         try {
-            $as                          = $item->searchableAs();
-            $item                        = $item->setSearchableAs($state->name);
             $isUnsearchable              = !$item->shouldBeSearchable();
             $isSoftDeletableModel        = (new ModelHelper($item))->isSoftDeletable();
             $isSoftDeletableIndexed      = (bool) $this->getConfig()->get('scout.soft_delete', false);
@@ -299,7 +300,7 @@ class Processor extends EloquentProcessor {
      *
      * @return T
      */
-    private function callWithoutScoutQueue(Closure $closure): mixed {
+    private function callWithoutScoutQueue(Closure $callback): mixed {
         $key      = 'scout.queue';
         $config   = $this->getConfig();
         $previous = $config->get($key);
@@ -307,7 +308,7 @@ class Processor extends EloquentProcessor {
         try {
             $config->set($key, false);
 
-            return $closure();
+            return $callback();
         } finally {
             $config->set($key, $previous);
         }

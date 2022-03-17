@@ -34,8 +34,8 @@ class AppServiceProviderTest extends TestCase {
             // empty
         };
 
-        $model->id         = $this->faker->uuid;
-        $model->updated_at = Date::make('2102-12-01T22:12:01.000+00:00');
+        $model->setAttribute('id', $this->faker->uuid);
+        $model->setAttribute('updated_at', Date::make('2102-12-01T22:12:01.000+00:00'));
 
         self::assertEquals([
             'id'         => $model->getKey(),

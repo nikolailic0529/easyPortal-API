@@ -20,13 +20,17 @@ use function sprintf;
  * @template T
  *
  * @implements ObjectIterator<T>
- *
- * @uses \App\Utils\Iterators\Concerns\InitialState<T>
- * @uses \App\Utils\Iterators\Concerns\Subjects<T>
  */
 class ObjectIteratorsIterator implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     */
     use InitialState;
     use Properties;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     */
     use Subjects {
         chunkLoaded as private;
         chunkProcessed as private;

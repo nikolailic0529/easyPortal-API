@@ -14,7 +14,10 @@ class TranslatorMixin {
          */
         return function (array $lines, $locale): void {
             foreach ($lines as $key => $value) {
-                /** @var Translator $this */
+                /**
+                 * @var Translator $this
+                 * @phpstan-ignore-next-line
+                 */
                 $this->loaded['*']['*'][$locale][$key] = $value;
             }
         };
