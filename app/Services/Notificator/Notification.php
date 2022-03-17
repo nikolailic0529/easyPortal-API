@@ -58,7 +58,7 @@ abstract class Notification extends IlluminateNotification {
         $container = $this->getContainer();
         $formatter = $container->make(Formatter::class)
             ->forLocale($this->getPreferredLocale($notifiable))
-            ->forTimezone($this->getTimezone($notifiable));
+            ->forTimezone($this->getPreferredTimezone($notifiable));
         $config    = $container->make(Repository::class);
         $service   = Service::getServiceName($this) ?? 'App';
         $name      = (new ReflectionClass($this))->getShortName();
