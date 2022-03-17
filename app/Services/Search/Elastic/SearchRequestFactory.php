@@ -142,7 +142,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         /** @var Model&Searchable $model */
         $model  = $builder->model;
         $query  = parent::makeQuery($builder);
-        $string = trim((string) $builder->query);
+        $string = trim($builder->query);
         $fields = $model->getSearchConfiguration()->getSearchable();
 
         if (!$fields || $string === '""') {

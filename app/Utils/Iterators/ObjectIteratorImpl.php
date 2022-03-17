@@ -104,7 +104,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
      * @return array<mixed>
      */
     protected function execute(array $variables): array {
-        return (array) ($this->executor)($variables);
+        return ($this->executor)($variables);
     }
 
     /**

@@ -31,7 +31,7 @@ class ModelProperty {
 
     public function __construct(string $property) {
         $this->path         = explode('.', $property);
-        $this->name         = (string) end($this->path);
+        $this->name         = end($this->path);
         $this->relationPath = array_slice($this->path, 0, -1) ?: null;
         $this->relationName = implode('.', (array) $this->relationPath) ?: null;
     }

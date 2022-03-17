@@ -84,8 +84,8 @@ class UnionEngine extends Engine {
      */
     public function paginate(Builder $builder, $perPage, $page) {
         return $this->execute($builder, [
-            'perPage' => (int) $perPage,
-            'page'    => (int) $page,
+            'perPage' => $perPage,
+            'page'    => $page,
         ]);
     }
 

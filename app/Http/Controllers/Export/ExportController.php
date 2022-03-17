@@ -282,7 +282,7 @@ class ExportController extends Controller {
 
         if (!array_is_list($item)) {
             foreach ($item as $name => $value) {
-                $key = (string) ($prefix ? "{$prefix}.{$name}" : $name);
+                $key = $prefix ? "{$prefix}.{$name}" : $name;
 
                 if (is_array($value) && !array_is_list($value)) {
                     $headers = array_merge($headers, $this->getHeaders($value, $key));
