@@ -219,7 +219,7 @@ class ResolverTest extends TestCase {
                 return new Key($normalizer, is_array($key) ? $key : [$key]);
             });
 
-        $callback = Mockery::spy(function (EloquentCollection $collection) use ($items): void {
+        $callback = Mockery::spy(static function (EloquentCollection $collection) use ($items): void {
             self::assertEquals($items, $collection);
         });
 

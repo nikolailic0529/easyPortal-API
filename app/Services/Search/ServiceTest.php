@@ -58,7 +58,7 @@ class ServiceTest extends TestCase {
     public function testCallWithoutIndexing(): void {
         $service = $this->app->make(Service::class);
         $model   = $this->faker->randomElement($service->getSearchableModels());
-        $spy     = Mockery::spy(function () use ($model): void {
+        $spy     = Mockery::spy(static function () use ($model): void {
             self::assertFalse($model::isSearchSyncingEnabled());
         });
 

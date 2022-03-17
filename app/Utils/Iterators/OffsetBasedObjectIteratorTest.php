@@ -91,7 +91,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEquals(2, $variables['limit']);
 
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
@@ -116,7 +116,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEquals(2, $variables['limit']);
 
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);

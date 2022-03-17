@@ -40,7 +40,7 @@ class ProcessorTest extends TestCase {
             ->andReturn($state);
         $processor
             ->shouldReceive('run')
-            ->withArgs(function (State $actual) use ($processor, $state): bool {
+            ->withArgs(static function (State $actual) use ($processor, $state): bool {
                 self::assertTrue($processor->isRunning());
                 self::assertFalse($processor->isStopped());
                 self::assertEquals($state, $actual);

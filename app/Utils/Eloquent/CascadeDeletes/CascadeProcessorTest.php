@@ -145,7 +145,7 @@ class CascadeProcessorTest extends TestCase {
         $child
             ->shouldReceive('delete')
             ->once()
-            ->andReturnUsing(function () use ($child): bool {
+            ->andReturnUsing(static function () use ($child): bool {
                 self::assertTrue($child->forceDeleting ?? null);
 
                 return true;

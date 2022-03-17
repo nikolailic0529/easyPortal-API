@@ -27,7 +27,7 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
         $onFinish = Mockery::spy(static function (): void {
             // empty
         });
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEmpty($variables);
 
             return $data;
@@ -57,7 +57,7 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testIteratorWithLimitOffset(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEmpty($variables);
 
             return $data;
@@ -94,7 +94,7 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testIteratorChunkLessThanLimit(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEmpty($variables);
 
             return $data;
@@ -119,7 +119,7 @@ class OneChunkOffsetBasedObjectIteratorTest extends TestCase {
      */
     public function testIteratorChunkGreaterThanLimit(): void {
         $data     = range(1, 10);
-        $executor = Mockery::spy(function (array $variables = []) use ($data): array {
+        $executor = Mockery::spy(static function (array $variables = []) use ($data): array {
             self::assertEmpty($variables);
 
             return $data;

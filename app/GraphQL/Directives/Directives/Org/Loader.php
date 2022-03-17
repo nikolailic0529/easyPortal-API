@@ -15,6 +15,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Execution\ModelsLoader\ModelsLoader;
+use stdClass;
 
 use function sprintf;
 use function str_ends_with;
@@ -66,7 +67,12 @@ class Loader implements ModelsLoader {
 
         foreach ($parents as $parent) {
             /** @var Model $parent */
-            $parent->setAttribute($property, $values->get($parent->getKey())?->getAttribute($property));
+            $value = $values->get($parent->getKey());
+            $value = $value instanceof stdClass
+                ? ($value->{$property} ?? null)
+                : null;
+
+            $parent->setAttribute($property, $value);
         }
     }
 

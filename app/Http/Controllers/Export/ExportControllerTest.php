@@ -201,7 +201,7 @@ class ExportControllerTest extends TestCase {
         if ($response->isSuccessful()) {
             $response->assertThat(new CsvContentType());
             $response->assertThat(new Response(new ClosureConstraint(
-                function (ResponseInterface $response) use ($count): bool {
+                static function (ResponseInterface $response) use ($count): bool {
                     $content = trim((string) $response->getBody(), "\n");
                     $lines   = count(explode("\n", $content));
 

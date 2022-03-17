@@ -79,12 +79,12 @@ class ProcessorTest extends TestCase {
             self::assertEquals(count($expected), $state->total);
             self::assertFalse($this->app->get(Repository::class)->get('scout.queue'));
         });
-        $spyOnChange = Mockery::spy(function (State $state) use (&$previous, $chunk): void {
+        $spyOnChange = Mockery::spy(static function (State $state) use (&$previous, $chunk): void {
             self::assertEquals($previous?->processed + $chunk, $state->processed);
 
             $previous = $state;
         });
-        $spyOnFinish = Mockery::spy(function (State $state) use ($expected): void {
+        $spyOnFinish = Mockery::spy(static function (State $state) use ($expected): void {
             self::assertEquals(count($expected), $state->processed);
         });
 
