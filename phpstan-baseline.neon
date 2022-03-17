@@ -5,7 +5,7 @@ parameters:
         - "#^Only booleans are allowed in an if condition, .+? given\\.$#"
         - "#^Only booleans are allowed in a negated boolean, .+? given\\.$#"
         - "#^Only booleans are allowed in a ternary operator condition, .+? given\\.$#"
-        # - "#^Only booleans are allowed in an elseif condition, .+? given\\.$#"
+        - "#^Only booleans are allowed in an elseif condition, .+? given\\.$#"
         - "#^Only booleans are allowed in &&, .+? given on the (left|right) side\\.$#"
         - "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
         -
@@ -13,7 +13,10 @@ parameters:
             path: **/*Test.php
 
         # Larastan doesn't support phpstan/phpstan-strict-rules
+        - "#^Dynamic call to static method Illuminate\\\\Testing\\\\TestResponse\\:\\:assert[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Model(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
         - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Builder(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\[^\\\\]+(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
 
         # Sometimes it is needed...
         # https://github.com/phpstan/phpstan/issues/3296
@@ -29,3 +32,7 @@ parameters:
             message: "#^Call to an undefined static method Barryvdh\\\\Snappy\\\\Facades\\\\SnappyPdf\\:\\:assert#"
             paths:
                 - app/Http/Controllers/Export/ExportControllerTest.php
+
+        # Not yet supported by larastan?
+        - "#^Call to an undefined method Database\\\\Factories\\\\\\w+?Factory::has[^(]+\\(\\)\\.$#"
+        - "#^Call to an undefined method Database\\\\Factories\\\\\\w+?Factory::for[^(]+\\(\\)\\.$#"
