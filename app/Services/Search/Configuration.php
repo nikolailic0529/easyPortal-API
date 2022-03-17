@@ -265,7 +265,7 @@ class Configuration {
 
         foreach ($model->getGlobalScopes() as $scope) {
             if ($scope instanceof ScopeWithMetadata) {
-                foreach ($scope->getSearchMetadata($model) as $key => $metadata) {
+                foreach ($scope->getSearchMetadata($model) as $key => $data) {
                     // Metadata should be unique to avoid any possible side effects.
                     if (array_key_exists($key, $properties[static::METADATA])) {
                         throw new LogicException(sprintf(
@@ -276,7 +276,7 @@ class Configuration {
                     }
 
                     // Add
-                    $properties[static::METADATA][$key] = $metadata;
+                    $properties[static::METADATA][$key] = $data;
                 }
             }
         }

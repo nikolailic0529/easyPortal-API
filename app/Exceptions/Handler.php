@@ -219,25 +219,24 @@ class Handler extends ExceptionHandler {
         }
 
         // Determine key
-        $key     = null;
-        $default = 'errors.server_error';
+        $string = null;
 
         if ($error instanceof TokenMismatchException) {
-            $key = 'errors.page_expired';
+            $string = 'errors.page_expired';
         } elseif ($error instanceof AuthenticationException) {
-            $key = 'errors.unauthenticated';
+            $string = 'errors.unauthenticated';
         } elseif ($error instanceof AuthorizationException) {
-            $key = 'errors.unauthorized';
+            $string = 'errors.unauthorized';
         } elseif ($error instanceof RateLimitException) {
-            $key = 'errors.too_many_requests';
+            $string = 'errors.too_many_requests';
         } elseif ($error instanceof SuspiciousOperationException) {
-            $key = 'errors.not_found';
+            $string = 'errors.not_found';
         } elseif ($error instanceof ValidationException) {
-            $key = 'errors.validation_failed';
+            $string = 'errors.validation_failed';
         } elseif ($error instanceof RecordsNotFoundException) {
-            $key = 'errors.not_found';
+            $string = 'errors.not_found';
         } elseif ($error instanceof HttpExceptionInterface) {
-            $http = [
+            $http   = [
                 401 => 'errors.unauthorized',
                 403 => 'errors.forbidden',
                 404 => 'errors.not_found',
@@ -246,12 +245,12 @@ class Handler extends ExceptionHandler {
                 500 => 'errors.server_error',
                 503 => 'errors.service_unavailable',
             ];
-            $key  = $http[$error->getStatusCode()]
+            $string = $http[$error->getStatusCode()]
                 ?? "errors.http.{$error->getStatusCode()}";
         } elseif ($error instanceof GraphQLDefinitionException) {
-            $key = 'errors.graphql.schema_broken';
+            $string = 'errors.graphql.schema_broken';
         } elseif ($error instanceof GraphQLError) {
-            $key = 'errors.graphql.error';
+            $string = 'errors.graphql.error';
         } else {
             // empty
         }
@@ -259,22 +258,23 @@ class Handler extends ExceptionHandler {
         // Translate
         $message = null;
         $keys    = [
-            $key,
+            $string,
             $error->getMessage()
                 ? "errors.messages.{$error->getMessage()}"
                 : null,
         ];
 
         foreach ($keys as $key) {
-            $string = $key ? $this->translate($key) : $key;
+            $translated = $key ? $this->translate($key) : $key;
 
-            if ($key !== $string) {
-                $message = $string;
+            if ($key !== $translated) {
+                $message = $translated;
                 break;
             }
         }
 
         if (is_null($message)) {
+            $default = 'errors.server_error';
             $message = $this->translate($default);
 
             if ($message === $default) {

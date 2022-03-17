@@ -89,8 +89,7 @@ class Loader implements ModelsLoader {
         }
 
         // Relation?
-        $column   = $model->getOrganizationColumn();
-        $property = new ModelProperty($column);
+        $property = new ModelProperty($model->getOrganizationColumn());
         $relation = $property->getRelation($builder);
 
         if (!($relation instanceof BelongsToMany)) {
