@@ -33,6 +33,8 @@ parameters:
             paths:
                 - app/Http/Controllers/Export/ExportControllerTest.php
 
-        # Not yet supported by larastan?
-        - "#^Call to an undefined method Database\\\\Factories\\\\\\w+?Factory::has[^(]+\\(\\)\\.$#"
-        - "#^Call to an undefined method Database\\\\Factories\\\\\\w+?Factory::for[^(]+\\(\\)\\.$#"
+        # False positive
+        # https://github.com/phpstan/phpstan-mockery/issues/18
+        -
+            message: "#^Call to protected method .+? of class .+?\\.$#"
+            path: **/*Test.php
