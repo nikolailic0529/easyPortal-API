@@ -27,11 +27,10 @@ class AuditContext {
         if (isset($context['properties']) && !$this->gate->check('administer')) {
             $model                 = Relation::getMorphedModel($audit->object_type) ?? $audit->object_type;
             $context['properties'] = (new class(new $model()) extends Model {
-                /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Model $model,
                 ) {
-                    // empty
+                    parent::__construct();
                 }
 
                 /**

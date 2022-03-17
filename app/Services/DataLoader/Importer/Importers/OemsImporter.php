@@ -90,11 +90,10 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
 
         // Save translations (temporary implementation)
         $helper = new class($serviceLevel) extends ServiceLevel {
-            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ServiceLevel $model,
             ) {
-                // empty
+                parent::__construct();
             }
 
             /**

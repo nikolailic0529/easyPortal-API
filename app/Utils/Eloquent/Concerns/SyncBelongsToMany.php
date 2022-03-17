@@ -114,11 +114,19 @@ trait SyncBelongsToMany {
 
         // Process
         $wrapper        = new class($belongsToMany) extends BelongsToMany {
-            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected BelongsToMany $belongsToMany,
             ) {
-                // empty
+                parent::__construct(
+                    $this->belongsToMany->getQuery(),
+                    $this->belongsToMany->getParent(),
+                    $this->belongsToMany->getTable(),
+                    $this->belongsToMany->getForeignPivotKeyName(),
+                    $this->belongsToMany->getRelatedPivotKeyName(),
+                    $this->belongsToMany->getParentKeyName(),
+                    $this->belongsToMany->getRelatedKeyName(),
+                    $this->belongsToMany->getRelationName(),
+                );
             }
 
             /**

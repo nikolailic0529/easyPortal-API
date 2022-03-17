@@ -51,7 +51,10 @@ class Pinger {
         // Prolong
         $queue      = $queueJob->getRedisQueue();
         $retryAfter = (new class() extends RedisQueue {
-            /** @noinspection PhpMissingParentConstructorInspection */
+            /**
+             * @noinspection PhpMissingParentConstructorInspection
+             * @phpstan-ignore-next-line
+             */
             public function __construct() {
                 // small hack to get access protected members
             }
