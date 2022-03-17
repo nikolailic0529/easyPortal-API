@@ -27,7 +27,7 @@ class ResetOrgUserPassword {
         $filtered     = array_filter($groups, static function ($group) use ($organization) {
             return $group->id === $organization->keycloak_group_id;
         });
-        if (empty($filtered)) {
+        if (!$filtered) {
             throw new ResetOrgUserPasswordInvalidUser();
         }
 

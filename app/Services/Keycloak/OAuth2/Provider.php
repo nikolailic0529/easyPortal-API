@@ -99,7 +99,7 @@ class Provider extends AbstractProvider {
      * @inheritDoc
      */
     protected function checkResponse(ResponseInterface $response, $data) {
-        if (!empty($data['error'])) {
+        if (isset($data['error'])) {
             $error = $data['error'];
 
             if (isset($data['error_description'])) {

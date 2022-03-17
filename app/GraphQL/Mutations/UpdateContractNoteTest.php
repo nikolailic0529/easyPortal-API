@@ -94,14 +94,13 @@ class UpdateContractNoteTest extends TestCase {
         $map  = [];
         $file = [];
 
-        if (array_key_exists('files', $input)) {
-            if (!empty($input['files'])) {
-                foreach ($input['files'] as $index => $item) {
-                    if ($item['content']) {
-                        $file[$index] = $item;
-                        $map[$index]  = ["variables.input.files.{$index}"];
-                        unset($input['files'][$index]);
-                    }
+        if (isset($input['files'])) {
+            foreach ((array) $input['files'] as $index => $item) {
+                if (isset($item['content']) && $item['content']) {
+                    $file[$index] = $item;
+                    $map[$index]  = ["variables.input.files.{$index}"];
+
+                    unset($input['files'][$index]);
                 }
             }
         }

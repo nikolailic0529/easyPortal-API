@@ -56,10 +56,7 @@ class UpdateMeEmailTest extends TestCase {
         // https://github.com/nuwave/lighthouse/issues/1780
         //
         // Following code required to "fix" it
-        if (empty($email)) {
-            $email = 'test@example.com';
-        }
-
+        $email = $email ?: 'test@example.com';
         $input = [
             'email' => $email,
         ];

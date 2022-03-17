@@ -31,6 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
 use function http_build_query;
+use function is_array;
 use function is_string;
 use function mb_strtolower;
 use function rtrim;
@@ -345,11 +346,9 @@ class Client {
         $endpoint = "users?email={$email}";
         $users    = $this->call($endpoint);
 
-        if (empty($users)) {
-            return null;
-        }
-
-        return new KeycloakUser($users[0]);
+        return is_array($users) && isset($users[0])
+            ? new KeycloakUser($users[0])
+            : null;
     }
 
     public function requestResetPassword(string $id): void {

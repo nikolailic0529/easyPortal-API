@@ -95,15 +95,14 @@ class UpdateQuoteNoteTest extends TestCase {
 
         $uploadTest = false;
 
-        if (array_key_exists('files', $input)) {
-            if (!empty($input['files'])) {
-                foreach ($input['files'] as $index => $item) {
-                    if ($item['content']) {
-                        $uploadTest   = true;
-                        $file[$index] = $item;
-                        $map[$index]  = ["variables.input.files.{$index}"];
-                        unset($input['files'][$index]);
-                    }
+        if (isset($input['files'])) {
+            foreach ((array) $input['files'] as $index => $item) {
+                if (isset($item['content']) && $item['content']) {
+                    $uploadTest   = true;
+                    $file[$index] = $item;
+                    $map[$index]  = ["variables.input.files.{$index}"];
+
+                    unset($input['files'][$index]);
                 }
             }
         }
