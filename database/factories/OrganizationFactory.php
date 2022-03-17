@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Organization create($attributes = [], ?Model $parent = null)
  * @method Organization make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Organization>
  */
 class OrganizationFactory extends Factory {
     /**

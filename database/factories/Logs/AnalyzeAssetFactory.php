@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method AnalyzeAsset create($attributes = [], ?Model $parent = null)
  * @method AnalyzeAsset make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<AnalyzeAsset>
  */
 class AnalyzeAssetFactory extends Factory {
     /**

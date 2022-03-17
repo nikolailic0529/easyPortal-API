@@ -6,6 +6,9 @@ use Generator;
 use IteratorAggregate;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * @implements IteratorAggregate<int, ClientDumpFile>
+ */
 class ClientDumpsIterator implements IteratorAggregate {
     public function __construct(
         protected string $path,

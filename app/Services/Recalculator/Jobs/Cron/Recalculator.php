@@ -11,7 +11,7 @@ use App\Services\Queue\CronJob;
  */
 abstract class Recalculator extends CronJob implements Progressable {
     /**
-     * @phpstan-use \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
+     * @phpstan-use ProcessorJob<\App\Utils\Processor\EloquentProcessor<TModel,null,\App\Utils\Processor\EloquentState<TModel>>>
      */
     use ProcessorJob;
 }

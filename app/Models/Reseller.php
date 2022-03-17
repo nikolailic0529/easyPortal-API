@@ -53,7 +53,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Reseller extends Model {
     use HasFactory;
     use HasAssets;
-    use HasLocations;
     use HasType;
     use HasStatuses;
     use HasContacts;
@@ -61,7 +60,12 @@ class Reseller extends Model {
     use SyncBelongsToMany;
 
     /**
-     * @phpstan-use \App\Models\Relations\HasCustomers<\App\Models\ResellerCustomer>
+     * @phpstan-use HasLocations<ResellerLocation>
+     */
+    use HasLocations;
+
+    /**
+     * @phpstan-use HasCustomers<ResellerCustomer>
      */
     use HasCustomers;
 

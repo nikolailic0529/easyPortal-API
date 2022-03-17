@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<Status>
+ */
 class StatusResolver extends Resolver implements SingletonPersistent {
     public function get(Model $model, string $key, Closure $factory = null): ?Status {
         return $this->resolve($this->getUniqueKey($model, $key), $factory);

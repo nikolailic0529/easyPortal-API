@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Iterators\ObjectIteratorImpl;
-use App\Utils\Iterators\OffsetBasedObjectIterator;
 
 use function end;
 
@@ -12,7 +11,7 @@ use function end;
  * @template T
  * @template V
  *
- * @implements  OffsetBasedObjectIterator<T, V>
+ * @extends ObjectIteratorImpl<T, V>
  */
 class LastIdBasedIterator extends ObjectIteratorImpl {
     /**

@@ -13,6 +13,8 @@ use function array_keys;
 /**
  * @method Contact create($attributes = [], ?Model $parent = null)
  * @method Contact make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Contact>
  */
 class ContactFactory extends Factory {
     /**

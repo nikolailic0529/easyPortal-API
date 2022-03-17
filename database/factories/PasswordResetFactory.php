@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method PasswordReset create($attributes = [], ?Model $parent = null)
  * @method PasswordReset make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<PasswordReset>
  */
 class PasswordResetFactory extends Factory {
     /**

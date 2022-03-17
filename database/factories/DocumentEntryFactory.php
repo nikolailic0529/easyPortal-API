@@ -16,6 +16,8 @@ use function number_format;
 /**
  * @method DocumentEntry create($attributes = [], ?Model $parent = null)
  * @method DocumentEntry make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<DocumentEntry>
  */
 class DocumentEntryFactory extends Factory {
     /**

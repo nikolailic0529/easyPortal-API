@@ -8,7 +8,7 @@ use App\Utils\Iterators\OffsetBasedObjectIterator;
  * @template T
  * @template V
  *
- * @implements OffsetBasedObjectIterator<T, V>
+ * @extends OffsetBasedObjectIterator<T, V>
  */
 class OffsetBasedIterator extends OffsetBasedObjectIterator {
     /**

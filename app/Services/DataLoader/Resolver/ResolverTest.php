@@ -309,6 +309,8 @@ class ResolverTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Resolver<Model>
  */
 class ResolverTest_Resolver extends Resolver {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253

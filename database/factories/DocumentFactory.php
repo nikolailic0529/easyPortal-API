@@ -14,6 +14,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Document create($attributes = [], ?Model $parent = null)
  * @method Document make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Document>
  */
 class DocumentFactory extends Factory {
     /**

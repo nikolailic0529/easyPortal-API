@@ -546,6 +546,8 @@ class ProcessorTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Processor<mixed,mixed,State>
  */
 class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {

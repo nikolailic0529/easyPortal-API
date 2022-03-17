@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<Product>
+ */
 class ProductResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);

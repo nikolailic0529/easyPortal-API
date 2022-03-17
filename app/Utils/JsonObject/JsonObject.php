@@ -38,13 +38,15 @@ use function str_starts_with;
  * - Type unions not supported;
  *
  * @internal
+ *
+ * @implements Arrayable<string,mixed>
  */
 abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     /**
      * Contains factories for properties that should be an instance of class or
      * an array of classes (this data extracted from type-hints and comments).
      *
-     * @var array<string, array<string, callable>>|null
+     * @var array<string, array<string, callable>>
      */
     private static array $properties = [];
 

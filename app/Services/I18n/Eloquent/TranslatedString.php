@@ -22,6 +22,8 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * @implements ArrayAccess<string, string>
+ * @implements Arrayable<string, string>
+ * @implements IteratorAggregate<string, array{locale: string, text: string}>
  */
 class TranslatedString implements Castable, Arrayable, ArrayAccess, IteratorAggregate, JsonSerializable {
     /**

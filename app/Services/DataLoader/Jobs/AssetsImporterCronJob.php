@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Imports assets.
+ *
+ * @extends ImporterCronJob<AssetsImporter>
  */
 class AssetsImporterCronJob extends ImporterCronJob {
     public function displayName(): string {

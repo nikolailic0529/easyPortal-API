@@ -8,7 +8,7 @@ use function array_slice;
  * @template T
  * @template V
  *
- * @implements OffsetBasedObjectIterator<T, V>
+ * @extends OffsetBasedObjectIterator<T, V>
  */
 class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
     /**

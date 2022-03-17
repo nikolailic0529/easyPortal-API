@@ -20,8 +20,7 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
  *
  * @mixin Job
  * @mixin CronJob
- *
- * @implements Progressable
+ * @mixin Progressable
  */
 trait ProcessorJob {
     /**

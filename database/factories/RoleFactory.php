@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Role create($attributes = [], ?Model $parent = null)
  * @method Role make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Role>
  */
 class RoleFactory extends Factory {
     /**

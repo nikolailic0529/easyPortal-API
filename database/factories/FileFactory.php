@@ -13,6 +13,8 @@ use function array_keys;
 /**
  * @method File create($attributes = [], ?Model $parent = null)
  * @method File make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<File>
  */
 class FileFactory extends Factory {
     /**

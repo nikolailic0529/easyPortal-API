@@ -13,8 +13,13 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Rebuilds Search Index for Model.
+ *
+ * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
  */
 abstract class Indexer extends CronJob implements Progressable {
+    /**
+     * @phpstan-use ProcessorJob<Processor<TItem,\App\Services\Search\Processor\State<TItem>>>
+     */
     use ProcessorJob;
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {

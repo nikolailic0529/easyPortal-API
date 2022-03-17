@@ -5,11 +5,13 @@ namespace App\Utils\Processor\Commands;
 use App\Services\I18n\Formatter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
+use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Mockery;
 use Symfony\Component\Console\Helper\DescriptorHelper;
@@ -382,6 +384,8 @@ class ProcessorCommand__ObjectsProcess extends ProcessorCommand__Command {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Processor<mixed,mixed,State>
  */
 class ProcessorCommand__Processor extends Processor {
     protected function getTotal(State $state): ?int {
@@ -421,6 +425,8 @@ class ProcessorCommand__ModelsProcess extends ProcessorCommand__Command {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends EloquentProcessor<Model,mixed,EloquentState<Model>>
  */
 class ProcessorCommand__EloquentProcessor extends EloquentProcessor {
     protected function getModel(): string {

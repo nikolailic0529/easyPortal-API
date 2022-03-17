@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Coverage create($attributes = [], ?Model $parent = null)
  * @method Coverage make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Coverage>
  */
 class CoverageFactory extends Factory {
     /**

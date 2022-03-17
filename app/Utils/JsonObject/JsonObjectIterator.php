@@ -11,6 +11,8 @@ use function is_object;
 
 /**
  * Iterates over
+ *
+ * @implements IteratorAggregate<array-key, JsonObject>
  */
 class JsonObjectIterator implements IteratorAggregate {
     /**

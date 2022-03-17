@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Tag create($attributes = [], ?Model $parent = null)
  * @method Tag make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Tag>
  */
 class TagFactory extends Factory {
     /**

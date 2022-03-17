@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Oem create($attributes = [], ?Model $parent = null)
  * @method Oem make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Oem>
  */
 class OemFactory extends Factory {
     /**

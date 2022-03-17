@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<Language>
+ */
 class LanguageResolver extends Resolver implements SingletonPersistent {
     public function get(string $code, Closure $factory = null): ?Language {
         return $this->resolve($this->getUniqueKey($code), $factory);

@@ -14,6 +14,10 @@ parameters:
     checkGenericClassInNonGenericObjectType: true
     checkMissingCallableSignature: true
 
+    # Stubs
+    stubFiles:
+        - ./tests/Stubs/Factory.stub
+
 includes:
     - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
     - ./vendor/phpstan/phpstan-mockery/extension.neon

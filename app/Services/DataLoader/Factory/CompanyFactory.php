@@ -26,10 +26,18 @@ use function array_unique;
 use function count;
 use function reset;
 
+/**
+ * @template TCompany of \App\Models\Reseller|\App\Models\Customer
+ * @template TLocation of \App\Models\ResellerLocation|\App\Models\CustomerLocation
+ */
 abstract class CompanyFactory extends ModelFactory {
     use WithType;
     use WithStatus;
     use WithContacts;
+
+    /**
+     * @phpstan-use WithLocations<TCompany, TLocation>
+     */
     use WithLocations;
 
     public function __construct(

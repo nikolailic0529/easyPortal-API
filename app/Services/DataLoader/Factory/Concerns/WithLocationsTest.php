@@ -38,7 +38,7 @@ class WithLocationsTest extends TestCase {
      *
      * @dataProvider dataProviderCompanyLocations
      *
-     * @param Closure(static): Reseller|Customer
+     * @param Closure(static): Reseller|Customer $companyFactory
      */
     public function testCompanyLocations(Closure $companyFactory): void {
         // Prepare
@@ -49,6 +49,9 @@ class WithLocationsTest extends TestCase {
             $this->app->make(TypeResolver::class),
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
+            /**
+             * @phpstan-use WithLocations<Reseller|Customer, \App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             */
             use WithLocations {
                 companyLocations as public;
             }
@@ -137,6 +140,9 @@ class WithLocationsTest extends TestCase {
             ->andReturns();
 
         $factory = new class($factory) extends ModelFactory {
+            /**
+             * @phpstan-use WithLocations<Reseller|Customer, \App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             */
             use WithLocations {
                 location as public;
             }
@@ -185,6 +191,9 @@ class WithLocationsTest extends TestCase {
             $factory,
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
+            /**
+             * @phpstan-use WithLocations<Reseller|Customer, \App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             */
             use WithLocations {
                 companyLocations as public;
             }

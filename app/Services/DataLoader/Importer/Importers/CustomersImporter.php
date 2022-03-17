@@ -9,15 +9,20 @@ use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Company;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @extends Importer<Company, CustomersImporterChunkData, ImporterState>
+ */
 class CustomersImporter extends Importer {
     protected function register(): void {
         $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);

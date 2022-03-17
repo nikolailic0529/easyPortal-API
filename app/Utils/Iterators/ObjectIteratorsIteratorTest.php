@@ -250,10 +250,18 @@ class ObjectIteratorsIteratorTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @template T
+ *
+ * @implements ObjectIterator<T>
  */
 class ObjectIteratorsIteratorTest__Iterator implements ObjectIterator {
-    use Properties;
+    /**
+     * @phpstan-use Subjects<T>
+     */
     use Subjects;
+
+    use Properties;
 
     /**
      * @param array<mixed> $data

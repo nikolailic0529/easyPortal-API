@@ -12,6 +12,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method OrganizationUser create($attributes = [], ?Model $parent = null)
  * @method OrganizationUser make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<OrganizationUser>
  */
 class OrganizationUserFactory extends Factory {
     /**

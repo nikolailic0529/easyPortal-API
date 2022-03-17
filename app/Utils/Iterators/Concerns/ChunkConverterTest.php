@@ -110,6 +110,9 @@ class ChunkConverterTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ChunkConverterTest_ChunkConverter {
+    /**
+     * @phpstan-use ChunkConverter<mixed, mixed>
+     */
     use ChunkConverter {
         chunkConvert as public;
     }

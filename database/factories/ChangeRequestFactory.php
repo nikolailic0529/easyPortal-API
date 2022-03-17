@@ -15,6 +15,8 @@ use function array_keys;
 /**
  * @method ChangeRequest create($attributes = [], ?Model $parent = null)
  * @method ChangeRequest make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<ChangeRequest>
  */
 class ChangeRequestFactory extends Factory {
     /**

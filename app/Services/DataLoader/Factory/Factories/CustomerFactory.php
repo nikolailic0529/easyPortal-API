@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
@@ -24,6 +25,9 @@ use InvalidArgumentException;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends CompanyFactory<Customer, CustomerLocation>
+ */
 class CustomerFactory extends CompanyFactory {
     use WithKpi;
     use WithReseller;

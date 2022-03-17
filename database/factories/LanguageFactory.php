@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Language create($attributes = [], ?Model $parent = null)
  * @method Language make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Language>
  */
 class LanguageFactory extends Factory {
     /**

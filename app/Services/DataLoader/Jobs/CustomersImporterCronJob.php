@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Imports customers.
+ *
+ * @extends ImporterCronJob<CustomersImporter>
  */
 class CustomersImporterCronJob extends ImporterCronJob {
     public function displayName(): string {

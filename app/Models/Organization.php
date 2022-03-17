@@ -78,6 +78,10 @@ class Organization extends Model implements
     Auditable {
     use HasFactory;
     use HasCurrency;
+
+    /**
+     * @phpstan-use HasLocations<ResellerLocation>
+     */
     use HasLocations {
         locations as private getLocationsRelation;
         setLocationsAttribute as private;
@@ -205,7 +209,7 @@ class Organization extends Model implements
     }
 
     /**
-     * @param BaseCollection|array<OrganizationUser> $organizations
+     * @param BaseCollection|array<OrganizationUser> $users
      */
     public function setOrganizationUsersAttribute(BaseCollection|array $users): void {
         $this->syncHasMany('organizationUsers', $users);

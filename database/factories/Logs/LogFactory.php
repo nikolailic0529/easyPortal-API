@@ -12,6 +12,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Log create($attributes = [], ?Model $parent = null)
  * @method Log make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Log>
  */
 class LogFactory extends Factory {
     /**

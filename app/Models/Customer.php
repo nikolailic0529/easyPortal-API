@@ -62,7 +62,6 @@ class Customer extends Model {
     use HasType;
     use HasStatuses;
     use HasAssets;
-    use HasLocations;
     use HasContacts;
     use HasContracts;
     use HasQuotes;
@@ -70,7 +69,12 @@ class Customer extends Model {
     use SyncHasMany;
 
     /**
-     * @phpstan-use \App\Models\Relations\HasResellers<\App\Models\ResellerCustomer>
+     * @phpstan-use HasLocations<CustomerLocation>
+     */
+    use HasLocations;
+
+    /**
+     * @phpstan-use HasResellers<ResellerCustomer>
      */
     use HasResellers;
 

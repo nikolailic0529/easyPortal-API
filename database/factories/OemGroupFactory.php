@@ -11,6 +11,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method OemGroup create($attributes = [], ?Model $parent = null)
  * @method OemGroup make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<OemGroup>
  */
 class OemGroupFactory extends Factory {
     /**

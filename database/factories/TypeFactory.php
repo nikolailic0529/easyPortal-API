@@ -13,6 +13,8 @@ use function array_keys;
 /**
  * @method Type create($attributes = [], ?Model $parent = null)
  * @method Type make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Type>
  */
 class TypeFactory extends Factory {
     /**

@@ -2,9 +2,6 @@
 
 namespace App\Services\Search\Properties;
 
-/**
- * @template T of \App\Services\Search\Properties\Property|\App\Services\Search\Properties\Relation
- */
 abstract class Value extends Property {
     public function __construct(
         string $name,

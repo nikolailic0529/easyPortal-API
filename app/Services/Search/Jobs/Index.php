@@ -21,6 +21,9 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  * @see \Laravel\Scout\Jobs\RemoveFromSearch
  */
 class Index extends Job implements Initializable {
+    /**
+     * @phpstan-use ProcessorJob<Processor<Model&Searchable,\App\Services\Search\Processor\State<Model&Searchable>>>
+     */
     use ProcessorJob;
 
     /**

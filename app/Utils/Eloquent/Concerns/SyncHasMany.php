@@ -24,7 +24,7 @@ trait SyncHasMany {
      */
     protected function syncHasMany(string $relation, Collection|array $objects): void {
         // Prepare
-        /** @var HasMany $hasMany */
+        /** @var HasMany<$this> $hasMany */
         $hasMany = (new ModelHelper($this))->getRelation($relation);
 
         if (!($hasMany instanceof HasMany)) {

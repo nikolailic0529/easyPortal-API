@@ -17,15 +17,20 @@ use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\ImporterChunkData;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Document as SchemaDocument;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @extends Importer<SchemaDocument, ImporterChunkData, ImporterState>
+ */
 class DocumentsImporter extends Importer {
     protected function register(): void {
         $this->getContainer()->bind(DistributorFinder::class, DistributorLoaderFinder::class);

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Asset;
+use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\IteratorIterator;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Utils\Iterators\Contracts\ObjectIterator;
@@ -11,6 +12,13 @@ use LogicException;
 
 use function is_object;
 
+/**
+ * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
+ * @template TChunkData of \App\Services\DataLoader\Collector\Data
+ * @template TState of \App\Services\DataLoader\Importer\Importers\AssetsImporterState
+ *
+ * @extends AssetsImporter<TItem, TChunkData, TState>
+ */
 class AssetsIteratorImporter extends AssetsImporter {
     /**
      * @var ObjectIterator<ViewAsset>

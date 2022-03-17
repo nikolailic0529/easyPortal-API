@@ -13,6 +13,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Note create($attributes = [], ?Model $parent = null)
  * @method Note make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Note>
  */
 class NoteFactory extends Factory {
     /**

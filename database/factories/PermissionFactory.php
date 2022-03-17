@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Permission create($attributes = [], ?Model $parent = null)
  * @method Permission make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Permission>
  */
 class PermissionFactory extends Factory {
     /**

@@ -12,6 +12,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method ResellerLocation create($attributes = [], ?Model $parent = null)
  * @method ResellerLocation make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<ResellerLocation>
  */
 class ResellerLocationFactory extends Factory {
     /**

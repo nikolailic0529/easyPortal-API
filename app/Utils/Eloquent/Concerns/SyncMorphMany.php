@@ -23,7 +23,7 @@ trait SyncMorphMany {
         // TODO [refactor] Probably we need move it into MorphMany class
 
         // Prepare
-        /** @var MorphMany $morph */
+        /** @var MorphMany<$this> $morph */
         $morph = (new ModelHelper($this))->getRelation($relation);
         $model = $morph->make();
         $class = $model::class;
@@ -35,18 +35,19 @@ trait SyncMorphMany {
             ));
         }
 
-        if (!($model instanceof PolymorphicModel)) {
-            throw new InvalidArgumentException(sprintf(
-                'Related model should be instance of `%s`.',
-                PolymorphicModel::class,
-            ));
-        }
-
         // Create/Update existing
         $existing = $this->syncManyGetExisting($this, $relation)->map(new SetKey())->keyBy(new GetKey());
         $children = new EloquentCollection($objects);
 
         foreach ($children as $object) {
+            // Polymorphic?
+            if (!($object instanceof PolymorphicModel)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Related model should be instance of `%s`.',
+                    PolymorphicModel::class,
+                ));
+            }
+
             // Object supported by relation?
             if (!($object instanceof $class)) {
                 throw new InvalidArgumentException(sprintf(

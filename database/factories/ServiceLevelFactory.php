@@ -12,6 +12,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method ServiceLevel create($attributes = [], ?Model $parent = null)
  * @method ServiceLevel make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<ServiceLevel>
  */
 class ServiceLevelFactory extends Factory {
     /**

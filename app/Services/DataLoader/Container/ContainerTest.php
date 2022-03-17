@@ -13,6 +13,7 @@ use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
 /**
@@ -135,6 +136,8 @@ class ContainerTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Resolver<Model>
  */
 class ContainerTest_Resolver extends Resolver {
     // empty

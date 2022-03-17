@@ -14,6 +14,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method QuoteRequestAsset create($attributes = [], ?Model $parent = null)
  * @method QuoteRequestAsset make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<QuoteRequestAsset>
  */
 class QuoteRequestAssetFactory extends Factory {
     /**

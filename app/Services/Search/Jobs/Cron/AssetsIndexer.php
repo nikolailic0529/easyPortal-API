@@ -6,6 +6,8 @@ use App\Models\Asset;
 
 /**
  * Updates search index for Assets.
+ *
+ * @extends Indexer<Asset>
  */
 class AssetsIndexer extends Indexer {
     public function displayName(): string {

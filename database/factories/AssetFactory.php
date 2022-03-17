@@ -17,6 +17,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Asset create($attributes = [], ?Model $parent = null)
  * @method Asset make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Asset>
  */
 class AssetFactory extends Factory {
     /**

@@ -12,6 +12,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method RolePermission create($attributes = [], ?Model $parent = null)
  * @method RolePermission make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<RolePermission>
  */
 class RolePermissionFactory extends Factory {
     /**

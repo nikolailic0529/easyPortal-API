@@ -17,8 +17,15 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
  * @implements ObjectIterator<T>
  */
 class EloquentIterator implements ObjectIterator {
+    /**
+     * @phpstan-use Subjects<T>
+     */
     use Subjects;
     use ChunkSize;
+
+    /**
+     * @phpstan-use InitialState<T>
+     */
     use InitialState;
 
     /**

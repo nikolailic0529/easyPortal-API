@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Distributor create($attributes = [], ?Model $parent = null)
  * @method Distributor make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Distributor>
  */
 class DistributorFactory extends Factory {
     /**

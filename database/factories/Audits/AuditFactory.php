@@ -13,6 +13,8 @@ use function array_keys;
 /**
  * @method Audit create($attributes = [], ?Model $parent = null)
  * @method Audit make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Audit>
  */
 class AuditFactory extends Factory {
     /**

@@ -11,6 +11,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method ServiceGroup create($attributes = [], ?Model $parent = null)
  * @method ServiceGroup make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<ServiceGroup>
  */
 class ServiceGroupFactory extends Factory {
     /**

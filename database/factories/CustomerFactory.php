@@ -11,6 +11,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Customer create($attributes = [], ?Model $parent = null)
  * @method Customer make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Customer>
  */
 class CustomerFactory extends Factory {
     /**

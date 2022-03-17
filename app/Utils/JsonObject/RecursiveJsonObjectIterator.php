@@ -8,6 +8,10 @@ use RecursiveIterator;
 
 use function is_array;
 
+/**
+ * @extends ArrayIterator<array-key, JsonObject>
+ * @implements RecursiveIterator<array-key, JsonObject>
+ */
 class RecursiveJsonObjectIterator extends ArrayIterator implements RecursiveIterator {
     /**
      * @param JsonObject|array<JsonObject>|array<string, mixed> $object

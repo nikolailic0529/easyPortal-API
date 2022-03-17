@@ -13,6 +13,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method AssetWarranty create($attributes = [], ?Model $parent = null)
  * @method AssetWarranty make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<AssetWarranty>
  */
 class AssetWarrantyFactory extends Factory {
     /**

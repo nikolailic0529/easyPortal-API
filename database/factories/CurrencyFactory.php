@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Currency create($attributes = [], ?Model $parent = null)
  * @method Currency make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Currency>
  */
 class CurrencyFactory extends Factory {
     /**

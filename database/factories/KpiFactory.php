@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 /**
  * @method Kpi create($attributes = [], ?Model $parent = null)
  * @method Kpi make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Kpi>
  */
 class KpiFactory extends Factory {
     /**
