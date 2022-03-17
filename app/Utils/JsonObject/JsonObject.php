@@ -51,7 +51,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     /**
      * @param array<mixed> $json
      */
-    public function __construct(array $json = []) {
+    final public function __construct(array $json = []) {
         if ($json) {
             $properties = self::getDefinedProperties();
 

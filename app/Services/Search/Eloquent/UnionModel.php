@@ -18,6 +18,13 @@ use function config;
 class UnionModel extends Model {
     use Searchable;
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
+    final public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+    }
+
     public static function search(string $query = '', Closure $callback = null): UnionBuilder {
         return app()->make(UnionBuilder::class, [
             'model'      => new static(),
