@@ -51,7 +51,7 @@ class IndexControllerTest extends TestCase {
      */
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('not-graphql'),
+            new AnyOrganizationDataProvider(),
             new ArrayDataProvider([
                 'Accept text/html'                      => [
                     new Response(

@@ -100,7 +100,7 @@ class SignUpByInviteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('auth'),
+            new AnyOrganizationDataProvider(),
             new GuestDataProvider('auth'),
             new ArrayDataProvider([
                 'ok'                                                                      => [

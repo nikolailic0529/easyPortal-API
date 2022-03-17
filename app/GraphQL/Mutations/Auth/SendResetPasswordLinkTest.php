@@ -79,7 +79,7 @@ class SendResetPasswordLinkTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('sendResetPasswordLink'),
+            new AnyOrganizationDataProvider(),
             new GuestDataProvider('sendResetPasswordLink'),
             new ArrayDataProvider([
                 'no user'              => [

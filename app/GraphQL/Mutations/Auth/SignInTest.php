@@ -76,7 +76,7 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('signIn'),
+            new AnyOrganizationDataProvider(),
             new GuestDataProvider('signIn'),
             new ArrayDataProvider([
                 'no user'                           => [

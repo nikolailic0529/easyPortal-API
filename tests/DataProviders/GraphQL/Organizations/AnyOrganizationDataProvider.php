@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\TestCase;
 
 class AnyOrganizationDataProvider extends ArrayDataProvider {
-    public function __construct(string $root, string $id = null) {
+    public function __construct(string $id = null) {
         parent::__construct([
             'no organization is allowed' => [
                 new UnknownValue(),

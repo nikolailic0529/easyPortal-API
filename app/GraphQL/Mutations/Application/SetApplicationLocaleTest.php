@@ -48,7 +48,7 @@ class SetApplicationLocaleTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('setApplicationLocale'),
+            new AnyOrganizationDataProvider(),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
