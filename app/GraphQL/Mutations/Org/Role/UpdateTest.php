@@ -38,8 +38,6 @@ class UpdateTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed> $data
-     *
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,

@@ -295,7 +295,7 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @return array<string,array<mixed>,mixed>
+     * @return array<string,array<mixed>>
      */
     public function dataProviderGetGateArguments(): array {
         $model = new class() extends Model {

@@ -15,7 +15,8 @@ use App\Models\Scopes\ContractType;
 use App\Models\Scopes\DocumentTypeQuery;
 use App\Models\Scopes\DocumentTypeScope;
 use App\Models\Scopes\QuoteType;
-use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
@@ -89,10 +90,10 @@ use function count;
  * @method static Builder|Document queryQuotes()
  * @mixin Eloquent
  */
-class Document extends Model {
+class Document extends Model implements OwnedByOrganization {
     use HasFactory;
     use Searchable;
-    use OwnedByReseller;
+    use OwnedByResellerImpl;
     use HasOem;
     use HasType;
     use HasStatuses;

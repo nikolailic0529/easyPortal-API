@@ -8,6 +8,7 @@ use App\Models\Relations\HasOem;
 use App\Models\Relations\HasType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
@@ -50,9 +51,9 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|QuoteRequest query()
  * @mixin Eloquent
  */
-class QuoteRequest extends Model implements Auditable {
+class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use HasOem;
     use HasCustomerNullable;
     use HasType;

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasOrganizationNullable;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
@@ -36,11 +37,11 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|Role query()
  * @mixin Eloquent
  */
-class Role extends Model implements Auditable, OwnedByShared {
+class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShared {
     use HasFactory;
     use HasOrganizationNullable;
     use SyncBelongsToMany;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

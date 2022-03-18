@@ -5,6 +5,7 @@ namespace App\Models\Audits;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Carbon\CarbonImmutable;
 use Database\Factories\Audits\AuditFactory;
@@ -33,9 +34,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Audit query()
  * @mixin Eloquent
  */
-class Audit extends Model {
+class Audit extends Model implements OwnedByOrganization {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

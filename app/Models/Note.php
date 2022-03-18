@@ -7,6 +7,7 @@ use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
@@ -38,9 +39,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Note query()
  * @mixin Eloquent
  */
-class Note extends Model {
+class Note extends Model implements OwnedByOrganization {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use SyncHasMany;
     use HasUser;
     use HasOrganization;

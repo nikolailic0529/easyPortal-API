@@ -102,7 +102,7 @@ class AssetsAggregated {
         foreach ($results as $result) {
             /** @var Coverage $result */
             $aggregated[] = [
-                'count'       => $result->assets_count,
+                'count'       => $result->getAttribute('assets_count'),
                 'coverage_id' => $result->getKey(),
                 'coverage'    => $result,
             ];

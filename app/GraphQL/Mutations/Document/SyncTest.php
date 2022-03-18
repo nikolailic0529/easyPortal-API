@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
+use App\Models\User;
 use App\Services\DataLoader\Jobs\DocumentSync;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -37,8 +38,8 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed> $settings
-     * @param Closure(): string   $prepare
+     * @param array<string,mixed>                           $settings
+     * @param Closure(static, ?Organization, ?User): string $prepare
      */
     public function testInvoke(
         Response $expected,

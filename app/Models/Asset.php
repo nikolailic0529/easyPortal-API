@@ -10,7 +10,8 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasStatus;
 use App\Models\Relations\HasTags;
 use App\Models\Relations\HasTypeNullable;
-use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
@@ -78,9 +79,9 @@ use function count;
  * @method static Builder|Asset query()
  * @mixin Eloquent
  */
-class Asset extends Model {
+class Asset extends Model implements OwnedByOrganization {
     use Searchable;
-    use OwnedByReseller;
+    use OwnedByResellerImpl;
     use HasFactory;
     use SyncHasMany;
     use HasOem;

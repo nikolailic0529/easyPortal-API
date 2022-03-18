@@ -9,7 +9,8 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatusNullable;
 use App\Models\Relations\HasTypeNullable;
-use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
@@ -55,8 +56,8 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|AssetWarranty query()
  * @mixin Eloquent
  */
-class AssetWarranty extends Model implements OwnedByShared {
-    use OwnedByReseller;
+class AssetWarranty extends Model implements OwnedByOrganization, OwnedByShared {
+    use OwnedByResellerImpl;
     use HasFactory;
     use HasAsset;
     use HasServiceGroup;

@@ -35,7 +35,7 @@ class UpdateClientSettingsTest extends TestCase {
      *
      * @param Response|array{response:Response,content:array<mixed>} $expected
      * @param array<mixed>                                           $content
-     * @param array{name:string,value:string}                        $settings
+     * @param array<array{name:string,value:string}>                 $settings
      */
     public function testInvoke(
         Response|array $expected,

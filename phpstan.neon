@@ -16,6 +16,7 @@ parameters:
 
     # Stubs
     stubFiles:
+        - ./vendor/nuwave/lighthouse/_ide_helper.php
         - ./tests/Stubs/Factory.stub
 
 includes:

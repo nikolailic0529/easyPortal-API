@@ -2,7 +2,6 @@
 
 namespace Tests\Helpers;
 
-use App\Services\Logger\Logger;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use ReflectionClass;
@@ -23,8 +22,6 @@ class Models {
         return ClassMap::get()->filter(static function (ReflectionClass $class) use ($ignored): bool {
             return $class->isSubclassOf(Model::class)
                 && !$class->isTrait()
-                && !$class->isAbstract()
-                && $class->newInstance()->getConnectionName() !== Logger::CONNECTION
                 && !isset($ignored[$class->getName()]);
         });
     }

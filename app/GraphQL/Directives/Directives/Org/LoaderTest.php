@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\Organization\CurrentOrganization;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Closure;
@@ -449,7 +449,7 @@ class LoaderTest_ModelWithoutScope extends Model {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class LoaderTest_ModelWithScopeNotRelation extends Model {
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 }
 
 /**
@@ -457,7 +457,7 @@ class LoaderTest_ModelWithScopeNotRelation extends Model {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class LoaderTest_ModelWithScopeRelationUnsupported extends Model {
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 
     public function getOrganizationColumn(): string {
         return 'organization.id';
@@ -473,7 +473,7 @@ class LoaderTest_ModelWithScopeRelationUnsupported extends Model {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class LoaderTest_ModelWithScopeRelationSupported extends Model {
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

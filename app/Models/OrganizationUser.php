@@ -8,6 +8,7 @@ use App\Models\Relations\HasTeam;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Carbon\CarbonImmutable;
@@ -39,9 +40,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|OrganizationUser query()
  * @mixin Eloquent
  */
-class OrganizationUser extends Model implements Auditable, Upsertable {
+class OrganizationUser extends Model implements OwnedByOrganization, Auditable, Upsertable {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use HasOrganization;
     use HasUser;
     use HasRole;

@@ -31,7 +31,7 @@ class ContractsAggregatedTest extends TestCase {
      * @dataProvider dataProviderQuery
      *
      * @param array<mixed> $settings
-     * @param array{where: array<mixed>} $params
+     * @param array{where?: array<mixed>} $params
      */
     public function testQuery(
         Response $expected,

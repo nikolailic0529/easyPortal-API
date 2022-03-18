@@ -7,6 +7,7 @@ use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\ChangeRequestFactory;
@@ -41,9 +42,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ChangeRequest query()
  * @mixin Eloquent
  */
-class ChangeRequest extends PolymorphicModel implements Auditable {
+class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Auditable {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use HasFiles;
     use HasOrganization;
     use HasUser;

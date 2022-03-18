@@ -11,6 +11,7 @@ use App\Models\Relations\HasQuotes;
 use App\Models\Relations\HasResellers;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
@@ -56,7 +57,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Customer query()
  * @mixin Eloquent
  */
-class Customer extends Model {
+class Customer extends Model implements OwnedByOrganization {
     use Searchable;
     use HasFactory;
     use HasType;

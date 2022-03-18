@@ -249,9 +249,12 @@ class UpdateTest extends TestCase {
                     ->andReturn($newWelcomeUrl);
             } else {
                 $client
-                    ->shouldNotReceive('updateCompanyLogo')
-                    ->shouldNotReceive('updateCompanyFavicon')
-                    ->shouldNotReceive('updateCompanyMainImageOnTheRight')
+                    ->shouldNotReceive('updateCompanyLogo');
+                $client
+                    ->shouldNotReceive('updateCompanyFavicon');
+                $client
+                    ->shouldNotReceive('updateCompanyMainImageOnTheRight');
+                $client
                     ->shouldNotReceive('updateBrandingData');
             }
         }

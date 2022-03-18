@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Services\Logger\Logger;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
+use ReflectionClass;
 use Tests\Helpers\Models;
 use Tests\TestCase;
 
@@ -49,8 +51,13 @@ class AppServiceProviderTest extends TestCase {
     public function testBootMorphMap(): void {
         $expected = [];
         $actual   = Relation::$morphMap;
+        $models   = Models::get()
+            ->filter(static function (ReflectionClass $class): bool {
+                return !$class->isAbstract()
+                    && $class->newInstance()->getConnectionName() !== Logger::CONNECTION;
+            });
 
-        foreach (Models::get() as $model) {
+        foreach ($models as $model) {
             $expected[$model->getShortName()] = $model->getName();
         }
 
