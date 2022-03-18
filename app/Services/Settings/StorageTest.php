@@ -83,4 +83,20 @@ class StorageTest extends TestCase {
             file_get_contents($json),
         );
     }
+
+    /**
+     * @covers ::delete
+     */
+    public function testDelete(): void {
+        $storage = Mockery::mock(Storage::class);
+        $storage->shouldAllowMockingProtectedMethods();
+        $storage->makePartial();
+        $storage
+            ->shouldReceive('save')
+            ->with([])
+            ->once()
+            ->andReturn(true);
+
+        $storage->delete();
+    }
 }

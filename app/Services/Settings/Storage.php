@@ -13,6 +13,7 @@ use function file_put_contents;
 use function is_file;
 use function json_decode;
 use function json_encode;
+use function unlink;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
@@ -93,7 +94,11 @@ class Storage {
         return true;
     }
 
+    public function delete(): bool {
+        return $this->save([]);
+    }
+
     protected function getPath(): string {
-        return $this->app->storagePath().'/'.Settings::PATH;
+        return $this->app->storagePath(Settings::PATH);
     }
 }
