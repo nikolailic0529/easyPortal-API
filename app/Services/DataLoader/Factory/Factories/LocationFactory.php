@@ -16,7 +16,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use League\Geotools\Coordinate\Coordinate;
-use League\Geotools\Geotools;
+use League\Geotools\Geohash\Geohash;
 use Throwable;
 
 use function array_filter;
@@ -232,7 +232,7 @@ class LocationFactory extends ModelFactory {
         try {
             $length     = LocationModel::GEOHASH_LENGTH;
             $coordinate = new Coordinate([$latitude, $longitude]);
-            $geohash    = (new Geotools())->geohash()->encode($coordinate, $length)->getGeohash();
+            $geohash    = (new Geohash())->encode($coordinate, $length)->getGeohash();
         } catch (Throwable) {
             // empty
         }

@@ -16,7 +16,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use League\Geotools\Coordinate\Coordinate;
-use League\Geotools\Geotools;
+use League\Geotools\Geohash\Geohash;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
@@ -96,12 +96,11 @@ class MapTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $tools   = new Geotools();
         $params  = [
             'level'      => 2,
             'boundaries' => [
-                $tools->geohash()->encode(new Coordinate([0, 0]))->getGeohash(),
-                $tools->geohash()->encode(new Coordinate([10, 10]))->getGeohash(),
+                (new Geohash())->encode(new Coordinate([0, 0]))->getGeohash(),
+                (new Geohash())->encode(new Coordinate([10, 10]))->getGeohash(),
             ],
         ];
         $factory = static function (TestCase $test, Organization $organization): void {

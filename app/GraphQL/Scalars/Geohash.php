@@ -10,7 +10,6 @@ use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
 use InvalidArgumentException;
 use League\Geotools\Geohash\Geohash as GeotoolsGeohash;
-use League\Geotools\Geotools;
 
 use function is_string;
 use function mb_strlen;
@@ -38,14 +37,12 @@ class Geohash extends ScalarType {
         try {
             if ($value instanceof GeotoolsGeohash) {
                 if ($value->getGeohash() === null) {
-                    $tools = new Geotools();
-                    $value = $tools->geohash()->encode($value->getCoordinate());
+                    $value = (new GeotoolsGeohash())->encode($value->getCoordinate());
                 }
             } elseif (is_string($value)) {
                 $length = mb_strlen($value);
-                $tools  = new Geotools();
-                $value  = $tools->geohash()->decode($value);
-                $value  = $tools->geohash()->encode($value->getCoordinate(), $length);
+                $value  = (new GeotoolsGeohash())->decode($value);
+                $value  = (new GeotoolsGeohash())->encode($value->getCoordinate(), $length);
             } else {
                 throw new InvalidArgumentException('This is not a geohash.');
             }

@@ -8,7 +8,6 @@ use GraphQL\Language\AST\BooleanValueNode;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use League\Geotools\Geohash\Geohash as GeotoolsGeohash;
-use League\Geotools\Geotools;
 use Tests\TestCase;
 
 use function sprintf;
@@ -72,16 +71,14 @@ class GeohashTest extends TestCase {
      * @return array<string,array{Exception|string,mixed}>
      */
     public function dataProviderSerialize(): array {
-        $tools = new Geotools();
-
         return [
             'valid geohash'           => [
                 'spey',
-                $tools->geohash()->encode($tools->geohash()->decode('spey61y')->getCoordinate(), 4),
+                (new GeotoolsGeohash())->encode((new GeotoolsGeohash())->decode('spey61y')->getCoordinate(), 4),
             ],
             'valid geohash (decoded)' => [
                 'spey61ys0000',
-                $tools->geohash()->decode('spey61y'),
+                (new GeotoolsGeohash())->decode('spey61y'),
             ],
             'valid geohash (string)'  => [
                 'spey',
@@ -102,19 +99,17 @@ class GeohashTest extends TestCase {
      * @return array<string,array{Exception|GeotoolsGeohash,mixed}>
      */
     public function dataProviderParseValue(): array {
-        $tools = new Geotools();
-
         return [
             'valid geohash'           => [
-                $tools->geohash()->encode($tools->geohash()->decode('spey61y')->getCoordinate(), 4),
-                $tools->geohash()->encode($tools->geohash()->decode('spey61y')->getCoordinate(), 4),
+                (new GeotoolsGeohash())->encode((new GeotoolsGeohash())->decode('spey61y')->getCoordinate(), 4),
+                (new GeotoolsGeohash())->encode((new GeotoolsGeohash())->decode('spey61y')->getCoordinate(), 4),
             ],
             'valid geohash (decoded)' => [
-                $tools->geohash()->encode($tools->geohash()->decode('spey61ys0000')->getCoordinate()),
-                (new Geotools())->geohash()->decode('spey61y'),
+                (new GeotoolsGeohash())->encode((new GeotoolsGeohash())->decode('spey61ys0000')->getCoordinate()),
+                (new GeotoolsGeohash())->decode('spey61y'),
             ],
             'valid geohash (string)'  => [
-                $tools->geohash()->encode($tools->geohash()->decode('spey61ys0000')->getCoordinate(), 4),
+                (new GeotoolsGeohash())->encode((new GeotoolsGeohash())->decode('spey61ys0000')->getCoordinate(), 4),
                 'spey',
             ],
             'invalid geohash'         => [
@@ -132,11 +127,9 @@ class GeohashTest extends TestCase {
      * @return array<string,array{Exception|GeotoolsGeohash,Node}>
      */
     public function dataProvideParseLiteral(): array {
-        $tools = new Geotools();
-
         return [
             StringValueNode::class  => [
-                $tools->geohash()->encode($tools->geohash()->decode('spey61y')->getCoordinate(), 7),
+                (new GeotoolsGeohash())->encode((new GeotoolsGeohash())->decode('spey61y')->getCoordinate(), 7),
                 new StringValueNode(['value' => 'spey61y']),
             ],
             BooleanValueNode::class => [

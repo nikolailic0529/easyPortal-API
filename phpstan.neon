@@ -18,6 +18,7 @@ parameters:
     stubFiles:
         - ./vendor/nuwave/lighthouse/_ide_helper.php
         - ./tests/Stubs/Factory.stub
+        - ./tests/Stubs/Geotools.stub
 
 includes:
     - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
