@@ -133,7 +133,7 @@ class Asset extends Model implements OwnedByOrganization {
     }
 
     /**
-     * @param BaseCollection<int,AssetWarranty>|array<AssetWarranty> $entries
+     * @param BaseCollection<int,AssetWarranty>|array<AssetWarranty> $warranties
      */
     public function setWarrantiesAttribute(BaseCollection|array $warranties): void {
         $this->syncHasMany('warranties', $warranties);

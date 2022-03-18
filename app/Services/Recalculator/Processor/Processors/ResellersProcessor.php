@@ -20,7 +20,7 @@ use function count;
 use const SORT_REGULAR;
 
 /**
- * @extends Processor<Reseller,ResellersChunkData>
+ * @extends Processor<Reseller,ResellersChunkData,EloquentState<Reseller>>
  */
 class ResellersProcessor extends Processor {
     protected function getModel(): string {

@@ -177,7 +177,7 @@ class Logger {
         $children = [];
 
         foreach ($this->stack as $item) {
-            if ($children || $item->getKey() === $transaction) {
+            if ((bool) $children || $item->getKey() === $transaction) {
                 $children[] = $item->getKey();
             }
         }

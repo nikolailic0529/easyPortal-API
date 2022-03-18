@@ -89,7 +89,7 @@ abstract class Notification extends IlluminateNotification {
         $message      = (new MailMessage())
             ->subject($translate('subject', $replacements))
             ->when(
-                $translate('level'),
+                $translate('level', $replacements),
                 static function (MailMessage $message, string $level): MailMessage {
                     return $message->level($level);
                 },

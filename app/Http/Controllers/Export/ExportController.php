@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
-use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use Barryvdh\Snappy\PdfWrapper;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\WriterInterface;
@@ -63,6 +63,7 @@ class ExportController extends Controller {
         protected CreatesContext $context,
         protected Helper $helper,
         protected ExceptionHandler $exceptionHandler,
+        protected PdfWrapper $pdf,
     ) {
         // empty
     }
@@ -84,11 +85,13 @@ class ExportController extends Controller {
         $iterator = $this->getRowsIterator($request, $format, $headers);
         $items    = iterator_to_array($iterator);
         $rows     = array_merge($rows, $items);
-        $pdf      = PDF::loadView('exports.pdf', [
-            'rows' => $rows,
-        ]);
+        $pdf      = $this->pdf
+            ->loadView('exports.pdf', [
+                'rows' => $rows,
+            ])
+            ->download('export.pdf');
 
-        return $pdf->download('export.pdf');
+        return $pdf;
     }
 
     protected function excel(

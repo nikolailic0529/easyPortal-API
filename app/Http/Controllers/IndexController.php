@@ -13,7 +13,7 @@ use function array_merge;
 
 class IndexController extends Controller {
     /**
-     * @return \View|array<string,string>
+     * @return View|array<string,string>
      */
     public function index(
         Request $request,

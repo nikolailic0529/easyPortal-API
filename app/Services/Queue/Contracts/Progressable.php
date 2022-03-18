@@ -4,7 +4,7 @@ namespace App\Services\Queue\Contracts;
 
 interface Progressable {
     /**
-     * @return callable(mixed ...): \App\Services\Queue\Progress|null
+     * @return callable(mixed ...): ?\App\Services\Queue\Progress
      */
     public function getProgressCallback(): callable;
 

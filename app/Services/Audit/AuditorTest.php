@@ -176,8 +176,6 @@ class AuditorTest extends TestCase {
     /**
      * @covers ::create
      * @dataProvider dataProviderCreate
-     *
-     * @param array<string,mixed> $settings
      */
     public function testCreate(Closure $expectedFactory, Closure $prepare = null): void {
         $user         = User::factory()->create([

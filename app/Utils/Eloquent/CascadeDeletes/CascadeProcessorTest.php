@@ -138,16 +138,13 @@ class CascadeProcessorTest extends TestCase {
 
         $model = Mockery::mock(Model::class);
         $model->makePartial();
-        $model->forceDeleting = true;
 
         $child = Mockery::mock(Model::class);
         $child->makePartial();
         $child
             ->shouldReceive('delete')
             ->once()
-            ->andReturnUsing(static function () use ($child): bool {
-                self::assertTrue($child->forceDeleting ?? null);
-
+            ->andReturnUsing(static function (): bool {
                 return true;
             });
 

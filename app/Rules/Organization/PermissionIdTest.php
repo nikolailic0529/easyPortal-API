@@ -40,8 +40,8 @@ class PermissionIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param array<AuthPermission> $permissions
-     * @param Closure(): Permission $permissionFactory
+     * @param array<AuthPermission>                      $permissions
+     * @param Closure(static, ?Organization): Permission $permissionFactory
      */
     public function testPasses(
         bool $expected,

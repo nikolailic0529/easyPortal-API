@@ -214,8 +214,11 @@ trait SyncBelongsToMany {
         }
     }
 
+    /**
+     * @return BelongsToMany<static>
+     */
     private function getBelongsToMany(string $relation): BelongsToMany {
-        /** @var BelongsToMany $belongsToMany */
+        /** @var BelongsToMany<static> $belongsToMany */
         $belongsToMany = (new ModelHelper($this))->getRelation($relation);
 
         if (!($belongsToMany instanceof BelongsToMany)) {

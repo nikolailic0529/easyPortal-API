@@ -16,6 +16,7 @@ use ReflectionMethod;
 
 use function array_filter;
 use function array_map;
+use function property_exists;
 use function reset;
 use function sprintf;
 
@@ -76,7 +77,11 @@ class CascadeProcessor {
             function () use ($model, $name, $relation): void {
                 foreach ($this->getRelatedObjects($model, $name, $relation) as $object) {
                     if ($object instanceof Model) {
-                        $object->forceDeleting = $model->forceDeleting ?? false;
+                        if (property_exists($object, 'forceDeleting')) {
+                            $object->forceDeleting = property_exists($model, 'forceDeleting')
+                                ? $model->forceDeleting
+                                : false;
+                        }
 
                         if (!$object->delete()) {
                             throw new Exception('Unknown error while deleting children.');
@@ -102,7 +107,7 @@ class CascadeProcessor {
             // empty
         }
 
-        if ($values && $this->isBelongsToMany($model, $name, $relation)) {
+        if ($values && $relation instanceof BelongsToMany && $this->isBelongsToMany($model, $name, $relation)) {
             $accessor = $relation->getPivotAccessor();
             $values   = array_filter(array_map(static function (Model $model) use ($accessor): ?Model {
                 return $model->getAttribute($accessor);

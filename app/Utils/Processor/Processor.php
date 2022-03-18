@@ -172,6 +172,7 @@ abstract class Processor {
     protected function run(State $state): void {
         $data     = null;
         $sync     = static function () use (&$iterator, $state): void {
+            /** @var $iterator ObjectIterator<mixed> */
             $state->index  = $iterator->getIndex();
             $state->offset = $iterator->getOffset();
         };

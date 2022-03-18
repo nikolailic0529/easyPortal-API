@@ -110,8 +110,6 @@ class Audit implements Subscriber {
     }
 
     /**
-     * @param array<string, mixed> $extra
-     *
      * @return array<string, mixed>
      */
     protected function getModelContext(EloquentObject $object, Action $action): array {

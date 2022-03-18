@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use function count;
 
 /**
- * @extends Processor<Customer,CustomersChunkData>
+ * @extends Processor<Customer,CustomersChunkData, EloquentState<Customer>>
  */
 class CustomersProcessor extends Processor {
     protected function getModel(): string {

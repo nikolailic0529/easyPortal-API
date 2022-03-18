@@ -167,6 +167,8 @@ class SettingsTest extends TestCase {
                 return $setting->getName();
             })
             ->map(static function (Setting $setting): string {
+                self::assertInstanceOf(Value::class, $setting);
+
                 return $setting->getValue();
             })
             ->all();

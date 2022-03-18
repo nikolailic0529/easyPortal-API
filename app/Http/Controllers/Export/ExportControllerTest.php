@@ -280,8 +280,8 @@ class ExportControllerTest extends TestCase {
 
                     $xlsx->open($file->getPathname());
 
+                    /** @var Sheet $sheet */
                     foreach ($xlsx->getSheetIterator() as $sheet) {
-                        /** @var Sheet $sheet */
                         foreach ($sheet->getRowIterator() as $row) {
                             $sheets[$sheet->getIndex()] = ($sheets[$sheet->getIndex()] ?? 0) + 1;
                         }

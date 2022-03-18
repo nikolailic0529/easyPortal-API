@@ -33,7 +33,6 @@ class AssetIdTest extends TestCase {
     /**
      * @covers ::passes
      *
-     * @param array<string, mixed> $settings
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, Closure $assetFactory): void {

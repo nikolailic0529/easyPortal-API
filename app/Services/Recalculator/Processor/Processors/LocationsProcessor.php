@@ -19,7 +19,7 @@ use function count;
 use const SORT_REGULAR;
 
 /**
- * @extends Processor<Location,LocationsChunkData>
+ * @extends Processor<Location,LocationsChunkData,EloquentState<Location>>
  */
 class LocationsProcessor extends Processor {
     protected function getModel(): string {

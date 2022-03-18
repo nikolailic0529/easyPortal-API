@@ -19,10 +19,12 @@ class Configurator {
         // empty
     }
 
-    /**
-     * @param Logger&MonologLogger $logger
-     */
-    public function __invoke(Logger $logger): void {
+    public function __invoke(Logger|MonologLogger $logger): void {
+        // Monolog?
+        if (!($logger instanceof MonologLogger)) {
+            return;
+        }
+
         // Fix formatters settings
         foreach ($logger->getHandlers() as $handler) {
             // Possible?

@@ -12,7 +12,7 @@ use Nuwave\Lighthouse\Schema\Source\SchemaSourceProvider;
 use Nuwave\Lighthouse\Testing\TestSchemaProvider;
 
 class ASTBuilderPersistent extends ASTBuilder {
-    private static DocumentAST $ast;
+    protected static DocumentAST $ast;
 
     public function __construct(
         DirectiveLocator $directiveLocator,

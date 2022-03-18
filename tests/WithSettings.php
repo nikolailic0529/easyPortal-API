@@ -10,7 +10,7 @@ use Illuminate\Contracts\Config\Repository;
  */
 trait WithSettings {
     /**
-     * @param Closure():array<string,mixed>|array<string,mixed>|null $settings
+     * @param Closure(static):array<string,mixed>|array<string,mixed>|null $settings
      */
     public function setSettings(Closure|array|null $settings): void {
         if ($settings instanceof Closure) {

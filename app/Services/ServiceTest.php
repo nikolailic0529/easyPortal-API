@@ -64,7 +64,7 @@ class ServiceTest extends TestCase {
         self::assertNull($service->get('b', $factory));
 
         $spy
-            ->shouldNotHaveReceived()
+            ->shouldNotHaveReceived(null)
             ->with(123);
     }
 

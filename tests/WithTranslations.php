@@ -10,9 +10,9 @@ use Illuminate\Translation\Translator;
  */
 trait WithTranslations {
     /**
-     * @param Closure(TestCase, string, string):array<string,array<string,string>>
-     *     |array<string,array<string,string>>
-     *     |null $translations
+     * @template T of array<string,array<string,string>>
+     *
+     * @param Closure(static, string, string):T|T|null $translations
      */
     public function setTranslations(Closure|array|null $translations): void {
         /**
