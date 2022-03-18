@@ -39,7 +39,7 @@ class DateTimeNormalizer implements ValueNormalizer {
         }
 
         // Set Timezone
-        if ($value instanceof DateTimeInterface) {
+        if ($value) {
             $tz    = $this->config->get('app.timezone') ?: 'UTC';
             $value = $value->setTimezone($tz);
         } else {

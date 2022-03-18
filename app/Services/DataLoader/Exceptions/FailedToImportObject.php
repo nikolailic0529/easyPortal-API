@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Exceptions;
 use App\Exceptions\Contracts\GenericException;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\TypeWithId;
 use ReflectionClass;
 use Throwable;
 
@@ -20,7 +21,7 @@ final class FailedToImportObject extends FailedToProcessObject implements Generi
             sprintf(
                 'Failed to import %s `%s`.',
                 (new ReflectionClass($this->object))->getShortName(),
-                $this->object->id ?? '<unknown>',
+                ($this->object instanceof TypeWithId ? $this->object->id : null) ?? '<unknown>',
             ),
             $previous,
         );

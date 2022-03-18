@@ -672,7 +672,7 @@ class Client {
     }
 
     /**
-     * @template T
+     * @template T of object
      *
      * @param array<mixed>             $params
      * @param Closure(array<mixed>): T $retriever

@@ -37,7 +37,7 @@ class ChildrenTest extends TestCase {
         ]);
         $modelShouldBeIgnored = (clone $model)->forceFill([
             'id'       => '81ab5bcb-abb9-4b2b-ad6c-d92b4fd7b5e8',
-            'property' => $modelShouldBeReused->property,
+            'property' => $modelShouldBeReused->getAttribute('property'),
         ]);
         $modelShouldBeDeleted = (clone $model)->forceFill([
             'id'       => 'efa31a49-2bd0-4e22-a659-d63a9827d770',
@@ -49,7 +49,7 @@ class ChildrenTest extends TestCase {
             'property' => $this->faker->uuid,
         ]);
         $typeShouldBeUpdated  = new $type([
-            'key'      => $modelShouldBeUpdated->key,
+            'key'      => $modelShouldBeUpdated->getAttribute('key'),
             'property' => $this->faker->uuid,
         ]);
         $factory              = function (Type $type) use ($model): Model {
@@ -83,7 +83,7 @@ class ChildrenTest extends TestCase {
             }),
             (clone $model)->forceFill([
                 'id'       => $modelShouldBeUpdated->getKey(),
-                'key'      => $modelShouldBeUpdated->key,
+                'key'      => $modelShouldBeUpdated->getAttribute('key'),
                 'property' => $typeShouldBeUpdated->property,
             ]),
         ]);

@@ -38,7 +38,7 @@ class WithLocationsTest extends TestCase {
      *
      * @dataProvider dataProviderCompanyLocations
      *
-     * @param Closure(static): Reseller|Customer $companyFactory
+     * @param Closure(static): (Reseller|Customer) $companyFactory
      */
     public function testCompanyLocations(Closure $companyFactory): void {
         // Prepare

@@ -61,6 +61,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -360,7 +361,7 @@ class DocumentFactory extends ModelFactory {
                     // Prefetch
                     $this->getAssetResolver()->prefetch(
                         (new ImporterChunkData($document->documentEntries))->get(Asset::class),
-                        static function (Collection $assets): void {
+                        static function (EloquentCollection $assets): void {
                             $assets->loadMissing('oem');
                         },
                     );

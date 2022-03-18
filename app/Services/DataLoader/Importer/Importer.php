@@ -9,6 +9,7 @@ use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Processor\Processor;
@@ -30,7 +31,7 @@ use function array_merge;
 abstract class Importer extends Processor {
     private ?DateTimeInterface $from   = null;
     private bool               $update = true;
-    private Factory            $factory;
+    private ModelFactory       $factory;
     private Resolver           $resolver;
     private Collector          $collector;
 
@@ -98,6 +99,7 @@ abstract class Importer extends Processor {
         }
 
         // Import
+        /** @phpstan-ignore-next-line todo(DataLoader): would be good to use interface */
         if ($this->resolver->get($item->id)) {
             if ($state->update) {
                 $this->factory->create($item);

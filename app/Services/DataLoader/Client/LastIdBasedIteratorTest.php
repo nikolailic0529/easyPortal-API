@@ -65,7 +65,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $expected = ['6', '7'];
         $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
-            return $type->id ?? null;
+            return $type instanceof TypeWithId ? $type->id : null;
         }, $actual);
 
         self::assertEquals($expected, $actual);
@@ -120,7 +120,7 @@ class LastIdBasedIteratorTest extends TestCase {
             ->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
-            return $type->id ?? null;
+            return $type instanceof TypeWithId ? $type->id : null;
         }, $actual);
 
         self::assertEquals($expected, $actual);

@@ -135,10 +135,11 @@ class CustomerFactory extends CompanyFactory {
      * @return Collection<int, ResellerCustomer>
      */
     protected function resellers(Customer $customer, array $kpis = null): Collection {
-        $pivots   = new Collection();
+        /** @var Collection<int, ResellerCustomer> $existing https://github.com/phpstan/phpstan/issues/6849 */
         $existing = $customer->resellersPivots->keyBy(
             $customer->resellers()->getRelatedPivotKeyName(),
         );
+        $pivots   = new Collection();
 
         foreach ((array) $kpis as $kpi) {
             // Reseller?

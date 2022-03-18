@@ -103,8 +103,8 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param array<mixed>                                $keys
-     * @param Closure(Collection<int, TModel>): void|null $callback
+     * @param array<mixed>                                                              $keys
+     * @param Closure(\Illuminate\Database\Eloquent\Collection<int, TModel>): void|null $callback
      */
     protected function prefetch(array $keys, Closure|null $callback = null): static {
         // Possible?

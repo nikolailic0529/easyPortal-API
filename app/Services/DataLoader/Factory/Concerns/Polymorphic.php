@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 use App\Models\Contact;
 use App\Models\Location;
 use App\Models\Type;
+use App\Services\DataLoader\Schema\Type as SchemaType;
 use App\Utils\Eloquent\Model;
 use Closure;
 use SplObjectStorage;
@@ -22,10 +23,10 @@ trait Polymorphic {
      * @template T of \App\Utils\Eloquent\Model
      * @template R of \App\Models\Contact|\App\Models\Location
      *
-     * @param T                                                    $owner
-     * @param array<\App\Services\DataLoader\Schema\Type>          $objects
-     * @param Closure(): \App\Services\DataLoader\Schema\Type      $getType
-     * @param Closure(T, \App\Services\DataLoader\Schema\Type): ?R $factory
+     * @param T                               $owner
+     * @param array<SchemaType>               $objects
+     * @param Closure(SchemaType): SchemaType $getType
+     * @param Closure(T, SchemaType): ?R      $factory
      *
      * @return array<R>
      */

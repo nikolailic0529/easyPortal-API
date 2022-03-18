@@ -66,6 +66,9 @@ class ResellerLoader extends Loader {
             ->setResellerId($owner->getKey());
     }
 
+    /**
+     * @param TOwner $owner
+     */
     protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
         return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
     }

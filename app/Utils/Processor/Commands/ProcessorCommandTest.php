@@ -360,6 +360,8 @@ class ProcessorCommandTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends ProcessorCommand<Processor<mixed,mixed,State>>
  */
 abstract class ProcessorCommand__Command extends ProcessorCommand {
     protected function getReplacementsServiceName(): string {

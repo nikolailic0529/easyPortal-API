@@ -28,9 +28,11 @@ class CacheTest extends TestCase {
 
         self::assertNull($cache->getByRetriever('key', new Key($normalizer, [$this::class])));
         self::assertSame($item, $cache->getByRetriever('key', new Key($normalizer, [$item->getKey()])));
-        self::assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [$item->property])));
         self::assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [
-            mb_strtoupper($item->property),
+            $item->getAttribute('property'),
+        ])));
+        self::assertSame($item, $cache->getByRetriever('property', new Key($normalizer, [
+            mb_strtoupper($item->getAttribute('property')),
         ])));
     }
 
@@ -45,9 +47,9 @@ class CacheTest extends TestCase {
 
         self::assertFalse($cache->hasByRetriever('key', new Key($normalizer, [$this::class])));
         self::assertTrue($cache->hasByRetriever('key', new Key($normalizer, [$item->getKey()])));
-        self::assertTrue($cache->hasByRetriever('property', new Key($normalizer, [$item->property])));
+        self::assertTrue($cache->hasByRetriever('property', new Key($normalizer, [$item->getAttribute('property')])));
         self::assertTrue($cache->hasByRetriever('property', new Key($normalizer, [
-            mb_strtoupper($item->property),
+            mb_strtoupper($item->getAttribute('property')),
         ])));
     }
 
@@ -62,9 +64,9 @@ class CacheTest extends TestCase {
 
         self::assertFalse($cache->has(new Key($normalizer, [$this::class])));
         self::assertTrue($cache->has(new Key($normalizer, [$item->getKey()])));
-        self::assertTrue($cache->has(new Key($normalizer, [$item->property])));
+        self::assertTrue($cache->has(new Key($normalizer, [$item->getAttribute('property')])));
         self::assertTrue($cache->has(new Key($normalizer, [
-            mb_strtoupper($item->property),
+            mb_strtoupper($item->getAttribute('property')),
         ])));
     }
 
@@ -79,9 +81,9 @@ class CacheTest extends TestCase {
 
         self::assertNull($cache->get(new Key($normalizer, [$this::class])));
         self::assertSame($item, $cache->get(new Key($normalizer, [$item->getKey()])));
-        self::assertSame($item, $cache->get(new Key($normalizer, [$item->property])));
+        self::assertSame($item, $cache->get(new Key($normalizer, [$item->getAttribute('property')])));
         self::assertSame($item, $cache->get(new Key($normalizer, [
-            mb_strtoupper($item->property),
+            mb_strtoupper($item->getAttribute('property')),
         ])));
     }
 
@@ -94,7 +96,7 @@ class CacheTest extends TestCase {
         $normalizer  = $this->app->make(Normalizer::class);
         $item        = $this->faker->randomElement($items->all());
         $itemKey     = new Key($normalizer, [$item->getKey()]);
-        $propertyKey = new Key($normalizer, [$item->property]);
+        $propertyKey = new Key($normalizer, [$item->getAttribute('property')]);
 
         self::assertSame($item, $cache->get($itemKey));
         self::assertTrue($cache->has($itemKey));
@@ -140,7 +142,7 @@ class CacheTest extends TestCase {
         $normalizer  = $this->app->make(Normalizer::class);
         $item        = $this->item();
         $itemKey     = new Key($normalizer, [$item->getKey()]);
-        $propertyKey = new Key($normalizer, [$item->property]);
+        $propertyKey = new Key($normalizer, [$item->getAttribute('property')]);
 
         self::assertFalse($cache->has($itemKey));
         self::assertFalse($cache->has($propertyKey));
@@ -160,7 +162,7 @@ class CacheTest extends TestCase {
         $normalizer  = $this->app->make(Normalizer::class);
         $item        = $this->item();
         $itemKey     = new Key($normalizer, [$item->getKey()]);
-        $propertyKey = new Key($normalizer, [$item->property]);
+        $propertyKey = new Key($normalizer, [$item->getAttribute('property')]);
 
         self::assertFalse($cache->has($itemKey));
         self::assertFalse($cache->has($propertyKey));
@@ -279,7 +281,7 @@ class CacheTest extends TestCase {
                 }
 
                 public function getKey(EloquentModel $model): Key {
-                    return new Key($this->normalizer, ['property' => $model->property]);
+                    return new Key($this->normalizer, ['property' => $model->getAttribute('property')]);
                 }
             },
         ]);

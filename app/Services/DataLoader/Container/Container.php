@@ -28,7 +28,7 @@ class Container extends IlluminateContainer {
     }
 
     /**
-     * @template T
+     * @template T of object
      *
      * @param class-string<T> $abstract
      * @param array<mixed>    $parameters

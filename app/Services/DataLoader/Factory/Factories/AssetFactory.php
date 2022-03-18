@@ -437,14 +437,14 @@ class AssetFactory extends ModelFactory {
         foreach ($documents as $assetDocument) {
             try {
                 // Valid?
-                $document     = $this->assetDocumentDocument($model, $assetDocument);
-                $number       = $assetDocument->documentNumber;
-                $serviceGroup = $this->assetDocumentServiceGroup($model, $assetDocument);
-                $serviceLevel = $this->assetDocumentServiceLevel($model, $assetDocument);
-                $start        = $normalizer->datetime($assetDocument->startDate);
-                $end          = $normalizer->datetime($assetDocument->endDate);
+                $document = $this->assetDocumentDocument($model, $assetDocument);
+                $number   = $assetDocument->documentNumber;
+                $group    = $this->assetDocumentServiceGroup($model, $assetDocument);
+                $level    = $this->assetDocumentServiceLevel($model, $assetDocument);
+                $start    = $normalizer->datetime($assetDocument->startDate);
+                $end      = $normalizer->datetime($assetDocument->endDate);
 
-                if (!($number && ($start || $end) && ($serviceGroup || $serviceLevel))) {
+                if (!((bool) $number && ($start !== null || $end !== null) && ($group !== null || $level !== null))) {
                     continue;
                 }
 
@@ -456,13 +456,13 @@ class AssetFactory extends ModelFactory {
                     $number,
                     $reseller?->getKey(),
                     $customer?->getKey(),
-                    $serviceGroup?->getKey(),
+                    $group?->getKey(),
                     Date::make($start)?->startOfDay(),
                     Date::make($end)?->startOfDay(),
                 ]);
 
                 // Add service
-                $serviceLevels[$key][] = $serviceLevel;
+                $serviceLevels[$key][] = $level;
 
                 // Already added?
                 if (isset($warranties[$key])) {
@@ -478,7 +478,7 @@ class AssetFactory extends ModelFactory {
                 $warranty->type            = null;
                 $warranty->status          = null;
                 $warranty->description     = null;
-                $warranty->serviceGroup    = $serviceGroup;
+                $warranty->serviceGroup    = $group;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
                 $warranty->document        = $document;
