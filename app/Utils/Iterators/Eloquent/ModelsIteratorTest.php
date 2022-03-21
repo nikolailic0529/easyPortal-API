@@ -11,6 +11,7 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
+use function array_fill;
 use function iterator_to_array;
 
 /**
@@ -27,7 +28,10 @@ class ModelsIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         // Prepare
-        $models   = Type::factory()->count(10)->create();
+        $models   = (new Collection(array_fill(0, 10, null)))
+            ->map(static function (): Type {
+                return Type::factory()->create();
+            });
         $handler  = Mockery::mock(ExceptionHandler::class);
         $builder  = Type::query()->orderBy((new Type())->getKeyName());
         $iterator = new ModelsIterator(
@@ -93,7 +97,10 @@ class ModelsIteratorTest extends TestCase {
             // empty
         });
 
-        $models   = Type::factory()->count(7)->create();
+        $models   = (new Collection(array_fill(0, 7, null)))
+            ->map(static function (): Type {
+                return Type::factory()->create();
+            });
         $handler  = Mockery::mock(ExceptionHandler::class);
         $builder  = Type::query()->orderBy((new Type())->getKeyName());
         $iterator = (new ModelsIterator(

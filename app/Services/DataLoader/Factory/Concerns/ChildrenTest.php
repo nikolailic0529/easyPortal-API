@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -18,11 +19,7 @@ class ChildrenTest extends TestCase {
      * @covers ::children
      */
     public function testChildren(): void {
-        $type                 = (new class() extends Type {
-            public string $id;
-            public string $key;
-            public string $property;
-        })::class;
+        $type                 = ChildrenTest_Type::class;
         $model                = new class() extends Model {
             // empty
         };
@@ -52,7 +49,7 @@ class ChildrenTest extends TestCase {
             'key'      => $modelShouldBeUpdated->getAttribute('key'),
             'property' => $this->faker->uuid,
         ]);
-        $factory              = function (Type $type) use ($model): Model {
+        $factory              = function (ChildrenTest_Type $type) use ($model): Model {
             return (clone $model)->forceFill([
                 'id'       => $type->id ?? $this->faker->uuid,
                 'key'      => $type->key ?? null,
@@ -91,4 +88,17 @@ class ChildrenTest extends TestCase {
         self::assertInstanceOf($existing::class, $actual);
         self::assertEquals($expected, $actual);
     }
+}
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ChildrenTest_Type extends Type {
+    public string $id;
+    public string $key;
+    public string $property;
 }
