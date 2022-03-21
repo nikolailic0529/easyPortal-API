@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\IteratorIterator;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Utils\Iterators\Contracts\ObjectIterator;

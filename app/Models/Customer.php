@@ -13,6 +13,7 @@ use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
@@ -57,8 +58,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Customer query()
  * @mixin Eloquent
  */
-class Customer extends Model implements OwnedByOrganization {
-    use Searchable;
+class Customer extends Model implements OwnedByOrganization, Searchable {
+    use SearchableImpl;
     use HasFactory;
     use HasType;
     use HasStatuses;

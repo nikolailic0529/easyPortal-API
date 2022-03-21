@@ -13,7 +13,6 @@ use function file_put_contents;
 use function is_file;
 use function json_decode;
 use function json_encode;
-use function unlink;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;

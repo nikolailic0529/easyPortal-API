@@ -32,7 +32,7 @@ class UnionEngine extends Engine {
      */
     public function mapIds($results): Collection {
         // TODO: Probably we need to add Model class?
-        return (new Collection($results->matches()))
+        return (new Collection($results->hits()))
             ->map(static function (Hit $match): string {
                 return $match->document()->id();
             });

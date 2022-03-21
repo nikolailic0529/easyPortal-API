@@ -5,9 +5,11 @@ namespace App\Services\Search\Processor;
 use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Property;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\Model;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Database\Factories\AssetFactory;
@@ -16,7 +18,6 @@ use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -46,9 +47,10 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param array<string, mixed>           $settings
-     * @param class-string<Model&Searchable> $model
-     * @param array<string|int>|null         $keys
+     * @param Closure(static): Collection<Model&Searchable> $expected
+     * @param array<string, mixed>                          $settings
+     * @param class-string<Model&Searchable>                $model
+     * @param array<string|int>|null                        $keys
      */
     public function testUpdate(
         Closure $expected,
@@ -107,7 +109,8 @@ class ProcessorTest extends TestCase {
         // Test
         $expected = $expected
             ->filter(static function (Model $model): bool {
-                return $model->shouldBeSearchable();
+                return $model instanceof Searchable
+                    && $model->shouldBeSearchable();
             });
 
         if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
@@ -456,7 +459,9 @@ class ProcessorTest extends TestCase {
     public function dataProviderCreateIndex(): array {
         $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
-            use Searchable;
+            use SearchableImpl {
+                scoutSearchableAs as public;
+            }
 
             /**
              * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -662,7 +667,9 @@ class ProcessorTest extends TestCase {
     public function dataProviderIsIndexActual(): array {
         $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
-            use Searchable;
+            use SearchableImpl {
+                scoutSearchableAs as public;
+            }
 
             /**
              * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

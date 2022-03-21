@@ -2,7 +2,7 @@
 
 namespace App\Services\Search;
 
-use App\Services\Search\Eloquent\Searchable as SearchSearchable;
+use App\Services\Search\Eloquent\SearchableImpl as SearchSearchable;
 use App\Services\Search\Jobs\Cron\Indexer;
 use Closure;
 use Mockery;

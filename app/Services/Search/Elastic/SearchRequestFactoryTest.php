@@ -6,7 +6,7 @@ use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\Scope;
-use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Eloquent\UnionModel;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -35,7 +35,7 @@ class SearchRequestFactoryTest extends TestCase {
     public function testMakeFromBuilder(array $expected, Closure $prepare): void {
         $factory = $this->app->make(SearchRequestFactory::class);
         $model   = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @var array<mixed>
@@ -70,7 +70,7 @@ class SearchRequestFactoryTest extends TestCase {
             'model' => $model,
         ]);
         $a       = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @inheritDoc
@@ -84,7 +84,7 @@ class SearchRequestFactoryTest extends TestCase {
             }
         };
         $b       = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @inheritDoc
@@ -204,7 +204,7 @@ class SearchRequestFactoryTest extends TestCase {
             'model' => $model,
         ]);
         $a       = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @inheritDoc
@@ -275,7 +275,7 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function testMakeQuery(array $expected, array $properties, string $query): void {
         $model   = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @var array<mixed>

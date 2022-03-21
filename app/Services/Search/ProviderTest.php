@@ -4,7 +4,7 @@ namespace App\Services\Search;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
-use App\Services\Search\Eloquent\Searchable as SearchSearchable;
+use App\Services\Search\Eloquent\SearchableImpl as SearchSearchable;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;

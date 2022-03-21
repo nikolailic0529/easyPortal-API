@@ -10,10 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnionBuilder extends Builder {
     /**
-     * @var array<
-     *      class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,
-     *      array{scopes:array<\App\Services\Search\Contracts\Scope>,boost:float|null}
-     *      > $models
+     * @var array<class-string<Model&Searchable>,array{scopes:array<Scope>,boost:float|null}> $models
      */
     protected array $models = [];
 
@@ -42,10 +39,7 @@ class UnionBuilder extends Builder {
     }
 
     /**
-     * @return array<
-     *      class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,
-     *      array{scopes:array<\App\Services\Search\Contracts\Scope>,boost:float|null}
-     *      > $models
+     * @return array<class-string<Model&Searchable>,array{scopes:array<Scope>,boost:float|null}>
      */
     public function getModels(): array {
         return $this->models;

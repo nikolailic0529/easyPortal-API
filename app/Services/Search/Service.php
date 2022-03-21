@@ -20,7 +20,7 @@ use function array_keys;
 
 class Service extends BaseService {
     /**
-     * @var array<class-string<Model&Searchable>,Indexer>
+     * @var array<class-string<Model&Searchable>,Indexer<Model&Searchable>>
      */
     protected static array $searchable = [
         Customer::class => CustomersIndexer::class,

@@ -18,6 +18,7 @@ use App\Models\Scopes\QuoteType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Relation;
@@ -90,9 +91,9 @@ use function count;
  * @method static Builder|Document queryQuotes()
  * @mixin Eloquent
  */
-class Document extends Model implements OwnedByOrganization {
+class Document extends Model implements OwnedByOrganization, Searchable {
     use HasFactory;
-    use Searchable;
+    use SearchableImpl;
     use OwnedByResellerImpl;
     use HasOem;
     use HasType;

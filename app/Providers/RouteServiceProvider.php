@@ -23,6 +23,8 @@ class RouteServiceProvider extends ServiceProvider {
      *
      * When present, controller route declarations will automatically be prefixed with this namespace.
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var string|null
      */
     protected $namespace = null;

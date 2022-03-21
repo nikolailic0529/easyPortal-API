@@ -171,8 +171,7 @@ abstract class Processor {
      */
     protected function run(State $state): void {
         $data     = null;
-        $sync     = static function () use (&$iterator, $state): void {
-            /** @var $iterator ObjectIterator<mixed> */
+        $sync     = static function (ObjectIterator $iterator) use ($state): void {
             $state->index  = $iterator->getIndex();
             $state->offset = $iterator->getOffset();
         };
@@ -181,15 +180,19 @@ abstract class Processor {
             ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
-            ->onInit($sync)
-            ->onFinish($sync)
+            ->onInit(static function () use (&$iterator, $sync): void {
+                $sync($iterator);
+            })
+            ->onFinish(static function () use (&$iterator, $sync): void {
+                $sync($iterator);
+            })
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
                 $data = $this->prefetch($state, $items);
 
                 $this->chunkLoaded($state, $items, $data);
             })
-            ->onAfterChunk(function (array $items) use ($sync, $state, &$data): void {
-                $sync();
+            ->onAfterChunk(function (array $items) use (&$iterator, $sync, $state, &$data): void {
+                $sync($iterator);
 
                 $this->chunkProcessed($state, $items, $data);
 
@@ -214,7 +217,7 @@ abstract class Processor {
                 $this->report($exception, $item);
                 $this->notifyOnReport($state);
             } finally {
-                $sync();
+                $sync($iterator);
             }
         }
 

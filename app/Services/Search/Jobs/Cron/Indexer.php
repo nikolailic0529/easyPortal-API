@@ -5,10 +5,8 @@ namespace App\Services\Search\Jobs\Cron;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
-use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
@@ -30,7 +28,7 @@ abstract class Indexer extends CronJob implements Progressable {
     }
 
     /**
-     * @return class-string<Model&Searchable>
+     * @return class-string<TItem>
      */
     abstract protected function getModel(): string;
 }

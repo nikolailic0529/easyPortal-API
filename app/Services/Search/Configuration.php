@@ -194,7 +194,7 @@ class Configuration {
     }
 
     public function getIndexAlias(): string {
-        return $this->getModel()->scoutSearchableAs();
+        return $this->getModel()->getSearchableAsDefault();
     }
 
     public function isIndex(string $index): bool {

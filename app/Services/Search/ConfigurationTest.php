@@ -5,6 +5,7 @@ namespace App\Services\Search;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -361,8 +362,8 @@ class ConfigurationTest extends TestCase {
      * @return Model&Searchable
      */
     protected function getModel(array $metadata = [], array $properties = []): Model {
-        $model = new class() extends Model {
-            use Searchable;
+        $model = new class() extends Model implements Searchable {
+            use SearchableImpl;
 
             /**
              * @var array<mixed>

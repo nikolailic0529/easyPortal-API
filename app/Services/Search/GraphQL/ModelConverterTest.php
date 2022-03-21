@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\GraphQL;
 
-use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use GraphQL\Type\Definition\Type;
@@ -56,7 +56,7 @@ class ModelConverterTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ModelConverterTest_Model extends Model {
-    use Searchable;
+    use SearchableImpl;
 
     /**
      * @inheritDoc

@@ -61,7 +61,7 @@ trait WithSearch {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @template T of \Illuminate\Support\Collection|\App\Utils\Eloquent\Model
+     * @template T of (Model&Searchable)|Collection<Model&Searchable>
      *
      * @param T $models
      *
