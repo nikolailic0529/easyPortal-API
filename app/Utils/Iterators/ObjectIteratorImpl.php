@@ -41,9 +41,9 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     use ChunkConverter;
 
     /**
-     * @var array{array<V>,array<V>}
+     * @var array{?V,?V}
      */
-    private array $previous = [];
+    private array $previous = [null, null];
 
     /**
      * @param Closure(array<string,mixed>): array<V> $executor
