@@ -8,7 +8,7 @@ use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\AssetFactory;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
@@ -35,7 +35,7 @@ use function array_merge;
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\Importers\AssetsImporterState
  *
- * @extends \App\Services\DataLoader\Importer\Importer<TItem, TChunkData, TState>
+ * @extends Importer<TItem, TChunkData, TState, Asset>
  */
 class AssetsImporter extends Importer {
     private bool $withDocuments = true;
@@ -118,7 +118,7 @@ class AssetsImporter extends Importer {
             : $this->getClient()->getAssets($state->from);
     }
 
-    protected function makeFactory(State $state): Factory {
+    protected function makeFactory(State $state): ModelFactory {
         $factory = $this->getContainer()->make(AssetFactory::class);
 
         if ($state->withDocuments) {

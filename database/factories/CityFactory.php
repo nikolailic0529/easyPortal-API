@@ -4,12 +4,15 @@ namespace Database\Factories;
 
 use App\Models\City;
 use App\Models\Country;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\City create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\City make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method City create($attributes = [], ?Model $parent = null)
+ * @method City make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<City>
  */
 class CityFactory extends Factory {
     /**

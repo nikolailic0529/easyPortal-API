@@ -8,29 +8,34 @@ use App\Models\Relations\HasServiceGroup;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\ServiceLevelFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Service Level.
  *
- * @property string                                                              $id
- * @property string                                                              $oem_id
- * @property string                                                              $service_group_id
- * @property string                                                              $key
- * @property string                                                              $sku
- * @property string                                                              $name
- * @property string                                                              $description
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
- * @property \App\Models\Oem                                                     $oem
- * @property \App\Models\ServiceGroup                                            $serviceGroup
- * @method static \Database\Factories\ServiceLevelFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceLevel newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceLevel newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceLevel query()
- * @mixin \Eloquent
+ * @property string                         $id
+ * @property string                         $oem_id
+ * @property string                         $service_group_id
+ * @property string                         $key
+ * @property string                         $sku
+ * @property string                         $name
+ * @property string                         $description
+ * @property CarbonImmutable                $created_at
+ * @property CarbonImmutable                $updated_at
+ * @property CarbonImmutable|null           $deleted_at
+ * @property Collection<int, DocumentEntry> $documentEntries
+ * @property Oem                            $oem
+ * @property ServiceGroup                   $serviceGroup
+ * @method static ServiceLevelFactory factory(...$parameters)
+ * @method static Builder|ServiceLevel newModelQuery()
+ * @method static Builder|ServiceLevel newQuery()
+ * @method static Builder|ServiceLevel query()
+ * @mixin Eloquent
  */
 class ServiceLevel extends Model implements Translatable {
     use HasFactory;

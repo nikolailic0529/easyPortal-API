@@ -295,7 +295,7 @@ class UserProvider implements UserProviderContract {
     protected function updateTokenUser(User $user, UnencryptedToken $token, ?Organization $organization): User {
         // Update properties
         foreach ($this->getProperties($user, $token, $organization) as $property => $value) {
-            $user->{$property} = $value;
+            $user->setAttribute($property, $value);
         }
 
         // Save
@@ -307,9 +307,9 @@ class UserProvider implements UserProviderContract {
 
     protected function createTokenUser(string $id, UnencryptedToken $token, ?Organization $organization): ?User {
         // Create
-        $user                        = new User();
-        $user->{$user->getKeyName()} = $id;
-        $user->type                  = UserType::keycloak();
+        $user       = new User();
+        $user->id   = $id;
+        $user->type = UserType::keycloak();
 
         // Update
         return $this->updateTokenUser($user, $token, $organization);
@@ -400,7 +400,7 @@ class UserProvider implements UserProviderContract {
                 }
 
                 // Member of Organization?
-                /** @var \App\Models\OrganizationUser|null $member */
+                /** @var OrganizationUser|null $member */
                 $member = $user->organizations
                     ->first(static function (OrganizationUser $user) use ($organization): bool {
                         return $user->organization_id === $organization->getKey()

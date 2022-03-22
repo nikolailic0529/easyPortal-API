@@ -5,26 +5,26 @@ namespace App\GraphQL\Mutations;
 use App\Models\File;
 use App\Models\Note;
 use App\Services\Filesystem\ModelDiskFactory;
-use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Http\UploadedFile;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 use function is_null;
 
 class UpdateContractNote {
     public function __construct(
-        protected AuthManager $auth,
+        protected Gate $gate,
         protected ModelDiskFactory $disks,
     ) {
         // empty
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
             'updated' => $this->updateNote(
                 $args['input']['id'],
@@ -37,8 +37,8 @@ class UpdateContractNote {
     }
 
     /**
-     * @param array<string> $permissions
-     * @param array<array{id: string}|array{content: \Illuminate\Http\UploadedFile}> $attached
+     * @param array<string>                                         $permissions
+     * @param array<array{id: string}|array{content: UploadedFile}> $attached
      */
     public function updateNote(
         string $noteId,
@@ -48,7 +48,7 @@ class UpdateContractNote {
         array $attached = null,
     ): Note {
         $note = Note::whereKey($noteId)->first();
-        if (!$this->auth->user()->canAny($permissions, [$note])) {
+        if (!$this->gate->any($permissions, [$note])) {
             throw new AuthorizationException();
         }
         if ($content) {

@@ -5,6 +5,7 @@ namespace App\Models\Relations;
 use App\Models\Customer;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,9 @@ use function count;
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @property Collection<string, TPivot> $customersPivots
+ *
+ * @mixin Model
  */
 trait HasCustomers {
     use SyncBelongsToMany;
@@ -43,7 +46,7 @@ trait HasCustomers {
     }
 
     /**
-     * @param array<string,TPivot>|\Illuminate\Support\Collection<string,TPivot> $customers
+     * @param array<string,TPivot>|Collection<string,TPivot> $customers
      */
     public function setCustomersPivotsAttribute(Collection|array $customers): void {
         $this->syncBelongsToManyPivots('customers', $customers);

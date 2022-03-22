@@ -52,7 +52,7 @@ use Throwable;
 
 class ErrorCodes {
     /**
-     * @var array<class-string<\Throwable>,string|int>
+     * @var array<class-string<Throwable>,string|int>
      */
     protected static array $map = [
         // Http
@@ -119,7 +119,7 @@ class ErrorCodes {
     ];
 
     /**
-     * @return array<class-string<\Throwable>,string|int>
+     * @return array<class-string<Throwable>,string|int>
      */
     public static function getMap(): array {
         return self::$map;

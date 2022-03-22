@@ -32,9 +32,9 @@ class DataTest extends TestCase {
         $data->collect($assetB);
         $data->collect(Customer::factory()->make(['id' => $uuidB]));
 
-        $this->assertEquals([], $data->get(stdClass::class));
-        $this->assertEquals([$uuidA => $uuidA], $data->get(Asset::class));
-        $this->assertEquals(
+        self::assertEquals([], $data->get(stdClass::class));
+        self::assertEquals([$uuidA => $uuidA], $data->get(Asset::class));
+        self::assertEquals(
             [
                 $uuidB               => $uuidB,
                 $assetA->customer_id => $assetA->customer_id,
@@ -42,7 +42,7 @@ class DataTest extends TestCase {
             ],
             $data->get(Customer::class),
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 Distributor::class => [],
                 Reseller::class    => [

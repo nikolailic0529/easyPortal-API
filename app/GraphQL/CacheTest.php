@@ -36,7 +36,7 @@ class CacheTest extends TestCase {
             'ep.cache.graphql.threshold' => $threshold,
         ]);
 
-        $this->assertEquals($expected, $this->app->make(Cache::class)->isSlowQuery($time));
+        self::assertEquals($expected, $this->app->make(Cache::class)->isSlowQuery($time));
     }
 
     /**
@@ -56,11 +56,11 @@ class CacheTest extends TestCase {
             }
         };
 
-        $this->assertNull($cache->getExpired());
+        self::assertNull($cache->getExpired());
 
         $cache->markExpired();
 
-        $this->assertInstanceOf(DateTimeInterface::class, $cache->getExpired());
+        self::assertInstanceOf(DateTimeInterface::class, $cache->getExpired());
     }
 
     /**
@@ -103,7 +103,7 @@ class CacheTest extends TestCase {
             ->shouldReceive('getExpired')
             ->andReturn($marker);
 
-        $this->assertEquals($expected, $cache->isExpired($created, $expired));
+        self::assertEquals($expected, $cache->isExpired($created, $expired));
     }
 
     /**
@@ -154,7 +154,7 @@ class CacheTest extends TestCase {
             // empty
         };
 
-        $this->expectException(LogicException::class);
+        self::expectException(LogicException::class);
 
         $cache->lock('test', Closure::fromCallable($callback));
     }
@@ -234,7 +234,7 @@ class CacheTest extends TestCase {
 
         $cache = $this->app->make(Cache::class);
 
-        $this->assertFalse($cache->isLocked('test'));
+        self::assertFalse($cache->isLocked('test'));
     }
 
     /**
@@ -262,7 +262,7 @@ class CacheTest extends TestCase {
             // empty
         };
 
-        $this->expectException(LogicException::class);
+        self::expectException(LogicException::class);
 
         $cache->isLocked('test');
     }
@@ -279,7 +279,7 @@ class CacheTest extends TestCase {
         $cache = $this->app->make(Cache::class);
 
         // No lock
-        $this->assertFalse($cache->isLocked($key));
+        self::assertFalse($cache->isLocked($key));
 
         // Add Lock
         $store    = $this->app->make(CacheContract::class)->getStore();
@@ -291,18 +291,18 @@ class CacheTest extends TestCase {
             $key,
         ]);
 
-        $this->assertInstanceOf(LockProvider::class, $store);
+        self::assertInstanceOf(LockProvider::class, $store);
 
         $lock = $store->lock($cacheKey);
 
         $lock->get();
 
-        $this->assertTrue($cache->isLocked($key));
+        self::assertTrue($cache->isLocked($key));
 
         // Release
         $lock->release();
 
-        $this->assertFalse($cache->isLocked($key));
+        self::assertFalse($cache->isLocked($key));
     }
     // </editor-fold>
 

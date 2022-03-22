@@ -2,11 +2,13 @@
 
 namespace App\Services\Organization\Eloquent;
 
+use App\Utils\Eloquent\Model;
+
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
-trait OwnedByReseller {
-    use OwnedByOrganization;
+trait OwnedByResellerImpl {
+    use OwnedByOrganizationImpl;
 
     public function getOrganizationColumn(): string {
         return 'reseller_id';

@@ -24,11 +24,11 @@ class JsonStorageTest extends TestCase {
         $file    = $storage->getFile();
         $fs      = $disc->filesystem();
 
-        $this->assertFalse($fs->exists($file));
-        $this->assertTrue($fs->put($file, json_encode([])));
-        $this->assertTrue($fs->exists($file));
-        $this->assertTrue($storage->delete());
-        $this->assertFalse($fs->exists($file));
+        self::assertFalse($fs->exists($file));
+        self::assertTrue($fs->put($file, json_encode([])));
+        self::assertTrue($fs->exists($file));
+        self::assertTrue($storage->delete());
+        self::assertFalse($fs->exists($file));
     }
 
     /**
@@ -40,10 +40,10 @@ class JsonStorageTest extends TestCase {
         $file    = $storage->getFile();
         $fs      = $disc->filesystem();
 
-        $this->expectException(StorageFileCorrupted::class);
+        self::expectException(StorageFileCorrupted::class);
 
-        $this->assertTrue($fs->put($file, 'invalid json'));
-        $this->assertTrue($storage->delete());
+        self::assertTrue($fs->put($file, 'invalid json'));
+        self::assertTrue($storage->delete());
     }
 
     /**
@@ -55,8 +55,8 @@ class JsonStorageTest extends TestCase {
         $file    = $storage->getFile();
         $fs      = $disc->filesystem();
 
-        $this->assertTrue($fs->put($file, 'invalid json'));
-        $this->assertTrue($storage->delete(true));
+        self::assertTrue($fs->put($file, 'invalid json'));
+        self::assertTrue($storage->delete(true));
     }
 
     /**
@@ -68,8 +68,8 @@ class JsonStorageTest extends TestCase {
         $file    = $storage->getFile();
         $fs      = $disc->filesystem();
 
-        $this->assertTrue($fs->put($file, json_encode(['key' => 'value'])));
-        $this->assertEquals(['key' => 'value'], $storage->load());
+        self::assertTrue($fs->put($file, json_encode(['key' => 'value'])));
+        self::assertEquals(['key' => 'value'], $storage->load());
     }
 
     /**
@@ -81,10 +81,10 @@ class JsonStorageTest extends TestCase {
         $file    = $storage->getFile();
         $fs      = $disc->filesystem();
 
-        $this->expectException(StorageFileCorrupted::class);
+        self::expectException(StorageFileCorrupted::class);
 
-        $this->assertTrue($fs->put($file, 'invalid json'));
-        $this->assertEquals(['key' => 'value'], $storage->load());
+        self::assertTrue($fs->put($file, 'invalid json'));
+        self::assertEquals(['key' => 'value'], $storage->load());
     }
 
     /**
@@ -96,8 +96,8 @@ class JsonStorageTest extends TestCase {
         $file    = $storage->getFile();
         $fs      = $disc->filesystem();
 
-        $this->assertTrue($storage->save(['key' => 'value']));
-        $this->assertEquals(json_encode(['key' => 'value'], JSON_PRETTY_PRINT), $fs->get($file));
+        self::assertTrue($storage->save(['key' => 'value']));
+        self::assertEquals(json_encode(['key' => 'value'], JSON_PRETTY_PRINT), $fs->get($file));
     }
 }
 

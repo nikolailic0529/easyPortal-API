@@ -77,8 +77,8 @@ class OAuth2TokenTest extends TestCase {
                 'factory' => $factory,
             ]));
 
-        $this->assertEquals($token->getToken(), $service->getAccessToken());
-        $this->assertEquals($token->getToken(), $service->getAccessToken());
+        self::assertEquals($token->getToken(), $service->getAccessToken());
+        self::assertEquals($token->getToken(), $service->getAccessToken());
     }
 
     /**
@@ -118,7 +118,7 @@ class OAuth2TokenTest extends TestCase {
 
         $service->reset();
 
-        $this->expectExceptionMessage('no token');
+        self::expectExceptionMessage('no token');
 
         $service->getAccessToken();
     }

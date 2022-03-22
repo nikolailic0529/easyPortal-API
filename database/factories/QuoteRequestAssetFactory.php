@@ -7,12 +7,15 @@ use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDuration;
 use App\Models\ServiceLevel;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\QuoteRequestAsset create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\QuoteRequestAsset make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method QuoteRequestAsset create($attributes = [], ?Model $parent = null)
+ * @method QuoteRequestAsset make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<QuoteRequestAsset>
  */
 class QuoteRequestAssetFactory extends Factory {
     /**

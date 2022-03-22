@@ -71,7 +71,7 @@ class WithContactsTest extends TestCase {
         };
 
         // Empty call should return empty array
-        $this->assertEquals([], $factory->objectContacts($owner, []));
+        self::assertEquals([], $factory->objectContacts($owner, []));
 
         // Repeated objects should be missed
         $ca = tap(new CompanyContactPerson(), function (CompanyContactPerson $person): void {
@@ -81,7 +81,7 @@ class WithContactsTest extends TestCase {
             $person->mail        = $this->faker->email;
         });
 
-        $this->assertCount(1, $factory->objectContacts($owner, [$ca, $ca]));
+        self::assertCount(1, $factory->objectContacts($owner, [$ca, $ca]));
 
         // Objects should be grouped by type
         $cb     = tap(new CompanyContactPerson(), function (CompanyContactPerson $person) use ($ca): void {
@@ -93,11 +93,11 @@ class WithContactsTest extends TestCase {
         $actual = $factory->objectContacts($owner, [$ca, $cb]);
         $first  = reset($actual);
 
-        $this->assertCount(1, $actual);
-        $this->assertCount(2, $first->types);
-        $this->assertEquals($cb->phoneNumber, $first->phone_number);
-        $this->assertEquals($cb->mail, $first->email);
-        $this->assertEquals($cb->name, $first->name);
+        self::assertCount(1, $actual);
+        self::assertCount(2, $first->types);
+        self::assertEquals($cb->phoneNumber, $first->phone_number);
+        self::assertEquals($cb->mail, $first->email);
+        self::assertEquals($cb->name, $first->name);
     }
 
     /**

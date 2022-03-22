@@ -18,7 +18,7 @@ class SendResetPasswordLink {
      *
      * @return array<string, mixed>
      */
-    public function __invoke(mixed $_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $result = $this->password->broker()->sendResetLink([
             UserProvider::CREDENTIAL_EMAIL => $args['input']['email'],
         ]);

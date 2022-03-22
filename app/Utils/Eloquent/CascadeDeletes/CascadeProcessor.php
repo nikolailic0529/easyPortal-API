@@ -16,6 +16,7 @@ use ReflectionMethod;
 
 use function array_filter;
 use function array_map;
+use function property_exists;
 use function reset;
 use function sprintf;
 
@@ -27,7 +28,7 @@ class CascadeProcessor {
     }
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Relations\Relation>
+     * @return array<Relation>
      */
     protected function getRelations(Model $model): array {
         $helper    = new ModelHelper($model);
@@ -76,7 +77,11 @@ class CascadeProcessor {
             function () use ($model, $name, $relation): void {
                 foreach ($this->getRelatedObjects($model, $name, $relation) as $object) {
                     if ($object instanceof Model) {
-                        $object->forceDeleting = $model->forceDeleting ?? false;
+                        if (property_exists($object, 'forceDeleting')) {
+                            $object->forceDeleting = property_exists($model, 'forceDeleting')
+                                ? $model->forceDeleting
+                                : false;
+                        }
 
                         if (!$object->delete()) {
                             throw new Exception('Unknown error while deleting children.');
@@ -88,7 +93,7 @@ class CascadeProcessor {
     }
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Model>
+     * @return array<Model>
      */
     protected function getRelatedObjects(Model $model, string $name, Relation $relation): array {
         $value  = $model->getRelationValue($name);
@@ -102,10 +107,10 @@ class CascadeProcessor {
             // empty
         }
 
-        if ($values && $this->isBelongsToMany($model, $name, $relation)) {
+        if ($values && $relation instanceof BelongsToMany && $this->isBelongsToMany($model, $name, $relation)) {
             $accessor = $relation->getPivotAccessor();
             $values   = array_filter(array_map(static function (Model $model) use ($accessor): ?Model {
-                return $model->{$accessor};
+                return $model->getAttribute($accessor);
             }, $values));
         }
 

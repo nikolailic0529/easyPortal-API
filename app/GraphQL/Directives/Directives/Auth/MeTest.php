@@ -56,7 +56,7 @@ class MeTest extends TestCase {
             },
         ]);
 
-        $this->assertGraphQLSchemaEquals(
+        self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
             $this->getTestData()->content('~schema.graphql'),
         );
@@ -149,7 +149,7 @@ class MeTest extends TestCase {
         $resolver    = addslashes(EmptyResolver::class);
         $permissions = json_encode(['a', 'unknown']);
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'Unknown permissions: `%s`',
             implode('`, `', ['unknown']),
         )));
@@ -193,7 +193,7 @@ class MeTest extends TestCase {
             }
         };
 
-        $this->assertEquals($expected, $me->getGateArguments($root));
+        self::assertEquals($expected, $me->getGateArguments($root));
     }
     // </editor-fold>
 
@@ -295,11 +295,13 @@ class MeTest extends TestCase {
     }
 
     /**
-     * @return array<string,array<mixed>,mixed>
+     * @return array<string,array<mixed>>
      */
     public function dataProviderGetGateArguments(): array {
         $model = new class() extends Model {
-            // empty
+            public function getMorphClass(): string {
+                return 'Model';
+            }
         };
 
         return [
@@ -326,7 +328,7 @@ class MeTest extends TestCase {
                 },
             ],
             BuilderContext::class.' (no model)' => [
-                [$model::class],
+                [$model->getMorphClass()],
                 static function () use ($model): Context {
                     return new class(null, null, $model->newQuery()) extends BuilderContext {
                         // empty

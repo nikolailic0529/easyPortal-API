@@ -8,20 +8,23 @@ use Illuminate\Support\Collection;
 use function array_values;
 use function spl_object_hash;
 
+/**
+ * @template TModel of Model
+ */
 class Cache {
     protected const NULL_RETRIEVER = self::class;
 
     /**
-     * @var array<\Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>>
+     * @var array<Collection<string, TModel>>
      */
     protected array $items;
     /**
-     * @var array<\App\Services\DataLoader\Cache\KeyRetriever>
+     * @var array<KeyRetriever>
      */
     protected array $retrievers;
 
     /**
-     * @param array<\App\Services\DataLoader\Cache\KeyRetriever> $retrievers
+     * @param array<KeyRetriever> $retrievers
      */
     public function __construct(array $retrievers) {
         $this->retrievers = $retrievers;
@@ -44,6 +47,9 @@ class Cache {
         return $value;
     }
 
+    /**
+     * @return TModel|null
+     */
     public function get(Key $key): ?Model {
         $value = null;
 
@@ -59,6 +65,11 @@ class Cache {
         return $value;
     }
 
+    /**
+     * @param TModel $model
+     *
+     * @return TModel
+     */
     public function put(Model $model): Model {
         foreach ($this->retrievers as $name => $retriever) {
             $key = (string) $retriever->getKey($model);
@@ -71,7 +82,7 @@ class Cache {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $models
+     * @param Collection<array-key, TModel> $models
      */
     public function putAll(Collection $models): static {
         foreach ($models as $model) {
@@ -88,7 +99,7 @@ class Cache {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Cache\Key> $keys
+     * @param array<Key> $keys
      */
     public function putNulls(array $keys): static {
         foreach ($keys as $key) {
@@ -107,6 +118,9 @@ class Cache {
             && $this->items[$retriever]->has((string) $key);
     }
 
+    /**
+     * @return TModel|null
+     */
     public function getByRetriever(string $retriever, Key $key): ?Model {
         return isset($this->items[$retriever])
             ? $this->items[$retriever]->get((string) $key)
@@ -125,6 +139,9 @@ class Cache {
         return $this;
     }
 
+    /**
+     * @return Collection<int, TModel>
+     */
     public function getAll(): Collection {
         $all = [];
 
@@ -134,7 +151,7 @@ class Cache {
             }
 
             foreach ($items as $item) {
-                /** @var \Illuminate\Database\Eloquent\Model $item */
+                /** @var TModel $item */
                 $all[$item->getKey() ?: spl_object_hash($item)] = $item;
             }
         }

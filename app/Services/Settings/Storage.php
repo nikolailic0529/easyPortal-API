@@ -93,7 +93,11 @@ class Storage {
         return true;
     }
 
+    public function delete(): bool {
+        return $this->save([]);
+    }
+
     protected function getPath(): string {
-        return $this->app->storagePath().'/'.Settings::PATH;
+        return $this->app->storagePath(Settings::PATH);
     }
 }

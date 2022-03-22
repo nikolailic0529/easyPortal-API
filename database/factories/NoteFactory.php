@@ -6,12 +6,15 @@ use App\Models\Document;
 use App\Models\Note;
 use App\Models\Organization;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Note create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Note make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Note create($attributes = [], ?Model $parent = null)
+ * @method Note make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Note>
  */
 class NoteFactory extends Factory {
     /**

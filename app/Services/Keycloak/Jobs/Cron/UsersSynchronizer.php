@@ -14,6 +14,9 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
  * Sync application users with Keycloak.
  */
 class UsersSynchronizer extends CronJob implements Progressable {
+    /**
+     * @phpstan-use ProcessorJob<UsersImporter>
+     */
     use ProcessorJob;
 
     public function displayName(): string {

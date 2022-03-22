@@ -26,7 +26,7 @@ class Logger {
     protected int     $index  = 0;
 
     /**
-     * @var array<\App\Services\Logger\Action>
+     * @var array<Action>
      */
     protected array $stack = [];
 
@@ -140,7 +140,7 @@ class Logger {
         }
 
         // Update
-        /** @var array<\App\Services\Logger\Action> $actions */
+        /** @var array<Action> $actions */
         $actions = [...$this->stack, $this->action];
         $dump    = $this->config->get('ep.logger.dump');
         $dump    = $dump ? Date::now()->sub($dump) : null;
@@ -150,6 +150,7 @@ class Logger {
             $statistics = $log->statistics ?? new Statistics();
 
             foreach ($countable as $property => $value) {
+                /** @phpstan-ignore-next-line object specially designed for this */
                 $statistics->{$property} = $statistics->{$property} + $value;
             }
 
@@ -176,7 +177,7 @@ class Logger {
         $children = [];
 
         foreach ($this->stack as $item) {
-            if ($children || $item->getKey() === $transaction) {
+            if ((bool) $children || $item->getKey() === $transaction) {
                 $children[] = $item->getKey();
             }
         }

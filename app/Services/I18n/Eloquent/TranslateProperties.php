@@ -2,6 +2,8 @@
 
 namespace App\Services\I18n\Eloquent;
 
+use App\Utils\Eloquent\Model;
+
 use function __;
 use function in_array;
 use function reset;
@@ -10,7 +12,7 @@ use function reset;
  * @see \App\Services\I18n\Contracts\Translatable
  * @see \App\GraphQL\Directives\Directives\Translate
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait TranslateProperties {
     public function getTranslatedProperty(string $property): string {

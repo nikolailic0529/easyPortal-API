@@ -7,7 +7,7 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 /**
  * @template T
  *
- * @mixin \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ * @mixin ObjectIterator<T>
  */
 trait InitialState {
     private ?ObjectIterator $initial = null;

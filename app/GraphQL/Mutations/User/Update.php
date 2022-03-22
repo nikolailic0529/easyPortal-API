@@ -53,7 +53,8 @@ class Update {
                     $attributes['photo'] = [$photo];
                     break;
                 default:
-                    $user->{$property}     = $value;
+                    $user->setAttribute($property, $value);
+
                     $attributes[$property] = [$value];
                     break;
             }

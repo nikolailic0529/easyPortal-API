@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Document>
+ * @extends Resolver<Document>
  */
 class DocumentResolver extends Resolver {
     public function get(string|int $id, Closure $factory = null): ?Document {
@@ -16,7 +16,7 @@ class DocumentResolver extends Resolver {
     }
 
     /**
-     * @param array<string|int> $keys
+     * @inheritDoc
      */
     public function prefetch(array $keys, Closure|null $callback = null): static {
         return parent::prefetch($keys, $callback);

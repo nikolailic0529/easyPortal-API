@@ -10,7 +10,11 @@ use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\PolymorphicModel;
+use Carbon\CarbonImmutable;
+use Database\Factories\TypeFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,28 +23,28 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 /**
  * Type.
  *
- * @property string                                                              $id
- * @property string                                                              $object_type
- * @property string                                                              $key
- * @property string                                                              $name
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $documents
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
- * @method static \Database\Factories\TypeFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryContracts()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryDocuments()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryQuotes()
- * @mixin \Eloquent
+ * @property string                         $id
+ * @property string                         $object_type
+ * @property string                         $key
+ * @property string                         $name
+ * @property CarbonImmutable                $created_at
+ * @property CarbonImmutable                $updated_at
+ * @property CarbonImmutable|null           $deleted_at
+ * @property-read Collection<int, Asset>    $assets
+ * @property-read Collection<int, Contact>  $contacts
+ * @property Collection<int, Document>      $contracts
+ * @property-read Collection<int, Customer> $customers
+ * @property-read Collection<int, Document> $documents
+ * @property-read Collection<int, Location> $locations
+ * @property-read Collection<int, Document> $quotes
+ * @method static TypeFactory factory(...$parameters)
+ * @method static Builder|Type newModelQuery()
+ * @method static Builder|Type newQuery()
+ * @method static Builder|Type query()
+ * @method static Builder|Type queryContracts()
+ * @method static Builder|Type queryDocuments()
+ * @method static Builder|Type queryQuotes()
+ * @mixin Eloquent
  */
 class Type extends PolymorphicModel implements Translatable {
     use HasFactory;
@@ -110,7 +114,7 @@ class Type extends PolymorphicModel implements Translatable {
         return $this
             ->hasMany(Document::class)
             ->where(static function (Builder $builder): Builder {
-                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                /** @var Builder|Document $builder */
                 return $builder->queryDocuments();
             });
     }

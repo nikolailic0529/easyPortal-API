@@ -17,7 +17,7 @@ class IntNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        $this->assertEquals($expected, $this->app->make(IntNormalizer::class)->normalize($value));
+        self::assertEquals($expected, $this->app->make(IntNormalizer::class)->normalize($value));
     }
     // </editor-fold>
 

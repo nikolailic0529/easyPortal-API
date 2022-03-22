@@ -7,7 +7,7 @@ use App\Models\CustomerLocation;
 use App\Services\Recalculator\Processor\ChunkData;
 
 /**
- * @extends \App\Services\Recalculator\Processor\ChunkData<\App\Models\Customer>
+ * @extends ChunkData<Customer>
  */
 class CustomersChunkData extends ChunkData {
     public function getCustomerAssetsCount(Customer $customer): int {

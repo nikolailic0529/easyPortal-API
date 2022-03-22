@@ -98,8 +98,8 @@ class PermissionsSyncTest extends TestCase {
             'permission-c' => false,
         ];
 
-        $this->assertEquals($expected, $actual);
-        $this->assertEquals(0, RoleModel::query()->withoutGlobalScope(OwnedByOrganizationScope::class)->count());
+        self::assertEquals($expected, $actual);
+        self::assertEquals(0, RoleModel::query()->withoutGlobalScope(OwnedByOrganizationScope::class)->count());
     }
 
     /**
@@ -150,8 +150,8 @@ class PermissionsSyncTest extends TestCase {
             'permission-a' => true,
         ];
 
-        $this->assertEquals($expected, $actual);
-        $this->assertFalse(
+        self::assertEquals($expected, $actual);
+        self::assertFalse(
             RoleModel::query()
                 ->withoutGlobalScope(OwnedByOrganizationScope::class)
                 ->whereKey($groupId)
@@ -228,11 +228,11 @@ class PermissionsSyncTest extends TestCase {
             'permission-b' => true,
         ];
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($role);
-        $this->assertEquals($groupName, $role->name);
-        $this->assertNull($role->organization_id);
-        $this->assertEquals(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($role);
+        self::assertEquals($groupName, $role->name);
+        self::assertNull($role->organization_id);
+        self::assertEquals(
             ['permission-a'],
             $role->permissions
                 ->map(static function (PermissionModel $permission): string {

@@ -21,26 +21,33 @@ use function reset;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
- *
- * @uses     \App\Utils\Iterators\Concerns\Subjects<T>
- * @uses     \App\Utils\Iterators\Concerns\InitialState<T>
- * @uses     \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+ * @implements ObjectIterator<T>
  */
 abstract class ObjectIteratorImpl implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     */
     use Subjects;
     use Properties;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     */
     use InitialState;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+     */
     use ChunkConverter;
 
     /**
-     * @var array{array<V>,array<V>}
+     * @var array{?V,?V}
      */
-    private array $previous = [];
+    private array $previous = [null, null];
 
     /**
-     * @param \Closure(array $variables): array<V> $executor
-     * @param \Closure(V $item): T|null            $converter
+     * @param Closure(array<string,mixed>): array<V> $executor
+     * @param Closure(V): T|null                     $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
@@ -59,7 +66,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     }
 
     /**
-     * @return \Iterator<T>
+     * @return Iterator<T>
      */
     public function getIterator(): Iterator {
         // Prepare
@@ -101,10 +108,10 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     /**
      * @param array<string,mixed> $variables
      *
-     * @return array<mixed>
+     * @return array<V>
      */
     protected function execute(array $variables): array {
-        return (array) ($this->executor)($variables);
+        return ($this->executor)($variables);
     }
 
     /**

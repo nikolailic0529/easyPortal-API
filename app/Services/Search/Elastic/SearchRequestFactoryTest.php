@@ -6,7 +6,7 @@ use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\Scope;
-use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Eloquent\UnionModel;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -35,7 +35,7 @@ class SearchRequestFactoryTest extends TestCase {
     public function testMakeFromBuilder(array $expected, Closure $prepare): void {
         $factory = $this->app->make(SearchRequestFactory::class);
         $model   = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @var array<mixed>
@@ -56,7 +56,7 @@ class SearchRequestFactoryTest extends TestCase {
 
         $model::$searchProperties = (array) $prepare($builder) ?: ['a' => new Text('a', true)];
 
-        $this->assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
+        self::assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
 
     /**
@@ -70,7 +70,7 @@ class SearchRequestFactoryTest extends TestCase {
             'model' => $model,
         ]);
         $a       = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @inheritDoc
@@ -84,7 +84,7 @@ class SearchRequestFactoryTest extends TestCase {
             }
         };
         $b       = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @inheritDoc
@@ -190,7 +190,7 @@ class SearchRequestFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -204,7 +204,7 @@ class SearchRequestFactoryTest extends TestCase {
             'model' => $model,
         ]);
         $a       = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @inheritDoc
@@ -262,7 +262,7 @@ class SearchRequestFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -275,7 +275,7 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function testMakeQuery(array $expected, array $properties, string $query): void {
         $model   = new class() extends Model {
-            use Searchable;
+            use SearchableImpl;
 
             /**
              * @var array<mixed>
@@ -306,14 +306,14 @@ class SearchRequestFactoryTest extends TestCase {
         $model::$properties = $properties;
         $actual             = $factory->makeQuery($builder);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
      * @covers ::escapeQueryString
      */
     public function testEscapeQueryString(): void {
-        $this->assertEquals(
+        self::assertEquals(
             '\\"te\\-xt \\(with\\)\\! \\{special\\} \\* \\&& \\/characters\\?\\\\\\"',
             (new class() extends SearchRequestFactory {
                 public function __construct() {
@@ -331,7 +331,7 @@ class SearchRequestFactoryTest extends TestCase {
      * @covers ::escapeWildcardString
      */
     public function testEscapeWildcardString(): void {
-        $this->assertEquals(
+        self::assertEquals(
             'text with \\* and \\? and \\ characters.',
             (new class() extends SearchRequestFactory {
                 public function __construct() {
@@ -571,7 +571,7 @@ class SearchRequestFactoryTest extends TestCase {
     }
 
     /**
-     * @return array<string, array{string, string}>
+     * @return array<string, array{array<mixed>, array<mixed>, string}>
      */
     public function dataProviderEscapeQueryString(): array {
         $a = new class('', true) extends Value {

@@ -5,6 +5,7 @@ namespace App\Models\Relations;
 use App\Models\Status;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
@@ -14,7 +15,7 @@ use function count;
 /**
  * @property int $statuses_count
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasStatuses {
     use SyncBelongsToMany;
@@ -31,7 +32,7 @@ trait HasStatuses {
     }
 
     /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\Status> $statuses
+     * @param Collection<int, Status>|array<Status> $statuses
      */
     public function setStatusesAttribute(Collection|array $statuses): void {
         $this->syncBelongsToMany('statuses', $statuses);

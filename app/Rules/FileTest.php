@@ -26,7 +26,7 @@ class FileTest extends TestCase {
             'ep.image.formats'  => [],
         ]);
 
-        $this->assertEquals($expected, $this->app->make(File::class)->passes('test', $value));
+        self::assertEquals($expected, $this->app->make(File::class)->passes('test', $value));
     }
     // </editor-fold>
 

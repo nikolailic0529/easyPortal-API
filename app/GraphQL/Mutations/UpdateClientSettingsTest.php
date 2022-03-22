@@ -33,12 +33,9 @@ class UpdateClientSettingsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param \LastDragon_ru\LaraASP\Testing\Constraints\Response\Response|array{
-     *      response:\LastDragon_ru\LaraASP\Testing\Constraints\Response\Response,
-     *      content:array<mixed>
-     *      } $expected
-     * @param array<mixed> $content
-     * @param array{name:string,value:string} $settings
+     * @param Response|array{response:Response,content:array<mixed>} $expected
+     * @param array<mixed>                                           $content
+     * @param array<array{name:string,value:string}>                 $settings
      */
     public function testInvoke(
         Response|array $expected,
@@ -117,8 +114,8 @@ class UpdateClientSettingsTest extends TestCase {
             ->assertThat($expectedResponse);
 
         if ($expectedContent) {
-            $this->assertNotNull($expectedResponse);
-            $this->assertEquals($expectedContent, $storage->load());
+            self::assertNotNull($expectedResponse);
+            self::assertEquals($expectedContent, $storage->load());
         }
     }
     // </editor-fold>

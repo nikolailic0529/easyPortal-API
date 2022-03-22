@@ -8,36 +8,41 @@ use App\Models\Relations\HasTeam;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\Upsertable;
+use Carbon\CarbonImmutable;
+use Database\Factories\OrganizationUserFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Organization User (pivot)
  *
- * @property string                       $id
- * @property string                       $organization_id
- * @property string                       $user_id
- * @property string|null                  $role_id
- * @property string|null                  $team_id
- * @property bool                         $enabled
- * @property bool                         $invited
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Organization     $organization
- * @property \App\Models\Role|null        $role
- * @property \App\Models\Team|null        $team
- * @property \App\Models\User             $user
- * @method static \Database\Factories\OrganizationUserFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrganizationUser query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $organization_id
+ * @property string               $user_id
+ * @property string|null          $role_id
+ * @property string|null          $team_id
+ * @property bool                 $enabled
+ * @property bool                 $invited
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Organization         $organization
+ * @property Role|null            $role
+ * @property Team|null            $team
+ * @property User                 $user
+ * @method static OrganizationUserFactory factory(...$parameters)
+ * @method static Builder|OrganizationUser newModelQuery()
+ * @method static Builder|OrganizationUser newQuery()
+ * @method static Builder|OrganizationUser query()
+ * @mixin Eloquent
  */
-class OrganizationUser extends Model implements Auditable, Upsertable {
+class OrganizationUser extends Model implements OwnedByOrganization, Auditable, Upsertable {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use HasOrganization;
     use HasUser;
     use HasRole;

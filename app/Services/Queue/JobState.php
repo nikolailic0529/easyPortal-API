@@ -4,6 +4,9 @@ namespace App\Services\Queue;
 
 use DateTimeInterface;
 
+// phpcs:disable Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+//      https://github.com/squizlabs/PHP_CodeSniffer/issues/3564
+
 class JobState {
     public function __construct(
         public string $name,

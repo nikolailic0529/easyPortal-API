@@ -45,7 +45,7 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->find($company);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -64,8 +64,8 @@ class CustomerFactoryTest extends TestCase {
                 ->with($type)
                 ->andReturns();
         } else {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->create($type);
@@ -99,132 +99,132 @@ class CustomerFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($customer);
-        $this->assertTrue($customer->wasRecentlyCreated);
-        $this->assertEquals($company->id, $customer->getKey());
-        $this->assertEquals($company->name, $customer->name);
-        $this->assertEquals($company->updatedAt, $this->getDatetime($customer->changed_at));
-        $this->assertEquals($this->getCompanyType($company), $customer->type->key);
-        $this->assertCount(2, $customer->statuses);
-        $this->assertEquals(2, $customer->statuses_count);
-        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($customer));
-        $this->assertCount(2, $customer->locations);
-        $this->assertEquals(2, $customer->locations_count);
-        $this->assertCount(1, $customer->resellersPivots);
-        $this->assertEquals($reseller->getKey(), $customer->resellersPivots->first()->reseller_id);
-        $this->assertNotNull($customer->resellersPivots->first()->kpi_id);
-        $this->assertEquals(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($customer);
+        self::assertTrue($customer->wasRecentlyCreated);
+        self::assertEquals($company->id, $customer->getKey());
+        self::assertEquals($company->name, $customer->name);
+        self::assertEquals($company->updatedAt, $this->getDatetime($customer->changed_at));
+        self::assertEquals($this->getCompanyType($company), $customer->type->key);
+        self::assertCount(2, $customer->statuses);
+        self::assertEquals(2, $customer->statuses_count);
+        self::assertEquals($this->getStatuses($company), $this->getModelStatuses($customer));
+        self::assertCount(2, $customer->locations);
+        self::assertEquals(2, $customer->locations_count);
+        self::assertCount(1, $customer->resellersPivots);
+        self::assertEquals($reseller->getKey(), $customer->resellersPivots->first()->reseller_id);
+        self::assertNotNull($customer->resellersPivots->first()->kpi_id);
+        self::assertEquals(
             $this->getCompanyLocations($company),
             $this->getCompanyModelLocations($customer),
         );
-        $this->assertCount(4, $customer->contacts);
-        $this->assertEquals(4, $customer->contacts_count);
-        $this->assertEquals(
+        self::assertCount(4, $customer->contacts);
+        self::assertEquals(4, $customer->contacts_count);
+        self::assertEquals(
             $this->getContacts($company),
             $this->getModelContacts($customer),
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->totalAssets)),
             $customer->kpi->assets_total,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssets)),
             $customer->kpi->assets_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeAssetsPercentage)),
             $customer->kpi->assets_active_percent,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeCustomers)),
             $customer->kpi->customers_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveCustomers)),
             $customer->kpi->customers_active_new,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeContracts)),
             $customer->kpi->contracts_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeContractTotalAmount)),
             $customer->kpi->contracts_active_amount,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveContracts)),
             $customer->kpi->contracts_active_new,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringContracts)),
             $customer->kpi->contracts_expiring,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeQuotes)),
             $customer->kpi->quotes_active,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->activeQuotesTotalAmount)),
             $customer->kpi->quotes_active_amount,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->newActiveQuotes)),
             $customer->kpi->quotes_active_new,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiringQuotes)),
             $customer->kpi->quotes_expiring,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredQuotes)),
             $customer->kpi->quotes_expired,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->expiredContracts)),
             $customer->kpi->contracts_expired,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->orderedQuotes)),
             $customer->kpi->quotes_ordered,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->acceptedQuotes)),
             $customer->kpi->quotes_accepted,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->requestedQuotes)),
             $customer->kpi->quotes_requested,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->receivedQuotes)),
             $customer->kpi->quotes_received,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->rejectedQuotes)),
             $customer->kpi->quotes_rejected,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->awaitingQuotes)),
             $customer->kpi->quotes_awaiting,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnContract)),
             $customer->kpi->assets_active_on_contract,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeAssetsOnWarranty)),
             $customer->kpi->assets_active_on_warranty,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->activeExposedAssets)),
             $customer->kpi->assets_active_exposed,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmount)),
             $customer->kpi->service_revenue_total_amount,
         );
-        $this->assertEquals(
+        self::assertEquals(
             (float) $normalizer->unsigned($normalizer->float($company->companyKpis->serviceRevenueTotalAmountChange)),
             $customer->kpi->service_revenue_total_amount_change,
         );
@@ -238,30 +238,30 @@ class CustomerFactoryTest extends TestCase {
         $actual   = array_column($this->getQueryLog(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
-        $this->assertEquals($expected, $actual);
-        $this->assertNotNull($updated);
-        $this->assertSame($customer, $updated);
-        $this->assertEquals($company->id, $updated->getKey());
-        $this->assertEquals($company->name, $updated->name);
-        $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
-        $this->assertEquals($this->getCompanyType($company), $updated->type->key);
-        $this->assertCount(1, $updated->statuses);
-        $this->assertEquals(1, $updated->statuses_count);
-        $this->assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
-        $this->assertCount(1, $updated->locations);
-        $this->assertEqualsCanonicalizing(
+        self::assertEquals($expected, $actual);
+        self::assertNotNull($updated);
+        self::assertSame($customer, $updated);
+        self::assertEquals($company->id, $updated->getKey());
+        self::assertEquals($company->name, $updated->name);
+        self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+        self::assertEquals($this->getCompanyType($company), $updated->type->key);
+        self::assertCount(1, $updated->statuses);
+        self::assertEquals(1, $updated->statuses_count);
+        self::assertEquals($this->getStatuses($company), $this->getModelStatuses($updated));
+        self::assertCount(1, $updated->locations);
+        self::assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
             $this->getCompanyModelLocations($updated),
         );
-        $this->assertCount(1, $updated->contacts);
-        $this->assertEquals(
+        self::assertCount(1, $updated->contacts);
+        self::assertEquals(
             $this->getContacts($company),
             $this->getModelContacts($updated),
         );
-        $this->assertNull($updated->kpi);
-        $this->assertCount(1, $updated->resellersPivots);
-        $this->assertEquals($reseller->getKey(), $updated->resellersPivots->first()->reseller_id);
-        $this->assertNull($updated->resellersPivots->first()->kpi_id);
+        self::assertNull($updated->kpi);
+        self::assertCount(1, $updated->resellersPivots);
+        self::assertEquals($reseller->getKey(), $updated->resellersPivots->first()->reseller_id);
+        self::assertNull($updated->resellersPivots->first()->kpi_id);
 
         $this->flushQueryLog();
 
@@ -271,7 +271,7 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->create($company);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -287,10 +287,10 @@ class CustomerFactoryTest extends TestCase {
         $company  = new Company($json);
         $customer = $factory->create($company);
 
-        $this->assertNotNull($customer);
-        $this->assertTrue($customer->wasRecentlyCreated);
-        $this->assertEquals($company->id, $customer->getKey());
-        $this->assertEquals($company->name, $customer->name);
+        self::assertNotNull($customer);
+        self::assertTrue($customer->wasRecentlyCreated);
+        self::assertEquals($company->id, $customer->getKey());
+        self::assertEquals($company->name, $customer->name);
     }
 
     /**
@@ -353,7 +353,7 @@ class CustomerFactoryTest extends TestCase {
 
         $actual = $factory->resellers($customer, $kpis);
 
-        $this->assertTrue($customer->save());
+        self::assertTrue($customer->save());
 
         $kpiC     = Kpi::query()
             ->whereKeyNot($kpiA->getKey())
@@ -398,7 +398,7 @@ class CustomerFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

@@ -4,6 +4,7 @@ namespace App\Utils\Eloquent\Concerns;
 
 use App\Utils\Eloquent\Callbacks\GetUniqueKey;
 use App\Utils\Eloquent\Callbacks\SetKey;
+use App\Utils\Eloquent\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,18 +14,18 @@ use InvalidArgumentException;
 use function sprintf;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait SyncHasMany {
     use SyncMany;
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Utils\Eloquent\Model>|array<\App\Utils\Eloquent\Model> $objects
+     * @param Collection<int, Model>|array<Model> $objects
      */
     protected function syncHasMany(string $relation, Collection|array $objects): void {
         // Prepare
-        /** @var \Illuminate\Database\Eloquent\Relations\HasMany $hasMany */
-        $hasMany = $this->{$relation}();
+        /** @var HasMany<$this> $hasMany */
+        $hasMany = (new ModelHelper($this))->getRelation($relation);
 
         if (!($hasMany instanceof HasMany)) {
             throw new InvalidArgumentException(sprintf(
@@ -40,7 +41,7 @@ trait SyncHasMany {
 
         if (!$existing->isEmpty()) {
             foreach ($children as $key => $child) {
-                /** @var \Illuminate\Database\Eloquent\Model $child */
+                /** @var Model $child */
                 $object = $existing->get($key);
 
                 if ($object instanceof Model) {
@@ -67,12 +68,12 @@ trait SyncHasMany {
             $this->onSave(static function () use ($hasMany, $children, $existing): void {
                 // Sync
                 foreach ($children as $object) {
-                    /** @var \App\Utils\Eloquent\Model $object */
+                    /** @var Model $object */
                     $hasMany->save($object);
                 }
 
                 // Delete unused
-                /** @var \App\Utils\Eloquent\Model $object */
+                /** @var Model $object */
                 foreach ($existing as $object) {
                     $object->delete();
                 }

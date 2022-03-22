@@ -91,7 +91,7 @@ class Queue {
     }
 
     /**
-     * @return array<\App\Services\Queue\JobState>
+     * @return array<JobState>
      */
     public function getState(Job $job): array {
         $states = $this->getStates([$job]);
@@ -101,9 +101,9 @@ class Queue {
     }
 
     /**
-     * @param array<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
+     * @param array<Job> $jobs
      *
-     * @return array<string,array<\App\Services\Queue\JobState>>
+     * @return array<string,array<JobState>>
      */
     public function getStates(array $jobs): array {
         // Empty?
@@ -122,7 +122,7 @@ class Queue {
         $iterator->append(new NoRewindIterator($this->getStatesFromLogs($jobs)));
 
         foreach ($iterator as $state) {
-            /** @var \App\Services\Queue\JobState $state */
+            /** @var JobState $state */
             if (!isset($states[$state->name][$state->id])) {
                 $states[$state->name][$state->id] = $state;
             }
@@ -147,13 +147,13 @@ class Queue {
     }
 
     /**
-     * @return \Generator<\App\Services\Queue\QueueJob>
+     * @return Generator<QueueJob>
      */
     protected function getPendingIterator(): Generator {
         $offset = null;
 
         do {
-            /** @var array<\App\Services\Queue\QueueJob> $jobs */
+            /** @var array<QueueJob> $jobs */
             $jobs   = $this->repository->getPending($offset);
             $offset = $offset + count($jobs);
 
@@ -164,9 +164,9 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
+     * @param Collection<string,Job> $jobs
      *
-     * @return \Generator<\App\Services\Queue\JobState>
+     * @return Generator<JobState>
      */
     protected function getStatesFromHorizon(Collection $jobs): Generator {
         $statuses = [
@@ -175,7 +175,7 @@ class Queue {
         ];
 
         foreach ($this->getPendingIterator() as $job) {
-            /** @var \App\Services\Queue\QueueJob $job */
+            /** @var QueueJob $job */
 
             // Not needed?
             if (!isset($jobs[$job->name]) || !in_array($job->status, $statuses, true)) {
@@ -195,9 +195,9 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
+     * @param Collection<int, Job> $jobs
      *
-     * @return \Generator<\App\Services\Queue\JobState>
+     * @return Generator<JobState>
      */
     protected function getStatesFromLogs(Collection $jobs): Generator {
         // Depending on Horizon `trim` settings the job can be removed from the
@@ -248,9 +248,9 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<string> $names
+     * @param Collection<int, string> $names
      *
-     * @return \Illuminate\Support\Collection<\App\Services\Logger\Models\Log>
+     * @return Collection<int, Log>
      */
     private function getStatesFromLogsActive(Collection $names): Collection {
         $expire = $this->getStatesFromLogsExpire();
@@ -269,9 +269,9 @@ class Queue {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Services\Logger\Models\Log> $logs
+     * @param Collection<int, Log> $logs
      *
-     * @return \Illuminate\Support\Collection<\App\Services\Logger\Models\Log>
+     * @return Collection<int, Log>
      */
     private function getStatesFromLogsDispatched(Collection $logs): Collection {
         $collection = new Collection();

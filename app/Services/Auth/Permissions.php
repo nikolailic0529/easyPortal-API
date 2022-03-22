@@ -37,7 +37,7 @@ use function array_merge;
 
 class Permissions {
     /**
-     * @var array<\App\Services\Auth\Permission>
+     * @var array<Permission>
      */
     protected array $permissions;
 
@@ -46,18 +46,18 @@ class Permissions {
     }
 
     /**
-     * @return array<\App\Services\Auth\Permission>
+     * @return array<Permission>
      */
     public function get(): array {
         if (!isset($this->permissions)) {
-            $this->permissions = $this->default();
+            $this->permissions = static::default();
         }
 
         return $this->permissions;
     }
 
     /**
-     * @param array<\App\Services\Auth\Permission> $permissions
+     * @param array<Permission> $permissions
      */
     public function set(array $permissions): static {
         $this->permissions = $permissions;
@@ -66,7 +66,7 @@ class Permissions {
     }
 
     /**
-     * @param array<\App\Services\Auth\Permission> $permissions
+     * @param array<Permission> $permissions
      */
     public function add(array $permissions): static {
         $this->permissions = array_merge($this->get(), $permissions);
@@ -75,7 +75,7 @@ class Permissions {
     }
 
     /**
-     * @return array<\App\Services\Auth\Permission>
+     * @return array<Permission>
      */
     protected static function default(): array {
         return [

@@ -32,7 +32,7 @@ class PermissionIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(PermissionId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(PermissionId::class)->message(), 'Translated');
     }
 
     /**
@@ -40,8 +40,8 @@ class PermissionIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param array<\App\Services\Auth\Permission> $permissions
-     * @param \Closure(): \App\Models\Permission   $permissionFactory
+     * @param array<AuthPermission>                      $permissions
+     * @param Closure(static, ?Organization): Permission $permissionFactory
      */
     public function testPasses(
         bool $expected,
@@ -65,7 +65,7 @@ class PermissionIdTest extends TestCase {
         $rule       = $this->app->make(PermissionId::class)->setMutationContext(new ResolverContext(null, $org));
         $actual     = $rule->passes('test', $permission->getKey());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

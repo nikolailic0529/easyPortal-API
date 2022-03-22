@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Contact>
+ * @extends Resolver<Contact>
  */
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
@@ -37,7 +37,7 @@ class ContactResolver extends Resolver {
     }
 
     /**
-     * @return array{object_type: string, object_id: string, name: string|null, phone: string|null}
+     * @return array{object_type:string,object_id:mixed,name:string|null,phone_number:string|null,email:string|null}
      */
     protected function getUniqueKey(Model|Contact $model, ?string $name, ?string $phone, ?string $mail): array {
         return ($model instanceof Contact

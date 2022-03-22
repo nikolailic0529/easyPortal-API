@@ -72,7 +72,7 @@ class SentryHandler {
     }
 
     /**
-     * @return array<\Sentry\ExceptionDataBag>
+     * @return array<ExceptionDataBag>
      */
     protected static function getContextExceptions(mixed $stacktrace): array {
         // Empty?
@@ -103,7 +103,7 @@ class SentryHandler {
     /**
      * @see \App\Exceptions\Handler::getExceptionContext()
      *
-     * @return array<\Sentry\Breadcrumb>
+     * @return array<Breadcrumb>
      */
     protected static function getContextBreadcrumbs(mixed $context): array {
         // Breadcrumbs?

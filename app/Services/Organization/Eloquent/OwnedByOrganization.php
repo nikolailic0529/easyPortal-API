@@ -2,17 +2,6 @@
 
 namespace App\Services\Organization\Eloquent;
 
-use function app;
-
-/**
- * @mixin \App\Utils\Eloquent\Model
- */
-trait OwnedByOrganization {
-    public static function bootOwnedByOrganization(): void {
-        static::addGlobalScope(app()->make(OwnedByOrganizationScope::class));
-    }
-
-    public function getOrganizationColumn(): string {
-        return 'organization_id';
-    }
+interface OwnedByOrganization {
+    public function getOrganizationColumn(): string;
 }

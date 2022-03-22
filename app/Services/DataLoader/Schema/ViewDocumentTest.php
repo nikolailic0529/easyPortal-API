@@ -20,9 +20,9 @@ class ViewDocumentTest extends TestCase {
         $actual     = new ViewDocument($json);
         $properties = ViewDocument::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

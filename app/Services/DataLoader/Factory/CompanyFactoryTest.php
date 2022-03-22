@@ -62,10 +62,10 @@ class CompanyFactoryTest extends TestCase {
         };
 
         // Null
-        $this->assertEmpty($factory->companyStatuses($owner, new CompanyObject(['status' => null])));
+        self::assertEmpty($factory->companyStatuses($owner, new CompanyObject(['status' => null])));
 
         // Empty
-        $this->assertEmpty($factory->companyStatuses($owner, new CompanyObject(['status' => ['', null]])));
+        self::assertEmpty($factory->companyStatuses($owner, new CompanyObject(['status' => ['', null]])));
 
         // Not empty
         $company  = new CompanyObject([
@@ -83,8 +83,8 @@ class CompanyFactoryTest extends TestCase {
             ],
         ];
 
-        $this->assertCount(2, $statuses);
-        $this->assertEquals($expected, $this->statuses($statuses));
+        self::assertCount(2, $statuses);
+        self::assertEquals($expected, $this->statuses($statuses));
     }
 
     /**
@@ -121,15 +121,15 @@ class CompanyFactoryTest extends TestCase {
 
         // Test
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $owner  = $ownerFactory($this);
         $types  = $typesFactory($this);
         $actual = $factory->companyType($owner, $types);
 
-        $this->assertNotNull($actual);
-        $this->assertEquals($expected, $actual->key);
+        self::assertNotNull($actual);
+        self::assertEquals($expected, $actual->key);
     }
     // </editor-fold>
 
@@ -145,7 +145,7 @@ class CompanyFactoryTest extends TestCase {
                 // empty
             };
 
-            $owner->{$owner->getKeyName()} = $id;
+            $owner->setAttribute($owner->getKeyName(), $id);
 
             return $owner;
         };

@@ -2,11 +2,13 @@
 
 namespace App\Services\Queue\Concerns;
 
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
 use App\Services\Service;
 
 /**
- * @mixin \App\Services\Queue\Job
- * @mixin \App\Services\Queue\CronJob
+ * @mixin Job
+ * @mixin CronJob
  */
 trait DefaultConfig {
     /**

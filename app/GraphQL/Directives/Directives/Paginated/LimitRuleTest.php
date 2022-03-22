@@ -21,7 +21,7 @@ class LimitRuleTest extends TestCase {
             'ep.pagination.limit.max' => $limit,
         ]);
 
-        $this->assertEquals($expected, $this->app->make(LimitRule::class)->passes('test', $value));
+        self::assertEquals($expected, $this->app->make(LimitRule::class)->passes('test', $value));
     }
 
     /**
@@ -39,7 +39,7 @@ class LimitRuleTest extends TestCase {
             ];
         });
 
-        $this->assertEquals(
+        self::assertEquals(
             'validation.max.numeric 123',
             $this->app->make(LimitRule::class)->message(),
         );

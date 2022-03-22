@@ -23,7 +23,7 @@ abstract class Pivot extends LaraASPPivot {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var bool
      */
     public $incrementing = false;
 
@@ -32,7 +32,7 @@ abstract class Pivot extends LaraASPPivot {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<string>
+     * @var array<mixed>
      */
     protected $casts = self::CASTS;
 }

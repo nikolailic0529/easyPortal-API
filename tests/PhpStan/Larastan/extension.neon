@@ -1,0 +1,10 @@
+# Code from https://github.com/nunomaduro/larastan/pull/1142
+services:
+    -
+        class: Tests\PhpStan\Larastan\DateExtension
+        tags:
+            - phpstan.broker.dynamicStaticMethodReturnTypeExtension
+    -
+        class: Tests\PhpStan\Larastan\NowAndTodayExtension
+        tags:
+            - phpstan.broker.dynamicFunctionReturnTypeExtension

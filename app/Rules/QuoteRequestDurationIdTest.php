@@ -26,7 +26,7 @@ class QuoteRequestDurationIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(QuoteRequestDurationId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(QuoteRequestDurationId::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class QuoteRequestDurationIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $durationFactory): void {
         $durationId = $durationFactory();
-        $this->assertEquals($expected, $this->app->make(QuoteRequestDurationId::class)->passes('test', $durationId));
+        self::assertEquals($expected, $this->app->make(QuoteRequestDurationId::class)->passes('test', $durationId));
     }
     // </editor-fold>
 

@@ -13,7 +13,7 @@ class UuidNormalizerTest extends TestCase {
      * @covers ::normalize
      */
     public function testNormalize(): void {
-        $this->assertEquals(
+        self::assertEquals(
             '1151886d-c5fb-40d3-a5f4-33b5ca38ff85',
             (new UuidNormalizer())->normalize(' 1151886D-C5FB-40D3-A5F4-33B5CA38FF85 '),
         );

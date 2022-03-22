@@ -2,8 +2,10 @@
 
 namespace App\Utils\Console;
 
+use Illuminate\Console\Command;
+
 /**
- * @mixin \Illuminate\Console\Command
+ * @mixin Command
  */
 trait WithBooleanOptions {
     protected function getBooleanOption(string $name, bool $default): bool {

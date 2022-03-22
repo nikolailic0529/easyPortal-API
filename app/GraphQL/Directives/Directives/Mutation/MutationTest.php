@@ -26,7 +26,7 @@ class MutationTest extends TestCase {
      * @covers ::manipulateFieldDefinition
      */
     public function testManipulateFieldDefinition(): void {
-        $this->assertNotNull($this->getGraphQLSchema(
+        self::assertNotNull($this->getGraphQLSchema(
         /** @lang GraphQL */
             <<<'GRAPHQL'
             type Query {
@@ -35,19 +35,19 @@ class MutationTest extends TestCase {
             type Mutation {
                 model: ModelMutations!
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
 
             type ModelMutations {
                 mutate: String
                 @mutationCall(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
 
                 mutation: ModelMutations
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
             GRAPHQL,
@@ -58,7 +58,7 @@ class MutationTest extends TestCase {
      * @covers ::manipulateFieldDefinition
      */
     public function testManipulateFieldDefinitionNoArguments(): void {
-        $this->expectExceptionObject(new DefinitionException(
+        self::expectExceptionObject(new DefinitionException(
             'Directive `@mutation` required at least one of `model`, `builder`, `relation`, `resolver` argument.',
         ));
 
@@ -84,7 +84,7 @@ class MutationTest extends TestCase {
      * @covers ::manipulateFieldDefinition
      */
     public function testManipulateFieldDefinitionFieldIsNotType(): void {
-        $this->expectExceptionObject(new DefinitionException(
+        self::expectExceptionObject(new DefinitionException(
             'Field `Mutation.model` must be a Type.',
         ));
 
@@ -97,7 +97,7 @@ class MutationTest extends TestCase {
             type Mutation {
                 model: String!
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
             GRAPHQL,
@@ -108,7 +108,7 @@ class MutationTest extends TestCase {
      * @covers ::manipulateFieldDefinition
      */
     public function testManipulateFieldDefinitionFieldIsNotMutation(): void {
-        $this->expectExceptionObject(new DefinitionException(
+        self::expectExceptionObject(new DefinitionException(
             'Field `ModelMutations.mutation` must use one of '.
             '`@mutation`, `@mutationCall`, `@mutationCreate`, `@mutationMutate`'.
             ' directives.',
@@ -123,14 +123,14 @@ class MutationTest extends TestCase {
             type Mutation {
                 model: ModelMutations!
                 @mutation(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
             }
 
             type ModelMutations {
                 mutate: String
                 @mutationCall(
-                  resolver: "resolver",
+                    resolver: "resolver",
                 )
 
                 mutation: String

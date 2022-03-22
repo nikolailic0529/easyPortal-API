@@ -28,17 +28,17 @@ class ObjectIteratorsIteratorTest extends TestCase {
             'two' => new ObjectIteratorsIteratorTest__Iterator([6, 7, 8, 9, 0]),
         ]);
 
-        $this->assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], iterator_to_array($iterator));
-        $this->assertEquals([3, 4, 5, 6, 7, 8], iterator_to_array(
+        self::assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], iterator_to_array($iterator));
+        self::assertEquals([3, 4, 5, 6, 7, 8], iterator_to_array(
             $iterator->setOffset('one@2')->setLimit(6),
         ));
-        $this->assertEquals([3, 4, 5, 6, 7, 8, 9, 0], iterator_to_array(
+        self::assertEquals([3, 4, 5, 6, 7, 8, 9, 0], iterator_to_array(
             $iterator->setOffset('one@2')->setLimit(null),
         ));
-        $this->assertEquals([6, 7, 8, 9, 0], iterator_to_array(
+        self::assertEquals([6, 7, 8, 9, 0], iterator_to_array(
             $iterator->setOffset('two')->setLimit(null),
         ));
-        $this->assertEquals([9, 0], iterator_to_array(
+        self::assertEquals([9, 0], iterator_to_array(
             $iterator->setOffset('two@3')->setLimit(null),
         ));
     }
@@ -160,7 +160,7 @@ class ObjectIteratorsIteratorTest extends TestCase {
             ->setChunkSize(123)
             ->setLimit(7);
 
-        $this->assertEquals([1, 2, 3, 4, 5, 6, 7], iterator_to_array($iterator));
+        self::assertEquals([1, 2, 3, 4, 5, 6, 7], iterator_to_array($iterator));
     }
 
 
@@ -214,16 +214,16 @@ class ObjectIteratorsIteratorTest extends TestCase {
         ]);
 
         // Simple test
-        $this->assertNull($iterator->getOffset());
-        $this->assertEquals('two', $iterator->setOffset('two')->getOffset());
-        $this->assertEquals('one@123', $iterator->setOffset('one@123')->getOffset());
+        self::assertNull($iterator->getOffset());
+        self::assertEquals('two', $iterator->setOffset('two')->getOffset());
+        self::assertEquals('one@123', $iterator->setOffset('one@123')->getOffset());
     }
 
     /**
      * @covers ::setOffset
      */
     public function testSetOffsetUnknownIterator(): void {
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'The `$offset` is not valid, iterator `%s` is unknown.',
             'unknown',
         )));
@@ -235,7 +235,7 @@ class ObjectIteratorsIteratorTest extends TestCase {
      * @covers ::setOffset
      */
     public function testSetOffsetInvalidType(): void {
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'The `$offset` must be `string` or `null`, `%s` given',
             'integer',
         )));
@@ -250,10 +250,18 @@ class ObjectIteratorsIteratorTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @template T
+ *
+ * @implements ObjectIterator<T>
  */
 class ObjectIteratorsIteratorTest__Iterator implements ObjectIterator {
-    use Properties;
+    /**
+     * @phpstan-use Subjects<T>
+     */
     use Subjects;
+
+    use Properties;
 
     /**
      * @param array<mixed> $data

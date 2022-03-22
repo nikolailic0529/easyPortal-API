@@ -13,13 +13,6 @@ class UnsignedNormalizer implements ValueNormalizer {
         // empty
     }
 
-    /**
-     * @template T of float|int|null
-     *
-     * @param T $value
-     *
-     * @return T
-     */
     public function normalize(mixed $value): mixed {
         if (is_float($value) || is_int($value)) {
             $value = max(0, $value);

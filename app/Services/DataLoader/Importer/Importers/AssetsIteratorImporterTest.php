@@ -37,7 +37,7 @@ class AssetsIteratorImporterTest extends TestCase {
         $this->overrideUuidFactory('97eb0b2c-a993-4cf6-89f1-7c179b252571');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class   => 2,
             Reseller::class      => 20,
             Customer::class      => 11,
@@ -59,8 +59,8 @@ class AssetsIteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithDocuments::LIMIT)
             ->start();
 
-        $this->assertQueryLogEquals('~run-with-documents-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~run-with-documents-cold.json', $queries);
+        self::assertModelsCount([
             Distributor::class   => 2,
             Reseller::class      => 20,
             Customer::class      => 11,
@@ -69,7 +69,7 @@ class AssetsIteratorImporterTest extends TestCase {
             Document::class      => 15,
             DocumentEntry::class => 0,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~run-with-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -90,8 +90,8 @@ class AssetsIteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithDocuments::LIMIT)
             ->start();
 
-        $this->assertQueryLogEquals('~run-with-documents-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~run-with-documents-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~run-with-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -113,7 +113,7 @@ class AssetsIteratorImporterTest extends TestCase {
         $this->overrideUuidFactory('381a7352-0b68-4ec3-a58a-81bb9cb63716');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 30,
             Customer::class      => 10,
@@ -135,8 +135,8 @@ class AssetsIteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithoutDocuments::LIMIT)
             ->start();
 
-        $this->assertQueryLogEquals('~run-without-documents-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~run-without-documents-cold.json', $queries);
+        self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 30,
             Customer::class      => 10,
@@ -145,7 +145,7 @@ class AssetsIteratorImporterTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~run-without-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -166,8 +166,8 @@ class AssetsIteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithoutDocuments::LIMIT)
             ->start();
 
-        $this->assertQueryLogEquals('~run-without-documents-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~run-without-documents-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~run-without-documents-events.json',
             $events->dispatched(DataImported::class),
         );

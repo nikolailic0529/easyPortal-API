@@ -2,23 +2,22 @@
 
 namespace App\GraphQL\Mutations\Me;
 
-use Illuminate\Auth\AuthManager;
+use App\Services\Auth\Auth;
 
 class DeleteMeSearch {
     public function __construct(
-        protected AuthManager $auth,
+        protected Auth $auth,
     ) {
         // empty
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
-        $user   = $this->auth->user();
+    public function __invoke(mixed $root, array $args): array {
+        $user   = $this->auth->getUser();
         $search = $user->searches()->whereKey($args['input']['id'])->first();
 
         if ($search) {

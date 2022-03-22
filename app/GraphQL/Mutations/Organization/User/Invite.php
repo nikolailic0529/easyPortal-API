@@ -86,9 +86,9 @@ class Invite {
         if ($user->exists) {
             $keyCloakUser = $this->client->getUserById($user->getKey());
         } else {
-            $keyCloakUser                = $this->client->getUserByEmail($input->email)
+            $keyCloakUser = $this->client->getUserByEmail($input->email)
                 ?? $this->client->createUser($input->email, $role);
-            $user->{$user->getKeyName()} = $keyCloakUser->id;
+            $user->id     = $keyCloakUser->id;
         }
 
         if (!$keyCloakUser->enabled) {

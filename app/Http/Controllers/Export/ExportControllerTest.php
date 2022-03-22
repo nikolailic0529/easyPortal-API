@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Export;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
+use Box\Spout\Reader\XLSX\Sheet;
 use Closure;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Routing\Exceptions\StreamedResponseException;
 use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\ClosureConstraint;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\PdfContentType;
@@ -64,7 +67,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getHeaders($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -74,7 +77,7 @@ class ExportControllerTest extends TestCase {
      */
     public function testGetHeaderValue(mixed $expected, string $header, mixed $item): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $controller = new class() extends ExportController {
@@ -92,7 +95,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getHeaderValue($header, $item);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -113,7 +116,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getValue($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -139,7 +142,7 @@ class ExportControllerTest extends TestCase {
         };
         $actual     = $controller->getItemValue($path, $value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -172,11 +175,15 @@ class ExportControllerTest extends TestCase {
 
         // Errors
         if ($expected instanceof BadRequest) {
-            $this->expectException(GraphQLQueryInvalid::class);
+            self::expectExceptionObject(new StreamedResponseException(
+                new GraphQLQueryInvalid([]),
+            ));
         }
 
         if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
-            $this->expectException(AuthorizationException::class);
+            self::expectExceptionObject(new StreamedResponseException(
+                new AuthorizationException('Unauthorized.'),
+            ));
         }
 
         // Execute
@@ -194,11 +201,11 @@ class ExportControllerTest extends TestCase {
         if ($response->isSuccessful()) {
             $response->assertThat(new CsvContentType());
             $response->assertThat(new Response(new ClosureConstraint(
-                function (ResponseInterface $response) use ($count): bool {
+                static function (ResponseInterface $response) use ($count): bool {
                     $content = trim((string) $response->getBody(), "\n");
                     $lines   = count(explode("\n", $content));
 
-                    $this->assertEquals($count + 1, $lines);
+                    self::assertEquals($count + 1, $lines);
 
                     return true;
                 },
@@ -240,11 +247,15 @@ class ExportControllerTest extends TestCase {
 
         // Errors
         if ($expected instanceof BadRequest) {
-            $this->expectException(GraphQLQueryInvalid::class);
+            self::expectExceptionObject(new StreamedResponseException(
+                new GraphQLQueryInvalid([]),
+            ));
         }
 
         if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
-            $this->expectException(AuthorizationException::class);
+            self::expectExceptionObject(new StreamedResponseException(
+                new AuthorizationException('Unauthorized.'),
+            ));
         }
 
         // Execute
@@ -269,14 +280,14 @@ class ExportControllerTest extends TestCase {
 
                     $xlsx->open($file->getPathname());
 
+                    /** @var Sheet $sheet */
                     foreach ($xlsx->getSheetIterator() as $sheet) {
-                        /** @var \Box\Spout\Reader\XLSX\Sheet $sheet */
                         foreach ($sheet->getRowIterator() as $row) {
                             $sheets[$sheet->getIndex()] = ($sheets[$sheet->getIndex()] ?? 0) + 1;
                         }
                     }
 
-                    $this->assertEquals([0 => $count + 1], $sheets);
+                    self::assertEquals([0 => $count + 1], $sheets);
 
                     return true;
                 },
@@ -333,7 +344,7 @@ class ExportControllerTest extends TestCase {
      * @param array<string, mixed> $data
      * @param array<string, mixed> $settings
      *
-     * @return array{?\App\Models\Organization,?\App\Models\User,array<string,mixed>,?int}
+     * @return array{?Organization,?User,array<string,mixed>,?int}
      */
     protected function prepare(
         Closure $organizationFactory,

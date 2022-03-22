@@ -80,6 +80,6 @@ class ConfigurationTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 }

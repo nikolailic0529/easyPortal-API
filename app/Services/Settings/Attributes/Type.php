@@ -15,7 +15,7 @@ use function sprintf;
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
 class Type {
     /**
-     * @param class-string<\App\Services\Settings\Types\Type> $type
+     * @param class-string<TypeInstance> $type
      */
     public function __construct(
         protected string $type,

@@ -106,13 +106,13 @@ class InviteTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             // Models
             if ($response->json('data.organization.user.invite.result')) {
-                $this->assertModelsCount([
+                self::assertModelsCount([
                     User::class             => 2,
                     Invitation::class       => 1,
                     OrganizationUser::class => 2,
                 ]);
             } else {
-                $this->assertModelsCount([
+                self::assertModelsCount([
                     User::class             => 2,
                     Invitation::class       => 0,
                     OrganizationUser::class => $organizationUsers,
@@ -122,8 +122,8 @@ class InviteTest extends TestCase {
             // User
             $user = User::query()->whereKeyNot($user->getKey())->first();
 
-            $this->assertNotNull($user);
-            $this->assertEquals($data['input']['email'], $user->email);
+            self::assertNotNull($user);
+            self::assertEquals($data['input']['email'], $user->email);
 
             // Notification
             if ($response->json('data.organization.user.invite.result')) {
@@ -136,11 +136,11 @@ class InviteTest extends TestCase {
             if ($response->json('data.organization.user.invite.result')) {
                 $invitation = Invitation::query()->first();
 
-                $this->assertNotNull($invitation);
-                $this->assertEquals($data['id'], $invitation->organization_id);
-                $this->assertEquals($data['input']['role_id'], $invitation->role_id);
-                $this->assertEquals($data['input']['team_id'], $invitation->team_id);
-                $this->assertEquals($user->getKey(), $invitation->user_id);
+                self::assertNotNull($invitation);
+                self::assertEquals($data['id'], $invitation->organization_id);
+                self::assertEquals($data['input']['role_id'], $invitation->role_id);
+                self::assertEquals($data['input']['team_id'], $invitation->team_id);
+                self::assertEquals($user->getKey(), $invitation->user_id);
             }
         }
     }

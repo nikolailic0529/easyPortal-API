@@ -23,8 +23,8 @@ class CompositeRuleTest extends TestCase {
             }
         };
 
-        $this->assertTrue($rule->passes('test', true));
-        $this->assertFalse($rule->passes('test', 123));
+        self::assertTrue($rule->passes('test', true));
+        self::assertFalse($rule->passes('test', 123));
     }
 
     /**
@@ -49,10 +49,10 @@ class CompositeRuleTest extends TestCase {
         };
 
         // Message is empty ...
-        $this->assertEquals('', $rule->message());
+        self::assertEquals('', $rule->message());
 
         // ... until fail
-        $this->assertFalse($rule->passes('test', 123));
-        $this->assertEquals('message validation.boolean', $rule->message());
+        self::assertFalse($rule->passes('test', 123));
+        self::assertEquals('message validation.boolean', $rule->message());
     }
 }

@@ -43,14 +43,14 @@ class Auth {
     }
 
     /**
-     * @return array<\App\Services\Auth\Permission>
+     * @return array<Permission>
      */
     public function getPermissions(): array {
         return $this->permissions->get();
     }
 
     /**
-     * @return array<\App\Services\Auth\Permission>
+     * @return array<Permission>
      */
     public function getAvailablePermissions(Organization $organization): array {
         $isRoot      = $this->rootOrganization->is($organization);

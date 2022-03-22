@@ -39,7 +39,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
     use Importable;
 
     /**
-     * @var array<\App\Services\DataLoader\Importer\Importers\OemsImporter\HeaderCell>
+     * @var array<HeaderCell>
      */
     protected array $header = [];
 
@@ -90,11 +90,10 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
 
         // Save translations (temporary implementation)
         $helper = new class($serviceLevel) extends ServiceLevel {
-            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ServiceLevel $model,
             ) {
-                // empty
+                parent::__construct();
             }
 
             /**

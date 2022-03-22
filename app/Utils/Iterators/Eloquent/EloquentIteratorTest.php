@@ -10,6 +10,7 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
+use function array_fill;
 use function iterator_to_array;
 
 /**
@@ -26,7 +27,13 @@ class EloquentIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         // Prepare
-        $models   = Type::factory()->count(10)->create()->map(new GetKey())->sort()->values();
+        $models   = (new Collection(array_fill(0, 10, null)))
+            ->map(static function (): Type {
+                return Type::factory()->create();
+            })
+            ->map(new GetKey())
+            ->sort()
+            ->values();
         $builder  = Type::query()->orderBy((new Type())->getKeyName());
         $iterator = new EloquentIterator($builder->getChunkedIterator());
 
@@ -36,9 +43,9 @@ class EloquentIteratorTest extends TestCase {
         $actual   = (clone $iterator);
         $actual   = (new Collection($actual))->map(new GetKey());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
-        $this->assertCount(2, $queries);
+        self::assertCount(2, $queries);
 
         $queries->flush();
 
@@ -48,9 +55,9 @@ class EloquentIteratorTest extends TestCase {
         $actual   = (clone $iterator)->setChunkSize(4);
         $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
-        $this->assertCount(4, $queries);
+        self::assertCount(4, $queries);
 
         $queries->flush();
 
@@ -60,9 +67,9 @@ class EloquentIteratorTest extends TestCase {
         $actual   = (clone $iterator)->setOffset(2)->setLimit(5)->setChunkSize(4);
         $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
-        $this->assertCount(2, $queries);
+        self::assertCount(2, $queries);
 
         $queries->flush();
     }
@@ -87,7 +94,13 @@ class EloquentIteratorTest extends TestCase {
             // empty
         });
 
-        $models   = Type::factory()->count(7)->create()->map(new GetKey())->sort()->values();
+        $models   = (new Collection(array_fill(0, 7, null)))
+            ->map(static function (): Type {
+                return Type::factory()->create();
+            })
+            ->map(new GetKey())
+            ->sort()
+            ->values();
         $builder  = Type::query()->orderBy((new Type())->getKeyName());
         $iterator = (new EloquentIterator($builder->getChunkedIterator()))
             ->onInit(Closure::fromCallable($init))

@@ -29,7 +29,7 @@ use function array_merge;
 use function in_array;
 
 /**
- * @extends \App\Utils\Processor\Processor<\App\Services\Keycloak\Client\Types\User,\App\Services\Keycloak\Importer\UsersImporterChunkData,\App\Services\Keycloak\Importer\UsersImporterState>
+ * @extends Processor<KeycloakUser,UsersImporterChunkData,UsersImporterState>
  */
 class UsersImporter extends Processor {
     public function __construct(
@@ -73,9 +73,9 @@ class UsersImporter extends Processor {
     }
 
     /**
-     * @param \App\Services\Keycloak\Importer\UsersImporterState     $state
-     * @param \App\Services\Keycloak\Importer\UsersImporterChunkData $data
-     * @param \App\Services\Keycloak\Client\Types\User               $item
+     * @param UsersImporterState     $state
+     * @param UsersImporterChunkData $data
+     * @param KeycloakUser           $item
      */
     protected function process(State $state, mixed $data, mixed $item): void {
         // User
@@ -116,7 +116,7 @@ class UsersImporter extends Processor {
     }
 
     /**
-     * @param \App\Services\Keycloak\Importer\UsersImporterState $state
+     * @param UsersImporterState $state
      */
     protected function finish(State $state): void {
         // Remove deleted users
@@ -146,9 +146,9 @@ class UsersImporter extends Processor {
         $user = $data->getUserById($item->id);
 
         if (!$user) {
-            $user                        = new User();
-            $user->type                  = UserType::keycloak();
-            $user->{$user->getKeyName()} = $item->id;
+            $user       = new User();
+            $user->id   = $item->id;
+            $user->type = UserType::keycloak();
         }
 
         if ($user->type !== UserType::keycloak()) {
@@ -163,7 +163,7 @@ class UsersImporter extends Processor {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\App\Models\OrganizationUser>
+     * @return Collection<int, OrganizationUser>
      */
     protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
         // Organizations & Roles

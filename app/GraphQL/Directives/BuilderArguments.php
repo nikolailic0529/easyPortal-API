@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
 use Laravel\Scout\Builder as ScoutBuilder;
+use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_filter;
@@ -16,7 +17,7 @@ use function implode;
 use function sprintf;
 
 /**
- * @mixin \Nuwave\Lighthouse\Schema\Directives\BaseDirective
+ * @mixin BaseDirective
  */
 trait BuilderArguments {
     protected static function getArgumentsDefinition(): string {

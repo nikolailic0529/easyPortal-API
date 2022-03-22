@@ -22,7 +22,7 @@ class SpreadsheetTest extends TestCase {
     public function testPasses(bool $expected, array $settings, mixed $value): void {
         $this->setSettings($settings);
 
-        $this->assertEquals($expected, $this->app->make(Spreadsheet::class)->passes('test', $value));
+        self::assertEquals($expected, $this->app->make(Spreadsheet::class)->passes('test', $value));
     }
     // </editor-fold>
 

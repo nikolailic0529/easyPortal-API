@@ -2,32 +2,33 @@
 
 namespace App\Utils\Iterators\Concerns;
 
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 
 /**
  * @template T
  *
- * @mixin \App\Utils\Iterators\Contracts\ObjectIterator<T>
+ * @mixin ObjectIterator<T>
  */
 trait Subjects {
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<void>
+     * @var Dispatcher<void>
      */
     private Dispatcher $onInitDispatcher;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<void>
+     * @var Dispatcher<void>
      */
     private Dispatcher $onFinishDispatcher;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
+     * @var Dispatcher<array<T>>
      */
     private Dispatcher $onBeforeChunkDispatcher;
 
     /**
-     * @var \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
+     * @var Dispatcher<array<T>>
      */
     private Dispatcher $onAfterChunkDispatcher;
 
@@ -96,7 +97,7 @@ trait Subjects {
     /**
      * Sets the closure that will be called after received each non-empty chunk.
      *
-     * @param \Closure(array<T>): void|null $closure `null` removes all observers
+     * @param Closure(array<T>): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */
@@ -120,7 +121,7 @@ trait Subjects {
     }
 
     /**
-     * @return \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
+     * @return Dispatcher<array<T>>
      */
     private function getOnBeforeChunkDispatcher(): Dispatcher {
         if (!isset($this->onBeforeChunkDispatcher)) {
@@ -133,7 +134,7 @@ trait Subjects {
     /**
      * Sets the closure that will be called after non-empty chunk processed.
      *
-     * @param \Closure(array<T>): void|null $closure `null` removes all observers
+     * @param Closure(array<T>): void|null $closure `null` removes all observers
      *
      * @return $this<T>
      */
@@ -159,7 +160,7 @@ trait Subjects {
     }
 
     /**
-     * @return \LastDragon_ru\LaraASP\Core\Observer\Dispatcher<array<T>>
+     * @return Dispatcher<array<T>>
      */
     private function getOnAfterChunkDispatcher(): Dispatcher {
         if (!isset($this->onAfterChunkDispatcher)) {

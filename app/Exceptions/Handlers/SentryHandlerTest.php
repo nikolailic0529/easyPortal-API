@@ -40,7 +40,7 @@ class SentryHandlerTest extends TestCase {
         ];
         $actual    = $handler::getContextExceptions($context);
 
-        $this->assertInstanceOf(ExceptionDataBag::class, reset($actual));
+        self::assertInstanceOf(ExceptionDataBag::class, reset($actual));
     }
 
     /**
@@ -67,7 +67,7 @@ class SentryHandlerTest extends TestCase {
         ];
         $actual  = $handler::getContextBreadcrumbs($context);
 
-        $this->assertInstanceOf(Breadcrumb::class, reset($actual));
+        self::assertInstanceOf(Breadcrumb::class, reset($actual));
     }
 
     /**
@@ -91,7 +91,7 @@ class SentryHandlerTest extends TestCase {
             }
         };
 
-        $this->assertEquals('package@1.2.3', $handler::getRelease());
-        $this->assertEquals('package@1.2.3', $handler::getRelease()); // should be cached
+        self::assertEquals('package@1.2.3', $handler::getRelease());
+        self::assertEquals('package@1.2.3', $handler::getRelease()); // should be cached
     }
 }

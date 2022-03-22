@@ -25,7 +25,7 @@ class Organization {
      * Handle an incoming request.
      */
     public function handle(Request $request, Closure $next, ?string ...$guards): mixed {
-        $guards = empty($guards) ? [null] : $guards;
+        $guards = $guards ?: [null];
 
         foreach ($guards as $guard) {
             if (!$this->isAuthorized($this->auth->guard($guard)->user())) {

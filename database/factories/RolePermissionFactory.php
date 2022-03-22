@@ -5,12 +5,15 @@ namespace Database\Factories;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\RolePermission;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\RolePermission create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\RolePermission make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method RolePermission create($attributes = [], ?Model $parent = null)
+ * @method RolePermission make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<RolePermission>
  */
 class RolePermissionFactory extends Factory {
     /**

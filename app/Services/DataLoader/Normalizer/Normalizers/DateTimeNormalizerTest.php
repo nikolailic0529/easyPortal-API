@@ -29,7 +29,7 @@ class DateTimeNormalizerTest extends TestCase {
             ? $actual->format(DateTimeInterface::RFC3339_EXTENDED)
             : null;
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

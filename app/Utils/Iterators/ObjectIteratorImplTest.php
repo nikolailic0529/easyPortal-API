@@ -47,7 +47,7 @@ class ObjectIteratorImplTest extends TestCase {
         // Non-empty chunk
         $exception = new Exception(__METHOD__);
 
-        $this->expectExceptionObject($exception);
+        self::expectExceptionObject($exception);
 
         $iterator->onBeforeChunk(static function () use ($exception): void {
             throw $exception;
@@ -88,7 +88,7 @@ class ObjectIteratorImplTest extends TestCase {
         // Non-empty chunk
         $exception = new Exception(__METHOD__);
 
-        $this->expectExceptionObject($exception);
+        self::expectExceptionObject($exception);
 
         $iterator->onAfterChunk(static function () use ($exception): void {
             throw $exception;
@@ -134,7 +134,7 @@ class ObjectIteratorImplTest extends TestCase {
 
         $chunk = [['a' => 'a'], ['b' => 'b'], ['c' => 'c']];
 
-        $this->assertEquals($chunk, $iterator->chunkPrepare($chunk));
-        $this->assertEquals([], $iterator->chunkPrepare($chunk));
+        self::assertEquals($chunk, $iterator->chunkPrepare($chunk));
+        self::assertEquals([], $iterator->chunkPrepare($chunk));
     }
 }

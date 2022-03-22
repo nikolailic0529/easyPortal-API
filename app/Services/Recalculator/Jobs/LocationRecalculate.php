@@ -2,13 +2,14 @@
 
 namespace App\Services\Recalculator\Jobs;
 
+use App\Models\Location;
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends \App\Services\Recalculator\Jobs\Recalculate<\App\Models\Location>
+ * @extends Recalculate<Location>
  */
 class LocationRecalculate extends Recalculate {
     public function displayName(): string {

@@ -6,31 +6,31 @@ use App\Mail\QuoteRequest as MailQuoteRequest;
 use App\Models\Contact;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
+use App\Services\Auth\Auth;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Mail\Mailer;
 
 class CreateQuoteRequest {
     public function __construct(
-        protected AuthManager $auth,
+        protected Auth $auth,
         protected CurrentOrganization $organization,
         protected ModelDiskFactory $disks,
         protected Mailer $mail,
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $request                  = new QuoteRequest();
         $request->oem_id          = $args['input']['oem_id'];
-        $request->organization_id = $this->organization->get()->getKey();
-        $request->user_id         = $this->auth->user()->getKey();
+        $request->organization_id = $this->organization->getKey();
+        $request->user_id         = $this->auth->getUser()->getKey();
         $request->customer_id     = $args['input']['customer_id'] ?? null;
         $request->customer_name   = $args['input']['customer_name'] ?? null;
         $request->type_id         = $args['input']['type_id'];
@@ -69,6 +69,7 @@ class CreateQuoteRequest {
 
         // Send Email
         $this->mail->send(new MailQuoteRequest($request));
-        return ['created' => $request ];
+
+        return ['created' => $request];
     }
 }

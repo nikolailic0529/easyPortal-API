@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -10,8 +11,10 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 use function array_keys;
 
 /**
- * @method \App\Models\Type create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Type make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Type create($attributes = [], ?Model $parent = null)
+ * @method Type make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Type>
  */
 class TypeFactory extends Factory {
     /**

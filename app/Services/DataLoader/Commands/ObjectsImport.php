@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Date;
 
 use function array_merge;
 
+/**
+ * @template TProcessor of \App\Services\DataLoader\Importer\Importer
+ *
+ * @extends ProcessorCommand<TProcessor>
+ */
 abstract class ObjectsImport extends ProcessorCommand {
     use WithBooleanOptions;
 

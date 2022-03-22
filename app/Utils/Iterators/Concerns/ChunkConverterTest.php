@@ -27,7 +27,7 @@ class ChunkConverterTest extends TestCase {
         $handler   = Mockery::mock(ExceptionHandler::class);
         $converter = new ChunkConverterTest_ChunkConverter($handler);
 
-        $this->assertEquals($items, $converter->chunkConvert($items));
+        self::assertEquals($items, $converter->chunkConvert($items));
     }
 
     /**
@@ -51,7 +51,7 @@ class ChunkConverterTest extends TestCase {
             return $item;
         });
 
-        $this->assertEquals(
+        self::assertEquals(
             Arr::except($items, 2),
             $converter->chunkConvert($items),
         );
@@ -74,7 +74,7 @@ class ChunkConverterTest extends TestCase {
             return $item;
         });
 
-        $this->expectExceptionObject($error);
+        self::expectExceptionObject($error);
 
         $converter->chunkConvert($items);
     }
@@ -96,7 +96,7 @@ class ChunkConverterTest extends TestCase {
             throw $error;
         });
 
-        $this->expectExceptionObject(new BrokenIteratorDetected($converter::class));
+        self::expectExceptionObject(new BrokenIteratorDetected($converter::class));
 
         $converter->chunkConvert($items);
     }
@@ -110,6 +110,9 @@ class ChunkConverterTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ChunkConverterTest_ChunkConverter {
+    /**
+     * @phpstan-use ChunkConverter<mixed, mixed>
+     */
     use ChunkConverter {
         chunkConvert as public;
     }

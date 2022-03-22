@@ -12,14 +12,16 @@ use function count;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<array<T>>
- * @uses \App\Utils\Iterators\Concerns\PropertiesProxy<T,T>
+ * @implements ObjectIterator<array<T>>
  */
 class GroupedIteratorIterator implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<T,T>
+     */
     use PropertiesProxy;
 
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<T> $internalIterator
+     * @param ObjectIterator<T> $internalIterator
      */
     public function __construct(
         private ObjectIterator $internalIterator,

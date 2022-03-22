@@ -80,7 +80,7 @@ class Update {
     /**
      * @param array<string> $permissions
      *
-     * @return \Illuminate\Support\Collection<\App\Models\Permission>
+     * @return Collection<int, Permission>
      */
     protected function getPermissions(array $permissions): Collection {
         return Permission::query()
@@ -93,7 +93,7 @@ class Update {
         $group = $this->client->createGroup($role);
 
         if (!$role->exists) {
-            $role->{$role->getKeyName()} = $group->id;
+            $role->id = $group->id;
         }
 
         // Save

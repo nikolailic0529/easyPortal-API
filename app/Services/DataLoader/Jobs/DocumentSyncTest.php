@@ -78,7 +78,7 @@ class DocumentSyncTest extends TestCase {
             'assets' => true,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -119,7 +119,7 @@ class DocumentSyncTest extends TestCase {
             'assets' => false,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -145,7 +145,7 @@ class DocumentSyncTest extends TestCase {
             'assets' => false,
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 }

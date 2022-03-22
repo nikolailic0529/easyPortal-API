@@ -27,7 +27,7 @@ class RoleIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
     }
 
     /**
@@ -38,7 +38,7 @@ class RoleIdTest extends TestCase {
     public function testPasses(bool $expected, Closure $roleFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $rule         = $roleFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(RoleId::class)->passes('test', $rule));
+        self::assertEquals($expected, $this->app->make(RoleId::class)->passes('test', $rule));
     }
     // </editor-fold>
 

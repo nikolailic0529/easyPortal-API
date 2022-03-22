@@ -25,8 +25,8 @@ trait WithLocations {
     abstract protected function getLocationFactory(): LocationFactory;
 
     /**
-     * @param C                                               $company
-     * @param array<\App\Services\DataLoader\Schema\Location> $locations
+     * @param C               $company
+     * @param array<Location> $locations
      *
      * @return array<L>
      */

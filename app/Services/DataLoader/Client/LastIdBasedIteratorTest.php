@@ -35,7 +35,7 @@ class LastIdBasedIteratorTest extends TestCase {
             (new LastIdBasedIterator($handler, $this->getQuery($executor)))->setChunkSize(5),
         );
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor
             ->shouldHaveBeenCalled()
@@ -65,10 +65,10 @@ class LastIdBasedIteratorTest extends TestCase {
         $expected = ['6', '7'];
         $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
-            return $type->id ?? null;
+            return $type instanceof TypeWithId ? $type->id : null;
         }, $actual);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor
             ->shouldHaveBeenCalled()
@@ -84,7 +84,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $data     = $this->getData();
         $handler  = Mockery::mock(ExceptionHandler::class);
         $executor = Mockery::spy(function (array $params = []) use ($data) {
-            $this->assertEquals(2, $params['limit']);
+            self::assertEquals(2, $params['limit']);
 
             return $this->getRetriever($data)($params);
         });
@@ -95,7 +95,7 @@ class LastIdBasedIteratorTest extends TestCase {
             ->setChunkSize(2);
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor
             ->shouldHaveBeenCalled()
@@ -109,7 +109,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $data     = $this->getData();
         $handler  = Mockery::mock(ExceptionHandler::class);
         $executor = Mockery::spy(function (array $params = []) use ($data) {
-            $this->assertEquals(2, $params['limit']);
+            self::assertEquals(2, $params['limit']);
 
             return $this->getRetriever($data)($params);
         });
@@ -120,10 +120,10 @@ class LastIdBasedIteratorTest extends TestCase {
             ->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
-            return $type->id ?? null;
+            return $type instanceof TypeWithId ? $type->id : null;
         }, $actual);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor
             ->shouldHaveBeenCalled()
@@ -143,7 +143,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         $executor->shouldNotHaveBeenCalled();
     }
@@ -152,7 +152,7 @@ class LastIdBasedIteratorTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @return array<int,\App\Services\DataLoader\Schema\Type>
+     * @return array<int,Type>
      */
     protected function getData(): array {
         return array_map(static function (int $id): Type {
@@ -163,7 +163,7 @@ class LastIdBasedIteratorTest extends TestCase {
     }
 
     /**
-     * @param array<int,\App\Services\DataLoader\Schema\Type> $data
+     * @param array<int,Type> $data
      */
     protected function getRetriever(array $data): Closure {
         return static function (array $params = []) use ($data) {

@@ -29,9 +29,14 @@ use function is_string;
  *
  * @template TModel of \Illuminate\Database\Eloquent\Model
  *
+ * @implements KeyRetriever<TModel>
+ *
  * @internal
  */
 abstract class Resolver implements Singleton, KeyRetriever {
+    /**
+     * @var Cache<TModel>|null
+     */
     protected Cache|null $cache = null;
 
     public function __construct(
@@ -42,7 +47,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<TModel>
+     * @return Collection<int, TModel>
      */
     public function getResolved(): Collection {
         return $this->getCache()->getAll();
@@ -103,8 +108,8 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param array<mixed> $keys
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection<TModel>):void|null $callback
+     * @param array<mixed>                                                              $keys
+     * @param Closure(\Illuminate\Database\Eloquent\Collection<int, TModel>): void|null $callback
      */
     protected function prefetch(array $keys, Closure|null $callback = null): static {
         // Possible?
@@ -145,7 +150,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param TModel|\Illuminate\Support\Collection<TModel>|array<TModel> $object
+     * @param TModel|Collection<array-key, TModel>|array<TModel> $object
      */
     protected function put(Model|Collection|array $object): void {
         $cache = $this->getCache();
@@ -163,7 +168,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param \App\Services\DataLoader\Cache\Key|array<\App\Services\DataLoader\Cache\Key> $keys
+     * @param Key|array<Key> $keys
      */
     protected function putNull(Key|array $keys): static {
         $cache = $this->getCache();
@@ -177,9 +182,14 @@ abstract class Resolver implements Singleton, KeyRetriever {
         return $this;
     }
 
+    /**
+     * @return Cache<TModel>
+     */
     protected function getCache(bool $preload = true): Cache {
         if (!$this->cache) {
-            $this->cache = new Cache($this->getKeyRetrievers());
+            /** @var Cache<TModel> $cache */
+            $cache       = new Cache($this->getKeyRetrievers());
+            $this->cache = $cache;
 
             if ($preload) {
                 $this->put($this->getPreloadedItems());
@@ -194,7 +204,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return array<\App\Services\DataLoader\Cache\KeyRetriever>
+     * @return array<KeyRetriever<TModel>>
      */
     protected function getKeyRetrievers(): array {
         return [
@@ -212,7 +222,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder<TModel>|null
+     * @return Builder<TModel>|null
      */
     protected function getFindQuery(): ?Builder {
         return null;
@@ -247,7 +257,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return \Illuminate\Support\Collection<TModel>
+     * @return Collection<int, TModel>
      */
     protected function getPreloadedItems(): Collection {
         return new Collection();

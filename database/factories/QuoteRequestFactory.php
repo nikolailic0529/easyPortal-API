@@ -8,12 +8,15 @@ use App\Models\Organization;
 use App\Models\QuoteRequest;
 use App\Models\Type;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\QuoteRequest create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\QuoteRequest make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method QuoteRequest create($attributes = [], ?Model $parent = null)
+ * @method QuoteRequest make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<QuoteRequest>
  */
 class QuoteRequestFactory extends Factory {
     /**

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
@@ -20,6 +21,9 @@ use InvalidArgumentException;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends CompanyFactory<Reseller, ResellerLocation>
+ */
 class ResellerFactory extends CompanyFactory {
     use WithKpi;
 
@@ -46,7 +50,6 @@ class ResellerFactory extends CompanyFactory {
     // <editor-fold desc="Factory">
     // =========================================================================
     public function find(Type $type): ?Reseller {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 

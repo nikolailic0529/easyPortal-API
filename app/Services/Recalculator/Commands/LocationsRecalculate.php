@@ -6,6 +6,9 @@ use App\Services\I18n\Formatter;
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
 use App\Utils\Processor\Commands\ProcessorCommand;
 
+/**
+ * @extends ProcessorCommand<LocationsProcessor>
+ */
 class LocationsRecalculate extends ProcessorCommand {
     public function __invoke(Formatter $formatter, LocationsProcessor $processor): int {
         return $this->process($formatter, $processor);

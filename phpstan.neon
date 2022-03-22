@@ -1,0 +1,38 @@
+parameters:
+    paths:
+        - app
+        - bootstrap
+        - config
+        - database
+        - routes
+        - tests
+
+    # The level 9 is the highest level
+    level: max
+
+    # Settings
+    checkGenericClassInNonGenericObjectType: true
+    checkMissingCallableSignature: true
+
+    # Stubs
+    stubFiles:
+        - ./vendor/nuwave/lighthouse/_ide_helper.php
+        - ./.phpstan/Factory.php
+        - ./.phpstan/Geotools.php
+        - ./.phpstan/Faker.php
+
+includes:
+    # Extensions
+    - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - ./vendor/phpstan/phpstan-mockery/extension.neon
+    - ./vendor/phpstan/phpstan-phpunit/extension.neon
+    - ./vendor/phpstan/phpstan-phpunit/rules.neon
+    - ./vendor/phpstan/phpstan-strict-rules/rules.neon
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+    # App
+    - ./tests/PhpStan/Larastan/extension.neon
+
+    # Baseline
+    - phpstan-baseline-well-known.neon
+    - phpstan-baseline.neon

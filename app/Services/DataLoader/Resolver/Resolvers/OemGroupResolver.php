@@ -10,6 +10,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @extends Resolver<OemGroup>
+ */
 class OemGroupResolver extends Resolver {
     public function get(Oem $model, string $key, string $name, Closure $factory = null): ?OemGroup {
         return $this->resolve($this->getUniqueKey($model, $key, $name), $factory);

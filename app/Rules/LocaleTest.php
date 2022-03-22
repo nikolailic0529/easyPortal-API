@@ -20,7 +20,7 @@ class LocaleTest extends TestCase {
         $translator->addLines(['validation.locale' => 'No translation'], 'en');
         $translator->addLines(['validation.locale' => 'Translated (locale)'], 'de');
         $this->app->setLocale('de');
-        $this->assertEquals(
+        self::assertEquals(
             $this->app->make(Locale::class)->message(),
             $translator->get('validation.locale', [], 'de'),
         );
@@ -32,7 +32,7 @@ class LocaleTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, string $value): void {
-        $this->assertEquals($expected, $this->app->make(Locale::class)->passes('test', $value));
+        self::assertEquals($expected, $this->app->make(Locale::class)->passes('test', $value));
     }
     // </editor-fold>
 

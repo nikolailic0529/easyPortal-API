@@ -41,19 +41,19 @@ class AuditsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
                 query {
-                  audits {
-                    id
-                    organization_id
-                    user_id
-                    object_type
-                    object_id
-                    context
-                    action
-                    created_at
-                  }
-                  auditsAggregated {
-                    count
-                  }
+                    audits {
+                        id
+                        organization_id
+                        user_id
+                        object_type
+                        object_id
+                        context
+                        action
+                        created_at
+                    }
+                    auditsAggregated {
+                        count
+                    }
                 }
             ')->assertThat($expected);
     }

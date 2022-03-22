@@ -39,7 +39,7 @@ abstract class CompositeRule implements Rule {
     }
 
     /**
-     * @return array<\Illuminate\Contracts\Validation\Rule|string>
+     * @return array<Rule|string>
      */
     abstract protected function getRules(): array;
 }

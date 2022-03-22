@@ -2,17 +2,19 @@
 
 namespace App\Utils\Eloquent\Concerns;
 
+use App\Utils\Eloquent\Model;
+
 use function str_starts_with;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HideGeneratedAttributes {
     /**
      * @inheritDoc
      */
     public function setRawAttributes(array $attributes, $sync = false): static {
-        return parent::setRawAttributes($this->removeGeneratedAttributes($attributes), $sync);
+        return parent::setRawAttributes(static::removeGeneratedAttributes($attributes), $sync);
     }
 
     /**

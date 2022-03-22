@@ -12,7 +12,7 @@ use function in_array;
 
 class Gate {
     /**
-     * @var \WeakMap<\App\Models\User,array<string,array{result:?bool}>>
+     * @var WeakMap<Authenticatable,array<string,array{result: ?bool}>>
      */
     private WeakMap $cache;
 

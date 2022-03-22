@@ -40,17 +40,17 @@ class ProcessorTest extends TestCase {
             ->andReturn($state);
         $processor
             ->shouldReceive('run')
-            ->withArgs(function (State $actual) use ($processor, $state): bool {
-                $this->assertTrue($processor->isRunning());
-                $this->assertFalse($processor->isStopped());
-                $this->assertEquals($state, $actual);
+            ->withArgs(static function (State $actual) use ($processor, $state): bool {
+                self::assertTrue($processor->isRunning());
+                self::assertFalse($processor->isStopped());
+                self::assertEquals($state, $actual);
 
                 return true;
             })
             ->once()
             ->andReturns();
 
-        $this->assertTrue($processor->start());
+        self::assertTrue($processor->start());
     }
 
     /**
@@ -90,7 +90,7 @@ class ProcessorTest extends TestCase {
 
         $processor->start();
 
-        $this->assertTrue($processor->isStopped());
+        self::assertTrue($processor->isStopped());
     }
 
     /**
@@ -112,7 +112,7 @@ class ProcessorTest extends TestCase {
      * @covers ::reset
      */
     public function testResetRunning(): void {
-        $this->expectExceptionObject(new LogicException('Reset is not possible while running.'));
+        self::expectExceptionObject(new LogicException('Reset is not possible while running.'));
 
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
@@ -253,7 +253,7 @@ class ProcessorTest extends TestCase {
             ->setChunkSize($chunk)
             ->run($state);
 
-        $this->assertEquals(
+        self::assertEquals(
             new State([
                 'offset'    => 2,
                 'index'     => 2,
@@ -332,7 +332,7 @@ class ProcessorTest extends TestCase {
         Date::setTestNow(Date::now());
 
         // Offset
-        $this->assertEquals(
+        self::assertEquals(
             new State([
                 'index'  => 0,
                 'limit'  => null,
@@ -343,7 +343,7 @@ class ProcessorTest extends TestCase {
         );
 
         // No Limit & No Total
-        $this->assertEquals(
+        self::assertEquals(
             new State([
                 'index'  => 0,
                 'limit'  => null,
@@ -354,7 +354,7 @@ class ProcessorTest extends TestCase {
         );
 
         // Limit & No Total
-        $this->assertEquals(
+        self::assertEquals(
             new State([
                 'index'  => 0,
                 'limit'  => 123,
@@ -365,7 +365,7 @@ class ProcessorTest extends TestCase {
         );
 
         // No Limit & Total
-        $this->assertEquals(
+        self::assertEquals(
             new State([
                 'index'  => 0,
                 'limit'  => null,
@@ -376,7 +376,7 @@ class ProcessorTest extends TestCase {
         );
 
         // Limit & Total
-        $this->assertEquals(
+        self::assertEquals(
             new State([
                 'index'  => 0,
                 'limit'  => 456,
@@ -420,7 +420,7 @@ class ProcessorTest extends TestCase {
      * @covers ::chunkProcessed
      */
     public function testChunkProcessedStopped(): void {
-        $this->expectException(Interrupt::class);
+        self::expectException(Interrupt::class);
 
         $data      = null;
         $state     = new State();
@@ -467,7 +467,7 @@ class ProcessorTest extends TestCase {
             ->setCacheKey($service, $key)
             ->getState();
 
-        $this->assertEquals($state, $actual);
+        self::assertEquals($state, $actual);
     }
 
     /**
@@ -494,7 +494,7 @@ class ProcessorTest extends TestCase {
             ->setCacheKey($service, $key)
             ->getState();
 
-        $this->assertNull($actual);
+        self::assertNull($actual);
     }
 
     /**
@@ -546,6 +546,8 @@ class ProcessorTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Processor<mixed,mixed,State>
  */
 class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {

@@ -8,7 +8,7 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
-use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Processor\Processor;
@@ -24,15 +24,24 @@ use function array_merge;
  * @template TItem of \App\Services\DataLoader\Schema\Type
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\ImporterState
+ * @template TModel of \App\Utils\Eloquent\Model
  *
- * @extends \App\Utils\Processor\Processor<TItem, TChunkData, TState>
+ * @extends Processor<TItem, TChunkData, TState>
  */
 abstract class Importer extends Processor {
     private ?DateTimeInterface $from   = null;
     private bool               $update = true;
-    private Factory            $factory;
-    private Resolver           $resolver;
     private Collector          $collector;
+
+    /**
+     * @var ModelFactory<TModel>
+     */
+    private ModelFactory $factory;
+
+    /**
+     * @var Resolver<TModel>
+     */
+    private Resolver $resolver;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -98,6 +107,7 @@ abstract class Importer extends Processor {
         }
 
         // Import
+        /** @phpstan-ignore-next-line todo(DataLoader): would be good to use interface */
         if ($this->resolver->get($item->id)) {
             if ($state->update) {
                 $this->factory->create($item);
@@ -177,11 +187,15 @@ abstract class Importer extends Processor {
 
     /**
      * @param TState $state
+     *
+     * @return ModelFactory<TModel>
      */
-    abstract protected function makeFactory(State $state): Factory;
+    abstract protected function makeFactory(State $state): ModelFactory;
 
     /**
      * @param TState $state
+     *
+     * @return Resolver<TModel>
      */
     abstract protected function makeResolver(State $state): Resolver;
     // </editor-fold>

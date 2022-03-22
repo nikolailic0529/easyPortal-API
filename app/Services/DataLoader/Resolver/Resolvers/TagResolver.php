@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<Tag>
+ */
 class TagResolver extends Resolver implements SingletonPersistent {
     public function get(string $name, Closure $factory = null): ?Tag {
         return $this->resolve($this->getUniqueKey($name), $factory);

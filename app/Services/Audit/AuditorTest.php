@@ -119,7 +119,7 @@ class AuditorTest extends TestCase {
                 ->once()
                 ->with(Action::authSignedOut(), ['guard' => 'web']);
         });
-        Auth::logout($user);
+        Auth::logout();
     }
 
      /**
@@ -176,8 +176,6 @@ class AuditorTest extends TestCase {
     /**
      * @covers ::create
      * @dataProvider dataProviderCreate
-     *
-     * @param array<string,mixed> $settings
      */
     public function testCreate(Closure $expectedFactory, Closure $prepare = null): void {
         $user         = User::factory()->create([
@@ -192,7 +190,7 @@ class AuditorTest extends TestCase {
         }
 
         $expected = $expectedFactory($this, $organization, $user);
-        $this->assertDatabaseHas((new Audit())->getTable(), $expected, Auditor::CONNECTION);
+        self::assertDatabaseHas((new Audit())->getTable(), $expected, Auditor::CONNECTION);
     }
 
     // <editor-fold desc="DataProviders">

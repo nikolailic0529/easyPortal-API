@@ -19,7 +19,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
-use function array_key_exists;
 
 /**
  * @internal
@@ -63,14 +62,13 @@ class RequestOrgChangeTest extends TestCase {
         $map   = [];
         $file  = [];
 
-        if (array_key_exists('files', $input)) {
-            if (!empty($input['files'])) {
-                foreach ($input['files'] as $index => $item) {
-                    $file[$index] = $item;
-                    $map[$index]  = ["variables.input.files.{$index}"];
-                }
-                $input['files'] = null;
+        if (isset($input['files'])) {
+            foreach ((array) $input['files'] as $index => $item) {
+                $file[$index] = $item;
+                $map[$index]  = ["variables.input.files.{$index}"];
             }
+
+            $input['files'] = null;
         }
 
         $query      = /** @lang GraphQL */ 'mutation RequestOrgChange($input: RequestOrgChangeInput!)

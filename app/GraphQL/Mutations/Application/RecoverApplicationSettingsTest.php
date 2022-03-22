@@ -7,7 +7,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -35,15 +35,11 @@ class RecoverApplicationSettingsTest extends TestCase {
 
         // Mock
         if ($expected instanceof GraphQLSuccess) {
-            $storage = Mockery::mock(Storage::class);
-            $storage
-                ->shouldReceive('delete')
-                ->with(true)
-                ->once()
-                ->andReturn(true);
-
-            $this->app->bind(Storage::class, static function () use ($storage): Storage {
-                return $storage;
+            $this->override(Storage::class, static function (MockInterface $mock): void {
+                $mock
+                    ->shouldReceive('delete')
+                    ->once()
+                    ->andReturn(true);
             });
         }
 

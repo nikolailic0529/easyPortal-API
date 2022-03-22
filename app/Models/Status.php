@@ -7,30 +7,34 @@ use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\StatusFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Status.
  *
- * @property string                                                              $id
- * @property string                                                              $object_type
- * @property string                                                              $key
- * @property string                                                              $name
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $documents
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
- * @method static \Database\Factories\StatusFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Status query()
- * @mixin \Eloquent
+ * @property string                         $id
+ * @property string                         $object_type
+ * @property string                         $key
+ * @property string                         $name
+ * @property CarbonImmutable                $created_at
+ * @property CarbonImmutable                $updated_at
+ * @property CarbonImmutable|null           $deleted_at
+ * @property-read Collection<int, Asset>    $assets
+ * @property-read Collection<int, Document> $contracts
+ * @property-read Collection<int, Customer> $customers
+ * @property-read Collection<int, Document> $documents
+ * @property-read Collection<int, Document> $quotes
+ * @method static StatusFactory factory(...$parameters)
+ * @method static Builder|Status newModelQuery()
+ * @method static Builder|Status newQuery()
+ * @method static Builder|Status query()
+ * @mixin Eloquent
  */
 class Status extends Model implements Translatable {
     use HasFactory;
@@ -75,7 +79,7 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                /** @var Builder|Document $builder */
                 return $builder->queryContracts();
             })
             ->withTimestamps();
@@ -90,7 +94,7 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                /** @var Builder|Document $builder */
                 return $builder->queryQuotes();
             })
             ->withTimestamps();
@@ -105,7 +109,7 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                /** @var Builder|Document $builder */
                 return $builder->queryDocuments();
             })
             ->withTimestamps();

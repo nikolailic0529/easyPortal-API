@@ -8,9 +8,10 @@ use App\Services\Queue\CronJob;
 
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
- *
- * @uses     \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
  */
 abstract class Recalculator extends CronJob implements Progressable {
+    /**
+     * @phpstan-use ProcessorJob<\App\Utils\Processor\EloquentProcessor<TModel,null,\App\Utils\Processor\EloquentState<TModel>>>
+     */
     use ProcessorJob;
 }

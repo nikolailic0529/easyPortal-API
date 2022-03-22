@@ -3,9 +3,10 @@
 namespace App\Models\Relations;
 
 use App\Models\Reseller;
-use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,12 +15,12 @@ use Illuminate\Support\Collection;
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
- * @property \Illuminate\Support\Collection<string,TPivot> $resellersPivots
+ * @property Collection<string,TPivot> $resellersPivots
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasResellers {
-    use OwnedByReseller;
+    use OwnedByResellerImpl;
     use SyncBelongsToMany;
 
     // <editor-fold desc="Relations">
@@ -52,7 +53,7 @@ trait HasResellers {
     }
 
     /**
-     * @param array<string,TPivot>|\Illuminate\Support\Collection<string,TPivot> $resellers
+     * @param array<string,TPivot>|Collection<string,TPivot> $resellers
      */
     public function setResellersPivotsAttribute(Collection|array $resellers): void {
         $this->syncBelongsToManyPivots('resellers', $resellers);

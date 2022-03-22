@@ -19,17 +19,17 @@ class MetadataTest extends TestCase {
     public function testIsFulltextIndexExists(): void {
         $metadata = new Metadata();
 
-        $this->assertTrue($metadata->isFulltextIndexExists(Asset::query(), 'serial_number'));
-        $this->assertTrue($metadata->isFulltextIndexExists(Asset::query(), (new Asset())->getTable().'.serial_number'));
-        $this->assertFalse($metadata->isFulltextIndexExists(Asset::query(), 'id'));
+        self::assertTrue($metadata->isFulltextIndexExists(Asset::query(), 'serial_number'));
+        self::assertTrue($metadata->isFulltextIndexExists(Asset::query(), (new Asset())->getTable().'.serial_number'));
+        self::assertFalse($metadata->isFulltextIndexExists(Asset::query(), 'id'));
 
-        $this->assertTrue($metadata->isFulltextIndexExists(Document::query(), 'number'));
-        $this->assertFalse($metadata->isFulltextIndexExists(Document::query(), 'id'));
+        self::assertTrue($metadata->isFulltextIndexExists(Document::query(), 'number'));
+        self::assertFalse($metadata->isFulltextIndexExists(Document::query(), 'id'));
 
-        $this->assertTrue($metadata->isFulltextIndexExists(Customer::query(), 'name'));
-        $this->assertFalse($metadata->isFulltextIndexExists(Customer::query(), 'id'));
+        self::assertTrue($metadata->isFulltextIndexExists(Customer::query(), 'name'));
+        self::assertFalse($metadata->isFulltextIndexExists(Customer::query(), 'id'));
 
-        $this->assertTrue($metadata->isFulltextIndexExists(Product::query(), 'name'));
-        $this->assertFalse($metadata->isFulltextIndexExists(Product::query(), 'id'));
+        self::assertTrue($metadata->isFulltextIndexExists(Product::query(), 'name'));
+        self::assertFalse($metadata->isFulltextIndexExists(Product::query(), 'id'));
     }
 }

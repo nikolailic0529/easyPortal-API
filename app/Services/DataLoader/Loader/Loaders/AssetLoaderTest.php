@@ -41,7 +41,7 @@ class AssetLoaderTest extends TestCase {
         $this->overrideUuidFactory('d9de1374-a2c9-42c3-b00f-cdcf486180b1');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 2,
             Customer::class      => 1,
@@ -60,8 +60,8 @@ class AssetLoaderTest extends TestCase {
 
         $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
 
-        $this->assertQueryLogEquals('~create-without-documents-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~create-without-documents-cold.json', $queries);
+        self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 2,
             Customer::class      => 1,
@@ -70,7 +70,7 @@ class AssetLoaderTest extends TestCase {
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~create-without-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -88,8 +88,8 @@ class AssetLoaderTest extends TestCase {
 
         $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
 
-        $this->assertQueryLogEquals('~create-without-documents-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~create-without-documents-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~create-without-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -111,7 +111,7 @@ class AssetLoaderTest extends TestCase {
         $this->overrideUuidFactory('8cab7372-67cf-41c8-8aa4-3e25a3b293a2');
 
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
             Customer::class      => 1,
@@ -130,8 +130,8 @@ class AssetLoaderTest extends TestCase {
 
         $importer->create(AssetLoaderCreateWithDocuments::ASSET);
 
-        $this->assertQueryLogEquals('~create-with-documents-cold.json', $queries);
-        $this->assertModelsCount([
+        self::assertQueryLogEquals('~create-with-documents-cold.json', $queries);
+        self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
             Customer::class      => 1,
@@ -140,7 +140,7 @@ class AssetLoaderTest extends TestCase {
             Document::class      => 4,
             DocumentEntry::class => 0,
         ]);
-        $this->assertDispatchedEventsEquals(
+        self::assertDispatchedEventsEquals(
             '~create-with-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -158,8 +158,8 @@ class AssetLoaderTest extends TestCase {
 
         $importer->create(AssetLoaderCreateWithDocuments::ASSET);
 
-        $this->assertQueryLogEquals('~create-with-documents-hot.json', $queries);
-        $this->assertDispatchedEventsEquals(
+        self::assertQueryLogEquals('~create-with-documents-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
             '~create-with-documents-events.json',
             $events->dispatched(DataImported::class),
         );
@@ -185,7 +185,7 @@ class AssetLoaderTest extends TestCase {
             ->make(AssetLoader::class)
             ->setWithWarrantyCheck(true);
 
-        $this->expectExceptionObject(new AssetWarrantyCheckFailed($id));
+        self::expectExceptionObject(new AssetWarrantyCheckFailed($id));
 
         $loader->create($id);
     }

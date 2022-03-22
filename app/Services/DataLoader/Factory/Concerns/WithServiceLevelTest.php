@@ -51,7 +51,7 @@ class WithServiceLevelTest extends TestCase {
             }
         };
 
-        $this->assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, $level->sku));
+        self::assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, $level->sku));
     }
 
     /**
@@ -91,7 +91,7 @@ class WithServiceLevelTest extends TestCase {
             }
         };
 
-        $this->assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, " {$level->sku} "));
+        self::assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, " {$level->sku} "));
     }
 
     /**
@@ -128,8 +128,8 @@ class WithServiceLevelTest extends TestCase {
             }
         };
 
-        $this->expectException(ServiceLevelNotFound::class);
+        self::expectException(ServiceLevelNotFound::class);
 
-        $this->assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, $level->sku));
+        self::assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, $level->sku));
     }
 }

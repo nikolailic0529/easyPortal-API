@@ -78,7 +78,7 @@ class WithAssetDocumentTest extends TestCase {
             ->once()
             ->andReturn($oem);
 
-        $this->assertSame($oem, $factory->assetDocumentOem($asset, $document));
+        self::assertSame($oem, $factory->assetDocumentOem($asset, $document));
     }
 
     /**
@@ -99,7 +99,7 @@ class WithAssetDocumentTest extends TestCase {
             ->shouldReceive('documentOem')
             ->never();
 
-        $this->assertSame($oem, $factory->assetDocumentOem($asset, $document));
+        self::assertSame($oem, $factory->assetDocumentOem($asset, $document));
     }
 
     /**
@@ -135,7 +135,7 @@ class WithAssetDocumentTest extends TestCase {
             ->once()
             ->andReturns($group);
 
-        $this->assertSame($group, $factory->assetDocumentServiceGroup($asset, $document));
+        self::assertSame($group, $factory->assetDocumentServiceGroup($asset, $document));
     }
 
     /**
@@ -181,7 +181,7 @@ class WithAssetDocumentTest extends TestCase {
             ->once()
             ->andReturns($level);
 
-        $this->assertSame($level, $factory->assetDocumentServiceLevel($asset, $document));
+        self::assertSame($level, $factory->assetDocumentServiceLevel($asset, $document));
     }
 }
 
@@ -191,6 +191,8 @@ class WithAssetDocumentTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends ModelFactory<Model>
  */
 class WithAssetDocumentTest_Factory extends ModelFactory {
     use WithAssetDocument {

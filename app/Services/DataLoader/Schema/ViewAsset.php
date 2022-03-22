@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Utils\JsonObject\JsonObjectArray;
+
 class ViewAsset extends Type implements TypeWithId {
     public string  $id;
     public ?string $resellerId;
@@ -32,13 +34,15 @@ class ViewAsset extends Type implements TypeWithId {
     public string $dataQualityScore;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\ViewAssetDocument>
+     * @var array<ViewAssetDocument>
      */
+    #[JsonObjectArray(ViewAssetDocument::class)]
     public array $assetDocument;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>|null
+     * @var array<CompanyContactPerson>|null
      */
+    #[JsonObjectArray(CompanyContactPerson::class)]
     public ?array $latestContactPersons;
 
     public ?ViewCompany         $reseller;

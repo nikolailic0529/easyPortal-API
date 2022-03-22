@@ -10,13 +10,13 @@ class RequestContractChange {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $contract = Document::whereKey($args['input']['contract_id'])->first();
         $request  = $this->requestAssetChange->createRequest(
             $contract,
@@ -27,6 +27,7 @@ class RequestContractChange {
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
         );
+
         return ['created' => $request];
     }
 }

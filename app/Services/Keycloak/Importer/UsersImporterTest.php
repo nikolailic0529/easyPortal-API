@@ -120,22 +120,22 @@ class UsersImporterTest extends TestCase {
                     ->first();
             },
         );
-        $this->assertNotNull($user);
-        $this->assertFalse($user->email_verified);
-        $this->assertFalse($user->enabled);
-        $this->assertEquals($user->given_name, $keycloakUser->firstName);
-        $this->assertEquals($user->family_name, $keycloakUser->lastName);
-        $this->assertEquals($user->email, $keycloakUser->email);
+        self::assertNotNull($user);
+        self::assertFalse($user->email_verified);
+        self::assertFalse($user->enabled);
+        self::assertEquals($user->given_name, $keycloakUser->firstName);
+        self::assertEquals($user->family_name, $keycloakUser->lastName);
+        self::assertEquals($user->email, $keycloakUser->email);
 
         // profile
-        $this->assertEquals($user->office_phone, $keycloakUser->attributes['office_phone'][0]);
-        $this->assertEquals($user->contact_email, $keycloakUser->attributes['contact_email'][0]);
-        $this->assertEquals($user->title, $keycloakUser->attributes['title'][0]);
-        $this->assertEquals($user->mobile_phone, $keycloakUser->attributes['mobile_phone'][0]);
-        $this->assertEquals($user->job_title, $keycloakUser->attributes['job_title'][0]);
-        $this->assertEquals($user->phone, $keycloakUser->attributes['phone'][0]);
-        $this->assertEquals($user->company, $keycloakUser->attributes['company'][0]);
-        $this->assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
+        self::assertEquals($user->office_phone, $keycloakUser->attributes['office_phone'][0]);
+        self::assertEquals($user->contact_email, $keycloakUser->attributes['contact_email'][0]);
+        self::assertEquals($user->title, $keycloakUser->attributes['title'][0]);
+        self::assertEquals($user->mobile_phone, $keycloakUser->attributes['mobile_phone'][0]);
+        self::assertEquals($user->job_title, $keycloakUser->attributes['job_title'][0]);
+        self::assertEquals($user->phone, $keycloakUser->attributes['phone'][0]);
+        self::assertEquals($user->company, $keycloakUser->attributes['company'][0]);
+        self::assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
 
         // Test
         $expected = [
@@ -155,7 +155,7 @@ class UsersImporterTest extends TestCase {
             })
             ->all();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -252,12 +252,12 @@ class UsersImporterTest extends TestCase {
                     ->first();
             },
         );
-        $this->assertNotNull($user);
-        $this->assertFalse($user->email_verified);
-        $this->assertTrue($user->enabled);
-        $this->assertEquals($user->given_name, $keycloakUser->firstName);
-        $this->assertEquals($user->family_name, $keycloakUser->lastName);
-        $this->assertEquals($user->email, $keycloakUser->email);
+        self::assertNotNull($user);
+        self::assertFalse($user->email_verified);
+        self::assertTrue($user->enabled);
+        self::assertEquals($user->given_name, $keycloakUser->firstName);
+        self::assertEquals($user->family_name, $keycloakUser->lastName);
+        self::assertEquals($user->email, $keycloakUser->email);
 
         // Organization
         $order    = 'organization_id';
@@ -288,7 +288,7 @@ class UsersImporterTest extends TestCase {
             ->values()
             ->all();
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -317,7 +317,7 @@ class UsersImporterTest extends TestCase {
 
         $actual = $importer->getUser($data, $item);
 
-        $this->assertEquals($user, $actual);
+        self::assertEquals($user, $actual);
     }
 
     /**
@@ -345,9 +345,9 @@ class UsersImporterTest extends TestCase {
 
         $actual = $importer->getUser($data, $item);
 
-        $this->assertFalse($actual->exists);
-        $this->assertEquals($item->id, $actual->getKey());
-        $this->assertEquals(UserType::keycloak(), $actual->type);
+        self::assertFalse($actual->exists);
+        self::assertEquals($item->id, $actual->getKey());
+        self::assertEquals(UserType::keycloak(), $actual->type);
     }
 
     /**
@@ -376,8 +376,8 @@ class UsersImporterTest extends TestCase {
 
         $actual = $importer->getUser($data, $item);
 
-        $this->assertTrue($user->trashed());
-        $this->assertFalse($actual->trashed());
+        self::assertTrue($user->trashed());
+        self::assertFalse($actual->trashed());
     }
 
     /**
@@ -404,7 +404,7 @@ class UsersImporterTest extends TestCase {
             }
         };
 
-        $this->expectExceptionObject(
+        self::expectExceptionObject(
             new FailedToImportUserConflictType($importer, $item, $user),
         );
 
@@ -468,24 +468,24 @@ class UsersImporterTest extends TestCase {
 
         $actual = User::query()->whereKey($item->id)->first();
 
-        $this->assertInstanceOf(User::class, $actual);
-        $this->assertNotNull($actual->synced_at);
-        $this->assertEquals($item->id, $actual->getKey());
-        $this->assertEquals($item->email, $actual->email);
-        $this->assertEquals($item->emailVerified, $actual->email_verified);
-        $this->assertEquals($item->enabled, $actual->enabled);
-        $this->assertEquals($item->firstName, $actual->given_name);
-        $this->assertEquals($item->lastName, $actual->family_name);
-        $this->assertEquals(reset($item->attributes['office_phone']), $actual->office_phone);
-        $this->assertEquals(reset($item->attributes['contact_email']), $actual->contact_email);
-        $this->assertEquals(reset($item->attributes['title']), $actual->title);
-        $this->assertEquals(reset($item->attributes['academic_title']), $actual->academic_title);
-        $this->assertEquals(reset($item->attributes['job_title']), $actual->job_title);
-        $this->assertEquals(reset($item->attributes['phone']), $actual->phone);
-        $this->assertEquals(reset($item->attributes['mobile_phone']), $actual->mobile_phone);
-        $this->assertEquals(reset($item->attributes['company']), $actual->company);
-        $this->assertEquals(reset($item->attributes['photo']), $actual->photo);
-        $this->assertEquals([], $actual->permissions);
+        self::assertInstanceOf(User::class, $actual);
+        self::assertNotNull($actual->synced_at);
+        self::assertEquals($item->id, $actual->getKey());
+        self::assertEquals($item->email, $actual->email);
+        self::assertEquals($item->emailVerified, $actual->email_verified);
+        self::assertEquals($item->enabled, $actual->enabled);
+        self::assertEquals($item->firstName, $actual->given_name);
+        self::assertEquals($item->lastName, $actual->family_name);
+        self::assertEquals(reset($item->attributes['office_phone']), $actual->office_phone);
+        self::assertEquals(reset($item->attributes['contact_email']), $actual->contact_email);
+        self::assertEquals(reset($item->attributes['title']), $actual->title);
+        self::assertEquals(reset($item->attributes['academic_title']), $actual->academic_title);
+        self::assertEquals(reset($item->attributes['job_title']), $actual->job_title);
+        self::assertEquals(reset($item->attributes['phone']), $actual->phone);
+        self::assertEquals(reset($item->attributes['mobile_phone']), $actual->mobile_phone);
+        self::assertEquals(reset($item->attributes['company']), $actual->company);
+        self::assertEquals(reset($item->attributes['photo']), $actual->photo);
+        self::assertEquals([], $actual->permissions);
     }
 
     /**
@@ -536,8 +536,8 @@ class UsersImporterTest extends TestCase {
         $actual  = User::query()->whereKey($item->id)->first();
         $another = $another->refresh();
 
-        $this->assertEquals("(conflict) {$item->email}", $another->email);
-        $this->assertEquals($item->email, $actual->email);
+        self::assertEquals("(conflict) {$item->email}", $another->email);
+        self::assertEquals($item->email, $actual->email);
     }
 
     /**
@@ -591,10 +591,10 @@ class UsersImporterTest extends TestCase {
         $importer->finish($state);
 
         // Test
-        $this->assertFalse(User::query()->whereKey($a->getKey())->exists());
-        $this->assertFalse(User::query()->whereKey($b->getKey())->exists());
-        $this->assertTrue(User::query()->whereKey($c->getKey())->exists());
-        $this->assertTrue(User::query()->whereKey($d->getKey())->exists());
+        self::assertFalse(User::query()->whereKey($a->getKey())->exists());
+        self::assertFalse(User::query()->whereKey($b->getKey())->exists());
+        self::assertTrue(User::query()->whereKey($c->getKey())->exists());
+        self::assertTrue(User::query()->whereKey($d->getKey())->exists());
     }
 
     /**

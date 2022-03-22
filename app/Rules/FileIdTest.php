@@ -27,7 +27,7 @@ class FileIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(FileId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(FileId::class)->message(), 'Translated');
     }
 
     /**
@@ -38,7 +38,7 @@ class FileIdTest extends TestCase {
     public function testPasses(bool $expected, Closure $fileFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $file         = $fileFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(FileId::class)->passes('test', $file));
+        self::assertEquals($expected, $this->app->make(FileId::class)->passes('test', $file));
     }
     // </editor-fold>
 

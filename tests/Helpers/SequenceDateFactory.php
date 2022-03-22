@@ -2,14 +2,15 @@
 
 namespace Tests\Helpers;
 
+use Carbon\Carbon;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Illuminate\Support\Facades\Date;
 
 class SequenceDateFactory {
-    protected DateTimeInterface $now;
-    protected DateInterval      $interval;
+    protected Carbon       $now;
+    protected DateInterval $interval;
 
     public function __construct(DateTimeInterface|string $now) {
         $this->now      = Date::make($now)->toMutable();

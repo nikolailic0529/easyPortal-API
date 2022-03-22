@@ -26,10 +26,20 @@ use function array_unique;
 use function count;
 use function reset;
 
+/**
+ * @template TCompany of \App\Models\Reseller|\App\Models\Customer
+ * @template TLocation of \App\Models\ResellerLocation|\App\Models\CustomerLocation
+ *
+ * @extends ModelFactory<TCompany>
+ */
 abstract class CompanyFactory extends ModelFactory {
     use WithType;
     use WithStatus;
     use WithContacts;
+
+    /**
+     * @phpstan-use WithLocations<TCompany, TLocation>
+     */
     use WithLocations;
 
     public function __construct(
@@ -65,7 +75,7 @@ abstract class CompanyFactory extends ModelFactory {
     // <editor-fold desc="Company">
     // =========================================================================
     /**
-     * @return array<\App\Models\Status>
+     * @return array<Status>
      */
     protected function companyStatuses(Model $owner, Company $company): array {
         return (new Collection($company->status ?? []))
@@ -80,7 +90,7 @@ abstract class CompanyFactory extends ModelFactory {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyType> $types
+     * @param array<CompanyType> $types
      */
     protected function companyType(Model $owner, array $types): Type {
         $type  = null;

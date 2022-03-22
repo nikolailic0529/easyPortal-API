@@ -33,7 +33,7 @@ class ClientDump extends JsonObject {
     public array $response;
 
     /**
-     * @return \Generator<object>
+     * @return Generator<object>
      */
     public function getResponseIterator(bool $save = false): Generator {
         $selectors = [

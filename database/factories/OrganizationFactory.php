@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Organization;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Organization create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Organization make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Organization create($attributes = [], ?Model $parent = null)
+ * @method Organization make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Organization>
  */
 class OrganizationFactory extends Factory {
     /**

@@ -15,8 +15,10 @@ use App\Models\Scopes\ContractType;
 use App\Models\Scopes\DocumentTypeQuery;
 use App\Models\Scopes\DocumentTypeScope;
 use App\Models\Scopes\QuoteType;
-use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Relation;
@@ -25,11 +27,16 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\DocumentFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 
 use function app;
 use function count;
@@ -37,57 +44,57 @@ use function count;
 /**
  * Document.
  *
- * @property string                                                              $id
- * @property string                                                              $oem_id
- * @property string|null                                                         $oem_said
- * @property string|null                                                         $oem_group_id
- * @property string                                                              $type_id
- * @property string|null                                                         $customer_id
- * @property string|null                                                         $reseller_id
- * @property string|null                                                         $distributor_id
- * @property string                                                              $number
- * @property \Carbon\CarbonImmutable|null                                        $start
- * @property \Carbon\CarbonImmutable|null                                        $end
- * @property string|null                                                         $price
- * @property string|null                                                         $currency_id
- * @property string|null                                                         $language_id
- * @property int                                                                 $assets_count
- * @property int                                                                 $entries_count
- * @property int                                                                 $contacts_count
- * @property int                                                                 $statuses_count
- * @property \Carbon\CarbonImmutable|null                                        $changed_at
- * @property \Carbon\CarbonImmutable                                             $synced_at
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property \App\Models\Currency|null                                           $currency
- * @property \App\Models\Customer|null                                           $customer
- * @property \App\Models\Distributor|null                                        $distributor
- * @property-read bool                                                           $is_contract
- * @property-read bool                                                           $is_quote
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
- * @property \App\Models\Language|null                                           $language
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Note>     $notes
- * @property \App\Models\Oem                                                     $oem
- * @property \App\Models\OemGroup|null                                           $oemGroup
- * @property \App\Models\Reseller|null                                           $reseller
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>        $statuses
- * @property \App\Models\Type                                                    $type
- * @method static \Database\Factories\DocumentFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryContracts()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryDocuments()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryQuotes()
- * @mixin \Eloquent
+ * @property string                         $id
+ * @property string                         $oem_id
+ * @property string|null                    $oem_said
+ * @property string|null                    $oem_group_id
+ * @property string                         $type_id
+ * @property string|null                    $customer_id
+ * @property string|null                    $reseller_id
+ * @property string|null                    $distributor_id
+ * @property string                         $number
+ * @property CarbonImmutable|null           $start
+ * @property CarbonImmutable|null           $end
+ * @property string|null                    $price
+ * @property string|null                    $currency_id
+ * @property string|null                    $language_id
+ * @property int                            $assets_count
+ * @property int                            $entries_count
+ * @property int                            $contacts_count
+ * @property int                            $statuses_count
+ * @property CarbonImmutable|null           $changed_at
+ * @property CarbonImmutable                $synced_at
+ * @property CarbonImmutable                $created_at
+ * @property CarbonImmutable                $updated_at
+ * @property CarbonImmutable|null           $deleted_at
+ * @property Collection<int, Contact>       $contacts
+ * @property Currency|null                  $currency
+ * @property Customer|null                  $customer
+ * @property Distributor|null               $distributor
+ * @property-read bool                      $is_contract
+ * @property-read bool                      $is_quote
+ * @property-read Collection<int, Asset>    $assets
+ * @property Collection<int, DocumentEntry> $entries
+ * @property Language|null                  $language
+ * @property-read Collection<int, Note>     $notes
+ * @property Oem                            $oem
+ * @property OemGroup|null                  $oemGroup
+ * @property Reseller|null                  $reseller
+ * @property Collection<int, Status>        $statuses
+ * @property Type                           $type
+ * @method static DocumentFactory factory(...$parameters)
+ * @method static Builder|Document newModelQuery()
+ * @method static Builder|Document newQuery()
+ * @method static Builder|Document query()
+ * @method static Builder|Document queryContracts()
+ * @method static Builder|Document queryDocuments()
+ * @method static Builder|Document queryQuotes()
+ * @mixin Eloquent
  */
-class Document extends Model {
+class Document extends Model implements OwnedByOrganization, Searchable {
     use HasFactory;
-    use Searchable;
-    use OwnedByReseller;
+    use SearchableImpl;
+    use OwnedByResellerImpl;
     use HasOem;
     use HasType;
     use HasStatuses;
@@ -133,12 +140,12 @@ class Document extends Model {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\DocumentEntry>|array<\App\Models\DocumentEntry> $entries
+     * @param BaseCollection<int, DocumentEntry>|array<DocumentEntry> $entries
      */
-    public function setEntriesAttribute(Collection|array $entries): void {
+    public function setEntriesAttribute(BaseCollection|array $entries): void {
         $this->syncHasMany('entries', $entries);
         $this->entries_count = count($entries);
-        $this->assets_count  = (new Collection($entries))
+        $this->assets_count  = (new BaseCollection($entries))
             ->map(static function (DocumentEntry $entry): string {
                 return $entry->asset_id;
             })

@@ -2,13 +2,14 @@
 
 namespace App\Services\Recalculator\Jobs\Cron;
 
+use App\Models\Customer;
 use App\Services\Recalculator\Processor\Processors\CustomersProcessor;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends \App\Services\Recalculator\Jobs\Cron\Recalculator<\App\Models\Customer>
+ * @extends Recalculator<Customer>
  */
 class CustomersRecalculator extends Recalculator {
     public function displayName(): string {

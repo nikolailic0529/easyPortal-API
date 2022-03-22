@@ -5,12 +5,13 @@ namespace App\Models\Relations;
 use App\Models\Type;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
+use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasTypes {
     use SyncBelongsToMany;
@@ -27,7 +28,7 @@ trait HasTypes {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Type>|array<\App\Models\Type> $types
+     * @param Collection<int,Type>|array<Type> $types
      */
     public function setTypesAttribute(Collection|array $types): void {
         $this->syncBelongsToMany('types', $types);

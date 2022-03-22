@@ -52,14 +52,14 @@ class WithTagTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($tag, $factory->tag($tag->name));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($tag, $factory->tag($tag->name));
+        self::assertCount(1, $this->getQueryLog());
 
         // If not - it should be created
         $created = $factory->tag(' New  Tag ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('New Tag', $created->name);
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals('New Tag', $created->name);
     }
 }

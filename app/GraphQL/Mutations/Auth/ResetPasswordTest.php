@@ -89,7 +89,7 @@ class ResetPasswordTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('resetPassword'),
+            new AnyOrganizationDataProvider(),
             new GuestDataProvider('resetPassword'),
             new ArrayDataProvider([
                 'no user'                              => [

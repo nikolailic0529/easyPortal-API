@@ -2,13 +2,14 @@
 
 namespace App\Services\Recalculator\Jobs;
 
+use App\Models\Reseller;
 use App\Services\Recalculator\Processor\Processors\ResellersProcessor;
 use App\Utils\Processor\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends \App\Services\Recalculator\Jobs\Recalculate<\App\Models\Reseller>
+ * @extends Recalculate<Reseller>
  */
 class ResellerRecalculate extends Recalculate {
     public function displayName(): string {

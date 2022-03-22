@@ -3,23 +3,22 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Note;
-use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 class DeleteContractNote {
     public function __construct(
-        protected AuthManager $auth,
+        protected Gate $gate,
     ) {
         // empty
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
             'deleted' => $this->deleteNote(
                 $args['input']['id'],
@@ -35,7 +34,7 @@ class DeleteContractNote {
     public function deleteNote(string $noteId, array $permissions): bool {
         $note = Note::whereKey($noteId)->first();
 
-        if (!$this->auth->user()->canAny($permissions, [$note])) {
+        if (!$this->gate->any($permissions, [$note])) {
             throw new AuthorizationException();
         }
 

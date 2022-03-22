@@ -99,7 +99,7 @@ class JsonObjectTest extends TestCase {
             ],
         ]);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -115,7 +115,7 @@ class JsonObjectTest extends TestCase {
             'children' => [$child],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'i'        => 567,
                 'b'        => true,
@@ -138,7 +138,7 @@ class JsonObjectTest extends TestCase {
             'children' => [$child],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'i'        => 567,
                 'b'        => true,
@@ -161,7 +161,7 @@ class JsonObjectTest extends TestCase {
             'children' => [$child],
         ]);
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'i'        => 567,
                 'b'        => true,
@@ -183,13 +183,15 @@ class JsonObjectTest extends TestCase {
             // empty
         };
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
             $object::class,
             'unknown',
         )));
 
-        $this->assertNotNull($object->unknown);
+        self::assertNotNull(
+            $object->unknown, /** @phpstan-ignore-line needed for test */
+        );
     }
 
     /**
@@ -200,13 +202,13 @@ class JsonObjectTest extends TestCase {
             // empty
         };
 
-        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+        self::expectExceptionObject(new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
             $object::class,
             'unknown',
         )));
 
-        $object->unknown = 'value';
+        $object->unknown = 'value'; /** @phpstan-ignore-line needed for test */
     }
 
     /**
@@ -217,8 +219,8 @@ class JsonObjectTest extends TestCase {
             public string $known = 'value';
         };
 
-        $this->assertTrue(isset($object->known));
-        $this->assertFalse(isset($object->unknown));
+        self::assertTrue(isset($object->known));
+        self::assertFalse(isset($object->unknown));
     }
 
     /**
@@ -232,8 +234,8 @@ class JsonObjectTest extends TestCase {
             public string $property;
         };
 
-        $this->assertTrue($empty->isEmpty());
-        $this->assertFalse($object->isEmpty());
+        self::assertTrue($empty->isEmpty());
+        self::assertFalse($object->isEmpty());
     }
 
     /**
@@ -247,22 +249,22 @@ class JsonObjectTest extends TestCase {
             public string $property;
         };
 
-        $this->assertEquals(0, count($empty));
-        $this->assertEquals(1, count($object));
+        self::assertEquals(0, count($empty));
+        self::assertEquals(1, count($object));
     }
 
     /**
      * @covers ::make
      */
     public function testMake(): void {
-        $this->assertNull(
+        self::assertNull(
             JsonObjectTest_Parent::make(null),
         );
-        $this->assertEquals(
+        self::assertEquals(
             new JsonObjectTest_Parent(['i' => 1]),
             JsonObjectTest_Parent::make(['i' => 1]),
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 new JsonObjectTest_Parent(['i' => 1]),
                 new JsonObjectTest_Parent(['i' => 2]),
@@ -295,8 +297,9 @@ class JsonObjectTest_Parent extends JsonObject {
     public array $array;
 
     /**
-     * @var array<\App\Utils\JsonObject\JsonObjectTest_Child>
+     * @var array<JsonObjectTest_Child>
      */
+    #[JsonObjectArray(JsonObjectTest_Child::class)]
     public array $children;
 
     /**
@@ -317,7 +320,8 @@ class JsonObjectTest_Child extends JsonObject {
     public ?DateTimeInterface $d;
 
     /**
-     * @var array<int, \App\Utils\JsonObject\JsonObjectTest_Child>
+     * @var array<int, JsonObjectTest_Child>
      */
+    #[JsonObjectArray(JsonObjectTest_Child::class)]
     public array|null $children;
 }

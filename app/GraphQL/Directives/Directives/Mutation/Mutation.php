@@ -230,7 +230,7 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
 
         if ($resolver) {
             $builder = $resolver($root, $args, $context, $resolveInfo);
-        } elseif (($root instanceof Model || $relation) && $model === null) {
+        } elseif (($root instanceof Model || $relation !== null) && $model === null) {
             if (!($root instanceof Model)) {
                 throw new DefinitionException(sprintf(
                     'Directive `@%s` argument `%s` can be used only when root is the Model.',

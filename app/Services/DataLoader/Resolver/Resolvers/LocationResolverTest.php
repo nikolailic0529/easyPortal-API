@@ -64,19 +64,19 @@ class LocationResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertFalse($actual->wasRecentlyCreated);
-        $this->assertEquals('postcode a', $actual->postcode);
-        $this->assertEquals('state a', $actual->state);
-        $this->assertEquals('line_one a', $actual->line_one);
-        $this->assertEquals('line_two a', $actual->line_two);
-        $this->assertEquals($countryA, $actual->country);
-        $this->assertEquals($cityA, $actual->city);
+        self::assertNotNull($actual);
+        self::assertFalse($actual->wasRecentlyCreated);
+        self::assertEquals('postcode a', $actual->postcode);
+        self::assertEquals('state a', $actual->state);
+        self::assertEquals('line_one a', $actual->line_one);
+        self::assertEquals('line_two a', $actual->line_two);
+        self::assertEquals($countryA, $actual->country);
+        self::assertEquals($cityA, $actual->city);
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get(
+        self::assertSame($actual, $provider->get(
             $countryA,
             $cityA,
             ' postcode A ',
@@ -84,7 +84,7 @@ class LocationResolverTest extends TestCase {
             'line_two  a',
             $factory,
         ));
-        $this->assertSame($actual, $provider->get(
+        self::assertSame($actual, $provider->get(
             $countryA,
             $cityA,
             ' poSTCOde A ',
@@ -92,9 +92,9 @@ class LocationResolverTest extends TestCase {
             ' lIne_two  a',
             $factory,
         ));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get(
+        self::assertNotSame($actual, $provider->get(
             $countryA,
             $cityA,
             ' poSTCOde A ',
@@ -109,10 +109,10 @@ class LocationResolverTest extends TestCase {
         $foundA = $provider->get($countryA, $cityA, 'postcode c', 'line_one c  line_two c', '', $factory);
         $foundB = $provider->get($countryA, $cityA, 'postcode c', 'line_one c', 'line_two c', $factory);
 
-        $this->assertNotNull($foundA);
-        $this->assertEquals($foundA, $foundB);
-        $this->assertFalse($foundA->wasRecentlyCreated);
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($foundA);
+        self::assertEquals($foundA, $foundB);
+        self::assertFalse($foundA->wasRecentlyCreated);
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -138,22 +138,22 @@ class LocationResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('Postcode', $created->postcode);
-        $this->assertEquals('New', $created->state);
-        $this->assertEquals('line_One a', $created->line_one);
-        $this->assertEquals('Line_two a', $created->line_two);
-        $this->assertEquals($countryB->getKey(), $created->country_id);
-        $this->assertEquals($cityB->getKey(), $created->city_id);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('Postcode', $created->postcode);
+        self::assertEquals('New', $created->state);
+        self::assertEquals('line_One a', $created->line_one);
+        self::assertEquals('Line_two a', $created->line_two);
+        self::assertEquals($countryB->getKey(), $created->country_id);
+        self::assertEquals($cityB->getKey(), $created->city_id);
+        self::assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame(
+        self::assertSame(
             $created,
             $provider->get($countryB, $cityB, 'Postcode', 'line_one  a', 'LINE_two a', $factory),
         );
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $this->getQueryLog());
     }
 }

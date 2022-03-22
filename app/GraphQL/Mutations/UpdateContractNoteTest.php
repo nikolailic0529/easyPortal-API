@@ -94,14 +94,13 @@ class UpdateContractNoteTest extends TestCase {
         $map  = [];
         $file = [];
 
-        if (array_key_exists('files', $input)) {
-            if (!empty($input['files'])) {
-                foreach ($input['files'] as $index => $item) {
-                    if ($item['content']) {
-                        $file[$index] = $item;
-                        $map[$index]  = ["variables.input.files.{$index}"];
-                        unset($input['files'][$index]);
-                    }
+        if (isset($input['files'])) {
+            foreach ((array) $input['files'] as $index => $item) {
+                if (isset($item['content']) && $item['content']) {
+                    $file[$index] = $item;
+                    $map[$index]  = ["variables.input.files.{$index}"];
+
+                    unset($input['files'][$index]);
                 }
             }
         }
@@ -145,21 +144,21 @@ class UpdateContractNoteTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $updated = $response->json('data.updateContractNote.updated');
-            $this->assertIsArray($updated);
-            $this->assertNotNull($updated['id']);
-            $this->assertNotNull($updated['created_at']);
-            $this->assertNotNull($updated['updated_at']);
-            $this->assertEquals($user->getKey(), $updated['user_id']);
-            array_key_exists('note', $input) && $this->assertEquals($input['note'], $updated['note']);
+            self::assertIsArray($updated);
+            self::assertNotNull($updated['id']);
+            self::assertNotNull($updated['created_at']);
+            self::assertNotNull($updated['updated_at']);
+            self::assertEquals($user->getKey(), $updated['user_id']);
+            array_key_exists('note', $input) && self::assertEquals($input['note'], $updated['note']);
             array_key_exists('pinned', $input)
-                ? $this->assertEquals($input['pinned'], $updated['pinned'])
-                : $this->assertFalse($updated['pinned']);
+                ? self::assertEquals($input['pinned'], $updated['pinned'])
+                : self::assertFalse($updated['pinned']);
             // Files assertion
             if ($filename) {
-                $this->assertCount(1, $updated['files']);
-                $this->assertEquals($filename, $updated['files'][0]['name']);
+                self::assertCount(1, $updated['files']);
+                self::assertEquals($filename, $updated['files'][0]['name']);
             } else {
-                $this->assertEmpty($updated['files']);
+                self::assertEmpty($updated['files']);
             }
         }
     }

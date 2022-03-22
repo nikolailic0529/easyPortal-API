@@ -20,8 +20,8 @@ class DocumentEntryTest extends TestCase {
         $actual     = new DocumentEntry($json);
         $properties = DocumentEntry::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

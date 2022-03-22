@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Location>
+ * @extends Resolver<Location>
  */
 class LocationResolver extends Resolver {
     public function get(
@@ -36,7 +36,7 @@ class LocationResolver extends Resolver {
     }
 
     /**
-     * @param array<mixed> $keys
+     * @inheritDoc
      */
     public function prefetch(array $keys, Closure|null $callback = null): static {
         return parent::prefetch($keys, $callback);
@@ -76,7 +76,7 @@ class LocationResolver extends Resolver {
     }
 
     /**
-     * @return array{country_id:string, city_id:string, postcode:string, line_one:string, line_two:string}
+     * @return array{country_id:string, city_id:string, postcode:string, line:string}
      */
     protected function getUniqueKey(
         Country|string $country,

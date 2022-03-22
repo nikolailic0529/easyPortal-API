@@ -5,6 +5,7 @@ namespace App\Services\Queue\Concerns;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\JobStopped;
+use App\Services\Queue\Job;
 use App\Services\Queue\Progress;
 use App\Services\Service;
 use App\Utils\Processor\Processor;
@@ -17,10 +18,9 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
  *
  * @template TProcessor of \App\Utils\Processor\Processor
  *
- * @mixin \App\Services\Queue\Job
- * @mixin \App\Services\Queue\CronJob
- *
- * @implements \App\Services\Queue\Contracts\Progressable
+ * @mixin Job
+ * @mixin CronJob
+ * @mixin Progressable
  */
 trait ProcessorJob {
     /**

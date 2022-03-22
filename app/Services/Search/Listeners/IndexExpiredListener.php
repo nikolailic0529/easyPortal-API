@@ -9,6 +9,7 @@ use App\Services\Search\Jobs\Index;
 use App\Services\Search\Service;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Model;
 
 use function array_values;
 
@@ -36,8 +37,8 @@ class IndexExpiredListener implements Subscriber {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
-     * @param array<string>                                     $keys
+     * @param class-string<Model> $model
+     * @param array<string>       $keys
      */
     private function update(string $model, array $keys): void {
         // Searchable?

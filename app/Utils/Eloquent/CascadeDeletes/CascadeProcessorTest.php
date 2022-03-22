@@ -49,7 +49,7 @@ class CascadeProcessorTest extends TestCase {
 
         $processor->delete($model);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     /**
@@ -94,7 +94,7 @@ class CascadeProcessorTest extends TestCase {
             }
         };
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'relationWithTypehint',
             ],
@@ -120,7 +120,7 @@ class CascadeProcessorTest extends TestCase {
             }
         };
 
-        $this->expectErrorMessage(sprintf(
+        self::expectErrorMessage(sprintf(
             'Relation `%s::%s()` must have `%s` attribute.',
             $model::class,
             'relationWithoutAttribute',
@@ -138,16 +138,13 @@ class CascadeProcessorTest extends TestCase {
 
         $model = Mockery::mock(Model::class);
         $model->makePartial();
-        $model->forceDeleting = true;
 
         $child = Mockery::mock(Model::class);
         $child->makePartial();
         $child
             ->shouldReceive('delete')
             ->once()
-            ->andReturnUsing(function () use ($child): bool {
-                $this->assertTrue($child->forceDeleting ?? null);
-
+            ->andReturnUsing(static function (): bool {
                 return true;
             });
 
@@ -196,9 +193,9 @@ class CascadeProcessorTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $this->assertEquals([$item], $processor->getRelatedObjects($model, 'collection', $relation));
-        $this->assertEquals([$item], $processor->getRelatedObjects($model, 'model', $relation));
-        $this->assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
+        self::assertEquals([$item], $processor->getRelatedObjects($model, 'collection', $relation));
+        self::assertEquals([$item], $processor->getRelatedObjects($model, 'model', $relation));
+        self::assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
     }
 
     /**
@@ -248,9 +245,9 @@ class CascadeProcessorTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $this->assertEquals([$pivot], $processor->getRelatedObjects($model, 'collection', $relation));
-        $this->assertEquals([$pivot], $processor->getRelatedObjects($model, 'model', $relation));
-        $this->assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
+        self::assertEquals([$pivot], $processor->getRelatedObjects($model, 'collection', $relation));
+        self::assertEquals([$pivot], $processor->getRelatedObjects($model, 'model', $relation));
+        self::assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
     }
     // </editor-fold>
 }

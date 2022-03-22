@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factory\Factories;
 
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Factory\CompanyFactory;
 use App\Services\DataLoader\Factory\Concerns\WithKpi;
@@ -14,6 +15,7 @@ use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
@@ -23,6 +25,9 @@ use InvalidArgumentException;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends CompanyFactory<Customer, CustomerLocation>
+ */
 class CustomerFactory extends CompanyFactory {
     use WithKpi;
     use WithReseller;
@@ -62,7 +67,6 @@ class CustomerFactory extends CompanyFactory {
     // <editor-fold desc="Factory">
     // =========================================================================
     public function find(Type $type): ?Customer {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 
@@ -125,15 +129,16 @@ class CustomerFactory extends CompanyFactory {
     }
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyKpis> $kpis
+     * @param array<CompanyKpis> $kpis
      *
-     * @return \Illuminate\Support\Collection<\App\Models\ResellerCustomer>
+     * @return Collection<int, ResellerCustomer>
      */
     protected function resellers(Customer $customer, array $kpis = null): Collection {
-        $pivots   = new Collection();
+        /** @var Collection<int, ResellerCustomer> $existing https://github.com/phpstan/phpstan/issues/6849 */
         $existing = $customer->resellersPivots->keyBy(
             $customer->resellers()->getRelatedPivotKeyName(),
         );
+        $pivots   = new Collection();
 
         foreach ((array) $kpis as $kpi) {
             // Reseller?

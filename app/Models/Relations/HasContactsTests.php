@@ -5,16 +5,17 @@ namespace App\Models\Relations;
 use App\Models\Contact;
 use App\Utils\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Tests\TestCase;
 
 /**
  * @internal
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait HasContactsTests {
     use WithQueryLog;
 
     /**
-     * @return \App\Utils\Eloquent\Model&\App\Models\Relations\HasContacts
+     * @return Model&HasContacts
      */
     abstract protected function getModel(): Model;
 
@@ -22,7 +23,7 @@ trait HasContactsTests {
      * @covers ::setContactsAttribute
      */
     public function testSetContactsAttribute(): void {
-        /** @var \App\Utils\Eloquent\Model&\App\Models\Relations\HasContacts $model */
+        /** @var Model&HasContacts $model */
         $model   = $this->getModel()->factory()->create([
             'contacts_count' => 2,
         ]);
@@ -37,9 +38,9 @@ trait HasContactsTests {
         ]);
 
         // Base
-        $this->assertEquals(2, Contact::query()->count());
-        $this->assertEqualsCanonicalizing([$contact, $used], $model->contacts->all());
-        $this->assertEquals(2, $model->contacts_count);
+        self::assertEquals(2, Contact::query()->count());
+        self::assertEqualsCanonicalizing([$contact, $used], $model->contacts->all());
+        self::assertEquals(2, $model->contacts_count);
 
         // Used shouldn't be deleted
         $created         = Contact::factory()->create([
@@ -52,9 +53,9 @@ trait HasContactsTests {
 
         $used = $used->refresh();
 
-        $this->assertEquals([$created], $model->contacts->all());
-        $this->assertEquals(1, Contact::query()->count());
-        $this->assertNotNull($used->object_id);
-        $this->assertEquals($morph, $used->object_type);
+        self::assertEquals([$created], $model->contacts->all());
+        self::assertEquals(1, Contact::query()->count());
+        self::assertNotNull($used->object_id);
+        self::assertEquals($morph, $used->object_type);
     }
 }

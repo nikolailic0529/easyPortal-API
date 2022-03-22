@@ -13,7 +13,7 @@ class CustomersUpdaterCronJob extends CustomersImporterCronJob {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

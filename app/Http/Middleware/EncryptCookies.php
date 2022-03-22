@@ -10,7 +10,7 @@ class EncryptCookies extends Middleware {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $except = [];
 }

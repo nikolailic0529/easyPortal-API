@@ -32,22 +32,22 @@ class ModelPropertyTest extends TestCase {
         // Without relation
         $a = new ModelProperty('a');
 
-        $this->assertEquals('a', $a->getName());
-        $this->assertEquals(['a'], $a->getPath());
-        $this->assertTrue($a->isAttribute());
-        $this->assertFalse($a->isRelation());
-        $this->assertNull($a->getRelationPath());
-        $this->assertNull($a->getRelationName());
+        self::assertEquals('a', $a->getName());
+        self::assertEquals(['a'], $a->getPath());
+        self::assertTrue($a->isAttribute());
+        self::assertFalse($a->isRelation());
+        self::assertNull($a->getRelationPath());
+        self::assertNull($a->getRelationName());
 
         // With
         $b = new ModelProperty('a.b.c');
 
-        $this->assertEquals('c', $b->getName());
-        $this->assertEquals(['a', 'b', 'c'], $b->getPath());
-        $this->assertTrue($b->isRelation());
-        $this->assertFalse($b->isAttribute());
-        $this->assertEquals(['a', 'b'], $b->getRelationPath());
-        $this->assertEquals('a.b', $b->getRelationName());
+        self::assertEquals('c', $b->getName());
+        self::assertEquals(['a', 'b', 'c'], $b->getPath());
+        self::assertTrue($b->isRelation());
+        self::assertFalse($b->isAttribute());
+        self::assertEquals(['a', 'b'], $b->getRelationPath());
+        self::assertEquals('a.b', $b->getRelationName());
     }
 
     /**
@@ -67,28 +67,28 @@ class ModelPropertyTest extends TestCase {
         ]);
 
         // Simple
-        $this->assertEquals($oem->key, (new ModelProperty('key'))->getValue($oem));
-        $this->assertEquals($oem->getKey(), (new ModelProperty('oem_id'))->getValue($assetA));
+        self::assertEquals($oem->key, (new ModelProperty('key'))->getValue($oem));
+        self::assertEquals($oem->getKey(), (new ModelProperty('oem_id'))->getValue($assetA));
 
         // Relations
-        $this->assertEquals(
+        self::assertEquals(
             $oem->getKey(),
             (new ModelProperty('oem.id'))->getValue($assetA),
         );
-        $this->assertEqualsCanonicalizing(
+        self::assertEqualsCanonicalizing(
             new Collection([$assetA->getKey(), $assetB->getKey()]),
             (new ModelProperty('assets.id'))->getValue($oem),
         );
-        $this->assertEquals(
+        self::assertEquals(
             new Collection([$type->getKey()]),
             (new ModelProperty('assets.type.id'))->getValue($oem),
         );
 
         // Null
-        $this->assertNull(
+        self::assertNull(
             (new ModelProperty('unknown.id'))->getValue($oem),
         );
-        $this->assertNull(
+        self::assertNull(
             (new ModelProperty('assets.unknown.id'))->getValue($oem),
         );
     }
@@ -100,7 +100,7 @@ class ModelPropertyTest extends TestCase {
         $model    = new Customer();
         $property = new ModelProperty('headquarter.id');
 
-        $this->assertInstanceOf(HasOne::class, $property->getRelation($model));
+        self::assertInstanceOf(HasOne::class, $property->getRelation($model));
     }
 
     /**
@@ -110,7 +110,7 @@ class ModelPropertyTest extends TestCase {
         $model    = new Customer();
         $property = new ModelProperty('id');
 
-        $this->expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
+        self::expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
 
         $property->getRelation($model);
     }
@@ -122,7 +122,7 @@ class ModelPropertyTest extends TestCase {
         $builder  = Customer::query();
         $property = new ModelProperty('headquarter.id');
 
-        $this->assertInstanceOf(HasOne::class, $property->getRelation($builder));
+        self::assertInstanceOf(HasOne::class, $property->getRelation($builder));
     }
 
     /**
@@ -133,7 +133,7 @@ class ModelPropertyTest extends TestCase {
         $builder  = $model::query();
         $property = new ModelProperty('id');
 
-        $this->expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
+        self::expectExceptionObject(new PropertyIsNotRelation($model, $property->getName()));
 
         $property->getRelation($builder);
     }

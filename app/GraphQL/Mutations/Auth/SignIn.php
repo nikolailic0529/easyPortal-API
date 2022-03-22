@@ -18,7 +18,7 @@ class SignIn {
      *
      * @return array<string, mixed>
      */
-    public function __invoke(mixed $_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
             'me' => $this->query->getMe($this->keycloak->signIn(
                 $args['input']['email'],

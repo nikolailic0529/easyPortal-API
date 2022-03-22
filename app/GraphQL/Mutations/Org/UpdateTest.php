@@ -230,11 +230,11 @@ class UpdateTest extends TestCase {
                     ->shouldReceive('updateBrandingData')
                     ->once()
                     ->andReturn(true);
-                $new_logo_url = $hasLogo ? 'https://example.com/logo.png' : null;
+                $newLogoUrl = $hasLogo ? 'https://example.com/logo.png' : null;
                 $client
                     ->shouldReceive('updateCompanyLogo')
                     ->once()
-                    ->andReturn($new_logo_url);
+                    ->andReturn($newLogoUrl);
 
                 $newFaviconUrl = $hasFavicon ? 'https://example.com/favicon.png' : null;
                 $client
@@ -249,9 +249,12 @@ class UpdateTest extends TestCase {
                     ->andReturn($newWelcomeUrl);
             } else {
                 $client
-                    ->shouldNotReceive('updateCompanyLogo')
-                    ->shouldNotReceive('updateCompanyFavicon')
-                    ->shouldNotReceive('updateCompanyMainImageOnTheRight')
+                    ->shouldNotReceive('updateCompanyLogo');
+                $client
+                    ->shouldNotReceive('updateCompanyFavicon');
+                $client
+                    ->shouldNotReceive('updateCompanyMainImageOnTheRight');
+                $client
                     ->shouldNotReceive('updateBrandingData');
             }
         }
@@ -262,33 +265,33 @@ class UpdateTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             $organization = $organization->fresh();
 
-            $this->assertEquals($data['locale'], $organization->locale);
-            $this->assertEquals($data['currency_id'], $organization->currency_id);
-            $this->assertEquals($data['website_url'], $organization->website_url);
-            $this->assertEquals($data['email'], $organization->email);
-            $this->assertEquals($data['analytics_code'], $organization->analytics_code);
+            self::assertEquals($data['locale'], $organization->locale);
+            self::assertEquals($data['currency_id'], $organization->currency_id);
+            self::assertEquals($data['website_url'], $organization->website_url);
+            self::assertEquals($data['email'], $organization->email);
+            self::assertEquals($data['analytics_code'], $organization->analytics_code);
 
             if ($organization->reseller) {
-                $hasLogo && $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
-                $hasFavicon && $this->assertEquals(
+                $hasLogo && self::assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+                $hasFavicon && self::assertEquals(
                     'https://example.com/favicon.png',
                     $organization->branding_favicon_url,
                 );
-                $hasWelcome && $this->assertEquals(
+                $hasWelcome && self::assertEquals(
                     'https://example.com/imageOnTheRight.png',
                     $organization->branding_welcome_image_url,
                 );
             }
 
-            !$hasLogo && $this->assertNull($organization->branding_logo_url);
-            !$hasFavicon && $this->assertNull($organization->branding_favicon_url);
-            !$hasWelcome && $this->assertNull($organization->branding_welcome_image_url);
-            !$hasDashboard && $this->assertNull($organization->branding_dashboard_image_url);
+            !$hasLogo && self::assertNull($organization->branding_logo_url);
+            !$hasFavicon && self::assertNull($organization->branding_favicon_url);
+            !$hasWelcome && self::assertNull($organization->branding_welcome_image_url);
+            !$hasDashboard && self::assertNull($organization->branding_dashboard_image_url);
 
             if (array_key_exists('branding', $data)) {
-                $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
-                $this->assertEquals($data['branding']['main_color'], $organization->branding_main_color);
-                $this->assertEquals($data['branding']['secondary_color'], $organization->branding_secondary_color);
+                self::assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
+                self::assertEquals($data['branding']['main_color'], $organization->branding_main_color);
+                self::assertEquals($data['branding']['secondary_color'], $organization->branding_secondary_color);
             }
         }
     }
@@ -311,7 +314,7 @@ class UpdateTest extends TestCase {
             }
         };
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 new InputTranslationText([
                     'language_code' => 'en_GB',
@@ -354,7 +357,7 @@ class UpdateTest extends TestCase {
             }
         };
 
-        $this->assertEquals(
+        self::assertEquals(
             new TranslatedString([
                 'en_GB'   => 'a',
                 'unknown' => 'b',

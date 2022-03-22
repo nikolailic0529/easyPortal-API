@@ -31,6 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
 use function http_build_query;
+use function is_array;
 use function is_string;
 use function mb_strtolower;
 use function rtrim;
@@ -172,7 +173,7 @@ class Client {
     // <editor-fold desc="Roles">
     // -------------------------------------------------------------------------
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\Role>
+     * @return array<KeycloakRole>
      */
     public function getGroupRoles(KeycloakGroup|Role $group): array {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -184,7 +185,7 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      */
     public function createGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -198,7 +199,7 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      */
     public function updateGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         $keyBy    = static function (KeycloakRole $role): string {
@@ -221,7 +222,7 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      */
     public function deleteGroupRoles(KeycloakGroup|Role $group, array $roles): bool {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
@@ -239,7 +240,7 @@ class Client {
     // <editor-fold desc="Roles">
     // =========================================================================
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\Role>
+     * @return array<KeycloakRole>
      */
     public function getRoles(): array {
         // GET /{realm}/clients/{id}/roles
@@ -345,11 +346,9 @@ class Client {
         $endpoint = "users?email={$email}";
         $users    = $this->call($endpoint);
 
-        if (empty($users)) {
-            return null;
-        }
-
-        return new KeycloakUser($users[0]);
+        return is_array($users) && isset($users[0])
+            ? new KeycloakUser($users[0])
+            : null;
     }
 
     public function requestResetPassword(string $id): void {
@@ -359,7 +358,7 @@ class Client {
     }
 
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\Group>
+     * @return array<KeycloakGroup>
      */
     public function getUserGroups(string $id): array {
         // GET /{realm}/users/{id}/groups
@@ -419,7 +418,7 @@ class Client {
     }
 
     /**
-     * @return array<\App\Services\Keycloak\Client\Types\User>
+     * @return array<KeycloakUser>
      */
     public function getUsers(int $limit, int $offset): array {
         $keycloak = rtrim($this->config->get('ep.keycloak.url'), '/');
@@ -445,7 +444,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\Keycloak\Client\Types\User>
+     * @return ObjectIterator<KeycloakUser>
      */
     public function getUsersIterator(): ObjectIterator {
         return new OffsetBasedObjectIterator(
@@ -537,9 +536,9 @@ class Client {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<\App\Services\Keycloak\Client\Types\Role|\App\Models\Permission> $roles
+     * @param array<KeycloakRole|Permission> $roles
      *
-     * @return \Illuminate\Support\Collection<\App\Services\Keycloak\Client\Types\Role>
+     * @return Collection<int, KeycloakRole>
      */
     protected function toRoles(array $roles): Collection {
         return (new Collection($roles))

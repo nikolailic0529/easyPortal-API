@@ -20,11 +20,11 @@ class ViewAssetDocumentTest extends TestCase {
         $actual     = new ViewAssetDocument($json);
         $properties = ViewAssetDocument::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertInstanceOf(ViewDocument::class, $actual->document);
-        $this->assertInstanceOf(ViewCompany::class, $actual->reseller);
-        $this->assertInstanceOf(ViewCompany::class, $actual->customer);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertInstanceOf(ViewDocument::class, $actual->document);
+        self::assertInstanceOf(ViewCompany::class, $actual->reseller);
+        self::assertInstanceOf(ViewCompany::class, $actual->customer);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

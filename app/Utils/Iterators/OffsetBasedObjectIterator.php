@@ -17,7 +17,7 @@ use const FILTER_VALIDATE_INT;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\ObjectIteratorImpl<T, V>
+ * @extends ObjectIteratorImpl<T, V>
  */
 class OffsetBasedObjectIterator extends ObjectIteratorImpl {
     public function getOffset(): int|null {

@@ -3,20 +3,23 @@
 namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Asset Tag (pivot)
  *
- * @property string                       $id
- * @property string                       $tag_id
- * @property string                       $asset_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetTag newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetTag newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetTag query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $tag_id
+ * @property string               $asset_id
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @method static Builder|AssetTag newModelQuery()
+ * @method static Builder|AssetTag newQuery()
+ * @method static Builder|AssetTag query()
+ * @mixin Eloquent
  */
 class AssetTag extends Pivot {
     /**

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\UserProvider;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory;
 
 class UpdateMePassword {
@@ -22,14 +23,13 @@ class UpdateMePassword {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         // Possible?
-        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        /** @var Authenticatable $user */
         $user = $this->auth->user();
 
         if (!($user instanceof User)) {

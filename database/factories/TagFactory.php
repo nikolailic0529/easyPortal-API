@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Tag create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Tag make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Tag create($attributes = [], ?Model $parent = null)
+ * @method Tag make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Tag>
  */
 class TagFactory extends Factory {
     /**

@@ -10,6 +10,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<Oem>
+ */
 class OemResolver extends Resolver implements SingletonPersistent {
     public function get(string $key, Closure $factory = null): ?Oem {
         return $this->resolve($this->getUniqueKey($key), $factory);

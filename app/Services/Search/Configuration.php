@@ -3,6 +3,7 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Contracts\ScopeWithMetadata;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
@@ -28,14 +29,14 @@ class Configuration {
     protected const PROPERTIES = 'properties';
 
     /**
-     * @var array<string,array<string, \App\Services\Search\Properties\Property>>
+     * @var array<string,array<string, Property>>
      */
     protected array $properties;
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model
-     * @param array<string,\App\Services\Search\Properties\Property>                       $metadata
-     * @param array<string,\App\Services\Search\Properties\Property>                       $properties
+     * @param Model&Searchable       $model
+     * @param array<string,Property> $metadata
+     * @param array<string,Property> $properties
      */
     public function __construct(
         protected Model $model,
@@ -46,14 +47,14 @@ class Configuration {
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
+     * @return Model&Searchable
      */
     public function getModel(): Model {
         return $this->model;
     }
 
     /**
-     * @return array<string,\App\Services\Search\Properties\Property>
+     * @return array<string,array<string, Property>>
      */
     public function getProperties(): array {
         return $this->properties;
@@ -104,10 +105,10 @@ class Configuration {
     }
 
     /**
-     * @param \Closure(string,?\App\Services\Search\Properties\Property): ?string $keyer
-     * @param \Closure(\App\Services\Search\Properties\Value): bool|null          $filter
+     * @param Closure(string,?Property): ?string $keyer
+     * @param Closure(Value): bool|null          $filter
      *
-     * @return array<string,\App\Services\Search\Properties\Value>
+     * @return array<string,Value>
      */
     private function getFlatProperties(Closure $keyer, Closure $filter = null): array {
         $flat = [];
@@ -121,11 +122,11 @@ class Configuration {
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property> $properties
-     * @param \Closure(string,\App\Services\Search\Properties\Property): string $keyer
-     * @param \Closure(\App\Services\Search\Properties\Value): bool|null        $filter
+     * @param array<string,Property>           $properties
+     * @param Closure(string,Property): string $keyer
+     * @param Closure(Value): bool|null        $filter
      *
-     * @return array<string,\App\Services\Search\Properties\Value>
+     * @return array<string,Value>
      */
     private function getFlatPropertiesProcess(
         array $properties,
@@ -193,7 +194,7 @@ class Configuration {
     }
 
     public function getIndexAlias(): string {
-        return $this->getModel()->scoutSearchableAs();
+        return $this->getModel()->getSearchableAsDefault();
     }
 
     public function isIndex(string $index): bool {
@@ -216,7 +217,7 @@ class Configuration {
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property> $properties
+     * @param array<string,Property> $properties
      *
      * @return array<mixed>
      */
@@ -250,10 +251,10 @@ class Configuration {
     }
 
     /**
-     * @param array<string,\App\Services\Search\Properties\Property> $metadata
-     * @param array<string,\App\Services\Search\Properties\Property> $properties
+     * @param array<string,Property> $metadata
+     * @param array<string,Property> $properties
      *
-     * @return array<string,array<string, \App\Services\Search\Properties\Property>>
+     * @return array<string,array<string, Property>>
      */
     protected function buildProperties(array $metadata, array $properties): array {
         $model      = $this->getModel();
@@ -264,7 +265,7 @@ class Configuration {
 
         foreach ($model->getGlobalScopes() as $scope) {
             if ($scope instanceof ScopeWithMetadata) {
-                foreach ($scope->getSearchMetadata($model) as $key => $metadata) {
+                foreach ($scope->getSearchMetadata($model) as $key => $data) {
                     // Metadata should be unique to avoid any possible side effects.
                     if (array_key_exists($key, $properties[static::METADATA])) {
                         throw new LogicException(sprintf(
@@ -275,7 +276,7 @@ class Configuration {
                     }
 
                     // Add
-                    $properties[static::METADATA][$key] = $metadata;
+                    $properties[static::METADATA][$key] = $data;
                 }
             }
         }

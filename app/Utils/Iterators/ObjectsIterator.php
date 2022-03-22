@@ -10,12 +10,12 @@ use Illuminate\Support\Collection;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\OneChunkOffsetBasedObjectIterator<T, V>
+ * @extends OneChunkOffsetBasedObjectIterator<T, V>
  */
 class ObjectsIterator extends OneChunkOffsetBasedObjectIterator {
     /**
-     * @param \Illuminate\Support\Collection<T>|array<T> $items
-     * @param \Closure(T):V|null                         $converter
+     * @param Collection<array-key, T>|array<T> $items
+     * @param Closure(T):V|null                 $converter
      */
     public function __construct(
         ExceptionHandler $exceptionHandler,

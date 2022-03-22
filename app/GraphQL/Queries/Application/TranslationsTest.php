@@ -92,7 +92,7 @@ class TranslationsTest extends TestCase {
             ],
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

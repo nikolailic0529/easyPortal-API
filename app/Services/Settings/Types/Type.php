@@ -2,7 +2,9 @@
 
 namespace App\Services\Settings\Types;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
 use ReflectionClass;
 
 use function is_null;
@@ -40,14 +42,14 @@ abstract class Type {
     }
 
     /**
-     * @return array<string|\Illuminate\Validation\Rule>
+     * @return array<string|Rule>
      */
     public function getValidationRules(): array {
         return [];
     }
 
     /**
-     * @return \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>|array<mixed>|null
+     * @return Collection<int, Model>|array<mixed>|null
      */
     public function getValues(): Collection|array|null {
         return null;

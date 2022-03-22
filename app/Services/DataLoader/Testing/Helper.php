@@ -3,10 +3,15 @@
 namespace App\Services\DataLoader\Testing;
 
 use App\Models\Asset;
+use App\Models\Coverage;
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Document as DocumentModel;
 use App\Models\Location;
 use App\Models\Reseller;
+use App\Models\ResellerLocation;
+use App\Models\Status;
+use App\Models\Tag;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
@@ -22,6 +27,7 @@ use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Testing\Data\Data;
 use App\Services\DataLoader\Testing\Data\DataGenerator;
 use App\Services\DataLoader\Testing\Finders\AssetFinder;
 use App\Services\DataLoader\Testing\Finders\CustomerFinder;
@@ -34,6 +40,7 @@ use DateTimeInterface;
 use Illuminate\Support\Collection;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
+use Tests\TestCase;
 
 use function array_map;
 use function array_unique;
@@ -42,7 +49,7 @@ use function is_null;
 use function reset;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait Helper {
     // <editor-fold desc="General">
@@ -96,7 +103,7 @@ trait Helper {
         $tags = [];
 
         foreach ($model->tags ?? [] as $tag) {
-            /** @var \App\Models\Tag $tag */
+            /** @var Tag $tag */
             $tags["{$tag->name}"] = [
                 'name' => $tag->name,
             ];
@@ -112,7 +119,7 @@ trait Helper {
         $coverages = [];
 
         foreach ($model->coverages ?? [] as $coverage) {
-            /** @var \App\Models\Coverage $coverage */
+            /** @var Coverage $coverage */
 
             $coverages["{$coverage->key}"] = [
                 'key'  => $coverage->key,
@@ -124,15 +131,15 @@ trait Helper {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Coverage>|array<\App\Models\Coverage> $coverages
+     * @param Collection<int, Coverage>|array<Coverage> $coverages
      *
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function getCoverages(Collection|array|null $coverages): ?array {
         $result = null;
 
         foreach ($coverages as $coverage) {
-            /** @var \App\Models\Coverage $coverage */
+            /** @var Coverage $coverage */
 
             $result["{$coverage->key}"] = [
                 'key'  => $coverage->key,
@@ -144,22 +151,22 @@ trait Helper {
     }
 
     /**
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function getModelStatuses(DocumentModel|Reseller|Customer $model): ?array {
         return $this->statuses($model->statuses ?? []);
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Status>|array<\App\Models\Status> $statuses
+     * @param Collection<int, Status>|array<Status> $statuses
      *
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function statuses(Collection|array|null $statuses): ?array {
         $result = null;
 
         foreach ($statuses as $status) {
-            /** @var \App\Models\Status $status */
+            /** @var Status $status */
 
             $result["{$status->key}"] = [
                 'key'  => $status->key,
@@ -171,7 +178,7 @@ trait Helper {
     }
 
     /**
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function getStatuses(Company|Document $object): ?array {
         $normalizer = $this->app->make(Normalizer::class);
@@ -188,7 +195,7 @@ trait Helper {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, array{name: ?string, phone: ?string, mail: ?string, types: array<string>}>
      */
     protected function getContacts(ViewAsset|Company|ViewDocument $object): array {
         $normalizer = $this->app->make(Normalizer::class);
@@ -296,7 +303,7 @@ trait Helper {
         $locations = [];
 
         foreach ($company->locations as $companyLocation) {
-            /** @var \App\Models\ResellerLocation|\App\Models\CustomerLocation $companyLocation */
+            /** @var ResellerLocation|CustomerLocation $companyLocation */
             $location          = $this->getLocation($companyLocation->location);
             $location['types'] = $companyLocation->types
                 ->map(static function (TypeModel $type): string {
@@ -354,7 +361,7 @@ trait Helper {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, array{name: ?string}>
      */
     protected function getAssetTags(ViewAsset $object): array {
         $tags = [];
@@ -370,7 +377,7 @@ trait Helper {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, array{key: string, name: string}>
      */
     protected function getAssetCoverages(ViewAsset $object): array {
         $normalizer = $this->app->make(Normalizer::class);
@@ -445,11 +452,11 @@ trait Helper {
     // <editor-fold desc="Data">
     // =========================================================================
     /**
-     * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $data
+     * @param class-string<Data> $data
      */
     protected function generateData(string $data): void {
         // Generate
-        $this->assertTrue($this->app->make(DataGenerator::class)->generate($data));
+        self::assertTrue($this->app->make(DataGenerator::class)->generate($data));
 
         // Setup
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
@@ -460,7 +467,7 @@ trait Helper {
         });
 
         // Restore
-        $this->assertTrue($this->app->make(DataGenerator::class)->restore($data));
+        self::assertTrue($this->app->make(DataGenerator::class)->restore($data));
 
         // Reset
         $this->resetDateFactory();

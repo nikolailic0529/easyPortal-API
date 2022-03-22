@@ -101,7 +101,7 @@ class SignUpByInvite {
         }
 
         // Invitation
-        /** @var \App\Models\Invitation|null $invitation */
+        /** @var Invitation|null $invitation */
         $invitation = GlobalScopes::callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($id): ?Invitation {

@@ -40,7 +40,7 @@ class WithAssetTest extends TestCase {
         $factory = new WithAssetTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $asset);
 
-        $this->assertEquals($asset, $factory->asset($object));
+        self::assertEquals($asset, $factory->asset($object));
     }
 
     /**
@@ -72,7 +72,7 @@ class WithAssetTest extends TestCase {
         $factory = new WithAssetTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $asset);
 
-        $this->assertEquals($asset, $factory->asset($object));
+        self::assertEquals($asset, $factory->asset($object));
     }
 
     /**
@@ -93,9 +93,9 @@ class WithAssetTest extends TestCase {
         $factory = new WithAssetTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $asset);
 
-        $this->expectException(AssetNotFound::class);
+        self::expectException(AssetNotFound::class);
 
-        $this->assertEquals($asset, $factory->asset($object));
+        self::assertEquals($asset, $factory->asset($object));
     }
 
     /**
@@ -111,7 +111,7 @@ class WithAssetTest extends TestCase {
 
         $factory = new WithAssetTestObject($normalizer, $resolver);
 
-        $this->assertNull($factory->asset($object));
+        self::assertNull($factory->asset($object));
     }
     //</editor-fold>
 

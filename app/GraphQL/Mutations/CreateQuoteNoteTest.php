@@ -20,7 +20,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
-use function array_key_exists;
 
 /**
  * @internal
@@ -84,14 +83,13 @@ class CreateQuoteNoteTest extends TestCase {
         $map  = [];
         $file = [];
 
-        if (array_key_exists('files', $input)) {
-            if (!empty($input['files'])) {
-                foreach ($input['files'] as $index => $item) {
-                    $file[$index] = $item;
-                    $map[$index]  = ["variables.input.files.{$index}"];
-                }
-                $input['files'] = null;
+        if (isset($input['files'])) {
+            foreach ((array) $input['files'] as $index => $item) {
+                $file[$index] = $item;
+                $map[$index]  = ["variables.input.files.{$index}"];
             }
+
+            $input['files'] = null;
         }
 
         $query      = /** @lang GraphQL */
@@ -131,16 +129,16 @@ class CreateQuoteNoteTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $created = $response->json('data.createQuoteNote.created');
-            $this->assertIsArray($created);
-            $this->assertNotNull($created['id']);
-            $this->assertNotNull($created['created_at']);
-            $this->assertNotNull($created['updated_at']);
-            $this->assertEquals($input['pinned'], $created['pinned']);
-            $this->assertEquals($input['note'], $created['note']);
-            $this->assertEquals($user->getKey(), $created['user_id']);
+            self::assertIsArray($created);
+            self::assertNotNull($created['id']);
+            self::assertNotNull($created['created_at']);
+            self::assertNotNull($created['updated_at']);
+            self::assertEquals($input['pinned'], $created['pinned']);
+            self::assertEquals($input['note'], $created['note']);
+            self::assertEquals($user->getKey(), $created['user_id']);
             // Files assertion
-            $this->assertCount(1, $created['files']);
-            $this->assertEquals('document.csv', $created['files'][0]['name']);
+            self::assertCount(1, $created['files']);
+            self::assertEquals('document.csv', $created['files'][0]['name']);
         }
     }
     // </editor-fold>

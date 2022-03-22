@@ -13,12 +13,11 @@ class Translations {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array<string,mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return $this->getStorage($args['locale'])->load();
     }
 

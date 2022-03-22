@@ -6,18 +6,21 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Queues;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Jobs\Cron\AssetsIndexer;
 use App\Services\Search\Jobs\Cron\CustomersIndexer;
 use App\Services\Search\Jobs\Cron\DocumentsIndexer;
+use App\Services\Search\Jobs\Cron\Indexer;
 use App\Services\Service as BaseService;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 use function array_keys;
 
 class Service extends BaseService {
     /**
-     * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>,\App\Services\Search\Jobs\Cron\Indexer>
+     * @var array<class-string<Model&Searchable>,class-string<Indexer<Model&Searchable>>>
      */
     protected static array $searchable = [
         Customer::class => CustomersIndexer::class,
@@ -26,23 +29,23 @@ class Service extends BaseService {
     ];
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param class-string<Model> $model
      */
     public function isSearchableModel(string $model): bool {
         return isset(static::$searchable[$model]);
     }
 
     /**
-     * @return array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
+     * @return array<class-string<Model&Searchable>>
      */
     public function getSearchableModels(): array {
         return array_keys(static::$searchable);
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param class-string<Model> $model
      *
-     * @return class-string<\App\Services\Search\Jobs\Cron\Indexer>|null
+     * @return class-string<Indexer<Model&Searchable>>|null
      */
     public function getSearchableModelJob(string $model): ?string {
         return static::$searchable[$model] ?? null;
@@ -51,7 +54,7 @@ class Service extends BaseService {
     /**
      * @template T
      *
-     * @param \Closure(): T $closure
+     * @param Closure(): T $closure
      *
      * @return T
      */

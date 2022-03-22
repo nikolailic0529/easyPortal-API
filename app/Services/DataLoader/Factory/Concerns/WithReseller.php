@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
@@ -14,7 +15,7 @@ use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithReseller {
     abstract protected function getNormalizer(): Normalizer;

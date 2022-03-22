@@ -5,9 +5,11 @@ namespace App\Services\Search\Processor;
 use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Property;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Eloquent\Model;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Database\Factories\AssetFactory;
@@ -16,7 +18,7 @@ use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -46,9 +48,10 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param array<string, mixed>                                                                       $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string|int>|null                                                                     $keys
+     * @param Closure(static): Collection<Model&Searchable> $expected
+     * @param array<string, mixed>                          $settings
+     * @param class-string<Model&Searchable>                $model
+     * @param array<string|int>|null                        $keys
      */
     public function testUpdate(
         Closure $expected,
@@ -76,21 +79,21 @@ class ProcessorTest extends TestCase {
             : 0;
         $previous    = null;
         $spyOnInit   = Mockery::spy(function (State $state) use ($expected): void {
-            $this->assertEquals(count($expected), $state->total);
-            $this->assertFalse($this->app->get(Repository::class)->get('scout.queue'));
+            self::assertEquals(count($expected), $state->total);
+            self::assertFalse($this->app->get(Repository::class)->get('scout.queue'));
         });
-        $spyOnChange = Mockery::spy(function (State $state) use (&$previous, $chunk): void {
-            $this->assertEquals($previous?->processed + $chunk, $state->processed);
+        $spyOnChange = Mockery::spy(static function (State $state) use (&$previous, $chunk): void {
+            self::assertEquals($previous?->processed + $chunk, $state->processed);
 
             $previous = $state;
         });
-        $spyOnFinish = Mockery::spy(function (State $state) use ($expected): void {
-            $this->assertEquals(count($expected), $state->processed);
+        $spyOnFinish = Mockery::spy(static function (State $state) use ($expected): void {
+            self::assertEquals(count($expected), $state->processed);
         });
 
         // Error?
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         // Call
@@ -107,7 +110,8 @@ class ProcessorTest extends TestCase {
         // Test
         $expected = $expected
             ->filter(static function (Model $model): bool {
-                return $model->shouldBeSearchable();
+                return $model instanceof Searchable
+                    && $model->shouldBeSearchable();
             });
 
         if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
@@ -117,7 +121,7 @@ class ProcessorTest extends TestCase {
                 });
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected->map(new GetKey())->sort()->values(),
             GlobalScopes::callWithoutGlobalScope(
                 OwnedByOrganizationScope::class,
@@ -170,6 +174,10 @@ class ProcessorTest extends TestCase {
         $model::$builder = Mockery::mock(Builder::class);
         $model::$builder->makePartial();
         $model::$builder
+            ->shouldReceive('withoutTrashed')
+            ->once()
+            ->andReturnSelf();
+        $model::$builder
             ->shouldReceive('newModelInstance')
             ->once()
             ->andReturn($instance);
@@ -194,9 +202,9 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderCreateIndex
      *
-     * @param array<mixed>                                                                     $expected
-     * @param class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string, string|null>                                                       $indexes
+     * @param array<mixed>                                       $expected
+     * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
+     * @param array<string, string|null>                         $indexes
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock
@@ -219,7 +227,7 @@ class ProcessorTest extends TestCase {
         ]));
 
         // Test
-        $this->assertSearchIndexes($expected);
+        self::assertSearchIndexes($expected);
     }
 
     /**
@@ -249,7 +257,7 @@ class ProcessorTest extends TestCase {
         ]));
 
         // Test
-        $this->assertSearchIndexes([
+        self::assertSearchIndexes([
             $config->getIndexName() => [
                 'aliases' => [
                     $config->getIndexAlias() => [
@@ -265,8 +273,8 @@ class ProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderIsIndexActual
      *
-     * @param class-string<\App\Utils\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string, string|null>                                                       $indexes
+     * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
+     * @param array<string, string|null>                         $indexes
      */
     public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
         // Mock
@@ -284,7 +292,7 @@ class ProcessorTest extends TestCase {
         }
 
         // Test
-        $this->assertEquals($expected, $processor->isIndexActual(new State([
+        self::assertEquals($expected, $processor->isIndexActual(new State([
             'model' => $model,
         ])));
     }
@@ -311,14 +319,14 @@ class ProcessorTest extends TestCase {
 
         $processor->init($state);
 
-        $this->assertNull($state->name);
+        self::assertNull($state->name);
 
         // Rebuild
         $state = new State(['rebuild' => true]);
 
         $processor->init($state);
 
-        $this->assertEquals($name, $state->name);
+        self::assertEquals($name, $state->name);
     }
 
     /**
@@ -363,7 +371,7 @@ class ProcessorTest extends TestCase {
         $index = $this->faker->randomElement([null, $this->faker->word]);
         $model = $modelSoftDeletes
             ? Mockery::mock(ProcessorTest__ModelSoftDeletes::class)
-            : Mockery::mock(Model::class);
+            : Mockery::mock(EloquentModel::class);
         $model
             ->shouldReceive('shouldBeSearchable')
             ->once()
@@ -435,7 +443,7 @@ class ProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 'model'       => $model,
                 'keys'        => $keys,
@@ -456,7 +464,9 @@ class ProcessorTest extends TestCase {
     public function dataProviderCreateIndex(): array {
         $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
-            use Searchable;
+            use SearchableImpl {
+                scoutSearchableAs as public;
+            }
 
             /**
              * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -662,7 +672,9 @@ class ProcessorTest extends TestCase {
     public function dataProviderIsIndexActual(): array {
         $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
-            use Searchable;
+            use SearchableImpl {
+                scoutSearchableAs as public;
+            }
 
             /**
              * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

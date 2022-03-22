@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Kpi;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Kpi create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Kpi make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Kpi create($attributes = [], ?Model $parent = null)
+ * @method Kpi make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Kpi>
  */
 class KpiFactory extends Factory {
     /**

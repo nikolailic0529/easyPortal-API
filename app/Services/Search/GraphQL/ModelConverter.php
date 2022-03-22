@@ -3,10 +3,13 @@
 namespace App\Services\Search\GraphQL;
 
 use App\Services\Search\Configuration;
+use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
@@ -21,9 +24,9 @@ class ModelConverter {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param class-string<Model&Searchable> $model
      *
-     * @return array<\GraphQL\Type\Definition\InputObjectType>
+     * @return array<InputObjectType>
      */
     public function toInputObjectTypes(string $model): array {
         $type       = $this->getModelTypeName($model);
@@ -33,10 +36,10 @@ class ModelConverter {
     }
 
     /**
-     * @param array<string>                                           $path
-     * @param array<string, \App\Services\Search\Properties\Property> $properties
+     * @param array<string>           $path
+     * @param array<string, Property> $properties
      *
-     * @return array<\GraphQL\Type\Definition\InputObjectType>
+     * @return array<InputObjectType>
      */
     protected function convert(array $path, array $properties): array {
         $types  = [];
@@ -81,7 +84,7 @@ class ModelConverter {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param class-string<Model&Searchable> $model
      */
     protected function getModelTypeName(string $model): string {
         $class = (new ReflectionClass($model));

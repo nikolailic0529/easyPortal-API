@@ -28,8 +28,8 @@ class RelationTest extends TestCase {
      *
      * @dataProvider dataProviderApply
      *
-     * @param array{sql: string, bindings: array<mixed>}|\Exception $expected
-     * @param array<mixed>                                          $conditions
+     * @param array{sql: string, bindings: array<mixed>}|Exception $expected
+     * @param array<mixed>                                         $conditions
      */
     public function testApply(
         array|Exception $expected,
@@ -38,7 +38,7 @@ class RelationTest extends TestCase {
         array $conditions = [],
     ): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $search   = new SearchBuilder([
@@ -54,7 +54,7 @@ class RelationTest extends TestCase {
             'bindings' => $builder->getBindings(),
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

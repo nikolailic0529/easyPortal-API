@@ -54,7 +54,7 @@ class Builder extends ScoutBuilder {
     }
 
     /**
-     * @param \App\Services\Search\Contracts\Scope|class-string<\App\Services\Search\Contracts\Scope> $scope
+     * @param Scope|class-string<Scope> $scope
      */
     public function applyScope(Scope|string $scope): static {
         if (is_string($scope)) {

@@ -36,7 +36,7 @@ class AggregatedTest extends TestCase {
      *
      * @dataProvider dataProviderResolveField
      *
-     * @param \Closure(): array<string, mixed> $arguments
+     * @param Closure(): array<string, mixed> $arguments
      */
     public function testResolveField(Constraint $expected, Closure $root, Closure $arguments, bool $called): void {
         $arguments = (new Collection($arguments()))
@@ -56,9 +56,9 @@ class AggregatedTest extends TestCase {
                 $key     = null;
 
                 if ($builder instanceof EloquentBuilder) {
-                    $key = $builder->get()->first()?->getKey();
+                    $key = $builder->first()?->getKey();
                 } elseif ($builder instanceof QueryBuilder) {
-                    $key = $builder->get()->first()?->id ?? null;
+                    $key = $builder->first()?->id ?? null;
                 } else {
                     // empty
                 }
@@ -67,7 +67,7 @@ class AggregatedTest extends TestCase {
             });
         } else {
             $this->mockResolverExpects(
-                $this->never(),
+                self::never(),
             );
         }
 

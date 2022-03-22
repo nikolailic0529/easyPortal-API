@@ -68,6 +68,9 @@ class ProcessorJobTest extends TestCase {
             ->andReturns();
 
         $job = new class($service, $processor) extends CronJob implements Progressable {
+            /**
+             * @phpstan-use ProcessorJob<Processor<mixed, mixed, \App\Utils\Processor\State>>
+             */
             use ProcessorJob;
 
             public function __construct(
@@ -123,6 +126,9 @@ class ProcessorJobTest extends TestCase {
             ->andThrow(new JobStopped());
 
         $job = new class($service, $processor) extends Job {
+            /**
+             * @phpstan-use ProcessorJob<Processor<mixed, mixed, \App\Utils\Processor\State>>
+             */
             use ProcessorJob;
 
             public function __construct(
@@ -175,7 +181,7 @@ class ProcessorJobTest extends TestCase {
             ->once()
             ->andReturn($processor);
 
-        $this->assertEquals(
+        self::assertEquals(
             new Progress($total, $processed),
             ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
@@ -198,7 +204,7 @@ class ProcessorJobTest extends TestCase {
             ->once()
             ->andReturn($processor);
 
-        $this->assertTrue(
+        self::assertTrue(
             ($job->getResetProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
     }
@@ -210,6 +216,8 @@ class ProcessorJobTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends Processor<int, mixed, State>
  */
 abstract class ProcessorJobTest__Processor extends Processor {
     protected function getTotal(State $state): ?int {
@@ -237,6 +245,9 @@ abstract class ProcessorJobTest__Processor extends Processor {
  *
  * @see          https://github.com/mockery/mockery/issues/1022
  */
-abstract class ProcessorJobTest__ProcessorJob implements ConfigurableQueueable {
+abstract class ProcessorJobTest__ProcessorJob extends Job implements ConfigurableQueueable {
+    /**
+     * @phpstan-use ProcessorJob<Processor<mixed, mixed, \App\Utils\Processor\State>>
+     */
     use ProcessorJob;
 }

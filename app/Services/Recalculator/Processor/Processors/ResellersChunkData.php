@@ -9,12 +9,13 @@ use App\Models\Reseller;
 use App\Services\Recalculator\Processor\ChunkData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 use function array_filter;
 use function array_keys;
 
 /**
- * @extends \App\Services\Recalculator\Processor\ChunkData<\App\Models\Reseller>
+ * @extends ChunkData<Reseller>
  */
 class ResellersChunkData extends ChunkData {
     /**
@@ -76,7 +77,7 @@ class ResellersChunkData extends ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $resellerId                     = (string) $row->reseller_id;
                 $locationId                     = (string) $row->location_id;
                 $data[$resellerId][$locationId] = (int) $row->count + ($data[$resellerId][$locationId] ?? 0);
@@ -110,7 +111,7 @@ class ResellersChunkData extends ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $resellerId                     = (string) $row->reseller_id;
                 $customerId                     = (string) $row->customer_id;
                 $data[$resellerId][$customerId] = (int) $row->count + ($data[$resellerId][$customerId] ?? 0);
@@ -139,7 +140,7 @@ class ResellersChunkData extends ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $customerId          = (string) $row->customer_id;
                 $locationId          = (string) $row->location_id;
                 $data[$customerId][] = $locationId;

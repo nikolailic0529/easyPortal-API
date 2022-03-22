@@ -29,7 +29,7 @@ class AuthTest extends TestCase {
      * @dataProvider dataProviderIsRoot
      */
     public function testIsRoot(bool $expected, Closure $userFactory): void {
-        $this->assertEquals($expected, $this->app->make(Auth::class)->isRoot($userFactory($this)));
+        self::assertEquals($expected, $this->app->make(Auth::class)->isRoot($userFactory($this)));
     }
 
     /**
@@ -55,7 +55,7 @@ class AuthTest extends TestCase {
         $auth   = $this->app->make(Auth::class);
         $actual = $auth->getUser();
 
-        $this->assertSame($user, $actual);
+        self::assertSame($user, $actual);
     }
 
     /**
@@ -81,7 +81,7 @@ class AuthTest extends TestCase {
         $auth   = $this->app->make(Auth::class);
         $actual = $auth->getUser();
 
-        $this->assertNull($actual);
+        self::assertNull($actual);
     }
 
     /**
@@ -89,8 +89,8 @@ class AuthTest extends TestCase {
      *
      * @dataProvider dataProviderGetAvailablePermissions
      *
-     * @param array<\App\Services\Auth\Permission> $expected
-     * @param array<\App\Services\Auth\Permission> $permissions
+     * @param array<Permission> $expected
+     * @param array<Permission> $permissions
      */
     public function testGetAvailablePermissions(array $expected, array $permissions, bool $isRootOrganization): void {
         $rootOrganization = Mockery::mock(RootOrganization::class);
@@ -113,7 +113,7 @@ class AuthTest extends TestCase {
 
         $actual = $service->getAvailablePermissions(new Organization());
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 

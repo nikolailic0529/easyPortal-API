@@ -5,23 +5,27 @@ namespace App\Models;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\PermissionFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Permission.
  *
- * @property string                       $id
- * @property string                       $key
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read string                  $description
- * @property-read string                  $name
- * @method static \Database\Factories\PermissionFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $key
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property-read string          $description
+ * @property-read string          $name
+ * @method static PermissionFactory factory(...$parameters)
+ * @method static Builder|Permission newModelQuery()
+ * @method static Builder|Permission newQuery()
+ * @method static Builder|Permission query()
+ * @mixin Eloquent
  */
 class Permission extends Model implements Translatable {
     use HasFactory;

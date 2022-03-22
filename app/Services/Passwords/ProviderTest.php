@@ -14,6 +14,6 @@ class ProviderTest extends TestCase {
      * @covers ::registerPasswordBroker
      */
     public function testRegisterPasswordBroker(): void {
-        $this->assertInstanceOf(PasswordBrokerManager::class, $this->app->make('auth.password'));
+        self::assertInstanceOf(PasswordBrokerManager::class, $this->app->make('auth.password'));
     }
 }

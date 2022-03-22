@@ -6,12 +6,15 @@ use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Invitation create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Invitation make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Invitation create($attributes = [], ?Model $parent = null)
+ * @method Invitation make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Invitation>
  */
 class InvitationFactory extends Factory {
     /**

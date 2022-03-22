@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Language;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Language create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Language make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Language create($attributes = [], ?Model $parent = null)
+ * @method Language make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Language>
  */
 class LanguageFactory extends Factory {
     /**

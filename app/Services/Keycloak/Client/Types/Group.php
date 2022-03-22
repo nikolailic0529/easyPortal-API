@@ -3,6 +3,7 @@
 namespace App\Services\Keycloak\Client\Types;
 
 use App\Utils\JsonObject\JsonObject;
+use App\Utils\JsonObject\JsonObjectArray;
 
 class Group extends JsonObject {
     public string $id;
@@ -30,7 +31,8 @@ class Group extends JsonObject {
     public array $realmRoles;
 
     /**
-     * @var array<\App\Services\Keycloak\Client\Types\Group>
+     * @var array<Group>
      */
+    #[JsonObjectArray(Group::class)]
     public array $subGroups;
 }

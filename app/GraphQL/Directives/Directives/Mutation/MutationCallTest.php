@@ -322,7 +322,7 @@ class MutationCallTest extends TestCase {
             ->getType('TestInput')
             ?->astNode;
 
-        $this->assertInstanceOf(InputObjectTypeDefinitionNode::class, $input);
+        self::assertInstanceOf(InputObjectTypeDefinitionNode::class, $input);
 
         // Test (no args)
         $args     = [];
@@ -331,7 +331,7 @@ class MutationCallTest extends TestCase {
         $actual   = $mutation->getRules($context, $set);
         $expected = [];
 
-        $this->assertEquals($expected, array_map(static function (array $rules): array {
+        self::assertEquals($expected, array_map(static function (array $rules): array {
             return array_map('get_class', $rules);
         }, $actual));
 
@@ -360,7 +360,7 @@ class MutationCallTest extends TestCase {
             'b.2.a' => [MutationCallTest_Rule::class, MutationCallTest_Rule::class],
         ];
 
-        $this->assertEquals($expected, array_map(static function (array $rules): array {
+        self::assertEquals($expected, array_map(static function (array $rules): array {
             return array_map('get_class', $rules);
         }, $actual));
     }

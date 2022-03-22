@@ -26,8 +26,6 @@ class StopTest extends TestCase {
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
-     *
-     * @param array<mixed> $input
      */
     public function testInvoke(
         Response $expected,

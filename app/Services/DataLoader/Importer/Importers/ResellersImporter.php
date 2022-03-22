@@ -4,16 +4,21 @@ namespace App\Services\DataLoader\Importer\Importers;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
-use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Company;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @extends Importer<Company, ResellersImporterChunkData, ImporterState, Reseller>
+ */
 class ResellersImporter extends Importer {
     protected function register(): void {
         // empty
@@ -51,7 +56,7 @@ class ResellersImporter extends Importer {
         return $this->getClient()->getResellers($state->from);
     }
 
-    protected function makeFactory(State $state): Factory {
+    protected function makeFactory(State $state): ModelFactory {
         return $this->getContainer()->make(ResellerFactory::class);
     }
 

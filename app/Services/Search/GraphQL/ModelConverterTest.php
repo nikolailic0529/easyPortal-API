@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\GraphQL;
 
-use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use GraphQL\Type\Definition\Type;
@@ -28,14 +28,14 @@ class ModelConverterTest extends TestCase {
         $actual    = $this->getGraphQL($converter->toInputObjectTypes(ModelConverterTest_Model::class));
         $expected  = $this->getTestData()->content('.graphql');
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<\GraphQL\Type\Definition\Type> $types
+     * @param array<Type> $types
      */
     protected function getGraphQL(array $types): string {
         $schema = array_map(static function (Type $type): string {
@@ -56,7 +56,7 @@ class ModelConverterTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ModelConverterTest_Model extends Model {
-    use Searchable;
+    use SearchableImpl;
 
     /**
      * @inheritDoc

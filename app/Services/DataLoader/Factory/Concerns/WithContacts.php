@@ -13,9 +13,9 @@ trait WithContacts {
     abstract protected function getContactsFactory(): ContactFactory;
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyContactPerson> $persons
+     * @param array<CompanyContactPerson> $persons
      *
-     * @return array<\App\Models\Contact>
+     * @return array<Contact>
      */
     protected function objectContacts(Model $owner, array $persons): array {
         return $this->polymorphic(

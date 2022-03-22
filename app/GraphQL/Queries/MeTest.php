@@ -146,7 +146,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('me'),
+            new AnyOrganizationDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed'           => [
                     new GraphQLSuccess('me', null),
@@ -200,7 +200,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderSearches(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('me'),
+            new AnyOrganizationDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed' => [
                     new GraphQLSuccess('me', self::class, 'null'),

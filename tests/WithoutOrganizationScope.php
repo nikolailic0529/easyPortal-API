@@ -6,7 +6,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithoutOrganizationScope {
     private bool $withoutOrganizationScope;

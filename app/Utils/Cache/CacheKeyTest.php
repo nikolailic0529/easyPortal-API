@@ -12,7 +12,6 @@ use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
 use League\Geotools\Geohash\Geohash;
-use League\Geotools\Geotools;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use ReflectionClass;
 use stdClass;
@@ -41,21 +40,19 @@ class CacheKeyTest extends TestCase {
      */
     public function testToString(Exception|string $expected, array $key): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
-        $this->assertEquals($expected, (string) new CacheKey($key));
+        self::assertEquals($expected, (string) new CacheKey($key));
     }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{\Exception|string,array<object|string>|object|string}>
+     * @return array<string,array{Exception|string,array<mixed>}>
      */
     public function dataProviderToString(): array {
-        $tools = new Geotools();
-
         return [
             'bool'                                        => [
                 new CacheKeyInvalidValue(true),
@@ -197,7 +194,7 @@ class CacheKeyTest extends TestCase {
                 sha1(json_encode(['spey'])),
                 [
                     [
-                        $tools->geohash()->encode($tools->geohash()->decode('spey61y')->getCoordinate(), 4),
+                        (new Geohash())->encode((new Geohash())->decode('spey61y')->getCoordinate(), 4),
                     ],
                 ],
             ],
@@ -205,7 +202,7 @@ class CacheKeyTest extends TestCase {
                 sha1(json_encode(['spey61ys0000'])),
                 [
                     [
-                        $tools->geohash()->decode('spey61y'),
+                        (new Geohash())->decode('spey61y'),
                     ],
                 ],
             ],
@@ -268,14 +265,16 @@ class CacheKeyTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @property string $id
  */
 class CacheKeyTest_Model extends Model {
     public function __construct(string|int $key = null, bool $exists = true) {
         parent::__construct([]);
 
-        $this->{$this->getKeyName()} = $key;
-        $this->exists                = $exists;
-        $this->keyType               = is_string($key) ? 'string' : 'int';
+        $this->id      = $key;
+        $this->exists  = $exists;
+        $this->keyType = is_string($key) ? 'string' : 'int';
     }
 
     public function getMorphClass(): string {

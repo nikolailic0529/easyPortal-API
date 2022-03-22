@@ -11,10 +11,12 @@ use function is_object;
 
 /**
  * Iterates over
+ *
+ * @implements IteratorAggregate<array-key, JsonObject>
  */
 class JsonObjectIterator implements IteratorAggregate {
     /**
-     * @param \App\Utils\JsonObject\JsonObject|array<\App\Utils\JsonObject\JsonObject> $object
+     * @param JsonObject|array<JsonObject> $object
      */
     public function __construct(
         protected JsonObject|array $object,

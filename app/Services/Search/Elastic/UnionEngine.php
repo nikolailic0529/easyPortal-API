@@ -6,6 +6,7 @@ use App\Services\Search\Builders\UnionBuilder;
 use ElasticScoutDriverPlus\Decorators\Hit;
 use ElasticScoutDriverPlus\Decorators\SearchResult;
 use Generator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use InvalidArgumentException;
@@ -27,11 +28,11 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
+     * @param SearchResult $results
      */
     public function mapIds($results): Collection {
         // TODO: Probably we need to add Model class?
-        return (new Collection($results->matches()))
+        return (new Collection($results->hits()))
             ->map(static function (Hit $match): string {
                 return $match->document()->id();
             });
@@ -40,8 +41,8 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
-     * @param \Illuminate\Database\Eloquent\Model  $model
+     * @param SearchResult $results
+     * @param Model        $model
      */
     public function map(Builder $builder, $results, $model): Collection {
         return $results->models();
@@ -50,13 +51,13 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
-     * @param \Illuminate\Database\Eloquent\Model  $model
+     * @param SearchResult $results
+     * @param Model        $model
      */
     public function lazyMap(Builder $builder, $results, $model): LazyCollection {
         return new LazyCollection(static function () use ($results): Generator {
             foreach ($results as $query) {
-                /** @var \ElasticScoutDriverPlus\Decorators\Hit $query */
+                /** @var Hit $query */
                 yield $query->model();
             }
         });
@@ -65,7 +66,7 @@ class UnionEngine extends Engine {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      *
-     * @param \ElasticScoutDriverPlus\Decorators\SearchResult $results
+     * @param SearchResult $results
      */
     public function getTotalCount($results): ?int {
         return $results->total();
@@ -83,8 +84,8 @@ class UnionEngine extends Engine {
      */
     public function paginate(Builder $builder, $perPage, $page) {
         return $this->execute($builder, [
-            'perPage' => (int) $perPage,
-            'page'    => (int) $page,
+            'perPage' => $perPage,
+            'page'    => $page,
         ]);
     }
 

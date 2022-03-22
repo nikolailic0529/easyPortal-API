@@ -7,7 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait FakeDisks {
     /**

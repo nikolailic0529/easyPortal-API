@@ -70,7 +70,7 @@ class QuotesTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->count());
         }
 
         // Test

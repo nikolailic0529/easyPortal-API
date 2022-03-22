@@ -6,7 +6,7 @@ use App\Models\User;
 use Closure;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithUser {
     public function setUser(User|Closure|null $user, mixed ...$args): User|null {

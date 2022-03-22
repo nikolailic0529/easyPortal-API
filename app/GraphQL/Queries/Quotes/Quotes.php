@@ -2,11 +2,12 @@
 
 namespace App\GraphQL\Queries\Quotes;
 
+use App\Models\Document;
 use Illuminate\Database\Eloquent\Builder;
 
 class Quotes {
     /**
-     * @param \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder
+     * @param Builder|Document $builder
      */
     public function __invoke(Builder $builder): Builder {
         return $builder->queryQuotes();

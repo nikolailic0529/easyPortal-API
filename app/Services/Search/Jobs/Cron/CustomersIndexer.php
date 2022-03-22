@@ -6,6 +6,8 @@ use App\Models\Customer;
 
 /**
  * Updates search index for Customers.
+ *
+ * @extends Indexer<Customer>
  */
 class CustomersIndexer extends Indexer {
     public function displayName(): string {

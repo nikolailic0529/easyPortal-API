@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Exceptions\FailedToProcessChunkItem;
+use App\Utils\Iterators\ObjectIteratorImpl;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Throwable;
@@ -11,12 +12,12 @@ use Throwable;
  * @template T
  * @template V
  *
- * @extends \App\Utils\Iterators\ObjectIteratorImpl<T,V>
+ * @extends ObjectIteratorImpl<T,V>
  */
 trait IteratorErrorHandler {
     /**
-     * @param \App\Services\DataLoader\Client\Query<V> $query
-     * @param \Closure(mixed $item): T                 $converter
+     * @param Query<V>          $query
+     * @param Closure(mixed): T $converter
      */
     public function __construct(
         ExceptionHandler $handler,

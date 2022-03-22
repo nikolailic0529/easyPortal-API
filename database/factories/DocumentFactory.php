@@ -7,12 +7,15 @@ use App\Models\Document;
 use App\Models\Oem;
 use App\Models\Reseller;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Document create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Document make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Document create($attributes = [], ?Model $parent = null)
+ * @method Document make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Document>
  */
 class DocumentFactory extends Factory {
     /**

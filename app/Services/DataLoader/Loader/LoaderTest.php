@@ -46,7 +46,7 @@ class LoaderTest extends TestCase {
             ->andReturn($type);
 
         // Test
-        $this->assertEquals($model, $loader->update($id));
+        self::assertEquals($model, $loader->update($id));
     }
 
     /**
@@ -77,7 +77,7 @@ class LoaderTest extends TestCase {
             ->andReturn(true);
 
         // Test
-        $this->assertEquals($model, $loader->update($type));
+        self::assertEquals($model, $loader->update($type));
     }
 
     /**
@@ -115,8 +115,8 @@ class LoaderTest extends TestCase {
             ->andThrow($e);
 
         // Test
-        $this->expectExceptionObject($e);
-        $this->assertEquals($model, $loader->update($id));
+        self::expectExceptionObject($e);
+        self::assertEquals($model, $loader->update($id));
     }
 
     /**
@@ -151,8 +151,8 @@ class LoaderTest extends TestCase {
             ->andThrow($e);
 
         // Test
-        $this->expectExceptionObject($e);
-        $this->assertEquals($model, $loader->update($type));
+        self::expectExceptionObject($e);
+        self::assertEquals($model, $loader->update($type));
     }
 
     /**
@@ -185,7 +185,7 @@ class LoaderTest extends TestCase {
             ->andReturn($type);
 
         // Test
-        $this->assertEquals($model, $loader->update($id));
+        self::assertEquals($model, $loader->update($id));
     }
 
     /**
@@ -214,7 +214,7 @@ class LoaderTest extends TestCase {
             ->never();
 
         // Test
-        $this->assertEquals($model, $loader->update($type));
+        self::assertEquals($model, $loader->update($type));
     }
 
     /**
@@ -245,7 +245,7 @@ class LoaderTest extends TestCase {
             ->andReturn($type);
 
         // Test
-        $this->assertEquals($model, $loader->create($id));
+        self::assertEquals($model, $loader->create($id));
     }
 
     /**
@@ -277,6 +277,6 @@ class LoaderTest extends TestCase {
             ->never();
 
         // Test
-        $this->assertEquals($model, $loader->update($type));
+        self::assertEquals($model, $loader->update($type));
     }
 }

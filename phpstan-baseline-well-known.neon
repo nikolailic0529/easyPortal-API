@@ -1,0 +1,56 @@
+# This file contains well-known phpstan errors and uses to exclude them from the
+# baseline. If you want to add something new, please specify the error and the
+# URL to the issue if possible.
+parameters:
+    ignoreErrors:
+        # Unwanted strict rules
+        # (is there a better way to disable them?)
+        - "#^Only booleans are allowed in an if condition, .+? given\\.$#"
+        - "#^Only booleans are allowed in a negated boolean, .+? given\\.$#"
+        - "#^Only booleans are allowed in a ternary operator condition, .+? given\\.$#"
+        - "#^Only booleans are allowed in an elseif condition, .+? given\\.$#"
+        - "#^Only booleans are allowed in &&, .+? given on the (left|right) side\\.$#"
+        - "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+        -
+            message: "#does not call parent constructor from#"
+            path: **/*Test.php
+
+        # Larastan doesn't support phpstan/phpstan-strict-rules
+        - "#^Dynamic call to static method Illuminate\\\\Testing\\\\TestResponse\\:\\:assert[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Model(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Builder(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\[^\\\\]+(\\<[^>]+\\>)?\\:\\:[^(]+\\(\\)\\.$#"
+        - "#^Dynamic call to static method Symfony\\\\Component\\\\HttpFoundation\\\\Response\\:\\:isSuccessful\\(\\)\\.$#"
+        - "#^Dynamic call to static method App\\\\Utils\\\\Eloquent\\\\ModelTraits\\:\\:restore\\(\\)\\.$#"
+
+        # Sometimes it is needed...
+        # https://github.com/phpstan/phpstan/issues/3296
+        -
+            message: "#^Variable property access on .+?\\.$#"
+            paths:
+                - app/GraphQL/Directives/Directives/Paginated/Manipulator.php
+                - app/GraphQL/Resolvers/JsonResolver.php
+                - app/Utils/JsonObject/JsonObject.php
+
+        # False positive
+        -
+            message: "#^Call to an undefined static method Barryvdh\\\\Snappy\\\\Facades\\\\SnappyPdf\\:\\:assert#"
+            paths:
+                - app/Http/Controllers/Export/ExportControllerTest.php
+
+        # False positive
+        # https://github.com/phpstan/phpstan-mockery/issues/18
+        -
+            message: "#^Call to protected method .+? of class .+?\\.$#"
+            path: **/*Test.php
+
+        # False positive
+        # https://github.com/phpstan/phpstan/issues/6856
+        -
+            message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
+            paths:
+                - app/Services/DataLoader/Jobs/ImporterCronJob.php
+        -
+            message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Processor\\:\\:setKeys\\(\\)\\.$#"
+            paths:
+                - app/Services/Recalculator/Jobs/Recalculate.php

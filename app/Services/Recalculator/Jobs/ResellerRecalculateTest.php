@@ -31,7 +31,7 @@ class ResellerRecalculateTest extends TestCase {
         $configurator = $this->app->make(QueueableConfigurator::class);
         $processor    = $job->getProcessor($this->app, $configurator->config($job));
 
-        $this->assertInstanceOf(ResellersProcessor::class, $processor);
-        $this->assertEquals([$key], $processor->getKeys());
+        self::assertInstanceOf(ResellersProcessor::class, $processor);
+        self::assertEquals([$key], $processor->getKeys());
     }
 }

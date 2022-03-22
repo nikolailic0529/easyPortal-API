@@ -55,7 +55,7 @@ class ClientTest extends TestCase {
         $client   = $this->app->make(Client::class);
         $response = $client->getUserByEmail($email);
 
-        $this->assertEquals($expected, $response);
+        self::assertEquals($expected, $response);
     }
 
     /**
@@ -73,7 +73,7 @@ class ClientTest extends TestCase {
                 ->andReturn('token');
         });
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
         $this->override(Factory::class, static function () {
             return Http::fake(static function (Request $request) {
@@ -103,9 +103,9 @@ class ClientTest extends TestCase {
 
         if (is_bool($expected)) {
             if ($expected) {
-                $this->assertNotNull($response);
+                self::assertNotNull($response);
             } else {
-                $this->assertNull($response);
+                self::assertNull($response);
             }
         }
     }
@@ -140,7 +140,7 @@ class ClientTest extends TestCase {
     public function testGetUserGroups(array|Exception $expected): void {
         $this->prepareClient();
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject(new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
+            self::expectExceptionObject(new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
         }
         $this->override(Token::class, static function (MockInterface $mock): void {
             $mock
@@ -169,7 +169,7 @@ class ClientTest extends TestCase {
         $client = $this->app->make(Client::class);
         $groups = $client->getUserGroups('f9834bc1-2f2f-4c57-bb8d-7a224ac24982');
         if (!$expected instanceof Exception) {
-            $this->assertEquals($expected, $groups);
+            self::assertEquals($expected, $groups);
         }
     }
 
@@ -198,7 +198,7 @@ class ClientTest extends TestCase {
         });
         $client = $this->app->make(Client::class);
 
-        $this->assertTrue($client->resetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', '1234567'));
+        self::assertTrue($client->resetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', '1234567'));
     }
 
     /**
@@ -220,12 +220,12 @@ class ClientTest extends TestCase {
             });
         });
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
         $client   = $this->app->make(Client::class);
         $response = $client->updateUserEmail('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', $email);
         if (is_bool($expected)) {
-            $this->assertNull($response);
+            self::assertNull($response);
         }
     }
 
@@ -238,7 +238,7 @@ class ClientTest extends TestCase {
     public function testGetUserById(string $id, User|Exception $expected): void {
         $this->prepareClient(true);
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
         $this->override(Factory::class, static function () use ($expected, $id) {
             return Http::fake(static function (Request $request) use ($expected, $id) {
@@ -259,7 +259,7 @@ class ClientTest extends TestCase {
         $client   = $this->app->make(Client::class);
         $response = $client->getUserById($id);
         if ($expected instanceof User) {
-            $this->assertEquals($response, $response);
+            self::assertEquals($response, $response);
         }
     }
 
@@ -325,7 +325,7 @@ class ClientTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $this->assertTrue($client->updateGroupRoles($group, [$b, $c]));
+        self::assertTrue($client->updateGroupRoles($group, [$b, $c]));
     }
     //</editor-fold>
 

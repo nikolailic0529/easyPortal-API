@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
-use App\Models\Asset;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
@@ -61,6 +60,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -69,6 +69,9 @@ use Throwable;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends ModelFactory<DocumentModel>
+ */
 class DocumentFactory extends ModelFactory {
     use Children;
     use WithOem;
@@ -118,7 +121,6 @@ class DocumentFactory extends ModelFactory {
     }
 
     public function find(Type $type): ?DocumentModel {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 
@@ -359,8 +361,8 @@ class DocumentFactory extends ModelFactory {
                 try {
                     // Prefetch
                     $this->getAssetResolver()->prefetch(
-                        (new ImporterChunkData($document->documentEntries))->get(Asset::class),
-                        static function (Collection $assets): void {
+                        (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
+                        static function (EloquentCollection $assets): void {
                             $assets->loadMissing('oem');
                         },
                     );
@@ -422,7 +424,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\Status>
+     * @return array<Status>
      */
     protected function documentStatuses(DocumentModel $model, Document $document): array {
         return (new Collection($document->status ?? []))
@@ -437,7 +439,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\DocumentEntry>
+     * @return array<DocumentEntryModel>
      */
     protected function documentEntries(DocumentModel $model, Document $document): array {
         return $this->entries(
@@ -517,9 +519,9 @@ class DocumentFactory extends ModelFactory {
      * @template T of \App\Services\DataLoader\Schema\Type
      * @template M of \App\Models\DocumentEntry
      *
-     * @param \Illuminate\Support\Collection<M> $existing
-     * @param array<T>                          $entries
-     * @param \Closure(T): ?M                   $factory
+     * @param Collection<int, M> $existing
+     * @param array<T>           $entries
+     * @param Closure(T): ?M     $factory
      *
      * @return array<M>
      */

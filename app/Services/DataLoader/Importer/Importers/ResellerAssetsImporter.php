@@ -8,11 +8,11 @@ use App\Utils\Processor\State;
 use function array_merge;
 
 /**
- * @template TItem
+ * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\Importers\ResellerAssetsImporterState
  *
- * @extends \App\Services\DataLoader\Importer\Importers\AssetsImporter<TItem, TChunkData, TState>
+ * @extends AssetsImporter<TItem, TChunkData, TState>
  */
 class ResellerAssetsImporter extends AssetsImporter {
     private string $resellerId;
@@ -33,7 +33,9 @@ class ResellerAssetsImporter extends AssetsImporter {
     // <editor-fold desc="Importer">
     // =========================================================================
     /**
-     * @param \App\Services\DataLoader\Importer\Importers\ResellerAssetsImporterState $state
+     * @param ResellerAssetsImporterState $state
+     *
+     * @return ObjectIterator<TItem>
      */
     protected function getIterator(State $state): ObjectIterator {
         return $state->withDocuments

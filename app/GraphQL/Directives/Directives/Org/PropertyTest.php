@@ -6,7 +6,7 @@ use App\GraphQL\Directives\Definitions\OrgPropertyDirective;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Closure;
@@ -47,7 +47,7 @@ class PropertyTest extends TestCase {
      *
      * @dataProvider dataProviderHandleBuilder
      *
-     * @param \Exception|class-string<\Exception>|array{query: string, bindings: array<mixed>} $expected
+     * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>} $expected
      */
     public function testHandleBuilder(
         Exception|string|array $expected,
@@ -56,11 +56,11 @@ class PropertyTest extends TestCase {
         bool $organizationIsRoot = false,
     ): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         if (is_string($expected)) {
-            $this->expectException($expected);
+            self::expectException($expected);
         }
 
         if ($organizationIsRoot) {
@@ -78,7 +78,7 @@ class PropertyTest extends TestCase {
         $builderFactory = $directive->handleBuilder($builderFactory, null);
         $builderFactory = $directive->handleBuilder($builderFactory, null);
 
-        $this->assertDatabaseQueryEquals($expected, $builderFactory);
+        self::assertDatabaseQueryEquals($expected, $builderFactory);
     }
 
     /**
@@ -377,7 +377,7 @@ class PropertyTest_ModelWithoutScope extends Model {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class PropertyTest_ModelWithScopeNotRelation extends Model {
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 }
 
 /**
@@ -385,7 +385,7 @@ class PropertyTest_ModelWithScopeNotRelation extends Model {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class PropertyTest_ModelWithScopeRelationUnsupported extends Model {
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 
     public function getOrganizationColumn(): string {
         return 'organization.id';
@@ -401,7 +401,7 @@ class PropertyTest_ModelWithScopeRelationUnsupported extends Model {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class PropertyTest_ModelWithScopeRelationSupported extends Model {
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

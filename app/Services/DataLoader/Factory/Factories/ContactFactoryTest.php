@@ -43,7 +43,7 @@ class ContactFactoryTest extends TestCase {
 
         $factory->find($customer, $contact);
 
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
     }
 
     /**
@@ -63,8 +63,8 @@ class ContactFactoryTest extends TestCase {
                 ->with($customer, $type)
                 ->andReturns();
         } else {
-            $this->expectException(InvalidArgumentException::class);
-            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+            self::expectException(InvalidArgumentException::class);
+            self::expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
         $factory->create($customer, $type);
@@ -142,16 +142,16 @@ class ContactFactoryTest extends TestCase {
 
         // If model exists - no action required
         if ($customer->exists) {
-            $this->assertEquals(
+            self::assertEquals(
                 $contact,
                 $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
             );
-            $this->assertCount(1, $this->getQueryLog());
+            self::assertCount(1, $this->getQueryLog());
         } else {
-            $this->assertNotNull(
+            self::assertNotNull(
                 $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
             );
-            $this->assertCount(0, $this->getQueryLog());
+            self::assertCount(0, $this->getQueryLog());
         }
 
         $this->flushQueryLog();
@@ -159,15 +159,15 @@ class ContactFactoryTest extends TestCase {
         // If not - it should be created
         $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
 
-        $this->assertNotNull($created);
-        $this->assertEquals($customer->exists, $created->exists);
-        $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals($customer->getKey(), $created->object_id);
-        $this->assertEquals('new Name', $created->name);
-        $this->assertEquals('phone number', $created->phone_number);
-        $this->assertEquals('email', $created->email);
-        $this->assertFalse($created->phone_valid);
-        $this->assertCount($customer->exists ? 2 : 0, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals($customer->exists, $created->exists);
+        self::assertEquals($customer->getMorphClass(), $created->object_type);
+        self::assertEquals($customer->getKey(), $created->object_id);
+        self::assertEquals('new Name', $created->name);
+        self::assertEquals('phone number', $created->phone_number);
+        self::assertEquals('email', $created->email);
+        self::assertFalse($created->phone_valid);
+        self::assertCount($customer->exists ? 2 : 0, $this->getQueryLog());
     }
     // </editor-fold>
 

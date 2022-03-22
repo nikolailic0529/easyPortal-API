@@ -67,7 +67,7 @@ class DeleteTest extends TestCase {
             ->assertThat($expected);
 
         if ($response instanceof GraphQLSuccess) {
-            $this->assertTrue(Role::whereKey($role->getKey())->exists());
+            self::assertTrue(Role::whereKey($role->getKey())->exists());
         }
     }
     // </editor-fold>

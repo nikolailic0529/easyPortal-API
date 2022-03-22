@@ -11,62 +11,74 @@ use App\Models\Relations\HasQuotes;
 use App\Models\Relations\HasResellers;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Carbon\CarbonImmutable;
+use Database\Factories\CustomerFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Customer.
  *
- * @property string                                                                 $id
- * @property string                                                                 $type_id
- * @property string                                                                 $name
- * @property string|null                                                            $kpi_id
- * @property int                                                                    $assets_count
- * @property int                                                                    $locations_count
- * @property int                                                                    $contacts_count
- * @property int                                                                    $statuses_count
- * @property \Carbon\CarbonImmutable|null                                           $changed_at
- * @property \Carbon\CarbonImmutable                                                $synced_at
- * @property \Carbon\CarbonImmutable                                                $created_at
- * @property \Carbon\CarbonImmutable                                                $updated_at
- * @property \Carbon\CarbonImmutable|null                                           $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>       $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $contracts
- * @property-read \App\Models\CustomerLocation|null                                 $headquarter
- * @property \App\Models\Kpi|null                                                   $kpi
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document>    $quotes
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller>    $resellers
- * @property \Illuminate\Support\Collection<string,\App\Models\ResellerCustomer>    $resellersPivots
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>           $statuses
- * @property \App\Models\Type                                                       $type
- * @method static \Database\Factories\CustomerFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
- * @mixin \Eloquent
- *
- * @uses \App\Models\Relations\HasResellers<\App\Models\ResellerCustomer>
+ * @property string                           $id
+ * @property string                           $type_id
+ * @property string                           $name
+ * @property string|null                      $kpi_id
+ * @property int                              $assets_count
+ * @property int                              $locations_count
+ * @property int                              $contacts_count
+ * @property int                              $statuses_count
+ * @property CarbonImmutable|null             $changed_at
+ * @property CarbonImmutable                  $synced_at
+ * @property CarbonImmutable                  $created_at
+ * @property CarbonImmutable                  $updated_at
+ * @property CarbonImmutable|null             $deleted_at
+ * @property-read Collection<int, Asset>      $assets
+ * @property Collection<int, Contact>         $contacts
+ * @property-read Collection<int, Document>   $contracts
+ * @property-read CustomerLocation|null       $headquarter
+ * @property Kpi|null                         $kpi
+ * @property Collection<int,CustomerLocation> $locations
+ * @property-read Collection<int, Document>   $quotes
+ * @property-read Collection<int, Reseller>   $resellers
+ * @property Collection<int, Status>          $statuses
+ * @property Type                             $type
+ * @method static CustomerFactory factory(...$parameters)
+ * @method static Builder|Customer newModelQuery()
+ * @method static Builder|Customer newQuery()
+ * @method static Builder|Customer query()
+ * @mixin Eloquent
  */
-class Customer extends Model {
-    use Searchable;
+class Customer extends Model implements OwnedByOrganization, Searchable {
+    use SearchableImpl;
     use HasFactory;
     use HasType;
     use HasStatuses;
     use HasAssets;
-    use HasResellers;
-    use HasLocations;
     use HasContacts;
     use HasContracts;
     use HasQuotes;
     use HasKpi;
     use SyncHasMany;
+
+    /**
+     * @phpstan-use HasLocations<CustomerLocation>
+     */
+    use HasLocations;
+
+    /**
+     * @phpstan-use HasResellers<ResellerCustomer>
+     */
+    use HasResellers;
 
     protected const CASTS = [
         'changed_at' => 'datetime',

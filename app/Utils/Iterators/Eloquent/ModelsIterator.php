@@ -20,12 +20,12 @@ use function array_slice;
  * @template T of \Illuminate\Database\Eloquent\Model
  * @template V of string
  *
- * @extends \App\Utils\Iterators\OffsetBasedObjectIterator<T,V>
+ * @extends OffsetBasedObjectIterator<T,V>
  */
 class ModelsIterator extends OffsetBasedObjectIterator {
     /**
-     * @param \Illuminate\Database\Eloquent\Builder<T> $builder
-     * @param array<int, V>                            $keys
+     * @param Builder<T>    $builder
+     * @param array<int, V> $keys
      */
     public function __construct(
         ExceptionHandler $exceptionHandler,

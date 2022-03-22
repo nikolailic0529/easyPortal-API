@@ -38,7 +38,7 @@ class WithLocationsTest extends TestCase {
      *
      * @dataProvider dataProviderCompanyLocations
      *
-     * @param \Closure(static): \App\Models\Reseller|\App\Models\Customer
+     * @param Closure(static): (Reseller|Customer) $companyFactory
      */
     public function testCompanyLocations(Closure $companyFactory): void {
         // Prepare
@@ -49,6 +49,9 @@ class WithLocationsTest extends TestCase {
             $this->app->make(TypeResolver::class),
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
+            /**
+             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             */
             use WithLocations {
                 companyLocations as public;
             }
@@ -77,7 +80,7 @@ class WithLocationsTest extends TestCase {
         };
 
         // Empty call should return empty array
-        $this->assertEquals([], $factory->companyLocations($company, []));
+        self::assertEquals([], $factory->companyLocations($company, []));
 
         // Repeated objects should be missed
         $ca = tap(new Location(), function (Location $location): void {
@@ -91,7 +94,7 @@ class WithLocationsTest extends TestCase {
             $location->locationType = (string) $this->faker->randomNumber();
         });
 
-        $this->assertCount(1, $factory->companyLocations($company, [$ca, $ca]));
+        self::assertCount(1, $factory->companyLocations($company, [$ca, $ca]));
 
         // Objects should be grouped by type
         $cb     = tap(new Location(), function (Location $location) use ($ca): void {
@@ -107,11 +110,11 @@ class WithLocationsTest extends TestCase {
         $actual = $factory->companyLocations($company, [$ca, $cb]);
         $first  = reset($actual);
 
-        $this->assertCount(1, $actual);
-        $this->assertCount(2, $first->types);
-        $this->assertEquals($cb->zip, $first->location->postcode);
-        $this->assertEquals($cb->city, $first->location->city->name);
-        $this->assertEquals($cb->address, $first->location->line_one);
+        self::assertCount(1, $actual);
+        self::assertCount(2, $first->types);
+        self::assertEquals($cb->zip, $first->location->postcode);
+        self::assertEquals($cb->city, $first->location->city->name);
+        self::assertEquals($cb->address, $first->location->line_one);
 
         // locationType can be null
         $cc     = tap(clone $ca, static function (Location $location): void {
@@ -120,8 +123,8 @@ class WithLocationsTest extends TestCase {
         $actual = $factory->companyLocations($company, [$cc]);
         $first  = reset($actual);
 
-        $this->assertCount(1, $actual);
-        $this->assertCount(0, $first->types);
+        self::assertCount(1, $actual);
+        self::assertCount(0, $first->types);
     }
 
     /**
@@ -137,6 +140,9 @@ class WithLocationsTest extends TestCase {
             ->andReturns();
 
         $factory = new class($factory) extends ModelFactory {
+            /**
+             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             */
             use WithLocations {
                 location as public;
             }
@@ -185,6 +191,9 @@ class WithLocationsTest extends TestCase {
             $factory,
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
+            /**
+             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             */
             use WithLocations {
                 companyLocations as public;
             }
@@ -210,7 +219,7 @@ class WithLocationsTest extends TestCase {
             }
         };
 
-        $this->assertEmpty($factory->companyLocations($owner, [$location]));
+        self::assertEmpty($factory->companyLocations($owner, [$location]));
 
         Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
             return $event->getError() instanceof FailedToProcessLocation;
@@ -221,7 +230,7 @@ class WithLocationsTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array<\Closure(): \App\Models\Reseller|\App\Models\Customer>>
+     * @return array<string, array{Closure(): (Reseller|Customer)}>
      */
     public function dataProviderCompanyLocations(): array {
         return [

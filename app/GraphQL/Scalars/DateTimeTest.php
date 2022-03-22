@@ -26,7 +26,7 @@ class DateTimeTest extends TestCase {
         $scalar = new DateTime();
         $actual = $scalar->serialize($value);
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
@@ -35,7 +35,7 @@ class DateTimeTest extends TestCase {
      */
     public function testParseValue(string|Exception $expected, ?string $tz, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $this->app->make(Repository::class)->set('app.timezone', $tz);
@@ -43,7 +43,7 @@ class DateTimeTest extends TestCase {
         $scalar = new DateTime();
         $actual = $scalar->parseValue($value);
 
-        $this->assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
+        self::assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
     }
 
     /**
@@ -52,7 +52,7 @@ class DateTimeTest extends TestCase {
      */
     public function testParseLiteral(string|Exception $expected, ?string $tz, string $value): void {
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         $this->app->make(Repository::class)->set('app.timezone', $tz);
@@ -61,7 +61,7 @@ class DateTimeTest extends TestCase {
         $scalar = new DateTime();
         $actual = $scalar->parseLiteral($node);
 
-        $this->assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
+        self::assertEquals($expected, $actual ? $actual->format(DateTimeInterface::RFC3339_EXTENDED) : null);
     }
     // </editor-fold>
 
@@ -79,7 +79,7 @@ class DateTimeTest extends TestCase {
     }
 
     /**
-     * @return array<string, array{string|\GraphQL\Error\Error, string|null, string}>
+     * @return array<string, array{string|Error, string|null, string}>
      */
     public function dataProviderParse(): array {
         return [

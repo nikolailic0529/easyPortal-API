@@ -18,11 +18,7 @@ class ChildrenTest extends TestCase {
      * @covers ::children
      */
     public function testChildren(): void {
-        $type                 = (new class() extends Type {
-            public string $id;
-            public string $key;
-            public string $property;
-        })::class;
+        $type                 = ChildrenTest_Type::class;
         $model                = new class() extends Model {
             // empty
         };
@@ -37,7 +33,7 @@ class ChildrenTest extends TestCase {
         ]);
         $modelShouldBeIgnored = (clone $model)->forceFill([
             'id'       => '81ab5bcb-abb9-4b2b-ad6c-d92b4fd7b5e8',
-            'property' => $modelShouldBeReused->property,
+            'property' => $modelShouldBeReused->getAttribute('property'),
         ]);
         $modelShouldBeDeleted = (clone $model)->forceFill([
             'id'       => 'efa31a49-2bd0-4e22-a659-d63a9827d770',
@@ -49,10 +45,10 @@ class ChildrenTest extends TestCase {
             'property' => $this->faker->uuid,
         ]);
         $typeShouldBeUpdated  = new $type([
-            'key'      => $modelShouldBeUpdated->key,
+            'key'      => $modelShouldBeUpdated->getAttribute('key'),
             'property' => $this->faker->uuid,
         ]);
-        $factory              = function (Type $type) use ($model): Model {
+        $factory              = function (ChildrenTest_Type $type) use ($model): Model {
             return (clone $model)->forceFill([
                 'id'       => $type->id ?? $this->faker->uuid,
                 'key'      => $type->key ?? null,
@@ -60,7 +56,7 @@ class ChildrenTest extends TestCase {
             ]);
         };
         $compare              = static function (Model $a, Model $b): int {
-            return $a->key <=> $b->key;
+            return $a->getAttribute('key') <=> $b->getAttribute('key');
         };
         $isReusable           = static function (Model $model) use ($modelShouldBeIgnored): bool {
             return $model->getKey() !== $modelShouldBeIgnored->getKey();
@@ -76,19 +72,32 @@ class ChildrenTest extends TestCase {
         $actual   = $children->children($existing, $entries, $factory, $compare, $isReusable);
         $expected = new Collection([
             tap(clone $model, static function (Model $model) use ($modelShouldBeReused, $typeShouldBeCreated): void {
-                $model->id       = $modelShouldBeReused->getKey();
-                $model->key      = $typeShouldBeCreated->key;
-                $model->property = $typeShouldBeCreated->property;
-                $model->exists   = true;
+                $model->setAttribute('id', $modelShouldBeReused->getKey());
+                $model->setAttribute('key', $typeShouldBeCreated->key);
+                $model->setAttribute('property', $typeShouldBeCreated->property);
+                $model->exists = true;
             }),
             (clone $model)->forceFill([
                 'id'       => $modelShouldBeUpdated->getKey(),
-                'key'      => $modelShouldBeUpdated->key,
+                'key'      => $modelShouldBeUpdated->getAttribute('key'),
                 'property' => $typeShouldBeUpdated->property,
             ]),
         ]);
 
-        $this->assertInstanceOf($existing::class, $actual);
-        $this->assertEquals($expected, $actual);
+        self::assertInstanceOf($existing::class, $actual);
+        self::assertEquals($expected, $actual);
     }
+}
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ChildrenTest_Type extends Type {
+    public string $id;
+    public string $key;
+    public string $property;
 }

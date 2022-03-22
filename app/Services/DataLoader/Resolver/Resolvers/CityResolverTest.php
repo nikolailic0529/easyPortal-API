@@ -47,29 +47,29 @@ class CityResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        $this->assertNotNull($actual);
-        $this->assertFalse($actual->wasRecentlyCreated);
-        $this->assertEquals('a', $actual->key);
-        $this->assertEquals($countryA, $actual->country);
+        self::assertNotNull($actual);
+        self::assertFalse($actual->wasRecentlyCreated);
+        self::assertEquals('a', $actual->key);
+        self::assertEquals($countryA, $actual->country);
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($countryA, 'a', $factory));
-        $this->assertSame($actual, $provider->get($countryA, ' a ', $factory));
-        $this->assertSame($actual, $provider->get($countryA, 'A', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($actual, $provider->get($countryA, 'a', $factory));
+        self::assertSame($actual, $provider->get($countryA, ' a ', $factory));
+        self::assertSame($actual, $provider->get($countryA, 'A', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($countryA, 'b', $factory));
+        self::assertNotSame($actual, $provider->get($countryA, 'b', $factory));
 
         $this->flushQueryLog();
 
         // All value should be loaded, so get() should not perform any queries
-        $this->assertNotNull($provider->get($countryA, 'b', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($provider->get($countryA, 'b', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
-        $this->assertNotNull($provider->get($countryA, 'c', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertNotNull($provider->get($countryA, 'c', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($countryB): City {
@@ -82,15 +82,15 @@ class CityResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->key);
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertEquals('unKnown', $created->key);
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($countryB, 'unknoWn', $factory));
-        $this->assertCount(0, $this->getQueryLog());
+        self::assertSame($created, $provider->get($countryB, 'unknoWn', $factory));
+        self::assertCount(0, $this->getQueryLog());
 
         // Created object should be found
         $c = City::factory()->create([
@@ -98,8 +98,8 @@ class CityResolverTest extends TestCase {
         ]);
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($countryA, $c->key)?->getKey());
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($c->getKey(), $provider->get($countryA, $c->key)?->getKey());
+        self::assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
     }
 }

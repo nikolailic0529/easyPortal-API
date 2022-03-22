@@ -3,11 +3,12 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Coverage;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithCoverage {
     abstract protected function getNormalizer(): Normalizer;

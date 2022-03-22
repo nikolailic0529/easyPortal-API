@@ -2,12 +2,14 @@
 
 namespace App\Models\Scopes;
 
+use App\Utils\Eloquent\Model;
+
 use function app;
 
 /**
  * @see \App\Models\Scopes\DocumentType
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait DocumentTypeScope {
     public static function bootDocumentTypeScope(): void {

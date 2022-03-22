@@ -33,7 +33,7 @@ class RoleIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(RoleId::class)->message(), 'Translated');
     }
 
     /**
@@ -41,8 +41,8 @@ class RoleIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param \Closure(static): \App\GraphQL\Directives\Directives\Mutation\Context\Context $contextFactory
-     * @param \Closure(static, \App\Models\Organization|null): \App\Models\Role             $roleFactory
+     * @param Closure(static): Context                 $contextFactory
+     * @param Closure(static, Organization|null): Role $roleFactory
      */
     public function testPasses(bool $expected, Closure $contextFactory, Closure $roleFactory): void {
         $context = $contextFactory($this);
@@ -53,7 +53,7 @@ class RoleIdTest extends TestCase {
             $rule->setMutationContext($context);
         }
 
-        $this->assertEquals($expected, $rule->passes('test', $role?->getKey()));
+        self::assertEquals($expected, $rule->passes('test', $role?->getKey()));
     }
     // </editor-fold>
 

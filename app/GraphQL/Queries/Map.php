@@ -14,7 +14,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use League\Geotools\BoundingBox\BoundingBoxInterface;
 use League\Geotools\Geohash\Geohash;
-use League\Geotools\Geotools;
 use League\Geotools\Polygon\Polygon;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
@@ -127,10 +126,9 @@ class Map {
 
         // Process
         $locations = $query->get();
-        $geotools  = new Geotools();
 
         foreach ($locations as $location) {
-            $boundingBox             = $geotools->geohash()->decode($location->hash)->getBoundingBox();
+            $boundingBox             = (new Geohash())->decode($location->hash)->getBoundingBox();
             $location->customers_ids = $this->parseKeys($location->customers_ids ?? null);
             $location->locations_ids = $this->parseKeys($location->locations_ids ?? null);
             $location->boundingBox   = [
@@ -169,7 +167,7 @@ class Map {
     }
 
     /**
-     * @param array<\League\Geotools\Geohash\Geohash> $geohashes
+     * @param array<Geohash> $geohashes
      */
     protected function getBoundaries(array $geohashes): ?BoundingBoxInterface {
         $boundaries = null;

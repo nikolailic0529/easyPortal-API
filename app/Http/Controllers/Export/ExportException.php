@@ -11,7 +11,10 @@ abstract class ExportException extends HttpException implements HttpExceptionInt
         return Response::HTTP_BAD_REQUEST;
     }
 
-    public function getHeaders(): mixed {
+    /**
+     * @return array<string>
+     */
+    public function getHeaders(): array {
         return [];
     }
 }

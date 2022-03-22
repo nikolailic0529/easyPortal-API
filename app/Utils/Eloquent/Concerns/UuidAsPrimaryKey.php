@@ -3,10 +3,11 @@
 namespace App\Utils\Eloquent\Concerns;
 
 use App\Utils\Eloquent\Callbacks\SetKey;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait UuidAsPrimaryKey {
     /**

@@ -3,11 +3,14 @@
 namespace App\Services\Search\Commands;
 
 use App\Services\I18n\Formatter;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Processor\Processor;
+use App\Services\Search\Processor\State;
 use App\Services\Search\Service;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Throwable;
 
@@ -17,6 +20,9 @@ use function array_values;
 use function count;
 use function str_contains;
 
+/**
+ * @extends ProcessorCommand<Processor<Model&Searchable, State<Model&Searchable>>>
+ */
 class IndexesRebuild extends ProcessorCommand {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

@@ -3,6 +3,7 @@
 namespace App\Services\Search\Processor;
 
 use App\Services\Search\Configuration;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Exceptions\FailedToIndex;
 use App\Services\Search\Exceptions\IndexError;
 use App\Utils\Eloquent\ModelHelper;
@@ -15,6 +16,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Events\ModelsImported;
 use LogicException;
 use Throwable;
@@ -28,7 +30,7 @@ use function array_values;
  * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
  * @template TState of \App\Services\Search\Processor\State<TItem>
  *
- * @extends \App\Utils\Processor\EloquentProcessor<TItem, null, TState>
+ * @extends EloquentProcessor<TItem, null, TState>
  */
 class Processor extends EloquentProcessor {
     /**
@@ -115,13 +117,14 @@ class Processor extends EloquentProcessor {
     }
 
     /**
-     * @param \App\Services\Search\Processor\State<TItem>                                  $state
-     * @param \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $item
+     * @param State<TItem>     $state
+     * @param Model&Searchable $item
      */
     protected function process(ProcessorState $state, mixed $data, mixed $item): void {
+        $as   = $item->searchableAs();
+        $item = $item->setSearchableAs($state->name);
+
         try {
-            $as                          = $item->searchableAs();
-            $item                        = $item->setSearchableAs($state->name);
             $isUnsearchable              = !$item->shouldBeSearchable();
             $isSoftDeletableModel        = (new ModelHelper($item))->isSoftDeletable();
             $isSoftDeletableIndexed      = (bool) $this->getConfig()->get('scout.soft_delete', false);
@@ -293,11 +296,11 @@ class Processor extends EloquentProcessor {
     /**
      * @template T
      *
-     * @param \Closure(): T $callback
+     * @param Closure(): T $callback
      *
      * @return T
      */
-    private function callWithoutScoutQueue(Closure $closure): mixed {
+    private function callWithoutScoutQueue(Closure $callback): mixed {
         $key      = 'scout.queue';
         $config   = $this->getConfig();
         $previous = $config->get($key);
@@ -305,7 +308,7 @@ class Processor extends EloquentProcessor {
         try {
             $config->set($key, false);
 
-            return $closure();
+            return $callback();
         } finally {
             $config->set($key, $previous);
         }

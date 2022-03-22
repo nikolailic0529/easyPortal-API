@@ -6,6 +6,8 @@ use App\Models\Document;
 
 /**
  * Updates search index for Documents (Contracts/Quotes).
+ *
+ * @extends Indexer<Document>
  */
 class DocumentsIndexer extends Indexer {
     public function displayName(): string {

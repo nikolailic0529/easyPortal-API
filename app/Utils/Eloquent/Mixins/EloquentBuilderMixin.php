@@ -5,6 +5,7 @@ namespace App\Utils\Eloquent\Mixins;
 use App\Utils\Eloquent\ModelHelper;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use InvalidArgumentException;
@@ -14,14 +15,14 @@ use function sprintf;
 class EloquentBuilderMixin {
     public function whereMatchAgainst(): Closure {
         return function (string $property, mixed $value): Builder {
-            /** @var \Illuminate\Database\Eloquent\Builder $this */
+            /** @var Builder<Model> $this */
             return $this->whereRaw("MATCH({$property}) AGAINST (?)", [$value]);
         };
     }
 
     public function joinRelation(): Closure {
         return function (string $relation, string $alias = null, Closure $callback = null): Builder {
-            /** @var \Illuminate\Database\Eloquent\Builder $this */
+            /** @var Builder<Model> $this */
             $builder  = $this;
             $relation = (new ModelHelper($builder))->getRelation($relation);
 

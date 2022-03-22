@@ -14,6 +14,7 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Date;
@@ -137,7 +138,7 @@ abstract class TestCase extends BaseTestCase {
     }
 
     /**
-     * @param array<class-string<\Illuminate\Database\Eloquent\Model>,int> $expected
+     * @param array<class-string<Model>,int> $expected
      */
     protected function assertModelsCount(array $expected): void {
         $actual = [];
@@ -151,7 +152,7 @@ abstract class TestCase extends BaseTestCase {
             );
         }
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     protected function assertCommandDescription(string $command, string $expected = '.txt'): void {
@@ -163,11 +164,11 @@ abstract class TestCase extends BaseTestCase {
         $data   = $this->getTestData();
 
         if ($data->content($expected) === '') {
-            $this->assertNotFalse(file_put_contents($data->path($expected), $actual));
+            self::assertNotFalse(file_put_contents($data->path($expected), $actual));
         }
 
-        $this->assertEquals(Command::SUCCESS, $result);
-        $this->assertEquals($data->content($expected), $actual);
+        self::assertEquals(Command::SUCCESS, $result);
+        self::assertEquals($data->content($expected), $actual);
     }
 
     protected function overrideUuidFactory(string $seed): void {

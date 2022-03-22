@@ -7,38 +7,44 @@ use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\PolymorphicModel;
+use Carbon\CarbonImmutable;
+use Database\Factories\ChangeRequestFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Change Request.
  *
- * @property string                                                     $id
- * @property string                                                     $organization_id
- * @property string                                                     $user_id
- * @property string                                                     $object_id
- * @property string                                                     $object_type
- * @property string                                                     $subject
- * @property string                                                     $from
- * @property array<string>                                              $to
- * @property array<string>|null                                         $cc
- * @property array<string>|null                                         $bcc
- * @property string                                                     $message
- * @property \Carbon\CarbonImmutable                                    $created_at
- * @property \Carbon\CarbonImmutable                                    $updated_at
- * @property \Carbon\CarbonImmutable|null                               $deleted_at
- * @property \App\Models\Organization                                   $organization
- * @property \App\Models\User                                           $user
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File> $files
- * @method static \Database\Factories\ChangeRequestFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $organization_id
+ * @property string               $user_id
+ * @property string               $object_id
+ * @property string               $object_type
+ * @property string               $subject
+ * @property string               $from
+ * @property array<string>        $to
+ * @property array<string>|null   $cc
+ * @property array<string>|null   $bcc
+ * @property string               $message
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Organization         $organization
+ * @property User                 $user
+ * @property Collection<int,File> $files
+ * @method static ChangeRequestFactory factory(...$parameters)
+ * @method static Builder|ChangeRequest newModelQuery()
+ * @method static Builder|ChangeRequest newQuery()
+ * @method static Builder|ChangeRequest query()
+ * @mixin Eloquent
  */
-class ChangeRequest extends PolymorphicModel implements Auditable {
+class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Auditable {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use HasFiles;
     use HasOrganization;
     use HasUser;

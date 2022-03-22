@@ -2,17 +2,18 @@
 
 namespace Tests;
 
+use App\Services\Search\Eloquent\Searchable;
 use App\Utils\Eloquent\Model;
 use Elasticsearch\Client;
+use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\ParallelTesting;
-use Throwable;
 
 use function str_starts_with;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithSearch {
     // <editor-fold desc="SetUp">
@@ -38,8 +39,8 @@ trait WithSearch {
 
             try {
                 $client->info();
-            } catch (Throwable) {
-                $this->markTestSkipped('Elastic Search is not installed/configured.');
+            } catch (Exception) {
+                self::markTestSkipped('Elastic Search is not installed/configured.');
             }
 
             // Remove all indexes
@@ -60,7 +61,7 @@ trait WithSearch {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @template T of \Illuminate\Support\Collection|\App\Utils\Eloquent\Model
+     * @template T of (Model&Searchable)|Collection<Model&Searchable>
      *
      * @param T $models
      *
@@ -68,7 +69,7 @@ trait WithSearch {
      */
     protected function makeSearchable(Collection|Model $models): Collection|Model {
         if ($models instanceof Model) {
-            /** @var \App\Services\Search\Eloquent\Searchable $models */
+            /** @var Searchable $models */
             $config   = $models->getSearchConfiguration();
             $index    = $config->getIndexName();
             $alias    = $config->getIndexAlias();
@@ -133,9 +134,9 @@ trait WithSearch {
                 ],
             ]);
 
-            $this->assertSearchIndexAlias($index, $alias);
+            self::assertSearchIndexAlias($index, $alias);
         } else {
-            $this->assertSearchIndexExists($index);
+            self::assertSearchIndexExists($index);
         }
     }
 
@@ -189,11 +190,11 @@ trait WithSearch {
         }
 
         // Compare
-        $this->assertEquals($expected, $actual, $message);
+        self::assertEquals($expected, $actual, $message);
     }
 
     protected function assertSearchIndexExists(string $expected, string $message = ''): void {
-        $this->assertTrue(
+        self::assertTrue(
             $this->app->make(Client::class)->indices()->exists([
                 'index' => $this->getSearchName($expected),
             ]),
@@ -206,7 +207,7 @@ trait WithSearch {
         string $expectedAlias,
         string $message = '',
     ): void {
-        $this->assertNotEmpty(
+        self::assertNotEmpty(
             $this->app->make(Client::class)->indices()->getAlias([
                 'name'  => $expectedAlias,
                 'index' => $expectedIndex,

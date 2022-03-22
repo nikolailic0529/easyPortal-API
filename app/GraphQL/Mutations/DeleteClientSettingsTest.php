@@ -26,12 +26,9 @@ class DeleteClientSettingsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param \LastDragon_ru\LaraASP\Testing\Constraints\Response\Response|array{
-     *      response:\LastDragon_ru\LaraASP\Testing\Constraints\Response\Response,
-     *      content:array<mixed>
-     *      } $expected
-     * @param array<mixed>  $content
-     * @param array<string> $names
+     * @param Response|array{response:Response,content:array<mixed>} $expected
+     * @param array<mixed>                                           $content
+     * @param array<string>                                          $names
      */
     public function testInvoke(
         Response|array $expected,
@@ -76,8 +73,8 @@ class DeleteClientSettingsTest extends TestCase {
             ->assertThat($expectedResponse);
 
         if ($expectedContent) {
-            $this->assertNotNull($expectedResponse);
-            $this->assertEquals($expectedContent, $storage->load());
+            self::assertNotNull($expectedResponse);
+            self::assertEquals($expectedContent, $storage->load());
         }
     }
     // </editor-fold>

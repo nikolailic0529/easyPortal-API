@@ -33,7 +33,7 @@ class PaginatedLimitTest extends TestCase {
         $builder   = $builder($this);
         $builder   = $directive->handleBuilder($builder, $limit);
 
-        $this->assertDatabaseQueryEquals($expected, $builder);
+        self::assertDatabaseQueryEquals($expected, $builder);
     }
 
     /**
@@ -53,7 +53,7 @@ class PaginatedLimitTest extends TestCase {
         ]);
         $builder   = $directive->handleScoutBuilder($builder, $limit);
 
-        $this->assertEquals($expected, [
+        self::assertEquals($expected, [
             'limit' => $builder->limit,
         ]);
     }

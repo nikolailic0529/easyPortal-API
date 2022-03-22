@@ -20,7 +20,7 @@ use function count;
  * @template TChunkData
  * @template TState of \App\Utils\Processor\EloquentState<TItem>
  *
- * @extends \App\Utils\Processor\Processor<TItem, TChunkData, TState>
+ * @extends Processor<TItem, TChunkData, TState>
  */
 abstract class EloquentProcessor extends Processor {
     /**
@@ -77,7 +77,7 @@ abstract class EloquentProcessor extends Processor {
     /**
      * @param TState $state
      *
-     * @return \Illuminate\Database\Eloquent\Builder<TItem>
+     * @return Builder<TItem>
      */
     protected function getBuilder(State $state): Builder {
         $class  = $state->model;

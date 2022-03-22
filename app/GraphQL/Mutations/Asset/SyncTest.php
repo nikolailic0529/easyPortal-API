@@ -6,6 +6,7 @@ use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\User;
 use App\Services\DataLoader\Jobs\AssetSync;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -33,7 +34,7 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param \Closure(): string $prepare
+     * @param Closure(static, ?Organization, ?User): string $prepare
      */
     public function testInvoke(
         Response $expected,

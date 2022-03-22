@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -17,15 +17,20 @@ use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\ImporterChunkData;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Document as SchemaDocument;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @extends Importer<SchemaDocument, ImporterChunkData, ImporterState, Document>
+ */
 class DocumentsImporter extends Importer {
     protected function register(): void {
         $this->getContainer()->bind(DistributorFinder::class, DistributorLoaderFinder::class);
@@ -74,7 +79,7 @@ class DocumentsImporter extends Importer {
         return $this->getClient()->getDocuments($state->from);
     }
 
-    protected function makeFactory(State $state): Factory {
+    protected function makeFactory(State $state): ModelFactory {
         return $this->getContainer()->make(DocumentFactory::class);
     }
 

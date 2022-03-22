@@ -13,15 +13,18 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * Base Importer job.
  *
- * @uses \App\Services\Queue\Concerns\ProcessorJob<\App\Services\DataLoader\Importer\Importer>
+ * @template TImporter of \App\Services\DataLoader\Importer\Importer
  */
 abstract class ImporterCronJob extends CronJob implements Progressable {
+    /**
+     * @phpstan-use ProcessorJob<TImporter>
+     */
     use ProcessorJob {
         getProcessor as private createProcessor;
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

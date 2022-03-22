@@ -70,7 +70,7 @@ class HandlerTest extends TestCase {
             }
         };
 
-        $this->assertEquals([1, 2, 3, 'a', 4, 5, 6], $handler->exceptionContext($exception));
+        self::assertEquals([1, 2, 3, 'a', 4, 5, 6], $handler->exceptionContext($exception));
     }
 
     /**
@@ -124,7 +124,7 @@ class HandlerTest extends TestCase {
         unset($context['stacktrace'][0]['line']);
         unset($context['stacktrace'][0]['trace']);
 
-        $this->assertEquals($expected['context'], $context);
+        self::assertEquals($expected['context'], $context);
 
         Event::assertDispatched(ErrorReport::class);
     }
@@ -152,7 +152,7 @@ class HandlerTest extends TestCase {
         };
         $trace   = $handler->getExceptionStacktrace($b);
 
-        $this->assertEquals([
+        self::assertEquals([
             [
                 'class'   => $b::class,
                 'message' => $b->getMessage(),
@@ -222,7 +222,7 @@ class HandlerTest extends TestCase {
         };
         $context = $handler->getExceptionContext($b);
 
-        $this->assertEquals([
+        self::assertEquals([
             [
                 'class'   => $b::class,
                 'message' => $b->getMessage(),
@@ -264,7 +264,7 @@ class HandlerTest extends TestCase {
             }
         };
 
-        $this->assertEquals($expected, $handler->getExceptionFingerprint($exception));
+        self::assertEquals($expected, $handler->getExceptionFingerprint($exception));
     }
     // </editor-fold>
 

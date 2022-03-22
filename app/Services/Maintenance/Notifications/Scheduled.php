@@ -33,7 +33,7 @@ class Scheduled extends NotificationQueued {
         Closure $translate,
     ): array {
         return array_merge(parent::getMailReplacements($notifiable, $config, $formatter, $translate), [
-            'message' => $this->settings->message ?: $translate('default.message'),
+            'message' => $this->settings->message ?: $translate('default.message', []),
         ]);
     }
 }

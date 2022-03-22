@@ -13,11 +13,13 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
+use App\Services\I18n\Contracts\Translatable;
 use App\Services\Service as BaseService;
+use Illuminate\Database\Eloquent\Model;
 
 class Service extends BaseService {
     /**
-     * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\I18n\Contracts\Translatable>>
+     * @var array<class-string<Model&Translatable>>
      */
     protected static array $translatable = [
         Country::class,
@@ -34,7 +36,7 @@ class Service extends BaseService {
     ];
 
     /**
-     * @return array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\I18n\Contracts\Translatable>>
+     * @return array<class-string<Model&Translatable>>
      */
     public function getTranslatableModels(): array {
         return static::$translatable;

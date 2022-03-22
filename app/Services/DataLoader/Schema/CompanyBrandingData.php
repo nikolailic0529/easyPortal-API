@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Utils\JsonObject\JsonObjectArray;
+
 class CompanyBrandingData extends Input {
     public string  $id;
     public ?string $mainColor;
@@ -16,12 +18,14 @@ class CompanyBrandingData extends Input {
     public ?string $mainImageOnTheRight;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\InputTranslationText>|null
+     * @var array<InputTranslationText>|null
      */
+    #[JsonObjectArray(InputTranslationText::class)]
     public ?array $mainHeadingText;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\InputTranslationText>|null
+     * @var array<InputTranslationText>|null
      */
+    #[JsonObjectArray(InputTranslationText::class)]
     public ?array $underlineText;
 }

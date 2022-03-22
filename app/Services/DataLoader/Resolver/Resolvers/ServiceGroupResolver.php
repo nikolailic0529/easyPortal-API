@@ -11,6 +11,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<ServiceGroup>
+ */
 class ServiceGroupResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?ServiceGroup {
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);

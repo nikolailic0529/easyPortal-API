@@ -5,12 +5,15 @@ namespace Database\Factories;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\ResellerLocation create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\ResellerLocation make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method ResellerLocation create($attributes = [], ?Model $parent = null)
+ * @method ResellerLocation make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<ResellerLocation>
  */
 class ResellerLocationFactory extends Factory {
     /**

@@ -61,7 +61,7 @@ class MaintenanceTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('application'),
+            new AnyOrganizationDataProvider(),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

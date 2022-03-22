@@ -4,12 +4,15 @@ namespace Database\Factories;
 
 use App\Models\Customer;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Customer create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Customer make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Customer create($attributes = [], ?Model $parent = null)
+ * @method Customer make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Customer>
  */
 class CustomerFactory extends Factory {
     /**

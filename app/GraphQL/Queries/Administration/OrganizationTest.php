@@ -12,6 +12,7 @@ use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\Audit\Enums\Action;
 use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -778,7 +779,7 @@ class OrganizationTest extends TestCase {
                                             ],
                                         ],
                                     ]),
-                                    'action'          => 'action1',
+                                    'action'          => Action::authFailed(),
                                     'created_at'      => '2021-01-01T00:00:00+00:00',
                                 ],
                             ],
@@ -808,7 +809,7 @@ class OrganizationTest extends TestCase {
                                             ],
                                         ],
                                     ],
-                                    'action'      => 'action1',
+                                    'action'      => Action::authFailed(),
                                     'created_at'  => '2021-01-01 00:00:00',
                                 ])
                                 ->create([
@@ -844,7 +845,7 @@ class OrganizationTest extends TestCase {
                                             ],
                                         ],
                                     ]),
-                                    'action'          => 'action1',
+                                    'action'          => Action::exported(),
                                     'created_at'      => '2021-01-01T00:00:00+00:00',
                                 ],
                             ],
@@ -871,7 +872,7 @@ class OrganizationTest extends TestCase {
                                             ],
                                         ],
                                     ],
-                                    'action'      => 'action1',
+                                    'action'      => Action::exported(),
                                     'created_at'  => '2021-01-01 00:00:00',
                                 ])
                                 ->create([

@@ -12,6 +12,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<ServiceLevel>
+ */
 class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, ServiceGroup $group, string $sku, Closure $factory = null): ?ServiceLevel {
         return $this->resolve($this->getUniqueKey($oem, $group, $sku), $factory);

@@ -28,11 +28,11 @@ class ObjectsIteratorTest extends TestCase {
             },
         );
 
-        $this->assertEquals([10, 20, 30, 40, 50, 60, 70, 80, 90, 0], iterator_to_array($iterator));
-        $this->assertEquals([30, 40, 50, 60, 70, 80], iterator_to_array(
+        self::assertEquals([10, 20, 30, 40, 50, 60, 70, 80, 90, 0], iterator_to_array($iterator));
+        self::assertEquals([30, 40, 50, 60, 70, 80], iterator_to_array(
             $iterator->setOffset(2)->setLimit(6),
         ));
-        $this->assertEquals([60, 70, 80, 90, 0], iterator_to_array(
+        self::assertEquals([60, 70, 80, 90, 0], iterator_to_array(
             $iterator->setOffset(5)->setLimit(null),
         ));
     }

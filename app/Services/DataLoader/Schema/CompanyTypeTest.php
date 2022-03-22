@@ -20,8 +20,8 @@ class CompanyTypeTest extends TestCase {
         $actual     = new CompanyType($json);
         $properties = CompanyType::getPropertiesNames();
 
-        $this->assertEquals(array_keys($json), $properties);
-        $this->assertJsonStringEqualsJsonString(
+        self::assertEquals(array_keys($json), $properties);
+        self::assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );

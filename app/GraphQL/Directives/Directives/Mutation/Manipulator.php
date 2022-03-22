@@ -36,9 +36,9 @@ class Manipulator extends AstManipulator {
     }
 
     /**
-     * @param class-string<\Nuwave\Lighthouse\Support\Contracts\Directive> $directive
+     * @param class-string<Directive> $directive
      */
     public function getDirectiveName(string $directive): string {
-        return $this->directives->directiveName($directive);
+        return $this->directives::directiveName($directive);
     }
 }

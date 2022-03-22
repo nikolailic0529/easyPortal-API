@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Country;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Country create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Country make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Country create($attributes = [], ?Model $parent = null)
+ * @method Country make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Country>
  */
 class CountryFactory extends Factory {
     /**

@@ -11,13 +11,13 @@ trait Children {
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
      * @template M of \App\Utils\Eloquent\Model
-     * @template C of \Illuminate\Support\Collection<M>
+     * @template C of \Illuminate\Support\Collection<int, M>
      *
-     * @param C                       $existing
-     * @param array<T>               $children
-     * @param \Closure(T): ?M        $factory
-     * @param \Closure(M, M): int    $compare
-     * @param \Closure(M): bool|null $reusable
+     * @param C                     $existing
+     * @param array<T>              $children
+     * @param Closure(T): ?M        $factory
+     * @param Closure(M, M): int    $compare
+     * @param Closure(M): bool|null $isReusable
      *
      * @return C
      */
@@ -32,8 +32,9 @@ trait Children {
         // them by properties, but there were a lot of create/soft-delete
         // queries anyway. So we are trying to re-use removed entries to
         // reduce the number of queries.
-        $existing = $existing->sort(new KeysComparator());
+        /** @var Collection<int, M> $created */
         $created  = new Collection();
+        $existing = $existing->sort(new KeysComparator());
         $actual   = new ($existing::class)();
 
         foreach ($children as $child) {
@@ -71,9 +72,13 @@ trait Children {
                 $created = $created->sort(new KeysComparator());
 
                 while (!$created->isEmpty() && !$reusable->isEmpty()) {
-                    $child                         = $created->shift();
-                    $child->exists                 = true;
-                    $child->{$child->getKeyName()} = $reusable->shift()->getKey();
+                    $child         = $created->shift();
+                    $child->exists = true;
+
+                    $child->setAttribute(
+                        $child->getKeyName(),
+                        $reusable->shift()->getKey(),
+                    );
                 }
             }
         }

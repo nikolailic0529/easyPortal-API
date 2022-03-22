@@ -119,7 +119,7 @@ class LoadConfigurationTest extends TestCase {
 
         $bootstrapper->overwriteEnvVars($app, $repository, $config);
 
-        $this->assertEquals([
+        self::assertEquals([
             'FOO' => 'Foo',
             'BAZ' => 'Hello Baz',
         ], $environment->getVars());
@@ -146,7 +146,7 @@ class LoadConfigurationTest extends TestCase {
 
         $bootstrapper->cleanupEnvVars($app, $repository, $config);
 
-        $this->assertEquals([
+        self::assertEquals([
             'FOO' => 'Foo',
         ], $environment->getVars());
     }
@@ -165,6 +165,6 @@ class LoadConfigurationTest extends TestCase {
             }
         })->getConfigurationFiles($this->app);
 
-        $this->assertArrayNotHasKey($unexpected, $files);
+        self::assertArrayNotHasKey($unexpected, $files);
     }
 }

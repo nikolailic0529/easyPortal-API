@@ -56,19 +56,19 @@ class WithTypeTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($type, $factory->type($customer, $type->key));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($type, $factory->type($customer, $type->key));
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->type($customer, ' New  type ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals('New type', $created->key);
-        $this->assertEquals('New Type', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals($customer->getMorphClass(), $created->object_type);
+        self::assertEquals('New type', $created->key);
+        self::assertEquals('New Type', $created->name);
+        self::assertCount(2, $this->getQueryLog());
     }
 }

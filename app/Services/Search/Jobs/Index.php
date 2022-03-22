@@ -4,9 +4,11 @@ namespace App\Services\Search\Jobs;
 
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Processor\Processor;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
@@ -19,10 +21,13 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  * @see \Laravel\Scout\Jobs\RemoveFromSearch
  */
 class Index extends Job implements Initializable {
+    /**
+     * @phpstan-use ProcessorJob<Processor<Model&Searchable,\App\Services\Search\Processor\State<Model&Searchable>>>
+     */
     use ProcessorJob;
 
     /**
-     * @var class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>
+     * @var class-string<Model&Searchable>
      */
     private string $model;
 
@@ -32,9 +37,7 @@ class Index extends Job implements Initializable {
     private array $keys;
 
     /**
-     * @param \Illuminate\Support\Collection<
-     *     \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
-     *     > $models
+     * @param Collection<int, Model&Searchable> $models
      */
     public function __construct(?Collection $models = null) {
         parent::__construct();
@@ -57,7 +60,7 @@ class Index extends Job implements Initializable {
     }
 
     /**
-     * @return class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>
+     * @return class-string<Model&Searchable>
      */
     public function getModel(): string {
         return $this->model;
@@ -71,8 +74,8 @@ class Index extends Job implements Initializable {
     }
 
     /**
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
-     * @param array<string|int>                                                                          $keys
+     * @param class-string<Model&Searchable> $model
+     * @param array<string|int>              $keys
      *
      * @return $this
      */

@@ -53,21 +53,21 @@ class WithOemGroupTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals(
+        self::assertEquals(
             $group->withoutRelations(),
             $factory->oemGroup($oem, $group->key, $group->name)->withoutRelations(),
         );
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->oemGroup($oem, 'newkey', ' New  Oem  Group  Name ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('newkey', $created->key);
-        $this->assertEquals('New Oem Group Name', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals('newkey', $created->key);
+        self::assertEquals('New Oem Group Name', $created->name);
+        self::assertCount(2, $this->getQueryLog());
     }
 }

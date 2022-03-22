@@ -13,12 +13,11 @@ class RecoverClientTranslations {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array{result: bool}
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
             'result' => $this->getStorage($args['input']['locale'])->delete(true),
         ];

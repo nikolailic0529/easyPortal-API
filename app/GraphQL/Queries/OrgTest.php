@@ -180,7 +180,7 @@ class OrgTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new MergeDataProvider([
             'any'        => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('org'),
+                new AnyOrganizationDataProvider(),
                 new AnyUserDataProvider(),
                 new ArrayDataProvider([
                     'ok' => [

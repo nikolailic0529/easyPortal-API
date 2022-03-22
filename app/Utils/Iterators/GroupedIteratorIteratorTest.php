@@ -28,7 +28,7 @@ class GroupedIteratorIteratorTest extends TestCase {
             ),
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 [
                     0 => 1,
@@ -45,7 +45,7 @@ class GroupedIteratorIteratorTest extends TestCase {
                 $iterator->setChunkSize(4)->setOffset(0)->setLimit(6),
             ),
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 [
                     0 => 1,
@@ -56,7 +56,7 @@ class GroupedIteratorIteratorTest extends TestCase {
                 $iterator->setChunkSize(5)->setOffset(0)->setLimit(2),
             ),
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 [
                     0 => 2,
@@ -84,7 +84,7 @@ class GroupedIteratorIteratorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIteratorEmpty(): void {
-        $this->assertEquals([], iterator_to_array(
+        self::assertEquals([], iterator_to_array(
             new GroupedIteratorIterator(new ObjectsIterator(
                 Mockery::mock(ExceptionHandler::class),
                 [],

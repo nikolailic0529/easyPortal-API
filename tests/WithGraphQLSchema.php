@@ -7,7 +7,7 @@ use LastDragon_ru\LaraASP\GraphQL\Testing\GraphQLAssertions;
 use function file_put_contents;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait WithGraphQLSchema {
     use GraphQLAssertions;
@@ -22,7 +22,7 @@ trait WithGraphQLSchema {
                 $source = $this->getDefaultGraphQLSchema();
             }
 
-            $this->assertNotFalse(file_put_contents($data->path($schema), $this->printGraphQLSchema($source)));
+            self::assertNotFalse(file_put_contents($data->path($schema), $this->printGraphQLSchema($source)));
         }
 
         return $data->content($schema);

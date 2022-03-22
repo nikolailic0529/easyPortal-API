@@ -29,12 +29,11 @@ class RequestAssetChange {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $asset   = Asset::whereKey($args['input']['asset_id'])->first();
         $request = $this->createRequest(
             $asset,

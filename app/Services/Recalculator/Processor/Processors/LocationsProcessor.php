@@ -6,6 +6,7 @@ use App\Models\Location;
 use App\Models\LocationCustomer;
 use App\Models\LocationReseller;
 use App\Services\Recalculator\Processor\Processor;
+use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,7 +19,7 @@ use function count;
 use const SORT_REGULAR;
 
 /**
- * @extends \App\Services\Recalculator\Processor\Processor<\App\Models\Location,\App\Services\Recalculator\Processor\Processors\LocationsChunkData>
+ * @extends Processor<Location,LocationsChunkData,EloquentState<Location>>
  */
 class LocationsProcessor extends Processor {
     protected function getModel(): string {
@@ -36,9 +37,9 @@ class LocationsProcessor extends Processor {
     }
 
     /**
-     * @param \App\Utils\Processor\EloquentState<\App\Models\Location>           $state
-     * @param \App\Services\Recalculator\Processor\Processors\LocationsChunkData $data
-     * @param \App\Models\Location                                               $item
+     * @param EloquentState<Location> $state
+     * @param LocationsChunkData      $data
+     * @param Location                $item
      */
     protected function process(State $state, mixed $data, mixed $item): void {
         // Prepare

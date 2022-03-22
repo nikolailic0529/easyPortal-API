@@ -3,7 +3,7 @@
 namespace App\Services\Search\Migrations;
 
 use App\Services\Queue\CronJob;
-use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Service;
 use App\Utils\Eloquent\Model;
 use Illuminate\Support\Facades\Queue;
@@ -25,7 +25,7 @@ class IndexesRebuildTest extends TestCase {
                 return $this::class;
             }
         })::class;
-        $model     = Mockery::mock(Model::class, Searchable::class)::class;
+        $model     = Mockery::mock(Model::class, SearchableImpl::class)::class;
         $migration = Mockery::mock(IndexesRebuild::class);
         $migration->shouldAllowMockingProtectedMethods();
         $migration->makePartial();

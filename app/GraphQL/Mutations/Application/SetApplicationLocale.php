@@ -11,12 +11,11 @@ class SetApplicationLocale {
         // empty
     }
     /**
-     * @param  null  $_
      * @param  array<string, mixed>  $args
      *
      * @return  array<string,bool>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $locale = $args['input']['locale'];
         $this->locale->set($locale);
         return ['result' => true ];

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Commands;
 use App\Models\Coverage;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\I18n\Formatter;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,7 +55,7 @@ class AssetsCount extends Command {
         $assetsCoverage = 0;
 
         foreach ($iterator as $asset) {
-            /** @var \App\Services\DataLoader\Schema\ViewAsset $asset */
+            /** @var ViewAsset $asset */
 
             // Total
             $assetsTotal++;

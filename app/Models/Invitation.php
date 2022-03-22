@@ -7,40 +7,45 @@ use App\Models\Relations\HasRole;
 use App\Models\Relations\HasTeam;
 use App\Models\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
+use Carbon\CarbonImmutable;
+use Database\Factories\InvitationFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Invitation.
  *
- * @property string                       $id
- * @property string                       $organization_id
- * @property string                       $sender_id
- * @property string                       $user_id
- * @property string                       $role_id
- * @property ?string                      $team_id
- * @property string                       $email
- * @property \Carbon\CarbonImmutable|null $used_at
- * @property \Carbon\CarbonImmutable      $expired_at
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Organization     $organization
- * @property \App\Models\Role             $role
- * @property \App\Models\User             $sender
- * @property \App\Models\Team|null        $team
- * @property \App\Models\User             $user
- * @method static \Database\Factories\InvitationFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation query()
- * @mixin \Eloquent
+ * @property string               $id
+ * @property string               $organization_id
+ * @property string               $sender_id
+ * @property string               $user_id
+ * @property string               $role_id
+ * @property ?string              $team_id
+ * @property string               $email
+ * @property CarbonImmutable|null $used_at
+ * @property CarbonImmutable      $expired_at
+ * @property CarbonImmutable      $created_at
+ * @property CarbonImmutable      $updated_at
+ * @property CarbonImmutable|null $deleted_at
+ * @property Organization         $organization
+ * @property Role                 $role
+ * @property User                 $sender
+ * @property Team|null            $team
+ * @property User                 $user
+ * @method static InvitationFactory factory(...$parameters)
+ * @method static Builder|Invitation newModelQuery()
+ * @method static Builder|Invitation newQuery()
+ * @method static Builder|Invitation query()
+ * @mixin Eloquent
  */
-class Invitation extends Model {
+class Invitation extends Model implements OwnedByOrganization {
     use HasFactory;
-    use OwnedByOrganization;
+    use OwnedByOrganizationImpl;
     use HasOrganization;
     use HasUser;
     use HasRole;

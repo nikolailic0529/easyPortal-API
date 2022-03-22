@@ -6,6 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdateMeEmail {
     public function __construct(
@@ -14,15 +15,15 @@ class UpdateMeEmail {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         // Possible?
-        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        /** @var Authenticatable $user */
         $user = $this->auth->user();
         if (!($user instanceof User)) {
             return [
@@ -37,6 +38,6 @@ class UpdateMeEmail {
 
         $user->email = $email;
 
-        return ['result' => $user->save() ];
+        return ['result' => $user->save()];
     }
 }

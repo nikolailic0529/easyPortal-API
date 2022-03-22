@@ -4,7 +4,7 @@ namespace App\Services\Search;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
-use App\Services\Search\Eloquent\Searchable as SearchSearchable;
+use App\Services\Search\Eloquent\SearchableImpl as SearchSearchable;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
@@ -30,16 +30,16 @@ class ProviderTest extends TestCase {
      * @covers ::registerBindings
      */
     public function testRegisterBindings(): void {
-        $this->assertInstanceOf(SearchBuilder::class, $this->app->make(ScoutBuilder::class, [
+        self::assertInstanceOf(SearchBuilder::class, $this->app->make(ScoutBuilder::class, [
             'query' => '',
             'model' => new class() extends Model {
                 // empty
             },
         ]));
 
-        $this->assertInstanceOf(SearchRequestFactory::class, $this->app->make(SearchRequestFactoryInterface::class));
+        self::assertInstanceOf(SearchRequestFactory::class, $this->app->make(SearchRequestFactoryInterface::class));
 
-        $this->assertTrue($this->app->bound(ColumnResolver::class));
+        self::assertTrue($this->app->bound(ColumnResolver::class));
     }
 
     public function testProperSearchableTraitUsed(): void {
@@ -59,6 +59,6 @@ class ProviderTest extends TestCase {
             SearchSearchable::class,
         );
 
-        $this->assertEmpty($invalid, $message);
+        self::assertEmpty($invalid, $message);
     }
 }

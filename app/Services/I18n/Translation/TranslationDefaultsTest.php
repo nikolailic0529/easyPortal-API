@@ -63,7 +63,7 @@ class TranslationDefaultsTest extends TestCase {
 
         $default = new class($service, $loader, $models) extends TranslationDefaults {
             /**
-             * @param array<\App\Services\Logger\Models\Model&\App\Services\I18n\Contracts\Translatable> $models
+             * @param array<Model&Translatable> $models
              */
             public function __construct(
                 Service $service,
@@ -92,9 +92,9 @@ class TranslationDefaultsTest extends TestCase {
             'b' => 'translated-b',
         ];
 
-        $this->assertEquals($expected, $actual);
+        self::assertEquals($expected, $actual);
 
         // Another Locale
-        $this->assertEquals([], $default->loadModels('another'));
+        self::assertEquals([], $default->loadModels('another'));
     }
 }

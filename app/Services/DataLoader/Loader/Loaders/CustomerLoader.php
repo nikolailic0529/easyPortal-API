@@ -18,11 +18,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @template TOwner of \App\Models\Customer
- *
- * @uses \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
  */
 class CustomerLoader extends Loader {
     use WithWarrantyCheck;
+
+    /**
+     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+     */
     use WithAssets;
 
     // <editor-fold desc="API">
@@ -71,6 +73,9 @@ class CustomerLoader extends Loader {
             ->setCustomerId($owner->getKey());
     }
 
+    /**
+     * @param TOwner $owner
+     */
     protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
         return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
     }

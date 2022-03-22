@@ -4,10 +4,11 @@ namespace App\Models\Relations;
 
 use App\Models\User;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasUser {
     #[CascadeDelete(false)]

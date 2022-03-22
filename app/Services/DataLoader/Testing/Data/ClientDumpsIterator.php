@@ -6,6 +6,9 @@ use Generator;
 use IteratorAggregate;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * @implements IteratorAggregate<int, ClientDumpFile>
+ */
 class ClientDumpsIterator implements IteratorAggregate {
     public function __construct(
         protected string $path,
@@ -14,7 +17,7 @@ class ClientDumpsIterator implements IteratorAggregate {
     }
 
     /**
-     * @return \Generator<\App\Services\DataLoader\Testing\Data\ClientDumpFile>
+     * @return Generator<ClientDumpFile>
      */
     public function getIterator(): Generator {
         $files = (new Finder())->in("{$this->path}/*")->name('*.json')->files();
@@ -25,11 +28,11 @@ class ClientDumpsIterator implements IteratorAggregate {
     }
 
     /**
-     * @return \Generator<object>
+     * @return Generator<object>
      */
     public function getResponseIterator(bool $save = false): Generator {
         foreach ($this as $file) {
-            /** @var \App\Services\DataLoader\Testing\Data\ClientDumpFile $file */
+            /** @var ClientDumpFile $file */
             yield from $file->getDump()->getResponseIterator($save);
 
             if ($save) {

@@ -55,10 +55,10 @@ class OemsImporterTest extends TestCase {
         };
 
         // Pretest
-        $this->assertEquals(0, Oem::query()->count());
-        $this->assertEquals(0, ServiceGroup::query()->count());
-        $this->assertEquals(0, ServiceLevel::query()->count());
-        $this->assertEmpty($storage->load());
+        self::assertEquals(0, Oem::query()->count());
+        self::assertEquals(0, ServiceGroup::query()->count());
+        self::assertEquals(0, ServiceLevel::query()->count());
+        self::assertEmpty($storage->load());
 
         // Existing objects should be updated
         $oem   = Oem::factory()->create([
@@ -102,8 +102,8 @@ class OemsImporterTest extends TestCase {
             'name' => 'CBA',
         ];
 
-        $this->assertCount(2, $oems);
-        $this->assertEqualsCanonicalizing([$oemA, $oemB], $toArray($oems));
+        self::assertCount(2, $oems);
+        self::assertEqualsCanonicalizing([$oemA, $oemB], $toArray($oems));
 
         // Service Groups
         $groups  = ServiceGroup::query()
@@ -135,8 +135,8 @@ class OemsImporterTest extends TestCase {
             'oem'  => $oemB,
         ];
 
-        $this->assertCount(4, $groups);
-        $this->assertEqualsCanonicalizing(
+        self::assertCount(4, $groups);
+        self::assertEqualsCanonicalizing(
             [$groupAA, $groupAB, $groupAC, $groupBA],
             $toArray($groups),
         );
@@ -149,8 +149,8 @@ class OemsImporterTest extends TestCase {
             ->get()
             ->keyBy('id');
 
-        $this->assertCount(5, $levels);
-        $this->assertEqualsCanonicalizing(
+        self::assertCount(5, $levels);
+        self::assertEqualsCanonicalizing(
             [
                 [
                     'key'          => "{$groupAA['key']}/LA",
@@ -199,7 +199,7 @@ class OemsImporterTest extends TestCase {
         // Translations
         $translations = $storage->load();
 
-        $this->assertEquals([
+        self::assertEquals([
             'models.ServiceLevel.unknown.name'          => 'Unknown Name',
             'models.ServiceLevel.unknown.description'   => 'Unknown Description',
             'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA French',

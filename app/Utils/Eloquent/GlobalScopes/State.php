@@ -12,19 +12,19 @@ use function sprintf;
 
 class State {
     /**
-     * @var array<class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope>, bool>
+     * @var array<class-string<DisableableScope>, bool>
      */
     protected static array $disabled = [];
 
     /**
-     * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
+     * @param class-string<DisableableScope> $scope
      */
     public static function isEnabled(string $scope): bool {
-        return ! self::isDisabled($scope);
+        return !self::isDisabled($scope);
     }
 
     /**
-     * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
+     * @param class-string<DisableableScope> $scope
      */
     public static function isDisabled(string $scope): bool {
         return self::$disabled[$scope] ?? false;
@@ -33,8 +33,8 @@ class State {
     /**
      * @template T
      *
-     * @param array<class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope>> $scopes
-     * @param \Closure():T $closure
+     * @param array<class-string<DisableableScope>> $scopes
+     * @param Closure():T                           $closure
      *
      * @return T
      */
@@ -55,7 +55,7 @@ class State {
     }
 
     /**
-     * @param class-string<\App\Utils\Eloquent\GlobalScopes\DisableableScope> $scope
+     * @param class-string<DisableableScope> $scope
      */
     public static function setDisabled(string $scope, bool $disabled): bool {
         // Can be disabled?

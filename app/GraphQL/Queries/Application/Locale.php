@@ -12,10 +12,9 @@ class Locale {
     }
 
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      */
-    public function __invoke($_, array $args): string {
+    public function __invoke(mixed $root, array $args): string {
         return $this->locale->get();
     }
 }

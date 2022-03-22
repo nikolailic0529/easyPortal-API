@@ -16,7 +16,7 @@ class IndexesRebuildTest extends TestCase {
      * @coversNothing
      */
     public function testCommand(): void {
-        $this->assertCommandDescription('ep:search-indexes-rebuild');
+        self::assertCommandDescription('ep:search-indexes-rebuild');
     }
 
     /**

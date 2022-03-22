@@ -60,11 +60,11 @@ class ServiceTest extends TestCase {
         });
         $factory = Closure::fromCallable($spy);
 
-        $this->assertEquals(123, $service->get('a', $factory));
-        $this->assertNull($service->get('b', $factory));
+        self::assertEquals(123, $service->get('a', $factory));
+        self::assertNull($service->get('b', $factory));
 
         $spy
-            ->shouldNotHaveReceived()
+            ->shouldNotHaveReceived(null)
             ->with(123);
     }
 
@@ -122,8 +122,8 @@ class ServiceTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $this->assertEquals(123, $service->set('a', 123));
-        $this->assertSame($service, $service->set('b', $service));
+        self::assertEquals(123, $service->set('a', 123));
+        self::assertSame($service, $service->set('b', $service));
     }
 
     /**
@@ -147,7 +147,7 @@ class ServiceTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $this->assertTrue($service->has('a'));
+        self::assertTrue($service->has('a'));
     }
 
     /**
@@ -171,30 +171,30 @@ class ServiceTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $this->assertTrue($service->delete(['a', 'b']));
+        self::assertTrue($service->delete(['a', 'b']));
     }
 
     /**
      * @covers ::getService
      */
     public function testGetService(): void {
-        $this->assertEquals(null, Service::getService(Service::class));
-        $this->assertEquals(GraphQLService::class, Service::getService(GraphQLService::class));
-        $this->assertEquals(GraphQLService::class, Service::getService(GraphQLAuthDirective::class));
-        $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderService::class));
-        $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
+        self::assertEquals(null, Service::getService(Service::class));
+        self::assertEquals(GraphQLService::class, Service::getService(GraphQLService::class));
+        self::assertEquals(GraphQLService::class, Service::getService(GraphQLAuthDirective::class));
+        self::assertEquals(DataLoaderService::class, Service::getService(DataLoaderService::class));
+        self::assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
     }
 
     /**
      * @covers ::getServiceName
      */
     public function testGetServiceName(): void {
-        $this->assertEquals(null, Service::getServiceName(Service::class));
-        $this->assertEquals('GraphQL', Service::getServiceName(GraphQLService::class));
-        $this->assertEquals('GraphQL', Service::getServiceName(GraphQLAuthDirective::class));
-        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderService::class));
-        $this->assertEquals('DataLoader', Service::getServiceName(DataLoaderImporter::class));
-        $this->assertEquals(null, Service::getServiceName(new class() extends Service {
+        self::assertEquals(null, Service::getServiceName(Service::class));
+        self::assertEquals('GraphQL', Service::getServiceName(GraphQLService::class));
+        self::assertEquals('GraphQL', Service::getServiceName(GraphQLAuthDirective::class));
+        self::assertEquals('DataLoader', Service::getServiceName(DataLoaderService::class));
+        self::assertEquals('DataLoader', Service::getServiceName(DataLoaderImporter::class));
+        self::assertEquals(null, Service::getServiceName(new class() extends Service {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
@@ -218,7 +218,7 @@ class ServiceTest extends TestCase {
         };
 
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
+            self::expectExceptionObject($expected);
         }
 
         if (is_string($expected)) {
@@ -226,14 +226,14 @@ class ServiceTest extends TestCase {
             $expected = str_replace('${service}', $name, $expected);
         }
 
-        $this->assertEquals($expected, $service->getCacheKey($key));
+        self::assertEquals($expected, $service->getCacheKey($key));
     }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{\Exception|string,array<mixed>}>
+     * @return array<string,array{Exception|string,array<mixed>}>
      */
     public function dataProviderGetKey(): array {
         return [

@@ -2,11 +2,12 @@
 
 namespace App\GraphQL\Queries\Documents;
 
+use App\Models\Document;
 use Illuminate\Database\Eloquent\Builder;
 
 class Documents {
     /**
-     * @param \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder
+     * @param Builder|Document $builder
      */
     public function __invoke(Builder $builder): Builder {
         return $builder->queryDocuments();

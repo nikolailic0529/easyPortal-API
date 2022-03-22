@@ -409,7 +409,7 @@ class CustomerTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->count());
         }
 
         // Test
@@ -611,7 +611,7 @@ class CustomerTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->count());
         }
 
         // Test
@@ -1431,12 +1431,12 @@ class CustomerTest extends TestCase {
                             'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                         static function (TestCase $test, Organization $organization): Customer {
-                            /** @var \App\Models\Reseller $reseller */
+                            /** @var Reseller $reseller */
                             $reseller = Reseller::factory()->create([
                                 'id' => $organization,
                             ]);
 
-                            /** @var \App\Models\Location $location */
+                            /** @var Location $location */
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
@@ -1478,7 +1478,7 @@ class CustomerTest extends TestCase {
                                 'service_revenue_total_amount_change' => 26.0,
                             ]);
 
-                            /** @var \App\Models\Customer $customer */
+                            /** @var Customer $customer */
                             $customer    = Customer::factory()
                                 ->hasContacts(1, [
                                     'name'        => 'contact1',

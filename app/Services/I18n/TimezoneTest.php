@@ -27,8 +27,8 @@ class TimezoneTest extends TestCase {
 
         $timezone->set($expected);
 
-        $this->assertEquals($expected, $timezone->get());
-        $this->assertEquals($default, $this->app->make(Repository::class)->get('app.timezone'));
+        self::assertEquals($expected, $timezone->get());
+        self::assertEquals($default, $this->app->make(Repository::class)->get('app.timezone'));
     }
 
     /**
@@ -65,7 +65,7 @@ class TimezoneTest extends TestCase {
         ]);
 
         // Check
-        $this->assertEquals($expected, $this->app->make(Timezone::class)->get());
+        self::assertEquals($expected, $this->app->make(Timezone::class)->get());
     }
     // </editor-fold>
 

@@ -17,6 +17,9 @@ use Propaganistas\LaravelPhone\PhoneNumber;
 use function is_null;
 use function sprintf;
 
+/**
+ * @extends DependentModelFactory<Contact>
+ */
 class ContactFactory extends DependentModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -27,7 +30,6 @@ class ContactFactory extends DependentModelFactory {
     }
 
     public function find(Model $object, Type $type): ?Contact {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($object, $type);
     }
 

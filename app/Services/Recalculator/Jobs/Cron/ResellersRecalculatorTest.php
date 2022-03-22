@@ -13,6 +13,6 @@ class ResellersRecalculatorTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(ResellersRecalculator::class);
+        self::assertCronableRegistered(ResellersRecalculator::class);
     }
 }

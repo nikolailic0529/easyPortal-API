@@ -145,13 +145,13 @@ class AssetsAnalyze extends Command {
         // @phpcs:enable
 
         foreach ($iterator->onBeforeChunk($each) as $item) {
-            /** @var \App\Services\DataLoader\Schema\ViewAsset $item */
+            /** @var ViewAsset $item */
             $id      = $item->id;
             $analyze = $analyzeResolver->get($id);
 
             if (!$analyze) {
-                $analyze                           = new AnalyzeAsset();
-                $analyze->{$analyze->getKeyName()} = $id;
+                $analyze     = new AnalyzeAsset();
+                $analyze->id = $id;
             }
 
             // Asset

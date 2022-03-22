@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\ModelProperty;
@@ -14,6 +15,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Execution\ModelsLoader\ModelsLoader;
+use stdClass;
 
 use function sprintf;
 use function str_ends_with;
@@ -39,7 +41,7 @@ class Loader implements ModelsLoader {
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Collection<\Illuminate\Database\Eloquent\Model> $parents
+     * @param EloquentCollection<int, Model> $parents
      */
     public function load(EloquentCollection $parents): void {
         // Root organization should always use original property
@@ -64,8 +66,13 @@ class Loader implements ModelsLoader {
         $property = $this->getProperty();
 
         foreach ($parents as $parent) {
-            /** @var \App\Services\Logger\Models\Model $parent */
-            $parent->setAttribute($property, $values->get($parent->getKey())->{$property} ?? null);
+            /** @var Model $parent */
+            $value = $values->get($parent->getKey());
+            $value = $value instanceof stdClass
+                ? ($value->{$property} ?? null)
+                : null;
+
+            $parent->setAttribute($property, $value);
         }
     }
 
@@ -75,7 +82,7 @@ class Loader implements ModelsLoader {
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {
         // Has scope?
-        /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model */
+        /** @var Model&OwnedByOrganization $model */
         $model = $builder->getModel();
         $scope = OwnedByOrganizationScope::class;
 
@@ -88,8 +95,7 @@ class Loader implements ModelsLoader {
         }
 
         // Relation?
-        $column   = $model->getOrganizationColumn();
-        $property = new ModelProperty($column);
+        $property = new ModelProperty($model->getOrganizationColumn());
         $relation = $property->getRelation($builder);
 
         if (!($relation instanceof BelongsToMany)) {

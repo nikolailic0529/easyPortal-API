@@ -6,10 +6,11 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
+use App\Utils\Eloquent\Model;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasCustomersThroughLocations {
     #[CascadeDelete(false)]

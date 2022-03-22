@@ -10,9 +10,10 @@ class TrimStrings extends Middleware {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $except = [
+        'current_password',
         'password',
         'password_confirmation',
     ];

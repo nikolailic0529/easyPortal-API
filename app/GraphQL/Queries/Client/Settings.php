@@ -15,12 +15,11 @@ class Settings {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array<string,mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $settings = (new Collection($this->storage->load()))->keyBy(static function (array $setting): string {
             return $setting['name'];
         });

@@ -3,6 +3,7 @@
 namespace App\Services\Keycloak\Client\Types;
 
 use App\Utils\JsonObject\JsonObject;
+use App\Utils\JsonObject\JsonObjectArray;
 
 class User extends JsonObject {
     public string $id;
@@ -47,7 +48,8 @@ class User extends JsonObject {
     public array $groups;
 
     /**
-     * @var array<\App\Services\Keycloak\Client\Types\Credential>
+     * @var array<Credential>
      */
+    #[JsonObjectArray(Credential::class)]
     public array $credentials;
 }

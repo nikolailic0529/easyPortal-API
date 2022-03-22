@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 /**
- * @extends \App\Services\DataLoader\Resolver\Resolver<\App\Models\Distributor>
+ * @extends Resolver<Distributor>
  */
 class DistributorResolver extends Resolver implements SingletonPersistent {
     public function get(string|int $id, Closure $factory = null): ?Distributor {
@@ -26,7 +26,7 @@ class DistributorResolver extends Resolver implements SingletonPersistent {
     }
 
     /**
-     * @param array<string|int> $keys
+     * @inheritDoc
      */
     public function prefetch(array $keys, Closure|null $callback = null): static {
         return parent::prefetch($keys, $callback);

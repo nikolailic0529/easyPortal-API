@@ -5,6 +5,7 @@ namespace App\Models\Relations;
 use App\Models\Contact;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncMorphMany;
+use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
@@ -13,7 +14,7 @@ use function count;
 /**
  * @property int $contacts_count
  *
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasContacts {
     use SyncMorphMany;
@@ -24,7 +25,7 @@ trait HasContacts {
     }
 
     /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\Contact> $contacts
+     * @param Collection<int,Contact>|array<Contact> $contacts
      */
     public function setContactsAttribute(Collection|array $contacts): void {
         $this->syncMorphMany('contacts', $contacts);

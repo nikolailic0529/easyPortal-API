@@ -13,7 +13,10 @@ use Illuminate\Database\Eloquent\Model;
 class HideGeneratedAttributesModelHook implements ModelHookInterface {
     public function run(ModelsCommand $command, Model $model): void {
         (new class($command) extends ModelsCommand {
-            /** @noinspection PhpMissingParentConstructorInspection */
+            /**
+             * @noinspection PhpMissingParentConstructorInspection
+             * @phpstan-ignore-next-line
+             */
             public function __construct(
                 protected ModelsCommand $command,
             ) {

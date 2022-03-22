@@ -24,6 +24,9 @@ use function sprintf;
 use function strtr;
 use function time;
 
+/**
+ * @template TProcessor of \App\Utils\Processor\Processor
+ */
 abstract class ProcessorCommand extends Command {
     public function __construct() {
         $replacements      = $this->getReplacements();
@@ -39,6 +42,9 @@ abstract class ProcessorCommand extends Command {
         parent::__construct();
     }
 
+    /**
+     * @param TProcessor $processor
+     */
     protected function process(Formatter $formatter, Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
@@ -170,7 +176,7 @@ abstract class ProcessorCommand extends Command {
     }
 
     /**
-     * @return class-string<\App\Utils\Processor\Processor>
+     * @return class-string<TProcessor>
      */
     protected function getProcessorClass(): string {
         $class     = new ReflectionClass($this);

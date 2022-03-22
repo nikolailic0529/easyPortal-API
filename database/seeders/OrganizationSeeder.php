@@ -13,11 +13,11 @@ use function app;
 class OrganizationSeeder extends SmartSeeder {
     public function seed(): void {
         // Root organization
-        $root                                        = app()->make(RootOrganization::class);
-        $organization                                = new Organization();
-        $organization->{$organization->getKeyName()} = $root->getKey();
-        $organization->name                          = 'Root Organization';
-        $organization->keycloak_scope                = 'rootorganization';
+        $root                         = app()->make(RootOrganization::class);
+        $organization                 = new Organization();
+        $organization->id             = $root->getKey();
+        $organization->name           = 'Root Organization';
+        $organization->keycloak_scope = 'rootorganization';
         $organization->save();
 
         // Root user

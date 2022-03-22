@@ -86,9 +86,9 @@ class PermissionsSync extends Command {
                 ]));
 
             // Create Model
-            $model                         = $actualModels->get($name) ?? new PermissionModel();
-            $model->{$model->getKeyName()} = $role->id;
-            $model->key                    = $name;
+            $model      = $actualModels->get($name) ?? new PermissionModel();
+            $model->id  = $role->id;
+            $model->key = $name;
 
             if ($model->trashed()) {
                 $model->restore();
@@ -128,12 +128,12 @@ class PermissionsSync extends Command {
                 );
 
                 // Create/Update Role Model
-                $role                        = RoleModel::query()->whereKey($orgAdminGroup->id)->first()
+                $role               = RoleModel::query()->whereKey($orgAdminGroup->id)->first()
                     ?? new RoleModel();
-                $role->{$role->getKeyName()} = $orgAdminGroup->id;
-                $role->name                  = $orgAdminGroup->name;
-                $role->permissions           = $usedModels->intersectByKeys($orgAdminPermissions);
-                $role->organization          = null;
+                $role->id           = $orgAdminGroup->id;
+                $role->name         = $orgAdminGroup->name;
+                $role->permissions  = $usedModels->intersectByKeys($orgAdminPermissions);
+                $role->organization = null;
                 $role->save();
             } else {
                 $this->exceptionHandler->report(new OrgAdminGroupNotFound(

@@ -15,21 +15,32 @@ use Iterator;
  * @template T
  * @template V
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<V>
- *
- * @uses \App\Utils\Iterators\Concerns\InitialState<T>
- * @uses \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
- * @uses \App\Utils\Iterators\Concerns\PropertiesProxy<T,V>
+ * @implements ObjectIterator<V>
  */
 class ObjectIteratorIterator implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<T,V>
+     */
     use PropertiesProxy;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
+     */
     use ChunkConverter;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     */
     use InitialState;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     */
     use Subjects;
 
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<V> $internalIterator
-     * @param \Closure(V $item): T                             $converter
+     * @param ObjectIterator<V> $internalIterator
+     * @param Closure(V): T     $converter
      */
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
@@ -57,7 +68,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     // <editor-fold desc="IteratorAggregate">
     // =========================================================================
     /**
-     * @return \Iterator<T>
+     * @return Iterator<T>
      */
     public function getIterator(): Iterator {
         try {

@@ -55,21 +55,21 @@ class WithCurrencyTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($currency, $factory->currency($currency->code));
-        $this->assertCount(1, $this->getQueryLog());
+        self::assertEquals($currency, $factory->currency($currency->code));
+        self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->currency('new ');
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('new', $created->code);
-        $this->assertEquals('new', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals('new', $created->code);
+        self::assertEquals('new', $created->name);
+        self::assertCount(2, $this->getQueryLog());
 
         // If null - null should be returned
-        $this->assertNull($factory->currency(null));
+        self::assertNull($factory->currency(null));
     }
 }

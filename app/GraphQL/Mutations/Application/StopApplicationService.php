@@ -14,12 +14,11 @@ class StopApplicationService {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array{setting: array<mixed>}
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $service = $this->resolver->get($args['input']['name'] ?? '');
         $result  = $this->queue->stop($service);
 

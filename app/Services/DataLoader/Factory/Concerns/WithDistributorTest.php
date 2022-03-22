@@ -41,7 +41,7 @@ class WithDistributorTest extends TestCase {
         $factory = new WithDistributorTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $distributor);
 
-        $this->assertEquals($distributor, $factory->distributor($object));
+        self::assertEquals($distributor, $factory->distributor($object));
     }
 
     /**
@@ -73,7 +73,7 @@ class WithDistributorTest extends TestCase {
         $factory = new WithDistributorTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $distributor);
 
-        $this->assertEquals($distributor, $factory->distributor($object));
+        self::assertEquals($distributor, $factory->distributor($object));
     }
 
     /**
@@ -94,9 +94,9 @@ class WithDistributorTest extends TestCase {
         $factory = new WithDistributorTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $distributor);
 
-        $this->expectException(DistributorNotFound::class);
+        self::expectException(DistributorNotFound::class);
 
-        $this->assertEquals($distributor, $factory->distributor($object));
+        self::assertEquals($distributor, $factory->distributor($object));
     }
     //</editor-fold>
 

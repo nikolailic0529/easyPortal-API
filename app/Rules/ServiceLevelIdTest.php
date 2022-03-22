@@ -26,7 +26,7 @@ class ServiceLevelIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(ServiceLevelId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(ServiceLevelId::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class ServiceLevelIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $serviceLevelFactory): void {
         $serviceLevelId = $serviceLevelFactory();
-        $this->assertEquals($expected, $this->app->make(ServiceLevelId::class)->passes('test', $serviceLevelId));
+        self::assertEquals($expected, $this->app->make(ServiceLevelId::class)->passes('test', $serviceLevelId));
     }
     // </editor-fold>
 

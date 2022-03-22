@@ -71,7 +71,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Company>
+     * @return ObjectIterator<Company>
      */
     public function getDistributors(
         DateTimeInterface $from = null,
@@ -128,7 +128,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Company>
+     * @return ObjectIterator<Company>
      */
     public function getResellers(
         DateTimeInterface $from = null,
@@ -185,7 +185,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Company>
+     * @return ObjectIterator<Company>
      */
     public function getCustomers(
         DateTimeInterface $from = null,
@@ -299,7 +299,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return ObjectIterator<ViewAsset>
      */
     public function getAssetsByCustomerId(
         string $id,
@@ -328,7 +328,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return ObjectIterator<ViewAsset>
      */
     public function getAssetsByCustomerIdWithDocuments(
         string $id,
@@ -358,7 +358,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return ObjectIterator<ViewAsset>
      */
     public function getAssetsByResellerId(
         string $id,
@@ -387,7 +387,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return ObjectIterator<ViewAsset>
      */
     public function getAssetsByResellerIdWithDocuments(
         string $id,
@@ -417,7 +417,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return ObjectIterator<ViewAsset>
      */
     public function getAssets(
         DateTimeInterface $from = null,
@@ -444,7 +444,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return ObjectIterator<ViewAsset>
      */
     public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
@@ -485,7 +485,7 @@ class Client {
     }
 
     /**
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\Document>
+     * @return ObjectIterator<Document>
      */
     public function getDocuments(
         DateTimeInterface $from = null,
@@ -630,10 +630,10 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed> $params
-     * @param \Closure(array<mixed>):T $reriever
+     * @param array<mixed>             $params
+     * @param Closure(array<mixed>): T $retriever
      *
-     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<T>
+     * @return OffsetBasedIterator<T, array<mixed>>
      */
     public function getOffsetBasedIterator(
         string $selector,
@@ -652,10 +652,10 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed> $params
-     * @param \Closure(array<mixed>):T $reriever
+     * @param array<mixed>             $params
+     * @param Closure(array<mixed>): T $retriever
      *
-     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<T>
+     * @return LastIdBasedIterator<T, array<mixed>>
      */
     public function getLastIdBasedIterator(
         string $selector,
@@ -672,10 +672,10 @@ class Client {
     }
 
     /**
-     * @template T
+     * @template T of object
      *
-     * @param array<mixed> $params
-     * @param \Closure(array<mixed>): T $retriever
+     * @param array<mixed>             $params
+     * @param Closure(array<mixed>): T $retriever
      *
      * @return T|null
      */
@@ -874,7 +874,7 @@ class Client {
     // <editor-fold desc="Retrievers">
     // =========================================================================
     /**
-     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Company
+     * @return Closure(array<mixed>): Company
      */
     protected function getCompanyRetriever(): Closure {
         return static function (array $data): Company {
@@ -883,7 +883,7 @@ class Client {
     }
 
     /**
-     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\ViewAsset
+     * @return Closure(array<mixed>): ViewAsset
      */
     protected function getAssetRetriever(): Closure {
         return static function (array $data): ViewAsset {
@@ -892,7 +892,7 @@ class Client {
     }
 
     /**
-     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Document
+     * @return Closure(array<mixed>): Document
      */
     protected function getDocumentRetriever(): Closure {
         return static function (array $data): Document {

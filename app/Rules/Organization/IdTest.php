@@ -26,7 +26,7 @@ class IdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(Id::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(Id::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class IdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $currencyFactory): void {
         $currencyId = $currencyFactory();
-        $this->assertEquals($expected, $this->app->make(Id::class)->passes('test', $currencyId));
+        self::assertEquals($expected, $this->app->make(Id::class)->passes('test', $currencyId));
     }
     // </editor-fold>
 

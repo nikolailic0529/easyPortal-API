@@ -35,7 +35,7 @@ class UpdateApplicationSettingsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array{name: string, value: string} $input
+     * @param array<array{name: string, value: string}> $input
      */
     public function testInvoke(
         Response $expected,

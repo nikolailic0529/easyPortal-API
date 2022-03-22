@@ -28,7 +28,7 @@ class ContractIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(ContractId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(ContractId::class)->message(), 'Translated');
     }
 
     /**
@@ -41,7 +41,7 @@ class ContractIdTest extends TestCase {
         $organization = $this->setOrganization(Organization::factory()->create());
         $contractId   = $contractFactory($this, $organization);
         $this->setSettings($settings);
-        $this->assertEquals($expected, $this->app->make(ContractId::class)->passes('test', $contractId));
+        self::assertEquals($expected, $this->app->make(ContractId::class)->passes('test', $contractId));
     }
     // </editor-fold>
 

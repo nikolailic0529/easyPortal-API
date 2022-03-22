@@ -19,7 +19,7 @@ class Role extends JsonObject {
     public array $attributes;
 
     /**
-     * @var array<\App\Services\Keycloak\Client\Types\RoleComposite>
+     * @var array<mixed>
      */
     public array $composites;
 }

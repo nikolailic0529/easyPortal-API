@@ -11,7 +11,7 @@ class SchemaWrapper extends JsonSchemaWrapper {
     use WithTestData;
 
     /**
-     * @param class-string<\Tests\GraphQL\GraphQLResponse> $response
+     * @param class-string<GraphQLResponse> $response
      */
     public function __construct(string $response, string $root, string $schema = null) {
         parent::__construct(

@@ -3,9 +3,10 @@
 namespace App\Models\Relations;
 
 use App\Models\Organization;
+use App\Utils\Eloquent\Model;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait HasOrganization {
     use HasOrganizationNullable {

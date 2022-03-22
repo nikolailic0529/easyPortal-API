@@ -3,11 +3,12 @@
 namespace App\Services\DataLoader\Importer;
 
 use App\Services\DataLoader\Collector\Data;
+use App\Services\DataLoader\Schema\Type;
 use App\Utils\JsonObject\JsonObjectIterator;
 
 class ImporterChunkData extends Data {
     /**
-     * @param array<\App\Services\DataLoader\Schema\Type> $items
+     * @param array<Type> $items
      */
     public function __construct(array $items) {
         parent::__construct();

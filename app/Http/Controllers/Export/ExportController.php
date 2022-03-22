@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
-use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use Barryvdh\Snappy\PdfWrapper;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Box\Spout\Writer\WriterInterface;
@@ -63,6 +63,7 @@ class ExportController extends Controller {
         protected CreatesContext $context,
         protected Helper $helper,
         protected ExceptionHandler $exceptionHandler,
+        protected PdfWrapper $pdf,
     ) {
         // empty
     }
@@ -84,11 +85,13 @@ class ExportController extends Controller {
         $iterator = $this->getRowsIterator($request, $format, $headers);
         $items    = iterator_to_array($iterator);
         $rows     = array_merge($rows, $items);
-        $pdf      = PDF::loadView('exports.pdf', [
-            'rows' => $rows,
-        ]);
+        $pdf      = $this->pdf
+            ->loadView('exports.pdf', [
+                'rows' => $rows,
+            ])
+            ->download('export.pdf');
 
-        return $pdf->download('export.pdf');
+        return $pdf;
     }
 
     protected function excel(
@@ -122,9 +125,9 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param \Closure(array<string>): void $headersCallback
+     * @param Closure(array<string>): void $headersCallback
      *
-     * @return \Iterator<array<mixed>>
+     * @return Iterator<array<mixed>>
      */
     protected function getRowsIterator(ExportRequest $request, string $format, Closure $headersCallback): Iterator {
         // Prepare request
@@ -223,7 +226,7 @@ class ExportController extends Controller {
     /**
      * @param array<string,mixed> $parameters
      *
-     * @return \App\Utils\Iterators\Contracts\ObjectIterator<array<string,mixed>>
+     * @return ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
         $chunk           = $this->getChunkSize();
@@ -282,7 +285,7 @@ class ExportController extends Controller {
 
         if (!array_is_list($item)) {
             foreach ($item as $name => $value) {
-                $key = (string) ($prefix ? "{$prefix}.{$name}" : $name);
+                $key = $prefix ? "{$prefix}.{$name}" : $name;
 
                 if (is_array($value) && !array_is_list($value)) {
                     $headers = array_merge($headers, $this->getHeaders($value, $key));

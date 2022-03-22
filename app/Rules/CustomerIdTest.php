@@ -27,19 +27,18 @@ class CustomerIdTest extends TestCase {
                 ],
             ];
         });
-        $this->assertEquals($this->app->make(CustomerId::class)->message(), 'Translated');
+        self::assertEquals($this->app->make(CustomerId::class)->message(), 'Translated');
     }
 
     /**
      * @covers ::passes
      *
-     * @param array<string, mixed> $settings
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, Closure $customerFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $customerId   = $customerFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(CustomerId::class)->passes('test', $customerId));
+        self::assertEquals($expected, $this->app->make(CustomerId::class)->passes('test', $customerId));
     }
     // </editor-fold>
 

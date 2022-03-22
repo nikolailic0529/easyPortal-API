@@ -4,11 +4,12 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Oem;
 use App\Models\OemGroup;
+use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 
 /**
- * @mixin \App\Services\DataLoader\Factory\Factory
+ * @mixin Factory
  */
 trait WithOemGroup {
     abstract protected function getNormalizer(): Normalizer;

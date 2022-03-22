@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Currency;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Currency create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Currency make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method Currency create($attributes = [], ?Model $parent = null)
+ * @method Currency make($attributes = [], ?Model $parent = null)
+ *
+ * @extends Factory<Currency>
  */
 class CurrencyFactory extends Factory {
     /**

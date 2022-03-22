@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Imports distributors.
+ *
+ * @extends ImporterCronJob<DistributorsImporter>
  */
 class DistributorsImporterCronJob extends ImporterCronJob {
     public function displayName(): string {
@@ -17,7 +19,7 @@ class DistributorsImporterCronJob extends ImporterCronJob {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

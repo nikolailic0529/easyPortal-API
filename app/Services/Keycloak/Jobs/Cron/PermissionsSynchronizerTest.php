@@ -16,7 +16,7 @@ class PermissionsSynchronizerTest extends TestCase {
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(PermissionsSynchronizer::class);
+        self::assertCronableRegistered(PermissionsSynchronizer::class);
     }
 
     /**

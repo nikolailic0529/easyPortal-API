@@ -5,11 +5,14 @@ namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Contains;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\EndsWith;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\StartsWith;
 
 /**
- * @mixin \LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Contains
- * @mixin \LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\StartsWith
- * @mixin \LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\EndsWith
+ * @mixin Contains
+ * @mixin StartsWith
+ * @mixin EndsWith
  */
 trait Fulltext {
     public function __construct(

@@ -2,6 +2,8 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Events\SettingsUpdated;
 use App\Services\Settings\Jobs\ConfigUpdate;
@@ -29,12 +31,12 @@ class Settings {
     protected const SECRET    = '********';
 
     /**
-     * @var array<\App\Services\Settings\Setting>
+     * @var array<Setting>
      */
     private array $settings = [];
 
     /**
-     * @var array<\App\Services\Settings\Setting>
+     * @var array<Setting>
      */
     private array $editable = [];
 
@@ -53,7 +55,7 @@ class Settings {
     }
 
     /**
-     * @return array<\App\Services\Settings\Setting>
+     * @return array<Setting>
      */
     public function getEditableSettings(): array {
         if (!$this->editable) {
@@ -68,11 +70,11 @@ class Settings {
     /**
      * @param array<string, string> $settings
      *
-     * @return array<\App\Services\Settings\Setting> Updated settings
+     * @return array<Setting> Updated settings
      */
     public function setEditableSettings(array $settings): array {
         // Update
-        /** @var array<\App\Services\Settings\Value> $updated */
+        /** @var array<Value> $updated */
         $updated  = [];
         $editable = $this->getEditableSettings();
 
@@ -108,7 +110,7 @@ class Settings {
     }
 
     /**
-     * @return array<class-string<\App\Services\Queue\Job>>
+     * @return array<class-string<Job>>
      */
     public function getJobs(): array {
         $settings = $this->getSettings();
@@ -125,7 +127,7 @@ class Settings {
     }
 
     /**
-     * @return array<class-string<\App\Services\Queue\CronJob>>
+     * @return array<class-string<CronJob>>
      */
     public function getServices(): array {
         $settings = $this->getSettings();
@@ -198,7 +200,7 @@ class Settings {
     }
 
     /**
-     * @return array<\App\Services\Settings\Setting>
+     * @return array<Setting>
      */
     protected function getSettings(): array {
         if (!$this->settings) {
@@ -217,7 +219,7 @@ class Settings {
     }
 
     /**
-     * @param array<string, \App\Services\Settings\Value> $settings
+     * @param array<string, Value> $settings
      */
     protected function saveSettings(array $settings): bool {
         // Cleanup

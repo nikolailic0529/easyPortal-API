@@ -40,7 +40,7 @@ class ServiceTest extends TestCase {
             $replacement = "Expression {$expression} is forbidden.";
         }
 
-        $this->assertEquals([], $usages, $replacement);
+        self::assertEquals([], $usages, $replacement);
     }
     // </editor-fold>
 

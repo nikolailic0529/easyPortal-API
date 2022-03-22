@@ -36,7 +36,7 @@ class PaginatedTest extends TestCase {
     public function testManipulateArgDefinition(string $expected, array $settings): void {
         $this->setSettings($settings);
 
-        $this->assertGraphQLSchemaEquals(
+        self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected($expected, '~schema.graphql'),
             $this->getTestData()->content('~schema.graphql'),
         );

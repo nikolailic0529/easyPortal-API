@@ -4,18 +4,18 @@ namespace App\Services\Recalculator\Testing;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Tests\TestCase;
 
 use function in_array;
 use function str_ends_with;
 
 /**
- * @mixin \Tests\TestCase
+ * @mixin TestCase
  */
 trait Helper {
     /**
-     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>
-     *     |\Illuminate\Database\Eloquent\Model $model
-     * @param array<string> $attributes
+     * @param Collection<int, Model>|Model $model
+     * @param array<string>                $attributes
      *
      * @return array<string, mixed>
      */

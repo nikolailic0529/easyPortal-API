@@ -11,16 +11,23 @@ use LogicException;
 
 use function is_object;
 
+/**
+ * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
+ * @template TChunkData of \App\Services\DataLoader\Collector\Data
+ * @template TState of \App\Services\DataLoader\Importer\Importers\AssetsImporterState
+ *
+ * @extends AssetsImporter<TItem, TChunkData, TState>
+ */
 class AssetsIteratorImporter extends AssetsImporter {
     /**
-     * @var \App\Utils\Iterators\Contracts\ObjectIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @var ObjectIterator<ViewAsset>
      */
     private ObjectIterator $iterator;
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @param \App\Utils\Iterators\Contracts\ObjectIterator<string|\App\Models\Asset> $iterator
+     * @param ObjectIterator<string|Asset> $iterator
      */
     public function setIterator(ObjectIterator $iterator): static {
         $this->iterator = new IteratorIterator(

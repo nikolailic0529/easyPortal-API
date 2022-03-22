@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+/**
+ * @extends Resolver<Currency>
+ */
 class CurrencyResolver extends Resolver implements SingletonPersistent {
     public function get(string $code, Closure $factory = null): ?Currency {
         return $this->resolve($this->getUniqueKey($code), $factory);

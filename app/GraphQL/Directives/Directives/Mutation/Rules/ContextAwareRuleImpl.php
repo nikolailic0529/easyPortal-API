@@ -6,7 +6,7 @@ use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @implements \App\GraphQL\Directives\Directives\Mutation\Rules\ContextAwareRule
+ * @mixin ContextAwareRule
  */
 trait ContextAwareRuleImpl {
     private Context $mutationContext;

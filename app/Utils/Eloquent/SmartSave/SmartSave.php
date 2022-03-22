@@ -2,18 +2,22 @@
 
 namespace App\Utils\Eloquent\SmartSave;
 
+use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @mixin \App\Utils\Eloquent\Model
+ * @mixin Model
  */
 trait SmartSave {
     /**
-     * @var array<\Closure>
+     * @var array<Closure(): void>
      */
     private array $onSaveCallbacks = [];
 
+    /**
+     * @param Closure(): void $callback
+     */
     protected function onSave(Closure $callback): void {
         $this->onSaveCallbacks[] = $callback;
     }

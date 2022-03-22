@@ -7,7 +7,16 @@ use App\Utils\Iterators\ObjectIteratorImpl;
 
 use function end;
 
+/**
+ * @template T
+ * @template V
+ *
+ * @extends ObjectIteratorImpl<T, V>
+ */
 class LastIdBasedIterator extends ObjectIteratorImpl {
+    /**
+     * @phpstan-use \App\Services\DataLoader\Client\IteratorErrorHandler<T, V>
+     */
     use IteratorErrorHandler;
 
     /**

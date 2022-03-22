@@ -19,14 +19,18 @@ use function sprintf;
 /**
  * @template T
  *
- * @implements \App\Utils\Iterators\Contracts\ObjectIterator<T>
- *
- * @uses \App\Utils\Iterators\Concerns\InitialState<T>
- * @uses \App\Utils\Iterators\Concerns\Subjects<T>
+ * @implements ObjectIterator<T>
  */
 class ObjectIteratorsIterator implements ObjectIterator {
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     */
     use InitialState;
     use Properties;
+
+    /**
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     */
     use Subjects {
         chunkLoaded as private;
         chunkProcessed as private;
@@ -35,7 +39,7 @@ class ObjectIteratorsIterator implements ObjectIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,\App\Utils\Iterators\Contracts\ObjectIterator> $iterators
+     * @param array<string,ObjectIterator> $iterators
      */
     public function __construct(
         protected array $iterators,

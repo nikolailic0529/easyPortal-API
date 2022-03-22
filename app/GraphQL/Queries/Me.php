@@ -25,10 +25,8 @@ class Me {
 
     /**
      * @param array<string, mixed> $args
-     *
-     * @return array<mixed>|null
      */
-    public function __invoke(mixed $_, array $args, GraphQLContext $context): ?User {
+    public function __invoke(mixed $root, array $args, GraphQLContext $context): ?User {
         return $this->getMe($context->user());
     }
 
@@ -43,19 +41,16 @@ class Me {
         return $enabled;
     }
 
-    /**
-     * @return array<string,mixed>|null
-     */
     public function getMe(?Authenticatable $user): ?User {
         $me = null;
 
         if ($user instanceof User) {
             $me = $user;
         } elseif ($user) {
-            $me                      = new User();
-            $me->{$me->getKeyName()} = $user->getAuthIdentifier();
+            $me     = new User();
+            $me->id = $user->getAuthIdentifier();
         } else {
-            $me = null;
+            // empty
         }
 
         return $me;

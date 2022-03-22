@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Schema;
 
+use App\Utils\JsonObject\JsonObjectArray;
+
 class Company extends Type implements TypeWithId {
     public string  $id;
     public string  $name;
@@ -10,28 +12,33 @@ class Company extends Type implements TypeWithId {
     public ?string $keycloakGroupId;
     public ?string $keycloakClientScopeName;
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
+     * @var array<CompanyContactPerson>
      */
+    #[JsonObjectArray(CompanyContactPerson::class)]
     public array $companyContactPersons;
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyType>
+     * @var array<CompanyType>
      */
+    #[JsonObjectArray(CompanyType::class)]
     public array $companyTypes;
     /**
-     * @var array<\App\Services\DataLoader\Schema\Location>
+     * @var array<Location>
      */
+    #[JsonObjectArray(Location::class)]
     public array $locations;
     /**
-     * @var array<\App\Services\DataLoader\Schema\ViewAsset>
+     * @var array<ViewAsset>
      */
+    #[JsonObjectArray(ViewAsset::class)]
     public array $assets;
 
     public ?BrandingData $brandingData;
     public ?CompanyKpis $companyKpis;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\CompanyKpis>|null
+     * @var array<CompanyKpis>|null
      */
+    #[JsonObjectArray(CompanyKpis::class)]
     public ?array $companyResellerKpis;
 
     /**

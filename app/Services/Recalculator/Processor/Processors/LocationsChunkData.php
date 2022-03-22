@@ -6,9 +6,10 @@ use App\Models\CustomerLocation;
 use App\Models\Location;
 use App\Models\ResellerLocation;
 use App\Services\Recalculator\Processor\ChunkData;
+use stdClass;
 
 /**
- * @extends \App\Services\Recalculator\Processor\ChunkData<\App\Models\Location>
+ * @extends ChunkData<Location>
  */
 class LocationsChunkData extends ChunkData {
     /**
@@ -40,7 +41,7 @@ class LocationsChunkData extends ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $locationId          = (string) $row->location_id;
                 $resellerId          = (string) $row->reseller_id;
                 $data[$locationId][] = $resellerId;
@@ -75,7 +76,7 @@ class LocationsChunkData extends ChunkData {
                 ->get();
 
             foreach ($result as $row) {
-                /** @var \stdClass $row */
+                /** @var stdClass $row */
                 $locationId          = (string) $row->location_id;
                 $customerId          = (string) $row->customer_id;
                 $data[$locationId][] = $customerId;
