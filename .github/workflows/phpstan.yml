@@ -41,6 +41,9 @@ jobs:
         with:
           php-version: ${{ env.PHP_VERSION }}
           extensions: ${{ needs.settings.outputs.extensions }}
+      - name: Setup App
+        run: |
+          cp .env.github .env
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Execute
