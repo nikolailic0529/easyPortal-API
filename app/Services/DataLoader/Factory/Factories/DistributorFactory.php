@@ -16,6 +16,9 @@ use InvalidArgumentException;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends ModelFactory<Distributor>
+ */
 class DistributorFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -27,7 +30,6 @@ class DistributorFactory extends ModelFactory {
     }
 
     public function find(Type $type): ?Distributor {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 

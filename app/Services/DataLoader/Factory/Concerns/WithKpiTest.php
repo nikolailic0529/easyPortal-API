@@ -105,6 +105,8 @@ class WithKpiTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends ModelFactory<Model>
  */
 class WithKpiTest_Factory extends ModelFactory {
     use WithKpi {

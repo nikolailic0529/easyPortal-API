@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -29,7 +29,7 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @extends Importer<SchemaDocument, ImporterChunkData, ImporterState>
+ * @extends Importer<SchemaDocument, ImporterChunkData, ImporterState, Document>
  */
 class DocumentsImporter extends Importer {
     protected function register(): void {
@@ -79,7 +79,7 @@ class DocumentsImporter extends Importer {
         return $this->getClient()->getDocuments($state->from);
     }
 
-    protected function makeFactory(State $state): Factory {
+    protected function makeFactory(State $state): ModelFactory {
         return $this->getContainer()->make(DocumentFactory::class);
     }
 

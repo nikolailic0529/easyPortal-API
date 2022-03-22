@@ -34,7 +34,7 @@ class StatusResolver extends Resolver implements SingletonPersistent {
     }
 
     /**
-     * @return array{model: string, type: string}
+     * @return array{object_type: string, key: string}
      */
     protected function getUniqueKey(Model|string $model, string $key): array {
         return [

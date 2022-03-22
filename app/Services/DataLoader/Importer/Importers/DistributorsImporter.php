@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Models\Distributor;
 use App\Services\DataLoader\Factory\Factories\DistributorFactory;
 use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
@@ -14,7 +15,7 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 /**
- * @extends Importer<Company, DistributorsImporterChunkData, ImporterState>
+ * @extends Importer<Company, DistributorsImporterChunkData, ImporterState, Distributor>
  */
 class DistributorsImporter extends Importer {
     protected function register(): void {
@@ -38,7 +39,7 @@ class DistributorsImporter extends Importer {
         return $this->getClient()->getDistributors($state->from);
     }
 
-    protected function makeFactory(State $state): Factory {
+    protected function makeFactory(State $state): ModelFactory {
         return $this->getContainer()->make(DistributorFactory::class);
     }
 

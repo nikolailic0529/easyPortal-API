@@ -50,7 +50,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer, \App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
              */
             use WithLocations {
                 companyLocations as public;
@@ -141,7 +141,7 @@ class WithLocationsTest extends TestCase {
 
         $factory = new class($factory) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer, \App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
              */
             use WithLocations {
                 location as public;
@@ -192,7 +192,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             /**
-             * @phpstan-use WithLocations<Reseller|Customer, \App\Models\ResellerLocation|\App\Models\CustomerLocation>
+             * @phpstan-use WithLocations<Reseller|Customer,\App\Models\ResellerLocation|\App\Models\CustomerLocation>
              */
             use WithLocations {
                 companyLocations as public;
@@ -230,7 +230,7 @@ class WithLocationsTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string, array<Closure(): Reseller|Customer>>
+     * @return array<string, array{Closure(): (Reseller|Customer)}>
      */
     public function dataProviderCompanyLocations(): array {
         return [

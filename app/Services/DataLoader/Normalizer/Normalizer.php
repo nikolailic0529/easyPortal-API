@@ -14,7 +14,7 @@ use App\Services\DataLoader\Normalizer\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UnsignedNormalizer;
 use App\Services\DataLoader\Normalizer\Normalizers\UuidNormalizer;
-use DateTimeInterface;
+use Carbon\CarbonImmutable;
 
 class Normalizer implements Singleton {
     public function __construct(
@@ -45,7 +45,7 @@ class Normalizer implements Singleton {
         return $this->text->normalize($value);
     }
 
-    public function datetime(mixed $value): ?DateTimeInterface {
+    public function datetime(mixed $value): ?CarbonImmutable {
         return $this->datetime->normalize($value);
     }
 

@@ -37,7 +37,7 @@ class ContactResolver extends Resolver {
     }
 
     /**
-     * @return array{object_type: string, object_id: string, name: string|null, phone: string|null}
+     * @return array{object_type:string,object_id:mixed,name:string|null,phone_number:string|null,email:string|null}
      */
     protected function getUniqueKey(Model|Contact $model, ?string $name, ?string $phone, ?string $mail): array {
         return ($model instanceof Contact

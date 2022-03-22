@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\Contact;
-use App\Models\Location;
 use App\Models\Type;
 use App\Services\DataLoader\Schema\Type as SchemaType;
 use App\Utils\Eloquent\Model;
@@ -21,7 +19,7 @@ trait Polymorphic {
 
     /**
      * @template T of \App\Utils\Eloquent\Model
-     * @template R of \App\Models\Contact|\App\Models\Location
+     * @template R of \App\Models\Contact|\App\Models\Location|\App\Models\CustomerLocation|\App\Models\ResellerLocation
      *
      * @param T                               $owner
      * @param array<SchemaType>               $objects
@@ -32,7 +30,7 @@ trait Polymorphic {
      */
     private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): array {
         // First, we should convert type into the internal model and determine its types.
-        /** @var SplObjectStorage<Contact|Location, array<Type>> $models */
+        /** @var SplObjectStorage<R, array<Type>> $models */
         $models = new SplObjectStorage();
 
         foreach ($objects as $object) {

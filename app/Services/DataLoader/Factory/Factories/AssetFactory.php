@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
-use App\Models\Asset as AssetModel;
+use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Coverage;
 use App\Models\Document;
@@ -69,6 +69,9 @@ use function sprintf;
 
 use const SORT_REGULAR;
 
+/**
+ * @extends ModelFactory<Asset>
+ */
 class AssetFactory extends ModelFactory {
     use Children;
     use WithReseller;
@@ -190,7 +193,7 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
-    public function create(Type $type): ?AssetModel {
+    public function create(Type $type): ?Asset {
         $model = null;
 
         if ($type instanceof ViewAsset) {
@@ -208,14 +211,14 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAsset(ViewAsset $asset): ?AssetModel {
+    protected function createFromAsset(ViewAsset $asset): ?Asset {
         return $this->assetAsset($asset);
     }
 
-    protected function assetAsset(ViewAsset $asset): AssetModel {
+    protected function assetAsset(ViewAsset $asset): Asset {
         // Get/Create
         $created = false;
-        $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
+        $factory = $this->factory(function (Asset $model) use (&$created, $asset): Asset {
             // Asset
             $created              = !$model->exists;
             $normalizer           = $this->getNormalizer();
@@ -284,8 +287,8 @@ class AssetFactory extends ModelFactory {
         });
         $model   = $this->assetResolver->get(
             $asset->id,
-            static function () use ($factory): AssetModel {
-                return $factory(new AssetModel());
+            static function () use ($factory): Asset {
+                return $factory(new Asset());
             },
         );
 
@@ -301,7 +304,7 @@ class AssetFactory extends ModelFactory {
     /**
      * @return Collection<int, AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, ViewAsset $asset): Collection {
+    protected function assetWarranties(Asset $model, ViewAsset $asset): Collection {
         // Some warranties generated from Documents, we must not touch them.
         $documents = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
             return !static::isWarranty($warranty);
@@ -331,7 +334,7 @@ class AssetFactory extends ModelFactory {
         return $documents->toBase()->merge($updated);
     }
 
-    protected function assetWarranty(AssetModel $model, CoverageEntry $entry): ?AssetWarranty {
+    protected function assetWarranty(Asset $model, CoverageEntry $entry): ?AssetWarranty {
         // Empty?
         $normalizer  = $this->getNormalizer();
         $description = $normalizer->text($entry->description);
@@ -363,7 +366,7 @@ class AssetFactory extends ModelFactory {
     /**
      * @return Collection<int, ViewAssetDocument>
      */
-    protected function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
+    protected function assetDocuments(Asset $model, ViewAsset $asset): Collection {
         // Asset.assetDocument is not a document but an array of entries where
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
@@ -396,7 +399,7 @@ class AssetFactory extends ModelFactory {
     /**
      * @return array<AssetWarranty>
      */
-    protected function assetDocumentsWarranties(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarranties(Asset $model, ViewAsset $asset): array {
         $warranties = array_merge(
             $this->assetDocumentsWarrantiesExtended($model, $asset),
             $model->warranties->filter(static function (AssetWarranty $warranty): bool {
@@ -410,7 +413,7 @@ class AssetFactory extends ModelFactory {
     /**
      * @return array<AssetWarranty>
      */
-    protected function assetDocumentsWarrantiesExtended(AssetModel $model, ViewAsset $asset): array {
+    protected function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): array {
         // Prepare
         $serviceLevels = [];
         $warranties    = [];
@@ -502,7 +505,7 @@ class AssetFactory extends ModelFactory {
         return array_values($warranties);
     }
 
-    protected function assetDocumentDocument(AssetModel $model, ViewAssetDocument $assetDocument): ?Document {
+    protected function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
         $document = null;
 
         if (isset($assetDocument->document->id)) {
@@ -527,7 +530,7 @@ class AssetFactory extends ModelFactory {
 
     protected function assetType(ViewAsset $asset): ?TypeModel {
         return isset($asset->assetType)
-            ? $this->type(new AssetModel(), $asset->assetType)
+            ? $this->type(new Asset(), $asset->assetType)
             : null;
     }
 
@@ -561,7 +564,7 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetStatus(ViewAsset $asset): Status {
-        return $this->status(new AssetModel(), $asset->status);
+        return $this->status(new Asset(), $asset->status);
     }
 
     /**

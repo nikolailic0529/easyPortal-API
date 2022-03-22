@@ -135,7 +135,7 @@ class ClientDumpContext {
     }
 
     /**
-     * @param array{?string,?string,?string} $oems
+     * @param array<int, array{?string,?string,?string}> $oems
      */
     protected function getOemsCsv(array $oems, string $path): ?string {
         $file = null;

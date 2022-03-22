@@ -29,6 +29,8 @@ use function reset;
 /**
  * @template TCompany of \App\Models\Reseller|\App\Models\Customer
  * @template TLocation of \App\Models\ResellerLocation|\App\Models\CustomerLocation
+ *
+ * @extends ModelFactory<TCompany>
  */
 abstract class CompanyFactory extends ModelFactory {
     use WithType;

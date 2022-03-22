@@ -16,7 +16,7 @@ class AnalyzeAssetResolver extends Resolver {
     }
 
     /**
-     * @param array<string|int> $keys
+     * @inheritDoc
      */
     public function prefetch(array $keys, Closure|null $callback = null): static {
         return parent::prefetch($keys, $callback);

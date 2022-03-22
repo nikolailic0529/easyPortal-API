@@ -67,7 +67,6 @@ class CustomerFactory extends CompanyFactory {
     // <editor-fold desc="Factory">
     // =========================================================================
     public function find(Type $type): ?Customer {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 

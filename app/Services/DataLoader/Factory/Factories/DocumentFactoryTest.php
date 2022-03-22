@@ -681,7 +681,12 @@ class DocumentFactoryTest extends TestCase {
             'start'            => null,
             'end'              => null,
         ];
-        [$a, $b]      = DocumentEntryModel::factory()->count(4)->create($properties);
+        [$a, $b]      = [
+            DocumentEntryModel::factory()->create($properties),
+            DocumentEntryModel::factory()->create($properties),
+            DocumentEntryModel::factory()->create($properties),
+            DocumentEntryModel::factory()->create($properties),
+        ];
         $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [

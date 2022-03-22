@@ -28,6 +28,9 @@ use function reset;
 use function sprintf;
 use function str_contains;
 
+/**
+ * @extends ModelFactory<LocationModel>
+ */
 class LocationFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -42,7 +45,6 @@ class LocationFactory extends ModelFactory {
     // <editor-fold desc="Factory">
     // =========================================================================
     public function find(Type $type): ?LocationModel {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 

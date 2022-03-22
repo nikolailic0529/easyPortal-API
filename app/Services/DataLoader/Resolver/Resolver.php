@@ -29,9 +29,14 @@ use function is_string;
  *
  * @template TModel of \Illuminate\Database\Eloquent\Model
  *
+ * @implements KeyRetriever<TModel>
+ *
  * @internal
  */
 abstract class Resolver implements Singleton, KeyRetriever {
+    /**
+     * @var Cache<TModel>|null
+     */
     protected Cache|null $cache = null;
 
     public function __construct(
@@ -42,7 +47,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return Collection<string, TModel>
+     * @return Collection<int, TModel>
      */
     public function getResolved(): Collection {
         return $this->getCache()->getAll();
@@ -177,9 +182,14 @@ abstract class Resolver implements Singleton, KeyRetriever {
         return $this;
     }
 
+    /**
+     * @return Cache<TModel>
+     */
     protected function getCache(bool $preload = true): Cache {
         if (!$this->cache) {
-            $this->cache = new Cache($this->getKeyRetrievers());
+            /** @var Cache<TModel> $cache */
+            $cache       = new Cache($this->getKeyRetrievers());
+            $this->cache = $cache;
 
             if ($preload) {
                 $this->put($this->getPreloadedItems());
@@ -194,7 +204,7 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return array<KeyRetriever>
+     * @return array<KeyRetriever<TModel>>
      */
     protected function getKeyRetrievers(): array {
         return [

@@ -39,7 +39,7 @@ class ResolverTest extends TestCase {
             ->andReturns();
 
         $provider = new class($normalizer, $collector) extends Resolver {
-            public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
+            public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?EloquentModel {
                 return parent::resolve($key, $factory, $find);
             }
         };
@@ -130,7 +130,7 @@ class ResolverTest extends TestCase {
         $normalizer = $this->app->make(Normalizer::class);
         $collector  = $this->app->make(Collector::class);
         $provider   = new class($normalizer, $collector) extends Resolver {
-            public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
+            public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?EloquentModel {
                 return parent::resolve($key, $factory, true);
             }
 

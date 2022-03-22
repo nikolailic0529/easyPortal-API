@@ -34,6 +34,8 @@ class ResellerAssetsImporter extends AssetsImporter {
     // =========================================================================
     /**
      * @param ResellerAssetsImporterState $state
+     *
+     * @return ObjectIterator<TItem>
      */
     protected function getIterator(State $state): ObjectIterator {
         return $state->withDocuments

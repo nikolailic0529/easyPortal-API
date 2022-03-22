@@ -13,7 +13,7 @@ class ResellersUpdaterCronJob extends ResellersImporterCronJob {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

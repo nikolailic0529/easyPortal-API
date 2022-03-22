@@ -30,8 +30,8 @@ class Container extends IlluminateContainer {
     /**
      * @template T of object
      *
-     * @param class-string<T> $abstract
-     * @param array<mixed>    $parameters
+     * @param class-string<T>|callable():mixed|string $abstract
+     * @param array<mixed>                            $parameters
      *
      * @return T
      */

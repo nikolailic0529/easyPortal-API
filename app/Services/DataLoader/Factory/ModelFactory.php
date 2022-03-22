@@ -5,9 +5,18 @@ namespace App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 
+/**
+ * @template TModel of Model
+ */
 abstract class ModelFactory extends Factory {
+    /**
+     * @return TModel|null
+     */
     abstract public function create(Type $type): ?Model;
 
+    /**
+     * @return TModel|null
+     */
     public function find(Type $type): ?Model {
         return $this->inSearchMode(function () use ($type): ?Model {
             return $this->create($type);

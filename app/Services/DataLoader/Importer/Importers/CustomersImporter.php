@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Models\Customer;
 use App\Models\Reseller;
 use App\Services\DataLoader\Factory\Factories\CustomerFactory;
-use App\Services\DataLoader\Factory\Factory;
+use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
@@ -21,7 +21,7 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @extends Importer<Company, CustomersImporterChunkData, ImporterState>
+ * @extends Importer<Company, CustomersImporterChunkData, ImporterState, Customer>
  */
 class CustomersImporter extends Importer {
     protected function register(): void {
@@ -65,7 +65,7 @@ class CustomersImporter extends Importer {
         return $this->getClient()->getCustomers($state->from);
     }
 
-    protected function makeFactory(State $state): Factory {
+    protected function makeFactory(State $state): ModelFactory {
         return $this->getContainer()->make(CustomerFactory::class);
     }
 

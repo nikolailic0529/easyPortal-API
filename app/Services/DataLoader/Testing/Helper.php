@@ -133,7 +133,7 @@ trait Helper {
     /**
      * @param Collection<int, Coverage>|array<Coverage> $coverages
      *
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function getCoverages(Collection|array|null $coverages): ?array {
         $result = null;
@@ -151,7 +151,7 @@ trait Helper {
     }
 
     /**
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function getModelStatuses(DocumentModel|Reseller|Customer $model): ?array {
         return $this->statuses($model->statuses ?? []);
@@ -160,7 +160,7 @@ trait Helper {
     /**
      * @param Collection<int, Status>|array<Status> $statuses
      *
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function statuses(Collection|array|null $statuses): ?array {
         $result = null;
@@ -178,7 +178,7 @@ trait Helper {
     }
 
     /**
-     * @return array{key: string, name: string}|null
+     * @return array<string, array{key: string, name: string}>|null
      */
     protected function getStatuses(Company|Document $object): ?array {
         $normalizer = $this->app->make(Normalizer::class);
@@ -195,7 +195,7 @@ trait Helper {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, array{name: ?string, phone: ?string, mail: ?string, types: array<string>}>
      */
     protected function getContacts(ViewAsset|Company|ViewDocument $object): array {
         $normalizer = $this->app->make(Normalizer::class);
@@ -361,7 +361,7 @@ trait Helper {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, array{name: ?string}>
      */
     protected function getAssetTags(ViewAsset $object): array {
         $tags = [];
@@ -377,7 +377,7 @@ trait Helper {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, array{key: string, name: string}>
      */
     protected function getAssetCoverages(ViewAsset $object): array {
         $normalizer = $this->app->make(Normalizer::class);

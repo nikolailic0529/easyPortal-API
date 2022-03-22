@@ -191,6 +191,8 @@ class WithAssetDocumentTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends ModelFactory<Model>
  */
 class WithAssetDocumentTest_Factory extends ModelFactory {
     use WithAssetDocument {

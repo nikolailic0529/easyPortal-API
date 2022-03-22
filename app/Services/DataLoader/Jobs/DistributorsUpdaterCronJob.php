@@ -13,7 +13,7 @@ class DistributorsUpdaterCronJob extends DistributorsImporterCronJob {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

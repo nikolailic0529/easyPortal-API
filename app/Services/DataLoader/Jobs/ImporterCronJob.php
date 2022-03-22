@@ -24,7 +24,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

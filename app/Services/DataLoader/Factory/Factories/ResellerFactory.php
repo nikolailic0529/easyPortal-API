@@ -50,7 +50,6 @@ class ResellerFactory extends CompanyFactory {
     // <editor-fold desc="Factory">
     // =========================================================================
     public function find(Type $type): ?Reseller {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 

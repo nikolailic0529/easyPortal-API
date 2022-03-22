@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
-use App\Models\Asset;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
@@ -70,6 +69,9 @@ use Throwable;
 use function implode;
 use function sprintf;
 
+/**
+ * @extends ModelFactory<DocumentModel>
+ */
 class DocumentFactory extends ModelFactory {
     use Children;
     use WithOem;
@@ -119,7 +121,6 @@ class DocumentFactory extends ModelFactory {
     }
 
     public function find(Type $type): ?DocumentModel {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 
@@ -360,7 +361,7 @@ class DocumentFactory extends ModelFactory {
                 try {
                     // Prefetch
                     $this->getAssetResolver()->prefetch(
-                        (new ImporterChunkData($document->documentEntries))->get(Asset::class),
+                        (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
                         static function (EloquentCollection $assets): void {
                             $assets->loadMissing('oem');
                         },

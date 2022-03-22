@@ -21,7 +21,7 @@ class ProductResolver extends Resolver implements SingletonPersistent {
     }
 
     /**
-     * @param array<mixed> $keys
+     * @inheritDoc
      */
     public function prefetch(array $keys, Closure|null $callback = null): static {
         return parent::prefetch($keys, $callback);

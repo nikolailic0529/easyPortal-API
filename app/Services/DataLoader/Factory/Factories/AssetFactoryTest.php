@@ -1445,7 +1445,7 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @return array<string,array{bool,bool,bool,array<string,mixed>}>
+     * @return array<string,array{bool,bool,array<string,mixed>}>
      */
     public function dataProviderIsWarranty(): array {
         return [
