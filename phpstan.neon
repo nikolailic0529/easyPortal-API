@@ -34,4 +34,4 @@ includes:
     - ./tests/PhpStan/Larastan/extension.neon
 
     # Baseline
-    - phpstan-baseline.neon
+    - phpstan-baseline-well-known.neon
