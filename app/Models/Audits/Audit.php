@@ -4,6 +4,7 @@ namespace App\Models\Audits;
 
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Audit\Enums\Action;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Audit.
  *
  * @property string                 $id
- * @property string                 $action
+ * @property Action                 $action
  * @property string|null            $user_id
  * @property string|null            $organization_id
  * @property string                 $object_id
@@ -47,6 +48,7 @@ class Audit extends Model implements OwnedByOrganization {
 
     protected const CASTS = [
         'context' => 'json',
+        'action'  => Action::class,
     ] + parent::CASTS;
 
     /**

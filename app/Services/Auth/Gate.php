@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 
-use App\Models\User;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -13,7 +12,7 @@ use function in_array;
 
 class Gate {
     /**
-     * @var WeakMap<User,array<string,array{result: ?bool}>>
+     * @var WeakMap<Authenticatable,array<string,array{result: ?bool}>>
      */
     private WeakMap $cache;
 
