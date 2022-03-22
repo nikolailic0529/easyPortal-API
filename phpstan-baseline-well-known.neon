@@ -1,3 +1,6 @@
+# This file contains well-known phpstan errors and uses to exclude them from the
+# baseline. If you want to add something new, please specify the error and the
+# URL to the issue if possible.
 parameters:
     ignoreErrors:
         # Unwanted strict rules
