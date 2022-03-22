@@ -54,7 +54,7 @@ class Configuration {
     }
 
     /**
-     * @return array<string,Property>
+     * @return array<string,array<string, Property>>
      */
     public function getProperties(): array {
         return $this->properties;

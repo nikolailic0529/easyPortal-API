@@ -18,6 +18,7 @@ use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
@@ -172,6 +173,10 @@ class ProcessorTest extends TestCase {
 
         $model::$builder = Mockery::mock(Builder::class);
         $model::$builder->makePartial();
+        $model::$builder
+            ->shouldReceive('withoutTrashed')
+            ->once()
+            ->andReturnSelf();
         $model::$builder
             ->shouldReceive('newModelInstance')
             ->once()
@@ -366,7 +371,7 @@ class ProcessorTest extends TestCase {
         $index = $this->faker->randomElement([null, $this->faker->word]);
         $model = $modelSoftDeletes
             ? Mockery::mock(ProcessorTest__ModelSoftDeletes::class)
-            : Mockery::mock(Model::class);
+            : Mockery::mock(EloquentModel::class);
         $model
             ->shouldReceive('shouldBeSearchable')
             ->once()

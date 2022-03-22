@@ -571,7 +571,7 @@ class SearchRequestFactoryTest extends TestCase {
     }
 
     /**
-     * @return array<string, array{string, string}>
+     * @return array<string, array{array<mixed>, array<mixed>, string}>
      */
     public function dataProviderEscapeQueryString(): array {
         $a = new class('', true) extends Value {

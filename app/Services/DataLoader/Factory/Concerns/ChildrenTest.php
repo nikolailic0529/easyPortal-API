@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Schema\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
