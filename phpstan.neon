@@ -22,10 +22,16 @@ parameters:
         - ./.phpstan/Faker.php
 
 includes:
+    # Extensions
     - ./vendor/phpstan/phpstan/conf/bleedingEdge.neon
     - ./vendor/phpstan/phpstan-mockery/extension.neon
     - ./vendor/phpstan/phpstan-phpunit/extension.neon
     - ./vendor/phpstan/phpstan-phpunit/rules.neon
     - ./vendor/phpstan/phpstan-strict-rules/rules.neon
     - ./vendor/nunomaduro/larastan/extension.neon
+
+    # App
+    - ./tests/PhpStan/Larastan/extension.neon
+
+    # Baseline
     - phpstan-baseline.neon
