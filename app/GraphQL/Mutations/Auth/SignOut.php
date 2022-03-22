@@ -16,7 +16,7 @@ class SignOut {
      *
      * @return array<string,mixed>
      */
-    public function __invoke(mixed $_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
             'result' => true,
             'url'    => $this->keycloak->signOut(),

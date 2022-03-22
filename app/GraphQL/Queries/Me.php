@@ -26,7 +26,7 @@ class Me {
     /**
      * @param array<string, mixed> $args
      */
-    public function __invoke(mixed $_, array $args, GraphQLContext $context): ?User {
+    public function __invoke(mixed $root, array $args, GraphQLContext $context): ?User {
         return $this->getMe($context->user());
     }
 

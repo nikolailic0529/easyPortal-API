@@ -10,13 +10,13 @@ class RequestQuoteChange {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $quote   = Document::whereKey($args['input']['quote_id'])->first();
         $request = $this->requestAssetChange->createRequest(
             $quote,
@@ -27,6 +27,7 @@ class RequestQuoteChange {
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
         );
+
         return ['created' => $request];
     }
 }

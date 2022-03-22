@@ -20,13 +20,13 @@ class CreateQuoteRequest {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $request                  = new QuoteRequest();
         $request->oem_id          = $args['input']['oem_id'];
         $request->organization_id = $this->organization->getKey();
@@ -69,6 +69,7 @@ class CreateQuoteRequest {
 
         // Send Email
         $this->mail->send(new MailQuoteRequest($request));
-        return ['created' => $request ];
+
+        return ['created' => $request];
     }
 }

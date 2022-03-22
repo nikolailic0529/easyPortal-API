@@ -24,7 +24,7 @@ class ResetPassword {
      *
      * @return array<string, mixed>
      */
-    public function __invoke(mixed $_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $result = $this->password->broker()->reset(
             [
                 UserProvider::CREDENTIAL_EMAIL => $args['input']['email'],

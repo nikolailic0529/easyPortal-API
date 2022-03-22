@@ -230,11 +230,11 @@ class UpdateTest extends TestCase {
                     ->shouldReceive('updateBrandingData')
                     ->once()
                     ->andReturn(true);
-                $new_logo_url = $hasLogo ? 'https://example.com/logo.png' : null;
+                $newLogoUrl = $hasLogo ? 'https://example.com/logo.png' : null;
                 $client
                     ->shouldReceive('updateCompanyLogo')
                     ->once()
-                    ->andReturn($new_logo_url);
+                    ->andReturn($newLogoUrl);
 
                 $newFaviconUrl = $hasFavicon ? 'https://example.com/favicon.png' : null;
                 $client

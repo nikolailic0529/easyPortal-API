@@ -12,12 +12,11 @@ class DispatchApplicationService {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      *
      * @return array{setting: array<mixed>}
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         $result      = false;
         $service     = $this->resolver->get($args['input']['name'] ?? '');
         $immediately = $args['input']['immediately'] ?? false;

@@ -13,10 +13,9 @@ class Org {
     }
 
     /**
-     * @param null                 $_
      * @param array<string, mixed> $args
      */
-    public function __invoke($_, array $args): ?Organization {
+    public function __invoke(mixed $root, array $args): ?Organization {
         return $this->current->defined()
             ? $this->current->get()
             : null;

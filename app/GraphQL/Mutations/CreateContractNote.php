@@ -14,13 +14,13 @@ class CreateContractNote {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return [
             'created' => $this->createQuoteNote->createNote(
                 $args['input']['contract_id'],

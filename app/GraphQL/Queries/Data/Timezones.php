@@ -6,12 +6,11 @@ use DateTimeZone;
 
 class Timezones {
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param array<string, mixed> $args
      *
      * @return array<string>
      */
-    public function __invoke($_, array $args): array {
+    public function __invoke(mixed $root, array $args): array {
         return DateTimeZone::listIdentifiers();
     }
 }

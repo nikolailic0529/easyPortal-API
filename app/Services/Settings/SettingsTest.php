@@ -484,7 +484,7 @@ class SettingsTest extends TestCase {
      * @covers ::getPublicValue
      */
     public function testGetPublicValue(): void {
-        $A        = new Setting(new ReflectionClassConstant(
+        $a        = new Setting(new ReflectionClassConstant(
             new class() {
                 #[SettingAttribute()]
                 #[Type(StringType::class)]
@@ -492,7 +492,7 @@ class SettingsTest extends TestCase {
             },
             'A',
         ));
-        $B        = new Setting(new ReflectionClassConstant(
+        $b        = new Setting(new ReflectionClassConstant(
             new class() {
                 #[SettingAttribute('test.setting')]
                 #[Type(StringType::class)]
@@ -500,16 +500,16 @@ class SettingsTest extends TestCase {
             },
             'B',
         ));
-        $C        = new Value($B, 'abc');
+        $c        = new Value($b, 'abc');
         $settings = $this->app->make(Settings::class);
 
         $this->setSettings([
             'test.setting' => 345,
         ]);
 
-        self::assertEquals('123', $settings->getPublicValue($A));
-        self::assertEquals('345', $settings->getPublicValue($B));
-        self::assertEquals('abc', $settings->getPublicValue($C));
+        self::assertEquals('123', $settings->getPublicValue($a));
+        self::assertEquals('345', $settings->getPublicValue($b));
+        self::assertEquals('abc', $settings->getPublicValue($c));
     }
 
     /**
