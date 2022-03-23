@@ -62,5 +62,8 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Execute
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
         run: |
           vendor/bin/phpstan analyse
