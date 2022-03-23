@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Enums\OrganizationType;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
@@ -18,6 +19,7 @@ class OrganizationSeeder extends SmartSeeder {
         $organization       = new Organization();
         $organization->id   = $root->getKey();
         $organization->name = 'Root Organization';
+        $organization->type = OrganizationType::reseller();
         $organization->save();
 
         // Root user

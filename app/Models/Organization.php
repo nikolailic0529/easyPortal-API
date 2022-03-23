@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Audits\Audit;
+use App\Models\Enums\OrganizationType;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasCurrency;
 use App\Services\Audit\Concerns\Auditable;
@@ -20,13 +21,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-// @phpcs:disable Generic.Files.LineLength.TooLong
-
 /**
  * Organization.
  *
  * @property string                            $id
  * @property string                            $name
+ * @property OrganizationType                  $type
  * @property string|null                       $keycloak_name
  * @property string|null                       $keycloak_scope
  * @property string|null                       $keycloak_group_id
@@ -72,6 +72,7 @@ class Organization extends Model implements
     use HasChangeRequests;
 
     protected const CASTS = [
+        'type'                       => OrganizationType::class,
         'branding_dark_theme'        => 'bool',
         'branding_welcome_heading'   => TranslatedString::class,
         'branding_welcome_underline' => TranslatedString::class,

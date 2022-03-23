@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,7 @@ class OrganizationFactory extends Factory {
         return [
             'id'                               => $this->faker->uuid(),
             'name'                             => $this->faker->company(),
+            'type'                             => OrganizationType::reseller(),
             'keycloak_name'                    => null,
             'keycloak_scope'                   => null,
             'keycloak_group_id'                => null,

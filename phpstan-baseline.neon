@@ -8146,16 +8146,6 @@ parameters:
 			path: tests/Mixins/TranslatorMixin.php
 
 		-
-			message: "#^Parameter \\$type of method Tests\\\\Providers\\\\Organizations\\\\OrganizationProvider\\:\\:__construct\\(\\) has invalid type App\\\\Models\\\\Enums\\\\OrganizationType\\.$#"
-			count: 1
-			path: tests/Providers/Organizations/OrganizationProvider.php
-
-		-
-			message: "#^Property Tests\\\\Providers\\\\Organizations\\\\OrganizationProvider\\:\\:\\$type has unknown class App\\\\Models\\\\Enums\\\\OrganizationType as its type\\.$#"
-			count: 1
-			path: tests/Providers/Organizations/OrganizationProvider.php
-
-		-
 			message: "#^Method Tests\\\\Providers\\\\Organizations\\\\RootOrganizationProvider\\:\\:__invoke\\(\\) should return App\\\\Models\\\\Organization but returns App\\\\Models\\\\Organization\\|null\\.$#"
 			count: 1
 			path: tests/Providers/Organizations/RootOrganizationProvider.php

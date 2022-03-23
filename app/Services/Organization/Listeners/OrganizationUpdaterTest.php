@@ -2,6 +2,7 @@
 
 namespace App\Services\Organization\Listeners;
 
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
@@ -44,6 +45,7 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals(OrganizationType::reseller(), $organization->type);
         self::assertEquals($company->keycloakName, $organization->keycloak_name);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
