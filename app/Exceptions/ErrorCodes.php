@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Exceptions\FailedToSendMail as AppFailedToSendMail;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\InvalidContext as GraphQLInvalidContext;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound as GraphQLObjectNotFound;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException as GraphQLResetPasswordSamePasswordException;
@@ -55,6 +56,9 @@ class ErrorCodes {
      * @var array<class-string<Throwable>,string|int>
      */
     protected static array $map = [
+        // App
+        AppFailedToSendMail::class                                 => 'App001',
+
         // Http
         HttpExportGraphQLQueryInvalid::class                       => 'Http001',
         HttpExportHeadersUnknownFunction::class                    => 'Http002',

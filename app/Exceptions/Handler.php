@@ -6,6 +6,7 @@ use App\Exceptions\Contracts\ApplicationMessage;
 use App\Exceptions\Contracts\ExternalException;
 use App\Exceptions\Contracts\GenericException;
 use App\Exceptions\Contracts\TranslatedException;
+use App\Exceptions\Exceptions\FailedToSendMail;
 use App\Services\Service;
 use ElasticAdapter\Exceptions\BulkRequestException;
 use Exception;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface as MailerException;
 use Throwable;
 
 use function array_merge;
@@ -50,7 +52,7 @@ class Handler extends ExceptionHandler {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<int, class-string<Throwable>>
+     * @var array<class-string<Throwable>>
      */
     protected $dontReport = [];
 
@@ -59,7 +61,7 @@ class Handler extends ExceptionHandler {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array<int, string>
+     * @var array<string>
      */
     protected $dontFlash = [
         'current_password',
@@ -71,12 +73,27 @@ class Handler extends ExceptionHandler {
      * Register the exception handling callbacks for the application.
      */
     public function register(): void {
+        $this->map(GraphQLError::class, function (GraphQLError $exception): Throwable {
+            if ($exception->getPrevious()) {
+                $exception = $this->mapException($exception->getPrevious());
+            }
+
+            return $exception;
+        });
+        $this->map(MailerException::class, static function (MailerException $exception): Throwable {
+            return new FailedToSendMail($exception);
+        });
+
         $this->reportable(function (Throwable $exception): void {
             $this->dispatchException($exception);
         });
         $this->reportable(function (Throwable $exception): bool {
             return !$this->reportException($exception);
         });
+    }
+
+    public function mapException(Throwable $e): Throwable {
+        return parent::mapException($e);
     }
 
     protected function unauthenticated(mixed $request, AuthenticationException $exception): Response {
