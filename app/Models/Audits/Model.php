@@ -17,7 +17,7 @@ abstract class Model extends LaraASPModel {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var string|null
      */
     protected $connection = self::CONNECTION;
 
@@ -33,7 +33,7 @@ abstract class Model extends LaraASPModel {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var bool
      */
     public $incrementing = false;
 
