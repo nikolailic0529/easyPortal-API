@@ -854,9 +854,7 @@ class ProcessorTest_UnsearchableAssetFactory extends AssetFactory {
     /**
      * The name of the factory's corresponding model.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
      */
     protected $model = ProcessorTest_UnsearchableAsset::class;
 }
