@@ -86,7 +86,8 @@
   "extra": {
     "laravel": {
       "dont-discover": [
-        "nuwave/lighthouse"
+        "nuwave/lighthouse",
+        "itsgoingd/clockwork"
       ]
     }
   },

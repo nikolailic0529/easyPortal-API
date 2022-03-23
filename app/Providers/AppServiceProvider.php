@@ -60,7 +60,9 @@ use App\Services\Keycloak\Keycloak;
 use App\Services\Keycloak\UserProvider;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Clockwork\Support\Laravel\ClockworkServiceProvider;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -72,10 +74,28 @@ class AppServiceProvider extends ServiceProvider {
      * Register any application services.
      */
     public function register(): void {
+        $this->registerDate();
+        $this->registerClockwork();
+    }
+
+    protected function registerDate(): void {
         Date::use(CarbonImmutable::class);
         Date::serializeUsing(static function (Carbon|CarbonImmutable $date): string {
             return $date->toIso8601String();
         });
+    }
+
+    protected function registerClockwork(): void {
+        // Even if `CLOCKWORK_ENABLE=false` some services will be booted up,
+        // this is unwanted behaviour. Moreover, it can break CI actions
+        // (eg `package:discover` command when no database). So are we disabled
+        // auto-discovery and load it by hand only if needed.
+        //
+        // https://github.com/itsgoingd/clockwork/issues/444#issuecomment-759626114
+
+        if ($this->app->make(Repository::class)->get('clockwork.enable') !== false) {
+            $this->app->register(ClockworkServiceProvider::class);
+        }
     }
 
     /**
