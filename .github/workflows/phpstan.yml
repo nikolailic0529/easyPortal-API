@@ -40,6 +40,8 @@ jobs:
       # https://github.com/nunomaduro/larastan/issues/1072
       redis:
         image: redis
+        ports:
+          - 6379:6379
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -62,8 +64,5 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Execute
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
         run: |
           vendor/bin/phpstan analyse
