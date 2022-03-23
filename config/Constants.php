@@ -125,7 +125,7 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Setting]
+    #[Setting('clockwork.enable')]
     #[Group('clockwork')]
     public const CLOCKWORK_ENABLE = false;
 
