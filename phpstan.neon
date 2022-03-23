@@ -31,7 +31,8 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
     # App
-    - ./tests/PhpStan/Larastan/extension.neon
+    - ./tests/PhpStan/Larastan/Date/extension.neon
+    - ./tests/PhpStan/Larastan/Container/extension.neon
 
     # Baseline
     - phpstan-baseline-well-known.neon

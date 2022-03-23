@@ -1,0 +1,12 @@
+# The extenstion provides proper DateTime class for Date facade.
+#
+# @see https://github.com/nunomaduro/larastan/pull/1142
+services:
+    -
+        class: Tests\PhpStan\Larastan\Date\DateExtension
+        tags:
+            - phpstan.broker.dynamicStaticMethodReturnTypeExtension
+    -
+        class: Tests\PhpStan\Larastan\Date\NowAndTodayExtension
+        tags:
+            - phpstan.broker.dynamicFunctionReturnTypeExtension

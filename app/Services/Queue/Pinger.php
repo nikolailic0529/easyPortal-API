@@ -60,7 +60,7 @@ class Pinger {
             }
 
             public function getRetryAfter(RedisQueue $queue): int {
-                return $queue->availableAt($queue->retryAfter);
+                return $queue->availableAt((int) $queue->retryAfter);
             }
         })->getRetryAfter($queue);
 
