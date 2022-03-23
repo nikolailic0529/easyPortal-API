@@ -23,10 +23,11 @@ class ErrorFormatter {
         $result = FormattedError::createFromException($error);
 
         if ($this->handler instanceof Handler) {
-            $result['message'] = $this->handler->getExceptionMessage($error->getPrevious() ?? $error);
+            $exception         = $this->handler->mapException($error);
+            $result['message'] = $this->handler->getExceptionMessage($exception);
 
             if ($this->config->get('app.debug')) {
-                $result['extensions']['debug'] = $this->handler->getExceptionData($error);
+                $result['extensions']['debug'] = $this->handler->getExceptionData($exception);
             }
         }
 
