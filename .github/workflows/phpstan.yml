@@ -31,6 +31,21 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - settings
+
+    services:
+      # Redis is required because Larastan boots Laravel app while analyse. So
+      # if no Redis installed it will fail with "Connection refused".
+      #
+      # https://github.com/nunomaduro/larastan/issues/1196
+      # https://github.com/nunomaduro/larastan/issues/1072
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Disable core.autocrlf
         run: git config --global core.autocrlf false
