@@ -28,18 +28,6 @@ class Container extends IlluminateContainer {
     }
 
     /**
-     * @template T of object
-     *
-     * @param class-string<T>|callable():mixed|string $abstract
-     * @param array<mixed>                            $parameters
-     *
-     * @return T
-     */
-    public function make($abstract, array $parameters = []): object {
-        return parent::make($abstract, $parameters);
-    }
-
-    /**
      * @inheritdoc
      */
     public function resolve($abstract, $parameters = [], $raiseEvents = true) {

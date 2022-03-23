@@ -10576,11 +10576,6 @@ parameters:
 			path: app/Services/DataLoader/Commands/OemsImport.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Container\\\\Container\\:\\:make\\(\\) should return T of object but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Container/Container.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Container\\\\Container\\:\\:resolve\\(\\) has parameter \\$abstract with no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Container/Container.php
@@ -10608,11 +10603,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$object_or_class of function is_a expects object\\|string, \\(callable\\)\\|string given\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Container/Container.php
-
-		-
-			message: "#^Template type T of method App\\\\Services\\\\DataLoader\\\\Container\\\\Container\\:\\:make\\(\\) is not referenced in a parameter\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Container/Container.php
 
 		-
