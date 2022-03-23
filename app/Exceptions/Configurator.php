@@ -20,11 +20,6 @@ class Configurator {
     }
 
     public function __invoke(Logger|MonologLogger $logger): void {
-        // Monolog?
-        if (!($logger instanceof MonologLogger)) {
-            return;
-        }
-
         // Fix formatters settings
         foreach ($logger->getHandlers() as $handler) {
             // Possible?
