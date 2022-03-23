@@ -16816,11 +16816,6 @@ parameters:
 			path: app/Services/Queue/Pinger.php
 
 		-
-			message: "#^Parameter \\#1 \\$delay of method Illuminate\\\\Queue\\\\Queue\\:\\:availableAt\\(\\) expects DateInterval\\|DateTimeInterface\\|int, int\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Pinger.php
-
-		-
 			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Pinger\\:\\:ping\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob\\|App\\\\Services\\\\Queue\\\\Job, Mockery\\\\MockInterface given\\.$#"
 			count: 2
 			path: app/Services/Queue/PingerTest.php
