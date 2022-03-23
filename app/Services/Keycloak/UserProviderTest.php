@@ -170,12 +170,7 @@ class UserProviderTest extends TestCase {
      *
      * @dataProvider dataProviderGetProperties
      */
-    public function testGetProperties(Exception|Closure $expected, Closure $claims): void {
-        // Error?
-        if ($expected instanceof Exception) {
-            self::expectExceptionObject($expected);
-        }
-
+    public function testGetProperties(Closure $expected, Closure $claims): void {
         // Prepare
         $clientId     = $this->faker->word;
         $organization = Organization::factory()->create([
@@ -187,9 +182,15 @@ class UserProviderTest extends TestCase {
         $org          = Organization::factory()->make();
 
         if ($expected instanceof Closure) {
-            $expected = $expected($clientId, $organization);
+            $expected = $expected($clientId, $organization, $user);
         }
 
+        // Error?
+        if ($expected instanceof Exception) {
+            self::expectExceptionObject($expected);
+        }
+
+        // Mock
         $provider = Mockery::mock(UserProvider::class);
         $provider->shouldAllowMockingProtectedMethods();
         $provider->makePartial();
@@ -888,7 +889,9 @@ class UserProviderTest extends TestCase {
                 },
             ],
             'required claim missed'                      => [
-                new UserInsufficientData(new User(), ['email']),
+                static function (string $client, Organization $organization, User $user): Exception {
+                    return new UserInsufficientData($user, ['email']);
+                },
                 static function (string $client, Organization $organization): array {
                     return [
                         'typ'                   => 'Bearer',

@@ -14,7 +14,7 @@ use App\Services\DataLoader\Schema\DocumentEntry as SchemaDocumentEntry;
 use App\Services\DataLoader\Schema\ViewAsset as SchemaViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument as SchemaViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument as SchemaViewDocument;
-use Illuminate\Database\Eloquent\Model;
+use App\Utils\Eloquent\Model;
 
 class Data {
     /**
@@ -79,7 +79,9 @@ class Data {
             $this->add(Customer::class, $object->customer_id);
             $this->add(Location::class, $object->location_id);
         } elseif ($object instanceof Model) {
-            $this->add($object::class, $object->getKey());
+            if ($object->hasKey()) {
+                $this->add($object::class, $object->getKey());
+            }
         } else {
             // empty
         }
@@ -87,6 +89,9 @@ class Data {
         return $this;
     }
 
+    /**
+     * @param class-string $class
+     */
     protected function add(string $class, ?string $id): void {
         if ($id && isset($this->data[$class])) {
             $this->data[$class][$id] = $id;

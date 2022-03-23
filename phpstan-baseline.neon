@@ -11,6 +11,11 @@ parameters:
 			path: app/Exceptions/ApplicationException.php
 
 		-
+			message: "#^Method App\\\\Exceptions\\\\Exceptions\\\\FailedToSendMail\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/Exceptions/Exceptions/FailedToSendMail.php
+
+		-
 			message: "#^Cannot access offset 'debug' on mixed\\.$#"
 			count: 1
 			path: app/Exceptions/GraphQL/ErrorFormatter.php
@@ -46,12 +51,7 @@ parameters:
 			path: app/Exceptions/Handler.php
 
 		-
-			message: "#^PHPDoc type array\\<int, class\\-string\\<Throwable\\>\\> of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontReport is not the same as PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontReport\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^PHPDoc type array\\<int, string\\> of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash is not the same as PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash\\.$#"
+			message: "#^PHPDoc type array\\<class\\-string\\<Throwable\\>\\> of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontReport is not the same as PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontReport\\.$#"
 			count: 1
 			path: app/Exceptions/Handler.php
 
@@ -1426,11 +1426,6 @@ parameters:
 			path: app/GraphQL/Mutations/Asset/Sync.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Asset/SyncTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Asset\\\\SyncTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Asset/SyncTest.php
@@ -1631,17 +1626,7 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUserById\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationExpired\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationExpired.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationExpired.php
 
@@ -1656,17 +1641,7 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOrganizationNotFound.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOrganizationNotFound.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationOutdated\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOutdated.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOutdated.php
 
@@ -1676,17 +1651,7 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUsed.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUsed.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationUserNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUserNotFound.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUserNotFound.php
 
@@ -2021,11 +1986,6 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Contact\\:\\:\\$object_id \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteRequest.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Contact\\:\\:\\$phone_number \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
@@ -2062,11 +2022,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$type_id \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteRequest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$user_id \\(string\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
@@ -2129,11 +2084,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Customer\\\\Sync\\:\\:__invoke\\(\\) should return array\\{result\\: bool, warranty\\: bool\\} but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Customer/Sync.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Customer/SyncTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Customer\\\\SyncTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
@@ -2306,11 +2256,6 @@ parameters:
 			path: app/GraphQL/Mutations/Document/Sync.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Mutations/Document/SyncTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Document\\\\SyncTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Document/SyncTest.php
@@ -2436,11 +2381,6 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateMeEmail.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:updateUserEmail\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateMeEmail.php
-
-		-
 			message: "#^Parameter \\#2 \\$email of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:updateUserEmail\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Me/UpdateMeEmail.php
@@ -2498,11 +2438,6 @@ parameters:
 		-
 			message: "#^Cannot access offset 'password' on mixed\\.$#"
 			count: 2
-			path: app/GraphQL/Mutations/Me/UpdateMePassword.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:resetPassword\\(\\) expects string, mixed given\\.$#"
-			count: 1
 			path: app/GraphQL/Mutations/Me/UpdateMePassword.php
 
 		-
@@ -2722,11 +2657,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\DeleteImpossibleAssignedToUsers\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/DeleteImpossibleAssignedToUsers.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Role/DeleteImpossibleAssignedToUsers.php
 
@@ -3046,22 +2976,12 @@ parameters:
 			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUserById\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/Invite.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function strtr expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/Invite.php
 
 		-
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/Invite.php
-
-		-
-			message: "#^Parameter \\#2 \\$groupId of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:addUserToGroup\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/Invite.php
 
@@ -3217,11 +3137,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$files \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\>\\) does not accept array\\<App\\\\Models\\\\File\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$object_id \\(string\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestAssetChange.php
 
@@ -3711,11 +3626,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateContractNote.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\File\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(App\\\\Models\\\\File, int\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Models\\\\File\\)\\: mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNote.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Filesystem\\\\ModelDiskFactory\\:\\:getDisk\\(\\) expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Note\\|null given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateContractNote.php
@@ -3941,16 +3851,6 @@ parameters:
 			path: app/GraphQL/Mutations/User/Update.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUserById\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/User/Update.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:updateUser\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/User/Update.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\User\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/User/UpdateTest.php
@@ -4148,26 +4048,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\UserTest\\:\\:testQuery\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Queries/Administration/UserTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OrganizationUser\\:\\:\\$organization_id \\(string\\) does not accept mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Administration/UserTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OrganizationUser\\:\\:\\$role_id \\(string\\|null\\) does not accept mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Administration/UserTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OrganizationUser\\:\\:\\$team_id \\(string\\|null\\) does not accept mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Administration/UserTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OrganizationUser\\:\\:\\$user_id \\(string\\) does not accept mixed\\.$#"
-			count: 2
 			path: app/GraphQL/Queries/Administration/UserTest.php
 
 		-
@@ -4524,11 +4404,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetTypesTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetTypesTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsAggregated.php
 
 		-
 			message: "#^Parameter \\#3 \\$value of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:having\\(\\) expects string\\|null, int given\\.$#"
@@ -6786,7 +6661,7 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncHasMany\\(\\) expects array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\AssetWarranty\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\AssetWarranty\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\> given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -7001,21 +6876,6 @@ parameters:
 			path: app/Models/Audits/Model.php
 
 		-
-			message: "#^PHPDoc type string of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$connection is not the same as PHPDoc type string\\|null of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$connection\\.$#"
-			count: 1
-			path: app/Models/Audits/Model.php
-
-		-
-			message: "#^PHPDoc type string of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$incrementing is not the same as PHPDoc type bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$incrementing\\.$#"
-			count: 1
-			path: app/Models/Audits/Model.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$incrementing \\(string\\) does not accept default value of type false\\.$#"
-			count: 1
-			path: app/Models/Audits/Model.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\ChangeRequest\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
@@ -7066,22 +6926,12 @@ parameters:
 			path: app/Models/ChangeRequest.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\ChangeRequest\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
 		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\ChangeRequest\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^Parameter \\#5 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -7271,11 +7121,6 @@ parameters:
 			path: app/Models/Country.php
 
 		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Models/Country.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Coverage\\:\\:assets\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Coverage.php
@@ -7296,11 +7141,6 @@ parameters:
 			path: app/Models/Coverage.php
 
 		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Models/Coverage.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Currency\\:\\:documents\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Currency.php
@@ -7318,11 +7158,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\Currency\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
-			path: app/Models/Currency.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: app/Models/Currency.php
 
 		-
@@ -7596,7 +7431,7 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncHasMany\\(\\) expects array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\CustomerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\CustomerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\> given\\.$#"
 			count: 1
 			path: app/Models/Customer.php
 
@@ -8096,7 +7931,7 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncHasMany\\(\\) expects array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\DocumentEntry\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\DocumentEntry\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\DocumentEntry\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\DocumentEntry\\> given\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -8203,11 +8038,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\Language\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
-			path: app/Models/Language.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: app/Models/Language.php
 
 		-
@@ -8516,11 +8346,6 @@ parameters:
 			path: app/Models/Oem.php
 
 		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Models/Oem.php
-
-		-
 			message: "#^Method App\\\\Models\\\\OemGroup\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/OemGroup.php
@@ -8621,7 +8446,7 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Organization\\:\\:syncHasMany\\(\\) expects array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\ResellerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Organization\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\ResellerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\> given\\.$#"
 			count: 1
 			path: app/Models/Organization.php
 
@@ -8673,11 +8498,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\Permission\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: app/Models/Permission.php
 
 		-
@@ -8823,11 +8643,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestDuration\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
-			path: app/Models/QuoteRequestDuration.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: app/Models/QuoteRequestDuration.php
 
 		-
@@ -9031,7 +8846,7 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Reseller\\:\\:syncHasMany\\(\\) expects array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\ResellerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Reseller\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\ResellerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\> given\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -9391,11 +9206,6 @@ parameters:
 			path: app/Models/ServiceGroup.php
 
 		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Models/ServiceGroup.php
-
-		-
 			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:documentEntries\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/ServiceLevel.php
@@ -9422,11 +9232,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:serviceGroup\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/ServiceLevel.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Models/ServiceLevel.php
 
@@ -9473,11 +9278,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 3
-			path: app/Models/Status.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: app/Models/Status.php
 
 		-
@@ -9568,11 +9368,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 3
-			path: app/Models/Type.php
-
-		-
-			message: "#^Part \\$key \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
 			path: app/Models/Type.php
 
 		-
@@ -9806,11 +9601,6 @@ parameters:
 			path: app/Rules/AssetId.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/AssetIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\AssetIdTest\\:\\:testPasses\\(\\) has parameter \\$assetFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/AssetIdTest.php
@@ -9829,11 +9619,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\ContractId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/ContractId.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/ContractIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\ContractIdTest\\:\\:testPasses\\(\\) has parameter \\$contractFactory with no signature specified for Closure\\.$#"
@@ -9859,11 +9644,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\CustomerId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/CustomerId.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/CustomerIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\CustomerIdTest\\:\\:testPasses\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
@@ -9921,11 +9701,6 @@ parameters:
 			path: app/Rules/FileId.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/FileIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\FileIdTest\\:\\:testPasses\\(\\) has parameter \\$fileFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/FileIdTest.php
@@ -9961,11 +9736,6 @@ parameters:
 			path: app/Rules/NoteId.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/NoteIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\NoteIdTest\\:\\:testPasses\\(\\) has parameter \\$noteFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/NoteIdTest.php
@@ -9974,11 +9744,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\OemId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/OemId.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/OemIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\OemIdTest\\:\\:testPasses\\(\\) has parameter \\$oemFactory with no signature specified for Closure\\.$#"
@@ -9999,11 +9764,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\Org\\\\RoleId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/Org/RoleId.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 3
-			path: app/Rules/Org/RoleIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\Org\\\\RoleIdTest\\:\\:testPasses\\(\\) has parameter \\$roleFactory with no signature specified for Closure\\.$#"
@@ -10096,11 +9856,6 @@ parameters:
 			path: app/Rules/QuoteId.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/QuoteIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\QuoteIdTest\\:\\:testPasses\\(\\) has parameter \\$quoteFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/QuoteIdTest.php
@@ -10109,11 +9864,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/QuoteRequestDurationId.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/QuoteRequestDurationIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationIdTest\\:\\:testPasses\\(\\) has parameter \\$durationFactory with no signature specified for Closure\\.$#"
@@ -10126,11 +9876,6 @@ parameters:
 			path: app/Rules/ServiceLevelId.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/ServiceLevelIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\ServiceLevelIdTest\\:\\:testPasses\\(\\) has parameter \\$serviceLevelFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/ServiceLevelIdTest.php
@@ -10141,11 +9886,6 @@ parameters:
 			path: app/Rules/TeamId.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/TeamIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\TeamIdTest\\:\\:testPasses\\(\\) has parameter \\$teamFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/TeamIdTest.php
@@ -10154,11 +9894,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\TypeId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/TypeId.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Rules/TypeIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\TypeIdTest\\:\\:testPasses\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
@@ -10201,7 +9936,7 @@ parameters:
 			path: app/Rules/UserNotMeTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_id \\(string\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_id \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/Audit/Auditor.php
 
@@ -10491,16 +10226,6 @@ parameters:
 			path: app/Services/DataLoader/Client/Token.php
 
 		-
-			message: "#^Parameter \\#2 \\$id of method App\\\\Services\\\\DataLoader\\\\Collector\\\\Data\\:\\:add\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Collector/Data.php
-
-		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Collector\\\\Data\\:\\:\\$data \\(array\\<class\\-string, array\\<string, string\\>\\>\\) does not accept array\\<string, array\\<string, string\\>\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Collector/Data.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
@@ -10547,11 +10272,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Coverage\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Coverage\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsCount.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getAssetsByResellerId\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsCount.php
 
@@ -10616,11 +10336,6 @@ parameters:
 			path: app/Services/DataLoader/Container/ContainerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToCreateAssetWarranty.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToImportObject\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/FailedToImportObject.php
@@ -10629,11 +10344,6 @@ parameters:
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToImportObject\\:\\:\\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer does not specify its types\\: TItem, TChunkData, TState, TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/FailedToImportObject.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessAssetViewDocument.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessChunkItem\\:\\:__construct\\(\\) has parameter \\$query with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\Query but does not specify its types\\: V$#"
@@ -10649,36 +10359,6 @@ parameters:
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessChunkItem\\:\\:\\$query with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\Query does not specify its types\\: V$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/FailedToProcessChunkItem.php
-
-		-
-			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessCompanyKpis.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessDocumentEntry.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessDocumentEntryNoAsset.php
-
-		-
-			message: "#^Parameter \\#3 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessLocation.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessViewAssetCoverageEntry.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessViewAssetDocumentNoDocument.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ImportError\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
@@ -10713,26 +10393,6 @@ parameters:
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessCompanyMultipleTypes constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessCompanyUnknownType constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\CustomerLocation\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\CustomerLocation\\>\\:\\:put\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
@@ -11172,16 +10832,6 @@ parameters:
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\CustomerLocation\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\CustomerLocation\\>\\:\\:put\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -11856,11 +11506,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ContactFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Contact\\:\\:\\$object_id \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactory.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Contact will always evaluate to true\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
@@ -11871,22 +11516,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
 
 		-
-			message: "#^Cannot assign offset mixed to Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
-			message: "#^Cannot assign offset mixed to Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerCustomer\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
 			message: "#^Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\> does not accept App\\\\Models\\\\ResellerCustomer\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\ResellerCustomer\\>\\:\\:get\\(\\) expects int, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\ResellerCustomer\\>\\:\\:get\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
@@ -12656,7 +12291,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\DocumentEntry\\|null\\>\\:\\:map\\(\\) expects callable\\(App\\\\Models\\\\DocumentEntry\\|null, int\\)\\: mixed, Closure\\(App\\\\Models\\\\DocumentEntry\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\DocumentEntry\\|null\\>\\:\\:map\\(\\) expects callable\\(App\\\\Models\\\\DocumentEntry\\|null, int\\)\\: string, Closure\\(App\\\\Models\\\\DocumentEntry\\)\\: string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -12673,11 +12308,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Part \\$asset\\-\\>getKey\\(\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
@@ -13306,16 +12936,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/AssetsIteratorImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getAssetById\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/AssetsIteratorImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getAssetByIdWithDocuments\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/AssetsIteratorImporter.php
-
-		-
 			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/AssetsIteratorImporter.php
@@ -13811,11 +13431,6 @@ parameters:
 			path: app/Services/DataLoader/Jobs/AssetSync.php
 
 		-
-			message: "#^Parameter \\#1 \\$objectId of method App\\\\Services\\\\DataLoader\\\\Jobs\\\\Sync\\:\\:setObjectId\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/AssetSync.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\AssetsImporterCronJob\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/AssetsImporterCronJob.php
@@ -13827,11 +13442,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\CustomerSync\\:\\:init\\(\\) should return static\\(App\\\\Services\\\\DataLoader\\\\Jobs\\\\CustomerSync\\) but returns LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/CustomerSync.php
-
-		-
-			message: "#^Parameter \\#1 \\$objectId of method App\\\\Services\\\\DataLoader\\\\Jobs\\\\Sync\\:\\:setObjectId\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/CustomerSync.php
 
@@ -13857,11 +13467,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentSync\\:\\:init\\(\\) should return static\\(App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentSync\\) but returns LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/DocumentSync.php
-
-		-
-			message: "#^Parameter \\#1 \\$objectId of method App\\\\Services\\\\DataLoader\\\\Jobs\\\\Sync\\:\\:setObjectId\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/DocumentSync.php
 
@@ -13982,11 +13587,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$customerId of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\CustomerAssetsImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\CustomerAssetsImporterState\\>\\:\\:setCustomerId\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
@@ -14196,11 +13796,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$resellerId of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerAssetsImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerAssetsImporterState\\>\\:\\:setResellerId\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
-
-		-
 			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
@@ -14376,16 +13971,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolverTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolverTest.php
-
-		-
-			message: "#^Part \\$a\\-\\>getKey\\(\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
@@ -14397,11 +13982,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CityResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CityResolver\\:\\:getUniqueKey\\(\\) should return array\\{country_id\\: string, key\\: string\\} but returns array\\{country_id\\: mixed, key\\: string\\}\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
 
@@ -14501,16 +14081,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolverTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolverTest.php
-
-		-
-			message: "#^Part \\$a\\-\\>getKey\\(\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolverTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolver.php
@@ -14521,32 +14091,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolverTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 4
-			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolverTest.php
-
-		-
-			message: "#^Part \\$a\\-\\>getKey\\(\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolverTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolver.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolverTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:get\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolverTest.php
-
-		-
-			message: "#^Part \\$a\\-\\>getKey\\(\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolverTest.php
 
@@ -14586,11 +14136,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:getUniqueKey\\(\\) should return array\\{country_id\\: string, city_id\\: string, postcode\\: string, line\\: string\\} but returns array\\{country_id\\: mixed, city_id\\: mixed, postcode\\: string, line\\: non\\-empty\\-string\\}\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolverTest.php
@@ -14607,11 +14152,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemGroupResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemGroupResolver\\:\\:getUniqueKey\\(\\) should return array\\{oem_id\\: string, key\\: string, name\\: string\\} but returns array\\{oem_id\\: mixed, key\\: string, name\\: string\\}\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
 
@@ -14656,11 +14196,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ProductResolver\\:\\:getUniqueKey\\(\\) should return array\\{oem_id\\: string, sku\\: string\\} but returns array\\{oem_id\\: mixed, sku\\: string\\}\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolverTest.php
@@ -14676,16 +14211,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolverTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) expects int\\|string, mixed given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolverTest.php
-
-		-
-			message: "#^Part \\$a\\-\\>getKey\\(\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolver.php
@@ -14697,11 +14222,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:getUniqueKey\\(\\) should return array\\{oem_id\\: string, sku\\: string\\} but returns array\\{oem_id\\: mixed, sku\\: string\\}\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolver.php
 
@@ -14722,11 +14242,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:getUniqueKey\\(\\) should return array\\{oem_id\\: string, service_group_id\\: string, sku\\: string\\} but returns array\\{oem_id\\: mixed, service_group_id\\: mixed, sku\\: string\\}\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
 
@@ -15311,17 +14826,7 @@ parameters:
 			path: app/Services/Filesystem/Disks/ModelDisk.php
 
 		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Disks/ModelDisk.php
-
-		-
 			message: "#^Property App\\\\Models\\\\File\\:\\:\\$hash \\(string\\) does not accept string\\|false\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Disks/ModelDisk.php
-
-		-
-			message: "#^Property App\\\\Models\\\\File\\:\\:\\$object_id \\(string\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/Services/Filesystem/Disks/ModelDisk.php
 
@@ -15531,11 +15036,6 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Part \\$id \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 6
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
 			message: "#^Part \\$realm \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Client/Client.php
@@ -15636,11 +15136,6 @@ parameters:
 			path: app/Services/Keycloak/Exceptions/Auth/AnotherUserExists.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/AnotherUserExists.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\AuthorizationFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Exceptions/Auth/AuthorizationFailed.php
@@ -15651,27 +15146,12 @@ parameters:
 			path: app/Services/Keycloak/Exceptions/Auth/UnknownScope.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UnknownScope.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UserDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Exceptions/Auth/UserDisabled.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UserDisabled.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UserInsufficientData\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UserInsufficientData.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Exceptions/Auth/UserInsufficientData.php
 
@@ -15696,17 +15176,7 @@ parameters:
 			path: app/Services/Keycloak/Exceptions/FailedToImportUserConflictType.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:put\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
@@ -15722,11 +15192,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\Organization\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
@@ -15973,6 +15438,11 @@ parameters:
 		-
 			message: "#^Cannot call method make\\(\\) on mixed\\.$#"
 			count: 2
+			path: app/Services/Keycloak/UserProviderTest.php
+
+		-
+			message: "#^Instanceof between Closure and Closure will always evaluate to true\\.$#"
+			count: 1
 			path: app/Services/Keycloak/UserProviderTest.php
 
 		-
@@ -16531,11 +16001,6 @@ parameters:
 			path: app/Services/Organization/Listeners/OrganizationUpdater.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Organization\\:\\:\\$id \\(string\\) does not accept mixed\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdater.php
-
-		-
 			message: "#^Cannot access property \\$brandingMode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
@@ -16614,16 +16079,6 @@ parameters:
 			message: "#^Cannot call method toArray\\(\\) on App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString\\|null\\.$#"
 			count: 2
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\OrganizationProvider\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Organization/OrganizationProvider.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\RootOrganization\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Organization/RootOrganization.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Organization\\\\RootOrganization\\:\\:getRootKey\\(\\) should return string\\|null but returns mixed\\.$#"
@@ -17141,11 +16596,6 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessor.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Customer,App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData,App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/CustomersProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessorTest\\:\\:getModelCountableProperties\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\> given\\.$#"
 			count: 2
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessorTest.php
@@ -17191,11 +16641,6 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Location,App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData,App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Location\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessorTest\\:\\:getModelCountableProperties\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\LocationCustomer\\> given\\.$#"
 			count: 3
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessorTest.php
@@ -17221,7 +16666,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
 
 		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData\\:\\:\\$customerLocations \\(array\\<string, array\\<string\\>\\>\\) does not accept array\\<int\\|string, array\\<array\\<int, string\\>\\|string\\>\\>\\.$#"
+			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData\\:\\:\\$customerLocations \\(array\\<string, array\\<string\\>\\>\\) does not accept array\\<string, array\\<array\\<int, string\\>\\|string\\>\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
 
@@ -17239,11 +16684,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<App\\\\Models\\\\ResellerCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/ResellersProcessor.php
-
-		-
-			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Reseller,App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData,App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Reseller\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/ResellersProcessorTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersProcessorTest\\:\\:getModelCountableProperties\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ResellerCustomer\\> given\\.$#"
@@ -19166,11 +18606,6 @@ parameters:
 			path: app/Services/Settings/Types/DateTime.php
 
 		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DocumentType.php
-
-		-
 			message: "#^Cannot call method map\\(\\) on array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentType.php
@@ -19194,11 +18629,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$num of function number_format expects float, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/FloatType.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/LocationType.php
 
 		-
 			message: "#^Cannot call method map\\(\\) on array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
@@ -19441,6 +18871,11 @@ parameters:
 			path: app/Utils/Eloquent/Mixins/QueryBuilderMixin.php
 
 		-
+			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Model.php
+
+		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:newEloquentBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Utils/Eloquent/Model.php
@@ -19481,6 +18916,11 @@ parameters:
 			path: app/Utils/Eloquent/ModelProperty.php
 
 		-
+			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Pivot.php
+
+		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:newEloquentBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Utils/Eloquent/Pivot.php
@@ -19507,11 +18947,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\:\\:object\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/PolymorphicModel.php
-
-		-
-			message: "#^Property App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\:\\:\\$object_id \\(string\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/PolymorphicModel.php
 
@@ -20867,11 +20302,6 @@ parameters:
 
 		-
 			message: "#^Method Tests\\\\TestCase\\:\\:setUser\\(\\) has parameter \\$user with no signature specified for Closure\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: "#^Method class@anonymous/tests/WithOrganization\\.php\\:56\\:\\:getRootKey\\(\\) should return string\\|null but returns mixed\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

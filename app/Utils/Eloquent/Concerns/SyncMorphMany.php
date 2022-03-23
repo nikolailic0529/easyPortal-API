@@ -72,7 +72,9 @@ trait SyncMorphMany {
             }
 
             // Mark as used
-            $existing->forget($object->getKey());
+            if ($object->hasKey()) {
+                $existing->forget($object->getKey());
+            }
         }
 
         // Update relation
