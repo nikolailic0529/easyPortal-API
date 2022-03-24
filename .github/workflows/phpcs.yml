@@ -5,14 +5,11 @@ on:
     branches:
       - dev
   pull_request:
-    branches-ignore:
-      - main
-      - staging
   workflow_dispatch:
 
 jobs:
   settings:
-    uses: .github/settings.yml
+    uses: ./.github/workflows/settings.yml
 
   phpcs:
     name: "Check"
