@@ -2,6 +2,6 @@
 
 namespace App\Services\Organization\Eloquent;
 
-interface OwnedByOrganization {
-    public function getOrganizationColumn(): string;
+interface OwnedByOrganization extends OwnedBy {
+    public static function getOwnedByOrganizationColumn(): string;
 }

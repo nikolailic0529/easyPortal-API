@@ -10,7 +10,7 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasStatus;
 use App\Models\Relations\HasTags;
 use App\Models\Relations\HasTypeNullable;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
@@ -79,7 +79,7 @@ use function count;
  * @method static Builder|Asset newQuery()
  * @method static Builder|Asset query()
  */
-class Asset extends Model implements OwnedByOrganization, Searchable {
+class Asset extends Model implements OwnedByReseller, Searchable {
     use SearchableImpl;
     use OwnedByResellerImpl;
     use HasFactory;

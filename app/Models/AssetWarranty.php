@@ -9,7 +9,7 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatusNullable;
 use App\Models\Relations\HasTypeNullable;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -54,7 +54,7 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|AssetWarranty newQuery()
  * @method static Builder|AssetWarranty query()
  */
-class AssetWarranty extends Model implements OwnedByOrganization, OwnedByShared {
+class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
     use OwnedByResellerImpl;
     use HasFactory;
     use HasAsset;
