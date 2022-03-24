@@ -6,7 +6,7 @@ use App\Models\Permission as PermissionModel;
 use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
-use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
+use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Role;
 use App\Services\Keycloak\Exceptions\OrgAdminGroupNotFound;
@@ -118,7 +118,7 @@ class PermissionsSync extends Command {
             if ($orgAdminGroup) {
                 $orgAdminPermissions = $permissions
                     ->filter(static function (Permission $permission): bool {
-                        return $permission instanceof IsOrgAdmin;
+                        return !($permission instanceof IsRoot);
                     });
 
                 // Update Permissions

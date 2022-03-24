@@ -3,9 +3,8 @@
 namespace App\Services\Auth\Permissions;
 
 use App\Services\Auth\Permission;
-use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
 
-final class AssetsSync extends Permission implements IsOrgAdmin {
+final class AssetsSync extends Permission {
     public function __construct() {
         parent::__construct('assets-sync');
     }

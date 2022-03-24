@@ -7,7 +7,7 @@ use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
 use App\Services\Auth\Permissions;
-use App\Services\Auth\Permissions\Markers\IsOrgAdmin;
+use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Group;
 use App\Services\Keycloak\Client\Types\Role;
@@ -167,10 +167,10 @@ class PermissionsSyncTest extends TestCase {
         $groupName = $this->faker->word;
 
         $this->app->make(Permissions::class)->set([
-            new class('permission-a') extends Permission implements IsOrgAdmin {
+            new class('permission-a') extends Permission {
                 // empty
             },
-            new class('permission-b') extends Permission {
+            new class('permission-b') extends Permission implements IsRoot {
                 // empty
             },
         ]);
