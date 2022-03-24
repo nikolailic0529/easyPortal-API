@@ -1,0 +1,48 @@
+name: Collect Settings
+
+on:
+  workflow_call:
+    outputs:
+      php-versions:
+        value: ${{ jobs.settings.outputs.php-versions }}
+      php-latest:
+        value: ${{ jobs.settings.outputs.php-latest }}
+      extensions:
+        value: ${{ jobs.settings.outputs.extensions }}
+
+jobs:
+  settings:
+    name: "Collect"
+    runs-on: ubuntu-latest
+    outputs:
+      php-versions: ${{ steps.php-versions.outputs.value }}
+      php-latest: ${{ steps.php-latest.outputs.value }}
+      extensions: ${{ steps.extensions.outputs.value }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+      - name: Install easy-ci
+        run: |
+          mkdir "$RUNNER_TEMP/easy-ci"
+          composer require --no-interaction --working-dir="$RUNNER_TEMP/easy-ci" --update-no-dev symplify/easy-ci
+      - name: Detect Supported PHP versions
+        id: php-versions
+        run: |
+          echo "::set-output name=value::$("$RUNNER_TEMP/easy-ci/vendor/bin/easy-ci" php-versions-json)"
+      - name: Detect Latest PHP version
+        id: php-latest
+        run: |
+          echo "::set-output name=value::$("$RUNNER_TEMP/easy-ci/vendor/bin/easy-ci" php-versions-json | jq ".[-1]" -r)"
+      - name: Detect PHP extensions
+        id: extensions
+        run: |
+          echo "::set-output name=value::$(jq '[.require, ."require-dev", .suggest] | add | to_entries | map(select(.key | match("ext-";"i"))) | map(.key | sub("ext-"; "")) | join(", ")' -r -c composer.json)"
+      - name: Collected
+        run: |
+          echo "php-versions: ${{ steps.php-versions.outputs.value }}"
+          echo "php-latest: ${{ steps.php-latest.outputs.value }}"
+          echo "extensions: ${{ steps.extensions.outputs.value }}"
