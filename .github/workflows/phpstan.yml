@@ -12,7 +12,7 @@ on:
 
 jobs:
   settings:
-    uses: .github/settings.yml
+    uses: ./.github/workflows/settings.yml
 
   phpstan:
     name: "Analyze"
