@@ -1,30 +1,18 @@
 name: PHP Stan
 
-env:
-  PHP_VERSION: "8.0"
-
 on:
   push:
     branches:
       - dev
   pull_request:
-    branches:
-      - dev
+    branches-ignore:
+      - main
+      - staging
   workflow_dispatch:
 
 jobs:
   settings:
-    name: Collect settings
-    runs-on: ubuntu-latest
-    outputs:
-      extensions: ${{ steps.extensions.outputs.value }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Detect PHP extensions
-        id: extensions
-        run: |
-          echo "::set-output name=value::$(jq '[.require, ."require-dev", .suggest] | add | to_entries | map(select(.key | match("ext-";"i"))) | map(.key | sub("ext-"; "")) | join(", ")' -r -c composer.json)"
+    uses: .github/settings.yml
 
   phpstan:
     name: "Analyze"
@@ -56,7 +44,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: ${{ needs.settings.outputs.php-latest }}
           extensions: ${{ needs.settings.outputs.extensions }}
       - name: Setup App
         run: |
