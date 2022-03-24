@@ -4,7 +4,7 @@
 
 | Package    | Version                                          |
 |------------|--------------------------------------------------|
-| PHP        | 8.0+                                             |
+| PHP        | ~8.0.0                                           |
 | MySQL      | 8.0+                                             |
 | Redis      | [phpredis](https://github.com/phpredis/phpredis) |
 
