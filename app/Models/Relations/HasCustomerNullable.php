@@ -3,7 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Customer;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +16,7 @@ trait HasCustomerNullable {
     public function customer(): BelongsTo {
         return $this
             ->belongsTo(Customer::class)
-            ->withoutGlobalScope(OwnedByOrganizationScope::class);
+            ->withoutGlobalScope(OwnedByScope::class);
     }
 
     public function setCustomerAttribute(?Customer $customer): void {

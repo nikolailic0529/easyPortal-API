@@ -8,7 +8,7 @@ use App\Models\Reseller;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Closure;
 use Exception;
@@ -147,7 +147,7 @@ class LoaderTest extends TestCase {
                 new InvalidArgumentException(sprintf(
                     'Model `%s` doesn\'t use the `%s` scope.',
                     LoaderTest_ModelWithoutScope::class,
-                    OwnedByOrganizationScope::class,
+                    OwnedByScope::class,
                 )),
                 null,
                 static function (): EloquentBuilder {

@@ -11,6 +11,6 @@ use function app;
  */
 trait OwnedByImpl {
     public static function bootOwnedByImpl(): void {
-        static::addGlobalScope(app()->make(OwnedByOrganizationScope::class));
+        static::addGlobalScope(app()->make(OwnedByScope::class));
     }
 }

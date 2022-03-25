@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @extends DisableableScope<TModel>
  * @implements ScopeWithMetadata<TModel>
  */
-class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMetadata {
+class OwnedByScope extends DisableableScope implements ScopeWithMetadata {
     protected const SEARCH_METADATA_PREFIX       = 'owners';
     protected const SEARCH_METADATA_UNKNOWN      = 'unknown';
     protected const SEARCH_METADATA_ORGANIZATION = 'organization';

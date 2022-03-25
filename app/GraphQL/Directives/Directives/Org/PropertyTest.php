@@ -8,7 +8,7 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Closure;
 use Exception;
@@ -149,7 +149,7 @@ class PropertyTest extends TestCase {
                     new InvalidArgumentException(sprintf(
                         'Model `%s` doesn\'t use the `%s` scope.',
                         PropertyTest_ModelWithoutScope::class,
-                        OwnedByOrganizationScope::class,
+                        OwnedByScope::class,
                     )),
                     static function (): EloquentBuilder {
                         return PropertyTest_ModelWithoutScope::query();

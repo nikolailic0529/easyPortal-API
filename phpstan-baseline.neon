@@ -12406,7 +12406,7 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:386 given\\.$#"
+			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:388 given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
@@ -12993,22 +12993,22 @@ parameters:
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:orWhereNull\\(\\)\\.$#"
 			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
+			path: app/Services/Organization/Eloquent/OwnedByScope.php
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereRaw\\(\\)\\.$#"
 			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
+			path: app/Services/Organization/Eloquent/OwnedByScope.php
 
 		-
-			message: "#^Dynamic call to static method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getProperty\\(\\)\\.$#"
+			message: "#^Dynamic call to static method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScope\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getProperty\\(\\)\\.$#"
 			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
+			path: app/Services/Organization/Eloquent/OwnedByScope.php
 
 		-
-			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScopeTest_Scope extends generic class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope but does not specify its types\\: TModel$#"
+			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScopeTest_Scope extends generic class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScope but does not specify its types\\: TModel$#"
 			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScopeTest.php
+			path: app/Services/Organization/Eloquent/OwnedByScopeTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Organization\\\\Exceptions\\\\UnknownOrganization\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"

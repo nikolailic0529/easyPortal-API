@@ -15,9 +15,9 @@ use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Organization\Eloquent\OwnedByOrganizationScope
+ * @coversDefaultClass \App\Services\Organization\Eloquent\OwnedByScope
  */
-class OwnedByOrganizationScopeTest extends TestCase {
+class OwnedByScopeTest extends TestCase {
     use WithoutGlobalScopes;
 
     // <editor-fold desc="Tests">
@@ -39,7 +39,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
         $this->setOrganization($organizationFactory);
 
         $model   = $modelFactory($this);
-        $scope   = $this->app->make(OwnedByOrganizationScopeTest_Scope::class);
+        $scope   = $this->app->make(OwnedByScopeTest_Scope::class);
         $builder = $model::query();
 
         $scope->handle($builder, $model);
@@ -64,7 +64,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
         $this->setOrganization($organizationFactory);
 
         $model   = $modelFactory($this);
-        $scope   = $this->app->make(OwnedByOrganizationScopeTest_Scope::class);
+        $scope   = $this->app->make(OwnedByScopeTest_Scope::class);
         $builder = $this->app->make(SearchBuilder::class, [
             'query' => '123',
             'model' => $model,
@@ -108,7 +108,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $root,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByOrganization();
+                        return new OwnedByScopeTest_ModelOwnedByOrganization();
                     },
                 ],
                 'no owner'           => [
@@ -121,7 +121,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_Model();
+                        return new OwnedByScopeTest_Model();
                     },
                 ],
                 OwnedByShared::class => [
@@ -142,7 +142,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByShared();
+                        return new OwnedByScopeTest_ModelOwnedByShared();
                     },
                 ],
             ]),
@@ -162,7 +162,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByOrganization();
+                        return new OwnedByScopeTest_ModelOwnedByOrganization();
                     },
                 ],
                 OwnedByReseller::class     => [
@@ -180,7 +180,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByReseller();
+                        return new OwnedByScopeTest_ModelOwnedByReseller();
                     },
                 ],
             ]),
@@ -213,7 +213,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $root,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByOrganization();
+                        return new OwnedByScopeTest_ModelOwnedByOrganization();
                     },
                 ],
                 'no owner'           => [
@@ -222,7 +222,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_Model();
+                        return new OwnedByScopeTest_Model();
                     },
                 ],
                 OwnedByShared::class => [
@@ -231,7 +231,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByShared();
+                        return new OwnedByScopeTest_ModelOwnedByShared();
                     },
                 ],
             ]),
@@ -242,7 +242,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByOrganization();
+                        return new OwnedByScopeTest_ModelOwnedByOrganization();
                     },
                 ],
                 OwnedByReseller::class     => [
@@ -251,7 +251,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
                     ],
                     $reseller,
                     static function (): Model {
-                        return new OwnedByOrganizationScopeTest_ModelOwnedByReseller();
+                        return new OwnedByScopeTest_ModelOwnedByReseller();
                     },
                 ],
             ]),
@@ -267,7 +267,7 @@ class OwnedByOrganizationScopeTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class OwnedByOrganizationScopeTest_Scope extends OwnedByOrganizationScope {
+class OwnedByScopeTest_Scope extends OwnedByScope {
     public function handle(EloquentBuilder $builder, Model $model): void {
         parent::handle($builder, $model);
     }
@@ -281,7 +281,7 @@ class OwnedByOrganizationScopeTest_Scope extends OwnedByOrganizationScope {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class OwnedByOrganizationScopeTest_Model extends Model {
+class OwnedByScopeTest_Model extends Model {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -294,7 +294,7 @@ class OwnedByOrganizationScopeTest_Model extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class OwnedByOrganizationScopeTest_ModelOwnedByOrganization extends Model implements OwnedByOrganization {
+class OwnedByScopeTest_ModelOwnedByOrganization extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 
     /**
@@ -309,7 +309,7 @@ class OwnedByOrganizationScopeTest_ModelOwnedByOrganization extends Model implem
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class OwnedByOrganizationScopeTest_ModelOwnedByReseller extends Model implements OwnedByReseller {
+class OwnedByScopeTest_ModelOwnedByReseller extends Model implements OwnedByReseller {
     use OwnedByResellerImpl;
 
     /**
@@ -324,7 +324,7 @@ class OwnedByOrganizationScopeTest_ModelOwnedByReseller extends Model implements
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class OwnedByOrganizationScopeTest_ModelOwnedByShared extends Model implements
+class OwnedByScopeTest_ModelOwnedByShared extends Model implements
     OwnedByOrganization,
     OwnedByShared {
     use OwnedByOrganizationImpl;

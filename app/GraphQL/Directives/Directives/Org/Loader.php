@@ -4,7 +4,7 @@ namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -90,7 +90,7 @@ class Loader implements ModelsLoader {
         // Has scope?
         /** @var Model&OwnedByOrganization $model */
         $model = $builder->getModel();
-        $scope = OwnedByOrganizationScope::class;
+        $scope = OwnedByScope::class;
 
         if (!$model::hasGlobalScope($scope)) {
             throw new InvalidArgumentException(sprintf(
@@ -101,7 +101,7 @@ class Loader implements ModelsLoader {
         }
 
         // Property?
-        $property = OwnedByOrganizationScope::getProperty($this->organization, $model);
+        $property = OwnedByScope::getProperty($this->organization, $model);
 
         if ($property === null) {
             throw new InvalidArgumentException(sprintf(
