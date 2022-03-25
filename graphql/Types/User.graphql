@@ -18,22 +18,22 @@ type User {
     timezone: String
 
     invitations_count: Int!
-    @organization
-    @me(permissions: ["administer", "org-administer"])
+    @authOrganization
+    @authMe(permissions: ["administer", "org-administer"])
     @count(relation: "invitations")
 
     invitations: [Invitation!]!
-    @organization
-    @me(permissions: ["administer", "org-administer"])
+    @authOrganization
+    @authMe(permissions: ["administer", "org-administer"])
     @relation
 
     organizations_count: Int!
-    @organization
-    @me(permissions: ["administer", "org-administer"])
+    @authOrganization
+    @authMe(permissions: ["administer", "org-administer"])
     @count(relation: "organizations")
 
     organizations: [UserOrganization!]!
-    @organization
-    @me(permissions: ["administer", "org-administer"])
+    @authOrganization
+    @authMe(permissions: ["administer", "org-administer"])
     @relation
 }

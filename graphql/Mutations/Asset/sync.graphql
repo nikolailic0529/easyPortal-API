@@ -1,7 +1,7 @@
 extend type AssetMutations {
     sync: AssetSyncPayload
-    @organization
-    @me(permissions: ["assets-sync"])
+    @authOrganization
+    @authMe(permissions: ["assets-sync"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\Sync"
     )

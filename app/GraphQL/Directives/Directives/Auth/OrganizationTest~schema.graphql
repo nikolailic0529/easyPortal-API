@@ -1,22 +1,22 @@
 type Query {
-    value: String! @organization @mock
+    value: String! @authOrganization @mock
 
-    root: Test! @organization(root: true) @mock
+    root: Test! @authOrganization(root: true) @mock
 }
 
 """
 Description.
 """
-type Test @organization {
+type Test @authOrganization {
     one: String!
 
-    two: String! @organization
+    two: String! @authOrganization
 
-    root: String! @organization(root: true)
+    root: String! @authOrganization(root: true)
 }
 
-extend type Test @organization {
+extend type Test @authOrganization {
     extension: String!
 
-    extensionRoot: String! @organization(root: true)
+    extensionRoot: String! @authOrganization(root: true)
 }

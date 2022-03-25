@@ -12,8 +12,8 @@ extend type OrgUserMutations {
     invite(
         input: OrgUserInviteInput!
     ): OrgUserInvitePayload
-    @organization
-    @me(permissions: ["org-administer"])
+    @authOrganization
+    @authMe(permissions: ["org-administer"])
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Org\\User\\Invite"
     )

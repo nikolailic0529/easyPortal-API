@@ -1,7 +1,7 @@
 extend type Mutation {
     org: OrgMutations
-    @organization
-    @me(permissions: ["org-administer"])
+    @authOrganization
+    @authMe(permissions: ["org-administer"])
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Org"
     )

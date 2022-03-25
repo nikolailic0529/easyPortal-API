@@ -1,43 +1,43 @@
 type Query {
     """
-    @require <guest> Current visitor must be a guest.
+    @require <authGuest> Current visitor must be a guest.
     """
     value: Test!
-    @guest
+    @authGuest
     @mock
 }
 
 """
 Description.
 
-@require <guest> Current visitor must be a guest.
+@require <authGuest> Current visitor must be a guest.
 """
 type Test
-@guest
+@authGuest
 {
     """
-    @require <guest> Current visitor must be a guest.
+    @require <authGuest> Current visitor must be a guest.
     """
     extension: String!
-    @guest
+    @authGuest
 
     """
-    @require <guest> Current visitor must be a guest.
+    @require <authGuest> Current visitor must be a guest.
     """
     one: String!
-    @guest
+    @authGuest
 
     """
-    @require <guest> Current visitor must be a guest.
+    @require <authGuest> Current visitor must be a guest.
     """
     two: String!
-    @guest
+    @authGuest
 }
 
 """
 Current visitor must be a guest.
 """
-directive @guest
+directive @authGuest
 on
     | FIELD_DEFINITION
     | OBJECT

@@ -1,7 +1,7 @@
 extend type OrganizationMutations {
     user(id: ID @eq): OrganizationUserMutations
-    @organization(root: true)
-    @me(permissions: ["administer"])
+    @authOrganization(root: true)
+    @authMe(permissions: ["administer"])
     @mutation(
         relation: "users"
     )

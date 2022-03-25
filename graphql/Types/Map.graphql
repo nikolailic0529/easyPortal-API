@@ -1,13 +1,13 @@
 type Map {
     customers: [MapPoint!]!
-    @organization
-    @me(permissions: ["customers-view"])
+    @authOrganization
+    @authMe(permissions: ["customers-view"])
     @field(resolver: "App\\GraphQL\\Queries\\Map\\Customers")
     @cached(mode: Threshold)
 
     assets: [MapPoint!]!
-    @organization
-    @me(permissions: ["customers-view", "assets-view"])
+    @authOrganization
+    @authMe(permissions: ["customers-view", "assets-view"])
     @field(resolver: "App\\GraphQL\\Queries\\Map\\Assets")
     @cached(mode: Threshold)
 }

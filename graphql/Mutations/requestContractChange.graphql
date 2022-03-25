@@ -2,8 +2,8 @@ extend type Mutation {
     requestContractChange(
         input: RequestContractChangeInput!
     ): RequestContractChangePayload
-    @organization
-    @me(permissions: ["requests-contract-change"])
+    @authOrganization
+    @authMe(permissions: ["requests-contract-change"])
 }
 
 input RequestContractChangeInput {

@@ -1,7 +1,7 @@
 extend type Mutation {
     message: MessageMutations
-    @organization
-    @me
+    @authOrganization
+    @authMe
     @mutation(
         resolver: "App\\GraphQL\\Resolvers\\NullResolver"
     )

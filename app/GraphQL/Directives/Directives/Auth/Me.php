@@ -34,7 +34,7 @@ abstract class Me extends AuthDirective {
             """
             User must be authenticated.
             """
-            directive @me(
+            directive @authMe(
                 """
                 User must be authenticated and have any of these permissions.
                 """

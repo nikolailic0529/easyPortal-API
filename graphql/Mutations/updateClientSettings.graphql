@@ -2,8 +2,8 @@ extend type Mutation {
     updateClientSettings(
         input: [UpdateClientSettingsInput!]!
     ): UpdateClientSettingsPayload
-    @organization(root: true)
-    @root
+    @authOrganization(root: true)
+    @authRoot
 }
 
 input UpdateClientSettingsInput {

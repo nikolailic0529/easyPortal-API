@@ -2,8 +2,8 @@ extend type Mutation {
     deleteClientTranslations(
         input: DeleteClientTranslationsInput!
     ): DeleteClientTranslationsPayload
-    @organization(root: true)
-    @root
+    @authOrganization(root: true)
+    @authRoot
 }
 
 input DeleteClientTranslationsInput {

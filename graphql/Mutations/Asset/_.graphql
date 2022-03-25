@@ -1,7 +1,7 @@
 extend type Mutation {
     asset(id: ID @eq): AssetMutations
-    @organization
-    @me
+    @authOrganization
+    @authMe
     @mutation(
         model: "App\\Models\\Asset"
     )

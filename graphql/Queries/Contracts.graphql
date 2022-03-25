@@ -1,8 +1,8 @@
 extend type Query {
     "List of all possible contract types."
     contractTypes(where: ContractTypesQuery @searchBy): [Type!]!
-    @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["contracts-view", "customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Contracts\\ContractTypes"
     )
@@ -10,8 +10,8 @@ extend type Query {
 
     "List of all possible contract statuses."
     contractStatuses(where: ContractStatusesQuery @searchBy): [Status!]!
-    @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["contracts-view", "customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Contracts\\ContractStatuses"
     )
@@ -22,8 +22,8 @@ extend type Query {
         where: DocumentsQuery @searchBy
         order: DocumentsSort @sortBy
     ): [Document!]!
-    @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["contracts-view", "customers-view"])
     @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
     @paginated
 
@@ -34,14 +34,14 @@ extend type Query {
 
         order: DocumentsSearchSort @sortBy
     ): [Document!]!
-    @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["contracts-view", "customers-view"])
     @paginated
 
     "Contract."
     contract(id: ID! @eq): Document
-    @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["contracts-view", "customers-view"])
     @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
     @find
 }

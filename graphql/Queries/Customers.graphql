@@ -1,8 +1,8 @@
 extend type Query {
     "List of all possible customer statuses."
     customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
-    @organization
-    @me(permissions: ["customers-view"])
+    @authOrganization
+    @authMe(permissions: ["customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
     )
@@ -13,21 +13,21 @@ extend type Query {
         where: CustomersQuery @searchBy
         order: CustomersSort @sortBy
     ): [Customer!]!
-    @organization
-    @me(permissions: ["customers-view"])
+    @authOrganization
+    @authMe(permissions: ["customers-view"])
     @paginated
 
     customersSearch(
         search: SearchString! @search
         order: CustomersSearchSort @sortBy
     ): [Customer!]!
-    @organization
-    @me(permissions: ["customers-view"])
+    @authOrganization
+    @authMe(permissions: ["customers-view"])
     @paginated
 
     "Customer."
     customer(id: ID! @eq): Customer
-    @organization
-    @me(permissions: ["customers-view"])
+    @authOrganization
+    @authMe(permissions: ["customers-view"])
     @find
 }

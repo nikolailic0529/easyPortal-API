@@ -19,7 +19,7 @@ abstract class Organization extends AuthDirective implements FieldMiddleware {
             """
             Authenticated user must be a member of the current organization.
             """
-            directive @organization(
+            directive @authOrganization(
               """
               Authenticated user must be a member of the root organization.
               """

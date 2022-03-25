@@ -3,8 +3,8 @@ extend type Mutation {
         input: UpdateMeEmailInput!
     ): UpdateMeEmailPayload
     @throttle(name: "auth")
-    @organization
-    @me
+    @authOrganization
+    @authMe
     @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeEmail")
 }
 

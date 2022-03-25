@@ -2,8 +2,8 @@ extend type Mutation {
     requestOrgChange(
         input: RequestOrgChangeInput!
     ): RequestOrgChangePayload
-    @organization
-    @me(permissions: ["org-administer"])
+    @authOrganization
+    @authMe(permissions: ["org-administer"])
     @field(resolver: "App\\GraphQL\\Mutations\\Org\\RequestOrgChange")
 }
 

@@ -1,38 +1,46 @@
 type Query {
     """
-    @require <root> Authenticated user must be a root.
+    @require <authRoot> Authenticated user must be a root.
     """
     value: Test!
-    @root
+    @authRoot
     @mock
 }
 
 """
 Description.
 
-@require <root> Authenticated user must be a root.
+@require <authRoot> Authenticated user must be a root.
 """
 type Test
-@root
+@authRoot
 {
     """
-    @require <root> Authenticated user must be a root.
+    @require <authRoot> Authenticated user must be a root.
     """
     extension: String!
-    @root
+    @authRoot
 
     """
-    @require <root> Authenticated user must be a root.
+    @require <authRoot> Authenticated user must be a root.
     """
     one: String!
-    @root
+    @authRoot
 
     """
-    @require <root> Authenticated user must be a root.
+    @require <authRoot> Authenticated user must be a root.
     """
     two: String!
-    @root
+    @authRoot
 }
+
+"""
+Authenticated user must be a root.
+"""
+directive @authRoot
+on
+    | FIELD_DEFINITION
+    | OBJECT
 
 """
 Allows you to easily hook up a resolver for an endpoint.
@@ -45,11 +53,3 @@ directive @mock(
 )
 on
     | FIELD_DEFINITION
-
-"""
-Authenticated user must be a root.
-"""
-directive @root
-on
-    | FIELD_DEFINITION
-    | OBJECT

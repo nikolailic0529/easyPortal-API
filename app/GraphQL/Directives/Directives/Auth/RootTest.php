@@ -52,7 +52,7 @@ class RootTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @root @field(resolver: "{$resolver}")
+                    value: String! @authRoot @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )

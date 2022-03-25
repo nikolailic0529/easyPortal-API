@@ -58,7 +58,7 @@ class SchemaTest extends TestCase {
      */
     public function dataProviderForbiddenDirectives(): array {
         return [
-            ['@guard', '@me', null],
+            ['@guard', '@authMe', null],
             ['@orderBy', '@sortBy', null],
             ['@whereConditions', '@searchBy', null],
             ['@whereHasConditions', '@searchBy', null],

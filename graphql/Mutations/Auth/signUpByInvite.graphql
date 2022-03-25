@@ -15,7 +15,7 @@ extend type AuthMutations {
         token: String!
         input: AuthSignUpByInviteInput
     ): AuthSignUpByInvitePayload
-    @guest
+    @authGuest
     @mutationCall(
         resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
     )

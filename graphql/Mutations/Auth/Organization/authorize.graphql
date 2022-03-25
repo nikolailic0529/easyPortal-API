@@ -2,7 +2,7 @@ extend type AuthOrganizationMutations {
     authorize(
         input: AuthOrganizationAuthorizeInput!
     ): AuthOrganizationAuthorizePayload
-    @guest
+    @authGuest
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Auth\\Organization\\Authorize"
     )

@@ -1,8 +1,8 @@
 extend type Query {
     "List of all possible asset types."
     assetTypes(where: AssetTypesQuery @searchBy): [Type!]!
-    @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["assets-view", "customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Assets\\AssetTypes"
     )
@@ -10,8 +10,8 @@ extend type Query {
 
     "List of all possible asset statuses."
     assetStatuses(where: AssetStatusesQuery @searchBy): [Status!]!
-    @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["assets-view", "customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Assets\\AssetStatuses"
     )
@@ -19,8 +19,8 @@ extend type Query {
 
     "List of all possible asset coverages."
     assetCoverages(where: AssetCoveragesQuery @searchBy): [Coverage!]!
-    @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["assets-view", "customers-view"])
     @all(
         model: "App\\Models\\Coverage"
     )
@@ -31,21 +31,21 @@ extend type Query {
         where: AssetsQuery @searchBy
         order: AssetsSort @sortBy
     ): [Asset!]!
-    @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["assets-view", "customers-view"])
     @paginated
 
     "Asset."
     asset(id: ID! @eq): Asset
-    @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["assets-view", "customers-view"])
     @find
 
     assetsSearch(
         search: SearchString! @search
         order: AssetsSearchSort @sortBy
     ): [Asset!]!
-    @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["assets-view", "customers-view"])
     @paginated
 }

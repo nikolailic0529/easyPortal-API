@@ -1,8 +1,8 @@
 extend type Query {
     "List of all possible quote types."
     quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
-    @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["quotes-view", "customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Quotes\\QuoteTypes"
     )
@@ -10,8 +10,8 @@ extend type Query {
 
     "List of all possible quote statuses."
     quoteStatuses(where: QuoteStatusesQuery @searchBy): [Status!]!
-    @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["quotes-view", "customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Quotes\\QuoteStatuses"
     )
@@ -22,15 +22,15 @@ extend type Query {
         where: DocumentsQuery @searchBy
         order: DocumentsSort @sortBy
     ): [Document!]!
-    @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["quotes-view", "customers-view"])
     @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
     @paginated
 
     "Quote."
     quote(id: ID! @eq): Document
-    @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["quotes-view", "customers-view"])
     @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
     @find
 
@@ -41,7 +41,7 @@ extend type Query {
 
         order: DocumentsSearchSort @sortBy
     ): [Document!]!
-    @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @authOrganization
+    @authMe(permissions: ["quotes-view", "customers-view"])
     @paginated
 }

@@ -52,7 +52,7 @@ class OrganizationTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @organization @field(resolver: "{$resolver}")
+                    value: String! @authOrganization @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -93,7 +93,7 @@ class OrganizationTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @organization(root: true) @field(resolver: "{$resolver}")
+                    value: String! @authOrganization(root: true) @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
